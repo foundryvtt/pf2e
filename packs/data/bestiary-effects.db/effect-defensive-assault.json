@@ -3,7 +3,10 @@
     "img": "systems/pf2e/icons/features/classes/master-strike.webp",
     "name": "Effect: Defensive Assault",
     "system": {
-        "badge": null,
+        "badge": {
+            "type": "counter",
+            "value": 1
+        },
         "description": {
             "value": "<p>The creature gains a circumstance bonus to AC based on the weapons used for defense.</p>"
         },
@@ -18,33 +21,10 @@
         },
         "rules": [
             {
-                "choices": [
-                    {
-                        "label": "1",
-                        "value": 1
-                    },
-                    {
-                        "label": "2",
-                        "value": 2
-                    },
-                    {
-                        "label": "3",
-                        "value": 3
-                    },
-                    {
-                        "label": "4",
-                        "value": 4
-                    }
-                ],
-                "flag": "defensiveAssault",
-                "key": "ChoiceSet",
-                "prompt": "PF2E.NPCAbility.MarilithDefensiveAssault"
-            },
-            {
                 "key": "FlatModifier",
                 "selector": "ac",
                 "type": "circumstance",
-                "value": "{item|flags.pf2e.rulesSelections.defensiveAssault}"
+                "value": "@item.badge.value"
             }
         ],
         "source": {
@@ -59,10 +39,10 @@
             "show": true
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": []
-        }
+        },
+        "unidentified": false
     },
     "type": "effect"
 }

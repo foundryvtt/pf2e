@@ -1,10 +1,11 @@
 import { ActionMacroHelpers, SkillActionOptions } from "..";
 
+const PREFIX = "PF2E.Actions.CreateADiversion";
 type CreateADiversionVariant = "distracting-words" | "gesture" | "trick";
 
 export function createADiversion(options: { variant: CreateADiversionVariant } & SkillActionOptions) {
     const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "deception");
-    let title = "PF2E.Actions.CreateADiversion.";
+    let title = `${PREFIX}.`;
     const traits = ["mental"];
     switch (options.variant) {
         case "distracting-words":
@@ -41,10 +42,8 @@ export function createADiversion(options: { variant: CreateADiversionVariant } &
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.perception,
         extraNotes: (selector: string) => [
-            ActionMacroHelpers.note(selector, "PF2E.Actions.CreateADiversion", "criticalSuccess"),
-            ActionMacroHelpers.note(selector, "PF2E.Actions.CreateADiversion", "success"),
-            ActionMacroHelpers.note(selector, "PF2E.Actions.CreateADiversion", "failure"),
-            ActionMacroHelpers.note(selector, "PF2E.Actions.CreateADiversion", "criticalFailure"),
+            ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.success`, ["success", "criticalSuccess"]),
+            ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.failure`, ["failure", "criticalFailure"]),
         ],
     });
 }

@@ -1,85 +1,115 @@
+import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression";
 import { ActorType } from "@actor/data";
-import { ItemPF2e, WeaponPF2e } from "@item";
+import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers";
+import { MeleePF2e, WeaponPF2e } from "@item";
 import { RollNotePF2e } from "@module/notes";
-import { PredicatePF2e } from "@system/predication";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from ".";
+import { BooleanField, ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
+import { RuleElementPF2e, RuleElementSchema } from ".";
+import { CritSpecEffect } from "../synthetics";
+
+const { fields } = foundry.data;
 
 /** Substitute a pre-determined result for a check's D20 roll */
-class CritSpecRuleElement extends RuleElementPF2e {
-    static override validActorTypes: ActorType[] = ["character"];
+class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
+    static override validActorTypes: ActorType[] = ["character", "npc"];
 
-    /** Whether this critical specialization note substitutes for the standard one of a given weapon group */
-    private alternate: boolean;
-
-    /** Alternative note text: if not provided, the standard one for a given weapon group is used */
-    private text: string | null;
-
-    constructor(data: CritSpecSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
-        data.predicate ??= [];
-        super(data, item, options);
-
-        data.text ??= null;
-        data.alternate ??= false;
-        if (this.isValid(data)) {
-            this.alternate = data.alternate;
-            this.text = data.text;
-        } else {
-            this.alternate = false;
-            this.text = null;
-        }
+    static override defineSchema(): CritSpecRuleSchema {
+        return {
+            ...super.defineSchema(),
+            alternate: new fields.BooleanField(),
+            text: new fields.StringField({ blank: false, nullable: false, initial: undefined }),
+        };
     }
 
-    private isValid(data: CritSpecSource): data is CritSpecData {
-        const validations = {
-            predicate: PredicatePF2e.isValid(data.predicate),
-            alternate: typeof data.alternate === "boolean",
-            text: data.text === null || (typeof data.text === "string" && data.text.trim().length > 0),
-        };
-        const properties = ["predicate", "alternate", "text"] as const;
-        for (const property of properties) {
-            if (!validations[property]) {
-                this.failValidation(`${property} is invalid.`);
-            }
+    #validate(): void {
+        if (this.alternate && !this.text) {
+            return this.failValidation("An alternate critical specialization must include substitute text");
         }
-
-        if (data.alternate && !data.text) {
-            this.failValidation("An alternate critical specialization must include substitute text");
-            return false;
-        }
-
-        return properties.every((p) => validations[p]);
     }
 
     override beforePrepareData(): void {
+        this.#validate();
         if (this.ignored) return;
 
-        const critSpecs = this.actor.synthetics.criticalSpecalizations;
-        const synthetic = (weapon: WeaponPF2e, options: Set<string>): RollNotePF2e | null => {
+        const synthetic = (weapon: WeaponPF2e | MeleePF2e, options: Set<string>): CritSpecEffect | null => {
             const predicate = this.resolveInjectedProperties(this.predicate);
-            if (!predicate.test(options)) return null;
+            return predicate.test(options) ? this.#getEffect(weapon) : null;
+        };
 
-            const text = this.text ? this.resolveInjectedProperties(this.text.trim()) : null;
-            if (!weapon.group && !text) return null;
+        this.actor.synthetics.criticalSpecalizations[this.alternate ? "alternate" : "standard"].push(synthetic);
+    }
 
-            return new RollNotePF2e({
+    #getEffect(weapon: WeaponPF2e | MeleePF2e): CritSpecEffect {
+        const text = this.text ? this.resolveInjectedProperties(this.text.trim()) : null;
+        const note = () => [
+            new RollNotePF2e({
                 selector: "strike-damage",
                 title: "PF2E.Actor.Creature.CriticalSpecialization",
                 text: text ?? `PF2E.Item.Weapon.CriticalSpecialization.${weapon.group}`,
                 outcome: ["criticalSuccess"],
-            });
-        };
-        critSpecs[this.alternate ? "alternate" : "standard"].push(synthetic);
+            }),
+        ];
+
+        if (this.alternate) return note();
+
+        const slug = "critical-specialization";
+
+        switch (weapon.group) {
+            case "dart":
+            case "knife": {
+                const dice = new DamageDicePF2e({
+                    slug,
+                    selector: "strike-damage",
+                    label: "PF2E.Actor.Creature.CriticalSpecialization",
+                    damageType: "bleed",
+                    diceNumber: 1,
+                    dieSize: "d6",
+                    critical: true,
+                });
+                const bonusValue = ABP.isEnabled(this.actor)
+                    ? ABP.getAttackPotency(this.actor.level)
+                    : weapon.isOfType("melee")
+                    ? weapon.linkedWeapon?.system.runes.potency ?? 0
+                    : weapon.system.runes.potency;
+                const bonus =
+                    bonusValue > 0
+                        ? new ModifierPF2e({
+                              slug,
+                              label: "PF2E.Actor.Creature.CriticalSpecialization",
+                              type: "item",
+                              damageType: "bleed",
+                              modifier: bonusValue,
+                              critical: true,
+                          })
+                        : null;
+                return [dice, bonus ?? []].flat();
+            }
+            case "pick":
+                return weapon.baseDamage.die
+                    ? [
+                          new ModifierPF2e({
+                              slug,
+                              label: "PF2E.Actor.Creature.CriticalSpecialization",
+                              type: "untyped",
+                              modifier: 2 * weapon.baseDamage.dice,
+                              critical: true,
+                          }),
+                      ]
+                    : [];
+            default: {
+                return weapon.group ? note() : [];
+            }
+        }
     }
 }
 
-interface CritSpecSource extends RuleElementSource {
-    alternate?: unknown;
-    text?: unknown;
-}
+interface CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema>, ModelPropsFromSchema<CritSpecRuleSchema> {}
 
-interface CritSpecData extends CritSpecSource {
-    alternate: boolean;
-    text: string | null;
-}
+type CritSpecRuleSchema = RuleElementSchema & {
+    /** Whether this critical specialization note substitutes for the standard one of a given weapon group */
+    alternate: BooleanField;
+    /** Alternative note text: if not provided, the standard one for a given weapon group is used */
+    text: StringField<string, string, false, false, false>;
+};
 
 export { CritSpecRuleElement };

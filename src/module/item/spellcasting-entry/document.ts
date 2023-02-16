@@ -281,7 +281,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         };
     }
 
-    override getRollOptions(prefix = this.type): string[] {
+    override getRollOptions(prefix = "spellcasting"): string[] {
         return [`${prefix}:${this.ability}`, `${prefix}:${this.tradition}`, `${prefix}:${this.system.prepared.value}`];
     }
 
@@ -315,7 +315,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     }
 }
 
-interface SpellcastingEntryPF2e {
+interface SpellcastingEntryPF2e extends ItemPF2e {
     readonly data: SpellcastingEntryData;
 }
 

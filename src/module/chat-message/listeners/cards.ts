@@ -9,6 +9,7 @@ import { onRepairChatCardEvent } from "@system/action-macros/crafting/repair";
 import { LocalizePF2e } from "@system/localize";
 import { ErrorPF2e, sluggify, tupleHasValue } from "@util";
 import { ChatMessagePF2e } from "..";
+import { UUIDUtils } from "@util/uuid-utils";
 
 export const ChatCards = {
     listen: ($html: JQuery): void => {
@@ -35,23 +36,26 @@ export const ChatCards = {
             const strikeAction = message._strike;
             if (strikeAction && action?.startsWith("strike-")) {
                 const context = message.flags.pf2e.context;
+                const mapIncreases = context && "mapIncreases" in context ? context.mapIncreases : null;
                 const altUsage = context && "altUsage" in context ? context.altUsage : null;
                 const options = actor.getRollOptions(["all", "attack-roll"]);
+                const rollArgs = { event, altUsage, mapIncreases, options };
+
                 switch (sluggify(action ?? "")) {
                     case "strike-attack":
-                        strikeAction.variants[0].roll({ event, altUsage, options });
+                        strikeAction.variants[0].roll(rollArgs);
                         return;
                     case "strike-attack2":
-                        strikeAction.variants[1].roll({ event, altUsage, options });
+                        strikeAction.variants[1].roll(rollArgs);
                         return;
                     case "strike-attack3":
-                        strikeAction.variants[2].roll({ event, altUsage, options });
+                        strikeAction.variants[2].roll(rollArgs);
                         return;
                     case "strike-damage":
-                        strikeAction.damage?.({ event, altUsage, options });
+                        strikeAction.damage?.(rollArgs);
                         return;
                     case "strike-critical":
-                        strikeAction.critical?.({ event, altUsage, options });
+                        strikeAction.critical?.(rollArgs);
                         return;
                 }
             }
@@ -127,7 +131,7 @@ export const ChatCards = {
                     await onRepairChatCardEvent(event, message, $card);
                 } else if (action === "pay-crafting-costs") {
                     const itemUuid = $card.attr("data-item-uuid") || "";
-                    const item = await fromUuid(itemUuid);
+                    const item = await UUIDUtils.fromUuid(itemUuid);
                     if (!(item instanceof PhysicalItemPF2e)) return;
                     const quantity = Number($card.attr("data-crafting-quantity")) || 1;
                     const craftingCost = CoinsPF2e.fromPrice(item.price, quantity);
@@ -173,7 +177,7 @@ export const ChatCards = {
                     });
                 } else if (action === "lose-materials") {
                     const itemUuid = $card.attr("data-item-uuid") || "";
-                    const item = await fromUuid(itemUuid);
+                    const item = await UUIDUtils.fromUuid(itemUuid);
                     if (!(item instanceof PhysicalItemPF2e)) return;
                     const quantity = Number($card.attr("data-crafting-quantity")) || 1;
                     const craftingCost = CoinsPF2e.fromPrice(item.price, quantity);
@@ -193,7 +197,7 @@ export const ChatCards = {
                     }
                 } else if (action === "receieve-crafting-item") {
                     const itemUuid = $card.attr("data-item-uuid") || "";
-                    const item = await fromUuid(itemUuid);
+                    const item = await UUIDUtils.fromUuid(itemUuid);
                     if (!(item instanceof PhysicalItemPF2e)) return;
                     const quantity = Number($card.attr("data-crafting-quantity")) || 1;
 

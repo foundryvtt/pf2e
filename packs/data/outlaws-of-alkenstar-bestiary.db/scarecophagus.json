@@ -148,11 +148,6 @@
                 },
                 "tradition": {
                     "value": "arcane"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -271,7 +266,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "fire"
@@ -394,7 +388,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "electricity"
@@ -497,7 +490,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "air"
@@ -615,7 +607,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "acid",
@@ -721,7 +712,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -839,7 +829,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "cantrip",
@@ -950,7 +939,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "detection",
@@ -1071,7 +1059,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "electricity",
@@ -1183,7 +1170,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "force"
@@ -1287,7 +1273,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack"
@@ -1391,7 +1376,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "cantrip",
@@ -1496,7 +1480,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack",
@@ -1537,7 +1520,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -1583,7 +1565,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1623,7 +1604,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical"
@@ -1651,18 +1631,30 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Living creatures are @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1} while in a scarecophagus' despair aura. They can't naturally recover from this fear while in the emanation but recover instantly once they leave it. When a creature first enters the emanation, it must succeed at a @Check[type:will|dc:22] save (after taking the penalty from being frightened 1) or be @UUID[Compendium.pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round. The creature is then temporarily immune to this paralysis for 24 hours.</p>"
+                    "value": "<p>@Template[type:emanation|distance:30] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Living creatures are @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1} while in a scarecophagus' despair aura. They can't naturally recover from this fear while in the emanation but recover instantly once they leave it. When a creature first enters the emanation, it must succeed at a @Check[type:will|dc:22] save (after taking the penalty from being frightened 1) or be @UUID[Compendium.pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round. The creature is then temporarily immune to this paralysis for 24 hours.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Despair]{Effect: Despair}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
+                        "effects": [
+                            {
+                                "affects": "all",
+                                "events": [
+                                    "enter"
+                                ],
+                                "includesSelf": false,
+                                "predicate": [
+                                    "target:mode:living"
+                                ],
+                                "uuid": "Compendium.pf2e.bestiary-effects.1bOSJ2LbEC28aI9f"
+                            }
+                        ],
                         "key": "Aura",
                         "radius": 30,
                         "slug": "despair",
                         "traits": [
-                            "aura",
                             "divine",
                             "emotion",
                             "enchantment",
@@ -1677,7 +1669,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -1723,7 +1714,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1760,7 +1750,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1797,7 +1786,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate"
@@ -1836,7 +1824,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1867,7 +1854,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }

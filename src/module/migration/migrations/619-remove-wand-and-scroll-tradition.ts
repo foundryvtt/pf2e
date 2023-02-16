@@ -7,12 +7,12 @@ import { MigrationBase } from "../base";
 const LEGIT_TRADITIONS = ["arcane", "divine", "occult", "primal", "focus", "ritual", "halcyon", ""] as const;
 
 interface HighestTradition {
-    name: typeof LEGIT_TRADITIONS[number];
+    name: (typeof LEGIT_TRADITIONS)[number];
     value: number;
 }
 
 interface Tradition {
-    value: typeof LEGIT_TRADITIONS[number];
+    value: (typeof LEGIT_TRADITIONS)[number];
 }
 
 /**

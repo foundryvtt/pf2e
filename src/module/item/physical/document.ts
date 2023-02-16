@@ -159,7 +159,6 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
     /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = this.type): string[] {
         const baseOptions = super.getRollOptions(prefix);
-        const delimitedPrefix = prefix ? `${prefix}:` : "";
         const physicalItemOptions = Object.entries({
             equipped: this.isEquipped,
             magical: this.isMagical,
@@ -167,8 +166,8 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
             [`material:${this.material.precious?.type}`]: !!this.material.precious,
         })
             .filter(([_key, isTrue]) => isTrue)
-            .map(([key]) => `${delimitedPrefix}${key}`)
-            .concat(this.system.traits.otherTags.map((t) => `${delimitedPrefix}tag:${t}`));
+            .map(([key]) => `${prefix}:${key}`)
+            .concat(this.system.traits.otherTags.map((t) => `${prefix}:tag:${t}`));
 
         return [baseOptions, physicalItemOptions].flat();
     }
@@ -429,9 +428,11 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
 
         if (!changed.system) return super._preUpdate(changed, options, user);
 
-        // Ensure an empty-string `stackGroup` property is null
-        if (typeof changed.system?.stackGroup === "string") {
-            changed.system.stackGroup ||= null;
+        // Avoid setting a `baseItem` or `stackGroup` to an empty string
+        for (const key of ["baseItem", "stackGroup"] as const) {
+            if (typeof changed.system?.[key] === "string") {
+                changed.system[key] = sluggify(String(changed.system[key])) || null;
+            }
         }
 
         // Remove equipped.handsHeld and equipped.inSlot if the item is held or worn anywhere
@@ -470,7 +471,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 }
 
-interface PhysicalItemPF2e {
+interface PhysicalItemPF2e extends ItemPF2e {
     readonly data: PhysicalItemData;
 
     computeAdjustedPrice?(): CoinsPF2e | null;

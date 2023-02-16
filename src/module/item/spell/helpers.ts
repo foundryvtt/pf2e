@@ -13,10 +13,11 @@ interface DamageInstancePartial {
 
     /** Tracks which modifiers added to this instance */
     modifiers: ModifierPF2e[];
+    dice: DamageDicePF2e[];
 }
 
-/** Apply damage dice to a spell's damage formulas: currently only support simple overrides */
-function applyDamageDice(formulas: DamageInstancePartial[], dice: DamageDicePF2e[]): void {
+/** Apply damage dice to a spell's damage formulas */
+function applyDamageDiceOverrides(formulas: DamageInstancePartial[], dice: DamageDicePF2e[]): void {
     for (const data of formulas) {
         const roll = new Roll(data.formula);
         for (const adjustment of dice) {
@@ -43,15 +44,23 @@ interface FormulaAndTags {
 
 /** Creates the formula and the breakdown tags for the instance partial data */
 function createFormulaAndTagsForPartial(data: DamageInstancePartial, typeLabel?: string | null): FormulaAndTags {
-    const formulaPartials = data.modifiers.map((m) => String(m.modifier));
-    const breakdownTags = data.modifiers.map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`);
+    const nonAdjustingDice = data.dice.filter((dice) => !dice.override && !dice.ignored);
+    const formulaPartials = [
+        data.modifiers.map((m) => String(m.modifier)),
+        nonAdjustingDice.map((dice) => `${dice.diceNumber}${dice.dieSize}`),
+    ].flat();
 
-    if (data.formula !== "0" || !data.modifiers.length) {
+    const breakdownTags = [
+        data.modifiers.map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`),
+        nonAdjustingDice.map((d) => `${d.label} +${d.diceNumber}${d.dieSize}`),
+    ].flat();
+
+    if (data.formula !== "0" || !formulaPartials.length) {
         formulaPartials.unshift(data.formula);
         breakdownTags.unshift(data.formula);
     }
 
-    // first breakdown gets the type label
+    // first breakdown gets the type label (damage type + category)
     if (typeLabel) {
         breakdownTags[0] = breakdownTags[0] + ` ${typeLabel}`;
     }
@@ -60,4 +69,4 @@ function createFormulaAndTagsForPartial(data: DamageInstancePartial, typeLabel?:
     return { formula, breakdownTags };
 }
 
-export { DamageInstancePartial as DamageInstanceData, applyDamageDice, createFormulaAndTagsForPartial };
+export { DamageInstancePartial, applyDamageDiceOverrides, createFormulaAndTagsForPartial };

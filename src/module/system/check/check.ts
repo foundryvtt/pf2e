@@ -7,7 +7,7 @@ import { ChatMessageSourcePF2e, CheckRollContextFlag, TargetFlag } from "@module
 import { RollNotePF2e } from "@module/notes";
 import { TokenDocumentPF2e } from "@scene";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { ErrorPF2e, fontAwesomeIcon, objectHasKey, parseHTML, sluggify, traitSlugToObject } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, objectHasKey, parseHTML, signedInteger, sluggify, traitSlugToObject } from "@util";
 import { CheckModifier, StatisticModifier } from "@actor/modifiers";
 import { CheckModifiersDialog } from "../check-modifiers-dialog";
 import { CheckRoll, CheckRollDataPF2e } from "./roll";
@@ -31,7 +31,8 @@ interface RerollOptions {
 type CheckRollCallback = (
     roll: Rolled<CheckRoll>,
     outcome: DegreeOfSuccessString | null | undefined,
-    message: ChatMessagePF2e
+    message: ChatMessagePF2e,
+    event: Event | null
 ) => Promise<void> | void;
 
 class CheckPF2e {
@@ -51,10 +52,13 @@ class CheckPF2e {
         // System code must pass a set, but macros and modules may instead pass an array
         if (Array.isArray(context.options)) context.options = new Set(context.options);
         const rollOptions = context.options ?? new Set();
+        if (typeof context.mapIncreases === "number") {
+            rollOptions.add(`map:increases:${context.mapIncreases}`);
+        }
 
         // Figure out the default roll mode (if not already set by the event)
-        if (rollOptions.has("secret")) context.rollMode ??= "blindroll";
-        context.rollMode ??= game.settings.get("core", "rollMode");
+        if (rollOptions.has("secret")) context.rollMode ??= game.user.isGM ? "gmroll" : "blindroll";
+        context.rollMode ??= "roll";
 
         if (rollOptions.size > 0 && !context.isReroll) {
             check.calculateTotal(rollOptions);
@@ -142,7 +146,7 @@ class CheckPF2e {
         const options: CheckRollDataPF2e = { rollerId: game.userId, isReroll, totalModifier: check.totalModifier };
         if (strike) options.strike = strike;
 
-        const totalModifierPart = check.totalModifier === 0 ? "" : `+${check.totalModifier}`;
+        const totalModifierPart = signedInteger(check.totalModifier);
         const roll = await new RollCls(`${dice}${totalModifierPart}`, {}, options).evaluate({ async: true });
 
         // Combine all degree of success adjustments into a single record. Some may be overridden, but that should be
@@ -210,7 +214,7 @@ class CheckPF2e {
             target: context.target ? { actor: context.target.actor.uuid, token: context.target.token.uuid } : null,
             options: Array.from(rollOptions).sort(),
             notes: notes.filter((n) => n.predicate.test(rollOptions)).map((n) => n.toObject()),
-            rollMode: context.rollMode ?? game.settings.get("core", "rollMode"),
+            rollMode: context.rollMode,
             rollTwice: context.rollTwice ?? false,
             title: context.title ?? "PF2E.Check.Label",
             type: context.type ?? "check",
@@ -249,10 +253,8 @@ class CheckPF2e {
         })();
 
         if (callback) {
-            // Roll#toMessage with createMessage set to false returns a plain object instead of a ChatMessageData
-            // instance in V9
             const msg = message instanceof ChatMessagePF2e ? message : new ChatMessagePF2e(message);
-            await callback(roll, context.outcome, msg);
+            await callback(roll, context.outcome, msg, event?.originalEvent ?? null);
         }
 
         // Consume one unit of the weapon if it has the consumable trait
@@ -443,9 +445,7 @@ class CheckPF2e {
                     pf2e: systemFlags,
                 },
             },
-            {
-                rollMode: context.rollMode ?? "publicroll",
-            }
+            { rollMode: context.rollMode }
         );
     }
 

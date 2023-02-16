@@ -100,11 +100,6 @@
                 },
                 "tradition": {
                     "value": "divine"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -215,7 +210,6 @@
                     "value": []
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "champion",
@@ -322,7 +316,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "thrown"
@@ -434,7 +427,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "versatile-p"
@@ -542,7 +534,6 @@
                     "value": 18
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "abjuration",
@@ -651,7 +642,6 @@
                     "value": 0
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "abjuration",
@@ -669,6 +659,11 @@
         },
         {
             "_id": "jRpiPUidZcaGDNG3",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "qiIk99TJEFKCj3QH"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Greater Flaming Longsword",
             "sort": 700000,
@@ -701,8 +696,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
-                    "rarity": "common",
                     "value": [
                         "fire",
                         "magical",
@@ -749,13 +742,13 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
                         "finesse",
                         "fire",
-                        "magical"
+                        "magical",
+                        "unarmed"
                     ]
                 },
                 "weaponType": {
@@ -766,6 +759,11 @@
         },
         {
             "_id": "2mWEC6TWEMx7pGud",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "9TF6Zg6lp7WjMK52"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Flaming Javelin",
             "sort": 900000,
@@ -798,8 +796,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
-                    "rarity": "common",
                     "value": [
                         "fire",
                         "magical",
@@ -844,7 +840,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -896,7 +891,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -941,7 +935,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -981,7 +974,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1024,7 +1016,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divine",
@@ -1066,13 +1057,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "sacrilegious-aura",
+                        "traits": [
+                            "abjuration",
+                            "aura",
+                            "divine",
+                            "evil"
+                        ]
+                    }
+                ],
                 "slug": "graveknight-sacrilegious-aura",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "abjuration",
@@ -1122,7 +1124,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1167,7 +1168,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -1216,7 +1216,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -1265,7 +1264,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -1313,7 +1311,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1353,7 +1350,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1391,24 +1387,7 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "greater-flaming-longsword-attack",
-                        "text": "PF2E.Item.Weapon.CriticalSpecialization.sword",
-                        "title": "{item|name}",
-                        "visibility": "gm"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "flaming-javelin-attack",
-                        "text": "PF2E.Item.Weapon.CriticalSpecialization.dart",
-                        "title": "{item|name}",
-                        "visibility": "gm"
+                        "key": "CriticalSpecialization"
                     }
                 ],
                 "slug": "graveknight-weapon-master",
@@ -1416,7 +1395,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1450,7 +1428,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1478,7 +1455,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1506,7 +1482,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1534,7 +1509,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1562,7 +1536,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1590,7 +1563,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }

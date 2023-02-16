@@ -32,7 +32,7 @@
             </template>
             <!-- showTraits {{showTraits}} -->
             {{#if showTraits}}
-                <input class="paizo-style tags" name="system.traits.value" value="{{json traitSlugs}}" data-dtype="JSON"
+                <input class="paizo-style tags" name="system.traits.value" value="{{json traitTagifyData}}" data-dtype="JSON"
                     {{#if (eq data.traits.value.length 0)}}placeholder="{{localize "PF2E.Traits"}}"{{/if}} />
             {{else if rarity}}
                 <div class="paizo-style tags"></div>
@@ -64,7 +64,7 @@
                 <a class="list-row" data-tab="mystification">{{localize "PF2E.ItemMystification"}}</a>
             {{/if}}
             {{#if (and enabledRulesUI (not isVariant))}}
-                <a class="list-row" data-tab="rules">{{localize "PF2E.ItemRules"}}</a>
+                <a class="list-row" data-tab="rules">{{localize "PF2E.Item.Rules.Tab"}}</a>
             {{/if}}
         </h4>
     </nav>
@@ -113,7 +113,7 @@
                 {{> systems/pf2e/templates/items/mystify-panel.hbs}}
             {{/if}}
 
-            <!-- Rules -->
+            <!-- Rules Elements -->
             {{#if (not isVariant)}}
                 <div class="tab item-rules" data-tab="rules">
                     {{!-- Use ~ so that text areas don't add further indentation --}}

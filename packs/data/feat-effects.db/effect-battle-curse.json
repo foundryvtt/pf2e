@@ -5,7 +5,7 @@
     "system": {
         "badge": null,
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Battle]{Battle}</p>\n<p><em>Note: The @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 2} condition is not applied for the major curse</em></p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Battle]{Battle}</p>\n<h3>Curse of the Hero's Burden</h3>\n<p>You thrive while adrenaline flows and your life depends on your might alone, but holding the collective battle prowess of the ages within you leaves your body weakened after a fight. You smell faintly of steel and blood no matter how you try to remove or mask the scent, you appear more muscular than you actually are, and you hear the faint clash and clamor of battle in the distance at all times.</p>\n<h4>Minor Curse</h4>\n<p>Your body languishes when you aren't bringing harm to your foes. You take a -2 status penalty to AC and saving throws, but each time you make a Strike, you can suspend these penalties until the start of your next turn.</p>\n<h4>Moderate Curse</h4>\n<p>The strain of conflict wears upon your body, even though you gain vitality from it. Making a Strike reduces the penalty from your minor curse to -1 rather than suspending it entirely. You gain a +2 status bonus to weapon and unarmed damage rolls. You also gain fast healing equal to half your level while in a non-trivial combat encounter.</p>\n<h4>Major Curse (11th)</h4>\n<p>Your body proves capable of truly heroic feats, but doing so interferes with your mental focus. Your moderate curse's fast healing is equal to your level, and its damage bonus is +6. You gain a +1 status bonus to weapon and unarmed attack rolls, but you are @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 2}.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -164,19 +164,23 @@
                 "value": 2
             },
             {
+                "details": "",
                 "key": "FastHealing",
                 "predicate": [
                     "encounter:non-trivial",
                     "oracular-curse:stage:moderate"
                 ],
+                "type": "fast-healing",
                 "value": "floor(@actor.level/2)"
             },
             {
+                "details": "",
                 "key": "FastHealing",
                 "predicate": [
                     "encounter:non-trivial",
                     "oracular-curse:stage:major"
                 ],
+                "type": "fast-healing",
                 "value": "@actor.level"
             },
             {
@@ -226,6 +230,28 @@
                 "slug": "battle-curse-attack",
                 "type": "status",
                 "value": 1
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": 2
+                    }
+                ],
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:major",
+                            "oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Stupefied"
             }
         ],
         "source": {
@@ -240,10 +266,10 @@
             "show": true
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": []
-        }
+        },
+        "unidentified": false
     },
     "type": "effect"
 }

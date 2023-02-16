@@ -99,7 +99,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "sweep"
@@ -211,7 +210,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -320,7 +318,6 @@
                     "value": 12
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "flexible",
@@ -369,7 +366,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -413,7 +409,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-10",
@@ -457,7 +452,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -503,7 +497,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-10"
@@ -546,7 +539,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -592,7 +584,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -637,7 +628,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -682,7 +672,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divination",
@@ -730,7 +719,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate",
@@ -780,7 +768,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "curse",
@@ -813,7 +800,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The werebear can see or hear the target or is @UUID[Compendium.pf2e.actionspf2e.Track]{Tracking} it in exploration mode.</p>\n<hr />\n<p><strong>Effect</strong> The werebear gains a +2 circumstance bonus to Perception checks when it @UUID[Compendium.pf2e.actionspf2e.Seek]{Seeks} its prey and a +2 circumstance bonus to Survival checks when it Tracks its prey. The werebear also ignores the penalty for making ranged attacks within its second range increment against the prey it's hunting. The werebear can designate only one creature as its hunted prey at a time. If it uses Hunt Prey against a different creature, the prior creature loses the designation and the new prey gains the designation. In any case, this designation lasts until the werebear's next daily preparation.</p>"
+                    "value": "<p><strong>Requirements</strong> The werebear can see or hear the target or is Tracking it in exploration mode.</p>\n<hr />\n<p><strong>Effect</strong> The werebear gains a +2 circumstance bonus to Perception checks when it @UUID[Compendium.pf2e.actionspf2e.Seek]{Seeks} its prey and a +2 circumstance bonus to Survival checks when it @UUID[Compendium.pf2e.actionspf2e.Track]{Tracks} its prey. The werebear also ignores the penalty for making ranged attacks within its second range increment against the prey it's hunting. The werebear can designate only one creature as its hunted prey at a time. If it uses Hunt Prey against a different creature, the prior creature loses the designation and the new prey gains the designation. In any case, this designation lasts until the werebear's next daily preparation.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -822,14 +809,16 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "option": "hunt-prey",
+                        "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
+                        "option": "hunted-prey",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
+                        "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
                         "predicate": [
-                            "hunt-prey",
-                            "action:seek"
+                            "action:seek",
+                            "hunted-prey"
                         ],
                         "selector": "perception",
                         "type": "circumstance",
@@ -837,13 +826,22 @@
                     },
                     {
                         "key": "FlatModifier",
+                        "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
                         "predicate": [
-                            "hunt-prey",
-                            "action:track"
+                            "action:track",
+                            "hunted-prey"
                         ],
                         "selector": "survival",
                         "type": "circumstance",
                         "value": 2
+                    },
+                    {
+                        "domain": "ranged-attack-roll",
+                        "key": "RollOption",
+                        "option": "ignore-range-penalty:2",
+                        "predicate": [
+                            "hunted-prey"
+                        ]
                     }
                 ],
                 "slug": null,
@@ -851,7 +849,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate"
@@ -903,7 +900,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -948,7 +944,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "polymorph",
@@ -981,7 +976,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The werebear deals [[/r {1d8}[precision]]]{1d8 additional precision damage} on its first successful Strike against its hunted target on each of its turns.</p>"
+                    "value": "<p>The werebear deals 1d8 additional precision damage on its first successful Strike against its hunted target on each of its turns.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1000,7 +995,7 @@
                         "key": "DamageDice",
                         "predicate": [
                             "precision-edge",
-                            "hunt-prey"
+                            "hunted-prey"
                         ],
                         "selector": "strike-damage"
                     }
@@ -1010,7 +1005,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1055,7 +1049,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1089,7 +1082,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1117,7 +1109,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1145,7 +1136,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1173,7 +1163,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1201,7 +1190,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }

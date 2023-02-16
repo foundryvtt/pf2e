@@ -44,93 +44,94 @@ abstract class IWRData<TType extends IWRType> {
             return ["item:type:condition", `item:slug:${iwrType}`];
         }
 
-        if (iwrType === "magical") {
-            return ["item:magical"];
-        }
+        switch (iwrType) {
+            case "all-damage":
+                return ["damage"];
+            case "magical":
+                return ["item:magical"];
+            case "non-magical":
+                return [{ not: "item:magical" }];
+            case "critical-hits":
+                return ["damage:component:critical"];
+            case "area-damage":
+                return ["area-damage"];
+            case "ghost-touch":
+                return ["item:rune:property:ghost-touch"];
+            case "unarmed-attacks":
+                return ["item:category:unarmed"];
+            case "mental":
+                return [{ or: ["damage:type:mental", { and: ["item:type:effect", "item:trait:mental"] }] }];
+            case "emotion":
+                return ["item:type:effect", "item:trait:emotion"];
+            case "fear-effects":
+                return ["item:type:effect", "item:trait:fear"];
+            case "damage-from-spells":
+                return ["damage", "item:type:spell"];
+            case "auditory":
+                return ["item:trait:auditory"];
+            case "visual":
+                return ["item:trait:visual"];
+            case "axe-vulnerability":
+                return ["item:group:axe"];
+            case "arrow-vulnerability":
+                return ["item:group:bow", { not: "item:tag:crossbow" }];
+            case "physical":
+            case "energy":
+                return [`damage:category:${iwrType}`];
+            case "precision":
+            case "splash-damage": {
+                const component = iwrType === "splash-damage" ? "splash" : "precision";
+                return [`damage:component:${component}`];
+            }
+            case "air":
+            case "earth":
+            case "water":
+                return [`item:trait:${iwrType}`];
+            case "object-immunities":
+                return [
+                    {
+                        or: [
+                            "damage:type:bleed",
+                            "damage:type:mental",
+                            "damage:type:poison",
+                            {
+                                and: [
+                                    "item:type:condition",
+                                    {
+                                        or: [
+                                            "item:slug:doomed",
+                                            "item:slug:drained",
+                                            "item:slug:fatigued",
+                                            "item:slug:paralyzed",
+                                            "item:slug:sickened",
+                                            "item:slug:unconscious",
+                                        ],
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                ];
+            default: {
+                if (iwrType in CONFIG.PF2E.damageTypes) {
+                    return [`damage:type:${iwrType}`];
+                }
 
-        if (iwrType === "non-magical") {
-            return [{ not: "item:magical" }];
-        }
+                if (setHasElement(WEAPON_MATERIAL_EFFECTS, iwrType)) {
+                    return iwrType === "silver"
+                        ? [{ or: ["damage:material:silver", "damage:material:mithral"] }]
+                        : iwrType === "cold-iron"
+                        ? [{ or: ["damage:material:cold-iron", "damage:material:sovereign-steel"] }]
+                        : [`damage:material:${iwrType}`];
+                }
 
-        if (iwrType in CONFIG.PF2E.damageTypes) {
-            return [`damage:type:${iwrType}`];
-        }
+                if (setHasElement(MAGIC_SCHOOLS, iwrType)) {
+                    return ["item:trait:spell", `item:trait:${iwrType}`];
+                }
 
-        if (iwrType === "critical-hits") {
-            return ["damage:component:critical"];
+                return [`unhandled:${iwrType}`];
+            }
         }
-
-        if (setHasElement(WEAPON_MATERIAL_EFFECTS, iwrType)) {
-            return iwrType === "silver"
-                ? [{ or: ["damage:material:silver", "damage:material:mithral"] }]
-                : [`damage:material:${iwrType}`];
-        }
-
-        if (setHasElement(MAGIC_SCHOOLS, iwrType)) {
-            return ["item:trait:spell", `item:trait:${iwrType}`];
-        }
-
-        if (iwrType === "area-damage") {
-            return ["area-damage"];
-        }
-
-        if (["physical", "energy"].includes(iwrType)) {
-            return [`damage:category:${iwrType}`];
-        }
-
-        if (["precision", "splash-damage"].includes(iwrType)) {
-            const component = iwrType === "splash-damage" ? "splash" : "precision";
-            return [`damage:component:${component}`];
-        }
-
-        if (iwrType === "ghost-touch") {
-            return ["item:rune:property:ghost-touch"];
-        }
-
-        if (["air", "earth", "water"].includes(iwrType)) {
-            return [`item:trait:${iwrType}`];
-        }
-
-        if (iwrType === "axe-vulnerability") {
-            return ["item:group:axe"];
-        }
-
-        if (iwrType === "arrow-vulnerability") {
-            return ["item:group:bow", { not: "item:tag:crossbow" }];
-        }
-
-        if (iwrType === "object-immunities") {
-            return [
-                {
-                    or: [
-                        "damage:type:bleed",
-                        "damage:type:mental",
-                        "damage:type:poison",
-                        {
-                            and: [
-                                "item:type:condition",
-                                {
-                                    or: [
-                                        "item:slug:doomed",
-                                        "item:slug:drained",
-                                        "item:slug:fatigued",
-                                        "item:slug:paralyzed",
-                                        "item:slug:sickened",
-                                        "item:slug:unconscious",
-                                    ],
-                                },
-                            ],
-                        },
-                    ],
-                },
-            ];
-        }
-
-        if (iwrType === "all-damage") {
-            return ["damage"];
-        }
-
-        return [`unhandled:${iwrType}`];
     }
 
     get predicate(): PredicatePF2e {

@@ -99,7 +99,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "deadly-d10",
@@ -213,7 +212,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "versatile-p"
@@ -320,7 +318,6 @@
                     "value": 18
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "bulwark"
@@ -347,7 +344,6 @@
             "sort": 400000,
             "system": {
                 "autoDestroy": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
@@ -405,7 +401,6 @@
                 },
                 "stackGroup": "arrows",
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -420,6 +415,11 @@
         },
         {
             "_id": "12LD6QHUzml95C9n",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "yfLr23zjUHGPyekK"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Frost Greatsword",
             "sort": 500000,
@@ -428,7 +428,6 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -453,8 +452,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
-                    "rarity": "common",
                     "value": [
                         "cold",
                         "magical",
@@ -502,11 +499,11 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
-                        "cold"
+                        "cold",
+                        "unarmed"
                     ]
                 },
                 "weaponType": {
@@ -517,6 +514,11 @@
         },
         {
             "_id": "XCfMmPXvB7LJznlU",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "Usuq1lTFnGGNGmOW"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Frost Composite Longbow",
             "sort": 700000,
@@ -525,7 +527,6 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -550,12 +551,11 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
-                    "rarity": "common",
                     "value": [
                         "cold",
                         "deadly-d10",
                         "magical",
+                        "propulsive",
                         "range-increment-100",
                         "reload-0",
                         "volley-30"
@@ -599,7 +599,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -651,7 +650,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -696,7 +694,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -742,7 +739,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divine",
@@ -784,13 +780,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "sacrilegious-aura",
+                        "traits": [
+                            "abjuration",
+                            "aura",
+                            "divine",
+                            "evil"
+                        ]
+                    }
+                ],
                 "slug": "graveknight-sacrilegious-aura",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "abjuration",
@@ -840,7 +847,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -889,7 +895,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -938,7 +943,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -983,34 +987,7 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "frost-greatsword-attack",
-                        "text": "PF2E.Item.Weapon.CriticalSpecialization.sword",
-                        "title": "{item|name}",
-                        "visibility": "gm"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "fist-attack",
-                        "text": "PF2E.Item.Weapon.CriticalSpecialization.brawling",
-                        "title": "{item|name}",
-                        "visibility": "gm"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "frost-composite-longbow-attack",
-                        "text": "PF2E.Item.Weapon.CriticalSpecialization.bow",
-                        "title": "{item|name}",
-                        "visibility": "gm"
+                        "key": "CriticalSpecialization"
                     }
                 ],
                 "slug": "graveknight-weapon-master",
@@ -1018,7 +995,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1052,7 +1028,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1080,7 +1055,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1108,7 +1082,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1136,7 +1109,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }

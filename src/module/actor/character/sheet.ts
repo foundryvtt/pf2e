@@ -6,7 +6,6 @@ import { ItemSourcePF2e, LoreData } from "@item/data";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/types";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { PROFICIENCY_RANKS } from "@module/data";
-import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { craft } from "@system/action-macros/crafting/craft";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
@@ -14,16 +13,17 @@ import {
     ErrorPF2e,
     getActionIcon,
     groupBy,
+    htmlQuery,
     htmlQueryAll,
     isObject,
     objectHasKey,
     setHasElement,
-    tupleHasValue,
 } from "@util";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { AbilityBuilderPopup } from "../sheet/popups/ability-builder";
 import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-proficiencies";
+import { AutomaticBonusProgression } from "./automatic-bonus-progression";
 import { CharacterConfig } from "./config";
 import { CraftingFormula, craftItem, craftSpellConsumable } from "./crafting";
 import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProficiencies } from "./data";
@@ -103,7 +103,9 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         );
 
         // Class DCs
-        const classDCs = Object.values(sheetData.data.proficiencies.classDCs)
+        const allClassDCs = Object.values(sheetData.data.proficiencies.classDCs);
+        const classDCs = allClassDCs
+            .filter((cdc) => cdc.rank > 0 || allClassDCs.length > 1)
             .map(
                 (classDC): ClassDCSheetData => ({
                     ...classDC,
@@ -176,7 +178,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 return result;
             }, {});
 
-        sheetData.abpEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
+        sheetData.abpEnabled = AutomaticBonusProgression.isEnabled(this.actor);
 
         // Sort attack/defense proficiencies
         const combatProficiencies: MartialProficiencies = sheetData.data.martial;
@@ -438,7 +440,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         });
 
-        $html.find(".crb-tag-selector").on("click", (event) => this.onTraitSelector(event));
+        $html.find(".crb-tag-selector").on("click", (event) => this.openTagSelector(event));
 
         // ACTIONS
         const $actions = $html.find(".tab.actions");
@@ -449,30 +451,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
 
         const $strikesList = $actions.find(".strikes-list");
-
-        // Set damage-formula tooltips on damage buttons
-        const damageButtonSelectors = [
-            'button[data-action="strike-damage"]',
-            'button[data-action="strike-critical"]',
-        ].join(", ");
-        const $damageButtons = $strikesList.find<HTMLButtonElement>(damageButtonSelectors);
-        for (const damageButton of $damageButtons) {
-            const $button = $(damageButton);
-            const method = $button.attr("data-action") === "strike-damage" ? "damage" : "critical";
-            const altUsage = tupleHasValue(["thrown", "melee"] as const, damageButton.dataset.altUsage)
-                ? damageButton.dataset.altUsage
-                : null;
-
-            const strike = this.getStrikeFromDOM($button[0]);
-            strike?.[method]?.({ getFormula: true, altUsage }).then((formula) => {
-                if (!formula) return;
-                $button.attr({ title: formula });
-                $button.tooltipster({
-                    position: "bottom",
-                    theme: "crb-hover",
-                });
-            });
-        }
 
         $strikesList.find(".item-summary .item-properties.tags .tag").each((_idx, span) => {
             if (span.dataset.description) {
@@ -563,7 +541,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             .find("a[data-action=rest]")
             .tooltipster({ theme: "crb-hover" })
             .on("click", (event) => {
-                restForTheNight({ event, actors: this.actor });
+                game.pf2e.actions.restForTheNight({ event, actors: [this.actor] });
             });
 
         $html.find("a[data-action=perception-check]").tooltipster({ theme: "crb-hover" });
@@ -573,13 +551,22 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
 
         // SPELLCASTING
-        const $castingTab = $html.find(".tab.spellcasting");
+        const castingPanel = htmlQuery(html, ".tab.spellcasting");
 
-        $castingTab.find(".focus-pool").on("click contextmenu", (event) => {
-            const change = event.type === "click" ? 1 : -1;
-            const points = (this.actor.system.resources.focus?.value ?? 0) + change;
-            this.actor.update({ "system.resources.focus.value": points });
-        });
+        // Focus pool pips
+        const focusPips = htmlQueryAll(castingPanel, ".focus-pool");
+        if (focusPips.length > 0) {
+            const listener = (event: Event) => {
+                const change = event.type === "click" ? 1 : -1;
+                const points = this.actor.system.resources.focus.value + change;
+                this.actor.update({ "system.resources.focus.value": points });
+            };
+
+            for (const pips of focusPips) {
+                pips.addEventListener("click", listener);
+                pips.addEventListener("contextmenu", listener);
+            }
+        }
 
         // CRAFTING
         const $craftingTab = $html.find(".tab.crafting");

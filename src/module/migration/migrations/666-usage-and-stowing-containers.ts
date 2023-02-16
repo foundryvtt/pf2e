@@ -1,5 +1,4 @@
 import { ItemSourcePF2e } from "@item/data";
-import { ItemTraits } from "@item/data/base";
 import { isPhysicalData } from "@item/data/helpers";
 import { sluggify } from "@util";
 import { MigrationBase } from "../base";
@@ -80,7 +79,8 @@ export class Migration666UsageAndStowingContainers extends MigrationBase {
     }
 }
 
-interface TraitsWithUsage extends ItemTraits {
+interface TraitsWithUsage {
+    value?: string[];
     usage?: { value?: unknown };
     "-=usage"?: null;
 }

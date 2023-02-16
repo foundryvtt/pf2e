@@ -28,6 +28,16 @@ function createSheetTags(options: Record<string, string>, selections: SheetSelec
     return createSheetOptions(options, selections, { selected: true });
 }
 
+function createTagifyTraits(traits: Iterable<string>, { sourceTraits, record }: TagifyTraitOptions) {
+    const sourceSet = new Set(sourceTraits);
+    const traitSlugs = [...traits];
+    const readonlyTraits = traitSlugs.filter((t) => !sourceSet.has(t));
+    return traitSlugs.map((slug) => {
+        const label = game.i18n.localize(record?.[slug] ?? slug);
+        return { id: slug, value: label, readonly: readonlyTraits.includes(slug) };
+    });
+}
+
 /**
  * Process tagify elements in a form, converting their data into something the pf2e system can handle.
  * This method is meant to be called in _getSubmitData().
@@ -74,11 +84,24 @@ type SheetOptions = Record<string, SheetOption>;
 
 type SheetSelections = { value: (string | number)[] } | (string[] & { custom?: never });
 
+interface TagifyTraitOptions {
+    sourceTraits: Iterable<string>;
+    record: Record<string, string>;
+}
+
+interface TraitTagifyEntry {
+    id: string;
+    value: string;
+    readonly: boolean;
+}
+
 export {
     createSheetOptions,
     createSheetTags,
+    createTagifyTraits,
     maintainTagifyFocusInRender,
     processTagifyInSubmitData,
     SheetOption,
     SheetOptions,
+    TraitTagifyEntry,
 };

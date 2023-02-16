@@ -8,6 +8,7 @@ import { AbilityString } from "@actor/types";
 import { ABILITY_ABBREVIATIONS, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/values";
 import { EffectData } from "@item/data";
 import { Size } from "@module/data";
+import { createTagifyTraits } from "@module/sheet/helpers";
 import { DicePF2e } from "@scripts/dice";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { getActionGlyph, getActionIcon, objectHasKey, setHasElement, tagify } from "@util";
@@ -169,6 +170,11 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
             async: true,
         });
 
+        sheetData.traitTagifyData = createTagifyTraits(this.actor.system.traits.value, {
+            sourceTraits: this.actor._source.system.traits.value,
+            record: CONFIG.PF2E.creatureTraits,
+        });
+
         // Return data for rendering
         return sheetData as NPCSheetData<TActor>;
     }
@@ -195,7 +201,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
         // Don't subscribe to edit buttons it the sheet is NOT editable
         if (!this.options.editable) return;
 
-        $html.find(".trait-edit").on("click", (event) => this.onTraitSelector(event));
+        $html.find(".trait-edit").on("click", (event) => this.openTagSelector(event));
         $html.find(".skills-edit").on("click", () => {
             new NPCSkillsEditor(this.actor).render(true);
         });
@@ -373,6 +379,11 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
             const traits = chatData.traits ?? [];
 
             const actionType = item.actionCost?.type || "passive";
+
+            const hasAura =
+                actionType === "passive" &&
+                (item.system.traits.value.includes("aura") || !!item.system.rules.find((r) => r.key === "Aura"));
+
             if (objectHasKey(actions, actionType)) {
                 actions[actionType].actions.push({
                     ...itemData,
@@ -380,6 +391,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
                     imageUrl: getActionIcon(item.actionCost),
                     chatData,
                     traits,
+                    hasAura,
                 });
             }
         }

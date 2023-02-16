@@ -1,8 +1,7 @@
 import { CreaturePF2e } from "@actor";
-import { CreatureSheetItemRenderer } from "@actor/sheet/item-summary-renderer";
 import { createSpellcastingDialog } from "@actor/sheet/spellcasting-dialog";
 import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values";
-import { AbstractEffectPF2e, ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e } from "@item";
+import { AbstractEffectPF2e, ItemPF2e, SpellcastingEntryPF2e, SpellPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { ITEM_CARRY_TYPES } from "@item/data/values";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
@@ -20,8 +19,6 @@ import { CreatureSheetData, SpellcastingSheetData } from "./types";
  * @category Actor
  */
 export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheetPF2e<TActor> {
-    override itemRenderer = new CreatureSheetItemRenderer(this);
-
     /** A DocumentSheet class presenting additional, per-actor settings */
     protected abstract readonly actorConfigClass: ConstructorOf<CreatureConfig<CreaturePF2e>> | null;
 
@@ -170,48 +167,29 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         super.activateListeners($html);
         const html = $html[0]!;
 
-        // Handlers for number inputs of properties subject to modification by AE-like rules elements
-        const manualPropertyInputs = htmlQueryAll(html, "select[data-property],input[data-property]");
-        for (const input of manualPropertyInputs) {
-            input.addEventListener("focus", () => {
-                const propertyPath = input.dataset.property ?? "";
-                input.setAttribute("name", propertyPath);
-                if (input instanceof HTMLInputElement) {
-                    const baseValue = Number(getProperty(this.actor._source, propertyPath));
-                    input.value = String(baseValue);
-                }
-            });
-
-            input.addEventListener("blur", () => {
-                input.removeAttribute("name");
-                input.removeAttribute("style");
-                const propertyPath = input.dataset.property ?? "";
-                const preparedValue = getProperty(this.actor, propertyPath);
-                if (input instanceof HTMLInputElement) {
-                    const isModifier = input.classList.contains("modifier") && Number(preparedValue) >= 0;
-                    const value = isModifier ? `+${preparedValue}` : preparedValue;
-                    input.value = String(value);
-                }
-            });
-        }
-
-        // Toggle equip
-        $html.find(".tab.inventory a[data-carry-type]").on("click", (event) => {
-            $html.find(".carry-type-hover").tooltipster("close");
-
-            const itemId = $(event.currentTarget).closest("[data-item-id]").attr("data-item-id") ?? "";
-            const item = this.actor.items.get(itemId, { strict: true });
-            if (!(item instanceof PhysicalItemPF2e)) {
-                throw ErrorPF2e("Tried to update carry type of non-physical item");
+        // Change carry type
+        const carryMenuListener = (event: MouseEvent) => {
+            if (!(event.currentTarget instanceof HTMLElement)) {
+                throw ErrorPF2e("Unexpected error retrieving carry-type link");
+            }
+            const menu = event.currentTarget;
+            const toggle = menu.nextElementSibling;
+            if (toggle?.classList.contains("carry-type-hover")) {
+                $(toggle).tooltipster("close");
             }
 
-            const carryType = $(event.currentTarget).attr("data-carry-type") ?? "";
-            const handsHeld = Number($(event.currentTarget).attr("data-hands-held")) ?? 1;
-            const inSlot = $(event.currentTarget).attr("data-in-slot") === "true";
+            const itemId = htmlClosest(menu, "[data-item-id]")?.dataset.itemId;
+            const item = this.actor.inventory.get(itemId, { strict: true });
+            const carryType = menu.dataset.carryType;
+            const handsHeld = Number(menu.dataset.handsHeld) || 0;
+            const inSlot = menu.dataset.inSlot === "true";
             if (carryType && setHasElement(ITEM_CARRY_TYPES, carryType)) {
                 this.actor.adjustCarryType(item, carryType, handsHeld, inSlot);
             }
-        });
+        };
+        for (const carryTypeMenu of htmlQueryAll(html, ".tab.inventory a[data-carry-type]")) {
+            carryTypeMenu.addEventListener("click", carryMenuListener);
+        }
 
         // General handler for embedded item updates
         const selectors = "input[data-item-id][data-item-property], select[data-item-id][data-item-property]";
@@ -283,7 +261,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             this.actor.skills[key]?.check.roll(rollParams);
         });
 
-        // Adding/Editing/Removing Spellcasting entries
+        // Add, edit, and remove spellcasting entries
         for (const section of htmlQueryAll(html, ".tab.spellcasting, .tab.spells") ?? []) {
             for (const element of htmlQueryAll(section, "[data-action=spellcasting-create]") ?? []) {
                 element.addEventListener("click", (event) => {
@@ -388,14 +366,18 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         });
 
         $html.find(".toggle-signature-spell").on("click", (event) => {
-            this.onToggleSignatureSpell(event);
+            this.#onToggleSignatureSpell(event);
         });
 
         // Action Browser
-        $html.find(".action-browse").on("click", () => game.pf2e.compendiumBrowser.openTab("action"));
+        for (const button of htmlQueryAll(html, ".action-browse")) {
+            button.addEventListener("click", () => game.pf2e.compendiumBrowser.openTab("action"));
+        }
 
         // Spell Browser
-        $html.find(".spell-browse").on("click", (event) => this.onClickBrowseSpellCompendia(event));
+        for (const button of htmlQueryAll(html, ".spell-browse")) {
+            button.addEventListener("click", () => this.#onClickBrowseSpellCompendia(button));
+        }
 
         // Decrease effect value
         $html.find(".effects-list .decrement").on("click", async (event) => {
@@ -519,8 +501,8 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         item: ItemPF2e,
         data: DropCanvasItemDataPF2e
     ): Promise<ItemPF2e[]> {
-        const containerEl = htmlClosest(event.target, ".item-container");
-        if (item.isOfType("spell") && containerEl?.dataset.containerType === "spellcastingEntry") {
+        const containerEl = htmlClosest(event.target, ".item-container[data-container-type=spellcastingEntry]");
+        if (containerEl && item.isOfType("spell")) {
             const entryId = containerEl.dataset.containerId;
             const collection = this.actor.spellcasting.collections.get(entryId, { strict: true });
             const slotLevel = Number(htmlClosest(event.target, "[data-slot-level]")?.dataset.slotLevel ?? 0);
@@ -542,7 +524,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
                 label: "Configure", // Top-level foundry localization key
                 class: "configure-creature",
                 icon: "fas fa-cog",
-                onclick: () => this.onConfigureActor(),
+                onclick: () => this.#onConfigureActor(),
             });
         }
 
@@ -550,12 +532,12 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
     }
 
     /** Open actor configuration for this sheet's creature */
-    private onConfigureActor(): void {
+    #onConfigureActor(): void {
         if (!this.actorConfigClass) return;
         new this.actorConfigClass(this.actor).render(true);
     }
 
-    private onToggleSignatureSpell(event: JQuery.ClickEvent): void {
+    #onToggleSignatureSpell(event: JQuery.ClickEvent): void {
         const { itemId } = event.target.closest(".item").dataset;
         const spell = this.actor.items.get(itemId);
         if (!(spell instanceof SpellPF2e)) {
@@ -565,15 +547,14 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         spell.update({ "system.location.signature": !spell.system.location.signature });
     }
 
-    private onClickBrowseSpellCompendia(event: JQuery.ClickEvent<HTMLElement>) {
-        const level = Number($(event.currentTarget).attr("data-level")) ?? null;
-        const spellcastingIndex = $(event.currentTarget).closest("[data-container-id]").attr("data-container-id") ?? "";
+    #onClickBrowseSpellCompendia(button: HTMLElement) {
+        const level = Number(button.dataset.level ?? null);
+        const spellcastingIndex = htmlClosest(button, "[data-container-id]")?.dataset.containerId ?? "";
         const entry = this.actor.spellcasting.get(spellcastingIndex);
-        if (!(entry instanceof SpellcastingEntryPF2e)) {
-            return;
-        }
 
-        game.pf2e.compendiumBrowser.openSpellTab(entry, level);
+        if (entry) {
+            game.pf2e.compendiumBrowser.openSpellTab(entry, level);
+        }
     }
 
     // Ensure a minimum of zero hit points and a maximum of the current max

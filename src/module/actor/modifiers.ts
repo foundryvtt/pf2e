@@ -5,7 +5,7 @@ import { extractModifierAdjustments } from "@module/rules/helpers";
 import { DamageCategoryUnique, DamageDieSize, DamageType } from "@system/damage/types";
 import { DAMAGE_TYPES } from "@system/damage/values";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
-import { ErrorPF2e, setHasElement, sluggify, tupleHasValue } from "@util";
+import { ErrorPF2e, setHasElement, signedInteger, sluggify, tupleHasValue } from "@util";
 import { ZeroToFour } from "@module/data";
 
 const PROFICIENCY_RANK_OPTION = [
@@ -139,6 +139,12 @@ class ModifierPF2e implements RawModifier {
     hideIfDisabled: boolean;
 
     /**
+     * The "category" of modifier (a misnomer since bonuses and penalties aren't modifiers):
+     * Recorded before adjustments in case of adjustment to zero
+     */
+    kind: "bonus" | "penalty" | "modifier";
+
+    /**
      * Create a new modifier.
      * Legacy parameters:
      * @param name The name for the modifier; should generally be a localization key.
@@ -192,17 +198,33 @@ class ModifierPF2e implements RawModifier {
         // Force splash damage into being critical-only or not doubling on critical hits
         this.critical = this.damageCategory === "splash" ? !!params.critical : params.critical ?? null;
 
+        this.kind = ((): "bonus" | "penalty" | "modifier" => {
+            if (this.modifier >= 0 && !["ability", "untyped"].includes(this.type)) {
+                return "bonus";
+            }
+            if (this.modifier < 0 && this.type !== "ability") {
+                return "penalty";
+            }
+            return "modifier";
+        })();
+
         if (this.force && this.type === "untyped") {
             throw ErrorPF2e("A forced modifier must have a type");
         }
     }
 
-    get category(): string | null {
+    get category(): this["damageCategory"] {
         return this.damageCategory;
     }
 
     get value(): number {
-        return this.modifier;
+        return this.kind === "penalty" && this.modifier === 0 ? -this.modifier : this.modifier;
+    }
+
+    get signedValue(): string {
+        return this.modifier === 0 && this.kind === "penalty"
+            ? signedInteger(-this.modifier, { emptyStringZero: false })
+            : signedInteger(this.modifier, { emptyStringZero: false });
     }
 
     /** Return a copy of this ModifierPF2e instance */
@@ -221,12 +243,7 @@ class ModifierPF2e implements RawModifier {
      * bonuses and penalties.
      */
     getRollOptions(): Set<string> {
-        const isBonus =
-            (this.modifier > 0 || this.type === "proficiency") && !["ability", "untyped"].includes(this.type);
-        const isPenalty = this.modifier < 0 && !["ability", "proficiency"].includes(this.type);
-        const prefix = isBonus ? "bonus" : isPenalty ? "penalty" : "modifier";
-
-        const options = [`${prefix}:type:${this.type}`];
+        const options = (["slug", "type", "value"] as const).map((p) => `${this.kind}:${p}:${this[p]}`);
         if (this.type === "ability" && this.ability) {
             options.push(`modifier:ability:${this.ability}`);
         }
@@ -521,7 +538,7 @@ class StatisticModifier {
 }
 
 function adjustModifiers(modifiers: ModifierPF2e[], rollOptions: Set<string>): void {
-    for (const modifier of modifiers) {
+    for (const modifier of [...modifiers].sort((a, b) => Math.abs(b.value) - Math.abs(a.value))) {
         const adjustments = modifier.adjustments.filter((a) =>
             a.predicate.test([...rollOptions, ...modifier.getRollOptions()])
         );
@@ -642,8 +659,8 @@ class DiceModifierPF2e implements BaseRawModifier {
             : null;
 
         this.predicate = new PredicatePF2e(params.predicate ?? []);
-        this.enabled = this.predicate.test([]);
-        this.ignored = !this.enabled;
+        this.enabled = params.enabled ?? this.predicate.test([]);
+        this.ignored = params.ignored ?? !this.enabled;
     }
 }
 

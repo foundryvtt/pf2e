@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "divine"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -205,7 +200,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "air"
@@ -323,7 +317,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "fire"
@@ -441,7 +434,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack",
@@ -563,7 +555,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "fire",
@@ -669,7 +660,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": []
                 }
@@ -772,7 +762,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "revelation"
@@ -878,7 +867,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "light"
@@ -985,7 +973,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "fortune",
@@ -1092,7 +1079,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "incapacitation",
@@ -1196,7 +1182,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "teleportation"
@@ -1239,7 +1224,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "good",
@@ -1286,7 +1270,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1331,7 +1314,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1389,52 +1371,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mkXd7hCmTsucWehM",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fJSNOw4zHGbIm4bZ"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Fast Healing 30",
-            "sort": 1600000,
-            "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.FastHealing]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "fast-healing",
-                "source": {
-                    "value": "Pathfinder Bestiary"
-                },
-                "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1451,7 +1387,7 @@
             "_id": "QPrrVmViA5QTr6tE",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Bastion Aura",
-            "sort": 1700000,
+            "sort": 1600000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1463,18 +1399,41 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:50]{50 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>All good-aligned creatures in the aura have @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Fast Healing]{Fast Healing} 30 for as long as they remain in range, and they gain a +2 status bonus to attack rolls and damage rolls.</p>"
+                    "value": "<p>@Template[type:emanation|distance:50]{50 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>All good-aligned creatures in the aura have @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Fast Healing]{Fast Healing} 30 for as long as they remain in range, and they gain a +2 status bonus to attack rolls and damage rolls.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Bastion Aura]{Effect: Bastion Aura}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "affects": "all",
+                                "events": [
+                                    "enter"
+                                ],
+                                "predicate": [
+                                    "target:trait:good"
+                                ],
+                                "uuid": "Compendium.pf2e.bestiary-effects.4tGVIEqwH4TQoF0O"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 50,
+                        "slug": "bastion-aura",
+                        "traits": [
+                            "divine",
+                            "good",
+                            "healing",
+                            "necromancy"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -1502,7 +1461,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Retributive Strike",
-            "sort": 1800000,
+            "sort": 1700000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1525,7 +1484,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1542,7 +1500,7 @@
             "_id": "2KSiu60tktdQLiFE",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Ultimate Sacrifice",
-            "sort": 1900000,
+            "sort": 1800000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1565,7 +1523,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divine",
@@ -1587,7 +1544,7 @@
             "_id": "xa0P6lS6jAgU3iPX",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Archon's Door",
-            "sort": 2000000,
+            "sort": 1900000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1610,7 +1567,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1627,7 +1583,7 @@
             "_id": "LpnkFiQmJ2nxDYm5",
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Blinding Beams",
-            "sort": 2100000,
+            "sort": 2000000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1650,7 +1606,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1667,7 +1622,7 @@
             "_id": "itoyZJLBh98BavI1",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Entrench",
-            "sort": 2200000,
+            "sort": 2100000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1715,7 +1670,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "move"
@@ -1734,7 +1688,7 @@
             "_id": "DpIIIQSKrhsFKToW",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Holy Beam",
-            "sort": 2300000,
+            "sort": 2200000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1757,7 +1711,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divine",
@@ -1779,7 +1732,7 @@
             "_id": "VvWdBUQSkH9G9mMG",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 2400000,
+            "sort": 2300000,
             "system": {
                 "description": {
                     "value": ""
@@ -1796,7 +1749,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1807,6 +1759,33 @@
             "_id": "nsmQJuFe17ZRJOKI",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
+            "sort": 2400000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 34
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "TpQrryQeS3hpOJGU",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
             "sort": 2500000,
             "system": {
                 "description": {
@@ -1824,35 +1803,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "TpQrryQeS3hpOJGU",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 2600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 34
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1863,7 +1813,7 @@
             "_id": "DHYD7JEG5QTeGMvt",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2700000,
+            "sort": 2600000,
             "system": {
                 "description": {
                     "value": ""
@@ -1880,7 +1830,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }

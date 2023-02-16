@@ -1,6 +1,13 @@
 /** Register Handlebars template partials */
 export function registerTemplates(): void {
     const templatePaths = [
+        // Dice
+        "systems/pf2e/templates/chat/check/strike/attack-roll.hbs",
+        "systems/pf2e/templates/chat/check/target-dc-result.hbs",
+        "systems/pf2e/templates/chat/damage/damage-taken.hbs",
+        "systems/pf2e/templates/dice/damage-roll.hbs",
+        "systems/pf2e/templates/dice/damage-tooltip.hbs",
+
         // PC Sheet Tooltips
         "systems/pf2e/templates/actors/character/partials/modifiers-tooltip.hbs",
         "systems/pf2e/templates/actors/character/partials/traits.hbs",
@@ -70,6 +77,8 @@ export function registerTemplates(): void {
         // Item Sheet Partials
         "systems/pf2e/templates/items/rules-panel.hbs",
         "systems/pf2e/templates/items/action-details.hbs",
+        "systems/pf2e/templates/items/affliction-details.hbs",
+        "systems/pf2e/templates/items/affliction-sidebar.hbs",
         "systems/pf2e/templates/items/ancestry-details.hbs",
         "systems/pf2e/templates/items/ancestry-sidebar.hbs",
         "systems/pf2e/templates/items/armor-details.hbs",
@@ -107,6 +116,7 @@ export function registerTemplates(): void {
 
         // Item Sheet Partials (sub-partials)
         "systems/pf2e/templates/items/partials/ability-activation.hbs",
+        "systems/pf2e/templates/items/partials/duration.hbs",
 
         // Loot partials
         "systems/pf2e/templates/actors/loot/inventory.hbs",
@@ -122,6 +132,7 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/vehicle/tabs/vehicle-actions.hbs",
         "systems/pf2e/templates/actors/vehicle/tabs/vehicle-inventory.hbs",
         "systems/pf2e/templates/actors/vehicle/tabs/vehicle-description.hbs",
+        "systems/pf2e/templates/actors/vehicle/tabs/vehicle-effects.hbs",
 
         // Compendium Browser Partials
         "systems/pf2e/templates/compendium-browser/browser-settings.hbs",

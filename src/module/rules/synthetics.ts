@@ -43,7 +43,9 @@ interface RuleElementSynthetics {
     };
 }
 
-type CritSpecSynthetic = (weapon: Embedded<WeaponPF2e>, options: Set<string>) => RollNotePF2e | null;
+type CritSpecEffect = (DamageDicePF2e | ModifierPF2e | RollNotePF2e)[];
+type CritSpecSynthetic = (weapon: WeaponPF2e | MeleePF2e, options: Set<string>) => CritSpecEffect | null;
+
 type DamageDiceSynthetics = { damage: DeferredDamageDice[] } & { [K in string]?: DeferredDamageDice[] };
 type ModifierSynthetics = Record<"all" | "damage", DeferredModifier[]> & { [K in string]?: DeferredModifier[] };
 type ModifierAdjustmentSynthetics = { all: ModifierAdjustment[]; damage: ModifierAdjustment[] } & {
@@ -93,7 +95,7 @@ interface StrikeAdjustment {
         weapon: WeaponPF2e | MeleePF2e,
         { materials }: { materials?: Set<MaterialDamageEffect> }
     ) => void;
-    adjustWeapon?: (weapon: Embedded<WeaponPF2e>) => void;
+    adjustWeapon?: (weapon: WeaponPF2e | MeleePF2e) => void;
     adjustTraits?: (weapon: WeaponPF2e | MeleePF2e, traits: ActionTrait[]) => void;
 }
 
@@ -113,6 +115,7 @@ interface PotencySynthetic {
 
 export {
     BaseSpeedSynthetic,
+    CritSpecEffect,
     DamageDiceSynthetics,
     DeferredDamageDice,
     DeferredModifier,

@@ -216,6 +216,12 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                                 delete (docSource.system.damage as { persistent?: unknown }).persistent;
                             }
                         }
+                    } else if (docSource.type === "melee") {
+                        for (const formulaData of Object.values(docSource.system.damageRolls)) {
+                            if (!formulaData.category) {
+                                delete (formulaData as { category?: unknown }).category;
+                            }
+                        }
                     } else if (docSource.type === "action" && !docSource.system.deathNote) {
                         delete (docSource.system as { deathNote?: boolean }).deathNote;
                     } else if (docSource.type === "effect") {
@@ -396,15 +402,6 @@ function convertLinks(docSource: PackEntry, packName: string): PackEntry {
         const replacePattern = new RegExp(`(?<!"_?id":")${docId}(?=\\])`, "g");
         return partiallyConverted.replace(replacePattern, docName);
     }, docJSON);
-
-    // In case some new items with links to other new items weren't found
-    if (notFound.length > 0) {
-        const idsNotFound = notFound.join(", ");
-        console.debug(
-            `Warning: Unable to find names for the following links in ${docSource.name} ` +
-                `(${packName}): ${idsNotFound}`
-        );
-    }
 
     return JSON.parse(convertedJson) as PackEntry;
 }

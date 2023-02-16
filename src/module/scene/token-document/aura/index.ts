@@ -4,7 +4,7 @@ import { getAreaSquares } from "@module/canvas/token/aura/util";
 import { ScenePF2e } from "@scene/document";
 import { TokenAuraData } from "./types";
 import { TokenDocumentPF2e } from "../document";
-import { measureDistanceRect } from "@module/canvas";
+import { measureDistanceCuboid } from "@module/canvas";
 import { ActorPF2e } from "@actor";
 import { AuraColors, AuraData } from "@actor/types";
 
@@ -20,8 +20,7 @@ class TokenAura implements TokenAuraData {
 
     colors: AuraColors | null;
 
-    /** Does this aura affect its emanating token? */
-    private includesSelf: boolean;
+    #squares?: EffectAreaSquare[];
 
     constructor(args: TokenAuraParams) {
         this.slug = args.slug;
@@ -31,7 +30,6 @@ class TokenAura implements TokenAuraData {
 
         this.traits = args.traits;
         this.colors = args.colors ?? null;
-        this.includesSelf = args.includesSelf;
     }
 
     /** The aura radius from the center in pixels */
@@ -65,19 +63,19 @@ class TokenAura implements TokenAuraData {
 
     /** The squares covered by this aura */
     get squares(): EffectAreaSquare[] {
-        return getAreaSquares(this);
+        return (this.#squares ??= getAreaSquares(this));
     }
 
     /** Does this aura overlap with (at least part of) a token? */
     containsToken(token: Embedded<TokenDocumentPF2e>): boolean {
-        // 1. If the token is the one emitting the aura, return early according to whether it `includesSelf`
-        if (token === this.token) return this.includesSelf;
+        // 1. If the token is the one emitting the aura, return true early
+        if (token === this.token) return true;
 
         // 2. If this aura is out of range, return false early
         if (this.token.object.distanceTo(token.object) > this.radius) return false;
 
         // 3. Check whether any aura square intersects the token's space
-        return this.squares.some((s) => s.active && measureDistanceRect(s, token.bounds) === 0);
+        return this.squares.some((s) => s.active && measureDistanceCuboid(s, token.bounds) === 0);
     }
 
     /**
@@ -86,10 +84,7 @@ class TokenAura implements TokenAuraData {
      */
     async notifyActors(specific?: TokenDocumentPF2e[]): Promise<void> {
         const auraActor = this.token.actor;
-
-        // Get either the scene with an active combat or the active scene
-        const sceneOfFocus = game.combats.active?.combatant?.token?.scene ?? game.scenes.active ?? null;
-        if (!(auraActor && sceneOfFocus && this.scene === sceneOfFocus)) return;
+        if (!(auraActor && this.scene.isInFocus)) return;
 
         const tokensToCheck = (specific ? specific : this.token.scene?.tokens.contents ?? []).filter(
             (t): t is Embedded<TokenDocumentPF2e> & { actor: ActorPF2e } =>
@@ -99,9 +94,7 @@ class TokenAura implements TokenAuraData {
         const auraData = auraActor.auras.get(this.slug);
         if (!auraData) return;
 
-        const containedTokens = tokensToCheck.filter(
-            (t) => (this.includesSelf || t !== this.token) && this.containsToken(t)
-        );
+        const containedTokens = tokensToCheck.filter((t) => this.containsToken(t));
 
         // Get unique actors and notify
         const affectedActors = new Set(containedTokens.map((t) => t.actor));
@@ -116,7 +109,6 @@ interface TokenAuraParams extends Omit<AuraData, "effects" | "traits"> {
     radius: number;
     token: Embedded<TokenDocumentPF2e>;
     traits: Set<ItemTrait>;
-    includesSelf: boolean;
 }
 
 export { TokenAura, TokenAuraData };

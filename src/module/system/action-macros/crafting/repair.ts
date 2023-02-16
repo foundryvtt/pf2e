@@ -6,13 +6,15 @@ import { ActionMacroHelpers } from "../helpers";
 import { CharacterPF2e } from "@actor";
 import { SkillActionOptions } from "../types";
 import { SelectItemDialog } from "./select-item";
+import { UUIDUtils } from "@util/uuid-utils";
 
 async function repair(options: RepairActionOptions) {
     const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "crafting");
 
     // resolve item
     const item =
-        options.item ?? (options.uuid ? await fromUuid(options.uuid) : await SelectItemDialog.getItem("repair"));
+        options.item ??
+        (options.uuid ? await UUIDUtils.fromUuid(options.uuid) : await SelectItemDialog.getItem("repair"));
 
     // ensure specified item is a valid crafting target
     if (item && !(item instanceof PhysicalItemPF2e)) {
@@ -102,7 +104,7 @@ async function repair(options: RepairActionOptions) {
 
 async function onRepairChatCardEvent(event: JQuery.ClickEvent, message: ChatMessagePF2e | undefined, $card: JQuery) {
     const itemUuid = $card.attr("data-item-uuid");
-    const item = await fromUuid(itemUuid ?? "");
+    const item = await UUIDUtils.fromUuid(itemUuid ?? "");
     if (!(item instanceof PhysicalItemPF2e)) return;
     const $button = $(event.currentTarget);
     const repair = $button.attr("data-repair");

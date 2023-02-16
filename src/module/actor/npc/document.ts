@@ -7,6 +7,7 @@ import { SaveType } from "@actor/types";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
 import { ItemPF2e, MeleePF2e } from "@item";
 import { ItemType } from "@item/data";
+import { calculateDC } from "@module/dc";
 import { RollNotePF2e } from "@module/notes";
 import { identifyCreature } from "@module/recall-knowledge";
 import {
@@ -125,19 +126,18 @@ class NPCPF2e extends CreaturePF2e {
 
         // Exclude troops from being flankable
         attributes.flanking.flankable = !systemData.traits.value.includes("troop");
-    }
 
-    /** The NPC level needs to be known before the rest of the weak/elite adjustments */
-    override prepareEmbeddedDocuments(): void {
-        const { level } = this.system.details;
-
-        const baseLevel = level.value;
-        level.value = this.isElite ? baseLevel + 1 : this.isWeak ? baseLevel - 1 : baseLevel;
-        level.base = baseLevel;
-
+        // NPC level needs to be known before the rest of the weak/elite adjustments
+        const { level } = details;
+        level.base = level.value;
+        level.value = this.isElite ? level.base + 1 : this.isWeak ? level.base - 1 : level.base;
         this.rollOptions.all[`self:level:${level.value}`] = true;
 
-        super.prepareEmbeddedDocuments();
+        this.system.attributes.classDC = ((): { value: number } => {
+            const levelBasedDC = calculateDC(level.base, { proficiencyWithoutLevel, rarity: this.rarity });
+            const adjusted = this.isElite ? levelBasedDC + 2 : this.isWeak ? levelBasedDC - 2 : levelBasedDC;
+            return { value: adjusted };
+        })();
     }
 
     override prepareDerivedData(): void {
@@ -528,16 +528,6 @@ class NPCPF2e extends CreaturePF2e {
 
         // Initiative
         this.prepareInitiative();
-
-        // Call post-data-preparation RuleElement hooks
-        for (const rule of this.rules) {
-            try {
-                rule.afterPrepareData?.();
-            } catch (error) {
-                // ensure that a failing rule element does not block actor initialization
-                console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
-            }
-        }
     }
 
     prepareSaves(): void {
@@ -749,7 +739,7 @@ class NPCPF2e extends CreaturePF2e {
     }
 }
 
-interface NPCPF2e {
+interface NPCPF2e extends CreaturePF2e {
     readonly data: NPCData;
 
     flags: NPCFlags;

@@ -30,6 +30,14 @@ import { Migration809AutomatonEnhancements } from "@module/migration/migrations/
 import { Migration811InlineDamageRollsPersistent } from "@module/migration/migrations/811-inline-damage-rolls-persistent";
 import { Migration812RestructureIWR } from "@module/migration/migrations/812-restructure-iwr";
 import { Migration813NormalizeColdIron } from "@module/migration/migrations/813-normalize-cold-iron";
+import { Migration814CalculatedExpandedSplash } from "@module/migration/migrations/814-calculated-expanded-splash";
+import { Migration815ConsumableDataCleanup } from "@module/migration/migrations/815-consumable-data-cleanup";
+import { Migration816AlchemistResearchFields } from "@module/migration/migrations/816-alchemist-research-fields";
+import { Migration817FieldDiscoveryPredicates } from "@module/migration/migrations/817-field-discovery-predicates";
+import { Migration819SpinTaleAdventureSpecific } from "@module/migration/migrations/819-spin-tale-adventure-specific";
+import { Migration820RemoveUnusedTraitsData } from "@module/migration/migrations/820-remove-unused-traits-data";
+import { Migration821InlineDamageRolls } from "@module/migration/migrations/821-inline-damage-rolls";
+import { Migration822BladeAllyConsolidation } from "@module/migration/migrations/822-blade-ally-consolidation";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -63,6 +71,14 @@ const migrations: MigrationBase[] = [
     new Migration811InlineDamageRollsPersistent(),
     new Migration812RestructureIWR(),
     new Migration813NormalizeColdIron(),
+    new Migration814CalculatedExpandedSplash(),
+    new Migration815ConsumableDataCleanup(),
+    new Migration816AlchemistResearchFields(),
+    new Migration817FieldDiscoveryPredicates(),
+    new Migration819SpinTaleAdventureSpecific(),
+    new Migration820RemoveUnusedTraitsData(),
+    new Migration821InlineDamageRolls(),
+    new Migration822BladeAllyConsolidation(),
 ];
 
 global.deepClone = <T>(original: T): T => {

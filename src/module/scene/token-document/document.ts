@@ -144,7 +144,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         const tokenImgIsDefault = [
             ActorPF2e.DEFAULT_ICON,
             `systems/pf2e/icons/default-icons/${this.actor.type}.svg`,
-        ].includes(this.texture.src);
+        ].some((path) => this.texture.src?.endsWith(path));
         if (tokenImgIsDefault) {
             this.texture.src = this.actor._source.img;
         }
@@ -158,7 +158,6 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
                     token: this as Embedded<TokenDocumentPF2e>,
                     traits: new Set(data.traits),
                     colors: data.colors,
-                    includesSelf: true,
                 })
             );
         }

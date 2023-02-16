@@ -21,12 +21,55 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:escape",
+                    "unarmed"
+                ],
+                "selector": "attack",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:escape"
+                ],
+                "selector": [
+                    "acrobatics",
+                    "athletics"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:squeeze"
+                ],
+                "selector": "acrobatics",
+                "slug": "squeeze",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:squeeze"
+                ],
+                "selector": "acrobatics",
+                "type": "skill"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Ancestry Guide"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "ganzi"

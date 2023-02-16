@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "divine"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -206,7 +201,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "light"
@@ -314,7 +308,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "emotion",
@@ -420,7 +413,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "incapacitation",
@@ -460,8 +452,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "untyped"
                             },
                             "value": "12d10"
@@ -469,7 +463,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You fire a green ray at your target. Make a spell attack. You deal 12d10 damage, and the target must attempt a basic Fortitude save. On a critical hit, treat the save result as one degree worse. A creature reduced to 0 HP is reduced to fine powder; its gear remains. An object you hit is destroyed (no save), regardless of Hardness, unless it's an artifact or similarly hard to destroy. A single casting can destroy no more than a 10-foot cube of matter. This automatically destroys any force construct, such as a wall of force.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d10.</p>"
+                    "value": "<p>You fire a green ray at your target. Make a spell attack. On a hit, you deal 12d10 damage, and the target must attempt a basic Fortitude save. On a critical hit, treat the save result as one degree worse. A creature reduced to 0 HP is reduced to fine powder; its gear remains. An object you hit is destroyed (no save), regardless of Hardness, unless it's an artifact or similarly hard to destroy. A single casting can destroy no more than a 10-foot cube of matter. This automatically destroys any force construct, such as a wall of force.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d10.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -539,7 +533,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack"
@@ -604,7 +597,7 @@
                     "value": ""
                 },
                 "range": {
-                    "value": "100 miles"
+                    "value": "touch"
                 },
                 "rules": [],
                 "save": {
@@ -643,7 +636,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "teleportation"
@@ -748,7 +740,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": []
                 }
@@ -793,6 +784,16 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "8": {
+                            "target": {
+                                "value": "10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 4
@@ -850,7 +851,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "emotion",
@@ -898,6 +898,16 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "8": {
+                            "target": {
+                                "value": "10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 4
@@ -955,7 +965,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "emotion",
@@ -1060,7 +1069,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1105,6 +1113,16 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "5": {
+                            "range": {
+                                "value": "1 mile"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 4
@@ -1162,7 +1180,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "teleportation"
@@ -1209,6 +1226,16 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "5": {
+                            "range": {
+                                "value": "1 mile"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 4
@@ -1266,7 +1293,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "teleportation"
@@ -1344,6 +1370,99 @@
                 "materials": {
                     "value": ""
                 },
+                "overlays": {
+                    "IPIjH6QyI8DUPqEL": {
+                        "_id": "IPIjH6QyI8DUPqEL",
+                        "name": "Divine Wrath (Lawful)",
+                        "overlayType": "override",
+                        "sort": 4,
+                        "system": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "type": {
+                                            "value": "lawful"
+                                        }
+                                    }
+                                }
+                            },
+                            "traits": {
+                                "value": [
+                                    "divine",
+                                    "lawful"
+                                ]
+                            }
+                        }
+                    },
+                    "WauhCqYcyKai4UNP": {
+                        "_id": "WauhCqYcyKai4UNP",
+                        "name": "Divine Wrath (Evil)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "type": {
+                                            "value": "evil"
+                                        }
+                                    }
+                                }
+                            },
+                            "traits": {
+                                "value": [
+                                    "divine",
+                                    "evil"
+                                ]
+                            }
+                        }
+                    },
+                    "kud3fWMPd9iifgSp": {
+                        "_id": "kud3fWMPd9iifgSp",
+                        "name": "Divine Wrath (Chaotic)",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "type": {
+                                            "value": "chaotic"
+                                        }
+                                    }
+                                }
+                            },
+                            "traits": {
+                                "value": [
+                                    "chaotic"
+                                ]
+                            }
+                        }
+                    },
+                    "xGmR78Eehy4jG3c0": {
+                        "_id": "xGmR78Eehy4jG3c0",
+                        "name": "Divine Wrath (Good)",
+                        "overlayType": "override",
+                        "sort": 3,
+                        "system": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "type": {
+                                            "value": "good"
+                                        }
+                                    }
+                                }
+                            },
+                            "traits": {
+                                "value": [
+                                    "divine",
+                                    "good"
+                                ]
+                            }
+                        }
+                    }
+                },
                 "prepared": {
                     "value": ""
                 },
@@ -1389,7 +1508,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1492,7 +1610,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1602,7 +1719,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": []
                 }
@@ -1706,7 +1822,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1743,10 +1858,8 @@
                 "damage": {
                     "value": {
                         "0": {
-                            "applyMod": false,
                             "type": {
                                 "categories": [],
-                                "subtype": "",
                                 "value": "sonic"
                             },
                             "value": "2d10"
@@ -1825,7 +1938,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "sonic"
@@ -1932,7 +2044,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "detection"
@@ -1978,7 +2089,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "chaotic",
@@ -2029,7 +2139,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -2077,7 +2186,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-15"
@@ -2121,7 +2229,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -2166,7 +2273,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -2210,7 +2316,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divination",
@@ -2259,7 +2364,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -2304,7 +2408,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -2367,7 +2470,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -2412,7 +2514,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -2457,7 +2558,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -2509,7 +2609,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divine",
@@ -2543,13 +2642,23 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "spatial-riptide",
+                        "traits": [
+                            "aura",
+                            "divine",
+                            "transmutation"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -2598,7 +2707,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate",
@@ -2648,7 +2756,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -2688,7 +2795,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate",
@@ -2727,12 +2833,11 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "warpwave-strike",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divine",
@@ -2781,7 +2886,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -2815,7 +2919,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -2843,7 +2946,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -2871,7 +2973,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -2899,7 +3000,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -2927,7 +3027,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -2955,7 +3054,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -2983,7 +3081,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -3076,6 +3173,7 @@
             "privateNotes": "",
             "publicNotes": "<p>The ruling caste of the proteans, keketars orchestrate attacks against the bastions of law and adjudicate protean disputes confidently and capriciously. A keketar resembles a shimmering, serpentine creature with spines, claws, and a dragon-like head. A keketar's actual appearance is in constant flux, but they generally stay about 18 feet long with a weight of around 1,500 pounds. While their physical forms can vary, two things remain constant: First, a keketar's eyes are always a piercing shade of amber or violet. Second, the keketar's mark of office-a crown of shifting symbols that hovers above its head-never changes. A keketar cannot remove its crown but can suppress it, although most are loath to do so and consider such an act one of cowardice or shame.</p>\n<p>Keketars fill a role in protean society of a sort of priesthood, operating as intermediaries between the other proteans and the Speakers of the Depths. All other proteans defer to keketars, treating them in a way similar to how citizens of a mortal city would treat respected nobles; even more powerful proteans defer to the will of the keketars. As with many religions, dogma and theology are prone to interpretation and change, and among the proteans the situation is perhaps even more pronounced. Whatever the nature of and desires held by the mysterious Speakers of the Depths, individual keketars may come to dramatically different conclusions as to their will and intent. To the proteans, though, this inherent dissonance is a strength rather than a weakness.</p>\n<hr />\n<p>Guardians of disorder and natives of the primal plane of chaos known as the Maelstrom, proteans consider it their calling to spread bedlam and hasten entropic ends. The most powerful proteans are demigods known collectively as the protean lords, although they are mysterious entities whose cults on the Material Plane tend to be obscure and secretive.</p>\n<p>Proteans divide themselves into a loose caste system and possess a dizzying variety of powers. Most proteans have a serpentine body with the head of a primeval beast. Scholars have long been intrigued by this fact-that scions of dissolution and disorder would share so many features-pointing out that even in the purest chaos there is some semblance of order. Others note that the serpentine form is one of the most primeval shapes, perhaps suggesting that in a reality at the dawn of time, such shapes were all that could exist. The proteans themselves have little to say on the matter, which, perhaps ironically, only adds to the confusion and lack of consensus surrounding their kind. After all, if even chaos cannot be trusted to be chaotic, would that not be the purest form of entropy?</p>",
             "source": {
+                "author": "",
                 "value": "Pathfinder Bestiary"
             }
         },

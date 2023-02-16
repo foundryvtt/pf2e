@@ -6,9 +6,8 @@ import {
     FrequencySource,
     ItemLevelData,
     ItemSystemSource,
-    ItemTraits,
 } from "@item/data/base";
-import { OneToThree } from "@module/data";
+import { OneToThree, TraitsWithRarity } from "@module/data";
 import { FeatPF2e } from ".";
 import { FEAT_TYPES } from "./values";
 
@@ -18,7 +17,7 @@ type FeatData = Omit<FeatSource, "system" | "effects" | "flags"> &
     BaseItemDataPF2e<FeatPF2e, "feat", FeatSystemData, FeatSource>;
 
 export type FeatTrait = keyof ConfigPF2e["PF2E"]["featTraits"];
-export type FeatTraits = ItemTraits<FeatTrait>;
+export type FeatTraits = TraitsWithRarity<FeatTrait>;
 export type FeatType = SetElement<typeof FEAT_TYPES>;
 
 export interface PrerequisiteTagData {

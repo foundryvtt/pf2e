@@ -1,7 +1,8 @@
 import { AncestryPF2e, HeritagePF2e, ItemPF2e } from "@item";
 import { ItemSheetPF2e } from "@item/sheet/base";
 import { HeritageSheetData } from "@item/sheet/data-types";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, sluggify } from "@util";
+import { UUIDUtils } from "@util/uuid-utils";
 
 export class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
     static override get defaultOptions(): DocumentSheetOptions {
@@ -14,7 +15,7 @@ export class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<HeritageSheetData> {
         const sheetData = await super.getData(options);
         const ancestry = await (async (): Promise<AncestryPF2e | null> => {
-            const item = this.item.system.ancestry ? await fromUuid(this.item.system.ancestry.uuid) : null;
+            const item = this.item.system.ancestry ? await UUIDUtils.fromUuid(this.item.system.ancestry.uuid) : null;
             return item instanceof AncestryPF2e ? item : null;
         })();
 
@@ -50,7 +51,13 @@ export class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
         if (!(item instanceof AncestryPF2e)) {
             throw ErrorPF2e("Invalid item drop on heritage sheet");
         }
-        const ancestryReference = { name: item.name, uuid: item.uuid };
+
+        const ancestryReference = {
+            name: item.name,
+            slug: item.slug ?? sluggify(item.name),
+            uuid: item.uuid,
+        };
+
         await this.item.update({ "system.ancestry": ancestryReference });
     }
 }

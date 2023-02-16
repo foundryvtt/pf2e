@@ -46,6 +46,17 @@ function padArray<T>(array: T[], requiredLength: number, padWith: T): T[] {
     return result;
 }
 
+/** Given an object, returns a new object with the same keys, but with each value converted by a function. */
+function mapValues<K extends string | number | symbol, V, R>(
+    object: Record<K, V>,
+    mapping: (value: V, key: K) => R
+): Record<K, R> {
+    return Object.entries<V>(object).reduce((result, [key, value]) => {
+        result[key as K] = mapping(value, key as K);
+        return result;
+    }, {} as Record<K, R>);
+}
+
 type Optional<T> = T | null | undefined;
 
 /**
@@ -145,6 +156,22 @@ function omit<T extends object, K extends keyof T>(obj: T, keys: Iterable<K>): O
     return clone;
 }
 
+let intlNumberFormat: Intl.NumberFormat;
+/**
+ * Return an integer string of a number, always with sign (+/-)
+ * @param value The number to convert to a string
+ * @param [emptyStringZero] If the value is zero, return an empty string
+ */
+function signedInteger(value: number, { emptyStringZero = true } = {}): string {
+    if (value === 0 && emptyStringZero) return "";
+
+    const nf = (intlNumberFormat ??= new Intl.NumberFormat(game.i18n.lang, {
+        maximumFractionDigits: 0,
+        signDisplay: "always",
+    }));
+    return nf.format(value);
+}
+
 const wordCharacter = String.raw`[\p{Alphabetic}\p{Mark}\p{Decimal_Number}\p{Join_Control}]`;
 const nonWordCharacter = String.raw`[^\p{Alphabetic}\p{Mark}\p{Decimal_Number}\p{Join_Control}]`;
 const nonWordCharacterRE = new RegExp(nonWordCharacter, "gu");
@@ -207,13 +234,14 @@ function parseHTML(unparsed: string): HTMLElement {
 }
 
 const actionImgMap: Record<string, ImageFilePath> = {
+    0: "systems/pf2e/icons/actions/FreeAction.webp",
+    free: "systems/pf2e/icons/actions/FreeAction.webp",
     1: "systems/pf2e/icons/actions/OneAction.webp",
     2: "systems/pf2e/icons/actions/TwoActions.webp",
     3: "systems/pf2e/icons/actions/ThreeActions.webp",
     "1 or 2": "systems/pf2e/icons/actions/OneTwoActions.webp",
     "1 to 3": "systems/pf2e/icons/actions/OneThreeActions.webp",
     "2 or 3": "systems/pf2e/icons/actions/TwoThreeActions.webp",
-    free: "systems/pf2e/icons/actions/FreeAction.webp",
     reaction: "systems/pf2e/icons/actions/Reaction.webp",
     passive: "systems/pf2e/icons/actions/Passive.webp",
 };
@@ -326,10 +354,17 @@ function sortLabeledRecord<T extends Record<string, { label: string }>>(record: 
         .reduce((copy, [key, value]) => mergeObject(copy, { [key]: value }), {} as T);
 }
 
-function sortStringRecord<T extends Record<string, string>>(record: T): T {
-    return Object.entries(record)
-        .sort((a, b) => a[1].localeCompare(b[1], game.i18n.lang))
-        .reduce((copy, [key, value]) => mergeObject(copy, { [key]: value }), {} as T);
+/** Localize the values of a `Record<string, string>` and sort by those values */
+function sortStringRecord<T extends Record<string, string>>(record: T): T;
+function sortStringRecord(record: Record<string, string>): Record<string, string> {
+    return Object.fromEntries(
+        Object.entries(record)
+            .map((entry) => {
+                entry[1] = game.i18n.localize(entry[1]);
+                return entry;
+            })
+            .sort((a, b) => a[1].localeCompare(b[1], game.i18n.lang))
+    );
 }
 
 /** JSON.stringify with recursive key sorting */
@@ -372,6 +407,20 @@ function recursiveReplaceString(source: unknown, replace: (s: string) => string)
     return clone;
 }
 
+/** Does the parameter look like an image file path? */
+function isImageFilePath(path: unknown): path is ImageFilePath {
+    return typeof path === "string" && Object.keys(CONST.IMAGE_FILE_EXTENSIONS).some((e) => path.endsWith(`.${e}`));
+}
+
+/** Does the parameter look like a video file path? */
+function isVideoFilePath(path: unknown): path is ImageFilePath {
+    return typeof path === "string" && Object.keys(CONST.VIDEO_FILE_EXTENSIONS).some((e) => path.endsWith(`.${e}`));
+}
+
+function isImageOrVideoPath(path: unknown): path is ImageFilePath | VideoFilePath {
+    return isImageFilePath(path) || isVideoFilePath(path);
+}
+
 export {
     ErrorPF2e,
     Fraction,
@@ -383,8 +432,12 @@ export {
     getActionIcon,
     groupBy,
     isBlank,
+    isImageFilePath,
+    isImageOrVideoPath,
     isObject,
+    isVideoFilePath,
     localizeList,
+    mapValues,
     objectHasKey,
     omit,
     ordinal,
@@ -393,6 +446,7 @@ export {
     pick,
     recursiveReplaceString,
     setHasElement,
+    signedInteger,
     sluggify,
     sortBy,
     sortLabeledRecord,

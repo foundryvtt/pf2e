@@ -99,7 +99,6 @@
                     "value": "striking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "concealable",
@@ -213,7 +212,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "sweep"
@@ -319,7 +317,6 @@
                     "value": 14
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -344,7 +341,6 @@
             "sort": 400000,
             "system": {
                 "autoDestroy": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
@@ -402,7 +398,6 @@
                 },
                 "stackGroup": "rounds10",
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "alchemical"
@@ -419,6 +414,11 @@
         },
         {
             "_id": "H7cZ5tGRxMQ3K4wQ",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "uRbxnNECHStUJeH0"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Greataxe",
             "sort": 500000,
@@ -447,8 +447,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
-                    "rarity": "common",
                     "value": [
                         "reach-10",
                         "sweep"
@@ -462,6 +460,11 @@
         },
         {
             "_id": "XE0I6ZTKCuJC8VSP",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "rlcd6aUPtc0ytlIS"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Dueling Pistol",
             "sort": 600000,
@@ -490,8 +493,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
-                    "rarity": "common",
                     "value": [
                         "concealable",
                         "concussive",
@@ -539,7 +540,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -585,7 +585,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -625,7 +624,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divine",
@@ -666,7 +664,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -711,7 +708,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -744,13 +740,16 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "dueling-pistol-damage",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            "item:group:firearm"
+                        ]
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.classDC.value",
+                        "value": 25
                     }
                 ],
                 "slug": null,
@@ -758,7 +757,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -795,7 +793,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -826,7 +823,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -854,7 +850,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -882,7 +877,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -910,7 +904,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }

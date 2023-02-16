@@ -1,22 +1,32 @@
 import { ResistanceData } from "@actor/data/iwr";
 import { ResistanceType } from "@actor/types";
-import { ItemPF2e } from "@item";
-import { RuleElementOptions } from "../base";
-import { IWRRuleElement, IWRRuleElementSource } from "./base";
+import { ArrayField, ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
+import { IWRRuleElement, IWRRuleSchema } from "./base";
+
+const { fields } = foundry.data;
 
 /** @category RuleElement */
-class ResistanceRuleElement extends IWRRuleElement {
-    protected dictionary = CONFIG.PF2E.resistanceTypes;
+class ResistanceRuleElement extends IWRRuleElement<ResistanceRuleSchema> {
+    static override defineSchema(): ResistanceRuleSchema {
+        const exceptionsOrDoubleVs = (): ArrayField<StringField<ResistanceType, ResistanceType, true, false, false>> =>
+            new fields.ArrayField(
+                new fields.StringField({
+                    required: true as const,
+                    blank: false,
+                    choices: this.dictionary,
+                    initial: undefined,
+                })
+            );
 
-    doubleVs: ResistanceType[];
+        return {
+            ...super.defineSchema(),
+            exceptions: exceptionsOrDoubleVs(),
+            doubleVs: exceptionsOrDoubleVs(),
+        };
+    }
 
-    constructor(data: ResistanceRESource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
-        super(data, item, options);
-
-        this.doubleVs =
-            Array.isArray(data.doubleVs) && data.doubleVs.every((d): d is ResistanceType => d in this.dictionary)
-                ? data.doubleVs
-                : [];
+    static override get dictionary(): Record<ResistanceType, string> {
+        return CONFIG.PF2E.resistanceTypes;
     }
 
     get property(): ResistanceData[] {
@@ -27,7 +37,6 @@ class ResistanceRuleElement extends IWRRuleElement {
         if (value <= 0) return [];
 
         const resistances = this.property;
-
         for (const resistanceType of [...this.type]) {
             const current = resistances.find((r) => r.type === resistanceType);
             if (current) {
@@ -54,14 +63,19 @@ class ResistanceRuleElement extends IWRRuleElement {
     }
 }
 
-interface ResistanceRuleElement extends IWRRuleElement {
+interface ResistanceRuleElement
+    extends IWRRuleElement<ResistanceRuleSchema>,
+        ModelPropsFromSchema<ResistanceRuleSchema> {
+    // Just a string at compile time, but ensured by parent class at runtime
     type: ResistanceType[];
 
+    // Typescript 4.9 doesn't fully resolve conditional types, so it is redefined here
     exceptions: ResistanceType[];
 }
 
-interface ResistanceRESource extends IWRRuleElementSource {
-    doubleVs?: unknown;
-}
+type ResistanceRuleSchema = Omit<IWRRuleSchema, "exceptions"> & {
+    exceptions: ArrayField<StringField<ResistanceType, ResistanceType, true, false, false>>;
+    doubleVs: ArrayField<StringField<ResistanceType, ResistanceType, true, false, false>>;
+};
 
 export { ResistanceRuleElement };

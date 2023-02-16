@@ -1,9 +1,9 @@
-import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
+import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression";
 import { ItemSummaryData } from "@item/data";
-import { getResiliencyBonus, PhysicalItemHitPoints, PhysicalItemPF2e } from "@item/physical";
+import { getResilientBonus, PhysicalItemHitPoints, PhysicalItemPF2e } from "@item/physical";
 import { MAGIC_TRADITIONS } from "@item/spell/values";
 import { LocalizePF2e } from "@module/system/localize";
-import { addSign, ErrorPF2e, setHasElement } from "@util";
+import { addSign, ErrorPF2e, setHasElement, sluggify } from "@util";
 import { ArmorCategory, ArmorData, ArmorGroup, BaseArmorType } from ".";
 
 class ArmorPF2e extends PhysicalItemPF2e {
@@ -89,11 +89,8 @@ class ArmorPF2e extends PhysicalItemPF2e {
                 [`group:${this.group}`]: !!this.group,
                 [`base:${this.baseType}`]: !!this.baseType,
             })
-                .filter(([_key, isTrue]) => isTrue)
-                .map(([key]) => {
-                    const delimitedPrefix = prefix ? `${prefix}:` : "";
-                    return `${delimitedPrefix}${key}`;
-                })
+                .filter(([, isTrue]) => isTrue)
+                .map(([key]) => `${prefix}:${key}`)
         );
     }
 
@@ -102,8 +99,8 @@ class ArmorPF2e extends PhysicalItemPF2e {
 
         this.system.potencyRune.value ||= null;
         this.system.resiliencyRune.value ||= null;
-        // Strip out fundamental runes if ABP is enabled
-        AutomaticBonusProgression.cleanupRunes(this);
+        // Strip out fundamental runes if ABP is enabled: requires this item and its actor (if any) to be initialized
+        if (this.initialized) ABP.cleanupRunes(this);
 
         // Add traits from potency rune
         const baseTraits = this.system.traits.value;
@@ -123,7 +120,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
         const { potencyRune, resiliencyRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } = systemData;
         this.system.runes = {
             potency: potencyRune.value ?? 0,
-            resilient: getResiliencyBonus({ resiliencyRune }),
+            resilient: getResilientBonus({ resiliencyRune }),
             property: [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value].filter(
                 (rune): rune is string => !!rune
             ),
@@ -144,8 +141,30 @@ class ArmorPF2e extends PhysicalItemPF2e {
         const shieldIsAssigned = ownerIsPCOrNPC && actor.attributes.shield.itemId !== null;
 
         if (this.isArmor && this.isEquipped) {
-            // Set the armor item's ID as a roll option
+            // Set some roll options for this armor
             actor.rollOptions.all[`armor:id:${this.id}`] = true;
+            actor.rollOptions.all[`armor:category:${this.category}`] = true;
+            if (this.group) {
+                actor.rollOptions.all[`armor:group:${this.group}`] = true;
+            }
+
+            if (this.baseType) {
+                actor.rollOptions.all[`armor:base:${this.baseType}`] = true;
+            }
+
+            if (this.system.runes.potency > 0) {
+                actor.rollOptions.all[`armor:rune:potency:${this.system.runes.potency}`] = true;
+            }
+
+            if (this.system.runes.resilient > 0) {
+                actor.rollOptions.all[`armor:rune:resilient:${this.system.runes.resilient}`] = true;
+            }
+
+            for (const rune of this.system.runes.property) {
+                const slug = sluggify(rune);
+                actor.rollOptions.all[`armor:rune:property:${slug}`] = true;
+            }
+
             // Set roll options for certain armor traits
             const traits = this.traits;
             for (const [trait, domain] of [
@@ -155,6 +174,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
             ] as const) {
                 if (traits.has(trait)) {
                     const checkOptions = (actor.rollOptions[domain] ??= {});
+                    checkOptions[`armor:trait:${trait}`] = true;
                     checkOptions[`self:armor:trait:${trait}`] = true;
                 }
             }
@@ -218,7 +238,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
     }
 }
 
-interface ArmorPF2e {
+interface ArmorPF2e extends PhysicalItemPF2e {
     readonly data: ArmorData;
 }
 

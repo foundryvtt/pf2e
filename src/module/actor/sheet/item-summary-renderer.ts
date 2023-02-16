@@ -1,9 +1,11 @@
-import { ActorPF2e, CharacterPF2e, CreaturePF2e } from "@actor";
-import { ConsumablePF2e, ItemPF2e, SpellPF2e } from "@item";
+import { ActorPF2e } from "@actor";
+import { ItemPF2e } from "@item";
 import { ItemSummaryData } from "@item/data";
 import { isItemSystemData } from "@item/data/helpers";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
-import { UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility";
+import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
+import { htmlClosest, htmlQuery, htmlQueryAll } from "@util";
+import { UUIDUtils } from "@util/uuid-utils";
 
 /**
  * Implementation used to populate item summaries, toggle visibility
@@ -14,8 +16,8 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
 
     activateListeners($html: JQuery) {
         $html.find(".item .item-name h4, .item .melee-name h4, .item .action-name h4").on("click", async (event) => {
-            const $element = $(event.currentTarget).closest("[data-item-id], .expandable");
-            await this.toggleSummary($element);
+            const element = htmlClosest(event.currentTarget, "[data-item-id], .expandable");
+            if (element) await this.toggleSummary(element);
         });
     }
 
@@ -24,141 +26,115 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
      * delegating the populating of the item summary to renderItemSummary().
      * Returns true if it the item is valid and it was toggled.
      */
-    async toggleSummary($element: JQuery, options: { instant?: boolean } = {}) {
+    async toggleSummary(element: HTMLElement, options: { instant?: boolean } = {}) {
         const actor = this.sheet.actor;
 
-        const itemId = $element.attr("data-item-id");
-        const itemType = $element.attr("data-item-type");
+        const { itemId, itemType } = element.dataset;
+        const isFormula = !!element.dataset.isFormula;
+        const duration = 0.4;
+
         if (itemType === "spellSlot") return;
-        const item = itemType === "formula" ? await fromUuid(itemId ?? "") : actor.items.get(itemId ?? "");
 
-        // If there is no item id (such as PC strikes) or it is a condition, this is just a visibility toggle
-        // We need a better way to detect pre-rendered item-summaries
-        const isCondition = item instanceof ItemPF2e && item?.isOfType("condition");
-        if ((!itemId || isCondition) && $element.hasClass("expandable")) {
-            const $summary = $element.find(".item-summary");
-            if ($summary.css("display") === "none") {
-                $summary.slideDown();
-            } else {
-                $summary.slideUp();
+        const item = isFormula
+            ? ((await UUIDUtils.fromUuid(itemId ?? "")) as Embedded<ItemPF2e>)
+            : actor.items.get(itemId ?? "");
+
+        const summary = await (async () => {
+            const existing = htmlQuery(element, ".item-summary");
+            if (existing) return existing;
+
+            if (item instanceof ItemPF2e && !item.isOfType("spellcastingEntry")) {
+                const insertLocation = htmlQueryAll(element, ".item-name, .item-controls, .action-header").at(-1);
+                if (!insertLocation) return null;
+
+                const summary = document.createElement("div");
+                summary.classList.add("item-summary");
+                summary.hidden = true;
+                insertLocation.after(summary);
+
+                const chatData = await item.getChatData({ secrets: actor.isOwner }, element.dataset);
+                await this.renderItemSummary(summary, item, chatData);
+                InlineRollLinks.listen(summary, actor);
+                return summary;
             }
 
-            return;
-        }
+            return null;
+        })();
 
-        if (!(item instanceof ItemPF2e) || ["condition", "spellcastingEntry"].includes(item.type)) return;
+        if (!summary) return;
 
-        // Toggle summary
-        if ($element.hasClass("expanded")) {
-            const $summary = $element.children(".item-summary");
-            if (options.instant) {
-                $summary.hide().empty();
-            } else {
-                $summary.slideUp(200, () => $summary.hide().empty());
-            }
+        const showSummary = !element.classList.contains("expanded") && summary.hidden;
+        element.classList.toggle("expanded", showSummary);
+
+        if (options.instant) {
+            summary.hidden = !showSummary;
+        } else if (showSummary) {
+            await gsap.fromTo(
+                summary,
+                { height: 0, opacity: 0, hidden: false },
+                { height: "auto", opacity: 1, duration }
+            );
         } else {
-            const $summary = (() => {
-                const $existing = $element.children(".item-summary");
-                if ($existing.length) return $existing;
-
-                const $summary = $('<div class="item-summary">');
-                return $summary.insertAfter($element.children(".item-name, .item-controls, .action-header").last());
-            })();
-
-            const chatData = await item.getChatData({ secrets: actor.isOwner }, $element.data());
-            this.renderItemSummary($summary, item, chatData);
-            if (options.instant) {
-                InlineRollLinks.listen($summary, actor);
-            } else {
-                $summary.hide().slideDown(200, () => {
-                    InlineRollLinks.listen($summary, actor);
-                });
-            }
+            await gsap.to(summary, {
+                height: 0,
+                duration,
+                opacity: 0,
+                onComplete: () => {
+                    summary.hidden = true;
+                },
+            });
         }
-
-        $element.toggleClass("expanded");
     }
 
     /**
      * Called when an item summary is expanded and needs to be filled out.
-     * @todo Move this to templates
      */
-    async renderItemSummary($div: JQuery, item: ItemPF2e, chatData: ItemSummaryData): Promise<void> {
-        const itemIsPhysical = item.isOfType("physical");
-
-        // Wrap a span element in another with GM visibility set
-        const gmVisibilityWrap = (span: HTMLSpanElement, visibility: UserVisibility): HTMLSpanElement => {
-            const wrapper = document.createElement("span");
-            wrapper.dataset.visibility = visibility;
-            wrapper.append(span);
-            return wrapper;
-        };
-
-        const rarityTag = itemIsPhysical
-            ? ((): HTMLElement => {
-                  const span = document.createElement("span");
-                  span.classList.add("tag", item.rarity);
-                  span.innerText = game.i18n.localize(CONFIG.PF2E.rarityTraits[item.rarity]);
-
-                  // Set GM user visibility of rarity if unidentified
-                  return gmVisibilityWrap(span, item.isIdentified ? "all" : "gm");
-              })()
-            : null;
-
-        const levelPriceLabel =
-            itemIsPhysical && item.system.stackGroup !== "coins"
-                ? ((): HTMLElement => {
-                      const price = item.price.value.toString();
-                      const priceLabel = game.i18n.format("PF2E.Item.Physical.PriceLabel", { price });
-                      const levelLabel = game.i18n.format("PF2E.LevelN", { level: item.level });
-
-                      const paragraph = document.createElement("p");
-                      paragraph.dataset.visibility = item.isIdentified ? "all" : "gm";
-                      paragraph.append(levelLabel, document.createElement("br"), priceLabel);
-                      return paragraph;
-                  })()
-                : $();
-
-        const properties =
-            chatData.properties
-                ?.filter((property): property is string => typeof property === "string")
-                .map((property): HTMLElement => {
-                    const span = document.createElement("span");
-                    span.classList.add("tag", "tag_secondary");
-                    span.innerText = game.i18n.localize(property);
-                    return itemIsPhysical ? gmVisibilityWrap(span, item.isIdentified ? "all" : "gm") : span;
-                }) ?? [];
-
-        // append traits (only style the tags if they contain description data)
-        const traitTags = Array.isArray(chatData.traits)
-            ? chatData.traits
-                  .filter((trait) => !trait.excluded)
-                  .map((trait): HTMLElement => {
-                      const span = document.createElement("span");
-                      span.classList.add("tag");
-                      span.innerText = game.i18n.localize(trait.label);
-                      if (trait.description) {
-                          span.title = game.i18n.localize(trait.description);
-                          $(span).tooltipster({ maxWidth: 400, theme: "crb-hover", contentAsHTML: true });
-                      }
-
-                      return itemIsPhysical
-                          ? gmVisibilityWrap(span, item.isIdentified || !trait.mystified ? "all" : "gm")
-                          : span;
-                  })
-            : [];
-
-        const allTags = [rarityTag, ...traitTags, ...properties].filter((tag): tag is HTMLElement => !!tag);
-        const propertiesElem = document.createElement("div");
-        propertiesElem.classList.add("tags", "item-properties");
-        propertiesElem.append(...allTags);
-
+    async renderItemSummary(div: HTMLElement, item: Embedded<ItemPF2e>, chatData: ItemSummaryData): Promise<void> {
         const description = isItemSystemData(chatData)
             ? chatData.description.value
             : await TextEditor.enrichHTML(item.description, { rollData: item.getRollData(), async: true });
 
-        $div.append(propertiesElem, levelPriceLabel, `<div class="item-description">${description}</div>`);
-        UserVisibilityPF2e.process($div);
+        const rarity = item.system.traits?.rarity;
+
+        const summary = await renderTemplate("systems/pf2e/templates/actors/partials/item-summary.hbs", {
+            item,
+            description,
+            identified: game.user.isGM || !item.isOfType("physical") || item.isIdentified,
+            rarityLabel: rarity && item.isOfType("physical") ? CONFIG.PF2E.rarityTraits[rarity] : null,
+            isCreature: item.actor?.isOfType("creature"),
+            chatData,
+        });
+
+        div.innerHTML = summary;
+        UserVisibilityPF2e.process(div);
+
+        if (item.actor?.isOfType("creature")) {
+            for (const button of htmlQueryAll(div, "button")) {
+                button.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    const spell = item.isOfType("spell")
+                        ? item
+                        : item.isOfType("consumable")
+                        ? item.embeddedSpell
+                        : null;
+
+                    // which function gets called depends on the type of button stored in the dataset attribute action
+                    switch (button.dataset.action) {
+                        case "spellAttack":
+                            spell?.rollAttack(event);
+                            break;
+                        case "spellDamage":
+                            spell?.rollDamage(event);
+                            break;
+                        case "consume":
+                            if (item.isOfType("consumable")) item.consume();
+                            break;
+                    }
+                });
+            }
+        }
     }
 
     /**
@@ -178,84 +154,25 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
         const openItemsIds = expandedItemElements.map((_, el) => $(el).attr("data-item-id")).get();
         const openSummaryIds = expandedSummaryElements.map((_, el) => $(el).attr("data-item-summary-id")).get();
 
-        const result = await callback.apply(null);
+        const $result = await callback.apply(null);
+        const result = $result[0]!;
 
         // Re-open hidden item summaries
         for (const itemId of openItemsIds) {
-            const $item = result.find(`.item[data-item-id="${itemId}"]:not([data-item-summary-id])`);
-            this.toggleSummary($item, { instant: true });
+            const item = htmlQuery(result, `.item[data-item-id="${itemId}"]:not([data-item-summary-id])`);
+            if (item) await this.toggleSummary(item, { instant: true });
         }
 
         for (const summaryId of openSummaryIds) {
-            this.toggleSummary(result.find(`.item[data-item-summary-id="${summaryId}"]`), { instant: true });
+            const item = htmlQuery(result, `.item[data-item-summary-id="${summaryId}"]`);
+            if (item) await this.toggleSummary(item, { instant: true });
         }
 
         // Reopen hidden actions
         for (const elementIdx of openActionIdxs) {
-            result.find(`.item[data-action-index=${elementIdx}]`).toggleClass("expanded");
+            $result.find(`.item[data-action-index=${elementIdx}]`).toggleClass("expanded");
         }
 
-        return result;
-    }
-}
-
-export class CreatureSheetItemRenderer<AType extends CreaturePF2e> extends ItemSummaryRenderer<AType> {
-    override async renderItemSummary(
-        $div: JQuery,
-        item: Embedded<ItemPF2e>,
-        chatData: Record<string, unknown>
-    ): Promise<void> {
-        await super.renderItemSummary($div, item, chatData);
-        const actor = item.actor;
-        const buttons = $('<div class="item-buttons"></div>');
-        if (item.isOfType("spell")) {
-            if (chatData.isSave) {
-                const save = chatData.save as Record<string, unknown>;
-                buttons.append(`<span>${save.label}</span>`);
-            }
-
-            if (actor instanceof CharacterPF2e && !item.hasVariants) {
-                if (chatData.isAttack) {
-                    const label = game.i18n.localize("PF2E.AttackLabel");
-                    buttons.append(
-                        `<span><button class="spell_attack" data-action="spellAttack">${label}</button></span>`
-                    );
-                }
-                if (chatData.hasDamage) {
-                    buttons.append(
-                        `<span><button class="spell_damage" data-action="spellDamage">${chatData.damageLabel}: ${chatData.formula}</button></span>`
-                    );
-                }
-            }
-        } else if (item.isOfType("consumable")) {
-            if (item.uses.max > 0 && item.isIdentified) {
-                const label = game.i18n.localize("PF2E.ConsumableUseLabel");
-                buttons.append(
-                    `<span><button class="consume" data-action="consume">${label} ${item.name}</button></span>`
-                );
-            }
-        }
-
-        $div.append(buttons);
-
-        buttons.find("button").on("click", (event) => {
-            event.preventDefault();
-            event.stopPropagation();
-
-            const spell = item instanceof SpellPF2e ? item : item instanceof ConsumablePF2e ? item.embeddedSpell : null;
-
-            // which function gets called depends on the type of button stored in the dataset attribute action
-            switch (event.target.dataset.action) {
-                case "spellAttack":
-                    spell?.rollAttack(event);
-                    break;
-                case "spellDamage":
-                    spell?.rollDamage(event);
-                    break;
-                case "consume":
-                    if (item instanceof ConsumablePF2e) item.consume();
-                    break;
-            }
-        });
+        return $result;
     }
 }

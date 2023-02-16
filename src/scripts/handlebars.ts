@@ -1,6 +1,6 @@
 import { Coins, PartialPrice } from "@item/physical/data";
 import { CoinsPF2e } from "@item/physical/helpers";
-import { getActionGlyph, ordinal } from "../util";
+import { getActionGlyph, ordinal, sluggify } from "../util";
 
 export function registerHandlebarsHelpers(): void {
     Handlebars.registerHelper("pad", (value, length, character): string => {
@@ -124,9 +124,13 @@ export function registerHandlebarsHelpers(): void {
         return strip_tags(String(value));
     });
 
-    Handlebars.registerHelper("ordinal", function (value: number | string) {
-        value = Number(value);
-        return isNaN(value) ? null : ordinal(value);
+    Handlebars.registerHelper("ordinal", (value: unknown) => {
+        const numericValue = Number(value);
+        return isNaN(numericValue) ? null : ordinal(numericValue);
+    });
+
+    Handlebars.registerHelper("sluggify", (text: unknown) => {
+        return sluggify(String(text));
     });
 
     Handlebars.registerHelper("json", (html) => {

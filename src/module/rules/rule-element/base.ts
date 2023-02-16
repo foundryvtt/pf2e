@@ -3,11 +3,14 @@ import { ActorType } from "@actor/data";
 import { DiceModifierPF2e, ModifierPF2e } from "@actor/modifiers";
 import { ItemPF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
+import { LaxSchemaField, PredicateField, SlugField } from "@system/schema-data-fields";
 import { TokenDocumentPF2e } from "@scene";
 import { CheckRoll } from "@system/check";
-import { PredicatePF2e } from "@system/predication";
-import { isObject, sluggify, tupleHasValue } from "@util";
-import { BracketedValue, RuleElementData, RuleElementSource, RuleValue } from "./data";
+import { isObject, tupleHasValue } from "@util";
+import { BracketedValue, RuleElementData, RuleElementSchema, RuleElementSource, RuleValue } from "./data";
+
+const { DataModel } = foundry.abstract;
+const { fields } = foundry.data;
 
 /**
  * Rule Elements allow you to modify actorData and tokenData values when present on items. They can be configured
@@ -15,36 +18,23 @@ import { BracketedValue, RuleElementData, RuleElementSource, RuleValue } from ".
  *
  * @category RuleElement
  */
-abstract class RuleElementPF2e {
+abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSchema> extends DataModel<null, TSchema> {
     data: RuleElementData;
-
-    key: string;
-
-    slug: string | null;
 
     sourceIndex: number | null;
 
     protected suppressWarnings: boolean;
 
-    /** Must the parent item be equipped for this rule element to apply (`null` for non-physical items)? */
-    requiresEquipped: boolean | null = null;
-
-    /** Must the parent item be invested for this rule element to apply (`null` unless an investable physical item)? */
-    requiresInvestment: boolean | null = null;
-
     /** A list of actor types on which this rule element can operate (all unless overridden) */
     protected static validActorTypes: ActorType[] = ["character", "npc", "familiar", "hazard", "loot", "vehicle"];
 
-    /** A test of whether the rules element is to be applied */
-    readonly predicate: PredicatePF2e;
-
     /**
-     * @param data unserialized JSON data from the actual rule input
+     * @param source unserialized JSON data from the actual rule input
      * @param item where the rule is persisted on
      */
-    constructor(data: RuleElementSource, public item: Embedded<ItemPF2e>, options: RuleElementOptions = {}) {
-        this.key = String(data.key);
-        this.slug = typeof data.slug === "string" ? sluggify(data.slug) : null;
+    constructor(source: RuleElementSource, public item: Embedded<ItemPF2e>, options: RuleElementOptions = {}) {
+        super(source, { strict: false });
+
         this.suppressWarnings = options.suppressWarnings ?? false;
         this.sourceIndex = options.sourceIndex ?? null;
 
@@ -53,31 +43,62 @@ abstract class RuleElementPF2e {
             const ruleName = game.i18n.localize(`PF2E.RuleElement.${this.key}`);
             const actorType = game.i18n.localize(`ACTOR.Type${item.actor.type.titleCase()}`);
             console.warn(`PF2e System | A ${ruleName} rules element may not be applied to a ${actorType}`);
-            data.ignored = true;
+            source.ignored = true;
         }
-        const label = typeof data.label === "string" ? data.label : item.name;
+
+        this.label =
+            typeof source.label === "string"
+                ? game.i18n.localize(this.resolveInjectedProperties(source.label))
+                : item.name;
 
         this.data = {
-            priority: 100,
-            ...data,
+            ...source,
             key: this.key,
-            predicate: Array.isArray(data.predicate) ? data.predicate : undefined,
-            label: game.i18n.localize(this.resolveInjectedProperties(label)),
-            ignored: Boolean(data.ignored ?? false),
-            removeUponCreate: Boolean(data.removeUponCreate ?? false),
+            predicate: Array.isArray(source.predicate) ? source.predicate : undefined,
+            label: this.label,
+            removeUponCreate: Boolean(source.removeUponCreate ?? false),
         } as RuleElementData;
 
-        this.predicate = new PredicatePF2e(...(this.data.predicate ?? []));
-
-        if (!this.predicate.isValid) {
-            this.failValidation(`Malformed predicate: must be an array of predication statements`);
-        }
-
-        if (item instanceof PhysicalItemPF2e) {
-            this.requiresEquipped = !!(data.requiresEquipped ?? true);
+        if (this.invalid) {
+            this.ignored = true;
+        } else if (item instanceof PhysicalItemPF2e) {
+            this.requiresEquipped = !!(source.requiresEquipped ?? true);
             this.requiresInvestment =
-                item.isInvested === null ? null : !!(data.requiresInvestment ?? this.requiresEquipped);
+                item.isInvested === null ? null : !!(source.requiresInvestment ?? this.requiresEquipped);
+
+            // The DataModel schema defaulted `ignored` to `false`: only change to true if not already true
+            if (this.ignored === false) {
+                this.ignored =
+                    (!!this.requiresEquipped && !item.isEquipped) || (!!this.requiresInvestment && !item.isInvested);
+            }
+        } else {
+            this.requiresEquipped = null;
+            this.requiresInvestment = null;
         }
+    }
+
+    static override defineSchema(): RuleElementSchema {
+        return {
+            key: new fields.StringField({ required: true, blank: false }),
+            slug: new SlugField({ required: true }),
+            label: new fields.StringField({ required: false, initial: undefined }),
+            priority: new fields.NumberField({ required: false, nullable: false, integer: true, initial: 100 }),
+            ignored: new fields.BooleanField(),
+            predicate: new PredicateField(),
+            requiresEquipped: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
+            requiresInvestment: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
+        };
+    }
+
+    /** Use a "lax" schema field that preserves properties not defined in the `DataSchema` */
+    static override get schema(): LaxSchemaField<RuleElementSchema> {
+        if (this._schema && Object.hasOwn(this, "_schema")) return this._schema;
+
+        const schema = new LaxSchemaField(Object.freeze(this.defineSchema()));
+        schema.name = this.name;
+        Object.defineProperty(this, "_schema", { value: schema, writable: false });
+
+        return schema;
     }
 
     get actor(): ActorPF2e {
@@ -92,30 +113,6 @@ abstract class RuleElementPF2e {
         const tokens = actor.getActiveTokens();
         const controlled = tokens.find((token) => token.controlled);
         return controlled?.document ?? tokens.shift()?.document ?? null;
-    }
-
-    get label(): string {
-        return this.data.label;
-    }
-
-    /** The place in order of application (ascending), among an actor's list of rule elements */
-    get priority(): number {
-        return this.data.priority;
-    }
-
-    /** Globally ignore this rule element. */
-    get ignored(): boolean {
-        if (this.data.ignored) return true;
-
-        const { item } = this;
-        if (!(item instanceof PhysicalItemPF2e)) return (this.data.ignored = false);
-
-        return (this.data.ignored =
-            (!!this.requiresEquipped && !item.isEquipped) || (!!this.requiresInvestment && !item.isInvested));
-    }
-
-    set ignored(value: boolean) {
-        this.data.ignored = value;
     }
 
     /** Test this rule element's predicate, if present */
@@ -214,10 +211,19 @@ abstract class RuleElementPF2e {
     protected resolveValue(
         valueData = this.data.value,
         defaultValue: Exclude<RuleValue, BracketedValue> = 0,
-        { evaluate = true, resolvables = {} } = {}
+        { evaluate = true, resolvables = {} }: { evaluate?: boolean; resolvables?: Record<string, unknown> } = {}
     ): number | string | boolean | object | null {
         let value: RuleValue = valueData ?? defaultValue ?? null;
+
+        if (["number", "boolean"].includes(typeof value) || value === null) {
+            return value;
+        }
         if (typeof value === "string") value = this.resolveInjectedProperties(value);
+
+        // Include worn armor as resolvable for PCs since there is guaranteed to be no more than one
+        if (this.actor.isOfType("character")) {
+            resolvables.armor = this.actor.wornArmor;
+        }
 
         if (this.isBracketedValue(valueData)) {
             const bracketNumber = ((): number => {
@@ -297,47 +303,10 @@ abstract class RuleElementPF2e {
     }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace RuleElementPF2e {
-    export interface PreCreateParams<T extends RuleElementSource = RuleElementSource> {
-        /** The source partial of the rule element's parent item to be created */
-        itemSource: PreCreate<ItemSourcePF2e>;
-        /** The source of the rule in `itemSource`'s `system.rules` array */
-        ruleSource: T;
-        /** All items pending creation in a `ItemPF2e.createDocuments` call */
-        pendingItems: PreCreate<ItemSourcePF2e>[];
-        /** The context object from the `ItemPF2e.createDocuments` call */
-        context: DocumentModificationContext<ItemPF2e>;
-        /** Whether this preCreate run is from a pre-update reevaluation */
-        reevaluation?: boolean;
-    }
-
-    export interface PreDeleteParams {
-        /** All items pending deletion in a `ItemPF2e.deleteDocuments` call */
-        pendingItems: Embedded<ItemPF2e>[];
-        /** The context object from the `ItemPF2e.deleteDocuments` call */
-        context: DocumentModificationContext<ItemPF2e>;
-    }
-
-    export interface AfterRollParams {
-        roll: Rolled<CheckRoll> | null;
-        selectors: string[];
-        domains: string[];
-        rollOptions: Set<string>;
-    }
-
-    export type UserInput<T extends RuleElementData> = { [K in keyof T]?: unknown } & RuleElementSource;
-}
-
-interface RuleElementOptions {
-    /** If created from an item, the index in the source data */
-    sourceIndex?: number;
-    /** If data validation fails for any reason, do not emit console warnings */
-    suppressWarnings?: boolean;
-}
-
-interface RuleElementPF2e {
-    constructor: typeof RuleElementPF2e;
+interface RuleElementPF2e<TSchema extends RuleElementSchema>
+    extends foundry.abstract.DataModel<null, TSchema>,
+        foundry.data.fields.ModelPropsFromSchema<RuleElementSchema> {
+    constructor: typeof RuleElementPF2e<TSchema>;
 
     /**
      * Run between Actor#applyActiveEffects and Actor#prepareDerivedData. Generally limited to ActiveEffect-Like
@@ -425,6 +394,47 @@ interface RuleElementPF2e {
 
     /** An optional method for excluding damage modifiers and extra dice */
     applyDamageExclusion?(weapon: WeaponPF2e, modifiers: (DiceModifierPF2e | ModifierPF2e)[]): void;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace
+namespace RuleElementPF2e {
+    export let _schema: LaxSchemaField<RuleElementSchema> | undefined;
+
+    export interface PreCreateParams<T extends RuleElementSource = RuleElementSource> {
+        /** The source partial of the rule element's parent item to be created */
+        itemSource: PreCreate<ItemSourcePF2e>;
+        /** The source of the rule in `itemSource`'s `system.rules` array */
+        ruleSource: T;
+        /** All items pending creation in a `ItemPF2e.createDocuments` call */
+        pendingItems: PreCreate<ItemSourcePF2e>[];
+        /** The context object from the `ItemPF2e.createDocuments` call */
+        context: DocumentModificationContext<ItemPF2e>;
+        /** Whether this preCreate run is from a pre-update reevaluation */
+        reevaluation?: boolean;
+    }
+
+    export interface PreDeleteParams {
+        /** All items pending deletion in a `ItemPF2e.deleteDocuments` call */
+        pendingItems: Embedded<ItemPF2e>[];
+        /** The context object from the `ItemPF2e.deleteDocuments` call */
+        context: DocumentModificationContext<ItemPF2e>;
+    }
+
+    export interface AfterRollParams {
+        roll: Rolled<CheckRoll> | null;
+        selectors: string[];
+        domains: string[];
+        rollOptions: Set<string>;
+    }
+
+    export type UserInput<T extends RuleElementData> = { [K in keyof T]?: unknown } & RuleElementSource;
+}
+
+interface RuleElementOptions {
+    /** If created from an item, the index in the source data */
+    sourceIndex?: number;
+    /** If data validation fails for any reason, do not emit console warnings */
+    suppressWarnings?: boolean;
 }
 
 export { RuleElementPF2e, RuleElementOptions };

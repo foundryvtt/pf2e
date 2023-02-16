@@ -7,8 +7,7 @@ import {
 } from "@item/physical";
 import { OneToFour, OneToThree } from "@module/data";
 import { createSheetTags, SheetOptions } from "@module/sheet/helpers";
-import { LocalizePF2e } from "@system/localize";
-import { ErrorPF2e, htmlQueryAll, objectHasKey, setHasElement, tupleHasValue } from "@util";
+import { ErrorPF2e, htmlQueryAll, objectHasKey, setHasElement, sortStringRecord, tupleHasValue } from "@util";
 import { WeaponPersistentDamage, WeaponPropertyRuneSlot } from "./data";
 import { type WeaponPF2e } from "./document";
 import { MANDATORY_RANGED_GROUPS, WEAPON_RANGES } from "./values";
@@ -25,6 +24,8 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         } = await super.getData(options);
 
         const ABPVariant = game.settings.get("pf2e", "automaticBonusVariant");
+        const abpEnabled = ABP.isEnabled(this.actor);
+
         // Limit shown property-rune slots by potency rune level and a material composition of orichalcum
         const potencyRuneValue = ABPVariant === "ABPFundamentalPotency" ? 4 : sheetData.data.potencyRune.value ?? 0;
         const propertyRuneSlots = [
@@ -50,13 +51,11 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         // Weapons have derived damage dice, level, price, and traits: base data is shown for editing
         const baseData = this.item.toObject();
         sheetData.data.traits.rarity = baseData.system.traits.rarity;
-        const hintText = ABP.isEnabled
-            ? LocalizePF2e.translations.PF2E.Item.Weapon.FromABP
-            : LocalizePF2e.translations.PF2E.Item.Weapon.FromMaterialAndRunes;
+        const hintText = abpEnabled ? "PF2E.Item.Weapon.FromABP" : "PF2E.Item.Weapon.FromMaterialAndRunes";
 
         const adjustedDiceHint =
             this.item.system.damage.dice !== baseData.system.damage.dice
-                ? game.i18n.format(hintText, {
+                ? game.i18n.format(game.i18n.localize(hintText), {
                       property: game.i18n.localize("PF2E.Item.Weapon.Damage.DiceNumber"),
                       value: this.item.system.damage.dice,
                   })
@@ -79,18 +78,6 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
                   })
                 : null;
         })();
-
-        const groups = Object.fromEntries(
-            Object.entries(CONFIG.PF2E.weaponGroups)
-                .map(([slug, localizeKey]): [string, string] => [slug, game.i18n.localize(localizeKey)])
-                .sort((damageA, damageB) => damageA[1].localeCompare(damageB[1]))
-        );
-
-        const damageTypes = Object.fromEntries(
-            Object.entries(CONFIG.PF2E.damageTypes)
-                .map(([slug, localizeKey]): [string, string] => [slug, game.i18n.localize(localizeKey)])
-                .sort((damageA, damageB) => damageA[1].localeCompare(damageB[1]))
-        );
 
         const damageDieFaces = Object.fromEntries(
             Object.entries(CONFIG.PF2E.damageDie)
@@ -132,7 +119,6 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             damage: { type: "piercing", die: "d4" },
             traits: [],
         };
-        const abpEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
 
         return {
             ...sheetData,
@@ -151,15 +137,15 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             baseLevel: baseData.system.level.value,
             rarity: baseData.system.traits.rarity,
             basePrice: new CoinsPF2e(baseData.system.price.value),
-            categories: CONFIG.PF2E.weaponCategories,
-            groups,
-            baseTypes: LocalizePF2e.translations.PF2E.Weapon.Base,
+            categories: sortStringRecord(CONFIG.PF2E.weaponCategories),
+            groups: sortStringRecord(CONFIG.PF2E.weaponGroups),
+            baseTypes: sortStringRecord(CONFIG.PF2E.baseWeaponTypes),
             itemBonuses: CONFIG.PF2E.itemBonuses,
             damageDieFaces,
             damageDie: CONFIG.PF2E.damageDie,
             damageDice: CONFIG.PF2E.damageDice,
-            conditionTypes: CONFIG.PF2E.conditionTypes,
-            damageTypes,
+            conditionTypes: sortStringRecord(CONFIG.PF2E.conditionTypes),
+            damageTypes: sortStringRecord(CONFIG.PF2E.damageTypes),
             weaponRanges,
             mandatoryMelee,
             mandatoryRanged,
@@ -167,7 +153,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             weaponMAP: CONFIG.PF2E.weaponMAP,
             isBomb: this.item.group === "bomb",
             isComboWeapon,
-            meleeGroups: CONFIG.PF2E.meleeWeaponGroups,
+            meleeGroups: sortStringRecord(CONFIG.PF2E.meleeWeaponGroups),
             meleeUsage,
             meleeUsageTraits: createSheetTags(CONFIG.PF2E.weaponTraits, meleeUsage.traits ?? []),
         };
@@ -210,19 +196,6 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
                 }
             });
         }
-
-        $html.find("i.fa-info-circle.small[title]").tooltipster({
-            maxWidth: 275,
-            position: "right",
-            theme: "crb-hover",
-            contentAsHTML: true,
-        });
-
-        $html.find("i.fa-info-circle.large[title]").tooltipster({
-            maxWidth: 400,
-            theme: "crb-hover",
-            contentAsHTML: true,
-        });
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {

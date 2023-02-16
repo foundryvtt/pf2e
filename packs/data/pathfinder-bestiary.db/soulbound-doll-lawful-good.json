@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "occult"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -142,7 +137,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You defy gravity and levitate the target 5 feet off the ground. For the duration of the spell, you can move the target up or down 10 feet with a single action, which has the concentrate trait. A creature floating in the air from levitate takes a -2 circumstance penalty to attack rolls. A floating creature can spend an Interact action to stabilize itself and negate this penalty for the remainder of its turn. If the target is adjacent to a fixed object or terrain of suitable stability, it can move across the surface by climbing (if the surface is vertical, like a wall) or crawling (if the surface is horizontal, such as a ceiling). The GM determines which surfaces can be climbed or crawled across.</p>"
+                    "value": "<p>You defy gravity and levitate the target 5 feet off the ground. For the duration of the spell, you can move the target up or down 10 feet with a single action, which has the concentrate trait. A creature floating in the air from levitate takes a -2 circumstance penalty to attack rolls. A floating creature can spend an Interact action to stabilize itself and negate this penalty for the remainder of its turn. If the target is adjacent to a fixed object or terrain of suitable stability, it can move across the surface by climbing (if the surface is vertical, like a wall) or crawling (if the surface is horizontal, such as a ceiling). The GM determines which surfaces can be climbed or crawled across.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Levitate]{Spell Effect: Levitate}</p>"
                 },
                 "duration": {
                     "value": "5 minutes"
@@ -206,7 +201,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -311,7 +305,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "mental"
@@ -351,7 +344,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
+                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Light]{Spell Effect: Light}</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
                 },
                 "duration": {
                     "value": "until the next time you make your daily preparations"
@@ -417,7 +410,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "light",
@@ -465,6 +457,26 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "target": {
+                                "value": "1 unattended object with a Bulk of 1 or less"
+                            }
+                        },
+                        "5": {
+                            "range": {
+                                "value": "60 feet"
+                            }
+                        },
+                        "7": {
+                            "target": {
+                                "value": "1 unattended object with a Bulk of 2 or less"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -521,7 +533,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "cantrip"
@@ -627,7 +638,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "cantrip"
@@ -667,7 +677,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -713,7 +722,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -753,7 +761,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -787,7 +794,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -815,7 +821,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -843,7 +848,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -954,6 +958,7 @@
             "privateNotes": "",
             "publicNotes": "<p>Soulbound dolls are eerie mannequins or playthings that have been imbued with a small piece of a deceased mortal's soul. These little constructs are created for a variety of reasons-such as to serve as companions or servants-but their free will means their obedience to their creators is hardly a given. Followers of Pharasma generally abhor soulbound dolls, viewing them as a perversion of the natural cycle of souls, and those who worship the Lady of Graves see the destruction of a soulbound doll, regardless of the construct's alignment, as an important service to the Great Beyond. Soulbound dolls are the simplest in a series of soulbound constructs including human-sized soulbound mannequins, powerful soulbound shells, and sentinel soulbound terra-cotta warriors. Creating them from unwilling living creatures is evil, and an unwilling donor can resist the process with a successful Will save against the creator's Craft DC, ruining the doll if not preventing the donor's death. A non-evil doll can only be crafted from the soul of a person who has given consent to such use before their death occurred</p>\n<p>Soulbound dolls encountered by adventurers are typically guardians of some sort; despite their diminutive size, the soul fragment's power makes the doll's flst more dangerous than a casual observer would expect. Further, it grants the doll a single spell of outsized power given its stature. Because of their autonomy and remarkable intelligence, soulbound dolls are occasionally employed by their crafters as administrators over much more powerful but mindless constructs such as golems, allowing such dolls to control defenses far beyond their own capabilities. Though soulbound dolls contain a small fragment of a soul extracted during or shortly after a person's death, this doesn't affect the deceased's resurrection or progress to the afterlife. This extraction process is lethal to otherwise-living prospective soul donors, though there are rumors of more expensive processes that allows someone to donate a fragment of a living soul without repercussions.</p>\n<p>The soul fragment resides in a soul focus gem typically embedded in the doll's neck or chest. The soul fragment isn't static, and the doll continues to learn from its initial state, meaning its personality and abilities can change, possibly growing closer to the donor's or moving farther afield on its own individual path. The soulbound doll's focus gem retains the doll's memories even after the doll's destruction. The the intact soul focus gem of a destroyed doll can even be placed into a new doll body by someone knowledgeable in the creation of soulbound creatures, effectively reconstituting the soulbound doll.</p>",
             "source": {
+                "author": "",
                 "value": "Pathfinder Bestiary"
             }
         },

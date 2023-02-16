@@ -2,6 +2,9 @@ import { FeatTrait } from "@item/feat/data";
 import { PhysicalItemTrait } from "@item/physical/data";
 import { CommonSortByOption, SortByOption, SortDirection } from "../data";
 import type { SearchResult } from "minisearch";
+import { CreatureTrait } from "@actor/creature/data";
+import { ActionTrait } from "@item";
+import { HazardTrait } from "@actor/hazard/types";
 
 type CheckboxOptions = Record<string, { label: string; selected: boolean }>;
 interface CheckboxData {
@@ -67,11 +70,13 @@ interface BaseFilterData {
 }
 
 interface ActionFilters extends BaseFilterData {
-    checkboxes: Record<"traits" | "source", CheckboxData>;
+    checkboxes: Record<"source", CheckboxData>;
+    multiselects: Record<"traits", MultiselectData<ActionTrait>>;
 }
 
 interface BestiaryFilters extends BaseFilterData {
-    checkboxes: Record<"alignments" | "rarity" | "sizes" | "source" | "traits", CheckboxData>;
+    checkboxes: Record<"alignments" | "rarity" | "sizes" | "source", CheckboxData>;
+    multiselects: Record<"traits", MultiselectData<CreatureTrait>>;
     sliders: Record<"level", SliderData>;
 }
 
@@ -89,15 +94,14 @@ interface FeatFilters extends BaseFilterData {
 }
 
 interface HazardFilters extends BaseFilterData {
-    checkboxes: Record<"complexity" | "rarity" | "source" | "traits", CheckboxData>;
+    checkboxes: Record<"complexity" | "rarity" | "source", CheckboxData>;
+    multiselects: Record<"traits", MultiselectData<HazardTrait>>;
     sliders: Record<"level", SliderData>;
 }
 
 interface SpellFilters extends BaseFilterData {
-    checkboxes: Record<
-        "category" | "classes" | "level" | "rarity" | "school" | "source" | "traditions" | "traits",
-        CheckboxData
-    >;
+    checkboxes: Record<"category" | "level" | "rarity" | "school" | "source" | "traditions", CheckboxData>;
+    multiselects: Record<"traits", MultiselectData<string>>;
     selects: Record<"timefilter", SelectData>;
 }
 

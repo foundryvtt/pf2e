@@ -6,6 +6,7 @@
             "hazard",
             "loot",
             "familiar",
+            "party",
             "vehicle"
         ],
         "templates": {
@@ -346,13 +347,6 @@
                     "value": 0
                 }
             },
-            "traits": {
-                "value": [],
-                "rarity": "common",
-                "size": {
-                    "value": "med"
-                }
-            },
             "lootSheetType": "Loot",
             "hiddenWhenEmpty": false,
             "schema": {
@@ -381,6 +375,17 @@
             "schema": {
                 "version": null,
                 "lastMigration": null
+            }
+        },
+        "party": {
+            "templates": [],
+            "attributes": {},
+            "details": {
+                "description": "",
+                "level": {
+                    "value": 0
+                },
+                "members": []
             }
         },
         "vehicle": {
@@ -451,6 +456,7 @@
     "Item": {
         "types": [
             "action",
+            "affliction",
             "ancestry",
             "armor",
             "backpack",
@@ -480,11 +486,6 @@
                 "source": {
                     "value": ""
                 },
-                "traits": {
-                    "value": [],
-                    "rarity": "common",
-                    "custom": ""
-                },
                 "rules": [],
                 "slug": null,
                 "schema": {
@@ -492,8 +493,23 @@
                     "lastMigration": null
                 }
             },
-            "physical": {
+            "traits": {
                 "traits": {
+                    "value": []
+                }
+            },
+            "rarity": {
+                "traits": {
+                    "rarity": "common"
+                }
+            },
+            "physical": {
+                "level": {
+                    "value": 0
+                },
+                "traits": {
+                    "value": [],
+                    "rarity": "common",
                     "otherTags": []
                 },
                 "quantity": 1,
@@ -585,11 +601,28 @@
             "description.value",
             "identification.data.description.value"
         ],
+        "affliction": {
+            "templates": [
+                "common",
+                "itemLevel",
+                "traits"
+            ],
+            "duration": {
+                "value": -1,
+                "unit": "unlimited"
+            },
+            "save": {
+                "type": "fortitude",
+                "value": 0
+            },
+            "stage": 1,
+            "stages": {},
+            "context": null
+        },
         "backpack": {
             "templates": [
                 "common",
                 "physical",
-                "itemLevel",
                 "investable"
             ],
             "bulkCapacity": {
@@ -604,8 +637,7 @@
         "book": {
             "templates": [
                 "common",
-                "physical",
-                "itemLevel"
+                "physical"
             ],
             "subtype": "formula",
             "capacity": 1,
@@ -614,15 +646,13 @@
         "treasure": {
             "templates": [
                 "common",
-                "physical",
-                "itemLevel"
+                "physical"
             ]
         },
         "weapon": {
             "templates": [
                 "common",
                 "physical",
-                "itemLevel",
                 "investable"
             ],
             "category": "simple",
@@ -691,7 +721,6 @@
             "templates": [
                 "common",
                 "physical",
-                "itemLevel",
                 "investable"
             ],
             "armor": {
@@ -735,7 +764,8 @@
         },
         "melee": {
             "templates": [
-                "common"
+                "common",
+                "traits"
             ],
             "weaponType": {
                 "value": "melee"
@@ -754,8 +784,7 @@
         "consumable": {
             "templates": [
                 "common",
-                "physical",
-                "itemLevel"
+                "physical"
             ],
             "consumableType": {
                 "value": "other"
@@ -779,7 +808,6 @@
             "templates": [
                 "common",
                 "physical",
-                "itemLevel",
                 "investable"
             ],
             "usage": {
@@ -788,7 +816,9 @@
         },
         "ancestry": {
             "templates": [
-                "common"
+                "common",
+                "traits",
+                "rarity"
             ],
             "hp": 6,
             "size": "med",
@@ -816,7 +846,9 @@
         },
         "background": {
             "templates": [
-                "common"
+                "common",
+                "traits",
+                "rarity"
             ],
             "boosts": {
                 "0": { "value": [] },
@@ -830,7 +862,9 @@
         },
         "class": {
             "templates": [
-                "common"
+                "common",
+                "traits",
+                "rarity"
             ],
             "keyAbility": { "value": [] },
             "items": {},
@@ -868,7 +902,9 @@
         "feat": {
             "templates": [
                 "common",
-                "itemLevel"
+                "itemLevel",
+                "traits",
+                "rarity"
             ],
             "featType": {
                 "value": "bonus"
@@ -888,7 +924,9 @@
         },
         "heritage": {
             "templates": [
-                "common"
+                "common",
+                "traits",
+                "rarity"
             ],
             "ancestry": null
         },
@@ -905,7 +943,8 @@
         },
         "action": {
             "templates": [
-                "common"
+                "common",
+                "traits"
             ],
             "actionType": {
                 "value": ""
@@ -927,8 +966,12 @@
         "spell": {
             "templates": [
                 "common",
-                "itemLevel"
+                "traits",
+                "rarity"
             ],
+            "level": {
+                "value": 1
+            },
             "spellType": {
                 "value": "attack"
             },
@@ -1081,9 +1124,14 @@
         },
         "kit": {
             "templates": [
-                "common"
+                "common",
+                "traits",
+                "rarity"
             ],
-            "items": {}
+            "items": {},
+            "price": {
+                "value": {}
+            }
         },
         "condition": {
             "templates": [
@@ -1110,7 +1158,8 @@
         },
         "effect": {
             "templates": [
-                "common"
+                "common",
+                "traits"
             ],
             "level": {
                 "value": 1
@@ -1133,13 +1182,9 @@
             "context": null
         },
         "deity": {
-            "templates": [],
-            "description": {
-                "value": ""
-            },
-            "source": {
-                "value": ""
-            },
+            "templates": [
+                "common"
+            ],
             "category": "deity",
             "alignment": {
                 "own": "N",
@@ -1155,13 +1200,7 @@
             "ability": [],
             "skill": null,
             "weapons": [],
-            "spells": {},
-            "rules": [],
-            "slug": null,
-            "schema": {
-                "version": null,
-                "lastMigration": null
-            }
+            "spells": {}
         }
     }
 }

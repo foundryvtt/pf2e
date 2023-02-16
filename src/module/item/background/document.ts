@@ -47,7 +47,7 @@ class BackgroundPF2e extends ABCItemPF2e {
     }
 }
 
-interface BackgroundPF2e {
+interface BackgroundPF2e extends ABCItemPF2e {
     readonly data: BackgroundData;
 }
 

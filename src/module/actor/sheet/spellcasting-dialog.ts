@@ -1,4 +1,5 @@
 import { ActorPF2e } from "@actor";
+import { ClassDCData } from "@actor/character/data";
 import { SpellcastingEntryPF2e } from "@item";
 import { SpellcastingEntrySource, SpellcastingEntrySystemData } from "@item/spellcasting-entry/data";
 import { pick } from "@util";
@@ -44,9 +45,16 @@ class SpellcastingCreateAndEditDialog extends FormApplication<Embedded<Spellcast
     }
 
     override async getData(): Promise<SpellcastingCreateAndEditDialogSheetData> {
+        const { actor } = this;
+
+        const classDCs = actor.isOfType("character")
+            ? Object.values(actor.system.proficiencies.classDCs).filter((cdc) => cdc.rank > 0)
+            : [];
+
         return {
             ...(await super.getData()),
-            actor: this.actor,
+            actor,
+            classDCs,
             data: this.object.toObject().system,
             magicTraditions: CONFIG.PF2E.magicTraditions,
             spellcastingTypes: CONFIG.PF2E.preparationType,
@@ -153,6 +161,7 @@ class SpellcastingCreateAndEditDialog extends FormApplication<Embedded<Spellcast
 interface SpellcastingCreateAndEditDialogSheetData extends FormApplicationData<Embedded<SpellcastingEntryPF2e>> {
     actor: ActorPF2e;
     data: SpellcastingEntrySystemData;
+    classDCs: ClassDCData[];
     magicTraditions: ConfigPF2e["PF2E"]["magicTraditions"];
     spellcastingTypes: ConfigPF2e["PF2E"]["preparationType"];
     abilities: ConfigPF2e["PF2E"]["abilities"];

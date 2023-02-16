@@ -1,29 +1,23 @@
-import { DamageDiceParameters, DamageDicePF2e } from "@actor/modifiers";
+import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression";
+import { DamageDiceParameters, DamageDicePF2e, ModifierAdjustment } from "@actor/modifiers";
+import { ResistanceType } from "@actor/types";
 import { ArmorPF2e, WeaponPF2e } from "@item";
 import type { ResilientRuneType } from "@item/armor/types";
 import type { OtherWeaponTag, StrikingRuneType, WeaponPropertyRuneType, WeaponTrait } from "@item/weapon/types";
-import { OneToFour, Rarity, ZeroToFour, ZeroToThree } from "@module/data";
+import { OneToFour, OneToThree, Rarity, ZeroToFour, ZeroToThree } from "@module/data";
 import { RollNoteSource } from "@module/notes";
+import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { isBlank } from "@util";
 
-export function getPropertySlots(item: WeaponPF2e | ArmorPF2e): ZeroToFour {
-    let slots = 0;
-    if (item.system.preciousMaterial?.value === "orichalcum") {
-        slots += 1;
-    }
-    let potencyRune = item.system.potencyRune.value ?? 0;
-    if (game.settings.get("pf2e", "automaticBonusVariant") !== "noABP") {
-        potencyRune = 0;
-        slots += getPropertyRunes(item, 4).length;
-        slots += 1;
-    }
-    if (potencyRune) {
-        slots += potencyRune;
-    }
-    return slots as ZeroToFour;
+function getPropertySlots(item: WeaponPF2e | ArmorPF2e): ZeroToFour {
+    const fromMaterial = item.system.preciousMaterial?.value === "orichalcum" ? 1 : 0;
+    const fromPotency = ABP.isEnabled(item.actor)
+        ? ABP.getAttackPotency(item.actor?.level ?? 1)
+        : item.system.runes.potency;
+    return (fromMaterial + fromPotency) as ZeroToFour;
 }
 
-export function getPropertyRunes(item: WeaponPF2e | ArmorPF2e, slots: number): string[] {
+function getPropertyRunes(item: WeaponPF2e | ArmorPF2e, slots: number): string[] {
     const runes: string[] = [];
     type RuneIndex = "propertyRune1" | "propertyRune2" | "propertyRune3" | "propertyRune4";
     for (let i = 1; i <= slots; i += 1) {
@@ -41,7 +35,7 @@ const strikingRuneValues: Map<StrikingRuneType | null, ZeroToThree | undefined> 
     ["majorStriking", 3],
 ]);
 
-export function getStrikingDice(itemData: { strikingRune: { value: StrikingRuneType | null } }): ZeroToThree {
+function getStrikingDice(itemData: { strikingRune: { value: StrikingRuneType | null } }): ZeroToThree {
     return strikingRuneValues.get(itemData.strikingRune.value) ?? 0;
 }
 
@@ -50,14 +44,15 @@ const resilientRuneValues: Map<ResilientRuneType | null, ZeroToThree | undefined
     ["greaterResilient", 2],
     ["majorResilient", 3],
 ]);
-export function getResiliencyBonus(itemData: { resiliencyRune: { value: ResilientRuneType | null } }): ZeroToThree {
+
+function getResilientBonus(itemData: { resiliencyRune: { value: ResilientRuneType | null } }): ZeroToThree {
     return resilientRuneValues.get(itemData.resiliencyRune.value) ?? 0;
 }
 
 type RuneDiceProperty = "damageType" | "category" | "diceNumber" | "dieSize" | "predicate" | "critical";
 type RuneDiceData = Partial<Pick<DamageDiceParameters, RuneDiceProperty>>;
 
-function toModifiers(rune: WeaponPropertyRuneType, dice: RuneDiceData[]): DamageDicePF2e[] {
+function toDamageDice(rune: WeaponPropertyRuneType, dice: RuneDiceData[]): DamageDicePF2e[] {
     return deepClone(dice).map(
         (d) =>
             new DamageDicePF2e({
@@ -74,13 +69,20 @@ function toModifiers(rune: WeaponPropertyRuneType, dice: RuneDiceData[]): Damage
     );
 }
 
-export interface WeaponPropertyRuneData {
+interface WeaponPropertyRuneData {
     attack?: {
         notes?: RuneNoteData[];
     };
     damage?: {
         dice?: RuneDiceData[];
         notes?: RuneNoteData[];
+        adjustments?: (Omit<ModifierAdjustment, "predicate"> & { predicate?: RawPredicate })[];
+        /**
+         * A list of resistances this weapon's damage will ignore--not limited to damage from the rune.
+         * If `max` is numeric, the resistance ignored will be equal to the lower of the provided maximum and the
+         * target's resistance.
+         */
+        ignoredResistances?: { type: ResistanceType; max: number | null }[];
     };
     level: number;
     name: string;
@@ -473,6 +475,11 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     text: "PF2E.WeaponPropertyRune.greaterBrilliant.Note.success",
                 },
             ],
+            ignoredResistances: [
+                { type: "fire", max: null },
+                { type: "good", max: null },
+                { type: "positive", max: null },
+            ],
         },
         level: 18,
         name: "PF2E.WeaponPropertyRune.greaterBrilliant.Name",
@@ -602,6 +609,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     text: "PF2E.WeaponPropertyRune.greaterFlaming.Note.success",
                 },
             ],
+            ignoredResistances: [{ type: "fire", max: null }],
         },
         level: 15,
         name: "PF2E.WeaponPropertyRune.greaterFlaming.Name",
@@ -625,6 +633,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     text: "PF2E.WeaponPropertyRune.greaterFrost.Note.success",
                 },
             ],
+            ignoredResistances: [{ type: "cold", max: null }],
         },
         level: 15,
         name: "PF2E.WeaponPropertyRune.greaterFrost.Name",
@@ -674,6 +683,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     text: "PF2E.WeaponPropertyRune.greaterShock.Note.success",
                 },
             ],
+            ignoredResistances: [{ type: "electricity", max: null }],
         },
         level: 15,
         name: "PF2E.WeaponPropertyRune.greaterShock.Name",
@@ -697,6 +707,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     text: "PF2E.WeaponPropertyRune.greaterThundering.Note.success",
                 },
             ],
+            ignoredResistances: [{ type: "sonic", max: null }],
         },
         level: 15,
         name: "PF2E.WeaponPropertyRune.greaterThundering.Name",
@@ -707,6 +718,15 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     grievous: {
         damage: {
+            dice: [
+                {
+                    damageType: "bleed",
+                    diceNumber: 1,
+                    dieSize: "d6",
+                    critical: true,
+                    predicate: ["critical-specialization", "item:group:dart"],
+                },
+            ],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
@@ -728,12 +748,6 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                 },
                 {
                     outcome: ["criticalSuccess"],
-                    predicate: ["item:group:dart"],
-                    title: "PF2E.WeaponPropertyRune.grievous.Name",
-                    text: "PF2E.WeaponPropertyRune.grievous.Note.Dart",
-                },
-                {
-                    outcome: ["criticalSuccess"],
                     predicate: ["item:group:flail"],
                     title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Flail",
@@ -749,12 +763,6 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     predicate: ["item:group:knife"],
                     title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Knife",
-                },
-                {
-                    outcome: ["criticalSuccess"],
-                    predicate: ["item:group:pick"],
-                    title: "PF2E.WeaponPropertyRune.grievous.Name",
-                    text: "PF2E.WeaponPropertyRune.grievous.Note.Pick",
                 },
                 {
                     outcome: ["criticalSuccess"],
@@ -785,6 +793,13 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     predicate: ["item:group:sword"],
                     title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Sword",
+                },
+            ],
+            adjustments: [
+                {
+                    slug: "critical-specialization",
+                    predicate: ["item:group:pick"],
+                    getNewValue: (current) => current * 2,
                 },
             ],
         },
@@ -912,13 +927,6 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     serrating: {
         damage: {
             dice: [{ damageType: "slashing", diceNumber: 1, dieSize: "d4" }],
-            notes: [
-                {
-                    outcome: ["criticalSuccess"],
-                    title: "PF2E.WeaponPropertyRune.serrating.Name",
-                    text: "PF2E.WeaponPropertyRune.serrating.Note.criticalSuccess",
-                },
-            ],
         },
         level: 10,
         name: "PF2E.WeaponPropertyRune.serrating.Name",
@@ -1025,21 +1033,27 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
 };
 
-export function getPropertyRuneModifiers(runes: WeaponPropertyRuneType[]): DamageDicePF2e[] {
+function getPropertyRuneDice(runes: WeaponPropertyRuneType[]): DamageDicePF2e[] {
     return runes.flatMap((rune) => {
-        const runeConfig = CONFIG.PF2E.runes.weapon.property[rune];
-        if (runeConfig) {
-            return runeConfig.damage?.dice ? toModifiers(rune, runeConfig.damage.dice) : [];
-        }
-        return [];
+        const runeData = CONFIG.PF2E.runes.weapon.property[rune];
+        return toDamageDice(rune, runeData.damage?.dice ?? []);
     });
+}
+
+function getPropertyRuneAdjustments(runes: WeaponPropertyRuneType[]): ModifierAdjustment[] {
+    return runes.flatMap(
+        (rune) =>
+            CONFIG.PF2E.runes.weapon.property[rune].damage?.adjustments?.map(
+                (a): ModifierAdjustment => ({ ...a, predicate: new PredicatePF2e(a.predicate ?? []) })
+            ) ?? []
+    );
 }
 
 /* -------------------------------------------- */
 /*  Rune Valuation                              */
 /* -------------------------------------------- */
 
-export interface RuneValuationData {
+interface RuneValuationData {
     level: number;
     price: number;
     rarity: Rarity;
@@ -1056,18 +1070,30 @@ const POTENCY_RUNE_DATA: Record<OneToFour, RuneValuationData> = {
 };
 
 // https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=25
-const STRIKING_RUNE_DATA: Record<StrikingRuneType, RuneValuationData> = {
-    striking: { level: 4, price: 65, rarity: "common", traits: ["evocation"] },
-    greaterStriking: { level: 12, price: 1065, rarity: "common", traits: ["evocation"] },
-    majorStriking: { level: 19, price: 31065, rarity: "common", traits: ["evocation"] },
+const STRIKING_RUNE_DATA: Record<OneToThree, RuneValuationData> = {
+    1: { level: 4, price: 65, rarity: "common", traits: ["evocation"] },
+    2: { level: 12, price: 1065, rarity: "common", traits: ["evocation"] },
+    3: { level: 19, price: 31065, rarity: "common", traits: ["evocation"] },
 };
 
 interface WeaponValuationData {
     potency: { 0: null } & Record<OneToFour, RuneValuationData>;
-    striking: { "": null } & Record<StrikingRuneType, RuneValuationData>;
+    striking: { 0: null } & Record<OneToThree, RuneValuationData>;
 }
 
-export const WEAPON_VALUATION_DATA: WeaponValuationData = {
+const WEAPON_VALUATION_DATA: WeaponValuationData = {
     potency: { 0: null, ...POTENCY_RUNE_DATA },
-    striking: { "": null, ...STRIKING_RUNE_DATA },
+    striking: { 0: null, ...STRIKING_RUNE_DATA },
+};
+
+export {
+    RuneValuationData,
+    WEAPON_VALUATION_DATA,
+    WeaponPropertyRuneData,
+    getPropertyRuneAdjustments,
+    getPropertyRuneDice,
+    getPropertyRunes,
+    getPropertySlots,
+    getResilientBonus,
+    getStrikingDice,
 };

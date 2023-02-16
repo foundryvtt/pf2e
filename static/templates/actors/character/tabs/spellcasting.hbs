@@ -10,6 +10,12 @@
                     </h3>
                     {{#if @root.options.editable}}
                         <div class="item-controls">
+                            {{#if entry.isFocusPool}}
+                                <a class="item-control spell-browse" title="{{localize "PF2E.OpenSpellBrowserTitle"}}"
+                                    data-type="focus"
+                                    data-traditions="{{entry.tradition}}"
+                                    data-location="{{entry.id}}"><i class="fas fa-fw fa-search"></i></a>
+                            {{/if}}
                             {{#if (or entry.isPrepared entry.isSpontaneous entry.isInnate)}}
                                 <a class="skill-name slotless-level-toggle" title="{{localize "PF2E.ToggleSlotlessSpellLevelsTitle"}}">
                                     <i class="{{#if entry.system.showSlotlessLevels.value}}fas{{else}}far{{/if}} fa-list-alt"></i>
@@ -33,7 +39,7 @@
                             <section>
                                 (
                                     <div class="skill-data spell-attack rollable" title="{{entry.statistic.check.breakdown}}">
-                                        {{> systems/pf2e/templates/actors/character/icons/d20.hbs}}
+                                        {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
                                         <span class="skill-score">{{numberFormat entry.statistic.check.mod decimals=0 sign=true}}</span>
                                     </div>
                                 )
@@ -73,7 +79,7 @@
             </li>
         {{/each}}
 
-        {{#if @root.owner}}
+        {{#if @root.options.editable}}
             <li class="item spellbook-empty">
                 <div class="item-controls pf-add-item-row">
                     <a class="item-control blue-button" data-action="spellcasting-create" title="{{localize "PF2E.CreateSpellTitle"}}" data-type="spell" data-level="{{lvl}}">

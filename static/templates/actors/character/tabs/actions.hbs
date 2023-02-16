@@ -89,11 +89,14 @@
                                     </div>
                                     <div class="item-properties tags">
                                         {{#each action.traits as |trait|}}
-                                            <span class="tag {{trait.cssClass}}"{{#if trait.description}} data-description="{{trait.description}}"{{/if}}>{{localize trait.label}}</span>
+                                            <span class="tag {{trait.cssClass}}"{{#if trait.description}} data-description="{{trait.description}}"{{/if}}>{{trait.label}}</span>
                                         {{/each}}
                                         {{#each action.weaponTraits as |trait|}}
-                                            <span class="tag tag_alt {{trait.cssClass}}"{{#if trait.description}} data-description="{{trait.description}}"{{/if}}>{{localize trait.label}}</span>
+                                            <span class="tag tag_alt {{trait.cssClass}}"{{#if trait.description}} data-description="{{trait.description}}"{{/if}}>{{trait.label}}</span>
                                         {{/each}}
+                                        {{#if action.item.system.range}}
+                                            <span class="tag tag_secondary {{trait.cssClass}}">{{localize (concat "PF2E.TraitRangeIncrement" action.item.system.range)}}</span>
+                                        {{/if}}
                                     </div>
                                 </div>
                             </li>
@@ -101,20 +104,21 @@
                     </ol>
 
                     {{#each actor.actions as |section sid|}}
-                    <h3 class="header">
-                        {{section.label}}
-                        {{#if @root.owner}}
-                            <div class="controls">
-                                <button type="button" class="item-control item-create" data-type="action" data-action-type="{{sid}}">
-                                    <i class="fas fa-fw fa-plus"></i>{{localize "PF2E.CreateActionTitle"}}
-                                </button>
-                                <button type="button" class="item-control action-browse" data-type="feat">
-                                    <i class="fas fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}
-                                </button>
-                            </div>
-                        {{/if}}
-                    </h3>
-                    <ol class="actions-list item-list directory-list">
+                        <h3 class="header">
+                            {{section.label}}
+                            {{#if @root.options.editable}}
+                                <div class="controls">
+                                    <button type="button" class="item-control item-create" data-type="action" data-action-type="{{sid}}">
+                                        <i class="fas fa-fw fa-plus"></i>{{localize "PF2E.CreateActionTitle"}}
+                                    </button>
+                                    <button type="button" class="item-control action-browse" data-type="feat">
+                                        <i class="fas fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}
+                                    </button>
+                                </div>
+                            {{/if}}
+                        </h3>
+
+                        <ol class="actions-list item-list directory-list">
                             {{#each section.actions as |action aid|}}
                                 {{#if action.encounter}}
                                     <li class="item action" data-item-id="{{action._id}}">
@@ -126,11 +130,16 @@
                                             {{#if action.system.frequency}}
                                                 <div class="action-tracking">
                                                     <input type="number" value="{{action.system.frequency.value}}" data-item-id="{{action._id}}" data-item-property="system.frequency.value"/>
-                                                    <span>/ {{action.system.frequency.max}} {{localize "PF2E.Frequency.per"}} {{localize (lookup @root.frequencies action.system.frequency.per)}}</span>
+                                                    <span>
+                                                        /
+                                                        {{action.system.frequency.max}}
+                                                        {{localize "PF2E.Frequency.per"}}
+                                                        {{localize (lookup @root.frequencies action.system.frequency.per)}}
+                                                    </span>
                                                 </div>
                                             {{/if}}
                                         </div>
-                                        {{#if @root.owner}}
+                                        {{#if @root.options.editable}}
                                             <div class="item-controls">
                                                 <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-fw fa-edit"></i></a>
                                                 {{#unless action.feat}}
@@ -141,13 +150,14 @@
                                     </li>
                                 {{/if}}
                             {{/each}}
-                    </ol>
+                        </ol>
                     {{/each}}
                 </div>
+
                 <div class="actions-panel" data-tab="exploration" data-group="actions-tabs">
                     <h3 class="header">
                         {{localize "PF2E.ActionsActionsHeader"}}
-                        {{#if @root.owner}}
+                        {{#if @root.options.editable}}
                             <div class="controls">
                                 <button type="button" class="item-control item-create" data-type="action" data-action-type="free">
                                     <i class="fas fa-fw fa-plus"></i>{{localize "PF2E.CreateActionTitle"}}
@@ -158,6 +168,7 @@
                             </div>
                         {{/if}}
                     </h3>
+
                     <ol class="actions-list item-list directory-list">
                         {{#each actor.actions.free.actions as |action aid|}}
                             {{#if action.exploration}}
@@ -168,7 +179,7 @@
                                         </div>
                                         <h4>{{action.name}}</h4>
                                     </div>
-                                    {{#if ../owner}}
+                                    {{#if @root.options.editable}}
                                         <div class="item-controls">
                                             <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-fw fa-edit"></i></a>
                                             {{#unless action.feat}}
@@ -181,10 +192,11 @@
                         {{/each}}
                     </ol>
                 </div>
+
                 <div class="actions-panel" data-tab="downtime" data-group="actions-tabs">
                     <h3 class="header">
                         {{localize "PF2E.ActionsActionsHeader"}}
-                        {{#if @root.owner}}
+                        {{#if @root.options.editable}}
                             <div class="controls">
                                 <button type="button" class="item-control item-create" data-type="action" data-action-type="free">
                                     <i class="fas fa-fw fa-plus"></i>{{localize "PF2E.CreateActionTitle"}}
@@ -195,6 +207,7 @@
                             </div>
                         {{/if}}
                     </h3>
+
                     <ol class="actions-list item-list directory-list">
                         {{#each actor.actions.free.actions as |action aid|}}
                             {{#if action.downtime}}
@@ -205,7 +218,7 @@
                                         </div>
                                         <h4>{{action.name}}</h4>
                                     </div>
-                                    {{#if ../owner}}
+                                    {{#if @root.options.editable}}
                                         <div class="item-controls">
                                             <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-fw fa-edit"></i></a>
                                             {{#unless action.feat}}

@@ -29,14 +29,14 @@
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "One Inch Punch (2 actions)",
+                "label": "PF2E.SpecificRule.Monk.OneInchPunch.TwoActionLabel",
                 "option": "one-inch-punch-2",
                 "toggleable": true
             },
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "One Inch Punch (3 actions)",
+                "label": "PF2E.SpecificRule.Monk.OneInchPunch.ThreeActionLabel",
                 "option": "one-inch-punch-3",
                 "toggleable": true
             },
@@ -44,8 +44,21 @@
                 "key": "DamageDice",
                 "predicate": [
                     "melee",
-                    "unarmed",
-                    "one-inch-punch-2"
+                    {
+                        "or": [
+                            "unarmed",
+                            {
+                                "and": [
+                                    "feat:monastic-weaponry",
+                                    "item:trait:monk"
+                                ]
+                            }
+                        ]
+                    },
+                    "one-inch-punch-2",
+                    {
+                        "not": "one-inch-punch-3"
+                    }
                 ],
                 "selector": "strike-damage",
                 "value": {
@@ -76,7 +89,17 @@
                 "key": "DamageDice",
                 "predicate": [
                     "melee",
-                    "unarmed",
+                    {
+                        "or": [
+                            "unarmed",
+                            {
+                                "and": [
+                                    "feat:monastic-weaponry",
+                                    "item:trait:monk"
+                                ]
+                            }
+                        ]
+                    },
                     "one-inch-punch-3"
                 ],
                 "selector": "strike-damage",
@@ -109,7 +132,6 @@
             "value": "Pathfinder Advanced Player's Guide"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "monk"

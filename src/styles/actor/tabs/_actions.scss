@@ -193,31 +193,33 @@
                             }
                         }
 
-                        &.expanded {
-                            h4 {
-                                color: var(--primary);
-                                font-weight: 700;
+                        h4 {
+                            color: var(--primary);
+                            font-weight: 700;
+                        }
+
+                        .item-summary {
+                            display: block;
+                            @include frame-elegant;
+
+                            dd {
+                                margin: 0;
+                                margin-bottom: 0.5rem;
                             }
 
+                            .tag {
+                                box-shadow: none;
+
+                                &.tag_secondary {
+                                    background-color: rgba(0, 0, 0, 0.8);
+                                }
+                            }
+                        }
+
+                        &.expanded {
                             .item-summary {
-                                display: block;
-                                @include frame-elegant;
                                 padding: 0.5rem 1rem 1rem;
                                 margin-top: 0.75rem;
-                                animation: fadein 0.8s;
-
-                                dd {
-                                    margin: 0;
-                                    margin-bottom: 0.5rem;
-                                }
-
-                                .tag {
-                                    box-shadow: none;
-
-                                    &.tag_secondary {
-                                        background-color: rgba(0, 0, 0, 0.8);
-                                    }
-                                }
                             }
                         }
 

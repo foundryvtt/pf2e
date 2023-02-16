@@ -4,7 +4,6 @@
     "name": "Candle",
     "system": {
         "autoDestroy": {
-            "_deprecated": true,
             "value": true
         },
         "baseItem": null,
@@ -20,7 +19,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>A lit candle sheds dim light in a 10‑foot radius.</p>"
+            "value": "<p>A lit candle sheds dim light in a 10‐foot radius for 8 hours.</p>"
         },
         "equippedBulk": {
             "value": ""
@@ -50,14 +49,44 @@
             }
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "lit-candle"
+                ],
+                "value": {
+                    "animation": {
+                        "intensity": 4,
+                        "speed": 1,
+                        "type": "torch"
+                    },
+                    "color": "#9b7337",
+                    "dim": 10,
+                    "shadows": 0.2
+                }
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.LitCandle",
+                "option": "lit-candle",
+                "toggleable": true
+            },
+            {
+                "key": "TokenEffectIcon",
+                "predicate": [
+                    "lit-candle"
+                ],
+                "value": "systems/pf2e/icons/equipment/adventuring-gear/candle.webp"
+            }
+        ],
         "size": "med",
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
         "stackGroup": null,
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": []
         },

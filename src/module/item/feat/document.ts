@@ -126,17 +126,16 @@ class FeatPF2e extends ItemPF2e {
     /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = "feat"): string[] {
         prefix = prefix === "feat" && this.isFeature ? "feature" : prefix;
-        const delimitedPrefix = prefix ? `${prefix}:` : "";
         const baseOptions = super.getRollOptions(prefix).filter((o) => !o.endsWith("level:0"));
         const featTypeInfix = this.isFeature ? "feature-type" : "feat-type";
         const featTypeSuffix = this.featType.replace("feature", "");
 
-        const rollOptions = [...baseOptions, `${delimitedPrefix}${featTypeInfix}:${featTypeSuffix}`];
+        const rollOptions = [...baseOptions, `${prefix}:${featTypeInfix}:${featTypeSuffix}`];
 
         const locationMatch = this.system.location?.match(/^([a-z-]*)-([0-9]*)$/);
         if (locationMatch) {
-            rollOptions.push(`${delimitedPrefix}location:category:${locationMatch[1]}`);
-            rollOptions.push(`${delimitedPrefix}location:level:${locationMatch[2]}`);
+            rollOptions.push(`${prefix}:location:category:${locationMatch[1]}`);
+            rollOptions.push(`${prefix}:location:level:${locationMatch[2]}`);
         }
 
         return rollOptions;
@@ -233,7 +232,7 @@ class FeatPF2e extends ItemPF2e {
     }
 }
 
-interface FeatPF2e {
+interface FeatPF2e extends ItemPF2e {
     readonly data: FeatData;
 }
 

@@ -32,9 +32,10 @@ class FamiliarPF2e extends CreaturePF2e {
         return master.system.abilities[this.system.master.ability].mod;
     }
 
-    override prepareData({ fromMaster = false } = {}): void {
-        super.prepareData();
-        if (fromMaster) this.sheet.render(false);
+    /** Re-render the sheet if data preparation is called from the familiar's master */
+    override reset({ fromMaster = false } = {}): void {
+        super.reset();
+        if (fromMaster) this.sheet.render();
     }
 
     /** Set base emphemeral data for later updating by derived-data preparation */
@@ -87,7 +88,14 @@ class FamiliarPF2e extends CreaturePF2e {
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
-        const master = this.master;
+        const { master } = this;
+
+        // Data preparation ends here unless the familiar has a master
+        if (!master) {
+            // Refrain from processing rule elements with no master set
+            this.rules = [];
+            return;
+        }
 
         const systemData = this.system;
         const { attributes, details } = systemData;
@@ -97,9 +105,6 @@ class FamiliarPF2e extends CreaturePF2e {
 
         // Ensure uniqueness of traits
         systemData.traits.value = [...this.traits].sort();
-
-        // Data preparation ends here unless the familiar has a master
-        if (!master) return;
 
         // The familiar's alliance is the same as its master's
         const level = (details.level.value = master.level);
@@ -329,16 +334,6 @@ class FamiliarPF2e extends CreaturePF2e {
                 .join(", ");
             systemData.skills[shortForm] = stat;
         }
-
-        // Call post-data-preparation RuleElement hooks
-        for (const rule of this.rules) {
-            try {
-                rule.afterPrepareData?.();
-            } catch (error) {
-                // ensure that a failing rule element does not block actor initialization
-                console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
-            }
-        }
     }
 
     /** Familiars cannot have item bonuses. Nor do they have ability mods nor proficiency (sans master level) */
@@ -363,7 +358,7 @@ class FamiliarPF2e extends CreaturePF2e {
     }
 }
 
-interface FamiliarPF2e {
+interface FamiliarPF2e extends CreaturePF2e {
     readonly data: FamiliarData;
 }
 

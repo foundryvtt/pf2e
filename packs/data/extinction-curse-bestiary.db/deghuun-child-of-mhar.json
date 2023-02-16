@@ -100,17 +100,12 @@
                 },
                 "tradition": {
                     "value": "divine"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
         },
         {
-            "_id": "LW8nlXvflnsjZTVU",
+            "_id": "rW7JQfumhcThcuHp",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.x7SPrsRxGb2Vy2nu"
@@ -166,6 +161,7 @@
                         "10": {
                             "area": {
                                 "areaType": "burst",
+                                "type": "",
                                 "value": "1320"
                             },
                             "range": {
@@ -231,7 +227,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "earth"
@@ -241,7 +236,7 @@
             "type": "spell"
         },
         {
-            "_id": "RpVPjy7xQlOXpgBp",
+            "_id": "sD7nAemNqkKLGL8I",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.U58aQWJ47VrI36yP"
@@ -350,7 +345,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "incapacitation",
@@ -361,7 +355,7 @@
             "type": "spell"
         },
         {
-            "_id": "A7o4syzWWzzudcAV",
+            "_id": "6gp8rGMM2ZiLUv3V",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.gPvtmKMRpg9I9D7H"
@@ -459,7 +453,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -499,7 +492,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -546,7 +538,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "brutal",
@@ -560,7 +551,7 @@
             "type": "melee"
         },
         {
-            "_id": "hyOiA77RFp4UuinY",
+            "_id": "mOgh0bLWwjU5JzRo",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.4Ho2xMPEC05aSxzr"
@@ -591,7 +582,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -605,7 +595,7 @@
             "type": "action"
         },
         {
-            "_id": "PBHNS8ninWABGJTL",
+            "_id": "i9Y89elHLIhcIh43",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kdhbPaBMK1d1fpbA"
@@ -636,7 +626,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -654,7 +643,7 @@
             "type": "action"
         },
         {
-            "_id": "JwSZnCeb6U4mNS3l",
+            "_id": "aGULlUDAVR1BMKC7",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Smoke Vision",
             "sort": 900000,
@@ -680,7 +669,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -714,8 +702,13 @@
                 "rules": [
                     {
                         "key": "Note",
+                        "predicate": [
+                            "enchantment"
+                        ],
                         "selector": "will",
-                        "text": "Anytime a deghuun attempts a Will save against an enchantment spell, the spell's caster must attempt a @Check[type:will|dc:38] save or become @UUID[Compendium.pf2e.conditionitems.Confused]{Confused} for up to the spell's duration."
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,
@@ -723,7 +716,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -760,7 +752,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -797,7 +788,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "fire",
@@ -837,7 +827,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -879,7 +868,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -913,7 +901,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -974,6 +961,16 @@
             "perception": {
                 "value": 30
             },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [
+                        "adamantine"
+                    ],
+                    "type": "physical",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1006,6 +1003,7 @@
             "privateNotes": "",
             "publicNotes": "<p>Mhar, an ancient evil deity of caverns, mountains, and volcanoes, belongs to the pantheon of the Great Old Ones-monstrous beings of alien intellect and unfathomable power. The so-called children of Mhar (known as deghuuns in the chaotic tongues of Mhar's enraptured cultists) physically resemble blue-gray octopods made of stone, mud, and molten iron. Venthole-like craters dot the surface of a deghuun's body, through which the creature can gaze out with a single golden eye that it can move from crater to crater.</p>",
             "source": {
+                "author": "",
                 "value": "Pathfinder #156: The Apocalypse Prophet"
             }
         },

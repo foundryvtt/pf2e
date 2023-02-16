@@ -3,6 +3,7 @@ import { EffectPF2e, ItemPF2e } from "@item";
 import { MacroPF2e } from "@module/macro";
 import { createActionMacro, createItemMacro, createSkillMacro, createToggleEffectMacro } from "@scripts/macros/hotbar";
 import { isObject, setHasElement } from "@util";
+import { UUIDUtils } from "@util/uuid-utils";
 
 class HotbarPF2e extends Hotbar<MacroPF2e> {
     /** Handle macro creation from non-macros */
@@ -17,6 +18,11 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
         }
         if (Hooks.call("hotbarDrop", this, data, slot) === false) return;
 
+        // A melee item dropped on the hotbar is to instead generate an action macro
+        if (data.type === "Item" && data.itemType === "melee" && typeof data.index === "number") {
+            data.type = "Action";
+        }
+
         switch (data.type) {
             case "Item": {
                 const itemId = data.id ?? (isObject<{ _id?: unknown }>(data.data) ? data.data._id : null);
@@ -28,7 +34,7 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
                         : typeof data.actorId === "string"
                         ? `Actor.${data.actorId}.Item`
                         : "Item";
-                const item = await fromUuid(uuid ?? `${prefix}.${itemId}`);
+                const item = await UUIDUtils.fromUuid(uuid ?? `${prefix}.${itemId}`);
 
                 if (item instanceof EffectPF2e) {
                     return createToggleEffectMacro(item, slot);
@@ -47,8 +53,8 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
                 return createSkillMacro(data.skill, skillName, data.actorId, slot);
             }
             case "Action": {
-                if (!(data.actorId && typeof data.index === "number")) return;
-                return createActionMacro(data.index, data.actorId, slot);
+                if (!(typeof data.index === "number")) return;
+                return createActionMacro(data.index, slot);
             }
         }
     }
@@ -96,6 +102,7 @@ type HotbarDropData = Partial<DropCanvasData> & {
     skill?: string;
     skillName?: string;
     index?: number;
+    itemType?: string;
     pf2e?: {
         type: string;
         property: string;

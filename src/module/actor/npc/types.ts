@@ -4,6 +4,7 @@ import { SaveType } from "@actor/types";
 import { ActionItemData, EffectData, ItemDataPF2e } from "@item/data";
 import { ZeroToFour } from "@module/data";
 import { IdentifyCreatureData } from "@module/recall-knowledge";
+import { TraitTagifyEntry } from "@module/sheet/helpers";
 import { NPCPF2e } from ".";
 import { NPCArmorClass, NPCAttributes, NPCSaveData, NPCSkillData, NPCSystemData, NPCTraitsData } from "./data";
 
@@ -95,6 +96,7 @@ interface NPCSheetData<T extends NPCPF2e = NPCPF2e> extends CreatureSheetData<T>
     hasShield?: boolean;
     hasHardness?: boolean;
     configLootableNpc?: boolean;
+    traitTagifyData: TraitTagifyEntry[];
 }
 
 type NPCSheetItemData<T extends ItemDataPF2e | RawObject<ItemDataPF2e> = ItemDataPF2e> = T & {
@@ -118,6 +120,7 @@ type NPCSheetItemData<T extends ItemDataPF2e | RawObject<ItemDataPF2e> = ItemDat
         };
         weaponType?: string;
     };
+    hasAura: boolean;
 };
 
 export {

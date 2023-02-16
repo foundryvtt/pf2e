@@ -15,7 +15,7 @@ declare module foundry {
 
             readonly parent: null;
 
-            get documentName(): typeof BasePlaylist["metadata"]["name"];
+            get documentName(): (typeof BasePlaylist)["metadata"]["name"];
         }
 
         interface PlaylistMetadata extends abstract.DocumentMetadata {

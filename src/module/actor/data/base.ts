@@ -9,7 +9,8 @@ import { ItemSourcePF2e } from "@item/data";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import { DocumentSchemaRecord, Rarity, Size, ValueAndMaybeMax } from "@module/data";
 import { AutoChangeEntry } from "@module/rules/rule-element/ae-like";
-import { RollParameters, StrikeRollParams } from "@module/system/rolls";
+import { RollParameters, AttackRollParams } from "@module/system/rolls";
+import { DamageRoll } from "@system/damage/roll";
 import { ActorType } from ".";
 import { ImmunityData, ImmunitySource, ResistanceData, ResistanceSource, WeaknessData, WeaknessSource } from "./iwr";
 
@@ -56,7 +57,7 @@ interface ActorSystemData extends ActorSystemSource {
     };
     actions?: StrikeData[];
     attributes: ActorAttributes;
-    traits: ActorTraitsData<string>;
+    traits?: ActorTraitsData<string>;
     /** Icons appearing in the Effects Tracker application */
     tokenEffects: TemporaryEffect[];
     /** An audit log of automatic, non-modifier changes applied to various actor data nodes */
@@ -97,6 +98,7 @@ interface ActorAttributesSource {
 
 interface ActorAttributes extends ActorAttributesSource {
     hp?: Required<BaseHitPointsData>;
+    ac?: { value: number };
     immunities: ImmunityData[];
     weaknesses: WeaknessData[];
     resistances: ResistanceData[];
@@ -159,6 +161,8 @@ type RollFunction<T extends RollParameters = RollParameters> = (
     params: T
 ) => Promise<Rolled<Roll> | null | string | void>;
 
+type DamageRollFunction = (params?: AttackRollParams) => Promise<string | Rolled<DamageRoll> | null>;
+
 /** Basic initiative-relevant data. */
 interface InitiativeData {
     /** What skill or ability is currently being used to compute initiative. */
@@ -199,6 +203,8 @@ interface TraitViewData {
 
 /** An strike which a character can use. */
 interface StrikeData extends StatisticModifier {
+    slug: string;
+    label: string;
     /** The type of action; currently just 'strike'. */
     type: "strike";
     /** The image URL for this strike (shown on the UI). */
@@ -218,17 +224,17 @@ interface StrikeData extends StatisticModifier {
     /** Whether the strike is ready (usually when the weapon corresponding with the strike is equipped) */
     ready: boolean;
     /** Alias for `attack`. */
-    roll?: RollFunction<StrikeRollParams>;
+    roll?: RollFunction<AttackRollParams>;
     /** Roll to attack with the given strike (with no MAP penalty; see `variants` for MAP penalties.) */
-    attack?: RollFunction<StrikeRollParams>;
+    attack?: RollFunction<AttackRollParams>;
     /** Roll normal (non-critical) damage for this weapon. */
-    damage?: RollFunction<StrikeRollParams>;
+    damage?: DamageRollFunction;
     /** Roll critical damage for this weapon. */
-    critical?: RollFunction<StrikeRollParams>;
+    critical?: DamageRollFunction;
     /** Alternative usages of a strike weapon: thrown, combination-melee, etc. */
     altUsages?: StrikeData[];
     /** A list of attack variants which apply the Multiple Attack Penalty. */
-    variants: { label: string; roll: RollFunction<StrikeRollParams> }[];
+    variants: { label: string; roll: RollFunction<AttackRollParams> }[];
 
     /** Ammunition choices and selected ammo if this is a ammo consuming weapon. */
     ammunition?: {
@@ -293,6 +299,7 @@ export {
     BaseActorDataPF2e,
     BaseActorSourcePF2e,
     BaseHitPointsData,
+    DamageRollFunction,
     GangUpCircumstance,
     HitPointsData,
     InitiativeData,

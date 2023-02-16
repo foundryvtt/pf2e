@@ -1,8 +1,8 @@
-import { isObject } from "@util";
+import { isImageFilePath, isImageOrVideoPath, isObject } from "@util";
 
 /** A mapping of module-provided art to be used for compendium actors and their prototype tokens */
 class ModuleArt {
-    readonly map: Map<CompendiumUUID, ModuleArtData> = new Map();
+    readonly map: Map<CompendiumUUID, ActorArtPartial> = new Map();
 
     /** Pull actor and token art from module.json or separate mapping files and store in the map */
     async refresh(): Promise<void> {
@@ -28,9 +28,36 @@ class ModuleArt {
                     if (!record) continue;
 
                     record.img = paths.actor;
-                    this.map.set(`Compendium.pf2e.${packName}.${actorId}`, paths);
+                    const actorArtPartial: ActorArtPartial = {
+                        img: paths.actor,
+                        prototypeToken: {
+                            texture: {
+                                src: typeof paths.token === "string" ? paths.token : paths.token.img,
+                            },
+                        },
+                    };
+                    // Add supplementary data if present
+                    if (typeof paths.token !== "string") {
+                        if (typeof paths.token.scale === "number") {
+                            actorArtPartial.prototypeToken.texture.scaleX = paths.token.scale;
+                            actorArtPartial.prototypeToken.texture.scaleY = paths.token.scale;
+                            actorArtPartial.prototypeToken.flags = { pf2e: { autoscale: false } };
+                        }
+                        if (typeof paths.token.randomImg === "boolean") {
+                            actorArtPartial.prototypeToken.randomImg = paths.token.randomImg;
+                        }
+                    }
+
+                    this.map.set(`Compendium.pf2e.${packName}.${actorId}`, actorArtPartial);
                 }
             }
+        }
+
+        const apps = Object.values(ui.windows).filter(
+            (w): w is Compendium<CompendiumDocument> => w instanceof Compendium
+        );
+        for (const compendium of apps) {
+            compendium.render();
         }
     }
 
@@ -66,13 +93,22 @@ class ModuleArt {
                 (packToArt) =>
                     isObject(packToArt) &&
                     Object.values(packToArt).every(
-                        (art) =>
-                            isObject<string>(art) &&
-                            typeof art.actor === "string" &&
-                            (typeof art.token === "string" ||
-                                (isObject<{ img: string; scale: number }>(art.token) &&
-                                    typeof art.token.img === "string" &&
-                                    (art.token.scale === undefined || typeof art.token.scale === "number")))
+                        (art: unknown) =>
+                            // `art` is an object with `actor` and `token` properties, and `actor.img` is an image
+                            // file path
+                            isObject(art) &&
+                            "actor" in art &&
+                            typeof isImageFilePath(art.actor) &&
+                            "token" in art &&
+                            // `token` is an image/video file path, or it is an object with an image/video file path
+                            // along with (optionally) `scale` and/or `randomImg`
+                            (isImageOrVideoPath(art.token) ||
+                                (isObject(art.token) &&
+                                    "img" in art.token &&
+                                    isImageOrVideoPath(art.token.img) &&
+                                    (!("scale" in art.token) ||
+                                        (typeof art.token.scale === "number" && art.token.scale > 0)) &&
+                                    (!("randomImg" in art.token) || typeof art.token.randomImg === "boolean")))
                     )
             )
         );
@@ -82,7 +118,25 @@ class ModuleArt {
 interface ModuleArtData {
     actor: ImageFilePath;
     // Token art can either be an image path or an object containing the path and a custom scale
-    token: ImageFilePath | { img: ImageFilePath; scale?: number };
+    token: ImageFilePath | { img: ImageFilePath; scale?: number; randomImg?: boolean };
+}
+
+/** Prepared `ModuleArtData`, restructured to merge directly into actor source */
+interface ActorArtPartial {
+    img: ImageFilePath;
+    prototypeToken: {
+        flags?: {
+            pf2e: {
+                autoscale: false;
+            };
+        };
+        randomImg?: boolean;
+        texture: {
+            src: ImageFilePath | VideoFilePath;
+            scaleX?: number;
+            scaleY?: number;
+        };
+    };
 }
 
 type ModuleArtRecord = Record<string, Record<string, ModuleArtData>>;

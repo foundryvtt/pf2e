@@ -93,7 +93,7 @@ interface CreatureSystemData extends CreatureSystemSource, ActorSystemData {
     actions?: StrikeData[];
 }
 
-type CreatureType = typeof CREATURE_ACTOR_TYPES[number];
+type CreatureType = (typeof CREATURE_ACTOR_TYPES)[number];
 
 interface SenseData {
     type: SenseType;
@@ -196,7 +196,7 @@ interface InitiativeRollParams extends RollParameters {
     /** Whether the encounter tracker should be updated with the roll result */
     updateTracker?: boolean;
     skipDialog?: boolean;
-    rollMode?: RollMode;
+    rollMode?: RollMode | "roll";
 }
 
 interface InitiativeRollResult {

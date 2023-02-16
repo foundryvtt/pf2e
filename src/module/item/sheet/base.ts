@@ -1,7 +1,12 @@
 import { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { RuleElements, RuleElementSource } from "@module/rules";
-import { createSheetTags, maintainTagifyFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers";
+import {
+    createSheetTags,
+    createTagifyTraits,
+    maintainTagifyFocusInRender,
+    processTagifyInSubmitData,
+} from "@module/sheet/helpers";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import { LocalizePF2e } from "@system/localize";
 import {
@@ -71,6 +76,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
     /** An alternative to super.getData() for subclasses that don't need this class's `getData` */
     override async getData(options: Partial<DocumentSheetOptions> = {}): Promise<ItemSheetDataPF2e<TItem>> {
+        options.id = this.id;
         options.classes?.push(this.item.type);
         options.editable = this.isEditable;
 
@@ -88,7 +94,12 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
         const validTraits = this.validTraits;
         const hasRarity = !this.item.isOfType("action", "condition", "deity", "effect", "lore", "melee");
-        const traits = validTraits ? createSheetTags(validTraits, this.item.system.traits?.value ?? []) : null;
+        const itemTraits = this.item.system.traits?.value ?? [];
+        const sourceTraits = this.item._source.system.traits?.value ?? [];
+        const traits = validTraits ? createSheetTags(validTraits, itemTraits) : null;
+        const traitTagifyData = validTraits
+            ? createTagifyTraits(itemTraits, { sourceTraits, record: validTraits })
+            : null;
 
         // Activate rule element sub forms
         this.ruleElementForms = {};
@@ -101,19 +112,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 object: this.item.rules.find((r) => r.sourceIndex === index) ?? null,
             });
         }
-
-        // This variable name is obviously no longer accurate: needs sweep through item sheet templates for refactor
-        const traitSlugs = ((): { id: string; value: string; readonly: boolean }[] => {
-            const readonlyTraits: string[] =
-                this.item.system.traits?.value.filter((t) => {
-                    const sourceTraits: string[] = this.item._source.system.traits?.value ?? [];
-                    return !sourceTraits.includes(t);
-                }) ?? [];
-            return Object.keys(traits ?? {}).map((slug) => {
-                const label = game.i18n.localize(validTraits?.[slug] ?? slug);
-                return { id: slug, value: label, readonly: readonlyTraits.includes(slug) };
-            });
-        })();
 
         return {
             itemType: null,
@@ -138,7 +136,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             rarity: hasRarity ? this.item.system.traits?.rarity ?? "common" : null,
             rarities: CONFIG.PF2E.rarityTraits,
             traits,
-            traitSlugs,
+            traitTagifyData,
             enabledRulesUI: game.settings.get("pf2e", "enabledRulesUI"),
             ruleEditing: !!this.editingRuleElement,
             rules: {
@@ -152,11 +150,11 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 selection: {
                     selected: this.selectedRuleElementType,
                     types: sortStringRecord(
-                        Object.keys(RuleElements.all).reduce((result: Record<string, string>, key) => {
-                            const translations: Record<string, string> = LocalizePF2e.translations.PF2E.RuleElement;
-                            result[key] = game.i18n.localize(translations[key] ?? key);
-                            return result;
-                        }, {})
+                        Object.keys(RuleElements.all).reduce(
+                            (result: Record<string, string>, key) =>
+                                mergeObject(result, { [key]: `PF2E.RuleElement.${key}` }),
+                            {}
+                        )
                     ),
                 },
                 elements: await Promise.all(
@@ -233,32 +231,49 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             anchor.addEventListener("click", () => this.onTagSelector(anchor));
         }
 
-        const ruleElementSelect = html.querySelector<HTMLSelectElement>("select[data-action=select-rule-element]");
+        const rulesPanel = htmlQuery(html, ".tab[data-tab=rules]");
+
+        // Item slug
+        const slugInput = htmlQuery<HTMLInputElement>(rulesPanel, 'input[name="system.slug"]');
+        if (slugInput) {
+            slugInput.addEventListener("change", () => {
+                slugInput.value = sluggify(slugInput.value);
+            });
+            htmlQuery(rulesPanel, "a[data-action=regenerate-slug]")?.addEventListener("click", () => {
+                if (this._submitting) return;
+
+                slugInput.value = sluggify(this.item.name);
+                const event = new Event("change");
+                slugInput.dispatchEvent(event);
+            });
+        }
+
+        const ruleElementSelect = htmlQuery<HTMLSelectElement>(rulesPanel, "select[data-action=select-rule-element]");
         ruleElementSelect?.addEventListener("change", () => {
             this.selectedRuleElementType = ruleElementSelect.value;
         });
 
-        for (const anchor of htmlQueryAll<HTMLAnchorElement>(html, "a.add-rule-element")) {
+        for (const anchor of htmlQueryAll(rulesPanel, "a.add-rule-element")) {
             anchor.addEventListener("click", async (event) => {
-                await this._onSubmit(event); // submit any unsaved changes
+                await this._onSubmit(event); // Submit any unsaved changes
                 const rulesData = this.item.toObject().system.rules;
                 const key = this.selectedRuleElementType ?? "NewRuleElement";
                 this.item.update({ "system.rules": rulesData.concat({ key }) });
             });
         }
 
-        for (const anchor of htmlQueryAll<HTMLAnchorElement>(html, "a.edit-rule-element")) {
-            anchor.addEventListener("click", async (event) => {
-                await this._onSubmit(event); // submit any unsaved changes
+        for (const anchor of htmlQueryAll(rulesPanel, "a.edit-rule-element")) {
+            anchor.addEventListener("click", async () => {
+                if (this._submitting) return; // Don't open if already submitting
                 const index = Number(anchor.dataset.ruleIndex ?? "NaN") ?? null;
                 this.editingRuleElementIndex = index;
-                this.render(true);
+                this.render();
             });
         }
 
-        for (const anchor of htmlQueryAll<HTMLAnchorElement>(html, ".rules a.remove-rule-element")) {
+        for (const anchor of htmlQueryAll(rulesPanel, ".rules a.remove-rule-element")) {
             anchor.addEventListener("click", async (event) => {
-                await this._onSubmit(event); // submit any unsaved changes
+                await this._onSubmit(event); // Submit any unsaved changes
                 const rules = this.item.toObject().system.rules;
                 const index = Number(anchor.dataset.ruleIndex ?? "NaN");
                 if (rules && Number.isInteger(index) && rules.length > index) {
@@ -268,11 +283,11 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             });
         }
 
-        for (const anchor of htmlQueryAll<HTMLAnchorElement>(html, "a[data-clipboard]")) {
+        for (const anchor of htmlQueryAll<HTMLAnchorElement>(rulesPanel, "a[data-clipboard]")) {
             anchor.addEventListener("click", () => {
                 const clipText = anchor.dataset.clipboard;
                 if (clipText) {
-                    navigator.clipboard.writeText(clipText);
+                    game.clipboard.copyPlainText(clipText);
                     ui.notifications.info(game.i18n.format("PF2E.ClipboardNotification", { clipText }));
                 }
             });
@@ -282,16 +297,20 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         const editingRuleElement = this.editingRuleElement;
         if (editingRuleElement) {
             const ruleText = JSON.stringify(editingRuleElement, null, 2);
+            const schema = RuleElements.all[String(editingRuleElement.key)]?.schema.fields;
             const view = new CodeMirror.EditorView({
                 doc: ruleText,
-                extensions: [CodeMirror.basicSetup, CodeMirror.keybindings, CodeMirror.json(), CodeMirror.jsonLinter()],
+                extensions: [
+                    CodeMirror.basicSetup,
+                    CodeMirror.keybindings,
+                    ...CodeMirror.ruleElementExtensions({ schema }),
+                ],
             });
 
             html.querySelector<HTMLDivElement>(".rule-editing .editor-placeholder")?.replaceWith(view.dom);
 
             const closeBtn = html.querySelector<HTMLButtonElement>(".rule-editing button[data-action=close]");
-            closeBtn?.addEventListener("click", (event) => {
-                event.preventDefault();
+            closeBtn?.addEventListener("click", () => {
                 this.editingRuleElementIndex = null;
                 this.render();
             });
@@ -299,8 +318,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
             html.querySelector<HTMLButtonElement>(".rule-editing button[data-action=apply]")?.addEventListener(
                 "click",
-                (event) => {
-                    event.preventDefault();
+                () => {
                     const value = view.state.doc.toString();
 
                     // Close early if the editing index is invalid
@@ -374,6 +392,24 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 this.item.update({ [`system.variants.-=${index}`]: null });
             });
         }
+
+        // Tooltipped info circles
+        for (const infoCircle of htmlQueryAll(html, "i.fa-info-circle[title]")) {
+            if (infoCircle.classList.contains("small")) {
+                $(infoCircle).tooltipster({
+                    maxWidth: 275,
+                    position: "right",
+                    theme: "crb-hover",
+                    contentAsHTML: true,
+                });
+            } else if (infoCircle.classList.contains("large")) {
+                $(infoCircle).tooltipster({
+                    maxWidth: 400,
+                    theme: "crb-hover",
+                    contentAsHTML: true,
+                });
+            }
+        }
     }
 
     /** When tabs are changed, change visibility of elements such as the sidebar */
@@ -387,8 +423,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         const sidebarHeader = this.element[0]?.querySelector<HTMLElement>(".sidebar-summary");
         const sidebar = this.element[0]?.querySelector<HTMLElement>(".sheet-sidebar");
         if (sidebarHeader && sidebar) {
-            const display = activeTab === "rules" ? "none" : "";
-            sidebarHeader.style.display = sidebar.style.display = display;
+            sidebarHeader.style.visibility = activeTab === "rules" ? "hidden" : "";
+            sidebar.style.display = activeTab === "rules" ? "none" : "";
         }
     }
 
@@ -455,11 +491,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        // Avoid setting a baseItem of an empty string
-        if (formData["system.baseItem"] === "") {
-            formData["system.baseItem"] = null;
-        }
-
         const rulesVisible = !!this.form.querySelector(".rules");
         const expanded = expandObject(formData) as DeepPartial<ItemSourcePF2e>;
 

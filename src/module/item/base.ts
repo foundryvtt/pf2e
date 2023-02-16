@@ -3,14 +3,16 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { preImportJSON } from "@module/doc-helpers";
 import { MigrationList, MigrationRunner } from "@module/migration";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
+import { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource } from "@module/rules";
+import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers";
 import { UserPF2e } from "@module/user";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 import { ErrorPF2e, isObject, setHasElement, sluggify } from "@util";
-import { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource } from "@module/rules";
-import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers";
+import { AfflictionSource } from "./affliction";
 import { ContainerPF2e } from "./container";
 import {
     ConditionSource,
+    EffectSource,
     FeatSource,
     ItemDataPF2e,
     ItemSourcePF2e,
@@ -22,30 +24,15 @@ import { isItemSystemData, isPhysicalData } from "./data/helpers";
 import { PhysicalItemPF2e } from "./physical/document";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values";
 import { ItemSheetPF2e } from "./sheet/base";
-
-interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
-    pf2e?: {
-        ready?: boolean;
-    };
-}
+import { UUIDUtils } from "@util/uuid-utils";
 
 /** Override and extend the basic :class:`Item` implementation */
 class ItemPF2e extends Item<ActorPF2e> {
     /** Has this item gone through at least one cycle of data preparation? */
-    private initialized?: true;
+    protected initialized?: true;
 
     /** Prepared rule elements from this item */
     rules!: RuleElementPF2e[];
-
-    constructor(data: PreCreate<ItemSourcePF2e>, context: ItemConstructionContextPF2e = {}) {
-        if (context.pf2e?.ready) {
-            super(data, context);
-        } else {
-            context.pf2e = mergeObject(context.pf2e ?? {}, { ready: true });
-            const ItemConstructor = CONFIG.PF2E.Item.documentClasses[data.type];
-            return ItemConstructor ? new ItemConstructor(data, context) : new ItemPF2e(data, context);
-        }
-    }
 
     /** The sluggified name of the item **/
     get slug(): string | null {
@@ -66,13 +53,18 @@ class ItemPF2e extends Item<ActorPF2e> {
         return this.system.description.value.trim();
     }
 
+    /** The item that granted this item, if any */
+    get grantedBy(): Embedded<ItemPF2e> | null {
+        return this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "") ?? null;
+    }
+
     /** Check this item's type (or whether it's one among multiple types) without a call to `instanceof` */
-    isOfType(type: "physical"): this is PhysicalItemPF2e;
     isOfType<T extends ItemType>(...types: T[]): this is InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][T]>;
+    isOfType(type: "physical"): this is PhysicalItemPF2e;
     isOfType<T extends "physical" | ItemType>(
         ...types: T[]
     ): this is PhysicalItemPF2e | InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][Exclude<T, "physical">]>;
-    isOfType(...types: (ItemType | "physical")[]): boolean {
+    isOfType(...types: string[]): boolean {
         return types.some((t) => (t === "physical" ? setHasElement(PHYSICAL_ITEM_TYPES, this.type) : this.type === t));
     }
 
@@ -87,6 +79,8 @@ class ItemPF2e extends Item<ActorPF2e> {
 
     /** Generate a list of strings for use in predication */
     getRollOptions(prefix = this.type): string[] {
+        if (prefix.length === 0) throw ErrorPF2e("`prefix` must be at least one character long");
+
         const slug = this.slug ?? sluggify(this.name);
 
         const traitOptions = ((): string[] => {
@@ -101,22 +95,21 @@ class ItemPF2e extends Item<ActorPF2e> {
             return [traits, deannotated].flat().map((t) => `trait:${t}`);
         })();
 
-        const delimitedPrefix = prefix ? `${prefix}:` : "";
         const options = [
-            `${delimitedPrefix}id:${this.id}`,
-            `${delimitedPrefix}${slug}`,
-            `${delimitedPrefix}slug:${slug}`,
-            ...traitOptions.map((t) => `${delimitedPrefix}${t}`),
+            `${prefix}:id:${this.id}`,
+            `${prefix}:${slug}`,
+            `${prefix}:slug:${slug}`,
+            ...traitOptions.map((t) => `${prefix}:${t}`),
         ];
 
         const level = "level" in this ? this.level : "level" in this.system ? this.system.level.value : null;
         if (typeof level === "number") {
-            options.push(`${delimitedPrefix}level:${level}`);
+            options.push(`${prefix}:level:${level}`);
         }
 
         if (["item", ""].includes(prefix)) {
             const itemType = this.isOfType("feat") && this.isFeature ? "feature" : this.type;
-            options.unshift(`${delimitedPrefix}type:${itemType}`);
+            options.unshift(`${prefix}:type:${itemType}`);
         }
 
         return options;
@@ -236,7 +229,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         }
 
         const currentSource = this.toObject();
-        const latestSource = (await fromUuid<this>(this.sourceId))?.toObject();
+        const latestSource = (await UUIDUtils.fromUuid<this>(this.sourceId))?.toObject();
         if (!latestSource) {
             ui.notifications.warn(
                 `The compendium source for "${this.name}" (source ID: ${this.sourceId}) was not found.`
@@ -325,12 +318,6 @@ class ItemPF2e extends Item<ActorPF2e> {
 
     protected traitChatData(dictionary: Record<string, string | undefined> = {}): TraitChatData[] {
         const traits: string[] = [...(this.system.traits?.value ?? [])].sort();
-        const customTraits =
-            this.system.traits?.custom
-                .trim()
-                .split(/\s*[,;|]\s*/)
-                .filter((trait) => trait) ?? [];
-        traits.push(...customTraits);
 
         const traitChatLabels = traits.map((trait) => {
             const label = dictionary[trait] ?? trait;
@@ -355,7 +342,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         game.system.documentTypes.Item = original.filter(
             (itemType: string) =>
                 !["condition", "spellcastingEntry", "lore"].includes(itemType) &&
-                !(itemType === "book" && BUILD_MODE === "production")
+                !(["affliction", "book"].includes(itemType) && BUILD_MODE === "production")
         );
         options = { ...options, classes: [...(options.classes ?? []), "dialog-item-create"] };
         const newItem = super.createDialog(data, options) as Promise<ItemPF2e | undefined>;
@@ -369,62 +356,77 @@ class ItemPF2e extends Item<ActorPF2e> {
         return processed ? super.importFromJSON(processed) : this;
     }
 
+    /** Include the item type along with data from upstream */
+    override toDragData(): { type: string; itemType: string; [key: string]: unknown } {
+        return { ...super.toDragData(), itemType: this.type };
+    }
+
     static override async createDocuments<T extends foundry.abstract.Document>(
         this: ConstructorOf<T>,
-        data?: PreCreate<T["_source"]>[],
+        data?: (T | PreCreate<T["_source"]>)[],
         context?: DocumentModificationContext<T>
     ): Promise<T[]>;
     static override async createDocuments(
-        data: PreCreate<ItemSourcePF2e>[] = [],
+        data: (ItemPF2e | PreCreate<ItemSourcePF2e>)[] = [],
         context: DocumentModificationContext<ItemPF2e> = {}
     ): Promise<Item[]> {
+        // Convert all `ItemPF2e`s to source objects
+        const sources = data.map((d) => (d instanceof ItemPF2e ? d.toObject() : d));
+
         // Migrate source in case of importing from an old compendium
-        for (const source of [...data]) {
+        for (const source of [...sources]) {
             if (Object.keys(source).length === 2 && "name" in source && "type" in source) {
                 // The item consists of only a `name` and `type`: set schema version and skip
                 source.system = { schema: { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION } };
                 continue;
             }
-            const item = new ItemPF2e(source);
+            const item = new CONFIG.Item.documentClass(source);
             await MigrationRunner.ensureSchemaVersion(item, MigrationList.constructFromVersion(item.schemaVersion));
             data.splice(data.indexOf(source), 1, item.toObject());
         }
 
         const actor = context.parent;
-        if (!actor) return super.createDocuments(data, context);
+        if (!actor) return super.createDocuments(sources, context);
 
         const validTypes = actor.allowedItemTypes;
         if (validTypes.includes("physical")) validTypes.push(...PHYSICAL_ITEM_TYPES, "kit");
 
         // Check if this item is valid for this actor
-        for (const datum of data) {
-            if (!validTypes.includes(datum.type)) {
+        for (const source of sources) {
+            if (!validTypes.includes(source.type)) {
                 ui.notifications.error(
                     game.i18n.format("PF2E.Item.CannotAddType", {
-                        type: game.i18n.localize(CONFIG.Item.typeLabels[datum.type] ?? datum.type.titleCase()),
+                        type: game.i18n.localize(CONFIG.Item.typeLabels[source.type] ?? source.type.titleCase()),
                     })
                 );
                 return [];
             }
         }
 
-        // Prevent creation of conditions to which the actor is immune
-        for (const datum of data.filter((d): d is PreCreate<ConditionSource> => d.type === "condition")) {
-            const condition = new CONFIG.PF2E.Item.documentClasses.condition(deepClone(datum), { parent: actor });
-            const isUnaffected = !actor.isAffectedBy(condition);
-            const isImmune = actor.isImmuneTo(condition);
+        // Prevent creation of effects to which the actor is immune
+        const effectSources = sources.filter((s): s is PreCreate<AfflictionSource | ConditionSource | EffectSource> =>
+            ["affliction", "condition", "effect"].includes(s.type)
+        );
+        for (const source of effectSources) {
+            const effect = new CONFIG.PF2E.Item.documentClasses[source.type](deepClone(source), { parent: actor });
+            const isUnaffected = effect.isOfType("condition") && !actor.isAffectedBy(effect);
+            const isImmune = actor.isImmuneTo(effect);
             if (isUnaffected || isImmune) {
-                const locKey = isUnaffected ? "PF2E.Damage.IWR.ActorIsUnaffected" : "PF2E.Damage.IWR.ActorIsImmune";
-                const message = game.i18n.format(locKey, { actor: actor.name, effect: condition.name });
-                ui.notifications.info(message);
-                data.splice(data.indexOf(datum), 1);
+                sources.splice(sources.indexOf(source), 1);
+
+                // Send a notification if the effect wasn't automatically added by an aura
+                if (!(effect.isOfType("effect") && effect.fromAura)) {
+                    const locKey = isUnaffected ? "PF2E.Damage.IWR.ActorIsUnaffected" : "PF2E.Damage.IWR.ActorIsImmune";
+                    const message = game.i18n.format(locKey, { actor: actor.name, effect: effect.name });
+                    ui.notifications.info(message);
+                }
             }
         }
 
         // If any created types are "singular", remove existing competing ones.
         // actor.deleteEmbeddedDocuments() will also delete any linked items.
         const singularTypes = ["ancestry", "background", "class", "heritage", "deity"] as const;
-        const singularTypesToDelete = singularTypes.filter((type) => data.some((source) => source.type === type));
+        const singularTypesToDelete = singularTypes.filter((type) => sources.some((s) => s.type === type));
         const preCreateDeletions = singularTypesToDelete.flatMap((type): Embedded<ItemPF2e>[] => actor.itemTypes[type]);
         if (preCreateDeletions.length) {
             const idsToDelete = preCreateDeletions.map((i) => i.id);
@@ -439,16 +441,18 @@ class ItemPF2e extends Item<ActorPF2e> {
                 if (!granted.length) return [];
                 const reparented = granted.map(
                     (i): Embedded<ItemPF2e> =>
-                        (i.parent ? i : new ItemPF2e(i._source, { parent: actor })) as Embedded<ItemPF2e>
+                        (i.parent
+                            ? i
+                            : new CONFIG.Item.documentClass(i._source, { parent: actor })) as Embedded<ItemPF2e>
                 );
                 return [...reparented, ...(await Promise.all(reparented.map(getSimpleGrants))).flat()];
             }
 
-            const items = data.map((source) => {
+            const items = sources.map((source): Embedded<ItemPF2e> => {
                 if (!(context.keepId || context.keepEmbeddedIds)) {
                     source._id = randomID();
                 }
-                return new ItemPF2e(source, { parent: actor }) as Embedded<ItemPF2e>;
+                return new CONFIG.Item.documentClass(source, { parent: actor }) as Embedded<ItemPF2e>;
             });
 
             // If any item we plan to add will add new items (such as ABC items), add those too
@@ -573,6 +577,11 @@ class ItemPF2e extends Item<ActorPF2e> {
             changed.system.description.value = "";
         }
 
+        // Normalize the slug, setting to `null` if empty
+        if (typeof changed.system?.slug === "string") {
+            changed.system.slug = sluggify(changed.system.slug) || null;
+        }
+
         // If this item is of a certain type and belongs to a PC, change current HP along with any change to max
         if (this.actor?.isOfType("character") && this.isOfType("ancestry", "background", "class", "feat", "heritage")) {
             const actorClone = this.actor.clone();
@@ -670,7 +679,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 }
 
-interface ItemPF2e {
+interface ItemPF2e extends Item<ActorPF2e> {
     readonly data: ItemDataPF2e;
 
     readonly parent: ActorPF2e | null;
@@ -690,4 +699,11 @@ interface ItemPF2e {
     getLinkedItems?(): Embedded<ItemPF2e>[];
 }
 
-export { ItemPF2e, ItemConstructionContextPF2e };
+/** A `Proxy` to to get Foundry to construct `ItemPF2e` subclasses */
+const ItemProxyPF2e = new Proxy(ItemPF2e, {
+    construct(_target, args: [source: PreCreate<ItemSourcePF2e>, context: DocumentConstructionContext<ItemPF2e>]) {
+        return new CONFIG.PF2E.Item.documentClasses[args[0].type](...args);
+    },
+});
+
+export { ItemPF2e, ItemProxyPF2e };

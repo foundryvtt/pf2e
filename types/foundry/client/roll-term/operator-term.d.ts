@@ -21,7 +21,7 @@ declare global {
         override get total(): ` ${ArithmeticOperator} `;
     }
 
-    type ArithmeticOperator = typeof OperatorTerm["OPERATORS"][number];
+    type ArithmeticOperator = (typeof OperatorTerm)["OPERATORS"][number];
 
     interface OperatorTermData extends RollTermData {
         operator: ArithmeticOperator;

@@ -1,11 +1,10 @@
 import { StrikeData } from "@actor/data/base";
-import { ModifierPF2e } from "@actor/modifiers";
 import { ItemPF2e } from "@item";
 import { ItemType } from "@item/data";
 import { ChatMessagePF2e, DamageRollContextFlag } from "@module/chat-message";
 import { ZeroToThree } from "@module/data";
-import { DegreeOfSuccessString, DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success";
-import { DamageRoll } from "./roll";
+import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success";
+import { DamageRoll, DamageRollDataPF2e } from "./roll";
 import { DamageRollContext, DamageTemplate } from "./types";
 
 /** Create a chat message containing a damage roll */
@@ -112,7 +111,9 @@ export class DamagePF2e {
                     : `<div class="tags">${traits}</div><hr>`;
         }
 
-        const breakdownTags = this.#createBreakdownTags(data, outcome);
+        // Add breakdown to flavor
+        const breakdown = "breakdownTags" in data.damage ? data.damage.breakdownTags : data.damage.breakdown[outcome];
+        const breakdownTags = breakdown.map((b) => `<span class="tag tag_transparent">${b}</span>`);
         flavor += `<div class="tags">${breakdownTags.join("")}</div>`;
 
         // Create the damage roll and evaluate. If already created, evalute the one we've been given instead
@@ -130,7 +131,16 @@ export class DamagePF2e {
 
             const rollerId = game.userId;
             const degreeOfSuccess = DEGREE_OF_SUCCESS_STRINGS.indexOf(outcome) as ZeroToThree;
-            return new DamageRoll(formula, {}, { rollerId, damage: data, degreeOfSuccess }).evaluate({ async: true });
+            const critRule = game.settings.get("pf2e", "critRule") === "doubledamage" ? "double-damage" : "double-dice";
+
+            const options: DamageRollDataPF2e = {
+                rollerId,
+                damage: data,
+                degreeOfSuccess,
+                ignoredResistances: damage.ignoredResistances,
+                critRule,
+            };
+            return new DamageRoll(formula, {}, options).evaluate({ async: true });
         })();
 
         if (roll === null) return null;
@@ -175,7 +185,7 @@ export class DamagePF2e {
         // Create the damage roll, roll it, and pull the result
         const rollData = roll.options.result;
 
-        const rollMode = context.rollMode ?? "publicroll";
+        const rollMode = context.rollMode ?? "roll";
         const contextFlag: DamageRollContextFlag = {
             type: context.type,
             sourceType: context.sourceType,
@@ -184,6 +194,7 @@ export class DamagePF2e {
             target: targetFlag,
             domains: context.domains ?? [],
             options: Array.from(context.options).sort(),
+            mapIncreases: context.mapIncreases,
             notes: context.notes ?? [],
             secret: context.secret ?? false,
             rollMode,
@@ -231,68 +242,12 @@ export class DamagePF2e {
 
         if (context.createMessage) {
             messageData.rolls.push(...splashRolls);
-            await ChatMessagePF2e.create(messageData);
+            await ChatMessagePF2e.create(messageData, { rollMode });
         }
 
-        Hooks.call(`pf2e.damageRoll`, rollData);
+        Hooks.callAll(`pf2e.damageRoll`, rollData);
         if (callback) callback(rollData);
 
         return roll;
-    }
-
-    static #createBreakdownTags(data: DamageTemplate, outcome: DegreeOfSuccessString) {
-        const damage = data.damage;
-        const damageTypes = CONFIG.PF2E.damageTypes;
-
-        if ("breakdownTags" in damage) {
-            return damage.breakdownTags.map((b) => `<span class="tag tag_transparent">${b}</span>`);
-        }
-
-        const damageBaseModifier = ((): string => {
-            if (damage.base.diceNumber > 0 && damage.base.modifier !== 0) {
-                return damage.base.modifier > 0 ? ` + ${damage.base.modifier}` : ` - ${Math.abs(damage.base.modifier)}`;
-            } else if (damage.base.modifier !== 0) {
-                return damage.base.modifier.toString();
-            }
-            return "";
-        })();
-
-        const base =
-            damage.base.diceNumber > 0
-                ? `${damage.base.diceNumber}${damage.base.dieSize}${damageBaseModifier}`
-                : damageBaseModifier.toString();
-        const damageTypeLabel = game.i18n.localize(damageTypes[damage.base.damageType] ?? damage.base.damageType);
-        const baseBreakdown = `<span class="tag tag_transparent">${base} ${damageTypeLabel}</span>`;
-
-        const baseDamageType = damage.base.damageType;
-        const modifierBreakdown = [damage.dice.filter((m) => m.diceNumber !== 0), damage.modifiers]
-            .flat()
-            .filter((m) => m.enabled && (!m.critical || outcome === "criticalSuccess"))
-            .sort((a, b) =>
-                // Move persistent damage to the end
-                a.category === b.category ? 0 : a.category === "persistent" ? 1 : b.category === "persistent" ? -1 : 0
-            )
-            .sort((a, b) =>
-                a.damageType === baseDamageType && b.damageType === baseDamageType
-                    ? 0
-                    : a.damageType === baseDamageType
-                    ? -1
-                    : b.damageType === baseDamageType
-                    ? 1
-                    : 0
-            )
-            .map((m) => {
-                const modifier = m instanceof ModifierPF2e ? ` ${m.modifier < 0 ? "" : "+"}${m.modifier}` : "";
-                const damageType =
-                    m.damageType && m.damageType !== baseDamageType
-                        ? game.i18n.localize(damageTypes[m.damageType] ?? m.damageType)
-                        : null;
-                const typeLabel = damageType ? ` ${damageType}` : "";
-
-                return `<span class="tag tag_transparent">${m.label} ${modifier}${typeLabel}</span>`;
-            })
-            .join("");
-
-        return [baseBreakdown, modifierBreakdown];
     }
 }

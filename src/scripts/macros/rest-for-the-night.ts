@@ -10,7 +10,7 @@ import { Duration } from "luxon";
 /** A macro for the Rest for the Night quasi-action */
 export async function restForTheNight(options: ActionDefaultOptions): Promise<ChatMessagePF2e[]> {
     const actors = Array.isArray(options.actors) ? options.actors : [options.actors];
-    const characters = actors.filter((a): a is CharacterPF2e => a?.data.type === "character");
+    const characters = actors.filter((a): a is CharacterPF2e => a?.type === "character");
     if (actors.length === 0) {
         ui.notifications.error(game.i18n.localize("PF2E.ErrorMessage.NoPCTokenSelected"));
         return [];
@@ -48,7 +48,7 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
 
         // Conditions
         const RECOVERABLE_CONDITIONS = ["doomed", "drained", "fatigued", "wounded"] as const;
-        const conditionChanges: Record<typeof RECOVERABLE_CONDITIONS[number], "removed" | "reduced" | null> = {
+        const conditionChanges: Record<(typeof RECOVERABLE_CONDITIONS)[number], "removed" | "reduced" | null> = {
             doomed: null,
             drained: null,
             fatigued: null,
@@ -78,7 +78,7 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
 
         // Restore wand charges
         const items = actor.itemTypes;
-        const wands = items.consumable.filter((i) => i.consumableType === "wand" && i.uses.value < i.uses.max);
+        const wands = items.consumable.filter((i) => i.category === "wand" && i.uses.value < i.uses.max);
         itemUpdates.push(...wands.map((wand) => ({ _id: wand.id, "system.charges.value": 1 })));
         const wandRecharged = itemUpdates.length > 0;
 
@@ -192,6 +192,9 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
 
         // Re-render the actor's sheet after all writes have completed
         await actor.sheet.render();
+
+        // Call a hook for modules to do anything extra
+        Hooks.callAll("pf2e.restForTheNight", actor);
     }
 
     return ChatMessagePF2e.createDocuments(messages);

@@ -94,7 +94,6 @@
                     "value": "striking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -199,7 +198,6 @@
                     "value": "striking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -334,7 +332,6 @@
                     "value": 12
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -396,7 +393,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -416,7 +412,6 @@
             "sort": 500000,
             "system": {
                 "autoDestroy": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
@@ -474,7 +469,6 @@
                 },
                 "stackGroup": "bolts",
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -517,7 +511,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -563,7 +556,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -608,7 +600,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -651,7 +642,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -691,7 +681,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "flourish"
@@ -733,7 +722,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -773,7 +761,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -813,7 +800,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -842,18 +828,34 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The master assassin used Study Target during the previous round and must have a <em>garrote bolt</em></p>\n<hr />\n<p><strong>Effect</strong> The master assassin makes a crossbow Strike against the target she previously studied. If she rolls a success on her attack roll, she gets a critical success instead. The target must attempt a @Check[type:fortitude|dc:36|traits:damaging-effect] save.</p>\n<p><strong>Success</strong> No additional effect.</p>\n<p><strong>Failure</strong> The target takes an additional [[/r {3d12}[precision]]]{3d12 precision damage}.</p>\n<p><strong>Critical Failure</strong> The target is decapitated and instantly dies unless it doesn't require a head to live.</p>"
+                    "value": "<p><strong>Requirements</strong> The master assassin used Study Target during the previous round and must have a <em>garrote bolt</em></p>\n<hr />\n<p><strong>Effect</strong> The master assassin makes a crossbow Strike against the target she previously studied. If she rolls a success on her attack roll, she gets a critical success instead. The target must attempt a @Check[type:fortitude|dc:36|traits:damaging-effect] save.</p>\n<p><strong>Success</strong> No additional effect.</p>\n<p><strong>Failure</strong> The target takes an additional 3d12 precision damage.</p>\n<p><strong>Critical Failure</strong> The target is decapitated and instantly dies unless it doesn't require a head to live.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "vorpal-garrote",
+                        "toggleable": true
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 3,
+                        "dieSize": "d12",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "vorpal-garrote"
+                        ],
+                        "selector": "damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "death",
@@ -890,7 +892,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -918,7 +919,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -946,7 +946,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -974,7 +973,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1002,7 +1000,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }

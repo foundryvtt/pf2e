@@ -1,4 +1,5 @@
 import type { ActionItemData, ActionItemSource } from "@item/action/data";
+import { AfflictionData } from "@item/affliction/data";
 import type { AncestryData, AncestrySource } from "@item/ancestry/data";
 import type { ArmorData, ArmorSource } from "@item/armor/data";
 import type { BackgroundData, BackgroundSource } from "@item/background/data";
@@ -23,10 +24,11 @@ import type { WeaponData, WeaponSource } from "@item/weapon/data";
 import { PROFICIENCY_RANKS } from "@module/data";
 import { PhysicalItemTraits } from "../physical/data";
 
-export type ProficiencyRank = typeof PROFICIENCY_RANKS[number];
+export type ProficiencyRank = (typeof PROFICIENCY_RANKS)[number];
 
 export type NonPhysicalItemType =
     | "action"
+    | "affliction"
     | "ancestry"
     | "background"
     | "class"
@@ -59,6 +61,7 @@ export type MagicItemSource = Exclude<PhysicalItemSource, ConsumableSource | Tre
 export type ItemDataPF2e =
     | PhysicalItemData
     | ActionItemData
+    | AfflictionData
     | AncestryData
     | BackgroundData
     | ClassData

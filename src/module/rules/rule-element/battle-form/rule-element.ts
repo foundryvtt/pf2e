@@ -361,7 +361,8 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             baseItem: strikeData.baseType,
             options: [slug],
             damage: { base: strikeData.damage },
-            range: null,
+            range: strikeData.range,
+            maxRange: strikeData.maxRange,
             traits: strikeData.traits,
         }));
 
@@ -458,6 +459,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         }
     }
 
+    /** Disable ineligible damage adjustments (modifiers, bonuses, additional damage) */
     override applyDamageExclusion(weapon: WeaponPF2e, modifiers: (DiceModifierPF2e | ModifierPF2e)[]): void {
         if (this.ownUnarmed) return;
 

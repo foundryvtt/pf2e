@@ -3,36 +3,46 @@ import { ItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/action/data";
 import { WeaponRangeIncrement } from "@item/weapon/types";
 import { MaterialDamageEffect } from "@system/damage";
-import { PredicatePF2e } from "@system/predication";
-import { ErrorPF2e, objectHasKey, setHasElement } from "@util";
+import { PredicateField } from "@system/schema-data-fields";
+import { ErrorPF2e, objectHasKey, sluggify } from "@util";
+import { ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
 import { StrikeAdjustment } from "../synthetics";
-import { AELikeData, AELikeRuleElement, AELikeSource } from "./ae-like";
+import { AELikeRuleElement, AELikeSchema, AELikeSource } from "./ae-like";
 import { RuleElementOptions } from "./base";
 
-class AdjustStrikeRuleElement extends AELikeRuleElement {
+const { fields } = foundry.data;
+
+class AdjustStrikeRuleElement extends AELikeRuleElement<AdjustStrikeSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
-    private static VALID_PROPERTIES = new Set(["materials", "range-increment", "traits", "weapon-traits"] as const);
-
-    /** The property of the strike to adjust */
-    private property: SetElement<typeof AdjustStrikeRuleElement["VALID_PROPERTIES"]> | null;
-
-    /** The definition of the strike in terms of its item (weapon) roll options */
-    private definition: PredicatePF2e;
-
     constructor(data: AdjustStrikeSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
-        super({ ...data, predicate: data.predicate ?? {}, phase: "beforeDerived", priority: 110 }, item, options);
+        super({ ...data, path: "ignore", phase: "beforeDerived", priority: 110 }, item, options);
+    }
 
-        this.property = setHasElement(AdjustStrikeRuleElement.VALID_PROPERTIES, data.property) ? data.property : null;
-        this.definition = new PredicatePF2e(Array.isArray(data.definition) ? data.definition : []);
+    static VALID_PROPERTIES = new Set([
+        "materials",
+        "property-runes",
+        "range-increment",
+        "traits",
+        "weapon-traits",
+    ] as const);
+
+    static override defineSchema(): AdjustStrikeSchema {
+        return {
+            ...super.defineSchema(),
+            // `path` isn't used for AdjustAdjustStrike REs
+            path: new fields.StringField({ blank: true }),
+            property: new fields.StringField({
+                required: true,
+                choices: Array.from(this.VALID_PROPERTIES),
+                initial: undefined,
+            }),
+            definition: new PredicateField(),
+        };
     }
 
     protected override validateData(): void {
         const tests = {
-            property: setHasElement(AdjustStrikeRuleElement.VALID_PROPERTIES, this.property),
-            predicate: this.predicate.isValid,
-            definition: this.definition.isValid,
-            mode: objectHasKey(AELikeRuleElement.CHANGE_MODES, this.data.mode),
             value: ["string", "number"].includes(typeof this.value),
         };
 
@@ -78,7 +88,9 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                     };
                 case "range-increment":
                     return {
-                        adjustWeapon: (weapon: Embedded<WeaponPF2e>): void => {
+                        adjustWeapon: (weapon: WeaponPF2e | MeleePF2e): void => {
+                            if (weapon.isOfType("melee")) return; // Currently not supported
+
                             if (typeof change !== "number") {
                                 return this.failValidation("Change value is not a number.");
                             }
@@ -117,13 +129,13 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                             if (this.mode === "add" && !traits.includes(change)) {
                                 traits.push(change);
                             } else if (["subtract", "remove"].includes(this.mode) && traits.includes(change)) {
-                                traits.splice(traits.indexOf(change));
+                                traits.splice(traits.indexOf(change), 1);
                             }
                         },
                     };
                 case "weapon-traits":
                     return {
-                        adjustWeapon: (weapon: Embedded<WeaponPF2e>): void => {
+                        adjustWeapon: (weapon: WeaponPF2e | MeleePF2e): void => {
                             if (!["add", "subtract", "remove"].includes(this.mode)) {
                                 return this.failValidation(
                                     'A strike adjustment of weapon traits must be used with the "add", "subtract", or "remove" mode.'
@@ -150,14 +162,15 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                                     .map((trait) => trait.match(traitRegex))
                                     .find((match) => !!match);
                                 if (existingTraitMatch) {
-                                    const existingTraitScore = getTraitScore(existingTraitMatch[1]);
-                                    const changeTraitScore = getTraitScore(changeValue);
+                                    const existingTrait = existingTraitMatch[1];
+                                    const existingValue = AdjustStrikeRuleElement.getTraitScore(existingTrait);
+                                    const changeTraitScore = AdjustStrikeRuleElement.getTraitScore(changeValue);
 
                                     // If the new trait's score is higher than the existing trait's score, then remove
                                     // the existing one otherwise just return out as we don't want to add the new
                                     // (lesser) trait
-                                    if (changeTraitScore > existingTraitScore) {
-                                        traits.findSplice((trait) => trait === existingTraitMatch[0]);
+                                    if (changeTraitScore > existingValue) {
+                                        traits.findSplice((trait) => trait === existingTraitMatch[0], change);
                                     }
 
                                     return;
@@ -166,8 +179,35 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
 
                             if (this.mode === "add" && !traits.includes(change)) {
                                 traits.push(change);
-                            } else if (traits.includes(change)) {
-                                traits.splice(traits.indexOf(change));
+                            } else if (this.mode !== "add" && traits.includes(change)) {
+                                traits.splice(traits.indexOf(change), 1);
+                            }
+                        },
+                    };
+                case "property-runes":
+                    return {
+                        adjustWeapon: (weapon: WeaponPF2e | MeleePF2e): void => {
+                            if (weapon.isOfType("melee")) return; // Currently not supported
+
+                            if (!["add", "subtract", "remove"].includes(this.mode)) {
+                                return this.failValidation(
+                                    'A strike adjustment of weapon property runes must be used with the "add", "subtract", or "remove" mode.'
+                                );
+                            }
+                            const runeSlug = sluggify(String(change), { camel: "dromedary" });
+                            if (!objectHasKey(CONFIG.PF2E.weaponPropertyRunes, runeSlug)) {
+                                return this.failValidation(`"${change} is not a recognized weapon property rune.`);
+                            }
+                            if (!definition.test(weapon.getRollOptions("item"))) {
+                                return;
+                            }
+
+                            const propertyRunes = weapon.system.runes.property;
+
+                            if (this.mode === "add" && !propertyRunes.includes(runeSlug)) {
+                                propertyRunes.push(runeSlug);
+                            } else if (this.mode !== "add" && propertyRunes.includes(runeSlug)) {
+                                propertyRunes.splice(propertyRunes.indexOf(runeSlug), 1);
                             }
                         },
                     };
@@ -176,24 +216,28 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
 
         this.actor.synthetics.strikeAdjustments.push(adjustment);
     }
+
+    /** Score the trait value. If it's a dice roll, use the average roll, otherwise just use the number */
+    static getTraitScore(traitValue: string): number {
+        const traitValueMatch = traitValue.match(/(\d*)d(\d+)/);
+        return traitValueMatch
+            ? Number(traitValueMatch[1] || 1) * ((Number(traitValueMatch[2]) + 1) / 2)
+            : Number(traitValue);
+    }
 }
 
-/** Score the trait value. If it's a dice roll, use the average roll, otherwise just use the number */
-function getTraitScore(traitValue: string) {
-    const traitValueMatch = traitValue.match(/(\d*)d(\d+)/);
-    return traitValueMatch
-        ? Number(traitValueMatch[1] || 1) * ((Number(traitValueMatch[2]) + 1) / 2)
-        : Number(traitValue);
-}
+interface AdjustStrikeRuleElement
+    extends AELikeRuleElement<AdjustStrikeSchema>,
+        ModelPropsFromSchema<AdjustStrikeSchema> {}
 
-interface AdjustStrikeRuleElement extends AELikeRuleElement {
-    data: AdjustStrikeData;
-}
+type AdjustStrikeSchema = AELikeSchema & {
+    /** The property of the strike to adjust */
+    property: StringField<AdjustStrikeProperty, AdjustStrikeProperty, true, false, false>;
+    /** The definition of the strike in terms of its item (weapon) roll options */
+    definition: PredicateField;
+};
 
-interface AdjustStrikeData extends Exclude<AELikeData, "path"> {
-    /** Whether the actor is eligible to receive the strike adjustment */
-    predicate: PredicatePF2e;
-}
+type AdjustStrikeProperty = SetElement<(typeof AdjustStrikeRuleElement)["VALID_PROPERTIES"]>;
 
 interface AdjustStrikeSource extends Exclude<AELikeSource, "path"> {
     property?: unknown;

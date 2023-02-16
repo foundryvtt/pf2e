@@ -33,13 +33,36 @@
                 "mode": "upgrade",
                 "path": "system.skills.dec.rank",
                 "value": 1
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "action:feint"
+                ],
+                "selector": "skill-check",
+                "text": "When you successfully Feint, the target is flat-footed against melee attacks you attempt against it until the end of your next turn.",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:feint"
+                ],
+                "selector": "skill-check",
+                "text": "On a critical success, the target is flat-footed against all melee attacks until the end of your next turn, not just yours.",
+                "title": "{item|name}"
             }
         ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "rogue"

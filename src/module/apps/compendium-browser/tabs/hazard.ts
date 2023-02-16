@@ -76,7 +76,7 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
             },
             false
         );
-        this.filterData.checkboxes.traits.options = this.generateCheckboxOptions(CONFIG.PF2E.hazardTraits);
+        this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.hazardTraits);
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, false);
         this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(sources);
 
@@ -84,7 +84,7 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
     }
 
     protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
-        const { checkboxes, sliders } = this.filterData;
+        const { checkboxes, multiselects, sliders } = this.filterData;
 
         // Level
         if (!(entry.level >= sliders.level.values.min && entry.level <= sliders.level.values.max)) return false;
@@ -93,8 +93,9 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
             if (!checkboxes.complexity.selected.includes(entry.complexity)) return false;
         }
         // Traits
-        if (checkboxes.traits.selected.length) {
-            if (!this.arrayIncludes(checkboxes.traits.selected, entry.traits)) return false;
+        const selectedTraits = multiselects.traits.selected.map((s) => s.value);
+        if (selectedTraits.length > 0 && !selectedTraits.every((t) => entry.traits.includes(t))) {
+            return false;
         }
         // Source
         if (checkboxes.source.selected.length) {
@@ -116,12 +117,6 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
                     options: {},
                     selected: [],
                 },
-                traits: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterTraits",
-                    options: {},
-                    selected: [],
-                },
                 rarity: {
                     isExpanded: false,
                     label: "PF2E.BrowserFilterRarities",
@@ -132,6 +127,13 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
                     isExpanded: false,
                     label: "PF2E.BrowserFilterSource",
                     options: {},
+                    selected: [],
+                },
+            },
+            multiselects: {
+                traits: {
+                    label: "PF2E.BrowserFilterTraits",
+                    options: [],
                     selected: [],
                 },
             },

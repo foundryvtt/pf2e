@@ -21,12 +21,55 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "agile-shield-grip",
+                "toggleable": true
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d4"
+                },
+                "predicate": [
+                    "agile-shield-grip"
+                ],
+                "selector": "shield-boss-damage"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d4"
+                },
+                "predicate": [
+                    "agile-shield-grip"
+                ],
+                "selector": "shield-spikes-damage"
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:base:shield-boss",
+                            "item:base:shield-spikes"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "agile-shield-grip"
+                ],
+                "property": "weapon-traits",
+                "value": "agile"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Knights of Lastwall"
         },
         "traits": {
-            "custom": "",
             "rarity": "uncommon",
             "value": [
                 "champion",

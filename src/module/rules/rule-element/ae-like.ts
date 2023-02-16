@@ -1,18 +1,49 @@
 import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
 import { FeatPF2e, ItemPF2e } from "@item";
 import { isObject, objectHasKey, tupleHasValue } from "@util";
-import { RuleElementPF2e, RuleElementSource, RuleElementData, RuleElementOptions, RuleValue } from "./";
+import { ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
+import {
+    RuleElementPF2e,
+    RuleElementSource,
+    RuleElementData,
+    RuleElementOptions,
+    RuleValue,
+    RuleElementSchema,
+} from "./";
+
+const { fields } = foundry.data;
 
 /**
  * Make a numeric modification to an arbitrary property in a similar way as `ActiveEffect`s
  * @category RuleElement
  */
-class AELikeRuleElement extends RuleElementPF2e {
-    mode: AELikeChangeMode;
+class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TSchema> {
+    constructor(data: AELikeSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        const mode = objectHasKey(AELikeRuleElement.CHANGE_MODES, data.mode) ? data.mode : null;
+        data.priority ??= mode ? AELikeRuleElement.CHANGE_MODES[mode] : NaN;
+        data.phase ??= "applyAEs";
 
-    path: string;
+        super(data, item, options);
 
-    phase: AELikeDataPrepPhase;
+        this.path = typeof data.path === "string" ? data.path.replace(/^data\./, "system.") : "";
+        this.phase = tupleHasValue(AELikeRuleElement.PHASES, data.phase) ? data.phase : "applyAEs";
+    }
+
+    static override defineSchema(): AELikeSchema {
+        return {
+            ...super.defineSchema(),
+            mode: new fields.StringField({
+                required: true,
+                choices: Object.keys(this.CHANGE_MODES) as AELikeChangeMode[],
+            }),
+            path: new fields.StringField({ required: true, blank: false }),
+            phase: new fields.StringField({
+                required: true,
+                choices: deepClone(this.PHASES),
+                initial: "applyAEs",
+            }),
+        };
+    }
 
     /** Change modes and their default priority orders */
     static CHANGE_MODES = {
@@ -35,18 +66,6 @@ class AELikeRuleElement extends RuleElementPF2e {
         const skillLongForms = Array.from(SKILL_LONG_FORMS).join("|");
         return new RegExp(String.raw`^system\.skills\.(${skillLongForms})\b`);
     })();
-
-    constructor(data: AELikeSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
-        const mode = objectHasKey(AELikeRuleElement.CHANGE_MODES, data.mode) ? data.mode : null;
-        data.priority ??= mode ? AELikeRuleElement.CHANGE_MODES[mode] : NaN;
-        data.phase ??= "applyAEs";
-
-        super(data, item, options);
-
-        this.mode = mode ?? "override";
-        this.path = typeof data.path === "string" ? data.path.replace(/^data\./, "system.") : "";
-        this.phase = tupleHasValue(AELikeRuleElement.PHASES, data.phase) ? data.phase : "applyAEs";
-    }
 
     protected validateData(): void {
         if (!objectHasKey(AELikeRuleElement.CHANGE_MODES, this.data.mode)) {
@@ -119,7 +138,7 @@ class AELikeRuleElement extends RuleElementPF2e {
                 current.push(newValue);
             }
         } else if (["subtract", "remove"].includes(this.mode) && Array.isArray(current)) {
-            current.splice(current.indexOf(newValue));
+            current.splice(current.indexOf(newValue), 1);
         } else {
             try {
                 setProperty(actor, path, newValue);
@@ -224,6 +243,12 @@ class AELikeRuleElement extends RuleElementPF2e {
     }
 }
 
+interface AELikeRuleElement<TSchema extends AELikeSchema>
+    extends RuleElementPF2e<TSchema>,
+        ModelPropsFromSchema<AELikeSchema> {
+    data: AELikeData;
+}
+
 interface AutoChangeEntry {
     source: string;
     level: number | null;
@@ -231,12 +256,14 @@ interface AutoChangeEntry {
     mode: AELikeChangeMode;
 }
 
-interface AELikeRuleElement extends RuleElementPF2e {
-    data: AELikeData;
-}
+type AELikeSchema = RuleElementSchema & {
+    mode: StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
+    path: StringField<string, string, true>;
+    phase: StringField<AELikeDataPrepPhase, AELikeDataPrepPhase, true, false, true>;
+};
 
-type AELikeChangeMode = "add" | "subtract" | "remove" | "multiply" | "upgrade" | "downgrade" | "override";
-type AELikeDataPrepPhase = "applyAEs" | "beforeDerived" | "afterDerived" | "beforeRoll";
+type AELikeChangeMode = keyof (typeof AELikeRuleElement)["CHANGE_MODES"];
+type AELikeDataPrepPhase = (typeof AELikeRuleElement)["PHASES"][number];
 
 interface AELikeData extends RuleElementData {
     path: string;
@@ -252,4 +279,4 @@ interface AELikeSource extends RuleElementSource {
     phase?: unknown;
 }
 
-export { AELikeData, AELikeRuleElement, AELikeSource, AutoChangeEntry };
+export { AELikeChangeMode, AELikeData, AELikeRuleElement, AELikeSchema, AELikeSource, AutoChangeEntry };

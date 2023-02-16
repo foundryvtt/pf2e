@@ -99,7 +99,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -209,7 +208,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "disarm",
@@ -319,7 +317,6 @@
                     "value": 18
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "bulwark"
@@ -346,7 +343,6 @@
             "sort": 400000,
             "system": {
                 "autoDestroy": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
@@ -404,7 +400,6 @@
                 },
                 "stackGroup": "bolts",
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -419,6 +414,11 @@
         },
         {
             "_id": "o7u2o263mumslgsb",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "udazvPuwag7PjONy"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "War Flail",
             "sort": 500000,
@@ -427,7 +427,6 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -452,8 +451,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
-                    "rarity": "common",
                     "value": [
                         "disarm",
                         "electricity",
@@ -503,12 +500,12 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
                         "electricity",
-                        "magical"
+                        "magical",
+                        "unarmed"
                     ]
                 },
                 "weaponType": {
@@ -519,6 +516,11 @@
         },
         {
             "_id": "3t7zznqikrwn9cyb",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "fYVnMW6z4MKQhsL8"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Heavy Crossbow",
             "sort": 700000,
@@ -527,7 +529,6 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -552,8 +553,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
-                    "rarity": "common",
                     "value": [
                         "electricity",
                         "magical",
@@ -599,7 +598,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -651,7 +649,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -696,7 +693,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -736,7 +732,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -779,7 +774,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divine",
@@ -816,13 +810,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "sacrilegious-aura",
+                        "traits": [
+                            "abjuration",
+                            "aura",
+                            "divine",
+                            "evil"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "abjuration",
@@ -869,7 +874,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -913,7 +917,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "visual"
@@ -957,7 +960,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -1006,7 +1008,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -1072,7 +1073,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1113,28 +1113,7 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "fist-damage",
-                        "text": "PF2E.Item.Weapon.CriticalSpecialization.brawling"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "heavy-crossbow-damage",
-                        "text": "PF2E.Item.Weapon.CriticalSpecialization.bow"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "war-flail-damage",
-                        "text": "PF2E.Item.Weapon.CriticalSpecialization.flail"
+                        "key": "CriticalSpecialization"
                     }
                 ],
                 "slug": "graveknight-weapon-master",
@@ -1142,7 +1121,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1176,7 +1154,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1204,7 +1181,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1232,7 +1208,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1260,7 +1235,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1288,7 +1262,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1316,7 +1289,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }

@@ -44,6 +44,17 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
             return null;
         }
 
+        // Don't allow focus spells in non-focus casting entries
+        if (spell.isFocusSpell && !this.entry.isFocusPool) {
+            const focusTypeLabel = game.i18n.format("PF2E.SpellFocusLabel");
+            ui.notifications.warn(
+                game.i18n.format("PF2E.Item.Spell.Warning.WrongSpellType", {
+                    spellType: focusTypeLabel,
+                })
+            );
+            return null;
+        }
+
         // Warn if the level being dragged to is lower than spell's level
         if (spell.baseLevel > heightenLevel && this.id === spell.system.location?.value) {
             const targetLevelLabel = game.i18n.format("PF2E.SpellLevel", { level: ordinal(heightenLevel) });
@@ -133,7 +144,7 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
         return this.entry.update({ [key]: isExpended });
     }
 
-    async getSpellData() {
+    async getSpellData(): Promise<SpellCollectionData> {
         const { actor } = this.entry;
         if (!actor.isOfType("character", "npc")) {
             throw ErrorPF2e("Spellcasting entries can only exist on characters and npcs");
@@ -294,4 +305,10 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
 
         return Object.values(spellPrepList).some((s) => !!s.length) ? spellPrepList : null;
     }
+}
+
+interface SpellCollectionData {
+    levels: SpellcastingSlotLevel[];
+    flexibleAvailable: { value: number; max: number } | undefined;
+    spellPrepList: Record<number, SpellPrepEntry[]> | null;
 }

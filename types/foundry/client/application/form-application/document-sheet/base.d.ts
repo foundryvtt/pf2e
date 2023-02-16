@@ -18,9 +18,7 @@ declare global {
         title: string;
     }
 
-    /**
-     * A simple implementation of the FormApplication pattern which is specialized in editing Entity instances
-     */
+    /** A simple implementation of the FormApplication pattern which is specialized in editing Entity instances */
     class DocumentSheet<
         TDocument extends foundry.abstract.Document = foundry.abstract.Document,
         TOptions extends DocumentSheetOptions = DocumentSheetOptions

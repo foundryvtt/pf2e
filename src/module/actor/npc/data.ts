@@ -60,7 +60,7 @@ interface NPCSystemSource extends CreatureSystemSource {
     traits: NPCTraitsSource;
 }
 
-interface NPCAttributesSource extends ActorAttributesSource {
+interface NPCAttributesSource extends Required<ActorAttributesSource> {
     ac: {
         value: number;
         details: string;
@@ -171,8 +171,6 @@ interface NPCStrike extends StrikeData {
     attackRollType?: string;
     /** The id of the item this strike is generated from */
     sourceId?: string;
-    /** A list of all damage roll parts */
-    damageBreakdown?: string[];
     /** Additional effects from a successful strike, like "Grab" */
     additionalEffects: { tag: string; label: string }[];
     /** A melee usage of a firearm: not available on NPC strikes */
@@ -219,7 +217,9 @@ interface NPCSkillData extends SkillData {
     expanded: string;
 }
 
-interface NPCAttributes extends CreatureAttributes {
+interface NPCAttributes
+    extends Omit<NPCAttributesSource, "immunities" | "weaknesses" | "resistances">,
+        CreatureAttributes {
     ac: NPCArmorClass;
     adjustment: "elite" | "weak" | null;
     hp: NPCHitPoints;
@@ -236,6 +236,9 @@ interface NPCAttributes extends CreatureAttributes {
     /** Textual information about any special benefits that apply to all saves. */
     allSaves: { value: string };
     familiarAbilities: StatisticModifier;
+
+    /** A fake class DC (set to a level-based DC) for use with critical specialization effects that require it */
+    classDC: { value: number };
 }
 
 interface NPCSpeeds extends CreatureSpeeds {

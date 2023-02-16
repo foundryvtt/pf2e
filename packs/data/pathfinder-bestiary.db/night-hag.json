@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "occult"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -211,11 +206,6 @@
                 },
                 "tradition": {
                     "value": "occult"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -320,11 +310,6 @@
                 },
                 "tradition": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -367,11 +352,6 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
-                },
-                "heightening": {
-                    "damage": {},
-                    "interval": 1,
-                    "type": "interval"
                 },
                 "level": {
                     "value": 9
@@ -429,7 +409,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "evil"
@@ -530,7 +509,6 @@
                     "value": []
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": []
                 }
@@ -632,7 +610,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "mental",
@@ -682,9 +659,17 @@
                     "value": false
                 },
                 "heightening": {
-                    "damage": {},
-                    "interval": 1,
-                    "type": "interval"
+                    "levels": {
+                        "9": {
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "target": {
+                                "value": "you and up to five additional willing creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 7
@@ -742,7 +727,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "teleportation"
@@ -846,7 +830,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "incapacitation",
@@ -951,7 +934,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "incapacitation",
@@ -992,7 +974,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You magically spy on a creature of your choice. Scrying works like <em>@UUID[Compendium.pf2e.spells-srd.Clairvoyance]{Clairvoyance}</em>, except that the image you receive is less precise, insuficient for teleport and similar spells. Instead of creating an eye in a set location within 500 feet, you instead create an eye that manifests just above the target. You can choose a target either by name or by touching one of its possessions or a piece of its body. If you haven't met the target in person, scrying's DC is 2 lower, and if you are unaware of the target's identity (perhaps because you found an unknown creature's fang at a crime scene), the DC is instead 10 lower. The effect of scrying depends on the target's Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The spell fails and the target is temporarily immune for 1 week. The target also gains a glimpse of you and learns its rough distance and direction from you.</p>\n<p><strong>Success</strong> The spell fails and the target is temporarily immune for 1 day.</p>\n<p><strong>Failure</strong> The spell succeeds.</p>\n<p><strong>Critical Failure</strong> The spell succeeds, and the eye follows the target if it moves, traveling up to 60 feet per round.</p>"
+                    "value": "<p>You magically spy on a creature of your choice. Scrying works like <em>@UUID[Compendium.pf2e.spells-srd.Clairvoyance]{Clairvoyance}</em>, except that the image you receive is less precise, insufficient for teleport and similar spells. Instead of creating an eye in a set location within 500 feet, you instead create an eye that manifests just above the target. You can choose a target either by name or by touching one of its possessions or a piece of its body. If you haven't met the target in person, scrying's DC is 2 lower, and if you are unaware of the target's identity (perhaps because you found an unknown creature's fang at a crime scene), the DC is instead 10 lower. The effect of scrying depends on the target's Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The spell fails and the target is temporarily immune for 1 week. The target also gains a glimpse of you and learns its rough distance and direction from you.</p>\n<p><strong>Success</strong> The spell fails and the target is temporarily immune for 1 day.</p>\n<p><strong>Failure</strong> The spell succeeds.</p>\n<p><strong>Critical Failure</strong> The spell succeeds, and the eye follows the target if it moves, traveling up to 60 feet per round.</p>"
                 },
                 "duration": {
                     "value": "sustained up to 10 minutes"
@@ -1056,7 +1038,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "scrying"
@@ -1161,7 +1142,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "curse",
@@ -1269,7 +1249,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "auditory",
@@ -1376,7 +1355,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "scrying"
@@ -1426,7 +1404,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You shape the quasi-real substance of the Shadow Plane into a blast. Choose acid, bludgeoning, cold, electricity, fire, force, piercing, slashing, or sonic damage, and choose a 30-foot cone, a 15-foot burst within 120 feet, or a 50-foot line. The blast deals 5d8 damage of the type you chose to each creature in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
+                    "value": "<p>You shape the quasi-real substance of the Shadow Plane into a blast. Choose acid, bludgeoning, cold, electricity, fire, force, piercing, slashing, or sonic damage, and choose a @Template[type:cone|distance:30], a @Template[type:burst|distance:15] within 120 feet, or a @Template[type:line|distance:50]. The blast deals 5d8 damage of the type you chose to each creature in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1454,6 +1432,30 @@
                 },
                 "materials": {
                     "value": ""
+                },
+                "overlays": {
+                    "UTMlHk0o5FXLlwwM": {
+                        "_id": "UTMlHk0o5FXLlwwM",
+                        "name": "Shadow Blast (Will)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "save": {
+                                "value": "will"
+                            }
+                        }
+                    },
+                    "zjyfdrWBaUVi4O7b": {
+                        "_id": "zjyfdrWBaUVi4O7b",
+                        "name": "Shadow Blast (Reflex)",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "save": {
+                                "value": "reflex"
+                            }
+                        }
+                    }
                 },
                 "prepared": {
                     "value": ""
@@ -1501,7 +1503,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "shadow"
@@ -1605,7 +1606,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "scrying"
@@ -1709,7 +1709,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "mental"
@@ -1813,7 +1812,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "mental"
@@ -1883,7 +1881,7 @@
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "will"
                 },
                 "school": {
                     "value": "necromancy"
@@ -1917,7 +1915,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": []
                 }
@@ -2019,7 +2016,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "scrying"
@@ -2062,10 +2058,20 @@
                     "value": "<p>You send a message to your target's dream. The message is one-way, up to 1 minute of speech (roughly 150 words). If the target is asleep, they receive the message instantly. If not, they receive it the next time they sleep. As soon as they receive it, the spell ends, and you know the message was sent.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> You can target up to 10 creatures you know by name and have met in person. You must send the same message to all of them; the spell ends for each creature individually.</p>"
                 },
                 "duration": {
-                    "value": "1 day"
+                    "value": "until the next time you make your daily preparations"
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "4": {
+                            "target": {
+                                "value": "10 creatures you know by name and have met in person"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 3
@@ -2124,7 +2130,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "mental"
@@ -2167,15 +2172,20 @@
                     "value": "<p>You send a message to your target's dream. The message is one-way, up to 1 minute of speech (roughly 150 words). If the target is asleep, they receive the message instantly. If not, they receive it the next time they sleep. As soon as they receive it, the spell ends, and you know the message was sent.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> You can target up to 10 creatures you know by name and have met in person. You must send the same message to all of them; the spell ends for each creature individually.</p>"
                 },
                 "duration": {
-                    "value": "1 day"
+                    "value": "until the next time you make your daily preparations"
                 },
                 "hasCounteractCheck": {
                     "value": false
                 },
                 "heightening": {
-                    "damage": {},
-                    "interval": 1,
-                    "type": "interval"
+                    "levels": {
+                        "4": {
+                            "target": {
+                                "value": "10 creatures you know by name and have met in person"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 3
@@ -2234,7 +2244,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "mental"
@@ -2338,7 +2347,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "prediction"
@@ -2385,11 +2393,6 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
-                },
-                "heightening": {
-                    "damage": {},
-                    "interval": 1,
-                    "type": "interval"
                 },
                 "level": {
                     "value": 2
@@ -2447,7 +2450,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -2492,6 +2494,16 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "8": {
+                            "target": {
+                                "value": "10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -2550,7 +2562,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "emotion",
@@ -2602,11 +2613,6 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
-                },
-                "heightening": {
-                    "damage": {},
-                    "interval": 1,
-                    "type": "interval"
                 },
                 "level": {
                     "value": 1
@@ -2664,7 +2670,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "detection"
@@ -2715,16 +2720,10 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightening": {
-                    "damage": {},
-                    "interval": 1,
-                    "type": "interval"
-                },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "autoHeightenLevel": 3,
                     "value": "qg3r6OKHjX8qHiNS"
                 },
                 "materials": {
@@ -2779,7 +2778,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "detection",
@@ -2884,7 +2882,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "visual"
@@ -2952,6 +2949,7 @@
                 "materials": {
                     "value": ""
                 },
+                "overlays": {},
                 "prepared": {
                     "value": ""
                 },
@@ -2998,7 +2996,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "force"
@@ -3045,11 +3042,6 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
-                },
-                "heightening": {
-                    "damage": {},
-                    "interval": 1,
-                    "type": "interval"
                 },
                 "level": {
                     "value": 1
@@ -3108,7 +3100,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack"
@@ -3158,11 +3149,6 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
-                },
-                "heightening": {
-                    "damage": {},
-                    "interval": 1,
-                    "type": "interval"
                 },
                 "level": {
                     "value": 1
@@ -3220,7 +3206,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "incapacitation",
@@ -3293,7 +3278,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "abjuration",
@@ -3346,7 +3330,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical"
@@ -3392,7 +3375,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -3437,7 +3419,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -3482,7 +3463,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divination",
@@ -3526,7 +3506,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -3571,7 +3550,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -3616,7 +3594,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -3679,7 +3656,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -3739,7 +3715,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -3774,12 +3749,11 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "abyssal-plague",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "disease"
@@ -3826,7 +3800,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate",
@@ -3871,7 +3844,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "enchantment",
@@ -3925,7 +3897,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -3959,7 +3930,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -3987,7 +3957,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -4015,7 +3984,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -4043,7 +4011,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -4071,7 +4038,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -4099,7 +4065,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -4183,6 +4148,7 @@
             "privateNotes": "",
             "publicNotes": "<p>Night hags are thieves and merchants of mortal souls. These foul creatures collect souls in dark gems or crystalline jars to sell in fiendish markets, and are themselves empowered by potent magic jewels known as <em>@UUID[Compendium.pf2e.equipment-srd.Heartstone]{Heartstones}</em>. They haunt the Ethereal Plane, where they prey upon mortals in their dreams, debilitating them with horrific nightmares as they rest. A night hag may find a particular target and haunt them continuously over the course of weeks, slowly and cruelly breaking down the victim's will and ability to resist, until their soul is forfeit.</p>\n<p>A night hag is a canny mastermind and soul broker, willing to consider any deal as long as she is convinced she has the upper hand. Although a night hag finds it easy to travel the Ethereal Plane and prey upon helpless souls that can't fight back, these souls are also the least desirable to the evil outsiders the night hag bargains with, and so a night hag gathers allies and minions that allow her to prey on more potent souls without personally risking herself. Their favored minions are @UUID[Compendium.pf2e.pathfinder-bestiary.Nightmare]{Nightmares}, with whom they share a special bond.</p>\n<p>Above all, night hags avoid fighting foes that can harry them on the Ethereal Plane, picking fights only when they are certain they can escape.</p>\n<hr />\n<p>Malevolent crones who lurk at the edges of civilization, hags use their deceptive, magical abilities to prey upon humanoids, manipulating and corrupting them. Some say hags arose from fey that became twisted by their inner selfishness. Hags gather together in covens for greater power, craft unique magical items known as <em>@UUID[Compendium.pf2e.equipment-srd.Hag Eye]{Hag Eyes}</em>, and are known to replace infant humanoids with their own offspring-these children are @UUID[Compendium.pf2e.pathfinder-bestiary.Changeling Exile]{Changelings} who have the potential to become hags themselves.</p>",
             "source": {
+                "author": "",
                 "value": "Pathfinder Bestiary"
             }
         },

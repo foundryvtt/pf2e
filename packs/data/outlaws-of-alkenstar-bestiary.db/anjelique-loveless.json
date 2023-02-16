@@ -121,7 +121,6 @@
                     "value": "striking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "unique",
                     "value": [
                         "abjuration",
@@ -260,7 +259,6 @@
                     "value": "striking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "unique",
                     "value": [
                         "concussive",
@@ -376,7 +374,6 @@
                     "value": 16
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -445,7 +442,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "evocation",
@@ -474,7 +470,6 @@
             "sort": 500000,
             "system": {
                 "autoDestroy": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
@@ -531,7 +526,6 @@
                 },
                 "stackGroup": "rounds10",
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "alchemical"
@@ -558,7 +552,6 @@
             "sort": 600000,
             "system": {
                 "autoDestroy": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
@@ -615,7 +608,6 @@
                 },
                 "stackGroup": "rounds10",
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "alchemical"
@@ -637,7 +629,6 @@
             "sort": 700000,
             "system": {
                 "autoDestroy": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
@@ -692,7 +683,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -757,7 +747,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "finesse",
@@ -773,6 +762,11 @@
         },
         {
             "_id": "ecTmjgnYP4UQHwva",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "1v3vDVTwteCXrnQ9"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Hex Blaster",
             "sort": 900000,
@@ -801,8 +795,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
-                    "rarity": "common",
                     "value": [
                         "concussive",
                         "fatal-d12",
@@ -820,6 +812,11 @@
         },
         {
             "_id": "48j68BXGq8EQ2Lrd",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "IRqZhq2Q3dwLJkV7"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Redeemer's Pistol",
             "sort": 1000000,
@@ -848,8 +845,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
-                    "rarity": "common",
                     "value": [
                         "concealable",
                         "concussive",
@@ -897,7 +892,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -937,7 +931,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -970,22 +963,16 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "hex-blaster-damage",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            "item:group:firearm"
+                        ]
                     },
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "redeemers-pistol-damage",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.classDC.value",
+                        "value": 34
                     }
                 ],
                 "slug": null,
@@ -993,7 +980,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1030,7 +1016,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1077,7 +1062,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1115,7 +1099,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1152,7 +1135,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1189,7 +1171,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1220,7 +1201,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1248,7 +1228,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1276,7 +1255,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1304,7 +1282,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1332,7 +1309,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1360,7 +1336,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }

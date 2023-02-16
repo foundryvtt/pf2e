@@ -528,7 +528,7 @@ const otherWeaponTags: Record<OtherWeaponTag, string> = {
 
 const rangeTraits = RANGE_TRAITS.reduce(
     (descriptions, trait) => ({ ...descriptions, [trait]: `PF2E.Trait${sluggify(trait, { camel: "bactrian" })}` }),
-    {} as Record<typeof RANGE_TRAITS[number], string>
+    {} as Record<(typeof RANGE_TRAITS)[number], string>
 );
 
 const npcAttackTraits = {
@@ -623,6 +623,7 @@ const consumableTraits = {
     additive2: "PF2E.TraitAdditive2",
     additive3: "PF2E.TraitAdditive3",
     alchemical: "PF2E.TraitAlchemical",
+    attack: "PF2E.TraitAttack",
     auditory: "PF2E.TraitAuditory",
     aura: "PF2E.TraitAura",
     catalyst: "PF2E.TraitCatalyst",
@@ -661,6 +662,7 @@ const consumableTraits = {
     scrying: "PF2E.TraitScrying",
     sleep: "PF2E.TraitSleep",
     snare: "PF2E.TraitSnare",
+    spellgun: "PF2E.TraitSpellgun",
     splash: "PF2E.TraitSplash",
     structure: "PF2E.TraitStructure",
     talisman: "PF2E.TraitTalisman",
@@ -697,6 +699,7 @@ const hazardTraits = {
     magical: "PF2E.TraitMagical",
     mechanical: "PF2E.TraitMechanical",
     poison: "PF2E.TraitPoison",
+    shadow: "PF2E.TraitShadow",
     steam: "PF2E.TraitSteam",
     summoned: "PF2E.TraitSummoned",
     technological: "PF2E.TraitTechnological",
@@ -752,6 +755,7 @@ const equipmentTraits = {
     magical: "PF2E.TraitMagical",
     mental: "PF2E.TraitMental",
     misfortune: "PF2E.TraitMisfortune",
+    morph: "PF2E.TraitMorph",
     mounted: "PF2E.TraitMounted",
     nonlethal: "PF2E.TraitNonlethal",
     plant: "PF2E.TraitPlant",
@@ -761,6 +765,7 @@ const equipmentTraits = {
     revelation: "PF2E.TraitRevelation",
     saggorak: "PF2E.TraitSaggorak",
     scrying: "PF2E.TraitScrying",
+    shadow: "PF2E.TraitShadow",
     sleep: "PF2E.TraitSleep",
     spellheart: "PF2E.TraitSpellheart",
     staff: "PF2E.TraitStaff",

@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "occult"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -150,6 +145,16 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "6": {
+                            "target": {
+                                "value": "10 willing creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 2
                 },
@@ -167,7 +172,7 @@
                     "value": ""
                 },
                 "range": {
-                    "value": "self"
+                    "value": "touch"
                 },
                 "rules": [],
                 "save": {
@@ -185,7 +190,7 @@
                 },
                 "slug": "enlarge",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -206,7 +211,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "polymorph"
@@ -271,7 +275,7 @@
                     "value": ""
                 },
                 "range": {
-                    "value": "self"
+                    "value": "touch"
                 },
                 "rules": [],
                 "save": {
@@ -289,7 +293,7 @@
                 },
                 "slug": "invisibility",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -310,7 +314,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -414,7 +417,6 @@
                     "value": "striking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "deadly-d10",
@@ -528,7 +530,6 @@
                     "value": "striking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -637,7 +638,6 @@
                     "value": 12
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -699,7 +699,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -724,7 +723,6 @@
             "sort": 800000,
             "system": {
                 "autoDestroy": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
@@ -782,7 +780,6 @@
                 },
                 "stackGroup": "arrows",
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -825,7 +822,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -870,7 +866,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "deadly-d10",
@@ -919,7 +914,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -969,7 +963,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1014,7 +1007,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1043,7 +1035,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The slave lord designates as its prey a single creature that they can see or hear or that they are Tracking. They gain a +2 circumstance bonus to Perception checks when they <span data-pf2-action=\"seek\" data-pf2-glyph=\"A\">Seek</span> their prey and a +2 circumstance bonus to <span data-pf2-action=\"track\" data-pf2-glyph=\"A\">Track</span> their prey. They also ignore the penalty for making ranged attacks within their second range increment against their prey.</p>\n<p>The first time a slave lord hits their hunted prey in a round, they deal [[/r {2d8}[precision]]]{2d8 additional precision damage}. A slave lord can have only one prey designated at a time.</p>"
+                    "value": "<p>The slave lord designates as its prey a single creature that they can see or hear or that they are Tracking. They gain a +2 circumstance bonus to Perception checks when they @UUID[Compendium.pf2e.actionspf2e.Seek]{Seek} their prey and a +2 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Track]{Track} their prey. They also ignore the penalty for making ranged attacks within their second range increment against their prey.</p>\n<p>The first time a slave lord hits their hunted prey in a round, they deal 2d8 additional precision damage. A slave lord can have only one prey designated at a time.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1058,9 +1050,10 @@
                     },
                     {
                         "key": "FlatModifier",
+                        "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
                         "predicate": [
-                            "hunted-prey",
-                            "action:seek"
+                            "action:seek",
+                            "hunted-prey"
                         ],
                         "selector": "perception",
                         "type": "circumstance",
@@ -1068,13 +1061,22 @@
                     },
                     {
                         "key": "FlatModifier",
+                        "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
                         "predicate": [
-                            "hunted-prey",
-                            "action:track"
+                            "action:track",
+                            "hunted-prey"
                         ],
                         "selector": "survival",
                         "type": "circumstance",
                         "value": 2
+                    },
+                    {
+                        "domain": "ranged-attack-roll",
+                        "key": "RollOption",
+                        "option": "ignore-range-penalty:2",
+                        "predicate": [
+                            "hunted-prey"
+                        ]
                     },
                     {
                         "domain": "all",
@@ -1099,7 +1101,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1139,7 +1140,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1173,7 +1173,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1201,7 +1200,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1229,7 +1227,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1257,7 +1254,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1285,7 +1281,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1313,7 +1308,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1380,6 +1374,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
+                "author": "",
                 "value": "Pathfinder #148: Fires of the Haunted City"
             }
         },

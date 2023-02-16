@@ -1,6 +1,6 @@
-import { ActorPF2e } from "@actor";
+import { ActorProxyPF2e } from "@actor";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
-import { ItemPF2e } from "@item";
+import { ItemProxyPF2e } from "@item";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ActorsPF2e } from "@module/collection/actors";
@@ -26,12 +26,12 @@ export const Load = {
         // Assign document classes
         CONFIG.ActiveEffect.documentClass = ActiveEffectPF2e;
         CONFIG.Actor.collection = ActorsPF2e;
-        CONFIG.Actor.documentClass = ActorPF2e;
+        CONFIG.Actor.documentClass = ActorProxyPF2e;
         CONFIG.AmbientLight.documentClass = AmbientLightDocumentPF2e;
         CONFIG.ChatMessage.documentClass = ChatMessagePF2e;
         CONFIG.Combat.documentClass = EncounterPF2e;
         CONFIG.Combatant.documentClass = CombatantPF2e;
-        CONFIG.Item.documentClass = ItemPF2e;
+        CONFIG.Item.documentClass = ItemProxyPF2e;
         CONFIG.Macro.documentClass = MacroPF2e;
         CONFIG.MeasuredTemplate.documentClass = MeasuredTemplateDocumentPF2e;
         CONFIG.Scene.documentClass = ScenePF2e;
@@ -39,6 +39,9 @@ export const Load = {
         CONFIG.Token.documentClass = TokenDocumentPF2e;
         CONFIG.Token.prototypeSheetClass = TokenConfigPF2e;
         CONFIG.User.documentClass = UserPF2e;
+
+        CONFIG.Canvas.darknessColor = 0x2d2d52; // Lightness increased by ~0.4/10 (Munsell value)
+        CONFIG.Canvas.exploredColor = 0x262626; // Increased from 0 (black)
 
         CONFIG.Dice.rolls.push(CheckRoll, StrikeAttackRoll, DamageRoll, DamageInstance);
         for (const TermCls of [ArithmeticExpression, Grouping, InstancePool, IntermediateDie]) {

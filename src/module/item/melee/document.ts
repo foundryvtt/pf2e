@@ -1,13 +1,19 @@
 import { SIZE_TO_REACH } from "@actor/creature/values";
 import { ItemPF2e } from "@item/base";
 import { ItemSummaryData } from "@item/data";
-import { WeaponDamage } from "@item/weapon/data";
-import { WeaponRangeIncrement } from "@item/weapon/types";
+import { WeaponPF2e } from "@item/weapon";
+import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponRangeIncrement } from "@item/weapon/types";
 import { combineTerms } from "@scripts/dice";
-import { WeaponDamagePF2e } from "@system/damage";
+import { ConvertedNPCDamage, WeaponDamagePF2e } from "@system/damage";
+import { tupleHasValue } from "@util";
 import { MeleeData, MeleeSystemData, NPCAttackTrait } from "./data";
 
 class MeleePF2e extends ItemPF2e {
+    /** Set during data preparation if a linked weapon is found */
+    category: WeaponCategory | null = null;
+    group: WeaponGroup | null = null;
+    baseType: BaseWeaponType | null = null;
+
     get traits(): Set<NPCAttackTrait> {
         return new Set(this.system.traits.value);
     }
@@ -63,7 +69,7 @@ class MeleePF2e extends ItemPF2e {
     }
 
     /** The first of this attack's damage instances */
-    get baseDamage(): WeaponDamage {
+    get baseDamage(): ConvertedNPCDamage {
         const instance = Object.values(this.system.damageRolls).shift();
         if (!instance) {
             return {
@@ -72,6 +78,7 @@ class MeleePF2e extends ItemPF2e {
                 modifier: 0,
                 damageType: "untyped",
                 persistent: null,
+                category: null,
             };
         }
 
@@ -88,11 +95,33 @@ class MeleePF2e extends ItemPF2e {
         return this.system.attackEffects.value;
     }
 
+    /** The linked inventory weapon, if this melee item was spawned from one */
+    get linkedWeapon(): Embedded<WeaponPF2e> | null {
+        const item = this.actor?.items.get(this.flags.pf2e.linkedWeapon ?? "");
+        return item?.isOfType("weapon") ? item : null;
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
 
         // Set precious material (currently unused)
         this.system.material = { precious: null };
+
+        for (const attackDamage of Object.values(this.system.damageRolls)) {
+            attackDamage.category ||= null;
+            if (attackDamage.damageType === "bleed") {
+                attackDamage.category = "persistent";
+            }
+        }
+    }
+
+    /** Set weapon category, group, and base if that information is available */
+    override prepareSiblingData(): void {
+        const { linkedWeapon } = this;
+        const isUnarmed = this.traits.has("unarmed");
+        this.category = isUnarmed ? "unarmed" : linkedWeapon?.category ?? null;
+        this.group = isUnarmed ? "brawling" : this.linkedWeapon?.group ?? null;
+        this.baseType = tupleHasValue(["claw", "fist", "jaws"] as const, this.slug) ? this.slug : null;
     }
 
     override prepareActorData(): void {
@@ -102,7 +131,7 @@ class MeleePF2e extends ItemPF2e {
         const damageInstances = Object.values(this.system.damageRolls);
         for (const instance of Object.values(this.system.damageRolls)) {
             try {
-                instance.damage = new Roll(instance.damage).formula;
+                instance.damage = new Roll(instance.damage)._formula;
             } catch {
                 const message = `Unable to parse damage formula on NPC attack ${this.name}`;
                 console.warn(`PF2e System | ${message}`);
@@ -137,26 +166,28 @@ class MeleePF2e extends ItemPF2e {
                     const operator = new OperatorTerm({ operator: adjustedBase >= 0 ? "+" : "-" });
                     terms.push(operator, modifier);
                 }
-                instance.damage = combineTerms(Roll.fromTerms(terms).formula);
+                instance.damage = combineTerms(Roll.fromTerms(terms)._formula);
             } else {
-                instance.damage = roll.formula;
+                instance.damage = roll._formula;
             }
         }
     }
 
-    /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = this.type): string[] {
         const baseOptions = super.getRollOptions(prefix);
-        const delimitedPrefix = prefix ? `${prefix}:` : "";
+
         const otherOptions = Object.entries({
             equipped: true,
             melee: this.isMelee,
             ranged: this.isRanged,
             thrown: this.isThrown,
+            [`category:${this.category}`]: !!this.category,
+            [`group:${this.group}`]: !!this.group,
+            [`base:${this.baseType}`]: !!this.baseType,
             [`range-increment:${this.rangeIncrement}`]: !!this.rangeIncrement,
         })
-            .filter(([_key, isTrue]) => isTrue)
-            .map(([key]) => `${delimitedPrefix}${key}`);
+            .filter(([, isTrue]) => isTrue)
+            .map(([key]) => `${prefix}:${key}`);
 
         return [baseOptions, otherOptions].flat().sort();
     }
@@ -176,7 +207,7 @@ class MeleePF2e extends ItemPF2e {
     }
 }
 
-interface MeleePF2e {
+interface MeleePF2e extends ItemPF2e {
     readonly data: MeleeData;
 }
 

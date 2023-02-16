@@ -1,23 +1,7 @@
 <div class="inventory-details">
     <div class="form-group">
         <label for="{{#if (eq data.duration.unit "unlimited")}}effect-duration-unit{{else}}effect-duration-value{{/if}}">{{localize "PF2E.Time.Duration"}}</label>
-        <div class="form-fields">
-            {{#if (or (eq data.duration.unit "unlimited") (eq data.duration.unit "encounter"))}}
-                <input type="hidden" name="system.duration.value" value="-1" data-dtype="Number" />
-            {{else}}
-                <input type="number" name="system.duration.value" class="left-of-select" value="{{data.duration.value}}" />
-            {{/if}}
-            <select name="system.duration.unit">
-                {{#select data.duration.unit}}
-                    <option value="rounds">{{localize "PF2E.Time.Unit.Rounds"}}</option>
-                    <option value="minutes">{{localize "PF2E.Time.Unit.Minutes"}}</option>
-                    <option value="hours">{{localize "PF2E.Time.Unit.Hours"}}</option>
-                    <option value="days">{{localize "PF2E.Time.Unit.Days"}}</option>
-                    <option value="unlimited">{{localize "PF2E.Time.Unit.Unlimited"}}</option>
-                    <option value="encounter">{{localize "PF2E.Time.Unit.UntilEncounterEnds"}}</option>
-                {{/select}}
-            </select>
-        </div>
+        {{> systems/pf2e/templates/items/partials/duration.hbs base="system.duration" duration=data.duration units=timeUnits}}
     </div>
     <div class="form-group">
         <label for="effect-duration-sustained">{{localize "PF2E.Item.Effect.Sustained"}}</label>
@@ -53,18 +37,44 @@
     </div>
     {{/if}}
     <hr/>
-    <div class="form-group">
-        {{#if data.badge}}
-            <div class="form-fields">
-                {{localize "PF2E.Item.Effect.BadgeType.Counter"}}
-                <input type={{#if (eq data.badge.type "counter")}}"number"{{else}}"text"{{/if}} name="system.badge.value" value="{{data.badge.value}}"/>
-                <div class="item-controls">
-                    <a data-action="badge-delete"><i class="fas fa-fw fa-times"></i></a>
-                </div>
+    {{#if data.badge.labels}}
+        {{#each data.badge.labels as |label idx|}}
+            <div class="badge-label-row details-container-flex-row">
+                <label>
+                    <input type="radio" name="system.badge.value" {{checked (eq @root.data.badge.value (add idx 1))}} value="{{add idx 1}}" data-dtype="Number" tabindex="-1"/>
+                    <span class="badge-value">{{add idx 1}}</span>
+                </label>
+                <input type="text" name="system.badge.labels.{{idx}}" value="{{label}}" placeholder="{{localize "PF2E.Item.Effect.LabelPlaceholder"}}"/>
+                {{#if @root.options.editable}}
+                    <div class="item-controls">
+                        <a data-action="badge-delete-label" data-idx="{{idx}}"><i class="fas fa-fw fa-times"></i></a>
+                    </div>
+                {{/if}}
             </div>
-        {{else}}
-            <button type="button" data-action="badge-add">{{localize "PF2E.Item.Effect.AddBadge"}}</button>
-        {{/if}}
-    </div>
-
+        {{/each}}
+        <div class="form-fields">
+            <button type="button" data-action="badge-add-label"><i class="fas fa-plus"></i> {{localize "PF2E.Item.Effect.AddLabel"}}</button>
+        </div>
+    {{else if data.badge}}
+        <div class="form-group">
+            <label>{{badgeType}}</label>
+            <div class="form-fields">
+                <input type={{#if (eq data.badge.type "counter")}}"number"{{else}}"text"{{/if}} name="system.badge.value" value="{{data.badge.value}}"/>
+                {{#if @root.options.editable}}
+                    <div class="item-controls">
+                        <a data-action="badge-delete"><i class="fas fa-fw fa-times"></i></a>
+                    </div>
+                {{/if}}
+            </div>
+        </div>
+    {{else}}
+        <div class="add-badge">
+            <select class="badge-type">
+                <option value="counter">{{localize "PF2E.Item.Effect.BadgeType.counter"}}</option>
+                <option value="labels">{{localize "PF2E.Item.Effect.ExtraSelections.Labels"}}</option>
+                <option value="formula">{{localize "PF2E.Item.Effect.BadgeType.formula"}}</option>
+            </select>
+            <button type="button" data-action="badge-add"><i class="fas fa-plus"></i> {{localize "PF2E.Item.Effect.AddBadge"}}</button>
+        </div>
+    {{/if}}
 </div>

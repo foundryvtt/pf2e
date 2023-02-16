@@ -99,7 +99,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "thrown-20"
@@ -255,7 +254,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "alchemical",
@@ -366,7 +364,6 @@
                     "value": 14
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -471,7 +468,6 @@
                     "value": 0
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -496,7 +492,6 @@
             "sort": 500000,
             "system": {
                 "autoDestroy": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
@@ -552,7 +547,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "rare",
                     "value": [
                         "conjuration",
@@ -601,7 +595,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "parry"
@@ -643,7 +636,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "thrown-20"
@@ -670,9 +662,20 @@
                 "bonus": {
                     "value": 10
                 },
-                "damageRolls": {},
+                "damageRolls": {
+                    "0": {
+                        "category": "persistent",
+                        "damage": "2d4",
+                        "damageType": "fire"
+                    },
+                    "1": {
+                        "category": "splash",
+                        "damage": "2",
+                        "damageType": "fire"
+                    }
+                },
                 "description": {
-                    "value": "<p>[[/r 2d4[persistent,fire]]] damage</p>\n<p>[[/r {2}[splash,fire]]]{2 splash fire damage}</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -680,7 +683,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "splash",
@@ -725,7 +727,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -770,7 +771,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -810,7 +810,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -836,7 +835,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Pakano designates a single creature he can see and hear, or one he's Tracking, as his prey. He gains a +2 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Seek]{Seek} his prey and to Survival checks to @UUID[Compendium.pf2e.actionspf2e.Track]{Track} his prey.</p>\n<p>The first time Pakano hits his designated prey in a round, he deals an additional [[/r {1d8}[precision]]]{1d8 precision damage}. Pakano also ignores the penalty for making ranged attacks within his second range increment.</p>\n<p>These effects last until Pakano uses Hunt Prey again.</p>"
+                    "value": "<p>Pakano designates a single creature he can see and hear, or one he's Tracking, as his prey. He gains a +2 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Seek]{Seek} his prey and to Survival checks to @UUID[Compendium.pf2e.actionspf2e.Track]{Track} his prey.</p>\n<p>The first time Pakano hits his designated prey in a round, he deals an additional 1d8 precision damage. Pakano also ignores the penalty for making ranged attacks within his second range increment.</p>\n<p>These effects last until Pakano uses Hunt Prey again.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -845,13 +844,13 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "Target is your Hunted Prey",
+                        "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
                         "option": "hunted-prey",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
-                        "label": "To Seek hunted prey",
+                        "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
                         "predicate": [
                             "action:seek",
                             "hunted-prey"
@@ -862,7 +861,7 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "label": "To Track hunted prey",
+                        "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
                         "predicate": [
                             "action:track",
                             "hunted-prey"
@@ -870,6 +869,14 @@
                         "selector": "survival",
                         "type": "circumstance",
                         "value": 2
+                    },
+                    {
+                        "domain": "ranged-attack-roll",
+                        "key": "RollOption",
+                        "option": "ignore-range-penalty:2",
+                        "predicate": [
+                            "hunted-prey"
+                        ]
                     },
                     {
                         "domain": "all",
@@ -895,7 +902,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate"
@@ -944,7 +950,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -975,7 +980,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1003,7 +1007,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1031,7 +1034,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1059,7 +1061,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1087,7 +1088,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }

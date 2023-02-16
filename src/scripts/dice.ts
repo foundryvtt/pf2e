@@ -56,10 +56,14 @@ class DicePF2e {
         dialogOptions?: Partial<ApplicationOptions>;
         rollMode?: RollMode;
         rollType?: string;
-    }) {
+    }): Promise<unknown> {
         // Inner roll function
         const userSettingQuickD20Roll = !game.user.settings.showRollDialogs;
-        const _roll = (rollParts: (string | string[] | number)[], adv: number, $form?: JQuery) => {
+        const _roll = async (
+            rollParts: (string | string[] | number)[],
+            adv: number,
+            $form?: JQuery
+        ): Promise<Rolled<Roll>> => {
             let flav = flavor instanceof Function ? flavor(rollParts, data) : title;
             if (adv === 1) {
                 rollParts[0] = ["2d20kh"];
@@ -83,7 +87,7 @@ class DicePF2e {
             )
                 rollParts.splice(rollParts.indexOf("@circumstanceBonus"), 1);
             // Execute the roll and send it to chat
-            const roll = new Roll(rollParts.join("+"), data).roll({ async: false });
+            const roll = await new Roll(rollParts.join("+"), data).roll({ async: true });
             const origin = item ? { uuid: item.uuid, type: item.type } : null;
             roll.toMessage(
                 {
@@ -130,6 +134,7 @@ class DicePF2e {
             };
             const content = await renderTemplate(template, dialogData);
             let roll: Roll;
+
             return new Promise((resolve) => {
                 new Dialog(
                     {
@@ -138,20 +143,20 @@ class DicePF2e {
                         buttons: {
                             advantage: {
                                 label: game.i18n.localize("PF2E.Roll.Fortune"),
-                                callback: (html) => {
-                                    roll = _roll(parts, 1, html);
+                                callback: async (html) => {
+                                    roll = await _roll(parts, 1, html);
                                 },
                             },
                             normal: {
                                 label: game.i18n.localize("PF2E.Roll.Normal"),
-                                callback: (html) => {
-                                    roll = _roll(parts, 0, html);
+                                callback: async (html) => {
+                                    roll = await _roll(parts, 0, html);
                                 },
                             },
                             disadvantage: {
                                 label: game.i18n.localize("PF2E.Roll.Misfortune"),
-                                callback: (html) => {
-                                    roll = _roll(parts, -1, html);
+                                callback: async (html) => {
+                                    roll = await _roll(parts, -1, html);
                                 },
                             },
                         },

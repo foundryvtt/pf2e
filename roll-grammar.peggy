@@ -50,7 +50,7 @@ Term = head:TermOperand tail:(_ ("*" / "/") _ TermOperand)* {
 
 TermOperand = DiceTerm / MathTerm / Grouping / FlavoredNumber / Number;
 
-MathTerm = fn:Identifier "(" _ head:FunctionArg? _ tail:(_ "," _ @FunctionArg)* _ ")" {
+MathTerm = fn:Identifier "(" _ head:Expression? _ tail:(_ "," _ @Expression)* _ ")" {
   const terms = head
     ? [head, ...tail].map((t) => typeof t === "number" ? t.toString() : t.formula)
     : [];
@@ -63,9 +63,7 @@ MathTerm = fn:Identifier "(" _ head:FunctionArg? _ tail:(_ "," _ @FunctionArg)* 
   };
 };
 
-FunctionArg = Term / DiceTerm / Grouping / Number / MathTerm;
-
-DiceTerm = number:(Grouping / MathTerm / Number) [dD] faces:(Grouping / MathTerm / Number / Identifier) flavor:Flavor? {
+DiceTerm = number:(Grouping / MathTerm / Number)? [dD] faces:(Grouping / MathTerm / Number / Identifier) modifiers:Modifiers? flavor:Flavor? {
   const obj =
     number instanceof Object || faces instanceof Object
       ? {
@@ -78,11 +76,12 @@ DiceTerm = number:(Grouping / MathTerm / Number) [dD] faces:(Grouping / MathTerm
       : {
             class: "DiceTerm",
             formula: text(),
-            number,
+            number: number ?? 1,
             faces,
             evaluated: false,
         };
 
+  if (modifiers) obj.modifiers = modifiers;
   if (flavor) obj.options = { flavor };
 
   return obj;
@@ -100,7 +99,7 @@ Grouping = "(" _ expression:Expression _ ")" flavor:Flavor? {
   return obj;
 };
 
-Pool = "{" _ head:Expression tail:("," _ @Expression)* "}" modifiers:ModifiersString* flavor:Flavor? {
+Pool = "{" _ head:Expression tail:("," _ @Expression)* "}" modifiers:Modifiers? flavor:Flavor? {
   const headTerm = typeof head === "number" ? createNumericTerm(head) : head;
   const tailTerms = tail.map((t) => typeof t === "number" ? createNumericTerm(t) : t);
   const terms = [headTerm.formula, ...tailTerms.map((t) => t.formula)];
@@ -160,7 +159,7 @@ FlavoredNumber = number:Number flavor:Flavor {
 
 Identifier = $([a-z$_]i [a-z$_0-9]i*);
 
-ModifiersString "modifiers" = [^ (){}\[\]+\-*/]+ {
+Modifiers = [^ (){}\[\]+\-*/,]+ {
   return Array.from(text().matchAll(/([A-z]+)([^A-z\s()+\-*\/]+)?/g)).map((m) => m[0]);
 };
 

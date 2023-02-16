@@ -21,12 +21,29 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "allowedDrops": {
+                    "label": "PF2E.SpecificRule.ElfAtavism.AllowedDrops",
+                    "predicate": [
+                        "item:type:heritage",
+                        "item:ancestry:elf"
+                    ]
+                },
+                "choices": {
+                    "itemType": "heritage",
+                    "pack": "pf2e.heritages",
+                    "query": "{\"system.ancestry.slug\":\"elf\"}"
+                },
+                "flag": "heritage",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.ElfAtavism.Prompt"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "half-elf"

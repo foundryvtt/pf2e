@@ -29,31 +29,40 @@
             {
                 "choices": [
                     {
-                        "value": "Compendium.pf2e.feats-srd.Virtuosic Performer (Acting)"
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Acting",
+                        "value": "acting"
                     },
                     {
-                        "value": "Compendium.pf2e.feats-srd.Virtuosic Performer (Comedy)"
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Comedy",
+                        "value": "comedy"
                     },
                     {
-                        "value": "Compendium.pf2e.feats-srd.Virtuosic Performer (Dance)"
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Dance",
+                        "value": "dance"
                     },
                     {
-                        "value": "Compendium.pf2e.feats-srd.Virtuosic Performer (Keyboards)"
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Keyboards",
+                        "value": "keyboards"
                     },
                     {
-                        "value": "Compendium.pf2e.feats-srd.Virtuosic Performer (Oratory)"
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Oratory",
+                        "value": "oratory"
                     },
                     {
-                        "value": "Compendium.pf2e.feats-srd.Virtuosic Performer (Percussion)"
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Percussion",
+                        "value": "percussion"
                     },
                     {
-                        "value": "Compendium.pf2e.feats-srd.Virtuosic Performer (Singing)"
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Singing",
+                        "value": "singing"
                     },
                     {
-                        "value": "Compendium.pf2e.feats-srd.Virtuosic Performer (Strings)"
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Strings",
+                        "value": "strings"
                     },
                     {
-                        "value": "Compendium.pf2e.feats-srd.Virtuosic Performer (Winds)"
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Winds",
+                        "value": "winds"
                     }
                 ],
                 "flag": "performance",
@@ -61,16 +70,19 @@
                 "prompt": "PF2E.SpecificRule.VirtuosicPerformer.Prompt"
             },
             {
-                "key": "GrantItem",
-                "replaceSelf": true,
-                "uuid": "{item|flags.pf2e.rulesSelections.performance}"
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:performance:{item|flags.pf2e.rulesSelections.virtuosicPerformer}"
+                ],
+                "selector": "performance",
+                "type": "circumstance",
+                "value": "ternary(gte(@actor.system.skills.prf,3),2,1)"
             }
         ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "general",

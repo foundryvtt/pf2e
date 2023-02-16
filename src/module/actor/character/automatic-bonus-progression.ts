@@ -1,13 +1,22 @@
+import { ActorPF2e } from "@actor";
 import { ModifierPF2e, MODIFIER_TYPE } from "@actor/modifiers";
 import { ArmorPF2e, WeaponPF2e } from "@item";
 import { ZeroToThree } from "@module/data";
 import { FlatModifierRuleElement } from "@module/rules/rule-element/flat-modifier";
-import { PotencySynthetic, RuleElementSynthetics } from "@module/rules/synthetics";
+import { PotencySynthetic } from "@module/rules/synthetics";
 import { PredicatePF2e } from "@system/predication";
+import { CharacterPF2e } from "./document";
 
-export class AutomaticBonusProgression {
-    static get isEnabled(): boolean {
-        return game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
+class AutomaticBonusProgression {
+    /** Whether the ABP variant is enabled and also not selectively disabled for a particular actor */
+    static isEnabled(actor: ActorPF2e | null): boolean {
+        // Synthetic actors begin data preparation before their data model is initialized
+        if (!actor?.flags) return false;
+
+        const settingEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
+        const actorIsPC = actor.isOfType("character") && !actor.flags.pf2e.disableABP;
+
+        return settingEnabled && actorIsPC;
     }
 
     /** Get striking damage dice according to character level */
@@ -19,9 +28,10 @@ export class AutomaticBonusProgression {
      * @param level The name of this collection of statistic modifiers.
      * @param synthetics All relevant modifiers for this statistic.
      */
-    static concatModifiers(level: number, synthetics: RuleElementSynthetics): void {
-        if (!this.isEnabled) return;
+    static concatModifiers(actor: CharacterPF2e): void {
+        if (!this.isEnabled(actor)) return;
 
+        const { level, synthetics } = actor;
         const values = this.abpValues(level);
         const ac = values.ac;
         const perception = values.perception;
@@ -103,26 +113,18 @@ export class AutomaticBonusProgression {
 
     /** Remove stored runes from specific magic weapons or otherwise set prior to enabling ABP */
     static cleanupRunes(item: ArmorPF2e | WeaponPF2e): void {
-        const setting = game.settings.get("pf2e", "automaticBonusVariant");
-        if (setting === "noABP") return;
+        if (!this.isEnabled(item.actor)) return;
 
         item.system.potencyRune.value = null;
         const otherFundamental = item.isOfType("weapon") ? item.system.strikingRune : item.system.resiliencyRune;
         otherFundamental.value = null;
 
+        const setting = game.settings.get("pf2e", "automaticBonusVariant");
         if (setting === "ABPRulesAsWritten") {
             const propertyRunes = ([1, 2, 3, 4] as const).map((n) => item.system[`propertyRune${n}` as const]);
             for (const rune of propertyRunes) {
                 rune.value = null;
             }
-        }
-    }
-
-    static applyPropertyRunes(potency: PotencySynthetic[], weapon: Embedded<WeaponPF2e>): void {
-        if (game.settings.get("pf2e", "automaticBonusVariant") !== "ABPFundamentalPotency") return;
-        const potencyBonuses = potency.filter((p) => p.type === "potency");
-        for (const bonus of potencyBonuses) {
-            bonus.property = deepClone(weapon.system.runes.property);
         }
     }
 
@@ -132,27 +134,18 @@ export class AutomaticBonusProgression {
      * @returns Whether the rule element is to be ignored
      */
     static suppressRuleElement(rule: FlatModifierRuleElement, value: number): boolean {
-        if (!(rule.actor.type === "character" && this.isEnabled)) {
-            return false;
-        }
-
-        return rule.type === "item" && value >= 0 && rule.fromEquipment;
+        return this.isEnabled(rule.actor) && rule.type === "item" && value >= 0 && rule.fromEquipment;
     }
 
-    private static abpValues(level: number) {
-        let attack: number;
+    static getAttackPotency(level: number): ZeroToThree {
+        return level < 2 ? 0 : level < 10 ? 1 : level < 16 ? 2 : 3;
+    }
+
+    private static abpValues(level: number): AutomaticBonuses {
+        const attack = this.getAttackPotency(level);
         let ac: number;
         let perception: number;
         let save: number;
-        if (level >= 2 && level < 10) {
-            attack = 1;
-        } else if (level >= 10 && level < 16) {
-            attack = 2;
-        } else if (level >= 16) {
-            attack = 3;
-        } else {
-            attack = 0;
-        }
         if (level >= 5 && level < 11) {
             ac = 1;
         } else if (level >= 11 && level < 18) {
@@ -183,3 +176,12 @@ export class AutomaticBonusProgression {
         return { attack, ac, perception, save };
     }
 }
+
+interface AutomaticBonuses {
+    attack: number;
+    ac: number;
+    perception: number;
+    save: number;
+}
+
+export { AutomaticBonusProgression };

@@ -31,7 +31,7 @@ interface MeleeSystemSource extends ItemSystemSource {
     attack: {
         value: string;
     };
-    damageRolls: Record<string, MeleeDamageRoll>;
+    damageRolls: Record<string, NPCAttackDamage>;
     bonus: {
         value: number;
     };
@@ -52,12 +52,15 @@ interface MeleeSystemData extends MeleeSystemSource, Omit<ItemSystemData, "trait
     };
 }
 
-interface MeleeDamageRoll {
+interface NPCAttackDamageSource {
     damage: string;
     damageType: DamageType;
+    category?: "persistent" | "precision" | "splash" | null;
 }
+
+type NPCAttackDamage = Required<NPCAttackDamageSource>;
 
 export type NPCAttackTrait = keyof ConfigPF2e["PF2E"]["npcAttackTraits"];
 export type NPCAttackTraits = ItemTraits<NPCAttackTrait>;
 
-export { MeleeDamageRoll, MeleeData, MeleeSource, MeleeSystemData, MeleeSystemSource };
+export { NPCAttackDamage, MeleeData, MeleeSource, MeleeSystemData, MeleeSystemSource };

@@ -82,7 +82,7 @@ interface MartialProficiencyRuleElement extends RuleElementPF2e {
 
 interface MartialProficiencyData extends RuleElementData {
     key: "MartialProficiency";
-    /** The key to be used for this proficiency in `CharacterPF2e#data#data#martial` */
+    /** The key to be used for this proficiency in `CharacterPF2e#system#martial` */
     slug: string;
     /** The criteria for matching qualifying weapons and other attacks */
     definition: RawPredicate;

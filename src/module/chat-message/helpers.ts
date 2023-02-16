@@ -1,6 +1,6 @@
 import { DamageRoll } from "@system/damage/roll";
 import { LocalizePF2e } from "@system/localize";
-import { ErrorPF2e, tupleHasValue } from "@util";
+import { ErrorPF2e, htmlQuery, tupleHasValue } from "@util";
 import { ChatContextFlag, CheckRollContextFlag } from "./data";
 import { ChatMessagePF2e } from "./document";
 
@@ -17,7 +17,11 @@ async function applyDamageFromMessage({
 }: ApplyDamageFromMessageParams): Promise<void> {
     if (promptModifier) return shiftAdjustDamage(message, multiplier, rollIndex);
 
-    const tokens = canvas.tokens.controlled.filter((token) => !!token.actor).map((t) => t.document);
+    const html = htmlQuery(ui.chat.element[0], `li.chat-message[data-message-id="${message.id}"]`);
+    const tokens =
+        html?.dataset.actorIsTarget && message.token
+            ? [message.token]
+            : canvas.tokens.controlled.filter((t) => !!t.actor).map((t) => t.document);
     if (tokens.length === 0) {
         const errorMsg = LocalizePF2e.translations.PF2E.UI.errorTargetToken;
         return ui.notifications.error(errorMsg);
@@ -29,8 +33,13 @@ async function applyDamageFromMessage({
 
     const damage = multiplier < 0 ? multiplier * roll.total + addend : roll.alter(multiplier, addend);
 
+    // Get origin roll options and apply damage to a contextual clone: this may influence condition IWR, for example
+    const originRollOptions = (message.flags.pf2e.context?.options ?? [])
+        .filter((o) => o.startsWith("self:"))
+        .map((o) => o.replace(/^self/, "origin"));
+
     for (const token of tokens) {
-        await token.actor?.applyDamage({
+        await token.actor?.getContextualClone(originRollOptions).applyDamage({
             damage,
             token,
             skipIWR: multiplier <= 0,

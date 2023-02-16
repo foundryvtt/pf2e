@@ -9,7 +9,7 @@ import {
     PreciousMaterialGrade,
     UsageDetails,
 } from "@item/physical";
-import { OneToFour, ZeroToThree } from "@module/data";
+import { OneToFour, ZeroToFour, ZeroToThree } from "@module/data";
 import { DamageDieSize, DamageType } from "@system/damage";
 import { type WeaponPF2e } from "./document";
 import {
@@ -161,7 +161,7 @@ interface WeaponSystemData
         consume: boolean | null;
     };
     runes: {
-        potency: number;
+        potency: ZeroToFour;
         striking: ZeroToThree;
         property: WeaponPropertyRuneType[];
         effects: [];

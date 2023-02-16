@@ -26,7 +26,7 @@ class PredicatePF2e extends Array<PredicateStatement> {
 
     /** Is this an array of predicatation statements? */
     static override isArray(statements: unknown): statements is PredicateStatement[] {
-        return super.isArray(statements) && statements.every((s) => StatementValidator.validate(s));
+        return super.isArray(statements) && statements.every((s) => StatementValidator.isStatement(s));
     }
 
     /** Test if the given predicate passes for the given list of options. */
@@ -57,10 +57,13 @@ class PredicatePF2e extends Array<PredicateStatement> {
 
     /** Test this predicate against a domain of discourse */
     test(options: Set<string> | string[]): boolean {
-        if (!this.isValid) {
+        if (this.length === 0) {
+            return true;
+        } else if (!this.isValid) {
             console.error("PF2e System | The provided predicate set is malformed.");
             return false;
         }
+
         const domain = options instanceof Set ? options : new Set(options);
         return this.every((s) => this.isTrue(s, domain));
     }
@@ -157,11 +160,7 @@ class PredicatePF2e extends Array<PredicateStatement> {
 }
 
 class StatementValidator {
-    static validate(statement: unknown): statement is PredicateStatement {
-        return this.isStatement(statement);
-    }
-
-    private static isStatement(statement: unknown): statement is PredicateStatement {
+    static isStatement(statement: unknown): statement is PredicateStatement {
         return statement instanceof Object
             ? this.isCompound(statement) || this.isBinaryOp(statement)
             : typeof statement === "string"
@@ -316,4 +315,4 @@ type PredicateStatement = Atom | CompoundStatement;
 
 type RawPredicate = PredicateStatement[];
 
-export { PredicatePF2e, PredicateStatement, RawPredicate, convertLegacyData };
+export { PredicatePF2e, PredicateStatement, RawPredicate, StatementValidator, convertLegacyData };

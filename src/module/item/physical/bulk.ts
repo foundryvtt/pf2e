@@ -220,78 +220,6 @@ export class Bulk {
     }
 }
 
-// Used by weapon, slated for chopping block
-export class BulkItem {
-    id: string;
-
-    bulk: Bulk;
-
-    size: Size;
-
-    quantity: number;
-
-    stackGroup: string | null;
-
-    isEquipped: boolean;
-
-    unequippedBulk?: Bulk | null;
-
-    equippedBulk?: Bulk | null;
-
-    holdsItems: BulkItem[];
-
-    negateBulk: Bulk;
-
-    extraDimensionalContainer: boolean;
-
-    constructor({
-        id = "",
-        bulk = new Bulk(),
-        quantity = 1,
-        stackGroup = null,
-        isEquipped = false,
-        // value to overrides bulk field when unequipped
-        unequippedBulk,
-        // value to overrides bulk field when equipped
-        equippedBulk,
-        holdsItems = [],
-        // some containers like a backpack or back of holding reduce total bulk if
-        // items are put into it
-        negateBulk = new Bulk(),
-        // extra dimensional containers cease to work when nested inside each other
-        extraDimensionalContainer = false,
-        size = "med",
-    }: {
-        id?: string;
-        bulk?: Bulk;
-        quantity?: number;
-        stackGroup?: string | null;
-        isEquipped?: boolean;
-        unequippedBulk?: Bulk | null;
-        equippedBulk?: Bulk | null;
-        holdsItems?: BulkItem[];
-        negateBulk?: Bulk;
-        extraDimensionalContainer?: boolean;
-        size?: Size;
-    } = {}) {
-        this.id = id;
-        this.bulk = bulk;
-        this.quantity = quantity;
-        this.stackGroup = stackGroup;
-        this.holdsItems = holdsItems;
-        this.negateBulk = negateBulk;
-        this.unequippedBulk = unequippedBulk;
-        this.equippedBulk = equippedBulk;
-        this.isEquipped = isEquipped;
-        this.extraDimensionalContainer = extraDimensionalContainer;
-        this.size = size;
-    }
-
-    get reducesBulk(): boolean {
-        return !this.negateBulk.isNegligible;
-    }
-}
-
 const lightBulkRegex = /^(\d*)l$/i;
 const complexBulkRegex = /^(\d+);\s*(\d*)l$/i;
 
@@ -321,19 +249,4 @@ export function weightToBulk(weight: Optional<string | number>): Bulk | null {
         });
     }
     return null;
-}
-
-type BrokenBulk = Optional<string> | Optional<number>;
-
-/**
- * Needed because some weight is either null, undefined, a number or a string :(
- * @param weight
- */
-export function normalizeWeight(weight: BrokenBulk): string | undefined {
-    if (weight === null || weight === undefined) {
-        return undefined;
-    }
-    // turn numbers into strings
-    const stringWeight = `${weight}`;
-    return stringWeight.toLowerCase().trim();
 }

@@ -107,6 +107,16 @@ class PersistentDamageDialog extends Application {
                 this.actor.createEmbeddedDocuments("Item", [persistentSource]);
             }
         });
+
+        html.querySelector("[data-action=roll-persistent]")?.addEventListener("click", () => {
+            const existing = this.actor.itemTypes.condition.filter(
+                (c): c is Embedded<PersistentDamagePF2e> => c.slug === "persistent-damage"
+            );
+
+            for (const condition of existing) {
+                condition.onEndTurn();
+            }
+        });
     }
 
     #getInputElements(section: HTMLElement) {
@@ -115,6 +125,14 @@ class PersistentDamageDialog extends Application {
             damageType: htmlQuery<HTMLSelectElement>(section, ".damageType"),
             dc: htmlQuery<HTMLInputElement>(section, ".dc"),
         };
+    }
+
+    /** Overriden to autofocus on first render behavior */
+    protected override _injectHTML($html: JQuery<HTMLElement>): void {
+        super._injectHTML($html);
+
+        // Since this is an initial render, focus the roll button
+        htmlQuery($html[0], ".new .formula")?.focus();
     }
 }
 

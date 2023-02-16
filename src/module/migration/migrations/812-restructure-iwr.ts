@@ -124,10 +124,14 @@ export class Migration812RestructureIWR extends MigrationBase {
         }
 
         const adjustStrikeREs = source.system.rules.filter(
-            (r): r is { key: string; value: string } => r.key === "AdjustStrike" && typeof r.value === "string"
+            (r): r is { key: string; property: string; value: string } =>
+                r.key === "AdjustStrike" && typeof r.value === "string"
         );
         for (const rule of adjustStrikeREs) {
-            rule.value = rule.value.startsWith("{") ? rule.value : this.#normalizeType(rule.value);
+            rule.value =
+                rule.value.startsWith("{") || rule.property === "weapon-traits"
+                    ? rule.value
+                    : this.#normalizeType(rule.value);
         }
     }
 

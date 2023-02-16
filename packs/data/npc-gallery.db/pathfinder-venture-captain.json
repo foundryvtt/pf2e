@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "occult"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -211,7 +206,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "detection",
@@ -313,7 +307,6 @@
                     "value": []
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "bard",
@@ -421,7 +414,6 @@
                     "value": []
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "bard",
@@ -531,7 +523,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "detection",
@@ -638,7 +629,6 @@
                     "value": "striking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "deadly-d10",
@@ -684,7 +674,7 @@
                     "die": "d8"
                 },
                 "description": {
-                    "value": "<p>This weapon has a wooden shaft ending in a large, heavy metal head. Thehead of the hammer might be single‑sided or double‑sided, but it's always capable of delivering powerful bludgeoning blows.</p>"
+                    "value": "<p>This weapon has a wooden shaft ending in a large, heavy metal head. The head of the hammer might be single‑sided or double‑sided, but it's always capable of delivering powerful bludgeoning blows.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -752,7 +742,6 @@
                     "value": "striking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "shove"
@@ -859,7 +848,6 @@
                     "value": 16
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -963,7 +951,6 @@
                     "value": 0
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "abjuration",
@@ -1034,7 +1021,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "evocation",
@@ -1096,7 +1082,6 @@
                     "show": true
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1105,6 +1090,11 @@
         },
         {
             "_id": "SvKEuXIi5eUaqkLA",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "3pDy4fG7Gyy7veGs"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Warhammer",
             "sort": 1200000,
@@ -1133,8 +1123,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
-                    "rarity": "common",
                     "value": [
                         "magical",
                         "shove"
@@ -1148,6 +1136,11 @@
         },
         {
             "_id": "kx6tL1KbenrQWtCB",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "lWk7EJdUr0IOisEA"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Composite Longbow",
             "sort": 1300000,
@@ -1176,12 +1169,12 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
-                    "rarity": "common",
                     "value": [
                         "deadly-d10",
                         "magical",
+                        "propulsive",
                         "range-increment-100",
+                        "reload-0",
                         "volley-30"
                     ]
                 },
@@ -1223,7 +1216,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1272,7 +1264,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "selected": {},
                     "value": []
@@ -1318,7 +1309,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1358,7 +1348,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1398,7 +1387,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "selected": {},
                     "value": []
@@ -1439,7 +1427,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "stance"
@@ -1477,13 +1464,10 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "warhammer-damage",
-                        "text": "The target is knocked @UUID[Compendium.pf2e.conditionitems.Prone]{Prone}.",
-                        "title": "PF2E.Actor.Creature.CriticalSpecialization"
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            "item:group:hammer"
+                        ]
                     }
                 ],
                 "slug": null,
@@ -1491,11 +1475,8 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
-                    "value": [
-                        "hammer"
-                    ]
+                    "value": []
                 },
                 "trigger": {
                     "value": ""
@@ -1527,7 +1508,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1555,7 +1535,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1583,7 +1562,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1611,7 +1589,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1639,7 +1616,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }

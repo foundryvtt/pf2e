@@ -11,11 +11,34 @@
     .effect-item {
         display: flex;
         justify-content: flex-end;
-        height: 46px;
+        height: 52px;
+
+        &[data-badge-type=formula] .icon {
+            cursor: pointer;
+            &:hover {
+                &::before {
+                    content: "\f6cf";
+                    background: rgba(0, 0, 0, 0.5);
+                    font-family: "Font Awesome 5 Free";
+                    font-weight: 900;
+                    font-size: var(--font-size-26);
+                    color: white;
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding-bottom: 4px; // offset
+                }
+            }
+        }
 
         &:hover {
             .effect-info {
-                display: block;
+                display: flex;
+                align-items: flex-end;
+                flex-direction: column;
             }
         }
 
@@ -23,12 +46,12 @@
             display: none;
             height: min-content;
             margin-right: 0.5em;
-            padding: 0.25em;
+            padding: 0.25em 0.5rem;
             background-color: rgba(0, 0, 0, 0.75);
+            color: white;
 
             h1 {
                 font-size: var(--font-size-12);
-                color: white;
                 text-align: right;
                 border: none;
                 @include p-reset;
@@ -47,8 +70,15 @@
                 }
             }
 
+            a {
+                display: block;
+                border: 1px outset white;
+                font-size: var(--font-size-10);
+                margin-top: 0.125rem;
+                padding: 0.125rem;
+            }
+
             .instructions {
-                color: white;
                 font-size: 0.75em;
                 text-align: right;
             }
@@ -65,8 +95,8 @@
             justify-content: center;
             position: relative;
             margin: 2px 0;
-            height: 42px;
-            width: 42px;
+            height: 48px;
+            width: 48px;
 
             .expired {
                 position: absolute;
@@ -87,13 +117,12 @@
                 color: white;
                 background-color: rgba(0, 0, 0, 0.75);
             }
-            .value {
-                display: inline-block;
+            .value-wrapper {
                 position: absolute;
                 bottom: -1px;
                 left: -1px;
+                max-width: calc(100% + 2px);
                 padding: 0px 2px;
-                max-width: 100%;
 
                 color: white;
                 background-color: rgba(0, 0, 0, 0.75);
@@ -101,7 +130,15 @@
                 letter-spacing: -0.05em;
                 white-space: nowrap;
                 overflow: hidden;
-                text-overflow: ellipsis;
+
+                .value {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    strong {
+                        display: inline-block;
+                        padding-right: 1px; // prevent clipping
+                    }
+                }
             }
 
             &.unidentified {
@@ -112,6 +149,6 @@
 
     hr {
         margin-right: 0;
-        width: 36px;
+        width: 40px;
     }
 }

@@ -22,7 +22,7 @@ const SECONDARY_TRAIT_RECORDS = {
     weaponTraits: ["npcAttackTraits"],
 } as const;
 
-type HomebrewTraitKey = typeof HOMEBREW_TRAIT_KEYS[number];
+type HomebrewTraitKey = (typeof HOMEBREW_TRAIT_KEYS)[number];
 type HomebrewKey = HomebrewTraitKey | "damageTypes";
 type HomebrewTraitSettingsKey = `homebrew.${HomebrewTraitKey}`;
 

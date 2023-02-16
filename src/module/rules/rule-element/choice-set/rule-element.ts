@@ -3,7 +3,7 @@ import { FeatPF2e, ItemPF2e } from "@item";
 import { PickableThing } from "@module/apps/pick-a-thing-prompt";
 import { PredicatePF2e } from "@system/predication";
 import { isObject, objectHasKey, sluggify } from "@util";
-import { fromUUIDs, isItemUUID } from "@util/from-uuids";
+import { UUIDUtils } from "@util/uuid-utils";
 import { ChoiceSetData, ChoiceSetOwnedItems, ChoiceSetPackQuery, ChoiceSetSource } from "./data";
 import { ChoiceSetPrompt } from "./prompt";
 import { ItemType } from "@item/data";
@@ -26,9 +26,6 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
     /** A predicate to valide dropped item selections */
     private allowedDrops: { label: string | null; predicate: PredicatePF2e };
 
-    /** If the choice set contains UUIDs, the item slug can be recorded instead of the selected UUID */
-    private recordSlug: boolean;
-
     /** An optional roll option to be set from the selection */
     private rollOption: string | null;
 
@@ -38,7 +35,6 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         this.setDefaultFlag(this.data);
         this.prompt = typeof data.prompt === "string" ? data.prompt : "PF2E.UI.RuleElements.ChoiceSet.Prompt";
         this.adjustName = !!(data.adjustName ?? true);
-        this.recordSlug = !!data.recordSlug;
 
         this.allowedDrops = ((): { label: string | null; predicate: PredicatePF2e } => {
             if (!isObject<{ label: unknown; predicate: unknown }>(data.allowedDrops)) {
@@ -54,8 +50,9 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
 
         this.allowNoSelection = !!data.allowNoSelection;
         this.rollOption = typeof data.rollOption === "string" && data.rollOption ? data.rollOption : null;
-        if (isObject(this.data.choices) && "predicate" in this.data.choices) {
+        if (isObject(this.data.choices) && !Array.isArray(this.data.choices) && !("query" in this.data.choices)) {
             this.data.choices.predicate = new PredicatePF2e(this.data.choices.predicate ?? []);
+            if (this.data.choices.unarmedAttacks) this.data.choices.predicate.push("item:category:unarmed");
         }
 
         const { selection } = this.data;
@@ -67,7 +64,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         // the same item. If a roll option is specified, assign that as well.
         if (selectionMade) {
             item.flags.pf2e.rulesSelections[this.data.flag] = selection;
-            this.#setRollOption(selection.toString());
+            this.#setRollOption(selection);
         } else if (!this.allowNoSelection) {
             // If no selection has been made, disable this and all other rule elements on the item.
             this.ignored = true;
@@ -81,7 +78,10 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
      * Adjust the effect's name and set the targetId from the user's selection, or set the entire rule element to be
      * ignored if no selection was made.
      */
-    override async preCreate({ ruleSource }: RuleElementPF2e.PreCreateParams<ChoiceSetSource>): Promise<void> {
+    override async preCreate({
+        itemSource,
+        ruleSource,
+    }: RuleElementPF2e.PreCreateParams<ChoiceSetSource>): Promise<void> {
         const rollOptions = [this.actor.getRollOptions(), this.item.getRollOptions("item")].flat();
 
         const predicate = this.resolveInjectedProperties(this.predicate);
@@ -106,7 +106,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
                 prompt: this.prompt,
                 item: this.item,
                 title: this.label,
-                choices: (await this.inflateChoices()).filter((c) => !c.predicate || c.predicate.test(rollOptions)),
+                choices: (await this.inflateChoices()).filter((c) => c.predicate?.test(rollOptions) ?? true),
                 containsUUIDs: this.data.containsUUIDs,
                 // Selection validation can predicate on item:-prefixed and [itemType]:-prefixed item roll options
                 allowedDrops: this.allowedDrops,
@@ -114,18 +114,11 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
             }).resolveSelection());
 
         if (selection) {
-            // Record the slug instead of the UUID
-            ruleSource.selection = await (async (): Promise<string | number | object | null> => {
-                if (isItemUUID(selection.value) && this.recordSlug) {
-                    const item = await fromUuid(selection.value);
-                    return item instanceof ItemPF2e ? item.slug ?? sluggify(item.name) : null;
-                }
-                return selection.value;
-            })();
+            ruleSource.selection = selection.value;
 
             // Change the name of the parent item
             if (this.adjustName) {
-                const effectName = this.item._source.name;
+                const effectName = itemSource.name;
                 const label = game.i18n.localize(selection.label);
                 const name = `${effectName} (${label})`;
                 // Deduplicate if parenthetical is already present
@@ -133,14 +126,21 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
                     const escaped = RegExp.escape(label);
                     return new RegExp(`\\(${escaped}\\) \\(${escaped}\\)$`);
                 })();
-                this.item._source.name = name.replace(pattern, `(${label})`);
+                itemSource.name = name.replace(pattern, `(${label})`);
             }
 
             // Set the item flag in case other preCreate REs need it
             this.item.flags.pf2e.rulesSelections[this.data.flag] = selection.value;
 
-            // Likewise with the roll option, if requested
-            this.#setRollOption(String(ruleSource.selection));
+            // If the selection is an item UUID, retrieve the item's slug and use that for the roll option instead
+            if (typeof ruleSource.rollOption === "string" && UUIDUtils.isItemUUID(selection.value)) {
+                const item = await fromUuid(selection.value);
+                if (item instanceof ItemPF2e) {
+                    const slug = item.slug ?? sluggify(item.name);
+                    this.rollOption = ruleSource.rollOption = `${ruleSource.rollOption}:${slug}`;
+                }
+            }
+            this.#setRollOption(ruleSource.selection);
 
             for (const rule of this.item.rules) {
                 // Now that a selection is made, other rule elements can be set back to unignored
@@ -167,8 +167,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
             : isObject(this.data.choices) // ChoiceSetAttackQuery or ChoiceSetItemQuery
             ? this.data.choices.ownedItems
                 ? this.choicesFromOwnedItems(this.data.choices)
-                : this.data.choices.unarmedAttacks
-                ? this.choicesFromUnarmedAttacks(this.data.choices.predicate)
+                : this.data.choices.attacks || this.data.choices.unarmedAttacks
+                ? this.choicesFromAttacks(this.data.choices.predicate)
                 : "query" in this.data.choices && typeof this.data.choices.query === "string"
                 ? await this.queryCompendium(this.data.choices)
                 : []
@@ -181,8 +181,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         }
 
         // If every choice is an item UUID, get the label and images from those items
-        if (choices.every((c): c is ItemChoice => isItemUUID(c.value))) {
-            const itemChoices = await fromUUIDs(choices.map((c) => c.value));
+        if (choices.every((c): c is ItemChoice => UUIDUtils.isItemUUID(c.value))) {
+            const itemChoices = await UUIDUtils.fromUUIDs(choices.map((c) => c.value));
             for (let i = 0; i < choices.length; i++) {
                 const item = itemChoices[i];
                 if (item instanceof ItemPF2e) {
@@ -256,15 +256,12 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         return choices;
     }
 
-    private choicesFromUnarmedAttacks(predicate = new PredicatePF2e()): PickableThing<string>[] {
+    private choicesFromAttacks(predicate: PredicatePF2e): PickableThing<string>[] {
         if (!this.actor.isOfType("character")) return [];
 
         return this.actor.system.actions
             .filter(
-                (a): a is CharacterStrike =>
-                    a.item.isOfType("weapon") &&
-                    a.item.category === "unarmed" &&
-                    predicate.test(a.item.getRollOptions("item"))
+                (a): a is CharacterStrike => a.item.isOfType("weapon") && predicate.test(a.item.getRollOptions("item"))
             )
             .map((a) => ({
                 img: a.item.img,
@@ -351,9 +348,14 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         return choice ?? null;
     }
 
-    #setRollOption(selection: string): void {
-        if (!this.rollOption) return;
-        this.actor.rollOptions.all[`${this.rollOption}:${selection}`] = true;
+    #setRollOption(selection: unknown): void {
+        if (!(this.rollOption && (typeof selection === "string" || typeof selection === "number"))) {
+            return;
+        }
+
+        // If the selection was a UUID, the roll option had its suffix appended at item creation
+        const suffix = UUIDUtils.isItemUUID(selection) ? "" : `:${selection}`;
+        this.actor.rollOptions.all[`${this.rollOption}${suffix}`] = true;
     }
 }
 

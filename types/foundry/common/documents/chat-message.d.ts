@@ -36,7 +36,7 @@ declare module foundry {
 
             static createDocuments<T extends abstract.Document>(
                 this: ConstructorOf<T>,
-                data?: PreCreate<T["_source"]>[],
+                data?: (T | PreCreate<T["_source"]>)[],
                 context?: ChatMessageModificationContext
             ): Promise<T[]>;
         }
@@ -57,9 +57,9 @@ declare module foundry {
             label: "DOCUMENT.ChatMessage";
             isPrimary: true;
             permissions: {
-                create: typeof BaseChatMessage["_canCreate"];
-                update: typeof BaseChatMessage["_canUpdate"];
-                delete: typeof BaseChatMessage["_canDelete"];
+                create: (typeof BaseChatMessage)["_canCreate"];
+                update: (typeof BaseChatMessage)["_canUpdate"];
+                delete: (typeof BaseChatMessage)["_canDelete"];
             };
         }
     }

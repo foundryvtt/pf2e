@@ -3,7 +3,13 @@
         {{> effect effect=condition}}
     {{/each}}
 
-    {{#if (and conditions.length effects.length)}}<hr />{{/if}}
+    {{#if (and conditions.length afflictions.length)}}<hr />{{/if}}
+
+    {{#each afflictions as |affliction|}}
+        {{> effect effect=affliction}}
+    {{/each}}
+
+    {{#if (and afflictions.length effects.length)}}<hr />{{/if}}
 
     {{#each effects as |effect|}}
         {{> effect effect=effect}}
@@ -12,7 +18,7 @@
 
 {{#*inline "effect"}}
 {{#if (or (not effect.unidentified) @root.user.isGM)}}
-<div class="effect-item">
+<div class="effect-item" data-item-id="{{effect.id}}" data-badge-type="{{effect.badge.type}}">
     <div class="effect-info">
         <h1>{{effect.name}}</h1>
         {{#if (or (eq effect.type "effect") effect.breakdown)}}
@@ -31,8 +37,17 @@
                 {{/if}}
             </div>
         {{/if}}
+        {{#if (eq effect.slug "persistent-damage")}}
+            <a data-action="recover-persistent-damage">
+                {{localize "PF2E.Item.Condition.PersistentDamage.AssistedRecovery"}}
+            </a>
+        {{/if}}
         <div class="instructions">
             {{#if (not effect.locked)}}
+                {{#if (eq effect.badge.type "formula")}}
+                    <p>{{localize "PF2E.EffectPanel.RollDamageToolTip"}}</p>
+                {{/if}}
+
                 {{#if (eq effect.badge.type "counter")}}
                     <p>{{localize "PF2E.EffectPanel.IncrementToolTip"}}</p>
                     <p>{{localize "PF2E.EffectPanel.DecrementToolTip"}}</p>
@@ -42,14 +57,17 @@
             {{/if}}
         </div>
     </div>
-    <div class="icon {{#if effect.unidentified}}unidentified{{/if}}" data-item-id="{{effect.id}}" data-locked="{{#if effect.locked}}true{{/if}}" style="background-image: url({{effect.img}})">
+    <div class="icon{{#if effect.unidentified}} unidentified{{/if}}" data-locked="{{#if effect.locked}}true{{/if}}" style="background-image: url({{effect.img}})">
         {{#if effect.locked}}
             <div class="linked"><i class="fas fa-link"></i></div>
         {{/if}}
         {{#if effect.system.expired}}
             <span class="expired">{{localize "PF2E.EffectPanel.Expired"}}</span>
         {{else if effect.badge}}
-            <div class="value"><strong>{{effect.badge.value}}</strong></div>
+            <div class="value-wrapper">
+                <div class="value"><strong>{{coalesce effect.badge.label effect.badge.value}}</strong></div>
+            </div>
+
         {{/if}}
     </div>
 </div>

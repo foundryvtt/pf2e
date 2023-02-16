@@ -15,7 +15,7 @@ import { SaveType } from "@actor/types";
 import { SKILL_DICTIONARY } from "@actor/values";
 import { ArmorPF2e, ConditionPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
 import { isCycle } from "@item/container/helpers";
-import { ArmorSource } from "@item/data";
+import { ArmorSource, ItemType } from "@item/data";
 import { EquippedData, ItemCarryType } from "@item/physical/data";
 import { isEquipped } from "@item/physical/usage";
 import { ActiveEffectPF2e } from "@module/active-effect";
@@ -108,6 +108,10 @@ abstract class CreaturePF2e extends ActorPF2e {
 
     get rarity(): Rarity {
         return this.system.traits.rarity;
+    }
+
+    override get allowedItemTypes(): (ItemType | "physical")[] {
+        return [...super.allowedItemTypes, "affliction"];
     }
 
     /**
@@ -306,9 +310,6 @@ abstract class CreaturePF2e extends ActorPF2e {
             };
         }
 
-        // Toggles
-        this.system.toggles = [];
-
         attributes.doomed = { value: 0, max: 3 };
         attributes.dying = { value: 0, max: 4, recoveryDC: 10 };
         attributes.wounded = { value: 0, max: 3 };
@@ -317,7 +318,6 @@ abstract class CreaturePF2e extends ActorPF2e {
         setTraitIWR(this);
     }
 
-    /** Apply ActiveEffect-Like rule elements immediately after application of actual `ActiveEffect`s */
     override prepareEmbeddedDocuments(): void {
         super.prepareEmbeddedDocuments();
 
@@ -722,8 +722,8 @@ abstract class CreaturePF2e extends ActorPF2e {
             const landSpeed = systemData.attributes.speed;
             landSpeed.value = Number(landSpeed.value) || 0;
 
-            const fromSynthetics = (this.synthetics.movementTypes[movementType] ?? []).map((d) => d() ?? []).flat();
-            landSpeed.value = [landSpeed.value, ...fromSynthetics.map((s) => s.value)].sort().pop()!;
+            const fromSynthetics = (this.synthetics.movementTypes[movementType] ?? []).flatMap((d) => d() ?? []);
+            landSpeed.value = Math.max(landSpeed.value, ...fromSynthetics.map((s) => s.value));
 
             const base = landSpeed.value;
             const modifiers = extractModifiers(this.synthetics, domains);
@@ -740,11 +740,10 @@ abstract class CreaturePF2e extends ActorPF2e {
                 total: base + stat.totalModifier,
                 breakdown: [
                     `${game.i18n.format("PF2E.SpeedBaseLabel", { type: typeLabel })} ${landSpeed.value}`,
-                    ...stat.modifiers
-                        .filter((m) => m.enabled)
-                        .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`),
+                    ...stat.modifiers.filter((m) => m.enabled).map((m) => `${m.label} ${m.signedValue}`),
                 ].join(", "),
             };
+            this.rollOptions.all["speed:land"] = true;
 
             return mergeObject(stat, otherData);
         } else {
@@ -773,6 +772,8 @@ abstract class CreaturePF2e extends ActorPF2e {
             const speed: LabeledSpeed = { type: movementType, label, value: fastest.value };
             if (fastest.source) speed.source = fastest.source;
 
+            this.rollOptions.all[`speed:${movementType}`] = true;
+
             const base = speed.value;
             const modifiers = extractModifiers(this.synthetics, domains);
             const stat = mergeObject(new StatisticModifier(`${movementType}-speed`, modifiers, rollOptions), speed, {
@@ -786,6 +787,7 @@ abstract class CreaturePF2e extends ActorPF2e {
                         .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 )
                 .join(", ");
+
             return stat;
         }
     }
@@ -841,7 +843,7 @@ abstract class CreaturePF2e extends ActorPF2e {
     }
 }
 
-interface CreaturePF2e {
+interface CreaturePF2e extends ActorPF2e {
     readonly data: CreatureData;
 
     /** Saving throw rolls for the creature, built during data prep */

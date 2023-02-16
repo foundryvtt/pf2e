@@ -27,6 +27,7 @@ import {
     TreasureSheetPF2e,
     WeaponSheetPF2e,
 } from "@item";
+import { AfflictionSheetPF2e } from "@item/affliction";
 import { JournalSheetPF2e, JournalTextTinyMCESheetPF2e } from "@module/journal-entry/sheet";
 import { UserPF2e } from "@module/user";
 import { UserConfigPF2e } from "@module/user/sheet";
@@ -118,6 +119,7 @@ export function registerSheets() {
 
     const sheetEntries = [
         ["action", ActionSheetPF2e],
+        ["affliction", AfflictionSheetPF2e],
         ["ancestry", AncestrySheetPF2e],
         ["armor", ArmorSheetPF2e],
         ["background", BackgroundSheetPF2e],

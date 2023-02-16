@@ -165,7 +165,7 @@ declare global {
         range: number | null;
     }
 
-    type DetectionType = typeof DetectionMode.DETECTION_TYPES[keyof typeof DetectionMode.DETECTION_TYPES];
+    type DetectionType = (typeof DetectionMode.DETECTION_TYPES)[keyof typeof DetectionMode.DETECTION_TYPES];
 }
 
 interface DetectionModeConstructionParams {

@@ -28,14 +28,21 @@ import { request } from "./diplomacy/request";
 import { avoidNotice } from "./exploration/avoid-notice";
 import { senseDirection } from "./exploration/sense-direction";
 import { track } from "./exploration/track";
+import { decipherWriting } from "./general/decipher-writing";
+import { subsist } from "./general/subsist";
 import { coerce } from "./intimidation/coerce";
 import { demoralize } from "./intimidation/demoralize";
 import { treatDisease } from "./medicine/treat-disease";
 import { treatPoison } from "./medicine/treat-poison";
 import { commandAnAnimal } from "./nature/command-an-animal";
+import { perform } from "./performance/perform";
+import { concealAnObject } from "./stealth/conceal-an-object";
 import { hide } from "./stealth/hide";
 import { sneak } from "./stealth/sneak";
+import { palmAnObject } from "./thievery/palm-an-object";
+import { disableDevice } from "./thievery/disable-device";
 import { pickALock } from "./thievery/pick-a-lock";
+import { steal } from "./thievery/steal";
 export { ActionMacroHelpers } from "./helpers";
 export { ActionDefaultOptions, SkillActionOptions } from "./types";
 
@@ -89,6 +96,10 @@ export const ActionMacros = {
     makeAnImpression,
     request,
 
+    // General Skill Actions
+    decipherWriting,
+    subsist,
+
     // Intimidation
     coerce,
     demoralize,
@@ -100,10 +111,17 @@ export const ActionMacros = {
     // Nature
     commandAnAnimal,
 
+    // Performance
+    perform,
+
     // Stealth
+    concealAnObject,
     hide,
     sneak,
 
     // Thievery
+    palmAnObject,
+    disableDevice,
     pickALock,
+    steal,
 };

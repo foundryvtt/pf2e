@@ -41,6 +41,9 @@ declare global {
          */
         editors: Record<string, TinyMCEEditorData>;
 
+        // Undocumented
+        _submitting?: boolean;
+
         /** Assign the default options which are supported by the entity edit sheet */
         static override get defaultOptions(): FormApplicationOptions;
 

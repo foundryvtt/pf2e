@@ -349,8 +349,6 @@ declare global {
     }
 
     interface RenderOptions extends Partial<ApplicationOptions> {
-        // Undocumented
-        action?: UserAction;
         /** The left positioning attribute */
         left?: number;
         /** The top positioning attribute */
@@ -367,6 +365,10 @@ declare global {
         renderContext?: string;
         /** The data change which motivated the render request */
         renderData?: Record<string, unknown>;
+        // Undocumented
+        action?: UserAction;
+        // Undocumented: applicable only to `FormApplication`s
+        editable?: boolean;
     }
 
     interface ApplicationPosition {
@@ -377,5 +379,5 @@ declare global {
         scale?: number;
     }
 
-    type ApplicationRenderState = typeof Application["RENDER_STATES"][keyof typeof Application["RENDER_STATES"]];
+    type ApplicationRenderState = (typeof Application)["RENDER_STATES"][keyof (typeof Application)["RENDER_STATES"]];
 }

@@ -1,6 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { AttackTarget } from "@actor/types";
 import { ItemPF2e } from "@item";
+import { ZeroToTwo } from "@module/data";
 import { RollSubstitution } from "@module/rules/synthetics";
 import { TokenDocumentPF2e } from "@scene/token-document";
 import { CheckDC, DegreeOfSuccessAdjustment } from "@system/degree-of-success";
@@ -39,10 +40,12 @@ interface CheckRollContext extends BaseRollContext {
     domains?: string[];
     /** Is the roll a reroll? */
     isReroll?: boolean;
+    /** The number of MAP increases for this roll */
+    mapIncreases?: Maybe<ZeroToTwo>;
     /** D20 results substituted for an actual roll */
     substitutions?: RollSubstitution[];
     /** Is the weapon used in this attack roll an alternative usage? */
-    altUsage?: "thrown" | "melee" | null;
+    altUsage?: Maybe<"thrown" | "melee">;
     /** Degree of success adjustments from synthetics and hard-coded sources */
     dosAdjustments?: DegreeOfSuccessAdjustment[];
 }

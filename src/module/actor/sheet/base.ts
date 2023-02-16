@@ -2,7 +2,15 @@ import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { ActorDataPF2e } from "@actor/data";
 import { RollFunction, StrikeData } from "@actor/data/base";
 import { SAVE_TYPES } from "@actor/values";
-import { Coins, createConsumableFromSpell, DENOMINATIONS, ItemPF2e, PhysicalItemPF2e } from "@item";
+import {
+    Coins,
+    createConsumableFromSpell,
+    DENOMINATIONS,
+    ItemPF2e,
+    ItemProxyPF2e,
+    PhysicalItemPF2e,
+    SpellPF2e,
+} from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
@@ -21,16 +29,16 @@ import {
     TagSelectorType,
     TAG_SELECTOR_TYPES,
 } from "@system/tag-selector";
-import { ErrorPF2e, htmlQuery, objectHasKey, tupleHasValue } from "@util";
+import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, objectHasKey, tupleHasValue } from "@util";
 import { ActorSizePF2e } from "../data/size";
 import { ActorSheetDataPF2e, CoinageSummary, InventoryItem, SheetInventory } from "./data-types";
 import { ItemSummaryRenderer } from "./item-summary-renderer";
 import { MoveLootPopup } from "./loot/move-loot-popup";
 import { AddCoinsPopup } from "./popups/add-coins-popup";
+import { CastingItemCreateDialog } from "./popups/casting-item-create-dialog";
 import { IdentifyItemPopup } from "./popups/identify-popup";
 import { IWREditor } from "./popups/iwr-editor";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup";
-import { ScrollWandPopup } from "./popups/scroll-wand-popup";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -62,7 +70,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         // Alphabetize displayed IWR
         const iwrKeys = ["immunities", "weaknesses", "resistances"] as const;
-        const attributes: Record<typeof iwrKeys[number], { label: string }[]> = actorData.system.attributes;
+        const attributes: Record<(typeof iwrKeys)[number], { label: string }[]> = actorData.system.attributes;
         for (const key of iwrKeys) {
             attributes[key] = [...attributes[key]].sort((a, b) => a.label.localeCompare(b.label));
         }
@@ -199,8 +207,40 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         // Item summaries
         this.itemRenderer.activateListeners($html);
 
+        // Pop out window with actor portrait
+        htmlQuery(html, "a[data-action=show-image]")?.addEventListener("click", () => {
+            const actor = this.actor;
+            const title = actor.token?.name ?? actor.prototypeToken?.name ?? actor.name;
+            new ImagePopout(actor.img, { title, uuid: actor.uuid }).render(true);
+        });
+
         // Everything below here is only needed if the sheet is editable
         if (!this.options.editable) return;
+
+        // Handlers for number inputs of properties subject to modification by AE-like rules elements
+        const manualPropertyInputs = htmlQueryAll(html, "select[data-property],input[data-property]");
+        for (const input of manualPropertyInputs) {
+            input.addEventListener("focus", () => {
+                const propertyPath = input.dataset.property ?? "";
+                input.setAttribute("name", propertyPath);
+                if (input instanceof HTMLInputElement) {
+                    const baseValue = Number(getProperty(this.actor._source, propertyPath));
+                    input.value = String(baseValue);
+                }
+            });
+
+            input.addEventListener("blur", () => {
+                input.removeAttribute("name");
+                input.removeAttribute("style");
+                const propertyPath = input.dataset.property ?? "";
+                const preparedValue = getProperty(this.actor, propertyPath);
+                if (input instanceof HTMLInputElement) {
+                    const isModifier = input.classList.contains("modifier") && Number(preparedValue) >= 0;
+                    const value = isModifier ? `+${preparedValue}` : preparedValue;
+                    input.value = String(value);
+                }
+            });
+        }
 
         /* -------------------------------------------- */
         /*  Attributes, Skills, Saves and Traits        */
@@ -208,39 +248,35 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         if (!["character", "npc"].includes(this.actor.type)) InlineRollLinks.listen($html, this.actor);
 
-        $html.find("[data-action=show-image]").on("click", () => {
-            const actor = this.actor;
-            const title = actor.token?.name ?? actor.prototypeToken?.name ?? actor.name;
-            new ImagePopout(actor.img, { title, uuid: actor.uuid }).render(true);
-        });
+        // Roll saving throws
+        for (const link of htmlQueryAll(html, ".save-name")) {
+            link.addEventListener("click", (event) => {
+                const saveType = htmlClosest(link, "[data-save]")?.dataset.save;
+                if (!tupleHasValue(SAVE_TYPES, saveType)) {
+                    throw ErrorPF2e(`"${saveType}" is not a recognized save type`);
+                }
 
-        // Roll Save Checks
-        $html.find(".save-name").on("click", (event) => {
-            event.preventDefault();
-            const saveType = $(event.currentTarget).closest("[data-save]")[0].getAttribute("data-save");
-            if (!tupleHasValue(SAVE_TYPES, saveType)) {
-                throw ErrorPF2e(`"${saveType}" is not a recognized save type`);
-            }
+                this.actor.saves?.[saveType]?.check.roll(eventToRollParams(event));
+            });
+        }
 
-            this.actor.saves?.[saveType]?.check.roll(eventToRollParams(event));
-        });
-
-        $html.find(".roll-init").on("click", (event) => {
-            const $target = $(event.currentTarget);
+        const rollInitElem = htmlQuery(html, ".roll-init");
+        rollInitElem?.addEventListener("click", (event) => {
             const { attributes } = this.actor.system;
-            if (!$target.hasClass("disabled") && "initiative" in attributes) {
+            if (!rollInitElem.classList.contains("disabled") && "initiative" in attributes) {
                 attributes.initiative.roll?.(eventToRollParams(event));
             }
         });
 
-        const toggleSelector = "input[type=checkbox][data-action=toggle-roll-option]";
-        $html.find<HTMLInputElement>(toggleSelector).on("change", async (event) => {
-            const { domain, option, itemId } = event.target.dataset;
-            if (domain && option) {
-                const value = !!event.target.checked;
-                this.actor.toggleRollOption(domain, option, itemId ?? null, value);
-            }
-        });
+        const toggles = htmlQueryAll<HTMLInputElement>(html, "input[type=checkbox][data-action=toggle-roll-option]");
+        for (const toggle of toggles) {
+            toggle.addEventListener("change", async () => {
+                const { domain, option, itemId } = toggle.dataset;
+                if (domain && option) {
+                    this.actor.toggleRollOption(domain, option, itemId ?? null, toggle.checked);
+                }
+            });
+        }
 
         // Roll Attribute Checks
         $html.find(".attribute-name").on("click", (event) => {
@@ -298,6 +334,25 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             strike.variants[variantIndex]?.roll({ event, altUsage });
         });
 
+        // Set damage-formula tooltips on damage buttons
+        const damageButtons = htmlQueryAll<HTMLButtonElement>(
+            $strikesList[0],
+            ["button[data-action=strike-damage]", "button[data-action=strike-critical]"].join(",")
+        );
+        for (const button of damageButtons) {
+            const method = button.dataset.action === "strike-damage" ? "damage" : "critical";
+            const altUsage = tupleHasValue(["thrown", "melee"] as const, button.dataset.altUsage)
+                ? button.dataset.altUsage
+                : null;
+
+            const strike = this.getStrikeFromDOM(button);
+            strike?.[method]?.({ getFormula: true, altUsage }).then((formula) => {
+                if (!formula) return;
+                button.title = formula.toString();
+                $(button).tooltipster({ position: "bottom", theme: "crb-hover" });
+            });
+        }
+
         // Remove Spell Slot
         $html.find(".item-unprepare").on("click", (event) => {
             const slotLevel = Number($(event.currentTarget).parents(".item").attr("data-slot-level") ?? 0);
@@ -335,7 +390,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         });
 
         // Trait Selector
-        $html.find(".tag-selector").on("click", (event) => this.onTraitSelector(event));
+        $html.find(".tag-selector").on("click", (event) => this.openTagSelector(event));
 
         $html.find(".add-coins-popup button").on("click", (event) => this.onAddCoinsPopup(event));
 
@@ -457,17 +512,20 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         });
 
         // Select all text in an input field on focus
-        $html.find<HTMLInputElement>("input[type=text], input[type=number]").on("focus", (event) => {
-            event.currentTarget.select();
-        });
+        for (const inputElem of htmlQueryAll<HTMLInputElement>(html, "input[type=text], input[type=number]")) {
+            inputElem.addEventListener("focus", () => {
+                inputElem.select();
+            });
+        }
 
-        // Only allow digits & leading plus and minus signs for `data-allow-delta` inputs thus emulating input[type="number"]
-        $html.find("input[data-allow-delta]").on("input", (event) => {
-            const target = <HTMLInputElement>event.target;
-            const match = target.value.match(/[+-]?\d*/);
-            if (match) target.value = match[0];
-            else target.value = "";
-        });
+        // Only allow digits & leading plus and minus signs for `data-allow-delta` inputs,
+        // thus emulating input[type="number"]
+        for (const deltaInput of htmlQueryAll<HTMLInputElement>(html, "input[data-allow-delta]")) {
+            deltaInput.addEventListener("input", () => {
+                const match = /[+-]?\d*/.exec(deltaInput.value)?.at(0);
+                deltaInput.value = match ?? deltaInput.value;
+            });
+        }
     }
 
     async onClickDeleteItem(event: JQuery.TriggeredEvent): Promise<void> {
@@ -585,19 +643,17 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             return;
         }
 
-        const $target = $(event.currentTarget);
-        const $itemRef = $target.closest(".item");
+        const targetElement = event.currentTarget;
+        const previewElement = htmlClosest(targetElement, ".item");
 
         // Show a different drag/drop preview element and copy some data if this is a handle
         // This will make the preview nicer and also trick foundry into thinking the actual item started drag/drop
-        const targetElement = $target.get(0);
-        const previewElement = $itemRef.get(0);
         if (previewElement && targetElement && targetElement !== previewElement) {
             const { x, y } = previewElement.getBoundingClientRect();
             event.dataTransfer.setDragImage(previewElement, event.pageX - x, event.pageY - y);
         }
 
-        const itemId = $itemRef.attr("data-item-id");
+        const itemId = previewElement?.dataset.itemId;
         const item = this.actor.items.get(itemId ?? "");
 
         const baseDragData: { [key: string]: unknown } = {
@@ -606,26 +662,27 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             tokenId: this.actor.token?.id ?? null,
             ...item?.toDragData(),
         };
+        if (previewElement?.dataset.isFormula) {
+            baseDragData.isFormula = true;
+        }
 
         // Dragging ...
         const supplementalData = (() => {
-            const actionIndex = $itemRef.attr("data-action-index");
+            const actionIndex = previewElement?.dataset.actionIndex;
             const rollOptionData = {
-                ...($itemRef.find("input[type=checkbox][data-action=toggle-roll-option]").get(0)?.dataset ?? {}),
+                ...(htmlQuery(previewElement, "input[type=checkbox][data-action=toggle-roll-option]")?.dataset ?? {}),
             };
-            const itemType = $itemRef.attr("data-item-type");
 
-            // ... an action?
+            // ... an action (or melee item possibly to be treated as an action)?
             if (actionIndex) {
-                return {
-                    type: "Action",
-                    index: Number(actionIndex),
-                };
+                return "itemType" in baseDragData && baseDragData.itemType === "melee"
+                    ? { index: Number(actionIndex) }
+                    : { type: "Action", index: Number(actionIndex) };
             }
 
             // ... a roll-option toggle?
-            if (item && Object.keys(rollOptionData).length > 0) {
-                const label = $itemRef.text().trim();
+            const label = previewElement?.innerText.trim();
+            if (item && label && Object.keys(rollOptionData).length > 0) {
                 delete rollOptionData.action;
                 return {
                     type: "RollOption",
@@ -636,7 +693,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             }
 
             // ... a crafting formula?
-            if (itemType === "formula") {
+            if (baseDragData.isFormula) {
                 return {
                     pf2e: {
                         type: "CraftingFormula",
@@ -705,20 +762,18 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         if (!item) return [];
         const itemSource = item.toObject();
 
-        const actor = this.actor;
-        const sourceActorId = item.parent?.id ?? "";
-        const sourceTokenId = item.parent?.token?.id ?? "";
-        const isSameActor = sourceActorId === actor.id || (item.parent?.isToken && sourceTokenId === actor.token?.id);
-        if (isSameActor) return this._onSortItem(event, itemSource);
+        if (item.actor?.uuid === this.actor.uuid) {
+            return this._onSortItem(event, itemSource);
+        }
 
         const sourceItemId = itemSource._id;
-        if (sourceActorId && item.isOfType("physical")) {
+        if (item.actor && item.isOfType("physical")) {
             await this.moveItemBetweenActors(
                 event,
-                sourceActorId,
-                sourceTokenId,
-                actor.id,
-                actor.token?.id ?? "",
+                item.actor.id,
+                item.actor?.token?.id ?? null,
+                this.actor.id,
+                this.actor.token?.id ?? null,
                 sourceItemId
             );
             return [item];
@@ -751,24 +806,23 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             itemSource.system.identification.status = "unidentified";
         }
 
-        // get the item type of the drop target
+        // Get the item type of the drop target
         const $containerEl = $(event.target).closest(".item-container");
         const containerAttribute = $containerEl.attr("data-container-type");
         const unspecificInventory = this._tabs[0]?.active === "inventory" && !containerAttribute;
         const dropContainerType = unspecificInventory ? "actorInventory" : containerAttribute;
         const craftingTab = this._tabs[0]?.active === "crafting";
 
-        // otherwise they are dragging a new spell onto their sheet.
+        // Otherwise they are dragging a new spell onto their sheet.
         // we still need to put it in the correct spellcastingEntry
         if (item.isOfType("spell") && itemSource.type === "spell") {
             if (dropContainerType === "actorInventory" && itemSource.system.level.value > 0) {
-                const popup = new ScrollWandPopup(
+                const popup = new CastingItemCreateDialog(
                     actor,
                     {},
                     async (heightenedLevel, itemType, spell) => {
-                        if (!(itemType === "scroll" || itemType === "wand")) return;
-                        const item = await createConsumableFromSpell(itemType, spell, heightenedLevel);
-                        await this._onDropItemCreate(item);
+                        const createdItem = await createConsumableFromSpell(itemType, spell, heightenedLevel);
+                        await this._onDropItemCreate(createdItem);
                     },
                     item
                 );
@@ -796,15 +850,21 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 });
                 return [updated ?? []].flat();
             }
-        } else if (itemSource.type === "effect") {
+        } else if (itemSource.type === "effect" || itemSource.type === "affliction") {
+            // Pass along level, badge-value, and traits to an effect dragged from a spell
             const { level, value, context } = data;
             if (typeof level === "number" && level >= 0) {
-                itemSource.system.level.value = level;
+                itemSource.system.level.value = Math.floor(level);
             }
-            if (typeof value === "number" && itemSource.system.badge?.type === "counter") {
-                itemSource.system.badge.value = value;
+            const hasCounterBadge = itemSource.type === "effect" && itemSource.system.badge?.type === "counter";
+            if (hasCounterBadge && typeof value === "number") {
+                itemSource.system.badge!.value = value;
             }
             itemSource.system.context = context ?? null;
+            const originItem = fromUuidSync(context?.origin.item ?? "");
+            if (itemSource.system.traits?.value.length === 0 && originItem instanceof SpellPF2e) {
+                itemSource.system.traits.value.push(...originItem.traits);
+            }
         } else if (item.isOfType("physical") && actor.isOfType("character") && craftingTab) {
             const actorFormulas = deepClone(actor.system.crafting.formulas);
             if (!actorFormulas.some((f) => f.uuid === item.uuid)) {
@@ -832,7 +892,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 actor.isOfType("creature");
             if (resizeItem) itemSource.system.size = actor.size;
         }
-        return this._onDropItemCreate(itemSource);
+
+        // Creating a new item: clear the _id via cloning it
+        return this._onDropItemCreate(new ItemProxyPF2e(itemSource).clone().toObject());
     }
 
     protected override async _onDropFolder(
@@ -856,9 +918,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     async moveItemBetweenActors(
         event: ElementDragEvent,
         sourceActorId: string,
-        sourceTokenId: string,
+        sourceTokenId: string | null,
         targetActorId: string,
-        targetTokenId: string,
+        targetTokenId: string | null,
         itemId: string
     ): Promise<void> {
         const sourceActor = canvas.scene?.tokens.get(sourceTokenId ?? "")?.actor ?? game.actors.get(sourceActorId);
@@ -872,7 +934,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             throw ErrorPF2e("Missing or invalid item");
         }
 
-        const container = $(event.target).parents('[data-item-is-container="true"]');
+        const container = $(event.target).parents("[data-item-is-container=true]");
         const containerId = container[0] !== undefined ? container[0].dataset.itemId?.trim() : undefined;
         const sourceItemQuantity = item.quantity;
         const stackable = !!targetActor.findStackableItem(targetActor, item._source);
@@ -991,7 +1053,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         });
     }
 
-    protected onTraitSelector(event: JQuery.ClickEvent) {
+    protected openTagSelector(event: JQuery.ClickEvent | MouseEvent) {
         event.preventDefault();
         const $anchor = $(event.currentTarget);
         const selectorType = $anchor.attr("data-tag-selector") ?? "";
@@ -1063,10 +1125,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         event: Event,
         { updateData = null, preventClose = false, preventRender = false }: OnSubmitFormOptions = {}
     ): Promise<Record<string, unknown>> {
-        const $form = $<HTMLFormElement>(this.form);
-        $form.find<HTMLInputElement>("tags ~ input").each((_i, input) => {
+        for (const input of htmlQueryAll<HTMLInputElement>(this.form, "tags ~ input")) {
             if (input.value === "") input.value = "[]";
-        });
+        }
 
         return super._onSubmit(event, { updateData, preventClose, preventRender });
     }

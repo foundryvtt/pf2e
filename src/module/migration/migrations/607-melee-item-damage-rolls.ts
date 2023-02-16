@@ -1,6 +1,6 @@
 import { MigrationBase } from "../base";
 import { ItemSourcePF2e } from "@item/data";
-import { MeleeDamageRoll } from "@item/melee/data";
+import { NPCAttackDamage } from "@item/melee/data";
 
 /** Convert damageRolls arrays to objects. */
 export class Migration607MeleeItemDamageRolls extends MigrationBase {
@@ -9,7 +9,7 @@ export class Migration607MeleeItemDamageRolls extends MigrationBase {
     override async updateItem(itemData: ItemSourcePF2e) {
         if (itemData.type === "melee") {
             if (Array.isArray(itemData.system.damageRolls)) {
-                const damageRolls: Record<string, MeleeDamageRoll> = {};
+                const damageRolls: Record<string, NPCAttackDamage> = {};
                 itemData.system.damageRolls.forEach((roll) => {
                     const key = randomID(20);
                     damageRolls[key] = roll;

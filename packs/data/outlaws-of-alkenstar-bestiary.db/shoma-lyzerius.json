@@ -105,7 +105,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "alchemical",
@@ -240,7 +239,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "alchemical",
@@ -371,7 +369,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "acid",
@@ -452,7 +449,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "invested",
@@ -535,7 +531,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -604,7 +599,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -629,7 +623,6 @@
             "sort": 700000,
             "system": {
                 "autoDestroy": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
@@ -685,7 +678,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "alchemical",
@@ -716,7 +708,6 @@
             "sort": 800000,
             "system": {
                 "autoDestroy": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
@@ -772,7 +763,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "alchemical",
@@ -803,7 +793,6 @@
             "sort": 900000,
             "system": {
                 "autoDestroy": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
@@ -860,7 +849,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "alchemical",
@@ -912,7 +900,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -943,13 +930,14 @@
                     "value": 10
                 },
                 "damageRolls": {
-                    "v6bvcc5m35kc37gsf9lv": {
+                    "0": {
                         "damage": "2d6",
                         "damageType": "electricity"
                     },
-                    "tkvymkh1pjliyvwq04ah": {
-                        "damage": "1",
-                        "damageType": "fire"
+                    "1": {
+                        "category": "splash",
+                        "damage": "2",
+                        "damageType": "electricity"
                     }
                 },
                 "description": {
@@ -967,7 +955,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "alchemical",
@@ -999,12 +986,7 @@
                 "bonus": {
                     "value": 10
                 },
-                "damageRolls": {
-                    "95wm3xl6jdk3f2tbxmj3": {
-                        "damage": "1",
-                        "damageType": "fire"
-                    }
-                },
+                "damageRolls": {},
                 "description": {
                     "value": ""
                 },
@@ -1031,7 +1013,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "alchemical",
@@ -1062,13 +1043,23 @@
                     "value": 10
                 },
                 "damageRolls": {
-                    "hgsuoshxj9abhsx6b1ct": {
+                    "0": {
                         "damage": "1",
-                        "damageType": "fire"
+                        "damageType": "acid"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "2d6",
+                        "damageType": "acid"
+                    },
+                    "2": {
+                        "category": "splash",
+                        "damage": "2",
+                        "damageType": "acid"
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r 2d6[persistent,acid]]] damage</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -1076,7 +1067,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "acid",
@@ -1120,7 +1110,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1162,7 +1151,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1202,7 +1190,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1235,13 +1222,13 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
+                        "damageType": "fire",
+                        "key": "FlatModifier",
                         "predicate": [
                             "alchemical"
                         ],
                         "selector": "strike-damage",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
+                        "value": 1
                     }
                 ],
                 "slug": null,
@@ -1249,7 +1236,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1286,7 +1272,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1323,7 +1308,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1354,7 +1338,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1382,7 +1365,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1410,7 +1392,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1438,7 +1419,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1466,7 +1446,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1494,7 +1473,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1522,7 +1500,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1550,7 +1527,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1578,7 +1554,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }

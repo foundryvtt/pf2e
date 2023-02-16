@@ -3,14 +3,14 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "MMp0FTsPTAJACLuI",
+            "_id": "O65W3l6PceSfyWSc",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.tH5GirEy7YB3ZgCk"
                 }
             },
             "img": "systems/pf2e/icons/equipment/weapons/rapier.webp",
-            "name": "+1 Striking Rapier",
+            "name": "Rapier",
             "sort": 100000,
             "system": {
                 "MAP": {
@@ -34,8 +34,8 @@
                     "value": "<p>The rapier is a long and thin piercing blade with a basket hilt. It is prized among many as a dueling weapon.</p>"
                 },
                 "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
+                    "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -69,16 +69,16 @@
                     }
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": null,
@@ -89,7 +89,7 @@
                 "size": "med",
                 "slug": "rapier",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "splashDamage": {
                     "value": 0
@@ -99,7 +99,6 @@
                     "value": "striking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "deadly-d8",
@@ -117,14 +116,14 @@
             "type": "weapon"
         },
         {
-            "_id": "02Ox1MnaWuc3vSG3",
+            "_id": "exgnbEetyjipkbKp",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.SgtqZxt26BdjUmEB"
                 }
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/acid-flask.webp",
-            "name": "Acid Flask (Moderate) [Infused]",
+            "name": "Acid Flask (Moderate)",
             "sort": 200000,
             "system": {
                 "MAP": {
@@ -141,11 +140,16 @@
                 "containerId": null,
                 "damage": {
                     "damageType": "acid",
-                    "dice": 2,
-                    "die": "d6"
+                    "dice": 1,
+                    "die": "",
+                    "persistent": {
+                        "faces": 6,
+                        "number": 2,
+                        "type": "acid"
+                    }
                 },
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>This flask filled with corrosive acid deals 1 acid damage, [[/r 2d6[persistent,acid]]] damage, and 2 acid splash damage. You gain a +1 item bonus to attack rolls.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>This flask filled with corrosive acid deals 1 acid damage, 2d6 persistent acid damage, and 2 acid splash damage. You gain a +1 item bonus to attack rolls.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -183,16 +187,16 @@
                     }
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 2,
                 "range": 20,
@@ -203,23 +207,23 @@
                 "size": "med",
                 "slug": "acid-flask-moderate",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "splashDamage": {
                     "value": 2
                 },
                 "stackGroup": null,
                 "strikingRune": {
-                    "value": ""
+                    "value": null
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "acid",
                         "alchemical",
                         "bomb",
                         "consumable",
+                        "infused",
                         "splash"
                     ]
                 },
@@ -233,14 +237,14 @@
             "type": "weapon"
         },
         {
-            "_id": "ZDFqzGpahIApZsNv",
+            "_id": "RlTT7ZetZtdNH965",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.gWr4q4HiyGhETA8H"
                 }
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/alchemists-fire.webp",
-            "name": "Alchemist's Fire (Moderate) [Infused]",
+            "name": "Alchemist's Fire (Moderate)",
             "sort": 300000,
             "system": {
                 "MAP": {
@@ -258,10 +262,15 @@
                 "damage": {
                     "damageType": "fire",
                     "dice": 2,
-                    "die": "d8"
+                    "die": "d8",
+                    "persistent": {
+                        "faces": null,
+                        "number": 2,
+                        "type": "fire"
+                    }
                 },
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Alchemist's fire is a combination of volatile liquids that ignite when exposed to air. Alchemist's fire deals 2d8 fire damage, [[/r 2[persistent,fire]]] damage, and 2 fire splash damage. You gain a +1 item bonus to attack rolls.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Alchemist's fire is a combination of volatile liquids that ignite when exposed to air. Alchemist's fire deals 2d8 fire damage, 2 persistent fire damage, and 2 fire splash damage. You gain a +1 item bonus to attack rolls.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -299,16 +308,16 @@
                     }
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 2,
                 "range": 20,
@@ -319,23 +328,23 @@
                 "size": "med",
                 "slug": "alchemists-fire-moderate",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "splashDamage": {
                     "value": 2
                 },
                 "stackGroup": null,
                 "strikingRune": {
-                    "value": ""
+                    "value": null
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "alchemical",
                         "bomb",
                         "consumable",
                         "fire",
+                        "infused",
                         "splash"
                     ]
                 },
@@ -349,7 +358,7 @@
             "type": "weapon"
         },
         {
-            "_id": "HcIPj8QvFstHOne3",
+            "_id": "Pfkqrjykxs6wO9GQ",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.ewQZ0VeL38v3qFnN"
@@ -376,7 +385,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "inSlot": true,
+                    "inSlot": false,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -430,7 +439,7 @@
                 "size": "med",
                 "slug": "studded-leather-armor",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "speed": {
                     "value": 0
@@ -440,7 +449,6 @@
                     "value": 12
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -454,79 +462,10 @@
             "type": "armor"
         },
         {
-            "_id": "Y0nAR6zdZxPynUeV",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.4ftXXUCBHcf4b0MH"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/alchemists-tools.webp",
-            "name": "Expanded Alchemist's Tools",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "containerId": null,
-                "description": {
-                    "value": "<p>This mobile collection of vials and chemicals can be used for simple alchemical tasks.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": 0,
-                "hp": {
-                    "brokenThreshold": 0,
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": ""
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": {
-                        "gp": 3
-                    }
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "alchemists-tools",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": null,
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                },
-                "weight": {
-                    "value": "1"
-                }
-            },
-            "type": "equipment"
-        },
-        {
             "_id": "QnwXqlOiDGH5rjrr",
             "img": "systems/pf2e/icons/default-icons/equipment.svg",
             "name": "Bronze Aspis Consortium Badge",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "baseItem": null,
                 "containerId": null,
@@ -567,11 +506,10 @@
                 "size": "med",
                 "slug": null,
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Adventure: The Slithering"
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -585,7 +523,75 @@
             "type": "equipment"
         },
         {
-            "_id": "FEXeiBkW6e70J5hk",
+            "_id": "hEwt2cH6RV33OJny",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.4ftXXUCBHcf4b0MH"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/alchemists-tools.webp",
+            "name": "Alchemist's Tools Expanded",
+            "sort": 600000,
+            "system": {
+                "baseItem": null,
+                "containerId": null,
+                "description": {
+                    "value": "<p>This mobile collection of vials and chemicals can be used for simple alchemical tasks. If you wear your alchemist’s tools, you can draw and replace them as part of the action that uses them.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": ""
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "alchemists-tools",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                },
+                "weight": {
+                    "value": "1"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "qYg4lDkuF7CMplTI",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.T4ouD4mVFHA3EHs6"
@@ -596,7 +602,6 @@
             "sort": 700000,
             "system": {
                 "autoDestroy": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
@@ -605,7 +610,7 @@
                     "value": 1
                 },
                 "consumableType": {
-                    "value": "potion"
+                    "value": "elixir"
                 },
                 "consume": {
                     "value": ""
@@ -615,8 +620,7 @@
                     "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>This tincture lets you pinpoint your foes. For the next 5 minutes, your alchemical bomb Strikes reduce the circumstance bonus to AC your targets gain from cover by 1.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
+                    "carryType": "worn"
                 },
                 "equippedBulk": {
                     "value": ""
@@ -649,11 +653,10 @@
                 "size": "med",
                 "slug": "bombers-eye-elixir-lesser",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "alchemical",
@@ -671,7 +674,7 @@
             "type": "consumable"
         },
         {
-            "_id": "Ez0PMETFbOqRWal4",
+            "_id": "CRhScF9yczwXwdZo",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.AqLxu3ir4UGzdOaz"
@@ -682,7 +685,6 @@
             "sort": 800000,
             "system": {
                 "autoDestroy": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
@@ -691,7 +693,7 @@
                     "value": 1
                 },
                 "consumableType": {
-                    "value": "potion"
+                    "value": "elixir"
                 },
                 "consume": {
                     "value": ""
@@ -701,8 +703,7 @@
                     "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>Enzymatic compounds in this elixir strengthen and excite the muscles in your legs. You gain a +10 foot status bonus to your Speed for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Effect: Cheetah's Elixir (Moderate)]{Effect: Cheetah's Elixir (Moderate)}</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
+                    "carryType": "worn"
                 },
                 "equippedBulk": {
                     "value": ""
@@ -735,11 +736,10 @@
                 "size": "med",
                 "slug": "cheetahs-elixir-moderate",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "alchemical",
@@ -757,7 +757,7 @@
             "type": "consumable"
         },
         {
-            "_id": "aAAVNtfllJP94haB",
+            "_id": "08rvFBGjQseLk1GN",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.5RGNjhDxZ0yMhTds"
@@ -768,7 +768,6 @@
             "sort": 900000,
             "system": {
                 "autoDestroy": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
@@ -777,14 +776,14 @@
                     "value": 1
                 },
                 "consumableType": {
-                    "value": "potion"
+                    "value": "poison"
                 },
                 "consume": {
                     "value": ""
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This venom erodes its target's defenses, aiding the spider in securing prey.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> DC 21 Fortitude</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d10[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 1d12[poison]]] damage, @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1}, and flat-footed (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 2d6[poison]]] damage, @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2}, and flat-footed (1 round)</p>"
+                    "value": "<p>This venom erodes its target's defenses, aiding the spider in securing prey.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:21]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d10[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 1d12[poison]]] damage, @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1}, and flat-footed (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 2d6[poison]]] damage, clumsy 2, and flat-footed (1 round)</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -821,11 +820,10 @@
                 "size": "med",
                 "slug": "hunting-spider-venom",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "alchemical",
@@ -844,18 +842,17 @@
             "type": "consumable"
         },
         {
-            "_id": "Wq6PV402UIUwyrSy",
+            "_id": "XbuyuQQJggCjTFQn",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.ktjFOp3U0wQD9t0Z"
                 }
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/antidote.webp",
-            "name": "Antidote (Lesser) [Infused]",
+            "name": "Antidote (Lesser)",
             "sort": 1000000,
             "system": {
                 "autoDestroy": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
@@ -864,7 +861,7 @@
                     "value": 1
                 },
                 "consumableType": {
-                    "value": "potion"
+                    "value": "elixir"
                 },
                 "consume": {
                     "value": ""
@@ -899,25 +896,24 @@
                     "value": ""
                 },
                 "price": {
-                    "value": {
-                        "gp": 3
-                    }
+                    "value": {}
                 },
                 "quantity": 2,
                 "rules": [],
                 "size": "med",
                 "slug": "antidote-lesser",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "alchemical",
                         "consumable",
-                        "elixir"
+                        "elixir",
+                        "healing",
+                        "infused"
                     ]
                 },
                 "usage": {
@@ -930,18 +926,17 @@
             "type": "consumable"
         },
         {
-            "_id": "iLbw8UKNEbzkN5Vb",
+            "_id": "CcvfZf03o0CaOYp1",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.TZUskLT7yvP7N2co"
                 }
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
-            "name": "Elixir of Life (Lesser) [Infused]",
+            "name": "Elixir of Life (Lesser)",
             "sort": 1100000,
             "system": {
                 "autoDestroy": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
@@ -950,7 +945,7 @@
                     "value": 1
                 },
                 "consumableType": {
-                    "value": "potion"
+                    "value": "elixir"
                 },
                 "consume": {
                     "value": "3d6+6"
@@ -985,26 +980,24 @@
                     "value": ""
                 },
                 "price": {
-                    "value": {
-                        "gp": 30
-                    }
+                    "value": {}
                 },
                 "quantity": 2,
                 "rules": [],
                 "size": "med",
                 "slug": "elixir-of-life-lesser",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "alchemical",
                         "consumable",
                         "elixir",
-                        "healing"
+                        "healing",
+                        "infused"
                     ]
                 },
                 "usage": {
@@ -1049,7 +1042,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "deadly-d8",
@@ -1079,21 +1071,44 @@
                     "value": 18
                 },
                 "damageRolls": {
-                    "1": {
+                    "01diq5E7J1KtLDZq": {
                         "damage": "5",
                         "damageType": "acid"
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r (2d6+2)[persistent,acid]]] damage</p>\n<p>4 Acid Splash Damage</p>"
+                    "value": "<p>Plus 2d6+2 persistent acid and 4 acid splash</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "category": "persistent",
+                        "damageType": "acid",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "{item|_id}-damage"
+                    },
+                    {
+                        "damageCategory": "persistent",
+                        "damageType": "acid",
+                        "key": "FlatModifier",
+                        "selector": "{item|_id}-damage",
+                        "value": 2
+                    },
+                    {
+                        "critical": false,
+                        "damageCategory": "splash",
+                        "damageType": "acid",
+                        "key": "FlatModifier",
+                        "selector": "{item|_id}-damage",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "range-increment-20",
@@ -1128,15 +1143,30 @@
                     }
                 },
                 "description": {
-                    "value": "<p>4 @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>\n<p>4 Fire Splash Damage</p>"
+                    "value": "<p>Plus 4 persistent fire and 5 fire splash</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageCategory": "persistent",
+                        "damageType": "fire",
+                        "key": "FlatModifier",
+                        "selector": "{item|_id}-damage",
+                        "value": 4
+                    },
+                    {
+                        "critical": false,
+                        "damageCategory": "splash",
+                        "damageType": "fire",
+                        "key": "FlatModifier",
+                        "selector": "{item|_id}-damage",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "range-increment-20",
@@ -1150,7 +1180,7 @@
             "type": "melee"
         },
         {
-            "_id": "rTGFCvWa4ax6CLyK",
+            "_id": "05QLLxkoUOhSnhYq",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
@@ -1181,7 +1211,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1210,7 +1239,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>An Aspis technician carries the following infused items: 2 @UUID[Compendium.pf2e.equipment-srd.Antidote (Lesser)]{Lesser Antidotes}, 2 @UUID[Compendium.pf2e.equipment-srd.Acid Flask (Moderate)]{Moderate Acid Flasks}, 2 @UUID[Compendium.pf2e.equipment-srd.Alchemist's Fire (Moderate)]{Moderate Alchemist's Fires}, and 2 @UUID[Compendium.pf2e.equipment-srd.Elixir of Life (Lesser)]{Lesser Elixirs of Life}.</p>\n<p>These items last for 24 hours or until the next time the technician makes their daily preparations.</p>"
+                    "value": "<p>An Aspis technician carries the following infused items:</p>\n<ul>\n<li>2 - @UUID[Compendium.pf2e.equipment-srd.Antidote (Lesser)]{Lesser Antidotes}</li>\n<li>2 - @UUID[Compendium.pf2e.equipment-srd.Acid Flask (Moderate)]{Moderate Acid Flasks}</li>\n<li>2 - @UUID[Compendium.pf2e.equipment-srd.Alchemist's Fire (Moderate)]{Moderate Alchemist's Fires}</li>\n<li>2 - @UUID[Compendium.pf2e.equipment-srd.Elixir of Life (Lesser)]{Lesser Elixirs of Life}</li>\n</ul>\n<p>These items last for 24 hours or until the next time the technician makes their daily preparations.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1221,7 +1250,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1235,10 +1263,47 @@
             "type": "action"
         },
         {
+            "_id": "GeWGtSjnuhl2FyAJ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Hunting Spider Venom",
+            "sort": 1700000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:21]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d10[poison]]] and @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 1d12[poison]]], @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1}, and flat-footed (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 2d6[poison]]], @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2}, and flat-footed (1 round)</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "KX4M0Z52AqjzYfNK",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Poison Weapon",
-            "sort": 1700000,
+            "sort": 1800000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1261,7 +1326,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "manipulate"
@@ -1280,7 +1344,7 @@
             "_id": "w6XHCpGqr7MStZLG",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Quick Bomber",
-            "sort": 1800000,
+            "sort": 1900000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1303,7 +1367,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1317,7 +1380,7 @@
             "type": "action"
         },
         {
-            "_id": "KNWEjYrKBK40HjfK",
+            "_id": "54RP2fDqmOErvH6M",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
@@ -1325,7 +1388,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 1900000,
+            "sort": 2000000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1337,7 +1400,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The Aspis technician deals an extra 2d6 precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>The Aspis technician deals an extra 2d6 precision precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1380,7 +1443,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1397,34 +1459,6 @@
             "_id": "kYZTjk6iv7xbY1w5",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "S5LSLUr6gyZEKD5r",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Arcana",
             "sort": 2100000,
             "system": {
                 "description": {
@@ -1442,7 +1476,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1450,9 +1483,9 @@
             "type": "lore"
         },
         {
-            "_id": "6YXq2jFHzFt5asYY",
+            "_id": "S5LSLUr6gyZEKD5r",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Aspis Consortium Lore",
+            "name": "Arcana",
             "sort": 2200000,
             "system": {
                 "description": {
@@ -1470,7 +1503,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1478,38 +1510,10 @@
             "type": "lore"
         },
         {
-            "_id": "WP7qjggPbz8yFkHE",
+            "_id": "6YXq2jFHzFt5asYY",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Crafting",
+            "name": "Aspis Consortium Lore",
             "sort": 2300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 17
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "E60B9Y21omFNF746",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 2400000,
             "system": {
                 "description": {
                     "value": ""
@@ -1526,7 +1530,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1534,9 +1537,36 @@
             "type": "lore"
         },
         {
-            "_id": "f6LgHtc411QicokD",
+            "_id": "WP7qjggPbz8yFkHE",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Thievery",
+            "name": "Crafting",
+            "sort": 2400000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 17
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "E60B9Y21omFNF746",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
             "sort": 2500000,
             "system": {
                 "description": {
@@ -1554,7 +1584,33 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "f6LgHtc411QicokD",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Thievery",
+            "sort": 2600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 15
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
                     "rarity": "common",
                     "value": []
                 }
@@ -1627,6 +1683,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
+                "author": "",
                 "value": "Pathfinder Adventure: The Slithering"
             }
         },

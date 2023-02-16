@@ -61,7 +61,7 @@ interface CraftingSheetData {
     entries: CraftingEntriesSheetData;
 }
 
-type CharacterSheetTabVisibility = Record<typeof CHARACTER_SHEET_TABS[number], boolean>;
+type CharacterSheetTabVisibility = Record<(typeof CHARACTER_SHEET_TABS)[number], boolean>;
 
 interface CharacterSheetData extends CreatureSheetData<CharacterPF2e> {
     abpEnabled: boolean;

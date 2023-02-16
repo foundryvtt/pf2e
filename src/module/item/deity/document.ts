@@ -99,8 +99,7 @@ class DeityPF2e extends ItemPF2e {
 
     override getRollOptions(prefix = this.type): string[] {
         const baseOptions = super.getRollOptions(prefix);
-        const delimitedPrefix = prefix ? `${prefix}:` : "";
-        return [...baseOptions, `${delimitedPrefix}category:${this.category}`].sort();
+        return [...baseOptions, `${prefix}:category:${this.category}`].sort();
     }
 }
 

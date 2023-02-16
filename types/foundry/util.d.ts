@@ -8,6 +8,8 @@ declare global {
         readonly dataTransfer: DataTransfer;
     }
 
+    type Maybe<T> = T | null | undefined;
+
     type DeepPartial<T> = {
         [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
     };
@@ -25,4 +27,6 @@ declare global {
     type SchemaOf<TDataModel> = TDataModel extends DataModel<infer _P, infer S extends DataSchema> ? S : never;
 
     type SetElement<TSet extends Set<unknown>> = TSet extends Set<infer TElement> ? TElement : never;
+
+    type DropFirst<T extends unknown[]> = T extends [unknown, ...infer U] ? U : never;
 }

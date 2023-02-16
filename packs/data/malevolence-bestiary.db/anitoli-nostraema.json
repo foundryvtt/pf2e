@@ -35,7 +35,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -81,7 +80,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile"
@@ -125,7 +123,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -177,7 +174,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -217,7 +213,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "emotion"
@@ -248,25 +243,48 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}10 feet.</p>\n<p>Anitoli Nostreaema enshrouds itself in a tapestry of stolen voices. Each living creature that enters or starts their turn in the aura must succeed at a @Check[type:will|dc:21] save or the unnerving, bitter sobs render them distraught and they become @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1} for as long as they remain within the aura. A creature that succeeds is temporarily immune for 1 hour.</p>\n<p>Anitoli Nostreaema can activate or deactivate the aura with a single free action, which has the concentrate trait.</p>"
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>Anitoli Nostreaema enshrouds itself in a tapestry of stolen voices. Each living creature that enters or starts their turn in the aura must succeed at a @Check[type:will|dc:21] save or the unnerving, bitter sobs render them distraught and they become @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1} for as long as they remain within the aura. A creature that succeeds is temporarily immune for 1 hour.</p>\n<p>Anitoli Nostreaema can activate or deactivate the aura with a single free action, which has the concentrate trait.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "aura-of-sobs-active"
+                        ],
+                        "radius": 10,
+                        "slug": "aura-of-sobs",
+                        "traits": [
+                            "auditory",
+                            "aura",
+                            "emotion",
+                            "enchantment",
+                            "mental",
+                            "occult"
+                        ]
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "aura-of-sobs-active",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
-                        "mental",
                         "auditory",
                         "aura",
                         "emotion",
                         "enchantment",
+                        "mental",
                         "occult"
                     ]
                 },
@@ -306,7 +324,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "curse",
@@ -351,7 +368,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "curse",
@@ -390,7 +406,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -418,7 +433,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -446,7 +460,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }

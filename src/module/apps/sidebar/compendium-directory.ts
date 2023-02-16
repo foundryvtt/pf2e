@@ -1,4 +1,8 @@
+import { ActorPF2e } from "@actor";
+import { ItemPF2e } from "@item";
+import { MigrationList, MigrationRunner } from "@module/migration";
 import { ErrorPF2e, fontAwesomeIcon, htmlQueryAll } from "@util";
+import { UUIDUtils } from "@util/uuid-utils";
 import MiniSearch from "minisearch";
 
 /** Extend CompendiumDirectory to support a search bar */
@@ -62,6 +66,32 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         });
     }
 
+    protected override _getEntryContextOptions(): EntryContextOption[] {
+        const options = super._getEntryContextOptions();
+
+        if (BUILD_MODE !== "production") {
+            options.push({
+                name: "COMPENDIUM.Migrate",
+                icon: fontAwesomeIcon("crow").outerHTML,
+                condition: ($li) => {
+                    const compendium = game.packs.get($li.data("pack"), { strict: true });
+                    const actorOrItem = compendium.documentClass === ActorPF2e || compendium.documentClass === ItemPF2e;
+                    const isSystemCompendium = compendium.metadata.packageType === "system";
+                    return game.user.isGM && actorOrItem && !isSystemCompendium && !compendium.locked;
+                },
+                callback: async ($li) => {
+                    const compendium = game.packs.get($li.data("pack"), { strict: true }) as CompendiumCollection<
+                        ActorPF2e | ItemPF2e
+                    >;
+                    const runner = new MigrationRunner(MigrationList.constructFromVersion(null));
+                    runner.runCompendiumMigration(compendium);
+                },
+            });
+        }
+
+        return options;
+    }
+
     /** Add a context menu for content search results */
     protected override _contextMenu($html: JQuery): void {
         super._contextMenu($html);
@@ -73,7 +103,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
                 condition: ($li) => {
                     const { uuid } = $li.get(0)?.dataset ?? {};
                     if (!uuid) throw ErrorPF2e("Unexpected missing uuid");
-                    const collection = game.packs.get(fromUuidSync(uuid)?.pack ?? "", { strict: true });
+                    const collection = game.packs.get(UUIDUtils.fromUuidSync(uuid)?.pack ?? "", { strict: true });
                     const documentClass = collection.documentClass as unknown as typeof foundry.abstract.Document;
 
                     return documentClass.canUserCreate(game.user);
@@ -81,9 +111,9 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
                 callback: ($li) => {
                     const { uuid } = $li.get(0)?.dataset ?? {};
                     if (!uuid) throw ErrorPF2e("Unexpected missing uuid");
-                    const packCollection = game.packs.get(fromUuidSync(uuid)?.pack ?? "", { strict: true });
+                    const packCollection = game.packs.get(UUIDUtils.fromUuidSync(uuid)?.pack ?? "", { strict: true });
                     const worldCollection = game.collections.get(packCollection.documentName, { strict: true });
-                    const indexData = fromUuidSync(uuid) ?? { _id: "" };
+                    const indexData = UUIDUtils.fromUuidSync(uuid) ?? { _id: "" };
                     if (!("_id" in indexData)) throw ErrorPF2e("Unexpected missing document _id");
 
                     return worldCollection.importFromCompendium(
@@ -144,7 +174,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
                 // Show a thumbnail if available
                 const thumbnail = li.querySelector<HTMLImageElement>("img")!;
                 if (typeof match.img === "string") {
-                    thumbnail.src = game.pf2e.system.moduleArt.map.get(matchUUID)?.actor ?? match.img;
+                    thumbnail.src = game.pf2e.system.moduleArt.map.get(matchUUID)?.img ?? match.img;
                 } else if (compendiumTypeList.dataset.type === "JournalEntry") {
                     thumbnail.src = "icons/svg/book.svg";
                 }
@@ -152,8 +182,8 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
                 // Open compendium on result click
                 li.addEventListener("click", async (event) => {
                     event.stopPropagation();
-                    const doc = await fromUuid(matchUUID);
-                    await doc?.sheet?.render(true);
+                    const doc = await UUIDUtils.fromUuid(matchUUID);
+                    await doc?.sheet?.render(true, { editable: doc.sheet.isEditable });
                 });
 
                 const anchor = li.querySelector("a")!;
@@ -191,7 +221,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         const { uuid } = dragElement.dataset;
         if (!uuid) return;
 
-        const indexEntry = fromUuidSync(uuid);
+        const indexEntry = UUIDUtils.fromUuidSync(uuid);
         if (!indexEntry) throw ErrorPF2e("Unexpected error retrieving index data");
 
         // Clean up old drag preview

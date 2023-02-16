@@ -49,6 +49,7 @@
             },
             {
                 "definition": [
+                    "item:ranged",
                     "item:damage:type:piercing"
                 ],
                 "key": "AdjustStrike",
@@ -59,10 +60,19 @@
             {
                 "key": "Note",
                 "predicate": [
-                    "ranged"
+                    "item:ranged"
                 ],
                 "selector": "attack",
                 "text": "Ranged attacks that deal bludgeoning or slashing damage automatically miss if the attacker or target is underwater, and piercing ranged attacks made by an underwater creature or against an underwater target have their range increments halved."
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "speed:swim"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Flat-Footed"
             }
         ],
         "source": {
@@ -77,7 +87,6 @@
             "show": true
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": []
         },

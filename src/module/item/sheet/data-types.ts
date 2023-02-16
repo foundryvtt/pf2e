@@ -1,7 +1,7 @@
 import { AncestryPF2e, FeatPF2e, HeritagePF2e, ItemPF2e } from "@item";
 import { Rarity } from "@module/data";
 import { RuleElementSource } from "@module/rules";
-import { SheetOptions } from "@module/sheet/helpers";
+import { SheetOptions, TraitTagifyEntry } from "@module/sheet/helpers";
 
 export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem> {
     /** The item type label that shows at the top right (for example, "Feat" for "Feat 6") */
@@ -25,8 +25,7 @@ export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData
     rarity: Rarity | null;
     rarities: ConfigPF2e["PF2E"]["rarityTraits"];
     traits: SheetOptions | null;
-    /** Formerly slugs, now tagify tag objects */
-    traitSlugs: { id: string; value: string; readonly: boolean }[];
+    traitTagifyData: TraitTagifyEntry[] | null;
     rules: {
         labels: {
             label: string;

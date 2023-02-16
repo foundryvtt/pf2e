@@ -23,16 +23,35 @@
         },
         "rules": [
             {
-                "domain": "speed",
-                "key": "RollOption",
-                "option": "armor:ignore-speed-penalty"
+                "key": "AdjustModifier",
+                "selectors": [
+                    "land-speed"
+                ],
+                "slug": "armor-speed-penalty",
+                "suppress": true
+            },
+            {
+                "key": "AdjustModifier",
+                "maxApplications": 1,
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "penalty:slug:armor-speed-penalty"
+                    },
+                    {
+                        "lte": "penalty:value:-5"
+                    }
+                ],
+                "selectors": [
+                    "land-speed"
+                ],
+                "value": 5
             }
         ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "dwarf"

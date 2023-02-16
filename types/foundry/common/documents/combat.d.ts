@@ -31,7 +31,7 @@ declare module foundry {
             isPrimary: true;
             permissions: {
                 create: "ASSISTANT";
-                update: typeof BaseCombat["_canUpdate"];
+                update: (typeof BaseCombat)["_canUpdate"];
                 delete: "ASSISTANT";
             };
         }

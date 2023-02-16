@@ -11,7 +11,7 @@ import {
 } from "@actor/modifiers";
 import { AbilityString } from "@actor/types";
 import { ItemPF2e } from "@item";
-import { ZeroToFour } from "@module/data";
+import { ZeroToFour, ZeroToTwo } from "@module/data";
 import {
     extractDegreeOfSuccessAdjustments,
     extractModifiers,
@@ -43,7 +43,7 @@ export interface StatisticRollParameters {
     /** The originating item of this attack, if any */
     item?: Embedded<ItemPF2e> | null;
     /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
-    rollMode?: RollMode;
+    rollMode?: RollMode | "roll";
     /** Should the dialog be skipped */
     skipDialog?: boolean;
     /** Should this roll be rolled twice? If so, should it keep highest or lowest? */
@@ -145,6 +145,11 @@ export class Statistic {
             check: { type },
             modifiers: [...stat.modifiers],
         });
+    }
+
+    /** Convenience getter to the statistic's total modifier */
+    get mod(): number {
+        return this.check.mod;
     }
 
     createRollOptions(domains: string[], args: RollOptionParameters = {}): Set<string> {
@@ -389,15 +394,15 @@ class StatisticCheck {
                 });
             }
         }
+        const mapIncreases = Math.clamped((args.attackNumber ?? 1) - 1, 0, 2) as ZeroToTwo;
 
         // Include multiple attack penalty to extra modifiers if given
-        if (args.attackNumber && args.attackNumber > 1) {
+        if (mapIncreases !== 0) {
             if (!item) {
                 console.warn("Missing item argument while calculating MAP during check");
             } else {
                 const maps = calculateMAPs(item, { domains, options });
-                const mapStage = (Math.clamped(args.attackNumber, 2, 3) - 1) as 1 | 2;
-                const penalty = maps[`map${mapStage}`];
+                const penalty = maps[`map${mapIncreases}`];
                 extraModifiers.push(new ModifierPF2e(maps.label, penalty, "untyped"));
             }
         }
@@ -428,6 +433,11 @@ class StatisticCheck {
             traits,
             createMessage: args.createMessage ?? true,
         };
+
+        if (typeof args.attackNumber === "number") {
+            context.mapIncreases = mapIncreases;
+            context.options?.add(`map:increases:${mapIncreases}`);
+        }
 
         const roll = await CheckPF2e.roll(
             new CheckModifier(this.label, this.#stat, extraModifiers),

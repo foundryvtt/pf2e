@@ -99,7 +99,6 @@
                     "value": "greaterStriking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -148,7 +147,7 @@
                     "die": "d8"
                 },
                 "description": {
-                    "value": "<p>This weapon has a wooden shaft ending in a large, heavy metal head. Thehead of the hammer might be single‑sided or double‑sided, but it's always capable of delivering powerful bludgeoning blows.</p>"
+                    "value": "<p>This weapon has a wooden shaft ending in a large, heavy metal head. The head of the hammer might be single‑sided or double‑sided, but it's always capable of delivering powerful bludgeoning blows.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -216,7 +215,6 @@
                     "value": null
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "evocation",
@@ -326,7 +324,6 @@
                     "value": 16
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "abjuration",
@@ -364,13 +361,13 @@
                     "value": 30
                 },
                 "damageRolls": {
-                    "7418mXGjnB59uNy7": {
-                        "damage": "1d6",
-                        "damageType": "cold"
-                    },
-                    "shC3GclZBuDRT8W2": {
+                    "0": {
                         "damage": "3d8+16",
                         "damageType": "bludgeoning"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -382,7 +379,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -416,13 +412,13 @@
                     "value": 28
                 },
                 "damageRolls": {
-                    "SZehHPO3ZecDlu0d": {
-                        "damage": "1d6",
-                        "damageType": "cold"
-                    },
-                    "U12ZzFouOtg0mu1l": {
+                    "0": {
                         "damage": "3d4+14",
                         "damageType": "piercing"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -434,11 +430,11 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
                         "finesse",
+                        "magical",
                         "versatile-s"
                     ]
                 },
@@ -469,13 +465,13 @@
                     "value": 27
                 },
                 "damageRolls": {
-                    "6rEuG7djUzjBxBPx": {
-                        "damage": "1d6",
-                        "damageType": "cold"
-                    },
-                    "RjxaXlXdrXdKxtjP": {
+                    "0": {
                         "damage": "1d4+14",
                         "damageType": "piercing"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -487,10 +483,10 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
+                        "magical",
                         "thrown-10",
                         "versatile-s"
                     ]
@@ -533,7 +529,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -585,7 +580,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -630,7 +624,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -676,7 +669,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divine",
@@ -718,13 +710,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "sacrilegious-aura",
+                        "traits": [
+                            "abjuration",
+                            "aura",
+                            "divine",
+                            "evil"
+                        ]
+                    }
+                ],
                 "slug": "graveknight-sacrilegious-aura",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "abjuration",
@@ -774,7 +777,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -823,7 +825,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -867,7 +868,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -910,24 +910,7 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "warhammer-damage",
-                        "text": "PF2E.Item.Weapon.CriticalSpecialization.hammer",
-                        "title": "{item|name}",
-                        "visibility": "gm"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "dagger-damage",
-                        "text": "PF2E.Item.Weapon.CriticalSpecialization.knife",
-                        "title": "{item|name}",
-                        "visibility": "gm"
+                        "key": "CriticalSpecialization"
                     }
                 ],
                 "slug": "graveknight-weapon-master",
@@ -935,7 +918,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -969,7 +951,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -997,7 +978,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1025,7 +1005,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1053,7 +1032,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1081,7 +1059,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }

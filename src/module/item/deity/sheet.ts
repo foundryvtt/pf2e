@@ -4,8 +4,8 @@ import { DeityPF2e, ItemPF2e, SpellPF2e } from "@item";
 import { ItemSheetPF2e } from "@item/sheet/base";
 import { ItemSheetDataPF2e } from "@item/sheet/data-types";
 import { createSheetOptions, SheetOptions } from "@module/sheet/helpers";
-import { ErrorPF2e, tagify } from "@util";
-import { fromUUIDs } from "@util/from-uuids";
+import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, tagify } from "@util";
+import { UUIDUtils } from "@util/uuid-utils";
 
 export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
     static override get defaultOptions(): DocumentSheetOptions {
@@ -20,7 +20,7 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
         const sheetData = await super.getData(options);
 
         const spellEntries = Object.entries(sheetData.data.spells);
-        const spells = (await fromUUIDs(Object.values(sheetData.data.spells)))
+        const spells = (await UUIDUtils.fromUUIDs(Object.values(sheetData.data.spells)))
             .filter((i): i is SpellPF2e => i instanceof SpellPF2e)
             .map((spell) => {
                 const level = Number(spellEntries.find(([, uuid]) => uuid === spell.uuid)?.at(0));
@@ -64,39 +64,43 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
         tagify(getInput("system.domains.primary"), { whitelist: CONFIG.PF2E.deityDomains, maxTags: 4 });
         tagify(getInput("system.domains.alternate"), { whitelist: CONFIG.PF2E.deityDomains, maxTags: 4 });
 
-        const $clericSpells = $html.find(".cleric-spells");
-        // View one of the spells
-        $clericSpells.find("a[data-action=view-spell]").on("click", async (event): Promise<void> => {
-            const $target = $(event.currentTarget);
-            const uuid = $target.closest("li").attr("data-uuid") ?? "";
-            const spell = await fromUuid(uuid);
-            if (!(spell instanceof SpellPF2e)) {
-                this.render(false);
-                return ui.notifications.error(`A spell with the UUID "${uuid}" no longer exists`);
-            }
+        const clericSpells = htmlQuery(html, ".cleric-spells");
+        if (!clericSpells) return;
 
-            spell.sheet.render(true);
-        });
+        // View one of the spells
+        for (const link of htmlQueryAll(clericSpells, "a[data-action=view-spell]")) {
+            link.addEventListener("click", async (): Promise<void> => {
+                const uuid = htmlClosest(link, "li")?.dataset.uuid ?? "";
+                const spell = await fromUuid(uuid);
+                if (!(spell instanceof SpellPF2e)) {
+                    this.render(false);
+                    return ui.notifications.error(`A spell with the UUID "${uuid}" no longer exists`);
+                }
+
+                spell.sheet.render(true);
+            });
+        }
 
         // Remove a stored spell reference
-        $clericSpells.find("a[data-action=remove-spell]").on("click", async (event): Promise<void> => {
-            const $target = $(event.currentTarget);
-            const uuidToRemove = $target.closest("li").attr("data-uuid") ?? "";
-            const [levelToRemove] =
-                Object.entries(this.item.system.spells).find(([_level, uuid]) => uuid === uuidToRemove) ?? [];
-            if (!levelToRemove) {
-                this.render(false);
-                return;
-            }
+        for (const link of htmlQueryAll(clericSpells, "a[data-action=remove-spell]")) {
+            link.addEventListener("click", async (): Promise<void> => {
+                const uuidToRemove = htmlClosest(link, "li")?.dataset.uuid;
+                const [levelToRemove] =
+                    Object.entries(this.item.system.spells).find(([_level, uuid]) => uuid === uuidToRemove) ?? [];
+                if (!levelToRemove) {
+                    this.render(false);
+                    return;
+                }
 
-            await this.item.update({ [`system.spells.-=${levelToRemove}`]: null });
-        });
+                await this.item.update({ [`system.spells.-=${levelToRemove}`]: null });
+            });
+        }
 
         // Update the level of a spell
-        $clericSpells
-            .find<HTMLInputElement>("input[data-action=update-spell-level]")
-            .on("change", async (event): Promise<void> => {
-                const oldLevel = Number(event.target.dataset.level);
+        const spellLevelInputs = htmlQueryAll<HTMLInputElement>(clericSpells, "input[data-action=update-spell-level]");
+        for (const input of spellLevelInputs) {
+            input.addEventListener("change", async (): Promise<void> => {
+                const oldLevel = Number(input.dataset.level);
                 const uuid = this.item.system.spells[oldLevel];
                 // Shouldn't happen unless the sheet falls out of sync
                 if (!uuid) {
@@ -104,7 +108,7 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
                     return;
                 }
 
-                const newLevel = Math.clamped(Number(event.target.value) || 1, 1, 10);
+                const newLevel = Math.clamped(Number(input.value) || 1, 1, 10);
                 if (oldLevel !== newLevel) {
                     await this.item.update({
                         [`system.spells.-=${oldLevel}`]: null,
@@ -112,6 +116,7 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
                     });
                 }
             });
+        }
     }
 
     override async _onDrop(event: ElementDragEvent): Promise<void> {

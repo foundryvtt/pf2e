@@ -3,15 +3,24 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "FO6042uwC3k3rMjo",
+            "_id": "58wYsfCW8L7k4piA",
             "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.ancestries.mDtlRBBUWqUzYSHs"
+                "pf2e": {
+                    "itemGrants": {
+                        "animalCompanion": {
+                            "id": "EyN0AAMq2zxfYVP5",
+                            "onDelete": "detach"
+                        },
+                        "catSupportBenefit": {
+                            "id": "Tm3SrwGjGQ3QaDGT",
+                            "onDelete": "detach"
+                        }
+                    }
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/ancestry.svg",
             "name": "Cat",
-            "sort": 100000,
+            "sort": 0,
             "system": {
                 "additionalLanguages": {
                     "count": 0,
@@ -26,11 +35,18 @@
                         "value": []
                     },
                     "2": {
-                        "value": []
+                        "value": [
+                            "str",
+                            "dex",
+                            "con",
+                            "int",
+                            "wis",
+                            "cha"
+                        ]
                     }
                 },
                 "description": {
-                    "value": "<p>Animal Companion - Cat</p>"
+                    "value": "<p>Your companion is a big cat, such as a leopard or tiger.</p>\n<p><strong>Size</strong> Small</p>\n<p><strong>Melee</strong> <span class=\"pf2-icon\">1</span> jaws (finesse), <strong>Damage</strong> 1d6 piercing</p>\n<p><strong>Melee</strong> <span class=\"pf2-icon\">1</span> claw (agile, finesse), <strong>Damage</strong> 1d4 slashing</p>\n<p><strong>Str</strong> +2, <strong>Dex</strong> +3, <strong>Con</strong> +1, <strong>Int</strong> -4, <strong>Wis</strong> +2, <strong>Cha</strong> +0</p>\n<p><strong>Hit Points</strong> 4</p>\n<p><strong>Skill</strong> Stealth</p>\n<p><strong>Senses</strong> low-light vision, scent (imprecise, 30 feet)</p>\n<p><strong>Speed</strong> 35 feet</p>\n<p><strong>Special</strong> Your cat deals 1d4 extra precision damage against flat-footed targets.</p>\n<p><strong>Support Benefit</strong> Your cat throws your enemies off-balance when you create an opening. Until the start of your next turn, your Strikes that deal damage to a creature that your cat threatens make the target @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the end of your next turn.</p>\n<p><strong>Advanced Maneuver</strong> Cat Pounce</p>"
                 },
                 "flaws": {
                     "0": {
@@ -43,114 +59,46 @@
                     "custom": "",
                     "value": []
                 },
+                "rarity": {
+                    "value": "common"
+                },
                 "reach": 5,
-                "rules": [],
-                "size": "sm",
-                "slug": "empty-ancestry",
-                "source": {
-                    "value": ""
-                },
-                "speed": 35,
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "vision": "normal"
-            },
-            "type": "ancestry"
-        },
-        {
-            "_id": "H8lOHuUm9RhvAKid",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Special",
-            "sort": 300000,
-            "system": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Precious deals 1d4 extra precision damage against @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} targets.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
                 "rules": [
                     {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d4",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:flat-footed",
-                            {
-                                "or": [
-                                    "finesse",
-                                    "agile",
-                                    {
-                                        "and": [
-                                            "ranged",
-                                            {
-                                                "not": "thrown"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rTcZ9vYlESzYBnZY",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Jaws",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "featType": {
-                    "value": "ancestry"
-                },
-                "level": {
-                    "value": 0
-                },
-                "location": "",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.abilities.str.value",
+                        "value": 4
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.abilities.dex.value",
+                        "value": 6
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.abilities.con.value",
+                        "value": 2
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.abilities.wis.value",
+                        "value": 4
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.skills.ste.rank",
+                        "value": 1
+                    },
+                    {
+                        "flag": "animalCompanion",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e-animal-companions.AC-Features.KKOgokqHa7RjVDN6"
+                    },
                     {
                         "category": "unarmed",
                         "damage": {
@@ -161,52 +109,16 @@
                             }
                         },
                         "group": "brawling",
+                        "img": "systems/pf2e/icons/unarmed-attacks/jaws.webp",
                         "key": "Strike",
+                        "label": "PF2E.Weapon.Base.jaws",
                         "range": null,
+                        "replaceBasicUnarmed": true,
                         "traits": [
                             "unarmed",
                             "finesse"
                         ]
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "CC97GeBsxJnLngqF",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Claw",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "featType": {
-                    "value": "ancestry"
-                },
-                "level": {
-                    "value": 0
-                },
-                "location": "",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
+                    },
                     {
                         "category": "unarmed",
                         "damage": {
@@ -217,44 +129,221 @@
                             }
                         },
                         "group": "brawling",
+                        "img": "systems/pf2e/icons/unarmed-attacks/claw.webp",
                         "key": "Strike",
+                        "label": "PF2E.Weapon.Base.claw",
                         "range": null,
                         "traits": [
                             "unarmed",
                             "agile",
                             "finesse"
                         ]
+                    },
+                    {
+                        "acuity": "imprecise",
+                        "key": "Sense",
+                        "range": 30,
+                        "selector": "scent"
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:flat-footed"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "self:ancestry:cat",
+                        "priority": 1
+                    },
+                    {
+                        "flag": "catSupportBenefit",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e-animal-companions.AC-Support.HCQXxqMtH81jE1W5"
                     }
                 ],
+                "size": "sm",
+                "slug": null,
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "speed": 35,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "animal"
+                    ]
+                },
+                "vision": "lowLightVision",
+                "voluntaryBoosts": {},
+                "voluntaryFlaws": {}
+            },
+            "type": "ancestry"
+        },
+        {
+            "_id": "EyN0AAMq2zxfYVP5",
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "58wYsfCW8L7k4piA",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/class.svg",
+            "name": "Animal Companion",
+            "sort": 0,
+            "system": {
+                "ancestryFeatLevels": {
+                    "value": []
+                },
+                "attacks": {
+                    "advanced": 0,
+                    "martial": 0,
+                    "other": {
+                        "name": "",
+                        "rank": 0
+                    },
+                    "simple": 0,
+                    "unarmed": 1
+                },
+                "classDC": 0,
+                "classFeatLevels": {
+                    "value": []
+                },
+                "defenses": {
+                    "heavy": 0,
+                    "light": 0,
+                    "medium": 0,
+                    "unarmored": 1
+                },
+                "description": {
+                    "value": ""
+                },
+                "generalFeatLevels": {
+                    "value": []
+                },
+                "hp": 6,
+                "items": {},
+                "keyAbility": {
+                    "value": []
+                },
+                "perception": 1,
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.attributes.perception.rank",
+                        "value": 1
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.martial.unarmed.rank",
+                        "value": 1
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.abilities.int.value",
+                        "value": -8
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.disableABP",
+                        "priority": 10,
+                        "value": true
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.abilities.int.value",
+                        "phase": "beforeDerived",
+                        "predicate": [
+                            "self:specialized"
+                        ],
+                        "value": 4
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.abilities.dex.value",
+                        "phase": "beforeDerived",
+                        "predicate": [
+                            "self:specialized"
+                        ],
+                        "value": 2
+                    },
+                    {
+                        "add": [
+                            "minion"
+                        ],
+                        "key": "ActorTraits"
+                    }
+                ],
+                "savingThrows": {
+                    "fortitude": 1,
+                    "reflex": 1,
+                    "will": 1
+                },
+                "skillFeatLevels": {
+                    "value": []
+                },
+                "skillIncreaseLevels": {
+                    "value": []
+                },
                 "slug": null,
                 "source": {
                     "value": ""
                 },
+                "trainedSkills": {
+                    "additional": 0,
+                    "value": [
+                        "acr",
+                        "ath"
+                    ]
+                },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
             },
-            "type": "feat"
+            "type": "class"
         },
         {
-            "_id": "yfiv6h226TAEQpOf",
+            "_id": "Tm3SrwGjGQ3QaDGT",
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "58wYsfCW8L7k4piA",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Support Benefit",
-            "sort": 600000,
+            "name": "Cat Support Benefit",
+            "sort": 0,
             "system": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": null
+                    "value": 1
                 },
                 "description": {
-                    "value": "<p>Precious throws your enemies off-balance when you create an opening. Until the start of your next turn, your Strikes that deal damage to a creature that Precious threatens make the target @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the end of your next turn.</p>"
+                    "value": "<p>Your cat throws your enemies off-balance when you create an opening. Until the start of your next turn, your Strikes that deal damage to a creature within your cat's reach make the target @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the end of your next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -265,7 +354,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -281,35 +369,16 @@
     ],
     "name": "Precious",
     "system": {
-        "abilities": {
-            "cha": {
-                "value": 10
-            },
-            "con": {
-                "value": 12
-            },
-            "dex": {
-                "value": 16
-            },
-            "int": {
-                "value": 2
-            },
-            "str": {
-                "value": 14
-            },
-            "wis": {
-                "value": 14
-            }
-        },
+        "abilities": {},
         "attributes": {
             "bonusEncumbranceBulk": 0,
             "bonusLimitBulk": 0,
             "hp": {
                 "temp": 0,
-                "value": 5
+                "value": 11
             },
             "initiative": {
-                "ability": ""
+                "ability": "perception"
             },
             "resolve": {
                 "max": 0,
@@ -398,11 +467,11 @@
         },
         "martial": {},
         "pfs": {
-            "characterNumber": "",
+            "characterNumber": null,
             "currentFaction": "EA",
             "fame": 0,
             "levelBump": false,
-            "playerNumber": "",
+            "playerNumber": null,
             "reputation": {
                 "EA": 0,
                 "GA": 0,

@@ -44,11 +44,11 @@ declare module foundry {
             extends Omit<ItemSource, "effects"> {
             readonly _source: ItemSource;
 
-            get schema(): ReturnType<typeof ItemData["defineSchema"]>;
+            get schema(): ReturnType<(typeof ItemData)["defineSchema"]>;
         }
 
         namespace ItemData {
-            const schema: ReturnType<typeof ItemData["defineSchema"]>;
+            const schema: ReturnType<(typeof ItemData)["defineSchema"]>;
         }
 
         interface ItemFlags {

@@ -1,4 +1,4 @@
-import { ActorPF2e } from "@actor";
+import { ActorPF2e, ActorProxyPF2e } from "@actor";
 import { ItemPF2e, MeleePF2e } from "@item";
 import { MigrationList, MigrationRunner } from "@module/migration";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
@@ -10,18 +10,22 @@ import {
     extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/helpers";
+import { TokenDocumentPF2e } from "@scene";
 import { CheckPF2e, CheckRoll } from "@system/check";
-import { DamagePF2e, DamageType, WeaponDamagePF2e } from "@system/damage";
+import { DamagePF2e, DamageRollContext, WeaponDamagePF2e } from "@system/damage";
 import { DamageRoll } from "@system/damage/roll";
-import { RollParameters } from "@system/rolls";
+import { AttackRollParams, DamageRollParams } from "@system/rolls";
 import { ErrorPF2e, getActionGlyph, getActionIcon, sluggify } from "@util";
 import { ActorSourcePF2e } from "./data";
-import { RollFunction, TraitViewData } from "./data/base";
+import { DamageRollFunction, TraitViewData } from "./data/base";
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "./modifiers";
 import { NPCStrike } from "./npc/data";
 import { StrikeAttackTraits } from "./npc/strike-attack-traits";
 import { AttackItem } from "./types";
 import { ANIMAL_COMPANION_SOURCE_ID, CONSTRUCT_COMPANION_SOURCE_ID } from "./values";
+import { eventToRollParams } from "@scripts/sheet-util";
+import { ZeroToTwo } from "@module/data";
+import { UUIDUtils } from "@util/uuid-utils";
 
 /** Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors */
 async function resetAndRerenderActors(actors?: Iterable<ActorPF2e>): Promise<void> {
@@ -66,10 +70,61 @@ async function migrateActorSource(source: PreCreate<ActorSourcePF2e>): Promise<A
         source.system?.schema?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION,
         ...(source.items ?? []).map((i) => i!.system?.schema?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION)
     );
-    const actor = new ActorPF2e(source);
+    const tokenDefaults = deepClone(game.settings.get("core", "defaultToken"));
+    const actor = new ActorProxyPF2e(mergeObject({ prototypeToken: tokenDefaults }, source));
     await MigrationRunner.ensureSchemaVersion(actor, MigrationList.constructFromVersion(lowestSchemaVersion));
 
     return actor.toObject();
+}
+
+/** Review `removeOnExit` aura effects and remove any that no longer apply */
+async function checkAreaEffects(this: ActorPF2e): Promise<void> {
+    if (!canvas.ready || game.user !== this.primaryUpdater) return;
+
+    const thisTokens = this.getActiveTokens(false, true);
+    const toDelete: string[] = [];
+    const toKeep: string[] = [];
+
+    for (const effect of this.itemTypes.effect) {
+        const auraData = effect.flags.pf2e.aura;
+        if (!auraData?.removeOnExit) continue;
+
+        const auraToken = await (async (): Promise<TokenDocumentPF2e | null> => {
+            const document = await UUIDUtils.fromUuid(auraData.origin);
+            if (document instanceof TokenDocumentPF2e) {
+                return document;
+            } else if (document instanceof ActorPF2e) {
+                return document.getActiveTokens(false, true).shift() ?? null;
+            }
+            return null;
+        })();
+
+        const aura = auraToken?.auras.get(auraData.slug);
+
+        // Main sure this isn't an identically-slugged aura with different effects
+        const effects = auraToken?.actor?.auras.get(auraData.slug)?.effects ?? [];
+        const auraHasEffect = effects.some((e) => e.uuid === effect.sourceId);
+
+        for (const token of thisTokens) {
+            if (auraHasEffect && aura?.containsToken(token)) {
+                toKeep.push(effect.id);
+            } else {
+                toDelete.push(effect.id);
+            }
+        }
+
+        // If no tokens for this actor remain in the scene, always remove the effect
+        if (thisTokens.length === 0) {
+            toDelete.push(effect.id);
+        }
+    }
+
+    // In case there are multiple tokens for this actor, avoid deleting aura effects if at least one token is
+    // exposed to the aura
+    const finalToDelete = toDelete.filter((id) => !toKeep.includes(id));
+    if (finalToDelete.length > 0) {
+        await this.deleteEmbeddedDocuments("Item", finalToDelete);
+    }
 }
 
 /** Find the lowest multiple attack penalty for an attack with a given item */
@@ -91,7 +146,7 @@ function calculateMAPs(
 
 /** Create a strike statistic from a melee item: for use by NPCs and Hazards */
 function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
-    const { ability, traits, isMelee, isThrown } = item;
+    const { ability, isMelee, isThrown } = item;
     const { actor } = item;
     if (!actor.isOfType("npc", "hazard")) {
         throw ErrorPF2e("Attempted to create melee-item strike statistic for non-NPC/hazard");
@@ -99,7 +154,7 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
 
     // Conditions and Custom modifiers to attack rolls
     const slug = item.slug ?? sluggify(item.name);
-    const unarmedOrWeapon = traits.has("unarmed") ? "unarmed" : "weapon";
+    const unarmedOrWeapon = item.system.traits.value.includes("unarmed") ? "unarmed" : "weapon";
     const meleeOrRanged = isMelee ? "melee" : "ranged";
 
     const domains = [
@@ -138,7 +193,12 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
         return { tag, label };
     });
 
-    const baseOptions = [...actor.getRollOptions(domains), ...item.traits];
+    // Apply strike adjustments affecting the attack
+    for (const adjustment of synthetics.strikeAdjustments) {
+        adjustment.adjustWeapon?.(item);
+    }
+
+    const baseOptions = [...actor.getRollOptions(domains), ...item.system.traits.value];
     // Legacy support for "melee", "ranged", and "thrown" roll options
     if (isMelee) {
         baseOptions.push("melee");
@@ -149,7 +209,7 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
     }
 
     const statistic = new StatisticModifier(`${slug}-strike`, modifiers, baseOptions);
-    const traitObjects = Array.from(traits).map(
+    const traitObjects = item.system.traits.value.map(
         (t): TraitViewData => ({
             name: t,
             label: CONFIG.PF2E.npcAttackTraits[t] ?? t,
@@ -181,12 +241,6 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
         .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
         .join(", ");
 
-    // Add a damage roll breakdown
-    strike.damageBreakdown = Object.values(item.system.damageRolls).flatMap((roll) => {
-        const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[roll.damageType as DamageType]);
-        return [`${roll.damage} ${damageType}`];
-    });
-
     const strikeLabel = game.i18n.localize("PF2E.WeaponStrikeLabel");
     const multipleAttackPenalty = calculateMAPs(item, { domains, options: baseOptions });
     const sign = strike.totalModifier < 0 ? "" : "+";
@@ -200,13 +254,13 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
         null,
         new ModifierPF2e("PF2E.MultipleAttackPenalty", multipleAttackPenalty.map1, MODIFIER_TYPE.UNTYPED),
         new ModifierPF2e("PF2E.MultipleAttackPenalty", multipleAttackPenalty.map2, MODIFIER_TYPE.UNTYPED),
-    ].map((map) => {
+    ].map((map, mapIncreases) => {
         const label = map
             ? game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: map.modifier })
             : `${strikeLabel} ${sign}${strike.totalModifier}`;
         return {
             label,
-            roll: async (params: RollParameters = {}): Promise<Rolled<CheckRoll> | null> => {
+            roll: async (params: AttackRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
                 const attackEffects = actor.isOfType("npc") ? await actor.getAttackEffects(item) : [];
                 const rollNotes = notes.concat(attackEffects);
 
@@ -216,7 +270,7 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
                     item,
                     viewOnly: false,
                     domains,
-                    options: new Set([...baseOptions, ...params.options, ...traits]),
+                    options: new Set([...baseOptions, ...params.options]),
                 });
 
                 // Check whether target is out of maximum range; abort early if so
@@ -246,6 +300,7 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
                         traits: [attackTrait],
                         notes: rollNotes,
                         dc: params.dc ?? context.dc,
+                        mapIncreases: mapIncreases as ZeroToTwo,
                         rollTwice: extractRollTwice(synthetics.rollTwice, domains, context.options),
                         substitutions: extractRollSubstitutions(synthetics.rollSubstitutions, domains, context.options),
                         dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, domains),
@@ -269,8 +324,8 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
     strike.roll = strike.attack = strike.variants[0].roll;
 
     const damageRoll =
-        (outcome: "success" | "criticalSuccess"): RollFunction =>
-        async (params: RollParameters = {}): Promise<Rolled<DamageRoll> | null> => {
+        (outcome: "success" | "criticalSuccess"): DamageRollFunction =>
+        async (params: DamageRollParams = {}): Promise<Rolled<DamageRoll> | string | null> => {
             const domains = ["all", "strike-damage", "damage-roll"];
             const context = actor.getStrikeRollContext({
                 item,
@@ -278,30 +333,47 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
                 domains,
                 options: new Set(params.options ?? []),
             });
-            // always add all weapon traits as options
-            const options = new Set([...context.options, ...traits, ...context.self.item.getRollOptions("item")]);
 
             if (!context.self.item.dealsDamage) {
                 ui.notifications.warn("PF2E.ErrorMessage.WeaponNoDamage", { localize: true });
                 return null;
             }
 
-            const damage = WeaponDamagePF2e.calculateStrikeNPC(
-                context.self.item,
-                context.self.actor,
-                [attackTrait],
-                1,
-                options
-            );
-            if (!damage) throw ErrorPF2e("This weapon deals no damage");
-
             const { self, target } = context;
+            const damageContext: DamageRollContext = {
+                type: "damage-roll",
+                sourceType: "attack",
+                self,
+                target,
+                outcome,
+                options: context.options,
+                domains,
+                ...eventToRollParams(params.event),
+            };
 
-            return DamagePF2e.roll(
-                damage,
-                { type: "damage-roll", sourceType: "attack", self, target, outcome, options, domains },
-                params.callback
-            );
+            // Include MAP increases in case any ability depends on it
+            if (typeof params.mapIncreases === "number") {
+                damageContext.mapIncreases = params.mapIncreases;
+                damageContext.options.add(`map:increases:${params.mapIncreases}`);
+            }
+
+            if (params.getFormula) damageContext.skipDialog = true;
+
+            const damage = await WeaponDamagePF2e.fromNPCAttack({
+                attack: context.self.item,
+                actor: context.self.actor,
+                actionTraits: [attackTrait],
+                proficiencyRank: 1,
+                context: damageContext,
+            });
+            if (!damage) return null;
+
+            if (params.getFormula) {
+                const formula = damage.damage.formula[outcome];
+                return formula ? new DamageRoll(formula).formula : "";
+            } else {
+                return DamagePF2e.roll(damage, damageContext, params.callback);
+            }
         };
 
     strike.damage = damageRoll("success");
@@ -384,8 +456,9 @@ interface MAPData {
 export {
     calculateMAPs,
     calculateRangePenalty,
-    isReallyPC,
+    checkAreaEffects,
     getRangeIncrement,
+    isReallyPC,
     migrateActorSource,
     resetAndRerenderActors,
     strikeFromMeleeItem,
