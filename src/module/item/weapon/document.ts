@@ -708,10 +708,14 @@ class WeaponPF2e extends PhysicalItemPF2e {
             flags: { pf2e: { linkedWeapon: this.id } },
         };
 
-        return [
-            new MeleePF2e(source, { parent: this.actor }) as Embedded<MeleePF2e>,
-            ...this.getAltUsages({ recurse: false }).flatMap((u) => u.toNPCAttacks()),
-        ];
+        const attack = new MeleePF2e(source, { parent: this.actor }) as Embedded<MeleePF2e>;
+        // Melee items retrieve these during `prepareSiblingData`, but if the attack is from a Strike rule element,
+        // there will be no inventory weapon from which to pull the data.
+        attack.category = this.category;
+        attack.group = this.group;
+        attack.baseType = this.baseType;
+
+        return [attack, ...this.getAltUsages({ recurse: false }).flatMap((u) => u.toNPCAttacks())];
     }
 }
 

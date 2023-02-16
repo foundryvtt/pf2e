@@ -10,9 +10,9 @@ import { MeleeData, MeleeSystemData, NPCAttackTrait } from "./data";
 
 class MeleePF2e extends ItemPF2e {
     /** Set during data preparation if a linked weapon is found */
-    category: WeaponCategory | null = null;
-    group: WeaponGroup | null = null;
-    baseType: BaseWeaponType | null = null;
+    category!: WeaponCategory | null;
+    group!: WeaponGroup | null;
+    baseType!: BaseWeaponType | null;
 
     get traits(): Set<NPCAttackTrait> {
         return new Set(this.system.traits.value);
@@ -99,6 +99,11 @@ class MeleePF2e extends ItemPF2e {
     get linkedWeapon(): Embedded<WeaponPF2e> | null {
         const item = this.actor?.items.get(this.flags.pf2e.linkedWeapon ?? "");
         return item?.isOfType("weapon") ? item : null;
+    }
+
+    protected override _initialize(): void {
+        this.category = this.group = this.baseType = null;
+        super._initialize();
     }
 
     override prepareBaseData(): void {
