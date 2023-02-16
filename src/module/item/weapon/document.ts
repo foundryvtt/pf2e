@@ -717,6 +717,19 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
         return [attack, ...this.getAltUsages({ recurse: false }).flatMap((u) => u.toNPCAttacks())];
     }
+
+    /** Remove links to this weapon from NPC attacks */
+    protected override _onDelete(options: DocumentModificationContext, userId: string): void {
+        super._onDelete(options, userId);
+
+        if (game.user.id === userId) {
+            const updates =
+                this.actor?.itemTypes.melee
+                    .filter((a) => a.flags.pf2e.linkedWeapon === this.id)
+                    .map((a) => ({ _id: a.id, "flags.pf2e.-=linkedWeapon": null })) ?? [];
+            this.actor?.updateEmbeddedDocuments("Item", updates);
+        }
+    }
 }
 
 interface WeaponPF2e extends PhysicalItemPF2e {
