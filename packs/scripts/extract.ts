@@ -178,7 +178,7 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
 
                     if (docSource.type === "npc") {
                         const source: Partial<NPCSystemSource["details"]["source"]> = docSource.system.details.source;
-                        if (!source.author?.trim) delete source.author;
+                        if (!source.author?.trim()) delete source.author;
 
                         const speed: Partial<NPCAttributesSource["speed"]> = docSource.system.attributes.speed;
                         if (!speed.details?.trim()) delete speed.details;
