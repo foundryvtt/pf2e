@@ -7,21 +7,6 @@ import { JSDOM } from "jsdom";
 import { sluggify } from "@util";
 import { MigrationBase } from "@module/migration/base";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
-import { Migration787ResolvablesToSystem } from "@module/migration/migrations/787-resolvables-to-system";
-import { Migration788UpdateTanglefootBags } from "@module/migration/migrations/788-update-tanglefoot-bags";
-import { Migration789UpdatePreciseStrike } from "@module/migration/migrations/789-update-precise-strike";
-import { Migration790MultipleClassDCs } from "@module/migration/migrations/790-multiple-class-dcs";
-import { Migration791RuffianHands } from "@module/migration/migrations/791-ruffian-hands";
-import { Migration793MakePredicatesArrays } from "@module/migration/migrations/793-make-predicates-arrays";
-import { Migration795CleanupFlatFootedToggle } from "@module/migration/migrations/795-cleanup-flat-footed-toggle";
-import { Migration796ItemGrantsToObjects } from "@module/migration/migrations/796-item-grants-to-objects";
-import { Migration798WeaponToItemStatements } from "@module/migration/migrations/798-weapon-to-item-statements";
-import { Migration799RMRecallKnowledgeDuplicates } from "@module/migration/migrations/799-rm-recall-knowledge-duplicates";
-import { Migration800SelfEffectPanacheRage } from "@module/migration/migrations/800-self-effect-panache-rage";
-import { Migration801ColorDarkvision } from "@module/migration/migrations/801-color-darkvision";
-import { Migration802StripFeatActionCategory } from "@module/migration/migrations/802-strip-feat-action-category";
-import { Migration803NormalizeSpellArea } from "@module/migration/migrations/803-normalize-spell-area";
-import { Migration804RemoveConsumableProperties } from "@module/migration/migrations/804-remove-consumable-properties";
 import { Migration805InlineDamageRolls } from "@module/migration/migrations/805-inline-damage-formulas";
 import { Migration806TorchImprovisedOtherTags } from "@module/migration/migrations/806-torch-improvised-othertags";
 import { Migration807RMActivatedEffectFields } from "@module/migration/migrations/807-rm-activated-effect-fields";
@@ -38,6 +23,7 @@ import { Migration819SpinTaleAdventureSpecific } from "@module/migration/migrati
 import { Migration820RemoveUnusedTraitsData } from "@module/migration/migrations/820-remove-unused-traits-data";
 import { Migration821InlineDamageRolls } from "@module/migration/migrations/821-inline-damage-rolls";
 import { Migration822BladeAllyConsolidation } from "@module/migration/migrations/822-blade-ally-consolidation";
+import { Migration824SneakAttackDamageSource } from "@module/migration/migrations/824-sneak-attack-damage-source";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -48,21 +34,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration787ResolvablesToSystem(),
-    new Migration788UpdateTanglefootBags(),
-    new Migration789UpdatePreciseStrike(),
-    new Migration790MultipleClassDCs(),
-    new Migration791RuffianHands(),
-    new Migration793MakePredicatesArrays(),
-    new Migration795CleanupFlatFootedToggle(),
-    new Migration796ItemGrantsToObjects(),
-    new Migration798WeaponToItemStatements(),
-    new Migration799RMRecallKnowledgeDuplicates(),
-    new Migration800SelfEffectPanacheRage(),
-    new Migration801ColorDarkvision(),
-    new Migration802StripFeatActionCategory(),
-    new Migration803NormalizeSpellArea(),
-    new Migration804RemoveConsumableProperties(),
     new Migration805InlineDamageRolls(),
     new Migration806TorchImprovisedOtherTags(),
     new Migration807RMActivatedEffectFields(),
@@ -79,6 +50,7 @@ const migrations: MigrationBase[] = [
     new Migration820RemoveUnusedTraitsData(),
     new Migration821InlineDamageRolls(),
     new Migration822BladeAllyConsolidation(),
+    new Migration824SneakAttackDamageSource(),
 ];
 
 global.deepClone = <T>(original: T): T => {

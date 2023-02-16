@@ -27,21 +27,16 @@
         },
         "rules": [
             {
-                "category": "precision",
-                "diceNumber": 1,
-                "dieSize": "d6",
-                "key": "DamageDice",
-                "predicate": [
-                    "target:condition:flat-footed",
-                    {
-                        "or": [
-                            "finesse",
-                            "agile",
-                            "ranged"
-                        ]
-                    }
-                ],
-                "selector": "strike-damage"
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.sneakAttackDamage.number",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.sneakAttackDamage.faces",
+                "value": 6
             },
             {
                 "key": "GrantItem",
