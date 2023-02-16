@@ -1,9 +1,13 @@
-import { RuleElementPF2e, RuleElementOptions } from "../";
+import { StrikeData } from "@actor/data/base";
 import { FeatPF2e, ItemPF2e } from "@item";
+import { ItemType } from "@item/data";
 import { PickableThing } from "@module/apps/pick-a-thing-prompt";
 import { PredicatePF2e } from "@system/predication";
+import { PredicateField } from "@system/schema-data-fields";
 import { isObject, objectHasKey, sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid-utils";
+import { ModelPropsFromSchema } from "types/foundry/common/data/fields.mjs";
+import { RuleElementOptions, RuleElementPF2e } from "../";
 import {
     ChoiceSetData,
     ChoiceSetOwnedItems,
@@ -13,10 +17,6 @@ import {
     UninflatedChoiceSet,
 } from "./data";
 import { ChoiceSetPrompt } from "./prompt";
-import { ItemType } from "@item/data";
-import { CharacterStrike } from "@actor/character/data";
-import { ModelPropsFromSchema } from "types/foundry/common/data/fields.mjs";
-import { PredicateField } from "@system/schema-data-fields";
 
 const { fields } = foundry.data;
 
@@ -271,12 +271,11 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
     }
 
     private choicesFromAttacks(predicate: PredicatePF2e): PickableThing<string>[] {
-        if (!this.actor.isOfType("character")) return [];
+        if (!this.actor.isOfType("character", "npc")) return [];
 
-        return this.actor.system.actions
-            .filter(
-                (a): a is CharacterStrike => a.item.isOfType("weapon") && predicate.test(a.item.getRollOptions("item"))
-            )
+        const actions: StrikeData[] = this.actor.system.actions;
+        return actions
+            .filter((a) => a.item.isOfType("melee", "weapon") && predicate.test(a.item.getRollOptions("item")))
             .map((a) => ({
                 img: a.item.img,
                 label: a.item.name,
