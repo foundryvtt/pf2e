@@ -263,7 +263,13 @@ class SpellPF2e extends ItemPF2e {
         }
 
         const { actor, ability } = this;
-        const domains = ["damage", "spell-damage", `${this.id}-damage`];
+        const domains = [
+            "damage",
+            "spell-damage",
+            `${this.id}-damage`,
+            this.traits.has("attack") ? "attack-spell-damage" : [],
+        ].flat();
+
         const options = new Set([
             ...(actor?.getRollOptions(domains) ?? []),
             ...(damageOptions.target?.getSelfRollOptions("target") ?? []),

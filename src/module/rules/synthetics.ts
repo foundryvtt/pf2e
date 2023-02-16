@@ -1,9 +1,10 @@
 import { DexterityModifierCapData } from "@actor/character/types";
 import { MovementType, LabeledSpeed } from "@actor/creature/data";
 import { CreatureSensePF2e } from "@actor/creature/sense";
-import { DamageDicePF2e, DeferredValue, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers";
+import { DamageDicePF2e, DeferredPromise, DeferredValue, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers";
 import { MeleePF2e, WeaponPF2e } from "@item";
-import { ActionTrait } from "@item/action/data";
+import { ActionTrait } from "@item/action";
+import { ConditionSource, EffectSource } from "@item/data";
 import { WeaponPropertyRuneType } from "@item/weapon/types";
 import { RollNotePF2e } from "@module/notes";
 import { MaterialDamageEffect } from "@system/damage";
@@ -19,6 +20,12 @@ interface RuleElementSynthetics {
     damageDice: DamageDiceSynthetics;
     degreeOfSuccessAdjustments: Record<string, DegreeOfSuccessAdjustment[]>;
     dexterityModifierCaps: DexterityModifierCapData[];
+    ephemeralEffects: {
+        [K in string]?: {
+            target: DeferredEphemeralEffect[];
+            origin: DeferredEphemeralEffect[];
+        };
+    };
     modifierAdjustments: ModifierAdjustmentSynthetics;
     movementTypes: { [K in MovementType]?: DeferredMovementType[] };
     multipleAttackPenalties: Record<string, MAPSynthetic[]>;
@@ -54,6 +61,7 @@ type ModifierAdjustmentSynthetics = { all: ModifierAdjustment[]; damage: Modifie
 type DeferredModifier = DeferredValue<ModifierPF2e>;
 type DeferredDamageDice = DeferredValue<DamageDicePF2e>;
 type DeferredMovementType = DeferredValue<BaseSpeedSynthetic | null>;
+type DeferredEphemeralEffect = DeferredPromise<EffectSource | ConditionSource | null>;
 
 interface BaseSpeedSynthetic extends Omit<LabeledSpeed, "label"> {
     type: MovementType;
@@ -120,6 +128,7 @@ export {
     DeferredDamageDice,
     DeferredModifier,
     DeferredMovementType,
+    DeferredEphemeralEffect,
     MAPSynthetic,
     ModifierAdjustmentSynthetics,
     ModifierSynthetics,

@@ -267,7 +267,7 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
 
                 params.options ??= [];
                 // Always add all weapon traits as options
-                const context = actor.getAttackRollContext({
+                const context = await actor.getAttackRollContext({
                     item,
                     viewOnly: false,
                     domains,
@@ -327,8 +327,8 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
     const damageRoll =
         (outcome: "success" | "criticalSuccess"): DamageRollFunction =>
         async (params: DamageRollParams = {}): Promise<Rolled<DamageRoll> | string | null> => {
-            const domains = ["all", "strike-damage", "damage-roll"];
-            const context = actor.getStrikeRollContext({
+            const domains = ["all", `{item.id}-damage`, "strike-damage", "damage-roll"];
+            const context = await actor.getStrikeRollContext({
                 item,
                 viewOnly: false,
                 domains,

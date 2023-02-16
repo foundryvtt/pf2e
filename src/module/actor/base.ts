@@ -10,10 +10,10 @@ import {
     StrikeRollContextParams,
     UnaffectedType,
 } from "@actor/types";
-import { ArmorPF2e, ContainerPF2e, EffectPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e } from "@item";
+import { AbstractEffectPF2e, ArmorPF2e, ContainerPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e } from "@item";
 import { ActionTrait } from "@item/action/data";
-import { AfflictionPF2e, AfflictionSource } from "@item/affliction";
-import { ConditionKey, ConditionSlug, type ConditionPF2e } from "@item/condition";
+import { AfflictionSource } from "@item/affliction";
+import { ConditionKey, ConditionSlug, ConditionSource, type ConditionPF2e } from "@item/condition";
 import { isCycle } from "@item/container/helpers";
 import { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
 import { ActionCost, ActionType } from "@item/data/base";
@@ -24,7 +24,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { OneToThree, Size } from "@module/data";
 import { preImportJSON } from "@module/doc-helpers";
 import { RuleElementSynthetics } from "@module/rules";
-import { processPreUpdateActorHooks } from "@module/rules/helpers";
+import { extractEphemeralEffects, processPreUpdateActorHooks } from "@module/rules/helpers";
 import { RuleElementPF2e } from "@module/rules/rule-element/base";
 import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
 import { LocalizePF2e } from "@module/system/localize";
@@ -291,8 +291,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     /** Whether this actor is immune to an effect of a certain type */
-    isImmuneTo(effect: AfflictionPF2e | ConditionPF2e | EffectPF2e): boolean {
-        const statements = effect.getRollOptions("item");
+    isImmuneTo(effect: AbstractEffectPF2e | ConditionSource | EffectSource): boolean {
+        const item = "parent" in effect ? effect : new ItemProxyPF2e(effect);
+        const statements = new Set(item.getRollOptions("item"));
         return this.attributes.immunities.some((i) => i.test(statements));
     }
 
@@ -333,13 +334,21 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         return 0;
     }
 
-    /** Create a clone of this actor to recalculate its statistics with temporary roll options included */
-    getContextualClone(rollOptions: string[]): this {
+    /** Create a clone of this actor to recalculate its statistics with ephemeral effects and roll options included */
+    getContextualClone(rollOptions: string[], ephemeralEffects: (ConditionSource | EffectSource)[] = []): this {
         const rollOptionsAll = rollOptions.reduce(
             (options: Record<string, boolean>, option) => ({ ...options, [option]: true }),
             {}
         );
-        return this.clone({ flags: { pf2e: { rollOptions: { all: rollOptionsAll } } } }, { keepId: true });
+        const applicableEffects = ephemeralEffects.filter((e) => !this.isImmuneTo(e));
+
+        return this.clone(
+            {
+                items: [deepClone(this._source.items), applicableEffects].flat(),
+                flags: { pf2e: { rollOptions: { all: rollOptionsAll } } },
+            },
+            { keepId: true }
+        );
     }
 
     /** Apply effects from an aura: will later be expanded to handle effects from measured templates */
@@ -515,6 +524,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             modifierAdjustments: { all: [], damage: [] },
             movementTypes: {},
             multipleAttackPenalties: {},
+            ephemeralEffects: {},
             rollNotes: {},
             rollSubstitutions: {},
             rollTwice: {},
@@ -701,13 +711,17 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /*  Rolls                                       */
     /* -------------------------------------------- */
 
-    getStrikeRollContext<I extends AttackItem>(params: StrikeRollContextParams<I>): StrikeRollContext<this, I> {
-        const targetToken =
-            Array.from(game.user.targets).find((t) => t.actor?.isOfType("creature", "hazard", "vehicle")) ?? null;
+    async getStrikeRollContext<I extends AttackItem>(
+        params: StrikeRollContextParams<I>
+    ): Promise<StrikeRollContext<this, I>> {
+        const [selfToken, targetToken] =
+            canvas.ready && !params.viewOnly
+                ? [
+                      canvas.tokens.controlled.find((t) => t.actor === this) ?? this.getActiveTokens().shift() ?? null,
+                      Array.from(game.user.targets).find((t) => !!t.actor) ?? null,
+                  ]
+                : [null, null];
 
-        const selfToken = canvas.ready
-            ? canvas.tokens.controlled.find((t) => t.actor === this) ?? this.getActiveTokens().shift() ?? null
-            : null;
         const reach = params.item.isOfType("melee")
             ? params.item.reach
             : params.item.isOfType("weapon")
@@ -719,10 +733,23 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             selfOptions.push("self:flanking");
         }
 
+        // Get ephemeral effects from the target that affect this actor while attacking
+        const originEphemeralEffects = await extractEphemeralEffects({
+            affects: "origin",
+            origin: this,
+            target: targetToken?.actor ?? null,
+            item: params.item,
+            domains: params.domains,
+            options: [...params.options, ...params.item.getRollOptions("item")],
+        });
+
         const selfActor =
             params.viewOnly || !targetToken?.actor
                 ? this
-                : this.getContextualClone([...selfOptions, ...targetToken.actor.getSelfRollOptions("target")]);
+                : this.getContextualClone(
+                      [...selfOptions, ...targetToken.actor.getSelfRollOptions("target")],
+                      originEphemeralEffects
+                  );
         const actions: StrikeData[] = selfActor.system.actions?.flatMap((a) => [a, a.altUsages ?? []].flat()) ?? [];
 
         const selfItem: AttackItem =
@@ -764,14 +791,27 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 ? [`origin:distance:${distance}`, `target:distance:${distance}`]
                 : [null, null];
 
+        // Get ephemeral effects from this actor that affect the target while being attacked
+        const targetEphemeralEffects = await extractEphemeralEffects({
+            affects: "target",
+            origin: selfActor,
+            target: targetToken?.actor ?? null,
+            item: params.item,
+            domains: params.domains,
+            options: [...params.options, ...itemOptions],
+        });
+
         // Clone the actor to recalculate its AC with contextual roll options
         const targetActor = params.viewOnly
             ? null
-            : targetToken?.actor?.getContextualClone([
-                  ...selfActor.getSelfRollOptions("origin"),
-                  ...itemOptions,
-                  ...(originDistance ? [originDistance] : []),
-              ]) ?? null;
+            : targetToken?.actor?.getContextualClone(
+                  [
+                      ...selfActor.getSelfRollOptions("origin"),
+                      ...itemOptions,
+                      ...(originDistance ? [originDistance] : []),
+                  ],
+                  targetEphemeralEffects
+              ) ?? null;
 
         // Target roll options
         const targetOptions = targetActor?.getSelfRollOptions("target") ?? [];
@@ -819,8 +859,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
      * All attack rolls have the "all" and "attack-roll" domains and the "attack" trait,
      * but more can be added via the options.
      */
-    getAttackRollContext<I extends AttackItem>(params: StrikeRollContextParams<I>): AttackRollContext<this, I> {
-        const context = this.getStrikeRollContext(params);
+    async getAttackRollContext<I extends AttackItem>(
+        params: StrikeRollContextParams<I>
+    ): Promise<AttackRollContext<this, I>> {
+        const context = await this.getStrikeRollContext(params);
         const targetActor = context.target?.actor;
         const rangeIncrement = context.target?.rangeIncrement ?? null;
 

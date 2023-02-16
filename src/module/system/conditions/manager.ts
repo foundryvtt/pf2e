@@ -10,7 +10,7 @@ import { CONDITION_SLUGS } from "@actor/values";
 export class ConditionManager {
     static #initialized = false;
 
-    static conditions: Map<ConditionSlug, ConditionPF2e> = new Map();
+    static conditions: Map<ConditionSlug | ItemUUID, ConditionPF2e> = new Map();
 
     /** Gets a list of condition slugs. */
     static get conditionsSlugs(): string[] {
@@ -21,8 +21,11 @@ export class ConditionManager {
         if (this.#initialized && !force) return;
 
         type ConditionCollection = CompendiumCollection<ConditionPF2e>;
-        const content = await game.packs.get<ConditionCollection>("pf2e.conditionitems")?.getDocuments();
-        const entries = content?.map((c): [ConditionSlug, ConditionPF2e] => [c.slug, c]) ?? [];
+        const content = (await game.packs.get<ConditionCollection>("pf2e.conditionitems")?.getDocuments()) ?? [];
+        const entries = [
+            ...content.map((c): [ConditionSlug, ConditionPF2e] => [c.slug, c]),
+            ...content.map((c): [ItemUUID, ConditionPF2e] => [c.uuid, c]),
+        ];
         this.conditions = new Map(entries);
         this.#initialized = true;
     }

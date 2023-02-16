@@ -335,10 +335,10 @@ class StatisticCheck {
         const domains = this.domains;
 
         // This is required to determine the AC for attack dialogs
-        const rollContext = (() => {
-            const isCreature = actor.isOfType("creature");
+        const rollContext = await (() => {
+            const isValidAttacker = actor.isOfType("creature", "hazard");
             const isAttackItem = item?.isOfType("weapon", "melee", "spell");
-            if (isCreature && isAttackItem && ["attack-roll", "spell-attack-roll"].includes(this.type)) {
+            if (isValidAttacker && isAttackItem && ["attack-roll", "spell-attack-roll"].includes(this.type)) {
                 return actor.getAttackRollContext({ item, domains, options: new Set() });
             }
 

@@ -93,6 +93,7 @@ interface StrikeRollContext<A extends ActorPF2e, I extends AttackItem> {
 }
 
 interface StrikeRollContextParams<T extends AttackItem> {
+    /** The item being used in the attack or damage roll */
     item: T;
     /** Domains from which to draw roll options */
     domains: string[];

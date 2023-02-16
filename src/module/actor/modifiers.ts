@@ -111,6 +111,7 @@ interface DeferredValueParams {
     test?: string[] | Set<string>;
 }
 type DeferredValue<T> = (options?: DeferredValueParams) => T | null;
+type DeferredPromise<T> = (options?: DeferredValueParams) => Promise<T | null>;
 
 /** Represents a discrete modifier, bonus, or penalty, to a statistic or check. */
 class ModifierPF2e implements RawModifier {
@@ -696,6 +697,7 @@ export {
     DamageDiceOverride,
     DamageDicePF2e,
     DamageDiceParameters,
+    DeferredPromise,
     DeferredValue,
     DeferredValueParams,
     DiceModifierPF2e,
