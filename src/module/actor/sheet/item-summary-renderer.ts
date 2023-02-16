@@ -68,23 +68,21 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
 
         if (options.instant) {
             summary.hidden = !showSummary;
+        } else if (showSummary) {
+            await gsap.fromTo(
+                summary,
+                { height: 0, opacity: 0, hidden: false },
+                { height: "auto", opacity: 1, duration }
+            );
         } else {
-            if (showSummary) {
-                await gsap.fromTo(
-                    summary,
-                    { height: 0, opacity: 0, hidden: false },
-                    { height: "auto", opacity: 1, duration }
-                );
-            } else {
-                await gsap.to(summary, {
-                    height: 0,
-                    duration,
-                    opacity: 0,
-                    onComplete: () => {
-                        summary.hidden = true;
-                    },
-                });
-            }
+            await gsap.to(summary, {
+                height: 0,
+                duration,
+                opacity: 0,
+                onComplete: () => {
+                    summary.hidden = true;
+                },
+            });
         }
     }
 
