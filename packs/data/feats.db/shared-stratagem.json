@@ -22,30 +22,30 @@
             "value": []
         },
         "rules": [
-          {
-            "key": "Note",
-            "selector": "strike-damage",
-            "text": "The creature you hit is @UUID[Compendium.pf2e.conditionitems.Flat-Footed] to a designated ally on the next attack the ally makes against the creature before the start of your next turn.",
-            "title": "{item|name}",
-            "predicate": [
-                "devise-a-stratagem",
-                {
-                    "or": [
-                        "item:trait:agile",
-                        "item:trait:finesse",
-                        {
-                          "and": [
-                            "item:ranged",
+            {
+                "key": "Note",
+                "predicate": [
+                    "devise-a-stratagem",
+                    {
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse",
                             {
-                              "not": "item:thrown-melee"
-                            }
-                          ]
-                        },
-                        "item:base:sap"
-                    ]
-                }
-            ]
-          }
+                                "and": [
+                                    "item:ranged",
+                                    {
+                                        "not": "item:thrown-melee"
+                                    }
+                                ]
+                            },
+                            "item:base:sap"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "text": "The creature you hit is @UUID[Compendium.pf2e.conditionitems.Flat-Footed] to a designated ally on the next attack the ally makes against the creature before the start of your next turn.",
+                "title": "{item|name}"
+            }
         ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"

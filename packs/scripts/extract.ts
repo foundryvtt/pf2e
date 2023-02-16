@@ -216,6 +216,12 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                                 delete (docSource.system.damage as { persistent?: unknown }).persistent;
                             }
                         }
+                    } else if (docSource.type === "melee") {
+                        for (const formulaData of Object.values(docSource.system.damageRolls)) {
+                            if (!formulaData.category) {
+                                delete (formulaData as { category?: unknown }).category;
+                            }
+                        }
                     } else if (docSource.type === "action" && !docSource.system.deathNote) {
                         delete (docSource.system as { deathNote?: boolean }).deathNote;
                     } else if (docSource.type === "effect") {
