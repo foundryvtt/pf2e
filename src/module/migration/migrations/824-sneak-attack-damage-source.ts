@@ -144,6 +144,20 @@ export class Migration824SneakAttackDamageSource extends MigrationBase {
                 source.system.rules = rules;
                 return;
             }
+            case "magical-trickster": {
+                const rules = [
+                    {
+                        category: "precision",
+                        diceNumber: "@actor.flags.pf2e.sneakAttackDamage.number",
+                        dieSize: "d{actor|flags.pf2e.sneakAttackDamage.faces}",
+                        key: "DamageDice",
+                        predicate: ["item:trait:attack", "target:condition:flat-footed"],
+                        selector: "spell-damage",
+                    },
+                ];
+                source.system.rules = rules;
+                return;
+            }
         }
     }
 }
