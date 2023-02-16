@@ -190,12 +190,12 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                                 ];
                             }
                         }
+                    }
 
-                        for (const item of docSource.items) {
-                            if (item.type === "melee") {
-                                for (const damageRoll of Object.values(item.system.damageRolls)) {
-                                    if (!damageRoll.category) delete (damageRoll as { category?: unknown }).category;
-                                }
+                    for (const item of docSource.items) {
+                        if (item.type === "melee") {
+                            for (const damageRoll of Object.values(item.system.damageRolls)) {
+                                if (!damageRoll.category) delete (damageRoll as { category?: unknown }).category;
                             }
                         }
                     }
