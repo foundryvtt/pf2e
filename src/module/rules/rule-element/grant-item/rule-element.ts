@@ -269,12 +269,12 @@ class GrantItemRuleElement extends RuleElementPF2e {
         const source = grantedItem._source;
         for (const [flag, selection] of Object.entries(this.preselectChoices ?? {})) {
             const rule = grantedItem.rules.find(
-                (rule): rule is ChoiceSetRuleElement => rule instanceof ChoiceSetRuleElement && rule.data.flag === flag
+                (rule): rule is ChoiceSetRuleElement => rule instanceof ChoiceSetRuleElement && rule.flag === flag
             );
             if (rule) {
                 const ruleSource = source.system.rules[grantedItem.rules.indexOf(rule)] as ChoiceSetSource;
                 const resolvedSelection = this.resolveInjectedProperties(selection);
-                rule.data.selection = ruleSource.selection = resolvedSelection;
+                rule.selection = ruleSource.selection = resolvedSelection;
             }
         }
     }
