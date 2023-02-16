@@ -53,9 +53,14 @@ class ItemPF2e extends Item<ActorPF2e> {
         return this.system.description.value.trim();
     }
 
+    /** The item that granted this item, if any */
+    get grantedBy(): Embedded<ItemPF2e> | null {
+        return this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "") ?? null;
+    }
+
     /** Check this item's type (or whether it's one among multiple types) without a call to `instanceof` */
-    isOfType(type: "physical"): this is PhysicalItemPF2e;
     isOfType<T extends ItemType>(...types: T[]): this is InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][T]>;
+    isOfType(type: "physical"): this is PhysicalItemPF2e;
     isOfType<T extends "physical" | ItemType>(
         ...types: T[]
     ): this is PhysicalItemPF2e | InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][Exclude<T, "physical">]>;

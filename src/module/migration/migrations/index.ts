@@ -220,3 +220,4 @@ export { Migration819SpinTaleAdventureSpecific } from "./819-spin-tale-adventure
 export { Migration820RemoveUnusedTraitsData } from "./820-remove-unused-traits-data";
 export { Migration821InlineDamageRolls } from "./821-inline-damage-rolls";
 export { Migration822BladeAllyConsolidation } from "./822-blade-ally-consolidation";
+export { Migration823HeritageAncestrySlug } from "./823-heritage-ancestry-slug";

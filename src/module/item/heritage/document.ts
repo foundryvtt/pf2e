@@ -16,7 +16,11 @@ class HeritagePF2e extends ItemPF2e {
 
     /** Prepare a character's data derived from their heritage */
     override prepareActorData(this: Embedded<HeritagePF2e>): void {
-        this.actor.heritage = this;
+        // Some abilities allow for a second heritage. If the PC has more than one, set this heritage as the actor's
+        // main one only if it wasn't granted by another item.
+        if (this.actor.itemTypes.heritage.length === 1 || !this.grantedBy) {
+            this.actor.heritage = this;
+        }
 
         // Add and remove traits as specified
         this.actor.system.traits.value.push(...this.traits);
@@ -31,6 +35,12 @@ class HeritagePF2e extends ItemPF2e {
         this.actor.rollOptions.all[`heritage:${slug}`] = true;
         // Backward compatibility until migration
         this.actor.rollOptions.all[`self:heritage:${slug}`] = true;
+    }
+
+    override getRollOptions(prefix = this.type): string[] {
+        const ancestryOrVersatile = this.system.ancestry ? `ancestry:${this.system.ancestry.slug}` : "versatile";
+
+        return [...super.getRollOptions(prefix), `${prefix}:${ancestryOrVersatile}`];
     }
 }
 
