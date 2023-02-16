@@ -1,5 +1,4 @@
 import { CreaturePF2e } from "@actor";
-import { CreatureSheetItemRenderer } from "@actor/sheet/item-summary-renderer";
 import { createSpellcastingDialog } from "@actor/sheet/spellcasting-dialog";
 import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values";
 import { AbstractEffectPF2e, ItemPF2e, SpellcastingEntryPF2e, SpellPF2e } from "@item";
@@ -20,8 +19,6 @@ import { CreatureSheetData, SpellcastingSheetData } from "./types";
  * @category Actor
  */
 export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheetPF2e<TActor> {
-    override itemRenderer = new CreatureSheetItemRenderer(this);
-
     /** A DocumentSheet class presenting additional, per-actor settings */
     protected abstract readonly actorConfigClass: ConstructorOf<CreatureConfig<CreaturePF2e>> | null;
 
