@@ -23,7 +23,7 @@ import { DamageCategorization, DamagePF2e, DamageRollContext, DamageType, SpellD
 import { CheckPF2e, CheckRoll } from "@system/check";
 import { StatisticRollParameters } from "@system/statistic";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
-import { ErrorPF2e, getActionIcon, groupBy, ordinal, sortBy, traitSlugToObject } from "@util";
+import { ErrorPF2e, getActionIcon, groupBy, htmlClosest, ordinal, sortBy, traitSlugToObject } from "@util";
 import {
     SpellData,
     SpellHeightenLayer,
@@ -836,7 +836,7 @@ class SpellPF2e extends ItemPF2e {
 
     async rollAttack(
         this: Embedded<SpellPF2e>,
-        event: JQuery.ClickEvent,
+        event: MouseEvent | JQuery.ClickEvent,
         attackNumber = 1,
         context: StatisticRollParameters = {}
     ): Promise<void> {
@@ -854,11 +854,11 @@ class SpellPF2e extends ItemPF2e {
 
     async rollDamage(
         this: Embedded<SpellPF2e>,
-        event: JQuery.ClickEvent<unknown, unknown, HTMLElement>,
+        event: MouseEvent | JQuery.ClickEvent,
         mapIncreases?: ZeroToTwo
     ): Promise<Rolled<DamageRoll> | null> {
-        const castLevel =
-            Number(event.currentTarget.closest<HTMLElement>("*[data-cast-level]")?.dataset.castLevel) || this.level;
+        const element = htmlClosest(event.currentTarget, "*[data-cast-level]");
+        const castLevel = Number(element?.dataset.castLevel) || this.level;
 
         // If this isn't a variant, it probably needs to be heightened via overlays
         if (!this.isVariant) {
