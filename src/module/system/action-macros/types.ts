@@ -28,7 +28,7 @@ interface SimpleRollActionCheckOptions<ItemType extends Embedded<ItemPF2e>> {
     statName: string;
     actionGlyph: ActionGlyph | undefined;
     title: string;
-    subtitle: string;
+    subtitle: string | ((args: { actor: ActorPF2e; target?: ActorPF2e | null }) => Promise<string> | string);
     content?: (title: string) => Promise<string | null | undefined | void> | string | null | undefined | void;
     item?: (actor: ActorPF2e) => ItemType | undefined;
     modifiers: ((args: CheckModifierContext<ItemType>) => ModifierPF2e[] | undefined) | ModifierPF2e[] | undefined;

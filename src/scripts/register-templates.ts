@@ -139,6 +139,7 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/compendium-browser/filters.hbs",
 
         // Action Partial
+        "systems/pf2e/templates/chat/action/header.hbs",
         "systems/pf2e/templates/system/actions/repair/chat-button-partial.hbs",
         "systems/pf2e/templates/system/actions/repair/repair-result-partial.hbs",
         "systems/pf2e/templates/system/actions/repair/item-heading-partial.hbs",

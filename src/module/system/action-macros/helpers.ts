@@ -98,14 +98,6 @@ export class ActionMacroHelpers {
         }
 
         for (const actor of rollers) {
-            let title = "";
-            if (options.actionGlyph) {
-                title += `<span class="pf2-icon">${options.actionGlyph}</span> `;
-            }
-            title += `<b>${game.i18n.localize(options.title)}</b>`;
-            title += ` <p class="compact-text">(${game.i18n.localize(options.subtitle)})</p>`;
-            const content = (await options.content?.(title)) ?? title;
-
             const targetOptions = targetActor?.getSelfRollOptions("target") ?? [];
             const selfToken = actor.getActiveTokens(false, true).shift();
             const combinedOptions = [
@@ -119,6 +111,17 @@ export class ActionMacroHelpers {
                     : [],
             ].flat();
             const selfActor = actor.getContextualClone(combinedOptions.filter((o) => o.startsWith("self:")));
+
+            const subtitle =
+                typeof options.subtitle === "function"
+                    ? await options.subtitle?.({ actor: selfActor, target: targetActor })
+                    : options.subtitle;
+            const header = await renderTemplate("./systems/pf2e/templates/chat/action/header.hbs", {
+                glyph: options.actionGlyph,
+                subtitle,
+                title: options.title,
+            });
+            const content = (await options.content?.(header)) ?? header;
 
             const weapon = options.item?.(selfActor);
             combinedOptions.push(...(weapon?.getRollOptions("item") ?? []));
@@ -201,7 +204,7 @@ export class ActionMacroHelpers {
                     dosAdjustments,
                     substitutions,
                     traits: traitObjects,
-                    title: `${game.i18n.localize(options.title)} - ${game.i18n.localize(options.subtitle)}`,
+                    title: `${game.i18n.localize(options.title)} - ${game.i18n.localize(subtitle)}`,
                 },
                 options.event,
                 (roll, outcome, message) => {
