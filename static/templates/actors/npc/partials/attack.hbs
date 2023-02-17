@@ -25,7 +25,7 @@
         <div class="flexrow">
             <div class="attacks sub-section">
                 {{#each action.variants as |variant index|}}
-                    <button type="button" class="btn attack-button" {{#if (eq index 0) }}title="{{action.breakdown}}"{{/if}} data-action="strike-attack" data-variant-index="{{index}}">{{variant.label}}</button>
+                    <button type="button" class="btn attack-button" {{#if (eq index 0)}}title="{{action.breakdown}}"{{/if}} data-action="strike-attack" data-variant-index="{{index}}">{{variant.label}}</button>
                 {{/each}}
             </div>
             {{#if action.item.dealsDamage}}
