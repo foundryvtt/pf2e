@@ -187,32 +187,25 @@
                             }
                         }
 
-                        h4 {
-                            color: var(--primary);
-                            font-weight: 700;
-                        }
-
                         .item-summary {
                             @include frame-elegant;
+                            padding: 0.5rem 1rem 1rem;
+                            margin-top: 0.75rem;
 
                             dd {
                                 margin: 0;
                                 margin-bottom: 0.5rem;
                             }
 
-                            .tag {
-                                box-shadow: none;
-
-                                &.tag_secondary {
-                                    background-color: rgba(0, 0, 0, 0.8);
-                                }
+                            .tag.tag_secondary {
+                                background-color: rgba(0, 0, 0, 0.8);
                             }
                         }
 
                         &.expanded {
-                            .item-summary {
-                                padding: 0.5rem 1rem 1rem;
-                                margin-top: 0.75rem;
+                            h4 {
+                                color: var(--primary);
+                                font-weight: 700;
                             }
                         }
 
