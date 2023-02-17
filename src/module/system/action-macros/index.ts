@@ -36,6 +36,7 @@ import { treatDisease } from "./medicine/treat-disease";
 import { treatPoison } from "./medicine/treat-poison";
 import { commandAnAnimal } from "./nature/command-an-animal";
 import { perform } from "./performance/perform";
+import { createForgery } from "./society/create-forgery";
 import { concealAnObject } from "./stealth/conceal-an-object";
 import { hide } from "./stealth/hide";
 import { sneak } from "./stealth/sneak";
@@ -113,6 +114,9 @@ export const ActionMacros = {
 
     // Performance
     perform,
+
+    // Society
+    createForgery,
 
     // Stealth
     concealAnObject,
