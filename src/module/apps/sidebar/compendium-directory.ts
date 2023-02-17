@@ -75,7 +75,9 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
                 icon: fontAwesomeIcon("crow").outerHTML,
                 condition: ($li) => {
                     const compendium = game.packs.get($li.data("pack"), { strict: true });
-                    const actorOrItem = compendium.documentClass === ActorPF2e || compendium.documentClass === ItemPF2e;
+                    const actorOrItem =
+                        compendium.documentClass === CONFIG.Actor.documentClass ||
+                        compendium.documentClass === CONFIG.Item.documentClass;
                     const isSystemCompendium = compendium.metadata.packageType === "system";
                     return game.user.isGM && actorOrItem && !isSystemCompendium && !compendium.locked;
                 },
