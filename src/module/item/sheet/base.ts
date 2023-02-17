@@ -24,6 +24,7 @@ import {
     tagify,
     htmlQueryAll,
     htmlQuery,
+    fontAwesomeIcon,
 } from "@util";
 import type * as TinyMCE from "tinymce";
 import { CodeMirror } from "./codemirror";
@@ -216,6 +217,23 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 }, CONFIG.PF2E.attackEffects) ?? {};
 
         return attackEffectOptions;
+    }
+
+    override async activateEditor(
+        name: string,
+        options: Partial<TinyMCE.EditorOptions> = {},
+        initialContent?: string
+    ): Promise<TinyMCE.Editor> {
+        // Ensure the source description is edited rather than a prepared one
+        const sourceContent =
+            name === "system.description.value" ? this.item._source.system.description.value : initialContent;
+
+        // Remove toolbar options that are unsuitable for a smaller notes field
+        if (name === "system.description.gm") {
+            options.toolbar = "styles bullist numlist image hr link removeformat code save";
+        }
+
+        return super.activateEditor(name, options, sourceContent);
     }
 
     override async close(options?: { force?: boolean }): Promise<void> {
@@ -415,23 +433,22 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             }
         }
 
-        htmlQuery(html, ".description-sections")?.addEventListener("click", async (event) => {
-            if (!(event.target instanceof HTMLElement)) return;
-            const { action } = event.target.dataset;
-            if (action === "edit-gm-notes") {
-                const section = event.target.closest(".description-sections")?.querySelector(".gm-notes-section");
-                if (section instanceof HTMLElement) {
-                    section.classList.add("force-visible");
-                    event.target.remove();
-                    return this.activateEditor("system.description.gm");
-                }
-            }
-            const name = event.target.closest("section")?.querySelector("[data-edit]")?.getAttribute("data-edit");
-            if (name) {
-                return this.activateEditor(name);
-            }
-            return null;
-        });
+        // Add a link to add GM notes
+        const descriptionEditors = htmlQuery(html, ".descriptions");
+        if (!this.item.system.description.gm) {
+            const mainEditor = htmlQuery(descriptionEditors, ".main .editor");
+            if (!mainEditor) throw ErrorPF2e("Unexpected error retrieving description editor");
+
+            const addGMNotesLink = document.createElement("a");
+            addGMNotesLink.className = addGMNotesLink.dataset.action = "add-gm-notes";
+            addGMNotesLink.innerHTML = fontAwesomeIcon("fa-note-medical", { style: "regular" }).outerHTML;
+            addGMNotesLink.dataset.tooltip = "PF2E.Item.GMNotes.Add";
+            mainEditor.prepend(addGMNotesLink);
+            addGMNotesLink.addEventListener("click", () => {
+                htmlQuery(descriptionEditors, ".gm-notes")?.classList.add("has-content");
+                this.activateEditor("system.description.gm");
+            });
+        }
     }
 
     /** When tabs are changed, change visibility of elements such as the sidebar */
@@ -448,19 +465,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             sidebarHeader.style.visibility = activeTab === "rules" ? "hidden" : "";
             sidebar.style.display = activeTab === "rules" ? "none" : "";
         }
-    }
-
-    /** Ensure the source description is edited rather than a prepared one */
-    override activateEditor(
-        name: string,
-        options?: Partial<TinyMCE.EditorOptions>,
-        initialContent?: string
-    ): Promise<TinyMCE.Editor> {
-        return super.activateEditor(
-            name,
-            options,
-            name === "system.description.value" ? this.item._source.system.description.value : initialContent
-        );
     }
 
     protected override _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {

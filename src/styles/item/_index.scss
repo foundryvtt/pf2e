@@ -253,32 +253,53 @@
             }
 
             .item-description {
-                .description-sections {
+                .descriptions {
                     height: 100%;
                     overflow: hidden scroll;
-                    .gm-notes-section {
-                        display: none;
-                        &.force-visible {
-                            display: unset;
+
+                    .gm-notes {
+                        background-color: var(--visibility-gm-bg);
+                        border: 1px dotted rgba(75, 74, 68, 0.5);
+                        padding: 0 0.25em;
+
+                        &:not(.has-content) {
+                            display: none;
+                        }
+
+                        .editor {
+                            min-height: 2.5em;
                         }
                     }
-                    .section-header {
-                        display: flex;
-                        justify-content: space-between;
-                        .section-heading {
-                            margin-bottom: 0;
-                        }
-                        .controls {
-                            a {
-                                margin-left: 8px;
+
+                    .editor {
+                        a.add-gm-notes, a.editor-edit {
+                            font-size: 1.33em;
+                            background: rgb(205, 205, 205);
+
+                            i {
+                                width: 1em;
+                                text-align: center;
                             }
                         }
+
+                        a.add-gm-notes {
+                            border-radius: 4px;
+                            border: 1px solid var(--color-border-dark-1);
+                            box-shadow: 0 0 1px var(--color-shadow-dark);
+                            display: none;
+                            padding: 1px 2px;
+                            position: absolute;
+                            right: 35px;
+                            top: 5px;
+                        }
+
+                        &:hover a.add-gm-notes {
+                            display: block;
+                        }
                     }
-                    .section-editor .editor .editor-edit {
-                        display: none;
-                    }
-                    .tox.tox-tinymce {
-                        min-height: 200px !important;
+
+                    .main .editor {
+                        min-height: 6em;
                     }
                 }
             }
@@ -286,8 +307,8 @@
 
         h3, header {
             .item-controls {
-                float: right;
                 cursor: pointer;
+                float: right;
             }
         }
 
