@@ -821,12 +821,25 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:50]{50 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>After the dragon uses its Breath Weapon, a fierce blizzard of blinding snow surrounds its body for 1 round. Everything in the aura is difficult terrain for other creatures that are on the ground, climbing, or flying. The blowing snow also makes all creatures in the area @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}. While the blizzard rages, the dragon's dragon chill extends to the full area of the blizzard.</p>"
+                    "value": "<p>@Template[type:emanation|distance:50]{50 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>After the dragon uses its Breath Weapon, a fierce blizzard of blinding snow surrounds its body for 1 round. Everything in the aura is difficult terrain for other creatures that are on the ground, climbing, or flying. The blowing snow also makes all creatures in the area @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}. While the blizzard rages, the dragon's dragon chill extends to the full area of the blizzard.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Draconic Breath Weapon Aura]{Effect: Draconic Breath Weapon Aura}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "self:effect:draconic-breath-weapon-aura"
+                        ],
+                        "radius": 50,
+                        "slug": "blizzard",
+                        "traits": [
+                            "arcane",
+                            "cold"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
