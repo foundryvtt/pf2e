@@ -343,12 +343,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     /** Apply effects from an aura: will later be expanded to handle effects from measured templates */
-    async applyAreaEffects(aura: AuraData, { origin }: { origin: ActorPF2e }): Promise<void> {
+    async applyAreaEffects(aura: AuraData, origin: { actor: ActorPF2e; token: TokenDocumentPF2e }): Promise<void> {
         if (game.user !== this.primaryUpdater) return;
 
         const toCreate: (AfflictionSource | EffectSource)[] = [];
         const rollOptions = aura.effects.some((e) => e.predicate.length > 0)
-            ? new Set([...origin.getRollOptions(), ...this.getSelfRollOptions("target")])
+            ? new Set([...origin.actor.getRollOptions(), ...this.getSelfRollOptions("target")])
             : new Set([]);
 
         for (const data of aura.effects.filter((e) => e.predicate.test(rollOptions))) {
@@ -357,10 +357,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             }
 
             const affectsSelf =
-                (data.includesSelf && this === origin) ||
-                (data.affects === "allies" && this.isAllyOf(origin)) ||
-                (data.affects === "enemies" && this.isEnemyOf(origin)) ||
-                (data.affects === "all" && this !== origin);
+                (data.includesSelf && this === origin.actor) ||
+                (data.affects === "allies" && this.isAllyOf(origin.actor)) ||
+                (data.affects === "enemies" && this.isEnemyOf(origin.actor)) ||
+                (data.affects === "all" && this !== origin.actor);
 
             if (affectsSelf) {
                 const effect = await UUIDUtils.fromUuid(data.uuid);
@@ -374,7 +374,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                     pf2e: {
                         aura: {
                             slug: aura.slug,
-                            origin: origin.uuid,
+                            origin: origin.actor.uuid,
                             removeOnExit: data.removeOnExit,
                         },
                     },
@@ -388,6 +388,16 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 if (source.system.traits.value.length === 0) {
                     source.system.traits.value.push(...aura.traits);
                 }
+
+                source.system.context = {
+                    target: null,
+                    origin: {
+                        actor: origin.actor.uuid,
+                        token: origin.token.uuid,
+                        item: null,
+                    },
+                    roll: null,
+                };
 
                 toCreate.push(source);
             }

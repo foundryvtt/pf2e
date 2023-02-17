@@ -25,9 +25,7 @@ class TokenAura implements TokenAuraData {
     constructor(args: TokenAuraParams) {
         this.slug = args.slug;
         this.token = args.token;
-
         this.radius = args.radius;
-
         this.traits = args.traits;
         this.colors = args.colors ?? null;
     }
@@ -98,8 +96,9 @@ class TokenAura implements TokenAuraData {
 
         // Get unique actors and notify
         const affectedActors = new Set(containedTokens.map((t) => t.actor));
+        const origin = { actor: auraActor, token: this.token };
         for (const actor of affectedActors) {
-            await actor.applyAreaEffects(auraData, { origin: auraActor });
+            await actor.applyAreaEffects(auraData, origin);
         }
     }
 }
