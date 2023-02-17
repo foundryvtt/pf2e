@@ -148,7 +148,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
 
         const tempHP = this.overrides.tempHP;
         if (tempHP) {
-            new TempHPRuleElement({ key: "TempHP", label: this.data.label, value: tempHP }, this.item).onCreate(
+            new TempHPRuleElement({ key: "TempHP", label: this.label, value: tempHP }, this.item).onCreate(
                 actorUpdates
             );
         }
@@ -198,7 +198,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
 
         const tempHP = this.overrides.tempHP;
         if (tempHP) {
-            new TempHPRuleElement({ key: "TempHP", label: this.data.label, value: tempHP }, this.item).onDelete(
+            new TempHPRuleElement({ key: "TempHP", label: this.label, value: tempHP }, this.item).onDelete(
                 actorUpdates
             );
         }

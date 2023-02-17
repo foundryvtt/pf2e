@@ -29,7 +29,7 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
 
         if (this.type === "ability") {
             if (setHasElement(ABILITY_ABBREVIATIONS, source.ability)) {
-                this.data.label = typeof source.label === "string" ? source.label : CONFIG.PF2E.abilities[this.ability];
+                this.label = typeof source.label === "string" ? source.label : CONFIG.PF2E.abilities[this.ability];
                 this.data.value ??= `@actor.abilities.${this.ability}.mod`;
             } else {
                 this.failValidation(
@@ -88,9 +88,7 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
         if (this.ignored) return;
 
         // Strip out the title ("Effect:", etc.) of the effect name
-        const label = this.data.label.includes(":")
-            ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "")
-            : this.data.label;
+        const label = this.label.includes(":") ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : this.label;
         const slug = this.slug ?? (this.type === "ability" && this.ability ? this.ability : sluggify(label));
 
         const selectors = this.selectors.map((s) => this.resolveInjectedProperties(s)).filter((s) => !!s);
