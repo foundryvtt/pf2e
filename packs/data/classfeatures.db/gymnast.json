@@ -46,6 +46,28 @@
                     "class:swashbuckler"
                 ],
                 "value": 1
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "or": [
+                            "action:grapple",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    },
+                    {
+                        "not": "self:effect:panache"
+                    }
+                ],
+                "selector": "athletics",
+                "text": "PF2E.SpecificRule.Swashbuckler.Panache",
+                "title": "{item|name}"
             }
         ],
         "source": {

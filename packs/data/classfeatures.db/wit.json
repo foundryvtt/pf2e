@@ -51,6 +51,22 @@
                     "class:swashbuckler"
                 ],
                 "uuid": "Compendium.pf2e.feats-srd.Bon Mot"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:bon-mot",
+                    {
+                        "not": "self:effect:panache"
+                    }
+                ],
+                "selector": "diplomacy",
+                "text": "PF2E.SpecificRule.Swashbuckler.Panache",
+                "title": "{item|name}"
             }
         ],
         "source": {

@@ -21,7 +21,24 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:tumble-through",
+                    {
+                        "not": "self:effect:panache"
+                    }
+                ],
+                "selector": "acrobatics",
+                "text": "PF2E.SpecificRule.Swashbuckler.Panache",
+                "title": "{item|name}"
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },

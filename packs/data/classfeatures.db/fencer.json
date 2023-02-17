@@ -45,6 +45,27 @@
                     "class:swashbuckler"
                 ],
                 "value": 1
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "or": [
+                            "action:feint",
+                            "action:create-a-diversion"
+                        ]
+                    },
+                    {
+                        "not": "self:effect:panache"
+                    }
+                ],
+                "selector": "deception",
+                "text": "PF2E.SpecificRule.Swashbuckler.Panache",
+                "title": "{item|name}"
             }
         ],
         "source": {
