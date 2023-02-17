@@ -29,9 +29,7 @@ export class WeaponPotencyRuleElement extends RuleElementPF2e {
         if (selector && typeof value === "number") {
             const bonusType = ABP.isEnabled(this.actor) ? "potency" : "item";
 
-            const label = this.data.label.includes(":")
-                ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "")
-                : this.data.label;
+            const label = this.label.includes(":") ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : this.label;
             const potency: PotencySynthetic = { label, bonus: value, type: bonusType, predicate: this.predicate };
             const synthetics = (weaponPotency[selector] ??= []);
             synthetics.push(potency);
