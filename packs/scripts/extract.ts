@@ -197,6 +197,11 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                         gm: docSource.system.description.gm,
                         value: docSource.system.description.value,
                     };
+
+                    if (!docSource.system.description.gm?.trim()) {
+                        delete (docSource.system.description as { gm?: unknown }).gm;
+                    }
+
                     if (isPhysicalData(docSource)) {
                         delete (docSource.system as { identification?: unknown }).identification;
                         if (docSource.system.traits.otherTags?.length === 0) {
