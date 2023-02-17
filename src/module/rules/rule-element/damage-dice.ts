@@ -14,7 +14,7 @@ class DamageDiceRuleElement extends RuleElementPF2e {
 
     diceNumber: number | string = 0;
 
-    dieSize: DamageDieSize | null = null;
+    dieSize: string | null = null;
 
     damageType: string | null = null;
 
@@ -38,7 +38,7 @@ class DamageDiceRuleElement extends RuleElementPF2e {
 
         this.slug = sluggify(typeof data.slug === "string" && data.slug.length > 0 ? data.slug : this.item.name);
 
-        // Number of dice
+        // Dice number
         if (typeof data.diceNumber === "string" || typeof data.diceNumber === "number") {
             this.diceNumber = data.diceNumber;
         } else if ("diceNumber" in data) {
@@ -46,10 +46,10 @@ class DamageDiceRuleElement extends RuleElementPF2e {
         }
 
         // Die faces
-        if (setHasElement(DAMAGE_DIE_FACES, data.dieSize)) {
+        if (typeof data.dieSize === "string" || data.dieSize === null) {
             this.dieSize = data.dieSize;
         } else if ("dieSize" in data) {
-            this.failValidation("dieSize must be a string or omitted");
+            this.failValidation("dieSize must be a string, null, or omitted");
         }
 
         // Damage type
@@ -124,6 +124,12 @@ class DamageDiceRuleElement extends RuleElementPF2e {
                 }
             }
 
+            const dieSize = this.resolveInjectedProperties(this.dieSize);
+            if (dieSize !== null && !setHasElement(DAMAGE_DIE_FACES, dieSize)) {
+                this.failValidation(`Die size must be a recognized damage die size, null, or omitted`);
+                return null;
+            }
+
             // If this failed validation partway through (such as in resolveInjectedProperties), return null
             if (this.ignored) return null;
 
@@ -131,8 +137,8 @@ class DamageDiceRuleElement extends RuleElementPF2e {
                 selector,
                 slug: this.slug,
                 label,
-                dieSize: this.dieSize,
                 diceNumber,
+                dieSize,
                 critical: this.critical,
                 category: this.category,
                 damageType,

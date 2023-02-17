@@ -21,7 +21,19 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "category": "precision",
+                "diceNumber": "@actor.flags.pf2e.sneakAttackDamage.number",
+                "dieSize": "d{actor|flags.pf2e.sneakAttackDamage.faces}",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:trait:attack",
+                    "target:condition:flat-footed"
+                ],
+                "selector": "spell-damage"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
