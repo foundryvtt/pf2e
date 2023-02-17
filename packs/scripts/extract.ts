@@ -194,11 +194,11 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                 } else if (isItemSource(docSource)) {
                     // Prune several common item data defaults
                     docSource.system.description = {
-                        gm: docSource.system.description.gm,
+                        gm: docSource.system.description.gm ?? "",
                         value: docSource.system.description.value,
                     };
 
-                    if (!docSource.system.description.gm?.trim()) {
+                    if (!docSource.system.description.gm.trim()) {
                         delete (docSource.system.description as { gm?: unknown }).gm;
                     }
 

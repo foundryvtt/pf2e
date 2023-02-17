@@ -16,7 +16,7 @@
                 <span class="level">
                     {{#if adjustedLevelHint}}<i class="fas fa-info-circle small" title="{{adjustedLevelHint}}"></i>{{/if}}
                     <span>{{itemType}}</span>
-                    <input type="number"{{#if adjustedLevelHint}} class="adjusted"{{/if}}{{#if isPhysical}} data-property="system.level.value"{{else}}name="system.level.value"{{/if}} value="{{data.level.value}}" data-dtype="Number" />
+                    <input type="number"{{#if adjustedLevelHint}} class="adjusted"{{/if}}{{#if isPhysical}} data-property="system.level.value"{{else}} name="system.level.value"{{/if}} value="{{data.level.value}}" />
                 </span>
             {{/if}}
             <template class="traits-extra">
@@ -82,42 +82,20 @@
         <section class="sheet-body">
             <!-- Item Description -->
             <section class="tab item-description" data-tab="description">
-                <section class="description-sections">
+                <div class="descriptions">
                     {{#if user.isGM}}
-                        <section class="gm-notes-section {{#if enrichedContent.gmNotes}}force-visible{{/if}}">
-                            <div class="section-header">
-                                <h4 class="section-heading">{{localize "PF2E.ItemGMNotesHeader"}}</h4>
-                                <div class="controls">
-                                    <a data-action="edit-section"><i class="fas fa-edit"></i></a>
-                                </div>
-                            </div>
-                            <div class="section-editor">
-                                {{editor enrichedContent.gmNotes target="system.description.gm" button=true owner=owner editable=editable}}
-                            </div>
-                            <hr/>
+                        <section class="gm-notes{{#if enrichedContent.gmNotes}} has-content{{/if}}">
+                            {{editor enrichedContent.gmNotes target="system.description.gm" button=true owner=owner editable=editable}}
                         </section>
                     {{/if}}
-                    <section>
-                        <div class="section-header">
-                            <h4 class="section-heading">{{localize "PF2E.ItemDescriptionHeader"}}</h4>
-                            <div class="controls">
-                                {{#if (and user.isGM (not enrichedContent.gmNotes))}}
-                                    <span data-action="edit-gm-notes">
-                                        <i class="fas fa-plus"></i>{{localize "PF2E.ItemGMNotesAdd"}}
-                                    </span>
-                                {{/if}}
-                                <a data-action="edit-section"><i class="fas fa-edit"></i></a>
-                            </div>
-                        </div>
-                        <div class="section-editor">
-                            {{#if (not isVariant)}}
-                                {{editor enrichedContent.description target="system.description.value" button=true owner=owner editable=editable}}
-                            {{else}}
-                                {{{enrichedContent.description}}}
-                            {{/if}}
-                        </div>
+                    <section class="main">
+                        {{#if (not isVariant)}}
+                            {{editor enrichedContent.description target="system.description.value" button=true owner=owner editable=editable}}
+                        {{else}}
+                            {{{enrichedContent.description}}}
+                        {{/if}}
                     </section>
-                </section>
+                </div>
             </section>
 
             <!-- Item Details -->
