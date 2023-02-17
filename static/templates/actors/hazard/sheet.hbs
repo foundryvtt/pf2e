@@ -1,7 +1,7 @@
 <form class="{{cssClass}}{{#if editing}} editing{{/if}}" autocomplete="off">
-    {{> systems/pf2e/templates/actors/hazard/partials/header.hbs}}
+    {{> "systems/pf2e/templates/actors/hazard/partials/header.hbs"}}
     <div class="container">
-        {{> systems/pf2e/templates/actors/hazard/partials/sidebar.hbs}}
+        {{> "systems/pf2e/templates/actors/hazard/partials/sidebar.hbs"}}
         <!-- BODY -->
         <section class="content">
             {{#if (or hasStealth editing)}}
@@ -143,7 +143,7 @@
                                     <div class="flexrow">
                                         <div class="attacks sub-section">
                                             {{#each action.variants as |variant vi|}}
-                                                <button type="button" class="btn attack-button" {{#if (eq vi 0) }}title="{{action.breakdown}}"{{/if}} data-action="strike-attack" data-variant-index="{{vi}}">{{variant.label}}</button>
+                                                <button type="button" class="btn attack-button" {{#if (eq vi 0)}}title="{{action.breakdown}}"{{/if}} data-action="strike-attack" data-variant-index="{{vi}}">{{variant.label}}</button>
                                             {{/each}}
                                         </div>
                                         {{#if action.item.dealsDamage}}

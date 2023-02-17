@@ -68,12 +68,12 @@
     </div>
     <div class="side-bar-section-content">
         <div class="hp-temp labelled-field">
-            <label>{{ localize "PF2E.RuleElement.TempHPShortLabel"}}</label>
-            <input class="hp-temp-value" type="number" name="system.attributes.hp.temp" value="{{ data.attributes.hp.temp }}" data-dtype="Number" placeholder="0"/>
+            <label>{{localize "PF2E.RuleElement.TempHPShortLabel"}}</label>
+            <input class="hp-temp-value" type="number" name="system.attributes.hp.temp" value="{{data.attributes.hp.temp}}" data-dtype="Number" placeholder="0"/>
         </div>
     </div>
     <div class="side-bar-section-content">
-        <input class="hp-details" type="text" name="system.attributes.hp.details" value="{{data.attributes.hp.details}}" title="{{data.attributes.hp.details}}" data-dtype="String" placeholder="{{localize 'PF2E.NPC.HPExtraInfoLabelPlaceholder'}}"/>
+        <input class="hp-details" type="text" name="system.attributes.hp.details" value="{{data.attributes.hp.details}}" title="{{data.attributes.hp.details}}" data-dtype="String" placeholder="{{localize "PF2E.NPC.HPExtraInfoLabelPlaceholder"}}"/>
     </div>
 </div>
 <!-- INITIATIVE -->
@@ -124,7 +124,7 @@
     <div class="side-bar-section-header{{#unless data.attributes.weaknesses}} disabled{{/unless}}">
         <div class="side-bar-label">
             <i class="fas fa-fw fa-heart-broken"></i>
-            <h4>{{ localize "PF2E.WeaknessesLabel"}}</h4>
+            <h4>{{localize "PF2E.WeaknessesLabel"}}</h4>
         </div>
         {{#if options.editable}}
             <div class="weaknesses-controls controls">
@@ -180,7 +180,7 @@
         </div>
         {{#if options.editable}}
             <div class="speed-controls controls">
-                <a class="trait-edit edit" data-tag-selector="speed-types" data-options="speedTypes" data-has-values="true" title="{{ localize 'PF2E.NPC.EditSpeed' }}"><i class="fas fa-edit"></i></a>
+                <a class="trait-edit edit" data-tag-selector="speed-types" data-options="speedTypes" data-has-values="true" title="{{localize 'PF2E.NPC.EditSpeed'}}"><i class="fas fa-edit"></i></a>
             </div>
         {{/if}}
     </div>

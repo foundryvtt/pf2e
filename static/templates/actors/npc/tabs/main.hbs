@@ -46,7 +46,7 @@
                 <div class="list">
                     {{#each data.abilities as |ability id|}}
                         <div class="labelled-field" data-attribute="{{id}}">
-                            <label class="rollable"><a>{{ ability.localizedCode }}</a></label>
+                            <label class="rollable"><a>{{ability.localizedCode}}</a></label>
                             <input class="modifier" type="text" data-property="system.abilities.{{id}}.mod" value="{{numberFormat ability.mod decimals=0 sign=true}}" data-dtype="Number" placeholder="0"/>
                         </div>
                     {{/each}}
@@ -107,7 +107,7 @@
                             <a class="rollable">{{skill.label}} <span class="adjustable{{#if skill.adjustedHigher}} adjusted-higher{{else if skill.adjustedLower}} adjusted-lower{{/if}}">{{numberFormat skill.value decimals=0 sign=true}}</span></a>
                             {{#if skill.variants}}
                                 {{#each skill.variants as |variant variantId|}}
-                                    <a class="rollable variant" data-skill="{{id}}" data-options="{{variant.options}}">({{ variant.label }})</a>
+                                    <a class="rollable variant" data-skill="{{id}}" data-options="{{variant.options}}">({{variant.label}})</a>
                                 {{/each}}
                             {{/if}}
                         </div>
@@ -138,7 +138,7 @@
     <!-- ACTIONS -->
     <div class="actions section-container">
         <div class="section-header">
-            <h4>{{ localize "PF2E.ActionActionsLabel"}}</h4>
+            <h4>{{localize "PF2E.ActionActionsLabel"}}</h4>
             {{#if options.editable}}
                 <div class="actions-controls controls">
                     <a class="action-add item-create" title="{{localize "PF2E.NPC.AddAction"}}" data-type="action" data-action-type="action"><i class="fas fa-plus"></i></a>

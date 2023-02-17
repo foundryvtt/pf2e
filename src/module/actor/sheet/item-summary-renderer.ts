@@ -63,12 +63,13 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
 
         if (!summary) return;
 
-        const showSummary = !element.classList.contains("expanded") && summary.hidden;
-        element.classList.toggle("expanded", showSummary);
+        const showSummary = !element.classList.contains("expanded") || summary.hidden;
 
         if (options.instant) {
             summary.hidden = !showSummary;
+            element.classList.toggle("expanded", showSummary);
         } else if (showSummary) {
+            element.classList.add("expanded");
             await gsap.fromTo(
                 summary,
                 { height: 0, opacity: 0, hidden: false },
@@ -79,8 +80,13 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
                 height: 0,
                 duration,
                 opacity: 0,
+                paddingTop: 0,
+                paddingBottom: 0,
+                margin: 0,
+                clearProps: "all",
                 onComplete: () => {
                     summary.hidden = true;
+                    element.classList.remove("expanded");
                 },
             });
         }

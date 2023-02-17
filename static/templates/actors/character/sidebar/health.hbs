@@ -27,11 +27,11 @@
     </div>
     <div class="hp-small">
         <a class="rollable roll-icon{{#if (not data.attributes.dying.value)}} disabled{{/if}}" data-action="recovery-check" title="{{localize "PF2E.Check.Specific.Recovery"}}">
-            {{> systems/pf2e/templates/actors/character/icons/d20.hbs}}
+            {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
         </a>
         <a class="dots dying" title="{{localize "PF2E.condition.dying.summary"}}">
             <span class="sidebar_label">{{localize "PF2E.condition.dying.name"}}</span>
-            {{> systems/pf2e/templates/actors/partials/dying-pips.hbs}}
+            {{> "systems/pf2e/templates/actors/partials/dying-pips.hbs"}}
         </a>
         <a class="dots wounded" title="{{localize "PF2E.condition.wounded.summary"}}">
             <span class="sidebar_label">{{localize "PF2E.condition.wounded.name"}}</span>
@@ -46,5 +46,5 @@
     </div>
 </div>
 {{#with data.attributes.hp}}
-{{> systems/pf2e/templates/actors/character/partials/modifiers-tooltip.hbs title="PF2E.HitPointsHeader" }}
+    {{> "systems/pf2e/templates/actors/character/partials/modifiers-tooltip.hbs" title="PF2E.HitPointsHeader"}}
 {{/with}}

@@ -1,0 +1,28 @@
+.item-summary {
+    overflow: hidden;
+
+    .item-buttons button {
+        background-color: var(--primary);
+        border: none;
+        box-shadow: inset 0 0 0 1px rgba(black, 0.5);
+        border-top: 1px solid lighten($primary-color, 50);
+        border-bottom: 1px solid darken($primary-color, 40);
+        color: white;
+        cursor: pointer;
+        font-family: var(--serif);
+        font-size: var(--font-size-14);
+        font-weight: 500;
+        line-height: 1.8em;
+        margin: 8px 0 0 0;
+        padding: 0 8px;
+
+        &:hover {
+            box-shadow: none;
+            text-shadow: 0 0 2px white;
+        }
+    }
+}
+
+.expandable:not(.expanded) .item-summary {
+    display: none;
+}
