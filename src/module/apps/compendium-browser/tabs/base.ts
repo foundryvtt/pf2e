@@ -1,5 +1,5 @@
 import { CompendiumBrowser } from "..";
-import { BaseFilterData, CheckboxOptions, CompendiumBrowserIndexData, RangesData } from "./data";
+import { BaseFilterData, CheckboxOptions, CompendiumBrowserIndexData, MultiselectData, RangesData } from "./data";
 import { ErrorPF2e, sluggify } from "@util";
 import { TabName } from "../data";
 import MiniSearch from "minisearch";
@@ -87,6 +87,26 @@ export abstract class CompendiumBrowserTab {
 
     /** Filter indexData */
     protected filterIndexData(_entry: CompendiumBrowserIndexData): boolean {
+        return true;
+    }
+
+    protected filterTraits(
+        traits: string[],
+        selected: MultiselectData["selected"],
+        condition: MultiselectData["conjunction"]
+    ): boolean {
+        const selectedTraits = selected.filter((s) => !s.not).map((s) => s.value);
+        const notTraits = selected.filter((t) => t.not).map((s) => s.value);
+        if (selectedTraits.length || notTraits.length) {
+            if (notTraits.some((t) => traits.includes(t))) {
+                return false;
+            }
+            const fullfilled =
+                condition === "and"
+                    ? selectedTraits.every((t) => traits.includes(t))
+                    : selectedTraits.some((t) => traits.includes(t));
+            if (!fullfilled) return false;
+        }
         return true;
     }
 

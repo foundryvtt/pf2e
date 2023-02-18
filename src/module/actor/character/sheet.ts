@@ -773,7 +773,9 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         if (checkboxesFilterCodes.includes("feattype-class")) checkboxesFilterCodes.push("feattype-archetype");
 
         const feattype: string[] = [];
-        const traits: string[] = [];
+        const traits: { values: string[]; conjunction?: "and" | "or" } = {
+            values: [],
+        };
         for (const filterCode of checkboxesFilterCodes) {
             const [filterType, value] = filterCode.split("-");
             if (!(filterType && value)) {
@@ -783,7 +785,9 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             if (filterType === "feattype") {
                 feattype.push(value);
             } else if (filterType === "traits") {
-                traits.push(value);
+                traits.values.push(value);
+            } else if (filterType === "conjunction" && (value === "and" || value === "or")) {
+                traits.conjunction = value;
             }
         }
 
