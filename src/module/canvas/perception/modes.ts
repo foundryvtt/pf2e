@@ -116,15 +116,6 @@ class HearingDetectionMode extends DetectionMode {
 
         return hasLOH;
     }
-
-    protected override _testRange(
-        _visionSource: VisionSource<Token>,
-        _mode: TokenDetectionMode,
-        _target: PlaceableObject,
-        _test: CanvasVisibilityTest
-    ): boolean {
-        return true;
-    }
 }
 
 declare namespace HearingDetectionMode {
