@@ -16,8 +16,9 @@ interface CheckboxData {
 
 interface MultiselectData<T extends string = string> {
     label: string;
+    conjunction: "and" | "or";
     options: { label: string; value: T }[];
-    selected: { label: string; value: T }[];
+    selected: { label: string; not?: boolean; value: T }[];
 }
 
 interface SelectData {
@@ -116,12 +117,15 @@ interface RenderResultListOptions {
 // Models used for initializing filters
 interface BaseInitialFilters {
     searchText?: string;
+    traits?: {
+        values: string[];
+        conjunction?: MultiselectData["conjunction"];
+    };
     orderBy?: SortByOption;
     orderDirection?: SortDirection;
 }
 
 interface InitialActionFilters extends BaseInitialFilters {
-    traits?: string[];
     source?: string[];
     orderBy?: CommonSortByOption;
 }
@@ -131,7 +135,6 @@ interface InitialBestiaryFilters extends BaseInitialFilters {
     rarity?: string[];
     sizes?: string[];
     source?: string[];
-    traits?: string[];
     orderBy?: CommonSortByOption;
 }
 
@@ -153,7 +156,6 @@ interface InitialFeatFilters extends BaseInitialFilters {
     skills?: string[];
     rarity?: string[];
     source?: string[];
-    traits?: string[];
     level?: { min?: number; max?: number };
     orderBy?: CommonSortByOption;
 }
@@ -162,7 +164,6 @@ interface InitialHazardFilters extends BaseInitialFilters {
     complexity?: string[];
     rarity?: string[];
     source?: string[];
-    traits?: string[];
     levelRange?: { min?: number; max?: number };
     orderBy?: CommonSortByOption;
 }
@@ -176,7 +177,6 @@ interface InitialSpellFilters extends BaseInitialFilters {
     school?: string[];
     source?: string[];
     traditions?: string[];
-    traits?: string[];
     orderBy?: CommonSortByOption;
 }
 

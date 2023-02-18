@@ -164,10 +164,8 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
             if (!this.arrayIncludes(checkboxes.traditions.selected, entry.traditions)) return false;
         }
         // Traits
-        const selectedTraits = multiselects.traits.selected.map((s) => s.value);
-        if (selectedTraits.length > 0 && !selectedTraits.every((t) => entry.traits.includes(t))) {
+        if (!this.filterTraits(entry.traits, multiselects.traits.selected, multiselects.traits.conjunction))
             return false;
-        }
         // School
         if (checkboxes.school.selected.length) {
             if (!checkboxes.school.selected.includes(entry.school)) return false;
@@ -225,6 +223,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
             },
             multiselects: {
                 traits: {
+                    conjunction: "and",
                     label: "PF2E.BrowserFilterTraits",
                     options: [],
                     selected: [],

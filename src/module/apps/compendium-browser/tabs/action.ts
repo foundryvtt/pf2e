@@ -75,10 +75,8 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
         const { checkboxes, multiselects } = this.filterData;
 
         // Traits
-        const selectedTraits = multiselects.traits.selected.map((s) => s.value);
-        if (selectedTraits.length > 0 && !selectedTraits.every((t) => entry.traits.includes(t))) {
+        if (!this.filterTraits(entry.traits, multiselects.traits.selected, multiselects.traits.conjunction))
             return false;
-        }
         // Source
         if (checkboxes.source.selected.length) {
             if (!checkboxes.source.selected.includes(entry.source)) return false;
@@ -98,6 +96,7 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
             },
             multiselects: {
                 traits: {
+                    conjunction: "and",
                     label: "PF2E.BrowserFilterTraits",
                     options: [],
                     selected: [],

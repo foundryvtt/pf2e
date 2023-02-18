@@ -1,7 +1,7 @@
 import { Progress } from "./progress";
 import { PhysicalItemPF2e } from "@item/physical";
 import { KitPF2e } from "@item/kit";
-import { ErrorPF2e, isObject, objectHasKey } from "@util";
+import { ErrorPF2e, htmlQueryAll, isObject, objectHasKey } from "@util";
 import { LocalizePF2e } from "@system/localize";
 import * as browserTabs from "./tabs";
 import { TabData, PackInfo, TabName, BrowserTab, SortDirection } from "./data";
@@ -364,13 +364,13 @@ class CompendiumBrowser extends Application {
             } else if (
                 currentTab.filterData.multiselects &&
                 objectHasKey(currentTab.filterData.multiselects, mappedFilterType) &&
-                Array.isArray(filterValue)
+                Array.isArray(filterValue.values)
             ) {
                 // Multiselects
                 // A convoluted cast is necessary here to not get an infered type of MultiSelectData<PhysicalItem> since MultiSelectData is not exported
                 const multiselects = (currentTab.filterData.multiselects as BaseFilterData["multiselects"])!;
                 const multiselect = multiselects[mappedFilterType];
-                for (const value of filterValue) {
+                for (const value of filterValue.values) {
                     const option = multiselect.options.find((opt) => opt.value === value);
                     if (option) {
                         multiselect.selected.push(option);
@@ -379,6 +379,9 @@ class CompendiumBrowser extends Application {
                             `Tab '${currentTab.tabName}' multiselect filter '${mappedFilterType}' has no option: '${value}'`
                         );
                     }
+                }
+                if (filterValue.conjunction === "and" || filterValue.conjunction === "or") {
+                    multiselect.conjunction = filterValue.conjunction;
                 }
             } else if (
                 currentTab.filterData.ranges &&
@@ -654,7 +657,7 @@ class CompendiumBrowser extends Application {
                     if (!multiselect) continue;
                     const data = multiselects[filterName];
 
-                    new Tagify(multiselect, {
+                    const tagify = new Tagify(multiselect, {
                         enforceWhitelist: true,
                         keepInvalidTags: false,
                         editTags: false,
@@ -667,10 +670,28 @@ class CompendiumBrowser extends Application {
                             searchKeys: ["label"],
                         },
                         whitelist: data.options,
+                        transformTag(tagData) {
+                            const selected = data.selected.find((s) => s.value === tagData.value);
+                            if (selected?.not) {
+                                (tagData as unknown as { class: string }).class = "conjunction-not";
+                            }
+                        },
                     });
 
-                    multiselect.addEventListener("change", () => {
-                        const selections: unknown = JSON.parse(multiselect.value || "[]");
+                    tagify.on("click", (event) => {
+                        const target = event.detail.event.target as HTMLElement;
+                        if (!target) return;
+
+                        const value = event.detail.data.value;
+                        const selected = data.selected.find((s) => s.value === value);
+                        if (selected) {
+                            const current = !!selected.not;
+                            selected.not = !current;
+                            this.render();
+                        }
+                    });
+                    tagify.on("change", (event) => {
+                        const selections: unknown = JSON.parse(event.detail.value || "[]");
                         const isValid =
                             Array.isArray(selections) &&
                             selections.every(
@@ -683,6 +704,19 @@ class CompendiumBrowser extends Application {
                             this.render();
                         }
                     });
+
+                    for (const element of htmlQueryAll<HTMLInputElement>(
+                        container,
+                        `input[name=${filterName}-filter-conjunction]`
+                    )) {
+                        element.addEventListener("change", () => {
+                            const value = element.value;
+                            if (value === "and" || value === "or") {
+                                data.conjunction = value;
+                                this.render();
+                            }
+                        });
+                    }
                 }
             }
 
