@@ -168,7 +168,7 @@ export class CompendiumPack {
         return new CompendiumPack(dbFilename, parsedData);
     }
 
-    private finalize(docSource: CompendiumSource) {
+    #finalize(docSource: CompendiumSource): string {
         // Replace all compendium documents linked by name to links by ID
         const stringified = JSON.stringify(docSource);
         const worldItemLink = CompendiumPack.LINK_PATTERNS.world.exec(stringified);
@@ -177,7 +177,7 @@ export class CompendiumPack {
         }
 
         docSource.flags ??= {};
-        docSource.flags.core = { sourceId: this.sourceIdOf(docSource._id) };
+        docSource.flags.core = { sourceId: this.#sourceIdOf(docSource._id) };
         if (isActorSource(docSource)) {
             this.assertSizeValid(docSource);
             docSource.system.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
@@ -216,7 +216,7 @@ export class CompendiumPack {
             if (documentId === undefined) {
                 throw PackError(`${docSource.name} (${this.packId}) has broken link to ${docName} (${packId}).`);
             }
-            const sourceId = this.sourceIdOf(documentId, { packId });
+            const sourceId = this.#sourceIdOf(documentId, { packId });
             const labelBrace = match.endsWith("{") ? "{" : "";
 
             return `@UUID[${sourceId}]${labelBrace}`;
@@ -227,7 +227,7 @@ export class CompendiumPack {
             .replace(CompendiumPack.LINK_PATTERNS.compendium, replace);
     }
 
-    private sourceIdOf(documentId: string, { packId = this.packId } = {}): string {
+    #sourceIdOf(documentId: string, { packId = this.packId } = {}): string {
         return `Compendium.${this.systemId}.${packId}.${documentId}`;
     }
 
@@ -286,10 +286,14 @@ export class CompendiumPack {
     }
 
     save(): number {
+        if (!fs.lstatSync(CompendiumPack.outDir, { throwIfNoEntry: false })?.isDirectory()) {
+            fs.mkdirSync(CompendiumPack.outDir);
+        }
+
         fs.writeFileSync(
             path.resolve(CompendiumPack.outDir, this.packDir),
             this.data
-                .map((datum) => this.finalize(datum))
+                .map((datum) => this.#finalize(datum))
                 .join("\n")
                 .concat("\n")
         );
