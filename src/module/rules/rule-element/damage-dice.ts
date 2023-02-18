@@ -91,8 +91,6 @@ class DamageDiceRuleElement extends RuleElementPF2e {
         const selector = this.resolveInjectedProperties(this.selector);
 
         const deferredDice = (params: DeferredValueParams = {}): DamageDicePF2e | null => {
-            if (!this.test(params.test ?? this.actor.getRollOptions(["damage"]))) return null;
-
             // In English (and in other languages when the same general form is used), labels patterned as
             // "Title: Subtitle (Parenthetical)" will be reduced to "Subtitle"
             // e.g., "Spell Effect: Ooze Form (Gelatinous Cube)" will become "Ooze Form"
@@ -144,7 +142,7 @@ class DamageDiceRuleElement extends RuleElementPF2e {
                 damageType,
                 predicate: this.predicate ?? {},
                 override: deepClone(this.override),
-                enabled: true,
+                enabled: this.test(params.test ?? this.actor.getRollOptions(["damage"])),
                 ...resolvedBrackets,
             });
         };
