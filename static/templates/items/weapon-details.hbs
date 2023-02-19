@@ -10,21 +10,14 @@
 </div>
 <div class="form-group">
     <label>{{localize "PF2E.WeaponGroupLabel"}}</label>
-    {{#if isComboWeapon}}
-        <select disabled="disabled">
-            <option value="firearm">{{localize "PF2E.WeaponGroupFirearm"}}</option>
-        </select>
-        <input type="hidden" name="system.group" value="firearm" />
-    {{else}}
-        <select name="system.group">
-            {{#select data.group}}
-                <option value=""></option>
-                {{#each groups as |label slug|}}
-                    <option value="{{slug}}">{{label}}</option>
-                {{/each}}
-            {{/select}}
-        </select>
-    {{/if}}
+    <select name="system.group">
+        {{#select data.group}}
+            <option value=""></option>
+            {{#each groups as |name type|}}
+                <option value="{{type}}">{{localize name}}</option>
+            {{/each}}
+        {{/select}}
+    </select>
 </div>
 <div class="form-group">
     <label>{{localize "PF2E.WeaponBaseLabel"}}</label>
