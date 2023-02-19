@@ -249,8 +249,6 @@ class WeaponPF2e extends PhysicalItemPF2e {
         if (mandatoryRanged) {
             this.system.range ??= 10;
 
-            if (traitSet.has("combination")) this.system.group = "firearm";
-
             // Categorize this weapon as a crossbow if it is among an enumerated set of base weapons
             const { otherTags } = systemData.traits;
             const isCrossbow = this.group === "bow" && setHasElement(CROSSBOW_WEAPONS, this.baseType);
