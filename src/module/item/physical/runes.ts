@@ -562,7 +562,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     greaterFanged: {
         level: 8,
-        name: "PF2E.WeaponPropertyRune.greaterExtending.Name",
+        name: "PF2E.WeaponPropertyRune.greaterFanged.Name",
         price: 425,
         rarity: "uncommon",
         slug: "greaterFanged",
