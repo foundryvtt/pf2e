@@ -125,6 +125,7 @@ export function registerSettings(): void {
     game.settings.register("pf2e", "totmToggles", {
         name: "PF2E.SETTINGS.TOTMToggles.Name",
         hint: "PF2E.SETTINGS.TOTMToggles.Hint",
+        scope: "world",
         config: true,
         default: false,
         type: Boolean,
