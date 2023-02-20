@@ -98,9 +98,9 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
 
                     // Prepare source
                     const source = featData.system.source.value;
+                    const sourceSlug = sluggify(source);
                     if (source) {
                         sources.add(source);
-                        featData.system.source.value = sluggify(source);
                     }
 
                     // Only store essential data
@@ -114,7 +114,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                         skills: [...skills],
                         traits: featData.system.traits.value,
                         rarity: featData.system.traits.rarity,
-                        source: featData.system.source.value,
+                        source: sourceSlug,
                     });
                 }
             }

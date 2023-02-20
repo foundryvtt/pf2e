@@ -192,6 +192,7 @@ declare global {
         get(module: "pf2e", setting: "homebrew.damageTypes"): CustomDamageData[];
 
         get(module: "pf2e", setting: "compendiumBrowserPacks"): CompendiumBrowserSettings;
+        get(module: "pf2e", setting: "compendiumBrowserSources"): CompendiumBrowserSources;
         get(module: "pf2e", setting: "critFumbleButtons"): boolean;
         get(module: "pf2e", setting: "critRule"): "doubledamage" | "doubledice";
         get(module: "pf2e", setting: "deathIcon"): ImageFilePath;

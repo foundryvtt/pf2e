@@ -68,6 +68,23 @@ export function registerSettings(): void {
         },
     });
 
+    game.settings.register("pf2e", "compendiumBrowserSources", {
+        name: "PF2E.SETTINGS.compendiumBrowserSources.Name",
+        hint: "PF2E.SETTINGS.compendiumBrowserSources.Hint",
+        default: {
+            ignoreAsGM: true,
+            showEmptySources: true,
+            showUnknownSources: true,
+            sources: {},
+        },
+        type: Object,
+        scope: "world",
+        onChange: () => {
+            game.pf2e.compendiumBrowser.packLoader.reset();
+            game.pf2e.compendiumBrowser.initCompendiumList();
+        },
+    });
+
     game.settings.register("pf2e", "enabledRulesUI", {
         name: "PF2E.SETTINGS.EnabledRulesUI.Name",
         hint: "PF2E.SETTINGS.EnabledRulesUI.Hint",
