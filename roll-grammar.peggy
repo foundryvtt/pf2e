@@ -1,5 +1,6 @@
 {{
-  function createNumericTerm(number, { flavor = null } = {}) {
+  function createNumericTerm(number, { flavor = null, truncate = false } = {}) {
+    number = truncate ? Math.trunc(number) : number;
     const formula = flavor ? `${number}[${flavor}]` : number.toString();
     const obj = {
       class: "NumericTerm",
@@ -19,7 +20,7 @@ Expression = head:(Pool / Term) tail:(_ ("+" / "-") _ (Pool / Term))* {
     const operands = [
       result,
       elements.find((e) => typeof e === "number" || e instanceof Object && e.class)
-    ].map((e) => typeof e === "number" ? createNumericTerm(e) : e);
+    ].map((e) => typeof e === "number" ? createNumericTerm(e, { truncate: true }) : e);
     return {
       class: "ArithmeticExpression",
       formula: text(),
@@ -149,7 +150,7 @@ Flavor = "[" string:$(FlavorString) "]" {
 };
 
 Number = _ [-+]? [0-9]+ ("." [0-9]+)? {
-  const numified = Math.trunc(Number(text()));
+  const numified = Number(text());
   return input === text() ? createNumericTerm(numified) : numified;
 };
 
