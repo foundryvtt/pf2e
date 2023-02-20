@@ -38,7 +38,7 @@ interface SimpleRollActionCheckOptions<ItemType extends Embedded<ItemPF2e>> {
     checkType: CheckType;
     event: JQuery.TriggeredEvent;
     difficultyClass?: CheckDC;
-    difficultyClassStatistic?: (creature: CreaturePF2e) => Statistic;
+    difficultyClassStatistic?: (creature: CreaturePF2e) => Statistic | null;
     extraNotes?: (selector: string) => RollNotePF2e[];
     callback?: (result: CheckResultCallback) => void;
     createMessage?: boolean;

@@ -152,6 +152,29 @@
         "ActionTypeReaction": "Reaction",
         "ActionWeaponLabel": "Associated Weapon",
         "Actions": {
+            "AdministerFirstAid": {
+                "Stabilize": {
+                    "DifficultyClass": {
+                        "Label": "Administer First Aid DC"
+                    },
+                    "Notes": {
+                        "criticalFailure": "<strong>Critical Failure</strong> The creature's dying value increases by 1.",
+                        "success": "<strong>Success</strong> The creature loses the dying condition (but remains unconscious)."
+                    },
+                    "Title": "Administer First Aid - Stabilize"
+                },
+                "StopBleeding": {
+                    "Notes": {
+                        "criticalFailure": "<strong>Critical Failure</strong> The creature immediately takes an amount of damage equal to its persistent bleed damage.",
+                        "success": "<strong>Success</strong> The creature attempts a flat check to end the bleeding."
+                    },
+                    "Title": "Administer First Aid - Stop Bleeding"
+                },
+                "Warning": {
+                    "TargetNotDying": "Targeted creature is not dying.",
+                    "UnknownVariant": "Unknown variant '{variant}' used for Administer First Aid, use either stabilize or stopBleeding."
+                }
+            },
             "ArcaneSlam": {
                 "Modifier": {
                     "SizeDifference": "Size Difference"

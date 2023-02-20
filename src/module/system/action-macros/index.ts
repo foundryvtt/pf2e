@@ -32,6 +32,7 @@ import { decipherWriting } from "./general/decipher-writing";
 import { subsist } from "./general/subsist";
 import { coerce } from "./intimidation/coerce";
 import { demoralize } from "./intimidation/demoralize";
+import { administerFirstAid } from "./medicine/administer-first-aid";
 import { treatDisease } from "./medicine/treat-disease";
 import { treatPoison } from "./medicine/treat-poison";
 import { commandAnAnimal } from "./nature/command-an-animal";
@@ -106,6 +107,7 @@ export const ActionMacros = {
     demoralize,
 
     // Medicine
+    administerFirstAid,
     treatDisease,
     treatPoison,
 
