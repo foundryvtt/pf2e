@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import { isObject, setHasElement, sluggify, tupleHasValue } from "@util";
-import { ItemSourcePF2e } from "@item/data";
+import { ItemSourcePF2e, MeleeSource } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
 import { ActorSourcePF2e } from "@actor/data";
@@ -73,7 +73,7 @@ export class CompendiumPack {
         this.packId = metadata.name;
         this.documentType = metadata.type;
 
-        if (!this.isPackData(parsedData)) {
+        if (!this.#isPackData(parsedData)) {
             throw PackError(`Data supplied for ${this.packId} does not resemble Foundry document source data.`);
         }
 
@@ -125,8 +125,24 @@ export class CompendiumPack {
                     }
                 }
             }
-            if ("type" in docSource && docSource.type === "script") {
-                docSource.ownership ??= { default: 1 };
+
+            if ("type" in docSource) {
+                if (docSource.type === "script") {
+                    // Default macro ownership to 1
+                    docSource.ownership ??= { default: 1 };
+                } else if ("items" in docSource && ["npc", "hazard"].includes(docSource.type)) {
+                    // Ensure all linked-weapon IDs point to a weapon
+                    const attackItems = docSource.items.filter((i): i is MeleeSource => i.type === "melee");
+                    for (const item of attackItems) {
+                        const { linkedWeapon } = item.flags?.pf2e ?? {};
+                        const weaponFound = linkedWeapon
+                            ? docSource.items.some((i) => i._id === linkedWeapon && i.type === "weapon")
+                            : false;
+                        if (linkedWeapon && !weaponFound) {
+                            throw PackError(`Dangling linked weapon reference on ${docSource.name} in ${this.packId}`);
+                        }
+                    }
+                }
             }
         }
     }
@@ -179,7 +195,7 @@ export class CompendiumPack {
         docSource.flags ??= {};
         docSource.flags.core = { sourceId: this.#sourceIdOf(docSource._id) };
         if (isActorSource(docSource)) {
-            this.assertSizeValid(docSource);
+            this.#assertSizeValid(docSource);
             docSource.system.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
             for (const item of docSource.items) {
                 item.system.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
@@ -302,16 +318,10 @@ export class CompendiumPack {
         return this.data.length;
     }
 
-    private isDocumentSource(maybeDocSource: unknown): maybeDocSource is CompendiumSource {
+    #isDocumentSource(maybeDocSource: unknown): maybeDocSource is CompendiumSource {
         if (!isObject(maybeDocSource)) return false;
         const checks = Object.entries({
             name: (data: { name?: unknown }) => typeof data.name === "string",
-            permission: (data: { permission?: { default: unknown } }) =>
-                !data.permission ||
-                (typeof data.permission === "object" &&
-                    data.permission !== null &&
-                    Object.keys(data.permission).length === 1 &&
-                    Number.isInteger(data.permission.default)),
         });
 
         const failedChecks = checks
@@ -327,11 +337,11 @@ export class CompendiumPack {
         return true;
     }
 
-    private isPackData(packData: unknown[]): packData is CompendiumSource[] {
-        return packData.every((maybeDocSource: unknown) => this.isDocumentSource(maybeDocSource));
+    #isPackData(packData: unknown[]): packData is CompendiumSource[] {
+        return packData.every((maybeDocSource: unknown) => this.#isDocumentSource(maybeDocSource));
     }
 
-    private assertSizeValid(source: ActorSourcePF2e | ItemSourcePF2e): void {
+    #assertSizeValid(source: ActorSourcePF2e | ItemSourcePF2e): void {
         if (source.type === "npc" || source.type === "vehicle") {
             if (!tupleHasValue(SIZES, source.system.traits.size.value)) {
                 throw PackError(`Actor size on ${source.name} (${source._id}) is invalid.`);
