@@ -276,10 +276,6 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
         this.prepareMaterialAndRunes();
         this.prepareLevelAndRarity();
-    }
-
-    override prepareDerivedData(): void {
-        super.prepareDerivedData();
 
         // Set the name according to the precious material and runes
         this.name = this.generateMagicName();
@@ -428,7 +424,9 @@ class WeaponPF2e extends PhysicalItemPF2e {
         const baseWeapons = translations.Weapon.Base;
 
         const storedName = this._source.name;
-        if (this.isSpecific || !this.baseType || storedName !== baseWeapons[this.baseType]) return this.name;
+        if (this.isSpecific || !this.baseType || storedName !== baseWeapons[this.baseType]) {
+            return this.name;
+        }
 
         const { material } = this;
         const { runes } = this.system;
