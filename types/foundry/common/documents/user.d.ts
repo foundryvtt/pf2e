@@ -9,7 +9,7 @@ declare module foundry {
          * @property data The constructed data object for the document.
          */
         class BaseUser extends abstract.Document {
-            constructor(data: PreCreate<data.UserSource>, context?: DocumentConstructionContext);
+            constructor(data: PreCreate<data.UserSource>, context?: DocumentConstructionContext<null>);
 
             flags: Record<string, Record<string, unknown>>;
 

@@ -82,8 +82,15 @@ declare global {
         static on(...args: HookParamsRender<SceneControls, "SceneControls">): number;
         static on(...args: HookParamsRender<Settings, "Settings">): number;
         static on(...args: HookParamsRender<TokenHUD, "TokenHUD">): number;
-        static on(...args: HookParamsRender<JournalPageSheet, "JournalPageSheet">): number;
-        static on(...args: HookParamsRender<JournalTextPageSheet, "JournalTextPageSheet">): number;
+        static on(
+            ...args: HookParamsRender<JournalPageSheet<JournalEntryPage<JournalEntry | null>>, "JournalPageSheet">
+        ): number;
+        static on(
+            ...args: HookParamsRender<
+                JournalTextPageSheet<JournalEntryPage<JournalEntry | null>>,
+                "JournalTextPageSheet"
+            >
+        ): number;
         static on(...args: HookParamsTargetToken): number;
         static on(...args: HookParamsUpdate<Combat, "Combat">): number;
         static on(...args: HookParamsUpdate<Scene, "Scene">): number;
@@ -118,8 +125,15 @@ declare global {
         static once(...args: HookParamsRender<CompendiumDirectory, "CompendiumDirectory">): number;
         static once(...args: HookParamsRender<Dialog, "Dialog">): number;
         static once(...args: HookParamsRender<ItemDirectory<Item>, "ItemDirectory">): number;
-        static once(...args: HookParamsRender<JournalPageSheet, "JournalPageSheet">): number;
-        static once(...args: HookParamsRender<JournalTextPageSheet, "JournalTextPageSheet">): number;
+        static once(
+            ...args: HookParamsRender<JournalPageSheet<JournalEntryPage<JournalEntry | null>>, "JournalPageSheet">
+        ): number;
+        static once(
+            ...args: HookParamsRender<
+                JournalTextPageSheet<JournalEntryPage<JournalEntry | null>>,
+                "JournalTextPageSheet"
+            >
+        ): number;
         static once(...args: HookParamsRender<SceneControls, "SceneControls">): number;
         static once(...args: HookParamsRender<Settings, "Settings">): number;
         static once(...args: HookParamsRender<TokenHUD, "TokenHUD">): number;

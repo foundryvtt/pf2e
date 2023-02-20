@@ -90,7 +90,7 @@ class UserVisibilityPF2e {
 type UserVisibility = "all" | "owner" | "gm" | "none";
 
 interface ProcessOptions {
-    document?: ClientDocument | null;
+    document?: ClientDocument | ClientDocument2 | null;
     message?: ChatMessagePF2e;
 }
 

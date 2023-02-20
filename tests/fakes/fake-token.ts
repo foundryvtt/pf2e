@@ -7,7 +7,10 @@ export class FakeToken {
     parent: ScenePF2e | null;
     data: foundry.data.TokenData<TokenDocumentPF2e>;
 
-    constructor(data: foundry.data.TokenSource, context: TokenDocumentConstructionContext<TokenDocumentPF2e> = {}) {
+    constructor(
+        data: foundry.data.TokenSource,
+        context: TokenDocumentConstructionContext<ScenePF2e | null, ActorPF2e | null> = {}
+    ) {
         this.data = duplicate(data) as foundry.data.TokenData<TokenDocumentPF2e>;
         this.parent = context.parent ?? null;
         this._actor = context.actor ?? null;

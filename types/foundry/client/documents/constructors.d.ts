@@ -28,10 +28,6 @@ export const FolderConstructor: ClientDocumentMixin<typeof foundry.documents.Bas
 
 export const ItemConstructor: ClientDocumentMixin<typeof foundry.documents.BaseItem>;
 
-export const JournalEntryConstructor: ClientDocumentMixin<typeof foundry.documents.BaseJournalEntry>;
-
-export const JournalEntryPageConstructor: ClientDocumentMixin<typeof foundry.documents.BaseJournalEntryPage>;
-
 export const MacroConstructor: ClientDocumentMixin<typeof foundry.documents.BaseMacro>;
 
 export const MeasuredTemplateDocumentConstructor: CanvasDocumentMixin<

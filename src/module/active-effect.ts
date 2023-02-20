@@ -2,7 +2,7 @@
 export class ActiveEffectPF2e extends ActiveEffect {
     constructor(
         data: DeepPartial<foundry.data.ActiveEffectSource>,
-        context?: DocumentConstructionContext<ActiveEffectPF2e>
+        context?: DocumentConstructionContext<ActiveEffectPF2e["parent"]>
     ) {
         data.disabled = true;
         data.transfer = false;

@@ -56,7 +56,7 @@ interface MigrationBase {
      * Update the macro to the latest schema version.
      * @param source Macro data to update. This should be a `MacroData` from the previous version.
      */
-    updateJournalEntry?(source: foundry.data.JournalEntrySource): Promise<void>;
+    updateJournalEntry?(source: foundry.documents.JournalEntrySource): Promise<void>;
 
     /**
      * Update the macro to the latest schema version.

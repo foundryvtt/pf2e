@@ -12,7 +12,7 @@ import { MeasuredTemplatePF2e } from "@module/canvas";
 const inlineSelector = ["action", "check", "effect-area", "repost"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
 
 export const InlineRollLinks = {
-    injectRepostElement: (links: HTMLElement[], foundryDoc?: ClientDocument): void => {
+    injectRepostElement: (links: HTMLElement[], foundryDoc?: ClientDocument | ClientDocument2): void => {
         for (const link of links) {
             if (!foundryDoc || foundryDoc.isOwner) link.classList.add("with-repost");
 
@@ -37,7 +37,7 @@ export const InlineRollLinks = {
         }
     },
 
-    listen: ($html: HTMLElement | JQuery, foundryDoc?: ClientDocument): void => {
+    listen: ($html: HTMLElement | JQuery, foundryDoc?: ClientDocument | ClientDocument2): void => {
         const html = $html instanceof HTMLElement ? $html : $html[0]!;
         if ($html instanceof HTMLElement) $html = $($html);
 
@@ -47,7 +47,9 @@ export const InlineRollLinks = {
 
         InlineRollLinks.flavorDamageRolls(html, foundryDoc instanceof ActorPF2e ? foundryDoc : null);
 
-        const documentFromDOM = (html: HTMLElement): ActorPF2e | JournalEntry | JournalEntryPage | null => {
+        const documentFromDOM = (
+            html: HTMLElement
+        ): ActorPF2e | JournalEntry | JournalEntryPage<JournalEntry> | null => {
             if (foundryDoc instanceof ChatMessagePF2e) return foundryDoc.actor ?? foundryDoc.journalEntry ?? null;
             if (
                 foundryDoc instanceof ActorPF2e ||
@@ -249,7 +251,10 @@ export const InlineRollLinks = {
         });
     },
 
-    repostAction: (target: HTMLElement, document: ActorPF2e | JournalEntry | JournalEntryPage | null = null): void => {
+    repostAction: (
+        target: HTMLElement,
+        document: ActorPF2e | JournalEntry | JournalEntryPage<JournalEntry> | null = null
+    ): void => {
         if (!["pf2Action", "pf2Check", "pf2EffectArea"].some((d) => d in target.dataset)) {
             return;
         }

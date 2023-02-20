@@ -78,7 +78,7 @@ export class Migration805InlineDamageRolls extends MigrationBase {
         source.system = recursiveReplaceString(source.system, (s) => this.#updateDamageFormula(s));
     }
 
-    override async updateJournalEntry(source: foundry.data.JournalEntrySource): Promise<void> {
+    override async updateJournalEntry(source: foundry.documents.JournalEntrySource): Promise<void> {
         source.pages = recursiveReplaceString(source.pages, (s) => this.#updateDamageFormula(s));
     }
 }

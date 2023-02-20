@@ -15,8 +15,6 @@ import "./effect-duration-data";
 import "./fog-exploration-data";
 import "./folder-data";
 import "./item-data";
-import "./journal-entry-data";
-import "./journal-entry-page-data";
 import "./light-data";
 import "./macro-data";
 import "./measured-template-data";

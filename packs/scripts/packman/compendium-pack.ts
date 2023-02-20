@@ -28,7 +28,7 @@ export interface REMaybeWithUUIDs extends RuleElementSource {
     uuid?: unknown;
 }
 
-type CompendiumSource = CompendiumDocument["data"]["_source"];
+type CompendiumSource = CompendiumDocument["_source"];
 export function isActorSource(docSource: CompendiumSource): docSource is ActorSourcePF2e {
     return (
         "system" in docSource && isObject(docSource.system) && "items" in docSource && Array.isArray(docSource.items)

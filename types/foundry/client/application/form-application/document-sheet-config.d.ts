@@ -1,7 +1,8 @@
 export {};
 
 declare global {
-    interface DocumentSheetConfigData<TDocument extends ClientDocument> extends FormApplicationData<TDocument> {
+    interface DocumentSheetConfigData<TDocument extends ClientDocument | ClientDocument2>
+        extends FormApplicationData<TDocument> {
         isGM: boolean;
         object: TDocument;
         options: FormApplicationOptions;
@@ -18,7 +19,7 @@ declare global {
     }
 
     /** Document Sheet Configuration Application */
-    class DocumentSheetConfig<TDocument extends ClientDocument = ClientDocument> extends FormApplication<TDocument> {
+    class DocumentSheetConfig<TDocument extends ClientDocument | ClientDocument2> extends FormApplication<TDocument> {
         static override get defaultOptions(): FormApplicationOptions;
 
         /** An array of pending sheet assignments which are submitted before other elements of the framework are ready. */
@@ -56,10 +57,10 @@ declare global {
          * @param [options.types]       An array of document types for which this sheet should be used
          * @param [options.makeDefault] Whether to make this sheet the default for provided types
          */
-        static registerSheet<T extends ClientDocument>(
-            documentClass: ConstructorOf<T>,
+        static registerSheet<TDocument extends ClientDocument | ClientDocument2>(
+            documentClass: ConstructorOf<TDocument>,
             scope: string,
-            sheetClass: ConstructorOf<T["sheet"]>,
+            sheetClass: ConstructorOf<TDocument["sheet"]>,
             options?: RegisterSheetOptions
         ): void;
 
@@ -73,10 +74,10 @@ declare global {
          * @param sheetClass  A defined Application class used to render the sheet
          * @param types             An Array of types for which this sheet should be removed
          */
-        static unregisterSheet<T extends ClientDocument>(
-            documentClass: ConstructorOf<T>,
+        static unregisterSheet<TDocument extends ClientDocument | ClientDocument2>(
+            documentClass: ConstructorOf<TDocument>,
             scope: string,
-            sheetClass: ConstructorOf<T["sheet"]>,
+            sheetClass: ConstructorOf<TDocument["sheet"]>,
             options?: { types: string[] }
         ): void;
 

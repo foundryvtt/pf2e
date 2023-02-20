@@ -29,31 +29,16 @@ import {
 } from "@item";
 import { AfflictionSheetPF2e } from "@item/affliction";
 import { JournalSheetPF2e, JournalTextTinyMCESheetPF2e } from "@module/journal-entry/sheet";
-import { UserPF2e } from "@module/user";
 import { UserConfigPF2e } from "@module/user/sheet";
 import { TokenConfigPF2e, TokenDocumentPF2e } from "@scene";
 import { SceneConfigPF2e } from "@scene/sheet";
 import { LocalizePF2e } from "@system/localize";
 
-export function registerSheets() {
+export function registerSheets(): void {
     const translations = LocalizePF2e.translations.PF2E;
     const sheetLabel = translations.SheetLabel;
 
-    DocumentSheetConfig.unregisterSheet(JournalEntry, "core", JournalSheet);
-    DocumentSheetConfig.registerSheet(JournalEntry, "pf2e", JournalSheetPF2e, {
-        label: () =>
-            game.i18n.format("SHEETS.DefaultDocumentSheet", { document: game.i18n.localize("DOCUMENT.JournalEntry") }),
-        makeDefault: true,
-    });
-
-    // Replace the TinyMCE sheet with the version that'll let us inject themes
-    DocumentSheetConfig.unregisterSheet(JournalEntryPage, "core", JournalTextTinyMCESheet);
-    DocumentSheetConfig.registerSheet(JournalEntryPage, "pf2e", JournalTextTinyMCESheetPF2e, {
-        types: ["text"],
-        label: game.i18n.localize("EDITOR.TinyMCE"),
-    });
-
-    DocumentSheetConfig.registerSheet(Scene, "pf2e", SceneConfigPF2e, { makeDefault: true });
+    Scenes.registerSheet("pf2e", SceneConfigPF2e, { makeDefault: true });
     DocumentSheetConfig.registerSheet(TokenDocumentPF2e, "pf2e", TokenConfigPF2e, { makeDefault: true });
 
     // ACTORS
@@ -156,10 +141,25 @@ export function registerSheets() {
         });
     }
 
-    // User
+    // JOURNAL
 
-    DocumentSheetConfig.unregisterSheet(User, "core", UserConfig);
-    DocumentSheetConfig.registerSheet(UserPF2e, "pf2e", UserConfigPF2e, {
+    Journal.unregisterSheet("core", JournalSheet);
+    Journal.registerSheet("pf2e", JournalSheetPF2e, {
+        label: () =>
+            game.i18n.format("SHEETS.DefaultDocumentSheet", { document: game.i18n.localize("DOCUMENT.JournalEntry") }),
+        makeDefault: true,
+    });
+
+    // Replace the TinyMCE sheet with the version that'll let us inject themes
+    DocumentSheetConfig.unregisterSheet(JournalEntryPage, "core", JournalTextTinyMCESheet);
+    DocumentSheetConfig.registerSheet(JournalEntryPage, "pf2e", JournalTextTinyMCESheetPF2e, {
+        types: ["text"],
+        label: game.i18n.localize("EDITOR.TinyMCE"),
+    });
+
+    // User
+    Users.unregisterSheet("core", UserConfig);
+    Users.registerSheet("pf2e", UserConfigPF2e, {
         makeDefault: true,
         label: () => game.i18n.format("SHEETS.DefaultDocumentSheet", { document: game.i18n.localize("DOCUMENT.User") }),
     });
