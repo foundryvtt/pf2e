@@ -28,7 +28,7 @@ export class Migration825Khakkhara extends MigrationBase {
 
             source.system.description.value = source.system.description.value.replace(oldLink, newLink);
 
-            source.system.rules.forEach((rule) => {
+            for (const rule of source.system.rules) {
                 if (
                     rule.key === "ActiveEffectLike" &&
                     "path" in rule &&
@@ -36,7 +36,7 @@ export class Migration825Khakkhara extends MigrationBase {
                 ) {
                     rule.path = "system.martial.weapon-base-khakkhara.rank";
                 }
-            });
+            }
         }
     }
 }
