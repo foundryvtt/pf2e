@@ -75,6 +75,9 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         // Spellcasting abilities are always at least trained
         this.system.proficiency.value = Math.max(1, this.system.proficiency.value) as OneToFour;
 
+        this.system.prepared.flexible ??= false;
+        this.system.prepared.validItems ||= null;
+
         // Assign a default "invalid" statistic in case something goes wrong
         if (this.actor) {
             this.statistic = new Statistic(this.actor, {
@@ -114,7 +117,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     }
 
     /** All spells associated with this spellcasting entry on the actor that should also be deleted */
-    override getLinkedItems() {
+    override getLinkedItems(): Embedded<SpellPF2e>[] {
         return this.actor?.itemTypes.spell.filter((i) => i.system.location.value === this.id) ?? [];
     }
 
