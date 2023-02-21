@@ -14,7 +14,8 @@ export class Migration825Khakkhara extends MigrationBase {
             const oldId = "khakkara";
             const newId = "khakkhara";
 
-            if ((source.system.baseItem as string) === oldId) {
+            const baseItem: string | null = source.system.baseItem;
+            if (baseItem === oldId) {
                 source.system.baseItem = newId;
             }
 
