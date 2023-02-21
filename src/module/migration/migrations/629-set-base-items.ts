@@ -115,7 +115,7 @@ export class Migration629SetBaseItems extends MigrationBase {
         "kama",
         "katana",
         "katar",
-        "khakkara",
+        "khakkhara",
         "khopesh",
         "kukri",
         "lance",
