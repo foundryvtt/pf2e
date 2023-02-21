@@ -26,18 +26,17 @@ import {
 class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
     protected readonly actorConfigClass = NPCConfig;
 
-    static override get defaultOptions() {
+    static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
 
-        // Mix default options with new ones
-        mergeObject(options, {
+        return {
+            ...options,
             classes: [...options.classes, "pf2e", "npc"],
             width: 650,
             height: 680,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "main" }],
             scrollY: [".tab.main", ".tab.inventory", ".tab.spells", ".tab.effects", ".tab.notes"],
-        });
-        return options;
+        };
     }
 
     /** Show either the actual NPC sheet or a briefened lootable version if the NPC is dead */
@@ -55,7 +54,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
         if (this.isLootSheet || this.actor.limited) {
             const actorName = this.token?.name ?? this.actor.name;
             if (this.actor.isDead) {
-                return `${actorName} [${game.i18n.localize("PF2E.NPC.Dead")}]`; // `;
+                return `${actorName} [${game.i18n.localize("PF2E.NPC.Dead")}]`;
             } else {
                 return actorName;
             }
@@ -72,12 +71,12 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
      * @param sheetData Data from the actor associated to this sheet.
      */
     override async prepareItems(sheetData: NPCSheetData<TActor>): Promise<void> {
-        this.prepareAbilities(sheetData.data.abilities);
-        this.prepareSize(sheetData.data);
-        this.prepareAlignment(sheetData.data);
-        this.prepareSkills(sheetData.data);
-        this.prepareSaves(sheetData.data);
-        await this.prepareActions(sheetData);
+        this.#prepareAbilities(sheetData.data.abilities);
+        this.#prepareSize(sheetData.data);
+        this.#prepareAlignment(sheetData.data);
+        this.#prepareSkills(sheetData.data);
+        this.#prepareSaves(sheetData.data);
+        await this.#prepareActions(sheetData);
         sheetData.effectItems = sheetData.items.filter(
             (data): data is NPCSheetItemData<EffectData> => data.type === "effect"
         );
@@ -196,7 +195,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
 
         // Subscribe to roll events
         const rollables = ["a.rollable", ".rollable a", ".item-icon.rollable"].join(", ");
-        $html.find(rollables).on("click", (event) => this.onClickRollable(event));
+        $html.find(rollables).on("click", (event) => this.#onClickRollable(event));
 
         // Don't subscribe to edit buttons it the sheet is NOT editable
         if (!this.options.editable) return;
@@ -219,7 +218,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
         $html
             .find(".spellcasting-entry")
             .find<HTMLInputElement | HTMLSelectElement>(".attack-input, .dc-input, .ability-score select")
-            .on("change", (event) => this.onChangeSpellcastingEntry(event));
+            .on("change", (event) => this.#onChangeSpellcastingEntry(event));
 
         $html.find(".effects-list > .effect > .item-image").on("contextmenu", (event) => this.onClickDeleteItem(event));
 
@@ -258,7 +257,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
         });
     }
 
-    private prepareAbilities(abilities: Abilities): void {
+    #prepareAbilities(abilities: Abilities): void {
         for (const key of ABILITY_ABBREVIATIONS) {
             interface SheetAbilityData extends AbilityData {
                 localizedCode?: string;
@@ -266,7 +265,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
             }
             const data: SheetAbilityData = abilities[key];
             const localizedCode = game.i18n.localize(`PF2E.AbilityId.${key}`);
-            const nameKey = this.getAbilityNameKey(key);
+            const nameKey = CONFIG.PF2E.abilities[key];
             const localizedName = game.i18n.localize(nameKey);
 
             data.localizedCode = localizedCode;
@@ -274,22 +273,22 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
         }
     }
 
-    private prepareSize(sheetSystemData: NPCSystemSheetData): void {
+    #prepareSize(sheetSystemData: NPCSystemSheetData): void {
         const size = sheetSystemData.traits.size.value;
-        const localizationKey = this.getSizeLocalizedKey(size);
+        const localizationKey = this.#getSizeLocalizedKey(size);
         const localizedName = game.i18n.localize(localizationKey);
 
         sheetSystemData.traits.size.localizedName = localizedName;
     }
 
-    private prepareAlignment(sheetSystemData: NPCSystemSheetData): void {
+    #prepareAlignment(sheetSystemData: NPCSystemSheetData): void {
         const alignmentCode = sheetSystemData.details.alignment.value;
         const localizedName = game.i18n.localize(`PF2E.Alignment${alignmentCode}`);
 
         sheetSystemData.details.alignment.localizedName = localizedName;
     }
 
-    private prepareSkills(sheetSystemData: NPCSystemSheetData): void {
+    #prepareSkills(sheetSystemData: NPCSystemSheetData): void {
         // Prepare a list of skill IDs sorted by their localized name
         // This will help in displaying the skills in alphabetical order in the sheet
         const sortedSkillsIds = Object.keys(sheetSystemData.skills);
@@ -323,7 +322,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
         sheetSystemData.sortedSkills = sortedSkills;
     }
 
-    private prepareSaves(systemData: NPCSystemSheetData): void {
+    #prepareSaves(systemData: NPCSystemSheetData): void {
         for (const saveType of SAVE_TYPES) {
             const save = systemData.saves[saveType];
             save.labelShort = game.i18n.localize(`PF2E.Saves${saveType.titleCase()}Short`);
@@ -354,7 +353,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
      * Prepares the actions list to be accessible from the sheet.
      * @param sheetData Data of the actor to be shown in the sheet.
      */
-    private async prepareActions(sheetData: NPCSheetData<TActor>): Promise<void> {
+    async #prepareActions(sheetData: NPCSheetData<TActor>): Promise<void> {
         // Enrich strike descriptions
         const strikesWithDescriptions: NPCStrike[] = sheetData.data.actions.filter((s) => s.description.length > 0);
         const actorRollData = this.actor.getRollData();
@@ -399,23 +398,19 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
         sheetData.actions = actions;
     }
 
-    private getSizeLocalizedKey(size: string): string {
+    #getSizeLocalizedKey(size: string): string {
         const actorSizes = CONFIG.PF2E.actorSizes;
         return objectHasKey(actorSizes, size) ? actorSizes[size] : "";
     }
 
-    private getAbilityNameKey(abilityCode: AbilityString): string {
-        return CONFIG.PF2E.abilities[abilityCode];
-    }
-
     // ROLLS
 
-    private async rollPerception(event: JQuery.ClickEvent): Promise<void> {
+    async #rollPerception(event: JQuery.ClickEvent): Promise<void> {
         const options = this.actor.getRollOptions(["all", "perception-check"]);
         await this.actor.attributes.perception.roll({ event, options });
     }
 
-    private async rollAbility(event: JQuery.ClickEvent, abilityId: AbilityString): Promise<void> {
+    async #rollAbility(event: JQuery.ClickEvent, abilityId: AbilityString): Promise<void> {
         const bonus = this.actor.system.abilities[abilityId].mod;
         const parts = ["@bonus"];
         const title = game.i18n.localize(`PF2E.AbilityCheck.${abilityId}`);
@@ -431,7 +426,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
         });
     }
 
-    private async onClickRollable(event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement>): Promise<void> {
+    async #onClickRollable(event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement>): Promise<void> {
         event.preventDefault();
         const label = event.currentTarget.closest<HTMLElement>(".rollable");
         const { attribute, save, skill } = label?.parentElement?.dataset ?? {};
@@ -439,9 +434,9 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
 
         if (attribute) {
             if (attribute === "perception") {
-                await this.rollPerception(event);
+                await this.#rollPerception(event);
             } else if (setHasElement(ABILITY_ABBREVIATIONS, attribute)) {
-                this.rollAbility(event, attribute);
+                this.#rollAbility(event, attribute);
             }
         } else if (skill) {
             const extraRollOptions = event.currentTarget.dataset.options
@@ -456,9 +451,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
         }
     }
 
-    private async onChangeSpellcastingEntry(
-        event: JQuery.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-    ): Promise<void> {
+    async #onChangeSpellcastingEntry(event: JQuery.ChangeEvent<HTMLInputElement | HTMLSelectElement>): Promise<void> {
         event.preventDefault();
 
         const $input: JQuery<HTMLInputElement | HTMLSelectElement> = $(event.currentTarget);
