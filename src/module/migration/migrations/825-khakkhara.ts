@@ -7,7 +7,7 @@ export class Migration825Khakkhara extends MigrationBase {
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (source.img.endsWith("icons/equipment/weapons/khakkara.webp")) {
-            source.img = source.img.replace("khakkara.webp", "khakkhara.webp");
+            source.img = source.img.replace("khakkara.webp", "khakkhara.webp") as ImageFilePath;
         }
 
         if (source.type === "weapon") {
