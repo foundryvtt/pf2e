@@ -1,3 +1,4 @@
+import { BaseWeaponType } from "@item/weapon/types";
 import { ItemSourcePF2e } from "@item/data";
 import { MigrationBase } from "../base";
 
@@ -11,17 +12,21 @@ export class Migration825Khakkhara extends MigrationBase {
         }
 
         if (source.type === "weapon") {
-            const oldId = "khakkara";
-            const newId = "khakkhara";
+            
+            const fixBaseItemAndSlug = ((oldId: string, newId: BaseWeaponType) => {
+                const baseItem: string | null = source.system.baseItem;
+                if (baseItem === oldId) {
+                    source.system.baseItem = newId;
+                }
+    
+                if (source.system.slug === oldId) {
+                    source.system.slug = newId;
+                }
+            });
 
-            const baseItem: string | null = source.system.baseItem;
-            if (baseItem === oldId) {
-                source.system.baseItem = newId;
-            }
+            fixBaseItemAndSlug("khakkara", "khakkhara");
+            fixBaseItemAndSlug("wind-and-fire-wheel", "feng-huo-lun");
 
-            if (source.system.slug === oldId) {
-                source.system.slug = newId;
-            }
         } else if (source.type === "feat") {
             const oldLink = "@UUID[Compendium.pf2e.equipment-srd.Khakkara]";
             const newLink = "@UUID[Compendium.pf2e.equipment-srd.Khakkhara]";
