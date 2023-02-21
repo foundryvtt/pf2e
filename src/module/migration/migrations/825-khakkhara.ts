@@ -6,8 +6,8 @@ export class Migration825Khakkhara extends MigrationBase {
     static override version = 0.825;
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        if (source.img === "systems/pf2e/icons/equipment/weapons/khakkara.webp") {
-            source.img = "systems/pf2e/icons/equipment/weapons/khakkhara.webp";
+        if (source.img.endsWith("icons/equipment/weapons/khakkara.webp")) {
+            source.img = source.img.replace("khakkara.webp", "khakkhara.webp");
         }
 
         if (source.type === "weapon") {
