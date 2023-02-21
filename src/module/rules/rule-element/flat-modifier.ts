@@ -69,7 +69,7 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
             force: new fields.BooleanField(),
             hideIfDisabled: new fields.BooleanField(),
             fromEquipment: new fields.BooleanField({ initial: true }),
-            damageType: new fields.StringField({ required: false, blank: false, initial: undefined }),
+            damageType: new fields.StringField({ required: false, nullable: true, blank: false, initial: undefined }),
             damageCategory: new fields.StringField({
                 required: false,
                 blank: false,
@@ -108,7 +108,8 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
                     return null;
                 }
 
-                const damageType = this.damageType ? this.resolveInjectedProperties(this.damageType) : null;
+                // Allow a `damageType` resolved to an empty string be treated as `null`
+                const damageType = this.damageType ? this.resolveInjectedProperties(this.damageType) || null : null;
                 if (damageType !== null && !objectHasKey(CONFIG.PF2E.damageTypes, damageType)) {
                     this.failValidation(`Unrecognized damage type: ${damageType}`);
                     return null;
@@ -159,7 +160,7 @@ type FlatModifierSchema = RuleElementSchema & {
     /** Whether this modifier comes from equipment or an equipment effect */
     fromEquipment: BooleanField;
     /** If a damage modifier, a damage type */
-    damageType: StringField;
+    damageType: StringField<string, string, false, true, false>;
     /** If a damage modifier, a special category */
     damageCategory: StringField<DamageCategoryUnique>;
     /** If a damage modifier, whether it applies given the presence or absence of a critically successful attack roll */
