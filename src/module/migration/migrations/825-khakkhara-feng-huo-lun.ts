@@ -2,8 +2,8 @@ import { BaseWeaponType } from "@item/weapon/types";
 import { ItemSourcePF2e } from "@item/data";
 import { MigrationBase } from "../base";
 
-/** Update from khakkara to khakkhara */
-export class Migration825Khakkhara extends MigrationBase {
+/** Update from khakkara to khakkhara; wind and fire wheel to feng huo lun */
+export class Migration825KhakkharaFengHuoLun extends MigrationBase {
     static override version = 0.825;
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
@@ -12,21 +12,19 @@ export class Migration825Khakkhara extends MigrationBase {
         }
 
         if (source.type === "weapon") {
-            
-            const fixBaseItemAndSlug = ((oldId: string, newId: BaseWeaponType) => {
+            const fixBaseItemAndSlug = (oldId: string, newId: BaseWeaponType) => {
                 const baseItem: string | null = source.system.baseItem;
                 if (baseItem === oldId) {
                     source.system.baseItem = newId;
                 }
-    
+
                 if (source.system.slug === oldId) {
                     source.system.slug = newId;
                 }
-            });
+            };
 
             fixBaseItemAndSlug("khakkara", "khakkhara");
             fixBaseItemAndSlug("wind-and-fire-wheel", "feng-huo-lun");
-
         } else if (source.type === "feat") {
             const oldLink = "@UUID[Compendium.pf2e.equipment-srd.Khakkara]";
             const newLink = "@UUID[Compendium.pf2e.equipment-srd.Khakkhara]";
