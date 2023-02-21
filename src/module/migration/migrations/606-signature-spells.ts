@@ -1,5 +1,5 @@
 import { ItemSourcePF2e } from "@item/data";
-import { SpellcastingEntrySystemData } from "@item/spellcasting-entry/data";
+import { SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data";
 import { MigrationBase } from "../base";
 
 export class Migration606SignatureSpells extends MigrationBase {
@@ -17,7 +17,7 @@ export class Migration606SignatureSpells extends MigrationBase {
     }
 }
 
-interface SpellcastingEntrySystemDataOld extends SpellcastingEntrySystemData {
+interface SpellcastingEntrySystemDataOld extends SpellcastingEntrySystemSource {
     signatureSpells?: {
         value: string[];
     };

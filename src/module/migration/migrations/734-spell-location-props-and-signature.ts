@@ -1,7 +1,7 @@
 import { ActorSourcePF2e } from "@actor/data";
 import { ItemSourcePF2e } from "@item/data";
 import { SpellSource, SpellSystemData } from "@item/spell/data";
-import { SpellcastingEntrySource, SpellcastingEntrySystemData } from "@item/spellcasting-entry/data";
+import { SpellcastingEntrySource, SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data";
 import { OneToTen } from "@module/data";
 import { MigrationBase } from "../base";
 
@@ -63,7 +63,7 @@ export class Migration734SpellLocationPropsAndSignature extends MigrationBase {
     }
 }
 
-interface SpellcastingEntrySystemDataOld extends SpellcastingEntrySystemData {
+interface SpellcastingEntrySystemDataOld extends SpellcastingEntrySystemSource {
     "-=signatureSpells"?: null;
     signatureSpells?: {
         value: string[];

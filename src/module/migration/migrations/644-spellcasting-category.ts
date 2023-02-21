@@ -1,7 +1,7 @@
 import { ActorSourcePF2e } from "@actor/data";
 import { ClassSource, ItemSourcePF2e } from "@item/data";
 import { sluggify, tupleHasValue } from "@util";
-import { SpellcastingEntrySource, SpellcastingEntrySystemData } from "@item/spellcasting-entry/data";
+import { SpellcastingEntrySource, SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data";
 import { MigrationBase } from "../base";
 
 const oldTraditions = ["arcane", "occult", "primal", "divine", "focus", "ritual", "halcyon", ""] as const;
@@ -21,7 +21,7 @@ export class Migration644SpellcastingCategory extends MigrationBase {
 
     override async updateItem(item: ItemSourcePF2e, actor?: ActorSourcePF2e) {
         if (!actor || item.type !== "spellcastingEntry") return;
-        interface SpellcastingOld extends Omit<SpellcastingEntrySystemData, "tradition"> {
+        interface SpellcastingOld extends Omit<SpellcastingEntrySystemSource, "tradition"> {
             tradition: {
                 value: (typeof oldTraditions)[number];
             };
