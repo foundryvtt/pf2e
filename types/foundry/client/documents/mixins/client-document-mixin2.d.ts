@@ -1,46 +1,6 @@
-/**
- * The client-side document mixin which is used to extend the common BaseDocument.
- * This mixin provides the client-side interface for database operations and common document behaviors.
- * @mixin
- */
-declare function ClientDocumentMixin<T extends typeof foundry.abstract.Document>(Base: T): ClientDocumentMixin<T>;
-
-declare type ClientDocumentMixin<T extends typeof foundry.abstract.Document> = {
-    new (...args: any[]): ClientDocument<InstanceType<T>> & InstanceType<T>;
-
-    /**
-     * Present a Dialog form to create a new Document of this type.
-     * Choose a name and a type from a select menu of types.
-     * @param data Initial data with which to populate the creation form
-     * @param [options] Positioning and sizing options for the resulting dialog
-     * @return A Promise which resolves to the created Document
-     */
-    createDialog(
-        data?: { folder?: string },
-        options?: Partial<FormApplicationOptions>
-    ): Promise<ClientDocument<InstanceType<T>> | undefined>;
-
-    /**
-     * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
-     * The dropped data could have:
-     * 1. A compendium pack and entry id
-     * 2. A World Entity _id
-     * 3. A data object explicitly provided
-     *
-     * @param data         The data object extracted from a DataTransfer event
-     * @param [options={}] Additional options which configure data retrieval
-     * @param [options.importWorld=false] Import the provided document data into the World, if it is not already a
-     *                                    World-level Document reference
-     * @return The Document data that should be handled by the drop handler
-     */
-    fromDropData<TDocument extends ClientDocument>(
-        this: ConstructorOf<TDocument>,
-        data: DropCanvasData<TDocument["documentName"]>,
-        { importWorld }?: { importWorld?: boolean }
-    ): Promise<TDocument | undefined>;
-} & T;
-
-declare class ClientDocument<TDocument extends foundry.abstract.Document = foundry.abstract.Document> extends foundry
+/** System note: refactored `ClientDocument` mixin typing approach in testing */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+declare class ClientDocument2<TParent extends ClientDocument2<any> | null = ClientDocument2<any> | null> extends foundry
     .abstract.Document {
     /**
      * A collection of Application instances which should be re-rendered whenever this document is updated.
@@ -48,12 +8,13 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: Record<number, Application>;
+    apps: { [K in number]?: Application };
 
-    /** A cached reference to the FormApplication instance used to configure this Document. */
-    protected _sheet: FormApplication | null;
+    constructor(data: object, context: DocumentConstructionContext<TParent>);
 
-    protected override _initialize(): void;
+    static override name: string;
+
+    protected override _initialize(options?: Record<string, unknown>): void;
 
     /* -------------------------------------------- */
     /*  Properties                                  */
@@ -63,18 +24,7 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
     get collection(): Collection<this>;
 
     /** A reference to the Compendium Collection which contains this Document, if any, otherwise undefined. */
-    get compendium(): CompendiumCollection<any> | undefined;
-
-    /**
-     * Return a reference to the Folder to which this Document belongs, if any.
-     *
-     * @example <caption>A Document may belong to a Folder</caption>
-     * let folder = game.folders.entities[0];
-     * let actor = await Actor.create({name: "New Actor", folder: folder.id});
-     * console.log(actor.data.folder); // folder.id;
-     * console.log(actor.folder); // folder;
-     */
-    get folder(): Folder | null;
+    get compendium(): CompendiumCollection<CompendiumDocument> | undefined;
 
     /**
      * A boolean indicator for whether or not the current game User has ownership rights for this Document.
@@ -111,7 +61,7 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
     get uuid(): DocumentUUID;
 
     /**
-     * A boolean indicator for whether or not the current game User has at least limited visibility for this Document.
+     * A boolean indicator for whether the current game User has at least limited visibility for this Document.
      * Different Document types may have more specialized rules for what determines visibility.
      */
     get visible(): boolean;
@@ -121,19 +71,23 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
     /* -------------------------------------------- */
 
     /** Obtain the FormApplication class constructor which should be used to configure this Document. */
-    protected _getSheetClass(): ConstructorOf<FormApplication>;
+    protected _getSheetClass(): Maybe<Function>;
 
     /**
-     * Prepare data for the Document.
-     * Begin by resetting the prepared data back to its source state.
-     * Next prepare any embedded Documents and compute any derived data elements.
+     * Prepare data for the Document. This method is called automatically by the DataModel#_initialize workflow.
+     * This method provides an opportunity for Document classes to define special data preparation logic.
+     * The work done by this method should be idempotent. There are situations in which prepareData may be called more
+     * than once.
      */
     prepareData(): void;
 
     /** Prepare data related to this Document itself, before any embedded Documents or derived data is computed. */
     prepareBaseData(): void;
 
-    /** Prepare all embedded Document instances which exist within this primary Document. */
+    /**
+     * Prepare all embedded Document instances which exist within this primary Document.
+     * @memberof ClientDocumentMixin#
+     */
     prepareEmbeddedDocuments(): void;
 
     /**
@@ -153,22 +107,25 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
     /**
      * Determine the sort order for this Document by positioning it relative a target sibling.
      * See SortingHelper.performIntegerSort for more details
-     * @param [options] Sorting options provided to SortingHelper.performIntegerSort
+     * @param [options]            Sorting options provided to SortingHelper.performIntegerSort
+     * @param [options.updateData] Additional data changes which are applied to each sorted document
+     * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({
-        target,
-        siblings,
-        sortKey,
-        sortBefore,
-        updateData,
-    }: {
-        target?: any;
-        siblings?: any[];
-        sortKey?: string;
-        sortBefore?: boolean;
-        updateData?: any;
-    }): Promise<this>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object; sortOptions?: object }): Promise<void>;
+
+    /**
+     * Construct a UUID relative to another document.
+     * @param doc The document to compare against.
+     */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    getRelativeUUID(doc: ClientDocument2<any>): string;
+
+    /**
+     * Handle clicking on a content link for this document.
+     * @param event    The triggering click event.
+     */
+    protected _onClickDocumentLink(event: MouseEvent): Promise<this["sheet"]>;
 
     /* -------------------------------------------- */
     /*  Event Handlers                              */
@@ -181,12 +138,12 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
     ): void;
 
     protected override _onUpdate(
-        changed: DeepPartial<this["_source"]>,
+        data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<this>,
         userId: string
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext, userId: string): void;
+    protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void;
 
     /**
      * Preliminary actions taken before a set of embedded Documents in this parent Document are created.
@@ -197,8 +154,8 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
      */
     protected _preCreateEmbeddedDocuments(
         embeddedName: string,
-        result: ClientDocument["_source"][],
-        options: DocumentModificationContext,
+        result: object[],
+        options: DocumentModificationContext<this>,
         userId: string
     ): void;
 
@@ -212,9 +169,9 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
      */
     protected _onCreateEmbeddedDocuments(
         embeddedName: string,
-        documents: ClientDocument[],
-        result: ClientDocument["_source"][],
-        options: DocumentModificationContext,
+        documents: ClientDocument2<this>[],
+        result: object[],
+        options: DocumentModificationContext<this>,
         userId: string
     ): void;
 
@@ -227,8 +184,8 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
      */
     protected _preUpdateEmbeddedDocuments(
         embeddedName: string,
-        result: ClientDocument["_source"][],
-        options: DocumentModificationContext,
+        result: object[],
+        options: DocumentModificationContext<this>,
         userId: string
     ): void;
 
@@ -242,9 +199,9 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
      */
     protected _onUpdateEmbeddedDocuments(
         embeddedName: string,
-        documents: ClientDocument[],
-        result: ClientDocument["_source"][],
-        options: DocumentModificationContext,
+        documents: ClientDocument2<this>[],
+        result: object,
+        options: DocumentUpdateContext<this>,
         userId: string
     ): void;
 
@@ -257,8 +214,8 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
      */
     protected _preDeleteEmbeddedDocuments(
         embeddedName: string,
-        result: ClientDocument["_source"][],
-        options: DocumentModificationContext,
+        result: string[],
+        options: DocumentModificationContext<this>,
         userId: string
     ): void;
 
@@ -273,25 +230,92 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
     protected _onDeleteEmbeddedDocuments(
         embeddedName: string,
         documents: ClientDocument[],
-        result: ClientDocument["_source"][],
-        options: DocumentModificationContext,
+        result: string[],
+        options: DocumentModificationContext<this>,
         userId: string
     ): void;
+
+    /** Gets the default new name for a Document */
+    static defaultName(): string;
+
+    /* -------------------------------------------- */
+    /*  Importing and Exporting                     */
+    /* -------------------------------------------- */
+
+    /**
+     * Present a Dialog form to create a new Document of this type.
+     * Choose a name and a type from a select menu of types.
+     * @param [data]       Initial data with which to populate the creation form
+     * @param [context={}] Additional context options or dialog positioning options
+     * @returns A Promise which resolves to the created Document, or null if the dialog was closed.
+     */
+    static createDialog(
+        data?: Record<string, unknown>,
+        {
+            parent,
+            pack,
+            ...options
+        }?: {
+            parent: ClientDocument | null;
+            pack: CompendiumCollection<CompendiumDocument> | null;
+            options?: Record<string, unknown>;
+        }
+    ): Promise<InstanceType<typeof this> | null>;
 
     /**
      * Present a Dialog form to confirm deletion of this Document.
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: object): Promise<TDocument>;
+    deleteDialog(options?: Record<string, unknown>): Promise<this>;
 
-    /** Export entity data to a JSON file which can be saved by the client and later imported into a different session. */
-    exportToJSON(): void;
+    /**
+     * Export document data to a JSON file which can be saved by the client and later imported into a different session.
+     * @param [options] Additional options passed to the {@link ClientDocumentMixin#toCompendium} method
+     */
+    exportToJSON(options?: Record<string, unknown>): void;
+
+    /**
+     * Create a content link for this Document.
+     * @param [options] Additional options to configure how the link is constructed.
+     * @param [options.attrs]   Attributes to set on the link.
+     * @param [options.dataset] Custom data- attributes to set on the link.
+     * @param [options.classes] Classes to add to the link.
+     * @param [options.name]    A name to use for the Document, if different from the Document's name.
+     * @param [options.icon]    A font-awesome icon class to use as the icon, if different to the Document's configured sidebarIcon.
+     */
+    toAnchor(options?: {
+        attrs?: Record<string, string>;
+        dataset?: Record<string, string>;
+        classes?: string[];
+        name?: string;
+        icon?: string;
+    }): HTMLAnchorElement;
+
+    /**
+     * Serialize salient information about this Document when dragging it.
+     * @returns An object of drag data.
+     */
+    toDragData(): object;
+
+    /**
+     * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
+     * The dropped data could have:
+     * 1. A data object explicitly provided
+     * 2. A UUID
+     * @memberof ClientDocumentMixin
+     *
+     * @param data    The data object extracted from a DataTransfer event
+     * @param options Additional options which affect drop data behavior
+     * @returns The resolved Document
+     * @throws If a Document could not be retrieved from the provided data.
+     */
+    static fromDropData(data?: object, options?: Record<string, unknown>): Promise<ClientDocument>;
 
     /**
      * Update this Document using a provided JSON string.
-     * @param json JSON data string
-     * @return The updated Document
+     * @param json Raw JSON data to import
+     * @returns The updated Document instance
      */
     importFromJSON(json: string): Promise<this>;
 
@@ -301,15 +325,46 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
     /**
      * Transform the Document data to be stored in a Compendium pack.
      * Remove any features of the data which are world-specific.
-     * This function is asynchronous in case any complex operations are required prior to exporting.
-     * @param [pack] A specific pack being exported to
-     * @return A data object of cleaned data suitable for compendium import
+     * @param [pack]    A specific pack being exported to
+     * @param [options] Additional options which modify how the document is converted
+     * @param [options.clearFlags=false]     Clear the flags object
+     * @param [options.clearSort=true]       Clear the currently assigned folder and sort order
+     * @param  [options.clearOwnership=true] Clear document ownership
+     * @param [options.clearState=true]      Clear fields which store document state
+     * @param [options.keepId=false]         Retain the current Document id
+     * @returns A data object of cleaned data suitable for compendium import
      */
-    toCompendium(pack: CompendiumCollection<any>): this["_source"];
-
-    /**
-     * Serialize salient information about this Document when dragging it.
-     * @return An object of drag data.
-     */
-    toDragData(): { type: string; [key: string]: unknown };
+    toCompendium(
+        pack?: CompendiumCollection<CompendiumDocument>,
+        options?: {
+            clearSort?: boolean;
+            clearFlags?: boolean;
+            clearOwnership?: boolean;
+            clearState?: boolean;
+            keepId?: boolean;
+        }
+    ): this["_source"];
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+declare interface ClientDocument2<TParent extends ClientDocument2<any> | null = ClientDocument2<any> | null>
+    extends foundry.abstract.Document {
+    readonly parent: TParent;
+}
+
+type BaseDocumentWithOmissions<TDocument extends foundry.abstract.Document> = Omit<
+    TDocument,
+    | "_initialize"
+    | "_source"
+    | "clone"
+    | "delete"
+    | "documentName"
+    | "getUserLevel"
+    | "parent"
+    | "setFlag"
+    | "toJSON"
+    | "toObject"
+    | "unsetFlag"
+    | "update"
+    | "updateSource"
+>;

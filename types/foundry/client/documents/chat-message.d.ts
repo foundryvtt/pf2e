@@ -8,10 +8,7 @@ declare global {
      * @see {@link documents.Messages} The world-level collection of ChatMessage documents
      */
     class ChatMessage<TActor extends Actor = Actor> extends ChatMessageConstructor {
-        constructor(
-            data: PreCreate<foundry.data.ChatMessageSource>,
-            context?: DocumentConstructionContext<ChatMessage>
-        );
+        constructor(data: PreCreate<foundry.data.ChatMessageSource>, context?: DocumentConstructionContext<null>);
 
         flavor: string;
 

@@ -120,7 +120,7 @@ const isItemData = (docSource: CompendiumSource): docSource is ItemSourcePF2e =>
     return "type" in docSource && itemTypes.includes(docSource.type);
 };
 
-const isJournalEntryData = (docSource: CompendiumSource): docSource is foundry.data.JournalEntrySource => {
+const isJournalEntryData = (docSource: CompendiumSource): docSource is foundry.documents.JournalEntrySource => {
     return "pages" in docSource && Array.isArray(docSource.pages);
 };
 
@@ -186,7 +186,7 @@ async function migrate() {
         let source:
             | ActorSourcePF2e
             | ItemSourcePF2e
-            | foundry.data.JournalEntrySource
+            | foundry.documents.JournalEntrySource
             | foundry.data.MacroSource
             | foundry.data.RollTableSource;
         try {
@@ -202,7 +202,7 @@ async function migrate() {
         const updated = await (async (): Promise<
             | ActorSourcePF2e
             | ItemSourcePF2e
-            | foundry.data.JournalEntrySource
+            | foundry.documents.JournalEntrySource
             | foundry.data.MacroSource
             | foundry.data.RollTableSource
         > => {

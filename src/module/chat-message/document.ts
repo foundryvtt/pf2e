@@ -16,10 +16,7 @@ import * as Listeners from "./listeners";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
-    constructor(
-        data: DeepPartial<ChatMessageSourcePF2e> = {},
-        context: DocumentConstructionContext<ChatMessagePF2e> = {}
-    ) {
+    constructor(data: DeepPartial<ChatMessageSourcePF2e> = {}, context: DocumentConstructionContext<null> = {}) {
         data.flags = mergeObject(expandObject(data.flags ?? {}), { core: {}, pf2e: {} });
         super(data, context);
 

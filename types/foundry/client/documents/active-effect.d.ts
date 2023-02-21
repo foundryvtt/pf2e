@@ -9,7 +9,7 @@ declare global {
     class ActiveEffect extends ActiveEffectConstructor implements TemporaryEffect {
         constructor(
             data: PreCreate<foundry.data.ActiveEffectSource>,
-            context?: DocumentConstructionContext<ActiveEffect>
+            context?: DocumentConstructionContext<ActiveEffect["parent"]>
         );
 
         /** A cached reference to the source name to avoid recurring database lookups */

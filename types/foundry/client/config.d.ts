@@ -43,7 +43,10 @@ declare global {
         /** Configuration for the Actor document */
         Actor: {
             documentClass: {
-                new (data: PreCreate<TActor["_source"]>, context?: DocumentConstructionContext<TActor>): TActor;
+                new (
+                    data: PreCreate<TActor["_source"]>,
+                    context?: DocumentConstructionContext<TActor["parent"]>
+                ): TActor;
             };
             collection: ConstructorOf<Actors<TActor>>;
             sheetClasses: Record<
@@ -87,7 +90,7 @@ declare global {
             documentClass: {
                 new (
                     data: PreCreate<TChatMessage["_source"]>,
-                    context?: DocumentConstructionContext<TChatMessage>
+                    context?: DocumentConstructionContext<null>
                 ): TChatMessage;
             };
             sidebarIcon: string;
@@ -97,7 +100,7 @@ declare global {
         /** Configuration for Item document */
         Item: {
             documentClass: {
-                new (data: PreCreate<TItem["_source"]>, context?: DocumentConstructionContext<TItem>): TItem;
+                new (data: PreCreate<TItem["_source"]>, context?: DocumentConstructionContext<TItem["parent"]>): TItem;
             };
             collection: typeof Items;
             sheetClasses: Record<
@@ -117,7 +120,7 @@ declare global {
         /** Configuration for the Combat document */
         Combat: {
             documentClass: {
-                new (data: PreCreate<TCombat["_source"]>, context?: DocumentConstructionContext<TCombat>): TCombat;
+                new (data: PreCreate<TCombat["_source"]>, context?: DocumentConstructionContext<null>): TCombat;
             };
             collection: typeof CombatEncounters;
             defeatedStatusId: string;
@@ -188,7 +191,7 @@ declare global {
             documentClass: {
                 new (
                     data: PreCreate<TActiveEffect["_source"]>,
-                    context?: DocumentConstructionContext<TActiveEffect>
+                    context?: DocumentConstructionContext<TActiveEffect["parent"]>
                 ): TActiveEffect;
             };
         };
@@ -197,7 +200,7 @@ declare global {
         Combatant: {
             documentClass: new (
                 data: PreCreate<TCombatant["_source"]>,
-                context?: DocumentConstructionContext<TCombatant>
+                context?: DocumentConstructionContext<TCombatant["parent"]>
             ) => TCombatant;
         };
 
@@ -215,7 +218,7 @@ declare global {
             };
             documentClass: new (
                 data: PreCreate<foundry.data.MeasuredTemplateSource>,
-                context?: DocumentConstructionContext<TMeasuredTemplateDocument>
+                context?: DocumentConstructionContext<TMeasuredTemplateDocument["parent"]>
             ) => TMeasuredTemplateDocument;
             objectClass: ConstructorOf<TMeasuredTemplateDocument["object"]>;
             layerClass: ConstructorOf<TMeasuredTemplateDocument["object"]["layer"]>;

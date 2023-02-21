@@ -13,7 +13,7 @@ declare global {
         TParent extends Combat | null = Combat | null,
         TActor extends Actor | null = Actor | null
     > extends CombatantConstructor {
-        constructor(data: PreCreate<foundry.data.CombatantSource>, context?: DocumentConstructionContext<Combatant>);
+        constructor(data: PreCreate<foundry.data.CombatantSource>, context?: DocumentConstructionContext<TParent>);
 
         /** A cached reference to the Token which this Combatant represents, if any */
         protected _token: NonNullable<TActor>["parent"];

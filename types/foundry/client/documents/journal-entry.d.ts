@@ -1,14 +1,13 @@
-import { JournalEntryConstructor } from "./constructors";
+export {};
 
 declare global {
     /**
-     * The client-side JournalEntry document which extends the common BaseJournalEntry abstraction.
-     * Each JournalEntry document contains JournalEntryData which defines its data schema.
-     * @see {@link data.JournalEntryData}              The JournalEntry data schema
-     * @see {@link documents.Journal}                  The world-level collection of JournalEntry documents
-     * @see {@link applications.JournalSheet}          The JournalEntry configuration application
+     * The client-side JournalEntry document which extends the common BaseJournalEntry model.
+     *
+     * @see {@link Journal}                       The world-level collection of JournalEntry documents
+     * @see {@link JournalSheet}                  The JournalEntry configuration application
      */
-    class JournalEntry extends JournalEntryConstructor {
+    class JournalEntry extends ClientDocument2<null> {
         /* -------------------------------------------- */
         /*  Properties                                  */
         /* -------------------------------------------- */
@@ -51,16 +50,22 @@ declare global {
         /*  Event Handlers                              */
         /* -------------------------------------------- */
 
-        override _onUpdate(
+        protected override _onUpdate(
             changed: DeepPartial<this["_source"]>,
             options: DocumentModificationContext,
             userId: string
         ): void;
 
-        override _onDelete(options: DocumentModificationContext, userId: string): void;
+        protected override _onDelete(options: DocumentModificationContext, userId: string): void;
     }
 
-    interface JournalEntry {
+    interface JournalEntry
+        extends BaseDocumentWithOmissions<foundry.documents.BaseJournalEntry>,
+            ClientDocument2<null> {
+        readonly _source: foundry.documents.JournalEntrySource;
+        readonly pages: foundry.abstract.EmbeddedCollection<JournalEntryPage<this>>;
+
+        get documentName(): "JournalEntry";
         get sheet(): JournalSheet<this>;
     }
 }

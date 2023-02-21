@@ -7,7 +7,7 @@ export class FakeItem {
 
     parent: ActorPF2e | null = null;
 
-    constructor(data: ItemSourcePF2e, public options: DocumentConstructionContext<ItemPF2e> = {}) {
+    constructor(data: ItemSourcePF2e, public options: DocumentConstructionContext<ActorPF2e | null> = {}) {
         this._data = duplicate(data);
         this.parent = options.parent ?? null;
     }

@@ -167,9 +167,9 @@ export class MigrationRunnerBase {
     }
 
     async getUpdatedJournalEntry(
-        source: foundry.data.JournalEntrySource,
+        source: foundry.documents.JournalEntrySource,
         migrations: MigrationBase[]
-    ): Promise<foundry.data.JournalEntrySource> {
+    ): Promise<foundry.documents.JournalEntrySource> {
         const clone = deepClone(source);
 
         for (const migration of migrations) {

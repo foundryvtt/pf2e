@@ -701,7 +701,10 @@ interface ItemPF2e extends Item<ActorPF2e> {
 
 /** A `Proxy` to to get Foundry to construct `ItemPF2e` subclasses */
 const ItemProxyPF2e = new Proxy(ItemPF2e, {
-    construct(_target, args: [source: PreCreate<ItemSourcePF2e>, context: DocumentConstructionContext<ItemPF2e>]) {
+    construct(
+        _target,
+        args: [source: PreCreate<ItemSourcePF2e>, context: DocumentConstructionContext<ItemPF2e["parent"]>]
+    ) {
         return new CONFIG.PF2E.Item.documentClasses[args[0].type](...args);
     },
 });
