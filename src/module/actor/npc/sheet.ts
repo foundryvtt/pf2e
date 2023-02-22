@@ -14,12 +14,13 @@ import { eventToRollParams } from "@scripts/sheet-util";
 import { getActionGlyph, getActionIcon, objectHasKey, setHasElement, tagify } from "@util";
 import { RecallKnowledgePopup } from "../sheet/popups/recall-knowledge-popup";
 import { NPCConfig } from "./config";
-import { NPCSkillData, NPCStrike } from "./data";
+import { NPCSkillData } from "./data";
 import {
     NPCActionSheetData,
     NPCSheetData,
     NPCSheetItemData,
     NPCSpellcastingSheetData,
+    NPCStrikeSheetData,
     NPCSystemSheetData,
 } from "./types";
 
@@ -355,14 +356,17 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
      */
     async #prepareActions(sheetData: NPCSheetData<TActor>): Promise<void> {
         // Enrich strike descriptions
-        const strikesWithDescriptions: NPCStrike[] = sheetData.data.actions.filter((s) => s.description.length > 0);
+        const attacks: NPCStrikeSheetData[] = sheetData.data.actions;
         const actorRollData = this.actor.getRollData();
-        for (const attack of strikesWithDescriptions) {
-            const itemRollData = attack.item.getRollData();
-            attack.description = await TextEditor.enrichHTML(attack.description, {
-                rollData: { ...actorRollData, ...itemRollData },
-                async: true,
-            });
+        for (const attack of attacks) {
+            if (attack.description.length > 0) {
+                const itemRollData = attack.item.getRollData();
+                attack.description = await TextEditor.enrichHTML(attack.description, {
+                    rollData: { ...actorRollData, ...itemRollData },
+                    async: true,
+                });
+            }
+            attack.damageFormula = String(await attack.damage?.({ getFormula: true }));
         }
 
         const actions: NPCActionSheetData = {

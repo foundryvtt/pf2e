@@ -9,6 +9,7 @@ import {
     ActorTraitsSource,
 } from "@actor/data/base";
 import { ActorSizePF2e } from "@actor/data/size";
+import { NPCStrike } from "@actor/npc";
 import { SaveType } from "@actor/types";
 import { Rarity, Size, ZeroToTwo } from "@module/data";
 import { HazardPF2e } from ".";
@@ -33,6 +34,7 @@ interface HazardSystemSource extends ActorSystemSource {
 interface HazardSystemData extends HazardSystemSource, Omit<ActorSystemData, "attributes" | "traits"> {
     details: HazardDetailsData;
     traits: HazardTraitsData;
+    actions: NPCStrike[];
 }
 
 interface HazardTraitsSource extends ActorTraitsSource<HazardTrait> {
