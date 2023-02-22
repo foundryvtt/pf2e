@@ -1,0 +1,95 @@
+{
+    "_id": "xtSMGL3f9c5ZHUAm",
+    "img": "systems/pf2e/icons/default-icons/equipment.svg",
+    "name": "Violin of the Waves",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>This violin is crafted from finely wrought rosewood that emits a strong, but pleasant, smell of salt water and ocean life. It's engraved with images of sailors working and waves gently rolling. When you make a Performance check using the <em>violin of the waves</em>, you gain a +2 item bonus to the check. This bonus increases to +3 if the performer is currently aboard a ship, walking on the ocean, or otherwise immediately adjacent to ocean water.</p>\n<p>The violin was created to play a specific tune, one that springs instantly into the mind of anyone who so much as casually strums the instrument. It's a tune of calm waters and safety, but also of pranks played upon shipmates and revelry.</p>\n<p><strong>Activate</strong> 5 minutes (Interact)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> You must be aboard a ship</p>\n<hr />\n<p><strong>Effect</strong> You play the song. Once it's completed, the weather immediately calms to the normal as it would for the season, as control weather. For the next day, the weather remains in this state, unless affected by other magical effects. Anyone aboard the ship finds their mind wanders when performing tasks however, daydreaming of drunken revelry or other forms of entertainment, and the crew of the ship takes a –2 status penalty to skill checks to do anything other than participate in such revelry.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 9
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 700
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "violin"
+                ],
+                "selector": "performance",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Violin of the Waves (Ship or Ocean)",
+                "predicate": [
+                    "ocean",
+                    "violin"
+                ],
+                "selector": "performance",
+                "type": "item",
+                "value": 3
+            },
+            {
+                "domain": "performance",
+                "key": "RollOption",
+                "label": "Playing the Violin of the Waves",
+                "option": "violin",
+                "toggleable": true
+            },
+            {
+                "domain": "performance",
+                "key": "RollOption",
+                "label": "Adjacent to the ocean",
+                "option": "ocean",
+                "toggleable": true
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "auditory",
+                "evocation",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "held-in-two-hands"
+        },
+        "weight": {
+            "value": "1"
+        }
+    },
+    "type": "equipment"
+}
