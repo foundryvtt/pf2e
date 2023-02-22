@@ -5,7 +5,7 @@ import { ActionItemData, EffectData, ItemDataPF2e } from "@item/data";
 import { ZeroToFour } from "@module/data";
 import { IdentifyCreatureData } from "@module/recall-knowledge";
 import { TraitTagifyEntry } from "@module/sheet/helpers";
-import { NPCPF2e } from ".";
+import { NPCPF2e, NPCStrike } from ".";
 import { NPCArmorClass, NPCAttributes, NPCSaveData, NPCSkillData, NPCSystemData, NPCTraitsData } from "./data";
 
 interface ActionsDetails {
@@ -40,6 +40,7 @@ interface VariantCloneParams {
 type WithRank = { icon?: string; hover?: string; rank: ZeroToFour };
 
 interface NPCSystemSheetData extends NPCSystemData {
+    actions: NPCStrikeSheetData[];
     attributes: NPCAttributes & {
         ac: NPCArmorClass & WithAdjustments;
         hp: HitPointsData & WithAdjustments;
@@ -59,6 +60,11 @@ interface NPCSystemSheetData extends NPCSystemData {
             localizedName?: string;
         };
     };
+}
+
+interface NPCStrikeSheetData extends NPCStrike {
+    /** The damage formula of the strike for display on sheets */
+    damageFormula?: string;
 }
 
 interface NPCSpellcastingSheetData extends SpellcastingSheetData {
@@ -128,6 +134,7 @@ export {
     NPCSheetData,
     NPCSheetItemData,
     NPCSpellcastingSheetData,
+    NPCStrikeSheetData,
     NPCSystemSheetData,
     VariantCloneParams,
 };

@@ -9,7 +9,7 @@ import { ItemSourcePF2e } from "@item/data";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import { DocumentSchemaRecord, Rarity, Size, ValueAndMaybeMax } from "@module/data";
 import { AutoChangeEntry } from "@module/rules/rule-element/ae-like";
-import { RollParameters, AttackRollParams } from "@module/system/rolls";
+import { RollParameters, AttackRollParams, DamageRollParams } from "@module/system/rolls";
 import { DamageRoll } from "@system/damage/roll";
 import { ActorType } from ".";
 import { ImmunityData, ImmunitySource, ResistanceData, ResistanceSource, WeaknessData, WeaknessSource } from "./iwr";
@@ -161,7 +161,7 @@ type RollFunction<T extends RollParameters = RollParameters> = (
     params: T
 ) => Promise<Rolled<Roll> | null | string | void>;
 
-type DamageRollFunction = (params?: AttackRollParams) => Promise<string | Rolled<DamageRoll> | null>;
+type DamageRollFunction = (params?: DamageRollParams) => Promise<string | Rolled<DamageRoll> | null>;
 
 /** Basic initiative-relevant data. */
 interface InitiativeData {
