@@ -82,7 +82,7 @@ async function createConsumableFromSpell(
     consumableSource.name = getNameForSpellConsumable(type, spell.name, heightenedLevel);
     const description = consumableSource.system.description.value;
     consumableSource.system.description.value =
-        (spell.sourceId ? "@" + spell.sourceId.replace(".", "[") + "]" : spell.description) + `\n<hr />${description}`;
+        (spell.sourceId ? "<em>@" + spell.sourceId.replace(".", "[") + "]</em>" : spell.description) + `\n<hr />${description}`;
 
     // Cantrip deck casts at level 1
     if (type !== "cantripDeck5") {
