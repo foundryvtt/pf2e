@@ -51,13 +51,12 @@ const DAMAGE_TYPES = new Set([
 ] as const);
 
 /** Maps damage types to their damage category; these are the immutable base mappings used if there is no override. */
-const BASE_DAMAGE_TYPES_TO_CATEGORIES: Record<string, DamageCategory> = {
-    // The three default physical damage types.
+const BASE_DAMAGE_TYPES_TO_CATEGORIES: Record<DamageType, DamageCategory | null> = {
     bludgeoning: "physical",
     piercing: "physical",
     slashing: "physical",
+    bleed: "physical",
 
-    // The default energy types.
     acid: "energy",
     cold: "energy",
     electricity: "energy",
@@ -67,11 +66,14 @@ const BASE_DAMAGE_TYPES_TO_CATEGORIES: Record<string, DamageCategory> = {
     negative: "energy",
     force: "energy",
 
-    // The default alignment types.
     chaotic: "alignment",
     evil: "alignment",
     good: "alignment",
     lawful: "alignment",
+
+    mental: null,
+    poison: null,
+    untyped: null,
 } as const;
 
 const DAMAGE_TYPE_ICONS: Record<DamageType, string | null> = {
