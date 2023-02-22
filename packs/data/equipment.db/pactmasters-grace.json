@@ -6,7 +6,7 @@
         "baseItem": null,
         "containerId": null,
         "description": {
-            "value": "<p>Granted by Katapesh's Pactmasters to influential merchants, exceptional Zephyr Guards, and favorite retainers, these blue crystal-studded platinum rings sharpen their wearers' urban instincts.</p>\n<p>You gain a +3 item bonus to Mercantile Lore checks while wearing the ring, and you can attempt checks that require a proficiency rank of master in Society.</p>\n<p>While invested, the ring grants a +2 item bonus to saving throws while you are in an urban setting, and this increases to a +3 item bonus if you have legendary proficiency in Guild Lore, Katapesh Lore, Mercantile Lore, or Society.</p>"
+            "value": "<p>Granted by Katapesh's Pactmasters to influential merchants, exceptional Zephyr Guards, and favorite retainers, a pactmaster's grace is a crystal-studded blue platinum ring that sharpens the wearer's urban instincts. While invested, the ring grants a +2 item bonus to saving throws while you are in an urban setting, and this increases to a +3 item bonus if you have legendary proficiency in Guild Lore, Katapesh Lore, Mercantile Lore, or Society. You also gain a +3 item bonus to Mercantile Lore checks while wearing the ring, and you can attempt checks that require a proficiency rank of master in Society.</p>"
         },
         "equippedBulk": {
             "value": ""
@@ -38,36 +38,38 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Pactmaster's Grace (urban environments)",
                 "predicate": [
-                    "urban"
+                    "terrain:urban"
                 ],
                 "selector": "saving-throw",
+                "slug": "pactmasters-grace-saves",
                 "type": "item",
                 "value": 2
             },
             {
-                "key": "FlatModifier",
-                "label": "Pactmaster's Grace (urban environments with Legendary skill)",
+                "key": "AdjustModifier",
+                "mode": "override",
                 "predicate": [
-                    "urban",
-                    "legendary"
+                    "skill:soc:rank:4"
                 ],
                 "selector": "saving-throw",
-                "type": "item",
+                "slug": "pactmasters-grace-saves",
                 "value": 3
             },
             {
-                "domain": "saving-throw",
-                "key": "RollOption",
-                "label": "You are in an urban environment",
-                "option": "urban",
-                "toggleable": true
+                "key": "FlatModifier",
+                "selector": [
+                    "mercantile",
+                    "mercantile-lore",
+                    "lore-mercantile"
+                ],
+                "type": "item",
+                "value": 3
             }
         ],
         "size": "med",
         "source": {
-            "value": "Pathfinder #149: Against the Scarlet Triad"
+            "value": "Pathfinder Treasure Vault"
         },
         "stackGroup": null,
         "traits": {

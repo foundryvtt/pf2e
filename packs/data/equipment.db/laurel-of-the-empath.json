@@ -1,0 +1,81 @@
+{
+    "_id": "dAPTUxg2NZBwzQ9T",
+    "img": "systems/pf2e/icons/default-icons/equipment.svg",
+    "name": "Laurel of the Empath",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>This silvery, woven ring of leaves sits on top of the head. While wearing it, when you roll Perception for initiative, you can roll twice and take the higher result. This is a fortune effect. Whenever you spend at least 1 minute talking with a living creature, you automatically become aware of its attitude toward you. When you invest the laurel, you either increase your Wisdom score by 2 or increase it to 18, whichever is higher.</p>\n<p><strong>Activate</strong><span class=\"pf2-icon\">R</span> envision</p>\n<p><strong>Frequency</strong> once per minute</p>\n<p><strong>Trigger</strong> You're hit by an attack</p>\n<hr />\n<p><strong>Effect</strong> You take half damage from the triggering attack.</p>\n<hr />\n<p><strong>Activate</strong><span class=\"pf2-icon\">R</span> envision</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> You fail, but don't critically fail, a saving throw</p>\n<hr />\n<p><strong>Effect</strong> You anticipate the danger and guard against it, often in unconventional or almost inconceivable ways. Treat the failed saving throw as a success.</p>\n<hr />\n<p><strong>Activate</strong>(10 minutes) envision (fortune, mental)</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You spend 10 minutes talking with one living creature, conversing in inspirational, religious, or philosophical terms. You gain valuable insights into the personality of your target—their alignment, hopes, dreams, and fears. When the ritual is over, you gain a +4 item bonus to all Perception checks made concerning the target for one month. Also, the target gains inspirational insight, allowing the target to use one of the two reactions listed above once during the next 24 hours.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 20
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 70000
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.abilities.wis.value",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.abilities.wis.value",
+                "value": 18
+            },
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "removeAfterRoll": false,
+                "selector": "initiative"
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "apex",
+                "divination",
+                "fortune",
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "worncap"
+        },
+        "weight": {
+            "value": "-"
+        }
+    },
+    "type": "equipment"
+}
