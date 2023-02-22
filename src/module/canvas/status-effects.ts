@@ -266,7 +266,7 @@ export class StatusEffects {
     static #createChatMessage(token: TokenPF2e, whisper = false) {
         // Get the active applied conditions.
         // Iterate the list to create the chat and bubble chat dialog.
-        const conditions = token.actor?.itemTypes.condition.filter((c) => c.isActive) ?? [];
+        const conditions = token.actor?.itemTypes.condition.filter((c) => c.active) ?? [];
         const statusEffectList = conditions.map((condition): string => {
             const conditionInfo = StatusEffects.conditions[condition.slug];
             const summary = conditionInfo.summary ?? "";

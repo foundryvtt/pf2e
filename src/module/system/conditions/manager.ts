@@ -79,7 +79,7 @@ export class ConditionManager {
             const flattened = flatteneds.get(condition.key) ?? {
                 id: condition.id,
                 badge: condition.badge,
-                active: condition.isActive,
+                active: condition.active,
                 name: condition.name,
                 slug: condition.slug,
                 value: condition.value,
@@ -92,10 +92,9 @@ export class ConditionManager {
                 children: [],
                 overrides: [],
                 overriddenBy: [],
-                immunityFrom: [],
             };
 
-            if (!condition.isActive && flatteneds.has(condition.key)) {
+            if (!condition.active && flatteneds.has(condition.key)) {
                 continue;
             }
 
@@ -205,29 +204,6 @@ export class ConditionManager {
                     flattened.overriddenBy.push(ref);
                 }
             }
-
-            for (const immuneToRef of systemData.references.immunityFrom) {
-                const refCondition = items.find((other) => other.id === immuneToRef.id);
-
-                if (refCondition) {
-                    const ref = {
-                        id: systemData.references.parent,
-                        name: refCondition.name,
-                        base: refCondition.slug,
-                        text: "",
-                    };
-
-                    if (refCondition.value) {
-                        ref.name = `${ref.name} ${refCondition.value}`;
-                    }
-
-                    const compendiumLink = refCondition.sourceId?.replace(/^Compendium\./, "");
-                    ref.text = compendiumLink ? `@Compendium[${compendiumLink}]` : "";
-
-                    flattened.references = true;
-                    flattened.immunityFrom.push(ref);
-                }
-            }
         }
 
         for (const flattened of flatteneds.values()) {
@@ -248,7 +224,7 @@ export class ConditionManager {
 
     private static sortConditions(conditionA: ConditionPF2e, conditionB: ConditionPF2e): number {
         return conditionA.slug === conditionB.slug
-            ? conditionA.isActive
+            ? conditionA.active
                 ? -1
                 : 1
             : conditionA.name.localeCompare(conditionB.name, game.i18n.lang);

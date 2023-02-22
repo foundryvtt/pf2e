@@ -1344,17 +1344,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             .filter((condition) => condition.key === slug || condition.slug === slug)
             .sort((conditionA, conditionB) => {
                 const [valueA, valueB] = [conditionA.value ?? 0, conditionB.value ?? 0] as const;
-                const [durationA, durationB] = [conditionA.duration ?? 0, conditionB.duration ?? 0] as const;
-
-                return valueA > valueB
-                    ? 1
-                    : valueB < valueB
-                    ? -1
-                    : durationA > durationB
-                    ? 1
-                    : durationA < durationB
-                    ? -1
-                    : 0;
+                return valueA > valueB ? 1 : valueB < valueB ? -1 : 0;
             });
 
         return all ? conditions : conditions[0] ?? null;

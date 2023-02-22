@@ -13,6 +13,8 @@ import { DegreeOfSuccess } from "@system/degree-of-success";
 import { ActorPF2e } from "@actor";
 
 class ConditionPF2e extends AbstractEffectPF2e {
+    active!: boolean;
+
     override get badge(): EffectBadge | null {
         if (this.system.persistent) {
             return { type: "formula", value: this.system.persistent.formula };
@@ -38,15 +40,6 @@ class ConditionPF2e extends AbstractEffectPF2e {
 
     get value(): number | null {
         return this.system.value.value;
-    }
-
-    get duration(): number | null {
-        return this.system.duration.perpetual ? null : this.system.duration.value;
-    }
-
-    /** Is the condition currently active? */
-    get isActive(): boolean {
-        return this.system.active;
     }
 
     /** Is this condition locked in place by another? */
@@ -77,21 +70,17 @@ class ConditionPF2e extends AbstractEffectPF2e {
     }
 
     override async increase(): Promise<void> {
-        if (this.actor && this.system.removable) {
-            await this.actor.increaseCondition(this as Embedded<ConditionPF2e>);
-        }
+        await this.actor?.increaseCondition(this as Embedded<ConditionPF2e>);
     }
 
     override async decrease(): Promise<void> {
-        if (this.actor && this.system.removable) {
-            await this.actor?.decreaseCondition(this as Embedded<ConditionPF2e>);
-        }
+        await this.actor?.decreaseCondition(this as Embedded<ConditionPF2e>);
     }
 
     async onEndTurn(options: { token?: TokenDocumentPF2e | null } = {}): Promise<void> {
         const actor = this.actor;
         const token = options?.token ?? actor?.token;
-        if (!this.isActive || !actor) return;
+        if (!this.active || !actor) return;
 
         if (this.system.persistent) {
             const roll = await this.system.persistent.damage.clone().evaluate({ async: true });
@@ -130,6 +119,8 @@ class ConditionPF2e extends AbstractEffectPF2e {
     override prepareBaseData(): void {
         super.prepareBaseData();
 
+        this.active = true;
+
         const systemData = this.system;
         systemData.value.value = systemData.value.isValued ? Number(systemData.value.value) || 1 : null;
 
@@ -162,10 +153,10 @@ class ConditionPF2e extends AbstractEffectPF2e {
         if (!this.actor) throw ErrorPF2e("prepareSiblingData may only be called from an embedded item");
 
         // Inactive conditions shouldn't deactivate others
-        if (!this.isActive) return;
+        if (!this.active) return;
 
         const deactivate = (condition: ConditionPF2e): void => {
-            condition.system.active = false;
+            condition.active = false;
             condition.system.references.overriddenBy.push({ id: this.id, type: "condition" as const });
         };
 
@@ -203,14 +194,15 @@ class ConditionPF2e extends AbstractEffectPF2e {
     /** Log self in parent's conditions map */
     override prepareActorData(): void {
         super.prepareActorData();
-        if (this.isActive) {
+
+        if (this.active) {
             this.actor?.conditions.set(this.slug, this);
         }
     }
 
     /** Withhold all rule elements if this condition is inactive */
     override prepareRuleElements(options?: RuleElementOptions): RuleElementPF2e[] {
-        return this.isActive ? super.prepareRuleElements(options) : [];
+        return this.active ? super.prepareRuleElements(options) : [];
     }
 
     /* -------------------------------------------- */
@@ -280,8 +272,7 @@ class ConditionPF2e extends AbstractEffectPF2e {
 
         /* Suppress floaty text on "linked" conditions */
         if (this.system.references.parent?.type !== "condition") {
-            const baseName = this.system.base;
-            const change = { delete: { name: baseName } };
+            const change = { delete: { name: this._source.name } };
             this.actor?.getActiveTokens().shift()?.showFloatyText(change);
         }
 
