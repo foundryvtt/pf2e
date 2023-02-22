@@ -35,7 +35,7 @@ class PersistentDamageDialog extends Application {
             .map((c) => ({
                 id: c.id,
                 bullet: damageDiceIcon(c.system.persistent.damage).outerHTML,
-                active: c.isActive,
+                active: c.active,
                 ...pick(c.system.persistent, ["formula", "damageType", "dc"]),
             }));
 
