@@ -59,7 +59,7 @@ export class AutomationSettings extends SettingsMenuPF2e {
             lootableNPCs: {
                 name: CONFIG.PF2E.SETTINGS.automation.lootableNPCs.name,
                 hint: CONFIG.PF2E.SETTINGS.automation.lootableNPCs.hint,
-                default: false,
+                default: true,
                 type: Boolean,
             },
         };
