@@ -81,9 +81,20 @@ async function createConsumableFromSpell(
     consumableSource.system.traits.value.push(...spell.traditions);
     consumableSource.name = getNameForSpellConsumable(type, spell.name, heightenedLevel);
     const description = consumableSource.system.description.value;
-    consumableSource.system.description.value =
-        (spell.sourceId ? "<em>@" + spell.sourceId.replace(".", "[") + "]</em>" : spell.description) +
-        `\n<hr />${description}`;
+
+    consumableSource.system.description.value = (() => {
+        const linkElement = document.createElement("em");
+        linkElement.append(spell.sourceId ? "@" + spell.sourceId.replace(".", "[") + "]" : spell.description);
+
+        const hrElement = document.createElement("hr");
+
+        const paragraphElement = document.createElement("p");
+        paragraphElement.append(linkElement, hrElement);
+
+        hrElement.insertAdjacentHTML("afterend", description);
+
+        return paragraphElement.outerHTML;
+    })();
 
     // Cantrip deck casts at level 1
     if (type !== "cantripDeck5") {
