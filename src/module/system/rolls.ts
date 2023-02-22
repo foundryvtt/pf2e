@@ -37,7 +37,7 @@ interface AttackRollParams extends RollParameters {
 }
 
 interface DamageRollParams extends Omit<AttackRollParams, "consumAmmo" | "rollTwice"> {
-    mapIncreases?: ZeroToTwo;
+    mapIncreases?: ZeroToTwo | null;
 }
 
 interface BaseRollContext {
