@@ -148,7 +148,7 @@ export class ActionMacroHelpers {
                     if (dcStat) {
                         const extraRollOptions = combinedOptions.concat(targetOptions);
                         const { dc } = dcStat.withRollOptions({ extraRollOptions });
-                        const dcData: CheckDC = { label: dcStat.label, value: dc.value };
+                        const dcData: CheckDC = { label: dc.label, value: dc.value };
                         if (setHasElement(DC_SLUGS, dcStat.slug)) dcData.slug = dcStat.slug;
 
                         return dcData;

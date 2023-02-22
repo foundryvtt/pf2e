@@ -464,11 +464,13 @@ class StatisticCheck {
 class StatisticDifficultyClass {
     domains: string[];
     value: number;
+    label?: string;
     modifiers: ModifierPF2e[];
     options: Set<string>;
 
     constructor(parent: Statistic, data: StatisticData, options: RollOptionParameters = {}) {
         this.domains = (data.domains ?? []).concat(data.dc?.domains ?? []);
+        this.label = data.dc?.label;
         this.options = parent.createRollOptions(this.domains, options);
 
         // Add all modifiers from all sources together, then test them
