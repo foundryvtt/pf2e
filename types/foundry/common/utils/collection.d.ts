@@ -109,8 +109,10 @@ declare module foundry {
         }
 
         interface CollectionConstructor {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             new (): Collection<any>;
             new <V>(entries?: readonly (readonly [string, V])[] | null): Collection<V>;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             readonly prototype: Collection<any>;
         }
 

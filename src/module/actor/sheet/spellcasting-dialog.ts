@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { ClassDCData } from "@actor/character/data";
 import { SpellcastingEntryPF2e } from "@item";
-import { SpellcastingEntrySource, SpellcastingEntrySystemData } from "@item/spellcasting-entry/data";
+import { SpellcastingEntrySource, SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data";
 import { pick } from "@util";
 
 function createEmptySpellcastingEntry(actor: ActorPF2e): Embedded<SpellcastingEntryPF2e> {
@@ -160,7 +160,7 @@ class SpellcastingCreateAndEditDialog extends FormApplication<Embedded<Spellcast
 
 interface SpellcastingCreateAndEditDialogSheetData extends FormApplicationData<Embedded<SpellcastingEntryPF2e>> {
     actor: ActorPF2e;
-    data: SpellcastingEntrySystemData;
+    data: SpellcastingEntrySystemSource;
     classDCs: ClassDCData[];
     magicTraditions: ConfigPF2e["PF2E"]["magicTraditions"];
     spellcastingTypes: ConfigPF2e["PF2E"]["preparationType"];

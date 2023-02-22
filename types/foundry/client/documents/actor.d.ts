@@ -23,7 +23,7 @@ declare global {
         TParent extends TokenDocument = TokenDocument,
         TItemTypeMap extends ItemTypeMap = ItemTypeMap
     > extends ActorConstructor {
-        constructor(data: PreCreate<foundry.data.ActorSource>, context?: DocumentConstructionContext<Actor>);
+        constructor(data: PreCreate<foundry.data.ActorSource>, context?: DocumentConstructionContext<TParent | null>);
 
         /** An object that tracks which tracks the changes to the data model which were applied by active effects */
         overrides: DeepPartial<this["_source"]> & { token?: TParent["_source"] };

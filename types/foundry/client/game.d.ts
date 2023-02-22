@@ -181,7 +181,7 @@ declare global {
         initializeEntities(): void;
 
         /** Initialization actions for compendium packs */
-        initializePacks(config: any): Promise<void>;
+        initializePacks(config: object): Promise<void>;
 
         /** Initialize the WebRTC implementation */
         initializeRTC(): void;

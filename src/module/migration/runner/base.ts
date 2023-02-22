@@ -14,7 +14,7 @@ interface CollectionDiff<T extends foundry.data.ActiveEffectSource | ItemSourceP
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.824;
+    static LATEST_SCHEMA_VERSION = 0.825;
 
     static MINIMUM_SAFE_VERSION = 0.618;
 
@@ -167,9 +167,9 @@ export class MigrationRunnerBase {
     }
 
     async getUpdatedJournalEntry(
-        source: foundry.data.JournalEntrySource,
+        source: foundry.documents.JournalEntrySource,
         migrations: MigrationBase[]
-    ): Promise<foundry.data.JournalEntrySource> {
+    ): Promise<foundry.documents.JournalEntrySource> {
         const clone = deepClone(source);
 
         for (const migration of migrations) {

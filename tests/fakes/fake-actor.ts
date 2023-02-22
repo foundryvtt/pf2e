@@ -17,7 +17,7 @@ export class FakeActor {
 
     id: string;
 
-    constructor(data: ActorSourcePF2e, public options: DocumentConstructionContext<ActorPF2e> = {}) {
+    constructor(data: ActorSourcePF2e, public options: DocumentConstructionContext<null> = {}) {
         this.id = data._id;
         this._data = duplicate(data);
         this._data.items ??= [];

@@ -1,11 +1,11 @@
 import { MigrationBase } from "../base";
 import { ActorSourcePF2e } from "@actor/data";
 import { ItemSourcePF2e, SpellcastingEntrySource } from "@item/data";
-import { SpellcastingEntrySystemData } from "@item/spellcasting-entry/data";
+import { SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data";
 import { CharacterSource } from "@actor/character/data";
 import { NPCSource } from "@actor/npc/data";
 
-interface SpellcastingEntrySystemDataOld extends Omit<SpellcastingEntrySystemData, "focus"> {
+interface SpellcastingEntrySystemDataOld extends Omit<SpellcastingEntrySystemSource, "focus"> {
     focus?: {
         points: number;
         pool: number;

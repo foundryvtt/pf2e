@@ -222,3 +222,4 @@ export { Migration821InlineDamageRolls } from "./821-inline-damage-rolls";
 export { Migration822BladeAllyConsolidation } from "./822-blade-ally-consolidation";
 export { Migration823HeritageAncestrySlug } from "./823-heritage-ancestry-slug";
 export { Migration824SneakAttackDamageSource } from "./824-sneak-attack-damage-source";
+export { Migration825KhakkharaFengHuoLun } from "./825-khakkhara-feng-huo-lun";

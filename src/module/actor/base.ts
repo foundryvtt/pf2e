@@ -92,7 +92,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /** A cached copy of `Actor#itemTypes`, lazily regenerated every data preparation cycle */
     private _itemTypes?: { [K in keyof ItemTypeMap]: Embedded<ItemTypeMap[K]>[] } | null;
 
-    constructor(data: PreCreate<ActorSourcePF2e>, context: DocumentConstructionContext<ActorPF2e> = {}) {
+    constructor(data: PreCreate<ActorSourcePF2e>, context: DocumentConstructionContext<TokenDocumentPF2e | null> = {}) {
         super(data, context);
 
         // Add debounced checkAreaEffects method
@@ -1604,7 +1604,10 @@ interface ActorUpdateContext<T extends ActorPF2e> extends DocumentUpdateContext<
 
 /** A `Proxy` to to get Foundry to construct `ActorPF2e` subclasses */
 const ActorProxyPF2e = new Proxy(ActorPF2e, {
-    construct(_target, args: [source: PreCreate<ActorSourcePF2e>, context: DocumentConstructionContext<ActorPF2e>]) {
+    construct(
+        _target,
+        args: [source: PreCreate<ActorSourcePF2e>, context: DocumentConstructionContext<ActorPF2e["parent"]>]
+    ) {
         return new CONFIG.PF2E.Actor.documentClasses[args[0].type](...args);
     },
 });

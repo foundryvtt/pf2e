@@ -25,7 +25,30 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "allowedDrops": {
+                    "label": "PF2E.SpecificRule.Goblin.ChosenOfLamashtu.AllowedDrops",
+                    "predicate": [
+                        "item:type:heritage",
+                        "item:ancestry:goblin"
+                    ]
+                },
+                "choices": {
+                    "itemType": "heritage",
+                    "pack": "pf2e.heritages",
+                    "query": "{\"system.ancestry.slug\":\"goblin\"}"
+                },
+                "flag": "heritage",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Goblin.ChosenOfLamashtu.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "allowDuplicate": false,
+                "uuid": "{item|flags.pf2e.rulesSelections.heritage}"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Character Guide"
         },

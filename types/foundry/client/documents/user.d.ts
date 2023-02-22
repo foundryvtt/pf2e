@@ -9,7 +9,7 @@ declare global {
      * @see {@link applications.UserConfig}     The User configuration application
      */
     class User<TActor extends Actor = Actor> extends UserConstructor {
-        constructor(data: PreCreate<foundry.data.UserSource>, context?: DocumentConstructionContext<User>);
+        constructor(data: PreCreate<foundry.data.UserSource>, context?: DocumentConstructionContext<null>);
 
         /** Track whether the user is currently active in the game */
         active: boolean;

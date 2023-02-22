@@ -6,7 +6,7 @@ declare global {
     class TokenDocument<TActor extends Actor = _Actor> extends TokenDocumentConstructor {
         constructor(
             data: PreCreate<foundry.data.TokenSource>,
-            context?: TokenDocumentConstructionContext<TokenDocument>
+            context?: TokenDocumentConstructionContext<Scene | null, TActor | null>
         );
 
         /** An array of detection modes which are available to this Token */
@@ -198,8 +198,9 @@ declare global {
         readonly _object: Token<TokenDocument> | null;
     }
 
-    interface TokenDocumentConstructionContext<T extends TokenDocument> extends DocumentConstructionContext<T> {
-        actor?: T["actor"];
+    interface TokenDocumentConstructionContext<TParent extends Scene | null, TActor extends Actor | null>
+        extends DocumentConstructionContext<TParent> {
+        actor?: TActor;
     }
 
     interface TokenUpdateContext<T extends TokenDocument> extends DocumentModificationContext<T> {

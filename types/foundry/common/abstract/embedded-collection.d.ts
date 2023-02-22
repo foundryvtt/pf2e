@@ -8,11 +8,13 @@ declare global {
              * @param sourceArray The source data array for the collection in the parent Document data
              */
             class EmbeddedCollection<TDocument extends Document> extends utils.Collection<Embedded<TDocument>> {
-                /** @override */
                 constructor(
                     sourceArray: TDocument["_source"][],
                     documentClass: {
-                        new (data: TDocument["_source"], context?: DocumentConstructionContext): TDocument;
+                        new (
+                            data: TDocument["_source"],
+                            context?: DocumentConstructionContext<TDocument["parent"]>
+                        ): TDocument;
                     }
                 );
 

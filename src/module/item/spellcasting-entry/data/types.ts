@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { AbilityString } from "@actor/types";
 import { SpellPF2e } from "@item";
-import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemData } from "@item/data/base";
+import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "@item/data/base";
 import { MagicTradition } from "@item/spell/types";
 import { OneToTen, ZeroToEleven, ZeroToFour } from "@module/data";
 import { RollNotePF2e } from "@module/notes";
@@ -39,7 +39,7 @@ interface SpellcastingEntryPF2eCastOptions extends CastOptions {
 // temporary type until the spellcasting entry is migrated to no longer use slotX keys
 type SlotKey = `slot${ZeroToEleven}`;
 
-type SpellcastingEntrySource = BaseItemSourcePF2e<"spellcastingEntry", SpellcastingEntrySystemData>;
+type SpellcastingEntrySource = BaseItemSourcePF2e<"spellcastingEntry", SpellcastingEntrySystemSource>;
 
 type SpellcastingEntryData = Omit<SpellcastingEntrySource, "system" | "effects" | "flags"> &
     BaseItemDataPF2e<SpellcastingEntryPF2e, "spellcastingEntry", SpellcastingEntrySystemData, SpellcastingEntrySource>;
@@ -72,22 +72,14 @@ interface SpellSlotData {
 
 type PreparationType = keyof ConfigPF2e["PF2E"]["preparationType"];
 
-interface SpellcastingEntrySystemData extends ItemSystemData {
-    ability: {
-        value: AbilityString | "";
-    };
+interface SpellcastingEntrySystemSource extends ItemSystemSource {
+    ability: { value: AbilityString | "" };
     spelldc: {
         value: number;
         dc: number;
     };
-    tradition: {
-        value: MagicTradition | "";
-    };
-    prepared: {
-        value: PreparationType;
-        flexible?: boolean;
-        validItems?: "scroll" | "";
-    };
+    tradition: { value: MagicTradition | "" };
+    prepared: SpellCollectionTypeSource;
     showSlotlessLevels: {
         value: boolean;
     };
@@ -99,6 +91,22 @@ interface SpellcastingEntrySystemData extends ItemSystemData {
     autoHeightenLevel: {
         value: OneToTen | null;
     };
+    traits?: never;
+}
+
+interface SpellCollectionTypeSource {
+    value: PreparationType;
+    flexible?: boolean;
+    validItems?: "scroll" | "" | null;
+}
+
+interface SpellcastingEntrySystemData extends SpellcastingEntrySystemSource, Omit<ItemSystemData, "traits"> {
+    prepared: SpellCollectionTypeData;
+}
+
+interface SpellCollectionTypeData extends SpellCollectionTypeSource {
+    flexible: boolean;
+    validItems: "scroll" | null;
 }
 
 export {
@@ -113,4 +121,5 @@ export {
     SpellcastingEntryPF2eCastOptions,
     SpellcastingEntrySource,
     SpellcastingEntrySystemData,
+    SpellcastingEntrySystemSource,
 };

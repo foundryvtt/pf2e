@@ -7,7 +7,7 @@ declare global {
      * @param [data={}] Initial data provided to construct the Combat document
      */
     class Combat extends CombatConstructor {
-        constructor(data: PreCreate<foundry.data.CombatSource>, context?: DocumentConstructionContext<Combat>);
+        constructor(data: PreCreate<foundry.data.CombatSource>, context?: DocumentConstructionContext<null>);
 
         active: boolean;
 

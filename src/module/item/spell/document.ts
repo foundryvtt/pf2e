@@ -40,7 +40,7 @@ import { InstancePool } from "@system/damage/terms";
 import { DamageModifierDialog } from "@system/damage/modifier-dialog";
 import { MeasuredTemplatePF2e } from "@module/canvas";
 
-interface SpellConstructionContext extends DocumentConstructionContext<SpellPF2e> {
+interface SpellConstructionContext extends DocumentConstructionContext<ActorPF2e | null> {
     fromConsumable?: boolean;
 }
 

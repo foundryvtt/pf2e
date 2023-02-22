@@ -52,7 +52,7 @@ declare module foundry {
             // Linked Documents
             playlist: PlaylistSource | null;
             playlistSound: PlaylistSoundSource | null;
-            journal: JournalEntrySource | null;
+            journal: documents.JournalEntrySource | null;
             weather: string;
 
             // Permissions

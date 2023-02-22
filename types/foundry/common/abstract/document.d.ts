@@ -5,7 +5,7 @@ declare global {
         module abstract {
             /** The abstract base interface for all Document types. */
             abstract class Document {
-                constructor(data: PreCreate<DocumentSource>, context?: DocumentConstructionContext);
+                constructor(data: PreCreate<DocumentSource>, context?: DocumentConstructionContext<Document | null>);
 
                 /** An immutable reverse-reference to the parent Document to which this embedded Document belongs. */
                 readonly parent: Document | null;
@@ -17,13 +17,6 @@ declare global {
                 readonly data: DocumentData<Document>;
 
                 _source: this["data"]["_source"];
-
-                /**
-                 * A collection of Application instances which should be re-rendered whenever this Document experiences an update to
-                 * its data. The keys of this object are the application ids and the values are Application instances. Each
-                 * Application in this object will have its render method called by {@link Document#render}.
-                 */
-                apps: Record<number, Application>;
 
                 /** Perform one-time initialization tasks which only occur when the Document is first constructed. */
                 protected _initialize(): void;
@@ -232,7 +225,6 @@ declare global {
                  * const actor = await pack.getDocument(documentId);
                  * const updated = await Actor.updateDocuments([{_id: actor.id, name: "New Name"}], {pack: "mymodule.mypack"});
                  */
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 static updateDocuments<T extends Document>(
                     this: ConstructorOf<T>,
                     updates?: DocumentUpdateData<T>[],
@@ -570,9 +562,9 @@ declare global {
                  * @param [source=true] Draw values from the underlying data source rather than transformed values
                  * @returns The extracted primitive object
                  */
-                toObject(source?: true): this["data"]["_source"];
+                toObject(source?: true): this["_source"];
                 toObject(source: false): RawObject<this["data"]>;
-                toObject(source?: boolean): this["data"]["_source"] | RawObject<this["data"]>;
+                toObject(source?: boolean): this["_source"] | RawObject<this["data"]>;
 
                 /**
                  * Serializing an Document should simply serialize its inner data, not the entire instance
@@ -583,6 +575,7 @@ declare global {
             type MetadataPermission =
                 | keyof typeof CONST.USER_ROLES
                 | keyof typeof CONST.USER_PERMISSIONS
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 | ((...args: any[]) => boolean);
 
             interface DocumentMetadata {
@@ -603,8 +596,8 @@ declare global {
         }
     }
 
-    interface DocumentConstructionContext<T extends foundry.abstract.Document = foundry.abstract.Document> {
-        parent?: T["parent"];
+    interface DocumentConstructionContext<TParent extends foundry.abstract.Document | null> {
+        parent?: TParent;
         pack?: string;
         [key: string]: unknown;
     }

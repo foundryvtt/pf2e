@@ -1,5 +1,20 @@
 declare module foundry {
-    module data {
+    module documents {
+        /** The JournalEntry document model. */
+        class BaseJournalEntry extends abstract.Document {
+            static override get metadata(): JournalEntryMetadata;
+
+            readonly pages: abstract.EmbeddedCollection<BaseJournalEntryPage<this>>;
+        }
+
+        interface BaseJournalEntry {
+            readonly parent: null;
+
+            readonly _source: JournalEntrySource;
+
+            get documentName(): (typeof BaseJournalEntry)["metadata"]["name"];
+        }
+
         /**
          * The data schema for a JournalEntry document.
          * @see BaseJournalEntry
@@ -27,18 +42,21 @@ declare module foundry {
             ownership: Record<string, DocumentOwnershipLevel>;
             flags: Record<string, Record<string, unknown>>;
         }
+    }
 
-        class JournalEntryData<
-            TDocument extends documents.BaseJournalEntry = documents.BaseJournalEntry,
-            TPage extends documents.BaseJournalEntryPage = documents.BaseJournalEntryPage
-        > extends abstract.DocumentData<TDocument> {
-            static override defineSchema(): abstract.DocumentSchema;
-
-            pages: abstract.EmbeddedCollection<TPage>;
-        }
-
-        interface JournalEntryData extends Omit<JournalEntrySource, "pages"> {
-            readonly _source: JournalEntrySource;
-        }
+    interface JournalEntryMetadata extends abstract.DocumentMetadata {
+        name: "JournalEntry";
+        collection: "journal";
+        indexed: true;
+        compendiumIndexFields: ["_id", "name", "sort"];
+        embedded: {
+            JournalEntryPage: typeof documents.BaseJournalEntryPage;
+        };
+        label: "DOCUMENT.JournalEntry";
+        labelPlural: "DOCUMENT.JournalEntries";
+        isPrimary: true;
+        permissions: Omit<abstract.DocumentMetadata["permissions"], "create"> & {
+            create: "JOURNAL_CREATE";
+        };
     }
 }
