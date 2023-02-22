@@ -62,7 +62,7 @@ class CombatantPF2e<
         if (!encounter || !actor) return;
 
         // Run condition end of turn effects
-        const activeConditions = actor.itemTypes.condition.filter((c) => c.isActive);
+        const activeConditions = actor.itemTypes.condition.filter((c) => c.active);
         for (const condition of activeConditions) {
             await condition.onEndTurn({ token: this.token });
         }

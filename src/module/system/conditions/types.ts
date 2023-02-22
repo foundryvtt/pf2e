@@ -18,7 +18,6 @@ interface FlattenedCondition {
     children: ConditionReference[];
     overrides: ConditionReference[];
     overriddenBy: ConditionReference[];
-    immunityFrom: ConditionReference[];
 }
 
 interface ConditionReference {

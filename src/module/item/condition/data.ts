@@ -11,8 +11,6 @@ type ConditionData = Omit<ConditionSource, "system" | "effects" | "flags"> &
 
 interface ConditionSystemSource extends ItemSystemSource {
     slug: ConditionSlug;
-    active: boolean;
-    removable: boolean;
     references: {
         parent?: {
             id: string;
@@ -21,43 +19,11 @@ interface ConditionSystemSource extends ItemSystemSource {
         children: { id: string; type: "condition" }[];
         overriddenBy: { id: string; type: "condition" }[];
         overrides: { id: string; type: "condition" }[];
-
-        /**
-         * This status is immune, and thereby inactive, from the following list.
-         */
-        immunityFrom: {
-            id: string;
-            type: string;
-        }[];
     };
+    duration: { value: number };
     persistent?: PersistentSourceData;
-    hud: {
-        statusName: string;
-        img: {
-            useStatusName: boolean;
-            value: ImageFilePath;
-        };
-        selectable: boolean;
-    };
-    duration: {
-        perpetual: boolean;
-        value: number;
-        text: string;
-    };
-    modifiers: {
-        type: string;
-        name: string;
-        group: string;
-        value?: number;
-    }[];
-    base: ConditionSlug;
-    group: string;
+    group: string | null;
     value: ConditionValueData;
-    sources: { hud: boolean };
-    alsoApplies: {
-        linked: { condition: ConditionSlug; value?: number }[];
-        unlinked: { condition: ConditionSlug; value?: number }[];
-    };
     overrides: string[];
     traits?: never;
 }
@@ -71,29 +37,7 @@ interface PersistentDamageData extends PersistentSourceData {
     expectedValue: number;
 }
 
-type ConditionValueData =
-    | {
-          isValued: true;
-          immutable: boolean;
-          value: number;
-          modifiers: [
-              {
-                  value: number;
-                  source: string;
-              }
-          ];
-      }
-    | {
-          isValued: false;
-          immutable: boolean;
-          value: null;
-          modifiers: [
-              {
-                  value: number;
-                  source: string;
-              }
-          ];
-      };
+type ConditionValueData = { isValued: true; value: number } | { isValued: false; value: null };
 
 type ConditionSlug = SetElement<typeof CONDITION_SLUGS>;
 type ConditionKey = ConditionSlug | `persistent-damage-${string}`;
@@ -110,6 +54,7 @@ export {
     ConditionSlug,
     ConditionSource,
     ConditionSystemData,
+    ConditionSystemSource,
     PersistentDamageData,
     PersistentSourceData,
 };

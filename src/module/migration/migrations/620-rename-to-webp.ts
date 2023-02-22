@@ -53,10 +53,6 @@ export class Migration620RenameToWebp extends MigrationBase {
             effect.icon = this.renameToWebP(effect.icon);
         }
 
-        if (itemData.type === "condition" && itemData.flags.pf2e?.condition) {
-            itemData.system.hud.img.value = this.renameToWebP(itemData.system.hud.img.value);
-        }
-
         if (this.isABCK(itemData)) {
             const embedData = itemData.system.items;
             const embeds = Object.values(embedData).filter(
