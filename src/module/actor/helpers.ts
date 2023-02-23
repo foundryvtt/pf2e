@@ -334,7 +334,7 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
                 options: new Set(params.options ?? []),
             });
 
-            if (!context.self.item.dealsDamage) {
+            if (!context.self.item.dealsDamage && !params.getFormula) {
                 ui.notifications.warn("PF2E.ErrorMessage.WeaponNoDamage", { localize: true });
                 return null;
             }
