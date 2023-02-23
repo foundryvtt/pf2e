@@ -88,8 +88,8 @@ async function createConsumableFromSpell(
         linkElement.append(spell.sourceId ? "@" + spell.sourceId.replace(".", "[") + "]" : spell.description);
         paragraphElement.append(linkElement);
 
-        const hrElement = document.createElement("hr");
         const containerElement = document.createElement("div");
+        const hrElement = document.createElement("hr");
         containerElement.append(paragraphElement, hrElement);
         hrElement.insertAdjacentHTML("afterend", description);
 
