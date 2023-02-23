@@ -1,6 +1,6 @@
 import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
 import { FeatPF2e, ItemPF2e } from "@item";
-import { isObject, objectHasKey, tupleHasValue } from "@util";
+import { isObject, objectHasKey } from "@util";
 import { ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
 import {
     RuleElementPF2e,
@@ -19,14 +19,16 @@ const { fields } = foundry.data;
  */
 class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TSchema> {
     constructor(data: AELikeSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
-        const mode = objectHasKey(AELikeRuleElement.CHANGE_MODES, data.mode) ? data.mode : null;
-        data.priority ??= mode ? AELikeRuleElement.CHANGE_MODES[mode] : NaN;
-        data.phase ??= "applyAEs";
-
+        const hasExplicitPriority = typeof data.priority === "number";
         super(data, item, options);
 
-        this.path = typeof data.path === "string" ? data.path.replace(/^data\./, "system.") : "";
-        this.phase = tupleHasValue(AELikeRuleElement.PHASES, data.phase) ? data.phase : "applyAEs";
+        // Legacy accommodation for pre-V10 paths
+        this.path = this.path.replace(/^data\./, "system.");
+
+        // Set priority according to AE change mode if no priority was explicitly set
+        if (!hasExplicitPriority) {
+            this.priority = AELikeRuleElement.CHANGE_MODES[this.mode];
+        }
     }
 
     static override defineSchema(): AELikeSchema {

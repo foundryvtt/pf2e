@@ -51,8 +51,8 @@ export function administerFirstAid(options: { variant: AdministerFirstAidVariant
                     const dc = 5 + dying.recoveryDC + dying.value;
                     return new Statistic(target, {
                         slug: "administer-first-aid",
-                        label: "PF2E.Actions.AdministerFirstAid.Stabilize.DifficultyClass.Label",
-                        dc: { base: dc },
+                        label: "PF2E.Actions.AdministerFirstAid.Stabilize.Title",
+                        dc: { base: dc, label: "PF2E.Actions.AdministerFirstAid.Stabilize.DifficultyClass.Label" },
                     });
                 }
                 ui.notifications.warn(game.i18n.localize("PF2E.Actions.AdministerFirstAid.Warning.TargetNotDying"));

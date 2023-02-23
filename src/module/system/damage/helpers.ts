@@ -1,7 +1,7 @@
 import { ErrorPF2e, fontAwesomeIcon } from "@util";
 import { DamageInstance, DamageRoll } from "./roll";
 import { ArithmeticExpression, Grouping, IntermediateDie } from "./terms";
-import { DamageCategory, DamageDieSize } from "./types";
+import { DamageCategory, DamageDieSize, DamageType } from "./types";
 import { BASE_DAMAGE_TYPES_TO_CATEGORIES, DAMAGE_DIE_FACES_TUPLE } from "./values";
 
 function nextDamageDieSize(next: { upgrade: DamageDieSize }): DamageDieSize;
@@ -11,13 +11,10 @@ function nextDamageDieSize(next: { upgrade: DamageDieSize } | { downgrade: Damag
     return DAMAGE_DIE_FACES_TUPLE[DAMAGE_DIE_FACES_TUPLE.indexOf(faces) + direction] ?? faces;
 }
 
-/** Provides constants for typical damage categories, as well as a simple API for adding custom damage types and categories. */
+/** Provides constants for typical damage categories */
 const DamageCategorization = {
-    /**
-     * Map a damage type to it's corresponding damage category. If the type has no category, the type itself will be
-     * returned.
-     */
-    fromDamageType: (damageType: string): DamageCategory | null => BASE_DAMAGE_TYPES_TO_CATEGORIES[damageType] ?? null,
+    /** Map a damage type to its corresponding damage category, if any. */
+    fromDamageType: (damageType: DamageType): DamageCategory | null => BASE_DAMAGE_TYPES_TO_CATEGORIES[damageType],
 
     /** Get a set of all damage categories (both base and custom). */
     allCategories: () => new Set(Object.values(BASE_DAMAGE_TYPES_TO_CATEGORIES)),
@@ -26,7 +23,7 @@ const DamageCategorization = {
     baseCategories: () => new Set(Object.values(BASE_DAMAGE_TYPES_TO_CATEGORIES)),
 
     /** Map a damage category to the set of damage types in it. */
-    toDamageTypes: (category: string) => {
+    toDamageTypes: (category: string): Set<string> => {
         // Get all of the types in the current mappings which map to the given category
         const types = Object.entries(BASE_DAMAGE_TYPES_TO_CATEGORIES)
             .filter(([_key, value]) => value === category)
