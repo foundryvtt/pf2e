@@ -87,7 +87,13 @@ async function createConsumableFromSpell(
         const linkElement = document.createElement("em");
         linkElement.append(spell.sourceId ? "@" + spell.sourceId.replace(".", "[") + "]" : spell.description);
         paragraphElement.append(linkElement);
-        return paragraphElement.outerHTML + document.createElement("hr").outerHTML + description;
+
+        const hrElement = document.createElement("hr");
+        const containerElement = document.createElement("div");
+        containerElement.append(paragraphElement, hrElement);
+        hrElement.insertAdjacentHTML("afterend", description);
+
+        return containerElement.innerHTML;
     })();
 
     // Cantrip deck casts at level 1
