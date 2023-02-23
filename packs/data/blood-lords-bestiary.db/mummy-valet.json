@@ -109,7 +109,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "subtle-presence",
+                        "toggleable": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -212,6 +219,11 @@
                             }
                         ],
                         "key": "Aura",
+                        "predicate": [
+                            {
+                                "not": "subtle-presence"
+                            }
+                        ],
                         "radius": 30,
                         "slug": "despair",
                         "traits": [
