@@ -4,8 +4,8 @@ import { Alignment } from "@actor/creature/types";
 import { ActorType } from "@actor/data";
 import {
     ActionItemPF2e,
-    AncestryPF2e,
-    ArmorPF2e,
+    AncestryPF2e, ARMOR_PROPERTY_RUNES,
+    ArmorPF2e, ArmorPropertyRuneType,
     BackgroundPF2e,
     BookPF2e,
     ClassPF2e,
@@ -103,6 +103,12 @@ const senseAcuity: Record<SenseAcuity, string> = {
     imprecise: "PF2E.Actor.Creature.Sense.Acuity.Imprecise",
     precise: "PF2E.Actor.Creature.Sense.Acuity.Precise",
     vague: "PF2E.Actor.Creature.Sense.Acuity.Vague",
+};
+
+const armorPropertyRunes = {
+    ...Object.entries(ARMOR_PROPERTY_RUNES).reduce((accumulated, [slug, rune]) => {
+        return { ...accumulated, [slug]: rune.name };
+    }, {} as Record<ArmorPropertyRuneType, string>),
 };
 
 const weaponPropertyRunes = {
@@ -813,46 +819,6 @@ export const PF2ECONFIG = {
         greaterResilient: "PF2E.ArmorGreaterResilientRune",
         majorResilient: "PF2E.ArmorMajorResilientRune",
     },
-    armorPropertyRunes: {
-        ready: "PF2E.ArmorPropertyRuneReady",
-        slick: "PF2E.ArmorPropertyRuneSlick",
-        shadow: "PF2E.ArmorPropertyRuneShadow",
-        glamered: "PF2E.ArmorPropertyRuneGlamered",
-        acidResistant: "PF2E.ArmorPropertyRuneAcidResistant",
-        coldResistant: "PF2E.ArmorPropertyRuneColdResistant",
-        electricityResistant: "PF2E.ArmorPropertyRuneElectricityResistant",
-        fireResistant: "PF2E.ArmorPropertyRuneFireResistant",
-        greaterSlick: "PF2E.ArmorPropertyRuneGreaterSlick",
-        invisibility: "PF2E.ArmorPropertyRuneInvisibility",
-        sinisterKnight: "PF2E.ArmorPropertyRuneSinisterKnight",
-        greaterDread: "PF2E.ArmorPropertyRuneGreaterDread",
-        greaterReady: "PF2E.ArmorPropertyRuneGreaterReady",
-        greaterShadow: "PF2E.ArmorPropertyRuneGreaterShadow",
-        greaterInvisibility: "PF2E.ArmorPropertyRuneGreaterInvisibility",
-        greaterAcidResistant: "PF2E.ArmorPropertyRuneGreaterAcidResistant",
-        greaterColdResistant: "PF2E.ArmorPropertyRuneGreaterColdResistant",
-        greaterElectricityResistant: "PF2E.ArmorPropertyRuneGreaterElectricityResistant",
-        greaterFireResistant: "PF2E.ArmorPropertyRuneGreaterFireResistant",
-        fortification: "PF2E.ArmorPropertyRuneFortification",
-        winged: "PF2E.ArmorPropertyRuneWinged",
-        rockBraced: "PF2E.ArmorPropertyRuneRockBraced",
-        soaring: "PF2E.ArmorPropertyRuneSoaring",
-        antimagic: "PF2E.ArmorPropertyRuneAntimagic",
-        majorSlick: "PF2E.ArmorPropertyRuneMajorSlick",
-        ethereal: "PF2E.ArmorPropertyRuneEthereal",
-        majorShadow: "PF2E.ArmorPropertyRuneMajorShadow",
-        moderateDread: "PF2E.ArmorPropertyRuneModerateDread",
-        greaterFortification: "PF2E.ArmorPropertyRuneGreaterFortification",
-        greaterWinged: "PF2E.ArmorPropertyRuneGreaterWinged",
-        deathless: "PF2E.ArmorPropertyRuneDeathless",
-        dread: "PF2E.ArmorPropertyRuneDread",
-        bitter: "PF2E.ArmorPropertyRuneBitter",
-        stanching: "PF2E.ArmorPropertyRuneStanching",
-        greaterStanching: "PF2E.ArmorPropertyRuneGreaterStanching",
-        majorStanching: "PF2E.ArmorPropertyRuneMajorStanching",
-        trueStanching: "PF2E.ArmorPropertyRuneTrueStanching",
-        implacable: "PF2E.ArmorPropertyRuneImplacable",
-    },
     accessoryPropertyRunes: {
         called: "PF2E.AccessoryPropertyRuneCalled",
         dragonsBreath: "PF2E.AccessoryPropertyRuneDragonsBreath",
@@ -877,6 +843,7 @@ export const PF2ECONFIG = {
         greaterStriking: "PF2E.ArmorGreaterStrikingRune",
         majorStriking: "PF2E.ArmorMajorStrikingRune",
     },
+    armorPropertyRunes,
     weaponPropertyRunes,
     damageTraits,
     damageTypes,
@@ -1553,6 +1520,9 @@ export const PF2ECONFIG = {
     runes: {
         weapon: {
             property: { ...WEAPON_PROPERTY_RUNES },
+        },
+        armor: {
+            property: { ...ARMOR_PROPERTY_RUNES },
         },
     },
 

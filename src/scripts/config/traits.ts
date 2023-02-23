@@ -809,6 +809,7 @@ const equipmentTraits = {
 
 const armorTraits = {
     ...alignmentTraits,
+    ...ancestryTraits,
     ...elementalTraits,
     ...magicSchools,
     ...magicTraditions,
@@ -827,9 +828,11 @@ const armorTraits = {
     "deflecting-bludgeoning": "PF2E.TraitDeflectingBludgeoning",
     "deflecting-physical-ranged": "PF2E.TraitDeflectingPhysicalRanged",
     "deflecting-slashing": "PF2E.TraitDeflectingSlashing",
+    emotion: "PF2E.TraitEmotion",
     "entrench-melee": "PF2E.TraitEntrenchMelee",
     "entrench-ranged": "PF2E.TraitEntrenchRanged",
     extradimensional: "PF2E.TraitExtradimensional",
+    fear: "PF2E.TraitFear",
     focused: "PF2E.TraitFocused",
     foldaway: "PF2E.TraitFoldaway",
     force: "PF2E.TraitForce",
@@ -846,10 +849,13 @@ const armorTraits = {
     launching: "PF2E.TraitLaunching",
     light: "PF2E.TraitLight",
     magical: "PF2E.TraitMagical",
+    mental: "PF2E.TraitMental",
     noisy: "PF2E.TraitNoisy",
     plant: "PF2E.TraitPlant",
     ponderous: "PF2E.TraitPonderous",
+    saggorak: "PF2E.TraitSaggorak",
     "shield-throw": "PF2E.TraitShieldThrow",
+    visual: "PF2E.TraitVisual",
 };
 
 export {

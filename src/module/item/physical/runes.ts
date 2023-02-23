@@ -1,7 +1,7 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression";
 import { DamageDiceParameters, DamageDicePF2e, ModifierAdjustment } from "@actor/modifiers";
 import { ResistanceType } from "@actor/types";
-import { ArmorPF2e, WeaponPF2e } from "@item";
+import {ArmorPF2e, ArmorPropertyRuneType, ArmorTrait, OtherArmorTag, WeaponPF2e} from "@item";
 import type { ResilientRuneType } from "@item/armor/types";
 import type { OtherWeaponTag, StrikingRuneType, WeaponPropertyRuneType, WeaponTrait } from "@item/weapon/types";
 import { OneToFour, OneToThree, Rarity, ZeroToFour, ZeroToThree } from "@module/data";
@@ -69,6 +69,15 @@ function toDamageDice(rune: WeaponPropertyRuneType, dice: RuneDiceData[]): Damag
     );
 }
 
+interface ArmorPropertyRuneData {
+    level: number;
+    name: string;
+    price: number; // in gp
+    rarity: Rarity;
+    slug: string;
+    traits: ArmorTrait[];
+    otherTags?: OtherArmorTag[];
+}
 interface WeaponPropertyRuneData {
     attack?: {
         notes?: RuneNoteData[];
@@ -98,6 +107,474 @@ interface RuneNoteData extends Pick<RollNoteSource, "outcome" | "predicate" | "t
     title: string;
     text: string;
 }
+
+// https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=26
+export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRuneData> = {
+    advancing: {
+        level: 9,
+        name: "PF2E.ArmorPropertyRuneAdvancing",
+        price: 625,
+        rarity: "common",
+        slug: "advancing",
+        traits: ["magical", "necromancy"],
+    },
+    aimAiding: {
+        level: 6,
+        name: "PF2E.ArmorPropertyRuneAimAiding",
+        price: 225,
+        rarity: "common",
+        slug: "aimAiding",
+        traits: ["magical", "transmutation"],
+    },
+    acidEnergyResistant: {
+        level: 8,
+        name: "PF2E.ArmorPropertyRuneAcidResistant",
+        price: 420,
+        rarity: "common",
+        slug: "acidEnergyResistant",
+        traits: ["abjuration", "magical"],
+    },
+    antimagic: {
+        level: 15,
+        name: "PF2E.ArmorPropertyRuneAntimagic",
+        price: 6_500,
+        rarity: "uncommon",
+        slug: "antimagic",
+        traits: ["abjuration", "magical"],
+    },
+    assisting: {
+        level: 5,
+        name: "PF2E.ArmorPropertyRuneAssisting",
+        price: 125,
+        rarity: "common",
+        slug: "assisting",
+        traits: ["magical", "transmutation"],
+    },
+    bitter: {
+        level: 9,
+        name: "PF2E.ArmorPropertyRuneBitter",
+        price: 135,
+        rarity: "uncommon",
+        slug: "bitter",
+        traits: ["healing", "magical", "transmutation"],
+    },
+    coldEnergyResistant: {
+        level: 8,
+        name: "PF2E.ArmorPropertyRuneColdResistant",
+        price: 420,
+        rarity: "common",
+        slug: "acidEnergyResistant",
+        traits: ["abjuration", "magical"],
+    },
+    deathless: {
+        level: 7,
+        name: "PF2E.ArmorPropertyRuneDeathless",
+        price: 330,
+        rarity: "uncommon",
+        slug: "deathless",
+        traits: ["healing", "magical", "necromancy"],
+    },
+    electricityEnergyResistant: {
+        level: 8,
+        name: "PF2E.ArmorPropertyRuneElectricityResistant",
+        price: 420,
+        rarity: "common",
+        slug: "electricityEnergyResistant",
+        traits: ["abjuration", "magical"],
+    },
+    energyAbsorbing: {
+        level: 11,
+        name: "PF2E.ArmorPropertyRuneEnergyAbsorbing",
+        price: 1_200,
+        rarity: "rare",
+        slug: "energyAbsorbing",
+        traits: ["abjuration", "magical"],
+    },
+    energyAdaptive: {
+        level: 13,
+        name: "PF2E.ArmorPropertyRuneEnergyAdaptive",
+        price: 2_600,
+        rarity: "common",
+        slug: "energyAdaptive",
+        traits: ["abjuration", "magical"],
+    },
+    ethereal: {
+        level: 17,
+        name: "PF2E.ArmorPropertyRuneEthereal",
+        price: 13_500,
+        rarity: "uncommon",
+        slug: "ethereal",
+        traits: ["conjuration", "magical"],
+    },
+    fireEnergyResistant: {
+        level: 8,
+        name: "PF2E.ArmorPropertyRuneFireResistant",
+        price: 420,
+        rarity: "common",
+        slug: "fireEnergyResistant",
+        traits: ["abjuration", "magical"],
+    },
+    fortification: {
+        level: 12,
+        name: "PF2E.ArmorPropertyRuneFortification",
+        price: 2_000,
+        rarity: "common",
+        slug: "fortification",
+        traits: ["abjuration", "magical"],
+    },
+    glamered: {
+        level: 5,
+        name: "PF2E.ArmorPropertyRuneGlamered",
+        price: 140,
+        rarity: "common",
+        slug: "glamered",
+        traits: ["illusion", "magical"],
+    },
+    greaterAcidResistant: {
+        level: 12,
+        name: "PF2E.ArmorPropertyRuneGreaterAcidResistant",
+        price: 1_650,
+        rarity: "common",
+        slug: "greaterAcidResistant",
+        traits: ["abjuration", "magical"],
+    },
+    greaterAdvancing: {
+        level: 16,
+        name: "PF2E.ArmorPropertyRuneGreaterAdvancing",
+        price: 8_000,
+        rarity: "common",
+        slug: "greaterAdvancing",
+        traits: ["magical", "necromancy"],
+    },
+    greaterColdResistant: {
+        level: 12,
+        name: "PF2E.ArmorPropertyRuneGreaterColdResistant",
+        price: 1_650,
+        rarity: "common",
+        slug: "greaterColdResistant",
+        traits: ["abjuration", "magical"],
+    },
+    greaterDread: {
+        level: 18,
+        name: "PF2E.ArmorPropertyRuneGreaterDread",
+        price: 21_000,
+        rarity: "common",
+        slug: "greaterDread",
+        traits: ["emotion", "enchantment", "fear", "magical", "mental", "visual"],
+    },
+    greaterElectricityResistant: {
+        level: 12,
+        name: "PF2E.ArmorPropertyRuneGreaterElectricityResistant",
+        price: 1_650,
+        rarity: "common",
+        slug: "greaterElectricityResistant",
+        traits: ["abjuration", "magical"],
+    },
+    greaterEnergyAbsorbing: {
+        level: 15,
+        name: "PF2E.ArmorPropertyRuneGreaterEnergyAbsorbing",
+        price: 6_000,
+        rarity: "rare",
+        slug: "greaterEnergyAbsorbing",
+        traits: ["abjuration", "magical"],
+    },
+    greaterFireResistant: {
+        level: 12,
+        name: "PF2E.ArmorPropertyRuneGreaterFireResistant",
+        price: 1_650,
+        rarity: "common",
+        slug: "greaterFireResistant",
+        traits: ["abjuration", "magical"],
+    },
+    greaterFortification: {
+        level: 18,
+        name: "PF2E.ArmorPropertyRuneGreaterFortification",
+        price: 24_000,
+        rarity: "common",
+        slug: "greaterFortification",
+        traits: ["abjuration", "magical"],
+    },
+    greaterInvisibility: {
+        level: 10,
+        name: "PF2E.ArmorPropertyRuneGreaterInvisibility",
+        price: 1_000,
+        rarity: "common",
+        slug: "energyResistant",
+        traits: ["illusion", "magical"],
+    },
+    greaterQuenching: {
+        level: 10,
+        name: "PF2E.ArmorPropertyRuneGreaterQuenching",
+        price: 1_000,
+        rarity: "common",
+        slug: "greaterQuenching",
+        traits: ["abjuration", "magical"],
+    },
+    greaterReady: {
+        level: 11,
+        name: "PF2E.ArmorPropertyRuneGreaterReady",
+        price: 1_200,
+        rarity: "common",
+        slug: "greaterReady",
+        traits: ["evocation", "magical"],
+    },
+    greaterShadow: {
+        level: 9,
+        name: "PF2E.ArmorPropertyRuneGreaterShadow",
+        price: 650,
+        rarity: "common",
+        slug: "greaterShadow",
+        traits: ["magical", "transmutation"],
+    },
+    greaterSwallowSpike: {
+        level: 12,
+        name: "PF2E.ArmorPropertyRuneGreaterSwallowSpike",
+        price: 1_750,
+        rarity: "common",
+        slug: "greaterSwallowSpike",
+        traits: ["magical", "transmutation"],
+    },
+    greaterSlick: {
+        level: 8,
+        name: "PF2E.ArmorPropertyRuneGreaterSlick",
+        price: 450,
+        rarity: "common",
+        slug: "greaterSlick",
+        traits: ["magical", "transmutation"],
+    },
+    greaterStanching: {
+        level: 9,
+        name: "PF2E.ArmorPropertyRuneGreaterStanching",
+        price: 600,
+        rarity: "uncommon",
+        slug: "greaterStanching",
+        traits: ["magical", "necromancy"],
+    },
+    greaterWinged: {
+        level: 19,
+        name: "PF2E.ArmorPropertyRuneGreaterWinged",
+        price: 35_000,
+        rarity: "common",
+        slug: "greaterWinged",
+        traits: ["magical", "transmutation"],
+    },
+    gliding: {
+        level: 8,
+        name: "PF2E.ArmorPropertyRuneGliding",
+        price: 450,
+        rarity: "common",
+        slug: "gliding",
+        traits: ["magical", "transmutation"],
+    },
+    immovable: {
+        level: 12,
+        name: "PF2E.ArmorPropertyRuneImmovable",
+        price: 1_800,
+        rarity: "uncommon",
+        slug: "immovable",
+        traits: ["magical", "transmutation"],
+    },
+    implacable: {
+        level: 11,
+        name: "PF2E.ArmorPropertyRuneImplacable",
+        price: 1_200,
+        rarity: "uncommon",
+        slug: "implacable",
+        traits: ["magical", "transmutation"],
+    },
+    invisibility: {
+        level: 8,
+        name: "PF2E.ArmorPropertyRuneInvisibility",
+        price: 500,
+        rarity: "common",
+        slug: "invisibility",
+        traits: ["illusion", "magical"],
+    },
+    lesserDread: {
+        level: 6,
+        name: "PF2E.ArmorPropertyRuneDread",
+        price: 225,
+        rarity: "uncommon",
+        slug: "lesserDread",
+        traits: ["emotion", "enchantment", "fear", "magical", "mental", "visual"],
+    },
+    magnetizing: {
+        level: 10,
+        name: "PF2E.ArmorPropertyRuneMagnetizing",
+        price: 900,
+        rarity: "common",
+        slug: "magnetizing",
+        traits: ["evocation", "magical"],
+    },
+    majorQuenching: {
+        level: 14,
+        name: "PF2E.ArmorPropertyRuneMajorQuenching",
+        price: 4_500,
+        rarity: "common",
+        slug: "majorQuenching",
+        traits: ["abjuration", "magical"],
+    },
+    majorSlick: {
+        level: 16,
+        name: "PF2E.ArmorPropertyRuneMajorSlick",
+        price: 9_000,
+        rarity: "common",
+        slug: "majorSlick",
+        traits: ["magical", "transmutation"],
+    },
+    majorShadow: {
+        level: 17,
+        name: "PF2E.ArmorPropertyRuneMajorShadow",
+        price: 14_000,
+        rarity: "common",
+        slug: "majorShadow",
+        traits: ["magical", "transmutation"],
+    },
+    majorSwallowSpike: {
+        level: 16,
+        name: "PF2E.ArmorPropertyRuneMajorSwallowSpike",
+        price: 19_250,
+        rarity: "common",
+        slug: "majorSwallowSpike",
+        traits: ["magical", "transmutation"],
+    },
+    majorStanching: {
+        level: 13,
+        name: "PF2E.ArmorPropertyRuneMajorStanching",
+        price: 2_500,
+        rarity: "uncommon",
+        slug: "majorStanching",
+        traits: ["magical", "necromancy"],
+    },
+    misleading: {
+        level: 16,
+        name: "PF2E.ArmorPropertyRuneMisleading",
+        price: 8_000,
+        rarity: "common",
+        slug: "misleading",
+        traits: ["illusion", "magical"],
+    },
+    moderateDread: {
+        level: 12,
+        name: "PF2E.ArmorPropertyRuneModerateDread",
+        price: 1_800,
+        rarity: "uncommon",
+        slug: "moderateDread",
+        traits: ["emotion", "enchantment", "fear", "magical", "mental", "visual"],
+    },
+    portable: {
+        level: 9,
+        name: "PF2E.ArmorPropertyRunePortable",
+        price: 660,
+        rarity: "common",
+        slug: "portable",
+        traits: ["magical", "transmutation"],
+    },
+    quenching: {
+        level: 6,
+        name: "PF2E.ArmorPropertyRuneQuenching",
+        price: 250,
+        rarity: "common",
+        slug: "quenching",
+        traits: ["abjuration", "magical"],
+    },
+    ready: {
+        level: 6,
+        name: "PF2E.ArmorPropertyRuneReady",
+        price: 200,
+        rarity: "common",
+        slug: "ready",
+        traits: ["evocation", "magical"],
+    },
+    rockBraced: {
+        level: 13,
+        name: "PF2E.ArmorPropertyRuneRockBraced",
+        price: 3_000,
+        rarity: "rare",
+        slug: "rockBraced",
+        traits: ["abjuration", "dwarf", "magical", "saggorak"],
+    },
+    shadow: {
+        level: 5,
+        name: "PF2E.ArmorPropertyRuneShadow",
+        price: 55,
+        rarity: "common",
+        slug: "shadow",
+        traits: ["magical", "transmutation"],
+    },
+    sinisterKnight: {
+        level: 8,
+        name: "PF2E.ArmorPropertyRuneSinisterKnight",
+        price: 500,
+        rarity: "uncommon",
+        slug: "sinisterKnight",
+        traits: ["abjuration", "illusion", "magical"],
+    },
+    slick: {
+        level: 5,
+        name: "PF2E.ArmorPropertyRuneSlick",
+        price: 45,
+        rarity: "common",
+        slug: "slick",
+        traits: ["magical", "transmutation"],
+    },
+    soaring: {
+        level: 14,
+        name: "PF2E.ArmorPropertyRuneSoaring",
+        price: 3_750,
+        rarity: "common",
+        slug: "soaring",
+        traits: ["abjuration", "magical"],
+    },
+    spellbreaking: {
+        level: 13,
+        name: "PF2E.ArmorPropertyRuneSpellbreaking",
+        price: 3_000,
+        rarity: "common",
+        slug: "spellbreaking",
+        traits: ["abjuration", "magical"],
+    },
+    stanching: {
+        level: 5,
+        name: "PF2E.ArmorPropertyRuneStanching",
+        price: 130,
+        rarity: "uncommon",
+        slug: "stanching",
+        traits: ["magical", "necromancy"],
+    },
+    swallowSpike: {
+        level: 6,
+        name: "PF2E.ArmorPropertyRuneSwallowSpike",
+        price: 200,
+        rarity: "common",
+        slug: "swallowSpike",
+        traits: ["magical", "transmutation"],
+    },
+    trueStanching: {
+        level: 17,
+        name: "PF2E.ArmorPropertyRuneTrueStanching",
+        price: 12_500,
+        rarity: "uncommon",
+        slug: "trueStanching",
+        traits: ["magical", "necromancy"],
+    },
+    trueQuenching: {
+        level: 18,
+        name: "PF2E.ArmorPropertyRuneTrueQuenching",
+        price: 24_000,
+        rarity: "common",
+        slug: "trueQuenching",
+        traits: ["abjuration", "magical"],
+    },
+    winged: {
+        level: 13,
+        name: "PF2E.ArmorPropertyRuneWinged",
+        price: 2_500,
+        rarity: "common",
+        slug: "winged",
+        traits: ["magical", "transmutation"],
+    },
+};
 
 // https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=27
 export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropertyRuneData> = {
@@ -1057,12 +1534,27 @@ interface RuneValuationData {
     level: number;
     price: number;
     rarity: Rarity;
-    traits: WeaponTrait[];
-    otherTags?: OtherWeaponTag[];
+    traits: WeaponTrait[] | ArmorTrait[];
+    otherTags?: OtherWeaponTag[] | OtherArmorTag[];
 }
 
+// https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=24
+const ARMOR_POTENCY_RUNE_DATA: Record<OneToFour, RuneValuationData> = {
+    1: { level: 5, price: 160, rarity: "common", traits: ["abjuration"] },
+    2: { level: 11, price: 1060, rarity: "common", traits: ["abjuration"] },
+    3: { level: 18, price: 20560, rarity: "common", traits: ["abjuration"] },
+    4: { level: 18, price: 20560, rarity: "common", traits: ["abjuration"] },
+};
+
+// https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=24
+const RESILIENT_RUNE_DATA: Record<OneToThree, RuneValuationData> = {
+    1: { level: 8, price: 340, rarity: "common", traits: ["abjuration"] },
+    2: { level: 14, price: 3440, rarity: "common", traits: ["abjuration"] },
+    3: { level: 20, price: 49440, rarity: "common", traits: ["abjuration"] },
+};
+
 // https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=25
-const POTENCY_RUNE_DATA: Record<OneToFour, RuneValuationData> = {
+const WEAPON_POTENCY_RUNE_DATA: Record<OneToFour, RuneValuationData> = {
     1: { level: 2, price: 35, rarity: "common", traits: ["evocation"] },
     2: { level: 10, price: 935, rarity: "common", traits: ["evocation"] },
     3: { level: 16, price: 8935, rarity: "common", traits: ["evocation"] },
@@ -1076,17 +1568,30 @@ const STRIKING_RUNE_DATA: Record<OneToThree, RuneValuationData> = {
     3: { level: 19, price: 31065, rarity: "common", traits: ["evocation"] },
 };
 
+interface ArmorValuationData {
+    potency: { 0: null } & Record<OneToFour, RuneValuationData>;
+    resilient: { 0: null } & Record<OneToThree, RuneValuationData>;
+}
+
 interface WeaponValuationData {
     potency: { 0: null } & Record<OneToFour, RuneValuationData>;
     striking: { 0: null } & Record<OneToThree, RuneValuationData>;
 }
 
+const ARMOR_VALUATION_DATA: ArmorValuationData = {
+    potency: { 0: null, ...ARMOR_POTENCY_RUNE_DATA },
+    resilient: { 0: null, ...RESILIENT_RUNE_DATA },
+};
+
+
 const WEAPON_VALUATION_DATA: WeaponValuationData = {
-    potency: { 0: null, ...POTENCY_RUNE_DATA },
+    potency: { 0: null, ...WEAPON_POTENCY_RUNE_DATA },
     striking: { 0: null, ...STRIKING_RUNE_DATA },
 };
 
 export {
+    ArmorPropertyRuneData,
+    ARMOR_VALUATION_DATA,
     RuneValuationData,
     WEAPON_VALUATION_DATA,
     WeaponPropertyRuneData,

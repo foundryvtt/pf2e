@@ -5,8 +5,9 @@ import {
     PhysicalItemTraits,
     PhysicalSystemData,
     PhysicalSystemSource,
+    PreciousMaterialGrade,
 } from "@item/physical";
-import { OneToFour, ZeroToThree } from "@module/data";
+import { OneToFour, ZeroToFour, ZeroToThree } from "@module/data";
 import {
     ArmorCategory,
     ArmorGroup,
@@ -15,12 +16,36 @@ import {
     OtherArmorTag,
     ResilientRuneType,
     type ArmorPF2e,
+    ArmorMaterialType,
+    ArmorPropertyRuneType,
 } from ".";
 
 type ArmorSource = BasePhysicalItemSource<"armor", ArmorSystemSource>;
 
 type ArmorData = Omit<ArmorSource, "system" | "effects" | "flags"> &
     BasePhysicalItemData<ArmorPF2e, "armor", ArmorSystemData, ArmorSource>;
+
+type SpecificArmorData =
+    | {
+          value: false;
+      }
+    | {
+          value: true;
+          price: string;
+          material: {
+              precious?: {
+                  type: ArmorMaterialType;
+                  grade: PreciousMaterialGrade;
+              };
+          };
+          runes: Omit<ArmorRuneData, "property">;
+      };
+
+interface ArmorRuneData {
+    potency: OneToFour | null;
+    resilient: ResilientRuneType | null;
+    property: Record<OneToFour, ArmorPropertyRuneType | null>;
+}
 
 interface ArmorSystemSource extends Investable<PhysicalSystemSource> {
     traits: ArmorTraits;
@@ -34,6 +59,8 @@ interface ArmorSystemSource extends Investable<PhysicalSystemSource> {
     strength: {
         value: number;
     };
+
+    specific?: SpecificArmorData;
     dex: {
         value: number;
     };
@@ -46,21 +73,22 @@ interface ArmorSystemSource extends Investable<PhysicalSystemSource> {
     potencyRune: {
         value: OneToFour | null;
     };
+    propertyRune1: ArmorPropertyRuneSlot;
+    propertyRune2: ArmorPropertyRuneSlot;
+    propertyRune3: ArmorPropertyRuneSlot;
+    propertyRune4: ArmorPropertyRuneSlot;
+
+    preciousMaterial: {
+        value: ArmorMaterialType | null;
+    };
+
     resiliencyRune: {
         value: ResilientRuneType | null;
     };
-    propertyRune1: {
-        value: string;
-    };
-    propertyRune2: {
-        value: string;
-    };
-    propertyRune3: {
-        value: string;
-    };
-    propertyRune4: {
-        value: string;
-    };
+}
+
+interface ArmorPropertyRuneSlot {
+    value: ArmorPropertyRuneType | null;
 }
 
 interface ArmorSystemData
@@ -68,14 +96,23 @@ interface ArmorSystemData
         Omit<Investable<PhysicalSystemData>, "traits"> {
     baseItem: BaseArmorType;
     runes: {
-        potency: number;
+        potency: ZeroToFour;
         resilient: ZeroToThree;
-        property: string[];
+        property: ArmorPropertyRuneType[];
     };
+    material: ArmorMaterialData;
 }
 
 interface ArmorTraits extends PhysicalItemTraits<ArmorTrait> {
     otherTags: OtherArmorTag[];
 }
 
-export { ArmorData, ArmorSource, ArmorSystemData, ArmorSystemSource };
+interface ArmorMaterialData {
+    /** The precious material of which this armor is composed */
+    precious: {
+        type: ArmorMaterialType;
+        grade: PreciousMaterialGrade;
+    } | null;
+}
+
+export { ArmorData, ArmorMaterialData, ArmorSource, ArmorSystemData, ArmorSystemSource };

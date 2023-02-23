@@ -58,7 +58,7 @@ interface PhysicalSystemSource extends ItemSystemSource, ItemLevelData {
     };
     containerId: string | null;
     preciousMaterial: {
-        value: Exclude<PreciousMaterialType, "dragonhide" | "grisantian-pelt"> | null;
+        value: Exclude<PreciousMaterialType, "dragonhide" | "grisantian-pelt"> | null; // TODO: This is only for weapons, make it work for armor too
     };
     preciousMaterialGrade: {
         value: PreciousMaterialGrade | null;
