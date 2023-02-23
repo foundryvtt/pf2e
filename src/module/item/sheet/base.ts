@@ -434,8 +434,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         }
 
         // Add a link to add GM notes
-        const descriptionEditors = htmlQuery(html, ".descriptions");
-        if (!this.item.system.description.gm) {
+        if (this.isEditable && game.user.isGM && !this.item.system.description.gm) {
+            const descriptionEditors = htmlQuery(html, ".descriptions");
             const mainEditor = htmlQuery(descriptionEditors, ".main .editor");
             if (!mainEditor) throw ErrorPF2e("Unexpected error retrieving description editor");
 
