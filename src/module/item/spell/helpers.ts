@@ -18,9 +18,10 @@ interface DamageInstancePartial {
 
 /** Apply damage dice to a spell's damage formulas */
 function applyDamageDiceOverrides(formulas: DamageInstancePartial[], dice: DamageDicePF2e[]): void {
+    const activeAdjustments = dice.filter((d) => !d.ignored);
     for (const data of formulas) {
         const roll = new Roll(data.formula);
-        for (const adjustment of dice) {
+        for (const adjustment of activeAdjustments) {
             const die = roll.dice.shift();
             if (!(die instanceof Die)) continue;
 
