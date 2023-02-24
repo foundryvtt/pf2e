@@ -224,3 +224,4 @@ export { Migration823HeritageAncestrySlug } from "./823-heritage-ancestry-slug";
 export { Migration824SneakAttackDamageSource } from "./824-sneak-attack-damage-source";
 export { Migration825KhakkharaFengHuoLun } from "./825-khakkhara-feng-huo-lun";
 export { Migration826GutConditionData } from "./826-gut-condition-data";
+export { Migration827FixTVShieldTraits } from "./827-fix-tv-shield-traits";
