@@ -28,6 +28,7 @@ class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
             [3, sheetData.data.propertyRune3],
             [4, sheetData.data.propertyRune4],
         ] as const;
+
         sheetData.propertyRuneSlots = propertyRuneSlots
             .filter(
                 ([slotNumber, slot], idx) =>
@@ -41,10 +42,12 @@ class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
                 label: game.i18n.localize(`PF2E.PropertyRuneLabel${slotNumber}`),
                 number: slotNumber,
             }));
-        // Weapons have derived damage dice, level, price, and traits: base data is shown for editing
+
         const baseData = this.item.toObject();
+
         sheetData.data.traits.rarity = baseData.system.traits.rarity;
         const hintText = abpEnabled ? "PF2E.Item.Armor.FromABP" : "PF2E.Item.Armor.FromMaterialAndRunes";
+
         const adjustedLevelHint =
             this.item.level !== baseData.system.level.value
                 ? game.i18n.format(hintText, {
@@ -52,6 +55,7 @@ class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
                       value: this.item.level,
                   })
                 : null;
+
         const adjustedPriceHint = (() => {
             const basePrice = new CoinsPF2e(baseData.system.price.value).scale(baseData.system.quantity).copperValue;
             const derivedPrice = this.item.assetValue.copperValue;
@@ -62,6 +66,7 @@ class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
                   })
                 : null;
         })();
+
         const armorPropertyRunes = Object.fromEntries(
             Object.entries(CONFIG.PF2E.runes.armor.property)
                 .map(([slug, data]): [string, string] => [slug, game.i18n.localize(data.name)])
