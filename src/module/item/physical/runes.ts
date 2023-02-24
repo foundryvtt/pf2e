@@ -297,6 +297,25 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         slug: "dancing",
         traits: ["evocation", "magical"],
     },
+    demolishing: {
+        damage: {
+            dice: [
+                {
+                    damageType: "force",
+                    category: "persistent",
+                    diceNumber: 1,
+                    dieSize: "d6",
+                    predicate: ["target:trait:construct"],
+                },
+            ],
+        },
+        level: 6,
+        name: "PF2E.WeaponPropertyRune.demolishing.Name",
+        price: 225,
+        rarity: "rare",
+        slug: "demolishing",
+        traits: ["evocation", "magical"],
+    },
     disrupting: {
         damage: {
             dice: [
