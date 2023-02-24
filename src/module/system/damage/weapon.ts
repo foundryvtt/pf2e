@@ -112,6 +112,7 @@ class WeaponDamagePF2e {
             return null;
         }
 
+        const baseDomains = [`${weapon.id}-damage`, "damage", "strike-damage"];
         const weaponTraits = weapon.system.traits.value;
         // NPC attacks have precious materials as quasi-traits: separate for IWR processing and separate display in chat
         const materialTraits = weapon.isOfType("melee")
@@ -135,7 +136,7 @@ class WeaponDamagePF2e {
         // Determine ability modifier
         if (actor.isOfType("character", "npc")) {
             const strengthModValue = actor.abilities.str.mod;
-            const modifierValue = WeaponDamagePF2e.strengthModToDamage(weapon)
+            const modifierValue = WeaponDamagePF2e.#strengthModToDamage(weapon)
                 ? strengthModValue
                 : weaponTraits.some((t) => t === "propulsive")
                 ? strengthModValue < 0
@@ -145,10 +146,12 @@ class WeaponDamagePF2e {
 
             if (weapon.isOfType("weapon") && typeof modifierValue === "number") {
                 const strModifier = new ModifierPF2e({
+                    slug: "str",
                     label: CONFIG.PF2E.abilities.str,
                     ability: "str",
                     modifier: modifierValue,
                     type: MODIFIER_TYPE.ABILITY,
+                    adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, baseDomains, "str"),
                 });
                 modifiers.push(strModifier);
             }
@@ -157,7 +160,6 @@ class WeaponDamagePF2e {
         // Find the best active ability modifier in order to get the correct synthetics selectors
         const resolvables = { weapon };
         const injectables = resolvables;
-        const baseDomains = ["damage", "strike-damage"];
         const fromDamageSelector = extractModifiers(actor.synthetics, baseDomains, { resolvables, injectables });
         const modifiersAndSelectors = modifiers
             .concat(fromDamageSelector)
@@ -654,7 +656,7 @@ class WeaponDamagePF2e {
         }
 
         if (weapon.isOfType("melee")) {
-            if (this.strengthBasedDamage(weapon)) {
+            if (this.#strengthBasedDamage(weapon)) {
                 selectors.push("str-damage");
             }
 
@@ -707,16 +709,16 @@ class WeaponDamagePF2e {
     }
 
     /** Determine whether the damage source is a strength-based statistic */
-    static strengthBasedDamage(weapon: WeaponPF2e | MeleePF2e): boolean {
-        return (
-            !!weapon.actor?.isOfType("creature") &&
-            (weapon.isMelee || (weapon.isThrown && !weapon.traits.has("splash")))
-        );
+    static #strengthBasedDamage(weapon: WeaponPF2e | MeleePF2e): boolean {
+        if (!weapon.actor?.isOfType("creature")) return false;
+
+        const { traits } = weapon;
+        return weapon.isMelee || (weapon.isThrown && !traits.has("splash")) || traits.has("propulsive");
     }
 
-    /** Determine whether a strike's damage includes the actor's strength modifier */
-    static strengthModToDamage(weapon: WeaponPF2e | MeleePF2e): boolean {
-        return weapon.isOfType("weapon") && this.strengthBasedDamage(weapon);
+    /** Determine whether a strike's damage includes the actor's (full) strength modifier */
+    static #strengthModToDamage(weapon: WeaponPF2e | MeleePF2e): boolean {
+        return weapon.isOfType("weapon") && this.#strengthBasedDamage(weapon) && !weapon.traits.has("propulsive");
     }
 }
 
