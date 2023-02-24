@@ -1,7 +1,7 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression";
 import { DamageDiceParameters, DamageDicePF2e, ModifierAdjustment } from "@actor/modifiers";
 import { ResistanceType } from "@actor/types";
-import {ArmorPF2e, ArmorPropertyRuneType, ArmorTrait, OtherArmorTag, WeaponPF2e} from "@item";
+import { ArmorCategory, ArmorPF2e, ArmorPropertyRuneType, ArmorTrait, OtherArmorTag, WeaponPF2e } from "@item";
 import type { ResilientRuneType } from "@item/armor/types";
 import type { OtherWeaponTag, StrikingRuneType, WeaponPropertyRuneType, WeaponTrait } from "@item/weapon/types";
 import { OneToFour, OneToThree, Rarity, ZeroToFour, ZeroToThree } from "@module/data";
@@ -70,6 +70,7 @@ function toDamageDice(rune: WeaponPropertyRuneType, dice: RuneDiceData[]): Damag
 }
 
 interface ArmorPropertyRuneData {
+    armorCategoryUsage: ArmorCategory[];
     level: number;
     name: string;
     price: number; // in gp
@@ -111,6 +112,7 @@ interface RuneNoteData extends Pick<RollNoteSource, "outcome" | "predicate" | "t
 // https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=26
 export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRuneData> = {
     advancing: {
+        armorCategoryUsage: ["heavy"],
         level: 9,
         name: "PF2E.ArmorPropertyRuneAdvancing",
         price: 625,
@@ -119,6 +121,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["magical", "necromancy"],
     },
     aimAiding: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 6,
         name: "PF2E.ArmorPropertyRuneAimAiding",
         price: 225,
@@ -127,6 +130,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["magical", "transmutation"],
     },
     acidEnergyResistant: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 8,
         name: "PF2E.ArmorPropertyRuneAcidResistant",
         price: 420,
@@ -135,6 +139,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["abjuration", "magical"],
     },
     antimagic: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 15,
         name: "PF2E.ArmorPropertyRuneAntimagic",
         price: 6_500,
@@ -143,6 +148,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["abjuration", "magical"],
     },
     assisting: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 5,
         name: "PF2E.ArmorPropertyRuneAssisting",
         price: 125,
@@ -151,6 +157,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["magical", "transmutation"],
     },
     bitter: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 9,
         name: "PF2E.ArmorPropertyRuneBitter",
         price: 135,
@@ -159,6 +166,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["healing", "magical", "transmutation"],
     },
     coldEnergyResistant: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 8,
         name: "PF2E.ArmorPropertyRuneColdResistant",
         price: 420,
@@ -167,6 +175,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["abjuration", "magical"],
     },
     deathless: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 7,
         name: "PF2E.ArmorPropertyRuneDeathless",
         price: 330,
@@ -175,6 +184,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["healing", "magical", "necromancy"],
     },
     electricityEnergyResistant: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 8,
         name: "PF2E.ArmorPropertyRuneElectricityResistant",
         price: 420,
@@ -183,6 +193,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["abjuration", "magical"],
     },
     energyAbsorbing: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 11,
         name: "PF2E.ArmorPropertyRuneEnergyAbsorbing",
         price: 1_200,
@@ -191,6 +202,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["abjuration", "magical"],
     },
     energyAdaptive: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 13,
         name: "PF2E.ArmorPropertyRuneEnergyAdaptive",
         price: 2_600,
@@ -199,6 +211,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["abjuration", "magical"],
     },
     ethereal: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 17,
         name: "PF2E.ArmorPropertyRuneEthereal",
         price: 13_500,
@@ -207,6 +220,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["conjuration", "magical"],
     },
     fireEnergyResistant: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 8,
         name: "PF2E.ArmorPropertyRuneFireResistant",
         price: 420,
@@ -215,6 +229,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["abjuration", "magical"],
     },
     fortification: {
+        armorCategoryUsage: ["medium", "heavy"],
         level: 12,
         name: "PF2E.ArmorPropertyRuneFortification",
         price: 2_000,
@@ -223,6 +238,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["abjuration", "magical"],
     },
     glamered: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 5,
         name: "PF2E.ArmorPropertyRuneGlamered",
         price: 140,
@@ -231,6 +247,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["illusion", "magical"],
     },
     greaterAcidResistant: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 12,
         name: "PF2E.ArmorPropertyRuneGreaterAcidResistant",
         price: 1_650,
@@ -239,6 +256,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["abjuration", "magical"],
     },
     greaterAdvancing: {
+        armorCategoryUsage: ["heavy"],
         level: 16,
         name: "PF2E.ArmorPropertyRuneGreaterAdvancing",
         price: 8_000,
@@ -247,6 +265,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["magical", "necromancy"],
     },
     greaterColdResistant: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 12,
         name: "PF2E.ArmorPropertyRuneGreaterColdResistant",
         price: 1_650,
@@ -255,6 +274,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["abjuration", "magical"],
     },
     greaterDread: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 18,
         name: "PF2E.ArmorPropertyRuneGreaterDread",
         price: 21_000,
@@ -263,6 +283,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["emotion", "enchantment", "fear", "magical", "mental", "visual"],
     },
     greaterElectricityResistant: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 12,
         name: "PF2E.ArmorPropertyRuneGreaterElectricityResistant",
         price: 1_650,
@@ -271,6 +292,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["abjuration", "magical"],
     },
     greaterEnergyAbsorbing: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 15,
         name: "PF2E.ArmorPropertyRuneGreaterEnergyAbsorbing",
         price: 6_000,
@@ -279,6 +301,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["abjuration", "magical"],
     },
     greaterFireResistant: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 12,
         name: "PF2E.ArmorPropertyRuneGreaterFireResistant",
         price: 1_650,
@@ -287,6 +310,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["abjuration", "magical"],
     },
     greaterFortification: {
+        armorCategoryUsage: ["medium", "heavy"],
         level: 18,
         name: "PF2E.ArmorPropertyRuneGreaterFortification",
         price: 24_000,
@@ -295,6 +319,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["abjuration", "magical"],
     },
     greaterInvisibility: {
+        armorCategoryUsage: ["light"],
         level: 10,
         name: "PF2E.ArmorPropertyRuneGreaterInvisibility",
         price: 1_000,
@@ -303,6 +328,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["illusion", "magical"],
     },
     greaterQuenching: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 10,
         name: "PF2E.ArmorPropertyRuneGreaterQuenching",
         price: 1_000,
@@ -311,6 +337,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["abjuration", "magical"],
     },
     greaterReady: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 11,
         name: "PF2E.ArmorPropertyRuneGreaterReady",
         price: 1_200,
@@ -319,6 +346,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["evocation", "magical"],
     },
     greaterShadow: {
+        armorCategoryUsage: ["light", "medium"],
         level: 9,
         name: "PF2E.ArmorPropertyRuneGreaterShadow",
         price: 650,
@@ -327,6 +355,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["magical", "transmutation"],
     },
     greaterSwallowSpike: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 12,
         name: "PF2E.ArmorPropertyRuneGreaterSwallowSpike",
         price: 1_750,
@@ -335,6 +364,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["magical", "transmutation"],
     },
     greaterSlick: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 8,
         name: "PF2E.ArmorPropertyRuneGreaterSlick",
         price: 450,
@@ -343,6 +373,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["magical", "transmutation"],
     },
     greaterStanching: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 9,
         name: "PF2E.ArmorPropertyRuneGreaterStanching",
         price: 600,
@@ -351,6 +382,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["magical", "necromancy"],
     },
     greaterWinged: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 19,
         name: "PF2E.ArmorPropertyRuneGreaterWinged",
         price: 35_000,
@@ -359,6 +391,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["magical", "transmutation"],
     },
     gliding: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 8,
         name: "PF2E.ArmorPropertyRuneGliding",
         price: 450,
@@ -367,6 +400,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["magical", "transmutation"],
     },
     immovable: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 12,
         name: "PF2E.ArmorPropertyRuneImmovable",
         price: 1_800,
@@ -375,6 +409,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["magical", "transmutation"],
     },
     implacable: {
+        armorCategoryUsage: ["medium", "heavy"],
         level: 11,
         name: "PF2E.ArmorPropertyRuneImplacable",
         price: 1_200,
@@ -383,6 +418,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["magical", "transmutation"],
     },
     invisibility: {
+        armorCategoryUsage: ["light"],
         level: 8,
         name: "PF2E.ArmorPropertyRuneInvisibility",
         price: 500,
@@ -391,6 +427,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["illusion", "magical"],
     },
     lesserDread: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 6,
         name: "PF2E.ArmorPropertyRuneDread",
         price: 225,
@@ -399,6 +436,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["emotion", "enchantment", "fear", "magical", "mental", "visual"],
     },
     magnetizing: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 10,
         name: "PF2E.ArmorPropertyRuneMagnetizing",
         price: 900,
@@ -407,6 +445,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["evocation", "magical"],
     },
     majorQuenching: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 14,
         name: "PF2E.ArmorPropertyRuneMajorQuenching",
         price: 4_500,
@@ -415,6 +454,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["abjuration", "magical"],
     },
     majorSlick: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 16,
         name: "PF2E.ArmorPropertyRuneMajorSlick",
         price: 9_000,
@@ -423,6 +463,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["magical", "transmutation"],
     },
     majorShadow: {
+        armorCategoryUsage: ["light", "medium"],
         level: 17,
         name: "PF2E.ArmorPropertyRuneMajorShadow",
         price: 14_000,
@@ -431,6 +472,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["magical", "transmutation"],
     },
     majorSwallowSpike: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 16,
         name: "PF2E.ArmorPropertyRuneMajorSwallowSpike",
         price: 19_250,
@@ -439,6 +481,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["magical", "transmutation"],
     },
     majorStanching: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 13,
         name: "PF2E.ArmorPropertyRuneMajorStanching",
         price: 2_500,
@@ -447,6 +490,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["magical", "necromancy"],
     },
     misleading: {
+        armorCategoryUsage: ["light"],
         level: 16,
         name: "PF2E.ArmorPropertyRuneMisleading",
         price: 8_000,
@@ -455,6 +499,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["illusion", "magical"],
     },
     moderateDread: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 12,
         name: "PF2E.ArmorPropertyRuneModerateDread",
         price: 1_800,
@@ -463,6 +508,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["emotion", "enchantment", "fear", "magical", "mental", "visual"],
     },
     portable: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 9,
         name: "PF2E.ArmorPropertyRunePortable",
         price: 660,
@@ -471,6 +517,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["magical", "transmutation"],
     },
     quenching: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 6,
         name: "PF2E.ArmorPropertyRuneQuenching",
         price: 250,
@@ -479,6 +526,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["abjuration", "magical"],
     },
     ready: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 6,
         name: "PF2E.ArmorPropertyRuneReady",
         price: 200,
@@ -487,6 +535,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["evocation", "magical"],
     },
     rockBraced: {
+        armorCategoryUsage: ["medium", "heavy"],
         level: 13,
         name: "PF2E.ArmorPropertyRuneRockBraced",
         price: 3_000,
@@ -495,6 +544,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["abjuration", "dwarf", "magical", "saggorak"],
     },
     shadow: {
+        armorCategoryUsage: ["light", "medium"],
         level: 5,
         name: "PF2E.ArmorPropertyRuneShadow",
         price: 55,
@@ -503,6 +553,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["magical", "transmutation"],
     },
     sinisterKnight: {
+        armorCategoryUsage: ["heavy"],
         level: 8,
         name: "PF2E.ArmorPropertyRuneSinisterKnight",
         price: 500,
@@ -511,6 +562,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["abjuration", "illusion", "magical"],
     },
     slick: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 5,
         name: "PF2E.ArmorPropertyRuneSlick",
         price: 45,
@@ -519,6 +571,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["magical", "transmutation"],
     },
     soaring: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 14,
         name: "PF2E.ArmorPropertyRuneSoaring",
         price: 3_750,
@@ -527,6 +580,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["abjuration", "magical"],
     },
     spellbreaking: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 13,
         name: "PF2E.ArmorPropertyRuneSpellbreaking",
         price: 3_000,
@@ -535,6 +589,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["abjuration", "magical"],
     },
     stanching: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 5,
         name: "PF2E.ArmorPropertyRuneStanching",
         price: 130,
@@ -543,6 +598,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["magical", "necromancy"],
     },
     swallowSpike: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 6,
         name: "PF2E.ArmorPropertyRuneSwallowSpike",
         price: 200,
@@ -551,6 +607,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["magical", "transmutation"],
     },
     trueStanching: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 17,
         name: "PF2E.ArmorPropertyRuneTrueStanching",
         price: 12_500,
@@ -559,6 +616,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["magical", "necromancy"],
     },
     trueQuenching: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 18,
         name: "PF2E.ArmorPropertyRuneTrueQuenching",
         price: 24_000,
@@ -567,6 +625,7 @@ export const ARMOR_PROPERTY_RUNES: Record<ArmorPropertyRuneType, ArmorPropertyRu
         traits: ["abjuration", "magical"],
     },
     winged: {
+        armorCategoryUsage: ["unarmored", "light", "medium", "heavy"],
         level: 13,
         name: "PF2E.ArmorPropertyRuneWinged",
         price: 2_500,

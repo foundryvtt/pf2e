@@ -1,5 +1,5 @@
-import {AutomaticBonusProgression as ABP} from "@actor/character/automatic-bonus-progression";
-import {ItemSummaryData} from "@item/data";
+import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression";
+import { ItemSummaryData } from "@item/data";
 import {
     ARMOR_MATERIAL_VALUATION_DATA,
     ARMOR_PROPERTY_RUNES,
@@ -8,17 +8,19 @@ import {
     Bulk,
     CoinsPF2e,
     getPropertySlots,
+    IdentificationStatus,
     MaterialGradeData,
+    MystifiedData,
     PhysicalItemHitPoints,
     PhysicalItemPF2e,
     RuneValuationData,
 } from "@item/physical";
-import {MAGIC_TRADITIONS} from "@item/spell/values";
-import {LocalizePF2e} from "@module/system/localize";
-import {addSign, ErrorPF2e, setHasElement, sluggify} from "@util";
-import {ArmorCategory, ArmorData, ArmorGroup, ArmorPropertyRuneType, BaseArmorType, ResilientRuneType} from ".";
-import {ArmorMaterialData} from "@item/armor";
-import {OneToThree} from "@module/data";
+import { MAGIC_TRADITIONS } from "@item/spell/values";
+import { LocalizePF2e } from "@module/system/localize";
+import { addSign, ErrorPF2e, setHasElement, sluggify } from "@util";
+import { ArmorCategory, ArmorData, ArmorGroup, ArmorPropertyRuneType, BaseArmorType, ResilientRuneType } from ".";
+import { ArmorMaterialData } from "@item/armor";
+import { OneToThree } from "@module/data";
 
 class ArmorPF2e extends PhysicalItemPF2e {
     override isStackableWith(item: PhysicalItemPF2e): boolean {
@@ -226,7 +228,8 @@ class ArmorPF2e extends PhysicalItemPF2e {
         const translations = LocalizePF2e.translations.PF2E;
         const baseArmors = translations.Item.Armor.Base;
 
-        if (this.isSpecific || !this.baseType) {
+        const storedName = this._source.name;
+        if (this.isSpecific || !this.baseType || storedName !== baseArmors[this.baseType]) {
             return this.name;
         }
 
@@ -276,10 +279,6 @@ class ArmorPF2e extends PhysicalItemPF2e {
         const materialData = this.getMaterialValuationData();
         if (!(this.isMagical || materialData) || this.isSpecific) return null;
 
-        // Adjust the weapon price according to precious material and runes
-        // Base Prices are not included in these cases
-        // https://2e.aonprd.com/Rules.aspx?ID=731
-        // https://2e.aonprd.com/Equipment.aspx?ID=380
         const runesData = this.getRunesValuationData();
         const materialPrice = materialData?.price ?? 0;
         const heldOrStowedBulk = new Bulk({ light: this.system.bulk.heldOrStowed });
@@ -362,6 +361,8 @@ class ArmorPF2e extends PhysicalItemPF2e {
         this: Embedded<ArmorPF2e>,
         htmlOptions: EnrichHTMLOptions = {}
     ): Promise<ItemSummaryData> {
+        const traits = this.traitChatData(CONFIG.PF2E.armorTraits);
+        const chatData = await super.getChatData();
         const systemData = this.system;
         const translations = LocalizePF2e.translations.PF2E;
         const properties = [
@@ -373,10 +374,16 @@ class ArmorPF2e extends PhysicalItemPF2e {
         ];
 
         return this.processChatData(htmlOptions, {
-            ...super.getChatData(),
-            traits: this.traitChatData(CONFIG.PF2E.armorTraits),
+            ...chatData,
+            traits,
             properties,
         });
+    }
+
+    override getMystifiedData(status: IdentificationStatus, { source = false } = {}): MystifiedData {
+        const mystifiedData = super.getMystifiedData(status);
+        if (source) mystifiedData.name = this._source.name;
+        return mystifiedData;
     }
 
     override generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {

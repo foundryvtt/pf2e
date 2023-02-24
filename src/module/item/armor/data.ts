@@ -31,7 +31,6 @@ type SpecificArmorData =
       }
     | {
           value: true;
-          price: string;
           material: {
               precious?: {
                   type: ArmorMaterialType;
@@ -115,4 +114,4 @@ interface ArmorMaterialData {
     } | null;
 }
 
-export { ArmorData, ArmorMaterialData, ArmorSource, ArmorSystemData, ArmorSystemSource };
+export { ArmorData, ArmorMaterialData, ArmorSource, ArmorSystemData, ArmorSystemSource, ArmorPropertyRuneSlot };

@@ -79,107 +79,79 @@
             </select>
         </div>
     {{/unless}}
-
-    {{#if propertyRuneSlots1}}
+    {{#each propertyRuneSlots as |slot|}}
         <div class="form-group">
-            <label>{{localize "PF2E.PropertyRuneLabel1"}}</label>
-            <select name="system.propertyRune1.value">
-                {{#select data.propertyRune1.value}}
+            <label>{{slot.label}}</label>
+            {{#if @root.data.specific.value}}
+                <input type="hidden" name="{{slot.name}}" value="{{slot.value}}" data-dtype="String" />
+            {{/if}}
+            <select{{#if (not @root.data.specific.value)}} name="{{slot.name}}"{{/if}} {{disabled @root.data.specific.value}}>
+                {{#select slot.value}}
                     <option value=""></option>
-                    {{#each armorPropertyRunes as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
+                    {{#each @root.armorPropertyRunes as |label type|}}
+                            <option value="{{type}}">{{localize label}}</option>
                     {{/each}}
                 {{/select}}
             </select>
         </div>
-    {{/if}}
-
-    {{#if propertyRuneSlots2}}
-        <div class="form-group">
-            <label>{{localize "PF2E.PropertyRuneLabel2"}}</label>
-            <select name="system.propertyRune2.value">
-                {{#select data.propertyRune2.value}}
-                    <option value=""></option>
-                    {{#each armorPropertyRunes as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
-                    {{/each}}
-                {{/select}}
-            </select>
-        </div>
-    {{/if}}
-
-    {{#if propertyRuneSlots3}}
-        <div class="form-group">
-            <label>{{localize "PF2E.PropertyRuneLabel3"}}</label>
-            <select name="system.propertyRune3.value">
-                {{#select data.propertyRune3.value}}
-                    <option value=""></option>
-                    {{#each armorPropertyRunes as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
-                    {{/each}}
-                {{/select}}
-            </select>
-        </div>
-    {{/if}}
-
-    {{#if propertyRuneSlots4}}
-        <div class="form-group">
-            <label>{{localize "PF2E.PropertyRuneLabel4"}}</label>
-            <select name="system.propertyRune4.value">
-                {{#select data.propertyRune4.value}}
-                    <option value=""></option>
-                    {{#each armorPropertyRunes as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
-                    {{/each}}
-                {{/select}}
-            </select>
-        </div>
-    {{/if}}
+    {{/each}}
+    <div class="form-group">
+        <label class="large">
+            {{localize "PF2E.Item.Armor.SpecificMagicArmor.Label"}}
+            <i class="fas fa-info-circle large" title="{{localize "PF2E.Item.Armor.SpecificMagicArmor.Hint"}}"></i>
+        </label>
+        <input type="checkbox" name="system.specific.value" {{checked data.specific.value}} />
+    </div>
 </ol>
+<ol class="form-list">
+    <h3>
+        {{localize "PF2E.DefensesLabel"}}
+        <i class="fas fa-info-circle large" title="{{localize "PF2E.ArmorBaseDefensesTitle"}}"></i>
+    </h3>
+    <div class="form-group">
+        <label>{{localize "PF2E.ArmorArmorLabel"}}</label>
+        <input type="number" name="system.armor.value" value="{{data.armor.value}}" />
+    </div>
 
-<div class="form-group">
-    <label>{{localize "PF2E.ArmorArmorLabel"}}</label>
-    <input type="number" name="system.armor.value" value="{{data.armor.value}}" />
-</div>
+    <div class="form-group">
+        <label>{{localize "PF2E.ArmorDexLabel"}}</label>
+        <input type="number" name="system.dex.value" value="{{data.dex.value}}" />
+    </div>
 
-<div class="form-group">
-    <label>{{localize "PF2E.ArmorDexLabel"}}</label>
-    <input type="number" name="system.dex.value" value="{{data.dex.value}}" />
-</div>
+    <div class="form-group">
+        <label>{{localize "PF2E.ArmorCheckLabel"}}</label>
+        <input type="number"{{#if (and document.isArmor document.isShoddy)}} class="adjusted-lower"{{/if}} data-property="system.check.value" data-value-base="{{document._source.system.check.value}}" value="{{data.check.value}}" />
+    </div>
 
-<div class="form-group">
-    <label>{{localize "PF2E.ArmorCheckLabel"}}</label>
-    <input type="number"{{#if (and document.isArmor document.isShoddy)}} class="adjusted-lower"{{/if}} data-property="system.check.value" data-value-base="{{document._source.system.check.value}}" value="{{data.check.value}}" />
-</div>
+    <div class="form-group">
+        <label>{{localize "PF2E.ArmorSpeedLabel"}}</label>
+        <input type="number" name="system.speed.value" value="{{data.speed.value}}" />
+    </div>
 
-<div class="form-group">
-    <label>{{localize "PF2E.ArmorSpeedLabel"}}</label>
-    <input type="number" name="system.speed.value" value="{{data.speed.value}}" />
-</div>
+    <div class="form-group">
+        <label>{{localize "PF2E.ArmorStrengthLabel"}}</label>
+        <input type="number" name="system.strength.value" value="{{data.strength.value}}" />
+    </div>
 
-<div class="form-group">
-    <label>{{localize "PF2E.ArmorStrengthLabel"}}</label>
-    <input type="number" name="system.strength.value" value="{{data.strength.value}}" />
-</div>
+    <div class="form-group">
+        <label>{{localize "PF2E.MaxHitPointsHeader"}}</label>
+        <input type="number"{{#if document.isShoddy}} class="adjusted-lower"{{/if}} data-property="system.hp.max" data-value-base="{{document._source.system.hp.max}}" value="{{data.hp.max}}" />
+    </div>
 
-<div class="form-group">
-    <label>{{localize "PF2E.MaxHitPointsHeader"}}</label>
-    <input type="number"{{#if document.isShoddy}} class="adjusted-lower"{{/if}} data-property="system.hp.max" data-value-base="{{document._source.system.hp.max}}" value="{{data.hp.max}}" />
-</div>
+    <div class="form-group">
+        <label>{{localize "PF2E.HitPointsHeader"}}</label>
+        <input type="number" name="system.hp.value" value="{{data.hp.value}}" />
+    </div>
 
-<div class="form-group">
-    <label>{{localize "PF2E.HitPointsHeader"}}</label>
-    <input type="number" name="system.hp.value" value="{{data.hp.value}}" />
-</div>
-
-<div class="form-group">
-    <label>{{localize "PF2E.ShieldBrokenThresholdLabel"}}</label>
-    <input type="number"{{#if document.isShoddy}} class="adjusted-lower"{{/if}} data-property="system.hp.brokenThreshold" data-value-base="{{document._source.system.hp.brokenThreshold}}" value="{{data.hp.brokenThreshold}}" />
-</div>
-<div class="form-group">
-    <label>{{localize "PF2E.ShieldHardnessLabel"}}</label>
-    <input type="number" name="system.hardness" value="{{data.hardness}}" />
-</div>
+    <div class="form-group">
+        <label>{{localize "PF2E.ShieldBrokenThresholdLabel"}}</label>
+        <input type="number"{{#if document.isShoddy}} class="adjusted-lower"{{/if}} data-property="system.hp.brokenThreshold" data-value-base="{{document._source.system.hp.brokenThreshold}}" value="{{data.hp.brokenThreshold}}" />
+    </div>
+    <div class="form-group">
+        <label>{{localize "PF2E.ShieldHardnessLabel"}}</label>
+        <input type="number" name="system.hardness" value="{{data.hardness}}" />
+    </div>
+</ol>
 
 <div class="form-group-stacked">
     <label>
