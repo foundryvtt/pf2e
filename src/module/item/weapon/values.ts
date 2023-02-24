@@ -51,6 +51,7 @@ const WEAPON_PROPERTY_RUNE_TYPES = new Set([
     "crushing",
     "cunning",
     "dancing",
+    "demolishing",
     "disrupting",
     "energizing",
     "extending",
