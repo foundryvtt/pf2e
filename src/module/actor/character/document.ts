@@ -1843,6 +1843,9 @@ class CharacterPF2e extends CreaturePF2e {
                 });
                 if (!damage) return null;
 
+                // The damage template will include a full list of domains: replace the original, smaller list
+                damageContext.domains = damage.domains;
+
                 if (params.getFormula) {
                     const formula = damage.damage.formula[outcome];
                     return formula ? new DamageRoll(formula).formula : "";
