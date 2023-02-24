@@ -22,11 +22,16 @@ export class EffectSheetPF2e extends ItemSheetPF2e<EffectPF2e> {
         super.activateListeners($html);
         const html = $html[0];
 
+        // Prevent the form from submitting when the Badge Type select menu is changed
+        htmlQuery(html, "select.badge-type")?.addEventListener("change", (event) => {
+            event.stopPropagation();
+        });
+
         htmlQuery(html, "[data-action=badge-add]")?.addEventListener("click", () => {
             const type = htmlQuery<HTMLSelectElement>(html, ".badge-type")?.value;
             const badge: EffectBadge =
                 type === "formula"
-                    ? { type: "formula", value: "d20", evaluate: true }
+                    ? { type: "formula", value: "1d20", evaluate: true }
                     : type === "labels"
                     ? { type: "counter", value: 1, labels: [""] }
                     : { type: "counter", value: 1 };
