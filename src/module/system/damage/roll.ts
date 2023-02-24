@@ -210,6 +210,7 @@ class DamageRoll extends AbstractDamageRoll {
     }
 
     override async getTooltip(): Promise<string> {
+        const damageColor = game.settings.get("pf2e", "damageColor");
         const instances = this.instances
             .filter((i) => i.dice.length > 0 && (!i.persistent || i.options.evaluatePersistent))
             .map((i) => ({
@@ -218,7 +219,7 @@ class DamageRoll extends AbstractDamageRoll {
                 iconClass: i.iconClass,
                 dice: i.dice.map((d) => ({ ...d.getTooltipData() })),
             }));
-        return renderTemplate(this.constructor.TOOLTIP_TEMPLATE, { instances });
+        return renderTemplate(this.constructor.TOOLTIP_TEMPLATE, { instances, damageColor });
     }
 
     /** Work around upstream issue in which display base formula is used for chat messages instead of display formula */
@@ -246,6 +247,7 @@ class DamageRoll extends AbstractDamageRoll {
             splashOnly: !!this.options.splashOnly,
             allPersistent: this.instances.every((i) => i.persistent && !i.options.evaluatePersistent),
             showTripleDamage: game.settings.get("pf2e", "critFumbleButtons"),
+            damageColor: game.settings.get("pf2e", "damageColor"),
         };
 
         return renderTemplate(template, chatData);
@@ -446,8 +448,12 @@ class DamageInstance extends AbstractDamageRoll {
     }
 
     override async render(): Promise<string> {
+        const damageColor = game.settings.get("pf2e", "damageColor");
         const span = document.createElement("span");
-        span.classList.add("instance", this.type);
+        span.classList.add("instance");
+        if (damageColor) {
+            span.classList.add(this.type);
+        }
         span.title = this.typeLabel;
         span.append(this.#renderFormula());
 

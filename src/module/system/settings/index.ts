@@ -271,6 +271,16 @@ export function registerSettings(): void {
         },
     });
 
+    // Toggle color formatting of damage rolls for accessibility
+    game.settings.register("pf2e", "damageColor", {
+        name: CONFIG.PF2E.SETTINGS.DamageColor.name,
+        hint: CONFIG.PF2E.SETTINGS.DamageColor.hint,
+        scope: "client",
+        config: true,
+        default: true,
+        type: Boolean,
+    });
+
     if (BUILD_MODE === "production") {
         registerWorldSchemaVersion();
     }
