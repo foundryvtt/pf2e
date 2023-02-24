@@ -148,7 +148,7 @@ function measureDistanceOnGrid(
     const nz = Math.ceil(Math.abs((segment.dz || 0) / gridSize));
 
     // ingore the lowest difference
-    const sortedDistance = [nx, ny, nz].sort();
+    const sortedDistance = [nx, ny, nz].sort((a, b) => a - b);
     // Get the number of straight and diagonal moves
     const squares = {
         doubleDiagonal: sortedDistance[0],

@@ -5,7 +5,7 @@
     "system": {
         "badge": null,
         "description": {
-            "value": "<p>The creature takes a -5-foot penalty to Speed.</p>"
+            "value": "<p>The creature becomes clumsy 1 and takes a -5-foot penalty to Speed.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -17,6 +17,13 @@
             "value": 2
         },
         "rules": [
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Clumsy"
+            },
             {
                 "key": "FlatModifier",
                 "selector": "land-speed",

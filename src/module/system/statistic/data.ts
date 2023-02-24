@@ -16,6 +16,7 @@ export interface StatisticDifficultyClassData {
     base?: number;
     /** Additional domains for fetching actor roll options */
     domains?: string[];
+    label?: string;
     /** Any additional modifiers not already handled by fetching modifiers using domains as selectors */
     modifiers?: ModifierPF2e[];
 }
