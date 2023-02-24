@@ -1642,7 +1642,6 @@ const ARMOR_VALUATION_DATA: ArmorValuationData = {
     resilient: { 0: null, ...RESILIENT_RUNE_DATA },
 };
 
-
 const WEAPON_VALUATION_DATA: WeaponValuationData = {
     potency: { 0: null, ...WEAPON_POTENCY_RUNE_DATA },
     striking: { 0: null, ...STRIKING_RUNE_DATA },
