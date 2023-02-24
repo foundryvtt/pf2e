@@ -66,6 +66,9 @@ class TokenAura implements TokenAuraData {
 
     /** Does this aura overlap with (at least part of) a token? */
     containsToken(token: Embedded<TokenDocumentPF2e>): boolean {
+        // 0. If the emitting token is hidden, return false early
+        if (this.token.hidden) return false;
+
         // 1. If the token is the one emitting the aura, return true early
         if (token === this.token) return true;
 
