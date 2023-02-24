@@ -4,8 +4,10 @@ import { Alignment } from "@actor/creature/types";
 import { ActorType } from "@actor/data";
 import {
     ActionItemPF2e,
-    AncestryPF2e, ARMOR_PROPERTY_RUNES,
-    ArmorPF2e, ArmorPropertyRuneType,
+    AncestryPF2e,
+    ARMOR_PROPERTY_RUNES,
+    ArmorPF2e,
+    ArmorPropertyRuneType,
     BackgroundPF2e,
     BookPF2e,
     ClassPF2e,
