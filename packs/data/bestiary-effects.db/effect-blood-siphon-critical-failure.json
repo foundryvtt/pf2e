@@ -5,7 +5,7 @@
     "system": {
         "badge": null,
         "description": {
-            "value": "<p>The creature gains a +2 status bonus to AC and saves.</p>"
+            "value": "<p>The creature gains a +2 status bonus to AC and saves and is quickened. It can use its extra action only to Strike.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -25,6 +25,13 @@
                 ],
                 "type": "status",
                 "value": 2
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Quickened"
             }
         ],
         "source": {
