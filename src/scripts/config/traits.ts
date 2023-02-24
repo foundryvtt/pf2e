@@ -703,6 +703,7 @@ const hazardTraits = {
     ...damageTraits,
     ...magicSchools,
     ...magicTraditions,
+    aberration: "PF2E.TraitAberration",
     alchemical: "PF2E.TraitAlchemical",
     aquatic: "PF2E.TraitAquatic",
     auditory: "PF2E.TraitAuditory",
