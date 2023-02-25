@@ -56,8 +56,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         if (this.selection !== null) {
             item.flags.pf2e.rulesSelections[this.flag] = this.selection;
             this.#setRollOption(this.selection);
-        } else if (!this.allowNoSelection) {
-            // If no selection has been made, disable this and all other rule elements on the item.
+        } else if (!this.allowNoSelection && this.test()) {
+            // Disable this and all other rule elements on the item until a selection is made
             this.ignored = true;
             for (const ruleData of this.item.system.rules) {
                 ruleData.ignored = true;
