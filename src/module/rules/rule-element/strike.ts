@@ -177,6 +177,21 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
         }
     }
 
+    /** Temporary workaround until real migration */
+    static override migrateData<TSource extends { range?: unknown; maxRange?: unknown }>(source: TSource): TSource {
+        const premigrated = super.migrateData(source);
+
+        if (typeof premigrated.range === "number") {
+            const maxRange = typeof premigrated.maxRange === "number" ? premigrated.maxRange : null;
+            premigrated.range = { increment: premigrated.range, max: maxRange };
+        } else if ("maxRange" in premigrated && typeof premigrated.maxRange === "number") {
+            premigrated.range = { increment: premigrated.maxRange, max: premigrated.maxRange };
+        }
+        delete premigrated.maxRange;
+
+        return premigrated;
+    }
+
     override beforePrepareData(): void {
         if (this.ignored) return;
 
