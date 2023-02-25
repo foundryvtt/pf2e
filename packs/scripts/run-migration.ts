@@ -7,7 +7,6 @@ import { JSDOM } from "jsdom";
 import { sluggify } from "@util";
 import { MigrationBase } from "@module/migration/base";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
-import { Migration806TorchImprovisedOtherTags } from "@module/migration/migrations/806-torch-improvised-othertags";
 import { Migration807RMActivatedEffectFields } from "@module/migration/migrations/807-rm-activated-effect-fields";
 import { Migration808CountDamageDice } from "@module/migration/migrations/808-count-damage-dice";
 import { Migration809AutomatonEnhancements } from "@module/migration/migrations/809-automaton-enhancements";
@@ -25,6 +24,7 @@ import { Migration822BladeAllyConsolidation } from "@module/migration/migrations
 import { Migration824SneakAttackDamageSource } from "@module/migration/migrations/824-sneak-attack-damage-source";
 import { Migration825KhakkharaFengHuoLun } from "@module/migration/migrations/825-khakkhara-feng-huo-lun";
 import { Migration826GutConditionData } from "@module/migration/migrations/826-gut-condition-data";
+import { Migration827FixTVShieldTraits } from "@module/migration/migrations/827-fix-tv-shield-traits";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -35,7 +35,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration806TorchImprovisedOtherTags(),
     new Migration807RMActivatedEffectFields(),
     new Migration808CountDamageDice(),
     new Migration809AutomatonEnhancements(),
@@ -53,6 +52,7 @@ const migrations: MigrationBase[] = [
     new Migration824SneakAttackDamageSource(),
     new Migration825KhakkharaFengHuoLun(),
     new Migration826GutConditionData(),
+    new Migration827FixTVShieldTraits(),
 ];
 
 global.deepClone = <T>(original: T): T => {
