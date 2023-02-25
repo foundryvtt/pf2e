@@ -1,5 +1,50 @@
 # Changelog
 
+## Version 4.8.1
+
+### System Improvements
+* (stwlam) Add support for Demolishing weapon rune
+
+### Bugfixes
+* (Drental) Fix issue with distance measurement in 2D space caused by fix of issue with distance measurement in 3D space
+* (nikolaj-a) Fix DC label for action checks
+* (stwlam) Restore inclusion of full PC weapon-damage selectors in roll inspector
+* (stwlam) Treat propulsive weapon damage as strength-based for the purpose of bonuses and penalties
+* (stwlam) Categorize bleed damage as physical
+* (stwlam) Prevent GM notes button from appearing if item sheet isn't editable
+* (stwlam) Prevent effect sheet from submitting on change of badge-type select element
+* (Supe) Fix expanding summaries for nested feats
+* (Supe) Fix spell damage dice overrides not predicating
+
+### Data Updates
+* (Abaddon) Fix Ganzi Martial Artist abilities
+* (David Bass) Fix details of some Kingmaker NPCs
+* (Dilly) Draw 25 new icons for spells
+* (Dire Weasel) Add Clumsy condition to Entangling Slime effect
+* (Dire Weasel) Add effects for Beastmaster's Sigil, Desolation Locket, and Jolt Coil
+* (Dire Weasel) Add Subtle Presence toggle to Mummy Valet
+* (Dire Weasel) Fix Fly action link in Time Jump
+* (Dire Weasel) Fix levels of some alchemical ammunition
+* (Dire Weasel) Correct Major Cloister Robe to have a greater resilient rune
+* (Dire Weasel) Fix name of Contagion Metabolizer
+* (Dire Weasel) Fix strength requirement of Rite of Reinforcement Exoskeleton
+* (Dire Weasel) Fix typo in Astrolabe of Falling Stars
+* (Dire Weasel) Fix usage of Treasure Vault shields and Injection Spear
+* (Dire Weasel) Remove blood siphon toggle from vampiric mist in favor of effect, add Quickened to effect
+* (Dire Weasel) Fix spelling of "aberration" trait in several predicates
+* (In3luki) Fix localization of unidentified consumable types
+* (M. Siebert) Fix Blasting Beams damage rolls
+* (Roxim) Fix missing Spell DC and Attack Modifier on Doblagub
+* (SpartanCPA) Add NPCs for PFS scenarios 4-9 and 4-10
+* (SpartanCPA) Correct the HP value of the Aiudara Wraith
+* (Tikael) Fix the damage of the Falcata
+* (avagdu) Add PFS Clarifications to Treasure Vault Equipment
+* (avagdu) Add Value to Clumsy Condition from Slurk's Entangling Slime effect
+* (rectulo) Add description for the Processed trait
+* (stwlam) Add Aberration to hazard traits
+* (stwlam) Fix unannotated shield traits added from Lost Omens: Treasure Vault
+
+
 ## Version 4.8.0
 
 ### New Features
