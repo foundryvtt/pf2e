@@ -167,9 +167,16 @@ function measureDistanceOnGrid(
 }
 
 /** Highlight grid according to Pathfinder 2e effect-area shapes */
-function highlightGrid({ type, object, colors, document, collisionType = "move" }: HighlightGridParams): void {
+function highlightGrid({
+    type,
+    object,
+    colors,
+    document,
+    collisionType = "move",
+    preview = false,
+}: HighlightGridParams): void {
     // Only highlight for objects that are non-previews (have IDs)
-    if (!object.id) return;
+    if (!object.id && !preview) return;
 
     const { grid, dimensions } = canvas;
     if (!(grid && dimensions)) return;
@@ -311,6 +318,7 @@ interface HighlightGridParams {
         width: number;
     }>;
     collisionType?: WallRestrictionType;
+    preview?: boolean;
 }
 
 export { highlightGrid, measureDistanceCuboid };

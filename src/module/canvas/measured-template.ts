@@ -29,6 +29,7 @@ class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e
             object: this,
             document: this.document,
             colors: { border: this.borderColor, fill: this.fillColor },
+            preview: true,
         });
     }
 
