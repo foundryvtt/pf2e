@@ -40,11 +40,14 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
             : actor.items.get(itemId ?? "");
 
         const summary = await (async () => {
-            const existing = htmlQuery(element, ".item-summary");
+            const existing = htmlQuery(element, ":scope > .item-summary");
             if (existing) return existing;
 
             if (item instanceof ItemPF2e && !item.isOfType("spellcastingEntry")) {
-                const insertLocation = htmlQueryAll(element, ".item-name, .item-controls, .action-header").at(-1);
+                const insertLocation = htmlQueryAll(
+                    element,
+                    ":scope > .item-name, :scope > .item-controls, :scope > .action-header"
+                ).at(-1);
                 if (!insertLocation) return null;
 
                 const summary = document.createElement("div");
