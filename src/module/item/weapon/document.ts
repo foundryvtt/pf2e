@@ -408,13 +408,15 @@ class WeaponPF2e extends PhysicalItemPF2e {
     ): Promise<ItemSummaryData> {
         const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
         const chatData = await super.getChatData();
+
+        const rangeIncrement =
+            this.rangeIncrement && !this.maxRange ? `PF2E.TraitRangeIncrement${this.rangeIncrement}` : null;
+        const maxRange = this.maxRange ? `PF2E.TraitRange${this.maxRange}` : null;
+
         return this.processChatData(htmlOptions, {
             ...chatData,
             traits,
-            properties: [
-                CONFIG.PF2E.weaponCategories[this.category],
-                this.rangeIncrement ? `PF2E.TraitRangeIncrement${this.rangeIncrement}` : null,
-            ].filter((p) => !!p),
+            properties: [CONFIG.PF2E.weaponCategories[this.category], rangeIncrement, maxRange].filter((p) => !!p),
         });
     }
 
@@ -642,6 +644,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
                         // Critical fusion trait on thrown attacks with melee usage of combination weapons
                         !(t === "critical-fusion" && this.isThrown)
                 );
+
             if (this.isRanged && !this.isThrown) {
                 newTraits.push(`range-increment-${this.rangeIncrement!}`);
             }

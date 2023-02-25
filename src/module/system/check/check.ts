@@ -310,8 +310,9 @@ class CheckPF2e {
         const properties = ((): HTMLElement[] => {
             if (item?.isOfType("weapon") && item.isRanged) {
                 // Show the range increment for ranged weapons
-                const range = item.rangeIncrement ?? 10;
-                const label = game.i18n.format("PF2E.Item.Weapon.RangeIncrementN.Label", { range });
+                const range = item.maxRange ?? item.rangeIncrement ?? 10;
+                const locKey = item.maxRange ? `PF2E.TraitRange${range}` : "PF2E.Item.Weapon.RangeIncrementN.Label";
+                const label = game.i18n.format(locKey, { range });
                 return [
                     toTagElement(
                         { name: range.toString(), label, description: "PF2E.Item.Weapon.RangeIncrementN.Hint" },

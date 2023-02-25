@@ -26,7 +26,7 @@ export abstract class DataModel<
     readonly parent: TParent;
 
     /** The defined and cached Data Schema for all instances of this DataModel. */
-    protected static _schema: fields.SchemaField<ReturnType<typeof this["defineSchema"]>> | undefined;
+    protected static _schema: fields.SchemaField<ReturnType<(typeof this)["defineSchema"]>> | undefined;
 
     /** Configure the data model instance before validation and initialization workflows are performed. */
     protected _configure(): void;
@@ -42,7 +42,7 @@ export abstract class DataModel<
     static defineSchema(): fields.DataSchema;
 
     /** Define the data schema for documents of this type. */
-    static get schema(): Required<typeof this["_schema"]>;
+    static get schema(): Required<(typeof this)["_schema"]>;
 
     /** Define the data schema for this document instance. */
     // PROJECT NOTE: this must be overloaded in an interface merge declaration
@@ -191,6 +191,24 @@ export abstract class DataModel<
      * @returns A constructed data model instance
      */
     static fromJSON(json: string): DataModel;
+
+    /* -------------------------------------------- */
+    /*  Deprecations and Compatibility              */
+    /* -------------------------------------------- */
+
+    /**
+     * Migrate candidate source data for this DataModel which may require initial cleaning or transformations.
+     * @param source The candidate source data from which the model will be constructed
+     * @returns Migrated source data, if necessary
+     */
+    static migrateData<TSource extends object>(source: TSource): TSource;
+
+    /**
+     * Wrap data migration in a try/catch which attempts it safely
+     * @param source The candidate source data from which the model will be constructed
+     * @returns Migrated source data, if necessary
+     */
+    static migrateDataSafe(source: object): object;
 }
 
 export type RawObject<TModel extends DataModel<DataModel | null>> = {

@@ -94,7 +94,9 @@
                                         {{#each action.weaponTraits as |trait|}}
                                             <span class="tag tag_alt {{trait.cssClass}}"{{#if trait.description}} data-description="{{trait.description}}"{{/if}}>{{trait.label}}</span>
                                         {{/each}}
-                                        {{#if action.item.system.range}}
+                                        {{#if action.item.system.maxRange}}
+                                            <span class="tag tag_secondary {{trait.cssClass}}">{{localize (concat "PF2E.TraitRange" action.item.system.maxRange)}}</span>
+                                        {{else if action.item.system.range}}
                                             <span class="tag tag_secondary {{trait.cssClass}}">{{localize (concat "PF2E.TraitRangeIncrement" action.item.system.range)}}</span>
                                         {{/if}}
                                     </div>
