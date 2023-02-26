@@ -1,6 +1,6 @@
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { ConsumablePF2e, SpellcastingEntryPF2e } from "@item";
-import { SpellCollection } from "@item/spellcasting-entry/collection";
+import { SpellcastingEntrySource, SpellCollection } from "@item/spellcasting-entry";
 import { ErrorPF2e } from "@util";
 
 export class ActorSpellcasting extends Collection<SpellcastingEntryPF2e> {
@@ -12,7 +12,7 @@ export class ActorSpellcasting extends Collection<SpellcastingEntryPF2e> {
     }
 
     /** Returns a list of entries pre-filtered to SpellcastingEntryPF2e */
-    get regular() {
+    get regular(): SpellcastingEntryPF2e[] {
         return this.filter((entry): entry is SpellcastingEntryPF2e => entry instanceof SpellcastingEntryPF2e);
     }
 
@@ -20,7 +20,7 @@ export class ActorSpellcasting extends Collection<SpellcastingEntryPF2e> {
      * All spellcasting entries that count as prepared/spontaneous, which qualify as a
      * full fledged spellcasting feature for wands and scrolls.
      */
-    get spellcastingFeatures() {
+    get spellcastingFeatures(): SpellcastingEntryPF2e[] {
         return this.regular.filter((entry) => entry.isPrepared || entry.isSpontaneous);
     }
 
@@ -29,7 +29,7 @@ export class ActorSpellcasting extends Collection<SpellcastingEntryPF2e> {
         return !!spell && this.some((entry) => entry.canCastSpell(spell, { origin: item }));
     }
 
-    refocus(options: { all?: boolean } = {}) {
+    refocus(options: { all?: boolean } = {}): { "system.resources.focus.value": number } | null {
         if (!options.all) {
             throw ErrorPF2e("Actors do not currently support regular refocusing");
         }
@@ -51,7 +51,10 @@ export class ActorSpellcasting extends Collection<SpellcastingEntryPF2e> {
      * Recharges all spellcasting entries based on the type of entry it is
      * @todo Support a timespan property of some sort and handle 1/hour innate spells
      */
-    recharge() {
+    recharge(): {
+        itemUpdates: ((Record<string, unknown> | Partial<SpellcastingEntrySource>) & { _id: string })[];
+        actorUpdates: { "system.resources.focus.value": number } | null;
+    } {
         type SpellcastingUpdate =
             | EmbeddedDocumentUpdateData<SpellcastingEntryPF2e>
             | EmbeddedDocumentUpdateData<SpellcastingEntryPF2e>[];
