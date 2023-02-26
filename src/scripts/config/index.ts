@@ -960,6 +960,7 @@ export const PF2ECONFIG = {
         "affixed-to-firearm": "PF2E.TraitAffixedToFirearm",
         "affixed-to-firearm-with-a-reload-of-1": "PF2E.TraitAffixedToFirearmWithAReloadOf1",
         "affixed-to-firearm-with-the-kickback-trait": "PF2E.TraitAffixedToFirearmWithTheKickbackTrait",
+        "affixed-to-ground-in-10-foot-radius": "PF2E.TraitAffixedToGroundIn10FtRadius",
         "affixed-to-ground-in-20-foot-radius": "PF2E.TraitAffixedToGroundIn20FtRadius",
         "affixed-to-harness": "PF2E.TraitAffixedToHarness",
         "affixed-to-headgear": "PF2E.TraitAffixedToHeadgear",
