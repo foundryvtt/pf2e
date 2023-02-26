@@ -485,16 +485,26 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             .on("click", (event) => this.onClickItemToChat(event));
 
         // Delete Formula
-        $html.find(".formula-delete").on("click", (event) => {
+        $html.find(".formula-delete").on("click", async (event) => {
             event.preventDefault();
 
-            const itemUuid = $(event.currentTarget).parents(".item").attr("data-item-id");
-            if (!itemUuid) return;
+            const itemElement = event.currentTarget.closest(".item");
+            const itemUuid = itemElement?.getAttribute("data-item-id");
+            if (!itemUuid || !itemElement) return;
 
             if (this.actor.isOfType("character")) {
-                const actorFormulas = (this.actor.toObject().system as CharacterPF2e["system"]).crafting.formulas ?? [];
-                actorFormulas.findSplice((f) => f.uuid === itemUuid);
-                this.actor.update({ "system.crafting.formulas": actorFormulas });
+                const itemName = itemElement.getAttribute("data-item-name");
+                const title = game.i18n.localize("PF2E.DeleteItemTitle");
+                const content = await renderTemplate("systems/pf2e/templates/actors/delete-item-dialog.hbs", {
+                    name: itemName,
+                });
+
+                if (await Dialog.confirm({ title, content })) {
+                    const actorFormulas =
+                        (this.actor.toObject().system as CharacterPF2e["system"]).crafting.formulas ?? [];
+                    actorFormulas.findSplice((f) => f.uuid === itemUuid);
+                    this.actor.update({ "system.crafting.formulas": actorFormulas });
+                }
             }
         });
 
