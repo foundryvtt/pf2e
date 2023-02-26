@@ -14,7 +14,7 @@
                     <div class="instances">
                         (
                         {{~#each instances as |instance|~}}
-                            <span class="instance {{#if ../damageColor}} {{instance.type}} {{/if}}" title="{{instance.typeLabel}}">
+                            <span class="instance {{#if ../damageColors}}{{instance.type}}{{/if}}" title="{{instance.typeLabel}}">
                                 {{~#if instance.persistent}}{{coalesce instance.head.term.expression instance.head.expression}}{{else}}{{instance.total}}{{/if}}
                                 {{#if (and instance.persistent (ne instance.type "bleed"))}}<i class="fa-duotone fa-hourglass icon"></i>{{/if~}}
                                 <i class="fa-solid fa-{{instance.iconClass}} icon"></i>

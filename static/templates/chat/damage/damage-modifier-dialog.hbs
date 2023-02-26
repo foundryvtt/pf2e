@@ -130,7 +130,7 @@
     <div class="dialog-row{{#unless modifier.enabled}} disabled{{#if modifier.hideIfDisabled}} hidden{{/if}}{{/unless}}">
         <span class="mod">{{modifier.label}}</span>
         <span class="type tag">{{localize (concat "PF2E.ModifierType." modifier.type)}}</span>
-        <div class="modifier-type{{#if (and modifier.damageType @root.damageColor)}} {{modifier.damageType}}{{/if}}" title="{{modifier.typeLabel}}">
+        <div class="modifier-type{{#if (and modifier.damageType @root.damageColors)}} {{modifier.damageType}}{{/if}}" title="{{modifier.typeLabel}}">
             <span class="value">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
             {{> icon-container modifier=modifier}}
         </div>
@@ -144,7 +144,7 @@
 {{#*inline "dice-row"}}
     <div class="dialog-row{{#unless dice.enabled}} disabled{{/unless}}">
         <span class="mod">{{dice.label}}</span>
-        <div class="dice-type value{{#if (and dice.damageType @root.damageColor)}} {{dice.damageType}}{{/if}}" title="{{dice.typeLabel}}">
+        <div class="dice-type value{{#if (and dice.damageType @root.damageColors)}} {{dice.damageType}}{{/if}}" title="{{dice.typeLabel}}">
             <span class="value">{{dice.diceLabel}}</span>
             {{> icon-container modifier=dice}}
         </div>

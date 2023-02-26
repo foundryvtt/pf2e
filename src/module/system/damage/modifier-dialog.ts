@@ -163,7 +163,7 @@ class DamageModifierDialog extends Application {
             damageSubtypes: sortStringRecord(pick(CONFIG.PF2E.damageCategories, DAMAGE_CATEGORIES_UNIQUE)),
             rollModes: CONFIG.Dice.rollModes,
             rollMode: this.context?.rollMode,
-            damageColor: game.settings.get("pf2e", "damageColor") as boolean,
+            damageColors: game.settings.get("pf2e", "damageColors"),
         };
     }
 
@@ -354,7 +354,7 @@ interface DamageDialogData {
     damageSubtypes: Pick<ConfigPF2e["PF2E"]["damageCategories"], DamageCategoryUnique>;
     rollModes: Record<RollMode, string>;
     rollMode: RollMode | "roll" | undefined;
-    damageColor: boolean;
+    damageColors: boolean;
 }
 
 export { DamageModifierDialog };

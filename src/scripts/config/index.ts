@@ -1678,9 +1678,9 @@ export const PF2ECONFIG = {
             name: "PF2E.SETTINGS.CampaignFeats.Name",
             hint: "PF2E.SETTINGS.CampaignFeats.Hint",
         },
-        DamageColor: {
-            name: "PF2E.SETTINGS.DamageColor.Name",
-            hint: "PF2E.SETTINGS.DamageColor.Hint",
+        DamageColors: {
+            name: "PF2E.SETTINGS.DamageColors.Name",
+            hint: "PF2E.SETTINGS.DamageColors.Hint",
         },
     },
 
