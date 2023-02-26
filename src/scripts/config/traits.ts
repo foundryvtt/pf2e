@@ -822,8 +822,8 @@ const shieldTraits = {
     "integrated-1d6-s": "PF2E.TraitIntegrated1d6S",
     "integrated-1d6-s-versatile-p": "PF2E.TraitIntegrated1d6SVersatileP",
     "launching-dart": "PF2E.TraitLaunching",
-    "shield-throw-20": "PF2E.TraintShieldThrow20",
-    "shield-throw-30": "PF2E.TraintShieldThrow30",
+    "shield-throw-20": "PF2E.TraitShieldThrow20",
+    "shield-throw-30": "PF2E.TraitShieldThrow30",
 };
 
 const armorTraits = {
