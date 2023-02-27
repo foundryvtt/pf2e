@@ -680,7 +680,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
         const participants = encounter.combatants.contents;
         const participant = this.token?.combatant ?? participants.find((c) => c.actor === this);
-        if (!participant || participant.initiative === null) return;
+        if (typeof participant?.initiative !== "number") return;
 
         const rollOptionsAll = this.rollOptions.all;
         rollOptionsAll["encounter"] = true;
@@ -688,8 +688,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         rollOptionsAll[`encounter:turn:${encounter.turn + 1}`] = true;
         rollOptionsAll["self:participant:own-turn"] = encounter.combatant?.actor === this;
 
+        const initiativeRoll = Math.trunc(participant.initiative);
+        rollOptionsAll[`self:participant:initiative:roll:${initiativeRoll}`] = true;
         const rank = [...participants].reverse().indexOf(participant) + 1;
-        rollOptionsAll[`self:participant:initiative:roll:${participant.initiative}`] = true;
         rollOptionsAll[`self:participant:initiative:rank:${rank}`] = true;
     }
 
