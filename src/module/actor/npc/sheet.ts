@@ -175,6 +175,8 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
             record: CONFIG.PF2E.creatureTraits,
         });
 
+        sheetData.languageDetails = this.actor.system.traits.languages.custom.trim();
+
         // Return data for rendering
         return sheetData as NPCSheetData<TActor>;
     }
