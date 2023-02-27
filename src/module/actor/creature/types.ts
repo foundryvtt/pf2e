@@ -1,7 +1,5 @@
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 import { MeleePF2e, WeaponPF2e } from "@item";
-import { SpellcastingEntryData } from "@item/data";
-import { SpellcastingAbilityData } from "@item/spellcasting-entry/data";
 import { CreaturePF2e } from ".";
 import { SheetOptions } from "@module/sheet/helpers";
 import { ALIGNMENTS, ALIGNMENT_TRAITS } from "./values";
@@ -59,8 +57,6 @@ interface CreatureSheetData<TActor extends CreaturePF2e = CreaturePF2e> extends 
     };
 }
 
-type SpellcastingSheetData = RawObject<SpellcastingEntryData> & SpellcastingAbilityData;
-
 export {
     Alignment,
     AlignmentTrait,
@@ -70,5 +66,4 @@ export {
     GetReachParameters,
     IsFlatFootedParams,
     ModeOfBeing,
-    SpellcastingSheetData,
 };

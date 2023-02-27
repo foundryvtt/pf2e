@@ -1,10 +1,11 @@
 import { CharacterPF2e } from "@actor";
 import { CraftingEntry } from "@actor/character/crafting/entry";
 import { CraftingFormula } from "@actor/character/crafting/formula";
-import { CreatureSheetData, SpellcastingSheetData } from "@actor/creature/types";
+import { CreatureSheetData } from "@actor/creature/types";
 import { SaveType } from "@actor/types";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e, DeityPF2e, HeritagePF2e } from "@item";
 import { MagicTradition } from "@item/spell";
+import { SpellcastingSheetData } from "@item/spellcasting-entry";
 import { FlattenedCondition } from "@system/conditions";
 import { CHARACTER_SHEET_TABS } from "../values";
 import { BonusFeat, CharacterSaveData, CharacterSystemData, ClassDCData, SlottedFeat } from "./types";
