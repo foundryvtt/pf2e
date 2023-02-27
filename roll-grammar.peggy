@@ -52,7 +52,7 @@ Term = head:TermOperand tail:(_ ("*" / "/") _ TermOperand)* {
 TermOperand = DiceTerm / MathTerm / Grouping / FlavoredNumber / Number;
 
 MathTerm = fn:Identifier "(" _ head:Expression? _ tail:(_ "," _ @Expression)* _ ")" {
-  const terms = head
+  const terms = head !== null
     ? [head, ...tail].map((t) => typeof t === "number" ? t.toString() : t.formula)
     : [];
   return {
