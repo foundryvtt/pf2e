@@ -103,6 +103,7 @@ interface NPCSheetData<T extends NPCPF2e = NPCPF2e> extends CreatureSheetData<T>
     hasHardness?: boolean;
     configLootableNpc?: boolean;
     traitTagifyData: TraitTagifyEntry[];
+    languageDetails?: string;
 }
 
 type NPCSheetItemData<T extends ItemDataPF2e | RawObject<ItemDataPF2e> = ItemDataPF2e> = T & {
