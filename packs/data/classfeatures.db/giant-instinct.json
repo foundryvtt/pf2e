@@ -23,192 +23,6 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": [
-                    "self:effect:rage",
-                    {
-                        "not": "barbarian-dedication"
-                    }
-                ],
-                "selector": "ac",
-                "value": -1
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": [
-                    "self:effect:rage",
-                    "item:oversized",
-                    {
-                        "nor": [
-                            "ranged",
-                            "agile",
-                            "barbarian-dedication"
-                        ]
-                    }
-                ],
-                "selector": "strike-damage",
-                "slug": "oversized-rage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 6,
-                            "value": 6
-                        },
-                        {
-                            "end": 14,
-                            "start": 7,
-                            "value": 10
-                        },
-                        {
-                            "start": 15,
-                            "value": 18
-                        }
-                    ]
-                }
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": [
-                    "self:effect:rage",
-                    "item:oversized",
-                    "agile",
-                    {
-                        "nor": [
-                            "ranged",
-                            "barbarian-dedication"
-                        ]
-                    }
-                ],
-                "selector": "strike-damage",
-                "slug": "oversized-rage-agile",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 6,
-                            "value": 3
-                        },
-                        {
-                            "end": 14,
-                            "start": 7,
-                            "value": 5
-                        },
-                        {
-                            "start": 15,
-                            "value": 9
-                        }
-                    ]
-                }
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": [
-                    "self:effect:rage",
-                    {
-                        "nor": [
-                            "agile",
-                            "item:oversized",
-                            "ranged",
-                            "barbarian-dedication"
-                        ]
-                    }
-                ],
-                "selector": "strike-damage",
-                "slug": "normal-rage",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": [
-                    "self:effect:rage",
-                    "agile",
-                    {
-                        "nor": [
-                            "item:oversized",
-                            "ranged",
-                            "barbarian-dedication"
-                        ]
-                    }
-                ],
-                "selector": "strike-damage",
-                "slug": "normal-rage-agile",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": [
-                    "self:effect:rage",
-                    "item:oversized",
-                    "instinct-ability",
-                    {
-                        "nor": [
-                            "ranged",
-                            "agile"
-                        ]
-                    }
-                ],
-                "selector": "strike-damage",
-                "slug": "oversized-rage-dedication",
-                "value": 6
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": [
-                    "self:effect:rage",
-                    "item:oversized",
-                    "agile",
-                    "instinct-ability",
-                    {
-                        "not": "ranged"
-                    }
-                ],
-                "selector": "strike-damage",
-                "slug": "oversized-rage-dedication-agile",
-                "value": 3
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": [
-                    "self:effect:rage",
-                    "instinct-ability",
-                    {
-                        "nor": [
-                            "agile",
-                            "item:oversized",
-                            "ranged"
-                        ]
-                    }
-                ],
-                "selector": "strike-damage",
-                "slug": "normal-rage-dedication",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": [
-                    "self:effect:rage",
-                    "agile",
-                    "instinct-ability",
-                    {
-                        "nor": [
-                            "item:oversized",
-                            "ranged"
-                        ]
-                    }
-                ],
-                "selector": "strike-damage",
-                "slug": "normal-rage-dedication-agile",
-                "value": 1
-            },
-            {
                 "adjustName": false,
                 "choices": [
                     {
@@ -249,6 +63,96 @@
                 ],
                 "type": "bludgeoning",
                 "value": "@actor.abilities.con.mod+3"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:barbarian",
+                            "feat:instinct-ability"
+                        ]
+                    },
+                    "item:oversized"
+                ],
+                "selector": "strike-damage",
+                "slug": "rage",
+                "value": 6
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:barbarian",
+                            "feat:instinct-ability"
+                        ]
+                    },
+                    "item:oversized"
+                ],
+                "selector": "strike-damage",
+                "slug": "agile-rage",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "class:barbarian",
+                    {
+                        "gte": [
+                            "self:level",
+                            7
+                        ]
+                    },
+                    "item:oversized"
+                ],
+                "selector": "strike-damage",
+                "slug": "rage",
+                "value": 10
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "class:barbarian",
+                    {
+                        "gte": [
+                            "self:level",
+                            7
+                        ]
+                    },
+                    "item:oversized"
+                ],
+                "selector": "strike-damage",
+                "slug": "agile-rage",
+                "value": 5
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "class:barbarian",
+                    "feature:greater-weapon-specialization",
+                    "item:oversized"
+                ],
+                "selector": "strike-damage",
+                "slug": "rage",
+                "value": 18
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "class:barbarian",
+                    "feature:greater-weapon-specialization",
+                    "item:oversized"
+                ],
+                "selector": "strike-damage",
+                "slug": "agile-rage",
+                "value": 9
             }
         ],
         "source": {

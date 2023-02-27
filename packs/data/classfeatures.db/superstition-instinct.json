@@ -24,24 +24,15 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
+                "label": "PF2E.SpecificRule.Barbarian.Spirit.SaveBonus",
                 "predicate": [
+                    "magical",
                     "self:effect:rage",
                     {
-                        "not": "barbarian-dedication"
-                    }
-                ],
-                "selector": "ac",
-                "value": -1
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Superstition Instinct (vs. magic)",
-                "predicate": [
-                    "magic",
-                    "self:effect:rage",
-                    {
-                        "not": "barbarian-dedication"
+                        "or": [
+                            "class:barbarian",
+                            "feat:instinct-ability"
+                        ]
                     }
                 ],
                 "selector": "saving-throw",
@@ -52,218 +43,171 @@
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "Target is a spellcaster",
+                "label": "PF2E.SpecificRule.Barbarian.Superstition.TargetingCaster",
                 "option": "target:caster",
-                "toggleable": true
+                "toggleable": "totm"
             },
             {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
+                "key": "AdjustModifier",
+                "mode": "upgrade",
                 "predicate": [
+                    "self:effect:rage",
                     "target:caster",
-                    "self:effect:rage",
                     {
-                        "nor": [
-                            "agile",
-                            "ranged",
-                            "barbarian-dedication"
+                        "or": [
+                            "class:barbarian",
+                            "feat:instinct-ability"
                         ]
                     }
                 ],
-                "selector": "strike-damage",
-                "slug": "caster-rage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 6,
-                            "value": 4
-                        },
-                        {
-                            "end": 14,
-                            "start": 7,
-                            "value": 8
-                        },
-                        {
-                            "start": 15,
-                            "value": 12
-                        }
-                    ]
-                }
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": [
-                    "target:caster",
-                    "self:effect:rage",
-                    "agile",
-                    {
-                        "nor": [
-                            "ranged",
-                            "barbarian-dedication"
-                        ]
-                    }
+                "selectors": [
+                    "strike-damage"
                 ],
-                "selector": "strike-damage",
-                "slug": "caster-rage-agile",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 6,
-                            "value": 2
-                        },
-                        {
-                            "end": 14,
-                            "start": 7,
-                            "value": 4
-                        },
-                        {
-                            "start": 15,
-                            "value": 6
-                        }
-                    ]
-                }
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": [
-                    "self:effect:rage",
-                    {
-                        "nor": [
-                            "agile",
-                            "target:caster",
-                            "ranged",
-                            "barbarian-dedication"
-                        ]
-                    }
-                ],
-                "selector": "strike-damage",
-                "slug": "normal-rage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 14,
-                            "value": 2
-                        },
-                        {
-                            "start": 15,
-                            "value": 8
-                        }
-                    ]
-                }
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": [
-                    "self:effect:rage",
-                    "agile",
-                    {
-                        "nor": [
-                            "target:caster",
-                            "ranged",
-                            "barbarian-dedication"
-                        ]
-                    }
-                ],
-                "selector": "strike-damage",
-                "slug": "normal-rage-agile",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 14,
-                            "value": 1
-                        },
-                        {
-                            "start": 15,
-                            "value": 4
-                        }
-                    ]
-                }
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Superstition Instinct (vs. magic)",
-                "predicate": [
-                    "magic",
-                    "self:effect:rage",
-                    "instinct-ability"
-                ],
-                "selector": "saving-throw",
-                "slug": "superstition-saves-dedication",
-                "type": "status",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": [
-                    "target:caster",
-                    "self:effect:rage",
-                    "instinct-ability",
-                    {
-                        "nor": [
-                            "agile",
-                            "ranged"
-                        ]
-                    }
-                ],
-                "selector": "strike-damage",
-                "slug": "caster-rage-dedication",
+                "slug": "rage",
                 "value": 4
             },
             {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
+                "key": "AdjustModifier",
+                "mode": "upgrade",
                 "predicate": [
+                    "self:effect:rage",
                     "target:caster",
-                    "self:effect:rage",
-                    "agile",
-                    "instinct-ability",
                     {
-                        "not": "ranged"
-                    }
-                ],
-                "selector": "strike-damage",
-                "slug": "caster-rage-dedication-agile",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": [
-                    "self:effect:rage",
-                    "instinct-ability",
-                    {
-                        "nor": [
-                            "agile",
-                            "target:caster",
-                            "ranged"
+                        "or": [
+                            "class:barbarian",
+                            "feat:instinct-ability"
                         ]
                     }
                 ],
-                "selector": "strike-damage",
-                "slug": "normal-rage-dedication",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "agilerage",
                 "value": 2
             },
             {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
+                "key": "AdjustModifier",
+                "mode": "upgrade",
                 "predicate": [
                     "self:effect:rage",
-                    "agile",
-                    "instinct-ability",
+                    "target:caster",
+                    "class:barbarian",
                     {
-                        "nor": [
-                            "target:caster",
-                            "ranged"
+                        "gte": [
+                            "self:level",
+                            7
                         ]
                     }
                 ],
-                "selector": "strike-damage",
-                "slug": "normal-rage-dedication-agile",
-                "value": 1
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "rage",
+                "value": 8
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "self:effect:rage",
+                    "target:caster",
+                    "class:barbarian",
+                    {
+                        "gte": [
+                            "self:level",
+                            7
+                        ]
+                    }
+                ],
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "agile-rage",
+                "value": 4
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "self:effect:rage",
+                    "target:caster",
+                    "class:barbarian",
+                    {
+                        "gte": [
+                            "self:level",
+                            7
+                        ]
+                    }
+                ],
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "rage",
+                "value": 8
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "self:effect:rage",
+                    "target:caster",
+                    "class:barbarian",
+                    "feature:greater-weapon-specialization"
+                ],
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "rage",
+                "value": 12
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "self:effect:rage",
+                    "target:caster",
+                    "class:barbarian",
+                    "feature:greater-weapon-specialization"
+                ],
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "agile-rage",
+                "value": 6
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "self:effect:rage",
+                    {
+                        "not": "target:caster"
+                    },
+                    "class:barbarian",
+                    "feature:greater-weapon-specialization"
+                ],
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "rage",
+                "value": 8
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "self:effect:rage",
+                    {
+                        "not": "target:caster"
+                    },
+                    "class:barbarian",
+                    "feature:greater-weapon-specialization"
+                ],
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "agile-rage",
+                "value": 4
             }
         ],
         "source": {
