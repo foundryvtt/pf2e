@@ -270,6 +270,15 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
                     }
                 }
             }
+
+            // If all spontaneous or flexible slots are spent for a given level, mark them as expended
+            for (const result of results) {
+                if (result.level > 0 && result.uses?.value === 0 && result.uses.max > 0) {
+                    for (const slot of result.active) {
+                        if (slot) slot.expended = true;
+                    }
+                }
+            }
         }
 
         // If flexible, the limit is the number of slots, we need to notify the user
