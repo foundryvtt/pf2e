@@ -495,7 +495,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     ): Promise<Actor[]> {
         // Process rule element hooks for each actor update
         for (const changed of updates) {
-            processPreUpdateActorHooks(changed, { pack: context.pack ?? null });
+            await processPreUpdateActorHooks(changed, { pack: context.pack ?? null });
         }
 
         return super.updateDocuments(updates, context);
