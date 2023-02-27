@@ -129,7 +129,7 @@ export class Migration812RestructureIWR extends MigrationBase {
         );
         for (const rule of adjustStrikeREs) {
             rule.value =
-                rule.value.startsWith("{") || rule.property === "weapon-traits"
+                rule.value.startsWith("{") || ["property-runes", "weapon-traits"].includes(rule.property)
                     ? rule.value
                     : this.#normalizeType(rule.value);
         }
