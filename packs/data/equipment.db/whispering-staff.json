@@ -73,13 +73,15 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "or": [
-                        "action:identify-magic",
-                        "action:decipher-writing",
-                        "action:recall-knowledge"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:decipher-writing",
+                            "action:identify-magic",
+                            "action:recall-knowledge"
+                        ]
+                    }
+                ],
                 "selector": "skill-check",
                 "type": "circumstance",
                 "value": 3
