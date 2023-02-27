@@ -11,7 +11,6 @@ interface ChatMessageCheckFlags {
 }
 
 export function createForgery(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "society");
     const modifiers = [
         new ModifierPF2e({
             label: "PF2E.Actions.CreateForgery.UnspecificHandwriting",
@@ -19,18 +18,15 @@ export function createForgery(options: SkillActionOptions) {
             predicate: ["action:create-forgery:unspecific-handwriting"],
             type: "circumstance",
         }),
-    ];
+    ].concat(options?.modifiers ?? []);
+    const slug = options?.skill ?? "society";
+    const rollOptions = ["action:create-forgery"];
     return ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph,
         title: "PF2E.Actions.CreateForgery.Title",
-        subtitle,
-        modifiers: modifiers.concat(options.modifiers ?? []),
-        rollOptions: ["all", checkType, stat, "action:create-forgery"],
-        extraOptions: ["action:create-forgery"],
+        checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["downtime", "secret"],
-        checkType,
         event: options.event,
         callback: async (result: CheckResultCallback) => {
             // consider any modifiers enabled in the roll dialog

@@ -1,18 +1,15 @@
 import { ActionMacroHelpers, SkillActionOptions } from "..";
 
 export function treatPoison(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "medicine");
+    const slug = options?.skill ?? "medicine";
+    const rollOptions = ["action:treat-poison"];
+    const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph ?? "A",
         title: "PF2E.Actions.TreatPoison.Title",
-        subtitle,
-        modifiers: options.modifiers,
-        rollOptions: ["all", checkType, stat, "action:treat-poison"],
-        extraOptions: ["action:treat-poison"],
+        checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["manipulate"],
-        checkType,
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,

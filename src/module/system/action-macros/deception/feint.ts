@@ -1,18 +1,15 @@
 import { ActionMacroHelpers, SkillActionOptions } from "..";
 
 export function feint(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "deception");
+    const slug = options?.skill ?? "deception";
+    const rollOptions = ["action:feint"];
+    const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph ?? "A",
         title: "PF2E.Actions.Feint.Title",
-        subtitle,
-        modifiers: options.modifiers,
-        rollOptions: ["all", checkType, stat, "action:feint"],
-        extraOptions: ["action:feint"],
+        checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["mental"],
-        checkType,
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,

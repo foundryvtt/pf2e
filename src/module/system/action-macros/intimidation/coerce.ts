@@ -1,18 +1,15 @@
 import { ActionMacroHelpers, SkillActionOptions } from "..";
 
 export function coerce(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "intimidation");
+    const slug = options?.skill ?? "intimidation";
+    const rollOptions = ["action:coerce"];
+    const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph,
         title: "PF2E.Actions.Coerce.Title",
-        subtitle,
-        modifiers: options.modifiers,
-        rollOptions: ["all", checkType, stat, "action:coerce"],
-        extraOptions: ["action:coerce"],
+        checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["auditory", "concentrate", "emotion", "exploration", "linguistic", "mental"],
-        checkType,
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,

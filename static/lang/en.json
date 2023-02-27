@@ -172,7 +172,7 @@
                 },
                 "Warning": {
                     "TargetNotDying": "Targeted creature is not dying.",
-                    "UnknownVariant": "Unknown variant '{variant}' used for Administer First Aid, use either stabilize or stopBleeding."
+                    "UnknownVariant": "Unknown variant {variant} used for Administer First Aid, use one of {variants}."
                 }
             },
             "ArcaneSlam": {
@@ -292,7 +292,10 @@
                     "success": "<strong>Success</strong> You become @UUID[Compendium.pf2e.conditionitems.iU0fEDdBp3rXpTMC]{Hidden} to each creature whose Perception DC is less than or equal to your result. (The hidden condition allows you to @UUID[Compendium.pf2e.actionspf2e.VMozDqMMuK5kpoX4]{Sneak} away.) This lasts until the end of your turn or until you do anything except Step or use the @UUID[Compendium.pf2e.actionspf2e.XMcnh4cSI32tljXa]{Hide} or the @UUID[Compendium.pf2e.actionspf2e.VMozDqMMuK5kpoX4]{Sneak} action of the Stealth skill. If you Strike a creature, the creature remains @UUID[Compendium.pf2e.conditionitems.AJh5ex99aV6VTggg]{Flat-Footed} against that attack, and you then become @UUID[Compendium.pf2e.conditionitems.1wQY3JYyhMYeeV2G]{Observed}. If you do anything else, you become @UUID[Compendium.pf2e.conditionitems.1wQY3JYyhMYeeV2G]{Observed} just before you act unless the GM determines otherwise.",
                     "failure": "<strong>Failure</strong> You don't divert the attention of any creatures whose Perception DC exceeds your result, and those creatures are aware you were trying to trick them."
                 },
-                "Trick": "Create a Diversion - Trick"
+                "Trick": "Create a Diversion - Trick",
+                "Warning": {
+                    "UnknownVariant": "Unknown variant {variant} used for Create a Diversion, use one of {variants}."
+                }
             },
             "CreateForgery": {
                 "ForgedDocument": {
@@ -775,11 +778,12 @@
             "society": "Society Check",
             "stealth": "Stealth Check",
             "survival": "Survival Check",
-            "thievery": "Thievery Check"
+            "thievery": "Thievery Check",
+            "unarmed": "Unarmed Attack Roll"
         },
         "ActionsWarning": {
-            "DeceptionUnknownVariant": "Unknown variant '{variant}' used for Deception, use either distracting words, gesture, or trick.",
-            "NoActor": "Select at least one token before rolling, or assign a default character."
+            "NoActor": "Select at least one token before rolling, or assign a default character.",
+            "NoStatistic": "Actor {name} ({id}) does not have a statistic for {statistic}."
         },
         "ActionsActionsHeader": "Actions",
         "ActionsFreeActionsHeader": "Free Actions",

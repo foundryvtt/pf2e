@@ -1,18 +1,15 @@
 import { ActionMacroHelpers, SkillActionOptions } from "..";
 
 export function request(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "diplomacy");
+    const slug = options?.skill ?? "diplomacy";
+    const rollOptions = ["action:request"];
+    const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph ?? "A",
         title: "PF2E.Actions.Request.Title",
-        subtitle,
-        modifiers: options.modifiers,
-        rollOptions: ["all", checkType, stat, "action:request"],
-        extraOptions: ["action:request"],
+        checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["auditory", "concentrate", "linguistic", "mental"],
-        checkType,
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,

@@ -4,25 +4,21 @@ import { ModifierPF2e } from "@actor/modifiers";
 const PREFIX = "PF2E.Actions.Steal";
 
 export function steal(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "thievery");
     const modifiers = [
         new ModifierPF2e({
             label: "PF2E.Actions.Steal.Pocketed",
             modifier: -5,
             predicate: ["action:steal:pocketed"],
         }),
-    ];
+    ].concat(options?.modifiers ?? []);
+    const slug = options?.skill ?? "thievery";
+    const rollOptions = ["action:steal"];
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph ?? "A",
         title: `${PREFIX}.Title`,
-        subtitle,
-        modifiers: modifiers.concat(options.modifiers ?? []),
-        rollOptions: ["all", checkType, stat, "action:steal"],
-        extraOptions: ["action:steal"],
+        checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["manipulate"],
-        checkType,
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,
