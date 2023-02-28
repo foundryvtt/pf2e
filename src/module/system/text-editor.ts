@@ -333,7 +333,7 @@ class TextEditorPF2e extends TextEditor {
                 html.setAttribute("data-pf2-check", "flat");
                 break;
             case "perception":
-                html.innerHTML = inlineLabel ?? game.i18n.localize("PF2E.PerceptionCheck");
+                html.innerHTML = inlineLabel ?? game.i18n.localize("PF2E.PerceptionLabel");
                 html.setAttribute("data-pf2-check", "perception");
                 break;
             case "fortitude":
