@@ -1,15 +1,15 @@
 import { ActorType } from "@actor/data";
-import { ItemPF2e, ItemProxyPF2e, PHYSICAL_ITEM_TYPES } from "@item";
+import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { ItemGrantDeleteAction } from "@item/data/base";
+import { PHYSICAL_ITEM_TYPES } from "@item/physical/values";
 import { MigrationList, MigrationRunner } from "@module/migration";
 import { ErrorPF2e, isObject, pick, setHasElement, sluggify, tupleHasValue } from "@util";
-import { RuleElementPF2e, RuleElementSource } from "..";
+import { UUIDUtils } from "@util/uuid-utils";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "..";
 import { AELikeChangeMode } from "../ae-like";
-import { RuleElementOptions } from "../base";
 import { ChoiceSetSource } from "../choice-set/data";
 import { ChoiceSetRuleElement } from "../choice-set/rule-element";
-import { UUIDUtils } from "@util/uuid-utils";
 
 class GrantItemRuleElement extends RuleElementPF2e {
     static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];

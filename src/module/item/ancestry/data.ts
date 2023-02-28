@@ -1,6 +1,6 @@
-import { CreatureTrait, Language } from "@actor/creature/data";
+import { CreatureTrait, Language } from "@actor/creature";
 import { AbilityString } from "@actor/types";
-import { ABCSystemData, ABCSystemSource } from "@item/abc/data";
+import { ABCSystemData, ABCSystemSource } from "@item/abc";
 import { BaseItemDataPF2e, BaseItemSourcePF2e } from "@item/data/base";
 import { Size, TraitsWithRarity, ValuesList } from "@module/data";
 import type { AncestryPF2e } from ".";

@@ -1,4 +1,5 @@
-import { DamageCategoryUnique, DamageType, DAMAGE_TYPES } from "@system/damage";
+import { DamageCategoryUnique, DamageType } from "@system/damage/types";
+import { DAMAGE_TYPES } from "@system/damage/values";
 import { pick } from "@util";
 import { alignmentTraits, energyDamageTypes, preciousMaterials } from "./traits";
 

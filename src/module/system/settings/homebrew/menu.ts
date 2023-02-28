@@ -2,19 +2,18 @@ import { ItemSheetPF2e } from "@item/sheet/base";
 import { MigrationBase } from "@module/migration/base";
 import { MigrationRunner } from "@module/migration/runner";
 import { LocalizePF2e } from "@module/system/localize";
-import { htmlClosest, htmlQuery, htmlQueryAll, isObject, objectHasKey, pick, sluggify, tupleHasValue } from "@util";
-import Tagify from "@yaireo/tagify";
-import { PartialSettingsData, SettingsMenuPF2e, settingsToSheetData } from "../menu";
-import { isHomebrewCustomDamage, isHomebrewFlagCategory, prepareCleanup } from "./helpers";
-import "@yaireo/tagify/src/tagify.scss";
+import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr";
+import { DamageType } from "@system/damage/types";
 import {
     BASE_DAMAGE_TYPES_TO_CATEGORIES,
-    DamageType,
     DAMAGE_TYPES,
     DAMAGE_TYPE_ICONS,
     ENERGY_DAMAGE_TYPES,
     PHYSICAL_DAMAGE_TYPES,
-} from "@system/damage";
+} from "@system/damage/values";
+import { htmlClosest, htmlQuery, htmlQueryAll, isObject, objectHasKey, pick, sluggify, tupleHasValue } from "@util";
+import Tagify from "@yaireo/tagify";
+import { PartialSettingsData, SettingsMenuPF2e, settingsToSheetData } from "../menu";
 import {
     CustomDamageData,
     HomebrewElementsSheetData,
@@ -25,7 +24,9 @@ import {
     HOMEBREW_TRAIT_KEYS,
     SECONDARY_TRAIT_RECORDS,
 } from "./data";
-import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr";
+import { isHomebrewCustomDamage, isHomebrewFlagCategory, prepareCleanup } from "./helpers";
+
+import "@yaireo/tagify/src/tagify.scss";
 
 class HomebrewElements extends SettingsMenuPF2e {
     static override readonly namespace = "homebrew";

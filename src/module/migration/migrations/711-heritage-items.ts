@@ -1,5 +1,5 @@
 import { CharacterDetails } from "@actor/character/data";
-import { CreatureTrait } from "@actor/creature/data";
+import { CreatureTrait } from "@actor/creature/types";
 import { ActorSourcePF2e } from "@actor/data";
 import { FeatSource, ItemSourcePF2e } from "@item/data";
 import { FeatSystemSource } from "@item/feat/data";

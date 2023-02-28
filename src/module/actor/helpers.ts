@@ -12,8 +12,9 @@ import {
 } from "@module/rules/helpers";
 import { TokenDocumentPF2e } from "@scene";
 import { CheckPF2e, CheckRoll } from "@system/check";
-import { DamagePF2e, DamageRollContext, WeaponDamagePF2e } from "@system/damage";
+import { DamagePF2e, DamageRollContext } from "@system/damage";
 import { DamageRoll } from "@system/damage/roll";
+import { WeaponDamagePF2e } from "@system/damage/weapon";
 import { AttackRollParams, DamageRollParams } from "@system/rolls";
 import { ErrorPF2e, getActionGlyph, getActionIcon, sluggify } from "@util";
 import { ActorSourcePF2e } from "./data";

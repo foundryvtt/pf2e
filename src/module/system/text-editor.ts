@@ -8,7 +8,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers";
 import { UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility";
 import { htmlClosest, objectHasKey, sluggify } from "@util";
-import { damageDiceIcon, looksLikeDamageFormula } from "./damage";
+import { damageDiceIcon, looksLikeDamageFormula } from "./damage/helpers";
 import { DamageRoll } from "./damage/roll";
 import { Statistic } from "./statistic";
 

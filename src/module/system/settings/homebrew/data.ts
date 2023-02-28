@@ -1,4 +1,4 @@
-import { BaseWeaponType } from "@item";
+import { BaseWeaponType } from "@item/weapon/types";
 import { MenuTemplateData, SettingsTemplateData } from "../menu";
 
 const HOMEBREW_TRAIT_KEYS = [

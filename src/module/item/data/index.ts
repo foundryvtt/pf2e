@@ -24,9 +24,9 @@ import type { WeaponData, WeaponSource } from "@item/weapon/data";
 import { PROFICIENCY_RANKS } from "@module/data";
 import { PhysicalItemTraits } from "../physical/data";
 
-export type ProficiencyRank = (typeof PROFICIENCY_RANKS)[number];
+type ProficiencyRank = (typeof PROFICIENCY_RANKS)[number];
 
-export type NonPhysicalItemType =
+type NonPhysicalItemType =
     | "action"
     | "affliction"
     | "ancestry"
@@ -43,10 +43,10 @@ export type NonPhysicalItemType =
     | "spell"
     | "spellcastingEntry";
 
-export type ItemType = NonPhysicalItemType | PhysicalItemType;
+type ItemType = NonPhysicalItemType | PhysicalItemType;
 
 /** Actual physical items which you carry (as opposed to feats, lore, proficiencies, statuses, etc). */
-export type PhysicalItemData = { system: { traits: PhysicalItemTraits } } & (
+type PhysicalItemData = { system: { traits: PhysicalItemTraits } } & (
     | ArmorData
     | BookData
     | ConsumableData
@@ -55,10 +55,10 @@ export type PhysicalItemData = { system: { traits: PhysicalItemTraits } } & (
     | TreasureData
     | WeaponData
 );
-export type MagicItemData = Exclude<PhysicalItemData, ConsumableData | TreasureData>;
-export type MagicItemSource = Exclude<PhysicalItemSource, ConsumableSource | TreasureSource>;
+type MagicItemData = Exclude<PhysicalItemData, ConsumableData | TreasureData>;
+type MagicItemSource = Exclude<PhysicalItemSource, ConsumableSource | TreasureSource>;
 
-export type ItemDataPF2e =
+type ItemDataPF2e =
     | PhysicalItemData
     | ActionItemData
     | AfflictionData
@@ -76,10 +76,10 @@ export type ItemDataPF2e =
     | SpellcastingEntryData
     | SpellData;
 
-export type PhysicalItemSource = PhysicalItemData["_source"];
-export type ItemSourcePF2e = ItemDataPF2e["_source"];
+type PhysicalItemSource = PhysicalItemData["_source"];
+type ItemSourcePF2e = ItemDataPF2e["_source"];
 
-export interface ItemSummaryData {
+interface ItemSummaryData {
     [key: string]: unknown;
     description?: {
         value: string;
@@ -88,7 +88,7 @@ export interface ItemSummaryData {
     properties?: (string | number | null)[];
 }
 
-export interface TraitChatData {
+interface TraitChatData {
     value: string;
     label: string;
     description?: string;
@@ -132,11 +132,22 @@ export {
     EffectSource,
     EquipmentSource,
     FeatSource,
+    ItemDataPF2e,
+    ItemSourcePF2e,
+    ItemSummaryData,
+    ItemType,
     KitSource,
     LoreSource,
+    MagicItemData,
+    MagicItemSource,
     MeleeSource,
-    SpellcastingEntrySource,
+    NonPhysicalItemType,
+    PhysicalItemData,
+    PhysicalItemSource,
+    ProficiencyRank,
     SpellSource,
+    SpellcastingEntrySource,
+    TraitChatData,
     TreasureSource,
     WeaponSource,
 };

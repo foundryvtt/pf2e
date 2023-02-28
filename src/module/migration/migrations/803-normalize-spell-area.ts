@@ -1,5 +1,5 @@
-import { EffectAreaSize, EffectAreaType } from "@item";
 import { ItemSourcePF2e } from "@item/data";
+import { EffectAreaSize, EffectAreaType } from "@item/spell";
 import { isObject } from "@util";
 import { MigrationBase } from "../base";
 

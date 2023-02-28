@@ -1,3 +1,4 @@
+import { ActorPF2e } from "@actor";
 import {
     createAbilityModifier,
     createProficiencyModifier,
@@ -7,11 +8,11 @@ import {
     StatisticModifier,
 } from "@actor/modifiers";
 import { AbilityString } from "@actor/types";
-import { ActorPF2e } from "@actor";
 import { ItemPF2e, SpellcastingEntryPF2e } from "@item";
 import { ActionTrait } from "@item/action/data";
 import { ItemSourcePF2e, ItemSummaryData } from "@item/data";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
+import { MeasuredTemplatePF2e } from "@module/canvas";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { OneToTen, ZeroToTwo } from "@module/data";
 import { extractDamageDice, extractDamageModifiers } from "@module/rules/helpers";
@@ -19,8 +20,13 @@ import { UserPF2e } from "@module/user";
 import { MeasuredTemplateDocumentPF2e } from "@scene";
 import { combineTerms } from "@scripts/dice";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { DamageCategorization, DamagePF2e, DamageRollContext, DamageType, SpellDamageTemplate } from "@system/damage";
 import { CheckPF2e, CheckRoll } from "@system/check";
+import { DamagePF2e } from "@system/damage/damage";
+import { DamageCategorization } from "@system/damage/helpers";
+import { DamageModifierDialog } from "@system/damage/modifier-dialog";
+import { DamageInstance, DamageRoll } from "@system/damage/roll";
+import { InstancePool } from "@system/damage/terms";
+import { DamageRollContext, DamageType, SpellDamageTemplate } from "@system/damage/types";
 import { StatisticRollParameters } from "@system/statistic";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 import { ErrorPF2e, getActionIcon, groupBy, htmlClosest, ordinal, sortBy, traitSlugToObject } from "@util";
@@ -35,10 +41,6 @@ import {
 import { applyDamageDiceOverrides, createFormulaAndTagsForPartial, DamageInstancePartial } from "./helpers";
 import { SpellOverlayCollection } from "./overlay";
 import { EffectAreaSize, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
-import { DamageInstance, DamageRoll } from "@system/damage/roll";
-import { InstancePool } from "@system/damage/terms";
-import { DamageModifierDialog } from "@system/damage/modifier-dialog";
-import { MeasuredTemplatePF2e } from "@module/canvas";
 
 interface SpellConstructionContext extends DocumentConstructionContext<ActorPF2e | null> {
     fromConsumable?: boolean;

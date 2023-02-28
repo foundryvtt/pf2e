@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { ResistanceData, WeaknessData } from "@actor/data/iwr";
-import { ConditionPF2e, ConditionSource } from "@item";
+import { ConditionSource } from "@item/condition";
 import { DEGREE_OF_SUCCESS } from "@system/degree-of-success";
 import { DamageInstance, DamageRoll } from "./roll";
 
@@ -185,6 +185,7 @@ async function maxPersistentAfterIWR(
     data: ConditionSource,
     rollOptions: Set<string>
 ): Promise<number> {
+    const ConditionPF2e = CONFIG.PF2E.Item.documentClasses.condition;
     const { damage, damageType } = new ConditionPF2e(data, { ready: true }).system.persistent!;
     const roll = await new DamageRoll(
         `${damage.maximumValue}[${damageType}]`,

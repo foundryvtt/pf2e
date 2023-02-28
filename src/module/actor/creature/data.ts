@@ -22,7 +22,7 @@ import { RollParameters } from "@system/rolls";
 import { Statistic, StatisticTraceData } from "@system/statistic";
 import type { CreaturePF2e } from ".";
 import { CreatureSensePF2e, SenseAcuity, SenseType } from "./sense";
-import { Alignment, AlignmentTrait } from "./types";
+import { Alignment, CreatureTrait } from "./types";
 
 type BaseCreatureSource<
     TType extends CreatureType = CreatureType,
@@ -115,7 +115,6 @@ type Abilities = Record<AbilityString, AbilityData>;
 /** A type representing the possible ability strings. */
 type Language = keyof ConfigPF2e["PF2E"]["languages"];
 type Attitude = keyof ConfigPF2e["PF2E"]["attitude"];
-type CreatureTrait = keyof ConfigPF2e["PF2E"]["creatureTraits"] | AlignmentTrait;
 
 interface CreatureTraitsSource extends ActorTraitsSource<CreatureTrait> {
     /** Languages which this actor knows and can speak. */
@@ -262,7 +261,6 @@ export {
     CreatureSpeeds,
     CreatureSystemData,
     CreatureSystemSource,
-    CreatureTrait,
     CreatureTraitsData,
     CreatureTraitsSource,
     CreatureType,

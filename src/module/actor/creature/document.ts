@@ -23,17 +23,18 @@ import { Rarity, SIZES, SIZE_SLUGS } from "@module/data";
 import { CombatantPF2e } from "@module/encounter";
 import { RollNotePF2e } from "@module/notes";
 import { RuleElementSynthetics } from "@module/rules";
-import { BaseSpeedSynthetic } from "@module/rules/synthetics";
 import {
     extractModifierAdjustments,
     extractModifiers,
-    extractRollTwice,
     extractRollSubstitutions,
+    extractRollTwice,
 } from "@module/rules/helpers";
+import { BaseSpeedSynthetic } from "@module/rules/synthetics";
 import { LightLevels } from "@module/scene/data";
 import { UserPF2e } from "@module/user";
 import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check";
-import { DamageType, DAMAGE_CATEGORIES_UNIQUE } from "@system/damage";
+import { DamageType } from "@system/damage/types";
+import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
@@ -42,7 +43,6 @@ import { ErrorPF2e, objectHasKey, setHasElement } from "@util";
 import {
     CreatureSkills,
     CreatureSpeeds,
-    CreatureTrait,
     InitiativeRollParams,
     InitiativeRollResult,
     LabeledSpeed,
@@ -52,10 +52,17 @@ import {
     VisionLevel,
     VisionLevels,
 } from "./data";
-import { CreatureSensePF2e } from "./sense";
-import { Alignment, AlignmentTrait, CreatureUpdateContext, GetReachParameters, IsFlatFootedParams } from "./types";
-import { SIZE_TO_REACH } from "./values";
 import { setTraitIWR } from "./helpers";
+import { CreatureSensePF2e } from "./sense";
+import {
+    Alignment,
+    AlignmentTrait,
+    CreatureTrait,
+    CreatureUpdateContext,
+    GetReachParameters,
+    IsFlatFootedParams,
+} from "./types";
+import { SIZE_TO_REACH } from "./values";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 abstract class CreaturePF2e extends ActorPF2e {

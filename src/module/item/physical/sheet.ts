@@ -9,9 +9,9 @@ import {
     MaterialValuationData,
     PhysicalItemPF2e,
     PreciousMaterialGrade,
-    PRECIOUS_MATERIAL_GRADES,
 } from ".";
 import { ItemSheetPF2e } from "../sheet/base";
+import { PRECIOUS_MATERIAL_GRADES } from "./values";
 
 class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
     /** Show the identified data for editing purposes */
