@@ -70,7 +70,7 @@ interface SpellSlotData {
     max: number;
 }
 
-type PreparationType = keyof ConfigPF2e["PF2E"]["preparationType"];
+type SpellcastingCategory = keyof ConfigPF2e["PF2E"]["preparationType"];
 
 interface SpellcastingEntrySystemSource extends ItemSystemSource {
     ability: { value: AbilityString | "" };
@@ -95,7 +95,7 @@ interface SpellcastingEntrySystemSource extends ItemSystemSource {
 }
 
 interface SpellCollectionTypeSource {
-    value: PreparationType;
+    value: SpellcastingCategory;
     flexible?: boolean;
     validItems?: "scroll" | "" | null;
 }
@@ -112,7 +112,7 @@ interface SpellCollectionTypeData extends SpellCollectionTypeSource {
 export {
     BaseSpellcastingEntry,
     CastOptions,
-    PreparationType,
+    SpellcastingCategory,
     SlotKey,
     SpellAttackRollModifier,
     SpellDifficultyClass,
