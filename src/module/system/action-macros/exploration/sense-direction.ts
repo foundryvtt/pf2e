@@ -2,27 +2,21 @@ import { ActionMacroHelpers, SkillActionOptions } from "..";
 import { ModifierPF2e } from "@actor/modifiers";
 
 export function senseDirection(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "survival");
-
-    const modifiers = (options.modifiers ?? []).concat(
+    const modifiers = [
         new ModifierPF2e({
             label: "PF2E.Actions.SenseDirection.Modifier.NoCompass",
             modifier: -2,
             predicate: [{ not: "compass-in-possession" }],
-        })
-    );
-
+        }),
+    ].concat(options?.modifiers ?? []);
+    const slug = options?.skill ?? "survival";
+    const rollOptions = ["action:sense-direction"];
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph,
         title: "PF2E.Actions.SenseDirection.Title",
-        subtitle,
-        modifiers,
-        rollOptions: ["all", checkType, stat, "action:sense-direction"],
-        extraOptions: ["action:sense-direction"],
+        checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["exploration", "secret"],
-        checkType,
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,

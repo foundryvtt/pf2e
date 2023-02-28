@@ -3,18 +3,15 @@ import { ActionMacroHelpers, SkillActionOptions } from "..";
 const PREFIX = "PF2E.Actions.TumbleThrough";
 
 export function tumbleThrough(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "acrobatics");
+    const slug = options?.skill ?? "acrobatics";
+    const rollOptions = ["action:tumble-through"];
+    const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph ?? "A",
         title: `${PREFIX}.Title`,
-        subtitle,
-        modifiers: options.modifiers,
-        rollOptions: ["all", checkType, stat, "action:tumble-through"],
-        extraOptions: ["action:tumble-through"],
+        checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["move"],
-        checkType,
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,

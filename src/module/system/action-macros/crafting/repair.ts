@@ -9,8 +9,6 @@ import { SelectItemDialog } from "./select-item";
 import { UUIDUtils } from "@util/uuid-utils";
 
 async function repair(options: RepairActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "crafting");
-
     // resolve item
     const item =
         options.item ??
@@ -43,12 +41,14 @@ async function repair(options: RepairActionOptions) {
 
     const targetItemOptions = Array.from(item?.traits ?? []).map((trait) => `target:trait:${trait}`);
 
+    const slug = options?.skill ?? "crafting";
+    const rollOptions = ["action:repair", ...targetItemOptions];
+    const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph,
         title: "PF2E.Actions.Repair.Title",
-        subtitle,
+        checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         content: async (title) => {
             if (item) {
                 const templatePath = "systems/pf2e/templates/system/actions/repair/item-heading-partial.hbs";
@@ -58,11 +58,7 @@ async function repair(options: RepairActionOptions) {
             }
             return;
         },
-        modifiers: options.modifiers,
-        rollOptions: ["all", checkType, stat, "action:repair"],
-        extraOptions: ["action:repair", ...targetItemOptions],
         traits: ["exploration", "manipulate"],
-        checkType,
         event: options.event,
         difficultyClass: dc,
         extraNotes: (selector: string) => [

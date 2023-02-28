@@ -1,51 +1,53 @@
 import { ActionMacroHelpers, SkillActionOptions } from "..";
 import { Statistic } from "@system/statistic";
 
-const ADMINISTER_FIRST_AID_VARIANTS = {
-    stabilize: {
-        notes: {
-            criticalFailure: "PF2E.Actions.AdministerFirstAid.Stabilize.Notes.criticalFailure",
-            success: "PF2E.Actions.AdministerFirstAid.Stabilize.Notes.success",
-        },
-        rollOption: "action:administer-first-aid:stabilize",
-        title: "PF2E.Actions.AdministerFirstAid.Stabilize.Title",
-    },
-    stopBleeding: {
-        notes: {
-            criticalFailure: "PF2E.Actions.AdministerFirstAid.StopBleeding.Notes.criticalFailure",
-            success: "PF2E.Actions.AdministerFirstAid.StopBleeding.Notes.success",
-        },
-        rollOption: "action:administer-first-aid:stop-bleeding",
-        title: "PF2E.Actions.AdministerFirstAid.StopBleeding.Title",
-    },
-} as const;
-type AdministerFirstAidVariant = keyof typeof ADMINISTER_FIRST_AID_VARIANTS;
+const ADMINISTER_FIRST_AID_VARIANTS = ["stabilize", "stop-bleeding"] as const;
+type AdministerFirstAidVariant = (typeof ADMINISTER_FIRST_AID_VARIANTS)[number];
 
 export function administerFirstAid(options: { variant: AdministerFirstAidVariant } & SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "medicine");
-    const variant = ADMINISTER_FIRST_AID_VARIANTS[options.variant];
-    if (!variant) {
-        const data = { variant: options.variant };
-        const warning = "PF2E.Actions.AdministerFirstAid.Warning.UnknownVariant";
-        ui.notifications.warn(game.i18n.format(warning, data));
-        return;
-    }
+    const { notes, title, variant } = (() => {
+        switch (options?.variant) {
+            case "stabilize":
+                return {
+                    notes: {
+                        criticalFailure: "PF2E.Actions.AdministerFirstAid.Stabilize.Notes.criticalFailure",
+                        success: "PF2E.Actions.AdministerFirstAid.Stabilize.Notes.success",
+                    },
+                    title: "PF2E.Actions.AdministerFirstAid.Stabilize.Title",
+                    variant: options.variant,
+                };
+            case "stop-bleeding":
+                return {
+                    notes: {
+                        criticalFailure: "PF2E.Actions.AdministerFirstAid.StopBleeding.Notes.criticalFailure",
+                        success: "PF2E.Actions.AdministerFirstAid.StopBleeding.Notes.success",
+                    },
+                    title: "PF2E.Actions.AdministerFirstAid.StopBleeding.Title",
+                    variant: options.variant,
+                };
+            default: {
+                const variant = options?.variant ? `'${options.variant}'` : "null";
+                const variants = ADMINISTER_FIRST_AID_VARIANTS.map((v) => `'${v}'`).join(", ");
+                const error = "PF2E.Actions.AdministerFirstAid.Warning.UnknownVariant";
+                ui.notifications.error(game.i18n.format(error, { variant, variants }));
+                throw new Error(`Unknown variant ${variant} for Administer First Aid, use one of ${variants}.`);
+            }
+        }
+    })();
+    const slug = options?.skill ?? "medicine";
+    const rollOptions = ["action:administer-first-aid", `action:administer-first-aid:${variant}`];
+    const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph ?? "D",
-        title: variant.title,
-        subtitle,
-        modifiers: options.modifiers,
-        rollOptions: ["all", checkType, stat, "action:administer-first-aid", variant.rollOption],
-        extraOptions: ["action:administer-first-aid", variant.rollOption],
+        title,
+        checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["manipulate"],
-        checkType,
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => {
-            if (options.variant === "stabilize" && target) {
+            if (variant === "stabilize" && target) {
                 const { dying } = target.attributes;
                 if (dying?.value) {
                     const dc = 5 + dying.recoveryDC + dying.value;
@@ -60,8 +62,8 @@ export function administerFirstAid(options: { variant: AdministerFirstAidVariant
             return null;
         },
         extraNotes: (selector: string) => [
-            ActionMacroHelpers.outcomesNote(selector, variant.notes.success, ["success", "criticalSuccess"]),
-            ActionMacroHelpers.outcomesNote(selector, variant.notes.criticalFailure, ["criticalFailure"]),
+            ActionMacroHelpers.outcomesNote(selector, notes.success, ["success", "criticalSuccess"]),
+            ActionMacroHelpers.outcomesNote(selector, notes.criticalFailure, ["criticalFailure"]),
         ],
     });
 }

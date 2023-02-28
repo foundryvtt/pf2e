@@ -3,18 +3,15 @@ import { ActionMacroHelpers, SkillActionOptions } from "..";
 const PREFIX = "PF2E.Actions.ConcealAnObject";
 
 export function concealAnObject(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "stealth");
+    const slug = options?.skill ?? "stealth";
+    const rollOptions = ["action:conceal-an-object"];
+    const modifiers = options?.modifiers;
     return ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph ?? "A",
         title: `${PREFIX}.Title`,
-        subtitle,
-        modifiers: options.modifiers,
-        rollOptions: ["all", checkType, stat, "action:conceal-an-object"],
-        extraOptions: ["action:conceal-an-object"],
+        checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["manipulate", "secret"],
-        checkType,
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,

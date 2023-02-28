@@ -1,22 +1,19 @@
 import { ActionMacroHelpers, SkillActionOptions } from "..";
 
 export function decipherWriting(options: SkillActionOptions) {
-    if (!options.skill) {
+    if (!options?.skill) {
         ui.notifications.warn(game.i18n.localize("PF2E.Actions.DecipherWriting.Warning.NoSkill"));
         return;
     }
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options.skill!);
+    const { skill: slug } = options;
+    const rollOptions = ["action:decipher-writing", `action:decipher-writing:${slug}`];
+    const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph,
         title: "PF2E.Actions.DecipherWriting.Title",
-        subtitle,
-        modifiers: options.modifiers,
-        rollOptions: ["all", checkType, stat, "action:decipher-writing"],
-        extraOptions: ["action:decipher-writing"],
+        checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["concentrate", "exploration", "secret"],
-        checkType,
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,

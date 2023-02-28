@@ -1,30 +1,29 @@
 import { ActionMacroHelpers, SkillActionOptions } from "..";
-import { ModifierPF2e } from "@actor/modifiers";
 import { WeaponPF2e } from "@item";
 
 export function grapple(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "athletics");
+    const slug = options?.skill ?? "athletics";
+    const rollOptions = ["action:grapple"];
     ActionMacroHelpers.simpleRollActionCheck<Embedded<WeaponPF2e>>({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph ?? "A",
         title: "PF2E.Actions.Grapple.Title",
-        subtitle,
-        item: (actor) => (ActionMacroHelpers.getApplicableEquippedWeapons(actor, "grapple") ?? []).shift(),
-        modifiers: (args) => {
-            const modifiers: ModifierPF2e[] = [];
-            if (args.item && args.item.traits.has("grapple")) {
-                const modifier = ActionMacroHelpers.getWeaponPotencyModifier(args.item, stat);
+        checkContext: (opts) => {
+            // weapon
+            const item = (ActionMacroHelpers.getApplicableEquippedWeapons(opts.actor, "grapple") ?? []).shift();
+
+            // modifier
+            const modifiers = options.modifiers?.length ? [...options.modifiers] : [];
+            if (item && item.traits.has("grapple")) {
+                const modifier = ActionMacroHelpers.getWeaponPotencyModifier(item, slug);
                 if (modifier) {
                     modifiers.push(modifier);
                 }
             }
-            return modifiers.concat(options.modifiers ?? []);
+
+            return ActionMacroHelpers.defaultCheckContext(opts, { item, modifiers, rollOptions, slug });
         },
-        rollOptions: ["all", checkType, stat, "action:grapple"],
-        extraOptions: ["action:grapple"],
         traits: ["attack"],
-        checkType,
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,
