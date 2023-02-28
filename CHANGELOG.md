@@ -1,5 +1,16 @@
 # Changelog
 
+## Version 4.8.3
+
+## Data Updates
+* (Dana) Add +3 option to Dancing Shield spell effect (for Fortress Shield)
+* (Dire Weasel) Add effect to Lazurite-Infused Stone Golem aura
+* (Dire Weasel) Fix some malformed predicates on equipment and feats
+* (Manni) Fix damage type on Lazurite-Infused Stone Golem
+* (rectulo) Fix DC of Animal Repellent (Moderate)
+* (stwlam) Have Way of the Spellshot grant Spellshot Dedication at level 2
+
+
 ## Version 4.8.2
 
 ### Bugfixes
