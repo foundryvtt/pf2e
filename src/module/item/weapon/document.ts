@@ -18,8 +18,9 @@ import {
 } from "@item/physical";
 import { MAGIC_SCHOOLS, MAGIC_TRADITIONS } from "@item/spell/values";
 import { OneToThree } from "@module/data";
-import { LocalizePF2e } from "@module/system/localize";
+import { UserPF2e } from "@module/user";
 import { DamageCategorization } from "@system/damage/helpers";
+import { LocalizePF2e } from "@system/localize";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify } from "@util";
 import { WeaponDamage, WeaponData, WeaponMaterialData, WeaponSource } from "./data";
 import {
@@ -229,7 +230,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             systemData.damage.modifier ||= systemData.damage.dice;
         }
 
-        // This method checks data on the actor, which may not yet be initialized:
+        // This method checks data on the actor that may not yet be initialized:
         // use the item's initialization status as a proxy check
         if (this.initialized) ABP.cleanupRunes(this);
 
@@ -718,6 +719,23 @@ class WeaponPF2e extends PhysicalItemPF2e {
         attack.baseType = this.baseType;
 
         return [attack, ...this.getAltUsages({ recurse: false }).flatMap((u) => u.toNPCAttacks())];
+    }
+
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
+    protected override _preUpdate(
+        changed: DeepPartial<this["_source"]>,
+        options: DocumentModificationContext<this>,
+        user: UserPF2e
+    ): Promise<void> {
+        const traits = changed.system?.traits ?? {};
+        if ("value" in traits && Array.isArray(traits.value)) {
+            traits.value = traits.value.filter((t) => t in CONFIG.PF2E.weaponTraits);
+        }
+
+        return super._preUpdate(changed, options, user);
     }
 
     /** Remove links to this weapon from NPC attacks */
