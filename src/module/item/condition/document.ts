@@ -1,16 +1,17 @@
-import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect";
+import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
+import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect";
+import { ChatMessagePF2e } from "@module/chat-message";
 import { RuleElementOptions, RuleElementPF2e } from "@module/rules";
 import { UserPF2e } from "@module/user";
+import { TokenDocumentPF2e } from "@scene";
+import { DamageCategorization } from "@system/damage/helpers";
+import { DamageRoll } from "@system/damage/roll";
+import { PERSISTENT_DAMAGE_IMAGES } from "@system/damage/values";
+import { DegreeOfSuccess } from "@system/degree-of-success";
+import { Statistic } from "@system/statistic";
 import { ErrorPF2e } from "@util";
 import { ConditionData, ConditionKey, ConditionSlug, ConditionSystemData, PersistentDamageData } from "./data";
-import { DamageRoll } from "@system/damage/roll";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { TokenDocumentPF2e } from "@scene";
-import { DamageCategorization, PERSISTENT_DAMAGE_IMAGES } from "@system/damage";
-import { Statistic } from "@system/statistic";
-import { DegreeOfSuccess } from "@system/degree-of-success";
-import { ActorPF2e } from "@actor";
 
 class ConditionPF2e extends AbstractEffectPF2e {
     active!: boolean;

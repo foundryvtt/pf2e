@@ -4,7 +4,8 @@ import { ItemSheetDataPF2e } from "../sheet/data-types";
 import { SpellDamage, SpellHeighteningInterval, SpellSystemData } from "./data";
 import { ErrorPF2e, fontAwesomeIcon, getActionGlyph, objectHasKey, pick, tagify, tupleHasValue } from "@util";
 import { OneToTen } from "@module/data";
-import { DamageCategoryUnique, DAMAGE_CATEGORIES_UNIQUE } from "@system/damage";
+import { DamageCategoryUnique } from "@system/damage/types";
+import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values";
 
 /** Set of properties that are legal for the purposes of spell overrides */
 const spellOverridable: Partial<Record<keyof SpellSystemData, string>> = {

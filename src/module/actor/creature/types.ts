@@ -13,6 +13,7 @@ import { AbilityString, SaveType } from "@actor/types";
 
 type Alignment = SetElement<typeof ALIGNMENTS>;
 type AlignmentTrait = SetElement<typeof ALIGNMENT_TRAITS>;
+type CreatureTrait = keyof ConfigPF2e["PF2E"]["creatureTraits"] | AlignmentTrait;
 
 type ModeOfBeing = "living" | "undead" | "construct" | "object";
 
@@ -64,6 +65,7 @@ export {
     Alignment,
     AlignmentTrait,
     CreatureSheetData,
+    CreatureTrait,
     CreatureUpdateContext,
     GetReachParameters,
     IsFlatFootedParams,

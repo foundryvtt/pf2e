@@ -2,17 +2,12 @@ import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { ActorDataPF2e } from "@actor/data";
 import { RollFunction, StrikeData } from "@actor/data/base";
 import { SAVE_TYPES } from "@actor/values";
-import {
-    Coins,
-    createConsumableFromSpell,
-    DENOMINATIONS,
-    ItemPF2e,
-    ItemProxyPF2e,
-    PhysicalItemPF2e,
-    SpellPF2e,
-} from "@item";
+import { ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
+import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
+import { DENOMINATIONS } from "@item/physical/values";
+import { Coins } from "@item/physical/data";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { createSheetTags, maintainTagifyFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers";
 import { eventToRollParams } from "@scripts/sheet-util";
@@ -171,12 +166,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     protected static coinsToSheetData(coins: Coins): CoinageSummary {
         return DENOMINATIONS.reduce(
-            (accumulated, denomination) => ({
+            (accumulated, d) => ({
                 ...accumulated,
-                [denomination]: {
-                    value: coins[denomination],
-                    label: CONFIG.PF2E.currencies[denomination],
-                },
+                [d]: { value: coins[d], label: CONFIG.PF2E.currencies[d] },
             }),
             {} as CoinageSummary
         );

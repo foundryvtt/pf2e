@@ -1,9 +1,9 @@
 import { MODIFIER_TYPES } from "@actor/modifiers";
-import { FlatModifierSource } from "@module/rules/rule-element/flat-modifier";
 import { isBracketedValue } from "@module/rules/helpers";
+import { FlatModifierSource } from "@module/rules/rule-element/flat-modifier";
+import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values";
 import { htmlQuery, isObject, pick, tagify, tupleHasValue } from "@util";
 import { coerceNumber, RuleElementForm } from "./base";
-import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage";
 
 /** Form handler for the flat modifier rule element */
 class FlatModifierForm extends RuleElementForm<FlatModifierSource> {

@@ -2,7 +2,8 @@ import { DeferredValueParams, ModifierPF2e, ModifierType, MODIFIER_TYPES } from 
 import { AbilityString } from "@actor/types";
 import { ABILITY_ABBREVIATIONS } from "@actor/values";
 import { ItemPF2e } from "@item";
-import { DamageCategoryUnique, DAMAGE_CATEGORIES_UNIQUE } from "@system/damage";
+import { DamageCategoryUnique } from "@system/damage/types";
+import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values";
 import { objectHasKey, setHasElement, sluggify } from "@util";
 import {
     ArrayField,

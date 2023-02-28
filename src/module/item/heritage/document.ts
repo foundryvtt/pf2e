@@ -1,5 +1,5 @@
 import { CharacterPF2e } from "@actor";
-import { CreatureTrait } from "@actor/creature/data";
+import { CreatureTrait } from "@actor/creature";
 import { ItemPF2e } from "@item";
 import { Rarity } from "@module/data";
 import { sluggify } from "@util";

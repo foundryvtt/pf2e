@@ -4,7 +4,7 @@ import { ItemSummaryData } from "@item/data";
 import { WeaponPF2e } from "@item/weapon";
 import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponRangeIncrement } from "@item/weapon/types";
 import { combineTerms } from "@scripts/dice";
-import { ConvertedNPCDamage, WeaponDamagePF2e } from "@system/damage";
+import { ConvertedNPCDamage, WeaponDamagePF2e } from "@system/damage/weapon";
 import { tupleHasValue } from "@util";
 import { MeleeData, MeleeSystemData, NPCAttackTrait } from "./data";
 

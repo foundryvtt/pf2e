@@ -19,7 +19,7 @@ import {
 import { MAGIC_SCHOOLS, MAGIC_TRADITIONS } from "@item/spell/values";
 import { OneToThree } from "@module/data";
 import { LocalizePF2e } from "@module/system/localize";
-import { DamageCategorization } from "@system/damage";
+import { DamageCategorization } from "@system/damage/helpers";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify } from "@util";
 import { WeaponDamage, WeaponData, WeaponMaterialData, WeaponSource } from "./data";
 import {

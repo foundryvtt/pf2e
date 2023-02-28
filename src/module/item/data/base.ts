@@ -1,12 +1,12 @@
-import { CreatureTrait } from "@actor/creature/data";
+import { CreatureTrait } from "@actor/creature";
+import { ActionTrait } from "@item/action";
 import type { ItemPF2e } from "@item/base";
+import { NPCAttackTrait } from "@item/melee";
 import type { ActiveEffectPF2e } from "@module/active-effect";
-import { RuleElementSource } from "@module/rules";
 import { DocumentSchemaRecord, OneToThree, Rarity } from "@module/data";
+import { RuleElementSource } from "@module/rules";
 import { ItemType } from ".";
 import { PhysicalItemTrait } from "../physical/data";
-import { NPCAttackTrait } from "@item/melee/data";
-import { ActionTrait } from "@item/action/data";
 
 interface BaseItemSourcePF2e<
     TType extends ItemType = ItemType,

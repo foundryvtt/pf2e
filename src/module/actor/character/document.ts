@@ -65,8 +65,9 @@ import {
 import { UserPF2e } from "@module/user";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check";
-import { DamagePF2e, DamageRollContext, WeaponDamagePF2e } from "@system/damage";
+import { DamagePF2e, DamageRollContext } from "@system/damage";
 import { DamageRoll } from "@system/damage/roll";
+import { WeaponDamagePF2e } from "@system/damage/weapon";
 import { PredicatePF2e } from "@system/predication";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls";
 import { Statistic } from "@system/statistic";

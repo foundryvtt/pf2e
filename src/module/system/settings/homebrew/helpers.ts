@@ -1,7 +1,6 @@
-import { WeaponGroupProficiencyKey, BaseWeaponProficiencyKey } from "@actor/character/data";
+import { BaseWeaponProficiencyKey, WeaponGroupProficiencyKey } from "@actor/character/data";
 import { ActorSourcePF2e } from "@actor/data";
-import { WeaponSource } from "@item";
-import { MeleeSource, ItemSourcePF2e } from "@item/data";
+import { ItemSourcePF2e, MeleeSource, WeaponSource } from "@item/data";
 import { MigrationBase } from "@module/migration/base";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
 import { isObject, objectHasKey } from "@util";
