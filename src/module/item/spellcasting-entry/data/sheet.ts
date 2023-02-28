@@ -2,7 +2,7 @@ import { SpellPF2e } from "@item";
 import { MagicTradition } from "@item/spell/types";
 import { ZeroToTen } from "@module/data";
 import { StatisticChatData } from "@system/statistic";
-import { PreparationType } from ".";
+import { SpellcastingCategory } from ".";
 
 /** Final render data used for showing a spellcasting ability  */
 export interface SpellcastingAbilityData {
@@ -10,7 +10,7 @@ export interface SpellcastingAbilityData {
     name: string;
     statistic: StatisticChatData;
     tradition: MagicTradition | null;
-    castingType: PreparationType;
+    castingType: SpellcastingCategory;
     isPrepared?: boolean;
     isSpontaneous?: boolean;
     isFlexible?: boolean;

@@ -10,6 +10,7 @@ import { ErrorPF2e, setHasElement, sluggify } from "@util";
 import { SpellCollection } from "./collection";
 import {
     SpellcastingAbilityData,
+    SpellcastingCategory,
     SpellcastingEntry,
     SpellcastingEntryData,
     SpellcastingEntryListData,
@@ -31,6 +32,10 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         const defaultTradition = this.system.prepared.value === "items" ? null : "arcane";
         const tradition = this.system.tradition.value;
         return setHasElement(MAGIC_TRADITIONS, tradition) ? tradition : defaultTradition;
+    }
+
+    get category(): SpellcastingCategory {
+        return this.system.prepared.value;
     }
 
     /**
