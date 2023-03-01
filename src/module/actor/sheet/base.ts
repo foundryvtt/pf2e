@@ -1,5 +1,4 @@
 import type { ActorPF2e, CharacterPF2e } from "@actor";
-import { ActorDataPF2e } from "@actor/data";
 import { RollFunction, StrikeData } from "@actor/data/base";
 import { SAVE_TYPES } from "@actor/values";
 import { ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
@@ -61,7 +60,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     override async getData(options: ActorSheetOptions = this.options): Promise<ActorSheetDataPF2e<TActor>> {
         options.id ||= this.id;
         // The Actor and its Items
-        const actorData = this.actor.toObject(false) as RawObject<ActorDataPF2e>;
+        const actorData = this.actor.toObject(false) as ActorPF2e;
 
         // Alphabetize displayed IWR
         const iwrKeys = ["immunities", "weaknesses", "resistances"] as const;
@@ -255,7 +254,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const rollInitElem = htmlQuery(html, ".roll-init");
         rollInitElem?.addEventListener("click", (event) => {
             const { attributes } = this.actor.system;
-            if (!rollInitElem.classList.contains("disabled") && "initiative" in attributes) {
+            if (!rollInitElem.classList.contains("disabled") && attributes.initiative?.roll) {
                 attributes.initiative.roll?.(eventToRollParams(event));
             }
         });

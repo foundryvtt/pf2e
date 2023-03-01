@@ -10,7 +10,7 @@ import { extractModifiers } from "@module/rules/helpers";
 import { DamageType } from "@system/damage";
 import { Statistic } from "@system/statistic";
 import { isObject, objectHasKey } from "@util";
-import { HazardData } from "./data";
+import { HazardData, HazardSystemData } from "./data";
 
 class HazardPF2e extends ActorPF2e {
     override get allowedItemTypes(): (ItemType | "physical")[] {
@@ -133,6 +133,7 @@ class HazardPF2e extends ActorPF2e {
 
 interface HazardPF2e extends ActorPF2e {
     readonly data: HazardData;
+    readonly system: HazardSystemData;
 
     saves: { [K in SaveType]?: Statistic };
 }

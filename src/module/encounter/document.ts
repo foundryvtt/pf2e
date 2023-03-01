@@ -14,7 +14,7 @@ class EncounterPF2e extends Combat {
             const [priorityA, priorityB] = [a, b].map(
                 (combatant): number =>
                     combatant.overridePriority(combatant.initiative ?? 0) ??
-                    (combatant.actor && "initiative" in combatant.actor.system.attributes
+                    (combatant.actor?.system.attributes.initiative
                         ? combatant.actor.system.attributes.initiative.tiebreakPriority
                         : 3)
             );

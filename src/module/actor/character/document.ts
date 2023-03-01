@@ -2104,6 +2104,7 @@ class CharacterPF2e extends CreaturePF2e {
 
 interface CharacterPF2e extends CreaturePF2e {
     readonly data: CharacterData;
+    readonly system: CharacterSystemData;
     flags: CharacterFlags;
 }
 

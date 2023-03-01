@@ -39,10 +39,11 @@ import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { Statistic } from "@system/statistic";
-import { ErrorPF2e, objectHasKey, setHasElement } from "@util";
+import { ErrorPF2e, isObject, objectHasKey, setHasElement } from "@util";
 import {
     CreatureSkills,
     CreatureSpeeds,
+    CreatureSystemData,
     InitiativeRollParams,
     InitiativeRollResult,
     LabeledSpeed,
@@ -151,8 +152,13 @@ abstract class CreaturePF2e extends ActorPF2e {
     }
 
     override get visionLevel(): VisionLevel {
-        const senses = this.system.traits.senses;
-        if (!Array.isArray(senses)) return VisionLevels.NORMAL;
+        const { senses } = this.system.traits;
+        const hasSensesData =
+            Array.isArray(senses) &&
+            senses.every((s): s is { type: string } => isObject(s) && "type" in s && typeof s === "string");
+        if (!hasSensesData) {
+            return VisionLevels.NORMAL;
+        }
 
         const senseTypes = new Set(senses.map((sense) => sense.type));
 
@@ -214,7 +220,7 @@ abstract class CreaturePF2e extends ActorPF2e {
     }
 
     get perception(): Statistic {
-        const stat = this.system.attributes.perception as StatisticModifier;
+        const stat = this.system.attributes.perception;
         return Statistic.from(this, stat, "perception", "PF2E.PerceptionCheck", "perception-check");
     }
 
@@ -289,7 +295,7 @@ abstract class CreaturePF2e extends ActorPF2e {
         attributes.flanking.flatFootable = true;
         attributes.reach = { base: 0, manipulate: 0 };
 
-        if ("initiative" in attributes) {
+        if (attributes.initiative) {
             attributes.initiative.tiebreakPriority = this.hasPlayerOwner ? 2 : 1;
         }
 
@@ -852,6 +858,7 @@ abstract class CreaturePF2e extends ActorPF2e {
 
 interface CreaturePF2e extends ActorPF2e {
     readonly data: CreatureData;
+    readonly system: CreatureSystemData;
 
     /** Saving throw rolls for the creature, built during data prep */
     saves: Record<SaveType, Statistic>;

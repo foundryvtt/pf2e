@@ -38,7 +38,7 @@ declare module foundry {
                 insertKeys?: boolean;
                 insertValues?: boolean;
                 enforceTypes?: boolean;
-            }): this["data"]["system"];
+            }): this["system"];
 
             protected override _preCreate(
                 data: PreDocumentId<this["_source"]>,
@@ -58,8 +58,7 @@ declare module foundry {
 
             readonly parent: BaseToken | null;
 
-            // V10 shim
-            readonly system: this["data"]["system"];
+            readonly system: object;
 
             get documentName(): (typeof BaseActor)["metadata"]["name"];
         }
