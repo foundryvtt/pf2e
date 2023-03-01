@@ -1,4 +1,4 @@
-import { AbilityString, SaveType } from "@actor/types";
+import { SaveType } from "@actor/types";
 import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemLevelData, ItemSystemData, ItemSystemSource } from "@item/data/base";
 import { OneToTen, TraitsWithRarity, ValueAndMax } from "@module/data";
 import { MaterialDamageEffect, DamageCategoryUnique, DamageType } from "@system/damage";
@@ -112,14 +112,11 @@ interface SpellSystemSource extends ItemSystemSource, ItemLevelData {
     cost: {
         value: string;
     };
-    ability: {
-        value: AbilityString;
-    };
     hasCounteractCheck: {
         value: boolean;
     };
     location: {
-        value: string;
+        value: string | null;
         signature?: boolean;
         heightenedLevel?: number;
 
