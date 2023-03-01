@@ -580,6 +580,9 @@ class SpellPF2e extends ItemPF2e {
 
     override prepareBaseData(): void {
         super.prepareBaseData();
+
+        this.system.location.value ||= null;
+
         // In case bad level data somehow made it in
         this.system.level.value = (Math.clamped(this.system.level.value, 1, 10) || 1) as OneToTen;
         // As of FVTT 10.291, data preparation on embedded items is run twice, making it so the spell's school trait
