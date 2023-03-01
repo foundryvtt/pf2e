@@ -1033,7 +1033,7 @@ class CharacterPF2e extends CreaturePF2e {
             stat.rank = skill.rank;
             stat.roll = async (params: RollParameters): Promise<Rolled<CheckRoll> | null> => {
                 console.warn(
-                    `Rolling skill checks via actor.system.skills.${shortForm}.roll() is deprecated, use actor.skills.${longForm}.check.roll() instead`
+                    `Rolling skill checks via actor.system.skills.${shortForm}.roll() is deprecated: use actor.skills.${longForm}.roll() instead.`
                 );
                 const label = game.i18n.format("PF2E.SkillCheckWithName", {
                     skillName: game.i18n.localize(CONFIG.PF2E.skills[shortForm]),
@@ -1114,7 +1114,7 @@ class CharacterPF2e extends CreaturePF2e {
                 .join(", ");
             stat.roll = async (params: RollParameters): Promise<Rolled<CheckRoll> | null> => {
                 console.warn(
-                    `Rolling skill checks via actor.system.skills.${shortForm}.roll() is deprecated, use actor.skills.${shortForm}.check.roll() instead`
+                    `Rolling skill checks via actor.system.skills.${shortForm}.roll() is deprecated: use actor.skills.${shortForm}.roll() instead.`
                 );
                 const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: loreItem.name });
                 const rollOptions = new Set(params.options ?? []);
@@ -1647,11 +1647,6 @@ class CharacterPF2e extends CreaturePF2e {
             auxiliaryActions,
         });
 
-        // Define these as getters so that Foundry's TokenDocument#getBarAttribute method doesn't recurse infinitely
-        Object.defineProperty(action, "origin", {
-            get: () => this.items.get(weapon.id),
-        });
-
         // Show the ammo list if the weapon requires ammo
         if (weapon.requiresAmmo) {
             const compatible = ammos.filter((a) => a.isAmmoFor(weapon));
@@ -1717,7 +1712,9 @@ class CharacterPF2e extends CreaturePF2e {
             .map(([label, constructModifier], mapIncreases) => ({
                 label,
                 roll: async (params: AttackRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
+                    params.options ??= [];
                     params.consumeAmmo ??= weapon.requiresAmmo;
+
                     if (weapon.requiresAmmo && params.consumeAmmo && !weapon.ammo) {
                         ui.notifications.warn(
                             game.i18n.format("PF2E.Strike.Ranged.NoAmmo", { weapon: weapon.name, actor: this.name })
@@ -1725,12 +1722,11 @@ class CharacterPF2e extends CreaturePF2e {
                         return null;
                     }
 
-                    params.options ??= [];
-                    const context = this.getAttackRollContext({
+                    const context = await this.getAttackRollContext({
                         item: weapon,
                         domains: selectors,
                         options: new Set([...baseOptions, ...params.options, ...action.options]),
-                        viewOnly: params.getFormula ?? false,
+                        viewOnly: params.getFormula,
                     });
 
                     // Check whether target is out of maximum range; abort early if so
@@ -1796,9 +1792,10 @@ class CharacterPF2e extends CreaturePF2e {
 
         for (const method of ["damage", "critical"] as const) {
             action[method] = async (params: DamageRollParams = {}): Promise<string | Rolled<DamageRoll> | null> => {
-                const domains = ["all", "strike-damage", "damage-roll"];
+                const domains = ["all", `{weapon.id}-damage`, "strike-damage", "damage-roll"];
                 params.options ??= [];
-                const context = this.getStrikeRollContext({
+
+                const context = await this.getStrikeRollContext({
                     item: weapon,
                     viewOnly: params.getFormula ?? false,
                     domains,
@@ -1882,11 +1879,11 @@ class CharacterPF2e extends CreaturePF2e {
         return flavor;
     }
 
-    /** Possibly modify this weapon depending on its */
-    override getStrikeRollContext<I extends AttackItem>(
+    /** Modify this weapon from AdjustStrike rule elements */
+    override async getStrikeRollContext<I extends AttackItem>(
         params: StrikeRollContextParams<I>
-    ): StrikeRollContext<this, I> {
-        const context = super.getStrikeRollContext(params);
+    ): Promise<StrikeRollContext<this, I>> {
+        const context = await super.getStrikeRollContext(params);
         if (context.self.item.isOfType("weapon")) {
             StrikeWeaponTraits.adjustWeapon(context.self.item);
         }
@@ -1895,10 +1892,10 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     /** Create attack-roll modifiers from weapon traits */
-    override getAttackRollContext<I extends AttackItem>(
+    override async getAttackRollContext<I extends AttackItem>(
         params: StrikeRollContextParams<I>
-    ): AttackRollContext<this, I> {
-        const context = super.getAttackRollContext(params);
+    ): Promise<AttackRollContext<this, I>> {
+        const context = await super.getAttackRollContext(params);
         if (context.self.item.isOfType("weapon")) {
             const fromTraits = StrikeWeaponTraits.createAttackModifiers(context.self.item, params.domains);
             context.self.modifiers.push(...fromTraits);

@@ -33,6 +33,7 @@ import { LoseHitPointsRuleElement } from "./rule-element/lose-hit-points";
 import { MarkTokenRuleElement } from "./rule-element/mark-token/rule-element";
 import { MartialProficiencyRuleElement } from "./rule-element/martial-proficiency";
 import { MultipleAttackPenaltyRuleElement } from "./rule-element/multiple-attack-penalty";
+import { EphemeralEffectRuleElement } from "./rule-element/ephemeral-effect";
 import { RollNoteRuleElement } from "./rule-element/roll-note";
 import { RollOptionRuleElement } from "./rule-element/roll-option";
 import { RollTwiceRuleElement } from "./rule-element/roll-twice";
@@ -68,6 +69,7 @@ class RuleElements {
         CriticalSpecialization: CritSpecRuleElement,
         DamageDice: DamageDiceRuleElement,
         DexterityModifierCap: DexterityModifierCapRuleElement,
+        EphemeralEffect: EphemeralEffectRuleElement,
         FastHealing: FastHealingRuleElement,
         FixedProficiency: FixedProficiencyRuleElement,
         FlatModifier: FlatModifierRuleElement,

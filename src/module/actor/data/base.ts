@@ -246,8 +246,6 @@ interface StrikeData extends StatisticModifier {
         } | null;
     };
 
-    /** The item that generated this strike */
-    origin?: Embedded<ItemPF2e> | null;
     /** The weapon or melee item--possibly ephemeral--being used for the strike */
     item: WeaponPF2e | MeleePF2e;
 }
