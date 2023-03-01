@@ -1,4 +1,5 @@
-import { ActorPF2e, CharacterPF2e } from "@actor";
+import { ActorPF2e, CreaturePF2e } from "@actor";
+import { ItemType } from "@item/data";
 import { PartyData, PartySystemData } from "./data";
 
 class PartyPF2e extends ActorPF2e {
@@ -7,15 +8,29 @@ class PartyPF2e extends ActorPF2e {
         return false;
     }
 
-    get members(): (CharacterPF2e | null)[] {
+    override get allowedItemTypes(): (ItemType | "physical")[] {
+        return [...super.allowedItemTypes, "physical"];
+    }
+
+    get members(): (CreaturePF2e | null)[] {
         return this.system.details.members
             .map((uuid) => fromUuidSync(uuid))
-            .map((a): CharacterPF2e | null => (a instanceof ActorPF2e && a.isOfType("character") ? a : null));
+            .map((a): CreaturePF2e | null => (a instanceof ActorPF2e && a.isOfType("creature") ? a : null));
     }
 
     /** Our bond is unbreakable */
     override isAffectedBy(): false {
         return false;
+    }
+
+    addMembers(...newMembers: CreaturePF2e[]) {
+        const members = [...this.system.details.members, ...newMembers.map((m) => m.uuid)];
+        this.update({ system: { details: { members } } });
+    }
+
+    removeMembers(...uuids: ActorUUID[]) {
+        const members = this.system.details.members.filter((uuid) => !uuids.includes(uuid));
+        this.update({ system: { details: { members } } });
     }
 }
 

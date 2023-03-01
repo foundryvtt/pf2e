@@ -487,6 +487,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                     merged.prototypeToken.vision = true;
                     break;
                 case "loot":
+                case "party":
                     // Make loot actors linked and interactable
                     merged.prototypeToken.actorLink = true;
                     merged.ownership.default = CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED;

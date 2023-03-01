@@ -3,6 +3,7 @@ import { FamiliarSheetPF2e } from "@actor/familiar/sheet";
 import { HazardSheetPF2e } from "@actor/hazard/sheet";
 import { LootSheetPF2e } from "@actor/loot/sheet";
 import { NPCSheetPF2e } from "@actor/npc/sheet";
+import { PartySheetPF2e } from "@actor/party/sheet";
 import { VehicleSheetPF2e } from "@actor/vehicle/sheet";
 import { ItemSheetPF2e } from "@item";
 import { ActionSheetPF2e } from "@item/action";
@@ -85,6 +86,13 @@ export function registerSheets(): void {
     Actors.registerSheet("pf2e", VehicleSheetPF2e, {
         types: ["vehicle"],
         label: game.i18n.format(sheetLabel, { type: localizeType("vehicle") }),
+        makeDefault: true,
+    });
+
+    // Register Party Sheet
+    Actors.registerSheet("pf2e", PartySheetPF2e, {
+        types: ["party"],
+        label: game.i18n.format(sheetLabel, { type: localizeType("party") }),
         makeDefault: true,
     });
 

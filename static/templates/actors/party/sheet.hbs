@@ -1,0 +1,45 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header>
+        <div class="frame-container">
+            <div class="frame">
+                <img class="player-image" alt="{{actor.name}}" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
+            </div>
+        </div>
+
+        <div class="details">
+            <div class="title">
+                <input name="name" class="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF2E.CharacterNamePlaceholder"}}"/>
+                <label>{{localize "ACTOR.TypeParty"}}</label>
+            </div>
+        </div>
+    </header>
+
+    <section class="container">
+        <section class="sidebar">
+            <section>
+                <h2>Members</h2>
+                {{#if document.members}}
+                    <ol class="member-list">
+                        {{#each document.members as |member|}}
+                            <li>
+                                <a class="actor-link" data-actor-uuid="{{member.uuid}}">
+                                    <img src="{{member.img}}" />
+                                    <span>{{member.name}}</span>
+                                </a>
+                                <div class="item-controls">
+                                    <a data-action="member-delete" data-actor-uuid="{{member.uuid}}"><i class="fas fa-times"></i></a>
+                                </div>
+                            </li>
+                        {{/each}}
+                    </ol>
+                {{else}}
+                    No members
+                {{/if}}
+            </section>
+        </section>
+        <section class="inventory">
+            {{> "systems/pf2e/templates/actors/partials/coinage.hbs" owner=@root.owner}}
+            {{> "systems/pf2e/templates/actors/partials/inventory.hbs"}}
+        </section>
+    </section>
+</form>

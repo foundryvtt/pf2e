@@ -165,7 +165,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         if (!this.initialized) return;
 
         // Dimensions and scale
-        const linkDefault = !["hazard", "loot"].includes(this.actor.type ?? "");
+        const linkDefault = !["hazard", "loot", "party"].includes(this.actor.type ?? "");
         const linkToActorSize = this.flags.pf2e?.linkToActorSize ?? linkDefault;
 
         const autoscaleDefault = game.settings.get("pf2e", "tokens.autoscale");
