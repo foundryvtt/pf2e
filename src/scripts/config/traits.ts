@@ -68,11 +68,15 @@ const ancestryTraits = {
 // Secondary traits of ancestries and heritages
 const ancestryItemTraits = {
     ...ancestryTraits,
+    aeon: "PF2E.TraitAeon",
     amphibious: "PF2E.TraitAmphibious",
+    automaton: "PF2E.TraitAutomaton",
+    construct: "PF2E.TraitConstruct",
     fey: "PF2E.TraitFey",
     fungus: "PF2E.TraitFungus",
     humanoid: "PF2E.TraitHumanoid",
     plant: "PF2E.TraitPlant",
+    undead: "PF2E.TraitUndead",
 };
 
 const elementalTraits = {
@@ -188,6 +192,7 @@ const creatureTraits = {
     paaridar: "PF2E.TraitPaaridar",
     petitioner: "PF2E.TraitPetitioner",
     phantom: "PF2E.TraitPhantom",
+    poison: "PF2E.TraitPoison",
     protean: "PF2E.TraitProtean",
     psychopomp: "PF2E.TraitPsychopomp",
     qlippoth: "PF2E.TraitQlippoth",
