@@ -29,7 +29,7 @@ import { ZeroToTwo } from "@module/data";
 import { UUIDUtils } from "@util/uuid-utils";
 
 /** Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors */
-async function resetAndRerenderActors(actors?: Iterable<ActorPF2e>): Promise<void> {
+async function resetActors(actors?: Iterable<ActorPF2e>, { rerender = true } = {}): Promise<void> {
     actors ??= [
         game.actors.contents,
         game.scenes.contents.flatMap((s) => s.tokens.contents).flatMap((t) => t.actor ?? []),
@@ -37,7 +37,7 @@ async function resetAndRerenderActors(actors?: Iterable<ActorPF2e>): Promise<voi
 
     for (const actor of actors) {
         actor.reset();
-        ui.windows[actor.sheet.appId]?.render();
+        if (rerender) actor.render();
     }
     game.pf2e.effectPanel.refresh();
 
@@ -461,6 +461,6 @@ export {
     getRangeIncrement,
     isReallyPC,
     migrateActorSource,
-    resetAndRerenderActors,
+    resetActors,
     strikeFromMeleeItem,
 };

@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { resetAndRerenderActors } from "@actor/helpers";
+import { resetActors } from "@actor/helpers";
 import type { EffectPF2e } from "@item/index";
 import { EncounterPF2e } from "@module/encounter";
 
@@ -97,7 +97,7 @@ export class EffectTracker {
                 await this.#removeExpired(actor);
             }
         } else if (game.settings.get("pf2e", "automation.effectExpiration")) {
-            resetAndRerenderActors(actorsToUpdate);
+            resetActors(actorsToUpdate);
         }
     }
 

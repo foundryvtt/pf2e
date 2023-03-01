@@ -1,4 +1,4 @@
-import { resetAndRerenderActors } from "@actor/helpers";
+import { resetActors } from "@actor/helpers";
 import { ActorSheetPF2e } from "@actor/sheet/base";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
 import { StatusEffects } from "@module/canvas/status-effects";
@@ -130,7 +130,7 @@ export function registerSettings(): void {
         default: false,
         type: Boolean,
         onChange: () => {
-            resetAndRerenderActors();
+            resetActors();
         },
     });
 
