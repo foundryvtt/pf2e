@@ -211,6 +211,6 @@ declare global {
     interface RollInitiativeOptions {
         formula?: number | null;
         updateTurn?: boolean;
-        messageOptions?: DocumentModificationContext;
+        messageOptions?: ChatMessageModificationContext;
     }
 }

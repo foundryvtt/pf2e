@@ -87,6 +87,7 @@ class EncounterPF2e extends Combat {
                     options: rollOptions,
                     updateTracker: false,
                     skipDialog: !!options.skipDialog,
+                    rollMode: options.messageOptions?.rollMode,
                 });
             })
         );
