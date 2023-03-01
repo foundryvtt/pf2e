@@ -410,8 +410,11 @@ class WeaponPF2e extends PhysicalItemPF2e {
         const chatData = await super.getChatData();
 
         const rangeIncrement =
-            this.rangeIncrement && !this.maxRange ? `PF2E.TraitRangeIncrement${this.rangeIncrement}` : null;
-        const maxRange = this.maxRange ? `PF2E.TraitRange${this.maxRange}` : null;
+            this.rangeIncrement && this.maxRange === this.rangeIncrement * 6
+                ? `PF2E.TraitRangeIncrement${this.rangeIncrement}`
+                : null;
+        const maxRange =
+            this.maxRange && this.maxRange === this.rangeIncrement ? `PF2E.TraitRange${this.maxRange}` : null;
 
         return this.processChatData(htmlOptions, {
             ...chatData,
