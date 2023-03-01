@@ -5,7 +5,7 @@ import { TokenPF2e } from "@module/canvas/token";
 import { EncounterPF2e } from "@module/encounter";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { PersistentDialog } from "@item/condition/persistent-damage-dialog";
-import { resetAndRerenderActors } from "@actor/helpers";
+import { resetActors } from "@actor/helpers";
 
 const debouncedRender = foundry.utils.debounce(() => {
     canvas.tokens.hud.render();
@@ -51,7 +51,7 @@ export class StatusEffects {
         CONFIG.PF2E.statusEffects.iconDir = iconDir;
         CONFIG.PF2E.statusEffects.lastIconTheme = chosenSetting;
         this.#updateStatusIcons();
-        await resetAndRerenderActors();
+        await resetActors();
         if (canvas.ready) {
             for (const token of canvas.tokens.placeables) {
                 token.drawEffects();

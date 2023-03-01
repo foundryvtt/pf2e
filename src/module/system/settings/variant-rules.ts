@@ -1,4 +1,4 @@
-import { resetAndRerenderActors } from "@actor/helpers";
+import { resetActors } from "@actor/helpers";
 
 const SETTINGS: Record<string, SettingRegistration> = {
     gradualBoostsVariant: {
@@ -46,7 +46,7 @@ const SETTINGS: Record<string, SettingRegistration> = {
             ABPRulesAsWritten: "PF2E.SETTINGS.Variant.AutomaticBonus.Choices.ABPRulesAsWritten",
         },
         onChange: () => {
-            resetAndRerenderActors(game.actors.filter((a) => a.type === "character"));
+            resetActors(game.actors.filter((a) => a.type === "character"));
         },
     },
     proficiencyVariant: {
