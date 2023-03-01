@@ -7,9 +7,11 @@ import { AbilityString, ActorAlliance } from "@actor/types";
 import { ConsumablePF2e, ItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import type { ActiveEffectPF2e } from "@module/active-effect";
-import { DocumentSchemaRecord, Rarity, Size, ValueAndMaybeMax } from "@module/data";
+import { DocumentSchemaRecord, Rarity, Size, ValueAndMaybeMax, ZeroToTwo } from "@module/data";
+import { CombatantPF2e } from "@module/encounter";
 import { AutoChangeEntry } from "@module/rules/rule-element/ae-like";
 import { RollParameters, AttackRollParams, DamageRollParams } from "@module/system/rolls";
+import { CheckRoll } from "@system/check";
 import { DamageRoll } from "@system/damage/roll";
 import { ActorType } from ".";
 import { ImmunityData, ImmunitySource, ResistanceData, ResistanceSource, WeaknessData, WeaknessSource } from "./iwr";
@@ -26,23 +28,25 @@ interface BaseActorSourcePF2e<
 interface BaseActorDataPF2e<
     TActor extends ActorPF2e = ActorPF2e,
     TType extends ActorType = ActorType,
-    TSystemData extends ActorSystemData = ActorSystemData,
     TSource extends BaseActorSourcePF2e<TType> = BaseActorSourcePF2e<TType>
-> extends Omit<BaseActorSourcePF2e<TType, ActorSystemSource>, "effects" | "items" | "prototypeToken">,
+> extends Omit<BaseActorSourcePF2e<TType, ActorSystemSource>, "effects" | "items" | "prototypeToken" | "system">,
         foundry.data.ActorData<TActor, ActiveEffectPF2e, ItemPF2e> {
     readonly type: TType;
-    readonly system: TSystemData;
+
     token: PrototypeTokenPF2e;
 
     readonly _source: TSource;
 }
 
-interface ActorSystemSource {
-    details?: {
-        level?: { value: number };
-        alliance?: ActorAlliance;
-        creature?: unknown;
+interface ActorFlagsPF2e extends foundry.data.ActorFlags {
+    pf2e: {
+        rollOptions: RollOptionFlags;
+        [key: string]: unknown;
     };
+}
+
+interface ActorSystemSource {
+    details?: ActorDetailsSource;
     attributes: ActorAttributesSource;
     traits?: ActorTraitsSource<string>;
 
@@ -50,11 +54,29 @@ interface ActorSystemSource {
     schema: DocumentSchemaRecord;
 }
 
-interface ActorSystemData extends ActorSystemSource {
-    details: {
-        level: { value: number };
-        alliance: ActorAlliance;
+interface ActorAttributesSource {
+    hp?: ActorHitPointsSource;
+    perception?: { value: number };
+    initiative?: {
+        ability?: SkillAbbreviation | "perception";
     };
+    immunities?: ImmunitySource[];
+    weaknesses?: WeaknessSource[];
+    resistances?: ResistanceSource[];
+}
+
+interface ActorHitPointsSource extends ValueAndMaybeMax {
+    temp?: number;
+}
+
+interface ActorDetailsSource {
+    level?: { value: number };
+    alliance?: ActorAlliance;
+    creature?: unknown;
+}
+
+interface ActorSystemData extends ActorSystemSource {
+    details: ActorDetails;
     actions?: StrikeData[];
     attributes: ActorAttributes;
     traits?: ActorTraitsData<string>;
@@ -65,43 +87,14 @@ interface ActorSystemData extends ActorSystemSource {
     toggles: RollToggle[];
 }
 
-interface RollOptionFlags {
-    all: Record<string, boolean | undefined>;
-    [key: string]: Record<string, boolean | undefined> | undefined;
-}
-
-interface ActorFlagsPF2e extends foundry.data.ActorFlags {
-    pf2e: {
-        rollOptions: RollOptionFlags;
-        [key: string]: unknown;
-    };
-}
-
-/** Basic hitpoints data fields */
-interface BaseHitPointsData {
-    /** The current amount of hitpoints the character has. */
-    value: number;
-    /** The maximum number of hitpoints this character has. */
-    max?: number;
-    /** If defined, the amount of temporary hitpoints this character has. */
-    temp: number;
-    /** Any details about hit points. */
-    details: string;
-}
-
-interface ActorAttributesSource {
-    hp?: ValueAndMaybeMax;
-    immunities?: ImmunitySource[];
-    weaknesses?: WeaknessSource[];
-    resistances?: ResistanceSource[];
-}
-
 interface ActorAttributes extends ActorAttributesSource {
-    hp?: Required<BaseHitPointsData>;
+    hp?: ActorHitPoints;
     ac?: { value: number };
     immunities: ImmunityData[];
     weaknesses: WeaknessData[];
     resistances: ResistanceData[];
+    initiative?: InitiativeData;
+    shield?: object;
     flanking: {
         /** Whether the actor can flank at all */
         canFlank: boolean;
@@ -112,6 +105,32 @@ interface ActorAttributes extends ActorAttributesSource {
         /** Given the actor is flankable, whether it is flat-footed when flanked */
         flatFootable: FlatFootableCircumstance;
     };
+}
+
+interface ActorHitPoints extends Required<BaseHitPointsSource> {
+    negativeHealing: boolean;
+}
+
+interface ActorDetails extends ActorDetailsSource {
+    level: { value: number };
+    alliance: ActorAlliance;
+}
+
+interface RollOptionFlags {
+    all: Record<string, boolean | undefined>;
+    [key: string]: Record<string, boolean | undefined> | undefined;
+}
+
+/** Basic hitpoints data fields */
+interface BaseHitPointsSource {
+    /** The current amount of hitpoints the character has. */
+    value: number;
+    /** The maximum number of hitpoints this character has. */
+    max?: number;
+    /** If defined, the amount of temporary hitpoints this character has. */
+    temp: number;
+    /** Any details about hit points. */
+    details: string;
 }
 
 type FlatFootableCircumstance =
@@ -130,7 +149,7 @@ type GangUpCircumstance =
 
 /** Data related to actor hitpoints. */
 // expose _modifiers field to allow initialization in data preparation
-type HitPointsData = StatisticModifier & Required<BaseHitPointsData>;
+type HitPointsData = StatisticModifier & Required<BaseHitPointsSource>;
 
 interface ActorTraitsSource<TTrait extends string> {
     /** Actual Pathfinder traits */
@@ -159,16 +178,35 @@ interface AbilityBasedStatistic {
 /** A roll function which can be called to roll a given skill. */
 type RollFunction<T extends RollParameters = RollParameters> = (
     params: T
-) => Promise<Rolled<Roll> | null | string | void>;
+) => Promise<Rolled<CheckRoll> | null | string | void>;
 
 type DamageRollFunction = (params?: DamageRollParams) => Promise<string | Rolled<DamageRoll> | null>;
 
-/** Basic initiative-relevant data. */
+/** Creature initiative statistic */
 interface InitiativeData {
+    roll?: (parameters: InitiativeRollParams) => Promise<InitiativeRollResult | null>;
     /** What skill or ability is currently being used to compute initiative. */
-    ability: SkillAbbreviation | "perception";
+    ability?: SkillAbbreviation | "perception";
     /** The textual name for what type of initiative is being rolled (usually includes the skill). */
     label?: string;
+    totalModifier?: number;
+    /**
+     * If a pair of initiative rolls are tied, the next resolution step is the tiebreak priority. A lower value
+     * constitutes a higher priority.
+     */
+    tiebreakPriority: ZeroToTwo;
+}
+
+interface InitiativeRollResult {
+    combatant: CombatantPF2e;
+    roll: Rolled<CheckRoll>;
+}
+
+interface InitiativeRollParams extends RollParameters {
+    /** Whether the encounter tracker should be updated with the roll result */
+    updateTracker?: boolean;
+    skipDialog?: boolean;
+    rollMode?: RollMode | "roll";
 }
 
 /** The full data for character perception rolls (which behave similarly to skills). */
@@ -288,7 +326,10 @@ export {
     AbilityBasedStatistic,
     ActorAttributes,
     ActorAttributesSource,
+    ActorDetails,
+    ActorDetailsSource,
     ActorFlagsPF2e,
+    ActorHitPoints,
     ActorSystemData,
     ActorSystemSource,
     ActorTraitsData,
@@ -296,11 +337,13 @@ export {
     ArmorClassData,
     BaseActorDataPF2e,
     BaseActorSourcePF2e,
-    BaseHitPointsData,
+    BaseHitPointsSource,
     DamageRollFunction,
     GangUpCircumstance,
     HitPointsData,
     InitiativeData,
+    InitiativeRollParams,
+    InitiativeRollResult,
     PerceptionData,
     PrototypeTokenPF2e,
     RollFunction,

@@ -49,7 +49,14 @@ import type { CreaturePF2e } from "./creature";
 import { VisionLevel, VisionLevels } from "./creature/data";
 import { GetReachParameters, ModeOfBeing } from "./creature/types";
 import { ActorDataPF2e, ActorSourcePF2e, ActorType } from "./data";
-import { ActorFlagsPF2e, ActorTraitsData, PrototypeTokenPF2e, RollOptionFlags, StrikeData } from "./data/base";
+import {
+    ActorFlagsPF2e,
+    ActorSystemData,
+    ActorTraitsData,
+    PrototypeTokenPF2e,
+    RollOptionFlags,
+    StrikeData,
+} from "./data/base";
 import { ImmunityData, ResistanceData, WeaknessData } from "./data/iwr";
 import { ActorSizePF2e } from "./data/size";
 import { calculateRangePenalty, checkAreaEffects, getRangeIncrement, isReallyPC, migrateActorSource } from "./helpers";
@@ -997,8 +1004,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
         // Calculate damage to hit points and shield
         const translations = LocalizePF2e.translations.PF2E.Actor.ApplyDamage;
-        const { attributes } = this;
-        const actorShield = "shield" in attributes ? attributes.shield : null;
+        const actorShield = this.isOfType("character", "npc") ? this.attributes.shield : null;
         const shieldBlock =
             actorShield && shieldBlockRequest
                 ? ((): boolean => {
@@ -1075,7 +1081,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             return hpDamage < 0 ? translations.HealedForN : translations.AtFullHealth;
         })();
 
-        const updatedShield = "shield" in this.attributes ? this.attributes.shield : null;
+        const updatedShield = this.isOfType("character", "npc") ? this.attributes.shield : null;
         const shieldStatement =
             updatedShield && shieldDamage > 0
                 ? updatedShield.broken
@@ -1568,6 +1574,8 @@ interface ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     readonly items: foundry.abstract.EmbeddedCollection<ItemPF2e>;
 
     readonly effects: foundry.abstract.EmbeddedCollection<ActiveEffectPF2e>;
+
+    readonly system: ActorSystemData;
 
     prototypeToken: PrototypeTokenPF2e;
 

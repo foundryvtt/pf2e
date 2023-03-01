@@ -175,7 +175,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
             spell = spell.original!;
         }
 
-        if (this.isFocusPool) {
+        if (this.isFocusPool && actor.isOfType("character", "npc")) {
             const currentPoints = actor.system.resources.focus?.value ?? 0;
             if (currentPoints > 0) {
                 await actor.update({ "system.resources.focus.value": currentPoints - 1 });

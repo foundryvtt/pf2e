@@ -11,6 +11,7 @@ import { eventToRollParams } from "@scripts/sheet-util";
 import { ErrorPF2e, fontAwesomeIcon, htmlClosest, htmlQueryAll, objectHasKey, setHasElement } from "@util";
 import { ActorSheetPF2e } from "../sheet/base";
 import { CreatureConfig } from "./config";
+import { SkillAbbreviation, SkillData } from "./data";
 import { SpellPreparationSheet } from "./spell-preparation-sheet";
 import { CreatureSheetData, SpellcastingSheetData } from "./types";
 
@@ -54,11 +55,15 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
         // Update skill labels
         if (sheetData.data.skills) {
-            const skills = sheetData.data.skills;
+            type WithSheetProperties = Record<
+                SkillAbbreviation,
+                SkillData & { icon?: string; hover?: string; rank?: ZeroToFour }
+            >;
+            const skills: WithSheetProperties = sheetData.data.skills;
             for (const [key, skill] of Object.entries(skills)) {
                 const label = objectHasKey(CONFIG.PF2E.skills, key) ? CONFIG.PF2E.skills[key] : null;
-                skill.icon = this.getProficiencyIcon(skill.rank);
-                skill.hover = CONFIG.PF2E.proficiencyLevels[skill.rank];
+                skill.icon = this.getProficiencyIcon(skill.rank ?? 0);
+                skill.hover = CONFIG.PF2E.proficiencyLevels[skill.rank ?? 0];
                 skill.label = skill.label ?? label ?? "";
             }
         }

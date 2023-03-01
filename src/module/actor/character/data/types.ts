@@ -8,6 +8,7 @@ import {
     CreatureDetails,
     CreatureHitPoints,
     CreatureInitiative,
+    CreatureResources,
     CreatureSystemData,
     CreatureTraitsData,
     HeldShieldData,
@@ -45,7 +46,7 @@ interface CharacterSource extends BaseCreatureSource<"character", CharacterSyste
 
 interface CharacterData
     extends Omit<CharacterSource, "data" | "flags" | "effects" | "items" | "prototypeToken" | "system" | "type">,
-        BaseCreatureData<CharacterPF2e, "character", CharacterSystemData, CharacterSource> {}
+        BaseCreatureData<CharacterPF2e, "character", CharacterSource> {}
 
 type CharacterFlags = ActorFlagsPF2e & {
     pf2e: {
@@ -277,9 +278,7 @@ interface PathfinderSocietyData {
 
 type CharacterArmorClass = StatisticModifier & Required<ArmorClassData>;
 
-interface CharacterResources {
-    /** The current number of focus points and pool size */
-    focus: { value: number; max: number; cap: number };
+interface CharacterResources extends CreatureResources {
     /** The current and maximum number of hero points */
     heroPoints: { value: number; max: number };
     /** The current and maximum number of invested items */

@@ -134,13 +134,12 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         if (!canvas.dimensions) return;
 
         const actor = this.document.actor;
-        const isHealth = data.attribute === "attributes.hp" && actor?.attributes.hp;
 
-        if (!isHealth) {
+        if (!(data.attribute === "attributes.hp" && actor?.attributes.hp)) {
             return super._drawBar(number, bar, data);
         }
 
-        const { value, max, temp } = actor.attributes.hp;
+        const { value, max, temp } = actor.attributes.hp ?? {};
         const healthPercent = Math.clamped(value, 0, max) / max;
 
         // Compute the color based on health percentage, this formula is the one core foundry uses
