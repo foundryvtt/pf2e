@@ -634,7 +634,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
                     (t) =>
                         // Creature traits
                         !(t in CONFIG.PF2E.creatureTraits) &&
-                        // Magic school and tradition traits
+                        // Magical school and tradition traits
                         !setHasElement(MAGIC_TRADITIONS, t) &&
                         !setHasElement(MAGIC_SCHOOLS, t) &&
                         // Thrown(-N) trait on melee attacks with thrown melee weapons
@@ -646,7 +646,9 @@ class WeaponPF2e extends PhysicalItemPF2e {
                         // Combination trait on melee or thrown attacks with combination weapons
                         !(t === "combination" && (this.isMelee || this.isThrown)) &&
                         // Critical fusion trait on thrown attacks with melee usage of combination weapons
-                        !(t === "critical-fusion" && this.isThrown)
+                        !(t === "critical-fusion" && this.isThrown) &&
+                        // Other traits always excluded
+                        !["artifact", "cursed"].includes(t)
                 );
 
             if (this.isRanged && !this.isThrown) {
