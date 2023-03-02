@@ -31,6 +31,7 @@
                         "die": "d4"
                     }
                 },
+                "img": "icons/magic/light/projectile-beam-yellow.webp",
                 "key": "Strike",
                 "range": 20,
                 "traits": [
@@ -38,13 +39,13 @@
                 ]
             },
             {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "selector": "{item|_id}-damage",
-                "text": "PF2E.SpecificRule.Automaton.EnergyBeam.CriticalHit",
-                "title": "{item|name}"
+                "critical": true,
+                "damageCategory": "persistent",
+                "damageType": "fire",
+                "key": "FlatModifier",
+                "selector": "{item|id}-damage",
+                "slug": "energy-beam-persistent",
+                "value": "@weapon.system.damage.dice"
             },
             {
                 "key": "DamageDice",
@@ -54,7 +55,7 @@
                 "predicate": [
                     "enhancement:energy-beam"
                 ],
-                "selector": "{item|_id}-damage"
+                "selector": "{item|id}-damage"
             },
             {
                 "key": "ActiveEffectLike",
