@@ -799,7 +799,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 : [null, null];
 
         // Target roll options
-        const getTargetRollOptions = (actor?: ActorPF2e | null): string[] => {
+        const getTargetRollOptions = (actor: Maybe<ActorPF2e>): string[] => {
             const targetOptions = actor?.getSelfRollOptions("target") ?? [];
             if (targetToken && targetOptions.length > 0) {
                 targetOptions.push("target"); // An indicator that there is a target of any kind
