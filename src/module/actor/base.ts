@@ -67,6 +67,7 @@ import { ActorSpellcasting } from "./spellcasting";
 import { TokenEffect } from "./token-effect";
 import { CREATURE_ACTOR_TYPES, UNAFFECTED_TYPES } from "./values";
 import { UUIDUtils } from "@util/uuid-utils";
+import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -698,8 +699,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         const encounter = game.ready ? game.combat : null;
         if (!encounter?.started) return;
 
-        const participants = encounter.combatants.contents;
-        const participant = this.token?.combatant ?? participants.find((c) => c.actor === this);
+        const participants = encounter.combatants.contents
+            .filter((c): c is CombatantPF2e<EncounterPF2e> & { initiative: number } => typeof c.initiative === "number")
+            .sort((a, b) => b.initiative - a.initiative); // Sort descending by initiative roll result
+        const participant = participants.find((c) => c.actor === this);
         if (typeof participant?.initiative !== "number") return;
 
         const rollOptionsAll = this.rollOptions.all;
@@ -710,8 +713,13 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
         const initiativeRoll = Math.trunc(participant.initiative);
         rollOptionsAll[`self:participant:initiative:roll:${initiativeRoll}`] = true;
-        const rank = [...participants].reverse().indexOf(participant) + 1;
+        const rank = participants.indexOf(participant) + 1;
         rollOptionsAll[`self:participant:initiative:rank:${rank}`] = true;
+
+        const { initiativeStatistic } = participant.flags.pf2e;
+        if (initiativeStatistic) {
+            rollOptionsAll[`self:participant:initiative:stat:${initiativeStatistic}`] = true;
+        }
     }
 
     /* -------------------------------------------- */

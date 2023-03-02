@@ -33,6 +33,7 @@ interface CheckRollDataPF2e extends RollDataPF2e {
     isReroll?: boolean;
     degreeOfSuccess?: ZeroToThree;
     strike?: StrikeLookupData;
+    domains?: string[];
 }
 
 export { CheckRoll, CheckRollDataPF2e };

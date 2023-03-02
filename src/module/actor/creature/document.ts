@@ -484,6 +484,7 @@ abstract class CreaturePF2e extends ActorPF2e {
                 const context: CheckRollContext = {
                     actor: this,
                     type: "initiative",
+                    domains,
                     options: rollOptions,
                     notes,
                     dc: args.dc,

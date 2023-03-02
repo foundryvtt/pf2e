@@ -1,11 +1,14 @@
 import { CharacterPF2e, NPCPF2e } from "@actor";
 import { CharacterSheetPF2e } from "@actor/character/sheet";
+import { InitiativeRollResult } from "@actor/creature";
 import { RollInitiativeOptionsPF2e } from "@actor/data";
 import { resetActors } from "@actor/helpers";
-import { SKILL_DICTIONARY } from "@actor/values";
+import { SkillLongForm } from "@actor/types";
+import { SKILL_DICTIONARY, SKILL_LONG_FORMS } from "@actor/values";
 import { ScenePF2e } from "@scene";
 import { LocalizePF2e } from "@system/localize";
-import { CombatantPF2e, RolledCombatant } from "./combatant";
+import { setHasElement } from "@util";
+import { CombatantFlags, CombatantPF2e, RolledCombatant } from "./combatant";
 
 class EncounterPF2e extends Combat {
     /** Sort combatants by initiative rolls, falling back to tiebreak priority and then finally combatant ID (random) */
@@ -74,7 +77,7 @@ class EncounterPF2e extends Combat {
             (c): c is CombatantPF2e<this, CharacterPF2e | NPCPF2e> => !!c.actor?.isOfType("character", "npc")
         );
         const rollResults = await Promise.all(
-            fightyCombatants.map((combatant) => {
+            fightyCombatants.map((combatant): Promise<InitiativeRollResult | null> => {
                 const checkType = combatant.actor.system.attributes.initiative.ability;
                 const skills: Record<string, string | undefined> = SKILL_DICTIONARY;
                 const rollOptions = combatant.actor.getRollOptions([
@@ -92,8 +95,18 @@ class EncounterPF2e extends Combat {
             })
         );
 
-        const initiatives = rollResults.flatMap((result) =>
-            result ? { id: result.combatant.id, value: result.roll.total } : []
+        const initiatives = rollResults.flatMap((result): SetInitiativeData | never[] =>
+            result
+                ? {
+                      id: result.combatant.id,
+                      value: result.roll.total,
+                      statistic:
+                          result.roll.options.domains?.find(
+                              (s): s is SkillLongForm | "perception" =>
+                                  setHasElement(SKILL_LONG_FORMS, s) || s === "perception"
+                          ) ?? null,
+                  }
+                : []
         );
 
         this.setMultipleInitiatives(initiatives);
@@ -104,21 +117,22 @@ class EncounterPF2e extends Combat {
     }
 
     /** Set the initiative of multiple combatants */
-    async setMultipleInitiatives(
-        initiatives: { id: string; value: number; overridePriority?: number | null }[]
-    ): Promise<void> {
+    async setMultipleInitiatives(initiatives: SetInitiativeData[]): Promise<void> {
         const currentId = this.combatant?.id;
-        const updates = initiatives.map((i) => ({
-            _id: i.id,
-            initiative: i.value,
-            flags: {
-                pf2e: {
-                    overridePriority: {
-                        [i.value]: i.overridePriority,
+        const updates = initiatives.map(
+            (i): { _id: string; initiative: number; flags: { pf2e: DeepPartial<CombatantFlags> } } => ({
+                _id: i.id,
+                initiative: i.value,
+                flags: {
+                    pf2e: {
+                        initiativeStatistic: i.statistic,
+                        overridePriority: {
+                            [i.value]: i.overridePriority,
+                        },
                     },
                 },
-            },
-        }));
+            })
+        );
         await this.updateEmbeddedDocuments("Combatant", updates);
         // Ensure the current turn is preserved
         await this.update({ turn: this.turns.findIndex((c) => c.id === currentId) });
@@ -237,6 +251,13 @@ interface EncounterPF2e {
     readonly combatants: foundry.abstract.EmbeddedCollection<CombatantPF2e<this>>;
 
     rollNPC(options: RollInitiativeOptionsPF2e): Promise<this>;
+}
+
+interface SetInitiativeData {
+    id: string;
+    value: number;
+    statistic?: SkillLongForm | "perception" | null;
+    overridePriority?: number | null;
 }
 
 export { EncounterPF2e };
