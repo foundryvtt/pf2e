@@ -798,6 +798,18 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 ? [`origin:distance:${distance}`, `target:distance:${distance}`]
                 : [null, null];
 
+        // Target roll options
+        const getTargetRollOptions = (actor: Maybe<ActorPF2e>): string[] => {
+            const targetOptions = actor?.getSelfRollOptions("target") ?? [];
+            if (targetToken) {
+                targetOptions.push("target"); // An indicator that there is a target of any kind
+                const mark = this.synthetics.targetMarks.get(targetToken.document.uuid);
+                if (mark) targetOptions.push(`target:mark:${mark}`);
+            }
+            return targetOptions;
+        };
+        const targetRollOptions = getTargetRollOptions(targetToken?.actor);
+
         // Get ephemeral effects from this actor that affect the target while being attacked
         const targetEphemeralEffects = await extractEphemeralEffects({
             affects: "target",
@@ -805,7 +817,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             target: targetToken?.actor ?? null,
             item: params.item,
             domains: params.domains,
-            options: [...params.options, ...itemOptions],
+            options: [...params.options, ...itemOptions, ...targetRollOptions],
         });
 
         // Clone the actor to recalculate its AC with contextual roll options
@@ -820,18 +832,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                   targetEphemeralEffects
               ) ?? null;
 
-        // Target roll options
-        const targetOptions = targetActor?.getSelfRollOptions("target") ?? [];
-        if (targetToken && targetOptions.length > 0) {
-            targetOptions.push("target"); // An indicator that there is a target of any kind
-            const mark = this.synthetics.targetMarks.get(targetToken.document.uuid);
-            if (mark) targetOptions.push(`target:mark:${mark}`);
-        }
-
         const rollOptions = new Set([
             ...params.options,
             ...selfOptions,
-            ...targetOptions,
+            ...(targetActor ? getTargetRollOptions(targetActor) : targetRollOptions),
             ...itemOptions,
             // Backward compatibility for predication looking for an "attack" trait by its lonesome
             "attack",
