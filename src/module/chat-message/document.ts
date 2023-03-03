@@ -285,7 +285,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     protected override _onCreate(
         data: foundry.data.ChatMessageSource,
-        options: DocumentModificationContext,
+        options: DocumentModificationContext<this>,
         userId: string
     ) {
         super._onCreate(data, options, userId);

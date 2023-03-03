@@ -193,9 +193,9 @@ export class MigrationRunnerBase {
     }
 
     async getUpdatedUser(
-        userData: foundry.data.UserSource,
+        userData: foundry.documents.UserSource,
         migrations: MigrationBase[]
-    ): Promise<foundry.data.UserSource> {
+    ): Promise<foundry.documents.UserSource> {
         const current = deepClone(userData);
         for (const migration of migrations) {
             try {
