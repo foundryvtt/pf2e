@@ -8,7 +8,7 @@ declare global {
      * @see {@link UserDirectory} The UserDirectory sidebar directory
      */
     class Users<TUser extends User = User> extends WorldCollection<TUser> {
-        constructor(data?: foundry.data.UserSource[]);
+        constructor(data?: foundry.documents.UserSource[]);
 
         /** The User entity of the currently connected user */
         current: Active<TUser> | null;

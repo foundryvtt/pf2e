@@ -4,7 +4,7 @@ import { MigrationBase } from "../base";
 export class Migration603ResetQuickRollDefault extends MigrationBase {
     static override version = 0.603;
 
-    override async updateUser(userData: foundry.data.UserSource): Promise<void> {
+    override async updateUser(userData: foundry.documents.UserSource): Promise<void> {
         const flags = userData.flags;
         if (
             isObject<Record<string, unknown>>(flags.PF2e) &&

@@ -28,7 +28,7 @@ declare module foundry {
             roll: string;
         }
 
-        type ChatMessageFlags = Record<string, Record<string, unknown>> & {
+        type ChatMessageFlags = DocumentFlags & {
             core?: {
                 canPopout?: boolean;
                 initiativeRoll?: boolean;

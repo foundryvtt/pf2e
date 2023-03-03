@@ -29,6 +29,5 @@ import "./tile-data";
 import "./tile-occlusion";
 import "./token-bar-data";
 import "./token-data";
-import "./user-data";
 import "./video-data";
 import "./wall-data";

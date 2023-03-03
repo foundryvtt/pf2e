@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor/base";
-import { UserFlagsPF2e } from "./data";
+import { UserFlagsPF2e, UserSourcePF2e } from "./data";
 
-class UserPF2e extends User<ActorPF2e> {
+class UserPF2e<TActor extends ActorPF2e = ActorPF2e> extends User<TActor> {
     override prepareData(): void {
         super.prepareData();
         if (canvas.ready && canvas.tokens.controlled.length > 0) {
@@ -38,7 +38,7 @@ class UserPF2e extends User<ActorPF2e> {
 
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext,
+        options: DocumentModificationContext<this>,
         userId: string
     ): void {
         super._onUpdate(changed, options, userId);
@@ -55,7 +55,8 @@ class UserPF2e extends User<ActorPF2e> {
     }
 }
 
-interface UserPF2e extends User<ActorPF2e> {
+interface UserPF2e<TActor extends ActorPF2e = ActorPF2e> extends User<TActor> {
+    readonly _source: UserSourcePF2e;
     flags: UserFlagsPF2e;
 }
 

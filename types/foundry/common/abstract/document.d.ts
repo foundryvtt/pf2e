@@ -655,4 +655,6 @@ declare global {
             permission?: boolean;
         };
     }
+
+    type DocumentFlags = Record<string, Record<string, unknown> | undefined>;
 }

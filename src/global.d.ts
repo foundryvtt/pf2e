@@ -47,7 +47,16 @@ import { CombatantPF2e, EncounterPF2e } from "./module/encounter";
 import { ConditionManager } from "./module/system/conditions";
 
 declare global {
-    interface Game {
+    interface Game<
+        TActor extends Actor,
+        TActors extends Actors<TActor>,
+        TChatMessage extends ChatMessage<TActor>,
+        TCombat extends Combat,
+        TItem extends Item<TActor>,
+        TMacro extends Macro,
+        TScene extends Scene,
+        TUser extends User
+    > {
         pf2e: {
             actions: Record<string, Function>;
             compendiumBrowser: CompendiumBrowser;
@@ -210,6 +219,6 @@ type ConfiguredConfig = Config<
     TokenDocumentPF2e,
     WallDocument<ScenePF2e | null>,
     ScenePF2e,
-    UserPF2e,
+    UserPF2e<ActorPF2e>,
     EffectsCanvasGroupPF2e
 >;

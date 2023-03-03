@@ -86,7 +86,7 @@ export class Migration620RenameToWebp extends MigrationBase {
         tokenData.effects = tokenData.effects.filter((texture) => !this.regexp.test(texture));
     }
 
-    override async updateUser(userData: foundry.data.UserSource): Promise<void> {
+    override async updateUser(userData: foundry.documents.UserSource): Promise<void> {
         userData.img = this.renameToWebP(userData.img);
     }
 }
