@@ -2,7 +2,9 @@ export {};
 
 declare global {
     /** The Walls canvas layer which provides a container for Wall objects within the rendered Scen */
-    class WallsLayer<TWall extends Wall<WallDocument> = Wall<WallDocument>> extends PlaceablesLayer<TWall> {
+    class WallsLayer<
+        TObject extends Wall<WallDocument<Scene | null>> = Wall<WallDocument<Scene | null>>
+    > extends PlaceablesLayer<TObject> {
         constructor();
 
         /** A graphics layer used to display chained Wall selection */
@@ -37,7 +39,7 @@ declare global {
         static documentName: "Wall";
 
         /** An Array of Wall instances in the current Scene which act as Doors. */
-        get doors(): TWall[];
+        get doors(): TObject[];
 
         /** Gate the precision of wall snapping to become less precise for small scale maps. */
         get gridPrecision(): number;
@@ -65,7 +67,7 @@ declare global {
          * @param wall  The existing Wall object being chained to
          * @return The [x,y] coordinates of the starting endpoint
          */
-        static getClosestEndpoint(point: Point, wall: Wall): PointArray;
+        static getClosestEndpoint(point: Point, wall: Wall<WallDocument<Scene>>): PointArray;
 
         /**
          * Given an array of Wall instances, identify the unique endpoints across all walls.
@@ -76,7 +78,7 @@ declare global {
          * @return An array of endpoints
          */
         static getUniqueEndpoints(
-            walls: Wall[] | Set<Wall>,
+            walls: Iterable<Wall<WallDocument<Scene>>>,
             { bounds, type }?: { bounds?: PIXI.Rectangle; type?: WallType }
         ): PointArray[];
 
@@ -107,7 +109,7 @@ declare global {
         pasteObjects(
             position: { x: number; y: number },
             { hidden }?: { hidden?: boolean }
-        ): Promise<TWall["document"][]>;
+        ): Promise<TObject["document"][]>;
 
         /**
          * Pan the canvas view when the cursor position gets close to the edge of the frame
@@ -240,7 +242,7 @@ declare global {
          * @param wall The Wall against which to test
          * @return A RayIntersection if a collision occurred, or null
          */
-        static testWall(ray: Ray, wall: Wall): RayIntersection | null;
+        static testWall(ray: Ray, wall: Wall<WallDocument<Scene>>): RayIntersection | null;
 
         /**
          * Identify the closest collision point from an array of collisions

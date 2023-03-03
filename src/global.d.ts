@@ -208,6 +208,7 @@ type ConfiguredConfig = Config<
     MeasuredTemplateDocumentPF2e,
     TileDocumentPF2e,
     TokenDocumentPF2e,
+    WallDocument<ScenePF2e | null>,
     ScenePF2e,
     UserPF2e,
     EffectsCanvasGroupPF2e
