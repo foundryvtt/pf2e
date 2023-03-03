@@ -1,11 +1,11 @@
 import { WallDocumentConstructor } from "./constructors";
 
 declare global {
-    class WallDocument extends WallDocumentConstructor {}
+    class WallDocument<TParent extends Scene | null> extends WallDocumentConstructor {}
 
-    interface WallDocument {
-        readonly parent: Scene | null;
+    interface WallDocument<TParent extends Scene | null> {
+        readonly parent: TParent;
 
-        readonly _object: Wall;
+        readonly _object: Wall<this>;
     }
 }

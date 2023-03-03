@@ -1,7 +1,7 @@
 declare module foundry {
     module documents {
         /** The Wall embedded document model. */
-        class BaseWall extends abstract.Document {
+        class BaseWall<TParent extends BaseScene | null = BaseScene | null> extends abstract.Document {
             static override get schema(): typeof data.WallData;
 
             static override get metadata(): WallMetadata;
@@ -15,10 +15,9 @@ declare module foundry {
             sound: WallSenseType;
         }
 
-        interface BaseWall {
+        interface BaseWall<TParent extends BaseScene | null = BaseScene | null> {
             readonly data: data.WallData<this>;
-
-            readonly parent: BaseScene | null;
+            readonly parent: TParent;
         }
 
         interface WallMetadata extends abstract.DocumentMetadata {

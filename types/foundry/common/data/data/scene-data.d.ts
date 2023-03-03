@@ -78,27 +78,9 @@ declare module foundry {
         }
 
         class SceneData<
-            TDocument extends documents.BaseScene = documents.BaseScene,
-            TToken extends documents.BaseToken = documents.BaseToken,
-            TAmbientLight extends documents.BaseAmbientLight = documents.BaseAmbientLight,
-            TAmbientSound extends documents.BaseAmbientSound = documents.BaseAmbientSound,
-            TDrawing extends documents.BaseDrawing = documents.BaseDrawing,
-            TMeasuredTemplate extends documents.BaseMeasuredTemplate = documents.BaseMeasuredTemplate,
-            TNote extends documents.BaseNote = documents.BaseNote,
-            TTile extends documents.BaseTile = documents.BaseTile,
-            TWall extends documents.BaseWall = documents.BaseWall
+            TDocument extends documents.BaseScene = documents.BaseScene
         > extends abstract.DocumentData<TDocument> {
             static override defineSchema(): abstract.DocumentSchema;
-
-            // Embedded Collections
-            drawings: abstract.EmbeddedCollection<TDrawing>;
-            lights: abstract.EmbeddedCollection<TAmbientLight>;
-            notes: abstract.EmbeddedCollection<TNote>;
-            sounds: abstract.EmbeddedCollection<TAmbientSound>;
-            templates: abstract.EmbeddedCollection<TMeasuredTemplate>;
-            tokens: abstract.EmbeddedCollection<TToken>;
-            tiles: abstract.EmbeddedCollection<TTile>;
-            walls: abstract.EmbeddedCollection<TWall>;
 
             // Linked Documents
             playlist: documents.BasePlaylist | null;
@@ -106,22 +88,7 @@ declare module foundry {
             journal: documents.BaseJournalEntry | null;
         }
 
-        interface SceneData
-            extends Omit<
-                SceneSource,
-                | "flags"
-                | "drawings"
-                | "tokens"
-                | "lights"
-                | "notes"
-                | "sounds"
-                | "templates"
-                | "tiles"
-                | "walls"
-                | "playlist"
-                | "playlistSound"
-                | "journal"
-            > {
+        interface SceneData extends Omit<SceneSource, "flags" | "tokens" | "playlist" | "playlistSound" | "journal"> {
             _source: SceneSource;
         }
     }
