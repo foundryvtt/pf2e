@@ -143,7 +143,12 @@ class CheckPF2e {
             return null;
         })();
 
-        const options: CheckRollDataPF2e = { rollerId: game.userId, isReroll, totalModifier: check.totalModifier };
+        const options: CheckRollDataPF2e = {
+            rollerId: game.userId,
+            isReroll,
+            totalModifier: check.totalModifier,
+            domains: context.domains,
+        };
         if (strike) options.strike = strike;
 
         const totalModifierPart = signedInteger(check.totalModifier);
