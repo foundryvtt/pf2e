@@ -801,7 +801,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         // Target roll options
         const getTargetRollOptions = (actor: Maybe<ActorPF2e>): string[] => {
             const targetOptions = actor?.getSelfRollOptions("target") ?? [];
-            if (targetToken && targetOptions.length > 0) {
+            if (targetToken) {
                 targetOptions.push("target"); // An indicator that there is a target of any kind
                 const mark = this.synthetics.targetMarks.get(targetToken.document.uuid);
                 if (mark) targetOptions.push(`target:mark:${mark}`);
