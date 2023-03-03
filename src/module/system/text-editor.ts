@@ -320,7 +320,17 @@ class TextEditorPF2e extends TextEditor {
         // Build the inline link
         const html = document.createElement("span");
         html.setAttribute("data-pf2-traits", `${allTraits}`);
-        const name = params.name ?? item?.name ?? params.type;
+        const name =
+            params.name ??
+            item?.name ??
+            (() => {
+                const locKey = objectHasKey(CONFIG.PF2E.saves, params.type)
+                    ? CONFIG.PF2E.saves[params.type]
+                    : objectHasKey(CONFIG.PF2E.skillList, params.type)
+                    ? CONFIG.PF2E.skillList[params.type]
+                    : null;
+                return locKey ? game.i18n.localize(locKey) : params.type;
+            })();
         html.setAttribute("data-pf2-label", game.i18n.format("PF2E.InlineCheck.DCWithName", { name }));
         html.setAttribute("data-pf2-repost-flavor", name);
         const role = params.showDC ?? "owner";
