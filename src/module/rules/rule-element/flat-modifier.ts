@@ -4,7 +4,7 @@ import { ABILITY_ABBREVIATIONS } from "@actor/values";
 import { ItemPF2e } from "@item";
 import { DamageCategoryUnique } from "@system/damage/types";
 import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values";
-import { objectHasKey, setHasElement, sluggify } from "@util";
+import { objectHasKey, sluggify } from "@util";
 import {
     ArrayField,
     BooleanField,
@@ -29,7 +29,7 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
         super(source, item, options);
 
         if (this.type === "ability") {
-            if (setHasElement(ABILITY_ABBREVIATIONS, source.ability)) {
+            if (this.ability) {
                 this.label = typeof source.label === "string" ? source.label : CONFIG.PF2E.abilities[this.ability];
                 this.data.value ??= `@actor.abilities.${this.ability}.mod`;
             } else {
@@ -151,7 +151,7 @@ type FlatModifierSchema = RuleElementSchema & {
     /** The modifier (or bonus/penalty) type */
     type: StringField<ModifierType, ModifierType, true, false, true>;
     /** If this is an ability modifier, the ability score it modifies */
-    ability: StringField<AbilityString>;
+    ability: StringField<AbilityString, AbilityString, false, false, false>;
     /** Hide this modifier from breakdown tooltips if it is disabled */
     min: NumberField<number, number, false, false, false>;
     max: NumberField<number, number, false, false, false>;
@@ -163,7 +163,7 @@ type FlatModifierSchema = RuleElementSchema & {
     /** If a damage modifier, a damage type */
     damageType: StringField<string, string, false, true, false>;
     /** If a damage modifier, a special category */
-    damageCategory: StringField<DamageCategoryUnique>;
+    damageCategory: StringField<DamageCategoryUnique, DamageCategoryUnique, false, false, false>;
     /** If a damage modifier, whether it applies given the presence or absence of a critically successful attack roll */
     critical: BooleanField<boolean, boolean, false, true, false>;
 };

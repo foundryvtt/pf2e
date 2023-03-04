@@ -365,11 +365,11 @@ interface StringFieldOptions<
 
 /** A subclass of `DataField` which deals with string-typed data. */
 export class StringField<
-        TSourceProp extends string = string,
-        TModelProp = TSourceProp,
-        TRequired extends boolean = false,
-        TNullable extends boolean = false,
-        THasInitial extends boolean = true
+        TSourceProp extends string,
+        TModelProp,
+        TRequired extends boolean,
+        TNullable extends boolean,
+        THasInitial extends boolean
     >
     extends DataField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial>
     implements StringFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>
@@ -864,9 +864,9 @@ export class DocumentStatsField extends SchemaField<DocumentStatsSchema> {
 }
 
 type DocumentStatsSchema = {
-    systemId: StringField<string, string, true>;
-    systemVersion: StringField<string, string, true>;
-    coreVersion: StringField<string, string, true>;
+    systemId: StringField<string, string, true, false, true>;
+    systemVersion: StringField<string, string, true, false, true>;
+    coreVersion: StringField<string, string, true, false, true>;
     createdTime: NumberField;
     modifiedTime: NumberField;
     lastModifiedBy: ForeignDocumentField<string>;
