@@ -5,8 +5,8 @@ import { ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
-import { DENOMINATIONS } from "@item/physical/values";
 import { Coins } from "@item/physical/data";
+import { DENOMINATIONS } from "@item/physical/values";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { createSheetTags, maintainTagifyFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers";
 import { eventToRollParams } from "@scripts/sheet-util";
@@ -102,6 +102,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             items: actorData.items,
             user: { isGM: game.user.isGM },
             traits: createSheetTags(traitsMap, { value: Array.from(this.actor.traits) }),
+            toggles: this.actor.synthetics.toggles,
             isTargetFlatFooted: !!this.actor.rollOptions.all["target:condition:flat-footed"],
             totalCoinage,
             totalCoinageGold,
@@ -807,7 +808,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         // Otherwise they are dragging a new spell onto their sheet.
         // we still need to put it in the correct spellcastingEntry
         if (item.isOfType("spell") && itemSource.type === "spell") {
-            if (dropContainerType === "actorInventory" && itemSource.system.level.value > 0) {
+            if (item.isRitual) {
+                return this._onDropItemCreate(item.clone().toObject());
+            } else if (dropContainerType === "actorInventory" && itemSource.system.level.value > 0) {
                 const popup = new CastingItemCreateDialog(
                     actor,
                     {},

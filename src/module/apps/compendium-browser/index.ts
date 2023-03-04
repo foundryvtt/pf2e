@@ -1,10 +1,15 @@
-import { Progress } from "./progress";
-import { PhysicalItemPF2e } from "@item/physical";
-import { KitPF2e } from "@item/kit";
-import { ErrorPF2e, htmlQueryAll, isObject, objectHasKey } from "@util";
+import { KitPF2e, PhysicalItemPF2e } from "@item";
+import { CoinsPF2e } from "@item/physical/helpers";
+import { BaseSpellcastingEntry } from "@item/spellcasting-entry";
 import { LocalizePF2e } from "@system/localize";
+import { ErrorPF2e, htmlQueryAll, isObject, objectHasKey } from "@util";
+import { getSelectedOrOwnActors } from "@util/token-actor-utils";
+import { UUIDUtils } from "@util/uuid-utils";
+import Tagify from "@yaireo/tagify";
+import noUiSlider from "nouislider";
+import { BrowserTab, PackInfo, SortDirection, TabData, TabName } from "./data";
+import { Progress } from "./progress";
 import * as browserTabs from "./tabs";
-import { TabData, PackInfo, TabName, BrowserTab, SortDirection } from "./data";
 import {
     BaseFilterData,
     CheckboxData,
@@ -18,12 +23,6 @@ import {
     RangesData,
     RenderResultListOptions,
 } from "./tabs/data";
-import { getSelectedOrOwnActors } from "@util/token-actor-utils";
-import noUiSlider from "nouislider";
-import { SpellcastingEntryPF2e } from "@item";
-import Tagify from "@yaireo/tagify";
-import { CoinsPF2e } from "@item/physical/helpers";
-import { UUIDUtils } from "@util/uuid-utils";
 
 class PackLoader {
     loadedPacks: {
@@ -251,7 +250,7 @@ class CompendiumBrowser extends Application {
         this.navigationTab.activate(tab, { triggerCallback: true });
     }
 
-    async openSpellTab(entry: SpellcastingEntryPF2e, level = 10): Promise<void> {
+    async openSpellTab(entry: BaseSpellcastingEntry, level = 10): Promise<void> {
         const filter: { category: string[]; level: number[]; traditions: string[] } = {
             category: [],
             level: [],
@@ -259,7 +258,7 @@ class CompendiumBrowser extends Application {
         };
 
         if (entry.isRitual || entry.isFocusPool) {
-            filter.category.push(entry.system.prepared.value);
+            filter.category.push(entry.category);
         }
 
         if (level) {

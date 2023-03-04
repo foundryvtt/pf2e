@@ -78,7 +78,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             ),
             otherTags: new fields.ArrayField(
                 new fields.StringField({ required: true, blank: false, choices: CONFIG.PF2E.otherWeaponTags }),
-                { required: false, initial: undefined }
+                { required: false, nullable: false, initial: undefined }
             ),
             range: new fields.SchemaField(
                 {
@@ -282,9 +282,9 @@ type StrikeSchema = RuleElementSchema & {
     /** A weapon base type */
     baseType: StringField<BaseWeaponType, BaseWeaponType, true, true, true>;
     /** Permit NPC attack traits to sneak in for battle forms */
-    traits: ArrayField<StringField<NPCAttackTrait, NPCAttackTrait, true>>;
+    traits: ArrayField<StringField<NPCAttackTrait, NPCAttackTrait, true, false, false>>;
     otherTags: ArrayField<
-        StringField<OtherWeaponTag, OtherWeaponTag, true>,
+        StringField<OtherWeaponTag, OtherWeaponTag, true, false, false>,
         OtherWeaponTag[],
         OtherWeaponTag[],
         false,
@@ -318,7 +318,7 @@ type StrikeSchema = RuleElementSchema & {
     replaceBasicUnarmed: BooleanField<boolean, boolean, false, false, false>;
     /** Whether this attack is from a battle form */
     battleForm: BooleanField<boolean, boolean, false, false, false>;
-    options: ArrayField<StringField, string[], string[], false, false, false>;
+    options: ArrayField<StringField<string, string, true, false, false>, string[], string[], false, false, false>;
     /** Whether this was a request for a standard fist attack */
     fist: BooleanField<boolean, boolean, false, false, false>;
 };

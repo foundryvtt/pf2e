@@ -1,7 +1,7 @@
-import { RollToggle } from "@actor/data/base";
 import { ItemPF2e } from "@item";
 import { PredicatePF2e } from "@system/predication";
 import { ErrorPF2e } from "@util";
+import { RollOptionToggle } from "../synthetics";
 import { RuleElementOptions, RuleElementPF2e } from "./base";
 import { RuleElementSource } from "./data";
 
@@ -147,7 +147,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
             const label = this.label.includes(":") ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : this.label;
 
             if (this.toggleable) {
-                const toggle: RollToggle = {
+                const toggle: RollOptionToggle = {
                     itemId: this.item.id,
                     label,
                     domain: this.domain,
@@ -163,7 +163,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
                         if (!this.disabledValue) delete domainRecord[option];
                     }
                 }
-                this.actor.system.toggles.push(toggle);
+                this.actor.synthetics.toggles.push(toggle);
             }
         }
     }

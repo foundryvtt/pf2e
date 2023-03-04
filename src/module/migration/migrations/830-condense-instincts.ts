@@ -2,8 +2,8 @@ import { ItemSourcePF2e } from "@item/data";
 import { MigrationBase } from "../base";
 
 /** Remove links to deleted compendium items */
-export class Migration829BarbarianRework extends MigrationBase {
-    static override version = 0.829;
+export class Migration830BarbarianRework extends MigrationBase {
+    static override version = 0.830;
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         source.system.description.value = this.#removeLinks(source.system.description.value);

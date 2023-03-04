@@ -84,7 +84,6 @@ interface ActorSystemData extends ActorSystemSource {
     tokenEffects: TemporaryEffect[];
     /** An audit log of automatic, non-modifier changes applied to various actor data nodes */
     autoChanges: Record<string, AutoChangeEntry[] | undefined>;
-    toggles: RollToggle[];
 }
 
 interface ActorAttributes extends ActorAttributesSource {
@@ -288,16 +287,6 @@ interface StrikeData extends StatisticModifier {
     item: WeaponPF2e | MeleePF2e;
 }
 
-interface RollToggle {
-    /** The ID of the item with a rule element for this toggle */
-    itemId?: string;
-    label: string;
-    domain: string;
-    option: string;
-    checked: boolean;
-    enabled: boolean;
-}
-
 /** Any skill or similar which provides a roll option for rolling this save. */
 interface Rollable {
     /** Roll this save or skill with the given options (caused by the given event, and with the given optional callback). */
@@ -348,7 +337,6 @@ export {
     PrototypeTokenPF2e,
     RollFunction,
     RollOptionFlags,
-    RollToggle,
     Rollable,
     StrikeData,
     TraitViewData,

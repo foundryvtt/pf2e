@@ -38,9 +38,10 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
                 required: true,
                 choices: Object.keys(this.CHANGE_MODES) as AELikeChangeMode[],
             }),
-            path: new fields.StringField({ required: true, blank: false }),
+            path: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
             phase: new fields.StringField({
-                required: true,
+                required: false,
+                nullable: false,
                 choices: deepClone(this.PHASES),
                 initial: "applyAEs",
             }),
@@ -260,8 +261,8 @@ interface AutoChangeEntry {
 
 type AELikeSchema = RuleElementSchema & {
     mode: StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
-    path: StringField<string, string, true>;
-    phase: StringField<AELikeDataPrepPhase, AELikeDataPrepPhase, true, false, true>;
+    path: StringField<string, string, true, false, false>;
+    phase: StringField<AELikeDataPrepPhase, AELikeDataPrepPhase, false, false, true>;
 };
 
 type AELikeChangeMode = keyof (typeof AELikeRuleElement)["CHANGE_MODES"];

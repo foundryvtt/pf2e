@@ -2,7 +2,7 @@ import { ActorPF2e } from "@actor";
 import { ClassDCData } from "@actor/character/data";
 import { SpellcastingEntryPF2e } from "@item";
 import { SpellcastingEntrySource, SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data";
-import { pick } from "@util";
+import { omit, pick } from "@util";
 
 function createEmptySpellcastingEntry(actor: ActorPF2e): Embedded<SpellcastingEntryPF2e> {
     return new SpellcastingEntryPF2e(
@@ -57,7 +57,7 @@ class SpellcastingCreateAndEditDialog extends FormApplication<Embedded<Spellcast
             classDCs,
             data: this.object.toObject().system,
             magicTraditions: CONFIG.PF2E.magicTraditions,
-            spellcastingTypes: CONFIG.PF2E.preparationType,
+            spellcastingTypes: omit(CONFIG.PF2E.preparationType, ["ritual"]),
             abilities: CONFIG.PF2E.abilities,
             hasAbility: this.#canSetAbility(),
         };
@@ -144,6 +144,8 @@ class SpellcastingCreateAndEditDialog extends FormApplication<Embedded<Spellcast
             await this.actor.createEmbeddedDocuments("Item", [updateData]);
         } else {
             const actualEntry = this.actor.spellcasting.get(this.object.id);
+            if (!(actualEntry instanceof SpellcastingEntryPF2e)) return;
+
             const system = pick(updateData.system, [
                 "prepared",
                 "tradition",
@@ -151,7 +153,7 @@ class SpellcastingCreateAndEditDialog extends FormApplication<Embedded<Spellcast
                 "proficiency",
                 "autoHeightenLevel",
             ]);
-            await actualEntry?.update({ system });
+            await actualEntry.update({ system });
         }
 
         this.close();
@@ -163,7 +165,7 @@ interface SpellcastingCreateAndEditDialogSheetData extends FormApplicationData<E
     data: SpellcastingEntrySystemSource;
     classDCs: ClassDCData[];
     magicTraditions: ConfigPF2e["PF2E"]["magicTraditions"];
-    spellcastingTypes: ConfigPF2e["PF2E"]["preparationType"];
+    spellcastingTypes: Omit<ConfigPF2e["PF2E"]["preparationType"], "ritual">;
     abilities: ConfigPF2e["PF2E"]["abilities"];
     hasAbility: boolean;
 }

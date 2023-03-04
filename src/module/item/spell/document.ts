@@ -11,6 +11,7 @@ import { AbilityString } from "@actor/types";
 import { ItemPF2e, SpellcastingEntryPF2e } from "@item";
 import { ActionTrait } from "@item/action/data";
 import { ItemSourcePF2e, ItemSummaryData } from "@item/data";
+import { BaseSpellcastingEntry } from "@item/spellcasting-entry";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { MeasuredTemplatePF2e } from "@module/canvas";
 import { ChatMessagePF2e } from "@module/chat-message";
@@ -75,7 +76,7 @@ class SpellPF2e extends ItemPF2e {
 
         const isAutoHeightened = this.isCantrip || this.isFocusSpell;
         const fixedHeightenedLevel =
-            this.system.location.autoHeightenLevel || this.spellcasting?.system.autoHeightenLevel.value || null;
+            this.system.location.autoHeightenLevel || this.spellcasting?.system?.autoHeightenLevel.value || null;
         const heightenedLevel = isAutoHeightened
             ? fixedHeightenedLevel || Math.ceil(this.actor.level / 2) || null
             : this.system.location.heightenedLevel || null;
@@ -109,9 +110,9 @@ class SpellPF2e extends ItemPF2e {
             : new Set(this.system.traditions.value);
     }
 
-    get spellcasting(): SpellcastingEntryPF2e | undefined {
+    get spellcasting(): BaseSpellcastingEntry | null {
         const spellcastingId = this.system.location.value;
-        return this.actor?.spellcasting.find((entry) => entry.id === spellcastingId);
+        return this.actor?.spellcasting.find((entry) => entry.id === spellcastingId) ?? null;
     }
 
     get isAttack(): boolean {
@@ -596,6 +597,8 @@ class SpellPF2e extends ItemPF2e {
             this.system.area = null;
         }
 
+        if (this.isRitual) this.system.location.value = "rituals";
+
         this.overlays = new SpellOverlayCollection(this, this.system.overlays);
     }
 
@@ -663,7 +666,8 @@ class SpellPF2e extends ItemPF2e {
         const messageSource = message.toObject();
         const flags = messageSource.flags.pf2e;
         const entry = this.trickMagicEntry ?? this.spellcasting;
-        if (entry) {
+
+        if (entry?.statistic) {
             // Eventually we need to figure out a way to request a tradition if the ability doesn't provide one
             const tradition = Array.from(this.traditions).at(0);
             flags.casting = {
@@ -752,9 +756,11 @@ class SpellPF2e extends ItemPF2e {
 
         const statistic = trickData?.statistic || spellcasting?.statistic;
         if (!statistic) {
-            console.warn(
-                `PF2e System | Spell ${this.name} is missing a statistic to cast with (${this.id}) on actor ${this.actor.name} (${this.actor.id})`
-            );
+            if (!this.isRitual) {
+                console.warn(
+                    `PF2e System | Spell ${this.name} is missing a statistic to cast with (${this.id}) on actor ${this.actor.name} (${this.actor.id})`
+                );
+            }
             return { ...systemData };
         }
 
@@ -963,6 +969,19 @@ class SpellPF2e extends ItemPF2e {
             return this.original.overlays.updateOverride(this as Embedded<SpellPF2e>, data, options) as Promise<this>;
         }
         return super.update(data, options);
+    }
+
+    protected override async _preCreate(
+        data: PreDocumentId<this["_source"]>,
+        options: DocumentModificationContext<this>,
+        user: UserPF2e
+    ): Promise<void> {
+        this._source.system.location.value ||= null;
+        if (this._source.system.category.value === "ritual") {
+            this._source.system.location.value = null;
+        }
+
+        return super._preCreate(data, options, user);
     }
 
     protected override async _preUpdate(

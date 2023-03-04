@@ -33,6 +33,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
      * @param item where the rule is persisted on
      */
     constructor(source: RuleElementSource, public item: Embedded<ItemPF2e>, options: RuleElementOptions = {}) {
+        source.label ??= item.name;
         super(source, { strict: false });
 
         this.suppressWarnings = options.suppressWarnings ?? false;
@@ -79,11 +80,11 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
 
     static override defineSchema(): RuleElementSchema {
         return {
-            key: new fields.StringField({ required: true, blank: false }),
-            slug: new SlugField({ required: true }),
-            label: new fields.StringField({ required: false, initial: undefined }),
+            key: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
+            slug: new SlugField({ required: true, nullable: true }),
+            label: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
             priority: new fields.NumberField({ required: false, nullable: false, integer: true, initial: 100 }),
-            ignored: new fields.BooleanField(),
+            ignored: new fields.BooleanField({ required: false, nullable: false, initial: false }),
             predicate: new PredicateField(),
             requiresEquipped: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
             requiresInvestment: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),

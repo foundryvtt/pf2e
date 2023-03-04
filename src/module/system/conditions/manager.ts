@@ -90,7 +90,7 @@ export class ConditionManager {
                 img: condition.img,
                 unidentified: condition.unidentified,
                 references: false,
-                locked: condition.isLocked,
+                isLocked: condition.isLocked,
                 parents: [],
                 children: [],
                 overrides: [],
@@ -124,7 +124,7 @@ export class ConditionManager {
                     ref.text = compendiumLink ? `@Compendium[${compendiumLink}]` : "";
 
                     flattened.references = true;
-                    flattened.locked = true;
+                    flattened.isLocked = true;
                     flattened.parents.push(ref);
                 }
             } else if (condition.flags.pf2e.grantedBy) {
