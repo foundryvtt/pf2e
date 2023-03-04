@@ -3,7 +3,7 @@ import { MigrationBase } from "../base";
 
 /** Remove links to deleted compendium items */
 export class Migration830BarbarianRework extends MigrationBase {
-    static override version = 0.830;
+    static override version = 0.83;
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         source.system.description.value = this.#removeLinks(source.system.description.value);
