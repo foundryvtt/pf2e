@@ -226,3 +226,4 @@ export { Migration825KhakkharaFengHuoLun } from "./825-khakkhara-feng-huo-lun";
 export { Migration826GutConditionData } from "./826-gut-condition-data";
 export { Migration827FixTVShieldTraits } from "./827-fix-tv-shield-traits";
 export { Migration828PruneInvalidTraits } from "./828-prune-invalid-traits";
+export { Migration829BarbarianRework } from "./829-condense-instincts";
