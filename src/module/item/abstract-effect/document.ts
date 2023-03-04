@@ -33,6 +33,10 @@ export abstract class AbstractEffectPF2e extends ItemPF2e {
         return false;
     }
 
+    get isLocked(): boolean {
+        return false;
+    }
+
     override getRollOptions(prefix = this.type): string[] {
         const originRollOptions = new Set(
             this.origin?.getRollOptions().map((o) => o.replace(/^(?:self:)?/, `${prefix}:origin:`)) ?? []

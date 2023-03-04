@@ -44,8 +44,8 @@ class ConditionPF2e extends AbstractEffectPF2e {
     }
 
     /** Is this condition locked in place by another? */
-    get isLocked(): boolean {
-        if (this.system.references.parent?.id) return true;
+    override get isLocked(): boolean {
+        if (this.system.references.parent?.id || super.isLocked) return true;
 
         const granter = this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "");
         const grants = Object.values(granter?.flags.pf2e.itemGrants ?? {});
