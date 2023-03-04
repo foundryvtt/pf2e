@@ -167,7 +167,7 @@ export class ItemTransfer implements ItemTransferData {
         }
 
         // Exhaustive pattern match to determine speaker and item-transfer parties
-        type PatternMatch = [speaker: string, subtitle: string, formatArgs: Parameters<Game["i18n"]["format"]>];
+        type PatternMatch = [speaker: string, subtitle: string, formatArgs: Parameters<Localization["format"]>];
 
         const [speaker, subtitle, formatArgs] = ((): PatternMatch => {
             const isMerchant = (actor: ActorPF2e) =>

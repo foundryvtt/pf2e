@@ -40,7 +40,7 @@ declare global {
         override get visible(): boolean;
 
         /** The User who created the chat message. */
-        get user(): User<TActor> | undefined;
+        get user(): User | undefined;
 
         override prepareData(): void;
 
@@ -158,18 +158,18 @@ declare global {
         protected override _preUpdate(
             changed: DeepPartial<foundry.data.ChatMessageSource>,
             options: DocumentModificationContext<this>,
-            user: User
+            user: User<TActor>
         ): Promise<void>;
 
         protected override _onCreate(
             data: foundry.data.ChatMessageSource,
-            options: DocumentModificationContext,
+            options: DocumentModificationContext<this>,
             userId: string
         ): void;
 
         protected override _onUpdate(
             changed: DeepPartial<this["_source"]>,
-            options: DocumentModificationContext,
+            options: DocumentModificationContext<this>,
             userId: string
         ): void;
 

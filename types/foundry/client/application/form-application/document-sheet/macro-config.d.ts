@@ -10,6 +10,6 @@ declare class MacroConfig<TMacro extends Macro> extends DocumentSheet<TMacro> {
 }
 
 declare interface MacroConfigData<TMacro extends Macro> extends DocumentSheetData<TMacro> {
-    macroTypes: Game["system"]["documentTypes"]["Macro"] | ["chat"];
+    macroTypes: ["chat", "script"];
     macroScopes: (typeof CONST)["MACRO_SCOPES"];
 }

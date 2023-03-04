@@ -505,7 +505,7 @@ declare global {
         protected override _onDragEnd(): void;
     }
 
-    interface Token {
+    interface Token<TDocument extends TokenDocument = TokenDocument> extends PlaceableObject<TDocument> {
         get layer(): TokenLayer<this>;
     }
 
