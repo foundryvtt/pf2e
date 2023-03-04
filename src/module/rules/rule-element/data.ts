@@ -42,17 +42,17 @@ interface BracketedValue<T extends object | number | string = object | number | 
 }
 
 type RuleElementSchema = {
-    key: StringField<string, string, true>;
+    key: StringField<string, string, true, false, false>;
     /** An identifying slug for the rule element: its significance and restrictions are determined per RE type */
     slug: SlugField;
     /** A label for use by any rule element for display in an interface */
-    label: StringField;
+    label: StringField<string, string, true, false, false>;
     /** The place in order of application (ascending), among an actor's list of rule elements */
     priority: NumberField<number, number, false, false, true>;
     /** A test of whether the rules element is to be applied */
     predicate: PredicateField;
     /** Whether the rule element is ignored and deactivated */
-    ignored: BooleanField;
+    ignored: BooleanField<boolean, boolean, false, false, true>;
     /** Whether the rule element requires that the parent item (if physical) be equipped */
     requiresEquipped: BooleanField<boolean, boolean, false, true, false>;
     /** Whether the rule element requires that the parent item (if physical) be invested */
