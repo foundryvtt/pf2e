@@ -26,6 +26,7 @@ import { Migration825KhakkharaFengHuoLun } from "@module/migration/migrations/82
 import { Migration826GutConditionData } from "@module/migration/migrations/826-gut-condition-data";
 import { Migration827FixTVShieldTraits } from "@module/migration/migrations/827-fix-tv-shield-traits";
 import { Migration828PruneInvalidTraits } from "@module/migration/migrations/828-prune-invalid-traits";
+import { Migration829RMRitualEntries } from "@module/migration/migrations/829-rm-ritual-entries";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -55,6 +56,7 @@ const migrations: MigrationBase[] = [
     new Migration826GutConditionData(),
     new Migration827FixTVShieldTraits(),
     new Migration828PruneInvalidTraits(),
+    new Migration829RMRitualEntries(),
 ];
 
 global.deepClone = <T>(original: T): T => {
