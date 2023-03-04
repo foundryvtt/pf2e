@@ -28,9 +28,6 @@
                 "predicate": [
                     "self:effect:rage",
                     {
-                        "not": "agile"
-                    },
-                    {
                         "or": [
                             {
                                 "not": "ranged"
@@ -49,28 +46,15 @@
                 "value": 2
             },
             {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
+                "key": "AdjustModifier",
+                "mode": "multiply",
                 "predicate": [
-                    "self:effect:rage",
-                    "agile",
-                    {
-                        "or": [
-                            {
-                                "not": "ranged"
-                            },
-                            {
-                                "and": [
-                                    "feat:raging-thrower",
-                                    "thrown"
-                                ]
-                            }
-                        ]
-                    }
+                    "item:trait:agile"
                 ],
+                "priority": 95,
                 "selector": "strike-damage",
-                "slug": "agile-rage",
-                "value": 1
+                "slug": "rage",
+                "value": 0.5
             },
             {
                 "key": "FlatModifier",
