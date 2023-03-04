@@ -543,6 +543,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             strikes: new Map(),
             striking: {},
             targetMarks: new Map(),
+            toggles: [],
             tokenOverrides: {},
             weaponPotency: {},
             preparationWarnings: {
@@ -609,7 +610,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         this.system.tokenEffects = [];
         this.system.autoChanges = {};
         this.system.attributes.flanking = { canFlank: false, canGangUp: [], flankable: false, flatFootable: false };
-        this.system.toggles = [];
 
         const { attributes } = this.system;
         attributes.immunities = attributes.immunities?.map((i) => new ImmunityData(i)) ?? [];
