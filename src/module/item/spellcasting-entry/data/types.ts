@@ -1,40 +1,10 @@
-import { ActorPF2e } from "@actor";
 import { AbilityString } from "@actor/types";
-import { SpellPF2e } from "@item";
 import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "@item/data/base";
 import { MagicTradition } from "@item/spell/types";
 import { OneToTen, ZeroToEleven, ZeroToFour } from "@module/data";
 import { RollNotePF2e } from "@module/notes";
-import { Statistic } from "@system/statistic";
-import { SpellcastingEntryPF2e } from "..";
-
-interface BaseSpellcastingEntry {
-    id: string;
-    actor: ActorPF2e | null;
-    ability: AbilityString;
-    tradition: MagicTradition | null;
-    statistic: Statistic;
-    cast(spell: SpellPF2e, options: CastOptions): Promise<void>;
-}
-
-interface SpellcastingEntry extends BaseSpellcastingEntry {
-    isPrepared: boolean;
-    isSpontaneous: boolean;
-    isInnate: boolean;
-    isFocusPool: boolean;
-}
-
-interface CastOptions {
-    message?: boolean;
-    rollMode?: RollMode;
-}
-
-interface SpellcastingEntryPF2eCastOptions extends CastOptions {
-    consume?: boolean;
-    /** The slot level to consume to cast the spell at */
-    level?: number;
-    slot?: number;
-}
+import { SpellcastingEntryPF2e } from "../document";
+import { SpellcastingCategory } from "../types";
 
 // temporary type until the spellcasting entry is migrated to no longer use slotX keys
 type SlotKey = `slot${ZeroToEleven}`;
@@ -69,8 +39,6 @@ interface SpellSlotData {
     value: number;
     max: number;
 }
-
-type SpellcastingCategory = keyof ConfigPF2e["PF2E"]["preparationType"];
 
 interface SpellcastingEntrySystemSource extends ItemSystemSource {
     ability: { value: AbilityString | "" };
@@ -110,15 +78,10 @@ interface SpellCollectionTypeData extends SpellCollectionTypeSource {
 }
 
 export {
-    BaseSpellcastingEntry,
-    CastOptions,
-    SpellcastingCategory,
     SlotKey,
     SpellAttackRollModifier,
     SpellDifficultyClass,
-    SpellcastingEntry,
     SpellcastingEntryData,
-    SpellcastingEntryPF2eCastOptions,
     SpellcastingEntrySource,
     SpellcastingEntrySystemData,
     SpellcastingEntrySystemSource,

@@ -2,8 +2,7 @@ import { ActorPF2e } from "@actor";
 import { ItemSummaryRenderer } from "@actor/sheet/item-summary-renderer";
 import { ItemPF2e, SpellPF2e } from "@item";
 import { ItemSourcePF2e, SpellSource } from "@item/data";
-import { SpellcastingAbilityData } from "@item/spellcasting-entry/data";
-import { SpellcastingEntryPF2e } from "../../item/spellcasting-entry";
+import { SpellcastingSheetData, SpellcastingEntryPF2e } from "@item/spellcasting-entry";
 
 /**
  * Sheet used to render the the spell list for prepared casting.
@@ -57,7 +56,7 @@ class SpellPreparationSheet extends ActorSheet<ActorPF2e, ItemPF2e> {
         return {
             ...(await super.getData()),
             owner: this.actor.isOwner,
-            entry: await this.item.getSpellData(),
+            entry: await this.item.getSheetData(),
         };
     }
 
@@ -153,7 +152,7 @@ class SpellPreparationSheet extends ActorSheet<ActorPF2e, ItemPF2e> {
 interface SpellPreparationSheetData extends ActorSheetData<ActorPF2e> {
     actor: ActorPF2e;
     owner: boolean;
-    entry: SpellcastingAbilityData;
+    entry: SpellcastingSheetData;
 }
 
 export { SpellPreparationSheet };

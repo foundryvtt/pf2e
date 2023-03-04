@@ -1,10 +1,10 @@
-import { FeatTrait } from "@item/feat/data";
-import { PhysicalItemTrait } from "@item/physical/data";
-import { CommonSortByOption, SortByOption, SortDirection } from "../data";
-import type { SearchResult } from "minisearch";
-import { CreatureTrait } from "@actor/creature";
+import { CreatureTrait } from "@actor/creature/types";
 import { HazardTrait } from "@actor/hazard";
 import { ActionTrait } from "@item/action";
+import { FeatTrait } from "@item/feat/data";
+import { PhysicalItemTrait } from "@item/physical/data";
+import { SearchResult } from "minisearch";
+import { CommonSortByOption, SortByOption, SortDirection } from "../data";
 
 type CheckboxOptions = Record<string, { label: string; selected: boolean }>;
 interface CheckboxData {

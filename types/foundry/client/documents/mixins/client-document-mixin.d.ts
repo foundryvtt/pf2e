@@ -153,21 +153,23 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
     /**
      * Determine the sort order for this Document by positioning it relative a target sibling.
      * See SortingHelper.performIntegerSort for more details
-     * @param [options] Sorting options provided to SortingHelper.performIntegerSort
+     * @param [options]     Sorting options provided to SortingHelper.performIntegerSort
+     * @param [updateData]  Additional data changes which are applied to each sorted document
+     * @param [sortOptions] Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({
+    sortRelative<TObject extends object>({
         target,
         siblings,
         sortKey,
         sortBefore,
         updateData,
     }: {
-        target?: any;
-        siblings?: any[];
-        sortKey?: string;
+        target?: TObject;
+        siblings?: TObject[];
+        sortKey?: keyof TObject;
         sortBefore?: boolean;
-        updateData?: any;
+        updateData?: object;
     }): Promise<this>;
 
     /* -------------------------------------------- */

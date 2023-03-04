@@ -19,10 +19,12 @@ import { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
 import { ActionCost, ActionType } from "@item/data/base";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { EffectFlags, EffectSource } from "@item/effect/data";
+import { RitualSpellcasting } from "@item/spellcasting-entry/rituals";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { OneToThree, Size } from "@module/data";
 import { preImportJSON } from "@module/doc-helpers";
+import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
 import { RuleElementSynthetics } from "@module/rules";
 import { extractEphemeralEffects, processPreUpdateActorHooks } from "@module/rules/helpers";
 import { RuleElementPF2e } from "@module/rules/rule-element/base";
@@ -45,6 +47,7 @@ import {
     traitSlugToObject,
     tupleHasValue,
 } from "@util";
+import { UUIDUtils } from "@util/uuid-utils";
 import type { CreaturePF2e } from "./creature";
 import { VisionLevel, VisionLevels } from "./creature/data";
 import { GetReachParameters, ModeOfBeing } from "./creature/types";
@@ -66,8 +69,6 @@ import { ActorSheetPF2e } from "./sheet/base";
 import { ActorSpellcasting } from "./spellcasting";
 import { TokenEffect } from "./token-effect";
 import { CREATURE_ACTOR_TYPES, UNAFFECTED_TYPES } from "./values";
-import { UUIDUtils } from "@util/uuid-utils";
-import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -636,8 +637,15 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         );
         this.inventory = new ActorInventory(this, physicalItems);
 
-        const spellcastingEntries = this.itemTypes.spellcastingEntry;
-        this.spellcasting = new ActorSpellcasting(this, spellcastingEntries);
+        this.spellcasting = ((): ActorSpellcasting => {
+            const rituals = this.itemTypes.spell.filter((s) => s.isRitual).sort((a, b) => a.sort - b.sort);
+            const spellcastingEntries = [
+                this.itemTypes.spellcastingEntry,
+                rituals.length > 0 ? new RitualSpellcasting(this, rituals) : [],
+            ].flat();
+
+            return new ActorSpellcasting(this, spellcastingEntries);
+        })();
 
         // Track all effects on this actor
         for (const effect of this.itemTypes.effect) {
