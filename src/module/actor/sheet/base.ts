@@ -102,6 +102,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             items: actorData.items,
             user: { isGM: game.user.isGM },
             traits: createSheetTags(traitsMap, { value: Array.from(this.actor.traits) }),
+            toggles: this.actor.synthetics.toggles,
             isTargetFlatFooted: !!this.actor.rollOptions.all["target:condition:flat-footed"],
             totalCoinage,
             totalCoinageGold,

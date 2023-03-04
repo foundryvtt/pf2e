@@ -38,6 +38,7 @@ interface RuleElementSynthetics {
     strikes: Map<string, Embedded<WeaponPF2e>>;
     striking: Record<string, StrikingSynthetic[]>;
     targetMarks: Map<TokenDocumentUUID, string>;
+    toggles: RollOptionToggle[];
     tokenOverrides: DeepPartial<Pick<foundry.data.TokenSource, "light" | "name">> & {
         texture?: { src: VideoFilePath } | { src: VideoFilePath; scaleX: number; scaleY: number };
     };
@@ -87,6 +88,16 @@ interface RollSubstitution {
     effectType: "fortune" | "misfortune";
 }
 
+interface RollOptionToggle {
+    /** The ID of the item with a rule element for this toggle */
+    itemId?: string;
+    label: string;
+    domain: string;
+    option: string;
+    checked: boolean;
+    enabled: boolean;
+}
+
 interface RollTwiceSynthetic {
     keep: "higher" | "lower";
     predicate?: PredicatePF2e;
@@ -133,6 +144,7 @@ export {
     ModifierAdjustmentSynthetics,
     ModifierSynthetics,
     PotencySynthetic,
+    RollOptionToggle,
     RollSubstitution,
     RollTwiceSynthetic,
     RuleElementSynthetics,
