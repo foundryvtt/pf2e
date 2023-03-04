@@ -43,7 +43,7 @@
             </a>
         {{/if}}
         <div class="instructions">
-            {{#if (not effect.locked)}}
+            {{#if (not effect.isLocked)}}
                 {{#if (eq effect.badge.type "formula")}}
                     <p>{{localize "PF2E.EffectPanel.RollDamageToolTip"}}</p>
                 {{/if}}
@@ -57,8 +57,8 @@
             {{/if}}
         </div>
     </div>
-    <div class="icon{{#if effect.unidentified}} unidentified{{/if}}" data-locked="{{#if effect.locked}}true{{/if}}" style="background-image: url({{effect.img}})">
-        {{#if effect.locked}}
+    <div class="icon{{#if effect.unidentified}} unidentified{{/if}}" data-locked="{{#if effect.isLocked}}true{{/if}}" style="background-image: url({{effect.img}})">
+        {{#if effect.isLocked}}
             <div class="linked"><i class="fas fa-link"></i></div>
         {{/if}}
         {{#if effect.system.expired}}
