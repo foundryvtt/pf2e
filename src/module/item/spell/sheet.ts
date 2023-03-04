@@ -100,12 +100,6 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             : super.title;
     }
 
-    override get validTraits() {
-        const traits = deepClone(CONFIG.PF2E.spellTraits);
-        delete traits[this.item.school];
-        return traits;
-    }
-
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
