@@ -1,6 +1,7 @@
 import { DeferredValueParams } from "@actor/modifiers";
 import { ItemPF2e } from "@item";
 import { ConditionSource, EffectSource } from "@item/data";
+import { ItemAlterationValueField } from "@system/schema-data-fields";
 import { UUIDUtils } from "@util/uuid-utils";
 import {
     ArrayField,
@@ -27,7 +28,17 @@ class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> 
             ),
             uuid: new fields.StringField({ required: true, blank: false, nullable: false, initial: undefined }),
             adjustName: new fields.BooleanField({ required: true, nullable: false, initial: true }),
-            alterations: new fields.ArrayField(new fields.SchemaField({})),
+            alterations: new fields.ArrayField(
+                new fields.SchemaField({
+                    mode: new fields.StringField({ required: true, choices: ["override"], initial: "override" }),
+                    property: new fields.StringField({
+                        required: true,
+                        choices: ["badge-value"],
+                        initial: "badge-value",
+                    }),
+                    value: new ItemAlterationValueField(),
+                })
+            ),
         };
     }
 
@@ -114,9 +125,9 @@ type EphemeralEffectSchema = RuleElementSchema & {
 
 type AddOverrideUpgrade = Extract<AELikeChangeMode, "add" | "override" | "upgrade">;
 type ItemAlterationData = {
-    mode: StringField<AddOverrideUpgrade, AddOverrideUpgrade, true, false, false>;
-    property: StringField<"badge-value", "badge-value", true, false, false>;
-    value: StringField<string, string, true, true, false>;
+    mode: StringField<AddOverrideUpgrade, AddOverrideUpgrade, true, false, true>;
+    property: StringField<"badge-value", "badge-value", true, false, true>;
+    value: ItemAlterationValueField;
 };
 
 export { EphemeralEffectRuleElement };
