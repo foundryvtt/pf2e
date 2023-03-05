@@ -158,7 +158,8 @@ export class CompendiumPack {
         const parsedData = filePaths.map((filePath) => {
             const jsonString = fs.readFileSync(filePath, "utf-8");
 
-            const spellLinkPattern = /(?<!<em>)@UUID\[Compendium.pf2e.spells-srd.(?:[^\]]*)\](?:{(?:[^}]*)})?(?<!<\/em>)/;
+            const spellLinkPattern =
+                /(?<!<em>)@UUID\[Compendium.pf2e.spells-srd.(?:[^\]]*)\](?:{(?:[^}]*)})?(?<!<\/em>)/;
             const match = spellLinkPattern.exec(jsonString);
             if (match) {
                 throw PackError(`Filename at ${filePath} is missing <em> on spell link: ${match[0]}`);
