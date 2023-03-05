@@ -60,6 +60,7 @@ export class CompendiumPack {
         world: /@(?:Item|JournalEntry|Actor)\[[^\]]+\]|@Compendium\[world\.[^\]]{16}\]|@UUID\[(?:Item|JournalEntry|Actor)/g,
         compendium: /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<docName>[^\]]+)\]\{?/g,
         uuid: /@UUID\[Compendium\.pf2e\.(?<packName>[^.]+)\.(?<docName>[^\]]+)\]\{?/g,
+        spellEmphasis: /(?<!<em>)@UUID\[Compendium.pf2e.spells-srd.(?:[^\]]*)\](?:{(?:[^}]*)})?(?<!<\/em>)/g,
     };
 
     constructor(packDir: string, parsedData: unknown[]) {
@@ -157,14 +158,6 @@ export class CompendiumPack {
         const filePaths = filenames.map((f) => path.resolve(dirPath, f));
         const parsedData = filePaths.map((filePath) => {
             const jsonString = fs.readFileSync(filePath, "utf-8");
-
-            const spellLinkPattern =
-                /(?<!<em>)@UUID\[Compendium.pf2e.spells-srd.(?:[^\]]*)\](?:{(?:[^}]*)})?(?<!<\/em>)/;
-            const match = spellLinkPattern.exec(jsonString);
-            if (match) {
-                throw PackError(`Filename at ${filePath} is missing <em> on spell link: ${match[0]}`);
-            }
-
             const packSource: CompendiumSource = (() => {
                 try {
                     return JSON.parse(jsonString);
@@ -198,6 +191,11 @@ export class CompendiumPack {
         const worldItemLink = CompendiumPack.LINK_PATTERNS.world.exec(stringified);
         if (worldItemLink !== null) {
             throw PackError(`${docSource.name} (${this.packId}) has a link to a world item: ${worldItemLink[0]}`);
+        }
+
+        const spellLink = CompendiumPack.LINK_PATTERNS.spellEmphasis.exec(stringified);
+        if (spellLink !== null) {
+            throw PackError(`${docSource.name} (${this.packId}) is missing <em> on spell link: ${spellLink[0]}`);
         }
 
         docSource.flags ??= {};
