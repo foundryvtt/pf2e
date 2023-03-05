@@ -6,7 +6,12 @@ import { RuleElementSchema } from "./data";
 /** A mixin for rule elements that allow item alterations */
 abstract class WithItemAlterations<TSchema extends RuleElementSchema> {
     static apply<TSchema extends RuleElementSchema>(Class: typeof RuleElementPF2e<TSchema>): void {
-        for (const methodName of ["itemCanBeAltered", "isValidItemAlteration", "applyAlterations"] as const) {
+        for (const methodName of [
+            "itemCanBeAltered",
+            "isValidItemAlteration",
+            "applyAlteration",
+            "applyAlterations",
+        ] as const) {
             Object.defineProperty(Class.prototype, methodName, {
                 enumerable: false,
                 writable: false,
@@ -16,20 +21,33 @@ abstract class WithItemAlterations<TSchema extends RuleElementSchema> {
     }
 
     /** Is the item-alteration data structurally sound? Currently only overrides are supported. */
-    isValidItemAlteration(data: {}): data is ItemAlterationData[] {
-        return (
-            Array.isArray(data) &&
-            data.every(
-                (d: unknown) =>
-                    d instanceof Object &&
-                    "mode" in d &&
-                    d.mode === "override" &&
-                    "property" in d &&
-                    d.property === "badge-value" &&
-                    "value" in d &&
-                    (["string", "number"].includes(typeof d.value) || d.value === null)
-            )
-        );
+    isValidItemAlteration(type: "array", data: unknown): data is ItemAlterationData[];
+    isValidItemAlteration(type: "value", data: unknown): data is ItemAlterationValue;
+    isValidItemAlteration(type: "array" | "value", data: unknown): data is ItemAlterationData[] | ItemAlterationValue {
+        const isValid = (value: unknown): value is ItemAlterationValue => {
+            return ["string", "number"].includes(typeof value) || value === null;
+        };
+
+        switch (type) {
+            case "array":
+                return (
+                    Array.isArray(data) &&
+                    data.every(
+                        (d: unknown) =>
+                            d instanceof Object &&
+                            "mode" in d &&
+                            d.mode === "override" &&
+                            "property" in d &&
+                            d.property === "badge-value" &&
+                            "value" in d &&
+                            isValid(d.value)
+                    )
+                );
+            case "value":
+                return isValid(data);
+            default:
+                return false;
+        }
     }
 
     /** Is the item alteration valid for the item type? */
@@ -61,19 +79,38 @@ abstract class WithItemAlterations<TSchema extends RuleElementSchema> {
         return hasBadge;
     }
 
-    /** Set the badge value of a condition or effect */
-    applyAlterations(this: WithItemAlterations<TSchema>, itemSource: ItemSourcePF2e): void {
-        for (const alteration of this.alterations) {
-            const value: unknown = this.resolveValue(alteration.value);
-            if (!this.itemCanBeAltered(itemSource, value)) continue;
+    /** Apply one alteration to the item source */
+    applyAlteration(
+        this: WithItemAlterations<TSchema>,
+        { alteration, itemSource, resolvedValue, resolvables }: ApplyAlterationParams
+    ): void {
+        const value = resolvedValue ?? this.resolveValue(alteration.value, { resolvables });
+        if (!this.itemCanBeAltered(itemSource, value)) return;
 
-            if (itemSource.type === "condition" && (typeof value === "number" || value === null)) {
-                itemSource.system.value.value = value;
-            } else if (itemSource.type === "effect" && typeof value === "number") {
-                itemSource.system.badge!.value = value;
-            }
+        if (itemSource.type === "condition" && (typeof value === "number" || value === null)) {
+            itemSource.system.value.value = value;
+        } else if (itemSource.type === "effect" && typeof value === "number") {
+            itemSource.system.badge!.value = value;
         }
     }
+
+    /** Apply all alterations to the item source */
+    applyAlterations(
+        this: WithItemAlterations<TSchema>,
+        itemSource: ItemSourcePF2e,
+        resolvables?: Record<string, unknown>
+    ): void {
+        for (const alteration of this.alterations) {
+            this.applyAlteration({ itemSource, alteration, resolvables });
+        }
+    }
+}
+
+interface ApplyAlterationParams {
+    alteration: ItemAlterationData;
+    itemSource: ItemSourcePF2e;
+    resolvedValue?: ItemAlterationValue;
+    resolvables?: Record<string, unknown>;
 }
 
 interface WithItemAlterations<TSchema extends RuleElementSchema> extends RuleElementPF2e<TSchema> {
@@ -85,5 +122,7 @@ interface ItemAlterationData {
     property: string;
     value: string | number | null;
 }
+
+type ItemAlterationValue = ItemAlterationData["value"];
 
 export { ItemAlterationData, WithItemAlterations };

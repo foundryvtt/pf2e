@@ -93,11 +93,14 @@ class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> 
 
             const resolvables = params.resolvables ?? {};
             for (const alteration of this.alterations) {
-                const value = this.resolveValue(alteration.value, { resolvables });
-                if (!this.itemCanBeAltered(source, value)) {
+                const resolvedValue = this.resolveValue(alteration.value, { resolvables });
+                if (
+                    !this.isValidItemAlteration("value", resolvedValue) ||
+                    !this.itemCanBeAltered(source, resolvedValue)
+                ) {
                     return null;
                 }
-                this.applyAlterations(source);
+                this.applyAlteration({ itemSource: source, alteration, resolvedValue });
             }
 
             return source;
