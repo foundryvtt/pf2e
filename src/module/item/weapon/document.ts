@@ -173,6 +173,24 @@ class WeaponPF2e extends PhysicalItemPF2e {
             .map((p) => `rune:property:${sluggify(p)}`)
             .reduce((statements, s) => ({ ...statements, [s]: true }), {} as Record<string, boolean>);
 
+        // Ammunition
+        const ammunitionRollOptions = ((ammunition: ConsumablePF2e | null) => {
+            const rollOptions: Record<string, boolean> = {};
+            if (ammunition) {
+                rollOptions[`ammo:id:${ammunition.id}`] = true;
+                rollOptions[`ammo:slug:${ammunition.slug}`] = true;
+                rollOptions[`ammo:level:${ammunition.level}`] = true;
+                if (ammunition.material.precious) {
+                    rollOptions[`ammo:material:type:${ammunition.material.precious.type}`] = true;
+                    rollOptions[`ammo:material:grade:${ammunition.material.precious.grade}`] = true;
+                }
+                for (const trait of ammunition.traits) {
+                    rollOptions[`ammo:trait:${trait}`] = true;
+                }
+            }
+            return rollOptions;
+        })(this.ammo);
+
         return [
             super.getRollOptions(prefix),
             Object.entries({
@@ -197,6 +215,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 thrown: this.isThrown,
                 "thrown-melee": thrownMelee,
                 ...propertyRunes,
+                ...ammunitionRollOptions,
             })
                 .filter(([, isTrue]) => isTrue)
                 .map(([key]) => `${prefix}:${key}`),
