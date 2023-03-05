@@ -43,7 +43,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
             this.failValidation("removeAfterRoll may only be used on rule elements from effect items");
         }
 
-        // Prevent all further processing of this RE
+        // Prevent all further processing of this RE if it is a totm toggle and the setting is disabled
         if (this.toggleable === "totm" && !game.settings.get("pf2e", "totmToggles")) {
             this.ignored = true;
         }
