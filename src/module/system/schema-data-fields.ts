@@ -100,4 +100,28 @@ class PredicateField<
     }
 }
 
-export { LaxSchemaField, PredicateField, SlugField };
+class ItemAlterationValueField extends fields.DataField<
+    string | number | null,
+    string | number | null,
+    true,
+    true,
+    true
+> {
+    static override get _defaults() {
+        return mergeObject(super._defaults, {
+            required: true,
+            nullable: true,
+            initial: null,
+        });
+    }
+
+    protected _cast(value: unknown): string | number | null {
+        return typeof value === "string" || typeof value === "number" || value === null ? value : null;
+    }
+
+    protected override _validateType(value: unknown): boolean {
+        return typeof value === "string" || typeof value === "number" || value === null;
+    }
+}
+
+export { LaxSchemaField, PredicateField, SlugField, ItemAlterationValueField };

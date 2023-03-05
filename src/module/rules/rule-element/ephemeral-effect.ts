@@ -1,6 +1,7 @@
 import { DeferredValueParams } from "@actor/modifiers";
 import { ItemPF2e } from "@item";
 import { ConditionSource, EffectSource } from "@item/data";
+import { ItemAlterationValueField } from "@system/schema-data-fields";
 import { UUIDUtils } from "@util/uuid-utils";
 import {
     ArrayField,
@@ -10,8 +11,8 @@ import {
     StringField,
 } from "types/foundry/common/data/fields.mjs";
 import { AELikeChangeMode } from "./ae-like";
-import { RuleElementPF2e } from "./base";
-import { RuleElementSchema } from "./data";
+import { RuleElementOptions, RuleElementPF2e } from "./base";
+import { RuleElementSchema, RuleElementSource } from "./data";
 import { WithItemAlterations } from "./mixins";
 
 const { fields } = foundry.data;
@@ -27,8 +28,24 @@ class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> 
             ),
             uuid: new fields.StringField({ required: true, blank: false, nullable: false, initial: undefined }),
             adjustName: new fields.BooleanField({ required: true, nullable: false, initial: true }),
-            alterations: new fields.ArrayField(new fields.SchemaField({})),
+            alterations: new fields.ArrayField(
+                new fields.SchemaField({
+                    mode: new fields.StringField({ required: true, choices: ["override"], initial: "override" }),
+                    property: new fields.StringField({
+                        required: true,
+                        choices: ["badge-value"],
+                        initial: "badge-value",
+                    }),
+                    value: new ItemAlterationValueField(),
+                })
+            ),
         };
+    }
+
+    constructor(ruleSource: RuleElementSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        super(ruleSource, item, options);
+
+        this.allowedAlterations = ["badge-value"];
     }
 
     protected override _validateModel(data: SourceFromSchema<EphemeralEffectSchema>): void {
@@ -82,11 +99,14 @@ class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> 
 
             const resolvables = params.resolvables ?? {};
             for (const alteration of this.alterations) {
-                const value = this.resolveValue(alteration.value, { resolvables });
-                if (!this.itemCanBeAltered(source, value)) {
+                const resolvedValue = this.resolveValue(alteration.value, { resolvables });
+                if (
+                    !this.itemCanBeAltered(source, alteration.property, resolvedValue) ||
+                    !this.isValidItemAlterationValue(resolvedValue)
+                ) {
                     return null;
                 }
-                this.applyAlterations(source);
+                this.applyAlteration({ itemSource: source, alteration, resolvedValue });
             }
 
             return source;
@@ -114,9 +134,9 @@ type EphemeralEffectSchema = RuleElementSchema & {
 
 type AddOverrideUpgrade = Extract<AELikeChangeMode, "add" | "override" | "upgrade">;
 type ItemAlterationData = {
-    mode: StringField<AddOverrideUpgrade, AddOverrideUpgrade, true, false, false>;
-    property: StringField<"badge-value", "badge-value", true, false, false>;
-    value: StringField<string, string, true, true, false>;
+    mode: StringField<AddOverrideUpgrade, AddOverrideUpgrade, true, false, true>;
+    property: StringField<"badge-value", "badge-value", true, false, true>;
+    value: ItemAlterationValueField;
 };
 
 export { EphemeralEffectRuleElement };

@@ -58,6 +58,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
         this.grantedId = this.item.flags.pf2e.itemGrants[this.flag ?? ""]?.id ?? null;
 
         this.alterations = data.alterations && this.isValidItemAlteration(data.alterations) ? data.alterations : [];
+        this.allowedAlterations = ["badge-value"];
     }
 
     static ON_DELETE_ACTIONS = ["cascade", "detach", "restrict"] as const;
