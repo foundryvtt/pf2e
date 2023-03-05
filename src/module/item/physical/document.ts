@@ -270,7 +270,9 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
         systemData.identification.unidentified = this.getMystifiedData("unidentified");
     }
 
-    override prepareSiblingData(this: Embedded<PhysicalItemPF2e>): void {
+    override prepareSiblingData(): void {
+        if (!this.actor) return;
+
         if (this.isStowed) {
             this.system.equipped.carryType = "stowed";
             delete this.system.equipped.inSlot;

@@ -369,6 +369,14 @@ class WeaponPF2e extends PhysicalItemPF2e {
             .reduce((highest, rarity) => (rarityOrder[rarity] > rarityOrder[highest] ? rarity : highest), baseRarity);
     }
 
+    /** Add the rule elements of this weapon's linked ammunition to its own list */
+    override prepareSiblingData(): void {
+        super.prepareSiblingData();
+        // Set the default label to the ammunition item's name
+        const ammoRules = (this.ammo?.system.rules ?? []).map((r) => ({ label: this.ammo?.name, ...deepClone(r) }));
+        this.system.rules.push(...ammoRules);
+    }
+
     override computeAdjustedPrice(): CoinsPF2e | null {
         const materialData = this.getMaterialValuationData();
         if (!(this.isMagical || materialData) || this.isSpecific) return null;
