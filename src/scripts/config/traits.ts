@@ -815,8 +815,8 @@ const equipmentTraits = {
 
 const shieldTraits = {
     "deflecting-bludgeoning": "PF2E.TraitDeflectingBludgeoning",
-    "deflecting-piercing": "PF2E.TraitDeflectingPiercing",
     "deflecting-physical-ranged": "PF2E.TraitDeflectingPhysicalRanged",
+    "deflecting-piercing": "PF2E.TraitDeflectingPiercing",
     "deflecting-slashing": "PF2E.TraitDeflectingSlashing",
     foldaway: "PF2E.TraitFoldaway",
     harnessed: "PF2E.TraitHarnessed",
