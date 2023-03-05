@@ -814,10 +814,10 @@ const equipmentTraits = {
 };
 
 const shieldTraits = {
-    "deflecting-bludgeoning": "PF2E.DeflectingBludgeoning",
-    "deflecting-piercing": "PF2E.DeflectingBludgeoning",
-    "deflecting-physical-ranged": "PF2E.DeflectingPhysicalRanged",
-    "deflecting-slashing": "PF2E.DeflectingSlashing",
+    "deflecting-bludgeoning": "PF2E.TraitDeflectingBludgeoning",
+    "deflecting-piercing": "PF2E.TraitDeflectingPiercing",
+    "deflecting-physical-ranged": "PF2E.TraitDeflectingPhysicalRanged",
+    "deflecting-slashing": "PF2E.TraitDeflectingSlashing",
     foldaway: "PF2E.TraitFoldaway",
     harnessed: "PF2E.TraitHarnessed",
     "hefty-14": "PF2E.TraitHefty14",
