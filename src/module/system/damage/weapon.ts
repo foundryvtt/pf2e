@@ -359,8 +359,10 @@ class WeaponDamagePF2e {
         if (weaponTraits.some((t) => t === "backstabber") && options.has("target:condition:flat-footed")) {
             const modifier = new ModifierPF2e({
                 label: CONFIG.PF2E.weaponTraits.backstabber,
+                slug: "backstabber",
                 modifier: potency > 2 ? 2 : 1,
                 damageCategory: "precision",
+                adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, selectors, "backstabber"),
             });
             modifiers.push(modifier);
         }
