@@ -1,5 +1,5 @@
 import { PredicatePF2e, PredicateStatement, RawPredicate, StatementValidator } from "@system/predication";
-import { sluggify } from "@util";
+import { SlugCamel, sluggify } from "@util";
 import { DataModel } from "types/foundry/common/abstract/data.mjs";
 import {
     ArrayFieldOptions,
@@ -7,6 +7,7 @@ import {
     DataFieldOptions,
     DataSchema,
     MaybeSchemaProp,
+    StringField,
     StringFieldOptions,
 } from "types/foundry/common/data/fields.mjs";
 
@@ -41,8 +42,13 @@ class SlugField<
     TNullable extends boolean = true,
     THasInitial extends boolean = true
 > extends fields.StringField<string, string, TRequired, TNullable, THasInitial> {
-    protected static override get _defaults(): StringFieldOptions<string, boolean, boolean, boolean> {
-        return { ...super._defaults, nullable: true, initial: null };
+    constructor(options: SlugFieldOptions<TRequired, TNullable, THasInitial> = {}) {
+        options.camel ??= null;
+        super(options);
+    }
+
+    protected static override get _defaults(): SlugFieldOptions<boolean, boolean, boolean> {
+        return { ...super._defaults, nullable: true, initial: null, camel: null };
     }
 
     protected override _cleanType(
@@ -51,8 +57,22 @@ class SlugField<
     ): MaybeSchemaProp<string, TRequired, TNullable, THasInitial>;
     protected override _cleanType(value: Maybe<string>, options?: CleanFieldOptions): string | null | undefined {
         const slug = super._cleanType(value, options);
-        return typeof slug === "string" ? sluggify(slug) : slug;
+        const camel = this.options.camel ?? null;
+        return typeof slug === "string" ? sluggify(slug, { camel }) : slug;
     }
+}
+
+interface SlugField<
+    TRequired extends boolean = true,
+    TNullable extends boolean = true,
+    THasInitial extends boolean = true
+> extends StringField<string, string, TRequired, TNullable, THasInitial> {
+    options: SlugFieldOptions<TRequired, TNullable, THasInitial>;
+}
+
+interface SlugFieldOptions<TRequired extends boolean, TNullable extends boolean, THasInitial extends boolean>
+    extends StringFieldOptions<string, TRequired, TNullable, THasInitial> {
+    camel?: SlugCamel;
 }
 
 class PredicateStatementField extends fields.DataField<PredicateStatement, PredicateStatement, true, false, false> {
@@ -100,28 +120,4 @@ class PredicateField<
     }
 }
 
-class ItemAlterationValueField extends fields.DataField<
-    string | number | null,
-    string | number | null,
-    true,
-    true,
-    true
-> {
-    static override get _defaults() {
-        return mergeObject(super._defaults, {
-            required: true,
-            nullable: true,
-            initial: null,
-        });
-    }
-
-    protected _cast(value: unknown): unknown {
-        return value;
-    }
-
-    protected override _validateType(value: unknown): boolean {
-        return ["string", "number"].includes(typeof value) || value === null;
-    }
-}
-
-export { LaxSchemaField, PredicateField, SlugField, ItemAlterationValueField };
+export { LaxSchemaField, PredicateField, SlugField };

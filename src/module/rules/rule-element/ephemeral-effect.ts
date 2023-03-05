@@ -1,19 +1,11 @@
 import { DeferredValueParams } from "@actor/modifiers";
 import { ItemPF2e } from "@item";
 import { ConditionSource, EffectSource } from "@item/data";
-import { ItemAlterationValueField } from "@system/schema-data-fields";
 import { UUIDUtils } from "@util/uuid-utils";
-import {
-    ArrayField,
-    BooleanField,
-    ModelPropsFromSchema,
-    SchemaField,
-    StringField,
-} from "types/foundry/common/data/fields.mjs";
-import { AELikeChangeMode } from "./ae-like";
+import { ArrayField, BooleanField, ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
 import { RuleElementPF2e } from "./base";
 import { RuleElementSchema } from "./data";
-import { WithItemAlterations } from "./mixins";
+import { ItemAlterationField, WithItemAlterations } from "./mixins";
 
 const { fields } = foundry.data;
 
@@ -28,17 +20,7 @@ class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> 
             ),
             uuid: new fields.StringField({ required: true, blank: false, nullable: false, initial: undefined }),
             adjustName: new fields.BooleanField({ required: true, nullable: false, initial: true }),
-            alterations: new fields.ArrayField(
-                new fields.SchemaField({
-                    mode: new fields.StringField({ required: true, choices: ["override"], initial: "override" }),
-                    property: new fields.StringField({
-                        required: true,
-                        choices: ["badge-value"],
-                        initial: "badge-value",
-                    }),
-                    value: new ItemAlterationValueField(),
-                })
-            ),
+            alterations: new fields.ArrayField(new ItemAlterationField()),
         };
     }
 
@@ -108,26 +90,17 @@ class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> 
 interface EphemeralEffectRuleElement
     extends RuleElementPF2e<EphemeralEffectSchema>,
         ModelPropsFromSchema<EphemeralEffectSchema>,
-        WithItemAlterations<EphemeralEffectSchema> {
-    alterations: SourceFromSchema<ItemAlterationData>[];
-}
+        WithItemAlterations<EphemeralEffectSchema> {}
 
 // Apply mixin
-WithItemAlterations.apply(EphemeralEffectRuleElement);
+WithItemAlterations.mixIn(EphemeralEffectRuleElement);
 
 type EphemeralEffectSchema = RuleElementSchema & {
     affects: StringField<"target" | "origin", "target" | "origin", true, false, true>;
     selectors: ArrayField<StringField<string, string, true, false, false>>;
     uuid: StringField<string, string, true, false, false>;
     adjustName: BooleanField<boolean, boolean, true, false, true>;
-    alterations: ArrayField<SchemaField<ItemAlterationData>>;
-};
-
-type AddOverrideUpgrade = Extract<AELikeChangeMode, "add" | "override" | "upgrade">;
-type ItemAlterationData = {
-    mode: StringField<AddOverrideUpgrade, AddOverrideUpgrade, true, false, true>;
-    property: StringField<"badge-value", "badge-value", true, false, true>;
-    value: ItemAlterationValueField;
+    alterations: ArrayField<ItemAlterationField>;
 };
 
 export { EphemeralEffectRuleElement };
