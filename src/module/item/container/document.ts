@@ -56,10 +56,10 @@ class ContainerPF2e extends PhysicalItemPF2e {
         this: Embedded<ContainerPF2e>,
         htmlOptions: EnrichHTMLOptions = {}
     ): Promise<ItemSummaryData> {
-        const systemData = this.system;
-        const traits = this.traitChatData(CONFIG.PF2E.equipmentTraits);
-
-        return this.processChatData(htmlOptions, { ...systemData, traits });
+        return this.processChatData(htmlOptions, {
+            ...(await super.getChatData()),
+            traits: this.traitChatData(CONFIG.PF2E.equipmentTraits),
+        });
     }
 }
 
