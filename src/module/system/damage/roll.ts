@@ -541,6 +541,24 @@ class DamageInstance extends AbstractDamageRoll {
             0
         );
     }
+
+    /**
+     * Set a "hidden" property for DsN! so that it doesn't simulate rolling deferred persistent damage.
+     * See https://gitlab.com/riccisi/foundryvtt-dice-so-nice/-/wikis/API/Roll#hiding-a-dice-from-a-roll-animation
+     */
+    protected override async _evaluate(params?: Omit<EvaluateRollParams, "async">): Promise<Rolled<this>> {
+        await super._evaluate(params);
+
+        if (this.persistent && !this.options.evaluatePersistent) {
+            type HiddenResult = DiceTermResult & { hidden?: boolean };
+            const results: HiddenResult[] = this.dice.flatMap((d) => d.results);
+            for (const result of results) {
+                result.hidden = true;
+            }
+        }
+
+        return this as Rolled<this>;
+    }
 }
 
 interface DamageInstance extends AbstractDamageRoll {
