@@ -75,8 +75,11 @@ import { CREATURE_ACTOR_TYPES, UNAFFECTED_TYPES } from "./values";
  * @category Actor
  */
 class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
-    /** Has this actor gone through at least one cycle of data preparation? */
-    private initialized = true;
+    /** Has this actor completed construction? */
+    private constructed = true;
+
+    /** Is this actor preparing its embedded documents? */
+    preparingEmbeds?: boolean;
 
     /** A separate collection of owned physical items for convenient access */
     inventory!: ActorInventory;
@@ -592,7 +595,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         }
 
         this.preparePrototypeToken();
-        if (this.initialized && canvas.ready) {
+        if (this.constructed && canvas.ready) {
             // Work around `t.actor` potentially being a lazy getter for a synthetic actor (viz. this one)
             const thisTokenIsControlled = canvas.tokens.controlled.some(
                 (t) => t.document === this.parent || (t.document.actorLink && t.actor === this)
@@ -631,7 +634,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
     /** Prepare the physical-item collection on this actor, item-sibling data, and rule elements */
     override prepareEmbeddedDocuments(): void {
+        this.preparingEmbeds = true;
         super.prepareEmbeddedDocuments();
+        this.preparingEmbeds = false;
+
         const physicalItems: Embedded<PhysicalItemPF2e>[] = this.items.filter(
             (item) => item instanceof PhysicalItemPF2e
         );
@@ -941,13 +947,15 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         domain: string,
         option: string,
         itemId?: string | null,
-        value?: boolean
+        value?: boolean,
+        suboption?: string | null
     ): Promise<boolean | null>;
     async toggleRollOption(
         domain: string,
         option: string,
         itemId: string | boolean | null = null,
-        value?: boolean
+        value?: boolean,
+        suboption: string | null = null
     ): Promise<boolean | null> {
         // Backward compatibility
         value = typeof itemId === "boolean" ? itemId : value ?? !this.rollOptions[domain]?.[option];
@@ -959,14 +967,14 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 (r): r is RollOptionRuleElement =>
                     r instanceof RollOptionRuleElement && r.domain === domain && r.option === option
             );
-            return rule?.toggle(value) ?? null;
+            return rule?.toggle(value, suboption) ?? null;
         } else {
             // Less precise: no item ID is provided, so find the rule on the actor
             const rule = this.rules.find(
                 (r): r is RollOptionRuleElement =>
                     r instanceof RollOptionRuleElement && r.domain === domain && r.option === option
             );
-            return rule?.toggle(value) ?? null;
+            return rule?.toggle(value, suboption) ?? null;
         }
     }
 

@@ -20,7 +20,7 @@ import { HazardTrait } from "./types";
 type HazardSource = BaseActorSourcePF2e<"hazard", HazardSystemSource>;
 
 interface HazardData
-    extends Omit<HazardSource, "system" | "effects" | "flags" | "items" | "prototypeToken" | "type">,
+    extends Omit<HazardSource, "prototypeToken" | "system" | "type">,
         BaseActorDataPF2e<HazardPF2e, "hazard", HazardSource> {}
 
 /** The raw information contained within the actor data object for hazards. */

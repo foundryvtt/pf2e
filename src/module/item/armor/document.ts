@@ -100,7 +100,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
         this.system.potencyRune.value ||= null;
         this.system.resiliencyRune.value ||= null;
         // Strip out fundamental runes if ABP is enabled: requires this item and its actor (if any) to be initialized
-        if (this.initialized) ABP.cleanupRunes(this);
+        ABP.cleanupRunes(this);
 
         // Add traits from potency rune
         const baseTraits = this.system.traits.value;
@@ -217,7 +217,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
         ];
 
         return this.processChatData(htmlOptions, {
-            ...super.getChatData(),
+            ...(await super.getChatData()),
             traits: this.traitChatData(CONFIG.PF2E.armorTraits),
             properties,
         });

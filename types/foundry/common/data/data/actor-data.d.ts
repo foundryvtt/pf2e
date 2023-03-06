@@ -39,29 +39,9 @@ declare module foundry {
             flags: ActorFlags;
         }
 
-        class ActorData<
-            TDocument extends documents.BaseActor,
-            TActiveEffect extends documents.BaseActiveEffect,
-            TItem extends documents.BaseItem
-        > extends abstract.DocumentData<TDocument> {
-            static override defineSchema(): abstract.DocumentSchema;
-
-            /** A Collection of ActiveEffect embedded Documents */
-            effects: abstract.EmbeddedCollection<TActiveEffect>;
-
-            /** A Collection of Item embedded Documents */
-            items: abstract.EmbeddedCollection<TItem>;
-
-            protected override _initializeSource(data: ActorSource): this["_source"];
-
-            protected override _initialize(): void;
-        }
-
-        interface ActorData<
-            TDocument extends documents.BaseActor,
-            TActiveEffect extends documents.BaseActiveEffect,
-            TItem extends documents.BaseItem
-        > extends Omit<ActorSource, "effects" | "flags" | "items" | "token"> {
+        interface ActorData<TDocument extends documents.BaseActor>
+            extends Omit<ActorSource, "effects" | "flags" | "items" | "token">,
+                abstract.DocumentData<TDocument> {
             readonly _source: ActorSource;
         }
 

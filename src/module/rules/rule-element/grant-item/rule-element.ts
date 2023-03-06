@@ -4,28 +4,23 @@ import { ItemSourcePF2e } from "@item/data";
 import { ItemGrantDeleteAction } from "@item/data/base";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values";
 import { MigrationList, MigrationRunner } from "@module/migration";
+import { SlugField } from "@system/schema-data-fields";
 import { ErrorPF2e, isObject, pick, setHasElement, sluggify, tupleHasValue } from "@util";
 import { UUIDUtils } from "@util/uuid-utils";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "..";
+import { ModelPropsFromSchema } from "types/foundry/common/data/fields.mjs";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "..";
 import { ChoiceSetSource } from "../choice-set/data";
 import { ChoiceSetRuleElement } from "../choice-set/rule-element";
-import { WithItemAlterations } from "../mixins";
+import { ItemAlterationField, WithItemAlterations } from "../mixins";
+import { GrantItemSchema } from "./schema";
 
-class GrantItemRuleElement extends RuleElementPF2e {
+const { fields } = foundry.data;
+
+class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
     static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
 
-    /** The UUID of the item to grant: must be a compendium or world item */
-    uuid: string;
-    /** Whether the granted item should replace the granting item */
-    protected replaceSelf: boolean;
-    /** Permit this grant to be applied during an actor update--if it isn't already granted and the predicate passes */
-    protected reevaluateOnUpdate: boolean;
-    /** Allow multiple of the same item (as determined by source ID) to be granted */
-    protected allowDuplicate: boolean;
     /** The id of the granted item */
     grantedId: string | null;
-    /** A flag for referencing the granted item ID in other rule elements */
-    flag: string | null;
 
     /**
      * If the granted item has a `ChoiceSet`, its selection may be predetermined. The key of the record must be the
@@ -39,10 +34,11 @@ class GrantItemRuleElement extends RuleElementPF2e {
     constructor(data: GrantItemSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
-        this.uuid = String(data.uuid);
-        this.reevaluateOnUpdate = !!data.reevaluateOnUpdate;
-        this.replaceSelf = this.reevaluateOnUpdate ? false : !!data.replaceSelf;
-        this.allowDuplicate = this.reevaluateOnUpdate ? false : !!(data.allowDuplicate ?? true);
+        if (this.reevaluateOnUpdate) {
+            this.replaceSelf = false;
+            this.allowDuplicate = false;
+        }
+
         this.onDeleteActions = this.#getOnDeleteActions(data);
 
         const isValidPreselect = (p: Record<string, unknown>): p is Record<string, string | number> =>
@@ -52,12 +48,23 @@ class GrantItemRuleElement extends RuleElementPF2e {
                 ? deepClone(data.preselectChoices)
                 : {};
 
-        this.flag =
-            typeof data.flag === "string" && data.flag.length > 0 ? sluggify(data.flag, { camel: "dromedary" }) : null;
-
         this.grantedId = this.item.flags.pf2e.itemGrants[this.flag ?? ""]?.id ?? null;
+    }
 
-        this.alterations = data.alterations && this.isValidItemAlteration(data.alterations) ? data.alterations : [];
+    static override defineSchema(): GrantItemSchema {
+        return {
+            ...super.defineSchema(),
+            uuid: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
+            flag: new SlugField({ required: true, nullable: true, blank: false, initial: null, camel: "dromedary" }),
+            reevaluateOnUpdate: new fields.BooleanField({ required: false, nullable: false, initial: false }),
+            replaceSelf: new fields.BooleanField({ required: false, nullable: false, initial: false }),
+            allowDuplicate: new fields.BooleanField({ required: false, nullable: false, initial: true }),
+            alterations: new fields.ArrayField(new ItemAlterationField(), {
+                required: false,
+                nullable: false,
+                initial: [],
+            }),
+        };
     }
 
     static ON_DELETE_ACTIONS = ["cascade", "detach", "restrict"] as const;
@@ -278,10 +285,13 @@ class GrantItemRuleElement extends RuleElementPF2e {
     }
 }
 
-interface GrantItemRuleElement extends RuleElementPF2e, WithItemAlterations<RuleElementSchema> {}
+interface GrantItemRuleElement
+    extends RuleElementPF2e<GrantItemSchema>,
+        ModelPropsFromSchema<GrantItemSchema>,
+        WithItemAlterations<GrantItemSchema> {}
 
 // Apply mixin
-WithItemAlterations.apply(GrantItemRuleElement);
+WithItemAlterations.mixIn(GrantItemRuleElement);
 
 interface GrantItemSource extends RuleElementSource {
     uuid?: unknown;

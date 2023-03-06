@@ -22,7 +22,7 @@ import { UserPF2e } from "@module/user";
 import { DamageCategorization } from "@system/damage/helpers";
 import { LocalizePF2e } from "@system/localize";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify } from "@util";
-import { WeaponDamage, WeaponData, WeaponMaterialData, WeaponSource } from "./data";
+import { WeaponDamage, WeaponData, WeaponFlags, WeaponMaterialData, WeaponSource } from "./data";
 import {
     BaseWeaponType,
     OtherWeaponTag,
@@ -173,6 +173,24 @@ class WeaponPF2e extends PhysicalItemPF2e {
             .map((p) => `rune:property:${sluggify(p)}`)
             .reduce((statements, s) => ({ ...statements, [s]: true }), {} as Record<string, boolean>);
 
+        // Ammunition
+        const ammunitionRollOptions = ((ammunition: ConsumablePF2e | null) => {
+            const rollOptions: Record<string, boolean> = {};
+            if (ammunition) {
+                rollOptions[`ammo:id:${ammunition.id}`] = true;
+                rollOptions[`ammo:slug:${ammunition.slug}`] = true;
+                rollOptions[`ammo:level:${ammunition.level}`] = true;
+                if (ammunition.material.precious) {
+                    rollOptions[`ammo:material:type:${ammunition.material.precious.type}`] = true;
+                    rollOptions[`ammo:material:grade:${ammunition.material.precious.grade}`] = true;
+                }
+                for (const trait of ammunition.traits) {
+                    rollOptions[`ammo:trait:${trait}`] = true;
+                }
+            }
+            return rollOptions;
+        })(this.ammo);
+
         return [
             super.getRollOptions(prefix),
             Object.entries({
@@ -197,6 +215,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 thrown: this.isThrown,
                 "thrown-melee": thrownMelee,
                 ...propertyRunes,
+                ...ammunitionRollOptions,
             })
                 .filter(([, isTrue]) => isTrue)
                 .map(([key]) => `${prefix}:${key}`),
@@ -230,9 +249,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             systemData.damage.modifier ||= systemData.damage.dice;
         }
 
-        // This method checks data on the actor that may not yet be initialized:
-        // use the item's initialization status as a proxy check
-        if (this.initialized) ABP.cleanupRunes(this);
+        ABP.cleanupRunes(this);
 
         const traitsArray = systemData.traits.value;
         // Thrown weapons always have a reload of "-"
@@ -367,6 +384,14 @@ class WeaponPF2e extends PhysicalItemPF2e {
             .map((runeData) => runeData.rarity)
             .concat(materialData?.rarity ?? "common")
             .reduce((highest, rarity) => (rarityOrder[rarity] > rarityOrder[highest] ? rarity : highest), baseRarity);
+    }
+
+    /** Add the rule elements of this weapon's linked ammunition to its own list */
+    override prepareSiblingData(): void {
+        super.prepareSiblingData();
+        // Set the default label to the ammunition item's name
+        const ammoRules = (this.ammo?.system.rules ?? []).map((r) => ({ label: this.ammo?.name, ...deepClone(r) }));
+        this.system.rules.push(...ammoRules);
     }
 
     override computeAdjustedPrice(): CoinsPF2e | null {
@@ -755,6 +780,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
 }
 
 interface WeaponPF2e extends PhysicalItemPF2e {
+    flags: WeaponFlags;
     readonly data: WeaponData;
 
     get traits(): Set<WeaponTrait>;

@@ -7,8 +7,7 @@ import { EffectAreaSize, EffectAreaType, MagicSchool, MagicTradition, SpellCompo
 
 type SpellSource = BaseItemSourcePF2e<"spell", SpellSystemSource>;
 
-type SpellData = Omit<SpellSource, "system" | "effects" | "flags"> &
-    BaseItemDataPF2e<SpellPF2e, "spell", SpellSystemData, SpellSource>;
+type SpellData = Omit<SpellSource, "system"> & BaseItemDataPF2e<SpellPF2e, "spell", SpellSystemData, SpellSource>;
 
 export type SpellTraits = TraitsWithRarity<SpellTrait>;
 

@@ -30,7 +30,7 @@ export interface DataFieldOptions<
         : THasInitial extends false
         ? undefined
         : TSourceProp | (() => TSourceProp) | null | undefined;
-    validate?: (value: unknown) => Error | void;
+    validate?: (value: unknown) => boolean | Error | void;
     choices?: readonly TSourceProp[] | Record<string, string> | Function;
     label?: string;
     hint?: string;
@@ -429,11 +429,11 @@ export type FlagField<
 > = ObjectField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial>;
 
 type ArrayFieldOptions<
-    TElementField extends DataField,
+    TSourceProp extends unknown[],
     TRequired extends boolean,
     TNullable extends boolean,
     THasInitial extends boolean
-> = DataFieldOptions<TElementField, TRequired, TNullable, THasInitial>;
+> = DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>;
 
 /** A subclass of `DataField` which deals with array-typed data. */
 export class ArrayField<
@@ -445,13 +445,13 @@ export class ArrayField<
         THasInitial extends boolean = true
     >
     extends DataField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial>
-    implements ArrayFieldOptions<TElementField, TRequired, TNullable, THasInitial>
+    implements ArrayFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>
 {
     /**
      * @param element A DataField instance which defines the type of element contained in the Array.
      * @param options Options which configure the behavior of the field
      */
-    constructor(element: TElementField, options?: ArrayFieldOptions<TElementField, TRequired, TNullable, THasInitial>);
+    constructor(element: TElementField, options?: ArrayFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>);
 
     /** The data type of each element in this array */
     element: TElementField;
@@ -464,7 +464,7 @@ export class ArrayField<
      */
     protected static _validateElementType(element: unknown): unknown;
 
-    protected static override get _defaults(): ArrayFieldOptions<DataField, boolean, boolean, boolean>;
+    protected static override get _defaults(): ArrayFieldOptions<unknown[], boolean, boolean, boolean>;
 
     protected override _cast(value: unknown): TSourceProp;
 
@@ -486,7 +486,7 @@ export class ArrayField<
     override initialize(
         value: TSourceProp,
         model: ConstructorOf<DataModel>,
-        options: ArrayFieldOptions<TElementField, TRequired, TNullable, THasInitial>
+        options: ArrayFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
     override toObject(value: TModelProp): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
@@ -582,7 +582,7 @@ export class EmbeddedCollectionField<
      */
     constructor(
         element: ConstructorOf<Document>,
-        options?: ArrayFieldOptions<SchemaField<TDataSchema>, TRequired, TNullable, THasInitial>
+        options?: ArrayFieldOptions<SourceFromSchema<TDataSchema>[], TRequired, TNullable, THasInitial>
     );
 
     static override _validateElementType(element: unknown): Document;
@@ -843,8 +843,6 @@ export class IntegerSortField<
 > extends NumberField<number, number, TRequired, TNullable, THasInitial> {
     protected static override get _defaults(): NumberFieldOptions<number, boolean, boolean, boolean>;
 }
-
-/* ---------------------------------------- */
 
 /** @typedef DocumentStats
  * @property systemId       The package name of the system the Document was created in.
