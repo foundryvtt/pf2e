@@ -396,9 +396,15 @@ class DamageInstance extends AbstractDamageRoll {
 
     override get formula(): string {
         const typeFlavor = game.i18n.localize(CONFIG.PF2E.damageRollFlavors[this.type] ?? this.type);
+        const isSplash = () => {
+            const head = this.head instanceof Grouping ? this.head.term : this.head;
+            return head.flavor === "splash";
+        };
         const damageType =
             this.persistent && this.type !== "bleed"
                 ? game.i18n.format("PF2E.Damage.RollFlavor.persistent", { damageType: typeFlavor })
+                : isSplash()
+                ? game.i18n.format("PF2E.Damage.RollFlavor.splash", { damageType: typeFlavor })
                 : this.type !== "untyped"
                 ? typeFlavor
                 : "";
