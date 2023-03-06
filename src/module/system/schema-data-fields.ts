@@ -80,7 +80,7 @@ class PredicateField<
     TNullable extends boolean = false,
     THasInitial extends boolean = true
 > extends fields.ArrayField<PredicateStatementField, RawPredicate, PredicatePF2e, TRequired, TNullable, THasInitial> {
-    constructor(options?: ArrayFieldOptions<PredicateStatementField, TRequired, TNullable, THasInitial>) {
+    constructor(options?: ArrayFieldOptions<RawPredicate, TRequired, TNullable, THasInitial>) {
         super(new PredicateStatementField(), options);
     }
 
@@ -88,12 +88,12 @@ class PredicateField<
     override initialize(
         value: RawPredicate,
         model: ConstructorOf<DataModel>,
-        options?: ArrayFieldOptions<PredicateStatementField, TRequired, TNullable, THasInitial>
+        options?: ArrayFieldOptions<RawPredicate, TRequired, TNullable, THasInitial>
     ): MaybeSchemaProp<PredicatePF2e, TRequired, TNullable, THasInitial>;
     override initialize(
         value: RawPredicate,
         model: ConstructorOf<DataModel>,
-        options: ArrayFieldOptions<PredicateStatementField, TRequired, TNullable, THasInitial>
+        options: ArrayFieldOptions<RawPredicate, TRequired, TNullable, THasInitial>
     ): PredicatePF2e | null | undefined {
         const statements = super.initialize(value, model, options);
         return statements ? new PredicatePF2e(...statements) : statements;
