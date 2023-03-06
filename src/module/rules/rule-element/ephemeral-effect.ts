@@ -20,7 +20,11 @@ class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> 
             ),
             uuid: new fields.StringField({ required: true, blank: false, nullable: false, initial: undefined }),
             adjustName: new fields.BooleanField({ required: true, nullable: false, initial: true }),
-            alterations: new fields.ArrayField(new ItemAlterationField()),
+            alterations: new fields.ArrayField(new ItemAlterationField(), {
+                required: false,
+                nullable: false,
+                initial: [],
+            }),
         };
     }
 
@@ -73,14 +77,7 @@ class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> 
                 source.name = `${source.name} (${label})`;
             }
 
-            const resolvables = params.resolvables ?? {};
-            for (const alteration of this.alterations) {
-                const value = this.resolveValue(alteration.value, { resolvables });
-                if (!this.itemCanBeAltered(source, value)) {
-                    return null;
-                }
-                this.applyAlterations(source);
-            }
+            this.applyAlterations(source);
 
             return source;
         };

@@ -59,7 +59,11 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
             reevaluateOnUpdate: new fields.BooleanField({ required: false, nullable: false, initial: false }),
             replaceSelf: new fields.BooleanField({ required: false, nullable: false, initial: false }),
             allowDuplicate: new fields.BooleanField({ required: false, nullable: false, initial: true }),
-            alterations: new fields.ArrayField(new ItemAlterationField()),
+            alterations: new fields.ArrayField(new ItemAlterationField(), {
+                required: false,
+                nullable: false,
+                initial: [],
+            }),
         };
     }
 
