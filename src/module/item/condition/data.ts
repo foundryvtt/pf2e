@@ -6,8 +6,9 @@ import { ConditionPF2e } from ".";
 
 type ConditionSource = BaseItemSourcePF2e<"condition", ConditionSystemSource>;
 
-type ConditionData = Omit<ConditionSource, "system"> &
-    BaseItemDataPF2e<ConditionPF2e, "condition", ConditionSystemData, ConditionSource>;
+interface ConditionData
+    extends Omit<ConditionSource, "flags" | "system" | "type">,
+        BaseItemDataPF2e<ConditionPF2e, "condition", ConditionSource> {}
 
 interface ConditionSystemSource extends ItemSystemSource {
     slug: ConditionSlug;
@@ -25,10 +26,11 @@ interface ConditionSystemSource extends ItemSystemSource {
     group: string | null;
     value: ConditionValueData;
     overrides: string[];
+    level?: never;
     traits?: never;
 }
 
-interface ConditionSystemData extends ConditionSystemSource, Omit<ItemSystemData, "traits" | "slug"> {
+interface ConditionSystemData extends ConditionSystemSource, Omit<ItemSystemData, "level" | "slug" | "traits"> {
     persistent?: PersistentDamageData;
 }
 

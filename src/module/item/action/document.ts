@@ -1,5 +1,5 @@
 import { ItemPF2e } from "@item/base";
-import { ActionItemData, ActionItemSource } from "./data";
+import { ActionItemData, ActionItemSource, ActionSystemData } from "./data";
 import { UserPF2e } from "@module/user";
 import { ActionCost, Frequency } from "@item/data/base";
 import { ItemSummaryData } from "@item/data";
@@ -75,6 +75,7 @@ class ActionItemPF2e extends ItemPF2e {
 
 interface ActionItemPF2e extends ItemPF2e {
     readonly data: ActionItemData;
+    system: ActionSystemData;
 }
 
 export { ActionItemPF2e };

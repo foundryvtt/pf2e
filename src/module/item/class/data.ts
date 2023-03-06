@@ -7,7 +7,9 @@ import { CLASS_TRAITS } from "./values";
 
 type ClassSource = BaseItemSourcePF2e<"class", ClassSystemSource>;
 
-type ClassData = Omit<ClassSource, "system"> & BaseItemDataPF2e<ClassPF2e, "class", ClassSystemData, ClassSource>;
+interface ClassData
+    extends Omit<ClassSource, "flags" | "system" | "type">,
+        BaseItemDataPF2e<ClassPF2e, "class", ClassSource> {}
 
 interface ClassSystemSource extends ABCSystemSource {
     traits: ItemTraits;
@@ -27,6 +29,7 @@ interface ClassSystemSource extends ABCSystemSource {
     generalFeatLevels: { value: number[] };
     skillFeatLevels: { value: number[] };
     skillIncreaseLevels: { value: number[] };
+    level?: never;
 }
 
 type ClassSystemData = ClassSystemSource;

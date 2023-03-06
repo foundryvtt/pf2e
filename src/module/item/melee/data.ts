@@ -15,7 +15,7 @@ type MeleeSource = BaseItemSourcePF2e<"melee", MeleeSystemSource> & {
     flags: DeepPartial<MeleeFlags>;
 };
 
-type MeleeData = Omit<MeleeSource, "system"> & BaseItemDataPF2e<MeleePF2e, "melee", MeleeSystemData, MeleeSource>;
+type MeleeData = Omit<MeleeSource, "system"> & BaseItemDataPF2e<MeleePF2e, "melee", MeleeSource>;
 
 type MeleeFlags = ItemFlagsPF2e & {
     pf2e: {
@@ -24,6 +24,7 @@ type MeleeFlags = ItemFlagsPF2e & {
 };
 
 interface MeleeSystemSource extends ItemSystemSource {
+    level?: never;
     traits: NPCAttackTraits;
     attack: {
         value: string;
@@ -40,7 +41,7 @@ interface MeleeSystemSource extends ItemSystemSource {
     };
 }
 
-interface MeleeSystemData extends MeleeSystemSource, Omit<ItemSystemData, "traits"> {
+interface MeleeSystemData extends MeleeSystemSource, Omit<ItemSystemData, "level" | "traits"> {
     material: {
         precious: {
             type: WeaponMaterialType;

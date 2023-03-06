@@ -215,6 +215,7 @@ class MeleePF2e extends ItemPF2e {
 interface MeleePF2e extends ItemPF2e {
     flags: MeleeFlags;
     readonly data: MeleeData;
+    system: MeleeSystemData;
 }
 
 export { MeleePF2e };

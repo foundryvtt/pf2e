@@ -25,7 +25,7 @@ import { PhysicalItemPF2e } from "./physical/document";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values";
 import { ItemSheetPF2e } from "./sheet/base";
 import { UUIDUtils } from "@util/uuid-utils";
-import { ItemFlagsPF2e } from "./data/base";
+import { ItemFlagsPF2e, ItemSystemData } from "./data/base";
 
 /** Override and extend the basic :class:`Item` implementation */
 class ItemPF2e extends Item<ActorPF2e> {
@@ -100,12 +100,12 @@ class ItemPF2e extends Item<ActorPF2e> {
             ...traitOptions.map((t) => `${prefix}:${t}`),
         ];
 
-        const level = "level" in this ? this.level : "level" in this.system ? this.system.level.value : null;
+        const level = this.system.level?.value ?? null;
         if (typeof level === "number") {
             options.push(`${prefix}:level:${level}`);
         }
 
-        if (["item", ""].includes(prefix)) {
+        if (prefix === "item") {
             const itemType = this.isOfType("feat") && this.isFeature ? "feature" : this.type;
             options.unshift(`${prefix}:type:${itemType}`);
         }
@@ -684,6 +684,7 @@ class ItemPF2e extends Item<ActorPF2e> {
 
 interface ItemPF2e extends Item<ActorPF2e> {
     flags: ItemFlagsPF2e;
+    readonly system: ItemSystemData;
     readonly data: ItemDataPF2e;
     readonly parent: ActorPF2e | null;
 
