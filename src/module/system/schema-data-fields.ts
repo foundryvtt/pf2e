@@ -78,7 +78,13 @@ interface SlugFieldOptions<TRequired extends boolean, TNullable extends boolean,
 class PredicateStatementField extends fields.DataField<PredicateStatement, PredicateStatement, true, false, false> {
     /** A `PredicateStatement` is always required (not `undefined`) and never nullable */
     constructor(options: DataFieldOptions<PredicateStatement, true, false, false> = {}) {
-        super({ ...options, required: true, nullable: false, initial: undefined });
+        super({
+            ...options,
+            required: true,
+            nullable: false,
+            initial: undefined,
+            validationError: "must be recognized predicated statement type",
+        });
     }
 
     protected override _validateType(value: unknown): boolean {

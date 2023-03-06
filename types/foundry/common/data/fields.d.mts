@@ -30,7 +30,7 @@ export interface DataFieldOptions<
         : THasInitial extends false
         ? undefined
         : TSourceProp | (() => TSourceProp) | null | undefined;
-    validate?: (value: unknown) => Error | void;
+    validate?: (value: unknown) => boolean | Error | void;
     choices?: readonly TSourceProp[] | Record<string, string> | Function;
     label?: string;
     hint?: string;
