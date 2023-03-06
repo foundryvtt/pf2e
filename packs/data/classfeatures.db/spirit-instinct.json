@@ -25,12 +25,9 @@
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "PF2E.SpecificRule.Barbarian.Spirit.PositiveDamage",
-                "option": "positive-spirit",
+                "label": "PF2E.SpecificRule.Barbarian.Spirit.ToggleLabel",
+                "option": "spirit-instinct",
                 "predicate": [
-                    {
-                        "not": "negative-spirit"
-                    },
                     {
                         "or": [
                             "class:barbarian",
@@ -38,22 +35,14 @@
                         ]
                     }
                 ],
-                "toggleable": true
-            },
-            {
-                "domain": "all",
-                "key": "RollOption",
-                "label": "PF2E.SpecificRule.Barbarian.Spirit.NegativeDamage",
-                "option": "positive-spirit",
-                "predicate": [
+                "suboptions": [
                     {
-                        "not": "positive-spirit"
+                        "label": "PF2E.SpecificRule.Barbarian.Spirit.PositiveDamage",
+                        "value": "positive"
                     },
                     {
-                        "or": [
-                            "class:barbarian",
-                            "feat:instinct-ability"
-                        ]
+                        "label": "PF2E.SpecificRule.Barbarian.Spirit.NegativeDamage",
+                        "value": "negative"
                     }
                 ],
                 "toggleable": true
@@ -72,7 +61,7 @@
                 "key": "AdjustModifier",
                 "mode": "upgrade",
                 "predicate": [
-                    "positive-spirit"
+                    "spirit-instinct:positive"
                 ],
                 "selectors": [
                     "strike-damage"
@@ -85,7 +74,7 @@
                 "key": "AdjustModifier",
                 "mode": "upgrade",
                 "predicate": [
-                    "negative-spirit"
+                    "spirit-instinct:negative"
                 ],
                 "selectors": [
                     "strike-damage"
@@ -126,8 +115,8 @@
                 "predicate": [
                     {
                         "or": [
-                            "negative-spirit",
-                            "positive-spirit"
+                            "spirit-instinct:negative",
+                            "spirit-instinct:positive"
                         ]
                     }
                 ],
