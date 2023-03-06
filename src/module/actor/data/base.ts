@@ -26,7 +26,7 @@ interface BaseActorDataPF2e<
     TActor extends ActorPF2e,
     TType extends ActorType,
     TSource extends BaseActorSourcePF2e<TType>
-> extends Omit<BaseActorSourcePF2e<TType, ActorSystemSource>, "effects" | "items" | "prototypeToken" | "system">,
+> extends Omit<BaseActorSourcePF2e<TType, ActorSystemSource>, "prototypeToken" | "system">,
         foundry.data.ActorData<TActor> {
     readonly _source: TSource;
     readonly type: TType;

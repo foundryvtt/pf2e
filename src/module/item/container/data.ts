@@ -11,7 +11,7 @@ import { ContainerPF2e } from ".";
 
 type ContainerSource = BasePhysicalItemSource<"backpack", ContainerSystemSource>;
 
-type ContainerData = Omit<ContainerSource, "system" | "effects" | "flags"> &
+type ContainerData = Omit<ContainerSource, "system"> &
     BasePhysicalItemData<ContainerPF2e, "backpack", ContainerSystemData, ContainerSource>;
 
 type ContainerTraits = PhysicalItemTraits<EquipmentTrait>;

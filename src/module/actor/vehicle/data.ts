@@ -17,8 +17,9 @@ import { VehicleTrait } from "./types";
 /** The stored source data of a vehicle actor */
 type VehicleSource = BaseActorSourcePF2e<"vehicle", VehicleSystemSource>;
 
-type VehicleData = Omit<VehicleSource, "effects" | "flags" | "items" | "prototypeToken"> &
-    BaseActorDataPF2e<VehiclePF2e, "vehicle", VehicleSource>;
+interface VehicleData
+    extends Omit<VehicleSource, "prototypeToken" | "system" | "type">,
+        BaseActorDataPF2e<VehiclePF2e, "vehicle", VehicleSource> {}
 
 interface VehicleHitPointsData extends Required<BaseHitPointsSource> {
     brokenThreshold: number;

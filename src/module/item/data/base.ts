@@ -2,7 +2,6 @@ import { CreatureTrait } from "@actor/creature";
 import { ActionTrait } from "@item/action";
 import type { ItemPF2e } from "@item/base";
 import { NPCAttackTrait } from "@item/melee";
-import type { ActiveEffectPF2e } from "@module/active-effect";
 import { DocumentSchemaRecord, OneToThree, Rarity } from "@module/data";
 import { RuleElementSource } from "@module/rules";
 import { ItemType } from ".";
@@ -20,12 +19,10 @@ interface BaseItemDataPF2e<
     TType extends ItemType = ItemType,
     TSystemData extends ItemSystemData = ItemSystemData,
     TSource extends BaseItemSourcePF2e<TType> = BaseItemSourcePF2e<TType>
-> extends Omit<BaseItemSourcePF2e<TType, ItemSystemSource>, "system" | "effects">,
-        foundry.data.ItemData<TItem, ActiveEffectPF2e> {
+> extends Omit<BaseItemSourcePF2e<TType, ItemSystemSource>, "flags" | "system">,
+        foundry.data.ItemData<TItem> {
     readonly type: TType;
-    readonly system: TSystemData;
-    flags: ItemFlagsPF2e;
-
+    system: TSystemData;
     readonly _source: TSource;
 }
 
@@ -43,7 +40,7 @@ interface ItemTraits<T extends ItemTrait = ItemTrait> {
     rarity?: Rarity;
 }
 
-interface ItemFlagsPF2e extends foundry.data.ItemFlags {
+interface ItemFlagsPF2e extends foundry.documents.ItemFlags {
     pf2e: {
         rulesSelections: Record<string, string | number | object>;
         itemGrants: Record<string, ItemGrantData>;
@@ -52,7 +49,7 @@ interface ItemFlagsPF2e extends foundry.data.ItemFlags {
     };
 }
 
-interface ItemSourceFlagsPF2e extends DeepPartial<foundry.data.ItemFlags> {
+interface ItemSourceFlagsPF2e extends DeepPartial<foundry.documents.ItemFlags> {
     pf2e?: {
         rulesSelections?: Record<string, string | number | object>;
         itemGrants?: Record<string, ItemGrantSource>;

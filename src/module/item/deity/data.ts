@@ -8,8 +8,7 @@ import { DeityDomain } from "./types";
 
 type DeitySource = BaseItemSourcePF2e<"deity", DeitySystemSource>;
 
-type DeityData = Omit<DeitySource, "system" | "effects" | "flags"> &
-    BaseItemDataPF2e<DeityPF2e, "deity", DeitySystemData, DeitySource>;
+type DeityData = Omit<DeitySource, "system"> & BaseItemDataPF2e<DeityPF2e, "deity", DeitySystemData, DeitySource>;
 
 interface DeitySystemSource extends ItemSystemSource {
     category: "deity" | "pantheon" | "philosophy";

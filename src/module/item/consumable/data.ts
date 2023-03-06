@@ -11,7 +11,7 @@ import { ConsumableTrait, OtherConsumableTag } from "./types";
 
 type ConsumableSource = BasePhysicalItemSource<"consumable", ConsumableSystemSource>;
 
-type ConsumableData = Omit<ConsumableSource, "system" | "effects" | "flags"> &
+type ConsumableData = Omit<ConsumableSource, "system"> &
     BasePhysicalItemData<ConsumablePF2e, "consumable", ConsumableSystemData, ConsumableSource>;
 
 type ConsumableCategory = keyof ConfigPF2e["PF2E"]["consumableTypes"];

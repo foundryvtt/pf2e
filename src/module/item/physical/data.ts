@@ -31,7 +31,7 @@ type BasePhysicalItemData<
     TType extends PhysicalItemType = PhysicalItemType,
     TSystemData extends PhysicalSystemData = PhysicalSystemData,
     TSource extends BasePhysicalItemSource<TType> = BasePhysicalItemSource<TType>
-> = Omit<BasePhysicalItemSource, "system" | "effects" | "flags"> & BaseItemDataPF2e<TItem, TType, TSystemData, TSource>;
+> = Omit<BasePhysicalItemSource, "system"> & BaseItemDataPF2e<TItem, TType, TSystemData, TSource>;
 
 interface PhysicalSystemSource extends ItemSystemSource, ItemLevelData {
     traits: PhysicalItemTraits;

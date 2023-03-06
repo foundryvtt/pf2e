@@ -15,10 +15,7 @@ type MeleeSource = BaseItemSourcePF2e<"melee", MeleeSystemSource> & {
     flags: DeepPartial<MeleeFlags>;
 };
 
-type MeleeData = Omit<MeleeSource, "system" | "effects" | "flags"> &
-    BaseItemDataPF2e<MeleePF2e, "melee", MeleeSystemData, MeleeSource> & {
-        flags: MeleeFlags;
-    };
+type MeleeData = Omit<MeleeSource, "system"> & BaseItemDataPF2e<MeleePF2e, "melee", MeleeSystemData, MeleeSource>;
 
 type MeleeFlags = ItemFlagsPF2e & {
     pf2e: {
@@ -63,4 +60,4 @@ type NPCAttackDamage = Required<NPCAttackDamageSource>;
 export type NPCAttackTrait = keyof ConfigPF2e["PF2E"]["npcAttackTraits"];
 export type NPCAttackTraits = ItemTraits<NPCAttackTrait>;
 
-export { NPCAttackDamage, MeleeData, MeleeSource, MeleeSystemData, MeleeSystemSource };
+export { NPCAttackDamage, MeleeData, MeleeFlags, MeleeSource, MeleeSystemData, MeleeSystemSource };
