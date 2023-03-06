@@ -249,9 +249,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             systemData.damage.modifier ||= systemData.damage.dice;
         }
 
-        // This method checks data on the actor that may not yet be initialized:
-        // use the item's initialization status as a proxy check
-        if (this.initialized) ABP.cleanupRunes(this);
+        ABP.cleanupRunes(this);
 
         const traitsArray = systemData.traits.value;
         // Thrown weapons always have a reload of "-"
