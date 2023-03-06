@@ -4,9 +4,8 @@ import { SkillAbbreviation } from "@actor/creature/data";
 import { ActorSizePF2e } from "@actor/data/size";
 import { StatisticModifier } from "@actor/modifiers";
 import { AbilityString, ActorAlliance } from "@actor/types";
-import { ConsumablePF2e, ItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
+import { ConsumablePF2e, MeleePF2e, WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
-import type { ActiveEffectPF2e } from "@module/active-effect";
 import { DocumentSchemaRecord, Rarity, Size, ValueAndMaybeMax, ZeroToTwo } from "@module/data";
 import { CombatantPF2e } from "@module/encounter";
 import { AutoChangeEntry } from "@module/rules/rule-element/ae-like";
@@ -17,28 +16,24 @@ import { ActorType } from ".";
 import { ImmunityData, ImmunitySource, ResistanceData, ResistanceSource, WeaknessData, WeaknessSource } from "./iwr";
 
 /** Base interface for all actor data */
-interface BaseActorSourcePF2e<
-    TType extends ActorType = ActorType,
-    TSystemSource extends ActorSystemSource = ActorSystemSource
-> extends foundry.data.ActorSource<TType, TSystemSource, ItemSourcePF2e> {
+interface BaseActorSourcePF2e<TType extends ActorType, TSystemSource extends ActorSystemSource = ActorSystemSource>
+    extends foundry.data.ActorSource<TType, TSystemSource, ItemSourcePF2e> {
     flags: DeepPartial<ActorFlagsPF2e>;
     prototypeToken: PrototypeTokenSourcePF2e;
 }
 
 interface BaseActorDataPF2e<
-    TActor extends ActorPF2e = ActorPF2e,
-    TType extends ActorType = ActorType,
-    TSource extends BaseActorSourcePF2e<TType> = BaseActorSourcePF2e<TType>
+    TActor extends ActorPF2e,
+    TType extends ActorType,
+    TSource extends BaseActorSourcePF2e<TType>
 > extends Omit<BaseActorSourcePF2e<TType, ActorSystemSource>, "effects" | "items" | "prototypeToken" | "system">,
-        foundry.data.ActorData<TActor, ActiveEffectPF2e, ItemPF2e> {
-    readonly type: TType;
-
-    token: PrototypeTokenPF2e;
-
+        foundry.data.ActorData<TActor> {
     readonly _source: TSource;
+    readonly type: TType;
+    token: PrototypeTokenPF2e;
 }
 
-interface ActorFlagsPF2e extends foundry.data.ActorFlags {
+interface ActorFlagsPF2e extends foundry.documents.ActorFlags {
     pf2e: {
         rollOptions: RollOptionFlags;
         [key: string]: unknown;

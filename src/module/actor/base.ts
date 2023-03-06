@@ -637,6 +637,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         this.preparingEmbeds = true;
         super.prepareEmbeddedDocuments();
         this.preparingEmbeds = false;
+
         const physicalItems: Embedded<PhysicalItemPF2e>[] = this.items.filter(
             (item) => item instanceof PhysicalItemPF2e
         );
