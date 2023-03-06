@@ -28,9 +28,6 @@ import { UUIDUtils } from "@util/uuid-utils";
 
 /** Override and extend the basic :class:`Item` implementation */
 class ItemPF2e extends Item<ActorPF2e> {
-    /** Has this item gone through at least one cycle of data preparation? */
-    protected initialized?: true;
-
     /** Prepared rule elements from this item */
     rules!: RuleElementPF2e[];
 
@@ -183,13 +180,18 @@ class ItemPF2e extends Item<ActorPF2e> {
     protected override _initialize(): void {
         this.rules = [];
         super._initialize();
-        this.initialized = true;
     }
 
-    /** Refresh the Item Directory if this item isn't owned */
     override prepareData(): void {
+        // If embedded, don't prepare data if not requested by this item's actor
+        if (this.parent?.items?.get(this.id) === this && !this.parent.preparingEmbeds) {
+            return;
+        }
+
         super.prepareData();
-        if (!this.isOwned && ui.items && this.initialized) ui.items.render();
+
+        // Refresh the Item Directory if this item isn't embedded
+        if (!this.isOwned && game.ready) ui.items.render();
     }
 
     /** Ensure the presence of the pf2e flag scope with default properties and values */
