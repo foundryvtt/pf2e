@@ -30,9 +30,10 @@ class EquipmentPF2e extends PhysicalItemPF2e {
         this: Embedded<EquipmentPF2e>,
         htmlOptions: EnrichHTMLOptions = {}
     ): Promise<ItemSummaryData> {
-        const data = this.system;
-        const traits = this.traitChatData(CONFIG.PF2E.equipmentTraits);
-        return this.processChatData(htmlOptions, { ...data, traits });
+        return this.processChatData(htmlOptions, {
+            ...(await super.getChatData()),
+            traits: this.traitChatData(CONFIG.PF2E.equipmentTraits),
+        });
     }
 
     override generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {

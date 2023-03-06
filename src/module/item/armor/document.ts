@@ -217,7 +217,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
         ];
 
         return this.processChatData(htmlOptions, {
-            ...super.getChatData(),
+            ...(await super.getChatData()),
             traits: this.traitChatData(CONFIG.PF2E.armorTraits),
             properties,
         });
