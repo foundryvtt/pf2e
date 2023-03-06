@@ -258,7 +258,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const actorData = sheetData.actor;
 
         // Actions
-        type AnnotatedAction = RawObject<ActionItemPF2e["data"]> & {
+        type AnnotatedAction = ActionItemPF2e & {
             encounter?: boolean;
             exploration?: boolean;
             downtime?: boolean;

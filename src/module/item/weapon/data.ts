@@ -30,8 +30,7 @@ type WeaponSource = BasePhysicalItemSource<"weapon", WeaponSystemSource> & {
     flags: DeepPartial<WeaponFlags>;
 };
 
-type WeaponData = Omit<WeaponSource, "system"> &
-    BasePhysicalItemData<WeaponPF2e, "weapon", WeaponSystemData, WeaponSource>;
+type WeaponData = Omit<WeaponSource, "system"> & BasePhysicalItemData<WeaponPF2e, "weapon", WeaponSource>;
 
 type WeaponFlags = ItemFlagsPF2e & {
     pf2e: {

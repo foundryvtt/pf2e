@@ -29,7 +29,7 @@ export class FakeItem {
     }
 
     get level(): number | null {
-        return "level" in this.system! ? this.system.level.value : null;
+        return this.system.level?.value ?? null;
     }
 
     get traits(): Set<string> {

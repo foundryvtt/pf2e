@@ -1,6 +1,6 @@
 import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect";
 import { UserPF2e } from "@module/user";
-import { AfflictionData, AfflictionFlags } from "./data";
+import { AfflictionData, AfflictionFlags, AfflictionSystemData } from "./data";
 
 class AfflictionPF2e extends AbstractEffectPF2e {
     override get badge(): EffectBadge {
@@ -53,6 +53,7 @@ class AfflictionPF2e extends AbstractEffectPF2e {
 interface AfflictionPF2e extends AbstractEffectPF2e {
     flags: AfflictionFlags;
     readonly data: AfflictionData;
+    system: AfflictionSystemData;
 }
 
 export { AfflictionPF2e };

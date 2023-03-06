@@ -7,23 +7,16 @@ import { RuleElementSource } from "@module/rules";
 import { ItemType } from ".";
 import { PhysicalItemTrait } from "../physical/data";
 
-interface BaseItemSourcePF2e<
-    TType extends ItemType = ItemType,
-    TSystemSource extends ItemSystemSource = ItemSystemSource
-> extends foundry.data.ItemSource<TType, TSystemSource> {
+interface BaseItemSourcePF2e<TType extends ItemType, TSystemSource extends ItemSystemSource = ItemSystemSource>
+    extends foundry.data.ItemSource<TType, TSystemSource> {
     flags: ItemSourceFlagsPF2e;
 }
 
-interface BaseItemDataPF2e<
-    TItem extends ItemPF2e = ItemPF2e,
-    TType extends ItemType = ItemType,
-    TSystemData extends ItemSystemData = ItemSystemData,
-    TSource extends BaseItemSourcePF2e<TType> = BaseItemSourcePF2e<TType>
-> extends Omit<BaseItemSourcePF2e<TType, ItemSystemSource>, "flags" | "system">,
+interface BaseItemDataPF2e<TItem extends ItemPF2e, TType extends ItemType, TSource extends BaseItemSourcePF2e<TType>>
+    extends Omit<BaseItemSourcePF2e<TType, ItemSystemSource>, "flags" | "system">,
         foundry.data.ItemData<TItem> {
-    readonly type: TType;
-    system: TSystemData;
     readonly _source: TSource;
+    readonly type: TType;
 }
 
 type ItemTrait = ActionTrait | CreatureTrait | PhysicalItemTrait | NPCAttackTrait;
@@ -67,13 +60,8 @@ interface ItemGrantSource {
 
 type ItemGrantDeleteAction = "cascade" | "detach" | "restrict";
 
-interface ItemLevelData {
-    level: {
-        value: number;
-    };
-}
-
 interface ItemSystemSource {
+    level?: { value: number };
     description: {
         gm: string;
         value: string;
@@ -114,7 +102,6 @@ export {
     ItemGrantData,
     ItemGrantDeleteAction,
     ItemGrantSource,
-    ItemLevelData,
     ItemSystemData,
     ItemSystemSource,
     ItemTrait,

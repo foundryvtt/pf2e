@@ -37,14 +37,14 @@ declare module foundry {
                 insertKeys?: boolean;
                 insertValues?: boolean;
                 enforceTypes?: boolean;
-            }): this["data"]["system"];
+            }): this["system"];
         }
 
         interface BaseItem {
             flags: ItemFlags;
             readonly data: data.ItemData<BaseItem>;
             readonly parent: BaseActor | null;
-            system: this["data"]["system"];
+            system: object;
 
             get documentName(): (typeof BaseItem)["metadata"]["name"];
         }

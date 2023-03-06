@@ -1,6 +1,6 @@
 import { ABCItemPF2e, FeatPF2e, ItemPF2e } from "@item";
 import { OneToFour } from "@module/data";
-import { BackgroundData } from "./data";
+import { BackgroundData, BackgroundSystemData } from "./data";
 
 class BackgroundPF2e extends ABCItemPF2e {
     /** Set a skill feat granted by a GrantItem RE as one of this background's configured items */
@@ -49,6 +49,7 @@ class BackgroundPF2e extends ABCItemPF2e {
 
 interface BackgroundPF2e extends ABCItemPF2e {
     readonly data: BackgroundData;
+    system: BackgroundSystemData;
 }
 
 export { BackgroundPF2e };

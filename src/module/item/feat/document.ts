@@ -1,5 +1,5 @@
 import { ItemPF2e } from "..";
-import { FeatData, FeatSource, FeatTrait, FeatType } from "./data";
+import { FeatData, FeatSource, FeatSystemData, FeatTrait, FeatType } from "./data";
 import { OneToThree } from "@module/data";
 import { UserPF2e } from "@module/user";
 import { sluggify } from "@util";
@@ -226,6 +226,7 @@ class FeatPF2e extends ItemPF2e {
 
 interface FeatPF2e extends ItemPF2e {
     readonly data: FeatData;
+    system: FeatSystemData;
 }
 
 export { FeatPF2e };

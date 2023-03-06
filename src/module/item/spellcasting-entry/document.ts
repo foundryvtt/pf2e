@@ -8,7 +8,7 @@ import { UserPF2e } from "@module/user";
 import { Statistic } from "@system/statistic";
 import { ErrorPF2e, setHasElement, sluggify } from "@util";
 import { SpellCollection } from "./collection";
-import { SpellcastingEntryData } from "./data";
+import { SpellcastingEntryData, SpellcastingEntrySystemData } from "./data";
 import {
     SpellcastingCategory,
     SpellcastingEntry,
@@ -326,6 +326,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
 
 interface SpellcastingEntryPF2e extends ItemPF2e {
     readonly data: SpellcastingEntryData;
+    system: SpellcastingEntrySystemData;
 }
 
 export { SpellcastingEntryPF2e };

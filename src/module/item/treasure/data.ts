@@ -8,8 +8,9 @@ import { TreasurePF2e } from ".";
 
 type TreasureSource = BasePhysicalItemSource<"treasure", TreasureSystemSource>;
 
-type TreasureData = Omit<TreasureSource, "system"> &
-    BasePhysicalItemData<TreasurePF2e, "treasure", TreasureSystemData, TreasureSource>;
+interface TreasureData
+    extends Omit<TreasureSource, "flags" | "system" | "type">,
+        BasePhysicalItemData<TreasurePF2e, "treasure", TreasureSource> {}
 
 type TreasureSystemSource = PhysicalSystemSource;
 type TreasureSystemData = PhysicalSystemData & {

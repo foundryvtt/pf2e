@@ -22,7 +22,6 @@ import type { SpellcastingEntryData, SpellcastingEntrySource } from "@item/spell
 import type { TreasureData, TreasureSource } from "@item/treasure/data";
 import type { WeaponData, WeaponSource } from "@item/weapon/data";
 import { PROFICIENCY_RANKS } from "@module/data";
-import { PhysicalItemTraits } from "../physical/data";
 
 type ProficiencyRank = (typeof PROFICIENCY_RANKS)[number];
 
@@ -46,15 +45,14 @@ type NonPhysicalItemType =
 type ItemType = NonPhysicalItemType | PhysicalItemType;
 
 /** Actual physical items which you carry (as opposed to feats, lore, proficiencies, statuses, etc). */
-type PhysicalItemData = { system: { traits: PhysicalItemTraits } } & (
+type PhysicalItemData =
     | ArmorData
     | BookData
     | ConsumableData
     | ContainerData
     | EquipmentData
     | TreasureData
-    | WeaponData
-);
+    | WeaponData;
 type MagicItemData = Exclude<PhysicalItemData, ConsumableData | TreasureData>;
 type MagicItemSource = Exclude<PhysicalItemSource, ConsumableSource | TreasureSource>;
 

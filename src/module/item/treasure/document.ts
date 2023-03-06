@@ -1,7 +1,7 @@
 import { ItemSummaryData } from "@item/data";
 import { PhysicalItemPF2e } from "@item/physical";
 import { DENOMINATIONS } from "@item/physical/values";
-import { TreasureData } from "./data";
+import { TreasureData, TreasureSystemData } from "./data";
 
 class TreasurePF2e extends PhysicalItemPF2e {
     get isCoinage(): boolean {
@@ -35,6 +35,7 @@ class TreasurePF2e extends PhysicalItemPF2e {
 
 interface TreasurePF2e extends PhysicalItemPF2e {
     readonly data: TreasureData;
+    system: TreasureSystemData;
 }
 
 export { TreasurePF2e };

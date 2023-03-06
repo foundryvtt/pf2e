@@ -2,7 +2,7 @@ import { ItemSummaryData } from "@item/data";
 import { PhysicalItemPF2e } from "@item/physical";
 import { LocalizePF2e } from "@module/system/localize";
 import { objectHasKey, sluggify } from "@util";
-import { EquipmentData, EquipmentTrait } from "./data";
+import { EquipmentData, EquipmentSystemData, EquipmentTrait } from "./data";
 import { OtherEquipmentTag } from "./types";
 
 class EquipmentPF2e extends PhysicalItemPF2e {
@@ -57,6 +57,7 @@ class EquipmentPF2e extends PhysicalItemPF2e {
 
 interface EquipmentPF2e extends PhysicalItemPF2e {
     readonly data: EquipmentData;
+    system: EquipmentSystemData;
 
     get traits(): Set<EquipmentTrait>;
 }

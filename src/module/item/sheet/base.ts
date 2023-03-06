@@ -82,7 +82,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         options.editable = this.isEditable;
 
         const item = this.item.clone({}, { keepId: true });
-        const itemData = item.toObject(false) as unknown as TItem["data"];
+        const itemData = item.toObject(false) as unknown as TItem;
         const rules = this.item.toObject().system.rules;
 
         // Enrich content
