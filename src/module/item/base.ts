@@ -25,6 +25,7 @@ import { PhysicalItemPF2e } from "./physical/document";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values";
 import { ItemSheetPF2e } from "./sheet/base";
 import { UUIDUtils } from "@util/uuid-utils";
+import { ItemFlagsPF2e } from "./data/base";
 
 /** Override and extend the basic :class:`Item` implementation */
 class ItemPF2e extends Item<ActorPF2e> {
@@ -682,8 +683,8 @@ class ItemPF2e extends Item<ActorPF2e> {
 }
 
 interface ItemPF2e extends Item<ActorPF2e> {
+    flags: ItemFlagsPF2e;
     readonly data: ItemDataPF2e;
-
     readonly parent: ActorPF2e | null;
 
     _sheet: ItemSheetPF2e<this> | null;
@@ -691,7 +692,6 @@ interface ItemPF2e extends Item<ActorPF2e> {
     get sheet(): ItemSheetPF2e<this>;
 
     prepareSiblingData?(this: Embedded<ItemPF2e>): void;
-
     prepareActorData?(this: Embedded<ItemPF2e>): void;
 
     /** Returns items that should also be added when this item is created */

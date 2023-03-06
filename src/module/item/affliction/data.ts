@@ -16,10 +16,8 @@ type AfflictionSource = BaseItemSourcePF2e<"affliction", AfflictionSystemSource>
     flags: DeepPartial<AfflictionFlags>;
 };
 
-type AfflictionData = Omit<AfflictionSource, "system" | "effects" | "flags"> &
-    BaseItemDataPF2e<AfflictionPF2e, "affliction", AfflictionSystemData, AfflictionSource> & {
-        flags: AfflictionFlags;
-    };
+type AfflictionData = Omit<AfflictionSource, "system"> &
+    BaseItemDataPF2e<AfflictionPF2e, "affliction", AfflictionSystemData, AfflictionSource>;
 
 type AfflictionFlags = ItemFlagsPF2e & {
     pf2e: {
@@ -77,6 +75,7 @@ export {
     AfflictionConditionData,
     AfflictionDamage,
     AfflictionData,
+    AfflictionFlags,
     AfflictionOnset,
     AfflictionSource,
     AfflictionStageData,

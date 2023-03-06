@@ -4,8 +4,7 @@ import type { LorePF2e } from ".";
 
 type LoreSource = BaseItemSourcePF2e<"lore", LoreSystemSource>;
 
-type LoreData = Omit<LoreSource, "system" | "effects" | "flags"> &
-    BaseItemDataPF2e<LorePF2e, "lore", LoreSystemData, LoreSource>;
+type LoreData = Omit<LoreSource, "system"> & BaseItemDataPF2e<LorePF2e, "lore", LoreSystemData, LoreSource>;
 
 interface LoreSystemSource extends ItemSystemSource {
     mod: {
