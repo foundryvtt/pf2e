@@ -941,13 +941,15 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         domain: string,
         option: string,
         itemId?: string | null,
-        value?: boolean
+        value?: boolean,
+        suboption?: string | null
     ): Promise<boolean | null>;
     async toggleRollOption(
         domain: string,
         option: string,
         itemId: string | boolean | null = null,
-        value?: boolean
+        value?: boolean,
+        suboption: string | null = null
     ): Promise<boolean | null> {
         // Backward compatibility
         value = typeof itemId === "boolean" ? itemId : value ?? !this.rollOptions[domain]?.[option];
@@ -959,14 +961,14 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 (r): r is RollOptionRuleElement =>
                     r instanceof RollOptionRuleElement && r.domain === domain && r.option === option
             );
-            return rule?.toggle(value) ?? null;
+            return rule?.toggle(value, suboption) ?? null;
         } else {
             // Less precise: no item ID is provided, so find the rule on the actor
             const rule = this.rules.find(
                 (r): r is RollOptionRuleElement =>
                     r instanceof RollOptionRuleElement && r.domain === domain && r.option === option
             );
-            return rule?.toggle(value) ?? null;
+            return rule?.toggle(value, suboption) ?? null;
         }
     }
 

@@ -260,15 +260,18 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             }
         });
 
-        const toggles = htmlQueryAll<HTMLInputElement>(html, "input[type=checkbox][data-action=toggle-roll-option]");
-        for (const toggle of toggles) {
-            toggle.addEventListener("change", async () => {
-                const { domain, option, itemId } = toggle.dataset;
-                if (domain && option) {
-                    this.actor.toggleRollOption(domain, option, itemId ?? null, toggle.checked);
-                }
-            });
-        }
+        // Set listener toggles and their suboptions
+        const togglesArea = htmlQuery(html, ".actions-options");
+        togglesArea?.addEventListener("change", (event) => {
+            const toggleRow = htmlClosest(event.target, ".item[data-item-id]");
+            const checkbox = htmlQuery<HTMLInputElement>(toggleRow, "input[data-action=toggle-roll-option]");
+            const suboptionsSelect = htmlQuery<HTMLSelectElement>(toggleRow, "select[data-action=set-suboption");
+            const { domain, option, itemId } = checkbox?.dataset ?? {};
+            const suboption = suboptionsSelect?.value ?? null;
+            if (checkbox && domain && option) {
+                this.actor.toggleRollOption(domain, option, itemId ?? null, checkbox.checked, suboption);
+            }
+        });
 
         // Roll Attribute Checks
         $html.find(".attribute-name").on("click", (event) => {
