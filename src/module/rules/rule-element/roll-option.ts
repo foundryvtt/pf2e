@@ -64,6 +64,12 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     static override defineSchema(): RollOptionSchema {
         return {
             ...super.defineSchema(),
+            scope: new fields.StringField({
+                required: false,
+                nullable: false,
+                initial: "actions-tab",
+                choices: ["actions-tab"],
+            }),
             domain: new fields.StringField({
                 required: true,
                 nullable: false,
@@ -180,6 +186,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                 const toggle: RollOptionToggle = {
                     itemId: this.item.id,
                     label,
+                    scope: this.scope,
                     domain: this.domain,
                     option,
                     suboptions: this.suboptions,
@@ -281,6 +288,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
 interface RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema>, ModelPropsFromSchema<RollOptionSchema> {}
 
 type RollOptionSchema = RuleElementSchema & {
+    scope: StringField<string, string, false, false, true>;
     domain: StringField<string, string, true, false, true>;
     option: StringField<string, string, true, false, false>;
     /** Suboptions for a toggle, appended to the option string */
@@ -305,6 +313,7 @@ type SuboptionData = {
 };
 
 interface RollOptionSource extends RuleElementSource {
+    scope?: unknown;
     domain?: unknown;
     option?: unknown;
     toggleable?: unknown;

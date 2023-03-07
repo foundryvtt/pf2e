@@ -11,19 +11,21 @@
                     {{#if toggles}}
                         <div class="actions-options item-list">
                             {{#each toggles as |toggle idx|}}
-                                <div class="actions-option item"{{#if toggle.itemId}} data-item-id="{{toggle.itemId}}"{{/if}} >
-                                    <label>
-                                        <input type="checkbox" data-action="toggle-roll-option"{{#if toggle.itemId}} data-item-id="{{toggle.itemId}}"{{/if}} data-domain="{{toggle.domain}}" data-option="{{toggle.option}}" {{disabled (not toggle.enabled)}} {{checked toggle.checked}} />
-                                        <span{{#if (not (or toggle.checked toggle.enabled))}} class="unchecked-disabled"{{/if}}>{{localize toggle.label}}</span>
-                                        {{#if toggle.suboptions}}
-                                            <select data-action="set-suboption">
-                                                {{#each toggle.suboptions as |suboption|}}
-                                                    <option value="{{suboption.value}}"{{#if suboption.selected}} selected{{/if}}>{{localize suboption.label}}</option>
-                                                {{/each}}
-                                            </select>
-                                        {{/if}}
-                                    </label>
-                                </div>
+                                {{#if (or (not toggle.scope) (eq toggle.scope "actions-tab"))}}
+                                    <div class="actions-option item"{{#if toggle.itemId}} data-item-id="{{toggle.itemId}}"{{/if}} data-scope="{{toggle.scope}}">
+                                        <label>
+                                            <input type="checkbox" data-action="toggle-roll-option"{{#if toggle.itemId}} data-item-id="{{toggle.itemId}}"{{/if}} data-domain="{{toggle.domain}}" data-option="{{toggle.option}}" {{disabled (not toggle.enabled)}} {{checked toggle.checked}} />
+                                            <span{{#if (not (or toggle.checked toggle.enabled))}} class="unchecked-disabled"{{/if}}>{{localize toggle.label}}</span>
+                                            {{#if toggle.suboptions}}
+                                                <select data-action="set-suboption">
+                                                    {{#each toggle.suboptions as |suboption|}}
+                                                        <option value="{{suboption.value}}"{{#if suboption.selected}} selected{{/if}}>{{localize suboption.label}}</option>
+                                                    {{/each}}
+                                                </select>
+                                            {{/if}}
+                                        </label>
+                                    </div>
+                                {{/if}}
                             {{/each}}
                         </div>
                     {{/if}}
