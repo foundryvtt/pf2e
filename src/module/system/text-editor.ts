@@ -327,11 +327,11 @@ class TextEditorPF2e extends TextEditor {
             return locKey
                 ? game.i18n.localize(locKey)
                 : params.type
-                    .split("-")
-                    .map((word) => {
-                        return word.slice(0, 1).toUpperCase() + word.slice(1);
-                    })
-                    .join(" ");
+                      .split("-")
+                      .map((word) => {
+                          return word.slice(0, 1).toUpperCase() + word.slice(1);
+                      })
+                      .join(" ");
         })();
 
         // Build the inline link
