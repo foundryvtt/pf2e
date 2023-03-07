@@ -1,7 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { ModifierPF2e } from "@actor/modifiers";
 import { ActorSheetPF2e } from "@actor/sheet/base";
-import { SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
 import { ItemSystemData } from "@item/data/base";
 import { ChatMessagePF2e } from "@module/chat-message";
@@ -317,20 +316,28 @@ class TextEditorPF2e extends TextEditor {
         // Deduplicate traits
         const allTraits = Array.from(new Set(traits));
 
+        const displayType = (() => {
+            const locKey = objectHasKey(CONFIG.PF2E.saves, params.type)
+                ? CONFIG.PF2E.saves[params.type]
+                : objectHasKey(CONFIG.PF2E.skills, params.type)
+                ? CONFIG.PF2E.skills[params.type]
+                : objectHasKey(CONFIG.PF2E.skillList, params.type)
+                ? CONFIG.PF2E.skillList[params.type]
+                : null;
+            return locKey
+                ? game.i18n.localize(locKey)
+                : params.type
+                    .split("-")
+                    .map((word) => {
+                        return word.slice(0, 1).toUpperCase() + word.slice(1);
+                    })
+                    .join(" ");
+        })();
+
         // Build the inline link
         const html = document.createElement("span");
         html.setAttribute("data-pf2-traits", `${allTraits}`);
-        const name =
-            params.name ??
-            item?.name ??
-            (() => {
-                const locKey = objectHasKey(CONFIG.PF2E.saves, params.type)
-                    ? CONFIG.PF2E.saves[params.type]
-                    : objectHasKey(CONFIG.PF2E.skillList, params.type)
-                    ? CONFIG.PF2E.skillList[params.type]
-                    : null;
-                return locKey ? game.i18n.localize(locKey) : params.type;
-            })();
+        const name = params.name ?? item?.name ?? displayType;
         html.setAttribute("data-pf2-label", game.i18n.format("PF2E.InlineCheck.DCWithName", { name }));
         html.setAttribute("data-pf2-repost-flavor", name);
         const role = params.showDC ?? "owner";
@@ -349,34 +356,17 @@ class TextEditorPF2e extends TextEditor {
             case "fortitude":
             case "reflex":
             case "will": {
-                const saveName = game.i18n.localize(CONFIG.PF2E.saves[params.type]);
                 const saveLabel =
                     params.basic === "true"
-                        ? game.i18n.format("PF2E.InlineCheck.BasicWithSave", { save: saveName })
-                        : saveName;
+                        ? game.i18n.format("PF2E.InlineCheck.BasicWithSave", { save: displayType })
+                        : displayType;
                 html.innerHTML = inlineLabel ?? saveLabel;
                 html.setAttribute("data-pf2-check", params.type);
                 break;
             }
             default: {
                 // Skill or Lore
-                const shortForm = (() => {
-                    if (objectHasKey(SKILL_EXPANDED, params.type)) {
-                        return SKILL_EXPANDED[params.type].shortform;
-                    } else if (objectHasKey(SKILL_DICTIONARY, params.type)) {
-                        return params.type;
-                    }
-                    return;
-                })();
-                const skillLabel = shortForm
-                    ? game.i18n.localize(CONFIG.PF2E.skills[shortForm])
-                    : params.type
-                          .split("-")
-                          .map((word) => {
-                              return word.slice(0, 1).toUpperCase() + word.slice(1);
-                          })
-                          .join(" ");
-                html.innerHTML = inlineLabel ?? skillLabel;
+                html.innerHTML = inlineLabel ?? displayType;
                 html.setAttribute("data-pf2-check", params.type);
             }
         }
