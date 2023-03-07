@@ -21,7 +21,51 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.TraitRage",
+                "predicate": [
+                    "self:effect:rage",
+                    {
+                        "or": [
+                            {
+                                "not": "ranged"
+                            },
+                            {
+                                "and": [
+                                    "feat:raging-thrower",
+                                    "thrown"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "rage",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "multiply",
+                "predicate": [
+                    "item:trait:agile"
+                ],
+                "priority": 95,
+                "selector": "strike-damage",
+                "slug": "rage",
+                "value": 0.5
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.TraitRage",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "selector": "ac",
+                "value": -1
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
