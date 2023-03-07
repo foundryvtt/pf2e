@@ -43,6 +43,7 @@ class SlugField<
     THasInitial extends boolean = true
 > extends fields.StringField<string, string, TRequired, TNullable, THasInitial> {
     constructor(options: SlugFieldOptions<TRequired, TNullable, THasInitial> = {}) {
+        options.blank = false;
         options.camel ??= null;
         super(options);
     }
