@@ -1,22 +1,24 @@
-{{#if (or item.system.traits item.isIdentified)}}
-    <div class="tags item-properties">
-        {{#if rarityLabel}}
-            <span class="tag {{item.system.traits.rarity}}">{{localize rarityLabel}}</span>
-        {{/if}}
-        {{#each chatData.traits as |trait|}}
-            <span class="tag" data-tooltip="{{trait.description}}">{{localize trait.label}}</span>
-        {{/each}}
-        {{#each chatData.properties as |property|}}
-            <span class="tag tag_secondary">{{localize property}}</span>
-        {{/each}}
-    </div>
-{{/if}}
+{{#if identified}}
+    {{#if item.system.traits}}
+        <div class="tags item-properties">
+            {{#if rarityLabel}}
+                <span class="tag {{item.system.traits.rarity}}">{{localize rarityLabel}}</span>
+            {{/if}}
+            {{#each chatData.traits as |trait|}}
+                <span class="tag" data-tooltip="{{trait.description}}">{{localize trait.label}}</span>
+            {{/each}}
+            {{#each chatData.properties as |property|}}
+                <span class="tag tag_secondary">{{localize property}}</span>
+            {{/each}}
+        </div>
+    {{/if}}
 
-{{#if item.price}}
-<section>
-    <div>{{localize "PF2E.LevelN" level=item.level}}</div>
-    <div>{{localize "PF2E.Item.Physical.PriceLabel" price=item.price.value}}</div>
-</section>
+    {{#if item.price}}
+        <section>
+            <div>{{localize "PF2E.LevelN" level=item.level}}</div>
+            <div>{{localize "PF2E.Item.Physical.PriceLabel" price=item.price.value}}</div>
+        </section>
+    {{/if}}
 {{/if}}
 
 <div class="item-description">

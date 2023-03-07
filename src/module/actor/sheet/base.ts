@@ -1,7 +1,7 @@
 import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { RollFunction, StrikeData } from "@actor/data/base";
 import { SAVE_TYPES } from "@actor/values";
-import { ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
+import { AbstractEffectPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
@@ -447,6 +447,40 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 }
             }
         });
+
+        // Decrease effect value
+        for (const effectDecrement of htmlQueryAll(html, ".effects-list .decrement")) {
+            effectDecrement.addEventListener("click", (event) => {
+                const parent = htmlClosest(event.currentTarget, ".item");
+                const effect = this.actor.items.get(parent?.dataset.itemId ?? "");
+                if (effect instanceof AbstractEffectPF2e) {
+                    effect.decrease();
+                }
+            });
+        }
+
+        // Increase effect value
+        for (const effectIncrement of htmlQueryAll(html, ".effects-list .increment")) {
+            effectIncrement.addEventListener("click", (event) => {
+                const parent = htmlClosest(event.currentTarget, ".item");
+                const effect = this.actor?.items.get(parent?.dataset.itemId ?? "");
+                if (effect instanceof AbstractEffectPF2e) {
+                    effect.increase();
+                }
+            });
+        }
+
+        // Change whether an effect is secret to players or not
+        for (const element of htmlQueryAll(html, ".effects-list [data-action=effect-toggle-unidentified]") ?? []) {
+            element.addEventListener("click", async (event) => {
+                const effectId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
+                const effect = this.actor.items.get(effectId, { strict: true });
+                if (effect.isOfType("effect")) {
+                    const isUnidentified = effect.system.unidentified;
+                    await effect.update({ "system.unidentified": !isUnidentified });
+                }
+            });
+        }
 
         // Delete Inventory Item
         $html.find(".item-delete").on("click", (event) => this.onClickDeleteItem(event));
