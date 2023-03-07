@@ -876,9 +876,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 ui.notifications.error(translations.ErrorMessage.NoUpdatePermission);
                 return [];
             } else {
-                const updated = await actor.increaseCondition(itemSource.system.slug, {
-                    min: itemSource.system.value.value,
-                });
+                const updated = await actor.increaseCondition(itemSource.system.slug, { value });
                 return [updated ?? []].flat();
             }
         } else if (itemSource.type === "effect" || itemSource.type === "affliction") {

@@ -206,9 +206,7 @@ export class StatusEffects {
                 continue;
             }
 
-            const condition = actor.itemTypes.condition.find(
-                (c) => c.slug === slug && c.isInHUD && !c.system.references.parent
-            );
+            const condition = actor.itemTypes.condition.find((c) => c.slug === slug && c.isInHUD && !c.isLocked);
 
             if (event.type === "click") {
                 if (typeof condition?.value === "number") {
