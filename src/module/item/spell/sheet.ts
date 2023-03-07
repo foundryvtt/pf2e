@@ -2,7 +2,16 @@ import { SpellPF2e } from "@item/spell";
 import { ItemSheetPF2e } from "../sheet/base";
 import { ItemSheetDataPF2e } from "../sheet/data-types";
 import { SpellDamage, SpellHeighteningInterval, SpellSystemData } from "./data";
-import { ErrorPF2e, fontAwesomeIcon, getActionGlyph, objectHasKey, pick, tagify, tupleHasValue } from "@util";
+import {
+    ErrorPF2e,
+    fontAwesomeIcon,
+    getActionGlyph,
+    htmlQueryAll,
+    objectHasKey,
+    pick,
+    tagify,
+    tupleHasValue,
+} from "@util";
 import { OneToTen } from "@module/data";
 import { DamageCategoryUnique } from "@system/damage/types";
 import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values";
@@ -15,6 +24,7 @@ const spellOverridable: Partial<Record<keyof SpellSystemData, string>> = {
     area: "PF2E.AreaLabel",
     range: "PF2E.SpellRangeLabel",
     damage: "PF2E.DamageLabel",
+    critical: "PF2E.CriticalDamageLabel",
 };
 
 const DEFAULT_INTERVAL_SCALING: SpellHeighteningInterval = {
@@ -129,7 +139,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
         $html.find("[data-action=damage-create]").on("click", (event) => {
             event.preventDefault();
-            const overlayData = this.getOverlayFromEvent(event);
+            const overlayData = this.#getOverlayFromElement(event.target);
             const baseKey = overlayData?.base ?? "system";
             const emptyDamage: SpellDamage = { value: "", type: { value: "bludgeoning", categories: [] } };
             this.item.update({ [`${baseKey}.damage.value.${randomID()}`]: emptyDamage });
@@ -137,7 +147,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
         $html.find("[data-action=damage-delete]").on("click", (event) => {
             event.preventDefault();
-            const overlayData = this.getOverlayFromEvent(event);
+            const overlayData = this.#getOverlayFromElement(event.target);
             const baseKey = overlayData?.base ?? "data";
             const id = $(event.target).closest("[data-action=damage-delete]").attr("data-id");
             if (id) {
@@ -151,7 +161,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
         $html.find("[data-action=heightening-interval-create]").on("click", (event) => {
             event.preventDefault();
-            const baseKey = this.getOverlayFromEvent(event)?.base ?? "data";
+            const baseKey = this.#getOverlayFromElement(event.target)?.base ?? "data";
             this.item.update({ [`${baseKey}.heightening`]: DEFAULT_INTERVAL_SCALING });
         });
 
@@ -170,7 +180,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         });
 
         $html.find("[data-action=overlay-delete]").on("click", async (event) => {
-            const overlay = this.getOverlayFromEvent(event);
+            const overlay = this.#getOverlayFromElement(event.target);
             if (!overlay) return;
 
             // If this is the last heighten overlay, delete all of it
@@ -190,7 +200,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         // Adds a property to an existing overlay
         $html.find("[data-action=overlay-add-property]").on("click", (event) => {
             event.preventDefault();
-            const overlay = this.getOverlayFromEvent(event);
+            const overlay = this.#getOverlayFromElement(event.target);
             const property = $(event.target).closest("[data-action=overlay-add-property]").attr("data-property");
 
             if (overlay && overlay.data && property && !(property in overlay.data)) {
@@ -218,7 +228,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         // Removes a property from an existing overlay
         $html.find("[data-action=overlay-remove-property]").on("click", (event) => {
             event.preventDefault();
-            const overlayData = this.getOverlayFromEvent(event);
+            const overlayData = this.#getOverlayFromElement(event.target);
             const property = $(event.target).closest("[data-action=overlay-remove-property]").attr("data-property");
             if (overlayData && property) {
                 const updates = { [`${overlayData.base}.-=${property}`]: null };
@@ -230,7 +240,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         });
 
         $html.find("[data-action=change-level]").on("change", (event) => {
-            const overlay = this.getOverlayFromEvent(event);
+            const overlay = this.#getOverlayFromElement(event.target);
             if (!overlay) return;
 
             const currentLevel = overlay.level;
@@ -286,6 +296,29 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 }).render(true);
             }
         });
+
+        for (const element of htmlQueryAll(html, "[data-action=critical-damage-create]")) {
+            element.addEventListener("click", () => {
+                const baseKey = this.#getOverlayFromElement(element)?.base ?? "system";
+                const emptyDamage: SpellDamage = { value: "", type: { value: "bludgeoning", categories: [] } };
+                this.item.update({ [`${baseKey}.critical.value.${randomID()}`]: emptyDamage });
+            });
+        }
+
+        for (const element of htmlQueryAll(html, "[data-action=critical-damage-delete]")) {
+            element.addEventListener("click", async () => {
+                const id = element.dataset.id;
+                if (!id) return;
+                const baseKey = this.#getOverlayFromElement(element)?.base ?? "system";
+                await this.item.update({ [`${baseKey}.critical.value.-=${id}`]: null });
+
+                // Delete the whole critical property if it's empty
+                const critical = getProperty(this.item, `${baseKey}.critical.value`);
+                if (Object.keys(critical ?? {}).length === 0) {
+                    this.item.update({ [`${baseKey}.-=critical`]: null });
+                }
+            });
+        }
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
@@ -369,11 +402,11 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         );
     }
 
-    private getOverlayFromEvent(event: JQuery.TriggeredEvent) {
-        const $overlayEl = $(event.target).closest("[data-overlay-type]");
-        if ($overlayEl.length === 0) return null;
+    #getOverlayFromElement(element: HTMLElement) {
+        const overlayEl = element.closest<HTMLElement>("[data-overlay-type]");
+        if (!overlayEl) return null;
 
-        const domData = $overlayEl.data();
+        const domData = overlayEl.dataset;
         const overlayType = String(domData.overlayType);
         if (!tupleHasValue(["heighten", "variant"] as const, overlayType)) {
             return null;

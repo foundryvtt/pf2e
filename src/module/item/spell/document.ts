@@ -164,6 +164,10 @@ class SpellPF2e extends ItemPF2e {
         return this.overlays.size > 0;
     }
 
+    get hasCriticalOverride(): boolean {
+        return !!this.system.critical;
+    }
+
     override get uuid(): ItemUUID {
         return this.isVariant ? this.original!.uuid : super.uuid;
     }
@@ -459,18 +463,27 @@ class SpellPF2e extends ItemPF2e {
      * This handles heightening as well as alternative cast modes of spells.
      * If there's nothing to apply, returns null.
      */
-    loadVariant(options: { castLevel?: number; overlayIds?: string[] } = {}): Embedded<SpellPF2e> | null {
+    loadVariant(
+        options: { castLevel?: number; overlayIds?: string[]; criticalDamage?: boolean } = {}
+    ): Embedded<SpellPF2e> | null {
         if (this.original) {
             return this.original.loadVariant(options);
         }
-        const { castLevel, overlayIds } = options;
+        const { castLevel, overlayIds, criticalDamage } = options;
+
+        if (criticalDamage && !this.hasCriticalOverride) {
+            throw ErrorPF2e(
+                `Error loading variant of Spell ${this.name} (${this.uuid}). Spell has no critical override.`
+            );
+        }
+
         const appliedOverlays: Map<SpellOverlayType, string> = new Map();
         const heightenEntries = this.getHeightenLayers(castLevel);
         const overlays = overlayIds?.map((id) => ({ id, data: this.overlays.get(id, { strict: true }) })) ?? [];
 
         const override = (() => {
             // If there are no overlays, only return an override if this is a simple heighten
-            if (!heightenEntries.length && !overlays.length) {
+            if (!heightenEntries.length && !overlays.length && !criticalDamage) {
                 if (castLevel !== this.level) {
                     return mergeObject(this.toObject(), { system: { location: { heightenedLevel: castLevel } } });
                 } else {
@@ -509,6 +522,17 @@ class SpellPF2e extends ItemPF2e {
             const currentLevel = source.system.location.heightenedLevel ?? source.system.level.value;
             if (castLevel && castLevel !== currentLevel) {
                 source.system.location.heightenedLevel = castLevel;
+            }
+
+            // Replace normal damage with critical damage overlay if requested
+            if (criticalDamage && source.system.critical) {
+                source.system.damage.value = source.system.critical.value;
+
+                // Handle interval heightening
+                const heightening = source.system.heightening;
+                if (heightening?.type === "interval" && heightening.critical) {
+                    heightening.damage = heightening.critical;
+                }
             }
 
             return source;

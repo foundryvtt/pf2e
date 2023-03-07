@@ -218,6 +218,55 @@
             </div>
         {{/each}}
     </div>
+
+    <div class="damage-formulas">
+        <h3>
+            {{localize "PF2E.SpellScalingOverlay.CriticalFormulaLabel"}}
+            <i class="fas fa-info-circle small" data-tooltip="PF2E.SpellScalingOverlay.CriticalFormulaInfo" data-tooltip-direction="UP"></i>
+            <div class="item-controls">
+                <i class="fas fa-fw fa-plus" data-action="critical-damage-create"></i>
+            </div>
+        </h3>
+
+        {{#each data.critical.value as |damage id|}}
+            <div class="formula-section">
+                <div class="details-container-flex-row">
+                    <input type="text" name="system.critical.value.{{id}}.value" value="{{damage.value}}" placeholder="{{localize "PF2E.FormulaPlaceholder"}}" />
+                    <label>
+                        <span>&nbsp;{{localize "PF2E.SpellAbilityModLabel"}}</span>
+                        <input type="checkbox" name="system.critical.value.{{id}}.applyMod" {{checked damage.applyMod}} />
+                    </label>
+                    <select name="system.critical.value.{{id}}.type.subtype">
+                        {{#select damage.type.subtype}}
+                            <option></option>
+                            {{#each @root.damageSubtypes as |name type|}}
+                                <option value="{{type}}">{{localize name}}</option>
+                            {{/each}}
+                        {{/select}}
+                    </select>
+                    <select name="system.critical.value.{{id}}.type.value">
+                        {{#select damage.type.value}}
+                            <option value=""></option>
+                            {{#each @root.damageTypes as |name type|}}
+                                <option value="{{type}}">{{localize name}}</option>
+                            {{/each}}
+                        {{/select}}
+                    </select>
+                    <div class="item-controls">
+                        <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.DamageCategoriesLabel" data-config-types="materialDamageEffects" data-property="system.critical.value.{{id}}.type.categories"><i class="fas fa-fw fa-edit"></i></a>
+                        <a data-action="critical-damage-delete" data-id="{{id}}"><i class="fas fa-fw fa-trash"></i></a>
+                    </div>
+                </div>
+                {{#if damage.type.categories}}
+                    <div class="traits-list">
+                        {{#each damage.type.categories}}
+                            <div class="tag-legacy">{{localize (lookup @root.damageCategories this)}}</div>
+                        {{/each}}
+                    </div>
+                {{/if}}
+            </div>
+        {{/each}}
+    </div>
 </ol>
 
 {{#unless data.heightening.type}}
@@ -252,6 +301,19 @@
                 <input type="text" name="system.heightening.damage.{{idx}}" value="{{lookup ../data.heightening.damage idx}}" />
             </div>
         {{/each}}
+        {{#if data.critical.value}}
+            <hr>
+            <h3>
+                {{localize "PF2E.SpellScalingOverlay.CriticalFormulaLabel"}}
+                <i class="fas fa-info-circle small" data-tooltip="PF2E.SpellScalingOverlay.CriticalFormulaInfo" data-tooltip-direction="UP"></i>
+            </h3>
+            {{#each data.critical.value as |damage idx|}}
+                <div class="form-group">
+                    <label class="short">{{localize (lookup @root.damageTypes damage.type.value)}}</label>
+                    <input type="text" name="system.heightening.critical.{{idx}}" value="{{lookup ../data.heightening.critical idx}}" />
+                </div>
+            {{/each}}
+        {{/if}}
     </div>
 {{/if}}
 
