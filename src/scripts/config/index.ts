@@ -433,6 +433,7 @@ const traitsDescriptions = {
     metal: "PF2E.TraitDescriptionMetal",
     metamagic: "PF2E.TraitDescriptionMetamagic",
     mindless: "PF2E.TraitDescriptionMindless",
+    mindshift: "PF2E.TraitDescriptionMindshift",
     minion: "PF2E.TraitDescriptionMinion",
     misfortune: "PF2E.TraitDescriptionMisfortune",
     missive: "PF2E.TraitDescriptionMissive",
