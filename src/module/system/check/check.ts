@@ -183,13 +183,9 @@ class CheckPF2e {
                     if (!context.dc || note.outcome.length === 0) {
                         // Always show the note if the check has no DC or no outcome is specified.
                         return true;
-                    } else if (context.outcome && context.unadjustedOutcome) {
-                        if ([context.outcome, context.unadjustedOutcome].some((o) => note.outcome.includes(o))) {
-                            // Show the note if the specified outcome was achieved.
-                            return true;
-                        }
                     }
-                    return false;
+                    const outcome = context.outcome ?? context.unadjustedOutcome;
+                    return !!(outcome && note.outcome.includes(outcome));
                 })
                 .map((n) => n.text)
                 .join("\n") ?? "";
