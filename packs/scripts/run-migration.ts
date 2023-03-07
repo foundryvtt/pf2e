@@ -28,7 +28,7 @@ import { Migration827FixTVShieldTraits } from "@module/migration/migrations/827-
 import { Migration828PruneInvalidTraits } from "@module/migration/migrations/828-prune-invalid-traits";
 import { Migration829RMRitualEntries } from "@module/migration/migrations/829-rm-ritual-entries";
 import { Migration830BarbarianRework } from "@module/migration/migrations/830-condense-instincts";
-import { Migration831clericDoctrines } from "@module/migration/migrations/831-cleric-doctrines";
+import { Migration831ClericDoctrines } from "@module/migration/migrations/831-cleric-doctrines";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
