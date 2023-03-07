@@ -6,7 +6,7 @@ import { MigrationBase } from "../base";
 /**
  * Update rule elements on the Cleric doctrines to include references to the granted doctrines.
  */
-export class Migration831clericDoctrines extends MigrationBase {
+export class Migration831ClericDoctrines extends MigrationBase {
     static override version = 0.831;
 
     get #cloisteredClericSetFlags(): AELikeSource {

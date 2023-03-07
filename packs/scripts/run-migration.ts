@@ -60,7 +60,7 @@ const migrations: MigrationBase[] = [
     new Migration828PruneInvalidTraits(),
     new Migration829RMRitualEntries(),
     new Migration830BarbarianRework(),
-    new Migration831clericDoctrines(),
+    new Migration831ClericDoctrines(),
 ];
 
 global.deepClone = <T>(original: T): T => {
