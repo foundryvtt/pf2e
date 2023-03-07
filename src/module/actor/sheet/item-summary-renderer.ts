@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { ItemPF2e } from "@item";
+import { AbstractEffectPF2e, ItemPF2e } from "@item";
 import { ItemSummaryData } from "@item/data";
 import { isItemSystemData } from "@item/data/helpers";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
@@ -104,11 +104,12 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
             : await TextEditor.enrichHTML(item.description, { rollData: item.getRollData(), async: true });
 
         const rarity = item.system.traits?.rarity;
+        const isEffect = item instanceof AbstractEffectPF2e;
 
         const summary = await renderTemplate("systems/pf2e/templates/actors/partials/item-summary.hbs", {
             item,
             description,
-            identified: game.user.isGM || !item.isOfType("physical") || item.isIdentified,
+            identified: game.user.isGM || !(item.isOfType("physical") || isEffect) || item.isIdentified,
             rarityLabel: rarity && item.isOfType("physical") ? CONFIG.PF2E.rarityTraits[rarity] : null,
             isCreature: item.actor?.isOfType("creature"),
             chatData,

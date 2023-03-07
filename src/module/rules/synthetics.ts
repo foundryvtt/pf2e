@@ -92,8 +92,10 @@ interface RollOptionToggle {
     /** The ID of the item with a rule element for this toggle */
     itemId?: string;
     label: string;
+    scope?: string;
     domain: string;
     option: string;
+    suboptions: { label: string; selected: boolean }[];
     checked: boolean;
     enabled: boolean;
 }

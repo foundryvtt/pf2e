@@ -3,7 +3,7 @@ import { ALIGNMENTS } from "@actor/creature/values";
 import { ItemPF2e } from "@item";
 import { BaseWeaponType } from "@item/weapon/types";
 import { sluggify } from "@util";
-import { DeityData } from "./data";
+import { DeityData, DeitySystemData } from "./data";
 
 class DeityPF2e extends ItemPF2e {
     get category(): "deity" | "pantheon" | "philosophy" {
@@ -105,6 +105,7 @@ class DeityPF2e extends ItemPF2e {
 
 interface DeityPF2e extends ItemPF2e {
     readonly data: DeityData;
+    system: DeitySystemData;
 }
 
 export { DeityPF2e };

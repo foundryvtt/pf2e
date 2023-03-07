@@ -1,7 +1,7 @@
 import { CreaturePF2e } from "@actor";
 import { createSpellcastingDialog } from "@actor/sheet/spellcasting-dialog";
 import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values";
-import { AbstractEffectPF2e, ItemPF2e, SpellPF2e } from "@item";
+import { ItemPF2e, SpellPF2e } from "@item";
 import { SpellcastingEntryPF2e, SpellcastingSheetData } from "@item/spellcasting-entry";
 import { ItemSourcePF2e } from "@item/data";
 import { ITEM_CARRY_TYPES } from "@item/data/values";
@@ -377,38 +377,6 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         // Spell Browser
         for (const button of htmlQueryAll(html, ".spell-browse")) {
             button.addEventListener("click", () => this.#onClickBrowseSpellCompendia(button));
-        }
-
-        // Decrease effect value
-        $html.find(".effects-list .decrement").on("click", async (event) => {
-            const target = $(event.currentTarget);
-            const parent = target.parents(".item");
-            const effect = this.actor.items.get(parent.attr("data-item-id") ?? "");
-            if (effect instanceof AbstractEffectPF2e) {
-                await effect.decrease();
-            }
-        });
-
-        // Increase effect value
-        $html.find(".effects-list .increment").on("click", async (event) => {
-            const target = $(event.currentTarget);
-            const parent = target.parents(".item");
-            const effect = this.actor?.items.get(parent.attr("data-item-id") ?? "");
-            if (effect instanceof AbstractEffectPF2e) {
-                await effect.increase();
-            }
-        });
-
-        // Change whether an effect is secret to players or not
-        for (const element of htmlQueryAll(html, ".effects-list [data-action=effect-toggle-unidentified]") ?? []) {
-            element.addEventListener("click", async (event) => {
-                const effectId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
-                const effect = this.actor.items.get(effectId, { strict: true });
-                if (effect instanceof AbstractEffectPF2e) {
-                    const isUnidentified = effect.unidentified;
-                    await effect.update({ "system.unidentified": !isUnidentified });
-                }
-            });
         }
     }
 

@@ -4,8 +4,9 @@ import type { HeritagePF2e } from "./document";
 
 type HeritageSource = BaseItemSourcePF2e<"heritage", HeritageSystemSource>;
 
-type HeritageData = Omit<HeritageSource, "system" | "effects" | "flags"> &
-    BaseItemDataPF2e<HeritagePF2e, "heritage", HeritageSystemData, HeritageSource>;
+interface HeritageData
+    extends Omit<HeritageSource, "flags" | "system" | "type">,
+        BaseItemDataPF2e<HeritagePF2e, "heritage", HeritageSource> {}
 
 interface HeritageSystemSource extends ItemSystemData {
     ancestry: {
@@ -14,6 +15,7 @@ interface HeritageSystemSource extends ItemSystemData {
         uuid: ItemUUID;
     } | null;
     traits: CreatureTraits;
+    level?: never;
 }
 
 export type HeritageSystemData = HeritageSystemSource;

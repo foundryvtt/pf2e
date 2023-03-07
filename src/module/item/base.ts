@@ -25,12 +25,10 @@ import { PhysicalItemPF2e } from "./physical/document";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values";
 import { ItemSheetPF2e } from "./sheet/base";
 import { UUIDUtils } from "@util/uuid-utils";
+import { ItemFlagsPF2e, ItemSystemData } from "./data/base";
 
 /** Override and extend the basic :class:`Item` implementation */
 class ItemPF2e extends Item<ActorPF2e> {
-    /** Has this item gone through at least one cycle of data preparation? */
-    protected initialized?: true;
-
     /** Prepared rule elements from this item */
     rules!: RuleElementPF2e[];
 
@@ -102,12 +100,12 @@ class ItemPF2e extends Item<ActorPF2e> {
             ...traitOptions.map((t) => `${prefix}:${t}`),
         ];
 
-        const level = "level" in this ? this.level : "level" in this.system ? this.system.level.value : null;
+        const level = this.system.level?.value ?? null;
         if (typeof level === "number") {
             options.push(`${prefix}:level:${level}`);
         }
 
-        if (["item", ""].includes(prefix)) {
+        if (prefix === "item") {
             const itemType = this.isOfType("feat") && this.isFeature ? "feature" : this.type;
             options.unshift(`${prefix}:type:${itemType}`);
         }
@@ -183,13 +181,18 @@ class ItemPF2e extends Item<ActorPF2e> {
     protected override _initialize(): void {
         this.rules = [];
         super._initialize();
-        this.initialized = true;
     }
 
-    /** Refresh the Item Directory if this item isn't owned */
     override prepareData(): void {
+        // If embedded, don't prepare data if not requested by this item's actor
+        if (this.parent?.items?.get(this.id) === this && !this.parent.preparingEmbeds) {
+            return;
+        }
+
         super.prepareData();
-        if (!this.isOwned && ui.items && this.initialized) ui.items.render();
+
+        // Refresh the Item Directory if this item isn't embedded
+        if (!this.isOwned && game.ready) ui.items.render();
     }
 
     /** Ensure the presence of the pf2e flag scope with default properties and values */
@@ -680,8 +683,9 @@ class ItemPF2e extends Item<ActorPF2e> {
 }
 
 interface ItemPF2e extends Item<ActorPF2e> {
+    flags: ItemFlagsPF2e;
+    readonly system: ItemSystemData;
     readonly data: ItemDataPF2e;
-
     readonly parent: ActorPF2e | null;
 
     _sheet: ItemSheetPF2e<this> | null;
@@ -689,7 +693,6 @@ interface ItemPF2e extends Item<ActorPF2e> {
     get sheet(): ItemSheetPF2e<this>;
 
     prepareSiblingData?(this: Embedded<ItemPF2e>): void;
-
     prepareActorData?(this: Embedded<ItemPF2e>): void;
 
     /** Returns items that should also be added when this item is created */

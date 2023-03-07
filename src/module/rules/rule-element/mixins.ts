@@ -1,35 +1,21 @@
 import { ItemSourcePF2e } from "@item/data";
+import { ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
 import { AELikeChangeMode } from "./ae-like";
 import { RuleElementPF2e } from "./base";
 import { RuleElementSchema } from "./data";
 
+const { fields } = foundry.data;
+
 /** A mixin for rule elements that allow item alterations */
 abstract class WithItemAlterations<TSchema extends RuleElementSchema> {
-    static apply<TSchema extends RuleElementSchema>(Class: typeof RuleElementPF2e<TSchema>): void {
-        for (const methodName of ["itemCanBeAltered", "isValidItemAlteration", "applyAlterations"] as const) {
+    static mixIn<TSchema extends RuleElementSchema>(Class: typeof RuleElementPF2e<TSchema>): void {
+        for (const methodName of ["itemCanBeAltered", "applyAlterations"] as const) {
             Object.defineProperty(Class.prototype, methodName, {
                 enumerable: false,
                 writable: false,
                 value: WithItemAlterations.prototype[methodName],
             });
         }
-    }
-
-    /** Is the item-alteration data structurally sound? Currently only overrides are supported. */
-    isValidItemAlteration(data: {}): data is ItemAlterationData[] {
-        return (
-            Array.isArray(data) &&
-            data.every(
-                (d: unknown) =>
-                    d instanceof Object &&
-                    "mode" in d &&
-                    d.mode === "override" &&
-                    "property" in d &&
-                    d.property === "badge-value" &&
-                    "value" in d &&
-                    (["string", "number"].includes(typeof d.value) || d.value === null)
-            )
-        );
     }
 
     /** Is the item alteration valid for the item type? */
@@ -77,13 +63,58 @@ abstract class WithItemAlterations<TSchema extends RuleElementSchema> {
 }
 
 interface WithItemAlterations<TSchema extends RuleElementSchema> extends RuleElementPF2e<TSchema> {
-    alterations: ItemAlterationData[];
+    alterations: ModelPropsFromSchema<ItemAlterationData>[];
 }
 
-interface ItemAlterationData {
-    mode: AELikeChangeMode;
-    property: string;
-    value: string | number | null;
+class ItemAlterationField extends fields.SchemaField<
+    ItemAlterationData,
+    SourceFromSchema<ItemAlterationData>,
+    ModelPropsFromSchema<ItemAlterationData>,
+    true,
+    false,
+    false
+> {
+    constructor() {
+        super(
+            {
+                mode: new fields.StringField({ required: true, choices: ["override"], initial: "override" }),
+                property: new fields.StringField({
+                    required: true,
+                    choices: ["badge-value"],
+                    initial: "badge-value",
+                }),
+                value: new ItemAlterationValueField(),
+            },
+            { required: true, nullable: false, initial: undefined }
+        );
+    }
 }
 
-export { ItemAlterationData, WithItemAlterations };
+class ItemAlterationValueField extends fields.DataField<
+    string | number | null,
+    string | number | null,
+    true,
+    false,
+    false
+> {
+    constructor() {
+        super({ required: true, nullable: false, initial: undefined });
+    }
+
+    protected _cast(value: unknown): unknown {
+        return value;
+    }
+
+    protected override _validateType(value: unknown): boolean {
+        return ["string", "number"].includes(typeof value) || value === null;
+    }
+}
+
+type AddOverrideUpgrade = Extract<AELikeChangeMode, "add" | "override" | "upgrade">;
+type ItemAlterationData = {
+    mode: StringField<AddOverrideUpgrade, AddOverrideUpgrade, true, false, true>;
+    property: StringField<"badge-value", "badge-value", true, false, true>;
+    value: ItemAlterationValueField;
+};
+
+export { ItemAlterationData, ItemAlterationField, WithItemAlterations };

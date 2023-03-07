@@ -129,7 +129,8 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
         $html.find("[data-action=damage-create]").on("click", (event) => {
             event.preventDefault();
-            const baseKey = this.getOverlayFromEvent(event) ?? "data";
+            const overlayData = this.getOverlayFromEvent(event);
+            const baseKey = overlayData?.base ?? "system";
             const emptyDamage: SpellDamage = { value: "", type: { value: "bludgeoning", categories: [] } };
             this.item.update({ [`${baseKey}.damage.value.${randomID()}`]: emptyDamage });
         });

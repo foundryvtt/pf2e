@@ -8,6 +8,7 @@ import { TokenDocumentPF2e } from "@scene";
 import { CheckRoll } from "@system/check";
 import { isObject, tupleHasValue } from "@util";
 import { BracketedValue, RuleElementData, RuleElementSchema, RuleElementSource, RuleValue } from "./data";
+import { DataModelValidationOptions } from "types/foundry/common/abstract/module.mjs";
 
 const { DataModel } = foundry.abstract;
 const { fields } = foundry.data;
@@ -114,6 +115,12 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
         const tokens = actor.getActiveTokens();
         const controlled = tokens.find((token) => token.controlled);
         return controlled?.document ?? tokens.shift()?.document ?? null;
+    }
+
+    /** Disallow invalid data fallbacks */
+    override validate(options: DataModelValidationOptions = {}): boolean {
+        options.fallback = false;
+        return super.validate(options);
     }
 
     /** Test this rule element's predicate, if present */

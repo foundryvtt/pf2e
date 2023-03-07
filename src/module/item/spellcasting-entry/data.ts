@@ -3,16 +3,17 @@ import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemData, ItemSystemSource 
 import { MagicTradition } from "@item/spell/types";
 import { OneToTen, ZeroToEleven, ZeroToFour } from "@module/data";
 import { RollNotePF2e } from "@module/notes";
-import { SpellcastingEntryPF2e } from "../document";
-import { SpellcastingCategory } from "../types";
+import { SpellcastingEntryPF2e } from "./document";
+import { SpellcastingCategory } from "./types";
 
 // temporary type until the spellcasting entry is migrated to no longer use slotX keys
 type SlotKey = `slot${ZeroToEleven}`;
 
 type SpellcastingEntrySource = BaseItemSourcePF2e<"spellcastingEntry", SpellcastingEntrySystemSource>;
 
-type SpellcastingEntryData = Omit<SpellcastingEntrySource, "system" | "effects" | "flags"> &
-    BaseItemDataPF2e<SpellcastingEntryPF2e, "spellcastingEntry", SpellcastingEntrySystemData, SpellcastingEntrySource>;
+interface SpellcastingEntryData
+    extends Omit<SpellcastingEntrySource, "flags" | "system" | "type">,
+        BaseItemDataPF2e<SpellcastingEntryPF2e, "spellcastingEntry", SpellcastingEntrySource> {}
 
 interface SpellAttackRollModifier {
     breakdown: string;
@@ -59,6 +60,7 @@ interface SpellcastingEntrySystemSource extends ItemSystemSource {
     autoHeightenLevel: {
         value: OneToTen | null;
     };
+    level?: never;
     traits?: never;
 }
 
@@ -68,7 +70,7 @@ interface SpellCollectionTypeSource {
     validItems?: "scroll" | "" | null;
 }
 
-interface SpellcastingEntrySystemData extends SpellcastingEntrySystemSource, Omit<ItemSystemData, "traits"> {
+interface SpellcastingEntrySystemData extends SpellcastingEntrySystemSource, Omit<ItemSystemData, "level" | "traits"> {
     prepared: SpellCollectionTypeData;
 }
 

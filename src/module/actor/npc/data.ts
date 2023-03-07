@@ -33,10 +33,8 @@ interface NPCSource extends BaseCreatureSource<"npc", NPCSystemSource> {
 }
 
 interface NPCData
-    extends Omit<NPCSource, "system" | "effects" | "items" | "prototypeToken" | "type">,
-        BaseCreatureData<NPCPF2e, "npc", NPCSource> {
-    flags: NPCFlags;
-}
+    extends Omit<NPCSource, "flags" | "prototypeToken" | "system" | "type">,
+        BaseCreatureData<NPCPF2e, "npc", NPCSource> {}
 
 type NPCFlags = ActorFlagsPF2e & {
     pf2e: { lootable: boolean };

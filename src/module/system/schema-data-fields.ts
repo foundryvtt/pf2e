@@ -1,5 +1,5 @@
 import { PredicatePF2e, PredicateStatement, RawPredicate, StatementValidator } from "@system/predication";
-import { sluggify } from "@util";
+import { SlugCamel, sluggify } from "@util";
 import { DataModel } from "types/foundry/common/abstract/data.mjs";
 import {
     ArrayFieldOptions,
@@ -7,6 +7,7 @@ import {
     DataFieldOptions,
     DataSchema,
     MaybeSchemaProp,
+    StringField,
     StringFieldOptions,
 } from "types/foundry/common/data/fields.mjs";
 
@@ -41,8 +42,14 @@ class SlugField<
     TNullable extends boolean = true,
     THasInitial extends boolean = true
 > extends fields.StringField<string, string, TRequired, TNullable, THasInitial> {
-    protected static override get _defaults(): StringFieldOptions<string, boolean, boolean, boolean> {
-        return { ...super._defaults, nullable: true, initial: null };
+    constructor(options: SlugFieldOptions<TRequired, TNullable, THasInitial> = {}) {
+        options.blank = false;
+        options.camel ??= null;
+        super(options);
+    }
+
+    protected static override get _defaults(): SlugFieldOptions<boolean, boolean, boolean> {
+        return { ...super._defaults, nullable: true, initial: null, camel: null };
     }
 
     protected override _cleanType(
@@ -51,14 +58,34 @@ class SlugField<
     ): MaybeSchemaProp<string, TRequired, TNullable, THasInitial>;
     protected override _cleanType(value: Maybe<string>, options?: CleanFieldOptions): string | null | undefined {
         const slug = super._cleanType(value, options);
-        return typeof slug === "string" ? sluggify(slug) : slug;
+        const camel = this.options.camel ?? null;
+        return typeof slug === "string" ? sluggify(slug, { camel }) : slug;
     }
+}
+
+interface SlugField<
+    TRequired extends boolean = true,
+    TNullable extends boolean = true,
+    THasInitial extends boolean = true
+> extends StringField<string, string, TRequired, TNullable, THasInitial> {
+    options: SlugFieldOptions<TRequired, TNullable, THasInitial>;
+}
+
+interface SlugFieldOptions<TRequired extends boolean, TNullable extends boolean, THasInitial extends boolean>
+    extends StringFieldOptions<string, TRequired, TNullable, THasInitial> {
+    camel?: SlugCamel;
 }
 
 class PredicateStatementField extends fields.DataField<PredicateStatement, PredicateStatement, true, false, false> {
     /** A `PredicateStatement` is always required (not `undefined`) and never nullable */
     constructor(options: DataFieldOptions<PredicateStatement, true, false, false> = {}) {
-        super({ ...options, required: true, nullable: false, initial: undefined });
+        super({
+            ...options,
+            required: true,
+            nullable: false,
+            initial: undefined,
+            validationError: "must be recognized predicated statement type",
+        });
     }
 
     protected override _validateType(value: unknown): boolean {
@@ -80,7 +107,7 @@ class PredicateField<
     TNullable extends boolean = false,
     THasInitial extends boolean = true
 > extends fields.ArrayField<PredicateStatementField, RawPredicate, PredicatePF2e, TRequired, TNullable, THasInitial> {
-    constructor(options?: ArrayFieldOptions<PredicateStatementField, TRequired, TNullable, THasInitial>) {
+    constructor(options?: ArrayFieldOptions<RawPredicate, TRequired, TNullable, THasInitial>) {
         super(new PredicateStatementField(), options);
     }
 
@@ -88,12 +115,12 @@ class PredicateField<
     override initialize(
         value: RawPredicate,
         model: ConstructorOf<DataModel>,
-        options?: ArrayFieldOptions<PredicateStatementField, TRequired, TNullable, THasInitial>
+        options?: ArrayFieldOptions<RawPredicate, TRequired, TNullable, THasInitial>
     ): MaybeSchemaProp<PredicatePF2e, TRequired, TNullable, THasInitial>;
     override initialize(
         value: RawPredicate,
         model: ConstructorOf<DataModel>,
-        options: ArrayFieldOptions<PredicateStatementField, TRequired, TNullable, THasInitial>
+        options: ArrayFieldOptions<RawPredicate, TRequired, TNullable, THasInitial>
     ): PredicatePF2e | null | undefined {
         const statements = super.initialize(value, model, options);
         return statements ? new PredicatePF2e(...statements) : statements;

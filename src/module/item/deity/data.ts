@@ -8,8 +8,9 @@ import { DeityDomain } from "./types";
 
 type DeitySource = BaseItemSourcePF2e<"deity", DeitySystemSource>;
 
-type DeityData = Omit<DeitySource, "system" | "effects" | "flags"> &
-    BaseItemDataPF2e<DeityPF2e, "deity", DeitySystemData, DeitySource>;
+interface DeityData
+    extends Omit<DeitySource, "flags" | "system" | "type">,
+        BaseItemDataPF2e<DeityPF2e, "deity", DeitySource> {}
 
 interface DeitySystemSource extends ItemSystemSource {
     category: "deity" | "pantheon" | "philosophy";
@@ -26,6 +27,7 @@ interface DeitySystemSource extends ItemSystemSource {
     skill: SkillAbbreviation | null;
     weapons: BaseWeaponType[];
     spells: Record<number, ItemUUID>;
+    level?: never;
     traits?: never;
 }
 

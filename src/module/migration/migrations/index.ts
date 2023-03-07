@@ -227,4 +227,5 @@ export { Migration826GutConditionData } from "./826-gut-condition-data";
 export { Migration827FixTVShieldTraits } from "./827-fix-tv-shield-traits";
 export { Migration828PruneInvalidTraits } from "./828-prune-invalid-traits";
 export { Migration829RMRitualEntries } from "./829-rm-ritual-entries";
+export { Migration830BarbarianRework } from "./830-condense-instincts";
 export { Migration831clericDoctrines } from "./831-cleric-doctrines";

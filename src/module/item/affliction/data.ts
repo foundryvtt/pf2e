@@ -1,14 +1,7 @@
 import { SaveType } from "@actor/types";
-import { EffectAuraData, EffectContextData, EffectTraits, TimeUnit } from "@item/abstract-effect/data";
+import { EffectAuraData, EffectContextData, EffectTraits, TimeUnit } from "@item/abstract-effect";
 import { ConditionSlug } from "@item/condition";
-import {
-    BaseItemDataPF2e,
-    BaseItemSourcePF2e,
-    ItemFlagsPF2e,
-    ItemLevelData,
-    ItemSystemData,
-    ItemSystemSource,
-} from "@item/data/base";
+import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemFlagsPF2e, ItemSystemData, ItemSystemSource } from "@item/data/base";
 import { DamageCategoryUnique, DamageType } from "@system/damage";
 import { AfflictionPF2e } from "./document";
 
@@ -16,10 +9,9 @@ type AfflictionSource = BaseItemSourcePF2e<"affliction", AfflictionSystemSource>
     flags: DeepPartial<AfflictionFlags>;
 };
 
-type AfflictionData = Omit<AfflictionSource, "system" | "effects" | "flags"> &
-    BaseItemDataPF2e<AfflictionPF2e, "affliction", AfflictionSystemData, AfflictionSource> & {
-        flags: AfflictionFlags;
-    };
+interface AfflictionData
+    extends Omit<AfflictionSource, "flags" | "system" | "type">,
+        BaseItemDataPF2e<AfflictionPF2e, "affliction", AfflictionSource> {}
 
 type AfflictionFlags = ItemFlagsPF2e & {
     pf2e: {
@@ -27,7 +19,8 @@ type AfflictionFlags = ItemFlagsPF2e & {
     };
 };
 
-interface AfflictionSystemSource extends ItemSystemSource, ItemLevelData {
+interface AfflictionSystemSource extends ItemSystemSource {
+    level: { value: number };
     traits: EffectTraits;
     save: {
         type: SaveType;
@@ -45,7 +38,7 @@ interface AfflictionSystemSource extends ItemSystemSource, ItemLevelData {
     context: EffectContextData | null;
 }
 
-interface AfflictionSystemData extends AfflictionSystemSource, Omit<ItemSystemData, "traits"> {}
+interface AfflictionSystemData extends AfflictionSystemSource, Omit<ItemSystemData, "level" | "traits"> {}
 
 interface AfflictionOnset {
     value: number;
@@ -71,12 +64,11 @@ interface AfflictionConditionData {
     value?: number;
 }
 
-interface AfflictionSystemData extends Omit<AfflictionSystemSource, "items">, Omit<ItemSystemData, "traits"> {}
-
 export {
     AfflictionConditionData,
     AfflictionDamage,
     AfflictionData,
+    AfflictionFlags,
     AfflictionOnset,
     AfflictionSource,
     AfflictionStageData,

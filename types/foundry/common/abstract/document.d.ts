@@ -225,11 +225,11 @@ declare global {
                  * const actor = await pack.getDocument(documentId);
                  * const updated = await Actor.updateDocuments([{_id: actor.id, name: "New Name"}], {pack: "mymodule.mypack"});
                  */
-                static updateDocuments<T extends Document>(
-                    this: ConstructorOf<T>,
-                    updates?: DocumentUpdateData<T>[],
+                static updateDocuments<TDocument extends Document>(
+                    this: ConstructorOf<TDocument>,
+                    updates?: DocumentUpdateData<TDocument>[],
                     context?: DocumentModificationContext
-                ): Promise<T[]>;
+                ): Promise<TDocument[]>;
 
                 /**
                  * Delete one or multiple existing Documents using an array of provided ids.

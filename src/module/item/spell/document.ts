@@ -58,6 +58,8 @@ class SpellPF2e extends ItemPF2e {
     /** Set if casted with trick magic item. Will be replaced via overriding spellcasting on cast later. */
     trickMagicEntry: TrickMagicItemEntry | null = null;
 
+    overlays!: SpellOverlayCollection;
+
     constructor(data: PreCreate<ItemSourcePF2e>, context: SpellConstructionContext = {}) {
         super(data, context);
         this.isFromConsumable = !!context.fromConsumable;
@@ -1020,8 +1022,7 @@ class SpellPF2e extends ItemPF2e {
 
 interface SpellPF2e extends ItemPF2e {
     readonly data: SpellData;
-
-    overlays: SpellOverlayCollection;
+    system: SpellSystemData;
 }
 
 interface SpellDamage {

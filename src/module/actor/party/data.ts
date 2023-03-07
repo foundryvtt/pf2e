@@ -11,8 +11,9 @@ import { PartyPF2e } from "./document";
 
 type PartySource = BaseActorSourcePF2e<"party", PartySystemSource>;
 
-type PartyData = Omit<PartySource, "effects" | "flags" | "items" | "prototypeToken"> &
-    BaseActorDataPF2e<PartyPF2e, "party", PartySource>;
+interface PartyData
+    extends Omit<PartySource, "prototypeToken" | "system" | "type">,
+        BaseActorDataPF2e<PartyPF2e, "party", PartySource> {}
 
 interface PartySystemSource extends ActorSystemSource {
     attributes: PartyAttributesSource;

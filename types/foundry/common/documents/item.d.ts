@@ -7,12 +7,10 @@ declare module foundry {
             /** The default icon used for newly created Item documents */
             static DEFAULT_ICON: ImageFilePath;
 
-            static override get schema(): ConstructorOf<data.ItemData<BaseItem, BaseActiveEffect>>;
-
             static override get metadata(): ItemMetadata;
 
-            /** A reference to the Collection of ActiveEffect instances in the Item document, indexed by _id. */
-            get effects(): this["data"]["effects"];
+            /** A Collection of ActiveEffect embedded Documents */
+            readonly effects: abstract.EmbeddedCollection<documents.BaseActiveEffect>;
 
             override canUserModify(user: BaseUser, action: UserAction, data?: DocumentUpdateData<this>): boolean;
 
@@ -39,18 +37,23 @@ declare module foundry {
                 insertKeys?: boolean;
                 insertValues?: boolean;
                 enforceTypes?: boolean;
-            }): this["data"]["system"];
+            }): this["system"];
         }
 
         interface BaseItem {
-            readonly data: data.ItemData<BaseItem, BaseActiveEffect>;
-
-            /** Shim for V10 preparation */
-            readonly system: this["data"]["system"];
-
+            flags: ItemFlags;
+            readonly data: data.ItemData<BaseItem>;
             readonly parent: BaseActor | null;
+            system: object;
 
             get documentName(): (typeof BaseItem)["metadata"]["name"];
+        }
+
+        interface ItemFlags {
+            core?: {
+                sourceId?: ItemUUID;
+            };
+            [key: string]: Record<string, unknown> | undefined;
         }
 
         interface ItemMetadata extends abstract.DocumentMetadata {

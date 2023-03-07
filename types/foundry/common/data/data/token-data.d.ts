@@ -104,8 +104,6 @@ declare module foundry {
             readonly _source: TokenSource;
 
             light: LightData<NonNullable<this["document"]>>;
-
-            get schema(): ReturnType<(typeof ItemData)["defineSchema"]>;
         }
 
         namespace TokenData {
