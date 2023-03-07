@@ -432,6 +432,7 @@ const traitsDescriptions = {
     mental: "PF2E.TraitDescriptionMental",
     metal: "PF2E.TraitDescriptionMetal",
     metamagic: "PF2E.TraitDescriptionMetamagic",
+    mindshift: "PF2E.TraitDescriptionMindshift",
     mindless: "PF2E.TraitDescriptionMindless",
     minion: "PF2E.TraitDescriptionMinion",
     misfortune: "PF2E.TraitDescriptionMisfortune",
