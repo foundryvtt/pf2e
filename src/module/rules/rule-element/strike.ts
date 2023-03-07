@@ -123,7 +123,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
 
     /** Allow shorthand `fist` StrikeRuleElement data to pass `DataModel` validation */
     override validate(options?: {
-        changes?: object;
+        changes?: Record<string, unknown>;
         clean?: boolean;
         fallback?: boolean;
         strict?: boolean;
@@ -131,9 +131,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
         joint?: boolean;
     }): boolean {
         const source = options?.changes ?? this._source;
-        return Object.keys(source).length === 2 && "fist" in source && source.fist === true
-            ? true
-            : super.validate(options);
+        return source.fist === true ? true : super.validate(options);
     }
 
     /** Keep shorthand `fist` source data to its minimum form */
