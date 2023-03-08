@@ -172,7 +172,7 @@ interface InitialSpellFilters extends BaseInitialFilters {
     timefilter?: string;
     category?: string[];
     classes?: string[];
-    level?: number[];
+    level?: string[];
     rarity?: string[];
     school?: string[];
     source?: string[];
