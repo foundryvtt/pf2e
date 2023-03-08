@@ -179,14 +179,14 @@ class ConditionPF2e extends AbstractEffectPF2e {
                 if (thisValue >= otherValue) {
                     deactivate(condition);
                 }
+            } else if (this.value === condition.value && !this.isLocked) {
+                // Deactivate other equal valued conditions if this condition isn't locked
+                deactivate(condition);
             } else if (this.value && condition.value && this.value >= condition.value) {
                 // Deactivate other conditions with a lower or equal value
                 deactivate(condition);
-            } else if (!this.isLocked) {
-                // Deactivate other conditions if this condition isn't locked
-                deactivate(condition);
-            } else if (this.isLocked && ofSameType.every((c) => c.isLocked)) {
-                // Deactivate other conditions if all conditions of this type are locked
+            } else if (this.isLocked && ofSameType.filter((c) => c.active).every((c) => c.isLocked)) {
+                // Deactivate other conditions if all remaining conditions of this type are locked
                 deactivate(condition);
             }
         }
