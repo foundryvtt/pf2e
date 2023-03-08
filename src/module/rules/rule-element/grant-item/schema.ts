@@ -16,6 +16,11 @@ type GrantItemSchema = RuleElementSchema & {
     allowDuplicate: BooleanField<boolean, boolean, false, false, true>;
     /** A list of alterations to make on the item before granting it */
     alterations: ArrayField<ItemAlterationField>;
+    /**
+     * Track a granted physical item from roll options: the sluggified `flag` will serve as a prefix for item roll
+     * options, which are added to the `all` domain.
+     */
+    track: BooleanField<boolean, boolean, false, false, false>;
 };
 
 export { GrantItemSchema };

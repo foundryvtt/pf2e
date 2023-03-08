@@ -1,5 +1,5 @@
 import { ActorType } from "@actor/data";
-import { ItemPF2e, ItemProxyPF2e } from "@item";
+import { ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { ItemGrantDeleteAction } from "@item/data/base";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values";
@@ -49,13 +49,18 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
                 : {};
 
         this.grantedId = this.item.flags.pf2e.itemGrants[this.flag ?? ""]?.id ?? null;
+
+        if (this.track && this.grantedId) {
+            const grantedItem = this.actor.inventory.get(this.grantedId ?? "") ?? null;
+            this.#setRollOptions(grantedItem);
+        }
     }
 
     static override defineSchema(): GrantItemSchema {
         return {
             ...super.defineSchema(),
             uuid: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
-            flag: new SlugField({ required: true, nullable: true, blank: false, initial: null, camel: "dromedary" }),
+            flag: new SlugField({ required: true, nullable: true, initial: null, camel: "dromedary" }),
             reevaluateOnUpdate: new fields.BooleanField({ required: false, nullable: false, initial: false }),
             replaceSelf: new fields.BooleanField({ required: false, nullable: false, initial: false }),
             allowDuplicate: new fields.BooleanField({ required: false, nullable: false, initial: true }),
@@ -64,10 +69,17 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
                 nullable: false,
                 initial: [],
             }),
+            track: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
         };
     }
 
     static ON_DELETE_ACTIONS = ["cascade", "detach", "restrict"] as const;
+
+    override _validateModel(data: SourceFromSchema<GrantItemSchema>): void {
+        if (data.track && !data.flag) {
+            throw Error("must have explicit flag set if granted item is tracked");
+        }
+    }
 
     override async preCreate(args: RuleElementPF2e.PreCreateParams): Promise<void> {
         const { itemSource, pendingItems, context } = args;
@@ -169,6 +181,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         context.keepId = true;
 
         this.#setGrantFlags(itemSource, grantedSource);
+        this.#setRollOptions(tempGranted);
 
         // Run the granted item's preCreate callbacks unless this is a pre-actor-update reevaluation
         if (!args.reevaluation) {
@@ -281,6 +294,17 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
                 ruleSource,
                 context,
             });
+        }
+    }
+
+    /** If this item is being tracked, add its item roll options to the `all` domain */
+    #setRollOptions(grantedItem: Embedded<ItemPF2e> | null): void {
+        if (!(this.track && this.flag && grantedItem instanceof PhysicalItemPF2e)) return;
+
+        const slug = sluggify(this.flag);
+        const rollOptionsAll = this.actor.rollOptions.all;
+        for (const statement of grantedItem.getRollOptions(slug)) {
+            rollOptionsAll[statement] = true;
         }
     }
 }
