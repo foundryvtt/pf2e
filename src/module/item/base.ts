@@ -378,8 +378,10 @@ class ItemPF2e extends Item<ActorPF2e> {
 
         // Migrate source in case of importing from an old compendium
         for (const source of [...sources]) {
-            if (Object.keys(source).length === 2 && "name" in source && "type" in source) {
-                // The item consists of only a `name` and `type`: set schema version and skip
+            source.effects = []; // Never
+
+            if (!["flags", "system"].some((k) => k in source)) {
+                // The item has no migratable data: set schema version and skip
                 source.system = { schema: { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION } };
                 continue;
             }
