@@ -100,7 +100,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                         required: true,
                         nullable: false,
                         integer: true,
-                        min: 1,
+                        min: 0,
                         max: 8,
                         initial: 1,
                     }),
