@@ -142,7 +142,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             rarities: CONFIG.PF2E.rarityTraits,
             traits,
             traitTagifyData,
-            enabledRulesUI: game.settings.get("pf2e", "enabledRulesUI"),
+            enabledRulesUI: game.user.isGM || game.settings.get("pf2e", "enabledRulesUI"),
             ruleEditing: !!this.editingRuleElement,
             rules: {
                 labels: rules.map((ruleData: RuleElementSource) => {
