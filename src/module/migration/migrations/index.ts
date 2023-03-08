@@ -229,3 +229,4 @@ export { Migration828PruneInvalidTraits } from "./828-prune-invalid-traits";
 export { Migration829RMRitualEntries } from "./829-rm-ritual-entries";
 export { Migration830BarbarianRework } from "./830-condense-instincts";
 export { Migration831ClericDoctrines } from "./831-cleric-doctrines";
+export { Migration832ChoiceSetFlags } from "./832-choice-set-flags";
