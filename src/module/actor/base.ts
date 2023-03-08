@@ -523,6 +523,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     protected override _initialize(): void {
+        this.constructed ??= false;
         this.rules = [];
         this.conditions = new Map();
         this.auras = new Map();
@@ -798,6 +799,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                               params.item.isMelee === weapon.isMelee
                           );
                       }) ?? params.item;
+
         const itemOptions = selfItem.getRollOptions("item");
 
         const traitSlugs: ActionTrait[] = [
