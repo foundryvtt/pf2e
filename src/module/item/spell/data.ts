@@ -47,10 +47,10 @@ interface SpellSystemSource extends ItemSystemSource {
     duration: {
         value: string;
     };
-    damage: {
-        value: Record<string, SpellDamage>;
+    criticalDamage?: {
+        override: Record<string, SpellDamage>;
     };
-    critical?: {
+    damage: {
         value: Record<string, SpellDamage>;
     };
     heightening?: SpellHeighteningFixed | SpellHeighteningInterval;
@@ -102,7 +102,7 @@ export interface SpellDamage {
 export interface SpellHeighteningInterval {
     type: "interval";
     interval: number;
-    critical?: Record<string, string>;
+    criticalOverride?: Record<string, string>;
     damage: Record<string, string>;
 }
 

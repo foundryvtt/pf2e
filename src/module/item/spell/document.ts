@@ -165,7 +165,7 @@ class SpellPF2e extends ItemPF2e {
     }
 
     get hasCriticalOverride(): boolean {
-        return !!this.system.critical;
+        return !!this.system.criticalDamage?.override;
     }
 
     override get uuid(): ItemUUID {
@@ -525,13 +525,13 @@ class SpellPF2e extends ItemPF2e {
             }
 
             // Replace normal damage with critical damage overlay if requested
-            if (criticalDamage && source.system.critical) {
-                source.system.damage.value = source.system.critical.value;
+            if (criticalDamage && source.system.criticalDamage?.override) {
+                source.system.damage.value = source.system.criticalDamage.override;
 
                 // Handle interval heightening
                 const heightening = source.system.heightening;
-                if (heightening?.type === "interval" && heightening.critical) {
-                    heightening.damage = heightening.critical;
+                if (heightening?.type === "interval" && heightening.criticalOverride) {
+                    heightening.damage = heightening.criticalOverride;
                 }
             }
 

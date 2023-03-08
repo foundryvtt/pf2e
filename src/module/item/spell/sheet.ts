@@ -24,7 +24,7 @@ const spellOverridable: Partial<Record<keyof SpellSystemData, string>> = {
     area: "PF2E.AreaLabel",
     range: "PF2E.SpellRangeLabel",
     damage: "PF2E.DamageLabel",
-    critical: "PF2E.CriticalDamageLabel",
+    criticalDamage: "PF2E.CriticalDamageLabel",
 };
 
 const DEFAULT_INTERVAL_SCALING: SpellHeighteningInterval = {
@@ -301,7 +301,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             element.addEventListener("click", () => {
                 const baseKey = this.#getOverlayFromElement(element)?.base ?? "system";
                 const emptyDamage: SpellDamage = { value: "", type: { value: "bludgeoning", categories: [] } };
-                this.item.update({ [`${baseKey}.critical.value.${randomID()}`]: emptyDamage });
+                this.item.update({ [`${baseKey}.criticalDamage.override.${randomID()}`]: emptyDamage });
             });
         }
 
@@ -310,12 +310,15 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 const id = element.dataset.id;
                 if (!id) return;
                 const baseKey = this.#getOverlayFromElement(element)?.base ?? "system";
-                await this.item.update({ [`${baseKey}.critical.value.-=${id}`]: null });
+                await this.item.update({ [`${baseKey}.criticalDamage.override.-=${id}`]: null });
 
                 // Delete the whole critical property if it's empty
-                const critical = getProperty(this.item, `${baseKey}.critical.value`);
+                const critical = getProperty(this.item, `${baseKey}.criticalDamage.override`);
                 if (Object.keys(critical ?? {}).length === 0) {
-                    this.item.update({ [`${baseKey}.-=critical`]: null });
+                    this.item.update({
+                        [`${baseKey}.criticalDamage.-=override`]: null,
+                        [`${baseKey}.-=criticalDamage`]: null,
+                    });
                 }
             });
         }

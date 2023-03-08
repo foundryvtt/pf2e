@@ -182,7 +182,7 @@
         </div>
     {{/if}}
 
-    {{#if system.critical}}
+    {{#if system.criticalDamage.override}}
         <div class="damage-formulas">
             <h3>
                 <a data-action="overlay-remove-property" data-property="critical"><i class="fa fa-times" ></i></a>
@@ -193,15 +193,15 @@
                 </div>
             </h3>
 
-            {{#each system.critical.value as |damage id|}}
+            {{#each system.criticalDamage.override as |damage id|}}
                 <div class="formula-section">
                     <div class="details-container-flex-row">
-                        <input type="text" name="{{../dataPath}}.critical.value.{{id}}.value" value="{{damage.value}}" placeholder="{{localize "PF2E.FormulaPlaceholder"}}" />
+                        <input type="text" name="{{../dataPath}}.criticalDamage.override.{{id}}.value" value="{{damage.value}}" placeholder="{{localize "PF2E.FormulaPlaceholder"}}" />
                         <label>
                             <span>&nbsp;{{localize "PF2E.SpellAbilityModLabel"}}</span>
-                            <input type="checkbox" name="{{../dataPath}}.critical.value.{{id}}.applyMod" {{checked damage.applyMod}} />
+                            <input type="checkbox" name="{{../dataPath}}.criticalDamage.override.{{id}}.applyMod" {{checked damage.applyMod}} />
                         </label>
-                        <select name="{{../dataPath}}.critical.value.{{id}}.type.subtype">
+                        <select name="{{../dataPath}}.criticalDamage.override.{{id}}.type.subtype">
                             {{#select damage.type.subtype}}
                                 <option></option>
                                 {{#each @root.damageSubtypes as |name type|}}
@@ -209,7 +209,7 @@
                                 {{/each}}
                             {{/select}}
                         </select>
-                        <select name="{{../dataPath}}.critical.value.{{id}}.type.value">
+                        <select name="{{../dataPath}}.criticalDamage.override.{{id}}.type.value">
                             {{#select damage.type.value}}
                                 <option value=""></option>
                                 {{#each @root.damageTypes as |name type|}}
@@ -222,7 +222,7 @@
                                 data-tag-selector="basic"
                                 data-title="PF2E.DamageCategoriesLabel"
                                 data-config-types="damageCategories"
-                                data-property="{{../dataPath}}.critical.value.{{id}}.type.categories"
+                                data-property="{{../dataPath}}.criticalDamage.override.{{id}}.type.categories"
                             ><i class="fas fa-edit"></i></a>
                             <a data-action="critical-damage-delete" data-id="{{id}}"><i class="fas fa-trash"></i></a>
                         </div>
