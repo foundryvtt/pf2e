@@ -62,8 +62,10 @@ async function resetActors(actors?: Iterable<ActorPF2e>, { rerender = true } = {
 }
 
 async function migrateActorSource(source: PreCreate<ActorSourcePF2e>): Promise<ActorSourcePF2e> {
-    if (Object.keys(source).length === 2 && "name" in source && "type" in source) {
-        // The item consists of only a `name` and `type`: set schema version and skip
+    source.effects = []; // Never
+
+    if (!["flags", "items", "system"].some((k) => k in source)) {
+        // The actor has no migratable data: set schema version and return early
         source.system = { schema: { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION } };
     }
 
