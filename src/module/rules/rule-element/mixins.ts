@@ -1,4 +1,7 @@
 import { ItemSourcePF2e } from "@item/data";
+import { isPhysicalData } from "@item/data/helpers";
+import { RARITIES } from "@module/data";
+import { tupleHasValue } from "@util";
 import { ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
 import { AELikeChangeMode } from "./ae-like";
 import { RuleElementPF2e } from "./base";
@@ -20,6 +23,10 @@ abstract class WithItemAlterations<TSchema extends RuleElementSchema> {
 
     /** Is the item alteration valid for the item type? */
     itemCanBeAltered(this: RuleElementPF2e, source: ItemSourcePF2e, value: unknown): boolean | null {
+        if (isPhysicalData(source) && tupleHasValue(RARITIES, value)) {
+            return true;
+        }
+
         const sourceId = source.flags.core?.sourceId ? ` (${source.flags.core.sourceId})` : "";
         if (source.type !== "condition" && source.type !== "effect") {
             this.failValidation(`unable to alter "${source.name}"${sourceId}: must be condition or effect`);
@@ -57,6 +64,8 @@ abstract class WithItemAlterations<TSchema extends RuleElementSchema> {
                 itemSource.system.value.value = value;
             } else if (itemSource.type === "effect" && typeof value === "number") {
                 itemSource.system.badge!.value = value;
+            } else if (isPhysicalData(itemSource) && tupleHasValue(RARITIES, value)) {
+                itemSource.system.traits.rarity = value;
             }
         }
     }
@@ -77,11 +86,11 @@ class ItemAlterationField extends fields.SchemaField<
     constructor() {
         super(
             {
-                mode: new fields.StringField({ required: true, choices: ["override"], initial: "override" }),
+                mode: new fields.StringField({ required: true, choices: ["override"], initial: undefined }),
                 property: new fields.StringField({
                     required: true,
-                    choices: ["badge-value"],
-                    initial: "badge-value",
+                    choices: ["badge-value", "rarity"],
+                    initial: undefined,
                 }),
                 value: new ItemAlterationValueField(),
             },
@@ -112,8 +121,8 @@ class ItemAlterationValueField extends fields.DataField<
 
 type AddOverrideUpgrade = Extract<AELikeChangeMode, "add" | "override" | "upgrade">;
 type ItemAlterationData = {
-    mode: StringField<AddOverrideUpgrade, AddOverrideUpgrade, true, false, true>;
-    property: StringField<"badge-value", "badge-value", true, false, true>;
+    mode: StringField<AddOverrideUpgrade, AddOverrideUpgrade, true, false, false>;
+    property: StringField<"badge-value" | "rarity", "badge-value" | "rarity", true, false, false>;
     value: ItemAlterationValueField;
 };
 
