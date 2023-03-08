@@ -1461,9 +1461,23 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /** Increase a valued condition, or create a new one if not present */
     async increaseCondition(
         conditionSlug: ConditionSlug | Embedded<ConditionPF2e>,
-        { min, max = Number.MAX_SAFE_INTEGER }: { min?: number | null; max?: number | null } = {}
+        {
+            min,
+            max = Number.MAX_SAFE_INTEGER,
+            value,
+        }: { min?: number | null; max?: number | null; value?: number | null } = {}
     ): Promise<ConditionPF2e | null> {
-        const existing = typeof conditionSlug === "string" ? this.getCondition(conditionSlug) : conditionSlug;
+        if (value) min = max = value;
+
+        // Resolves the condition. If the argument is a condition, return it. Otherwise find an existing one.
+        // If value is defined, this is a condition being dragged, so prioritized unlocked
+        const existing = (() => {
+            if (!(typeof conditionSlug === "string")) return conditionSlug;
+
+            const conditions = this.getCondition(conditionSlug, { all: true });
+            return value ? conditions.find((c) => !c.isLocked) : conditions.find((c) => c.active);
+        })();
+
         if (existing) {
             const conditionValue = (() => {
                 if (existing.value === null) return null;
