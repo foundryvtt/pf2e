@@ -251,7 +251,7 @@ class CompendiumBrowser extends Application {
     }
 
     async openSpellTab(entry: BaseSpellcastingEntry, level = 10): Promise<void> {
-        const filter: { category: string[]; level: number[]; traditions: string[] } = {
+        const filter: { category: string[]; level: string[]; traditions: string[] } = {
             category: [],
             level: [],
             traditions: [],
@@ -262,7 +262,7 @@ class CompendiumBrowser extends Application {
         }
 
         if (level) {
-            filter.level.push(...Array.from(Array(level).keys()).map((l) => l + 1));
+            filter.level.push(...Array.from(Array(level).keys()).map((l) => String(l + 1)));
 
             if (entry.isPrepared || entry.isSpontaneous || entry.isInnate) {
                 filter.category.push("spell");
