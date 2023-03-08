@@ -1,6 +1,6 @@
 import { ABCFeatureEntryData } from "@item/abc/data";
 import { ClassSource, FeatSource, ItemSourcePF2e } from "@item/data";
-import { sluggify } from "@util";
+import { isObject, sluggify } from "@util";
 import { MigrationBase } from "../base";
 
 /** Consolidate all class features with multiple instances for different levels to single items */
@@ -66,7 +66,7 @@ export class Migration700SingleClassFeatures extends MigrationBase {
     ].map((name) => ({ slug: sluggify(name), name }));
 
     /** Update the reference ID and name of the each feature entry */
-    private migrateClass(itemSource: ClassSource): void {
+    #migrateClass(itemSource: ClassSource): void {
         for (const refId in itemSource.system.items) {
             const itemRef: ABCFeatureEntryData & { id?: string } = itemSource.system.items[refId];
             itemRef.level = Number(itemRef.level) || 1;
@@ -82,22 +82,33 @@ export class Migration700SingleClassFeatures extends MigrationBase {
     }
 
     /** Update the name, slug, and traits of each feature */
-    private migrateFeature(itemSource: FeatSource): void {
+    #migrateFeature(source: FeatSource): void {
+        if (!this.#isClassFeature(source)) return;
+
         for (const feature of this.features) {
-            if (itemSource.system.slug === "swashbuckler" && feature.slug === "weapon-expertise") continue;
-            if (itemSource.system.slug?.startsWith(`${feature.slug}-level-`)) {
-                itemSource.system.slug = feature.slug;
-                if (itemSource.name.startsWith(`${feature.name} `)) itemSource.name = feature.name;
-                itemSource.system.traits.value = [];
+            if (source.system.slug === "swashbuckler" && feature.slug === "weapon-expertise") continue;
+            if (source.system.slug?.startsWith(`${feature.slug}-level-`)) {
+                source.system.slug = feature.slug;
+                if (source.name.startsWith(`${feature.name} `)) source.name = feature.name;
+                source.system.traits.value = [];
             }
         }
     }
 
-    override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
-        if (itemSource.type === "class") {
-            this.migrateClass(itemSource);
-        } else if (itemSource.type === "feat" && itemSource.system.featType.value === "classfeature") {
-            this.migrateFeature(itemSource);
+    #isClassFeature(source: ItemSourcePF2e): source is FeatSource & { system: { featType: "classfeature" } } {
+        return (
+            source.type === "feat" &&
+            "featType" in source.system &&
+            isObject<{ value: string }>(source.system.featType) &&
+            source.system.featType.value === "classfeature"
+        );
+    }
+
+    override async updateItem(source: ItemSourcePF2e): Promise<void> {
+        if (source.type === "class") {
+            this.#migrateClass(source);
+        } else if (source.type === "feat") {
+            this.#migrateFeature(source);
         }
     }
 }

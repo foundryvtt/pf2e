@@ -814,8 +814,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             .filter((s) => !!s)
             .map((s) => s.trim());
 
-        if (checkboxesFilterCodes.includes("feattype-general")) checkboxesFilterCodes.push("feattype-skill");
-        if (checkboxesFilterCodes.includes("feattype-class")) checkboxesFilterCodes.push("feattype-archetype");
+        if (checkboxesFilterCodes.includes("category-general")) checkboxesFilterCodes.push("category-skill");
+        if (checkboxesFilterCodes.includes("category-class")) checkboxesFilterCodes.push("category-archetype");
 
         const featTab = game.pf2e.compendiumBrowser.tabs.feat;
         const filter = await featTab.getFilterData();
@@ -823,7 +823,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         level.values.max = Math.min(maxLevel, level.values.upperLimit);
         level.isExpanded = level.values.max !== level.values.upperLimit;
 
-        const { feattype } = filter.checkboxes;
+        const { category } = filter.checkboxes;
         const { traits } = filter.multiselects;
 
         for (const filterCode of checkboxesFilterCodes) {
@@ -831,11 +831,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             if (!(filterType && value)) {
                 throw ErrorPF2e(`Invalid filter value for opening the compendium browser: "${filterCode}"`);
             }
-            if (filterType === "feattype") {
-                if (value in feattype.options) {
-                    feattype.isExpanded = true;
-                    feattype.options[value].selected = true;
-                    feattype.selected.push(value);
+            if (filterType === "category") {
+                if (value in category.options) {
+                    category.isExpanded = true;
+                    category.options[value].selected = true;
+                    category.selected.push(value);
                 }
             } else if (filterType === "traits") {
                 const trait = traits.options.find((t) => t.value === value);
@@ -1145,7 +1145,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             if (!featSlot) return [];
 
             const group = this.actor.feats.get(featSlot.categoryId) ?? null;
-            const resorting = item.category === group && !group?.slotted;
+            const resorting = item.group === group && !group?.slotted;
             if (group?.slotted && !featSlot.slotId) {
                 return [];
             } else if (!resorting) {

@@ -1,18 +1,19 @@
-import { ItemPF2e } from "..";
-import { FeatSource, FeatSystemData, FeatTrait, FeatType } from "./data";
+import { ActorPF2e } from "@actor";
+import { FeatGroup } from "@actor/character/feats";
+import { ItemSummaryData } from "@item/data";
+import { Frequency } from "@item/data/base";
 import { OneToThree } from "@module/data";
 import { UserPF2e } from "@module/user";
 import { getActionTypeLabel, sluggify } from "@util";
-import { FeatCategory } from "@actor/character/feats";
-import { Frequency } from "@item/data/base";
-import { ItemSummaryData } from "@item/data";
-import { ActorPF2e } from "@actor";
+import { ItemPF2e } from "..";
+import { FeatSource, FeatSystemData } from "./data";
+import { FeatCategory, FeatTrait } from "./types";
 
 class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
-    category!: FeatCategory | null;
+    group!: FeatGroup | null;
 
-    get featType(): FeatType {
-        return this.system.featType.value;
+    get category(): FeatCategory {
+        return this.system.category;
     }
 
     get level(): number {
@@ -38,7 +39,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     get isFeature(): boolean {
-        return ["classfeature", "ancestryfeature"].includes(this.featType);
+        return ["classfeature", "ancestryfeature"].includes(this.category);
     }
 
     get isFeat(): boolean {
@@ -58,7 +59,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        this.category = null;
+        this.group = null;
 
         // Handle legacy data with empty-string locations
         this.system.location ||= null;
@@ -66,11 +67,11 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const traits = this.system.traits.value;
 
         // Add the General trait if of the general feat type
-        if (this.featType === "general" && !traits.includes("general")) {
+        if (this.category === "general" && !traits.includes("general")) {
             traits.push("general");
         }
 
-        if (this.featType === "skill") {
+        if (this.category === "skill") {
             // Add the Skill trait
             if (!traits.includes("skill")) traits.push("skill");
 
@@ -82,7 +83,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         // Only archetype feats can have the dedication trait
         if (traits.includes("dedication")) {
-            this.featType === "archetype";
+            this.system.category = "class";
             if (!traits.includes("archetype")) traits.push("archetype");
         }
 
@@ -127,11 +128,10 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = "feat"): string[] {
         prefix = prefix === "feat" && this.isFeature ? "feature" : prefix;
-        const baseOptions = super.getRollOptions(prefix).filter((o) => !o.endsWith("level:0"));
-        const featTypeInfix = this.isFeature ? "feature-type" : "feat-type";
-        const featTypeSuffix = this.featType.replace("feature", "");
-
-        return [...baseOptions, `${prefix}:${featTypeInfix}:${featTypeSuffix}`];
+        return [
+            ...super.getRollOptions(prefix).filter((o) => !o.endsWith("level:0")),
+            `${prefix}:category:${this.category}`,
+        ];
     }
 
     /* -------------------------------------------- */
@@ -186,7 +186,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             changed.system.onlyLevel1 = false;
             changed.system.maxTakable = 1;
 
-            if (this.featType !== "ancestry" && Array.isArray(traits)) {
+            if (this.category !== "ancestry" && Array.isArray(traits)) {
                 traits.findSplice((t) => t === "lineage");
             }
         } else if ((Array.isArray(traits) && traits.includes("lineage")) || changed.system?.onlyLevel1) {

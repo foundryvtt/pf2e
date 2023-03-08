@@ -1,7 +1,7 @@
 import { CreatureTrait } from "@actor/creature/types";
 import { HazardTrait } from "@actor/hazard";
 import { ActionTrait } from "@item/action";
-import { FeatTrait } from "@item/feat/data";
+import { FeatTrait } from "@item/feat/types";
 import { PhysicalItemTrait } from "@item/physical/data";
 import { SearchResult } from "minisearch";
 import { SortDirection } from "../data";
@@ -110,12 +110,7 @@ interface EquipmentFilters extends BaseFilterData {
 }
 
 interface FeatFilters extends BaseFilterData {
-    checkboxes: {
-        feattype: CheckboxData;
-        skills: CheckboxData;
-        rarity: CheckboxData;
-        source: CheckboxData;
-    };
+    checkboxes: Record<"category" | "skills" | "rarity" | "source", CheckboxData>;
     multiselects: {
         traits: MultiselectData<FeatTrait>;
     };

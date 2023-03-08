@@ -253,7 +253,9 @@ function pruneItem(source: ItemSourcePF2e): void {
     } else if (source.type === "effect") {
         delete (source.system as { context?: unknown }).context;
     } else if (source.type === "feat") {
-        const isFeat = !["ancestryfeature", "classfeature"].includes(source.system.featType.value);
+        const isFeat = !["ancestryfeature", "classfeature", "pfsboon", "deityboon", "curse"].includes(
+            source.system.category
+        );
         if (isFeat && source.img === "systems/pf2e/icons/default-icons/feat.svg") {
             source.img = "systems/pf2e/icons/features/feats/feats.webp";
         }

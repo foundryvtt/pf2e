@@ -1,9 +1,8 @@
 import { FeatPF2e } from "@item/feat";
-import { ItemSheetPF2e } from "../sheet/base";
+import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/sheet";
 import Tagify from "@yaireo/tagify";
-import { ItemSheetDataPF2e } from "@item/sheet/data-types";
 
-export class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
+class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
     override get validTraits(): Record<string, string> {
         return CONFIG.PF2E.featTraits;
     }
@@ -17,11 +16,10 @@ export class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             ...sheetData,
             hasSidebar: true,
             itemType: game.i18n.localize(this.item.isFeature ? "PF2E.LevelLabel" : "PF2E.Item.Feat.LevelLabel"),
-            featTypes: CONFIG.PF2E.featTypes,
+            categories: CONFIG.PF2E.featCategories,
             actionTypes: CONFIG.PF2E.actionTypes,
             actionsNumber: CONFIG.PF2E.actionsNumber,
             frequencies: CONFIG.PF2E.frequencies,
-            categories: CONFIG.PF2E.actionCategories,
             damageTypes: { ...CONFIG.PF2E.damageTypes, ...CONFIG.PF2E.healingTypes },
             prerequisites: JSON.stringify(this.item.system.prerequisites?.value ?? []),
             isFeat: this.item.isFeat,
@@ -62,14 +60,15 @@ export class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
 }
 
 interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
-    featTypes: ConfigPF2e["PF2E"]["featTypes"];
+    categories: ConfigPF2e["PF2E"]["featCategories"];
     actionTypes: ConfigPF2e["PF2E"]["actionTypes"];
     actionsNumber: ConfigPF2e["PF2E"]["actionsNumber"];
     frequencies: ConfigPF2e["PF2E"]["frequencies"];
     damageTypes: ConfigPF2e["PF2E"]["damageTypes"] & ConfigPF2e["PF2E"]["healingTypes"];
-    categories: ConfigPF2e["PF2E"]["actionCategories"];
     prerequisites: string;
     isFeat: boolean;
     mandatoryTakeOnce: boolean;
     hasLineageTrait: boolean;
 }
+
+export { FeatSheetPF2e };
