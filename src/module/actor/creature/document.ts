@@ -155,7 +155,7 @@ abstract class CreaturePF2e extends ActorPF2e {
         const { senses } = this.system.traits;
         const hasSensesData =
             Array.isArray(senses) &&
-            senses.every((s): s is { type: string } => isObject(s) && "type" in s && typeof s === "string");
+            senses.every((s): s is { type: string } => isObject(s) && "type" in s && typeof s.type === "string");
         if (!hasSensesData) {
             return VisionLevels.NORMAL;
         }
