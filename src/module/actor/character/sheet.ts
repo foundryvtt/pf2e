@@ -20,6 +20,7 @@ import {
     isObject,
     objectHasKey,
     setHasElement,
+    tupleHasValue,
 } from "@util";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
@@ -774,27 +775,36 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         if (checkboxesFilterCodes.includes("feattype-general")) checkboxesFilterCodes.push("feattype-skill");
         if (checkboxesFilterCodes.includes("feattype-class")) checkboxesFilterCodes.push("feattype-archetype");
 
-        const feattype: string[] = [];
-        const traits: { values: string[]; conjunction?: "and" | "or" } = {
-            values: [],
-        };
+        const featTab = game.pf2e.compendiumBrowser.tabs.feat;
+        const filter = await featTab.getFilterData();
+        const level = filter.sliders.level;
+        level.values.max = Math.min(maxLevel, level.values.upperLimit);
+        level.isExpanded = level.values.max !== level.values.upperLimit;
+
+        const { feattype } = filter.checkboxes;
+        const { traits } = filter.multiselects;
+
         for (const filterCode of checkboxesFilterCodes) {
             const [filterType, value] = filterCode.split("-");
             if (!(filterType && value)) {
-                const codesData = JSON.stringify(checkboxesFilterCodes);
-                throw ErrorPF2e(`Invalid filter value for opening the compendium browser:\n${codesData}`);
+                throw ErrorPF2e(`Invalid filter value for opening the compendium browser: "${filterCode}"`);
             }
             if (filterType === "feattype") {
-                feattype.push(value);
+                if (value in feattype.options) {
+                    feattype.isExpanded = true;
+                    feattype.options[value].selected = true;
+                    feattype.selected.push(value);
+                }
             } else if (filterType === "traits") {
-                traits.values.push(value);
+                if (tupleHasValue(traits.options, value)) {
+                    traits.selected.push(value);
+                }
             } else if (filterType === "conjunction" && (value === "and" || value === "or")) {
-                traits.conjunction = value;
+                filter.multiselects.traits.conjunction = value;
             }
         }
 
-        const filter = { level: { max: maxLevel }, feattype, traits };
-        await game.pf2e.compendiumBrowser.openTab("feat", filter);
+        return featTab.open(filter);
     }
 
     /** Handle changing of proficiency-rank via dropdown */

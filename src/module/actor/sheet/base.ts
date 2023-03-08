@@ -633,24 +633,28 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             (element): element is string => !!element
         );
 
-        const filter: Record<string, string[]> = {};
+        const eqTab = game.pf2e.compendiumBrowser.tabs.equipment;
+        const filter = await eqTab.getFilterData();
+        const { checkboxes } = filter;
+
         for (const filterCode of checkboxesFilterCodes) {
             const splitValues = filterCode.split("-");
             if (splitValues.length !== 2) {
-                console.error(
-                    `Invalid filter value for opening the compendium browser:\n'${JSON.stringify(
-                        checkboxesFilterCodes
-                    )}'`
-                );
+                console.error(`Invalid filter value for opening the compendium browser: "${filterCode}"`);
                 return;
             }
-
             const [filterType, value] = splitValues;
-            const filterCategory = filter[filterType] ?? (filter[filterType] = []);
-            filterCategory.push(value);
+            if (objectHasKey(checkboxes, filterType)) {
+                const checkbox = checkboxes[filterType];
+                if (objectHasKey(checkbox.options, value)) {
+                    checkbox.options[value].selected = true;
+                    checkbox.selected.push(value);
+                    checkbox.isExpanded = true;
+                }
+            }
         }
 
-        await game.pf2e.compendiumBrowser.openTab("equipment", filter);
+        eqTab.open(filter);
     }
 
     protected override _canDragStart(selector: string): boolean {

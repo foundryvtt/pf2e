@@ -1,9 +1,14 @@
 import { sluggify } from "@util";
 import { CompendiumBrowser } from "..";
+import { ContentTabName } from "../data";
 import { CompendiumBrowserTab } from "./base";
 import { BestiaryFilters, CompendiumBrowserIndexData } from "./data";
 
 export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
+    tabName: ContentTabName = "bestiary";
+    filterData: BestiaryFilters;
+    templatePath = "systems/pf2e/templates/compendium-browser/partials/bestiary.hbs";
+
     protected index = [
         "img",
         "system.details.level.value",
@@ -12,8 +17,6 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
         "system.traits",
     ];
 
-    override filterData!: BestiaryFilters;
-    override templatePath = "systems/pf2e/templates/compendium-browser/partials/bestiary.hbs";
     /* MiniSearch */
     override searchFields = ["name"];
     override storeFields = [
@@ -30,13 +33,13 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
     ];
 
     constructor(browser: CompendiumBrowser) {
-        super(browser, "bestiary");
+        super(browser);
 
         // Set the filterData object of this tab
-        this.prepareFilterData();
+        this.filterData = this.prepareFilterData();
     }
 
-    protected override async loadData() {
+    protected override async loadData(): Promise<void> {
         console.debug("PF2e System | Compendium Browser | Started loading Bestiary actors");
 
         const bestiaryActors: CompendiumBrowserIndexData[] = [];
@@ -121,8 +124,8 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
         return true;
     }
 
-    protected override prepareFilterData(): void {
-        this.filterData = {
+    protected override prepareFilterData(): BestiaryFilters {
+        return {
             checkboxes: {
                 sizes: {
                     isExpanded: true,

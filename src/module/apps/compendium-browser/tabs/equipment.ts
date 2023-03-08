@@ -2,12 +2,15 @@ import { CoinsPF2e } from "@item/physical/helpers";
 import { LocalizePF2e } from "@system/localize";
 import { sluggify } from "@util";
 import { CompendiumBrowser } from "..";
+import { ContentTabName } from "../data";
 import { CompendiumBrowserTab } from "./base";
 import { CompendiumBrowserIndexData, EquipmentFilters, RangesData } from "./data";
 
 export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
-    override filterData!: EquipmentFilters;
-    override templatePath = "systems/pf2e/templates/compendium-browser/partials/equipment.hbs";
+    tabName: ContentTabName = "equipment";
+    filterData: EquipmentFilters;
+    templatePath = "systems/pf2e/templates/compendium-browser/partials/equipment.hbs";
+
     /* MiniSearch */
     override searchFields = ["name"];
     override storeFields = [
@@ -26,13 +29,13 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     ];
 
     constructor(browser: CompendiumBrowser) {
-        super(browser, "equipment");
+        super(browser);
 
         // Set the filterData object of this tab
-        this.prepareFilterData();
+        this.filterData = this.prepareFilterData();
     }
 
-    protected override async loadData() {
+    protected override async loadData(): Promise<void> {
         console.debug("PF2e System | Compendium Browser | Started loading inventory items");
 
         const inventoryItems: CompendiumBrowserIndexData[] = [];
@@ -206,9 +209,9 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         return super.parseRangeFilterInput(name, lower, upper);
     }
 
-    protected override prepareFilterData(): void {
+    protected override prepareFilterData(): EquipmentFilters {
         const coins = LocalizePF2e.translations.PF2E.CurrencyAbbreviations;
-        this.filterData = {
+        return {
             checkboxes: {
                 itemtypes: {
                     isExpanded: true,

@@ -1,5 +1,4 @@
 import { KitPF2e, PhysicalItemPF2e } from "@item";
-import { CoinsPF2e } from "@item/physical/helpers";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry";
 import { LocalizePF2e } from "@system/localize";
 import { ErrorPF2e, htmlQueryAll, isObject, objectHasKey } from "@util";
@@ -7,21 +6,21 @@ import { getSelectedOrOwnActors } from "@util/token-actor-utils";
 import { UUIDUtils } from "@util/uuid-utils";
 import Tagify from "@yaireo/tagify";
 import noUiSlider from "nouislider";
-import { BrowserTab, PackInfo, SortDirection, TabData, TabName } from "./data";
+import { BrowserTabs, PackInfo, SortDirection, TabData, TabName } from "./data";
 import { Progress } from "./progress";
 import * as browserTabs from "./tabs";
 import {
-    BaseFilterData,
+    ActionFilters,
+    BestiaryFilters,
+    BrowserFilter,
     CheckboxData,
-    InitialActionFilters,
-    InitialBestiaryFilters,
-    InitialEquipmentFilters,
-    InitialFeatFilters,
-    InitialFilters,
-    InitialHazardFilters,
-    InitialSpellFilters,
+    EquipmentFilters,
+    FeatFilters,
+    HazardFilters,
     RangesData,
     RenderResultListOptions,
+    SliderData,
+    SpellFilters,
 } from "./tabs/data";
 
 class PackLoader {
@@ -85,17 +84,17 @@ class PackLoader {
 class CompendiumBrowser extends Application {
     settings: CompendiumBrowserSettings;
     dataTabsList = ["action", "bestiary", "equipment", "feat", "hazard", "spell"] as const;
-    tabs: Record<Exclude<TabName, "settings">, BrowserTab>;
+    navigationTab: Tabs;
+    tabs: BrowserTabs;
+
     packLoader = new PackLoader();
     activeTab!: TabName;
-    navigationTab!: Tabs;
-
-    /** An initial filter to be applied upon loading a tab */
-    private initialFilter: InitialFilters = {};
 
     constructor(options = {}) {
         super(options);
 
+        this.settings = game.settings.get("pf2e", "compendiumBrowserPacks");
+        this.navigationTab = this.hookTab();
         this.tabs = {
             action: new browserTabs.Actions(this),
             bestiary: new browserTabs.Bestiary(this),
@@ -105,11 +104,8 @@ class CompendiumBrowser extends Application {
             spell: new browserTabs.Spells(this),
         };
 
-        this.settings = game.settings.get("pf2e", "compendiumBrowserPacks");
-
         this.initCompendiumList();
         this.injectActorDirectory();
-        this.hookTab();
     }
 
     override get title(): string {
@@ -136,14 +132,26 @@ class CompendiumBrowser extends Application {
         });
     }
 
+    override async render(force?: boolean, options?: RenderOptions): Promise<this> {
+        return super.render(force, options);
+    }
+
     /** Reset initial filtering */
     override async close(options?: { force?: boolean }): Promise<void> {
-        this.initialFilter = {};
         for (const tab of Object.values(this.tabs)) {
             tab.filterData.search.text = "";
         }
-
         await super.close(options);
+    }
+
+    hookTab(): Tabs {
+        const navigationTab = this._tabs[0];
+        const tabCallback = navigationTab.callback;
+        navigationTab.callback = async (event: JQuery.TriggeredEvent | null, tabs: Tabs, active: TabName) => {
+            tabCallback?.(event, tabs, active);
+            await this.loadTab(active);
+        };
+        return navigationTab;
     }
 
     initCompendiumList(): void {
@@ -227,245 +235,71 @@ class CompendiumBrowser extends Application {
         this.settings = settings;
     }
 
-    hookTab(): void {
-        this.navigationTab = this._tabs[0];
-        const tabCallback = this.navigationTab.callback;
-        this.navigationTab.callback = async (event: JQuery.TriggeredEvent | null, tabs: Tabs, active: TabName) => {
-            tabCallback?.(event, tabs, active);
-            await this.loadTab(active);
-        };
+    openTab(name: "action", filter?: ActionFilters): Promise<void>;
+    openTab(name: "bestiary", filter?: BestiaryFilters): Promise<void>;
+    openTab(name: "equipment", filter?: EquipmentFilters): Promise<void>;
+    openTab(name: "feat", filter?: FeatFilters): Promise<void>;
+    openTab(name: "hazard", filter?: HazardFilters): Promise<void>;
+    openTab(name: "spell", filter?: SpellFilters): Promise<void>;
+    openTab(name: "settings"): Promise<void>;
+    async openTab(tabName: TabName, filter?: BrowserFilter): Promise<void> {
+        this.activeTab = tabName;
+        if (tabName !== "settings" && filter) {
+            return this.tabs[tabName].open(filter);
+        }
+        return this.loadTab(tabName);
     }
 
-    openTab(tab: "action", filter?: InitialActionFilters): Promise<void>;
-    openTab(tab: "bestiary", filter?: InitialBestiaryFilters): Promise<void>;
-    openTab(tab: "equipment", filter?: InitialEquipmentFilters): Promise<void>;
-    openTab(tab: "feat", filter?: InitialFeatFilters): Promise<void>;
-    openTab(tab: "hazard", filter?: InitialHazardFilters): Promise<void>;
-    openTab(tab: "spell", filter?: InitialSpellFilters): Promise<void>;
-    openTab(tab: "settings"): Promise<void>;
-    async openTab(tab: TabName, filter: InitialFilters = {}): Promise<void> {
-        this.initialFilter = filter;
-        await this._render(true);
-        this.initialFilter = filter; // Reapply in case of a double-render (need to track those down)
-        this.navigationTab.activate(tab, { triggerCallback: true });
-    }
-
-    async openSpellTab(entry: BaseSpellcastingEntry, level = 10): Promise<void> {
-        const filter: { category: string[]; level: string[]; traditions: string[] } = {
-            category: [],
-            level: [],
-            traditions: [],
-        };
+    async openSpellTab(entry: BaseSpellcastingEntry, maxLevel = 10): Promise<void> {
+        const spellTab = this.tabs.spell;
+        const filter = await spellTab.getFilterData();
+        const { category, level, traditions } = filter.checkboxes;
 
         if (entry.isRitual || entry.isFocusPool) {
-            filter.category.push(entry.category);
+            category.options[entry.category].selected = true;
+            category.selected.push(entry.category);
         }
 
-        if (level) {
-            filter.level.push(...Array.from(Array(level).keys()).map((l) => String(l + 1)));
-
+        if (maxLevel) {
+            const levels = Array.from(Array(maxLevel).keys()).map((l) => String(l + 1));
+            for (const l of levels) {
+                level.options[l].selected = true;
+                level.selected.push(l);
+            }
             if (entry.isPrepared || entry.isSpontaneous || entry.isInnate) {
-                filter.category.push("spell");
+                category.options["spell"].selected = true;
+                category.selected.push("spell");
             }
         }
 
         if (entry.tradition && !entry.isFocusPool && !entry.isRitual) {
-            filter.traditions.push(entry.tradition);
+            traditions.options[entry.tradition].selected = true;
+            traditions.selected.push(entry.tradition);
         }
 
-        this.openTab("spell", filter);
+        spellTab.open(filter);
     }
 
-    async loadTab(tab: TabName): Promise<void> {
-        this.activeTab = tab;
+    async loadTab(tabName: TabName): Promise<void> {
+        this.activeTab = tabName;
         // Settings tab
-        if (tab === "settings") {
+        if (tabName === "settings") {
             await this.render(true);
             return;
         }
 
-        if (!this.dataTabsList.includes(tab)) {
-            throw ErrorPF2e(`Unknown tab "${tab}"`);
+        if (!this.dataTabsList.includes(tabName)) {
+            throw ErrorPF2e(`Unknown tab "${tabName}"`);
         }
 
-        const currentTab = this.tabs[tab];
+        const currentTab = this.tabs[tabName];
 
         // Initialize Tab if it is not already initialzed
-        if (!currentTab?.isInitialized) {
-            await currentTab?.init();
+        if (!currentTab.isInitialized) {
+            await currentTab.init();
         }
 
-        this.processInitialFilters(currentTab);
-
-        this.render(true);
-    }
-
-    private processInitialFilters(currentTab: BrowserTab): void {
-        // Reset filters if new filters were provided
-        if (this.initialFilter && Object.keys(this.initialFilter).length > 0) {
-            currentTab.resetFilters();
-        }
-
-        // Search text filter
-        if (this.initialFilter.searchText) {
-            currentTab.filterData.search.text = this.initialFilter.searchText;
-        }
-
-        // Sorting
-        currentTab.filterData.order.by = this.initialFilter.orderBy ?? currentTab.filterData.order.by;
-        currentTab.filterData.order.direction =
-            this.initialFilter.orderDirection ?? currentTab.filterData.order.direction;
-
-        for (const [filterType, filterValue] of Object.entries(this.initialFilter)) {
-            const mappedFilterType = (() => {
-                if (filterType === "levelRange") {
-                    return "level";
-                } else if (filterType === "priceRange") {
-                    return "price";
-                }
-                return filterType;
-            })();
-
-            if (
-                currentTab.filterData.checkboxes &&
-                objectHasKey(currentTab.filterData.checkboxes, mappedFilterType) &&
-                Array.isArray(filterValue)
-            ) {
-                // Checkboxes
-                const checkbox = currentTab.filterData.checkboxes[mappedFilterType];
-                for (const value of filterValue) {
-                    const option = checkbox.options[value];
-                    if (option) {
-                        checkbox.isExpanded = true;
-                        checkbox.selected.push(value);
-                        option.selected = true;
-                    } else {
-                        console.warn(
-                            `Tab '${currentTab.tabName}' checkboxes filter '${mappedFilterType}' has no option: '${value}'`
-                        );
-                    }
-                }
-            } else if (
-                currentTab.filterData.selects &&
-                objectHasKey(currentTab.filterData.selects, mappedFilterType) &&
-                typeof filterValue === "string"
-            ) {
-                // Selects
-                const select = currentTab.filterData.selects[mappedFilterType];
-                const option = select.options[filterValue];
-                if (option) {
-                    select.selected = filterValue;
-                } else {
-                    console.warn(
-                        `Tab '${currentTab.tabName}' select filter '${mappedFilterType}' has no option: '${filterValue}'`
-                    );
-                }
-            } else if (
-                currentTab.filterData.multiselects &&
-                objectHasKey(currentTab.filterData.multiselects, mappedFilterType) &&
-                Array.isArray(filterValue.values)
-            ) {
-                // Multiselects
-                // A convoluted cast is necessary here to not get an infered type of MultiSelectData<PhysicalItem> since MultiSelectData is not exported
-                const multiselects = (currentTab.filterData.multiselects as BaseFilterData["multiselects"])!;
-                const multiselect = multiselects[mappedFilterType];
-                for (const value of filterValue.values) {
-                    const option = multiselect.options.find((opt) => opt.value === value);
-                    if (option) {
-                        multiselect.selected.push(option);
-                    } else {
-                        console.warn(
-                            `Tab '${currentTab.tabName}' multiselect filter '${mappedFilterType}' has no option: '${value}'`
-                        );
-                    }
-                }
-                if (filterValue.conjunction === "and" || filterValue.conjunction === "or") {
-                    multiselect.conjunction = filterValue.conjunction;
-                }
-            } else if (
-                currentTab.filterData.ranges &&
-                objectHasKey(currentTab.filterData.ranges, mappedFilterType) &&
-                this.#isRange(filterValue)
-            ) {
-                // Ranges (e.g. price)
-                if (
-                    (filterValue.min !== undefined && filterValue.min !== null) ||
-                    (filterValue.max !== undefined && filterValue.max !== null)
-                ) {
-                    const range = currentTab.filterData.ranges[mappedFilterType];
-                    if (filterType === "priceRange") {
-                        if (filterValue.min !== null && filterValue.min !== undefined) {
-                            if (typeof filterValue.min === "number") {
-                                // Number values are handled as a price in gold pieces
-                                range.values.min = new CoinsPF2e({ gp: filterValue.min }).copperValue;
-                                range.values.inputMin = filterValue.min + "gp";
-                            } else if (typeof filterValue.min === "string") {
-                                range.values.min = CoinsPF2e.fromString(filterValue.min).copperValue;
-                                range.values.inputMin = filterValue.min;
-                            }
-                        }
-                        if (filterValue.max !== null && filterValue.max !== undefined) {
-                            if (typeof filterValue.max === "number") {
-                                // Number values are handled as a price in gold pieces
-                                range.values.max = new CoinsPF2e({ gp: filterValue.max }).copperValue;
-                                range.values.inputMax = filterValue.max + "gp";
-                            } else if (typeof filterValue.max === "string") {
-                                range.values.max = CoinsPF2e.fromString(filterValue.max).copperValue;
-                                range.values.inputMax = filterValue.max;
-                            }
-                        }
-                    } else {
-                        // If there is ever another range filter, it should be handled here
-                        console.error("Initital filtering for ranges other than price aren't implemented yet.");
-                        continue;
-                    }
-
-                    // Set max value to min value if min value is higher
-                    if (range.values.min > range.values.max) {
-                        range.values.max = range.values.min;
-                        range.values.inputMax = range.values.inputMin;
-                    }
-
-                    range.isExpanded = true;
-                }
-            } else if (
-                currentTab.filterData.sliders &&
-                objectHasKey(currentTab.filterData.sliders, mappedFilterType) &&
-                this.#isRange(filterValue) &&
-                (typeof filterValue.min === "number" || typeof filterValue.max === "number")
-            ) {
-                // Sliders (e.g. level)
-                const slider = currentTab.filterData.sliders[mappedFilterType];
-
-                const minValue =
-                    typeof filterValue.min === "number"
-                        ? Math.clamped(filterValue.min, slider.values.lowerLimit, slider.values.upperLimit) || 0
-                        : slider.values.lowerLimit;
-                const maxValue = Math.max(
-                    minValue,
-                    typeof filterValue.max === "number"
-                        ? Math.clamped(filterValue.max, slider.values.lowerLimit, slider.values.upperLimit) || 0
-                        : slider.values.upperLimit
-                );
-
-                slider.values.min = minValue;
-                slider.values.max = maxValue;
-                slider.isExpanded = true;
-            }
-            // Filter name did not match a filter on the tab
-            else {
-                console.warn(`'${filterType}' is not a valid filter for tab '${currentTab.tabName}'.`);
-            }
-        }
-
-        this.initialFilter = {};
-    }
-
-    #isRange(value: unknown): value is { min?: number | string; max?: number | string } {
-        return (
-            isObject<{ min: unknown; max: unknown }>(value) &&
-            (["number", "string"].includes(typeof value.min) || ["number", "string"].includes(typeof value.max))
-        );
+        await this.render(true);
     }
 
     loadedPacks(tab: TabName): string[] {
@@ -479,6 +313,12 @@ class CompendiumBrowser extends Application {
         super.activateListeners($html);
         const html = $html[0];
         const activeTabName = this.activeTab;
+
+        // Set the navigation tab. This is only needed when the browser is openend
+        // with CompendiumBrowserTab#open
+        if (this.navigationTab.active !== activeTabName) {
+            this.navigationTab.activate(activeTabName);
+        }
 
         // Settings Tab
         if (activeTabName === "settings") {
@@ -544,8 +384,10 @@ class CompendiumBrowser extends Application {
             const timeFilter = controlArea.querySelector<HTMLSelectElement>("select[name=timefilter]");
             if (timeFilter) {
                 timeFilter.addEventListener("change", () => {
-                    if (!currentTab.filterData?.selects?.timefilter) return;
-                    currentTab.filterData.selects.timefilter.selected = timeFilter.value;
+                    if (!currentTab.isOfType("spell")) return;
+                    const filterData = currentTab.filterData;
+                    if (!filterData.selects?.timefilter) return;
+                    filterData.selects.timefilter.selected = timeFilter.value;
                     this.clearScrollLimit(true);
                 });
             }
@@ -579,11 +421,13 @@ class CompendiumBrowser extends Application {
                             break;
                         }
                         case "ranges": {
-                            const ranges = currentTab.filterData.ranges!;
-                            if (objectHasKey(ranges, filterName)) {
-                                ranges[filterName].values = currentTab.defaultFilterData.ranges![filterName].values;
-                                ranges[filterName].changed = false;
-                                this.render(true);
+                            if (currentTab.isOfType("equipment")) {
+                                const ranges = currentTab.filterData.ranges;
+                                if (objectHasKey(ranges, filterName)) {
+                                    ranges[filterName].values = currentTab.defaultFilterData.ranges[filterName].values;
+                                    ranges[filterName].changed = false;
+                                    this.render(true);
+                                }
                             }
                         }
                     }
@@ -592,18 +436,35 @@ class CompendiumBrowser extends Application {
             // Toggle visibility of filter container
             const title = container.querySelector<HTMLDivElement>("div.title");
             title?.addEventListener("click", () => {
-                if (filterType === "checkboxes" || filterType === "ranges" || filterType === "sliders") {
-                    const filters = currentTab.filterData[filterType];
-                    if (filters && objectHasKey(filters, filterName)) {
-                        // This needs a type assertion because it resolves to never for some reason
-                        const filter = filters[filterName] as CheckboxData | RangesData;
-                        filter.isExpanded = !filter.isExpanded;
-                        const contentElement = title.nextElementSibling;
-                        if (contentElement instanceof HTMLElement) {
-                            filter.isExpanded
-                                ? (contentElement.style.display = "")
-                                : (contentElement.style.display = "none");
+                const toggleFilter = (filter: CheckboxData | RangesData | SliderData) => {
+                    filter.isExpanded = !filter.isExpanded;
+                    const contentElement = title.nextElementSibling;
+                    if (contentElement instanceof HTMLElement) {
+                        filter.isExpanded
+                            ? (contentElement.style.display = "")
+                            : (contentElement.style.display = "none");
+                    }
+                };
+                switch (filterType) {
+                    case "checkboxes": {
+                        if (objectHasKey(currentTab.filterData.checkboxes, filterName)) {
+                            toggleFilter(currentTab.filterData.checkboxes[filterName]);
                         }
+                        break;
+                    }
+                    case "ranges": {
+                        if (!currentTab.isOfType("equipment")) return;
+                        if (objectHasKey(currentTab.filterData.ranges, filterName)) {
+                            toggleFilter(currentTab.filterData.ranges[filterName]);
+                        }
+                        break;
+                    }
+                    case "sliders": {
+                        if (!currentTab.isOfType("bestiary", "equipment", "feat", "hazard")) return;
+                        if (objectHasKey(currentTab.filterData.sliders, filterName)) {
+                            toggleFilter(currentTab.filterData.sliders[filterName]);
+                        }
+                        break;
                     }
                 }
             });
@@ -628,6 +489,7 @@ class CompendiumBrowser extends Application {
             if (filterType === "ranges") {
                 container.querySelectorAll<HTMLInputElement>("input[name*=Bound]").forEach((range) => {
                     range.addEventListener("keyup", (event) => {
+                        if (!currentTab.isOfType("equipment")) return;
                         if (event.key !== "Enter") return;
                         const ranges = currentTab.filterData.ranges;
                         if (ranges && objectHasKey(ranges, filterName)) {
@@ -721,6 +583,7 @@ class CompendiumBrowser extends Application {
 
             if (filterType === "sliders") {
                 // Slider filters
+                if (!currentTab.isOfType("bestiary", "equipment", "feat", "hazard")) return;
                 const sliders = currentTab.filterData.sliders;
                 if (!sliders) continue;
 
