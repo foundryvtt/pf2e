@@ -17,7 +17,7 @@
 </section>
 
 {{#*inline "effect"}}
-{{#if (or (not effect.unidentified) @root.user.isGM)}}
+{{#if (or effect.isIdentified @root.user.isGM)}}
 <div class="effect-item" data-item-id="{{effect.id}}" data-badge-type="{{effect.badge.type}}">
     <div class="effect-info">
         <h1>{{effect.name}}</h1>
@@ -26,9 +26,9 @@
                 {{#if (and effect.system.duration.sustained (not effect.system.expired))}}
                     <div class="tag tag_secondary">{{localize "PF2E.EffectPanel.Sustained"}}</div>
                 {{/if}}
-                {{#if effect.unidentified}}
+                {{#unless effect.isIdentified}}
                     <div class="tag tag_secondary">{{localize "PF2E.EffectPanel.Unidentified"}}</div>
-                {{/if}}
+                {{/unless}}
                 {{#if effect.breakdown}}
                     <div class="tag tag_secondary">{{effect.breakdown}}</div>
                 {{/if}}
@@ -43,7 +43,7 @@
             </a>
         {{/if}}
         <div class="instructions">
-            {{#if (not effect.locked)}}
+            {{#if (not effect.isLocked)}}
                 {{#if (eq effect.badge.type "formula")}}
                     <p>{{localize "PF2E.EffectPanel.RollDamageToolTip"}}</p>
                 {{/if}}
@@ -57,8 +57,8 @@
             {{/if}}
         </div>
     </div>
-    <div class="icon{{#if effect.unidentified}} unidentified{{/if}}" data-locked="{{#if effect.locked}}true{{/if}}" style="background-image: url({{effect.img}})">
-        {{#if effect.locked}}
+    <div class="icon{{#unless effect.isIdentified}} unidentified{{/unless}}" data-locked="{{#if effect.isLocked}}true{{/if}}" style="background-image: url({{effect.img}})">
+        {{#if effect.isLocked}}
             <div class="linked"><i class="fas fa-link"></i></div>
         {{/if}}
         {{#if effect.system.expired}}

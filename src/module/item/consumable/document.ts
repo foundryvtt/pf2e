@@ -6,7 +6,7 @@ import { ValueAndMax } from "@module/data";
 import { RuleElementPF2e } from "@module/rules";
 import { DamageRoll } from "@system/damage/roll";
 import { ErrorPF2e } from "@util";
-import { ConsumableData, ConsumableCategory } from "./data";
+import { ConsumableData, ConsumableCategory, ConsumableSystemData } from "./data";
 import { OtherConsumableTag } from "./types";
 
 class ConsumablePF2e extends PhysicalItemPF2e {
@@ -46,6 +46,24 @@ class ConsumablePF2e extends PhysicalItemPF2e {
 
     get formula(): string | null {
         return this.system.consume.value.trim() || null;
+    }
+
+    override prepareBaseData(): void {
+        super.prepareBaseData();
+
+        // Refuse to serve rule elements if this item is ammunition and has types that perform writes
+        if (!this.isAmmunition) return;
+        for (const rule of this.system.rules) {
+            if (rule.key === "RollOption" && "toggleable" in rule && !!rule.toggleable) {
+                console.warn("Toggleable RollOption rule elements may not be added to ammunition");
+                this.system.rules = [];
+                break;
+            } else if (["GrantItem", "ChoiceSet"].includes(String(rule.key))) {
+                console.warn(`${rule.key} rule elements may not be added to ammunition`);
+                this.system.rules = [];
+                break;
+            }
+        }
     }
 
     /** Rule elements cannot be executed from consumable items, but they can be used to generate effects */
@@ -206,7 +224,10 @@ class ConsumablePF2e extends PhysicalItemPF2e {
         const entry = (() => {
             if (trickMagicItemData) return trickMagicItemData;
             return actor.spellcasting
-                .filter((entry) => entry.canCastSpell(spell, { origin: this }))
+                .filter(
+                    (e): e is SpellcastingEntryPF2e =>
+                        e instanceof SpellcastingEntryPF2e && e.canCast(spell, { origin: this })
+                )
                 .reduce((previous, current) => {
                     const previousDC = previous.statistic.dc.value;
                     const currentDC = current.statistic.dc.value;
@@ -227,6 +248,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
 
 interface ConsumablePF2e extends PhysicalItemPF2e {
     readonly data: ConsumableData;
+    system: ConsumableSystemData;
 }
 
 export { ConsumablePF2e };

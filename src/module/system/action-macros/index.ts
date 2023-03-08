@@ -13,6 +13,7 @@ import { shove } from "./athletics/shove";
 import { swim } from "./athletics/swim";
 import { trip } from "./athletics/trip";
 import { whirlingThrow } from "./athletics/whirling-throw";
+import { escape } from "./basic/escape";
 import { seek } from "./basic/seek";
 import { senseMotive } from "./basic/sense-motive";
 import { tamper } from "./class/inventor/tamper";
@@ -50,6 +51,7 @@ export { ActionDefaultOptions, SkillActionOptions } from "./types";
 
 export const ActionMacros = {
     // Basic
+    escape,
     seek,
     senseMotive,
 

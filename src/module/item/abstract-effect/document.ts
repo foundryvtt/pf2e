@@ -28,8 +28,12 @@ export abstract class AbstractEffectPF2e extends ItemPF2e {
             : this.actor;
     }
 
-    /** If true, the AbstractEffect should be hidden from the user unless they are a GM */
-    get unidentified(): boolean {
+    /** If false, the AbstractEffect should be hidden from the user unless they are a GM */
+    get isIdentified(): boolean {
+        return true;
+    }
+
+    get isLocked(): boolean {
         return false;
     }
 

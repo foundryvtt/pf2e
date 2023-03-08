@@ -2,7 +2,6 @@ import { ActorSheetPF2e } from "../sheet/base";
 import { VehiclePF2e } from "@actor/vehicle";
 import { ItemDataPF2e } from "@item/data";
 import { ErrorPF2e, getActionIcon, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
-import { AbstractEffectPF2e, EffectPF2e } from "@item";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 
 export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
@@ -95,40 +94,6 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         // Add tag selector listeners
         for (const element of htmlQueryAll(html, ".crb-tag-selector")) {
             element.addEventListener("click", (event) => this.openTagSelector(event));
-        }
-
-        // Change whether an effect is secret to players or not
-        for (const element of htmlQueryAll(html, ".effects-list [data-action=effect-toggle-unidentified]")) {
-            element.addEventListener("click", async () => {
-                const effectId = htmlClosest(element, "[data-item-id]")?.dataset.itemId;
-                const effect = this.actor.items.get(effectId, { strict: true });
-                if (effect instanceof EffectPF2e) {
-                    const isUnidentified = effect.unidentified;
-                    await effect.update({ "system.unidentified": !isUnidentified });
-                }
-            });
-        }
-
-        // Decrease effect value
-        for (const element of htmlQueryAll(html, ".effects-list .decrement")) {
-            element.addEventListener("click", async () => {
-                const parent = htmlClosest(element, ".item");
-                const effect = this.actor.items.get(parent?.dataset.dataItemId ?? "");
-                if (effect instanceof AbstractEffectPF2e) {
-                    await effect.decrease();
-                }
-            });
-        }
-
-        // Increase effect value
-        for (const element of htmlQueryAll(html, ".effects-list .increment")) {
-            element.addEventListener("click", async () => {
-                const parent = htmlClosest(element, ".item");
-                const effect = this.actor?.items.get(parent?.dataset.dataItemId ?? "");
-                if (effect instanceof AbstractEffectPF2e) {
-                    await effect.increase();
-                }
-            });
         }
     }
 }

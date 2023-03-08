@@ -8,13 +8,13 @@ import { UserPF2e } from "@module/user";
 import { Statistic } from "@system/statistic";
 import { ErrorPF2e, setHasElement, sluggify } from "@util";
 import { SpellCollection } from "./collection";
+import { SpellcastingEntryData, SpellcastingEntrySystemData } from "./data";
 import {
-    SpellcastingAbilityData,
+    SpellcastingCategory,
     SpellcastingEntry,
-    SpellcastingEntryData,
-    SpellcastingEntryListData,
     SpellcastingEntryPF2eCastOptions,
-} from "./data";
+    SpellcastingSheetData,
+} from "./types";
 
 class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     spells!: SpellCollection | null;
@@ -31,6 +31,10 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         const defaultTradition = this.system.prepared.value === "items" ? null : "arcane";
         const tradition = this.system.tradition.value;
         return setHasElement(MAGIC_TRADITIONS, tradition) ? tradition : defaultTradition;
+    }
+
+    get category(): SpellcastingCategory {
+        return this.system.prepared.value;
     }
 
     /**
@@ -61,8 +65,9 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         return this.system.prepared.value === "focus";
     }
 
-    get isRitual(): boolean {
-        return this.system.prepared.value === "ritual";
+    /** Ritual spellcasting is handled separately */
+    get isRitual(): false {
+        return false;
     }
 
     get highestLevel(): number {
@@ -122,10 +127,9 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     }
 
     /** Returns if the spell is valid to cast by this spellcasting entry */
-    canCastSpell(spell: SpellPF2e, options: { origin?: PhysicalItemPF2e } = {}): boolean {
+    canCast(spell: SpellPF2e, { origin }: { origin?: PhysicalItemPF2e } = {}): boolean {
         // For certain collection-less modes, the spell must come from an item
         if (this.system.prepared.value === "items") {
-            const { origin } = options;
             if (!origin) return false;
 
             // Eventually this will use predicates, but right now its just a simple match
@@ -135,7 +139,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         // Only prepared/spontaneous casting count as a "spellcasting class feature"
         // for the purpose of using the "Cast a Spell" activation component
         const isSpellcastingFeature = this.isPrepared || this.isSpontaneous;
-        if (options.origin && !isSpellcastingFeature) {
+        if (origin && !isSpellcastingFeature) {
             return false;
         }
 
@@ -170,7 +174,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
             spell = spell.original!;
         }
 
-        if (this.isFocusPool) {
+        if (this.isFocusPool && actor.isOfType("character", "npc")) {
             const currentPoints = actor.system.resources.focus?.value ?? 0;
             if (currentPoints > 0) {
                 await actor.update({ "system.resources.focus.value": currentPoints - 1 });
@@ -260,19 +264,21 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     }
 
     /** Returns rendering data to display the spellcasting entry in the sheet */
-    async getSpellData(): Promise<SpellcastingAbilityData | SpellcastingEntryListData> {
+    async getSheetData(): Promise<SpellcastingSheetData> {
         if (!this.actor?.isOfType("character", "npc")) {
             throw ErrorPF2e("Spellcasting entries can only exist on characters and npcs");
         }
 
-        const spellCollectionData = await this.spells?.getSpellData();
+        const spellCollectionData = (await this.spells?.getSpellData()) ?? { levels: [], spellPrepList: null };
 
         return {
             id: this.id,
             name: this.name,
+            sort: this.sort,
+            ability: this.ability,
             statistic: this.statistic.getChatData(),
             tradition: this.tradition,
-            castingType: this.system.prepared.value,
+            category: this.system.prepared.value,
             isPrepared: this.isPrepared,
             isSpontaneous: this.isSpontaneous,
             isFlexible: this.isFlexible,
@@ -280,7 +286,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
             isFocusPool: this.isFocusPool,
             isRitual: this.isRitual,
             hasCollection: !!this.spells,
-            ...(spellCollectionData ?? { levels: [] }),
+            ...spellCollectionData,
         };
     }
 
@@ -320,6 +326,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
 
 interface SpellcastingEntryPF2e extends ItemPF2e {
     readonly data: SpellcastingEntryData;
+    system: SpellcastingEntrySystemData;
 }
 
 export { SpellcastingEntryPF2e };

@@ -8,12 +8,13 @@ import {
     MaterialGradeData,
     MaterialValuationData,
     PhysicalItemPF2e,
+    PhysicalItemType,
     PreciousMaterialGrade,
-    PRECIOUS_MATERIAL_GRADES,
 } from ".";
 import { ItemSheetPF2e } from "../sheet/base";
+import { PRECIOUS_MATERIAL_GRADES } from "./values";
 
-class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
+class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
     /** Show the identified data for editing purposes */
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<PhysicalItemSheetData<TItem>> {
         const sheetData: ItemSheetDataPF2e<TItem> = await super.getData(options);
@@ -203,7 +204,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> e
         }
 
         // Normalize nullable fields for embedded actions
-        const expanded = expandObject(formData) as DeepPartial<BasePhysicalItemSource>;
+        const expanded = expandObject(formData) as DeepPartial<BasePhysicalItemSource<PhysicalItemType>>;
         for (const action of Object.values(expanded.system?.activations ?? [])) {
             // Ensure activation time is in a proper format
             const actionCost = action.actionCost;

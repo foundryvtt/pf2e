@@ -4,7 +4,7 @@ import { getResilientBonus, PhysicalItemHitPoints, PhysicalItemPF2e } from "@ite
 import { MAGIC_TRADITIONS } from "@item/spell/values";
 import { LocalizePF2e } from "@module/system/localize";
 import { addSign, ErrorPF2e, setHasElement, sluggify } from "@util";
-import { ArmorCategory, ArmorData, ArmorGroup, BaseArmorType } from ".";
+import { ArmorCategory, ArmorData, ArmorGroup, ArmorSystemData, BaseArmorType } from ".";
 
 class ArmorPF2e extends PhysicalItemPF2e {
     override isStackableWith(item: PhysicalItemPF2e): boolean {
@@ -100,7 +100,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
         this.system.potencyRune.value ||= null;
         this.system.resiliencyRune.value ||= null;
         // Strip out fundamental runes if ABP is enabled: requires this item and its actor (if any) to be initialized
-        if (this.initialized) ABP.cleanupRunes(this);
+        ABP.cleanupRunes(this);
 
         // Add traits from potency rune
         const baseTraits = this.system.traits.value;
@@ -217,7 +217,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
         ];
 
         return this.processChatData(htmlOptions, {
-            ...super.getChatData(),
+            ...(await super.getChatData()),
             traits: this.traitChatData(CONFIG.PF2E.armorTraits),
             properties,
         });
@@ -240,6 +240,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
 
 interface ArmorPF2e extends PhysicalItemPF2e {
     readonly data: ArmorData;
+    system: ArmorSystemData;
 }
 
 export { ArmorPF2e };

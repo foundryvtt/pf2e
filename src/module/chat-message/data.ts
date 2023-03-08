@@ -8,8 +8,7 @@ import { CheckRollContext } from "@system/check";
 import { DamageRollContext } from "@system/damage";
 import { ZeroToTwo } from "@module/data";
 
-interface ChatMessageDataPF2e<TChatMessage extends ChatMessagePF2e = ChatMessagePF2e>
-    extends foundry.data.ChatMessageData<TChatMessage> {
+interface ChatMessageDataPF2e<TChatMessage extends ChatMessagePF2e> extends foundry.data.ChatMessageData<TChatMessage> {
     readonly _source: ChatMessageSourcePF2e;
 }
 

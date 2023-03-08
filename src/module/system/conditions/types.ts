@@ -10,8 +10,8 @@ interface FlattenedCondition {
     description: string;
     enrichedDescription?: string;
     img: ImageFilePath;
-    unidentified: boolean;
-    locked: boolean;
+    isIdentified: boolean;
+    isLocked: boolean;
     references: boolean;
     breakdown?: string;
     parents: ConditionReference[];

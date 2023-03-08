@@ -3,18 +3,15 @@ import { ActionMacroHelpers, SkillActionOptions } from "..";
 const PREFIX = "PF2E.Actions.ManeuverInFlight";
 
 export function maneuverInFlight(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "acrobatics");
+    const slug = options?.skill ?? "acrobatics";
+    const rollOptions = ["action:maneuver-in-flight"];
+    const modifiers = options?.modifiers;
     return ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph ?? "A",
         title: `${PREFIX}.Title`,
-        subtitle,
-        modifiers: options.modifiers,
-        rollOptions: ["all", checkType, stat, "action:maneuver-in-flight"],
-        extraOptions: ["action:maneuver-in-flight"],
+        checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["move"],
-        checkType,
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,

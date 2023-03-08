@@ -175,6 +175,8 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
             record: CONFIG.PF2E.creatureTraits,
         });
 
+        sheetData.languageDetails = this.actor.system.traits.languages.custom.trim();
+
         // Return data for rendering
         return sheetData as NPCSheetData<TActor>;
     }
@@ -337,14 +339,18 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
         for (const entry of entries) {
             const entryItem = this.actor.items.get(entry.id);
             if (!entryItem?.isOfType("spellcastingEntry")) continue;
-            entry.adjustedHigher = {
-                dc: entry.statistic.dc.value > entryItem._source.system.spelldc.dc,
-                mod: entry.statistic.check.mod > entryItem._source.system.spelldc.value,
-            };
-            entry.adjustedLower = {
-                dc: entry.statistic.dc.value < entryItem._source.system.spelldc.dc,
-                mod: entry.statistic.check.mod < entryItem._source.system.spelldc.value,
-            };
+            entry.adjustedHigher = entry.statistic
+                ? {
+                      dc: entry.statistic.dc.value > entryItem._source.system.spelldc.dc,
+                      mod: entry.statistic.check.mod > entryItem._source.system.spelldc.value,
+                  }
+                : { dc: false, mod: false };
+            entry.adjustedLower = entry.statistic
+                ? {
+                      dc: entry.statistic.dc.value < entryItem._source.system.spelldc.dc,
+                      mod: entry.statistic.check.mod < entryItem._source.system.spelldc.value,
+                  }
+                : { dc: false, mod: false };
         }
 
         return entries;

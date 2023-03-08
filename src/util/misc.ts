@@ -190,7 +190,7 @@ const upperOrWordBoundariedLowerRE = new RegExp(`${upperCaseLetter}|(?:${wordBou
  * @param text The text to sluggify
  * @param [options.camel=null] The sluggification style to use
  */
-function sluggify(text: string, { camel = null }: { camel?: "dromedary" | "bactrian" | null } = {}): string {
+function sluggify(text: string, { camel = null }: { camel?: SlugCamel } = {}): string {
     // Sanity check
     if (typeof text !== "string") {
         console.warn("Non-string argument passed to `sluggify`");
@@ -222,6 +222,8 @@ function sluggify(text: string, { camel = null }: { camel?: "dromedary" | "bactr
             throw ErrorPF2e("I don't think that's a real camel.");
     }
 }
+
+type SlugCamel = "dromedary" | "bactrian" | null;
 
 /** Parse a string containing html */
 function parseHTML(unparsed: string): HTMLElement {
@@ -425,6 +427,7 @@ export {
     ErrorPF2e,
     Fraction,
     Optional,
+    SlugCamel,
     addSign,
     applyNTimes,
     fontAwesomeIcon,

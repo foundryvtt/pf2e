@@ -1,18 +1,12 @@
 import type { ActorPF2e, CharacterPF2e } from "@actor";
-import { ActorDataPF2e } from "@actor/data";
 import { RollFunction, StrikeData } from "@actor/data/base";
 import { SAVE_TYPES } from "@actor/values";
-import {
-    Coins,
-    createConsumableFromSpell,
-    DENOMINATIONS,
-    ItemPF2e,
-    ItemProxyPF2e,
-    PhysicalItemPF2e,
-    SpellPF2e,
-} from "@item";
+import { AbstractEffectPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
+import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
+import { Coins } from "@item/physical/data";
+import { DENOMINATIONS } from "@item/physical/values";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { createSheetTags, maintainTagifyFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers";
 import { eventToRollParams } from "@scripts/sheet-util";
@@ -66,7 +60,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     override async getData(options: ActorSheetOptions = this.options): Promise<ActorSheetDataPF2e<TActor>> {
         options.id ||= this.id;
         // The Actor and its Items
-        const actorData = this.actor.toObject(false) as RawObject<ActorDataPF2e>;
+        const actorData = this.actor.toObject(false) as ActorPF2e;
 
         // Alphabetize displayed IWR
         const iwrKeys = ["immunities", "weaknesses", "resistances"] as const;
@@ -108,6 +102,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             items: actorData.items,
             user: { isGM: game.user.isGM },
             traits: createSheetTags(traitsMap, { value: Array.from(this.actor.traits) }),
+            toggles: this.actor.synthetics.toggles,
             isTargetFlatFooted: !!this.actor.rollOptions.all["target:condition:flat-footed"],
             totalCoinage,
             totalCoinageGold,
@@ -171,12 +166,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     protected static coinsToSheetData(coins: Coins): CoinageSummary {
         return DENOMINATIONS.reduce(
-            (accumulated, denomination) => ({
+            (accumulated, d) => ({
                 ...accumulated,
-                [denomination]: {
-                    value: coins[denomination],
-                    label: CONFIG.PF2E.currencies[denomination],
-                },
+                [d]: { value: coins[d], label: CONFIG.PF2E.currencies[d] },
             }),
             {} as CoinageSummary
         );
@@ -263,20 +255,23 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const rollInitElem = htmlQuery(html, ".roll-init");
         rollInitElem?.addEventListener("click", (event) => {
             const { attributes } = this.actor.system;
-            if (!rollInitElem.classList.contains("disabled") && "initiative" in attributes) {
+            if (!rollInitElem.classList.contains("disabled") && attributes.initiative?.roll) {
                 attributes.initiative.roll?.(eventToRollParams(event));
             }
         });
 
-        const toggles = htmlQueryAll<HTMLInputElement>(html, "input[type=checkbox][data-action=toggle-roll-option]");
-        for (const toggle of toggles) {
-            toggle.addEventListener("change", async () => {
-                const { domain, option, itemId } = toggle.dataset;
-                if (domain && option) {
-                    this.actor.toggleRollOption(domain, option, itemId ?? null, toggle.checked);
-                }
-            });
-        }
+        // Set listener toggles and their suboptions
+        const togglesArea = htmlQuery(html, ".actions-options");
+        togglesArea?.addEventListener("change", (event) => {
+            const toggleRow = htmlClosest(event.target, ".item[data-item-id]");
+            const checkbox = htmlQuery<HTMLInputElement>(toggleRow, "input[data-action=toggle-roll-option]");
+            const suboptionsSelect = htmlQuery<HTMLSelectElement>(toggleRow, "select[data-action=set-suboption");
+            const { domain, option, itemId } = checkbox?.dataset ?? {};
+            const suboption = suboptionsSelect?.value ?? null;
+            if (checkbox && domain && option) {
+                this.actor.toggleRollOption(domain, option, itemId ?? null, checkbox.checked, suboption);
+            }
+        });
 
         // Roll Attribute Checks
         $html.find(".attribute-name").on("click", (event) => {
@@ -452,6 +447,40 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 }
             }
         });
+
+        // Decrease effect value
+        for (const effectDecrement of htmlQueryAll(html, ".effects-list .decrement")) {
+            effectDecrement.addEventListener("click", (event) => {
+                const parent = htmlClosest(event.currentTarget, ".item");
+                const effect = this.actor.items.get(parent?.dataset.itemId ?? "");
+                if (effect instanceof AbstractEffectPF2e) {
+                    effect.decrease();
+                }
+            });
+        }
+
+        // Increase effect value
+        for (const effectIncrement of htmlQueryAll(html, ".effects-list .increment")) {
+            effectIncrement.addEventListener("click", (event) => {
+                const parent = htmlClosest(event.currentTarget, ".item");
+                const effect = this.actor?.items.get(parent?.dataset.itemId ?? "");
+                if (effect instanceof AbstractEffectPF2e) {
+                    effect.increase();
+                }
+            });
+        }
+
+        // Change whether an effect is secret to players or not
+        for (const element of htmlQueryAll(html, ".effects-list [data-action=effect-toggle-unidentified]") ?? []) {
+            element.addEventListener("click", async (event) => {
+                const effectId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
+                const effect = this.actor.items.get(effectId, { strict: true });
+                if (effect.isOfType("effect")) {
+                    const isUnidentified = effect.system.unidentified;
+                    await effect.update({ "system.unidentified": !isUnidentified });
+                }
+            });
+        }
 
         // Delete Inventory Item
         $html.find(".item-delete").on("click", (event) => this.onClickDeleteItem(event));
@@ -816,7 +845,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         // Otherwise they are dragging a new spell onto their sheet.
         // we still need to put it in the correct spellcastingEntry
         if (item.isOfType("spell") && itemSource.type === "spell") {
-            if (dropContainerType === "actorInventory" && itemSource.system.level.value > 0) {
+            if (item.isRitual) {
+                return this._onDropItemCreate(item.clone().toObject());
+            } else if (dropContainerType === "actorInventory" && itemSource.system.level.value > 0) {
                 const popup = new CastingItemCreateDialog(
                     actor,
                     {},

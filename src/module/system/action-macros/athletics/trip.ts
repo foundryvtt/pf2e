@@ -4,35 +4,43 @@ import { extractModifierAdjustments } from "@module/rules/helpers";
 import { WeaponPF2e } from "@item";
 
 export function trip(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "athletics");
+    const slug = options?.skill ?? "athletics";
+    const rollOptions = ["action:trip"];
     ActionMacroHelpers.simpleRollActionCheck<Embedded<WeaponPF2e>>({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph ?? "A",
         title: "PF2E.Actions.Trip.Title",
-        subtitle,
-        item: (actor) => {
-            return [
-                ...(ActionMacroHelpers.getApplicableEquippedWeapons(actor, "trip") ?? []),
-                ...(ActionMacroHelpers.getApplicableEquippedWeapons(actor, "ranged-trip") ?? []),
+        checkContext: (opts) => {
+            // weapon
+            const item = [
+                ...(ActionMacroHelpers.getApplicableEquippedWeapons(opts.actor, "trip") ?? []),
+                ...(ActionMacroHelpers.getApplicableEquippedWeapons(opts.actor, "ranged-trip") ?? []),
             ].shift();
-        },
-        modifiers: (args) => {
-            const modifiers: ModifierPF2e[] = [];
-            if (args.item) {
-                if (args.item.traits.has("trip") || args.item.traits.has("ranged-trip")) {
-                    const modifier = ActionMacroHelpers.getWeaponPotencyModifier(args.item, stat);
+
+            // context
+            const context = ActionMacroHelpers.defaultCheckContext(opts, {
+                item,
+                modifiers: options.modifiers,
+                rollOptions,
+                slug,
+            });
+
+            // modifiers
+            if (item && context) {
+                const modifiers = context.modifiers?.length ? [...context.modifiers] : [];
+                if (item.traits.has("trip") || item.traits.has("ranged-trip")) {
+                    const modifier = ActionMacroHelpers.getWeaponPotencyModifier(item, slug);
                     if (modifier) {
                         modifiers.push(modifier);
                     }
                 }
-                if (args.item.traits.has("ranged-trip")) {
+                if (item.traits.has("ranged-trip")) {
                     modifiers.push(
                         new ModifierPF2e({
                             slug: "ranged-trip",
                             adjustments: extractModifierAdjustments(
-                                args.actor.synthetics.modifierAdjustments,
-                                args.rollOptions,
+                                opts.actor.synthetics.modifierAdjustments,
+                                context.rollOptions,
                                 "ranged-trip"
                             ),
                             type: MODIFIER_TYPE.CIRCUMSTANCE,
@@ -41,13 +49,12 @@ export function trip(options: SkillActionOptions) {
                         })
                     );
                 }
+                context.modifiers = modifiers;
             }
-            return modifiers.concat(options.modifiers ?? []);
+
+            return context;
         },
-        rollOptions: ["all", checkType, stat, "action:trip"],
-        extraOptions: ["action:trip"],
         traits: ["attack"],
-        checkType,
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,

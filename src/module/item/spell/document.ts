@@ -1,3 +1,4 @@
+import { ActorPF2e } from "@actor";
 import {
     createAbilityModifier,
     createProficiencyModifier,
@@ -7,11 +8,12 @@ import {
     StatisticModifier,
 } from "@actor/modifiers";
 import { AbilityString } from "@actor/types";
-import { ActorPF2e } from "@actor";
 import { ItemPF2e, SpellcastingEntryPF2e } from "@item";
 import { ActionTrait } from "@item/action/data";
 import { ItemSourcePF2e, ItemSummaryData } from "@item/data";
+import { BaseSpellcastingEntry } from "@item/spellcasting-entry";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
+import { MeasuredTemplatePF2e } from "@module/canvas";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { OneToTen, ZeroToTwo } from "@module/data";
 import { extractDamageDice, extractDamageModifiers } from "@module/rules/helpers";
@@ -19,8 +21,13 @@ import { UserPF2e } from "@module/user";
 import { MeasuredTemplateDocumentPF2e } from "@scene";
 import { combineTerms } from "@scripts/dice";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { DamageCategorization, DamagePF2e, DamageRollContext, DamageType, SpellDamageTemplate } from "@system/damage";
 import { CheckPF2e, CheckRoll } from "@system/check";
+import { DamagePF2e } from "@system/damage/damage";
+import { DamageCategorization } from "@system/damage/helpers";
+import { DamageModifierDialog } from "@system/damage/modifier-dialog";
+import { DamageInstance, DamageRoll } from "@system/damage/roll";
+import { InstancePool } from "@system/damage/terms";
+import { DamageRollContext, DamageType, SpellDamageTemplate } from "@system/damage/types";
 import { StatisticRollParameters } from "@system/statistic";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 import { ErrorPF2e, getActionIcon, groupBy, htmlClosest, ordinal, sortBy, traitSlugToObject } from "@util";
@@ -35,10 +42,6 @@ import {
 import { applyDamageDiceOverrides, createFormulaAndTagsForPartial, DamageInstancePartial } from "./helpers";
 import { SpellOverlayCollection } from "./overlay";
 import { EffectAreaSize, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
-import { DamageInstance, DamageRoll } from "@system/damage/roll";
-import { InstancePool } from "@system/damage/terms";
-import { DamageModifierDialog } from "@system/damage/modifier-dialog";
-import { MeasuredTemplatePF2e } from "@module/canvas";
 
 interface SpellConstructionContext extends DocumentConstructionContext<ActorPF2e | null> {
     fromConsumable?: boolean;
@@ -54,6 +57,8 @@ class SpellPF2e extends ItemPF2e {
 
     /** Set if casted with trick magic item. Will be replaced via overriding spellcasting on cast later. */
     trickMagicEntry: TrickMagicItemEntry | null = null;
+
+    overlays!: SpellOverlayCollection;
 
     constructor(data: PreCreate<ItemSourcePF2e>, context: SpellConstructionContext = {}) {
         super(data, context);
@@ -73,7 +78,7 @@ class SpellPF2e extends ItemPF2e {
 
         const isAutoHeightened = this.isCantrip || this.isFocusSpell;
         const fixedHeightenedLevel =
-            this.system.location.autoHeightenLevel || this.spellcasting?.system.autoHeightenLevel.value || null;
+            this.system.location.autoHeightenLevel || this.spellcasting?.system?.autoHeightenLevel.value || null;
         const heightenedLevel = isAutoHeightened
             ? fixedHeightenedLevel || Math.ceil(this.actor.level / 2) || null
             : this.system.location.heightenedLevel || null;
@@ -107,9 +112,9 @@ class SpellPF2e extends ItemPF2e {
             : new Set(this.system.traditions.value);
     }
 
-    get spellcasting(): SpellcastingEntryPF2e | undefined {
+    get spellcasting(): BaseSpellcastingEntry | null {
         const spellcastingId = this.system.location.value;
-        return this.actor?.spellcasting.find((entry) => entry.id === spellcastingId);
+        return this.actor?.spellcasting.find((entry) => entry.id === spellcastingId) ?? null;
     }
 
     get isAttack(): boolean {
@@ -261,7 +266,13 @@ class SpellPF2e extends ItemPF2e {
         }
 
         const { actor, ability } = this;
-        const domains = ["damage", "spell-damage", `${this.id}-damage`];
+        const domains = [
+            "damage",
+            "spell-damage",
+            `${this.id}-damage`,
+            this.traits.has("attack") ? "attack-spell-damage" : [],
+        ].flat();
+
         const options = new Set([
             ...(actor?.getRollOptions(domains) ?? []),
             ...(damageOptions.target?.getSelfRollOptions("target") ?? []),
@@ -572,6 +583,9 @@ class SpellPF2e extends ItemPF2e {
 
     override prepareBaseData(): void {
         super.prepareBaseData();
+
+        this.system.location.value ||= null;
+
         // In case bad level data somehow made it in
         this.system.level.value = (Math.clamped(this.system.level.value, 1, 10) || 1) as OneToTen;
         // As of FVTT 10.291, data preparation on embedded items is run twice, making it so the spell's school trait
@@ -584,6 +598,8 @@ class SpellPF2e extends ItemPF2e {
         } else {
             this.system.area = null;
         }
+
+        if (this.isRitual) this.system.location.value = "rituals";
 
         this.overlays = new SpellOverlayCollection(this, this.system.overlays);
     }
@@ -652,7 +668,8 @@ class SpellPF2e extends ItemPF2e {
         const messageSource = message.toObject();
         const flags = messageSource.flags.pf2e;
         const entry = this.trickMagicEntry ?? this.spellcasting;
-        if (entry) {
+
+        if (entry?.statistic) {
             // Eventually we need to figure out a way to request a tradition if the ability doesn't provide one
             const tradition = Array.from(this.traditions).at(0);
             flags.casting = {
@@ -741,9 +758,11 @@ class SpellPF2e extends ItemPF2e {
 
         const statistic = trickData?.statistic || spellcasting?.statistic;
         if (!statistic) {
-            console.warn(
-                `PF2e System | Spell ${this.name} is missing a statistic to cast with (${this.id}) on actor ${this.actor.name} (${this.actor.id})`
-            );
+            if (!this.isRitual) {
+                console.warn(
+                    `PF2e System | Spell ${this.name} is missing a statistic to cast with (${this.id}) on actor ${this.actor.name} (${this.actor.id})`
+                );
+            }
             return { ...systemData };
         }
 
@@ -954,6 +973,19 @@ class SpellPF2e extends ItemPF2e {
         return super.update(data, options);
     }
 
+    protected override async _preCreate(
+        data: PreDocumentId<this["_source"]>,
+        options: DocumentModificationContext<this>,
+        user: UserPF2e
+    ): Promise<void> {
+        this._source.system.location.value ||= null;
+        if (this._source.system.category.value === "ritual") {
+            this._source.system.location.value = null;
+        }
+
+        return super._preCreate(data, options, user);
+    }
+
     protected override async _preUpdate(
         changed: DeepPartial<SpellSource>,
         options: DocumentModificationContext<this>,
@@ -990,8 +1022,7 @@ class SpellPF2e extends ItemPF2e {
 
 interface SpellPF2e extends ItemPF2e {
     readonly data: SpellData;
-
-    overlays: SpellOverlayCollection;
+    system: SpellSystemData;
 }
 
 interface SpellDamage {

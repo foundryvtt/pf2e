@@ -4,8 +4,9 @@ import type { BookPF2e } from "./document";
 
 type BookSource = BasePhysicalItemSource<"book", BookSystemSource>;
 
-type BookData = Omit<BookSource, "system" | "effects" | "flags"> &
-    BasePhysicalItemData<BookPF2e, "book", BookSystemData, BookSource>;
+interface BookData
+    extends Omit<BookSource, "flags" | "system" | "type">,
+        BasePhysicalItemData<BookPF2e, "book", BookSource> {}
 
 type BookSystemSource = EquipmentSystemSource & {
     capacity: number;
@@ -23,4 +24,4 @@ interface SpellBookData {
     item: object[];
 }
 
-export { BookData, BookSource };
+export { BookData, BookSource, BookSystemData };

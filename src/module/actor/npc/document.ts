@@ -23,7 +23,7 @@ import { PredicatePF2e } from "@system/predication";
 import { RollParameters } from "@system/rolls";
 import { Statistic } from "@system/statistic";
 import { objectHasKey, sluggify } from "@util";
-import { NPCData, NPCFlags, NPCSource } from "./data";
+import { NPCData, NPCFlags, NPCSource, NPCSystemData } from "./data";
 import { NPCSheetPF2e } from "./sheet";
 import { VariantCloneParams } from "./types";
 
@@ -133,7 +133,7 @@ class NPCPF2e extends CreaturePF2e {
         level.value = this.isElite ? level.base + 1 : this.isWeak ? level.base - 1 : level.base;
         this.rollOptions.all[`self:level:${level.value}`] = true;
 
-        this.system.attributes.classDC = ((): { value: number } => {
+        attributes.classDC = ((): { value: number } => {
             const levelBasedDC = calculateDC(level.base, { proficiencyWithoutLevel, rarity: this.rarity });
             const adjusted = this.isElite ? levelBasedDC + 2 : this.isWeak ? levelBasedDC - 2 : levelBasedDC;
             return { value: adjusted };
@@ -526,6 +526,12 @@ class NPCPF2e extends CreaturePF2e {
             });
         }
 
+        // A class-or-spell DC to go alongside the fake class DC
+        this.system.attributes.classOrSpellDC = ((): { value: number } => {
+            const spellDCs = this.itemTypes.spellcastingEntry.map((e) => e.system.spelldc.dc);
+            return { value: Math.max(...spellDCs, this.system.attributes.classDC.value) };
+        })();
+
         // Initiative
         this.prepareInitiative();
     }
@@ -741,6 +747,7 @@ class NPCPF2e extends CreaturePF2e {
 
 interface NPCPF2e extends CreaturePF2e {
     readonly data: NPCData;
+    readonly system: NPCSystemData;
 
     flags: NPCFlags;
 

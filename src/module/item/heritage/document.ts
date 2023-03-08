@@ -1,9 +1,9 @@
 import { CharacterPF2e } from "@actor";
-import { CreatureTrait } from "@actor/creature/data";
+import { CreatureTrait } from "@actor/creature";
 import { ItemPF2e } from "@item";
 import { Rarity } from "@module/data";
 import { sluggify } from "@util";
-import { HeritageData } from "./data";
+import { HeritageData, HeritageSystemData } from "./data";
 
 class HeritagePF2e extends ItemPF2e {
     get traits(): Set<CreatureTrait> {
@@ -45,9 +45,9 @@ class HeritagePF2e extends ItemPF2e {
 }
 
 interface HeritagePF2e extends ItemPF2e {
-    readonly parent: CharacterPF2e | null;
-
     readonly data: HeritageData;
+    readonly parent: CharacterPF2e | null;
+    system: HeritageSystemData;
 }
 
 export { HeritagePF2e };

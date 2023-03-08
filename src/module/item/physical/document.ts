@@ -8,7 +8,14 @@ import { UserPF2e } from "@module/user";
 import { isObject, sluggify } from "@util";
 import { getUnidentifiedPlaceholderImage } from "../identification";
 import { Bulk, stackDefinitions, weightToBulk } from "./bulk";
-import { IdentificationStatus, ItemCarryType, MystifiedData, PhysicalItemTrait, Price } from "./data";
+import {
+    IdentificationStatus,
+    ItemCarryType,
+    MystifiedData,
+    PhysicalItemTrait,
+    PhysicalSystemData,
+    Price,
+} from "./data";
 import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
 import { getUsageDetails, isEquipped } from "./usage";
 import { DENOMINATIONS } from "./values";
@@ -270,7 +277,9 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
         systemData.identification.unidentified = this.getMystifiedData("unidentified");
     }
 
-    override prepareSiblingData(this: Embedded<PhysicalItemPF2e>): void {
+    override prepareSiblingData(): void {
+        if (!this.actor) return;
+
         if (this.isStowed) {
             this.system.equipped.carryType = "stowed";
             delete this.system.equipped.inSlot;
@@ -362,7 +371,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
         });
     }
 
-    generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
+    generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = {}): string {
         const itemType = game.i18n.localize(`ITEM.Type${this.type.capitalize()}`);
         if (typeOnly) return itemType;
 
@@ -473,6 +482,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
 
 interface PhysicalItemPF2e extends ItemPF2e {
     readonly data: PhysicalItemData;
+    system: PhysicalSystemData;
 
     computeAdjustedPrice?(): CoinsPF2e | null;
 }

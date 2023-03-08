@@ -30,10 +30,7 @@ type WeaponSource = BasePhysicalItemSource<"weapon", WeaponSystemSource> & {
     flags: DeepPartial<WeaponFlags>;
 };
 
-type WeaponData = Omit<WeaponSource, "system" | "effects" | "flags"> &
-    BasePhysicalItemData<WeaponPF2e, "weapon", WeaponSystemData, WeaponSource> & {
-        flags: WeaponFlags;
-    };
+type WeaponData = Omit<WeaponSource, "system"> & BasePhysicalItemData<WeaponPF2e, "weapon", WeaponSource>;
 
 type WeaponFlags = ItemFlagsPF2e & {
     pf2e: {
@@ -188,6 +185,7 @@ export {
     ComboWeaponMeleeUsage,
     WeaponDamage,
     WeaponData,
+    WeaponFlags,
     WeaponMaterialData,
     WeaponPersistentDamage,
     WeaponPropertyRuneSlot,

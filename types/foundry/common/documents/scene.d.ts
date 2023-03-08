@@ -45,9 +45,7 @@ declare global {
                 readonly tiles: abstract.EmbeddedCollection<BaseTile>;
 
                 /** A reference to the Collection of Wall instances in the Scene document, indexed by _id. */
-                readonly walls: abstract.EmbeddedCollection<BaseWall>;
-
-                static override get schema(): typeof data.SceneData;
+                readonly walls: abstract.EmbeddedCollection<BaseWall<this>>;
 
                 static override get metadata(): SceneMetadata;
 

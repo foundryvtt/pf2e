@@ -4,30 +4,28 @@ import { HazardSheetPF2e } from "@actor/hazard/sheet";
 import { LootSheetPF2e } from "@actor/loot/sheet";
 import { NPCSheetPF2e } from "@actor/npc/sheet";
 import { VehicleSheetPF2e } from "@actor/vehicle/sheet";
-import {
-    ActionSheetPF2e,
-    AncestrySheetPF2e,
-    ArmorSheetPF2e,
-    BackgroundSheetPF2e,
-    BookSheetPF2e,
-    ClassSheetPF2e,
-    ConsumableSheetPF2e,
-    ContainerSheetPF2e,
-    DeitySheetPF2e,
-    EffectSheetPF2e,
-    EquipmentSheetPF2e,
-    FeatSheetPF2e,
-    HeritageSheetPF2e,
-    ItemSheetPF2e,
-    KitSheetPF2e,
-    MeleeSheetPF2e,
-    PhysicalItemSheetPF2e,
-    PHYSICAL_ITEM_TYPES,
-    SpellSheetPF2e,
-    TreasureSheetPF2e,
-    WeaponSheetPF2e,
-} from "@item";
+import { ItemSheetPF2e } from "@item";
+import { ActionSheetPF2e } from "@item/action";
 import { AfflictionSheetPF2e } from "@item/affliction";
+import { AncestrySheetPF2e } from "@item/ancestry";
+import { ArmorSheetPF2e } from "@item/armor";
+import { BackgroundSheetPF2e } from "@item/background";
+import { BookSheetPF2e } from "@item/book";
+import { ClassSheetPF2e } from "@item/class";
+import { ConsumableSheetPF2e } from "@item/consumable";
+import { ContainerSheetPF2e } from "@item/container";
+import { DeitySheetPF2e } from "@item/deity";
+import { EffectSheetPF2e } from "@item/effect";
+import { EquipmentSheetPF2e } from "@item/equipment";
+import { FeatSheetPF2e } from "@item/feat";
+import { HeritageSheetPF2e } from "@item/heritage";
+import { KitSheetPF2e } from "@item/kit";
+import { MeleeSheetPF2e } from "@item/melee";
+import { PhysicalItemSheetPF2e } from "@item/physical";
+import { PHYSICAL_ITEM_TYPES } from "@item/physical/values";
+import { SpellSheetPF2e } from "@item/spell";
+import { TreasureSheetPF2e } from "@item/treasure";
+import { WeaponSheetPF2e } from "@item/weapon";
 import { JournalSheetPF2e, JournalTextTinyMCESheetPF2e } from "@module/journal-entry/sheet";
 import { UserConfigPF2e } from "@module/user/sheet";
 import { TokenConfigPF2e, TokenDocumentPF2e } from "@scene";

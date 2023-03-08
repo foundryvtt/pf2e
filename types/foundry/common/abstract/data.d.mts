@@ -109,14 +109,7 @@ export abstract class DataModel<
      *                                 example testing a complete data model) by explicitly passing true.
      * @return An indicator for whether the document contains valid data
      */
-    validate(options?: {
-        changes?: object;
-        clean?: boolean;
-        fallback?: boolean;
-        strict?: boolean;
-        fields?: boolean;
-        joint?: boolean;
-    }): boolean;
+    validate(options?: DataModelValidationOptions): boolean;
 
     /**
      * Get an array of validation errors from the provided error structure
@@ -220,6 +213,15 @@ export type RawObject<TModel extends DataModel<DataModel | null>> = {
         ? RawObject<TModel[P][number]>[]
         : TModel[P];
 };
+
+export interface DataModelValidationOptions {
+    changes?: object;
+    clean?: boolean;
+    fallback?: boolean;
+    strict?: boolean;
+    fields?: boolean;
+    joint?: boolean;
+}
 
 declare global {
     interface DataModelConstructionOptions<TParent extends DataModel | null> {

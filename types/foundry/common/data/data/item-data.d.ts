@@ -27,35 +27,13 @@ declare module foundry {
             folder?: string | null;
             sort: number;
             ownership: Record<string, DocumentOwnershipLevel>;
-            flags: ItemFlags;
+            flags: documents.ItemFlags;
         }
 
-        class ItemData<
-            TDocument extends documents.BaseItem,
-            TActiveEffect extends documents.BaseActiveEffect
-        > extends abstract.DocumentData<TDocument> {
-            protected override _initializeSource(data: this["_source"]): this["_source"];
-
-            /** A collection of ActiveEffect embedded Documents */
-            effects: abstract.EmbeddedCollection<TActiveEffect>;
-        }
-
-        interface ItemData<TDocument extends documents.BaseItem, TActiveEffect extends documents.BaseActiveEffect>
-            extends Omit<ItemSource, "effects"> {
+        interface ItemData<TDocument extends documents.BaseItem>
+            extends Omit<ItemSource, "effects">,
+                abstract.DocumentData<TDocument> {
             readonly _source: ItemSource;
-
-            get schema(): ReturnType<(typeof ItemData)["defineSchema"]>;
-        }
-
-        namespace ItemData {
-            const schema: ReturnType<(typeof ItemData)["defineSchema"]>;
-        }
-
-        interface ItemFlags {
-            core?: {
-                sourceId?: ItemUUID;
-            };
-            [key: string]: Record<string, unknown> | undefined;
         }
     }
 }

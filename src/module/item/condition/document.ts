@@ -1,16 +1,17 @@
-import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect";
+import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
+import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect";
+import { ChatMessagePF2e } from "@module/chat-message";
 import { RuleElementOptions, RuleElementPF2e } from "@module/rules";
 import { UserPF2e } from "@module/user";
+import { TokenDocumentPF2e } from "@scene";
+import { DamageCategorization } from "@system/damage/helpers";
+import { DamageRoll } from "@system/damage/roll";
+import { PERSISTENT_DAMAGE_IMAGES } from "@system/damage/values";
+import { DegreeOfSuccess } from "@system/degree-of-success";
+import { Statistic } from "@system/statistic";
 import { ErrorPF2e } from "@util";
 import { ConditionData, ConditionKey, ConditionSlug, ConditionSystemData, PersistentDamageData } from "./data";
-import { DamageRoll } from "@system/damage/roll";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { TokenDocumentPF2e } from "@scene";
-import { DamageCategorization, PERSISTENT_DAMAGE_IMAGES } from "@system/damage";
-import { Statistic } from "@system/statistic";
-import { DegreeOfSuccess } from "@system/degree-of-success";
-import { ActorPF2e } from "@actor";
 
 class ConditionPF2e extends AbstractEffectPF2e {
     active!: boolean;
@@ -43,8 +44,8 @@ class ConditionPF2e extends AbstractEffectPF2e {
     }
 
     /** Is this condition locked in place by another? */
-    get isLocked(): boolean {
-        if (this.system.references.parent?.id) return true;
+    override get isLocked(): boolean {
+        if (this.system.references.parent?.id || super.isLocked) return true;
 
         const granter = this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "");
         const grants = Object.values(granter?.flags.pf2e.itemGrants ?? {});
@@ -178,14 +179,14 @@ class ConditionPF2e extends AbstractEffectPF2e {
                 if (thisValue >= otherValue) {
                     deactivate(condition);
                 }
+            } else if (this.value === condition.value && !this.isLocked) {
+                // Deactivate other equal valued conditions if this condition isn't locked
+                deactivate(condition);
             } else if (this.value && condition.value && this.value >= condition.value) {
                 // Deactivate other conditions with a lower or equal value
                 deactivate(condition);
-            } else if (!this.isLocked) {
-                // Deactivate other conditions if this condition isn't locked
-                deactivate(condition);
-            } else if (this.isLocked && ofSameType.every((c) => c.isLocked)) {
-                // Deactivate other conditions if all conditions of this type are locked
+            } else if (this.isLocked && ofSameType.filter((c) => c.active).every((c) => c.isLocked)) {
+                // Deactivate other conditions if all remaining conditions of this type are locked
                 deactivate(condition);
             }
         }
@@ -286,6 +287,7 @@ class ConditionPF2e extends AbstractEffectPF2e {
 
 interface ConditionPF2e extends AbstractEffectPF2e {
     readonly data: ConditionData;
+    system: ConditionSystemData;
 
     get slug(): ConditionSlug;
 }

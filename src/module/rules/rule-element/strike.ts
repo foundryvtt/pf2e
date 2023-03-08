@@ -78,7 +78,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             ),
             otherTags: new fields.ArrayField(
                 new fields.StringField({ required: true, blank: false, choices: CONFIG.PF2E.otherWeaponTags }),
-                { required: false, initial: undefined }
+                { required: false, nullable: false, initial: undefined }
             ),
             range: new fields.SchemaField(
                 {
@@ -100,7 +100,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                         required: true,
                         nullable: false,
                         integer: true,
-                        min: 1,
+                        min: 0,
                         max: 8,
                         initial: 1,
                     }),
@@ -123,7 +123,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
 
     /** Allow shorthand `fist` StrikeRuleElement data to pass `DataModel` validation */
     override validate(options?: {
-        changes?: object;
+        changes?: Record<string, unknown>;
         clean?: boolean;
         fallback?: boolean;
         strict?: boolean;
@@ -131,9 +131,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
         joint?: boolean;
     }): boolean {
         const source = options?.changes ?? this._source;
-        return Object.keys(source).length === 2 && "fist" in source && source.fist === true
-            ? true
-            : super.validate(options);
+        return source.fist === true ? true : super.validate(options);
     }
 
     /** Keep shorthand `fist` source data to its minimum form */
@@ -282,9 +280,9 @@ type StrikeSchema = RuleElementSchema & {
     /** A weapon base type */
     baseType: StringField<BaseWeaponType, BaseWeaponType, true, true, true>;
     /** Permit NPC attack traits to sneak in for battle forms */
-    traits: ArrayField<StringField<NPCAttackTrait, NPCAttackTrait, true>>;
+    traits: ArrayField<StringField<NPCAttackTrait, NPCAttackTrait, true, false, false>>;
     otherTags: ArrayField<
-        StringField<OtherWeaponTag, OtherWeaponTag, true>,
+        StringField<OtherWeaponTag, OtherWeaponTag, true, false, false>,
         OtherWeaponTag[],
         OtherWeaponTag[],
         false,
@@ -318,7 +316,7 @@ type StrikeSchema = RuleElementSchema & {
     replaceBasicUnarmed: BooleanField<boolean, boolean, false, false, false>;
     /** Whether this attack is from a battle form */
     battleForm: BooleanField<boolean, boolean, false, false, false>;
-    options: ArrayField<StringField, string[], string[], false, false, false>;
+    options: ArrayField<StringField<string, string, true, false, false>, string[], string[], false, false, false>;
     /** Whether this was a request for a standard fist attack */
     fist: BooleanField<boolean, boolean, false, false, false>;
 };

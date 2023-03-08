@@ -1,4 +1,5 @@
 import type { ActorPF2e } from "@actor/base";
+import { SkillLongForm } from "@actor/types";
 import { ErrorPF2e } from "@util";
 import { EncounterPF2e } from ".";
 
@@ -76,6 +77,7 @@ class CombatantPF2e<
 
         this.flags.pf2e = mergeObject(this.flags.pf2e ?? {}, { overridePriority: {} });
         this.flags.pf2e.roundOfLastTurn ??= null;
+        this.flags.pf2e.initiativeStatistic ??= null;
     }
 
     /** Toggle the defeated status of this combatant, applying or removing the overlay icon on its token */
@@ -105,9 +107,9 @@ class CombatantPF2e<
 
         if (actor.isOfType("hazard")) {
             bonus = actor.attributes.stealth.value ?? 0;
-        } else if ("initiative" in actor.attributes && "totalModifier" in actor.attributes.initiative) {
+        } else if (typeof actor.attributes.initiative?.totalModifier === "number") {
             bonus = actor.attributes.initiative.totalModifier;
-        } else if ("perception" in actor.attributes) {
+        } else if (actor.attributes.perception) {
             bonus = actor.attributes.perception.value;
         }
 
@@ -165,13 +167,14 @@ interface CombatantPF2e<
 
 type CombatantFlags = {
     pf2e: {
+        initiativeStatistic: SkillLongForm | "perception" | null;
         roundOfLastTurn: number | null;
         roundOfLastTurnEnd: number | null;
-        overridePriority: Record<number, number | undefined>;
+        overridePriority: Record<number, number | null | undefined>;
     };
     [key: string]: unknown;
 };
 
 type RolledCombatant<TEncounter extends EncounterPF2e> = CombatantPF2e<TEncounter> & { get initiative(): number };
 
-export { CombatantPF2e, RolledCombatant };
+export { CombatantPF2e, CombatantFlags, RolledCombatant };

@@ -1,5 +1,41 @@
 # Changelog
 
+## Version 4.8.3
+
+## Data Updates
+* (Dana) Add +3 option to Dancing Shield spell effect (for Fortress Shield)
+* (Dire Weasel) Add effect to Lazurite-Infused Stone Golem aura
+* (Dire Weasel) Fix some malformed predicates on equipment and feats
+* (Manni) Fix damage type on Lazurite-Infused Stone Golem
+* (rectulo) Fix DC of Animal Repellent (Moderate)
+* (stwlam) Have Way of the Spellshot grant Spellshot Dedication at level 2
+
+
+## Version 4.8.2
+
+### Bugfixes
+* (In3luki) Highlight grid area of `MeasuredTemplatePF2e` previews
+* (stwlam) Fix mousewheel rotation of non-cone measured templates
+* (stwlam) Restore display of special languages on NPC sheet
+* (stwlam) Show spontaneous/flexible slots as expended when appropriate
+* (stwlam) Fix issue with setting of max range of some Strike rule elements (Foxfire, etc.)
+* (Supe) Fix NPC action summary expand/collapse behavior
+* (Supe) Restore repeating ammo icon in actions tab
+
+### Data Updates
+* (Abaddon) Fix shield throw trait localization
+* (Dire Weasel) Add Healing Hands REs to Lisavet, Plague Doctor, Priest of Pharasma; update Heal spells
+* (Dire Weasel) Create effects for Ghostcaller's Planchette, Jyoti's Feather
+* (Dire Weasel) Fix Devoted Guardian to be one action rather than passive
+* (Dire Weasel) Fix malformed silver exception in Devil Form spell effects
+* (Dire Weasel) Fix price for Sandals of the Stag
+* (Dire Weasel) Fix some incorrect "death-effects" predicates
+* (Dire Weasel) Fix usage for some recently-added oils
+* (Zullock) Fix incorrect icon in hazards and a malformed check in PFS Season 1 creatures
+* (avagdu) Fix usages for some Fulus
+* (rectulo) Add missing sentence in Colorful Coating (yellow)
+
+
 ## Version 4.8.1
 
 ### System Improvements
@@ -42,7 +78,7 @@
 * (avagdu) Add Value to Clumsy Condition from Slurk's Entangling Slime effect
 * (rectulo) Add description for the Processed trait
 * (stwlam) Add Aberration to hazard traits
-* (stwlam) Fix unannotated shield traits added from Lost Omens: Treasure Vault
+* (stwlam) Fix unannotated shield traits added from Treasure Vault
 
 
 ## Version 4.8.0

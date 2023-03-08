@@ -1,31 +1,26 @@
 import { ActorType } from "@actor/data";
-import { ItemPF2e, ItemProxyPF2e, PHYSICAL_ITEM_TYPES } from "@item";
+import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { ItemGrantDeleteAction } from "@item/data/base";
+import { PHYSICAL_ITEM_TYPES } from "@item/physical/values";
 import { MigrationList, MigrationRunner } from "@module/migration";
+import { SlugField } from "@system/schema-data-fields";
 import { ErrorPF2e, isObject, pick, setHasElement, sluggify, tupleHasValue } from "@util";
-import { RuleElementPF2e, RuleElementSource } from "..";
-import { AELikeChangeMode } from "../ae-like";
-import { RuleElementOptions } from "../base";
+import { UUIDUtils } from "@util/uuid-utils";
+import { ModelPropsFromSchema } from "types/foundry/common/data/fields.mjs";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "..";
 import { ChoiceSetSource } from "../choice-set/data";
 import { ChoiceSetRuleElement } from "../choice-set/rule-element";
-import { UUIDUtils } from "@util/uuid-utils";
+import { ItemAlterationField, WithItemAlterations } from "../mixins";
+import { GrantItemSchema } from "./schema";
 
-class GrantItemRuleElement extends RuleElementPF2e {
+const { fields } = foundry.data;
+
+class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
     static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
 
-    /** The UUID of the item to grant: must be a compendium or world item */
-    uuid: string;
-    /** Whether the granted item should replace the granting item */
-    protected replaceSelf: boolean;
-    /** Permit this grant to be applied during an actor update--if it isn't already granted and the predicate passes */
-    protected reevaluateOnUpdate: boolean;
-    /** Allow multiple of the same item (as determined by source ID) to be granted */
-    protected allowDuplicate: boolean;
     /** The id of the granted item */
     grantedId: string | null;
-    /** A flag for referencing the granted item ID in other rule elements */
-    flag: string | null;
 
     /**
      * If the granted item has a `ChoiceSet`, its selection may be predetermined. The key of the record must be the
@@ -36,19 +31,14 @@ class GrantItemRuleElement extends RuleElementPF2e {
     /** Actions taken when either the parent or child item are deleted */
     onDeleteActions: Partial<OnDeleteActions> | null;
 
-    /**
-     * An array of alterations to make to the item: currently only supports badge value overrides for conditions and
-     * effects
-     */
-    alterations: ItemAlterationData[];
-
     constructor(data: GrantItemSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
-        this.uuid = String(data.uuid);
-        this.reevaluateOnUpdate = !!data.reevaluateOnUpdate;
-        this.replaceSelf = this.reevaluateOnUpdate ? false : !!data.replaceSelf;
-        this.allowDuplicate = this.reevaluateOnUpdate ? false : !!(data.allowDuplicate ?? true);
+        if (this.reevaluateOnUpdate) {
+            this.replaceSelf = false;
+            this.allowDuplicate = false;
+        }
+
         this.onDeleteActions = this.#getOnDeleteActions(data);
 
         const isValidPreselect = (p: Record<string, unknown>): p is Record<string, string | number> =>
@@ -58,12 +48,23 @@ class GrantItemRuleElement extends RuleElementPF2e {
                 ? deepClone(data.preselectChoices)
                 : {};
 
-        this.flag =
-            typeof data.flag === "string" && data.flag.length > 0 ? sluggify(data.flag, { camel: "dromedary" }) : null;
-
         this.grantedId = this.item.flags.pf2e.itemGrants[this.flag ?? ""]?.id ?? null;
+    }
 
-        this.alterations = data.alterations && this.#isValidItemAlteration(data.alterations) ? data.alterations : [];
+    static override defineSchema(): GrantItemSchema {
+        return {
+            ...super.defineSchema(),
+            uuid: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
+            flag: new SlugField({ required: true, nullable: true, blank: false, initial: null, camel: "dromedary" }),
+            reevaluateOnUpdate: new fields.BooleanField({ required: false, nullable: false, initial: false }),
+            replaceSelf: new fields.BooleanField({ required: false, nullable: false, initial: false }),
+            allowDuplicate: new fields.BooleanField({ required: false, nullable: false, initial: true }),
+            alterations: new fields.ArrayField(new ItemAlterationField(), {
+                required: false,
+                nullable: false,
+                initial: [],
+            }),
+        };
     }
 
     static ON_DELETE_ACTIONS = ["cascade", "detach", "restrict"] as const;
@@ -145,7 +146,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
         }
 
         this.#applyChoiceSelections(tempGranted);
-        this.#applyAlterations(grantedSource);
+        this.applyAlterations(grantedSource);
 
         if (this.ignored) return;
 
@@ -207,52 +208,6 @@ class GrantItemRuleElement extends RuleElementPF2e {
         return noAction;
     }
 
-    /** Is the item-alteration data structurally sound? Currently only overrides are supported. */
-    #isValidItemAlteration(data: {}): data is ItemAlterationData[] {
-        return (
-            Array.isArray(data) &&
-            data.every(
-                (d: unknown) =>
-                    d instanceof Object &&
-                    "mode" in d &&
-                    d.mode === "override" &&
-                    "property" in d &&
-                    d.property === "badge-value" &&
-                    "value" in d &&
-                    (["string", "number"].includes(typeof d.value) || d.value === null)
-            )
-        );
-    }
-
-    /** Is the item alteration valid for the granted item type? */
-    #itemCanBeAltered(grantedSource: ItemSourcePF2e, value: unknown): boolean | null {
-        const sourceId = grantedSource.flags.core?.sourceId ? ` (${grantedSource.flags.core.sourceId})` : "";
-        if (grantedSource.type !== "condition" && grantedSource.type !== "effect") {
-            this.failValidation(`unable to alter "${grantedSource.name}"${sourceId}: must be condition or effect`);
-            return false;
-        }
-
-        const hasBadge =
-            grantedSource.type === "condition"
-                ? typeof grantedSource.system.value.value === "number"
-                : grantedSource.type === "effect"
-                ? grantedSource.system.badge?.type === "counter"
-                : false;
-        if (!hasBadge) {
-            this.failValidation(`unable to alter "${grantedSource.name}"${sourceId}: effect lacks a badge`);
-        }
-
-        const positiveInteger = typeof value === "number" && Number.isInteger(value) && value > 0;
-        // Hard-coded until condition data can indicate that it can operate valueless
-        const nullValuedStun = value === null && grantedSource.system.slug === "stunned";
-        if (!(positiveInteger || nullValuedStun)) {
-            this.failValidation("badge-value alteration not applicable to item");
-            return false;
-        }
-
-        return hasBadge;
-    }
-
     #getOnDeleteActions(data: GrantItemSource): Partial<OnDeleteActions> | null {
         const actions = data.onDeleteActions;
         if (isObject<OnDeleteActions>(actions)) {
@@ -275,20 +230,6 @@ class GrantItemRuleElement extends RuleElementPF2e {
                 const ruleSource = source.system.rules[grantedItem.rules.indexOf(rule)] as ChoiceSetSource;
                 const resolvedSelection = this.resolveInjectedProperties(selection);
                 rule.selection = ruleSource.selection = resolvedSelection;
-            }
-        }
-    }
-
-    /** Set the badge value of a condition or effect */
-    #applyAlterations(grantedSource: ItemSourcePF2e): void {
-        for (const alteration of this.alterations) {
-            const value: unknown = this.resolveValue(alteration.value);
-            if (!this.#itemCanBeAltered(grantedSource, value)) continue;
-
-            if (grantedSource.type === "condition" && (typeof value === "number" || value === null)) {
-                grantedSource.system.value.value = value;
-            } else if (grantedSource.type === "effect" && typeof value === "number") {
-                grantedSource.system.badge!.value = value;
             }
         }
     }
@@ -344,6 +285,14 @@ class GrantItemRuleElement extends RuleElementPF2e {
     }
 }
 
+interface GrantItemRuleElement
+    extends RuleElementPF2e<GrantItemSchema>,
+        ModelPropsFromSchema<GrantItemSchema>,
+        WithItemAlterations<GrantItemSchema> {}
+
+// Apply mixin
+WithItemAlterations.mixIn(GrantItemRuleElement);
+
 interface GrantItemSource extends RuleElementSource {
     uuid?: unknown;
     replaceSelf?: unknown;
@@ -353,12 +302,6 @@ interface GrantItemSource extends RuleElementSource {
     onDeleteActions?: unknown;
     flag?: unknown;
     alterations?: unknown;
-}
-
-interface ItemAlterationData {
-    mode: AELikeChangeMode;
-    property: string;
-    value: string | number | null;
 }
 
 interface OnDeleteActions {

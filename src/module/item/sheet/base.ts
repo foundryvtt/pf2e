@@ -82,7 +82,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         options.editable = this.isEditable;
 
         const item = this.item.clone({}, { keepId: true });
-        const itemData = item.toObject(false) as unknown as TItem["data"];
+        const itemData = item.toObject(false) as unknown as TItem;
         const rules = this.item.toObject().system.rules;
 
         // Enrich content
@@ -142,7 +142,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             rarities: CONFIG.PF2E.rarityTraits,
             traits,
             traitTagifyData,
-            enabledRulesUI: game.settings.get("pf2e", "enabledRulesUI"),
+            enabledRulesUI: game.user.isGM || game.settings.get("pf2e", "enabledRulesUI"),
             ruleEditing: !!this.editingRuleElement,
             rules: {
                 labels: rules.map((ruleData: RuleElementSource) => {
@@ -434,7 +434,12 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         }
 
         // Add a link to add GM notes
-        if (this.isEditable && game.user.isGM && !this.item.system.description.gm) {
+        if (
+            this.isEditable &&
+            game.user.isGM &&
+            !this.item.system.description.gm &&
+            !(this.item.isOfType("spell") && this.item.isVariant)
+        ) {
             const descriptionEditors = htmlQuery(html, ".descriptions");
             const mainEditor = htmlQuery(descriptionEditors, ".main .editor");
             if (!mainEditor) throw ErrorPF2e("Unexpected error retrieving description editor");

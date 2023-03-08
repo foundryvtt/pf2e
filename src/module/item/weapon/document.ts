@@ -18,10 +18,11 @@ import {
 } from "@item/physical";
 import { MAGIC_SCHOOLS, MAGIC_TRADITIONS } from "@item/spell/values";
 import { OneToThree } from "@module/data";
-import { LocalizePF2e } from "@module/system/localize";
-import { DamageCategorization } from "@system/damage";
+import { UserPF2e } from "@module/user";
+import { DamageCategorization } from "@system/damage/helpers";
+import { LocalizePF2e } from "@system/localize";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify } from "@util";
-import { WeaponDamage, WeaponData, WeaponMaterialData, WeaponSource } from "./data";
+import { WeaponDamage, WeaponData, WeaponFlags, WeaponMaterialData, WeaponSource, WeaponSystemData } from "./data";
 import {
     BaseWeaponType,
     OtherWeaponTag,
@@ -172,6 +173,24 @@ class WeaponPF2e extends PhysicalItemPF2e {
             .map((p) => `rune:property:${sluggify(p)}`)
             .reduce((statements, s) => ({ ...statements, [s]: true }), {} as Record<string, boolean>);
 
+        // Ammunition
+        const ammunitionRollOptions = ((ammunition: ConsumablePF2e | null) => {
+            const rollOptions: Record<string, boolean> = {};
+            if (ammunition) {
+                rollOptions[`ammo:id:${ammunition.id}`] = true;
+                rollOptions[`ammo:slug:${ammunition.slug}`] = true;
+                rollOptions[`ammo:level:${ammunition.level}`] = true;
+                if (ammunition.material.precious) {
+                    rollOptions[`ammo:material:type:${ammunition.material.precious.type}`] = true;
+                    rollOptions[`ammo:material:grade:${ammunition.material.precious.grade}`] = true;
+                }
+                for (const trait of ammunition.traits) {
+                    rollOptions[`ammo:trait:${trait}`] = true;
+                }
+            }
+            return rollOptions;
+        })(this.ammo);
+
         return [
             super.getRollOptions(prefix),
             Object.entries({
@@ -196,6 +215,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 thrown: this.isThrown,
                 "thrown-melee": thrownMelee,
                 ...propertyRunes,
+                ...ammunitionRollOptions,
             })
                 .filter(([, isTrue]) => isTrue)
                 .map(([key]) => `${prefix}:${key}`),
@@ -229,9 +249,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             systemData.damage.modifier ||= systemData.damage.dice;
         }
 
-        // This method checks data on the actor, which may not yet be initialized:
-        // use the item's initialization status as a proxy check
-        if (this.initialized) ABP.cleanupRunes(this);
+        ABP.cleanupRunes(this);
 
         const traitsArray = systemData.traits.value;
         // Thrown weapons always have a reload of "-"
@@ -368,6 +386,14 @@ class WeaponPF2e extends PhysicalItemPF2e {
             .reduce((highest, rarity) => (rarityOrder[rarity] > rarityOrder[highest] ? rarity : highest), baseRarity);
     }
 
+    /** Add the rule elements of this weapon's linked ammunition to its own list */
+    override prepareSiblingData(): void {
+        super.prepareSiblingData();
+        // Set the default label to the ammunition item's name
+        const ammoRules = (this.ammo?.system.rules ?? []).map((r) => ({ label: this.ammo?.name, ...deepClone(r) }));
+        this.system.rules.push(...ammoRules);
+    }
+
     override computeAdjustedPrice(): CoinsPF2e | null {
         const materialData = this.getMaterialValuationData();
         if (!(this.isMagical || materialData) || this.isSpecific) return null;
@@ -410,8 +436,11 @@ class WeaponPF2e extends PhysicalItemPF2e {
         const chatData = await super.getChatData();
 
         const rangeIncrement =
-            this.rangeIncrement && !this.maxRange ? `PF2E.TraitRangeIncrement${this.rangeIncrement}` : null;
-        const maxRange = this.maxRange ? `PF2E.TraitRange${this.maxRange}` : null;
+            this.rangeIncrement && this.maxRange === this.rangeIncrement * 6
+                ? `PF2E.TraitRangeIncrement${this.rangeIncrement}`
+                : null;
+        const maxRange =
+            this.maxRange && this.maxRange === this.rangeIncrement ? `PF2E.TraitRange${this.maxRange}` : null;
 
         return this.processChatData(htmlOptions, {
             ...chatData,
@@ -630,7 +659,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
                     (t) =>
                         // Creature traits
                         !(t in CONFIG.PF2E.creatureTraits) &&
-                        // Magic school and tradition traits
+                        // Magical school and tradition traits
                         !setHasElement(MAGIC_TRADITIONS, t) &&
                         !setHasElement(MAGIC_SCHOOLS, t) &&
                         // Thrown(-N) trait on melee attacks with thrown melee weapons
@@ -642,7 +671,9 @@ class WeaponPF2e extends PhysicalItemPF2e {
                         // Combination trait on melee or thrown attacks with combination weapons
                         !(t === "combination" && (this.isMelee || this.isThrown)) &&
                         // Critical fusion trait on thrown attacks with melee usage of combination weapons
-                        !(t === "critical-fusion" && this.isThrown)
+                        !(t === "critical-fusion" && this.isThrown) &&
+                        // Other traits always excluded
+                        !["artifact", "cursed"].includes(t)
                 );
 
             if (this.isRanged && !this.isThrown) {
@@ -717,6 +748,23 @@ class WeaponPF2e extends PhysicalItemPF2e {
         return [attack, ...this.getAltUsages({ recurse: false }).flatMap((u) => u.toNPCAttacks())];
     }
 
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
+    protected override _preUpdate(
+        changed: DeepPartial<this["_source"]>,
+        options: DocumentModificationContext<this>,
+        user: UserPF2e
+    ): Promise<void> {
+        const traits = changed.system?.traits ?? {};
+        if ("value" in traits && Array.isArray(traits.value)) {
+            traits.value = traits.value.filter((t) => t in CONFIG.PF2E.weaponTraits);
+        }
+
+        return super._preUpdate(changed, options, user);
+    }
+
     /** Remove links to this weapon from NPC attacks */
     protected override _onDelete(options: DocumentModificationContext, userId: string): void {
         super._onDelete(options, userId);
@@ -732,7 +780,9 @@ class WeaponPF2e extends PhysicalItemPF2e {
 }
 
 interface WeaponPF2e extends PhysicalItemPF2e {
+    flags: WeaponFlags;
     readonly data: WeaponData;
+    system: WeaponSystemData;
 
     get traits(): Set<WeaponTrait>;
 }

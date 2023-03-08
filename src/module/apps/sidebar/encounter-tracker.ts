@@ -81,7 +81,8 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
         const control = event.currentTarget.dataset.control;
         if ((control === "rollNPC" || control === "rollAll") && this.viewed) {
             event.stopPropagation();
-            await this.viewed[control](eventToRollParams(event));
+            const args = eventToRollParams(event);
+            await this.viewed[control]({ ...args, messageOptions: { rollMode: args.rollMode } });
         } else {
             await super._onCombatControl(event);
         }

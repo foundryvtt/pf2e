@@ -1,9 +1,11 @@
 import { SkillAbbreviation } from "@actor/creature/data";
 import { createProficiencyModifier, MODIFIER_TYPE } from "@actor/modifiers";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
-import { ActionItemPF2e, isSpellConsumable, ItemPF2e, WEAPON_CATEGORIES } from "@item";
+import { ActionItemPF2e, ItemPF2e } from "@item";
+import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { ItemSourcePF2e, LoreData } from "@item/data";
-import { BaseWeaponType, WeaponGroup } from "@item/weapon/types";
+import { BaseWeaponType, WeaponGroup } from "@item/weapon";
+import { WEAPON_CATEGORIES } from "@item/weapon/values";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { PROFICIENCY_RANKS } from "@module/data";
 import { craft } from "@system/action-macros/crafting/craft";
@@ -256,7 +258,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const actorData = sheetData.actor;
 
         // Actions
-        type AnnotatedAction = RawObject<ActionItemPF2e["data"]> & {
+        type AnnotatedAction = ActionItemPF2e & {
             encounter?: boolean;
             exploration?: boolean;
             downtime?: boolean;

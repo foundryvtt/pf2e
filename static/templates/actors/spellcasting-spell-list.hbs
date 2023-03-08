@@ -1,13 +1,12 @@
 {{#with entry as |entry|}}
-    <ol class="directory-list spell-list" data-casting-type="{{castingType}}">
+    <ol class="directory-list spell-list" data-category="{{entry.category}}">
         {{!-- Add section for each level --}}
         {{#each entry.levels as |section|}}
             {{#if (or (gt section.active.length 0) entry.system.showSlotlessLevels.value)}}
-                <li class="spell-level-header spellbook-header item" data-item-id="{{entry._id}}" data-item-type="spellLevel" data-level="{{section.level}}">
+                <li class="spell-level-header spellbook-header item" data-item-id="{{entry.id}}" data-item-type="spellLevel" data-level="{{section.level}}">
                     <div class="item-name flexrow">
                         <h3>{{localize section.label}}</h3>
 
-                        <!-- {{entry.isFocusPool}} -->
                         {{#if (and section.isCantrip (not section.uses))}}
                             <span class="spell-slots infinity">&infin;</span>
                             <span class="flex0"> / </span>
@@ -82,7 +81,7 @@
 
                             <div class="spell-range">
                                 {{!-- Innate spells replace range for uses --}}
-                                {{#unless entry.isInnate}}
+                                {{#if (not entry.isInnate)}}
                                     {{spell.system.range.value}}
                                 {{else if uses}}
                                     <div class="uses">
@@ -99,7 +98,7 @@
                                     </div>
                                 {{else}}
                                     {{localize "PF2E.SpellUnlimitedLabel"}}
-                                {{/unless}}
+                                {{/if}}
                             </div>
 
                             <div class="spell-components tags">
@@ -149,6 +148,7 @@
                 {{/each}}
             {{/if}}
         {{/each}}
+
         {{#if (and (not entry.levels) @root.options.editable)}}
             <li class="spellbook-header spellbook-empty">
                 <h4>{{localize "PF2E.SpellSlotEmpty"}}</h4>

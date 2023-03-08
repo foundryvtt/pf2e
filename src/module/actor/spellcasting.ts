@@ -1,35 +1,48 @@
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { ConsumablePF2e, SpellcastingEntryPF2e } from "@item";
+import { SpellcastingEntrySource } from "@item/spellcasting-entry";
 import { SpellCollection } from "@item/spellcasting-entry/collection";
+import { RitualSpellcasting } from "@item/spellcasting-entry/rituals";
+import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types";
 import { ErrorPF2e } from "@util";
 
-export class ActorSpellcasting extends Collection<SpellcastingEntryPF2e> {
+export class ActorSpellcasting extends Collection<BaseSpellcastingEntry> {
     /** All available spell lists on this actor */
     collections = new Collection<SpellCollection>();
 
-    constructor(public readonly actor: ActorPF2e, entries?: SpellcastingEntryPF2e[]) {
-        super(entries?.map((entry) => [entry.id, entry]));
+    constructor(public readonly actor: ActorPF2e, entries: BaseSpellcastingEntry[]) {
+        super(entries.map((entry) => [entry.id, entry]));
+
+        for (const entry of entries) {
+            if (entry.spells) this.collections.set(entry.spells.id, entry.spells);
+        }
     }
 
     /** Returns a list of entries pre-filtered to SpellcastingEntryPF2e */
-    get regular() {
-        return this.filter((entry): entry is SpellcastingEntryPF2e => entry instanceof SpellcastingEntryPF2e);
+    get regular(): SpellcastingEntryPF2e[] {
+        return this.filter((e): e is SpellcastingEntryPF2e => e instanceof SpellcastingEntryPF2e);
+    }
+
+    /** Get this actor's ritual casting ability */
+    get ritual(): RitualSpellcasting | null {
+        const ritualCasting = this.collections.get("rituals")?.entry;
+        return ritualCasting instanceof RitualSpellcasting ? ritualCasting : null;
     }
 
     /**
      * All spellcasting entries that count as prepared/spontaneous, which qualify as a
      * full fledged spellcasting feature for wands and scrolls.
      */
-    get spellcastingFeatures() {
-        return this.regular.filter((entry) => entry.isPrepared || entry.isSpontaneous);
+    get spellcastingFeatures(): SpellcastingEntryPF2e[] {
+        return this.regular.filter((e) => e.isPrepared || e.isSpontaneous);
     }
 
     canCastConsumable(item: ConsumablePF2e): boolean {
         const spell = item.embeddedSpell;
-        return !!spell && this.some((entry) => entry.canCastSpell(spell, { origin: item }));
+        return !!spell && this.some((e) => e.canCast(spell, { origin: item }));
     }
 
-    refocus(options: { all?: boolean } = {}) {
+    refocus(options: { all?: boolean } = {}): { "system.resources.focus.value": number } | null {
         if (!options.all) {
             throw ErrorPF2e("Actors do not currently support regular refocusing");
         }
@@ -51,7 +64,10 @@ export class ActorSpellcasting extends Collection<SpellcastingEntryPF2e> {
      * Recharges all spellcasting entries based on the type of entry it is
      * @todo Support a timespan property of some sort and handle 1/hour innate spells
      */
-    recharge() {
+    recharge(): {
+        itemUpdates: ((Record<string, unknown> | Partial<SpellcastingEntrySource>) & { _id: string })[];
+        actorUpdates: { "system.resources.focus.value": number } | null;
+    } {
         type SpellcastingUpdate =
             | EmbeddedDocumentUpdateData<SpellcastingEntryPF2e>
             | EmbeddedDocumentUpdateData<SpellcastingEntryPF2e>[];

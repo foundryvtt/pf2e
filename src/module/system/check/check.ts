@@ -143,7 +143,12 @@ class CheckPF2e {
             return null;
         })();
 
-        const options: CheckRollDataPF2e = { rollerId: game.userId, isReroll, totalModifier: check.totalModifier };
+        const options: CheckRollDataPF2e = {
+            rollerId: game.userId,
+            isReroll,
+            totalModifier: check.totalModifier,
+            domains: context.domains,
+        };
         if (strike) options.strike = strike;
 
         const totalModifierPart = signedInteger(check.totalModifier);
@@ -178,13 +183,9 @@ class CheckPF2e {
                     if (!context.dc || note.outcome.length === 0) {
                         // Always show the note if the check has no DC or no outcome is specified.
                         return true;
-                    } else if (context.outcome && context.unadjustedOutcome) {
-                        if ([context.outcome, context.unadjustedOutcome].some((o) => note.outcome.includes(o))) {
-                            // Show the note if the specified outcome was achieved.
-                            return true;
-                        }
                     }
-                    return false;
+                    const outcome = context.outcome ?? context.unadjustedOutcome;
+                    return !!(outcome && note.outcome.includes(outcome));
                 })
                 .map((n) => n.text)
                 .join("\n") ?? "";
@@ -310,12 +311,19 @@ class CheckPF2e {
         const properties = ((): HTMLElement[] => {
             if (item?.isOfType("weapon") && item.isRanged) {
                 // Show the range increment for ranged weapons
-                const range = item.maxRange ?? item.rangeIncrement ?? 10;
-                const locKey = item.maxRange ? `PF2E.TraitRange${range}` : "PF2E.Item.Weapon.RangeIncrementN.Label";
-                const label = game.i18n.format(locKey, { range });
+                const rangeIncrement = item.rangeIncrement ?? 10;
+                const locKey =
+                    item.maxRange === rangeIncrement
+                        ? `PF2E.TraitRange${rangeIncrement}`
+                        : "PF2E.Item.Weapon.RangeIncrementN.Label";
+                const label = game.i18n.format(locKey, { range: rangeIncrement });
                 return [
                     toTagElement(
-                        { name: range.toString(), label, description: "PF2E.Item.Weapon.RangeIncrementN.Hint" },
+                        {
+                            name: `range-${rangeIncrement}`,
+                            label,
+                            description: "PF2E.Item.Weapon.RangeIncrementN.Hint",
+                        },
                         "secondary"
                     ),
                 ];

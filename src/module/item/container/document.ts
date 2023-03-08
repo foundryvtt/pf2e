@@ -3,7 +3,7 @@ import { ItemSummaryData } from "@item/data";
 import { EquipmentTrait } from "@item/equipment/data";
 import { PhysicalItemPF2e } from "@item/physical";
 import { Bulk, weightToBulk } from "@item/physical/bulk";
-import { ContainerData } from "./data";
+import { ContainerData, ContainerSystemData } from "./data";
 import { hasExtraDimensionalParent } from "./helpers";
 
 class ContainerPF2e extends PhysicalItemPF2e {
@@ -56,15 +56,16 @@ class ContainerPF2e extends PhysicalItemPF2e {
         this: Embedded<ContainerPF2e>,
         htmlOptions: EnrichHTMLOptions = {}
     ): Promise<ItemSummaryData> {
-        const systemData = this.system;
-        const traits = this.traitChatData(CONFIG.PF2E.equipmentTraits);
-
-        return this.processChatData(htmlOptions, { ...systemData, traits });
+        return this.processChatData(htmlOptions, {
+            ...(await super.getChatData()),
+            traits: this.traitChatData(CONFIG.PF2E.equipmentTraits),
+        });
     }
 }
 
 interface ContainerPF2e extends PhysicalItemPF2e {
     readonly data: ContainerData;
+    system: ContainerSystemData;
 
     get traits(): Set<EquipmentTrait>;
 }

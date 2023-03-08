@@ -21,7 +21,7 @@ declare global {
          * Return an array of the Active Effect instances which originated from this Item.
          * The returned instances are the ActiveEffect instances which exist on the Item itself.
          */
-        get transferredEffects(): CollectionValue<this["data"]["effects"]>[];
+        get transferredEffects(): CollectionValue<this["effects"]>[];
 
         /** A convenience reference to the item type (data.type) of this Item */
         get type(): string;
@@ -45,12 +45,8 @@ declare global {
     }
 
     interface Item<TParent extends Actor = Actor> {
-        readonly data: foundry.data.ItemData<Item, ActiveEffect>;
-
+        readonly data: foundry.data.ItemData<Item>;
         readonly parent: TParent | null;
-
-        // V10 shim
-        readonly flags: this["data"]["flags"];
 
         get collection(): Items<this>;
 

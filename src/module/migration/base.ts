@@ -84,7 +84,7 @@ interface MigrationBase {
      * Update the user to the latest schema version.
      * @param userData User's data to update. This should be a `UserData` from the previous version.
      */
-    updateUser?(userData: foundry.data.UserSource): Promise<void>;
+    updateUser?(userData: foundry.documents.UserSource): Promise<void>;
 
     /**
      * Run migrations for this schema version.

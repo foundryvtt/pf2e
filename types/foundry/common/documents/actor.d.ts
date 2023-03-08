@@ -11,8 +11,6 @@ declare module foundry {
             /** The default icon used for newly created Actor documents */
             static DEFAULT_ICON: ImageFilePath;
 
-            static override get schema(): ConstructorOf<data.ActorData<BaseActor, BaseActiveEffect, BaseItem>>;
-
             static override get metadata(): ActorMetadata;
 
             /** A Collection of Item embedded Documents */
@@ -38,7 +36,7 @@ declare module foundry {
                 insertKeys?: boolean;
                 insertValues?: boolean;
                 enforceTypes?: boolean;
-            }): this["data"]["system"];
+            }): this["system"];
 
             protected override _preCreate(
                 data: PreDocumentId<this["_source"]>,
@@ -54,15 +52,18 @@ declare module foundry {
         }
 
         interface BaseActor {
-            readonly data: data.ActorData<BaseActor, BaseActiveEffect, BaseItem>;
-
+            readonly data: data.ActorData<BaseActor>;
+            readonly flags: ActorFlags;
             readonly parent: BaseToken | null;
-
-            // V10 shim
-            readonly system: this["data"]["system"];
-
+            readonly system: object;
             get documentName(): (typeof BaseActor)["metadata"]["name"];
         }
+
+        type ActorFlags = DocumentFlags & {
+            core?: {
+                sourceId?: ActorUUID;
+            };
+        };
 
         interface ActorMetadata extends abstract.DocumentMetadata {
             name: "Actor";

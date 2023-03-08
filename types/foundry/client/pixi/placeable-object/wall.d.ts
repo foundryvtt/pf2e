@@ -3,7 +3,7 @@
  * Walls are used to restrict Token movement or visibility as well as to define the areas of effect for ambient lights
  * and sounds.
  */
-declare class Wall<TDocument extends WallDocument = WallDocument> extends PlaceableObject<TDocument> {
+declare class Wall<TDocument extends WallDocument<Scene | null>> extends PlaceableObject<TDocument> {
     constructor(document?: TDocument);
 
     /** An reference the Door Control icon associated with this Wall, if any */
@@ -96,7 +96,7 @@ declare class Wall<TDocument extends WallDocument = WallDocument> extends Placea
      */
     getLinkedSegments(): {
         ids: string[];
-        walls: Wall[];
+        walls: Wall<TDocument>[];
         endpoints: number[];
     };
 
@@ -150,6 +150,6 @@ declare class Wall<TDocument extends WallDocument = WallDocument> extends Placea
     protected _onDragLeftDrop(event: PIXI.InteractionEvent): Promise<TDocument[]>;
 }
 
-declare interface Wall {
+declare interface Wall<TDocument extends WallDocument<Scene | null>> extends PlaceableObject<TDocument> {
     get layer(): WallsLayer<this>;
 }

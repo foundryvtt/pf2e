@@ -6,8 +6,9 @@ import { BackgroundPF2e } from ".";
 
 type BackgroundSource = BaseItemSourcePF2e<"background", BackgroundSystemSource>;
 
-type BackgroundData = Omit<BackgroundSource, "system" | "effects" | "flags"> &
-    BaseItemDataPF2e<BackgroundPF2e, "background", BackgroundSystemData, BackgroundSource>;
+interface BackgroundData
+    extends Omit<BackgroundSource, "flags" | "system" | "type">,
+        BaseItemDataPF2e<BackgroundPF2e, "background", BackgroundSource> {}
 
 interface BackgroundSystemSource extends ABCSystemSource {
     traits: ItemTraits;
@@ -16,8 +17,9 @@ interface BackgroundSystemSource extends ABCSystemSource {
     trainedSkills: {
         value: SkillAbbreviation[];
     };
+    level?: never;
 }
 
-interface BackgroundSystemData extends Omit<BackgroundSystemSource, "items">, Omit<ABCSystemData, "traits"> {}
+interface BackgroundSystemData extends Omit<BackgroundSystemSource, "items">, Omit<ABCSystemData, "level" | "traits"> {}
 
-export { BackgroundData, BackgroundSource };
+export { BackgroundData, BackgroundSource, BackgroundSystemData };

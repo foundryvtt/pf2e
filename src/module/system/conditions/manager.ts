@@ -10,7 +10,7 @@ import { CONDITION_SLUGS } from "@actor/values";
 export class ConditionManager {
     static #initialized = false;
 
-    static conditions: Map<ConditionSlug, ConditionPF2e> = new Map();
+    static conditions: Map<ConditionSlug | ItemUUID, ConditionPF2e> = new Map();
 
     /** Gets a list of condition slugs. */
     static get conditionsSlugs(): string[] {
@@ -21,8 +21,11 @@ export class ConditionManager {
         if (this.#initialized && !force) return;
 
         type ConditionCollection = CompendiumCollection<ConditionPF2e>;
-        const content = await game.packs.get<ConditionCollection>("pf2e.conditionitems")?.getDocuments();
-        const entries = content?.map((c): [ConditionSlug, ConditionPF2e] => [c.slug, c]) ?? [];
+        const content = (await game.packs.get<ConditionCollection>("pf2e.conditionitems")?.getDocuments()) ?? [];
+        const entries = [
+            ...content.map((c): [ConditionSlug, ConditionPF2e] => [c.slug, c]),
+            ...content.map((c): [ItemUUID, ConditionPF2e] => [c.uuid, c]),
+        ];
         this.conditions = new Map(entries);
         this.#initialized = true;
     }
@@ -85,9 +88,9 @@ export class ConditionManager {
                 value: condition.value,
                 description: condition.description,
                 img: condition.img,
-                unidentified: condition.unidentified,
+                isIdentified: condition.isIdentified,
                 references: false,
-                locked: condition.isLocked,
+                isLocked: condition.isLocked,
                 parents: [],
                 children: [],
                 overrides: [],
@@ -121,7 +124,7 @@ export class ConditionManager {
                     ref.text = compendiumLink ? `@Compendium[${compendiumLink}]` : "";
 
                     flattened.references = true;
-                    flattened.locked = true;
+                    flattened.isLocked = true;
                     flattened.parents.push(ref);
                 }
             } else if (condition.flags.pf2e.grantedBy) {

@@ -57,12 +57,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Avalanche Boots (Force Open or Shove)",
-                "predicate": {
-                    "or": [
-                        "shove",
-                        "force-open"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:force-open",
+                            "action:shove"
+                        ]
+                    }
+                ],
                 "selector": "athletics",
                 "type": "circumstance",
                 "value": 2

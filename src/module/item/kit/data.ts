@@ -4,8 +4,7 @@ import type { KitPF2e } from ".";
 
 type KitSource = BaseItemSourcePF2e<"kit", KitSystemSource>;
 
-type KitData = Omit<KitSource, "system" | "effects" | "flags"> &
-    BaseItemDataPF2e<KitPF2e, "kit", KitSystemData, KitSource>;
+type KitData = Omit<KitSource, "system"> & BaseItemDataPF2e<KitPF2e, "kit", KitSource>;
 
 interface KitEntryData {
     uuid: ItemUUID;
@@ -20,6 +19,7 @@ interface KitSystemSource extends ItemSystemSource {
     traits: PhysicalItemTraits;
     items: Record<string, KitEntryData>;
     price: PartialPrice;
+    level?: never;
 }
 
 type KitSystemData = KitSystemSource;

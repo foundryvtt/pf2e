@@ -19,8 +19,9 @@ import {
 
 type ArmorSource = BasePhysicalItemSource<"armor", ArmorSystemSource>;
 
-type ArmorData = Omit<ArmorSource, "system" | "effects" | "flags"> &
-    BasePhysicalItemData<ArmorPF2e, "armor", ArmorSystemData, ArmorSource>;
+interface ArmorData
+    extends Omit<ArmorSource, "flags" | "system" | "type">,
+        BasePhysicalItemData<ArmorPF2e, "armor", ArmorSource> {}
 
 interface ArmorSystemSource extends Investable<PhysicalSystemSource> {
     traits: ArmorTraits;
