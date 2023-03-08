@@ -22,9 +22,6 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
         const hasExplicitPriority = typeof data.priority === "number";
         super(data, item, options);
 
-        // Legacy accommodation for pre-V10 paths
-        this.path = this.path.replace(/^data\./, "system.");
-
         // Set priority according to AE change mode if no priority was explicitly set
         if (!hasExplicitPriority) {
             this.priority = AELikeRuleElement.CHANGE_MODES[this.mode];
