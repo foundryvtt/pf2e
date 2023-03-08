@@ -1407,27 +1407,23 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /* Conditions                                   */
     /* -------------------------------------------- */
 
-    /**
-     * Get a condition on this actor, returning:
-     *   - the highest-valued if there are multiple of a valued condition
-     *   - the longest-lasting if there are multiple of a condition with a duration
-     *   - the last applied if any are present and are neither valued nor with duration
-     *   - otherwise `null`
-     * @param slug the slug of a core condition (subject to change when user-created conditions are introduced)
-     * @param [options.all=false] return all conditions of the requested type in the order described above
-     */
+    /** Gets an active condition on the actor or a list of conditions sorted by descending value. */
     getCondition(
         slug: ConditionKey,
         { all }: { all: boolean } = { all: false }
     ): Embedded<ConditionPF2e>[] | Embedded<ConditionPF2e> | null {
-        const conditions = this.itemTypes.condition
-            .filter((condition) => condition.key === slug || condition.slug === slug)
-            .sort((conditionA, conditionB) => {
-                const [valueA, valueB] = [conditionA.value ?? 0, conditionB.value ?? 0] as const;
-                return valueA > valueB ? 1 : valueB < valueB ? -1 : 0;
-            });
+        const conditions = this.itemTypes.condition.filter(
+            (condition) => condition.key === slug || condition.slug === slug
+        );
 
-        return all ? conditions : conditions[0] ?? null;
+        if (all) {
+            return conditions.sort((conditionA, conditionB) => {
+                const [valueA, valueB] = [conditionA.value ?? 0, conditionB.value ?? 0] as const;
+                return valueA > valueB ? -1 : valueA < valueB ? 1 : 0;
+            });
+        } else {
+            return conditions.find((c) => c.active) ?? null;
+        }
     }
 
     /**
