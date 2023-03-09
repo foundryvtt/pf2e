@@ -125,15 +125,15 @@ declare global {
                  * @param [options.keepId=false]  Keep the original Document ID? Otherwise the ID will become undefined
                  * @returns The cloned Document instance
                  */
-                clone<T extends this>(
+                clone(
                     data: DocumentUpdateData<this> | undefined,
-                    options: { save: true; keepId?: boolean }
-                ): Promise<T>;
-                clone<T extends this>(data?: DocumentUpdateData<this>, options?: { save?: false; keepId?: boolean }): T;
+                    options: DocumentCloneOptions & { save: true }
+                ): Promise<this>;
                 clone<T extends this>(
                     data?: DocumentUpdateData<this>,
-                    options?: { save?: boolean; keepId?: boolean }
-                ): T | Promise<T>;
+                    options?: DocumentCloneOptions & { save?: false }
+                ): T;
+                clone<T extends this>(data?: DocumentUpdateData<this>, options?: DocumentCloneOptions): T | Promise<T>;
 
                 /**
                  * Get the permission level that a specific User has over this Document, a value in CONST.ENTITY_PERMISSIONS.
@@ -600,6 +600,11 @@ declare global {
         parent?: TParent;
         pack?: string;
         [key: string]: unknown;
+    }
+
+    interface DocumentCloneOptions extends Omit<DocumentConstructionContext<null>, "parent"> {
+        save?: boolean;
+        keepId?: boolean;
     }
 
     interface DocumentModificationContext<T extends foundry.abstract.Document = foundry.abstract.Document> {

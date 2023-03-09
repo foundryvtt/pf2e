@@ -537,15 +537,15 @@ class WeaponPF2e extends PhysicalItemPF2e {
         ].flat();
     }
 
-    override clone<T extends this>(
+    override clone(
         data: DocumentUpdateData<this> | undefined,
         options: Omit<WeaponCloneOptions, "save"> & { save: true }
-    ): Promise<T>;
-    override clone<T extends this>(
+    ): Promise<this>;
+    override clone(
         data?: DocumentUpdateData<this>,
         options?: Omit<WeaponCloneOptions, "save"> & { save?: false }
-    ): T;
-    override clone<T extends this>(data?: DocumentUpdateData<this>, options?: WeaponCloneOptions): T | Promise<T>;
+    ): this;
+    override clone(data?: DocumentUpdateData<this>, options?: WeaponCloneOptions): this | Promise<this>;
     override clone(data?: DocumentUpdateData<this>, options?: WeaponCloneOptions): this | Promise<this> {
         const clone = super.clone(data, options);
         if (options?.altUsage && clone instanceof WeaponPF2e) {
@@ -787,9 +787,7 @@ interface WeaponPF2e extends PhysicalItemPF2e {
     get traits(): Set<WeaponTrait>;
 }
 
-interface WeaponCloneOptions {
-    save?: boolean;
-    keepId?: boolean;
+interface WeaponCloneOptions extends DocumentCloneOptions {
     /** If this clone is an alternative usage, the type */
     altUsage?: "melee" | "thrown";
 }
