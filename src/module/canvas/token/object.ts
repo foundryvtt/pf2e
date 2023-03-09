@@ -259,7 +259,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
                 const [change, details] = Object.entries(params)[0];
                 const isAdded = change === "create";
                 const sign = isAdded ? "+ " : "- ";
-                const appendedNumber = details.value ? ` ${details.value}` : "";
+                const appendedNumber = !/ \d+$/.test(details.name) && details.value ? ` ${details.value}` : "";
                 const content = `${sign}${details.name}${appendedNumber}`;
                 const anchorDirection = isAdded ? CONST.TEXT_ANCHOR_POINTS.TOP : CONST.TEXT_ANCHOR_POINTS.BOTTOM;
                 const textStyle = pick(this._getTextStyle(), ["fill", "fontSize", "stroke", "strokeThickness"]);
