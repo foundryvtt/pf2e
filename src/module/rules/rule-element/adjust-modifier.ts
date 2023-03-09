@@ -54,6 +54,8 @@ class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> 
     }
 
     protected override _validateModel(data: Record<string, unknown>): void {
+        super._validateModel(data);
+
         if (!["string", "number"].includes(typeof data.value) && !this.isBracketedValue(data.value)) {
             throw Error("`value` must be a string, number, or bracketed value");
         }
