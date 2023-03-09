@@ -24,7 +24,6 @@ import { isItemSystemData, isPhysicalData } from "./data/helpers";
 import { PhysicalItemPF2e } from "./physical/document";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values";
 import { ItemSheetPF2e } from "./sheet/base";
-import { UUIDUtils } from "@util/uuid-utils";
 import { ItemFlagsPF2e, ItemSystemData } from "./data/base";
 
 /** Override and extend the basic :class:`Item` implementation */
@@ -236,7 +235,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         }
 
         const currentSource = this.toObject();
-        const latestSource = (await UUIDUtils.fromUuid<this>(this.sourceId))?.toObject();
+        const latestSource = (await fromUuid<this>(this.sourceId))?.toObject();
         if (!latestSource) {
             ui.notifications.warn(
                 `The compendium source for "${this.name}" (source ID: ${this.sourceId}) was not found.`

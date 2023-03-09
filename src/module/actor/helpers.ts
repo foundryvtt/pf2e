@@ -26,7 +26,6 @@ import { AttackItem } from "./types";
 import { ANIMAL_COMPANION_SOURCE_ID, CONSTRUCT_COMPANION_SOURCE_ID } from "./values";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { ZeroToTwo } from "@module/data";
-import { UUIDUtils } from "@util/uuid-utils";
 
 /** Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors */
 async function resetActors(actors?: Iterable<ActorPF2e>, { rerender = true } = {}): Promise<void> {
@@ -93,7 +92,7 @@ async function checkAreaEffects(this: ActorPF2e): Promise<void> {
         if (!auraData?.removeOnExit) continue;
 
         const auraToken = await (async (): Promise<TokenDocumentPF2e | null> => {
-            const document = await UUIDUtils.fromUuid(auraData.origin);
+            const document = await fromUuid(auraData.origin);
             if (document instanceof TokenDocumentPF2e) {
                 return document;
             } else if (document instanceof ActorPF2e) {

@@ -3,7 +3,6 @@ import { BaseSpellcastingEntry } from "@item/spellcasting-entry";
 import { LocalizePF2e } from "@system/localize";
 import { ErrorPF2e, htmlQueryAll, isObject, objectHasKey } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils";
-import { UUIDUtils } from "@util/uuid-utils";
 import Tagify from "@yaireo/tagify";
 import noUiSlider from "nouislider";
 import { BrowserTabs, PackInfo, SortDirection, TabData, TabName } from "./data";
@@ -694,7 +693,7 @@ class CompendiumBrowser extends Application {
             const nameAnchor = liElement.querySelector<HTMLAnchorElement>("div.name > a");
             if (nameAnchor) {
                 nameAnchor.addEventListener("click", async () => {
-                    const document = await UUIDUtils.fromUuid(entryUuid);
+                    const document = await fromUuid(entryUuid);
                     if (document?.sheet) {
                         document.sheet.render(true);
                     }
@@ -794,7 +793,7 @@ class CompendiumBrowser extends Application {
     }
 
     private async getPhysicalItem(uuid: string): Promise<PhysicalItemPF2e | KitPF2e> {
-        const item = await UUIDUtils.fromUuid(uuid);
+        const item = await fromUuid(uuid);
         if (!(item instanceof PhysicalItemPF2e || item instanceof KitPF2e)) {
             throw ErrorPF2e("Unexpected failure retrieving compendium item");
         }

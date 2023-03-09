@@ -6,7 +6,6 @@ import { PHYSICAL_ITEM_TYPES } from "@item/physical/values";
 import { MigrationList, MigrationRunner } from "@module/migration";
 import { SlugField } from "@system/schema-data-fields";
 import { ErrorPF2e, isObject, pick, setHasElement, sluggify, tupleHasValue } from "@util";
-import { UUIDUtils } from "@util/uuid-utils";
 import { ModelPropsFromSchema } from "types/foundry/common/data/fields.mjs";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "..";
 import { ChoiceSetSource } from "../choice-set/data";
@@ -95,7 +94,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         const uuid = this.resolveInjectedProperties(this.uuid);
         const grantedItem: ClientDocument | null = await (async () => {
             try {
-                return (await UUIDUtils.fromUuid(uuid))?.clone() ?? null;
+                return (await fromUuid(uuid))?.clone() ?? null;
             } catch (error) {
                 console.error(error);
                 return null;

@@ -48,7 +48,6 @@ import {
     traitSlugToObject,
     tupleHasValue,
 } from "@util";
-import { UUIDUtils } from "@util/uuid-utils";
 import type { CreaturePF2e } from "./creature";
 import { VisionLevel, VisionLevels } from "./creature/data";
 import { GetReachParameters, ModeOfBeing } from "./creature/types";
@@ -385,7 +384,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 (data.affects === "all" && this !== origin.actor);
 
             if (affectsSelf) {
-                const effect = await UUIDUtils.fromUuid(data.uuid);
+                const effect = await fromUuid(data.uuid);
                 if (!(effect instanceof ItemPF2e && effect.isOfType("affliction", "effect"))) {
                     console.warn(`Effect from ${data.uuid} not found`);
                     continue;

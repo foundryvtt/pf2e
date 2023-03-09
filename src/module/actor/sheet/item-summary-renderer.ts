@@ -5,7 +5,6 @@ import { isItemSystemData } from "@item/data/helpers";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
 import { htmlClosest, htmlQuery, htmlQueryAll } from "@util";
-import { UUIDUtils } from "@util/uuid-utils";
 
 /**
  * Implementation used to populate item summaries, toggle visibility
@@ -35,9 +34,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
 
         if (itemType === "spellSlot") return;
 
-        const item = isFormula
-            ? ((await UUIDUtils.fromUuid(itemId ?? "")) as Embedded<ItemPF2e>)
-            : actor.items.get(itemId ?? "");
+        const item = isFormula ? ((await fromUuid(itemId ?? "")) as Embedded<ItemPF2e>) : actor.items.get(itemId ?? "");
 
         const summary = await (async () => {
             const existing = htmlQuery(element, ":scope > .item-summary");
