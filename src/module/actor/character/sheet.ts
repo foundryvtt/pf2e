@@ -761,17 +761,18 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Feat Browser shortcut links
         for (const link of html.querySelectorAll<HTMLElement>(".feat-browse").values()) {
-            link.addEventListener("click", (event) => this.#onClickBrowseFeats(event));
+            link.addEventListener("click", () => this.#onClickBrowseFeats(link));
         }
     }
 
     /** Contextually search the feats tab of the Compendium Browser */
-    async #onClickBrowseFeats(event: MouseEvent): Promise<void> {
-        if (!(event.currentTarget instanceof HTMLElement)) return;
+    async #onClickBrowseFeats(element: HTMLElement): Promise<void> {
+        const maxLevel = Number(element.dataset.level) || this.actor.level;
+        const checkboxesFilterCodes = (element.dataset.filter ?? "")
+            .split(",")
+            .filter((s) => !!s)
+            .map((s) => s.trim());
 
-        const maxLevel = Number(event.currentTarget.dataset.level) || this.actor.level;
-        const button: HTMLElement = event.currentTarget;
-        const checkboxesFilterCodes = button.dataset.filter?.split(",").filter((f) => !!f) ?? [];
         if (checkboxesFilterCodes.includes("feattype-general")) checkboxesFilterCodes.push("feattype-skill");
         if (checkboxesFilterCodes.includes("feattype-class")) checkboxesFilterCodes.push("feattype-archetype");
 

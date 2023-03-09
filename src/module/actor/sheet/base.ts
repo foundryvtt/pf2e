@@ -394,7 +394,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         $html.find(".sell-all-treasure button").on("click", (event) => this.onSellAllTreasure(event));
 
         // Inventory Browser
-        $html.find(".inventory-browse").on("click", (event) => this.onClickBrowseEquipmentCompendia(event));
+        for (const link of htmlQueryAll(html, ".inventory-browse")) {
+            link.addEventListener("click", () => this.#onClickBrowseEquipmentCompendia(link));
+        }
 
         const $spellcasting = $html.find(".tab.spellcasting, .tab.spells");
         const $spellControls = $spellcasting.find(".item-control");
@@ -628,10 +630,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
     }
 
-    private async onClickBrowseEquipmentCompendia(event: JQuery.ClickEvent<HTMLElement>): Promise<void> {
-        const checkboxesFilterCodes: string[] = [$(event.currentTarget).attr("data-filter")].filter(
-            (element): element is string => !!element
-        );
+    async #onClickBrowseEquipmentCompendia(element: HTMLElement): Promise<void> {
+        const checkboxesFilterCodes = (element.dataset.filter ?? "")
+            .split(",")
+            .filter((s) => !!s)
+            .map((s) => s.trim());
 
         const eqTab = game.pf2e.compendiumBrowser.tabs.equipment;
         const filter = await eqTab.getFilterData();
@@ -640,8 +643,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         for (const filterCode of checkboxesFilterCodes) {
             const splitValues = filterCode.split("-");
             if (splitValues.length !== 2) {
-                console.error(`Invalid filter value for opening the compendium browser: "${filterCode}"`);
-                return;
+                throw ErrorPF2e(`Invalid filter value for opening the compendium browser: "${filterCode}"`);
             }
             const [filterType, value] = splitValues;
             if (objectHasKey(checkboxes, filterType)) {
