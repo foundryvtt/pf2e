@@ -230,27 +230,15 @@ export const ChatCards = {
             }
 
             const dc = Number(event.currentTarget.dataset.dc ?? "NaN");
-            const itemTraits = item.system.traits?.value ?? [];
             for (const t of canvas.tokens.controlled) {
                 const save = t.actor?.saves?.[saveType];
                 if (!save) return;
-
-                const rollOptions: string[] = [];
-                if (item.isOfType("spell")) {
-                    rollOptions.push("magical", "spell");
-                    if (Object.keys(item.system.damage.value).length > 0) {
-                        rollOptions.push("damaging-effect");
-                    }
-                }
-
-                rollOptions.push(...itemTraits);
 
                 save.check.roll({
                     ...eventToRollParams(event),
                     dc: Number.isInteger(dc) ? { value: Number(dc) } : null,
                     item,
                     origin: actor,
-                    extraRollOptions: rollOptions,
                 });
             }
         } else {
