@@ -59,6 +59,7 @@ export function getUsageDetails(usage: string): UsageDetails {
         case "worncrown":
         case "wornepaulet":
         case "worneyepiece":
+        case "wornfootwear":
         case "worngarment":
         case "worngloves":
         case "wornheadwear":
