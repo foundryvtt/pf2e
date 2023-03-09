@@ -140,7 +140,6 @@ class CombatantPF2e<
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    /** Send out a message with information on an automatic effect that occurs upon an actor's death */
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<this>,
@@ -148,12 +147,26 @@ class CombatantPF2e<
     ): void {
         super._onUpdate(changed, options, userId);
 
+        // Reset actor data in case initiative order changed
+        if (this.encounter?.started && typeof changed.initiative === "number") {
+            this.encounter.resetActors();
+        }
+
+        // Send out a message with information on an automatic effect that occurs upon an actor's death
         if (changed.defeated && game.user.id === userId) {
             for (const action of this.actor?.itemTypes.action ?? []) {
                 if (action.system.deathNote) {
                     action.toMessage(undefined, { rollMode: this.actor?.hasPlayerOwner ? "publicroll" : "gmroll" });
                 }
             }
+        }
+    }
+
+    protected override _onDelete(options: DocumentModificationContext, userId: string): void {
+        super._onDelete(options, userId);
+        // Reset actor data in case initiative order changed
+        if (this.encounter?.started) {
+            this.encounter.resetActors();
         }
     }
 }
