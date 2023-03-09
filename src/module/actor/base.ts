@@ -14,6 +14,7 @@ import { AbstractEffectPF2e, ArmorPF2e, ContainerPF2e, ItemPF2e, ItemProxyPF2e, 
 import { ActionTrait } from "@item/action/data";
 import { AfflictionSource } from "@item/affliction";
 import { ConditionKey, ConditionSlug, ConditionSource, type ConditionPF2e } from "@item/condition";
+import { PersistentDialog } from "@item/condition/persistent-damage-dialog";
 import { isCycle } from "@item/container/helpers";
 import { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
 import { ActionCost, ActionType } from "@item/data/base";
@@ -1470,6 +1471,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         }: { min?: number | null; max?: number | null; value?: number | null } = {}
     ): Promise<ConditionPF2e | null> {
         if (value) min = max = value;
+
+        // Persistent damage goes through a dialog instead
+        if (conditionSlug === "persistent-damage") {
+            await new PersistentDialog(this).render(true);
+            return null;
+        }
 
         // Resolves the condition. If the argument is a condition, return it. Otherwise find an existing one.
         // If value is defined, this is a condition being dragged, so prioritized unlocked
