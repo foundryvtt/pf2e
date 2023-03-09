@@ -42,8 +42,10 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
         const hpLost = attributes.hp.max - attributes.hp.value;
         const hpRestored = hpLost >= maxRestored ? maxRestored : hpLost;
         if (hpRestored > 0) {
+            const singularOrPlural =
+                hpRestored === 1 ? translations.Message.HitPointsSingle : translations.Message.HitPoints;
             actorUpdates.attributes.hp = { value: (attributes.hp.value += hpRestored) };
-            statements.push(game.i18n.format(translations.Message.HitPoints, { hitPoints: hpRestored }));
+            statements.push(game.i18n.format(singularOrPlural, { hitPoints: hpRestored }));
         }
 
         // Conditions
