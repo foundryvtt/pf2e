@@ -56,6 +56,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         return this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "") ?? null;
     }
 
+    /** Check whether this item is in-memory-only on an actor rather than being a world item or embedded and stored */
+    get isTemporary(): boolean {
+        return !!this.actor && !this.actor.items.has(this.id ?? "");
+    }
+
     /**
      * Set a source ID on a dropped embedded item without a full data reset
      * This is currently necessary as of 10.291 due to system measures to prevent premature data preparation
@@ -153,7 +158,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
      * follow-up options for attack rolls, effect application, etc.
      */
     async toMessage(
-        event?: JQuery.TriggeredEvent,
+        event?: MouseEvent | JQuery.TriggeredEvent,
         {
             rollMode = undefined,
             create = true,
@@ -165,7 +170,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         // Basic template rendering data
         const template = `systems/pf2e/templates/chat/${this.type}-card.hbs`;
         const token = this.actor.token;
-        const nearestItem = event ? event.currentTarget.closest(".item") : {};
+        const nearestItem = event?.currentTarget.closest(".item") ?? {};
         const contextualData = Object.keys(data).length > 0 ? data : nearestItem.dataset || {};
         const templateData = {
             actor: this.actor,

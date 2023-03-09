@@ -13,11 +13,14 @@ import { htmlClosest, htmlQuery, htmlQueryAll } from "@util";
 export class ItemSummaryRenderer<TActor extends ActorPF2e> {
     constructor(protected sheet: Application & { get actor(): TActor }) {}
 
-    activateListeners($html: JQuery) {
-        $html.find(".item .item-name h4, .item .melee-name h4, .item .action-name h4").on("click", async (event) => {
-            const element = htmlClosest(event.currentTarget, "[data-item-id], .expandable");
-            if (element) await this.toggleSummary(element);
-        });
+    activateListeners(html: HTMLElement): void {
+        const itemNameElems = htmlQueryAll(html, ".item .item-name h4, .item .melee-name h4, .item .action-name h4");
+        for (const itemNameElem of itemNameElems) {
+            itemNameElem.addEventListener("click", async () => {
+                const element = htmlClosest(itemNameElem, "[data-item-id], .expandable");
+                if (element) await this.toggleSummary(element);
+            });
+        }
     }
 
     /**
@@ -25,7 +28,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
      * delegating the populating of the item summary to renderItemSummary().
      * Returns true if it the item is valid and it was toggled.
      */
-    async toggleSummary(element: HTMLElement, options: { instant?: boolean } = {}) {
+    async toggleSummary(element: HTMLElement, options: { instant?: boolean } = {}): Promise<void> {
         const actor = this.sheet.actor;
 
         const { itemId, itemType } = element.dataset;
@@ -35,8 +38,12 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
         if (itemType === "spellSlot") return;
 
         const item = isFormula
-            ? ((await fromUuid(itemId ?? "")) as ItemPF2e<ActorPF2e>)
-            : actor.items.get(itemId ?? "");
+            ? await fromUuid(itemId ?? "")
+            : itemType === "condition"
+            ? actor.conditions.get(itemId, { strict: true })
+            : actor.items.get(itemId, { strict: true });
+
+        if (!(item instanceof ItemPF2e)) return;
 
         const summary = await (async () => {
             const existing = htmlQuery(element, ":scope > .item-summary");
@@ -129,7 +136,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
                         ? item.embeddedSpell
                         : null;
 
-                    // which function gets called depends on the type of button stored in the dataset attribute action
+                    // Which function gets called depends on the type of button stored in the dataset attribute action
                     switch (button.dataset.action) {
                         case "spellAttack":
                             spell?.rollAttack(event);
@@ -138,7 +145,9 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
                             spell?.rollDamage(event);
                             break;
                         case "consume":
-                            if (item.isOfType("consumable")) item.consume();
+                            if (item.isOfType("consumable")) {
+                                item.consume();
+                            }
                             break;
                     }
                 });

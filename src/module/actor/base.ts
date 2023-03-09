@@ -53,6 +53,7 @@ import {
     traitSlugToObject,
     tupleHasValue,
 } from "@util";
+import { ActorConditions } from "./conditions";
 import { Abilities, VisionLevel, VisionLevels } from "./creature/data";
 import { GetReachParameters, ModeOfBeing } from "./creature/types";
 import { ActorSourcePF2e, ActorType } from "./data";
@@ -107,8 +108,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /** Data from rule elements for auras this actor may be emanating */
     auras!: Map<string, AuraData>;
 
-    /** Conditions this actor has */
-    conditions!: Map<ConditionSlug, ConditionPF2e<this>>;
+    /** A collection of this actor's conditions */
+    conditions!: ActorConditions<this>;
 
     /** A cached copy of `Actor#itemTypes`, lazily regenerated every data preparation cycle */
     private _itemTypes?: EmbeddedItemInstances<this> | null;
@@ -275,7 +276,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Add effect icons from effect items and rule elements */
     override get temporaryEffects(): TemporaryEffect[] {
-        const conditionTokenIcons = this.itemTypes.condition.map((condition) => condition.img);
+        const conditionTokenIcons = this.conditions.active.map((c) => c.img);
         const conditionTokenEffects = Array.from(new Set(conditionTokenIcons)).map((icon) => new TokenEffect(icon));
 
         const effectTokenEffects = this.itemTypes.effect
@@ -541,7 +542,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     protected override _initialize(): void {
         this.constructed ??= false;
         this.rules = [];
-        this.conditions = new Map();
+        this.conditions = new ActorConditions();
         this.auras = new Map();
 
         const preparationWarnings: Set<string> = new Set();
@@ -1456,12 +1457,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Gets an active condition on the actor or a list of conditions sorted by descending value. */
     getCondition(
-        slug: ConditionKey,
+        slugOrKey: ConditionKey,
         { all }: { all: boolean } = { all: false }
     ): ConditionPF2e<this>[] | ConditionPF2e<this> | null {
-        const conditions = this.itemTypes.condition.filter(
-            (condition) => condition.key === slug || condition.slug === slug
-        );
+        const conditions = this.conditions.filter((c) => c.key === slugOrKey || c.slug === slugOrKey);
 
         if (all) {
             return conditions.sort((conditionA, conditionB) => {
@@ -1469,7 +1468,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 return valueA > valueB ? -1 : valueA < valueB ? 1 : 0;
             });
         } else {
-            return conditions.find((c) => c.active) ?? null;
+            return conditions.filter((c) => c.active);
         }
     }
 
@@ -1478,7 +1477,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
      * @param slugs Slug(s) of the queried condition(s)
      */
     hasCondition(...slugs: ConditionSlug[]): boolean {
-        return slugs.some((s) => this.conditions.has(s));
+        return slugs.some((s) => this.conditions.bySlug(s, { active: true }).length > 0);
     }
 
     /** Decrease the value of condition or remove it entirely */
@@ -1492,7 +1491,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         // If this is persistent damage, remove all matching types, heal from all at once
         if (condition.slug === "persistent-damage") {
-            const matching = this.itemTypes.condition.filter((c) => c.key === condition.key).map((c) => c.id);
+            const matching = this.conditions.stored.filter((c) => c.key === condition.key).map((c) => c.id);
             await this.deleteEmbeddedDocuments("Item", matching);
             return;
         }
@@ -1527,7 +1526,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const existing = (() => {
             if (!(typeof conditionSlug === "string")) return conditionSlug;
 
-            const conditions = this.getCondition(conditionSlug, { all: true });
+            const conditions = this.conditions.stored;
             return value ? conditions.find((c) => !c.isLocked) : conditions.find((c) => c.active);
         })();
 

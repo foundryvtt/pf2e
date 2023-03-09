@@ -98,7 +98,12 @@ import {
 } from "./data";
 import { CharacterSheetTabVisibility } from "./data/sheet";
 import { CharacterFeats } from "./feats";
-import { StrikeWeaponTraits, createForceOpenPenalty, createShoddyPenalty } from "./helpers";
+import {
+    StrikeWeaponTraits,
+    createForceOpenPenalty,
+    createShoddyPenalty,
+    imposeOversizedWeaponCondition,
+} from "./helpers";
 import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams, DexterityModifierCapData } from "./types";
 import { CHARACTER_SHEET_TABS } from "./values";
 
@@ -462,6 +467,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     override prepareDerivedData(): void {
         super.prepareDerivedData();
+
+        imposeOversizedWeaponCondition(this);
 
         const systemData = this.system;
         const { synthetics } = this;

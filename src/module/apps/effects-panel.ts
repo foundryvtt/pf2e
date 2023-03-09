@@ -69,7 +69,7 @@ export class EffectsPanel extends Application {
                 return effect;
             }) ?? [];
 
-        const conditions = game.pf2e.ConditionManager.getFlattenedConditions(actor.itemTypes.condition);
+        const conditions = game.pf2e.ConditionManager.getFlattenedConditions(actor);
 
         const afflictions = actor.itemTypes.affliction;
 
