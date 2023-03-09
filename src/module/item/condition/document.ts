@@ -125,6 +125,10 @@ class ConditionPF2e extends AbstractEffectPF2e {
         const systemData = this.system;
         systemData.value.value = systemData.value.isValued ? Number(systemData.value.value) || 1 : null;
 
+        // Append numeric badge value to condition name, set item image according to configured style
+        if (typeof this.badge?.value === "number") {
+            this.name = `${this.name} ${this.badge.value}`;
+        }
         const folder = CONFIG.PF2E.statusEffects.iconDir;
         this.img = `${folder}${this.slug}.webp`;
 
