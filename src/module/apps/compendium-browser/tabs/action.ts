@@ -1,11 +1,14 @@
 import { getActionIcon, sluggify } from "@util";
 import { CompendiumBrowser } from "..";
+import { ContentTabName } from "../data";
 import { CompendiumBrowserTab } from "./base";
 import { ActionFilters, CompendiumBrowserIndexData } from "./data";
 
 export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
-    override filterData!: ActionFilters;
-    override templatePath = "systems/pf2e/templates/compendium-browser/partials/action.hbs";
+    tabName: ContentTabName = "action";
+    filterData: ActionFilters;
+    templatePath = "systems/pf2e/templates/compendium-browser/partials/action.hbs";
+
     /* MiniSearch */
     override searchFields = ["name"];
     override storeFields = ["type", "name", "img", "uuid", "traits", "source"];
@@ -13,13 +16,13 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
     protected index = ["img", "system.actionType.value", "system.traits.value", "system.source.value"];
 
     constructor(browser: CompendiumBrowser) {
-        super(browser, "action");
+        super(browser);
 
         // Set the filterData object of this tab
-        this.prepareFilterData();
+        this.filterData = this.prepareFilterData();
     }
 
-    protected override async loadData() {
+    protected override async loadData(): Promise<void> {
         console.debug("PF2e System | Compendium Browser | Started loading actions");
 
         const actions: CompendiumBrowserIndexData[] = [];
@@ -84,8 +87,8 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
         return true;
     }
 
-    protected override prepareFilterData(): void {
-        this.filterData = {
+    protected override prepareFilterData(): ActionFilters {
+        return {
             checkboxes: {
                 source: {
                     isExpanded: false,

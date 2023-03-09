@@ -1,23 +1,26 @@
 import { sluggify } from "@util";
 import { CompendiumBrowser } from "..";
+import { ContentTabName } from "../data";
 import { CompendiumBrowserTab } from "./base";
 import { CompendiumBrowserIndexData, FeatFilters } from "./data";
 
 export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
-    override filterData!: FeatFilters;
-    override templatePath = "systems/pf2e/templates/compendium-browser/partials/feat.hbs";
+    tabName: ContentTabName = "feat";
+    filterData: FeatFilters;
+    templatePath = "systems/pf2e/templates/compendium-browser/partials/feat.hbs";
+
     /* MiniSearch */
     override searchFields = ["name"];
     override storeFields = ["type", "name", "img", "uuid", "level", "featType", "skills", "traits", "rarity", "source"];
 
     constructor(browser: CompendiumBrowser) {
-        super(browser, "feat");
+        super(browser);
 
         // Set the filterData object of this tab
-        this.prepareFilterData();
+        this.filterData = this.prepareFilterData();
     }
 
-    protected override async loadData() {
+    protected override async loadData(): Promise<void> {
         console.debug("PF2e System | Compendium Browser | Started loading feats");
 
         const feats: CompendiumBrowserIndexData[] = [];
@@ -140,8 +143,8 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
         return true;
     }
 
-    protected override prepareFilterData(): void {
-        this.filterData = {
+    protected override prepareFilterData(): FeatFilters {
+        return {
             checkboxes: {
                 feattype: {
                     isExpanded: false,

@@ -394,7 +394,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         $html.find(".sell-all-treasure button").on("click", (event) => this.onSellAllTreasure(event));
 
         // Inventory Browser
-        $html.find(".inventory-browse").on("click", (event) => this.onClickBrowseEquipmentCompendia(event));
+        for (const link of htmlQueryAll(html, ".inventory-browse")) {
+            link.addEventListener("click", () => this.#onClickBrowseEquipmentCompendia(link));
+        }
 
         const $spellcasting = $html.find(".tab.spellcasting, .tab.spells");
         const $spellControls = $spellcasting.find(".item-control");
@@ -628,29 +630,33 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
     }
 
-    private async onClickBrowseEquipmentCompendia(event: JQuery.ClickEvent<HTMLElement>): Promise<void> {
-        const checkboxesFilterCodes: string[] = [$(event.currentTarget).attr("data-filter")].filter(
-            (element): element is string => !!element
-        );
+    async #onClickBrowseEquipmentCompendia(element: HTMLElement): Promise<void> {
+        const checkboxesFilterCodes = (element.dataset.filter ?? "")
+            .split(",")
+            .filter((s) => !!s)
+            .map((s) => s.trim());
 
-        const filter: Record<string, string[]> = {};
+        const eqTab = game.pf2e.compendiumBrowser.tabs.equipment;
+        const filter = await eqTab.getFilterData();
+        const { checkboxes } = filter;
+
         for (const filterCode of checkboxesFilterCodes) {
             const splitValues = filterCode.split("-");
             if (splitValues.length !== 2) {
-                console.error(
-                    `Invalid filter value for opening the compendium browser:\n'${JSON.stringify(
-                        checkboxesFilterCodes
-                    )}'`
-                );
-                return;
+                throw ErrorPF2e(`Invalid filter value for opening the compendium browser: "${filterCode}"`);
             }
-
             const [filterType, value] = splitValues;
-            const filterCategory = filter[filterType] ?? (filter[filterType] = []);
-            filterCategory.push(value);
+            if (objectHasKey(checkboxes, filterType)) {
+                const checkbox = checkboxes[filterType];
+                if (objectHasKey(checkbox.options, value)) {
+                    checkbox.options[value].selected = true;
+                    checkbox.selected.push(value);
+                    checkbox.isExpanded = true;
+                }
+            }
         }
 
-        await game.pf2e.compendiumBrowser.openTab("equipment", filter);
+        eqTab.open(filter);
     }
 
     protected override _canDragStart(selector: string): boolean {
