@@ -27,6 +27,14 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
         (ir) => new ResistanceData({ type: ir.type, value: ir.max ?? Infinity })
     );
 
+    // Collect weaknesses that "[don't] normally deal damage, such as water" and apply separately as untyped damage
+    const nonDamageWeaknesses = weaknesses.filter(
+        (w) =>
+            ["water", "salt", "salt-water"].includes(w.type) &&
+            instances.some((i) => w.test([...i.formalDescription, ...rollOptions]))
+    );
+    const damageWeaknesses = weaknesses.filter((w) => !nonDamageWeaknesses.includes(w));
+
     const applications = instances
         .flatMap((instance): IWRApplication[] => {
             const formalDescription = new Set([...instance.formalDescription, ...rollOptions]);
@@ -96,7 +104,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             }
 
             // Step 3: Weaknesses
-            const mainWeaknesses = weaknesses.filter((w) => w.test(formalDescription));
+            const mainWeaknesses = damageWeaknesses.filter((w) => w.test(formalDescription));
             const splashDamage = instance.componentTotal("splash");
             const splashWeakness = splashDamage ? weaknesses.find((w) => w.type === "splash-damage") ?? null : null;
             const highestWeakness = [...mainWeaknesses, splashWeakness].reduce(
@@ -158,6 +166,11 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
 
             return instanceApplications;
         })
+        .concat(
+            ...nonDamageWeaknesses.map(
+                (w): IWRApplication => ({ category: "weakness", type: w.typeLabel, adjustment: w.value })
+            )
+        )
         .sort((a, b) => {
             if (a.category === b.category) return 0;
 
