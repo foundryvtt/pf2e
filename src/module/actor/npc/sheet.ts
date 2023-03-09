@@ -223,8 +223,6 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
             .find<HTMLInputElement | HTMLSelectElement>(".attack-input, .dc-input, .ability-score select")
             .on("change", (event) => this.#onChangeSpellcastingEntry(event));
 
-        $html.find(".effects-list > .effect > .item-image").on("contextmenu", (event) => this.onClickDeleteItem(event));
-
         $html.find(".recall-knowledge button.breakdown").on("click", (event) => {
             event.preventDefault();
             const identifyCreatureData = this.actor.system.details.identification;
