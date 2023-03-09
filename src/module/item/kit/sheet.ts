@@ -4,7 +4,6 @@ import { htmlClosest, htmlQueryAll } from "@util";
 import { ItemSheetPF2e } from "../sheet/base";
 import { KitEntryData } from "./data";
 import { KitPF2e } from "./index";
-import { UUIDUtils } from "@util/uuid-utils";
 
 class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
     static override get defaultOptions(): DocumentSheetOptions {
@@ -42,7 +41,7 @@ class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
 
         if (dragItem.type !== "Item") return;
 
-        const item = await UUIDUtils.fromUuid(dragItem.uuid ?? "");
+        const item = await fromUuid(dragItem.uuid ?? "");
         if (!(item instanceof PhysicalItemPF2e || item instanceof KitPF2e)) {
             return;
         }
