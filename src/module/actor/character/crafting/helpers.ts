@@ -77,6 +77,7 @@ export async function craftItem(
 ): Promise<void> {
     const itemSource = item.toObject();
     itemSource.system.quantity = itemQuantity;
+    itemSource.system.size = actor.size === "tiny" ? "tiny" : "med";
     const itemTraits = item.traits;
     if (infused && itemTraits.has("alchemical") && itemTraits.has("consumable")) {
         const sourceTraits: string[] = itemSource.system.traits.value;
