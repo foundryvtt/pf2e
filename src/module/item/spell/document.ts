@@ -247,7 +247,13 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 }
             }
 
-            if (!parts.length) parts.push("0");
+            // Increase or decrease damage by 4 if elite or weak
+            if (parts.length > 0 && this.actor.isOfType("npc") && this.actor.attributes.adjustment) {
+                const adjustment = this.actor.isElite ? 4 : -4;
+                parts.push(adjustment.toString());
+            }
+
+            if (parts.length === 0) parts.push("0");
 
             const baseFormula = Roll.replaceFormulaData(parts.join(" + "), rollData);
             const formula = combineTerms(baseFormula);
