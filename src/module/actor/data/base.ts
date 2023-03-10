@@ -36,6 +36,8 @@ interface BaseActorDataPF2e<
 interface ActorFlagsPF2e extends foundry.documents.ActorFlags {
     pf2e: {
         rollOptions: RollOptionFlags;
+        /** IDs of granted items that are tracked */
+        trackedItems: Record<string, string>;
         [key: string]: unknown;
     };
 }

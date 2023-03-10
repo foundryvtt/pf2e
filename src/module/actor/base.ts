@@ -628,6 +628,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             rollOptions: {
                 all: { [`self:type:${this.type}`]: true },
             },
+            trackedItems: {},
         });
 
         this.setEncounterRollOptions();

@@ -49,9 +49,9 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
 
         this.grantedId = this.item.flags.pf2e.itemGrants[this.flag ?? ""]?.id ?? null;
 
-        if (this.track && this.grantedId) {
+        if (this.track) {
             const grantedItem = this.actor.inventory.get(this.grantedId ?? "") ?? null;
-            this.#setRollOptions(grantedItem);
+            this.#trackItem(grantedItem);
         }
     }
 
@@ -179,10 +179,11 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
             return;
         }
 
+        this.grantedId = grantedSource._id;
         context.keepId = true;
 
         this.#setGrantFlags(itemSource, grantedSource);
-        this.#setRollOptions(tempGranted);
+        this.#trackItem(tempGranted);
 
         // Run the granted item's preCreate callbacks unless this is a pre-actor-update reevaluation
         if (!args.reevaluation) {
@@ -298,10 +299,13 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         }
     }
 
-    /** If this item is being tracked, add its item roll options to the `all` domain */
-    #setRollOptions(grantedItem: Embedded<ItemPF2e> | null): void {
-        if (!(this.track && this.flag && grantedItem instanceof PhysicalItemPF2e)) return;
+    /** If this item is being tracked, set an actor flag and add its item roll options to the `all` domain */
+    #trackItem(grantedItem: Embedded<ItemPF2e> | null): void {
+        if (!(this.track && this.flag && this.grantedId && grantedItem instanceof PhysicalItemPF2e)) {
+            return;
+        }
 
+        this.actor.flags.pf2e.trackedItems[this.flag] = this.grantedId;
         const slug = sluggify(this.flag);
         const rollOptionsAll = this.actor.rollOptions.all;
         for (const statement of grantedItem.getRollOptions(slug)) {
