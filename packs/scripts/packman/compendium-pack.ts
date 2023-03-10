@@ -1,41 +1,42 @@
-import * as fs from "fs";
-import * as path from "path";
-import { isObject, setHasElement, sluggify, tupleHasValue } from "@util";
+import { ActorSourcePF2e } from "@actor/data";
 import { ItemSourcePF2e, MeleeSource } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
-import { MigrationRunnerBase } from "@module/migration/runner/base";
-import { ActorSourcePF2e } from "@actor/data";
-import { RuleElementSource } from "@module/rules";
 import { FEAT_TYPES } from "@item/feat/values";
 import { SIZES } from "@module/data";
+import { MigrationRunnerBase } from "@module/migration/runner/base";
+import { RuleElementSource } from "@module/rules";
+import { isObject, setHasElement, sluggify, tupleHasValue } from "@util";
+import * as fs from "fs";
+import * as path from "path";
+import coreIconsList from "../core-icons.json";
 
-export interface PackMetadata {
+interface PackMetadata {
     system: string;
     name: string;
     path: string;
     type: string;
 }
 
-export const PackError = (message: string) => {
+const PackError = (message: string) => {
     console.error(`Error: ${message}`);
     process.exit(1);
 };
 
 /** A rule element, possibly an Aura, ChoiceSet, GrantItem */
-export interface REMaybeWithUUIDs extends RuleElementSource {
+interface REMaybeWithUUIDs extends RuleElementSource {
     effects?: unknown[];
     choices?: Record<string, string | { value?: string }>;
     uuid?: unknown;
 }
 
 type CompendiumSource = CompendiumDocument["_source"];
-export function isActorSource(docSource: CompendiumSource): docSource is ActorSourcePF2e {
+function isActorSource(docSource: CompendiumSource): docSource is ActorSourcePF2e {
     return (
         "system" in docSource && isObject(docSource.system) && "items" in docSource && Array.isArray(docSource.items)
     );
 }
 
-export function isItemSource(docSource: CompendiumSource): docSource is ItemSourcePF2e {
+function isItemSource(docSource: CompendiumSource): docSource is ItemSourcePF2e {
     return (
         "system" in docSource &&
         "type" in docSource &&
@@ -45,7 +46,13 @@ export function isItemSource(docSource: CompendiumSource): docSource is ItemSour
     );
 }
 
-export class CompendiumPack {
+/**
+ * This is used to check paths to core icons to ensure correctness. The JSON file will need to be periodically refreshed
+ *  as upstream adds more icons.
+ */
+const coreIcons = new Set(coreIconsList);
+
+class CompendiumPack {
     packId: string;
     packDir: string;
     documentType: string;
@@ -111,7 +118,7 @@ export class CompendiumPack {
                         throw PackError(msg);
                     }
 
-                    const isCoreIconPath = /^icons\//.test(imgPath);
+                    const isCoreIconPath = coreIcons.has(imgPath);
                     const repoImgPath = path.resolve(
                         process.cwd(),
                         "static",
@@ -349,3 +356,5 @@ export class CompendiumPack {
         }
     }
 }
+
+export { CompendiumPack, PackError, PackMetadata, isItemSource, isActorSource, REMaybeWithUUIDs };
