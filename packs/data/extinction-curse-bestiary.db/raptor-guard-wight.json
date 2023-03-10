@@ -811,7 +811,52 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "strike-damage",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.RaptorGuardWight.TerrorMaster",
+                        "option": "terror-master",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "damageType": "negative",
+                        "diceNumber": 2,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "predicate": [
+                            {
+                                "and": [
+                                    "terror-master",
+                                    "target:condition:frightened"
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage",
+                        "slug": "terror-master"
+                    },
+                    {
+                        "damageType": "negative",
+                        "diceNumber": 1,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "predicate": [
+                            {
+                                "and": [
+                                    "terror-master",
+                                    {
+                                        "nor": [
+                                            "target:condition:frightened"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage",
+                        "slug": "terror-master"
+                    }
+                ],
                 "slug": "terror-master",
                 "source": {
                     "value": ""
