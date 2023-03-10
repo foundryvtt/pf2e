@@ -28,6 +28,9 @@ export class DamagePF2e {
         if (context.sourceType === "attack") {
             const outcomeLabel = game.i18n.localize(`PF2E.Check.Result.Degree.Attack.${outcome}`);
             flavor += ` (${outcomeLabel})`;
+        } else if (context.sourceType === "check") {
+            const outcomeLabel = game.i18n.localize(`PF2E.Check.Result.Degree.Check.${outcome}`);
+            flavor += ` (${outcomeLabel})`;
         }
 
         if (data.traits) {
