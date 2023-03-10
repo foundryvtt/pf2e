@@ -104,7 +104,6 @@ class CompendiumBrowser extends Application {
         };
 
         this.initCompendiumList();
-        this.injectActorDirectory();
     }
 
     override get title(): string {
@@ -298,7 +297,7 @@ class CompendiumBrowser extends Application {
             await currentTab.init();
         }
 
-        await this.render(true);
+        await this.render(true, { focus: true });
     }
 
     loadedPacks(tab: TabName): string[] {
@@ -837,28 +836,6 @@ class CompendiumBrowser extends Application {
     protected override _onDragOver(event: ElementDragEvent): void {
         super._onDragOver(event);
         this.element.css({ pointerEvents: "none" });
-    }
-
-    injectActorDirectory() {
-        const $html = ui.actors.element;
-        if ($html.find(".bestiary-browser-btn").length > 0) return;
-
-        // Bestiary Browser Buttons
-        const bestiaryImportButton = $(
-            `<button class="bestiary-browser-btn"><i class="fas fa-fire"></i> ${game.i18n.localize(
-                "PF2E.CompendiumBrowser.BestiaryBrowser"
-            )}</button>`
-        );
-
-        if (game.user.isGM) {
-            $html.find("footer").append(bestiaryImportButton);
-        }
-
-        // Handle button clicks
-        bestiaryImportButton.on("click", (ev) => {
-            ev.preventDefault();
-            this.openTab("bestiary");
-        });
     }
 
     override getData() {
