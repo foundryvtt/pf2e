@@ -17,6 +17,7 @@ import { escape } from "./basic/escape";
 import { seek } from "./basic/seek";
 import { senseMotive } from "./basic/sense-motive";
 import { tamper } from "./class/inventor/tamper";
+import { divineDisharmony } from "./class/thaumaturge/divine-disharmony";
 import { craft, repair } from "./crafting";
 import { createADiversion } from "./deception/create-a-diversion";
 import { feint } from "./deception/feint";
@@ -60,6 +61,7 @@ export const ActionMacros = {
 
     // Class
     tamper,
+    divineDisharmony,
 
     // Exploration
     avoidNotice,
