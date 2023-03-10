@@ -37,7 +37,8 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
         source.label ??= item.name;
         super(source, { strict: false });
 
-        this.suppressWarnings = options.suppressWarnings ?? false;
+        // Always suppress warnings if the actor has no ID (and is therefore a temporary clone)
+        this.suppressWarnings = options.suppressWarnings ?? !this.actor.id;
         this.sourceIndex = options.sourceIndex ?? null;
 
         const validActorType = tupleHasValue(this.constructor.validActorTypes, item.actor.type);
