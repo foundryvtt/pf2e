@@ -99,7 +99,8 @@ class ItemPF2e extends Item<ActorPF2e> {
             ...traitOptions.map((t) => `${prefix}:${t}`),
         ];
 
-        const level = this.system.level?.value ?? null;
+        // The heightened level of a spell is retrievable from its getter but not prepared level data
+        const level = this.isOfType("spell") ? this.level : this.system.level?.value ?? null;
         if (typeof level === "number") {
             options.push(`${prefix}:level:${level}`);
         }
