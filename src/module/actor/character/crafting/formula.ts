@@ -82,6 +82,7 @@ export class CraftingFormula implements CraftingFormulaData {
 
 export interface CraftingFormulaData {
     uuid: ItemUUID;
+    sort?: number;
     dc?: number;
     batchSize?: number;
     deletable?: boolean;

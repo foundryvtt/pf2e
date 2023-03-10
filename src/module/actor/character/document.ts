@@ -175,6 +175,7 @@ class CharacterPF2e extends CreaturePF2e {
 
     async getCraftingFormulas(): Promise<CraftingFormula[]> {
         const { formulas } = this.system.crafting;
+        formulas.sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0));
         const formulaMap = new Map(formulas.map((data) => [data.uuid, data]));
         const items: unknown[] = await UUIDUtils.fromUUIDs(formulas.map((data) => data.uuid));
         if (!items.every((i): i is ItemPF2e => i instanceof ItemPF2e)) return [];
