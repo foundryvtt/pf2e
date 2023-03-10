@@ -78,7 +78,8 @@ class ConsumablePF2e extends PhysicalItemPF2e {
 
     override async getChatData(
         this: Embedded<ConsumablePF2e>,
-        htmlOptions: EnrichHTMLOptions = {}
+        htmlOptions: EnrichHTMLOptions = {},
+        rollOptions: Record<string, unknown> = {}
     ): Promise<ItemSummaryData> {
         const systemData = this.system;
         const traits = this.traitChatData(CONFIG.PF2E.consumableTraits);
@@ -90,6 +91,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
               ];
 
         const usesLabel = game.i18n.localize("PF2E.ConsumableChargesLabel");
+        const fromFormula = !!rollOptions.fromFormula;
 
         return this.processChatData(htmlOptions, {
             ...systemData,
@@ -101,7 +103,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
             usesCharges: this.uses.max > 0,
             hasCharges: this.uses.max > 0 && this.uses.value > 0,
             consumableType,
-            isUsable,
+            isUsable: fromFormula ? false : isUsable,
         });
     }
 
