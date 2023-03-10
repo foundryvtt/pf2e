@@ -811,7 +811,40 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "strike-damage",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.RaptorGuardWight.TerrorMaster",
+                        "option": "terror-master",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "damageType": "negative",
+                        "diceNumber": 2,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "terror-master",
+                            "target:condition:frightened"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "damageType": "negative",
+                        "diceNumber": 1,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "terror-master",
+                            {
+                                "not": "target:condition:frightened"
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": "terror-master",
                 "source": {
                     "value": ""
