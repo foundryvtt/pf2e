@@ -826,15 +826,10 @@
                         "dieSize": "d10",
                         "key": "DamageDice",
                         "predicate": [
-                            {
-                                "and": [
-                                    "terror-master",
-                                    "target:condition:frightened"
-                                ]
-                            }
+                            "terror-master",
+                            "target:condition:frightened"
                         ],
-                        "selector": "strike-damage",
-                        "slug": "terror-master"
+                        "selector": "strike-damage"
                     },
                     {
                         "damageType": "negative",
@@ -842,19 +837,12 @@
                         "dieSize": "d10",
                         "key": "DamageDice",
                         "predicate": [
+                            "terror-master",
                             {
-                                "and": [
-                                    "terror-master",
-                                    {
-                                        "nor": [
-                                            "target:condition:frightened"
-                                        ]
-                                    }
-                                ]
+                                "not": "target:condition:frightened"
                             }
                         ],
-                        "selector": "strike-damage",
-                        "slug": "terror-master"
+                        "selector": "strike-damage"
                     }
                 ],
                 "slug": "terror-master",
