@@ -197,6 +197,9 @@ function sluggify(text: string, { camel = null }: { camel?: SlugCamel } = {}): s
         return "";
     }
 
+    // A hyphen by its lonesome would be wiped: return it as-is
+    if (text === "-") return text;
+
     switch (camel) {
         case null:
             return text
