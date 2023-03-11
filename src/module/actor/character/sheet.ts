@@ -578,9 +578,8 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         for (const element of htmlQueryAll<HTMLLIElement>(craftingTab, "li.formula-item")) {
             const quantity = htmlQuery<HTMLInputElement>(element, "input[data-action=enter-quantity]");
-            if (!quantity) continue;
 
-            quantity.addEventListener("change", async () => {
+            quantity?.addEventListener("change", async () => {
                 const itemUUID = element.dataset.itemId ?? "";
                 const formula = this.knownFormulas[itemUUID];
                 const minBatchSize = formula.minimumBatchSize;
@@ -604,6 +603,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 "[data-action=increase-quantity], [data-action=decrease-quantity]"
             )) {
                 button.addEventListener("click", async () => {
+                    if (!quantity) return;
                     const itemUUID = element.dataset.itemId ?? "";
                     const formula = this.knownFormulas[itemUUID];
                     const minBatchSize = formula.minimumBatchSize;
@@ -628,7 +628,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const craftButton = htmlQuery(element, "a[data-action=craft-item]");
             craftButton?.addEventListener("click", async (event) => {
                 const { itemUuid, free, prepared } = craftButton.dataset;
-                const itemQuantity = Number(quantity.value) || 1;
+                const itemQuantity = Number(quantity?.value) || 1;
                 const formula = this.knownFormulas[itemUuid ?? ""];
                 if (!formula) return;
 
