@@ -265,9 +265,16 @@ export function registerSettings(): void {
         default: false,
         type: Boolean,
         onChange: (value) => {
-            const color = value ? CONFIG.PF2E.Canvas.darkness.gmVision : CONFIG.PF2E.Canvas.darkness.default;
-            CONFIG.Canvas.darknessColor = color;
-            canvas.colorManager.initialize();
+            if (
+                canvas.ready &&
+                game.user.isGM &&
+                !game.modules.get("gm-vision")?.active &&
+                !game.modules.get("perfect-vision")?.active
+            ) {
+                const color = value ? CONFIG.PF2E.Canvas.darkness.gmVision : CONFIG.PF2E.Canvas.darkness.default;
+                CONFIG.Canvas.darknessColor = color;
+                canvas.colorManager.initialize();
+            }
         },
     });
 
