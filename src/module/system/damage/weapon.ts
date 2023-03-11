@@ -604,6 +604,11 @@ class WeaponDamagePF2e {
                 base.dieSize = override.override?.dieSize ?? base.dieSize;
                 base.damageType = override.override?.damageType ?? base.damageType;
                 base.diceNumber = override.override?.diceNumber ?? base.diceNumber;
+                damage.dice.forEach(({ slug, damageType }) => {
+                    if (slug.startsWith("deadly-")) {
+                      damageType = override.override?.damageType ?? damageType;
+                    }
+                });
             }
         }
 
