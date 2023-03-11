@@ -1,9 +1,9 @@
 import { ModifierPF2e, MODIFIER_TYPES, StatisticModifier } from "@actor/modifiers";
 import { RollSubstitution } from "@module/rules/synthetics";
 import { ErrorPF2e, htmlQuery, htmlQueryAll, setHasElement, tupleHasValue } from "@util";
-import { CheckRollContext } from "./check/types";
-import { LocalizePF2e } from "./localize";
-import { RollTwiceOption } from "./rolls";
+import { CheckRollContext } from "./types";
+import { LocalizePF2e } from "../localize";
+import { RollTwiceOption } from "../rolls";
 
 /**
  * Dialog for excluding certain modifiers before rolling a check.
@@ -49,12 +49,15 @@ export class CheckModifiersDialog extends Application {
         const fortune = this.context.rollTwice === "keep-higher";
         const misfortune = this.context.rollTwice === "keep-lower";
         const none = fortune === misfortune;
+        const rollMode =
+            this.context.rollMode === "roll" ? game.settings.get("core", "rollMode") : this.context.rollMode;
+
         return {
             appId: this.id,
             modifiers: this.check.modifiers,
             totalModifier: this.check.totalModifier,
             rollModes: CONFIG.Dice.rollModes,
-            rollMode: this.context.rollMode,
+            rollMode,
             showRollDialogs: game.user.settings.showRollDialogs,
             substitutions: this.substitutions,
             fortune,

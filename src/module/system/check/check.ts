@@ -9,7 +9,7 @@ import { TokenDocumentPF2e } from "@scene";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { ErrorPF2e, fontAwesomeIcon, objectHasKey, parseHTML, signedInteger, sluggify, traitSlugToObject } from "@util";
 import { CheckModifier, StatisticModifier } from "@actor/modifiers";
-import { CheckModifiersDialog } from "../check-modifiers-dialog";
+import { CheckModifiersDialog } from "./dialog";
 import { CheckRoll, CheckRollDataPF2e } from "./roll";
 import {
     DegreeAdjustmentsRecord,
