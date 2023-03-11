@@ -198,7 +198,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 [`group:${this.group}`]: !!this.group,
                 ...baseTypeRollOptions,
                 [`base:${this.baseType}`]: !!this.baseType,
-                [`bulk:${this.bulk}`]: true,
+                [`bulk:${sluggify(this.bulk.toString())}`]: true,
                 [`hands-held:${this.handsHeld}`]: this.isEquipped && this.handsHeld > 0,
                 [`usage:hands:${this.hands}`]: this.hands !== "0",
                 [`range-increment:${this.rangeIncrement}`]: !!this.rangeIncrement,
