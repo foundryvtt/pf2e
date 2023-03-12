@@ -78,7 +78,7 @@ export const InlineRollLinks = {
         const $links = $(links);
         $links.filter("[data-pf2-action]").on("click", (event) => {
             const $target = $(event.currentTarget);
-            const { pf2Action, pf2Glyph, pf2Variant, pf2Dc, pf2ShowDc, pf2Skill } = $target[0]?.dataset ?? {};
+            const { pf2Action, pf2Glyph, pf2Variant, pf2Dc, pf2ShowDc, pf2Check } = $target[0]?.dataset ?? {};
             const action = game.pf2e.actions[pf2Action ? sluggify(pf2Action, { camel: "dromedary" }) : ""];
             const visibility = pf2ShowDc ?? "all";
             if (pf2Action && action) {
@@ -87,7 +87,7 @@ export const InlineRollLinks = {
                     glyph: pf2Glyph,
                     variant: pf2Variant,
                     difficultyClass: pf2Dc ? { scope: "check", value: Number(pf2Dc) || 0, visibility } : undefined,
-                    skill: pf2Skill,
+                    skill: pf2Check,
                 });
             } else {
                 console.warn(`PF2e System | Skip executing unknown action '${pf2Action}'`);
@@ -95,113 +95,115 @@ export const InlineRollLinks = {
         });
 
         $links.filter("[data-pf2-check]").on("click", (event) => {
-            const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Adjustment } = event.currentTarget.dataset;
-            const actors = getSelectedOrOwnActors();
-            if (actors.length === 0) {
-                ui.notifications.error(game.i18n.localize("PF2E.UI.errorTargetToken"));
-                return;
-            }
-            const creatureActors = actors.filter((actor): actor is CreaturePF2e => actor.isOfType("creature"));
-            const parsedTraits = pf2Traits
-                ?.split(",")
-                .map((trait) => trait.trim())
-                .filter((trait) => !!trait);
-            const eventRollParams = eventToRollParams(event);
+            const { pf2Action, pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Adjustment } = event.currentTarget.dataset;
+            if (!pf2Action) {
+                const actors = getSelectedOrOwnActors();
+                if (actors.length === 0) {
+                    ui.notifications.error(game.i18n.localize("PF2E.UI.errorTargetToken"));
+                    return;
+                }
+                const creatureActors = actors.filter((actor): actor is CreaturePF2e => actor.isOfType("creature"));
+                const parsedTraits = pf2Traits
+                    ?.split(",")
+                    .map((trait) => trait.trim())
+                    .filter((trait) => !!trait);
+                const eventRollParams = eventToRollParams(event);
 
-            switch (pf2Check) {
-                case "perception": {
-                    for (const actor of creatureActors) {
-                        const perceptionCheck = actor.system.attributes.perception;
-                        if (perceptionCheck) {
-                            const dc = Number.isInteger(Number(pf2Dc))
-                                ? { label: pf2Label, value: Number(pf2Dc) }
-                                : null;
-                            const options = actor.getRollOptions(["all", "perception"]);
-                            if (parsedTraits) {
-                                options.push(...parsedTraits);
+                switch (pf2Check) {
+                    case "perception": {
+                        for (const actor of creatureActors) {
+                            const perceptionCheck = actor.system.attributes.perception;
+                            if (perceptionCheck) {
+                                const dc = Number.isInteger(Number(pf2Dc))
+                                    ? { label: pf2Label, value: Number(pf2Dc) }
+                                    : null;
+                                const options = actor.getRollOptions(["all", "perception"]);
+                                if (parsedTraits) {
+                                    options.push(...parsedTraits);
+                                }
+                                perceptionCheck.roll?.({ event, options, dc });
+                            } else {
+                                console.warn(`PF2e System | Skip rolling perception for '${actor}'`);
                             }
-                            perceptionCheck.roll?.({ event, options, dc });
-                        } else {
-                            console.warn(`PF2e System | Skip rolling perception for '${actor}'`);
                         }
+                        break;
                     }
-                    break;
-                }
-                case "flat": {
-                    for (const actor of actors) {
-                        const flatCheck = new Statistic(actor, {
-                            label: "",
-                            slug: "flat-check",
-                            modifiers: [],
-                            check: { type: "flat-check" },
-                            domains: ["flat-check"],
-                        });
-                        if (flatCheck) {
-                            const dc = Number.isInteger(Number(pf2Dc))
-                                ? { label: pf2Label, value: Number(pf2Dc) }
-                                : null;
-                            flatCheck.check.roll({
-                                ...eventRollParams,
-                                extraRollOptions: parsedTraits,
-                                dc,
+                    case "flat": {
+                        for (const actor of actors) {
+                            const flatCheck = new Statistic(actor, {
+                                label: "",
+                                slug: "flat-check",
+                                modifiers: [],
+                                check: { type: "flat-check" },
+                                domains: ["flat-check"],
                             });
-                        } else {
-                            console.warn(`PF2e System | Skip rolling flat check for "${actor}"`);
+                            if (flatCheck) {
+                                const dc = Number.isInteger(Number(pf2Dc))
+                                    ? { label: pf2Label, value: Number(pf2Dc) }
+                                    : null;
+                                flatCheck.check.roll({
+                                    ...eventRollParams,
+                                    extraRollOptions: parsedTraits,
+                                    dc,
+                                });
+                            } else {
+                                console.warn(`PF2e System | Skip rolling flat check for "${actor}"`);
+                            }
                         }
+                        break;
                     }
-                    break;
-                }
-                case "will":
-                case "fortitude":
-                case "reflex": {
-                    // Get the origin actor if any
-                    const document = documentFromDOM(html);
+                    case "will":
+                    case "fortitude":
+                    case "reflex": {
+                        // Get the origin actor if any
+                        const document = documentFromDOM(html);
 
-                    for (const actor of actors) {
-                        const savingThrow = actor.saves?.[pf2Check];
-                        if (pf2Check && savingThrow) {
-                            const dc = Number.isInteger(Number(pf2Dc))
-                                ? { label: pf2Label, value: Number(pf2Dc) }
-                                : null;
-                            savingThrow.check.roll({
-                                ...eventRollParams,
-                                extraRollOptions: parsedTraits,
-                                origin: document instanceof ActorPF2e ? document : null,
-                                dc,
-                            });
-                        } else {
-                            console.warn(`PF2e System | Skip rolling unknown saving throw '${pf2Check}'`);
+                        for (const actor of actors) {
+                            const savingThrow = actor.saves?.[pf2Check];
+                            if (pf2Check && savingThrow) {
+                                const dc = Number.isInteger(Number(pf2Dc))
+                                    ? { label: pf2Label, value: Number(pf2Dc) }
+                                    : null;
+                                savingThrow.check.roll({
+                                    ...eventRollParams,
+                                    extraRollOptions: parsedTraits,
+                                    origin: document instanceof ActorPF2e ? document : null,
+                                    dc,
+                                });
+                            } else {
+                                console.warn(`PF2e System | Skip rolling unknown saving throw '${pf2Check}'`);
+                            }
                         }
+                        break;
                     }
-                    break;
-                }
-                default: {
-                    const skillName = objectHasKey(SKILL_DICTIONARY, pf2Check)
-                        ? SKILL_DICTIONARY[pf2Check]
-                        : pf2Check ?? "";
-                    for (const actor of creatureActors) {
-                        const skill = actor.skills[skillName];
-                        if (skillName && skill) {
-                            const dcValue =
-                                pf2Dc === "@self.level"
-                                    ? ((): number => {
-                                          const pwlSetting = game.settings.get("pf2e", "proficiencyVariant");
-                                          const proficiencyWithoutLevel = pwlSetting === "ProficiencyWithoutLevel";
-                                          const level = actor.level;
-                                          const adjustment = Number(pf2Adjustment) || 0;
-                                          return calculateDC(level, { proficiencyWithoutLevel }) + adjustment;
-                                      })()
-                                    : Number(pf2Dc);
-                            const dc = dcValue > 0 ? { label: pf2Label, value: dcValue } : null;
-                            skill.check.roll({
-                                ...eventRollParams,
-                                extraRollOptions: parsedTraits,
-                                dc,
-                            });
-                        } else {
-                            console.warn(
-                                `PF2e System | Skip rolling unknown skill check or untrained lore '${skillName}'`
-                            );
+                    default: {
+                        const skillName = objectHasKey(SKILL_DICTIONARY, pf2Check)
+                            ? SKILL_DICTIONARY[pf2Check]
+                            : pf2Check ?? "";
+                        for (const actor of creatureActors) {
+                            const skill = actor.skills[skillName];
+                            if (skillName && skill) {
+                                const dcValue =
+                                    pf2Dc === "@self.level"
+                                        ? ((): number => {
+                                              const pwlSetting = game.settings.get("pf2e", "proficiencyVariant");
+                                              const proficiencyWithoutLevel = pwlSetting === "ProficiencyWithoutLevel";
+                                              const level = actor.level;
+                                              const adjustment = Number(pf2Adjustment) || 0;
+                                              return calculateDC(level, { proficiencyWithoutLevel }) + adjustment;
+                                          })()
+                                        : Number(pf2Dc);
+                                const dc = dcValue > 0 ? { label: pf2Label, value: dcValue } : null;
+                                skill.check.roll({
+                                    ...eventRollParams,
+                                    extraRollOptions: parsedTraits,
+                                    dc,
+                                });
+                            } else {
+                                console.warn(
+                                    `PF2e System | Skip rolling unknown skill check or untrained lore '${skillName}'`
+                                );
+                            }
                         }
                     }
                 }

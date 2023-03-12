@@ -283,12 +283,16 @@ class TextEditorPF2e extends TextEditor {
                 params[paramParts[0].trim()] = paramParts[1].trim();
             }
         }
-        if (!params.type) {
-            ui.notifications.warn(game.i18n.localize("PF2E.InlineCheck.Errors.TypeMissing"));
-            return null;
-        }
 
         const traits: string[] = [];
+        let action = "";
+
+        // Add param traits
+        if (params.traits) traits.push(...params.traits.split(",").map((trait) => trait.trim()));
+
+        if (params.traits.includes("action:")) {
+            action = sluggify(traits.filter((t) => t.includes("action:"))[0].split(":")[1], { camel: "dromedary" });
+        }
 
         // Set item traits
         const itemTraits = item?.system.traits?.value ?? [];
@@ -297,7 +301,7 @@ class TextEditorPF2e extends TextEditor {
         }
 
         // Set action slug as a roll option
-        if (item?.slug) {
+        if (item?.slug && params.overrideTraits !== "true") {
             const actionName = "action:" + item?.slug;
             traits.push(actionName);
         }
@@ -311,9 +315,6 @@ class TextEditorPF2e extends TextEditor {
         // Add traits for basic checks
         if (params.basic === "true") traits.push("damaging-effect");
 
-        // Add param traits
-        if (params.traits) traits.push(...params.traits.split(",").map((trait) => trait.trim()));
-
         // Deduplicate traits
         const allTraits = Array.from(new Set(traits));
 
@@ -326,15 +327,22 @@ class TextEditorPF2e extends TextEditor {
         const role = params.showDC ?? "owner";
         html.setAttribute("data-pf2-show-dc", params.showDC ?? role);
         html.setAttribute("data-pf2-adjustment", params.adjustment ?? "");
+        if (action) {
+            html.setAttribute("data-pf2-action", action);
+        }
+        if (params.type) {
+            html.setAttribute("data-pf2-check", params.type);
+        }
+        if (params.variant) {
+            html.setAttribute("data-pf2-variant", params.variant);
+        }
 
         switch (params.type) {
             case "flat":
                 html.innerHTML = inlineLabel ?? game.i18n.localize("PF2E.FlatCheck");
-                html.setAttribute("data-pf2-check", "flat");
                 break;
             case "perception":
                 html.innerHTML = inlineLabel ?? game.i18n.localize("PF2E.PerceptionLabel");
-                html.setAttribute("data-pf2-check", "perception");
                 break;
             case "fortitude":
             case "reflex":
@@ -345,7 +353,7 @@ class TextEditorPF2e extends TextEditor {
                         ? game.i18n.format("PF2E.InlineCheck.BasicWithSave", { save: saveName })
                         : saveName;
                 html.innerHTML = inlineLabel ?? saveLabel;
-                html.setAttribute("data-pf2-check", params.type);
+
                 break;
             }
             default: {
@@ -367,7 +375,6 @@ class TextEditorPF2e extends TextEditor {
                           })
                           .join(" ");
                 html.innerHTML = inlineLabel ?? skillLabel;
-                html.setAttribute("data-pf2-check", params.type);
             }
         }
 
