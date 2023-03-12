@@ -332,17 +332,11 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     /*  Deprecations and Compatibility              */
     /* -------------------------------------------- */
 
-    /** @deprecated */
+    /**
+     * To prevent (or delay) console spam, will send out a deprecation notice in a later release
+     * @deprecated
+     */
     getSpellData(): Promise<SpellcastingSheetData> {
-        foundry.utils.logCompatibilityWarning(
-            "SpellcastingEntryPF2e#getSpellData has been moved to SpellcastingEntryPF2e#getSheetData",
-            {
-                mode: CONST.COMPATIBILITY_MODES.WARNING,
-                since: "4.9.0",
-                until: "5.0.0",
-            }
-        );
-
         return this.getSheetData();
     }
 }

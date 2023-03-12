@@ -589,19 +589,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     override prepareData(): void {
         delete this._itemTypes;
 
+        // To prevent (or delay) console spam, will send out a deprecation notice in a later release
         Object.defineProperty(this.system, "toggles", {
-            get: (): RollOptionToggle[] => {
-                foundry.utils.logCompatibilityWarning(
-                    "ActorPF2e#system#toggles has been moved to ActorPF2e#synthetics#toggles",
-                    {
-                        mode: CONST.COMPATIBILITY_MODES.WARNING,
-                        since: "4.9.0",
-                        until: "5.0.0",
-                    }
-                );
-
-                return this.synthetics.toggles;
-            },
+            get: (): RollOptionToggle[] => this.synthetics.toggles,
             enumerable: false,
         });
 
