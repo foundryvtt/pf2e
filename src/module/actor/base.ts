@@ -30,6 +30,7 @@ import { RuleElementSynthetics } from "@module/rules";
 import { extractEphemeralEffects, processPreUpdateActorHooks } from "@module/rules/helpers";
 import { RuleElementPF2e } from "@module/rules/rule-element/base";
 import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
+import { RollOptionToggle } from "@module/rules/synthetics";
 import { LocalizePF2e } from "@module/system/localize";
 import { UserPF2e } from "@module/user";
 import { TokenDocumentPF2e } from "@scene";
@@ -587,6 +588,22 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /** Prepare token data derived from this actor, refresh Effects Panel */
     override prepareData(): void {
         delete this._itemTypes;
+
+        Object.defineProperty(this.system, "toggles", {
+            get: (): RollOptionToggle[] => {
+                foundry.utils.logCompatibilityWarning(
+                    "ActorPF2e#system#toggles has been moved to ActorPF2e#synthetics#toggles",
+                    {
+                        mode: CONST.COMPATIBILITY_MODES.WARNING,
+                        since: "4.9.0",
+                        until: "5.0.0",
+                    }
+                );
+
+                return this.synthetics.toggles;
+            },
+            enumerable: false,
+        });
 
         super.prepareData();
 
