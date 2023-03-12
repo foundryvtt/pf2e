@@ -191,9 +191,9 @@ class WeaponPF2e extends PhysicalItemPF2e {
             return rollOptions;
         })(this.ammo);
 
-        const bulkOption = ((): string | number => {
+        const bulkOption = ((): string => {
             const { bulk } = this;
-            return bulk.isNegligible ? "negligible" : bulk.isLight ? "light" : bulk;
+            return bulk.isNegligible ? "negligible" : bulk.isLight ? "light" : bulk.toString();
         })();
 
         return [
