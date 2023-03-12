@@ -191,6 +191,12 @@ class WeaponPF2e extends PhysicalItemPF2e {
             return rollOptions;
         })(this.ammo);
 
+        // Get the bulk of a single unit of this weapon
+        const bulk = ((): string => {
+            const unitBulk = this.bulk.times(1 / this.quantity);
+            return unitBulk.isNegligible ? "negligible" : unitBulk.isLight ? "light" : unitBulk.toString();
+        })();
+
         return [
             super.getRollOptions(prefix),
             Object.entries({
@@ -198,7 +204,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 [`group:${this.group}`]: !!this.group,
                 ...baseTypeRollOptions,
                 [`base:${this.baseType}`]: !!this.baseType,
-                [`bulk:${sluggify(this.bulk.toString())}`]: true,
+                [`bulk:${bulk}`]: true,
                 [`hands-held:${this.handsHeld}`]: this.isEquipped && this.handsHeld > 0,
                 [`usage:hands:${this.hands}`]: this.hands !== "0",
                 [`range-increment:${this.rangeIncrement}`]: !!this.rangeIncrement,
