@@ -2,6 +2,7 @@ import { ModifierAdjustment } from "@actor/modifiers";
 import { ItemPF2e } from "@item";
 import { DamageType } from "@system/damage/types";
 import { DAMAGE_TYPES } from "@system/damage/values";
+import { PredicatePF2e } from "@system/predication";
 import { setHasElement } from "@util";
 import {
     ArrayField,
@@ -72,7 +73,7 @@ class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> 
 
         const adjustment: ModifierAdjustment = {
             slug: this.slug,
-            predicate: this.predicate,
+            predicate: new PredicatePF2e(this.resolveInjectedProperties(deepClone([...this.predicate]))),
             suppress: this.suppress,
             getNewValue: (current: number): number => {
                 const change = this.resolveValue();
