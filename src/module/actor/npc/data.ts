@@ -41,6 +41,8 @@ type NPCFlags = ActorFlagsPF2e & {
 };
 
 interface NPCSystemSource extends CreatureSystemSource {
+    traits: NPCTraitsSource;
+
     /** The six primary ability scores. */
     abilities: Abilities;
 
@@ -53,7 +55,12 @@ interface NPCSystemSource extends CreatureSystemSource {
     /** The three saves for NPCs. NPC saves have a 'base' score which is the score before applying custom modifiers. */
     saves: NPCSavesSource;
 
-    traits: NPCTraitsSource;
+    /** Spellcasting data: currently only used for rituals */
+    spellcasting?: {
+        rituals?: {
+            dc: number;
+        };
+    };
 
     resources: CreatureResourcesSource;
 }
@@ -139,6 +146,10 @@ interface NPCSystemData extends Omit<NPCSystemSource, "attributes">, CreatureSys
     traits: NPCTraitsData;
 
     resources: CreatureResources;
+
+    spellcasting: {
+        rituals: { dc: number };
+    };
 
     customModifiers: Record<string, ModifierPF2e[]>;
 }
