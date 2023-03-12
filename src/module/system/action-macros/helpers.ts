@@ -236,7 +236,7 @@ export class ActionMacroHelpers {
                     target && targetActor && typeof distance === "number"
                         ? { token: target, actor: targetActor, distance, rangeIncrement }
                         : null;
-                const notes = [options.extraNotes?.(statistic.slug) ?? [], statistic.notes ?? []].flat();
+                const notes = [statistic.notes ?? [], options.extraNotes?.(statistic.slug) ?? []].flat();
                 const substitutions = extractRollSubstitutions(
                     actor.synthetics.rollSubstitutions,
                     [statistic.slug],
