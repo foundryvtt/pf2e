@@ -1,0 +1,72 @@
+{
+    "_id": "qhVeAj8VHHtSP1iu",
+    "img": "systems/pf2e/icons/features/classes/regalia.webp",
+    "name": "Effect: Inspiring Aura (Adept)",
+    "system": {
+        "badge": null,
+        "description": {
+            "value": ""
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Inspiring Aura (vs mental)",
+                "predicate": [
+                    "mental"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Inspiring Aura",
+                "selector": "damage",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 10,
+                            "start": 1,
+                            "value": 2
+                        },
+                        {
+                            "end": 16,
+                            "start": 11,
+                            "value": 3
+                        },
+                        {
+                            "start": 17,
+                            "value": 4
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        },
+        "unidentified": false
+    },
+    "type": "effect"
+}
