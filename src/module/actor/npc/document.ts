@@ -143,6 +143,9 @@ class NPCPF2e extends CreaturePF2e {
             const adjusted = this.isElite ? levelBasedDC + 2 : this.isWeak ? levelBasedDC - 2 : levelBasedDC;
             return { value: adjusted };
         })();
+
+        // Set default ritual attack and DC values if none are stored */
+        this.system.spellcasting = mergeObject({ rituals: { dc: 0 } }, this.system.spellcasting ?? {});
     }
 
     override prepareDerivedData(): void {

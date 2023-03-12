@@ -11,6 +11,13 @@ export class Migration829RMRitualEntries extends MigrationBase {
         for (const item of source.items.filter((i): i is SpellcastingEntrySource => i.type === "spellcastingEntry")) {
             if (item.system.prepared.value === "ritual") {
                 source.items.splice(source.items.indexOf(item), 1);
+
+                if (source.type === "npc") {
+                    source.system.spellcasting ??= {};
+                    source.system.spellcasting.rituals = {
+                        dc: item.system.spelldc.dc,
+                    };
+                }
             }
         }
     }
