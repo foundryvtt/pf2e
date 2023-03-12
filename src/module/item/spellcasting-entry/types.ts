@@ -59,6 +59,7 @@ type OptionalProperties = "isFlexible" | "isFocusPool" | "isInnate" | "isPrepare
 interface SpellcastingSheetData
     extends Omit<BaseSpellcastingEntry, "statistic" | OptionalProperties | UnusedProperties> {
     statistic: StatisticChatData | null;
+    hasCollection: boolean;
     flexibleAvailable?: { value: number; max: number } | null;
     levels: SpellcastingSlotLevel[];
     spellPrepList: Record<number, SpellPrepEntry[]> | null;
@@ -68,7 +69,7 @@ interface SpellcastingSheetData
     isPrepared?: boolean;
     isRitual?: boolean;
     isSpontaneous?: boolean;
-    hasCollection: boolean;
+    showSlotlessLevels?: boolean;
 }
 
 interface SpellcastingSlotLevel {

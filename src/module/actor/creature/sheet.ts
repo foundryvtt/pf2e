@@ -310,23 +310,19 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             this.openSpellPreparationSheet(itemId);
         });
 
-        // Update max slots for Spell Items
-        $html.find(".slotless-level-toggle").on("click", async (event) => {
-            event.preventDefault();
-
-            const itemId = $(event.currentTarget).parents(".item-container").attr("data-container-id") ?? "";
-            const itemToEdit = this.actor.items.get(itemId);
-            if (!itemToEdit?.isOfType("spellcastingEntry"))
-                throw new Error("Tried to toggle visibility of slotless levels on a non-spellcasting entry");
-            const bool = !(itemToEdit.system.showSlotlessLevels || {}).value;
-
-            await this.actor.updateEmbeddedDocuments("Item", [
-                {
-                    _id: itemId ?? "",
-                    "system.showSlotlessLevels.value": bool,
-                },
-            ]);
-        });
+        // Toggle showing slotless levels
+        for (const toggle of htmlQueryAll(html, ".slotless-level-toggle")) {
+            toggle.addEventListener("click", async () => {
+                const itemId = htmlClosest(toggle, ".item-container")?.dataset.containerId ?? "";
+                const spellcastingEntry = this.actor.items.get(itemId);
+                if (!spellcastingEntry?.isOfType("spellcastingEntry")) {
+                    throw ErrorPF2e("Tried to toggle visibility of slotless levels on a non-spellcasting entry");
+                }
+                await spellcastingEntry.update({
+                    "system.showSlotlessLevels.value": !spellcastingEntry.showSlotlessLevels,
+                });
+            });
+        }
 
         // Casting spells and consuming slots
         for (const button of htmlQueryAll(html, "button[data-action=cast-spell]")) {

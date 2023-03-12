@@ -20,7 +20,7 @@
                             {{/if}}
                             {{#if (or entry.isPrepared entry.isSpontaneous entry.isInnate)}}
                                 <a class="skill-name slotless-level-toggle" title="{{localize "PF2E.ToggleSlotlessSpellLevelsTitle"}}">
-                                    <i class="{{#if entry.system.showSlotlessLevels.value}}fas{{else}}far{{/if}} fa-list-alt"></i>
+                                    <i class="{{#if entry.showSlotlessLevels}}fa-solid{{else}}fa-regular{{/if}} fa-fw fa-list-alt"></i>
                                 </a>
                             {{/if}}
                             {{#unless entry.isRitual}}

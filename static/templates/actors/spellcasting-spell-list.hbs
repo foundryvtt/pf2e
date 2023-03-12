@@ -2,7 +2,7 @@
     <ol class="directory-list spell-list" data-category="{{entry.category}}">
         {{!-- Add section for each level --}}
         {{#each entry.levels as |section|}}
-            {{#if (or (gt section.active.length 0) entry.system.showSlotlessLevels.value)}}
+            {{#if (or (gt section.active.length 0) entry.showSlotlessLevels)}}
                 <li class="spell-level-header spellbook-header item" data-item-id="{{entry.id}}" data-item-type="spellLevel" data-level="{{section.level}}">
                     <div class="item-name flexrow">
                         <h3>{{localize section.label}}</h3>
