@@ -74,6 +74,10 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         return this.spells?.highestLevel ?? 0;
     }
 
+    get showSlotlessLevels(): boolean {
+        return this.system.showSlotlessLevels.value;
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
         this.system.proficiency.slug ||= this.system.tradition.value;
@@ -286,6 +290,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
             isFocusPool: this.isFocusPool,
             isRitual: this.isRitual,
             hasCollection: !!this.spells,
+            showSlotlessLevels: this.showSlotlessLevels,
             ...spellCollectionData,
         };
     }
