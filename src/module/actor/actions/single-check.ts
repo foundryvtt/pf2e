@@ -39,6 +39,7 @@ interface SingleCheckActionData extends BaseActionData<SingleCheckActionVariantD
 }
 
 interface SingleCheckActionUseOptions extends ActionUseOptions {
+    actors: ActorPF2e | ActorPF2e[];
     difficultyClass: CheckDC | string;
     modifiers: ModifierPF2e[];
     multipleAttackPenalty: number;

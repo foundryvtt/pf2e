@@ -695,18 +695,45 @@
                     "Mod": "DC Modifier",
                     "Trained": "Trained DC 15"
                 },
-                "Error": "Token {name} does not have the medicine skill",
-                "Feats": {
-                    "MortalHealing": "Mortal Healing",
-                    "RiskySurgery": "Risky Surgery"
+                "Description": "<p>You spend 10 minutes treating one injured living creature (targeting yourself, if you so choose). The target is then temporarily immune to Treat Wounds actions for 1 hour, but this interval overlaps with the time you spent treating (so a patient can be treated once per hour, not once per 70 minutes).</p><p>The Medicine check DC is usually 15, though the GM might adjust it based on the circumstances, such as treating a patient outside in a storm, or treating magically cursed wounds. If you're an expert in Medicine, you can instead attempt a DC 20 check to increase the Hit Points regained by 10; if you're a master of Medicine, you can instead attempt a DC 30 check to increase the Hit Points regained by 30; and if you're legendary, you can instead attempt a DC 40 check to increase the Hit Points regained by 50. The damage dealt on a critical failure remains the same.</p><p>If you succeed at your check, you can continue treating the target to grant additional healing. If you treat them for a total of 1 hour, double the Hit Points they regain from Treat Wounds.</p><p>The result of your Medicine check determines how many Hit Points the target regains.</p><p><strong>Critical Success</strong> The target regains 4d8 Hit Points, and its wounded condition is removed.<br><strong>Success</strong> The target regains 2d8 Hit Points, and its wounded condition is removed.<br><strong>Critical Failure</strong> The target takes 1d8 damage.</p>",
+                "Dialog": {
+                    "Cancel": {
+                        "Label": "Cancel"
+                    },
+                    "DifficultyClass": {
+                        "Label": "Difficulty Class"
+                    },
+                    "Proficiency": {
+                        "Label": "Proficiency"
+                    },
+                    "Skill": {
+                        "Label": "Skill"
+                    },
+                    "Title": "Treat Wounds Options",
+                    "Use": {
+                        "Label": "Treat Wounds"
+                    }
                 },
-                "Label": "Treat Wounds",
+                "DifficultyClass": "{tier} Treat Wounds DC",
+                "Notes": {
+                    "criticalFailure": "The target takes 1d8 damage.",
+                    "criticalSuccess": "The target regains 4d8 Hit Points, and its wounded condition is removed.",
+                    "success": "The target regains 2d8 Hit Points, and its wounded condition is removed.",
+                    "HitPointsRegainedIncrease":  "Increase the Hit Points regained by {healing}."
+                },
                 "Rolls": {
-                    "RiskySurgery": "Damage Roll: Risky Surgery",
-                    "TreatWounds": "Healing Roll: Treat Wounds",
-                    "TreatWoundsCriticalFailure": "Damage Roll: Treat Wounds"
+                    "RiskySurgery": "<strong>Damage Roll: Risky Surgery</strong>",
+                    "Success": "<strong>Healing Roll: Treat Wounds</strong>",
+                    "CriticalFailure": "<strong>Damage Roll: Treat Wounds</strong> (Critical Failure)"
                 },
-                "SkillSelect": "Treat Wounds Skill"
+                "SkillSelect": "Treat Wounds Skill",
+                "Title": "Treat Wounds",
+                "Warning": {
+                    "MaximumTier": "Selected proficiency exceeds the rank of the used skill.",
+                    "MinimumDifficultyClass": "Difficulty class is lower than the minimum for the selected proficiency.",
+                    "MinimumProficiency": "You must be at least trained in a skill to use it for Treat Wounds.",
+                    "NoActor": "The Treat Wounds action requires exactly one creature selected or assigned to the current user."
+                }
             },
             "Trip": {
                 "Description": "<p>You try to knock a creature to the ground. Attempt an Athletics check against the target's Reflex DC.</p><p><strong>Critical Success</strong> The target falls and lands prone and takes 1d6 bludgeoning damage.<br><strong>Success</strong> The target falls and lands prone.<br><strong>Critical Failure</strong> You lose your balance and fall and land prone.</p>",

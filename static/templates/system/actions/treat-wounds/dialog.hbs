@@ -1,0 +1,52 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <div class="form-group">
+        <label for="{{app}}-skill">{{localize "PF2E.Actions.TreatWounds.Dialog.Skill.Label"}}</label>
+        <div class="form-fields">
+            <select id="{{app}}-skill" class="form-control" data-event-handler="skill" aria-describedby="{{app}}-skill-hint">
+                {{#select skill.value}}
+                    {{#each skills as |skill|}}
+                        <option value="{{skill.slug}}" {{disabled (and strict (lt rank 1))}}>{{skill.label}} ({{localize (concat "PF2E.ProficiencyRank." skill.proficiency)}})</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+        </div>
+        <div id="{{app}}-skill-hint" class="hint">{{localize skill.hint}}</div>
+    </div>
+    <div class="form-group">
+        <label for="{{app}}-tier">{{localize "PF2E.Actions.TreatWounds.Dialog.Proficiency.Label"}}</label>
+        <select id="{{app}}-tier" class="form-control" data-event-handler="tier" aria-describedby="{{app}}-tier-hint">
+            {{#select tier.value}}
+                <option value="trained">DC 15 (Trained)</option>
+                <option value="expert" {{disabled (and strict (lt rank 2))}}>DC 20 (Expert)</option>
+                <option value="master" {{disabled (and strict (lt rank 3))}}>DC 30 (Master)</option>
+                <option value="legendary" {{disabled (and strict (lt rank 4))}}>DC 40 (Legendary)</option>
+            {{/select}}
+        </select>
+        <div id="{{app}}-tier-hint" class="hint">{{localize tier.hint}}</div>
+    </div>
+    <div class="form-group">
+        <label for="{{app}}-difficulty-class">{{localize "PF2E.Actions.TreatWounds.Dialog.DifficultyClass.Label"}}</label>
+        <div class="form-fields">
+            <input id="{{app}}-difficulty-class" value="{{difficultyClass.value}}" {{disabled difficultyClass.locked}} class="form-control" data-event-handler="difficulty-class" aria-describedby="{{app}}-difficulty-class-hint">
+        </div>
+        <div id="{{app}}-difficulty-class-hint" class="hint">{{localize difficultyClass.hint}}</div>
+    </div>
+    {{#each toggles as |toggle|}}
+        {{#if toggle.visible}}
+            <div class="form-group">
+                <label for="{{@root.app}}-toggle-{{@index}}">{{toggle.label}}</label>
+                <input id="{{@root.app}}-toggle-{{@index}}" type="checkbox" data-toggle-index="{{@index}}" {{checked toggle.value}} {{disabled toggle.disabled}}>
+            </div>
+        {{/if}}
+    {{/each}}
+    <div class="flexrow">
+        <button type="button" data-event-handler="cancel">
+            <i class="fas fa-times"></i>
+            {{localize "PF2E.Actions.TreatWounds.Dialog.Cancel.Label"}}
+        </button>
+        <button type="button" {{disabled (and strict invalid)}} data-event-handler="treat-wounds">
+            <i class="fas fa-hand-holding-medical"></i>
+            {{localize "PF2E.Actions.TreatWounds.Dialog.Use.Label"}}
+        </button>
+    </div>
+</form>

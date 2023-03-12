@@ -48,6 +48,7 @@ import * as demoralize from "./intimidation/demoralize.ts";
 import * as administerFirstAid from "./medicine/administer-first-aid.ts";
 import * as treatDisease from "./medicine/treat-disease.ts";
 import * as treatPoison from "./medicine/treat-poison.ts";
+import * as treatWounds from "./medicine/treat-wounds/index.ts";
 import * as commandAnAnimal from "./nature/command-an-animal.ts";
 import { perform } from "./performance/perform.ts";
 import * as createForgery from "./society/create-forgery.ts";
@@ -185,6 +186,7 @@ export const SystemActions: Action[] = [
     track.action,
     treatDisease.action,
     treatPoison.action,
+    treatWounds.action,
     trip.action,
     tumbleThrough.action,
 ];

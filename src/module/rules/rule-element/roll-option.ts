@@ -95,10 +95,11 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                 ],
                 { required: false, nullable: false, initial: undefined },
             ),
-            placement: new fields.StringField({
+            placement: new StrictStringField({
                 required: false,
                 nullable: false,
                 initial: undefined,
+                choices: ["treat-wounds-dialog"],
             }),
             disabledIf: new PredicateField({ required: false, initial: undefined }),
             disabledValue: new fields.BooleanField({ required: false, initial: undefined }),
