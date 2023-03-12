@@ -1,5 +1,18 @@
 # Changelog
 
+
+## Version 4.9.1
+
+### System Improvements
+* (stwlam) Run aura effect UUIDs and AdjustModifier predicates through `resolveInjectedProperties`
+
+### Bugfixes
+* (stwlam) Add deprecation paths for properties and methods used by the old Token Action HUD
+
+### Data Updates
+* (stwlam) Add new rule elements to existing Surprise Attack and Dread Striker items
+
+
 ## Version 4.9.0
 
 ### New Features
@@ -101,7 +114,7 @@
 
 ## Version 4.8.3
 
-## Data Updates
+### Data Updates
 * (Dana) Add +3 option to Dancing Shield spell effect (for Fortress Shield)
 * (Dire Weasel) Add effect to Lazurite-Infused Stone Golem aura
 * (Dire Weasel) Fix some malformed predicates on equipment and feats
