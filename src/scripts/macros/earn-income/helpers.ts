@@ -118,7 +118,6 @@ function askSkillPopupTemplate(skills: Statistic[]): string {
     const level = Number(localStorage.getItem("earnIncomeLevel")) || 0;
     const days = Number(localStorage.getItem("earnIncomeDays")) || 1;
     const skillAcronym = localStorage.getItem("earnIncomeSkillAcronym");
-    const assurance = localStorage.getItem("earnIncomeAssurance") === "true";
     const skillOptions = skills
         .map((skill): string => {
             const skillName = escapeHtml(skill.label);
@@ -139,10 +138,6 @@ function askSkillPopupTemplate(skills: Statistic[]): string {
         <select name="skillAcronym">
             ${skillOptions}
         </select>
-    </div>
-    <div class="form-group">
-        <label>Use Assurance</label>
-        <input name="assurance" type="checkbox" ${assurance ? "checked" : ""}>
     </div>
     <div class="form-group">
         <label>Level</label>
