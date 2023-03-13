@@ -97,7 +97,8 @@ interface SpellPrepEntry {
 
 interface ActiveSpell {
     spell: Embedded<SpellPF2e>;
-    chatData: Record<string, unknown>;
+    /** The level at which a spell is cast (if prepared or automatically heighted) */
+    castLevel?: number;
     expended?: boolean;
     /** Is this spell marked as signature/collection */
     signature?: boolean;

@@ -367,6 +367,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /** Apply effects from an aura: will later be expanded to handle effects from measured templates */
     async applyAreaEffects(aura: AuraData, origin: { actor: ActorPF2e; token: TokenDocumentPF2e }): Promise<void> {
         if (game.user !== this.primaryUpdater) return;
+        if (!this.allowedItemTypes.includes("effect")) return;
 
         const toCreate: (AfflictionSource | EffectSource)[] = [];
         const rollOptions = aura.effects.some((e) => e.predicate.length > 0)

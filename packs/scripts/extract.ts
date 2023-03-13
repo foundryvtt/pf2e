@@ -106,7 +106,11 @@ const tempDataPath = path.resolve(process.cwd(), "packs/temp-data");
 const dataPath = path.resolve(process.cwd(), "packs/data");
 const packsMetadata = systemJSON.packs as unknown as CompendiumMetadata[];
 
-const npcSystemKeys = new Set(Object.keys({ ...templateJSON.Actor.templates.common, ...templateJSON.Actor.npc }));
+const npcSystemKeys = new Set([
+    ...Object.keys(templateJSON.Actor.templates.common),
+    ...Object.keys(templateJSON.Actor.npc),
+    "spellcasting",
+]);
 
 const idsToNames: Map<string, Map<string, string>> = new Map();
 

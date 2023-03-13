@@ -67,7 +67,7 @@ interface SimpleRollActionCheckOptions<ItemType extends Embedded<ItemPF2e>> {
     content?: (title: string) => Promise<string | null | undefined | void> | string | null | undefined | void;
     item?: (actor: ActorPF2e) => ItemType | undefined;
     traits: string[];
-    event: JQuery.TriggeredEvent;
+    event?: JQuery.TriggeredEvent | Event | null;
     difficultyClass?: CheckDC;
     difficultyClassStatistic?: (creature: CreaturePF2e) => Statistic | null;
     extraNotes?: (selector: string) => RollNotePF2e[];
@@ -79,7 +79,7 @@ interface SimpleRollActionCheckOptions<ItemType extends Embedded<ItemPF2e>> {
 }
 
 interface ActionDefaultOptions {
-    event: JQuery.TriggeredEvent;
+    event?: JQuery.TriggeredEvent | Event | null;
     actors?: ActorPF2e | ActorPF2e[];
     glyph?: ActionGlyph;
     modifiers?: ModifierPF2e[];

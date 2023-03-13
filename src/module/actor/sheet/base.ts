@@ -716,9 +716,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         // Dragging ...
         const supplementalData = (() => {
             const actionIndex = previewElement?.dataset.actionIndex;
-            const rollOptionData = {
-                ...(htmlQuery(previewElement, "input[type=checkbox][data-action=toggle-roll-option]")?.dataset ?? {}),
-            };
 
             // ... an action (or melee item possibly to be treated as an action)?
             if (actionIndex) {
@@ -729,8 +726,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
             // ... a roll-option toggle?
             const label = previewElement?.innerText.trim();
-            if (item && label && Object.keys(rollOptionData).length > 0) {
-                delete rollOptionData.action;
+            const rollOptionData = previewElement?.dataset ?? {};
+            if (item && label && rollOptionData.domain && rollOptionData.option) {
                 return {
                     type: "RollOption",
                     label,
