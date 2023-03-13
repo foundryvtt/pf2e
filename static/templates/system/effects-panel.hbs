@@ -57,7 +57,7 @@
             {{/if}}
         </div>
     </div>
-    <div class="icon{{#unless effect.isIdentified}} unidentified{{/unless}}" data-locked="{{#if effect.isLocked}}true{{/if}}" style="background-image: url({{effect.img}})">
+    <div class="icon{{#if effect.isAura}} aura{{/if}}{{#unless effect.isIdentified}} unidentified{{/unless}}" data-locked="{{#if effect.isLocked}}true{{/if}}" style="background-image: url({{effect.img}})">
         {{#if effect.isLocked}}
             <div class="linked"><i class="fas fa-link"></i></div>
         {{/if}}

@@ -64,6 +64,11 @@ class EffectPF2e extends AbstractEffectPF2e {
         }
     }
 
+    /** Whether this effect emits an aura */
+    get isAura(): boolean {
+        return this.rules.some((r) => r.key === "Aura");
+    }
+
     override get isIdentified(): boolean {
         return !this.system.unidentified;
     }
