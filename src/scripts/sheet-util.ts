@@ -3,9 +3,15 @@ import { BaseRollContext } from "@system/rolls";
 /** Returns statistic dialog roll parameters based on held keys */
 type ParamsFromEvent = Pick<BaseRollContext, "rollMode" | "skipDialog">;
 
-export function eventToRollParams(event?: JQuery.TriggeredEvent | MouseEvent): ParamsFromEvent {
+function isRelevantEvent(
+    event?: JQuery.TriggeredEvent | Event | null
+): event is MouseEvent | TouchEvent | KeyboardEvent | WheelEvent {
+    return !!event && "ctrlKey" in event && "metaKey" in event && "shiftKey" in event;
+}
+
+export function eventToRollParams(event?: JQuery.TriggeredEvent | Event | null): ParamsFromEvent {
     const skipDefault = !game.user.settings.showRollDialogs;
-    if (!event) return { skipDialog: skipDefault };
+    if (!isRelevantEvent(event)) return { skipDialog: skipDefault };
 
     const params: ParamsFromEvent = { skipDialog: event.shiftKey ? !skipDefault : skipDefault };
     if (event.ctrlKey || event.metaKey) {

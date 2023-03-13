@@ -92,7 +92,7 @@ ${
 async function treat(
     actor: CreaturePF2e,
     $html: JQuery,
-    event: JQuery.TriggeredEvent,
+    event: JQuery.TriggeredEvent | Event | null = null,
     domIdAppend: string
 ): Promise<void> {
     const { name } = actor;
