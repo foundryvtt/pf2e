@@ -5,7 +5,7 @@
     "system": {
         "badge": null,
         "description": {
-            "value": ""
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Oil of Potency]{Oil of Potency}</p>\n<p>If the item is a weapon, it temporarily becomes a +1 striking weapon, or, if it's armor, it temporarily becomes +1 resilient armor. This lasts for 1 minute.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -31,7 +31,7 @@
                 ],
                 "flag": "oilitemType",
                 "key": "ChoiceSet",
-                "prompt": "Apply to armor or weapon?",
+                "prompt": "PF2E.SpecificRule.Prompt.ArmorOrWeapon",
                 "rollOption": "potency",
                 "selection": "null"
             },
@@ -61,7 +61,7 @@
                 "predicate": [
                     "potency:armor"
                 ],
-                "prompt": "Select an Armor"
+                "prompt": "PF2E.SpecificRule.Prompt.Armor"
             },
             {
                 "key": "WeaponPotency",
@@ -91,7 +91,6 @@
             },
             {
                 "key": "FlatModifier",
-                "label": "Oil of Potency",
                 "predicate": [
                     "potency:armor"
                 ],
