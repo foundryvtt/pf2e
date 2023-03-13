@@ -5,11 +5,11 @@ type ParamsFromEvent = Pick<BaseRollContext, "rollMode" | "skipDialog">;
 
 function isRelevantEvent(
     event?: JQuery.TriggeredEvent | Event | null
-): event is MouseEvent | TouchEvent | KeyboardEvent | WheelEvent {
+): event is MouseEvent | TouchEvent | KeyboardEvent | WheelEvent | JQuery.TriggeredEvent {
     return !!event && "ctrlKey" in event && "metaKey" in event && "shiftKey" in event;
 }
 
-export function eventToRollParams(event?: JQuery.TriggeredEvent | Event | null): ParamsFromEvent {
+function eventToRollParams(event?: JQuery.TriggeredEvent | Event | null): ParamsFromEvent {
     const skipDefault = !game.user.settings.showRollDialogs;
     if (!isRelevantEvent(event)) return { skipDialog: skipDefault };
 
@@ -20,3 +20,5 @@ export function eventToRollParams(event?: JQuery.TriggeredEvent | Event | null):
 
     return params;
 }
+
+export { eventToRollParams };
