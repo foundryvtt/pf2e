@@ -196,8 +196,8 @@ class SpellCollection extends Collection<Embedded<SpellPF2e>> {
                         const spell = value.id ? this.get(value.id) : null;
                         if (spell) {
                             active[Number(key)] = {
+                                castLevel: spell.computeCastLevel(level),
                                 spell,
-                                chatData: await spell.getChatData({}, { slotLevel: level }),
                                 expended: !!value.expended,
                             };
                         }
@@ -221,9 +221,7 @@ class SpellCollection extends Collection<Embedded<SpellPF2e>> {
             const leveled = spells.filter((spell) => !spell.isCantrip);
 
             if (cantrips.length) {
-                const active = await Promise.all(
-                    cantrips.map(async (spell) => ({ spell, chatData: await spell.getChatData() }))
-                );
+                const active = await Promise.all(cantrips.map(async (spell) => ({ spell })));
                 results.push({
                     label: "PF2E.Actor.Creature.Spellcasting.Cantrips",
                     level: 0,
@@ -233,9 +231,7 @@ class SpellCollection extends Collection<Embedded<SpellPF2e>> {
             }
 
             if (leveled.length) {
-                const active = await Promise.all(
-                    leveled.map(async (spell) => ({ spell, chatData: await spell.getChatData() }))
-                );
+                const active = await Promise.all(leveled.map(async (spell) => ({ spell })));
                 results.push({
                     label: actor.isOfType("character") ? "PF2E.Focus.Spells" : "PF2E.Focus.Pool",
                     level: Math.max(1, Math.ceil(actor.level / 2)) as OneToTen,
@@ -257,7 +253,6 @@ class SpellCollection extends Collection<Embedded<SpellPF2e>> {
                     const active = await Promise.all(
                         spells.map(async (spell) => ({
                             spell,
-                            chatData: await spell.getChatData(),
                             expended: this.entry.isInnate && !spell.system.location.uses?.value,
                             uses: this.entry.isInnate && !spell.unlimited ? spell.system.location.uses : undefined,
                         }))
@@ -290,8 +285,7 @@ class SpellCollection extends Collection<Embedded<SpellPF2e>> {
                     if (existing) {
                         existing.signature = true;
                     } else {
-                        const chatData = await spell.getChatData({}, { slotLevel: result.level });
-                        result.active.push({ spell, chatData, signature: true, virtual: true });
+                        result.active.push({ spell, signature: true, virtual: true });
                     }
                 }
             }
@@ -331,14 +325,7 @@ class SpellCollection extends Collection<Embedded<SpellPF2e>> {
                     label: CONFIG.PF2E.spellLevels[level as OneToTen],
                     level: level as ZeroToTen,
                     isCantrip: false,
-                    active: await Promise.all(
-                        spells.map(async (spell) => ({
-                            spell,
-                            chatData: await spell.getChatData(),
-                            expended: false,
-                            uses: null,
-                        }))
-                    ),
+                    active: await Promise.all(spells.map(async (spell) => ({ spell }))),
                 })
             )
         );
