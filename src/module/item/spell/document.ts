@@ -756,26 +756,24 @@ class SpellPF2e extends ItemPF2e {
             return { ...systemData };
         }
 
-        const statistic = trickData?.statistic || spellcasting?.statistic;
-        if (!statistic) {
-            if (!this.isRitual) {
-                console.warn(
-                    `PF2e System | Spell ${this.name} is missing a statistic to cast with (${this.id}) on actor ${this.actor.name} (${this.actor.id})`
-                );
-            }
+        const statistic = trickData?.statistic ?? spellcasting?.statistic;
+        if (!statistic && !this.isRitual) {
+            console.warn(
+                `PF2e System | Spell ${this.name} is missing a statistic to cast with (${this.id}) on actor ${this.actor.name} (${this.actor.id})`
+            );
             return { ...systemData };
         }
 
-        const statisticChatData = statistic.getChatData({ item: this });
-        const spellDC = statisticChatData.dc.value;
-        const isSave = systemData.spellType.value === "save" || systemData.save.value !== "";
+        const statisticChatData = statistic?.getChatData({ item: this });
+        const spellDC = statisticChatData?.dc.value;
+        const isSave = systemData.spellType.value === "save" || !!systemData.save.value;
         const damage = await this.getDamage();
         const hasDamage = !!damage; // needs new check // formula && formula !== "0";
 
         // Spell save label
-        const saveType = systemData.save.value ? game.i18n.localize(CONFIG.PF2E.saves[systemData.save.value]) : "";
+        const saveType = systemData.save.value ? game.i18n.localize(CONFIG.PF2E.saves[systemData.save.value]) : null;
         const saveKey = systemData.save.basic ? "PF2E.SaveDCLabelBasic" : "PF2E.SaveDCLabel";
-        const saveLabel = game.i18n.format(saveKey, { dc: spellDC, type: saveType });
+        const saveLabel = spellDC && saveType ? game.i18n.format(saveKey, { dc: spellDC, type: saveType }) : null;
 
         // Spell attack labels
         const isHeal = systemData.spellType.value === "heal";
@@ -806,7 +804,7 @@ class SpellPF2e extends ItemPF2e {
         const properties: string[] = [
             heightened ? game.i18n.format("PF2E.SpellLevelBase", { level: ordinal(baseLevel) }) : null,
             heightened ? game.i18n.format("PF2E.SpellLevelHeightened", { heightened }) : null,
-            `${localize("PF2E.SpellComponentsLabel")}: ${this.components.value}`,
+            this.isRitual ? null : `${localize("PF2E.SpellComponentsLabel")}: ${this.components.value}`,
             systemData.range.value ? `${localize("PF2E.SpellRangeLabel")}: ${systemData.range.value}` : null,
             systemData.target.value ? `${localize("PF2E.SpellTargetLabel")}: ${systemData.target.value}` : null,
             area,
@@ -814,10 +812,7 @@ class SpellPF2e extends ItemPF2e {
             systemData.duration.value ? `${localize("PF2E.SpellDurationLabel")}: ${systemData.duration.value}` : null,
         ].filter((p): p is string => p !== null);
 
-        const spellTraits = this.traitChatData({
-            ...CONFIG.PF2E.spellTraits,
-            ...CONFIG.PF2E.magicTraditions,
-        });
+        const spellTraits = this.traitChatData(CONFIG.PF2E.spellTraits);
 
         // Embedded item string for consumable fetching.
         // This needs to be refactored in the future so that injecting DOM strings isn't necessary
@@ -829,9 +824,9 @@ class SpellPF2e extends ItemPF2e {
             description: { value: description },
             isAttack: this.isAttack,
             isSave,
-            check: this.isAttack ? statisticChatData.check : undefined,
+            check: this.isAttack && statisticChatData ? statisticChatData.check : undefined,
             save: {
-                ...statisticChatData.dc,
+                ...(statisticChatData?.dc ?? {}),
                 type: systemData.save.value,
                 label: saveLabel,
             },
