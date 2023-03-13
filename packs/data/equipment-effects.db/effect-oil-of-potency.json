@@ -1,0 +1,121 @@
+{
+    "_id": "I9oLgz2aFJAB3UVc",
+    "img": "systems/pf2e/icons/equipment/consumables/oils/oil-of-potency.webp",
+    "name": "Effect: Oil of Potency",
+    "system": {
+        "badge": null,
+        "description": {
+            "value": ""
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "Armor",
+                        "value": "armor"
+                    },
+                    {
+                        "label": "Weapon",
+                        "value": "weapon"
+                    }
+                ],
+                "flag": "oilitemType",
+                "key": "ChoiceSet",
+                "prompt": "Apply to armor or weapon?",
+                "rollOption": "potency",
+                "selection": "null"
+            },
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "potency:weapon"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "armor"
+                    ]
+                },
+                "flag": "armor",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "potency:armor"
+                ],
+                "prompt": "Select an Armor"
+            },
+            {
+                "key": "WeaponPotency",
+                "predicate": [
+                    "potency:weapon"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-attack",
+                "value": 1
+            },
+            {
+                "key": "Striking",
+                "predicate": [
+                    "potency:weapon"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "armor:id:{item|flags.pf2e.rulesSelections.armor}",
+                    "bonus:type:item"
+                ],
+                "selector": "ac",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Oil of Potency",
+                "predicate": [
+                    "potency:armor"
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        },
+        "unidentified": false
+    },
+    "type": "effect"
+}
