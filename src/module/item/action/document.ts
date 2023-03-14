@@ -3,6 +3,7 @@ import { ActionItemData, ActionItemSource, ActionSystemData } from "./data";
 import { UserPF2e } from "@module/user";
 import { ActionCost, Frequency } from "@item/data/base";
 import { ItemSummaryData } from "@item/data";
+import { getActionTypeLabel } from "@util";
 
 class ActionItemPF2e extends ItemPF2e {
     get actionCost(): ActionCost | null {
@@ -33,8 +34,8 @@ class ActionItemPF2e extends ItemPF2e {
         htmlOptions: EnrichHTMLOptions = {}
     ): Promise<ItemSummaryData> {
         const systemData = this.system;
-        const actionType = this.actionCost?.type ?? "passive";
-        const properties = [CONFIG.PF2E.actionTypes[actionType]];
+        const actionTypeLabel = getActionTypeLabel(this.actionCost?.type, this.actionCost?.value);
+        const properties = [actionTypeLabel ?? []].flat();
         const traits = this.traitChatData(CONFIG.PF2E.featTraits);
         return this.processChatData(htmlOptions, { ...systemData, properties, traits });
     }

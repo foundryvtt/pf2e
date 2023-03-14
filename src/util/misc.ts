@@ -238,6 +238,22 @@ function parseHTML(unparsed: string): HTMLElement {
     return element;
 }
 
+function getActionTypeLabel(
+    type: Maybe<"action" | "free" | "reaction" | "passive">,
+    cost: Maybe<number>
+): string | null {
+    switch (type) {
+        case "action":
+            return cost === 1 ? "PF2E.Action.Type.Single" : "PF2E.Action.Type.Activity";
+        case "free":
+            return "PF2E.Action.Type.Free";
+        case "reaction":
+            return "PF2E.Action.Type.Reaction";
+        default:
+            return null;
+    }
+}
+
 const actionImgMap: Record<string, ImageFilePath> = {
     0: "systems/pf2e/icons/actions/FreeAction.webp",
     free: "systems/pf2e/icons/actions/FreeAction.webp",
@@ -436,6 +452,7 @@ export {
     fontAwesomeIcon,
     getActionGlyph,
     getActionIcon,
+    getActionTypeLabel,
     groupBy,
     isBlank,
     isImageFilePath,
