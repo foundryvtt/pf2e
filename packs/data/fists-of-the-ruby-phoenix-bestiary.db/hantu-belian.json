@@ -1231,7 +1231,7 @@
             "sort": 1400000,
             "system": {
                 "actionCategory": {
-                    "value": "interaction"
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1245,7 +1245,29 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "unrest-aura-active"
+                        ],
+                        "radius": 30,
+                        "slug": "unrest-aura",
+                        "traits": [
+                            "emotion",
+                            "enchantment",
+                            "mental",
+                            "occult"
+                        ]
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "unrest-aura-active",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1253,9 +1275,9 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "mental",
                         "emotion",
                         "enchantment",
+                        "mental",
                         "occult"
                     ]
                 },
