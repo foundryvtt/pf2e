@@ -4,7 +4,7 @@
     "name": "(Lich) Void Shroud",
     "system": {
         "actionCategory": {
-            "value": "interaction"
+            "value": "defensive"
         },
         "actionType": {
             "value": "passive"
@@ -18,7 +18,30 @@
         "requirements": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "effects": [
+                    {
+                        "affects": "all",
+                        "events": [
+                            "enter"
+                        ],
+                        "includesSelf": false,
+                        "predicate": [
+                            "target:mode:living"
+                        ],
+                        "uuid": "Compendium.pf2e.bestiary-effects.Effect: Void Shroud"
+                    }
+                ],
+                "key": "Aura",
+                "radius": 30,
+                "slug": "lich-void-shroud",
+                "traits": [
+                    "death",
+                    "necromancy"
+                ]
+            }
+        ],
         "source": {
             "value": "Pathfinder Bestiary"
         },
