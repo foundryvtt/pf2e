@@ -1461,6 +1461,7 @@ export const PF2ECONFIG = {
         drooni: "PF2E.LanguageDrooni",
         dziriak: "PF2E.LanguageDziriak",
         ekujae: "PF2E.LanguageEkujae",
+        "elder-thing": "PF2E.LanguageElderThing",
         erutaki: "PF2E.LanguageErutaki",
         formian: "PF2E.LanguageFormian",
         garundi: "PF2E.LanguageGarundi",
