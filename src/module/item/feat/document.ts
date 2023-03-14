@@ -2,7 +2,7 @@ import { ItemPF2e } from "..";
 import { FeatData, FeatSource, FeatSystemData, FeatTrait, FeatType } from "./data";
 import { OneToThree } from "@module/data";
 import { UserPF2e } from "@module/user";
-import { sluggify } from "@util";
+import { getActionTypeLabel, sluggify } from "@util";
 import { FeatCategory } from "@actor/character/feats";
 import { Frequency } from "@item/data/base";
 import { ItemSummaryData } from "@item/data";
@@ -115,12 +115,12 @@ class FeatPF2e extends ItemPF2e {
         this: Embedded<FeatPF2e>,
         htmlOptions: EnrichHTMLOptions = {}
     ): Promise<ItemSummaryData> {
-        const systemData = this.system;
-        const actionType = this.actionCost?.type ?? "passive";
         const levelLabel = game.i18n.format("PF2E.LevelN", { level: this.level });
-        const properties = [levelLabel, CONFIG.PF2E.actionTypes[actionType]];
+        const actionTypeLabel = getActionTypeLabel(this.actionCost?.type, this.actionCost?.value);
+        const properties = actionTypeLabel ? [levelLabel, actionTypeLabel] : [levelLabel];
         const traits = this.traitChatData(CONFIG.PF2E.featTraits);
-        return this.processChatData(htmlOptions, { ...systemData, properties, traits });
+
+        return this.processChatData(htmlOptions, { ...this.system, properties, traits });
     }
 
     /** Generate a list of strings for use in predication */
