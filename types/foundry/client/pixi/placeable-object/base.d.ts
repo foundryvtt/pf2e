@@ -5,7 +5,9 @@ declare global {
      * An Abstract Base Class which defines a Placeable Object which represents an Entity placed on the Canvas
      * @param document The Document instance which is represented by this object
      */
-    abstract class PlaceableObject<TDocument extends CanvasDocument = CanvasDocument> extends PIXI.Container {
+    abstract class PlaceableObject<
+        TDocument extends CanvasDocument | CanvasDocument2 = CanvasDocument | CanvasDocument2
+    > extends PIXI.Container {
         constructor(document: TDocument);
 
         /** Retain a reference to the Scene within which this Placeable Object resides */
@@ -287,7 +289,8 @@ declare global {
         protected _onDragLeftCancel(event: PIXI.InteractionEvent): void;
     }
 
-    interface PlaceableObject<TDocument extends CanvasDocument = CanvasDocument> extends PIXI.Container {
+    interface PlaceableObject<TDocument extends CanvasDocument | CanvasDocument2 = CanvasDocument | CanvasDocument2>
+        extends PIXI.Container {
         hitArea: PIXI.Rectangle;
     }
 }
