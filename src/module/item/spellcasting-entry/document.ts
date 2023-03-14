@@ -327,6 +327,18 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
 
         await super._preUpdate(changed, options, user);
     }
+
+    /* -------------------------------------------- */
+    /*  Deprecations and Compatibility              */
+    /* -------------------------------------------- */
+
+    /**
+     * To prevent (or delay) console spam, will send out a deprecation notice in a later release
+     * @deprecated
+     */
+    getSpellData(): Promise<SpellcastingSheetData> {
+        return this.getSheetData();
+    }
 }
 
 interface SpellcastingEntryPF2e extends ItemPF2e {

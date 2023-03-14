@@ -21,7 +21,185 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "PF2E.SpecificRule.Inventor.Modification.Breakthrough.AllowedDrops",
+                    "predicate": [
+                        {
+                            "lte": [
+                                "item:level",
+                                7
+                            ]
+                        },
+                        "item:type:feature",
+                        "item:trait:inventor"
+                    ]
+                },
+                "choices": [
+                    {
+                        "predicate": [
+                            "weapon-innovation:ranged",
+                            {
+                                "not": "weapon-innovation:thrown"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Advanced Rangefinder"
+                    },
+                    {
+                        "predicate": [
+                            "weapon-innovation:melee"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Aerodynamic Construction"
+                    },
+                    {
+                        "predicate": [
+                            "weapon-innovation:melee"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Inconspicuous Appearance"
+                    },
+                    {
+                        "predicate": [
+                            "weapon-innovation:usage:hands:1",
+                            {
+                                "not": "weapon-innovation:trait:two-handed"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Integrated Gauntlet"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Manifold Alloy"
+                    },
+                    {
+                        "predicate": [
+                            "weapon-innovation:ranged",
+                            {
+                                "not": "weapon-innovation:thrown"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Rope Shot"
+                    },
+                    {
+                        "predicate": [
+                            "weapon-innovation:thrown"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Tangle Line"
+                    },
+                    {
+                        "predicate": [
+                            "weapon-innovation:ranged",
+                            {
+                                "nor": [
+                                    "feature:blunt-shot",
+                                    "weapon-innovation:thrown"
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Blunt Shot"
+                    },
+                    {
+                        "predicate": [
+                            "weapon-innovation:category:simple",
+                            {
+                                "not": "feature:complex-simplicity"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Complex Simplicity"
+                    },
+                    {
+                        "predicate": [
+                            "weapon-innovation:usage:hands:1",
+                            "weapon-innovation:melee",
+                            {
+                                "nor": [
+                                    "feature:dynamic-weighting",
+                                    "weapon-innovation:trait:agile",
+                                    "weapon-innovation:trait:attached",
+                                    "weapon-innovation:trait:free-hand"
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Dynamic Weighting"
+                    },
+                    {
+                        "predicate": [
+                            "weapon-innovation:melee",
+                            {
+                                "not": "feature:entangling-form"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Entangling Form"
+                    },
+                    {
+                        "predicate": [
+                            "weapon-innovation:melee",
+                            {
+                                "not": "feature:hampering-spikes"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Hampering Spikes"
+                    },
+                    {
+                        "predicate": [
+                            "weapon-innovation:melee",
+                            {
+                                "not": "feature:hefty-composition"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Hefty Composition"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "not": "feature:modular-head"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Modular Head"
+                    },
+                    {
+                        "predicate": [
+                            "weapon-innovation:melee",
+                            {
+                                "not": "feature:pacification-tools"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Pacification Tools"
+                    },
+                    {
+                        "predicate": [
+                            "weapon-innovation:melee",
+                            {
+                                "not": "feature:razor-prongs"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Razor Prongs"
+                    },
+                    {
+                        "predicate": [
+                            "weapon-innovation:melee",
+                            {
+                                "not": "feature:segmented-frame"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Segmented Frame"
+                    }
+                ],
+                "flag": "breakthroughModification",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "class:inventor",
+                    "feature:weapon-innovation"
+                ],
+                "prompt": "PF2E.SpecificRule.Inventor.Modification.Breakthrough.Prompt"
+            },
+            {
+                "allowDuplicate": false,
+                "flag": "breakthroughModification",
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.breakthroughModification}"
+            }
+        ],
         "source": {
             "value": "Pathfinder Guns & Gears"
         },

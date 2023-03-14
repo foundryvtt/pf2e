@@ -139,7 +139,7 @@
             "sort": 400000,
             "system": {
                 "actionCategory": {
-                    "value": "interaction"
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -153,7 +153,34 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "color": "#9b7337",
+                            "dim": 30,
+                            "shadows": 0.1
+                        }
+                    },
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "luminous-lure",
+                        "traits": [
+                            "emotion",
+                            "enchantment",
+                            "incapacitation",
+                            "light",
+                            "mental",
+                            "primal"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -161,12 +188,12 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "mental",
                         "aura",
                         "emotion",
                         "enchantment",
                         "incapacitation",
                         "light",
+                        "mental",
                         "primal"
                     ]
                 },

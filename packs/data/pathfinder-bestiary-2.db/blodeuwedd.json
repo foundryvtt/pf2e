@@ -1202,7 +1202,7 @@
             "sort": 1400000,
             "system": {
                 "actionCategory": {
-                    "value": "interaction"
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1216,7 +1216,26 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "allergen-aura-active"
+                        ],
+                        "radius": 30,
+                        "slug": "allergen-aura",
+                        "traits": [
+                            "primal"
+                        ]
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "allergen-aura-active",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

@@ -21,7 +21,6 @@ import {
     isObject,
     objectHasKey,
     setHasElement,
-    tupleHasValue,
 } from "@util";
 import { UUIDUtils } from "@util/uuid-utils";
 import { CharacterPF2e } from ".";
@@ -833,8 +832,9 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     feattype.selected.push(value);
                 }
             } else if (filterType === "traits") {
-                if (tupleHasValue(traits.options, value)) {
-                    traits.selected.push(value);
+                const trait = traits.options.find((t) => t.value === value);
+                if (trait) {
+                    traits.selected.push(deepClone(trait));
                 }
             } else if (filterType === "conjunction" && (value === "and" || value === "or")) {
                 filter.multiselects.traits.conjunction = value;
