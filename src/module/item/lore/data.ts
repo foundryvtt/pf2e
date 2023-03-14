@@ -15,6 +15,7 @@ interface LoreSystemSource extends ItemSystemSource {
     };
     variants?: Record<string, { label: string; options: string }>;
     level?: never;
+    traits?: never;
 }
 
 type LoreSystemData = LoreSystemSource;
