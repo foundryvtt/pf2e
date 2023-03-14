@@ -270,11 +270,10 @@ export class StatusEffects {
         const statusEffectList = conditions.map((condition): string => {
             const conditionInfo = StatusEffects.conditions[condition.slug];
             const summary = conditionInfo.summary ?? "";
-            const conditionValue = condition.value ?? "";
             return `
                 <li><img src="${condition.img}" title="${summary}">
                     <span class="statuseffect-li">
-                        <span class="statuseffect-li-text">${condition.name} ${conditionValue}</span>
+                        <span class="statuseffect-li-text">${condition.name}</span>
                         <div class="statuseffect-rules"><h2>${condition.name}</h2>${condition.description}</div>
                     </span>
                 </li>`;

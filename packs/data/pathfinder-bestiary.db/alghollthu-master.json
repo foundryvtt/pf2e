@@ -942,7 +942,7 @@
             "sort": 1100000,
             "system": {
                 "actionCategory": {
-                    "value": "interaction"
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -956,7 +956,27 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "terrain:underwater"
+                        ],
+                        "radius": 5,
+                        "slug": "mucus-cloud",
+                        "traits": [
+                            "disease"
+                        ]
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SkillVariant.Underwater",
+                        "option": "terrain:underwater",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

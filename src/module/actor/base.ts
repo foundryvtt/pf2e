@@ -30,6 +30,7 @@ import { RuleElementSynthetics } from "@module/rules";
 import { extractEphemeralEffects, processPreUpdateActorHooks } from "@module/rules/helpers";
 import { RuleElementPF2e } from "@module/rules/rule-element/base";
 import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
+import { RollOptionToggle } from "@module/rules/synthetics";
 import { LocalizePF2e } from "@module/system/localize";
 import { UserPF2e } from "@module/user";
 import { TokenDocumentPF2e } from "@scene";
@@ -366,6 +367,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /** Apply effects from an aura: will later be expanded to handle effects from measured templates */
     async applyAreaEffects(aura: AuraData, origin: { actor: ActorPF2e; token: TokenDocumentPF2e }): Promise<void> {
         if (game.user !== this.primaryUpdater) return;
+        if (!this.allowedItemTypes.includes("effect")) return;
 
         const toCreate: (AfflictionSource | EffectSource)[] = [];
         const rollOptions = aura.effects.some((e) => e.predicate.length > 0)
@@ -587,6 +589,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /** Prepare token data derived from this actor, refresh Effects Panel */
     override prepareData(): void {
         delete this._itemTypes;
+
+        // To prevent (or delay) console spam, will send out a deprecation notice in a later release
+        Object.defineProperty(this.system, "toggles", {
+            get: (): RollOptionToggle[] => this.synthetics.toggles,
+            enumerable: false,
+        });
 
         super.prepareData();
 
