@@ -93,9 +93,7 @@ class EffectPF2e extends AbstractEffectPF2e {
         if (badge?.type === "counter") {
             const max = badge.labels?.length ?? Infinity;
             badge.value = Math.clamped(badge.value, 1, max);
-            if (badge.labels) {
-                badge.label = badge.labels.at(badge.value - 1);
-            }
+            badge.label = badge.labels?.at(badge.value - 1)?.trim() || null;
         }
     }
 

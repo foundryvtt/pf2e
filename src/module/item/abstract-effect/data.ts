@@ -5,7 +5,7 @@ import { CheckRoll } from "@system/check";
 interface EffectBadgeCounter {
     type: "counter";
     value: number;
-    label?: string;
+    label?: string | null;
     labels?: string[];
 }
 
