@@ -1,5 +1,30 @@
 # Changelog
 
+## Version 4.9.2
+
+### System Improvements
+* (stwlam) Style effects panel icons originating from auras as glowing circles
+* (Supe) Show price per N (e.g., "10 sp / 100") on loot sheet where applicable
+
+### Bugfixes
+* (stwlam) Fix drag & drop of roll-option toggles
+* (stwlam) Fix retrieval of ritual spell summaries
+* (stwlam) Remove redundant appending of values to condition names in messages
+* (stwlam) Prevent auras from applying effects to loot actors
+
+### Data Updates
+* (avagdu) Add Persistent Poison Crit Damage to Poisonous Dagger
+* (Dire Weasel) Add leveled damage links to Kobold Breath and effect to Tail Toxin
+* (Dire Weasel) Fix some incorrect removeAfterRoll values in RollTwice rule elements
+* (Dire Weasel) Add auras to additional NPCs
+* (Dire Weasel) Add leveled persistent fire damage link to Produce Flame description
+* (Dire Weasel) Add class features for Breakthrough Weapon Modifications
+* (stwlam) Add aura effect for Protective Ward
+* (stwlam) Add better icon for Chromatic Armor
+* (TikaelSol) Fix typos in GM screen
+* (TikaelSol) Add aura to Tempest Curse effect
+* (TMun) Correct minor typographic errors in Blood Lords and PFS Introductions
+
 
 ## Version 4.9.1
 
