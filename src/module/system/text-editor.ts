@@ -285,14 +285,14 @@ class TextEditorPF2e extends TextEditor {
         }
 
         const traits: string[] = [];
-        let action = "";
 
         // Add param traits
         if (params.traits) traits.push(...params.traits.split(",").map((trait) => trait.trim()));
 
-        if (params.traits.includes("action:")) {
-            action = sluggify(traits.filter((t) => t.includes("action:"))[0].split(":")[1], { camel: "dromedary" });
-        }
+        const action = params.traits?.includes("action:")
+            ? sluggify(traits.filter((t) => t.includes("action:"))[0].split(":")[1], { camel: "dromedary" })
+            : "";
+        const variant = params.variant ?? "";
 
         // Set item traits
         const itemTraits = item?.system.traits?.value ?? [];
@@ -321,7 +321,14 @@ class TextEditorPF2e extends TextEditor {
         // Build the inline link
         const html = document.createElement("span");
         html.setAttribute("data-pf2-traits", `${allTraits}`);
-        const name = params.name ?? item?.name ?? params.type;
+        const actionBactrian = sluggify(action, { camel: "bactrian" });
+        const variantBactrian = sluggify(variant, { camel: "bactrian" });
+        const actionName = action
+            ? variant
+                ? game.i18n.format(`PF2E.Actions.${actionBactrian}.${variantBactrian}.Title`)
+                : game.i18n.format(`PF2E.Actions.${actionBactrian}.Title`)
+            : "";
+        const name = params.name ?? item?.name ?? actionName ?? params.type;
         html.setAttribute("data-pf2-label", game.i18n.format("PF2E.InlineCheck.DCWithName", { name }));
         html.setAttribute("data-pf2-repost-flavor", name);
         const role = params.showDC ?? "owner";
@@ -369,11 +376,13 @@ class TextEditorPF2e extends TextEditor {
                 const skillLabel = shortForm
                     ? game.i18n.localize(CONFIG.PF2E.skills[shortForm])
                     : params.type
+                    ? params.type
                           .split("-")
                           .map((word) => {
                               return word.slice(0, 1).toUpperCase() + word.slice(1);
                           })
-                          .join(" ");
+                          .join(" ")
+                    : actionName;
                 html.innerHTML = inlineLabel ?? skillLabel;
             }
         }
