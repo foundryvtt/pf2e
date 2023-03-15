@@ -26,7 +26,7 @@ export function perform(options: { variant: PerformVariant } & SkillActionOption
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         actionGlyph: options.glyph ?? "A",
-        title: `PF2E.Actions.Perform.Title.${options.variant.charAt(0).toUpperCase()}${options.variant.slice(1)}`,
+        title: `PF2E.Actions.Perform.${options.variant.charAt(0).toUpperCase()}${options.variant.slice(1)}.Title`,
         checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["concentrate", ...traits].sort(),
         event: options.event,
