@@ -23,7 +23,16 @@ import {
     TagSelectorType,
     TAG_SELECTOR_TYPES,
 } from "@system/tag-selector";
-import { ErrorPF2e, fontAwesomeIcon, htmlClosest, htmlQuery, htmlQueryAll, isObject, objectHasKey, tupleHasValue } from "@util";
+import {
+    ErrorPF2e,
+    fontAwesomeIcon,
+    htmlClosest,
+    htmlQuery,
+    htmlQueryAll,
+    isObject,
+    objectHasKey,
+    tupleHasValue,
+} from "@util";
 import { ActorSizePF2e } from "../data/size";
 import { ActorSheetDataPF2e, CoinageSummary, InventoryItem, SheetInventory } from "./data-types";
 import { ItemSummaryRenderer } from "./item-summary-renderer";
@@ -428,8 +437,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             };
 
             if (event.ctrlKey) return sellItem();
-            
-            const translation = game.i18n.format(LocalizePF2e.translations.PF2E.SellItemQuestion, {item: item.name});
+
+            const translation = game.i18n.format(LocalizePF2e.translations.PF2E.SellItemQuestion, { item: item.name });
             new Dialog({
                 title: game.i18n.localize("PF2E.SellItemConfirmHeader"),
                 content: `<p class="note">${translation}</p>`,
