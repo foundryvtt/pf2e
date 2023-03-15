@@ -15,7 +15,6 @@ import {
     combineDCAdjustments,
     createDifficultyScale,
     DCAdjustment,
-    DCOptions,
     NegativeDCAdjustment,
     rarityToDCAdjustment,
 } from "./dc";
@@ -64,13 +63,10 @@ function toKnowledgeDC(dc: number, rarity: Rarity, loreAdjustment: NegativeDCAdj
     };
 }
 
-export function identifyCreature(
-    creature: NPCPF2e,
-    { proficiencyWithoutLevel = false }: DCOptions = {}
-): IdentifyCreatureData {
+export function identifyCreature(creature: NPCPF2e): IdentifyCreatureData {
     const rarity = creature.system.traits.rarity ?? "common";
     const level = Number(creature.system.details.level?.value) || 0;
-    const dc = calculateDC(level, { proficiencyWithoutLevel });
+    const dc = calculateDC(level);
 
     const traits = creature.system.traits.value;
     const skills = new Set(traits.flatMap((t) => identifySkills.get(t) ?? []));

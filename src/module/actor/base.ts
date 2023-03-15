@@ -38,6 +38,7 @@ import { TokenDocumentPF2e } from "@scene";
 import { DicePF2e } from "@scripts/dice";
 import { DamageType } from "@system/damage";
 import { applyIWR, IWRApplicationData, maxPersistentAfterIWR } from "@system/damage/iwr";
+import { ProficiencyWithoutLevel } from "@system/proficiency-without-level";
 import { Statistic, StatisticCheck } from "@system/statistic";
 import { TextEditorPF2e } from "@system/text-editor";
 import {
@@ -184,6 +185,22 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
     get level(): number {
         return this.system.details.level.value;
+    }
+
+    get proficiencyLevelModifier(): number {
+        return ProficiencyWithoutLevel.applyProficiencyLevelModifier(this.system.details.level.value);
+    }
+
+    get untrainedProficiencyLevelModifier(): number {
+        return ProficiencyWithoutLevel.applyUntrainedProficiencyLevelModifier(this.system.details.level.value);
+    }
+
+    get untrainedProficiencyLevelModifierHalf(): number {
+        return (
+            (ProficiencyWithoutLevel.getProficiencyBonuses()[0] +
+                ProficiencyWithoutLevel.applyUntrainedProficiencyLevelModifier(this.system.details.level.value)) /
+            2
+        );
     }
 
     get size(): Size {

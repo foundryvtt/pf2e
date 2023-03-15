@@ -2,7 +2,7 @@
  * Rules are implemented as described in https://2e.aonprd.com/Rules.aspx?ID=575
  * including the variant rules for proficiency without level https://2e.aonprd.com/Rules.aspx?ID=1371
  */
-import { DCOptions } from "@module/dc";
+import { ProficiencyWithoutLevel } from "@system/proficiency-without-level";
 
 // level without proficiency variant
 const xpVariantCreatureDifferences = new Map([
@@ -57,8 +57,8 @@ function getXPFromMap(partyLevel: number, entityLevel: number, values: Map<numbe
     return values.get(boundedDifference) ?? 0;
 }
 
-function calculateCreatureXP(partyLevel: number, npcLevel: number, dcOptions: DCOptions): number {
-    if (dcOptions.proficiencyWithoutLevel) {
+function calculateCreatureXP(partyLevel: number, npcLevel: number): number {
+    if (ProficiencyWithoutLevel.enabled) {
         return getXPFromMap(partyLevel, npcLevel, xpVariantCreatureDifferences);
     } else {
         return getXPFromMap(partyLevel, npcLevel, xpCreatureDifferences);
@@ -70,9 +70,9 @@ interface HazardLevel {
     isComplex: boolean;
 }
 
-function getHazardXp(partyLevel: number, hazard: HazardLevel, dcOptions: DCOptions): number {
+function getHazardXp(partyLevel: number, hazard: HazardLevel): number {
     if (hazard.isComplex) {
-        return calculateCreatureXP(partyLevel, hazard.level, dcOptions);
+        return calculateCreatureXP(partyLevel, hazard.level);
     } else {
         return getXPFromMap(partyLevel, hazard.level, xpSimpleHazardDifferences);
     }
@@ -123,19 +123,11 @@ interface XP {
     partyLevel: number;
 }
 
-export function calculateXP(
-    partyLevel: number,
-    partySize: number,
-    npcLevels: number[],
-    hazards: HazardLevel[],
-    dcOptions: DCOptions
-): XP {
+export function calculateXP(partyLevel: number, partySize: number, npcLevels: number[], hazards: HazardLevel[]): XP {
     const creatureChallenge = npcLevels
-        .map((level) => calculateCreatureXP(partyLevel, level, dcOptions))
+        .map((level) => calculateCreatureXP(partyLevel, level))
         .reduce((a, b) => a + b, 0);
-    const hazardChallenge = hazards
-        .map((hazard) => getHazardXp(partyLevel, hazard, dcOptions))
-        .reduce((a, b) => a + b, 0);
+    const hazardChallenge = hazards.map((hazard) => getHazardXp(partyLevel, hazard)).reduce((a, b) => a + b, 0);
     const totalXP = creatureChallenge + hazardChallenge;
     const encounterBudgets = generateEncounterBudgets(partySize);
     const rating = calculateEncounterRating(totalXP, encounterBudgets);

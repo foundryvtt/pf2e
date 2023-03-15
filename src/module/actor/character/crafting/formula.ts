@@ -23,7 +23,6 @@ export class CraftingFormula implements CraftingFormulaData {
             dc ??
             calculateDC(item.level, {
                 rarity: item.rarity,
-                proficiencyWithoutLevel: game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel",
             });
 
         /** Use the passed batch size if provided or otherwise according to the following */

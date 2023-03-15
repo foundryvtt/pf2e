@@ -7,6 +7,7 @@ import { DAMAGE_TYPES } from "@system/damage/values";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { ErrorPF2e, setHasElement, signedInteger, sluggify, tupleHasValue } from "@util";
 import { ZeroToFour } from "@module/data";
+import { ProficiencyWithoutLevel } from "@system/proficiency-without-level";
 
 const PROFICIENCY_RANK_OPTION = [
     "proficiency:untrained",
@@ -310,19 +311,9 @@ interface CreateAbilityModifierParams {
 function createProficiencyModifier({ actor, rank, domains, addLevel }: CreateProficiencyModifierParams): ModifierPF2e {
     rank = Math.clamped(rank, 0, 4) as ZeroToFour;
     addLevel ??= rank > 0;
-    const pwolVariant = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
 
-    const baseBonuses: [number, number, number, number, number] = pwolVariant
-        ? [
-              game.settings.get("pf2e", "proficiencyUntrainedModifier"),
-              game.settings.get("pf2e", "proficiencyTrainedModifier"),
-              game.settings.get("pf2e", "proficiencyExpertModifier"),
-              game.settings.get("pf2e", "proficiencyMasterModifier"),
-              game.settings.get("pf2e", "proficiencyLegendaryModifier"),
-          ]
-        : [0, 2, 4, 6, 8];
-
-    const addedLevel = addLevel && !pwolVariant ? actor.level : 0;
+    const baseBonuses: [number, number, number, number, number] = ProficiencyWithoutLevel.getProficiencyBonuses();
+    const addedLevel = addLevel ? ProficiencyWithoutLevel.applyProficiencyLevelModifier(actor.level) : 0;
     const bonus = baseBonuses[rank] + addedLevel;
 
     return new ModifierPF2e({

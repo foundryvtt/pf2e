@@ -26,11 +26,9 @@ async function repair(options: RepairActionOptions) {
         options.difficultyClass ??
         (() => {
             if (item) {
-                const proficiencyWithoutLevel =
-                    game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
                 return {
                     label: game.i18n.format("PF2E.Actions.Repair.Labels.ItemLevelRepairDC", { level: item.level }),
-                    value: calculateDC(item.level, { proficiencyWithoutLevel }),
+                    value: calculateDC(item.level),
                     visibility: "all",
                 };
             }

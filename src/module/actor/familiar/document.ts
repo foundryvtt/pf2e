@@ -6,6 +6,7 @@ import { SaveType } from "@actor/types";
 import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values";
 import { extractDegreeOfSuccessAdjustments, extractModifiers, extractRollTwice } from "@module/rules/helpers";
 import { CheckPF2e, CheckRoll } from "@system/check";
+import { ProficiencyWithoutLevel } from "@system/proficiency-without-level";
 import { RollParameters } from "@system/rolls";
 import { Statistic } from "@system/statistic";
 import { FamiliarSource, FamiliarSystemData } from "./data";
@@ -111,8 +112,7 @@ class FamiliarPF2e extends CreaturePF2e {
         this.rollOptions.all[`self:level:${level}`] = true;
         details.alliance = master.system.details.alliance;
 
-        const masterLevel =
-            game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel" ? 0 : master.level;
+        const masterLevel = ProficiencyWithoutLevel.applyProficiencyLevelModifier(master.level);
 
         const masterAbilityModifier = this.masterAbilityModifier!;
 

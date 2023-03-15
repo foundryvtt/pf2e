@@ -5,6 +5,7 @@ import { SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
 import { ItemSystemData } from "@item/data/base";
 import { ChatMessagePF2e } from "@module/chat-message";
+import { ProficiencyWithoutLevel } from "@system/proficiency-without-level";
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers";
 import { UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility";
 import { htmlClosest, objectHasKey, sluggify } from "@util";
@@ -411,7 +412,9 @@ function getCheckDC({
             };
             return Number(saferEval(value));
         }
-        return Number(dc) || undefined;
+        const dcNr = Number(dc) || undefined;
+        if (dcNr !== undefined) return ProficiencyWithoutLevel.applyCheck(dcNr, type, actor, item);
+        return dcNr;
     })();
 
     if (base) {

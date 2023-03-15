@@ -185,11 +185,9 @@ export const InlineRollLinks = {
                             const dcValue =
                                 pf2Dc === "@self.level"
                                     ? ((): number => {
-                                          const pwlSetting = game.settings.get("pf2e", "proficiencyVariant");
-                                          const proficiencyWithoutLevel = pwlSetting === "ProficiencyWithoutLevel";
                                           const level = actor.level;
                                           const adjustment = Number(pf2Adjustment) || 0;
-                                          return calculateDC(level, { proficiencyWithoutLevel }) + adjustment;
+                                          return calculateDC(level) + adjustment;
                                       })()
                                     : Number(pf2Dc);
                             const dc = dcValue > 0 ? { label: pf2Label, value: dcValue } : null;

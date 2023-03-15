@@ -24,6 +24,7 @@ import {
     treatWounds,
 } from "@scripts/macros";
 import { remigrate } from "@scripts/system/remigrate";
+import { ProficiencyWithoutLevel } from "@system/proficiency-without-level";
 import { ActionMacros } from "@system/action-macros";
 import { CheckPF2e } from "@system/check";
 import { ConditionManager } from "@system/conditions";
@@ -66,7 +67,7 @@ export const SetGamePF2e = {
             rollActionMacro,
             rollItemMacro,
             system: { moduleArt: new ModuleArt(), remigrate, sluggify },
-            variantRules: { AutomaticBonusProgression },
+            variantRules: { AutomaticBonusProgression, ProficiencyWithoutLevel },
         };
 
         game.pf2e = mergeObject(game.pf2e ?? {}, initSafe);

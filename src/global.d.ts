@@ -37,6 +37,7 @@ import {
     stealthForSelected,
 } from "@scripts/macros";
 import { remigrate } from "@scripts/system/remigrate";
+import { ProficiencyWithoutLevel } from "@system/proficiency-without-level";
 import { CheckPF2e } from "@system/check";
 import { EffectTracker } from "@system/effect-tracker";
 import { ModuleArt } from "@system/module-art";
@@ -80,6 +81,7 @@ declare global {
             };
             variantRules: {
                 AutomaticBonusProgression: typeof AutomaticBonusProgression;
+                ProficiencyWithoutLevel: typeof ProficiencyWithoutLevel;
             };
             Coins: typeof CoinsPF2e;
             Dice: typeof DicePF2e;

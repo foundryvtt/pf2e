@@ -1,13 +1,12 @@
 import { calculateDC, earnIncome } from "@scripts/macros/earn-income/calculate";
 import { DegreeOfSuccess } from "@system/degree-of-success";
+import { ProficiencyWithoutLevel } from "@system/proficiency-without-level";
 
 const options = {
     useLoreAsExperiencedProfessional: false,
 };
 
-const dcOptions = {
-    proficiencyWithoutLevel: false,
-};
+const dcOptions = {};
 
 describe("earn income", () => {
     test("should earn a crit failure", () => {
@@ -187,8 +186,9 @@ describe("earn income", () => {
     });
 
     test("should earn a critical success with variant proficiency without level", () => {
+        ProficiencyWithoutLevel.enabled = true;
         const level = 20;
-        const dc = calculateDC(level, { proficiencyWithoutLevel: true });
+        const dc = calculateDC(level, dcOptions);
         expect(
             earnIncome({
                 level: 20,
@@ -209,5 +209,6 @@ describe("earn income", () => {
             roll: 20,
             dc: 20,
         });
+        ProficiencyWithoutLevel.enabled = false;
     });
 });

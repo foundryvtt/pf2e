@@ -71,9 +71,9 @@ interface IdentifyItemOptions extends DCOptions {
 
 export function identifyItem(
     item: PhysicalItemPF2e,
-    { proficiencyWithoutLevel = false, notMatchingTraditionModifier }: IdentifyItemOptions
+    { notMatchingTraditionModifier }: IdentifyItemOptions
 ): GenericIdentifyDCs | IdentifyMagicDCs | IdentifyAlchemyDCs {
-    const baseDC = calculateDC(item.level, { proficiencyWithoutLevel });
+    const baseDC = calculateDC(item.level);
     const rarity = getDcRarity(item);
     const dc = adjustDCByRarity(baseDC, rarity);
     if (item.isMagical) {

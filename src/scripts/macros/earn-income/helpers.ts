@@ -66,10 +66,6 @@ function postToChat(skillName: string, earnIncomeResult: EarnIncomeResult): Prom
     });
 }
 
-function isProficiencyWithoutLevel() {
-    return game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
-}
-
 function calculateIncome({ actor, skill, rollBrief, level, days, dc }: CalculateIncomeParams): void {
     const options = {
         useLoreAsExperiencedProfessional: isExperiencedProfessional(actor) && !!skill.lore,
@@ -90,7 +86,7 @@ interface CalculateIncomeParams {
 }
 
 function runEarnIncome({ actor, event, skill, level, days }: RunEarnIncomeParams): void {
-    const dc = calculateDC(level, { proficiencyWithoutLevel: isProficiencyWithoutLevel() });
+    const dc = calculateDC(level);
     const options = new Set(actor.getRollOptions(["all", "skill-check", skill.slug]));
     options.add("action:earn-income");
 

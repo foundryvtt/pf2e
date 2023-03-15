@@ -123,8 +123,7 @@ class NPCPF2e extends CreaturePF2e {
             details.alliance = this.hasPlayerOwner ? "party" : "opposition";
         }
 
-        const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
-        details.identification = identifyCreature(this, { proficiencyWithoutLevel });
+        details.identification = identifyCreature(this);
 
         // Ensure undead have negative healing
         attributes.hp.negativeHealing = systemData.traits.value.includes("undead");
@@ -139,7 +138,7 @@ class NPCPF2e extends CreaturePF2e {
         this.rollOptions.all[`self:level:${level.value}`] = true;
 
         attributes.classDC = ((): { value: number } => {
-            const levelBasedDC = calculateDC(level.base, { proficiencyWithoutLevel, rarity: this.rarity });
+            const levelBasedDC = calculateDC(level.base, { rarity: this.rarity });
             const adjusted = this.isElite ? levelBasedDC + 2 : this.isWeak ? levelBasedDC - 2 : levelBasedDC;
             return { value: adjusted };
         })();

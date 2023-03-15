@@ -1,4 +1,5 @@
 import { resetActors } from "@actor/helpers";
+import { ProficiencyWithoutLevel } from "@system/proficiency-without-level";
 
 const SETTINGS: Record<string, SettingRegistration> = {
     gradualBoostsVariant: {
@@ -120,6 +121,7 @@ export class VariantRulesSettings extends FormApplication {
             v.scope = "world";
             game.settings.register("pf2e", k, v);
         }
+        ProficiencyWithoutLevel.update();
     }
 
     /* -------------------------------------------- */
@@ -148,6 +150,7 @@ export class VariantRulesSettings extends FormApplication {
         options: OnSubmitFormOptions = {}
     ): Promise<Record<string, unknown>> {
         event.preventDefault();
+        ProficiencyWithoutLevel.update();
         return super._onSubmit(event, options);
     }
 

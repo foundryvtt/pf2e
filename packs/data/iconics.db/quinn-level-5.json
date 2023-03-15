@@ -2205,7 +2205,7 @@
                         ],
                         "selector": "skill-check",
                         "type": "proficiency",
-                        "value": "@actor.level"
+                        "value": "@actor.untrainedProficiencyLevelModifier"
                     }
                 ],
                 "slug": "keen-recollection",
@@ -2435,11 +2435,11 @@
                             "brackets": [
                                 {
                                     "end": 6,
-                                    "value": "floor(@actor.level / 2)"
+                                    "value": "@actor.untrainedProficiencyLevelModifierHalf"
                                 },
                                 {
                                     "start": 7,
-                                    "value": "@actor.level"
+                                    "value": "@actor.untrainedProficiencyLevelModifier"
                                 }
                             ]
                         }

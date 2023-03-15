@@ -1,4 +1,5 @@
 import { ProficiencyRank } from "@item/data";
+import { ProficiencyWithoutLevel } from "@system/proficiency-without-level";
 import { Rarity } from "./data";
 
 /**
@@ -70,14 +71,6 @@ const simpleDCs = new Map<ProficiencyRank, number>([
     ["legendary", 40],
 ]);
 
-const simpleDCsWithoutLevel = new Map<ProficiencyRank, number>([
-    ["untrained", 10],
-    ["trained", 15],
-    ["expert", 20],
-    ["master", 25],
-    ["legendary", 30],
-]);
-
 function rarityToDCAdjustment(rarity: Rarity = "common"): PositiveDCAdjustment {
     switch (rarity) {
         case "uncommon":
@@ -100,38 +93,26 @@ function adjustDCByRarity(dc: number, rarity: Rarity = "common") {
 }
 
 interface DCOptions {
-    proficiencyWithoutLevel?: boolean;
     rarity?: Rarity;
 }
 
 /**
  * Normal Level Based DCs
  * @param level
- * @param proficiencyWithoutLevel
  */
-function calculateDC(level: number, { proficiencyWithoutLevel = false, rarity = "common" }: DCOptions = {}): number {
+function calculateDC(level: number, { rarity = "common" }: DCOptions = {}): number {
     // assume level 0 if garbage comes in. We cast level to number because the backing data may actually have it
     // stored as a string, which we can't catch at compile time
-    const dc = dcByLevel.get(level) ?? 14;
-    if (proficiencyWithoutLevel) {
-        // -1 shouldn't be subtracted since it's just
-        // a creature level and not related to PC levels
-        return adjustDCByRarity(dc - Math.max(level, 0), rarity);
-    } else {
-        return adjustDCByRarity(dc, rarity);
-    }
+    const dc: number = ProficiencyWithoutLevel.applyDC(dcByLevel.get(level) ?? 14, level);
+    return adjustDCByRarity(dc, rarity);
 }
 
-function calculateSimpleDC(rank: ProficiencyRank, { proficiencyWithoutLevel = false }: DCOptions = {}): number {
-    if (proficiencyWithoutLevel) {
-        return simpleDCsWithoutLevel.get(rank) ?? 10;
-    } else {
-        return simpleDCs.get(rank) ?? 10;
-    }
+function calculateSimpleDC(rank: ProficiencyRank): number {
+    return ProficiencyWithoutLevel.applySimpleDC(simpleDCs.get(rank) ?? 10);
 }
 
-function calculateSpellDC(spellLevel: number, { proficiencyWithoutLevel = false }: DCOptions = {}): number {
-    return calculateDC(spellLevel * 2 - 1, { proficiencyWithoutLevel });
+function calculateSpellDC(spellLevel: number): number {
+    return calculateDC(spellLevel * 2 - 1, {});
 }
 
 /**
