@@ -103,14 +103,17 @@ class ClassPF2e extends ABCItemPF2e {
 
         // Add base key ability options
 
-        const { keyAbility } = this.system;
-        build.abilities.keyOptions = [...keyAbility.value];
-        build.abilities.boosts.class = keyAbility.selected;
+        build.abilities.keyOptions = [...this.system.keyAbility.value];
+        build.abilities.boosts.class = this.system.keyAbility.selected;
 
         attributes.classhp = this.hpPerLevel;
 
         attributes.perception.rank = Math.max(attributes.perception.rank, this.perception) as ZeroToFour;
         this.logAutoChange("system.attributes.perception.rank", this.perception);
+
+        // Override the actor's key ability score if it's set
+        details.keyability.value =
+            (build.abilities.manual ? details.keyability.value : build.abilities.boosts.class) ?? "str";
 
         // Set class DC
         type PartialClassDCs = Record<string, Pick<ClassDCData, "label" | "ability" | "rank" | "primary">>;
@@ -118,7 +121,7 @@ class ClassPF2e extends ABCItemPF2e {
         classDCs[slug] = {
             label: this.name,
             rank: this.classDC,
-            ability: this.system.keyAbility.selected ?? "str",
+            ability: details.keyability.value,
             primary: true,
         };
 
