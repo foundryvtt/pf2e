@@ -19,6 +19,7 @@
         "rules": [
             {
                 "choices": {
+                    "includeHandwraps": true,
                     "ownedItems": true,
                     "types": [
                         "weapon"
@@ -30,7 +31,12 @@
             },
             {
                 "definition": [
-                    "item:id:{item|flags.pf2e.rulesSelections.effectJyotisFeatherWeaponGreater}"
+                    {
+                        "or": [
+                            "item:category:{item|flags.pf2e.rulesSelections.effectJyotisFeatherWeaponGreater}",
+                            "item:id:{item|flags.pf2e.rulesSelections.effectJyotisFeatherWeaponGreater}"
+                        ]
+                    }
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",

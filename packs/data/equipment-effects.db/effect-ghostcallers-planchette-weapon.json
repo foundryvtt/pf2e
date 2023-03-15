@@ -19,6 +19,7 @@
         "rules": [
             {
                 "choices": {
+                    "includeHandwraps": true,
                     "ownedItems": true,
                     "types": [
                         "weapon"
@@ -30,7 +31,12 @@
             },
             {
                 "definition": [
-                    "item:id:{item|flags.pf2e.rulesSelections.effectGhostcallersPlanchetteWeapon}"
+                    {
+                        "or": [
+                            "item:category:{item|flags.pf2e.rulesSelections.effectGhostcallersPlanchetteWeapon}",
+                            "item:id:{item|flags.pf2e.rulesSelections.effectGhostcallersPlanchetteWeapon}"
+                        ]
+                    }
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",
