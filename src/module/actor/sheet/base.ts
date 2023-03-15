@@ -418,11 +418,44 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         // Sell treasure item
         $html.find(".item-sell-treasure").on("click", async (event) => {
-            const itemId = $(event.currentTarget).parents(".item").attr("data-item-id") ?? "";
+            const $li = $(event.currentTarget).closest("[data-item-id]");
+            const itemId = $li.attr("data-item-id") ?? "";
             const item = this.actor.inventory.get(itemId);
-            if (item?.isOfType("treasure") && !item.isCoinage) {
-                await item.delete();
-                await this.actor.inventory.addCoins(item.assetValue);
+            const sellItem = async (): Promise<void> => {
+                if (item?.isOfType("treasure") && !item.isCoinage) {
+                    $li.slideUp(200, () => this.render(false));
+                    await item.delete();
+                    await this.actor.inventory.addCoins(item.assetValue);
+                }
+            };
+
+            if (event.ctrlKey) {
+                sellItem();
+                return;
+            }
+
+            if (item) {
+                const content = await renderTemplate("systems/pf2e/templates/actors/sell-treasure-dialog.hbs", {
+                    name: item.name,
+                });
+                new Dialog({
+                    title: "Sell Confirmation",
+                    content,
+                    buttons: {
+                        Yes: {
+                            icon: '<i class="fa fa-check"></i>',
+                            label: "Yes",
+                            callback: sellItem,
+                        },
+                        cancel: {
+                            icon: '<i class="fas fa-times"></i>',
+                            label: "Cancel",
+                        },
+                    },
+                    default: "Yes",
+                }).render(true);
+            } else {
+                throw ErrorPF2e("Item not found");
             }
         });
 
