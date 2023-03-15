@@ -437,11 +437,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             };
 
             if (event.ctrlKey) return sellItem();
-
-            const translation = game.i18n.format(LocalizePF2e.translations.PF2E.SellItemQuestion, { item: item.name });
+            const content = document.createElement("p");
+            content.innerText = game.i18n.format(LocalizePF2e.translations.PF2E.SellItemQuestion, { item: item.name });
             new Dialog({
                 title: game.i18n.localize("PF2E.SellItemConfirmHeader"),
-                content: `<p class="note">${translation}</p>`,
+                content: content.outerHTML,
                 buttons: {
                     Yes: {
                         icon: fontAwesomeIcon("check").outerHTML,
