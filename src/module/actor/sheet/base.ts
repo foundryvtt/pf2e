@@ -418,38 +418,34 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         // Sell treasure item
         $html.find(".item-sell-treasure").on("click", async (event) => {
-            const $li = $(event.currentTarget).closest("[data-item-id]");
-            const itemId = $li.attr("data-item-id") ?? "";
-            const item = this.actor.inventory.get(itemId);
+            const itemId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
+            const item = this.actor.inventory.get(itemId, { strict: true });
             const sellItem = async (): Promise<void> => {
                 if (item?.isOfType("treasure") && !item.isCoinage) {
-                    $li.slideUp(200, () => this.render(false));
                     await item.delete();
                     await this.actor.inventory.addCoins(item.assetValue);
                 }
             };
 
             if (event.ctrlKey) return sellItem();
-            if (item) {
-                new Dialog({
-                    title: game.i18n.localize("PF2E.SellItemConfirmHeader"),
-                    content: `<p class="note">${LocalizePF2e.translations.PF2E.SellItemQuestion} '${item.name}'?</p>`,
-                    buttons: {
-                        Yes: {
-                            icon: fontAwesomeIcon("check").outerHTML,
-                            label: game.i18n.localize("PF2E.Dialogs.ButtonYes"),
-                            callback: sellItem,
-                        },
-                        cancel: {
-                            icon: fontAwesomeIcon("times").outerHTML,
-                            label: game.i18n.localize("PF2E.Dialogs.ButtonCancel"),
-                        },
+            
+            const translation = game.i18n.format(LocalizePF2e.translations.PF2E.SellItemQuestion, {item: item.name});
+            new Dialog({
+                title: game.i18n.localize("PF2E.SellItemConfirmHeader"),
+                content: `<p class="note">${translation}</p>`,
+                buttons: {
+                    Yes: {
+                        icon: fontAwesomeIcon("check").outerHTML,
+                        label: game.i18n.localize("PF2E.Dialogs.ButtonYes"),
+                        callback: sellItem,
                     },
-                    default: "Yes",
-                }).render(true);
-            } else {
-                throw ErrorPF2e("Item not found");
-            }
+                    cancel: {
+                        icon: fontAwesomeIcon("times").outerHTML,
+                        label: game.i18n.localize("PF2E.Dialogs.ButtonCancel"),
+                    },
+                },
+                default: "Yes",
+            }).render(true);
         });
 
         // Update an embedded item
