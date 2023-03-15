@@ -23,7 +23,7 @@ import { PredicatePF2e } from "@system/predication";
 import { RollParameters } from "@system/rolls";
 import { Statistic } from "@system/statistic";
 import { objectHasKey, sluggify } from "@util";
-import { NPCData, NPCFlags, NPCSource, NPCSystemData } from "./data";
+import { NPCFlags, NPCSource, NPCSystemData } from "./data";
 import { NPCSheetPF2e } from "./sheet";
 import { VariantCloneParams } from "./types";
 
@@ -743,10 +743,9 @@ class NPCPF2e extends CreaturePF2e {
 }
 
 interface NPCPF2e extends CreaturePF2e {
-    readonly data: NPCData;
-    readonly system: NPCSystemData;
-
     flags: NPCFlags;
+    readonly _source: NPCSource;
+    system: NPCSystemData;
 
     _sheet: NPCSheetPF2e<this> | null;
 

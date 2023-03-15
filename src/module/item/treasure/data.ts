@@ -1,16 +1,6 @@
-import {
-    BasePhysicalItemData,
-    BasePhysicalItemSource,
-    PhysicalSystemData,
-    PhysicalSystemSource,
-} from "@item/physical/data";
-import { TreasurePF2e } from ".";
+import { BasePhysicalItemSource, PhysicalSystemData, PhysicalSystemSource } from "@item/physical/data";
 
 type TreasureSource = BasePhysicalItemSource<"treasure", TreasureSystemSource>;
-
-interface TreasureData
-    extends Omit<TreasureSource, "flags" | "system" | "type">,
-        BasePhysicalItemData<TreasurePF2e, "treasure", TreasureSource> {}
 
 type TreasureSystemSource = PhysicalSystemSource;
 type TreasureSystemData = PhysicalSystemData & {
@@ -19,4 +9,4 @@ type TreasureSystemData = PhysicalSystemData & {
     };
 };
 
-export { TreasureData, TreasureSource, TreasureSystemData, TreasureSystemSource };
+export { TreasureSource, TreasureSystemData, TreasureSystemSource };

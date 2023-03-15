@@ -6,7 +6,7 @@ import { ValueAndMax } from "@module/data";
 import { RuleElementPF2e } from "@module/rules";
 import { DamageRoll } from "@system/damage/roll";
 import { ErrorPF2e } from "@util";
-import { ConsumableData, ConsumableCategory, ConsumableSystemData } from "./data";
+import { ConsumableCategory, ConsumableSystemData, ConsumableSource } from "./data";
 import { OtherConsumableTag } from "./types";
 
 class ConsumablePF2e extends PhysicalItemPF2e {
@@ -249,7 +249,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
 }
 
 interface ConsumablePF2e extends PhysicalItemPF2e {
-    readonly data: ConsumableData;
+    readonly _source: ConsumableSource;
     system: ConsumableSystemData;
 }
 

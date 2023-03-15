@@ -172,7 +172,6 @@ declare global {
     }
 
     interface Actor<TParent extends TokenDocument = TokenDocument> {
-        readonly data: foundry.data.ActorData<Actor>;
         readonly effects: foundry.abstract.EmbeddedCollection<ActiveEffect>;
         readonly items: foundry.abstract.EmbeddedCollection<Item>;
         readonly parent: TParent | null;

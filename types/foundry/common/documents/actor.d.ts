@@ -52,10 +52,11 @@ declare module foundry {
         }
 
         interface BaseActor {
-            readonly data: data.ActorData<BaseActor>;
-            readonly flags: ActorFlags;
+            flags: ActorFlags;
+            readonly _source: data.ActorSource;
             readonly parent: BaseToken | null;
-            readonly system: object;
+            system: object;
+
             get documentName(): (typeof BaseActor)["metadata"]["name"];
         }
 

@@ -42,7 +42,7 @@ declare module foundry {
 
         interface BaseItem {
             flags: ItemFlags;
-            readonly data: data.ItemData<BaseItem>;
+            readonly _source: data.ItemSource;
             readonly parent: BaseActor | null;
             system: object;
 

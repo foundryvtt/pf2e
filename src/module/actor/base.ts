@@ -52,7 +52,7 @@ import {
 import type { CreaturePF2e } from "./creature";
 import { VisionLevel, VisionLevels } from "./creature/data";
 import { GetReachParameters, ModeOfBeing } from "./creature/types";
-import { ActorDataPF2e, ActorSourcePF2e, ActorType } from "./data";
+import { ActorSourcePF2e, ActorType } from "./data";
 import {
     ActorFlagsPF2e,
     ActorSystemData,
@@ -1624,17 +1624,13 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 }
 
 interface ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
-    readonly data: ActorDataPF2e;
-
-    readonly items: foundry.abstract.EmbeddedCollection<ItemPF2e>;
-
+    flags: ActorFlagsPF2e;
+    readonly _source: ActorSourcePF2e;
     readonly effects: foundry.abstract.EmbeddedCollection<ActiveEffectPF2e>;
-
-    readonly system: ActorSystemData;
+    readonly items: foundry.abstract.EmbeddedCollection<ItemPF2e>;
+    system: ActorSystemData;
 
     prototypeToken: PrototypeTokenPF2e;
-
-    flags: ActorFlagsPF2e;
 
     _sheet: ActorSheetPF2e<this> | ActorSheet<this, ItemPF2e> | null;
 

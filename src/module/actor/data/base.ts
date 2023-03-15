@@ -1,4 +1,3 @@
-import type { ActorPF2e } from "@actor/base";
 import { DexterityModifierCapData } from "@actor/character/types";
 import { SkillAbbreviation } from "@actor/creature/data";
 import { ActorSizePF2e } from "@actor/data/size";
@@ -20,17 +19,6 @@ interface BaseActorSourcePF2e<TType extends ActorType, TSystemSource extends Act
     extends foundry.data.ActorSource<TType, TSystemSource, ItemSourcePF2e> {
     flags: DeepPartial<ActorFlagsPF2e>;
     prototypeToken: PrototypeTokenSourcePF2e;
-}
-
-interface BaseActorDataPF2e<
-    TActor extends ActorPF2e,
-    TType extends ActorType,
-    TSource extends BaseActorSourcePF2e<TType>
-> extends Omit<BaseActorSourcePF2e<TType, ActorSystemSource>, "prototypeToken" | "system">,
-        foundry.data.ActorData<TActor> {
-    readonly _source: TSource;
-    readonly type: TType;
-    token: PrototypeTokenPF2e;
 }
 
 interface ActorFlagsPF2e extends foundry.documents.ActorFlags {
@@ -321,7 +309,6 @@ export {
     ActorTraitsData,
     ActorTraitsSource,
     ArmorClassData,
-    BaseActorDataPF2e,
     BaseActorSourcePF2e,
     BaseHitPointsSource,
     DamageRollFunction,

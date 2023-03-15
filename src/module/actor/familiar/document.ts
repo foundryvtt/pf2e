@@ -8,7 +8,7 @@ import { extractDegreeOfSuccessAdjustments, extractModifiers, extractRollTwice }
 import { CheckPF2e, CheckRoll } from "@system/check";
 import { RollParameters } from "@system/rolls";
 import { Statistic } from "@system/statistic";
-import { FamiliarData, FamiliarSystemData } from "./data";
+import { FamiliarSource, FamiliarSystemData } from "./data";
 
 class FamiliarPF2e extends CreaturePF2e {
     /** The familiar's master, if selected */
@@ -359,8 +359,8 @@ class FamiliarPF2e extends CreaturePF2e {
 }
 
 interface FamiliarPF2e extends CreaturePF2e {
-    readonly data: FamiliarData;
-    readonly system: FamiliarSystemData;
+    readonly _source: FamiliarSource;
+    system: FamiliarSystemData;
 }
 
 export { FamiliarPF2e };

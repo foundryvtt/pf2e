@@ -1,10 +1,7 @@
-import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemSource } from "@item/data/base";
+import { BaseItemSourcePF2e, ItemSystemSource } from "@item/data/base";
 import { ZeroToFour } from "@module/data";
-import type { LorePF2e } from ".";
 
 type LoreSource = BaseItemSourcePF2e<"lore", LoreSystemSource>;
-
-type LoreData = Omit<LoreSource, "system"> & BaseItemDataPF2e<LorePF2e, "lore", LoreSource>;
 
 interface LoreSystemSource extends ItemSystemSource {
     mod: {
@@ -20,4 +17,4 @@ interface LoreSystemSource extends ItemSystemSource {
 
 type LoreSystemData = LoreSystemSource;
 
-export { LoreData, LoreSource, LoreSystemData };
+export { LoreSource, LoreSystemData };

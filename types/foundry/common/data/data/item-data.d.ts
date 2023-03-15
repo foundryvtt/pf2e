@@ -29,11 +29,5 @@ declare module foundry {
             ownership: Record<string, DocumentOwnershipLevel>;
             flags: documents.ItemFlags;
         }
-
-        interface ItemData<TDocument extends documents.BaseItem>
-            extends Omit<ItemSource, "effects">,
-                abstract.DocumentData<TDocument> {
-            readonly _source: ItemSource;
-        }
     }
 }

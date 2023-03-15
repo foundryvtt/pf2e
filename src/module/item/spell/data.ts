@@ -1,15 +1,10 @@
 import { SaveType } from "@actor/types";
-import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "@item/data/base";
+import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "@item/data/base";
 import { OneToTen, TraitsWithRarity, ValueAndMax } from "@module/data";
 import { MaterialDamageEffect, DamageCategoryUnique, DamageType } from "@system/damage";
-import type { SpellPF2e } from "./document";
 import { EffectAreaSize, EffectAreaType, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
 
 type SpellSource = BaseItemSourcePF2e<"spell", SpellSystemSource>;
-
-interface SpellData
-    extends Omit<SpellSource, "flags" | "system" | "type">,
-        BaseItemDataPF2e<SpellPF2e, "spell", SpellSource> {}
 
 interface SpellSystemSource extends ItemSystemSource {
     traits: SpellTraits;
@@ -129,12 +124,4 @@ interface SpellOverlayDamage {
 type SpellOverlay = SpellOverlayOverride | SpellOverlayDamage;
 type SpellOverlayType = SpellOverlay["overlayType"];
 
-export {
-    SpellData,
-    SpellSource,
-    SpellSystemData,
-    SpellSystemSource,
-    SpellOverlay,
-    SpellOverlayOverride,
-    SpellOverlayType,
-};
+export { SpellSource, SpellSystemData, SpellSystemSource, SpellOverlay, SpellOverlayOverride, SpellOverlayType };

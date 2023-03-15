@@ -6,7 +6,7 @@ import { NPCPF2e } from "@actor/index";
 import { NPCSkillsEditor } from "@actor/npc/skills-editor";
 import { AbilityString } from "@actor/types";
 import { ABILITY_ABBREVIATIONS, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/values";
-import { EffectData } from "@item/data";
+import { ActionItemPF2e, EffectPF2e } from "@item";
 import { Size } from "@module/data";
 import { createTagifyTraits } from "@module/sheet/helpers";
 import { DicePF2e } from "@scripts/dice";
@@ -79,7 +79,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
         this.#prepareSaves(sheetData.data);
         await this.#prepareActions(sheetData);
         sheetData.effectItems = sheetData.items.filter(
-            (data): data is NPCSheetItemData<EffectData> => data.type === "effect"
+            (data): data is NPCSheetItemData<EffectPF2e> => data.type === "effect"
         );
         sheetData.spellcastingEntries = await this.prepareSpellcasting();
     }
@@ -381,7 +381,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
         };
 
         for (const item of this.actor.itemTypes.action) {
-            const itemData = item.toObject(false);
+            const itemData = item.toObject(false) as unknown as ActionItemPF2e;
             const chatData = await item.getChatData();
             const traits = chatData.traits ?? [];
 
@@ -399,7 +399,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
                     chatData,
                     traits,
                     hasAura,
-                });
+                } as unknown as NPCSheetItemData<ActionItemPF2e>);
             }
         }
 

@@ -1,9 +1,9 @@
 import { SkillAbbreviation } from "@actor/creature/data";
 import { createProficiencyModifier, MODIFIER_TYPE } from "@actor/modifiers";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
-import { ActionItemPF2e, ItemPF2e } from "@item";
+import { ActionItemPF2e, ItemPF2e, LorePF2e } from "@item";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
-import { ItemSourcePF2e, LoreData } from "@item/data";
+import { ItemSourcePF2e } from "@item/data";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon";
 import { WEAPON_CATEGORIES } from "@item/weapon/values";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
@@ -272,7 +272,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         };
 
         // Skills
-        const lores: LoreData[] = [];
+        const lores: LorePF2e[] = [];
 
         for (const itemData of sheetData.items) {
             const item = this.actor.items.get(itemData._id, { strict: true });

@@ -2,17 +2,9 @@ import { ActionTrait } from "@item/action/data";
 import { ArmorTrait } from "@item/armor/types";
 import { ConsumableTrait } from "@item/consumable/data";
 import { EquipmentTrait } from "@item/equipment/data";
-import type { PhysicalItemPF2e } from "@item/physical";
 import { WeaponTrait } from "@item/weapon/types";
 import { Size, TraitsWithRarity, ValuesList } from "@module/data";
-import {
-    ActionCost,
-    BaseItemDataPF2e,
-    BaseItemSourcePF2e,
-    Frequency,
-    ItemSystemData,
-    ItemSystemSource,
-} from "../data/base";
+import { ActionCost, BaseItemSourcePF2e, Frequency, ItemSystemData, ItemSystemSource } from "../data/base";
 import type { ITEM_CARRY_TYPES } from "../data/values";
 import { CoinsPF2e } from "./helpers";
 import { PhysicalItemType, PreciousMaterialGrade, PreciousMaterialType } from "./types";
@@ -24,13 +16,6 @@ type BasePhysicalItemSource<
     TType extends PhysicalItemType,
     TSystemSource extends PhysicalSystemSource = PhysicalSystemSource
 > = BaseItemSourcePF2e<TType, TSystemSource>;
-
-interface BasePhysicalItemData<
-    TItem extends PhysicalItemPF2e,
-    TType extends PhysicalItemType,
-    TSource extends BasePhysicalItemSource<TType>
-> extends Omit<BasePhysicalItemSource<TType>, "flags" | "system" | "type">,
-        BaseItemDataPF2e<TItem, TType, TSource> {}
 
 interface PhysicalSystemSource extends ItemSystemSource {
     level: { value: number };
@@ -174,7 +159,6 @@ interface Price extends PartialPrice {
 }
 
 export {
-    BasePhysicalItemData,
     BasePhysicalItemSource,
     Coins,
     EquippedData,

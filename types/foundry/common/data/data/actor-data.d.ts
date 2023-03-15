@@ -36,20 +36,7 @@ declare module foundry {
             folder: string | null;
             sort: number;
             ownership: Record<string, DocumentOwnershipLevel>;
-            flags: ActorFlags;
-        }
-
-        interface ActorData<TDocument extends documents.BaseActor>
-            extends Omit<ActorSource, "effects" | "flags" | "items" | "token">,
-                abstract.DocumentData<TDocument> {
-            readonly _source: ActorSource;
-        }
-
-        interface ActorFlags {
-            core?: {
-                sourceId?: ActorUUID;
-            };
-            [key: string]: Record<string, unknown> | undefined;
+            flags: documents.ActorFlags;
         }
     }
 }

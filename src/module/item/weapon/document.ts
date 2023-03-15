@@ -22,7 +22,7 @@ import { UserPF2e } from "@module/user";
 import { DamageCategorization } from "@system/damage/helpers";
 import { LocalizePF2e } from "@system/localize";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify } from "@util";
-import { WeaponDamage, WeaponData, WeaponFlags, WeaponMaterialData, WeaponSource, WeaponSystemData } from "./data";
+import { WeaponDamage, WeaponFlags, WeaponMaterialData, WeaponSource, WeaponSystemData } from "./data";
 import {
     BaseWeaponType,
     OtherWeaponTag,
@@ -788,7 +788,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
 interface WeaponPF2e extends PhysicalItemPF2e {
     flags: WeaponFlags;
-    readonly data: WeaponData;
+    readonly _source: WeaponSource;
     system: WeaponSystemData;
 
     get traits(): Set<WeaponTrait>;

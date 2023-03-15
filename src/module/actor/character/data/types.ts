@@ -2,7 +2,6 @@ import { CraftingEntryData } from "@actor/character/crafting/entry";
 import { CraftingFormulaData } from "@actor/character/crafting/formula";
 import {
     AbilityData,
-    BaseCreatureData,
     BaseCreatureSource,
     CreatureAttributes,
     CreatureDetails,
@@ -37,16 +36,11 @@ import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types"
 import { ZeroToFour } from "@module/data";
 import { PredicatePF2e } from "@system/predication";
 import { StatisticTraceData } from "@system/statistic";
-import type { CharacterPF2e } from "..";
 import { CharacterSheetTabVisibility } from "./sheet";
 
 interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemData> {
     flags: DeepPartial<CharacterFlags>;
 }
-
-interface CharacterData
-    extends Omit<CharacterSource, "flags" | "prototypeToken" | "system" | "type">,
-        BaseCreatureData<CharacterPF2e, "character", CharacterSource> {}
 
 type CharacterFlags = ActorFlagsPF2e & {
     pf2e: {
@@ -456,7 +450,6 @@ export {
     CategoryProficiencies,
     CharacterArmorClass,
     CharacterAttributes,
-    CharacterData,
     CharacterDetails,
     CharacterFlags,
     CharacterProficiency,

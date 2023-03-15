@@ -1,17 +1,12 @@
 import { SaveType } from "@actor/types";
 import { EffectAuraData, EffectContextData, EffectTraits, TimeUnit } from "@item/abstract-effect";
 import { ConditionSlug } from "@item/condition";
-import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemFlagsPF2e, ItemSystemData, ItemSystemSource } from "@item/data/base";
+import { BaseItemSourcePF2e, ItemFlagsPF2e, ItemSystemData, ItemSystemSource } from "@item/data/base";
 import { DamageCategoryUnique, DamageType } from "@system/damage";
-import { AfflictionPF2e } from "./document";
 
 type AfflictionSource = BaseItemSourcePF2e<"affliction", AfflictionSystemSource> & {
     flags: DeepPartial<AfflictionFlags>;
 };
-
-interface AfflictionData
-    extends Omit<AfflictionSource, "flags" | "system" | "type">,
-        BaseItemDataPF2e<AfflictionPF2e, "affliction", AfflictionSource> {}
 
 type AfflictionFlags = ItemFlagsPF2e & {
     pf2e: {
@@ -67,7 +62,6 @@ interface AfflictionConditionData {
 export {
     AfflictionConditionData,
     AfflictionDamage,
-    AfflictionData,
     AfflictionFlags,
     AfflictionOnset,
     AfflictionSource,

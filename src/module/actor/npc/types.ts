@@ -1,7 +1,7 @@
 import { CreatureSheetData } from "@actor/creature/types";
 import { HitPointsData, PerceptionData } from "@actor/data/base";
 import { SaveType } from "@actor/types";
-import { ActionItemData, EffectData, ItemDataPF2e } from "@item/data";
+import { ActionItemPF2e, EffectPF2e, ItemPF2e } from "@item";
 import { SpellcastingSheetData } from "@item/spellcasting-entry";
 import { ZeroToFour } from "@module/data";
 import { IdentifyCreatureData } from "@module/recall-knowledge";
@@ -11,7 +11,7 @@ import { NPCArmorClass, NPCAttributes, NPCSaveData, NPCSkillData, NPCSystemData,
 
 interface ActionsDetails {
     label: string;
-    actions: NPCSheetItemData<RawObject<ActionItemData>>[];
+    actions: NPCSheetItemData<ActionItemPF2e>[];
 }
 
 interface NPCActionSheetData {
@@ -78,7 +78,7 @@ interface NPCSheetData<T extends NPCPF2e = NPCPF2e> extends CreatureSheetData<T>
     actions: NPCActionSheetData;
     data: NPCSystemSheetData;
     items: NPCSheetItemData[];
-    effectItems: EffectData[];
+    effectItems: EffectPF2e[];
     spellcastingEntries: SpellcastingSheetData[];
     orphanedSpells: boolean;
     identifyCreatureData: IdentifyCreatureData;
@@ -107,7 +107,7 @@ interface NPCSheetData<T extends NPCPF2e = NPCPF2e> extends CreatureSheetData<T>
     languageDetails?: string;
 }
 
-type NPCSheetItemData<T extends ItemDataPF2e | RawObject<ItemDataPF2e> = ItemDataPF2e> = T & {
+type NPCSheetItemData<T extends ItemPF2e = ItemPF2e> = T & {
     glyph: string;
     imageUrl: string;
     traits: {
