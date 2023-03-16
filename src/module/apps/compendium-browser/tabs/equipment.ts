@@ -118,7 +118,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         this.indexData = inventoryItems;
 
         // Filters
-        this.filterData.checkboxes.armorTypes.options = this.generateCheckboxOptions(CONFIG.PF2E.armorTypes);
+        this.filterData.checkboxes.armorTypes.options = this.generateCheckboxOptions(CONFIG.PF2E.armorCategories);
         mergeObject(
             this.filterData.checkboxes.armorTypes.options,
             this.generateCheckboxOptions(CONFIG.PF2E.armorGroups)

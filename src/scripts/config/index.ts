@@ -773,17 +773,6 @@ export const PF2ECONFIG = {
         thi: "PF2E.SkillThi",
     },
 
-    martialSkills: {
-        unarmored: "PF2E.MartialUnarmored",
-        light: "PF2E.MartialLight",
-        medium: "PF2E.MartialMedium",
-        heavy: "PF2E.MartialHeavy",
-        simple: "PF2E.MartialSimple",
-        martial: "PF2E.MartialMartial",
-        advanced: "PF2E.MartialAdvanced",
-        unarmed: "PF2E.MartialUnarmed",
-    },
-
     saves: {
         fortitude: "PF2E.SavesFortitude",
         reflex: "PF2E.SavesReflex",
@@ -1136,12 +1125,14 @@ export const PF2ECONFIG = {
 
     weaponReload,
 
-    armorTypes: {
+    armorCategories: {
         unarmored: "PF2E.ArmorTypeUnarmored",
         light: "PF2E.ArmorTypeLight",
         medium: "PF2E.ArmorTypeMedium",
         heavy: "PF2E.ArmorTypeHeavy",
         shield: "PF2E.ArmorTypeShield",
+        "light-barding": "PF2E.Item.Armor.Category.light-barding",
+        "heavy-barding": "PF2E.Item.Armor.Category.heavy-barding",
     },
 
     armorGroups: {

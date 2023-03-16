@@ -68,11 +68,17 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Martial Proficiencies
         const proficiencies = Object.entries(sheetData.data.martial);
         for (const [key, proficiency] of proficiencies) {
+            // Let's not clutter the list
+            if (["light-barding", "heavy-barding"].includes(key) && proficiency.rank === 0) {
+                delete sheetData.data.martial[key];
+                continue;
+            }
+
             const groupMatch = /^weapon-group-([-\w]+)$/.exec(key);
             const baseWeaponMatch = /^weapon-base-([-\w]+)$/.exec(key);
             const label = ((): string => {
-                if (objectHasKey(CONFIG.PF2E.martialSkills, key)) {
-                    return CONFIG.PF2E.martialSkills[key];
+                if (objectHasKey(CONFIG.PF2E.armorCategories, key)) {
+                    return CONFIG.PF2E.armorCategories[key];
                 }
                 if (objectHasKey(CONFIG.PF2E.weaponCategories, key)) {
                     return CONFIG.PF2E.weaponCategories[key];

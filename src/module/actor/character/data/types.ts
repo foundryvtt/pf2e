@@ -175,23 +175,23 @@ interface CharacterSaveData extends SaveData {
 type CharacterSaves = Record<SaveType, CharacterSaveData>;
 
 interface CharacterProficiency {
+    label?: string;
     /** The actual modifier for this martial type. */
     value: number;
     /** Describes how the value was computed. */
     breakdown: string;
     /** The proficiency rank (0 untrained - 4 legendary). */
     rank: ZeroToFour;
-    label?: string;
+    /** Can this proficiency be edited or deleted? */
+    immutable?: boolean;
     /** A proficiency in a non-armor/weapon category and not added by a feat or feature */
-    custom?: true;
+    custom?: boolean;
 }
 
 /** A proficiency with a rank that depends on another proficiency */
 interface MartialProficiency extends Omit<CharacterProficiency, "custom"> {
     /** A predicate to match against weapons and unarmed attacks */
     definition: PredicatePF2e;
-    /** Can this proficiency be edited or deleted? */
-    immutable?: boolean;
     /** The category to which this proficiency is linked */
     sameAs?: WeaponCategory;
     /** The maximum rank this proficiency can reach */

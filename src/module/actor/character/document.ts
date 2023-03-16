@@ -404,6 +404,12 @@ class CharacterPF2e extends CreaturePF2e {
         for (const category of [...ARMOR_CATEGORIES, ...WEAPON_CATEGORIES]) {
             const proficiency: Partial<CharacterProficiency> = martial[category] ?? {};
             proficiency.rank = martial[category]?.rank ?? 0;
+
+            // These will only be trained under unusual circumstances, so make sure they never get stored
+            if (["light-barding", "heavy-barding"].includes(category)) {
+                proficiency.immutable = true;
+            }
+
             martial[category] = proficiency;
         }
 
@@ -828,6 +834,12 @@ class CharacterPF2e extends CreaturePF2e {
 
     private prepareArmorClass(): CharacterArmorClass {
         const { synthetics, wornArmor } = this;
+
+        // Upgrade light barding proficiency to trained if this PC is somehow an animal
+        this.system.martial["light-barding"].rank = this.traits.has("animal")
+            ? (Math.max(this.system.martial["light-barding"].rank, 1) as ZeroToFour)
+            : 0;
+
         const modifiers = [this.getShieldBonus() ?? []].flat();
         const dexCapSources: DexterityModifierCapData[] = [
             { value: Infinity, source: "" },
