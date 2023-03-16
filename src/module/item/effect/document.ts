@@ -200,29 +200,12 @@ class EffectPF2e extends AbstractEffectPF2e {
         return super._preUpdate(changed, options, user);
     }
 
-    /** Show floaty text when this effect is created on an actor */
-    protected override _onCreate(
-        data: this["_source"],
-        options: DocumentModificationContext<this>,
-        userId: string
-    ): void {
-        super._onCreate(data, options, userId);
-
-        if (!this.flags.pf2e.aura || game.combat?.started) {
-            this.actor?.getActiveTokens().shift()?.showFloatyText({ create: this });
-        }
-    }
-
-    /** Show floaty text when this effect is deleted from an actor */
+    /** Show floaty text when this effect is deleted from an actor (if unlinked) */
     protected override _onDelete(options: DocumentModificationContext, userId: string): void {
         if (this.actor) {
             game.pf2e.effectTracker.unregister(this as Embedded<EffectPF2e>);
         }
         super._onDelete(options, userId);
-
-        if (!this.flags.pf2e.aura || game.combat?.started) {
-            this.actor?.getActiveTokens().shift()?.showFloatyText({ delete: this });
-        }
     }
 }
 

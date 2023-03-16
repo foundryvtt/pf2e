@@ -424,4 +424,4 @@ type ShowFloatyEffectParams =
     | { update: NumericFloatyEffect }
     | { delete: NumericFloatyEffect };
 
-export { TokenPF2e };
+export { ShowFloatyEffectParams, TokenPF2e };

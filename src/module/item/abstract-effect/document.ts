@@ -4,6 +4,7 @@ import { TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e, sluggify } from "@util";
 import { EffectBadge } from "./data";
 import { UUIDUtils } from "@util/uuid-utils";
+import { ShowFloatyEffectParams } from "@module/canvas/token/object";
 
 /** Base effect type for all PF2e effects including conditions and afflictions */
 export abstract class AbstractEffectPF2e extends ItemPF2e {
@@ -82,5 +83,45 @@ export abstract class AbstractEffectPF2e extends ItemPF2e {
                 actor.rollOptions.all[`self:${this.type}:${this.rollOptionSlug}:${badge.value}`] = true;
             }
         }
+    }
+
+    protected override _onCreate(
+        data: this["_source"],
+        options: DocumentModificationContext<this>,
+        userId: string
+    ): void {
+        super._onCreate(data, options, userId);
+        this.handleChange({ create: this });
+    }
+
+    protected override _onDelete(options: DocumentModificationContext, userId: string): void {
+        super._onDelete(options, userId);
+        this.handleChange({ delete: { name: this._source.name } });
+    }
+
+    /** Attempts to show floaty text and update condition automation, depending on settings */
+    private handleChange(change: ShowFloatyEffectParams) {
+        const skipFloatyText =
+            this.isOfType("condition") &&
+            !game.user.isGM &&
+            !this.actor?.hasPlayerOwner &&
+            game.settings.get("pf2e", "metagame_secretCondition");
+        const auraNotInCombat = this.flags.pf2e.aura && !game.combat?.started;
+        const identified = game.user.isGM || this.isIdentified;
+
+        if (skipFloatyText || !identified || auraNotInCombat) return;
+
+        /* Show floaty text only for unlinked effects */
+        if (!this.isLocked) {
+            this.actor?.getActiveTokens().shift()?.showFloatyText(change);
+        }
+
+        if (this.isOfType("condition")) {
+            for (const token of this.actor?.getActiveTokens() ?? []) {
+                token._onApplyStatusEffect(this.rollOptionSlug, false);
+            }
+        }
+
+        game.pf2e.StatusEffects.refresh();
     }
 }

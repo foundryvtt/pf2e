@@ -220,29 +220,6 @@ class ConditionPF2e extends AbstractEffectPF2e {
         return super._preUpdate(changed, options, user);
     }
 
-    protected override _onCreate(
-        data: this["_source"],
-        options: DocumentModificationContext<this>,
-        userId: string
-    ): void {
-        super._onCreate(data, options, userId);
-
-        if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame_secretCondition")) {
-            return;
-        }
-
-        /* Suppress floaty text on "linked" conditions */
-        if (this.system.references.parent?.type !== "condition") {
-            this.actor?.getActiveTokens().shift()?.showFloatyText({ create: this });
-        }
-
-        for (const token of this.actor?.getActiveTokens() ?? []) {
-            token._onApplyStatusEffect(this.rollOptionSlug, true);
-        }
-
-        game.pf2e.StatusEffects.refresh();
-    }
-
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
         options: ConditionModificationContext<this>,
@@ -256,30 +233,11 @@ class ConditionPF2e extends AbstractEffectPF2e {
 
         const [priorValue, newValue] = [options.conditionValue, this.value];
         const valueChanged = !!priorValue && !!newValue && priorValue !== newValue;
-        // Suppress floaty text on "linked" conditions
-        if (valueChanged && this.system.references.parent?.type !== "condition") {
+
+        /* Show floaty text only for unlinked conditions */
+        if (valueChanged && !this.system.references.parent?.id) {
             const change = newValue > priorValue ? { create: this } : { delete: this };
             this.actor?.getActiveTokens().shift()?.showFloatyText(change);
-        }
-
-        game.pf2e.StatusEffects.refresh();
-    }
-
-    protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void {
-        super._onDelete(options, userId);
-
-        if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame_secretCondition")) {
-            return;
-        }
-
-        /* Suppress floaty text on "linked" conditions */
-        if (this.system.references.parent?.type !== "condition") {
-            const change = { delete: { name: this._source.name } };
-            this.actor?.getActiveTokens().shift()?.showFloatyText(change);
-        }
-
-        for (const token of this.actor?.getActiveTokens() ?? []) {
-            token._onApplyStatusEffect(this.rollOptionSlug, false);
         }
 
         game.pf2e.StatusEffects.refresh();
