@@ -478,7 +478,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const original = game.system.documentTypes.Actor;
         try {
             game.system.documentTypes.Actor = original.filter(
-                (actorType: string) => actorType !== "party" || BUILD_MODE !== "production"
+                (actorType: string) => !["army", "party"]?.includes(actorType) || BUILD_MODE !== "production"
             );
 
             if (options.types) {

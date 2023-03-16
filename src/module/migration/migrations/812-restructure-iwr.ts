@@ -13,7 +13,7 @@ export class Migration812RestructureIWR extends MigrationBase {
 
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         const traits: MaybeWithOldIWRData | undefined = source.system.traits;
-        if (!traits || source.type === "familiar") return;
+        if (!traits || source.type === "familiar" || source.type === "army") return;
         const { attributes } = source.system;
 
         if ("ci" in traits) {

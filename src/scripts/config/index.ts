@@ -1,4 +1,4 @@
-import { CharacterPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, NPCPF2e, PartyPF2e, VehiclePF2e } from "@actor";
+import { CharacterPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, NPCPF2e, PartyPF2e, VehiclePF2e, ArmyPF2e } from "@actor";
 import { SenseAcuity, SenseType } from "@actor/creature/sense.ts";
 import { Alignment } from "@actor/creature/types.ts";
 import { ActorType } from "@actor/data/index.ts";
@@ -77,6 +77,7 @@ const actorTypes: Record<ActorType, string> = {
     npc: "TYPES.Actor.npc",
     party: "TYPES.Actor.party",
     vehicle: "TYPES.Actor.vehicle",
+    army: "ACTOR.TypeArmy",
 };
 
 const abilities: Record<AbilityString, string> = {
@@ -1281,6 +1282,7 @@ export const PF2ECONFIG = {
 
     Actor: {
         documentClasses: {
+            army: ArmyPF2e,
             character: CharacterPF2e,
             npc: NPCPF2e,
             hazard: HazardPF2e,
