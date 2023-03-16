@@ -426,36 +426,44 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         $html.find(".item-toggle-container").on("click", (event) => this.toggleContainer(event));
 
         // Sell treasure item
-        $html.find(".item-sell-treasure").on("click", async (event) => {
-            const itemId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
-            const item = this.actor.inventory.get(itemId, { strict: true });
-            const sellItem = async (): Promise<void> => {
-                if (item?.isOfType("treasure") && !item.isCoinage) {
-                    await item.delete();
-                    await this.actor.inventory.addCoins(item.assetValue);
-                }
-            };
+        for (const sellButton of htmlQueryAll(html, ".item-sell-treasure")) {
+            sellButton.addEventListener("click", (event) => {
+                const itemId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
+                const item = this.actor.inventory.get(itemId, { strict: true });
+                const sellItem = async (): Promise<void> => {
+                    if (item?.isOfType("treasure") && !item.isCoinage) {
+                        await item.delete();
+                        await this.actor.inventory.addCoins(item.assetValue);
+                    }
+                };
 
-            if (event.ctrlKey) return sellItem();
-            const content = document.createElement("p");
-            content.innerText = game.i18n.format(LocalizePF2e.translations.PF2E.SellItemQuestion, { item: item.name });
-            new Dialog({
-                title: game.i18n.localize("PF2E.SellItemConfirmHeader"),
-                content: content.outerHTML,
-                buttons: {
-                    Yes: {
-                        icon: fontAwesomeIcon("check").outerHTML,
-                        label: game.i18n.localize("Yes"),
-                        callback: sellItem,
+                if (event.ctrlKey) {
+                    sellItem();
+                    return;
+                }
+
+                const content = document.createElement("p");
+                content.innerText = game.i18n.format(LocalizePF2e.translations.PF2E.SellItemQuestion, {
+                    item: item.name,
+                });
+                new Dialog({
+                    title: game.i18n.localize("PF2E.SellItemConfirmHeader"),
+                    content: content.outerHTML,
+                    buttons: {
+                        Yes: {
+                            icon: fontAwesomeIcon("check").outerHTML,
+                            label: game.i18n.localize("Yes"),
+                            callback: sellItem,
+                        },
+                        cancel: {
+                            icon: fontAwesomeIcon("times").outerHTML,
+                            label: game.i18n.localize("Cancel"),
+                        },
                     },
-                    cancel: {
-                        icon: fontAwesomeIcon("times").outerHTML,
-                        label: game.i18n.localize("Cancel"),
-                    },
-                },
-                default: "Yes",
-            }).render(true);
-        });
+                    default: "Yes",
+                }).render(true);
+            });
+        }
 
         // Update an embedded item
         $html.find(".item-edit").on("click", (event) => {
