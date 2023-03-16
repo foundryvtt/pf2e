@@ -117,6 +117,9 @@ export class Statistic {
 
         this.modifiers = [baseModifiers, data.modifiers ?? []].flat();
         this.check = new StatisticCheck(this, this.#data, this.options);
+
+        // Add DC data with an additional domain if not already set
+        this.#data.dc ??= { domains: [`${this.slug}-dc`] };
         this.dc = new StatisticDifficultyClass(this, this.#data, this.options);
 
         // Add from synthetics, but only after check/dc are created so that modifiers aren't duplicated
