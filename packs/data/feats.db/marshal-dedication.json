@@ -27,6 +27,68 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SkillDip",
+                        "predicate": [
+                            {
+                                "lt": [
+                                    "skill:dip:rank",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": "dip"
+                    },
+                    {
+                        "label": "PF2E.SkillItm",
+                        "predicate": [
+                            {
+                                "lt": [
+                                    "skill:itm:rank",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": "itm"
+                    },
+                    {
+                        "label": "",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "skill:dip:rank",
+                                    2
+                                ]
+                            },
+                            {
+                                "gte": [
+                                    "skill:itm:rank",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": "none"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                "rollOption": "marshal-skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "predicate": [
+                    {
+                        "not": "marshal-skill:none"
+                    }
+                ],
+                "value": 1
+            },
+            {
                 "effects": [
                     {
                         "affects": "allies",
