@@ -77,6 +77,7 @@ import { ActorSpellcasting } from "./spellcasting";
 import { TokenEffect } from "./token-effect";
 import { CREATURE_ACTOR_TYPES, UNAFFECTED_TYPES } from "./values";
 import { CONDITION_SLUGS } from "@item/condition/values";
+import { ActionProxyHandler, ActorActions } from "@actor/actions";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -111,6 +112,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** A collection of this actor's conditions */
     conditions!: ActorConditions<this>;
+
+    /** Actions available to this actor */
+    actions!: ActorActions;
 
     /** A cached copy of `Actor#itemTypes`, lazily regenerated every data preparation cycle */
     private _itemTypes?: EmbeddedItemInstances<this> | null;
@@ -548,6 +552,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         const preparationWarnings: Set<string> = new Set();
         this.synthetics = {
+            actions: [],
             criticalSpecalizations: { standard: [], alternate: [] },
             damageDice: { damage: [] },
             degreeOfSuccessAdjustments: {},
@@ -613,6 +618,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         });
 
         super.prepareData();
+        this.prepareActions();
 
         // Call post-derived-preparation `RuleElement` hooks
         for (const rule of this.rules) {
@@ -720,6 +726,22 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const { rollOptions } = this;
         for (const trait of this.traits) {
             rollOptions.all[`self:trait:${trait}`] = true;
+        }
+    }
+
+    protected prepareActions(): void {
+        this.actions = new ActorActions();
+        for (const action of this.synthetics.actions) {
+            const proxy = new Proxy(action, new ActionProxyHandler(this));
+            if (action.traits.includes("downtime")) {
+                this.actions.downtime.set(proxy.slug, proxy);
+            }
+            if (action.traits.includes("exploration")) {
+                this.actions.exploration.set(proxy.slug, proxy);
+            }
+            if (!!action.cost || action.variants.find((variant) => !!variant.cost)) {
+                this.actions.encounter.set(proxy.slug, proxy);
+            }
         }
     }
 

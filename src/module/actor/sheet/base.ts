@@ -100,6 +100,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         })();
 
         const sheetData: ActorSheetDataPF2e<TActor> = {
+            actorActions: this.actor.actions,
             cssClass: this.actor.isOwner ? "editable" : "locked",
             editable: this.isEditable,
             document: this.actor,
@@ -112,6 +113,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             effects: [],
             items: actorData.items,
             user: { isGM: game.user.isGM },
+            trait: {
+                label: CONFIG.PF2E.actionTraits,
+                description: CONFIG.PF2E.traitsDescriptions,
+            },
             traits: createSheetTags(traitsMap, { value: Array.from(this.actor.traits) }),
             toggles: this.actor.synthetics.toggles,
             isTargetFlatFooted: !!this.actor.rollOptions.all["target:condition:flat-footed"],
@@ -216,6 +221,25 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             const title = actor.token?.name ?? actor.prototypeToken?.name ?? actor.name;
             new ImagePopout(actor.img, { title, uuid: actor.uuid }).render(true);
         });
+
+        for (const category of htmlQueryAll(html, "[data-action-category]")) {
+            const actionCategory = category.dataset.actionCategory! as "encounter" | "exploration" | "downtime";
+            category.addEventListener("click", (event) => {
+                if (event.target && event.target instanceof HTMLButtonElement) {
+                    const variant = event.target.closest("[data-action-variant-slug]");
+                    if (!(variant instanceof HTMLElement)) {
+                        return;
+                    }
+                    const variantSlug = variant?.dataset.actionVariantSlug!;
+                    const action = variant?.closest("[data-action-slug]");
+                    if (!(action instanceof HTMLElement)) {
+                        return;
+                    }
+                    const actionSlug = action?.dataset.actionSlug!;
+                    this.actor.actions[actionCategory]?.get(actionSlug)?.variants.get(variantSlug)?.use({ event });
+                }
+            });
+        }
 
         // Everything below here is only needed if the sheet is editable
         if (!this.options.editable) return;

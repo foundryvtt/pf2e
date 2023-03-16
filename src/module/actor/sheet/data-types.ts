@@ -6,6 +6,7 @@ import { Coins } from "@item/physical/data";
 import { PhysicalItemType } from "@item/physical/types";
 import { RollOptionToggle } from "@module/rules/synthetics";
 import { SheetOptions } from "@module/sheet/helpers";
+import { ActorActions } from "@actor/actions";
 
 export interface InventoryItem<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> {
     item: TItem;
@@ -42,6 +43,11 @@ export interface SheetInventory {
 }
 
 export interface ActorSheetDataPF2e<TActor extends ActorPF2e> extends ActorSheetData<TActor> {
+    actorActions: ActorActions;
+    trait: {
+        label?: Record<string, string>;
+        description?: Record<string, string>;
+    };
     traits: SheetOptions;
     isTargetFlatFooted: boolean;
     user: { isGM: boolean };

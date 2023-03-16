@@ -37,6 +37,7 @@ import {
     stealthForSelected,
 } from "@scripts/macros";
 import { remigrate } from "@scripts/system/remigrate";
+import { SimpleAction, SingleCheckAction } from "@system/actions";
 import { CheckPF2e } from "@system/check";
 import { EffectTracker } from "@system/effect-tracker";
 import { ModuleArt } from "@system/module-art";
@@ -87,6 +88,8 @@ declare global {
             ConditionManager: typeof ConditionManager;
             ModifierType: typeof MODIFIER_TYPE;
             Modifier: typeof ModifierPF2e;
+            SimpleAction: typeof SimpleAction;
+            SingleCheckAction: typeof SingleCheckAction;
             StatisticModifier: typeof StatisticModifier;
             CheckModifier: typeof CheckModifier;
             Check: typeof CheckPF2e;
