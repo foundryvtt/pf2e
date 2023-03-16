@@ -84,8 +84,9 @@ export class EffectTracker {
      */
     async refresh({ resetItemData = false } = {}): Promise<void> {
         if (resetItemData) {
-            for (const effect of this.effects) {
-                effect.reset();
+            const actors = new Set(this.effects.flatMap((e) => e.actor ?? []));
+            for (const actor of actors) {
+                actor.reset();
             }
             game.pf2e.effectPanel.refresh();
         }
