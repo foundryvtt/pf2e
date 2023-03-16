@@ -66,6 +66,7 @@ import { ActorSizePF2e } from "./data/size";
 import { calculateRangePenalty, checkAreaEffects, getRangeIncrement, isReallyPC, migrateActorSource } from "./helpers";
 import { ActorInventory } from "./inventory";
 import { ItemTransfer } from "./item-transfer";
+import { StatisticModifier } from "./modifiers";
 import { ActorSheetPF2e } from "./sheet/base";
 import { ActorSpellcasting } from "./spellcasting";
 import { TokenEffect } from "./token-effect";
@@ -919,6 +920,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 ? {
                       scope: "attack",
                       slug: "ac",
+                      statistic:
+                          targetActor.attributes.ac instanceof StatisticModifier ? targetActor.attributes.ac : null,
                       value: targetActor.attributes.ac.value,
                   }
                 : null,

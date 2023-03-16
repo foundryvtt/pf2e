@@ -22,6 +22,7 @@ import { TextEditorPF2e } from "../text-editor";
 import { CheckRollContext } from "./types";
 import { StrikeAttackRoll } from "./strike/attack-roll";
 import { isCheckContextFlag } from "@module/chat-message/helpers";
+import { StatisticDifficultyClass } from "@system/statistic";
 
 interface RerollOptions {
     heroPoint?: boolean;
@@ -536,15 +537,14 @@ class CheckPF2e {
             );
 
             // Get any circumstance penalties or bonuses to the target's DC
-            const targetAC = targetActor?.attributes.ac;
             const circumstances =
-                dc.slug === "ac" && targetAC instanceof StatisticModifier
-                    ? targetAC.modifiers.filter((m) => m.enabled && m.type === "circumstance")
+                dc.statistic instanceof StatisticModifier || dc.statistic instanceof StatisticDifficultyClass
+                    ? dc.statistic.modifiers.filter((m) => m.enabled && m.type === "circumstance")
                     : [];
             const preadjustedDC =
-                circumstances.length > 0 && targetAC
-                    ? targetAC.value - circumstances.reduce((total, c) => total + c.modifier, 0)
-                    : targetAC?.value ?? null;
+                circumstances.length > 0 && dc.statistic
+                    ? dc.value - circumstances.reduce((total, c) => total + c.modifier, 0)
+                    : dc.value ?? null;
 
             const visible = targetActor?.hasPlayerOwner || dc.visible || game.settings.get("pf2e", "metagame_showDC");
 
@@ -552,8 +552,7 @@ class CheckPF2e {
                 const labelKey = targetData
                     ? translations.DC.Label.WithTarget
                     : customLabel ?? translations.DC.Label.NoTarget;
-                const dcValue = dc.slug === "ac" && targetAC ? targetAC.value : dc.value;
-                const markup = game.i18n.format(labelKey, { dcType, dc: dcValue, target: targetData?.name ?? null });
+                const markup = game.i18n.format(labelKey, { dcType, dc: dc.value, target: targetData?.name ?? null });
 
                 return { markup, visible };
             }

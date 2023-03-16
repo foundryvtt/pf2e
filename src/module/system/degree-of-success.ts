@@ -1,7 +1,9 @@
+import { StatisticModifier } from "@actor/modifiers";
 import { DCSlug } from "@actor/types";
 import { ZeroToThree } from "@module/data";
 import { CheckRoll } from "./check";
 import { PredicatePF2e } from "./predication";
+import { StatisticDifficultyClass } from "./statistic";
 
 /** Get the degree of success from a roll and a difficulty class */
 class DegreeOfSuccess {
@@ -134,6 +136,7 @@ interface DegreeOfSuccessAdjustment {
 
 interface CheckDC {
     slug?: DCSlug;
+    statistic?: StatisticDifficultyClass | StatisticModifier | null;
     label?: string;
     scope?: "attack" | "check";
     value: number;
