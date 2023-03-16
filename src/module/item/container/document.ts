@@ -3,7 +3,7 @@ import { ItemSummaryData } from "@item/data";
 import { EquipmentTrait } from "@item/equipment/data";
 import { PhysicalItemPF2e } from "@item/physical";
 import { Bulk, weightToBulk } from "@item/physical/bulk";
-import { ContainerData, ContainerSystemData } from "./data";
+import { ContainerSource, ContainerSystemData } from "./data";
 import { hasExtraDimensionalParent } from "./helpers";
 
 class ContainerPF2e extends PhysicalItemPF2e {
@@ -64,7 +64,7 @@ class ContainerPF2e extends PhysicalItemPF2e {
 }
 
 interface ContainerPF2e extends PhysicalItemPF2e {
-    readonly data: ContainerData;
+    readonly _source: ContainerSource;
     system: ContainerSystemData;
 
     get traits(): Set<EquipmentTrait>;

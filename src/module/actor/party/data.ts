@@ -4,16 +4,10 @@ import {
     ActorDetails,
     ActorSystemData,
     ActorSystemSource,
-    BaseActorDataPF2e,
     BaseActorSourcePF2e,
 } from "@actor/data/base";
-import { PartyPF2e } from "./document";
 
 type PartySource = BaseActorSourcePF2e<"party", PartySystemSource>;
-
-interface PartyData
-    extends Omit<PartySource, "prototypeToken" | "system" | "type">,
-        BaseActorDataPF2e<PartyPF2e, "party", PartySource> {}
 
 interface PartySystemSource extends ActorSystemSource {
     attributes: PartyAttributesSource;
@@ -53,4 +47,4 @@ interface PartyAttributes
 
 interface PartyDetails extends PartyDetailsSource, ActorDetails {}
 
-export { PartyData, PartySystemData };
+export { PartySource, PartySystemData };

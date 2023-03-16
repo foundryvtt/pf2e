@@ -1,6 +1,5 @@
 import {
     Abilities,
-    BaseCreatureData,
     BaseCreatureSource,
     CreatureAttributes,
     CreatureDetails,
@@ -26,15 +25,10 @@ import { AbilityString, ActorAlliance, SaveType } from "@actor/types";
 import { MeleePF2e } from "@item";
 import { Rarity, Size } from "@module/data";
 import { IdentifyCreatureData } from "@module/recall-knowledge";
-import type { NPCPF2e } from ".";
 
 interface NPCSource extends BaseCreatureSource<"npc", NPCSystemSource> {
     flags: DeepPartial<NPCFlags>;
 }
-
-interface NPCData
-    extends Omit<NPCSource, "flags" | "prototypeToken" | "system" | "type">,
-        BaseCreatureData<NPCPF2e, "npc", NPCSource> {}
 
 type NPCFlags = ActorFlagsPF2e & {
     pf2e: { lootable: boolean };
@@ -258,7 +252,6 @@ export {
     NPCArmorClass,
     NPCAttributes,
     NPCAttributesSource,
-    NPCData,
     NPCFlags,
     NPCHitPoints,
     NPCPerception,

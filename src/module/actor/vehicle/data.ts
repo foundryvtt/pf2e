@@ -1,7 +1,6 @@
 import {
     ActorSystemData,
     ActorAttributes,
-    BaseActorDataPF2e,
     BaseActorSourcePF2e,
     BaseHitPointsSource,
     ActorTraitsData,
@@ -11,15 +10,10 @@ import {
 } from "@actor/data/base";
 import { ActorSizePF2e } from "@actor/data/size";
 import { StatisticTraceData } from "@system/statistic";
-import { VehiclePF2e } from ".";
 import { VehicleTrait } from "./types";
 
 /** The stored source data of a vehicle actor */
 type VehicleSource = BaseActorSourcePF2e<"vehicle", VehicleSystemSource>;
-
-interface VehicleData
-    extends Omit<VehicleSource, "prototypeToken" | "system" | "type">,
-        BaseActorDataPF2e<VehiclePF2e, "vehicle", VehicleSource> {}
 
 interface VehicleHitPointsData extends Required<BaseHitPointsSource> {
     brokenThreshold: number;
@@ -91,4 +85,4 @@ interface TokenDimensions {
     height: number;
 }
 
-export { VehicleData, VehicleSource, VehicleSystemData, VehicleTrait, TokenDimensions };
+export { VehicleSource, VehicleSystemData, VehicleTrait, TokenDimensions };

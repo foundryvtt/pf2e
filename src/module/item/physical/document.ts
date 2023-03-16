@@ -1,5 +1,5 @@
 import { type ContainerPF2e, ItemPF2e } from "@item";
-import { ItemSummaryData, PhysicalItemData, TraitChatData } from "@item/data";
+import { ItemSummaryData, PhysicalItemSource, TraitChatData } from "@item/data";
 import { MystifiedTraits } from "@item/data/values";
 import { CoinsPF2e } from "@item/physical/helpers";
 import { Rarity, Size } from "@module/data";
@@ -481,7 +481,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
 }
 
 interface PhysicalItemPF2e extends ItemPF2e {
-    readonly data: PhysicalItemData;
+    readonly _source: PhysicalItemSource;
     system: PhysicalSystemData;
 
     computeAdjustedPrice?(): CoinsPF2e | null;

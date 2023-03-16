@@ -1,14 +1,9 @@
 import { CONDITION_SLUGS } from "@actor/values";
-import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "@item/data/base";
+import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "@item/data/base";
 import { DamageType } from "@system/damage";
 import { DamageRoll } from "@system/damage/roll";
-import { ConditionPF2e } from ".";
 
 type ConditionSource = BaseItemSourcePF2e<"condition", ConditionSystemSource>;
-
-interface ConditionData
-    extends Omit<ConditionSource, "flags" | "system" | "type">,
-        BaseItemDataPF2e<ConditionPF2e, "condition", ConditionSource> {}
 
 interface ConditionSystemSource extends ItemSystemSource {
     slug: ConditionSlug;
@@ -51,7 +46,6 @@ interface PersistentSourceData {
 }
 
 export {
-    ConditionData,
     ConditionKey,
     ConditionSlug,
     ConditionSource,

@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { HitPointsSummary } from "@actor/base";
-import { CreatureData } from "@actor/data";
+import { CreatureSource } from "@actor/data";
 import { StrikeData } from "@actor/data/base";
 import {
     CheckModifier,
@@ -858,8 +858,8 @@ abstract class CreaturePF2e extends ActorPF2e {
 }
 
 interface CreaturePF2e extends ActorPF2e {
-    readonly data: CreatureData;
-    readonly system: CreatureSystemData;
+    readonly _source: CreatureSource;
+    system: CreatureSystemData;
 
     /** Saving throw rolls for the creature, built during data prep */
     saves: Record<SaveType, Statistic>;

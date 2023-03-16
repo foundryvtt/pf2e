@@ -4,7 +4,7 @@ import { getResilientBonus, PhysicalItemHitPoints, PhysicalItemPF2e } from "@ite
 import { MAGIC_TRADITIONS } from "@item/spell/values";
 import { LocalizePF2e } from "@module/system/localize";
 import { addSign, ErrorPF2e, setHasElement, sluggify } from "@util";
-import { ArmorCategory, ArmorData, ArmorGroup, ArmorSystemData, BaseArmorType } from ".";
+import { ArmorCategory, ArmorGroup, ArmorSource, ArmorSystemData, BaseArmorType } from ".";
 
 class ArmorPF2e extends PhysicalItemPF2e {
     override isStackableWith(item: PhysicalItemPF2e): boolean {
@@ -239,7 +239,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
 }
 
 interface ArmorPF2e extends PhysicalItemPF2e {
-    readonly data: ArmorData;
+    readonly _source: ArmorSource;
     system: ArmorSystemData;
 }
 

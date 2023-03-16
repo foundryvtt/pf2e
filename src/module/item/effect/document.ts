@@ -4,7 +4,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { RuleElementOptions, RuleElementPF2e } from "@module/rules";
 import { UserPF2e } from "@module/user";
 import { isObject, objectHasKey, sluggify } from "@util";
-import { EffectData, EffectFlags, EffectSystemData } from "./data";
+import { EffectFlags, EffectSource, EffectSystemData } from "./data";
 
 class EffectPF2e extends AbstractEffectPF2e {
     static DURATION_UNITS: Readonly<Record<string, number>> = {
@@ -228,7 +228,7 @@ class EffectPF2e extends AbstractEffectPF2e {
 
 interface EffectPF2e extends AbstractEffectPF2e {
     flags: EffectFlags;
-    readonly data: EffectData;
+    readonly _source: EffectSource;
     system: EffectSystemData;
 }
 

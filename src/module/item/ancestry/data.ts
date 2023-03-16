@@ -1,15 +1,10 @@
 import { CreatureTrait, Language } from "@actor/creature";
 import { AbilityString } from "@actor/types";
 import { ABCSystemData, ABCSystemSource } from "@item/abc";
-import { BaseItemDataPF2e, BaseItemSourcePF2e } from "@item/data/base";
+import { BaseItemSourcePF2e } from "@item/data/base";
 import { Size, TraitsWithRarity, ValuesList } from "@module/data";
-import type { AncestryPF2e } from ".";
 
 type AncestrySource = BaseItemSourcePF2e<"ancestry", AncestrySystemSource>;
-
-interface AncestryData
-    extends Omit<AncestrySource, "flags" | "system" | "type">,
-        BaseItemDataPF2e<AncestryPF2e, "ancestry", AncestrySource> {}
 
 export type CreatureTraits = TraitsWithRarity<CreatureTrait>;
 
@@ -39,4 +34,4 @@ interface AncestrySystemSource extends ABCSystemSource {
 
 interface AncestrySystemData extends Omit<AncestrySystemSource, "items">, Omit<ABCSystemData, "level" | "traits"> {}
 
-export { AncestrySource, AncestryData, AncestrySystemData };
+export { AncestrySource, AncestrySystemData };

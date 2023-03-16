@@ -45,7 +45,6 @@ declare global {
     }
 
     interface Item<TParent extends Actor = Actor> {
-        readonly data: foundry.data.ItemData<Item>;
         readonly parent: TParent | null;
 
         get collection(): Items<this>;

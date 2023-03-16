@@ -1,6 +1,5 @@
 import { ItemFlagsPF2e } from "@item/data/base";
 import {
-    BasePhysicalItemData,
     BasePhysicalItemSource,
     Investable,
     PhysicalItemTraits,
@@ -11,7 +10,6 @@ import {
 } from "@item/physical";
 import { OneToFour, ZeroToFour, ZeroToThree } from "@module/data";
 import { DamageDieSize, DamageType } from "@system/damage";
-import { type WeaponPF2e } from "./document";
 import {
     BaseWeaponType,
     MeleeWeaponGroup,
@@ -29,8 +27,6 @@ import {
 type WeaponSource = BasePhysicalItemSource<"weapon", WeaponSystemSource> & {
     flags: DeepPartial<WeaponFlags>;
 };
-
-type WeaponData = Omit<WeaponSource, "system"> & BasePhysicalItemData<WeaponPF2e, "weapon", WeaponSource>;
 
 type WeaponFlags = ItemFlagsPF2e & {
     pf2e: {
@@ -184,7 +180,6 @@ interface ComboWeaponMeleeUsage {
 export {
     ComboWeaponMeleeUsage,
     WeaponDamage,
-    WeaponData,
     WeaponFlags,
     WeaponMaterialData,
     WeaponPersistentDamage,

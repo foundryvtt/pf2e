@@ -7,7 +7,7 @@ import { ARMOR_CATEGORIES } from "@item/armor/values";
 import { WEAPON_CATEGORIES } from "@item/weapon/values";
 import { ZeroToFour } from "@module/data";
 import { setHasElement, sluggify } from "@util";
-import { ClassAttackProficiencies, ClassData, ClassDefenseProficiencies, ClassSystemData, ClassTrait } from "./data";
+import { ClassAttackProficiencies, ClassDefenseProficiencies, ClassSource, ClassSystemData, ClassTrait } from "./data";
 
 class ClassPF2e extends ABCItemPF2e {
     get attacks(): ClassAttackProficiencies {
@@ -154,7 +154,7 @@ class ClassPF2e extends ABCItemPF2e {
 }
 
 interface ClassPF2e extends ABCItemPF2e {
-    readonly data: ClassData;
+    readonly _source: ClassSource;
     system: ClassSystemData;
 
     get slug(): ClassTrait | null;

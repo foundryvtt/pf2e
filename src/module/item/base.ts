@@ -14,7 +14,6 @@ import {
     ConditionSource,
     EffectSource,
     FeatSource,
-    ItemDataPF2e,
     ItemSourcePF2e,
     ItemSummaryData,
     ItemType,
@@ -690,9 +689,9 @@ class ItemPF2e extends Item<ActorPF2e> {
 
 interface ItemPF2e extends Item<ActorPF2e> {
     flags: ItemFlagsPF2e;
-    readonly system: ItemSystemData;
-    readonly data: ItemDataPF2e;
+    readonly _source: ItemSourcePF2e;
     readonly parent: ActorPF2e | null;
+    system: ItemSystemData;
 
     _sheet: ItemSheetPF2e<this> | null;
 

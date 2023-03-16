@@ -3,7 +3,6 @@ import {
     ActorSystemData,
     ActorSystemSource,
     ActorAttributes,
-    BaseActorDataPF2e,
     BaseActorSourcePF2e,
     ActorTraitsSource,
     ActorAttributesSource,
@@ -13,15 +12,10 @@ import { ActorSizePF2e } from "@actor/data/size";
 import { NPCStrike } from "@actor/npc";
 import { SaveType } from "@actor/types";
 import { Rarity, Size, ZeroToTwo } from "@module/data";
-import { HazardPF2e } from ".";
 import { HazardTrait } from "./types";
 
 /** The stored source data of a hazard actor */
 type HazardSource = BaseActorSourcePF2e<"hazard", HazardSystemSource>;
-
-interface HazardData
-    extends Omit<HazardSource, "prototypeToken" | "system" | "type">,
-        BaseActorDataPF2e<HazardPF2e, "hazard", HazardSource> {}
 
 /** The raw information contained within the actor data object for hazards. */
 interface HazardSystemSource extends ActorSystemSource {
@@ -111,4 +105,4 @@ interface HazardHitPoints extends ActorHitPoints {
 
 type HazardSaves = Record<SaveType, SaveData>;
 
-export { HazardData, HazardSource, HazardSystemData };
+export { HazardSource, HazardSystemData };

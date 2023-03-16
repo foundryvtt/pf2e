@@ -31,14 +31,7 @@ import { DamageRollContext, DamageType, SpellDamageTemplate } from "@system/dama
 import { StatisticRollParameters } from "@system/statistic";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 import { ErrorPF2e, getActionIcon, groupBy, htmlClosest, ordinal, sortBy, traitSlugToObject } from "@util";
-import {
-    SpellData,
-    SpellHeightenLayer,
-    SpellOverlayType,
-    SpellSource,
-    SpellSystemData,
-    SpellSystemSource,
-} from "./data";
+import { SpellHeightenLayer, SpellOverlayType, SpellSource, SpellSystemData, SpellSystemSource } from "./data";
 import { applyDamageDiceOverrides, createFormulaAndTagsForPartial, DamageInstancePartial } from "./helpers";
 import { SpellOverlayCollection } from "./overlay";
 import { EffectAreaSize, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
@@ -1016,7 +1009,7 @@ class SpellPF2e extends ItemPF2e {
 }
 
 interface SpellPF2e extends ItemPF2e {
-    readonly data: SpellData;
+    readonly _source: SpellSource;
     system: SpellSystemData;
 }
 

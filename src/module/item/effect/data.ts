@@ -1,14 +1,9 @@
 import { EffectAuraData, EffectBadge, EffectContextData, EffectTraits, TimeUnit } from "@item/abstract-effect";
-import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemFlagsPF2e, ItemSystemData, ItemSystemSource } from "@item/data/base";
-import { EffectPF2e } from ".";
+import { BaseItemSourcePF2e, ItemFlagsPF2e, ItemSystemData, ItemSystemSource } from "@item/data/base";
 
 type EffectSource = BaseItemSourcePF2e<"effect", EffectSystemSource> & {
     flags: DeepPartial<EffectFlags>;
 };
-
-interface EffectData
-    extends Omit<EffectSource, "flags" | "system" | "type">,
-        BaseItemDataPF2e<EffectPF2e, "effect", EffectSource> {}
 
 type EffectFlags = ItemFlagsPF2e & {
     pf2e: {
@@ -48,4 +43,4 @@ interface EffectSystemData extends EffectSystemSource, Omit<ItemSystemData, "lev
 
 type EffectExpiryType = "turn-start" | "turn-end";
 
-export { EffectData, EffectExpiryType, EffectFlags, EffectSource, EffectSystemData };
+export { EffectExpiryType, EffectFlags, EffectSource, EffectSystemData };

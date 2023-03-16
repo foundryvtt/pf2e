@@ -6,7 +6,7 @@ import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponRangeIncrement } fro
 import { combineTerms } from "@scripts/dice";
 import { ConvertedNPCDamage, WeaponDamagePF2e } from "@system/damage/weapon";
 import { tupleHasValue } from "@util";
-import { MeleeData, MeleeFlags, MeleeSystemData, NPCAttackTrait } from "./data";
+import { MeleeFlags, MeleeSource, MeleeSystemData, NPCAttackTrait } from "./data";
 
 class MeleePF2e extends ItemPF2e {
     /** Set during data preparation if a linked weapon is found */
@@ -214,7 +214,7 @@ class MeleePF2e extends ItemPF2e {
 
 interface MeleePF2e extends ItemPF2e {
     flags: MeleeFlags;
-    readonly data: MeleeData;
+    readonly _source: MeleeSource;
     system: MeleeSystemData;
 }
 

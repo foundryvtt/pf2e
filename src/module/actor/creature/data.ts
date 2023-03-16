@@ -3,7 +3,6 @@ import {
     ActorSystemData,
     ActorSystemSource,
     ActorAttributes,
-    BaseActorDataPF2e,
     BaseActorSourcePF2e,
     ActorTraitsData,
     ActorTraitsSource,
@@ -21,7 +20,6 @@ import type { CREATURE_ACTOR_TYPES } from "@actor/values";
 import { LabeledNumber, Size, ValueAndMax, ValuesList, ZeroToThree } from "@module/data";
 import { RollParameters } from "@system/rolls";
 import { Statistic, StatisticTraceData } from "@system/statistic";
-import type { CreaturePF2e } from ".";
 import { CreatureSensePF2e, SenseAcuity, SenseType } from "./sense";
 import { Alignment, CreatureTrait } from "./types";
 
@@ -29,13 +27,6 @@ type BaseCreatureSource<TType extends CreatureType, TSystemSource extends Creatu
     TType,
     TSystemSource
 >;
-
-interface BaseCreatureData<
-    TActor extends CreaturePF2e,
-    TType extends CreatureType,
-    TSource extends BaseCreatureSource<TType, CreatureSystemSource>
-> extends Omit<BaseCreatureSource<TType, CreatureSystemSource>, "system" | "prototypeToken" | "type">,
-        BaseActorDataPF2e<TActor, TType, TSource> {}
 
 /** Skill and Lore statistics for rolling. Both short and longform are supported, but eventually only long form will be */
 type CreatureSkills = Record<SkillAbbreviation, Statistic> &
@@ -258,7 +249,6 @@ export {
     Abilities,
     AbilityData,
     Attitude,
-    BaseCreatureData,
     BaseCreatureSource,
     CreatureAttributes,
     CreatureDetails,

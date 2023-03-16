@@ -6,7 +6,7 @@ import { AbilityString } from "@actor/types";
 import { ABCItemPF2e, FeatPF2e } from "@item";
 import { Size } from "@module/data";
 import { sluggify } from "@util";
-import { AncestryData, AncestrySystemData } from "./data";
+import { AncestrySource, AncestrySystemData } from "./data";
 
 class AncestryPF2e extends ABCItemPF2e {
     get traits(): Set<CreatureTrait> {
@@ -135,7 +135,7 @@ class AncestryPF2e extends ABCItemPF2e {
 }
 
 interface AncestryPF2e extends ABCItemPF2e {
-    readonly data: AncestryData;
+    readonly _source: AncestrySource;
     system: AncestrySystemData;
 }
 

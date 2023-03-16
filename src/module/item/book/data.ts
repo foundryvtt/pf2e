@@ -1,12 +1,7 @@
 import { EquipmentSystemData, EquipmentSystemSource } from "@item/equipment/data";
-import { BasePhysicalItemData, BasePhysicalItemSource } from "@item/physical/data";
-import type { BookPF2e } from "./document";
+import { BasePhysicalItemSource } from "@item/physical/data";
 
 type BookSource = BasePhysicalItemSource<"book", BookSystemSource>;
-
-interface BookData
-    extends Omit<BookSource, "flags" | "system" | "type">,
-        BasePhysicalItemData<BookPF2e, "book", BookSource> {}
 
 type BookSystemSource = EquipmentSystemSource & {
     capacity: number;
@@ -24,4 +19,4 @@ interface SpellBookData {
     item: object[];
 }
 
-export { BookData, BookSource, BookSystemData };
+export { BookSource, BookSystemData };

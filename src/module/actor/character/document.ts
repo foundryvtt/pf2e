@@ -2,7 +2,6 @@ import { CreaturePF2e, FamiliarPF2e } from "@actor";
 import { Abilities, CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation } from "@actor/creature/data";
 import { CreatureUpdateContext } from "@actor/creature/types";
 import { ALLIANCES } from "@actor/creature/values";
-import { CharacterSource } from "@actor/data";
 import { ActorSizePF2e } from "@actor/data/size";
 import { calculateMAPs } from "@actor/helpers";
 import {
@@ -79,12 +78,12 @@ import {
     BaseWeaponProficiencyKey,
     CharacterArmorClass,
     CharacterAttributes,
-    CharacterData,
     CharacterFlags,
     CharacterProficiency,
     CharacterSaves,
     CharacterSkillData,
     CharacterStrike,
+    CharacterSource,
     CharacterSystemData,
     ClassDCData,
     LinkedProficiency,
@@ -2102,9 +2101,9 @@ class CharacterPF2e extends CreaturePF2e {
 }
 
 interface CharacterPF2e extends CreaturePF2e {
-    readonly data: CharacterData;
-    readonly system: CharacterSystemData;
     flags: CharacterFlags;
+    readonly _source: CharacterSource;
+    system: CharacterSystemData;
 }
 
 export { CharacterPF2e };
