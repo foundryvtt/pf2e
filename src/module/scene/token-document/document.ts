@@ -154,6 +154,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
                 key,
                 new TokenAura({
                     slug: key,
+                    level: data.level,
                     radius: data.radius,
                     token: this as Embedded<TokenDocumentPF2e>,
                     traits: new Set(data.traits),

@@ -13,6 +13,8 @@ class TokenAura implements TokenAuraData {
 
     token: Embedded<TokenDocumentPF2e>;
 
+    level: number | null;
+
     /** The radius of the aura in feet */
     radius: number;
 
@@ -25,6 +27,7 @@ class TokenAura implements TokenAuraData {
     constructor(args: TokenAuraParams) {
         this.slug = args.slug;
         this.token = args.token;
+        this.level = args.level;
         this.radius = args.radius;
         this.traits = args.traits;
         this.colors = args.colors ?? null;
@@ -105,6 +108,7 @@ class TokenAura implements TokenAuraData {
 
 interface TokenAuraParams extends Omit<AuraData, "effects" | "traits"> {
     slug: string;
+    level: number | null;
     radius: number;
     token: Embedded<TokenDocumentPF2e>;
     traits: Set<ItemTrait>;
