@@ -57,7 +57,7 @@ export class AuraRuleElement extends RuleElementPF2e {
         if (typeof Number.isInteger(radius) && radius > 0 && radius % 5 === 0) {
             const data = {
                 slug: this.slug,
-                level: this.item.system.level?.value,
+                level: this.item.system.level?.value ?? null,
                 radius,
                 effects: this.#processEffects(),
                 traits: this.traits,

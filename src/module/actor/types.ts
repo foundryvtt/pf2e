@@ -36,7 +36,7 @@ type SaveType = (typeof SAVE_TYPES)[number];
 
 interface AuraData {
     slug: string;
-    level?: number;
+    level: number | null;
     radius: number;
     effects: AuraEffectData[];
     colors: AuraColors | null;
