@@ -255,11 +255,8 @@ class ItemPF2e extends Item<ActorPF2e> {
             // Preserve container ID
             const { containerId, quantity } = currentSource.system;
             mergeObject(updates, expandObject({ "system.containerId": containerId, "system.quantity": quantity }));
-        } else if (currentSource.type === "spell") {
-            // Preserve spellcasting entry location
-            mergeObject(updates, expandObject({ "system.location.value": currentSource.system.location.value }));
-        } else if (currentSource.type === "feat") {
-            // Preserve feat location
+        } else if (currentSource.type === "feat" || currentSource.type === "spell") {
+            // Preserve feat and spellcasting entry location
             mergeObject(updates, expandObject({ "system.location": currentSource.system.location }));
         }
 
