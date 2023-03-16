@@ -445,12 +445,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 buttons: {
                     Yes: {
                         icon: fontAwesomeIcon("check").outerHTML,
-                        label: game.i18n.localize("PF2E.Dialogs.ButtonYes"),
+                        label: game.i18n.localize("Yes"),
                         callback: sellItem,
                     },
                     cancel: {
                         icon: fontAwesomeIcon("times").outerHTML,
-                        label: game.i18n.localize("PF2E.Dialogs.ButtonCancel"),
+                        label: game.i18n.localize("Cancel"),
                     },
                 },
                 default: "Yes",
