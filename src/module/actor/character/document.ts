@@ -645,84 +645,10 @@ class CharacterPF2e extends CreaturePF2e {
         systemData.attributes.classDC = Object.values(systemData.proficiencies.classDCs).find((c) => c.primary) ?? null;
 
         // Armor Class
-        const { wornArmor, heldShield } = this;
-        {
-            const modifiers = [this.getShieldBonus() ?? []].flat();
-            const dexCapSources: DexterityModifierCapData[] = [
-                { value: Infinity, source: "" },
-                ...synthetics.dexterityModifierCaps,
-            ];
-            let armorCheckPenalty = 0;
-            const proficiency = wornArmor?.category ?? "unarmored";
-
-            if (wornArmor) {
-                dexCapSources.push({ value: Number(wornArmor.dexCap ?? 0), source: wornArmor.name });
-                if (wornArmor.checkPenalty) {
-                    // armor check penalty
-                    if (typeof wornArmor.strength === "number" && systemData.abilities.str.value < wornArmor.strength) {
-                        armorCheckPenalty = Number(wornArmor.checkPenalty ?? 0);
-                    }
-                }
-
-                const slug = wornArmor.baseType ?? wornArmor.slug ?? sluggify(wornArmor.name);
-                modifiers.unshift(
-                    new ModifierPF2e({
-                        label: wornArmor.name,
-                        type: "item",
-                        slug,
-                        modifier: wornArmor.acBonus,
-                        adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, ["all", "ac"], slug),
-                    })
-                );
-
-                const shoddyPenalty = createShoddyPenalty(this, wornArmor, ["all", "ac"]);
-                if (shoddyPenalty) modifiers.push(shoddyPenalty);
-            }
-
-            // DEX modifier is limited by the lowest cap, usually from armor
-            const dexModifier = createAbilityModifier({
-                actor: this,
-                ability: "dex",
-                domains: ["all", "ac", "dex-based"],
-            });
-            const dexCap = dexCapSources.reduce((lowest, candidate) =>
-                lowest.value > candidate.value ? candidate : lowest
-            );
-            dexModifier.modifier = Math.min(dexModifier.modifier, dexCap.value);
-
-            // In case an ability other than DEX is added, find the best ability modifier and use that as the ability on
-            // which AC is based
-            const abilityModifier = modifiers
-                .filter((m) => m.type === "ability" && !!m.ability)
-                .reduce((best, modifier) => (modifier.modifier > best.modifier ? modifier : best), dexModifier);
-            const acAbility = abilityModifier.ability!;
-            const domains = ["all", "ac", `${acAbility}-based`];
-
-            const rank = systemData.martial[proficiency]?.rank ?? 0;
-            modifiers.unshift(createProficiencyModifier({ actor: this, rank, domains }));
-            modifiers.unshift(dexModifier);
-            modifiers.push(...extractModifiers(synthetics, domains));
-
-            const rollOptions = this.getRollOptions(domains);
-            const stat: CharacterArmorClass = mergeObject(new StatisticModifier("ac", modifiers, rollOptions), {
-                value: 10,
-                breakdown: "",
-                check: armorCheckPenalty,
-                dexCap,
-            });
-            stat.value += stat.totalModifier;
-            stat.breakdown = [game.i18n.localize("PF2E.ArmorClassBase")]
-                .concat(
-                    stat.modifiers
-                        .filter((m) => m.enabled)
-                        .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                )
-                .join(", ");
-
-            systemData.attributes.ac = stat;
-        }
+        systemData.attributes.ac = this.prepareArmorClass();
 
         // Apply the speed penalty from this character's held shield
+        const { heldShield } = this;
         if (heldShield?.speedPenalty) {
             const speedPenalty = new ModifierPF2e(heldShield.name, heldShield.speedPenalty, MODIFIER_TYPE.UNTYPED);
             speedPenalty.predicate.push({ not: "self:shield:ignore-speed-penalty" });
@@ -898,6 +824,83 @@ class CharacterPF2e extends CreaturePF2e {
         // Some rules specify ignoring the Free Hand trait
         const handsReallyFree = heldItems.reduce((count, i) => Math.max(count - i.handsHeld, 0), 2);
         rollOptionsAll[`hands-free:but-really:${handsReallyFree}`] = true;
+    }
+
+    private prepareArmorClass(): CharacterArmorClass {
+        const { synthetics, wornArmor } = this;
+        const modifiers = [this.getShieldBonus() ?? []].flat();
+        const dexCapSources: DexterityModifierCapData[] = [
+            { value: Infinity, source: "" },
+            ...synthetics.dexterityModifierCaps,
+        ];
+        let armorCheckPenalty = 0;
+        const proficiency = wornArmor?.category ?? "unarmored";
+
+        if (wornArmor) {
+            dexCapSources.push({ value: Number(wornArmor.dexCap ?? 0), source: wornArmor.name });
+            if (wornArmor.checkPenalty) {
+                // armor check penalty
+                if (typeof wornArmor.strength === "number" && this.system.abilities.str.value < wornArmor.strength) {
+                    armorCheckPenalty = Number(wornArmor.checkPenalty ?? 0);
+                }
+            }
+
+            const slug = wornArmor.baseType ?? wornArmor.slug ?? sluggify(wornArmor.name);
+            modifiers.unshift(
+                new ModifierPF2e({
+                    label: wornArmor.name,
+                    type: "item",
+                    slug,
+                    modifier: wornArmor.acBonus,
+                    adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, ["all", "ac"], slug),
+                })
+            );
+
+            const shoddyPenalty = createShoddyPenalty(this, wornArmor, ["all", "ac"]);
+            if (shoddyPenalty) modifiers.push(shoddyPenalty);
+        }
+
+        // DEX modifier is limited by the lowest cap, usually from armor
+        const dexModifier = createAbilityModifier({
+            actor: this,
+            ability: "dex",
+            domains: ["all", "ac", "dex-based"],
+        });
+        const dexCap = dexCapSources.reduce((lowest, candidate) =>
+            lowest.value > candidate.value ? candidate : lowest
+        );
+        dexModifier.modifier = Math.min(dexModifier.modifier, dexCap.value);
+
+        // In case an ability other than DEX is added, find the best ability modifier and use that as the ability on
+        // which AC is based
+        const abilityModifier = modifiers
+            .filter((m) => m.type === "ability" && !!m.ability)
+            .reduce((best, modifier) => (modifier.modifier > best.modifier ? modifier : best), dexModifier);
+        const acAbility = abilityModifier.ability!;
+        const domains = ["all", "ac", `${acAbility}-based`];
+
+        const rank = this.system.martial[proficiency]?.rank ?? 0;
+        modifiers.unshift(createProficiencyModifier({ actor: this, rank, domains }));
+        modifiers.unshift(dexModifier);
+        modifiers.push(...extractModifiers(synthetics, domains));
+
+        const rollOptions = this.getRollOptions(domains);
+        const stat: CharacterArmorClass = mergeObject(new StatisticModifier("ac", modifiers, rollOptions), {
+            value: 10,
+            breakdown: "",
+            check: armorCheckPenalty,
+            dexCap,
+        });
+        stat.value += stat.totalModifier;
+        stat.breakdown = [game.i18n.localize("PF2E.ArmorClassBase")]
+            .concat(
+                stat.modifiers
+                    .filter((m) => m.enabled)
+                    .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+            )
+            .join(", ");
+
+        return stat;
     }
 
     private prepareSaves(): void {
