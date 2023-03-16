@@ -32,7 +32,12 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "origin:trait:trap"
+                    {
+                        "or": [
+                            "origin:trait:trap",
+                            "trap"
+                        ]
+                    }
                 ],
                 "selector": [
                     "saving-throw",
@@ -43,7 +48,7 @@
                     "brackets": [
                         {
                             "end": 2,
-                            "start": 1,
+                            "start": 0,
                             "value": 1
                         },
                         {
@@ -65,7 +70,13 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "trap-finder"
+                    {
+                        "or": [
+                            "origin:trait:trap",
+                            "trap",
+                            "trap-finder"
+                        ]
+                    }
                 ],
                 "selector": "perception",
                 "type": "circumstance",
@@ -74,7 +85,7 @@
                         {
                             "end": 2,
                             "start": 1,
-                            "value": 1
+                            "value": 0
                         },
                         {
                             "end": 4,
