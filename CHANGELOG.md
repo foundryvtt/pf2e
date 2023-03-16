@@ -1,5 +1,31 @@
 # Changelog
 
+## Version 4.9.3
+
+### Bugfixes
+* (In3luki) Fix trait pre-filtering from character sheet's feats tab
+* (stwlam) Fix setting of primary class DC's key ability when in manual-entry mode
+* (stwlam) Fix issue causing error in effects tracker when world time changes
+* (Supe) Fix vehicle action drag drop and resorting
+
+### Data Updates
+* (Dire Weasel) Add leveled persistent damage links to Acid Arrow, Gouging Claw
+* (Dire Weasel) Add Society bonus to Vengeful Arm
+* (Dire Weasel) Allow handwraps for talismans and spellhearts
+* (Dire Weasel) Fix Regeneration details on Isqulug and Water Yai.
+* (Dire Weasel) Fix some Gatewalkers sources
+* (Dire Weasel) Include Lesson of Bargains in Witch Major Lesson choices
+* (Dire Weasel) Fix rarity of some Treasure Vault items
+* (Dire Weasel) Update some feats to use DamageDice rule elements rather than Note rule elements
+* (JDCalvert) Set the effect level for protective ward aura
+* (LebombJames) Fix damage types on thunderburst
+* (stwlam) Add frying pan training to Halfling Weapon Familiarity
+* (Tikael) Begin moving localized persistent damage to inline rolls
+* (Tikael) Fix the predicates of the Trap Finder feat
+* (TMun) Add regeneration glossary ability to Precentor
+* (TMun) Update license file for upcoming announced releases
+
+
 ## Version 4.9.2
 
 ### System Improvements
