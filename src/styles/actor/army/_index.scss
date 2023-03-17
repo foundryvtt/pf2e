@@ -1,286 +1,127 @@
-.worldbuilding {
-  /* Sheet Tabs */
-  /* Items List */
-  /* Attributes */
-}
-.worldbuilding .window-content {
-  height: 100%;
-  padding: 6px 8px 0 8px;
-  overflow-y: hidden;
-}
-.worldbuilding form.flex {
-  gap: 12px;
-  align-items: flex-start;
-}
-.worldbuilding form.flex aside {
-  flex: 0;
-  max-width: 20%;
-  min-width: 20%;
-  text-align: center;
-}
-.worldbuilding form.flex aside .profile-img {
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  border: unset;
-}
-.worldbuilding form.flex aside fieldset {
-  width: 100%;
-  padding: 0.25rem;
-}
-.worldbuilding form.flex aside div,
-.worldbuilding form.flex aside legend,
-.worldbuilding form.flex aside fieldset {
-  margin-bottom: 5px;
-}
-.worldbuilding form.flex .body {
-  flex: 2;
-}
-.worldbuilding form.flex .body fieldset {
-  margin: 8px 0;
-}
-.worldbuilding form.flex .body textarea {
-  width: 100%;
-  resize: none;
-  border: none;
-}
-.worldbuilding div.body header.sheet-header {
-  display: block;
-  overflow: hidden;
-  margin-bottom: 8px;
-}
-.worldbuilding div.body header.sheet-header h1.charname input {
-  width: 100%;
-  height: 100%;
-  margin: 4px 0;
-}
-.worldbuilding .flex {
-  flex: 1 1 128px;
-  overflow: hidden;
-  display: flex;
-  justify-content: space-between;
-  margin: 5px 0;
-  text-align: center;
-  flex-direction: row;
-  align-items: center;
-}
-.worldbuilding .flex.economy {
-  justify-content: space-around;
-}
-.worldbuilding input[type=number] {
-  max-width: 48px;
-  height: 28px;
-}
-.worldbuilding input.mod::before {
-  content: "+";
-}
-.worldbuilding select {
-  min-width: 100px;
-  height: 28px;
-}
-.worldbuilding label.top {
-  display: block;
-  text-align: center;
-}
-.worldbuilding fieldset {
-  border-radius: 5px;
-}
-.worldbuilding fieldset legend {
-  color: #5f0000;
-  text-transform: bold;
-}
-.worldbuilding fieldset.strikes input.name {
-  flex: 2;
-}
-.worldbuilding button.roll {
-  max-height: 32px;
-  max-width: 32px;
-}
-.worldbuilding .tabs {
-  flex: 0 0 40px;
-  border-top: 1px solid #AAA;
-  border-bottom: 1px solid #AAA;
-}
-.worldbuilding .tabs a {
-  line-height: 40px;
-  font-weight: bold;
-}
-.worldbuilding .tabs a.active {
-  text-decoration: underline;
-  text-shadow: none;
-}
-.worldbuilding .sheet-body {
-  overflow: hidden;
-}
-.worldbuilding .sheet-body .tab {
-  height: 100%;
-  overflow-y: auto;
-}
-.worldbuilding .item-list {
-  list-style: none;
-  margin: 7px 0;
-  padding: 0;
-  overflow-y: auto;
-}
-.worldbuilding .item-list .item {
-  min-height: 30px;
-  line-height: 24px;
-  padding: 3px 0;
-  border-bottom: 1px solid #BBB;
-  align-items: stretch;
-}
-.worldbuilding .item-list .item img {
-  flex: 0 0 24px;
-  margin-right: 5px;
-}
-.worldbuilding .item-list .item-name {
-  margin: 0;
-}
-.worldbuilding .item-list .item-controls {
-  flex: 0 0 36px;
-}
-.worldbuilding .item-list .item-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  align-items: center;
-  flex: 2;
-  justify-content: flex-start;
-}
-.worldbuilding .item-list .item-button {
-  line-height: 1;
-  font-size: 11px;
-  flex: none;
-  width: auto;
-}
-.worldbuilding .attributes {
-  position: relative;
-}
-.worldbuilding .attributes .attribute-control,
-.worldbuilding .attributes .group-control {
-  flex: 0 0 20px;
-  text-align: center;
-  line-height: 28px;
-  border: none;
-}
-.worldbuilding .attributes .attribute-roll {
-  flex: 0 0 20px;
-  text-align: center;
-  border-bottom: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.worldbuilding .attributes .group-prefix {
-  height: 31px;
-  margin-right: 10px;
-}
-.worldbuilding .attributes .button {
-  width: 100%;
-  flex: 1;
-  margin: 0;
-  background: rgba(0, 0, 0, 0.1);
-  border: 2px groove #f0f0e0;
-  border-radius: 3px;
-  font-size: 14px;
-  line-height: 28px;
-  display: block;
-}
-.worldbuilding .attributes .attribute-key {
-  background: transparent;
-  border: none;
-}
-.worldbuilding .attributes-header {
-  position: sticky;
-  top: 0;
-  left: 0;
-  align-items: center;
-  padding: 0 5px;
-  margin: 5px 0;
-  background: #cfcdc2;
-  border: 1px solid #AAA;
-  border-radius: 2px;
-  text-align: left;
-  font-weight: bold;
-}
-.worldbuilding .attributes-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.worldbuilding .attributes-list li > * {
-  margin: 0 3px;
-  height: 28px;
-  line-height: 24px;
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  border-bottom: 1px solid #AAA;
-}
-.worldbuilding .attributes-list .attribute-col label {
-  font-size: 10px;
-  text-align: center;
-  line-height: 1;
-}
-.worldbuilding .attributes-list .attribute-col input {
-  font-size: 11px;
-  text-align: center;
-  line-height: 1;
-  height: 50%;
-}
-.worldbuilding .attribute input[type="text"]::placeholder,
-.worldbuilding .group-header input[type="text"]::placeholder {
-  opacity: 0;
-  transition: opacity 0.25s ease-in-out;
-}
-.worldbuilding .attribute input[type="text"]:focus::placeholder,
-.worldbuilding .group-header input[type="text"]:focus::placeholder {
-  opacity: 1;
-}
-.worldbuilding .group-controls {
-  margin: 5px;
-}
-.worldbuilding .groups-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.worldbuilding .group {
-  margin: 5px 0 0;
-  padding: 0;
-}
-.worldbuilding .group-header {
-  align-items: center;
-  background: rgba(0, 0, 0, 0.05);
-  border: 1px solid #AAA;
-  border-radius: 2px;
-  padding: 2px 5px;
-}
-.worldbuilding .group-key,
-.worldbuilding .group-label {
-  font-weight: bold;
-  border: none;
-  border-bottom: 1px solid #AAA;
-  background: transparent;
-  border-radius: 0;
-  margin-right: 6px;
-}
-.worldbuilding .group-key {
-  opacity: 0.75;
-}
-.worldbuilding .group-label {
-  flex: 2;
-}
-.worldbuilding .group-dtype {
-  height: 24px;
-  flex: 0 0 116px;
-  margin: 0 5px;
-}
-.worldbuilding.sheet.actor {
-  min-width: 560px;
-  min-height: 420px;
-}
-.worldbuilding.sheet.item {
-  min-width: 460px;
-  min-height: 400px;
+.app.army.pf2e.sheet.window-app {
+  // Structure and Layout
+  section.window-content {
+    height: 100%;
+    min-width: 560px;
+    min-height: 420px;
+    padding: 6px 8px 0 8px;
+    overflow-y: hidden;
+    form.flex {
+      gap: 12px;
+      align-items: flex-start;
+      // Sidebar
+      aside {
+        flex: 0;
+        max-width: 20%;
+        min-width: 20%;
+        text-align: center;
+        .profile-img {
+          width: 100%;
+          height: 100%;
+          border-radius: 10px;
+          border: unset;
+        }
+        fieldset {
+          width: 100%;
+          padding: 0.25rem;
+        }
+        div, legend, fieldset {
+          margin-bottom: 5px;
+        }
+      }
+      // Sheet contents
+      div.body {
+        flex: 2;
+        // Header
+        header.sheet-header {
+          display:block;
+          overflow: hidden;
+          margin-bottom: 8px;
+          h1.charname {
+            input {
+              width: 100%;
+              height: 100%;
+              margin: 4px 0;
+            }
+          }  
+        }
+        // Navbar
+        .tabs {
+          flex: 0 0 40px;
+          border-top: 1px solid #AAA;
+          border-bottom: 1px solid #AAA;
+    
+          a {
+            line-height: 40px;
+            font-weight: bold;
+          }
+    
+          a.active {
+            text-decoration: underline;
+            text-shadow: none;
+          }
+        }
+        // Tab contents
+        .sheet-body {
+          overflow: hidden;
+          .tab {
+            height: 100%;
+            overflow-y: auto;
+            fieldset {
+              margin: 8px 0;
+            }
+            textarea {
+              width: 100%;
+              resize: none;
+              border: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+    // Elements and Classes
+
+  input[type=number] {
+    max-width: 48px;
+    height: 28px;
+  }
+  select {
+    min-width: 100px;
+    height: 28px;
+  }
+  button.roll {
+    max-height: 32px;
+    max-width: 32px;
+  }
+  label.top {
+    display:block;
+    text-align:center;
+  }
+  fieldset {
+    border-radius: 5px;
+    legend {
+      color: rgb(95, 0, 0);
+      text-transform: bold;
+    }  
+    &.strikes {
+      input.name {
+        flex: 2;
+      }
+    }
+  }
+  .flex {
+    flex: 1 1 128px;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+    text-align: center;
+    flex-direction: row;
+    align-items: center;
+    &.economy {
+      justify-content: space-around;
+    }
+  }
 }
