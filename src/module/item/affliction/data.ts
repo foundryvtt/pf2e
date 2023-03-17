@@ -49,14 +49,18 @@ interface AfflictionDamage {
 interface AfflictionStageData {
     damage: Record<string, AfflictionDamage>;
     conditions: Record<string, AfflictionConditionData>;
-    effects: {
-        uuid: ItemUUID;
-    }[];
+    effects: AfflictionEffectData[];
 }
 
 interface AfflictionConditionData {
     slug: ConditionSlug;
     value?: number;
+    /** Whether the condition should disappear when the stage changes. Defaults to true */
+    linked?: boolean;
+}
+
+interface AfflictionEffectData {
+    uuid: ItemUUID;
 }
 
 export {
