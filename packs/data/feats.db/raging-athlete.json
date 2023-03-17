@@ -23,7 +23,24 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "selector": "climb",
+                "value": "@actor.attributes.speed.total"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "selector": "swim",
+                "value": "@actor.attributes.speed.total"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },

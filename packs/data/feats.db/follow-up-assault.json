@@ -19,7 +19,38 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "follow-up-assault",
+                "toggleable": true
+            },
+            {
+                "definition": [
+                    "item:melee"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "follow-up-assault"
+                ],
+                "property": "weapon-traits",
+                "value": "backswing"
+            },
+            {
+                "definition": [
+                    "item:melee"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "follow-up-assault"
+                ],
+                "property": "weapon-traits",
+                "value": "forceful"
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },

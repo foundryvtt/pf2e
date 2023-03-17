@@ -3,8 +3,9 @@
     "img": "systems/pf2e/icons/features/feats/giants-stature.webp",
     "name": "Effect: Giant's Stature",
     "system": {
+        "badge": null,
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Giant's Stature]{Giant's Stature}</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Giant's Stature]{Giant's Stature}</p>\n<p>You become Large, increasing your reach by 5 feet and gaining the @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} condition until you stop raging</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -37,10 +38,11 @@
                 "value": 5
             },
             {
-                "key": "FlatModifier",
-                "selector": "dex-based",
-                "type": "status",
-                "value": -1
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Clumsy"
             }
         ],
         "source": {
@@ -57,7 +59,8 @@
         "traits": {
             "rarity": "common",
             "value": []
-        }
+        },
+        "unidentified": false
     },
     "type": "effect"
 }
