@@ -200,7 +200,6 @@ class EffectPF2e extends AbstractEffectPF2e {
         return super._preUpdate(changed, options, user);
     }
 
-    /** Show floaty text when this effect is deleted from an actor (if unlinked) */
     protected override _onDelete(options: DocumentModificationContext, userId: string): void {
         if (this.actor) {
             game.pf2e.effectTracker.unregister(this as Embedded<EffectPF2e>);
