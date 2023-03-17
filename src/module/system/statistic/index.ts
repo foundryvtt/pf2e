@@ -27,7 +27,7 @@ import { StatisticChatData, StatisticTraceData, StatisticData, StatisticCheckDat
 
 export * from "./data";
 
-export interface StatisticRollParameters {
+interface StatisticRollParameters {
     /** Which attack this is (for the purposes of multiple attack penalty) */
     attackNumber?: number;
     /** Optional target for the roll */
@@ -64,7 +64,7 @@ interface RollOptionParameters {
 }
 
 /** Object used to perform checks or get dcs, or both. These are created from StatisticData which drives its behavior. */
-export class Statistic {
+class Statistic {
     /** Source of truth of all statistic data and the params used to create it. Necessary for cloning. */
     #data: StatisticData;
 
@@ -494,3 +494,5 @@ class StatisticDifficultyClass {
             .join(", ");
     }
 }
+
+export { Statistic, StatisticDifficultyClass, StatisticRollParameters };
