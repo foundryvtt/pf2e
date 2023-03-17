@@ -33,9 +33,11 @@
                 "key": "FlatModifier",
                 "predicate": [
                     "class:oracle",
-                    "item:spell-slot",
+                    {
+                        "not": "item:trait:cantrip"
+                    },
                     "damaging-effect",
-                    "item:damage:physical",
+                    "item:damage:category:physical",
                     {
                         "or": [
                             "air",
