@@ -101,7 +101,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
             }
         })();
         if (!(grantedItem instanceof ItemPF2e)) return;
-        ruleSource.flag ??=
+        ruleSource.flag =
             typeof ruleSource.flag === "string" && ruleSource.flag.length > 0
                 ? sluggify(ruleSource.flag, { camel: "dromedary" })
                 : ((): string => {
