@@ -37,12 +37,19 @@
                 "uuid": "Compendium.pf2e.feats-srd.Titan Wrestler"
             },
             {
-                "hideIfDisabled": true,
                 "key": "FlatModifier",
                 "predicate": [
-                    "action:swallow-whole"
+                    {
+                        "or": [
+                            "action:grapple",
+                            "action:swallow-whole"
+                        ]
+                    }
                 ],
-                "selector": "reflex",
+                "selector": [
+                    "fortitude-dc",
+                    "reflex-dc"
+                ],
                 "type": "circumstance",
                 "value": 2
             }

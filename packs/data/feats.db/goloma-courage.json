@@ -23,15 +23,6 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "predicate": [
-                    "fear"
-                ],
-                "selector": "will",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
                 "adjustment": {
                     "success": "one-degree-better"
                 },
@@ -43,22 +34,23 @@
                 "type": "save"
             },
             {
-                "key": "Note",
+                "key": "FlatModifier",
                 "predicate": [
                     "fear"
                 ],
-                "selector": "saving-throw",
-                "text": "When you roll a success on a saving throw against a fear effect, you get a critical success instead.",
-                "title": "{item|name}"
+                "selector": "will-dc",
+                "slug": "goloma-courage-fear",
+                "type": "circumstance",
+                "value": 1
             },
             {
-                "key": "AdjustModifier",
-                "mode": "override",
+                "key": "FlatModifier",
                 "predicate": [
                     "action:demoralize"
                 ],
-                "selector": "will",
-                "slug": "goloma-courage",
+                "selector": "will-dc",
+                "slug": "goloma-courage-demoralize",
+                "type": "circumstance",
                 "value": 2
             }
         ],
