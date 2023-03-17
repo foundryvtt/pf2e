@@ -53,7 +53,7 @@
     </select>
 </div>
 
-{{#if document.isArmor}}
+{{#if (and document.isArmor (not document.isBarding))}}
     <div class="form-group">
         <label>{{localize "PF2E.PotencyRuneLabel"}}</label>
         <select name="system.potencyRune.value" data-dtype="Number">

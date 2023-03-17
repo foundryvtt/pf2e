@@ -3,6 +3,7 @@ import { FeatSlotLevel } from "@actor/character/feats";
 import { SaveType } from "@actor/types";
 import { SAVE_TYPES, SKILL_ABBREVIATIONS } from "@actor/values";
 import { ABCItemPF2e, FeatPF2e } from "@item";
+import { ArmorCategory } from "@item/armor";
 import { ARMOR_CATEGORIES } from "@item/armor/values";
 import { WEAPON_CATEGORIES } from "@item/weapon/values";
 import { ZeroToFour } from "@module/data";
@@ -127,7 +128,11 @@ class ClassPF2e extends ABCItemPF2e {
 
         this.logAutoChange(`system.proficiencies.classDCs.${slug}.rank`, this.classDC);
 
-        for (const category of ARMOR_CATEGORIES) {
+        const nonBarding = ARMOR_CATEGORIES.filter(
+            (c): c is Exclude<ArmorCategory, "light-barding" | "heavy-barding" | "shield"> =>
+                !["light-barding", "heavy-barding"].includes(c)
+        );
+        for (const category of nonBarding) {
             martial[category].rank = Math.max(martial[category].rank, this.defenses[category]) as ZeroToFour;
             this.logAutoChange(`system.martial.${category}.rank`, this.defenses[category]);
         }

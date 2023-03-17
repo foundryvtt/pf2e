@@ -20,6 +20,10 @@ class ArmorPF2e extends PhysicalItemPF2e {
         return !this.isShield;
     }
 
+    get isBarding(): boolean {
+        return ["light-barding", "heavy-barding"].includes(this.category);
+    }
+
     get baseType(): BaseArmorType | null {
         return this.system.baseItem ?? null;
     }
@@ -209,7 +213,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
         const systemData = this.system;
         const translations = LocalizePF2e.translations.PF2E;
         const properties = [
-            this.isArmor ? CONFIG.PF2E.armorTypes[this.category] : CONFIG.PF2E.weaponCategories.martial,
+            this.isArmor ? CONFIG.PF2E.armorCategories[this.category] : CONFIG.PF2E.weaponCategories.martial,
             `${addSign(this.acBonus)} ${translations.ArmorArmorLabel}`,
             this.isArmor ? `${systemData.dex.value || 0} ${translations.ArmorDexLabel}` : null,
             this.isArmor ? `${systemData.check.value || 0} ${translations.ArmorCheckLabel}` : null,
