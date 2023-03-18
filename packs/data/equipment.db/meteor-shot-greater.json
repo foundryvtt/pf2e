@@ -48,7 +48,28 @@
             }
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "failure",
+                    "success"
+                ],
+                "selector": "{item|_id}-attack",
+                "text": "PF2E.AmmunitionNotes.MeteorShot.Greater.Text",
+                "title": "PF2E.AmmunitionNotes.MeteorShot.Greater.Title"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalFailure"
+                ],
+                "selector": "{item|_id}-attack",
+                "text": "PF2E.AmmunitionNotes.MeteorShot.CriticalFailureText",
+                "title": "PF2E.AmmunitionNotes.MeteorShot.Greater.Title"
+            }
+        ],
         "size": "med",
         "source": {
             "value": "Pathfinder Guns & Gears"
