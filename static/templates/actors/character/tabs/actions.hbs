@@ -7,7 +7,7 @@
     <div class="actions-container tab-content">
         <div class="actions-tabs-wrapper">
             <section class="actions-panels">
-                <div class="actions-panel" data-tab="encounter" data-group="actions-tabs">
+                <li class="actions-panel" data-tab="encounter" data-group="actions-tabs">
                     {{#if toggles}}
                         <div class="actions-options item-list">
                             {{#each toggles as |toggle idx|}}
@@ -114,71 +114,71 @@
                         {{/each}}
                     </ol>
 
-                    <h3 class="header">Actions</h3>
+                    <h3 class="header">{{localize "PF2E.ActionsActionsHeader"}}</h3>
                     <ol class="actions-list item-list directory-list strikes-list" data-action-category="encounter">
                         {{#each actorActions.encounter as |action|}}
-                            <li class="item strike" {{#if (ne @index 0)}}style="margin-top: 3px; border-top: 1px solid rgba(120, 100, 82, 0.3); padding-top: 3px;"{{/if}} data-action-slug="{{action.slug}}">
-                                <div style="display: flex; column-gap: 5px; align-items: start;">
-                                    <div style="height: 32px;">
-                                        <img src="{{action.img}}" height="32" width="32">
+                            <li class="item strike action-item" data-action-slug="{{action.slug}}">
+                                <div class="action">
+                                    <div class="action-icon">
+                                        <img src="{{action.img}}">
                                     </div>
-                                    <div style="flex: 2; min-height: 32px; display: flex; flex-direction: column; justify-content: center;">
-                                        <strong>{{action.name}}</strong>
-                                        {{#if (eq action.variants.size 1)}}
-                                            {{#with action.variants.contents.[0] as |variant|}}
-                                                <div class="tags">
-                                                    {{#each variant.traits as |trait|}}
-                                                        <span class="tag" data-tooltip="{{lookup @root.trait.description trait}}">{{localize (lookup @root.trait.label trait)}}</span>
-                                                    {{/each}}
-                                                </div>
-                                            {{/with}}
+                                    <div class="action-summary">
+                                        <strong>{{action.name}} <span class="pf2-icon">{{action.glyph}}</span></strong>
+                                        {{#if (eq action.variants.size 0)}}
+                                            <div class="tags">
+                                                {{#each action.traits as |trait|}}
+                                                    <span class="tag" data-tooltip="{{lookup @root.trait.description trait}}">{{localize (lookup @root.trait.label trait)}}</span>
+                                                {{/each}}
+                                            </div>
                                         {{/if}}
                                     </div>
-                                    {{#if (eq action.variants.size 1)}}
-                                        <div style="display: flex; align-items: center; min-height: 32px;">
-                                            {{#with action.variants.contents.[0] as |variant|}}
-                                                <div data-action-variant-slug="{{variant.slug}}" class="button-group tags" style="display: grid; grid-template-columns: repeat({{#if (contains variant.traits "attack")}}3{{else}}1{{/if}}, min-content);">
-                                                    <button type="button" class="tag variant-strike" style="display: flex; column-gap: 3px; justify-content: space-between;">
-                                                        {{#if variant.statistic}}
-                                                            <span>{{{actionGlyph variant.cost}}}{{localize variant.statistic.label}}</span>
-                                                            <span>{{numberFormat variant.statistic.value decimals=0 sign=true}}</span>
-                                                        {{else}}
-                                                            <span>{{{actionGlyph variant.cost}}}Use</span>
-                                                        {{/if}}
-                                                    </button>
-                                                    {{#if (contains variant.traits "attack")}}
-                                                        <button type="button" class="tag variant-strike">MAP -5</button>
-                                                        <button type="button" class="tag variant-strike">MAP -10</button>
+                                    {{#if (eq action.variants.size 0)}}
+                                        <div class="action-buttons">
+                                            <div class="button-group tags{{#if (contains action.traits "attack")}} multiple-attack-penalty{{/if}}">
+                                                <button type="button" class="tag">
+                                                    {{#if action.statistic}}
+                                                        <span><!--{{{actionGlyph action.cost}}}-->{{localize action.statistic.label}}</span>
+                                                        <span>{{numberFormat action.statistic.value decimals=0 sign=true}}</span>
+                                                    {{else}}
+                                                        <span><!--{{{actionGlyph action.cost}}}-->{{localize "PF2E.Action.Use.Label"}}</span>
                                                     {{/if}}
-                                                </div>
-                                            {{/with}}
+                                                </button>
+                                                {{#if (contains action.traits "attack")}}
+                                                    <button type="button" class="tag" data-action-map="1">{{localize "PF2E.MAPAbbreviationLabel" penalty=-5}}</button>
+                                                    <button type="button" class="tag" data-action-map="2">{{localize "PF2E.MAPAbbreviationLabel" penalty=-10}}</button>
+                                                {{/if}}
+                                            </div>
                                         </div>
                                     {{/if}}
                                 </div>
-                                {{#if (gt action.variants.size 1)}}
-                                    <div style="display: flex; flex-direction: column; margin: 3px 0 0 15px; border-left: 3px dotted #786452; padding: 0 0 3px 14px;">
+                                {{#if action.variants.size}}
+                                    <div class="action-variants">
                                         {{#each action.variants as |variant|}}
-                                            <div data-action-variant-slug="{{variant.slug}}" style="display: flex; column-gap: 5px; justify-content: space-between; align-items: center; padding: 3px 5px; {{#if (or (eq @index 0) (eq @index 2))}}background-color: rgba(120, 100, 82, 0.1);{{/if}}">
+                                            <div data-action-variant-slug="{{variant.slug}}" class="action-variant">
                                                 <div>
-                                                    <span>{{#if variant.name}}{{variant.name}}{{else}}{{action.name}}{{/if}}</span>
-                                                    <!--
-                                                    <span class="pf2-icon">{{variant.cost}}</span>
-                                                    -->
+                                                    <span>
+                                                        {{#if variant.name}}{{variant.name}}{{else}}{{action.name}}{{/if}}
+                                                        {{{actionGlyph variant.cost}}}
+                                                    </span>
                                                     <div class="tags">
                                                         {{#each variant.traits as |trait|}}
                                                             <span class="tag" data-tooltip="{{lookup @root.trait.description trait}}">{{localize (lookup @root.trait.label trait)}}</span>
                                                         {{/each}}
                                                     </div>
                                                 </div>
-                                                <div class="button-group tags" style="display: grid;">
-                                                    <button type="button" class="tag variant-strike" style="display: flex; column-gap: 3px; justify-content: space-between;">
+                                                <div class="button-group tags">
+                                                    <button type="button" class="tag">
                                                         {{#if variant.statistic}}
-                                                            <span>{{{actionGlyph variant.cost}}}{{localize variant.statistic.label}}</span>
+                                                            <span><!--{{{actionGlyph variant.cost}}}-->{{localize variant.statistic.label}}</span>
                                                             <span>{{numberFormat variant.statistic.value decimals=0 sign=true}}</span>
                                                         {{else}}
-                                                            <span>{{{actionGlyph variant.cost}}}Use</span>
+                                                            <span><!--{{{actionGlyph variant.cost}}}-->{{localize "PF2E.Action.Use.Label"}}</span>
                                                         {{/if}}
                                                     </button>
+                                                    {{#if (contains variant.traits "attack")}}
+                                                        <button type="button" class="tag" data-action-map="1">{{localize "PF2E.MAPAbbreviationLabel" penalty=-5}}</button>
+                                                        <button type="button" class="tag" data-action-map="2">{{localize "PF2E.MAPAbbreviationLabel" penalty=-10}}</button>
+                                                    {{/if}}
                                                 </div>
                                             </div>
                                         {{/each}}

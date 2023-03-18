@@ -44,6 +44,7 @@
 
                     .item-toggle-equip {
                         color: rgba(black, 0.5);
+
                         &.active {
                             color: var(--secondary);
                         }
@@ -122,7 +123,7 @@
                     line-height: 14px;
 
                     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3),
-                                inset 0 0 0 2px rgba(0, 0, 0, 0.2);
+                    inset 0 0 0 2px rgba(0, 0, 0, 0.2);
 
                     span.activity-icon {
                         line-height: 14px;
@@ -152,6 +153,7 @@
             .action-name {
                 .item-carry-type {
                     color: rgba(0, 0, 0, 0.4);
+
                     &.active {
                         color: var(--primary);
                     }
@@ -193,12 +195,93 @@
         padding-top: 0;
         padding-bottom: 0;
         font-size: 0.75em;
+
         &[data-compatible="false"] {
             color: #ffffff99;
         }
 
         option, optgroup {
             color: white;
+        }
+    }
+
+    .actions-panel {
+        ol.actions-list, ul.actions-list {
+            li.action-item:not(:first-child) {
+                margin-top: 3px;
+                border-top: 1px solid rgba(120, 100, 82, 0.3);
+                padding-top: 3px;
+            }
+            li.action-item {
+                .action {
+                    --action-icon-size: 32px;
+
+                    display: flex;
+                    column-gap: 5px;
+                    align-items: start;
+                    padding-right: 4px;
+                    .action-icon {
+                        height: var(--action-icon-size);
+                        img {
+                            height: var(--action-icon-size);
+                            width: var(--action-icon-size);
+                        }
+                    }
+                    .action-summary {
+                        flex: 2;
+                        min-height: var(--action-icon-size);
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                    }
+                    .action-buttons {
+                        display: flex;
+                        align-items: center;
+                        min-height: var(--action-icon-size);
+                        .button-group {
+                            display: grid;
+                            grid-template-columns: repeat(1, min-content);
+                            &.multiple-attack-penalty {
+                                grid-template-columns: repeat(3, min-content);
+                            }
+                            button {
+                                display: flex;
+                                column-gap: 3px;
+                                justify-content: space-between;
+                            }
+                        }
+                    }
+                }
+                .action-variants {
+                    display: flex;
+                    flex-direction: column;
+                    margin: 3px 0 0 15px;
+                    border-left: 3px dotted #786452;
+                    padding: 0 0 3px 14px;
+                    .action-variant {
+                        display: flex;
+                        column-gap: 5px;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 4px;
+                        &:nth-child(odd) {
+                            background-color: rgba(120, 100, 82, 0.1);
+                        }
+                        .button-group {
+                            display: grid;
+                            grid-template-columns: repeat(1, min-content);
+                            &.multiple-attack-penalty {
+                                grid-template-columns: repeat(3, min-content);
+                            }
+                            button {
+                                display: flex;
+                                column-gap: 3px;
+                                justify-content: space-between;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -10,7 +10,6 @@ import {
     StringField,
     StringFieldOptions,
 } from "types/foundry/common/data/fields.mjs";
-import { ACTION_COST, ActionCost } from "@system/actions";
 
 /* -------------------------------------------- */
 /*  System `DataSchema` `DataField`s            */
@@ -77,35 +76,6 @@ interface SlugFieldOptions<TRequired extends boolean, TNullable extends boolean,
     camel?: SlugCamel;
 }
 
-class ActionCostField<TRequired extends boolean = boolean> extends fields.DataField<ActionCost, ActionCost, TRequired, false, false> {
-    /** An `ActionCost` is usually optional (`undefined` meaning exploration or downtime activity) and never nullable */
-    constructor(options: DataFieldOptions<ActionCost, TRequired, false, false> = {}) {
-        super({
-            ...options,
-            nullable: false,
-            initial: undefined,
-            validationError: "must be recognized action cost: 'free', 'reaction', 1, 2, or 3",
-        });
-    }
-
-    protected override _validateType(value: unknown): boolean {
-        return this.isString(value) || this.isNumber(value) ? ACTION_COST.includes(value as ActionCost) : false;
-    }
-
-    /** No casting is available for an action cost */
-    protected _cast(value: unknown): unknown {
-        return value;
-    }
-
-    private isNumber(value: unknown): value is number {
-        return typeof (value as number) === "number";
-    }
-
-    private isString(value: unknown): value is string {
-        return typeof (value as string) === "string";
-    }
-}
-
 class PredicateStatementField extends fields.DataField<PredicateStatement, PredicateStatement, true, false, false> {
     /** A `PredicateStatement` is always required (not `undefined`) and never nullable */
     constructor(options: DataFieldOptions<PredicateStatement, true, false, false> = {}) {
@@ -157,4 +127,4 @@ class PredicateField<
     }
 }
 
-export { ActionCostField, LaxSchemaField, PredicateField, SlugField };
+export { LaxSchemaField, PredicateField, SlugField };

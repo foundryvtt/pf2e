@@ -31,6 +31,7 @@ import {
     htmlQueryAll,
     isObject,
     objectHasKey,
+    sluggify,
     tupleHasValue,
 } from "@util";
 import { ActorSizePF2e } from "../data/size";
@@ -222,21 +223,25 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             new ImagePopout(actor.img, { title, uuid: actor.uuid }).render(true);
         });
 
+        // Action usage
+        const closest = (element: HTMLElement, key: string) => {
+            const closest = element.closest(`[data-${key}]`);
+            return closest instanceof HTMLElement ? closest.dataset[sluggify(key, { camel: "dromedary" })] : undefined;
+        };
         for (const category of htmlQueryAll(html, "[data-action-category]")) {
             const actionCategory = category.dataset.actionCategory! as "encounter" | "exploration" | "downtime";
             category.addEventListener("click", (event) => {
-                if (event.target && event.target instanceof HTMLButtonElement) {
-                    const variant = event.target.closest("[data-action-variant-slug]");
-                    if (!(variant instanceof HTMLElement)) {
-                        return;
-                    }
-                    const variantSlug = variant?.dataset.actionVariantSlug!;
-                    const action = variant?.closest("[data-action-slug]");
-                    if (!(action instanceof HTMLElement)) {
-                        return;
-                    }
-                    const actionSlug = action?.dataset.actionSlug!;
-                    this.actor.actions[actionCategory]?.get(actionSlug)?.variants.get(variantSlug)?.use({ event });
+                if (event.target instanceof HTMLElement) {
+                    const action = closest(event.target, "action-slug")!;
+                    const multipleAttackPenalty = closest(event.target, "action-map");
+                    this.actor.actions[actionCategory]
+                        ?.get(action)
+                        ?.use({
+                            event,
+                            multipleAttackPenalty: multipleAttackPenalty ? Number(multipleAttackPenalty) : undefined,
+                            variant: closest(event.target, "action-variant-slug"),
+                        })
+                        .catch((reason: string) => ui.notifications.error(reason));
                 }
             });
         }
