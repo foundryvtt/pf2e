@@ -1,16 +1,18 @@
 <section class="tab main" data-group="primary" data-tab="main">
     <!-- TOGGLES -->
     <div class="toggles section-container headerless">
-        <div class="section-body actions-options item-list">
-            {{#each actor.system.toggles as |toggle idx|}}
-                <div class="actions-option item">
-                    <label>
-                        <input type="checkbox" data-action="toggle-roll-option"{{#if toggle.itemId}} data-item-id="{{toggle.itemId}}"{{/if}} data-domain="{{toggle.domain}}" data-option="{{toggle.option}}" {{disabled (not toggle.enabled)}} {{checked toggle.checked}} />
-                        <span>{{localize toggle.label}}</span>
-                    </label>
-                </div>
-            {{/each}}
-        </div>
+        {{#if toggles}}
+            <div class="section-body actions-options item-list">
+                {{#each toggles as |toggle idx|}}
+                    <div class="actions-option item" data-item-id="{{toggle.itemId}}" data-domain="{{toggle.domain}}" data-option="{{toggle.option}}">
+                        <label>
+                            <input type="checkbox" data-action="toggle-roll-option" {{disabled (not toggle.enabled)}} {{checked toggle.checked}} />
+                            <span>{{localize toggle.label}}</span>
+                        </label>
+                    </div>
+                {{/each}}
+            </div>
+        {{/if}}
     </div>
     <div class="recall-knowledge section-container">
         <div class="section-header">

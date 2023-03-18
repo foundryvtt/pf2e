@@ -1,6 +1,5 @@
 import { GrantItemSource } from "@module/rules/rule-element/grant-item/rule-element";
 import { RuleElementForm } from "./base";
-import { UUIDUtils } from "@util/uuid-utils";
 
 /** Form handler for the GrantItem rule element */
 class GrantItemForm extends RuleElementForm<GrantItemSource> {
@@ -8,7 +7,7 @@ class GrantItemForm extends RuleElementForm<GrantItemSource> {
     override async getData() {
         const data = await super.getData();
         const uuid = this.rule.uuid ? String(this.rule.uuid) : null;
-        const granted = uuid ? await UUIDUtils.fromUuid(uuid) : null;
+        const granted = uuid ? await fromUuid(uuid) : null;
         return { ...data, granted, allowDuplicate: this.rule.allowDuplicate ?? true };
     }
 

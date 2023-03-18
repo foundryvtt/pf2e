@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { resetAndRerenderActors } from "@actor/helpers";
+import { resetActors } from "@actor/helpers";
 import type { EffectPF2e } from "@item/index";
 import { EncounterPF2e } from "@module/encounter";
 
@@ -84,8 +84,9 @@ export class EffectTracker {
      */
     async refresh({ resetItemData = false } = {}): Promise<void> {
         if (resetItemData) {
-            for (const effect of this.effects) {
-                effect.reset();
+            const actors = new Set(this.effects.flatMap((e) => e.actor ?? []));
+            for (const actor of actors) {
+                actor.reset();
             }
             game.pf2e.effectPanel.refresh();
         }
@@ -97,7 +98,7 @@ export class EffectTracker {
                 await this.#removeExpired(actor);
             }
         } else if (game.settings.get("pf2e", "automation.effectExpiration")) {
-            resetAndRerenderActors(actorsToUpdate);
+            resetActors(actorsToUpdate);
         }
     }
 

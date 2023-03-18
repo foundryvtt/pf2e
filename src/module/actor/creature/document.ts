@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { HitPointsSummary } from "@actor/base";
-import { CreatureData } from "@actor/data";
+import { CreatureSource } from "@actor/data";
 import { StrikeData } from "@actor/data/base";
 import {
     CheckModifier,
@@ -23,26 +23,27 @@ import { Rarity, SIZES, SIZE_SLUGS } from "@module/data";
 import { CombatantPF2e } from "@module/encounter";
 import { RollNotePF2e } from "@module/notes";
 import { RuleElementSynthetics } from "@module/rules";
-import { BaseSpeedSynthetic } from "@module/rules/synthetics";
 import {
     extractModifierAdjustments,
     extractModifiers,
-    extractRollTwice,
     extractRollSubstitutions,
+    extractRollTwice,
 } from "@module/rules/helpers";
+import { BaseSpeedSynthetic } from "@module/rules/synthetics";
 import { LightLevels } from "@module/scene/data";
 import { UserPF2e } from "@module/user";
 import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check";
-import { DamageType, DAMAGE_CATEGORIES_UNIQUE } from "@system/damage";
+import { DamageType } from "@system/damage/types";
+import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { Statistic } from "@system/statistic";
-import { ErrorPF2e, objectHasKey, setHasElement } from "@util";
+import { ErrorPF2e, isObject, objectHasKey, setHasElement } from "@util";
 import {
     CreatureSkills,
     CreatureSpeeds,
-    CreatureTrait,
+    CreatureSystemData,
     InitiativeRollParams,
     InitiativeRollResult,
     LabeledSpeed,
@@ -52,10 +53,17 @@ import {
     VisionLevel,
     VisionLevels,
 } from "./data";
-import { CreatureSensePF2e } from "./sense";
-import { Alignment, AlignmentTrait, CreatureUpdateContext, GetReachParameters, IsFlatFootedParams } from "./types";
-import { SIZE_TO_REACH } from "./values";
 import { setTraitIWR } from "./helpers";
+import { CreatureSensePF2e } from "./sense";
+import {
+    Alignment,
+    AlignmentTrait,
+    CreatureTrait,
+    CreatureUpdateContext,
+    GetReachParameters,
+    IsFlatFootedParams,
+} from "./types";
+import { SIZE_TO_REACH } from "./values";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 abstract class CreaturePF2e extends ActorPF2e {
@@ -144,8 +152,13 @@ abstract class CreaturePF2e extends ActorPF2e {
     }
 
     override get visionLevel(): VisionLevel {
-        const senses = this.system.traits.senses;
-        if (!Array.isArray(senses)) return VisionLevels.NORMAL;
+        const { senses } = this.system.traits;
+        const hasSensesData =
+            Array.isArray(senses) &&
+            senses.every((s): s is { type: string } => isObject(s) && "type" in s && typeof s.type === "string");
+        if (!hasSensesData) {
+            return VisionLevels.NORMAL;
+        }
 
         const senseTypes = new Set(senses.map((sense) => sense.type));
 
@@ -207,7 +220,7 @@ abstract class CreaturePF2e extends ActorPF2e {
     }
 
     get perception(): Statistic {
-        const stat = this.system.attributes.perception as StatisticModifier;
+        const stat = this.system.attributes.perception;
         return Statistic.from(this, stat, "perception", "PF2E.PerceptionCheck", "perception-check");
     }
 
@@ -282,7 +295,7 @@ abstract class CreaturePF2e extends ActorPF2e {
         attributes.flanking.flatFootable = true;
         attributes.reach = { base: 0, manipulate: 0 };
 
-        if ("initiative" in attributes) {
+        if (attributes.initiative) {
             attributes.initiative.tiebreakPriority = this.hasPlayerOwner ? 2 : 1;
         }
 
@@ -471,6 +484,7 @@ abstract class CreaturePF2e extends ActorPF2e {
                 const context: CheckRollContext = {
                     actor: this,
                     type: "initiative",
+                    domains,
                     options: rollOptions,
                     notes,
                     dc: args.dc,
@@ -844,7 +858,8 @@ abstract class CreaturePF2e extends ActorPF2e {
 }
 
 interface CreaturePF2e extends ActorPF2e {
-    readonly data: CreatureData;
+    readonly _source: CreatureSource;
+    system: CreatureSystemData;
 
     /** Saving throw rolls for the creature, built during data prep */
     saves: Record<SaveType, Statistic>;

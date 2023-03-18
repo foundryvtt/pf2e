@@ -2,12 +2,12 @@ import { CraftingEntryData } from "@actor/character/crafting/entry";
 import { CraftingFormulaData } from "@actor/character/crafting/formula";
 import {
     AbilityData,
-    BaseCreatureData,
     BaseCreatureSource,
     CreatureAttributes,
     CreatureDetails,
     CreatureHitPoints,
     CreatureInitiative,
+    CreatureResources,
     CreatureSystemData,
     CreatureTraitsData,
     HeldShieldData,
@@ -36,16 +36,11 @@ import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types"
 import { ZeroToFour } from "@module/data";
 import { PredicatePF2e } from "@system/predication";
 import { StatisticTraceData } from "@system/statistic";
-import type { CharacterPF2e } from "..";
 import { CharacterSheetTabVisibility } from "./sheet";
 
 interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemData> {
     flags: DeepPartial<CharacterFlags>;
 }
-
-interface CharacterData
-    extends Omit<CharacterSource, "data" | "flags" | "effects" | "items" | "prototypeToken" | "system" | "type">,
-        BaseCreatureData<CharacterPF2e, "character", CharacterSystemData, CharacterSource> {}
 
 type CharacterFlags = ActorFlagsPF2e & {
     pf2e: {
@@ -180,23 +175,23 @@ interface CharacterSaveData extends SaveData {
 type CharacterSaves = Record<SaveType, CharacterSaveData>;
 
 interface CharacterProficiency {
+    label?: string;
     /** The actual modifier for this martial type. */
     value: number;
     /** Describes how the value was computed. */
     breakdown: string;
     /** The proficiency rank (0 untrained - 4 legendary). */
     rank: ZeroToFour;
-    label?: string;
+    /** Can this proficiency be edited or deleted? */
+    immutable?: boolean;
     /** A proficiency in a non-armor/weapon category and not added by a feat or feature */
-    custom?: true;
+    custom?: boolean;
 }
 
 /** A proficiency with a rank that depends on another proficiency */
 interface MartialProficiency extends Omit<CharacterProficiency, "custom"> {
     /** A predicate to match against weapons and unarmed attacks */
     definition: PredicatePF2e;
-    /** Can this proficiency be edited or deleted? */
-    immutable?: boolean;
     /** The category to which this proficiency is linked */
     sameAs?: WeaponCategory;
     /** The maximum rank this proficiency can reach */
@@ -277,9 +272,7 @@ interface PathfinderSocietyData {
 
 type CharacterArmorClass = StatisticModifier & Required<ArmorClassData>;
 
-interface CharacterResources {
-    /** The current number of focus points and pool size */
-    focus: { value: number; max: number; cap: number };
+interface CharacterResources extends CreatureResources {
     /** The current and maximum number of hero points */
     heroPoints: { value: number; max: number };
     /** The current and maximum number of invested items */
@@ -457,7 +450,6 @@ export {
     CategoryProficiencies,
     CharacterArmorClass,
     CharacterAttributes,
-    CharacterData,
     CharacterDetails,
     CharacterFlags,
     CharacterProficiency,

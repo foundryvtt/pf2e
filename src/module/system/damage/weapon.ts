@@ -359,8 +359,10 @@ class WeaponDamagePF2e {
         if (weaponTraits.some((t) => t === "backstabber") && options.has("target:condition:flat-footed")) {
             const modifier = new ModifierPF2e({
                 label: CONFIG.PF2E.weaponTraits.backstabber,
+                slug: "backstabber",
                 modifier: potency > 2 ? 2 : 1,
                 damageCategory: "precision",
+                adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, selectors, "backstabber"),
             });
             modifiers.push(modifier);
         }
@@ -602,6 +604,9 @@ class WeaponDamagePF2e {
                 base.dieSize = override.override?.dieSize ?? base.dieSize;
                 base.damageType = override.override?.damageType ?? base.damageType;
                 base.diceNumber = override.override?.diceNumber ?? base.diceNumber;
+                for (const die of damage.dice.filter((d) => d.slug.startsWith("deadly-"))) {
+                    die.damageType = override.override?.damageType ?? die.damageType;
+                }
             }
         }
 

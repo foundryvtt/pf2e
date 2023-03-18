@@ -3,18 +3,15 @@ import { ActionMacroHelpers, SkillActionOptions } from "..";
 const PREFIX = "PF2E.Actions.PalmAnObject";
 
 export function palmAnObject(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "thievery");
+    const slug = options?.skill ?? "thievery";
+    const rollOptions = ["action:palm-an-object"];
+    const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph ?? "A",
         title: `${PREFIX}.Title`,
-        subtitle,
-        modifiers: options.modifiers,
-        rollOptions: ["all", checkType, stat, "action:palm-an-object"],
-        extraOptions: ["action:palm-an-object"],
+        checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["manipulate"],
-        checkType,
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,

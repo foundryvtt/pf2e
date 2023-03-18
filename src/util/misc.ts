@@ -190,12 +190,15 @@ const upperOrWordBoundariedLowerRE = new RegExp(`${upperCaseLetter}|(?:${wordBou
  * @param text The text to sluggify
  * @param [options.camel=null] The sluggification style to use
  */
-function sluggify(text: string, { camel = null }: { camel?: "dromedary" | "bactrian" | null } = {}): string {
+function sluggify(text: string, { camel = null }: { camel?: SlugCamel } = {}): string {
     // Sanity check
     if (typeof text !== "string") {
         console.warn("Non-string argument passed to `sluggify`");
         return "";
     }
+
+    // A hyphen by its lonesome would be wiped: return it as-is
+    if (text === "-") return text;
 
     switch (camel) {
         case null:
@@ -223,6 +226,8 @@ function sluggify(text: string, { camel = null }: { camel?: "dromedary" | "bactr
     }
 }
 
+type SlugCamel = "dromedary" | "bactrian" | null;
+
 /** Parse a string containing html */
 function parseHTML(unparsed: string): HTMLElement {
     const fragment = document.createElement("template");
@@ -231,6 +236,22 @@ function parseHTML(unparsed: string): HTMLElement {
     if (!(element instanceof HTMLElement)) throw ErrorPF2e("Unexpected error parsing HTML");
 
     return element;
+}
+
+function getActionTypeLabel(
+    type: Maybe<"action" | "free" | "reaction" | "passive">,
+    cost: Maybe<number>
+): string | null {
+    switch (type) {
+        case "action":
+            return cost === 1 ? "PF2E.Action.Type.Single" : "PF2E.Action.Type.Activity";
+        case "free":
+            return "PF2E.Action.Type.Free";
+        case "reaction":
+            return "PF2E.Action.Type.Reaction";
+        default:
+            return null;
+    }
 }
 
 const actionImgMap: Record<string, ImageFilePath> = {
@@ -425,11 +446,13 @@ export {
     ErrorPF2e,
     Fraction,
     Optional,
+    SlugCamel,
     addSign,
     applyNTimes,
     fontAwesomeIcon,
     getActionGlyph,
     getActionIcon,
+    getActionTypeLabel,
     groupBy,
     isBlank,
     isImageFilePath,

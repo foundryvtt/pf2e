@@ -26,17 +26,7 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "diceNumber": 1,
-                        "key": "DamageDice",
-                        "label": "Rhinoceros Charge",
-                        "predicate": [
-                            "rhinoceros-charge"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -242,10 +232,18 @@
                 },
                 "rules": [
                     {
-                        "domain": "all",
+                        "domain": "damage-roll",
                         "key": "RollOption",
                         "option": "rhinoceros-charge",
                         "toggleable": true
+                    },
+                    {
+                        "diceNumber": 1,
+                        "key": "DamageDice",
+                        "predicate": [
+                            "rhinoceros-charge"
+                        ],
+                        "selector": "horn-damage"
                     }
                 ],
                 "slug": null,
@@ -328,10 +326,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -355,10 +349,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"

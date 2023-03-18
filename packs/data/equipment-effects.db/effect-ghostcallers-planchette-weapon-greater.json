@@ -19,17 +19,24 @@
         "rules": [
             {
                 "choices": {
+                    "includeHandwraps": true,
                     "ownedItems": true,
                     "types": [
                         "weapon"
                     ]
                 },
+                "flag": "effectGhostcallersPlanchetteWeaponGreater",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "definition": [
-                    "item:id:{item|flags.pf2e.rulesSelections.effectGhostcallersPlanchetteWeaponGreater}"
+                    {
+                        "or": [
+                            "item:category:{item|flags.pf2e.rulesSelections.effectGhostcallersPlanchetteWeaponGreater}",
+                            "item:id:{item|flags.pf2e.rulesSelections.effectGhostcallersPlanchetteWeaponGreater}"
+                        ]
+                    }
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",
@@ -38,7 +45,12 @@
             },
             {
                 "definition": [
-                    "item:id:{item|flags.pf2e.rulesSelections.effectGhostcallersPlanchetteWeaponGreater}"
+                    {
+                        "or": [
+                            "item:category:{item|flags.pf2e.rulesSelections.effectGhostcallersPlanchetteWeaponGreater}",
+                            "item:id:{item|flags.pf2e.rulesSelections.effectGhostcallersPlanchetteWeaponGreater}"
+                        ]
+                    }
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",

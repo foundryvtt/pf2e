@@ -1,14 +1,10 @@
 import { AbilityString, SaveType } from "@actor/types";
 import { ABCSystemSource } from "@item/abc/data";
-import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemTraits } from "@item/data/base";
+import { BaseItemSourcePF2e, ItemTraits } from "@item/data/base";
 import { ZeroToFour } from "@module/data";
-import type { ClassPF2e } from ".";
 import { CLASS_TRAITS } from "./values";
 
 type ClassSource = BaseItemSourcePF2e<"class", ClassSystemSource>;
-
-type ClassData = Omit<ClassSource, "system" | "effects" | "flags"> &
-    BaseItemDataPF2e<ClassPF2e, "class", ClassSystemData, ClassSource>;
 
 interface ClassSystemSource extends ABCSystemSource {
     traits: ItemTraits;
@@ -28,6 +24,7 @@ interface ClassSystemSource extends ABCSystemSource {
     generalFeatLevels: { value: number[] };
     skillFeatLevels: { value: number[] };
     skillIncreaseLevels: { value: number[] };
+    level?: never;
 }
 
 type ClassSystemData = ClassSystemSource;
@@ -49,4 +46,4 @@ interface ClassDefenseProficiencies {
 
 type ClassTrait = SetElement<typeof CLASS_TRAITS>;
 
-export { ClassAttackProficiencies, ClassData, ClassDefenseProficiencies, ClassSource, ClassSystemData, ClassTrait };
+export { ClassAttackProficiencies, ClassDefenseProficiencies, ClassSource, ClassSystemData, ClassTrait };

@@ -125,15 +125,15 @@ declare global {
                  * @param [options.keepId=false]  Keep the original Document ID? Otherwise the ID will become undefined
                  * @returns The cloned Document instance
                  */
-                clone<T extends this>(
+                clone(
                     data: DocumentUpdateData<this> | undefined,
-                    options: { save: true; keepId?: boolean }
-                ): Promise<T>;
-                clone<T extends this>(data?: DocumentUpdateData<this>, options?: { save?: false; keepId?: boolean }): T;
+                    options: DocumentCloneOptions & { save: true }
+                ): Promise<this>;
                 clone<T extends this>(
                     data?: DocumentUpdateData<this>,
-                    options?: { save?: boolean; keepId?: boolean }
-                ): T | Promise<T>;
+                    options?: DocumentCloneOptions & { save?: false }
+                ): T;
+                clone<T extends this>(data?: DocumentUpdateData<this>, options?: DocumentCloneOptions): T | Promise<T>;
 
                 /**
                  * Get the permission level that a specific User has over this Document, a value in CONST.ENTITY_PERMISSIONS.
@@ -225,11 +225,11 @@ declare global {
                  * const actor = await pack.getDocument(documentId);
                  * const updated = await Actor.updateDocuments([{_id: actor.id, name: "New Name"}], {pack: "mymodule.mypack"});
                  */
-                static updateDocuments<T extends Document>(
-                    this: ConstructorOf<T>,
-                    updates?: DocumentUpdateData<T>[],
+                static updateDocuments<TDocument extends Document>(
+                    this: ConstructorOf<TDocument>,
+                    updates?: DocumentUpdateData<TDocument>[],
                     context?: DocumentModificationContext
-                ): Promise<T[]>;
+                ): Promise<TDocument[]>;
 
                 /**
                  * Delete one or multiple existing Documents using an array of provided ids.
@@ -602,6 +602,11 @@ declare global {
         [key: string]: unknown;
     }
 
+    interface DocumentCloneOptions extends Omit<DocumentConstructionContext<null>, "parent"> {
+        save?: boolean;
+        keepId?: boolean;
+    }
+
     interface DocumentModificationContext<T extends foundry.abstract.Document = foundry.abstract.Document> {
         /** A parent Document within which these Documents should be embedded */
         parent?: T["parent"];
@@ -655,4 +660,6 @@ declare global {
             permission?: boolean;
         };
     }
+
+    type DocumentFlags = Record<string, Record<string, unknown> | undefined>;
 }

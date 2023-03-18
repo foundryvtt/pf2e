@@ -1,6 +1,8 @@
 import { ActorPF2e } from "@actor";
-import { damageDiceIcon, DamageType, DAMAGE_TYPE_ICONS } from "@system/damage";
+import { damageDiceIcon } from "@system/damage/helpers";
 import { DamageRoll } from "@system/damage/roll";
+import { DamageType } from "@system/damage/types";
+import { DAMAGE_TYPE_ICONS } from "@system/damage/values";
 import { htmlClosest, htmlQuery, htmlQueryAll, pick, sortBy } from "@util";
 import { PersistentDamagePF2e } from "./document";
 

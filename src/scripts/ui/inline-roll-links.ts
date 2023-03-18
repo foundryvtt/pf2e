@@ -120,7 +120,7 @@ export const InlineRollLinks = {
                             if (parsedTraits) {
                                 options.push(...parsedTraits);
                             }
-                            perceptionCheck.roll({ event, options, dc });
+                            perceptionCheck.roll?.({ event, options, dc });
                         } else {
                             console.warn(`PF2e System | Skip rolling perception for '${actor}'`);
                         }

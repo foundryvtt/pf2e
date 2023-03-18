@@ -1,5 +1,4 @@
 import {
-    BaseCreatureData,
     BaseCreatureSource,
     CreatureAttributes,
     CreatureSystemData,
@@ -11,13 +10,8 @@ import { CreatureSensePF2e } from "@actor/creature/sense";
 import { Rollable } from "@actor/data/base";
 import { StatisticModifier } from "@actor/modifiers";
 import { AbilityString } from "@actor/types";
-import type { FamiliarPF2e } from ".";
 
 type FamiliarSource = BaseCreatureSource<"familiar", FamiliarSystemSource>;
-
-interface FamiliarData
-    extends Omit<FamiliarSource, "data" | "system" | "effects" | "flags" | "items" | "prototypeToken" | "type">,
-        BaseCreatureData<FamiliarPF2e, "familiar", FamiliarSystemData, FamiliarSource> {}
 
 interface FamiliarSystemSource extends Pick<CreatureSystemSource, "schema"> {
     details: {
@@ -27,6 +21,7 @@ interface FamiliarSystemSource extends Pick<CreatureSystemSource, "schema"> {
     };
     attributes: {
         hp: { value: number };
+        initiative?: never;
         immunities?: never;
         weaknesses?: never;
         resistances?: never;
@@ -45,7 +40,7 @@ interface FamiliarSystemSource extends Pick<CreatureSystemSource, "schema"> {
 
 /** The raw information contained within the actor data object for familiar actors. */
 interface FamiliarSystemData
-    extends Omit<FamiliarSystemSource, "attributes" | "customModifiers" | "toggles" | "traits">,
+    extends Omit<FamiliarSystemSource, "attributes" | "customModifiers" | "toggles" | "resources" | "traits">,
         CreatureSystemData {
     details: CreatureSystemData["details"] & {
         creature: {
@@ -66,6 +61,7 @@ interface FamiliarSystemData
 interface FamiliarAttributes extends CreatureAttributes {
     ac: { value: number; breakdown: string; check?: number };
     perception: FamiliarPerception;
+    initiative?: never;
 }
 
 type FamiliarPerception = { value: number } & StatisticModifier & Rollable;
@@ -76,4 +72,4 @@ interface FamiliarTraitsData extends CreatureTraitsData {
     senses: CreatureSensePF2e[];
 }
 
-export { FamiliarData, FamiliarSource, FamiliarSystemData, FamiliarSystemSource };
+export { FamiliarSource, FamiliarSystemData, FamiliarSystemSource };

@@ -134,13 +134,12 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         if (!canvas.dimensions) return;
 
         const actor = this.document.actor;
-        const isHealth = data.attribute === "attributes.hp" && actor?.attributes.hp;
 
-        if (!isHealth) {
+        if (!(data.attribute === "attributes.hp" && actor?.attributes.hp)) {
             return super._drawBar(number, bar, data);
         }
 
-        const { value, max, temp } = actor.attributes.hp;
+        const { value, max, temp } = actor.attributes.hp ?? {};
         const healthPercent = Math.clamped(value, 0, max) / max;
 
         // Compute the color based on health percentage, this formula is the one core foundry uses
@@ -260,7 +259,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
                 const [change, details] = Object.entries(params)[0];
                 const isAdded = change === "create";
                 const sign = isAdded ? "+ " : "- ";
-                const appendedNumber = details.value ? ` ${details.value}` : "";
+                const appendedNumber = !/ \d+$/.test(details.name) && details.value ? ` ${details.value}` : "";
                 const content = `${sign}${details.name}${appendedNumber}`;
                 const anchorDirection = isAdded ? CONST.TEXT_ANCHOR_POINTS.TOP : CONST.TEXT_ANCHOR_POINTS.BOTTOM;
                 const textStyle = pick(this._getTextStyle(), ["fill", "fontSize", "stroke", "strokeThickness"]);
@@ -425,4 +424,4 @@ type ShowFloatyEffectParams =
     | { update: NumericFloatyEffect }
     | { delete: NumericFloatyEffect };
 
-export { TokenPF2e };
+export { ShowFloatyEffectParams, TokenPF2e };

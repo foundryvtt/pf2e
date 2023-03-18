@@ -1,5 +1,4 @@
 import {
-    BasePhysicalItemData,
     BasePhysicalItemSource,
     Investable,
     PhysicalItemTraits,
@@ -7,20 +6,9 @@ import {
     PhysicalSystemSource,
 } from "@item/physical";
 import { OneToFour, ZeroToThree } from "@module/data";
-import {
-    ArmorCategory,
-    ArmorGroup,
-    ArmorTrait,
-    BaseArmorType,
-    OtherArmorTag,
-    ResilientRuneType,
-    type ArmorPF2e,
-} from ".";
+import { ArmorCategory, ArmorGroup, ArmorTrait, BaseArmorType, OtherArmorTag, ResilientRuneType } from ".";
 
 type ArmorSource = BasePhysicalItemSource<"armor", ArmorSystemSource>;
-
-type ArmorData = Omit<ArmorSource, "system" | "effects" | "flags"> &
-    BasePhysicalItemData<ArmorPF2e, "armor", ArmorSystemData, ArmorSource>;
 
 interface ArmorSystemSource extends Investable<PhysicalSystemSource> {
     traits: ArmorTraits;
@@ -78,4 +66,4 @@ interface ArmorTraits extends PhysicalItemTraits<ArmorTrait> {
     otherTags: OtherArmorTag[];
 }
 
-export { ArmorData, ArmorSource, ArmorSystemData, ArmorSystemSource };
+export { ArmorSource, ArmorSystemData, ArmorSystemSource };

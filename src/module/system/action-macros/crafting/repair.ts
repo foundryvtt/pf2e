@@ -6,15 +6,11 @@ import { ActionMacroHelpers } from "../helpers";
 import { CharacterPF2e } from "@actor";
 import { SkillActionOptions } from "../types";
 import { SelectItemDialog } from "./select-item";
-import { UUIDUtils } from "@util/uuid-utils";
 
 async function repair(options: RepairActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "crafting");
-
     // resolve item
     const item =
-        options.item ??
-        (options.uuid ? await UUIDUtils.fromUuid(options.uuid) : await SelectItemDialog.getItem("repair"));
+        options.item ?? (options.uuid ? await fromUuid(options.uuid) : await SelectItemDialog.getItem("repair"));
 
     // ensure specified item is a valid crafting target
     if (item && !(item instanceof PhysicalItemPF2e)) {
@@ -43,12 +39,14 @@ async function repair(options: RepairActionOptions) {
 
     const targetItemOptions = Array.from(item?.traits ?? []).map((trait) => `target:trait:${trait}`);
 
+    const slug = options?.skill ?? "crafting";
+    const rollOptions = ["action:repair", ...targetItemOptions];
+    const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph,
         title: "PF2E.Actions.Repair.Title",
-        subtitle,
+        checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         content: async (title) => {
             if (item) {
                 const templatePath = "systems/pf2e/templates/system/actions/repair/item-heading-partial.hbs";
@@ -58,11 +56,7 @@ async function repair(options: RepairActionOptions) {
             }
             return;
         },
-        modifiers: options.modifiers,
-        rollOptions: ["all", checkType, stat, "action:repair"],
-        extraOptions: ["action:repair", ...targetItemOptions],
         traits: ["exploration", "manipulate"],
-        checkType,
         event: options.event,
         difficultyClass: dc,
         extraNotes: (selector: string) => [
@@ -104,7 +98,7 @@ async function repair(options: RepairActionOptions) {
 
 async function onRepairChatCardEvent(event: JQuery.ClickEvent, message: ChatMessagePF2e | undefined, $card: JQuery) {
     const itemUuid = $card.attr("data-item-uuid");
-    const item = await UUIDUtils.fromUuid(itemUuid ?? "");
+    const item = await fromUuid(itemUuid ?? "");
     if (!(item instanceof PhysicalItemPF2e)) return;
     const $button = $(event.currentTarget);
     const repair = $button.attr("data-repair");

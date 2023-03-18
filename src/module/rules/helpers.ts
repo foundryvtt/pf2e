@@ -1,6 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { DamageDicePF2e, DeferredValueParams, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers";
-import { ItemSourcePF2e } from "@item/data";
+import { AttackItem } from "@actor/types";
+import { ConditionSource, EffectSource, ItemSourcePF2e } from "@item/data";
 import { RollNotePF2e } from "@module/notes";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { RollTwiceOption } from "@system/rolls";
@@ -58,6 +59,37 @@ function extractDamageDice(
     options: DeferredValueParams = {}
 ): DamageDicePF2e[] {
     return selectors.flatMap((s) => deferredDice[s] ?? []).flatMap((d) => d(options) ?? []);
+}
+
+async function extractEphemeralEffects({
+    affects,
+    origin,
+    target,
+    item,
+    domains,
+    options,
+}: ExtractEphemeralEffectsParams): Promise<(ConditionSource | EffectSource)[]> {
+    if (!target) return [];
+
+    const [effectsFrom, effectsTo] = affects === "target" ? [origin, target] : [target, origin];
+    const fullOptions = [...options, ...effectsTo.getSelfRollOptions(affects)];
+    const resolvables = item.isOfType("spell") ? { spell: item } : { weapon: item };
+    return (
+        await Promise.all(
+            domains
+                .flatMap((s) => effectsFrom.synthetics.ephemeralEffects[s]?.[affects] ?? [])
+                .map((d) => d({ test: fullOptions, resolvables }))
+        )
+    ).flatMap((e) => e ?? []);
+}
+
+interface ExtractEphemeralEffectsParams {
+    affects: "target" | "origin";
+    origin: ActorPF2e;
+    target: Maybe<ActorPF2e>;
+    item: AttackItem;
+    domains: string[];
+    options: Set<string> | string[];
 }
 
 function extractRollTwice(
@@ -138,6 +170,7 @@ export {
     extractModifierAdjustments,
     extractModifiers,
     extractNotes,
+    extractEphemeralEffects,
     extractRollSubstitutions,
     extractRollTwice,
     isBracketedValue,

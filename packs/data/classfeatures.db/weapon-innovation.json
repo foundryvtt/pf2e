@@ -52,8 +52,110 @@
                 "prompt": "PF2E.SpecificRule.Inventor.Innovation.Weapon.Prompt"
             },
             {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "rarity",
+                        "value": "unique"
+                    }
+                ],
+                "flag": "weaponInnovation",
                 "key": "GrantItem",
+                "track": true,
                 "uuid": "{item|flags.pf2e.rulesSelections.weaponInnovation}"
+            },
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "PF2E.SpecificRule.Inventor.Modification.Initial.AllowedDrops",
+                    "predicate": [
+                        "item:level:1",
+                        "item:type:feature",
+                        "item:trait:inventor"
+                    ]
+                },
+                "choices": [
+                    {
+                        "predicate": [
+                            "weapon-innovation:ranged",
+                            {
+                                "not": "weapon-innovation:thrown"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Blunt Shot"
+                    },
+                    {
+                        "predicate": [
+                            "weapon-innovation:category:simple"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Complex Simplicity"
+                    },
+                    {
+                        "predicate": [
+                            "weapon-innovation:usage:hands:1",
+                            "weapon-innovation:melee",
+                            {
+                                "nor": [
+                                    "weapon-innovation:trait:agile",
+                                    "weapon-innovation:trait:attached",
+                                    "weapon-innovation:trait:free-hand"
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Dynamic Weighting"
+                    },
+                    {
+                        "predicate": [
+                            "weapon-innovation:melee"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Entangling Form"
+                    },
+                    {
+                        "predicate": [
+                            "weapon-innovation:melee"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Hampering Spikes"
+                    },
+                    {
+                        "predicate": [
+                            "weapon-innovation:melee"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Hefty Composition"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Modular Head"
+                    },
+                    {
+                        "predicate": [
+                            "weapon-innovation:melee"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Pacification Tools"
+                    },
+                    {
+                        "predicate": [
+                            "weapon-innovation:melee"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Razor Prongs"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Segmented Frame"
+                    }
+                ],
+                "flag": "initialModification",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "class:inventor"
+                ],
+                "prompt": "PF2E.SpecificRule.Inventor.Modification.Initial.Prompt"
+            },
+            {
+                "allowDuplicate": false,
+                "flag": "initialModification",
+                "key": "GrantItem",
+                "predicate": [
+                    "class:inventor"
+                ],
+                "uuid": "{item|flags.pf2e.rulesSelections.initialModification}"
             }
         ],
         "source": {

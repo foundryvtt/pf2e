@@ -1,16 +1,17 @@
-import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect";
+import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
+import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect";
+import { ChatMessagePF2e } from "@module/chat-message";
 import { RuleElementOptions, RuleElementPF2e } from "@module/rules";
 import { UserPF2e } from "@module/user";
-import { ErrorPF2e } from "@util";
-import { ConditionData, ConditionKey, ConditionSlug, ConditionSystemData, PersistentDamageData } from "./data";
-import { DamageRoll } from "@system/damage/roll";
-import { ChatMessagePF2e } from "@module/chat-message";
 import { TokenDocumentPF2e } from "@scene";
-import { DamageCategorization, PERSISTENT_DAMAGE_IMAGES } from "@system/damage";
-import { Statistic } from "@system/statistic";
+import { DamageCategorization } from "@system/damage/helpers";
+import { DamageRoll } from "@system/damage/roll";
+import { PERSISTENT_DAMAGE_IMAGES } from "@system/damage/values";
 import { DegreeOfSuccess } from "@system/degree-of-success";
-import { ActorPF2e } from "@actor";
+import { Statistic } from "@system/statistic";
+import { ErrorPF2e } from "@util";
+import { ConditionKey, ConditionSlug, ConditionSource, ConditionSystemData, PersistentDamageData } from "./data";
 
 class ConditionPF2e extends AbstractEffectPF2e {
     active!: boolean;
@@ -43,8 +44,8 @@ class ConditionPF2e extends AbstractEffectPF2e {
     }
 
     /** Is this condition locked in place by another? */
-    get isLocked(): boolean {
-        if (this.system.references.parent?.id) return true;
+    override get isLocked(): boolean {
+        if (this.system.references.parent?.id || super.isLocked) return true;
 
         const granter = this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "");
         const grants = Object.values(granter?.flags.pf2e.itemGrants ?? {});
@@ -124,6 +125,10 @@ class ConditionPF2e extends AbstractEffectPF2e {
         const systemData = this.system;
         systemData.value.value = systemData.value.isValued ? Number(systemData.value.value) || 1 : null;
 
+        // Append numeric badge value to condition name, set item image according to configured style
+        if (typeof this.badge?.value === "number") {
+            this.name = `${this.name} ${this.badge.value}`;
+        }
         const folder = CONFIG.PF2E.statusEffects.iconDir;
         this.img = `${folder}${this.slug}.webp`;
 
@@ -178,14 +183,11 @@ class ConditionPF2e extends AbstractEffectPF2e {
                 if (thisValue >= otherValue) {
                     deactivate(condition);
                 }
-            } else if (this.value && condition.value && this.value >= condition.value) {
+            } else if (this.value === condition.value && (!this.isLocked || condition.isLocked)) {
+                // Deactivate other equal valued conditions if this condition isn't locked or both are locked
+                deactivate(condition);
+            } else if (this.value && condition.value && this.value > condition.value) {
                 // Deactivate other conditions with a lower or equal value
-                deactivate(condition);
-            } else if (!this.isLocked) {
-                // Deactivate other conditions if this condition isn't locked
-                deactivate(condition);
-            } else if (this.isLocked && ofSameType.every((c) => c.isLocked)) {
-                // Deactivate other conditions if all conditions of this type are locked
                 deactivate(condition);
             }
         }
@@ -218,29 +220,6 @@ class ConditionPF2e extends AbstractEffectPF2e {
         return super._preUpdate(changed, options, user);
     }
 
-    protected override _onCreate(
-        data: this["_source"],
-        options: DocumentModificationContext<this>,
-        userId: string
-    ): void {
-        super._onCreate(data, options, userId);
-
-        if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame_secretCondition")) {
-            return;
-        }
-
-        /* Suppress floaty text on "linked" conditions */
-        if (this.system.references.parent?.type !== "condition") {
-            this.actor?.getActiveTokens().shift()?.showFloatyText({ create: this });
-        }
-
-        for (const token of this.actor?.getActiveTokens() ?? []) {
-            token._onApplyStatusEffect(this.rollOptionSlug, true);
-        }
-
-        game.pf2e.StatusEffects.refresh();
-    }
-
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
         options: ConditionModificationContext<this>,
@@ -254,30 +233,11 @@ class ConditionPF2e extends AbstractEffectPF2e {
 
         const [priorValue, newValue] = [options.conditionValue, this.value];
         const valueChanged = !!priorValue && !!newValue && priorValue !== newValue;
-        // Suppress floaty text on "linked" conditions
-        if (valueChanged && this.system.references.parent?.type !== "condition") {
+
+        /* Show floaty text only for unlinked conditions */
+        if (valueChanged && !this.system.references.parent?.id) {
             const change = newValue > priorValue ? { create: this } : { delete: this };
             this.actor?.getActiveTokens().shift()?.showFloatyText(change);
-        }
-
-        game.pf2e.StatusEffects.refresh();
-    }
-
-    protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void {
-        super._onDelete(options, userId);
-
-        if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame_secretCondition")) {
-            return;
-        }
-
-        /* Suppress floaty text on "linked" conditions */
-        if (this.system.references.parent?.type !== "condition") {
-            const change = { delete: { name: this._source.name } };
-            this.actor?.getActiveTokens().shift()?.showFloatyText(change);
-        }
-
-        for (const token of this.actor?.getActiveTokens() ?? []) {
-            token._onApplyStatusEffect(this.rollOptionSlug, false);
         }
 
         game.pf2e.StatusEffects.refresh();
@@ -285,7 +245,8 @@ class ConditionPF2e extends AbstractEffectPF2e {
 }
 
 interface ConditionPF2e extends AbstractEffectPF2e {
-    readonly data: ConditionData;
+    readonly _source: ConditionSource;
+    system: ConditionSystemData;
 
     get slug(): ConditionSlug;
 }

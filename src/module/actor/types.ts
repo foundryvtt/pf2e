@@ -36,6 +36,7 @@ type SaveType = (typeof SAVE_TYPES)[number];
 
 interface AuraData {
     slug: string;
+    level: number | null;
     radius: number;
     effects: AuraEffectData[];
     colors: AuraColors | null;
@@ -93,6 +94,7 @@ interface StrikeRollContext<A extends ActorPF2e, I extends AttackItem> {
 }
 
 interface StrikeRollContextParams<T extends AttackItem> {
+    /** The item being used in the attack or damage roll */
     item: T;
     /** Domains from which to draw roll options */
     domains: string[];

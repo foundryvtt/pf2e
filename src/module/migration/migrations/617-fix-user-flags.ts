@@ -1,11 +1,12 @@
+import { UserSourcePF2e } from "@module/user/data";
 import { isObject } from "@util";
 import { MigrationBase } from "../base";
 
 export class Migration617FixUserFlags extends MigrationBase {
     static override version = 0.617;
 
-    override async updateUser(userData: foundry.data.UserSource): Promise<void> {
-        const flags: Record<string, Record<string, unknown>> & { "-=PF2e"?: null } = userData.flags;
+    override async updateUser(source: UserSourcePF2e): Promise<void> {
+        const flags: DocumentFlags & { "-=PF2e"?: null } = source.flags;
         const settings = flags.PF2e?.settings;
         if (isObject<Record<string, unknown>>(settings) && typeof settings.color === "string") {
             const uiTheme = settings.color ?? "blue";

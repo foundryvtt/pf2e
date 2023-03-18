@@ -68,11 +68,15 @@ const ancestryTraits = {
 // Secondary traits of ancestries and heritages
 const ancestryItemTraits = {
     ...ancestryTraits,
+    aeon: "PF2E.TraitAeon",
     amphibious: "PF2E.TraitAmphibious",
+    automaton: "PF2E.TraitAutomaton",
+    construct: "PF2E.TraitConstruct",
     fey: "PF2E.TraitFey",
     fungus: "PF2E.TraitFungus",
     humanoid: "PF2E.TraitHumanoid",
     plant: "PF2E.TraitPlant",
+    undead: "PF2E.TraitUndead",
 };
 
 const elementalTraits = {
@@ -188,6 +192,7 @@ const creatureTraits = {
     paaridar: "PF2E.TraitPaaridar",
     petitioner: "PF2E.TraitPetitioner",
     phantom: "PF2E.TraitPhantom",
+    poison: "PF2E.TraitPoison",
     protean: "PF2E.TraitProtean",
     psychopomp: "PF2E.TraitPsychopomp",
     qlippoth: "PF2E.TraitQlippoth",
@@ -809,10 +814,10 @@ const equipmentTraits = {
 };
 
 const shieldTraits = {
-    "deflecting-bludgeoning": "PF2E.DeflectingBludgeoning",
-    "deflecting-piercing": "PF2E.DeflectingBludgeoning",
-    "deflecting-physical-ranged": "PF2E.DeflectingPhysicalRanged",
-    "deflecting-slashing": "PF2E.DeflectingSlashing",
+    "deflecting-bludgeoning": "PF2E.TraitDeflectingBludgeoning",
+    "deflecting-physical-ranged": "PF2E.TraitDeflectingPhysicalRanged",
+    "deflecting-piercing": "PF2E.TraitDeflectingPiercing",
+    "deflecting-slashing": "PF2E.TraitDeflectingSlashing",
     foldaway: "PF2E.TraitFoldaway",
     harnessed: "PF2E.TraitHarnessed",
     "hefty-14": "PF2E.TraitHefty14",

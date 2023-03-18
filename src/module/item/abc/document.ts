@@ -1,7 +1,7 @@
-import { ItemPF2e, FeatPF2e } from "@item";
-import type { AncestryData } from "@item/ancestry/data";
-import type { BackgroundData } from "@item/background/data";
-import type { ClassData } from "@item/class/data";
+import { FeatPF2e, ItemPF2e } from "@item";
+import type { AncestrySource, AncestrySystemData } from "@item/ancestry/data";
+import type { BackgroundSource, BackgroundSystemData } from "@item/background/data";
+import type { ClassSource, ClassSystemData } from "@item/class/data";
 import { MigrationList, MigrationRunner } from "@module/migration";
 import { objectHasKey } from "@util";
 import { UUIDUtils } from "@util/uuid-utils";
@@ -64,7 +64,8 @@ abstract class ABCItemPF2e extends ItemPF2e {
 }
 
 interface ABCItemPF2e extends ItemPF2e {
-    readonly data: AncestryData | BackgroundData | ClassData;
+    readonly _source: AncestrySource | BackgroundSource | ClassSource;
+    system: AncestrySystemData | BackgroundSystemData | ClassSystemData;
 }
 
 export { ABCItemPF2e };

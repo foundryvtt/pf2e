@@ -4,7 +4,7 @@ import { CraftingEntryRuleData, CraftingEntryRuleSource } from "@module/rules/ru
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { CraftingFormula } from "./formula";
 
-export class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
+class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
     preparedCraftingFormulas: PreparedCraftingFormula[];
     preparedFormulaData: PreparedFormulaData[];
     name: string;
@@ -41,6 +41,7 @@ export class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
             .filter((prepData): prepData is PreparedFormulaData => !!prepData);
         this.parentItem = actor.items.get(data.parentItem, { strict: true });
         this.preparedCraftingFormulas = this.preparedFormulaData
+            .sort((prepDataA, prepDataB) => (prepDataA.sort ?? 0) - (prepDataB.sort ?? 0))
             .map((prepData): PreparedCraftingFormula | null => {
                 const formula = knownFormulas.find((formula) => formula.uuid === prepData.itemUUID);
                 if (formula) {
@@ -48,6 +49,7 @@ export class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
                         quantity: prepData.quantity || 1,
                         expended: !!prepData.expended,
                         isSignatureItem: !!prepData.isSignatureItem,
+                        sort: prepData.sort ?? 0,
                     });
                 }
                 return null;
@@ -210,6 +212,12 @@ export class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
         return this.#updateRE();
     }
 
+    async updateFormulas(formulas: PreparedFormulaData[]): Promise<void> {
+        this.preparedFormulaData = formulas;
+
+        return this.#updateRE();
+    }
+
     async #updateRE(): Promise<void> {
         const rules = this.parentItem.toObject().system.rules;
         const thisRule = rules.find(
@@ -223,7 +231,7 @@ export class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
     }
 }
 
-export interface CraftingEntryData {
+interface CraftingEntryData {
     selector: string;
     name: string;
     parentItem: string;
@@ -244,12 +252,14 @@ interface PreparedFormulaData {
     quantity?: number;
     expended?: boolean;
     isSignatureItem?: boolean;
+    sort?: number;
 }
 
 interface PreparedCraftingFormula extends CraftingFormula {
     quantity: number;
     expended: boolean;
     isSignatureItem: boolean;
+    sort: number;
 }
 
 interface PreparedFormulaSheetData {
@@ -260,3 +270,5 @@ interface PreparedFormulaSheetData {
     quantity: number;
     isSignatureItem: boolean;
 }
+
+export { CraftingEntry, CraftingEntryData, PreparedFormulaData };

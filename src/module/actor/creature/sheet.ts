@@ -1,7 +1,8 @@
 import { CreaturePF2e } from "@actor";
 import { createSpellcastingDialog } from "@actor/sheet/spellcasting-dialog";
 import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values";
-import { AbstractEffectPF2e, ItemPF2e, SpellcastingEntryPF2e, SpellPF2e } from "@item";
+import { ItemPF2e, SpellPF2e } from "@item";
+import { SpellcastingEntryPF2e, SpellcastingSheetData } from "@item/spellcasting-entry";
 import { ItemSourcePF2e } from "@item/data";
 import { ITEM_CARRY_TYPES } from "@item/data/values";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
@@ -11,8 +12,9 @@ import { eventToRollParams } from "@scripts/sheet-util";
 import { ErrorPF2e, fontAwesomeIcon, htmlClosest, htmlQueryAll, objectHasKey, setHasElement } from "@util";
 import { ActorSheetPF2e } from "../sheet/base";
 import { CreatureConfig } from "./config";
+import { SkillAbbreviation, SkillData } from "./data";
 import { SpellPreparationSheet } from "./spell-preparation-sheet";
-import { CreatureSheetData, SpellcastingSheetData } from "./types";
+import { CreatureSheetData } from "./types";
 
 /**
  * Base class for NPC and character sheets
@@ -54,11 +56,15 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
         // Update skill labels
         if (sheetData.data.skills) {
-            const skills = sheetData.data.skills;
+            type WithSheetProperties = Record<
+                SkillAbbreviation,
+                SkillData & { icon?: string; hover?: string; rank?: ZeroToFour }
+            >;
+            const skills: WithSheetProperties = sheetData.data.skills;
             for (const [key, skill] of Object.entries(skills)) {
                 const label = objectHasKey(CONFIG.PF2E.skills, key) ? CONFIG.PF2E.skills[key] : null;
-                skill.icon = this.getProficiencyIcon(skill.rank);
-                skill.hover = CONFIG.PF2E.proficiencyLevels[skill.rank];
+                skill.icon = this.getProficiencyIcon(skill.rank ?? 0);
+                skill.hover = CONFIG.PF2E.proficiencyLevels[skill.rank ?? 0];
                 skill.label = skill.label ?? label ?? "";
             }
         }
@@ -133,13 +139,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
     }
 
     protected async prepareSpellcasting(): Promise<SpellcastingSheetData[]> {
-        const entries = await Promise.all(
-            this.actor.spellcasting.map(async (entry) => {
-                const data = entry.toObject(false);
-                const spellData = await entry.getSpellData();
-                return mergeObject(data, spellData);
-            })
-        );
+        const entries = await Promise.all(this.actor.spellcasting.map(async (entry) => entry.getSheetData()));
         return entries.sort((a, b) => a.sort - b.sort);
     }
 
@@ -301,9 +301,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             }
             const index = $(event.currentTarget).closest("[data-container-id]").data("containerId");
             const entry = this.actor.spellcasting.get(index);
-            if (entry) {
-                await entry.statistic.check.roll(eventToRollParams(event));
-            }
+            await entry?.statistic?.check.roll(eventToRollParams(event));
         });
 
         $html.find(".prepared-toggle").on("click", async (event) => {
@@ -312,32 +310,30 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             this.openSpellPreparationSheet(itemId);
         });
 
-        // Update max slots for Spell Items
-        $html.find(".slotless-level-toggle").on("click", async (event) => {
-            event.preventDefault();
-
-            const itemId = $(event.currentTarget).parents(".item-container").attr("data-container-id") ?? "";
-            const itemToEdit = this.actor.items.get(itemId);
-            if (!itemToEdit?.isOfType("spellcastingEntry"))
-                throw new Error("Tried to toggle visibility of slotless levels on a non-spellcasting entry");
-            const bool = !(itemToEdit.system.showSlotlessLevels || {}).value;
-
-            await this.actor.updateEmbeddedDocuments("Item", [
-                {
-                    _id: itemId ?? "",
-                    "system.showSlotlessLevels.value": bool,
-                },
-            ]);
-        });
+        // Toggle showing slotless levels
+        for (const toggle of htmlQueryAll(html, ".slotless-level-toggle")) {
+            toggle.addEventListener("click", async () => {
+                const itemId = htmlClosest(toggle, ".item-container")?.dataset.containerId ?? "";
+                const spellcastingEntry = this.actor.items.get(itemId);
+                if (!spellcastingEntry?.isOfType("spellcastingEntry")) {
+                    throw ErrorPF2e("Tried to toggle visibility of slotless levels on a non-spellcasting entry");
+                }
+                await spellcastingEntry.update({
+                    "system.showSlotlessLevels.value": !spellcastingEntry.showSlotlessLevels,
+                });
+            });
+        }
 
         // Casting spells and consuming slots
-        $html.find("button[data-action=cast-spell]").on("click", (event) => {
-            const $spellEl = $(event.currentTarget).closest(".item");
-            const { itemId, slotLevel, slotId, entryId } = $spellEl.data();
-            const collection = this.actor.spellcasting.collections.get(entryId, { strict: true });
-            const spell = collection.get(itemId, { strict: true });
-            collection.entry.cast(spell, { slot: slotId, level: slotLevel });
-        });
+        for (const button of htmlQueryAll(html, "button[data-action=cast-spell]")) {
+            button.addEventListener("click", () => {
+                const spellEl = htmlClosest(button, ".item");
+                const { itemId, slotLevel, slotId, entryId } = spellEl?.dataset ?? {};
+                const collection = this.actor.spellcasting.collections.get(entryId, { strict: true });
+                const spell = collection.get(itemId, { strict: true });
+                collection.entry.cast(spell, { slot: Number(slotId ?? NaN), level: Number(slotLevel ?? NaN) });
+            });
+        }
 
         // Regenerating spell slots and spell uses
         $html.find(".spell-slots-increment-reset").on("click", (event) => {
@@ -378,72 +374,40 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         for (const button of htmlQueryAll(html, ".spell-browse")) {
             button.addEventListener("click", () => this.#onClickBrowseSpellCompendia(button));
         }
-
-        // Decrease effect value
-        $html.find(".effects-list .decrement").on("click", async (event) => {
-            const target = $(event.currentTarget);
-            const parent = target.parents(".item");
-            const effect = this.actor.items.get(parent.attr("data-item-id") ?? "");
-            if (effect instanceof AbstractEffectPF2e) {
-                await effect.decrease();
-            }
-        });
-
-        // Increase effect value
-        $html.find(".effects-list .increment").on("click", async (event) => {
-            const target = $(event.currentTarget);
-            const parent = target.parents(".item");
-            const effect = this.actor?.items.get(parent.attr("data-item-id") ?? "");
-            if (effect instanceof AbstractEffectPF2e) {
-                await effect.increase();
-            }
-        });
-
-        // Change whether an effect is secret to players or not
-        for (const element of htmlQueryAll(html, ".effects-list [data-action=effect-toggle-unidentified]") ?? []) {
-            element.addEventListener("click", async (event) => {
-                const effectId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
-                const effect = this.actor.items.get(effectId, { strict: true });
-                if (effect instanceof AbstractEffectPF2e) {
-                    const isUnidentified = effect.unidentified;
-                    await effect.update({ "system.unidentified": !isUnidentified });
-                }
-            });
-        }
     }
 
     /** Adds support for moving spells between spell levels, spell collections, and spell preparation */
     protected override async _onSortItem(event: ElementDragEvent, itemSource: ItemSourcePF2e): Promise<ItemPF2e[]> {
-        const $dropItemEl = $(event.target).closest(".item");
-        const $dropContainerEl = $(event.target).closest(".item-container");
+        const dropItemEl = htmlClosest(event.target, ".item");
+        const dropContainerEl = htmlClosest(event.target, ".item-container");
 
-        const dropSlotType = $dropItemEl.attr("data-item-type");
-        const dropContainerType = $dropContainerEl.attr("data-container-type");
+        const dropSlotType = dropItemEl?.dataset.itemType;
+        const dropContainerType = dropContainerEl?.dataset.containerType;
 
         const item = this.actor.items.get(itemSource._id);
-        if (!item) return [];
+        if (!(item && dropItemEl && dropContainerEl)) return [];
 
         // if they are dragging onto another spell, it's just sorting the spells
         // or moving it from one spellcastingEntry to another
         if (item.isOfType("spell")) {
-            const targetLocation = $dropContainerEl.attr("data-container-id") ?? "";
-            const collection = this.actor.spellcasting.collections.get(targetLocation, { strict: true });
+            const entryId = dropContainerEl.dataset.containerId;
+            const collection = this.actor.spellcasting.collections.get(entryId, { strict: true });
 
             if (dropSlotType === "spellLevel") {
-                const { level } = $dropItemEl.data();
+                const { level } = dropItemEl.dataset;
                 const spell = await collection.addSpell(item, { slotLevel: Number(level) });
                 this.openSpellPreparationSheet(collection.id);
                 return [spell ?? []].flat();
-            } else if ($dropItemEl.attr("data-slot-id")) {
-                const dropId = Number($dropItemEl.attr("data-slot-id"));
-                const slotLevel = Number($dropItemEl.attr("data-slot-level"));
+            } else if (dropItemEl.dataset.slotId) {
+                const dropId = Number(dropItemEl.dataset.slotId);
+                const slotLevel = Number(dropItemEl.dataset.slotLevel);
 
                 if (Number.isInteger(dropId) && Number.isInteger(slotLevel)) {
                     const allocated = await collection.prepareSpell(item, slotLevel, dropId);
                     if (allocated) return [allocated];
                 }
             } else if (dropSlotType === "spell") {
-                const dropId = $dropItemEl.attr("data-item-id") ?? "";
+                const dropId = dropItemEl.dataset.itemId ?? "";
                 const target = this.actor.items.get(dropId);
                 if (target?.isOfType("spell") && item.id !== dropId) {
                     const sourceLocation = item.system.location.value;
@@ -457,8 +421,8 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
                         return false;
                     };
 
-                    if (sourceLocation === targetLocation && testSibling(item, target)) {
-                        const siblings = collection.filter((spell) => testSibling(item, spell));
+                    if (sourceLocation === entryId && testSibling(item, target)) {
+                        const siblings = collection.filter((s) => testSibling(item, s));
                         await item.sortRelative({ target, siblings });
                         return [target];
                     } else {
@@ -470,25 +434,28 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             } else if (dropContainerType === "spellcastingEntry") {
                 // if the drop container target is a spellcastingEntry then check if the item is a spell and if so update its location.
                 // if the dragged item is a spell and is from the same actor
-                if (CONFIG.debug.hooks)
+                if (CONFIG.debug.hooks) {
                     console.debug("PF2e System | ***** spell from same actor dropped on a spellcasting entry *****");
+                }
 
-                const dropId = $(event.target).parents(".item-container").attr("data-container-id");
+                const dropId = htmlClosest(event.target, ".item-container")?.dataset.containerId;
                 return dropId ? [await item.update({ "system.location.value": dropId })] : [];
             }
-        } else if (item.isOfType("spellcastingEntry")) {
+        } else if (item.isOfType("spellcastingEntry") && dropContainerType === "spellcastingEntry") {
             // target and source are spellcastingEntries and need to be sorted
-            if (dropContainerType === "spellcastingEntry") {
-                const sourceId = item.id;
-                const dropId = $dropContainerEl.attr("data-container-id") ?? "";
-                const source = this.actor.items.get(sourceId);
-                const target = this.actor.items.get(dropId);
+            const sourceId = item.id;
+            const dropId = dropContainerEl.dataset.containerId ?? "";
+            const source = this.actor.items.get(sourceId);
+            const target = this.actor.items.get(dropId);
 
-                if (source && target && source.id !== target.id) {
-                    const siblings = this.actor.spellcasting.contents;
-                    source.sortRelative({ target, siblings });
-                    return [target];
-                }
+            if (
+                source?.isOfType("spellcastingEntry") &&
+                target?.isOfType("spellcastingEntry") &&
+                source.id !== target.id
+            ) {
+                const siblings = this.actor.itemTypes.spellcastingEntry;
+                await source.sortRelative({ target, siblings });
+                return [source];
             }
         }
 
@@ -502,7 +469,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         data: DropCanvasItemDataPF2e
     ): Promise<ItemPF2e[]> {
         const containerEl = htmlClosest(event.target, ".item-container[data-container-type=spellcastingEntry]");
-        if (containerEl && item.isOfType("spell")) {
+        if (containerEl && item.isOfType("spell") && !item.isRitual) {
             const entryId = containerEl.dataset.containerId;
             const collection = this.actor.spellcasting.collections.get(entryId, { strict: true });
             const slotLevel = Number(htmlClosest(event.target, "[data-slot-level]")?.dataset.slotLevel ?? 0);

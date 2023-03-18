@@ -6,7 +6,7 @@ import { UserPF2e } from "@module/user";
 import { TokenDocumentPF2e } from "@scene";
 import { Statistic } from "@system/statistic";
 import { ActorPF2e, HitPointsSummary } from "../base";
-import { TokenDimensions, VehicleData, VehicleSource } from "./data";
+import { TokenDimensions, VehicleSource, VehicleSystemData } from "./data";
 
 class VehiclePF2e extends ActorPF2e {
     override get allowedItemTypes(): (ItemType | "physical")[] {
@@ -136,7 +136,7 @@ class VehiclePF2e extends ActorPF2e {
         this.prepareSaves();
     }
 
-    private prepareSaves() {
+    private prepareSaves(): void {
         const { synthetics } = this;
 
         const slug = "fortitude";
@@ -191,7 +191,8 @@ class VehiclePF2e extends ActorPF2e {
 }
 
 interface VehiclePF2e extends ActorPF2e {
-    readonly data: VehicleData;
+    readonly _source: VehicleSource;
+    system: VehicleSystemData;
 
     get hitPoints(): HitPointsSummary;
 

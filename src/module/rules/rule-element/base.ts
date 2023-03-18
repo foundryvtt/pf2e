@@ -8,6 +8,7 @@ import { TokenDocumentPF2e } from "@scene";
 import { CheckRoll } from "@system/check";
 import { isObject, tupleHasValue } from "@util";
 import { BracketedValue, RuleElementData, RuleElementSchema, RuleElementSource, RuleValue } from "./data";
+import { DataModelValidationOptions } from "types/foundry/common/abstract/module.mjs";
 
 const { DataModel } = foundry.abstract;
 const { fields } = foundry.data;
@@ -33,9 +34,11 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
      * @param item where the rule is persisted on
      */
     constructor(source: RuleElementSource, public item: Embedded<ItemPF2e>, options: RuleElementOptions = {}) {
+        source.label ??= item.name;
         super(source, { strict: false });
 
-        this.suppressWarnings = options.suppressWarnings ?? false;
+        // Always suppress warnings if the actor has no ID (and is therefore a temporary clone)
+        this.suppressWarnings = options.suppressWarnings ?? !this.actor.id;
         this.sourceIndex = options.sourceIndex ?? null;
 
         const validActorType = tupleHasValue(this.constructor.validActorTypes, item.actor.type);
@@ -79,11 +82,11 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
 
     static override defineSchema(): RuleElementSchema {
         return {
-            key: new fields.StringField({ required: true, blank: false }),
-            slug: new SlugField({ required: true }),
-            label: new fields.StringField({ required: false, initial: undefined }),
+            key: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
+            slug: new SlugField({ required: true, nullable: true }),
+            label: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
             priority: new fields.NumberField({ required: false, nullable: false, integer: true, initial: 100 }),
-            ignored: new fields.BooleanField(),
+            ignored: new fields.BooleanField({ required: false, nullable: false, initial: false }),
             predicate: new PredicateField(),
             requiresEquipped: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
             requiresInvestment: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
@@ -113,6 +116,12 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
         const tokens = actor.getActiveTokens();
         const controlled = tokens.find((token) => token.controlled);
         return controlled?.document ?? tokens.shift()?.document ?? null;
+    }
+
+    /** Disallow invalid data fallbacks */
+    override validate(options: DataModelValidationOptions = {}): boolean {
+        options.fallback = false;
+        return super.validate(options);
     }
 
     /** Test this rule element's predicate, if present */

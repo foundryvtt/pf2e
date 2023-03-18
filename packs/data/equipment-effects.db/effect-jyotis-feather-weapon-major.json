@@ -19,17 +19,24 @@
         "rules": [
             {
                 "choices": {
+                    "includeHandwraps": true,
                     "ownedItems": true,
                     "types": [
                         "weapon"
                     ]
                 },
+                "flag": "effectJyotisFeatherWeaponMajor",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "definition": [
-                    "item:id:{item|flags.pf2e.rulesSelections.effectJyotisFeatherWeaponMajor}"
+                    {
+                        "or": [
+                            "item:category:{item|flags.pf2e.rulesSelections.effectJyotisFeatherWeaponMajor}",
+                            "item:id:{item|flags.pf2e.rulesSelections.effectJyotisFeatherWeaponMajor}"
+                        ]
+                    }
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",

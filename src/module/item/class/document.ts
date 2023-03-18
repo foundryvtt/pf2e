@@ -3,11 +3,12 @@ import { FeatSlotLevel } from "@actor/character/feats";
 import { SaveType } from "@actor/types";
 import { SAVE_TYPES, SKILL_ABBREVIATIONS } from "@actor/values";
 import { ABCItemPF2e, FeatPF2e } from "@item";
+import { ArmorCategory } from "@item/armor";
 import { ARMOR_CATEGORIES } from "@item/armor/values";
 import { WEAPON_CATEGORIES } from "@item/weapon/values";
 import { ZeroToFour } from "@module/data";
 import { setHasElement, sluggify } from "@util";
-import { ClassAttackProficiencies, ClassData, ClassDefenseProficiencies, ClassTrait } from "./data";
+import { ClassAttackProficiencies, ClassDefenseProficiencies, ClassSource, ClassSystemData, ClassTrait } from "./data";
 
 class ClassPF2e extends ABCItemPF2e {
     get attacks(): ClassAttackProficiencies {
@@ -103,14 +104,17 @@ class ClassPF2e extends ABCItemPF2e {
 
         // Add base key ability options
 
-        const { keyAbility } = this.system;
-        build.abilities.keyOptions = [...keyAbility.value];
-        build.abilities.boosts.class = keyAbility.selected;
+        build.abilities.keyOptions = [...this.system.keyAbility.value];
+        build.abilities.boosts.class = this.system.keyAbility.selected;
 
         attributes.classhp = this.hpPerLevel;
 
         attributes.perception.rank = Math.max(attributes.perception.rank, this.perception) as ZeroToFour;
         this.logAutoChange("system.attributes.perception.rank", this.perception);
+
+        // Override the actor's key ability score if it's set
+        details.keyability.value =
+            (build.abilities.manual ? details.keyability.value : build.abilities.boosts.class) ?? "str";
 
         // Set class DC
         type PartialClassDCs = Record<string, Pick<ClassDCData, "label" | "ability" | "rank" | "primary">>;
@@ -118,13 +122,17 @@ class ClassPF2e extends ABCItemPF2e {
         classDCs[slug] = {
             label: this.name,
             rank: this.classDC,
-            ability: this.system.keyAbility.selected ?? "str",
+            ability: details.keyability.value,
             primary: true,
         };
 
         this.logAutoChange(`system.proficiencies.classDCs.${slug}.rank`, this.classDC);
 
-        for (const category of ARMOR_CATEGORIES) {
+        const nonBarding = ARMOR_CATEGORIES.filter(
+            (c): c is Exclude<ArmorCategory, "light-barding" | "heavy-barding" | "shield"> =>
+                !["light-barding", "heavy-barding"].includes(c)
+        );
+        for (const category of nonBarding) {
             martial[category].rank = Math.max(martial[category].rank, this.defenses[category]) as ZeroToFour;
             this.logAutoChange(`system.martial.${category}.rank`, this.defenses[category]);
         }
@@ -151,7 +159,8 @@ class ClassPF2e extends ABCItemPF2e {
 }
 
 interface ClassPF2e extends ABCItemPF2e {
-    readonly data: ClassData;
+    readonly _source: ClassSource;
+    system: ClassSystemData;
 
     get slug(): ClassTrait | null;
 }

@@ -6,7 +6,7 @@ import { ValueAndMax } from "@module/data";
 import { RuleElementPF2e } from "@module/rules";
 import { DamageRoll } from "@system/damage/roll";
 import { ErrorPF2e } from "@util";
-import { ConsumableData, ConsumableCategory } from "./data";
+import { ConsumableCategory, ConsumableSystemData, ConsumableSource } from "./data";
 import { OtherConsumableTag } from "./types";
 
 class ConsumablePF2e extends PhysicalItemPF2e {
@@ -48,6 +48,24 @@ class ConsumablePF2e extends PhysicalItemPF2e {
         return this.system.consume.value.trim() || null;
     }
 
+    override prepareBaseData(): void {
+        super.prepareBaseData();
+
+        // Refuse to serve rule elements if this item is ammunition and has types that perform writes
+        if (!this.isAmmunition) return;
+        for (const rule of this.system.rules) {
+            if (rule.key === "RollOption" && "toggleable" in rule && !!rule.toggleable) {
+                console.warn("Toggleable RollOption rule elements may not be added to ammunition");
+                this.system.rules = [];
+                break;
+            } else if (["GrantItem", "ChoiceSet"].includes(String(rule.key))) {
+                console.warn(`${rule.key} rule elements may not be added to ammunition`);
+                this.system.rules = [];
+                break;
+            }
+        }
+    }
+
     /** Rule elements cannot be executed from consumable items, but they can be used to generate effects */
     override prepareRuleElements(): RuleElementPF2e[] {
         const rules = super.prepareRuleElements();
@@ -60,7 +78,8 @@ class ConsumablePF2e extends PhysicalItemPF2e {
 
     override async getChatData(
         this: Embedded<ConsumablePF2e>,
-        htmlOptions: EnrichHTMLOptions = {}
+        htmlOptions: EnrichHTMLOptions = {},
+        rollOptions: Record<string, unknown> = {}
     ): Promise<ItemSummaryData> {
         const systemData = this.system;
         const traits = this.traitChatData(CONFIG.PF2E.consumableTraits);
@@ -72,6 +91,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
               ];
 
         const usesLabel = game.i18n.localize("PF2E.ConsumableChargesLabel");
+        const fromFormula = !!rollOptions.fromFormula;
 
         return this.processChatData(htmlOptions, {
             ...systemData,
@@ -83,7 +103,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
             usesCharges: this.uses.max > 0,
             hasCharges: this.uses.max > 0 && this.uses.value > 0,
             consumableType,
-            isUsable,
+            isUsable: fromFormula ? false : isUsable,
         });
     }
 
@@ -206,7 +226,10 @@ class ConsumablePF2e extends PhysicalItemPF2e {
         const entry = (() => {
             if (trickMagicItemData) return trickMagicItemData;
             return actor.spellcasting
-                .filter((entry) => entry.canCastSpell(spell, { origin: this }))
+                .filter(
+                    (e): e is SpellcastingEntryPF2e =>
+                        e instanceof SpellcastingEntryPF2e && e.canCast(spell, { origin: this })
+                )
                 .reduce((previous, current) => {
                     const previousDC = previous.statistic.dc.value;
                     const currentDC = current.statistic.dc.value;
@@ -226,7 +249,8 @@ class ConsumablePF2e extends PhysicalItemPF2e {
 }
 
 interface ConsumablePF2e extends PhysicalItemPF2e {
-    readonly data: ConsumableData;
+    readonly _source: ConsumableSource;
+    system: ConsumableSystemData;
 }
 
 export { ConsumablePF2e };

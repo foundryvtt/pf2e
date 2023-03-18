@@ -542,7 +542,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Fast Healing",
+            "name": "Fast Healing 10",
             "sort": 800000,
             "system": {
                 "actionCategory": {
@@ -560,7 +560,13 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FastHealing",
+                        "type": "fast-healing",
+                        "value": 10
+                    }
+                ],
                 "slug": "fast-healing",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -894,7 +900,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The minister's qi-engorged form allows perfect body control at all times. They assume one of the following stances.</p>\n<ul>\n<li><strong>Bone Corpse</strong> When the minister successfully Drains Qi while in this stance, for 1 round each time the drained creature Strides it must succeed at a @Check[type:flat|dc:5] or waste the action and fall @UUID[Compendium.pf2e.conditionitems.Prone]{Prone}.</li>\n<li><strong>Cloudless Void</strong> The jiang-shi gains a +1 circumstance bonus to AC and their claw Strikes gain the reach trait.</li>\n<li><strong>Sundered Veins</strong> Creatures struck by the jiang-shi's claw Strikes take @Localize[PF2E.PersistentDamage.Bleed1d10.success]. On a critical hit, they are also @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1}.</li>\n</ul>"
+                    "value": "<p>The minister's qi-engorged form allows perfect body control at all times. They assume one of the following stances.</p>\n<ul>\n<li><strong>Bone Corpse</strong> When the minister successfully Drains Qi while in this stance, for 1 round each time the drained creature Strides it must succeed at a @Check[type:flat|dc:5] or waste the action and fall @UUID[Compendium.pf2e.conditionitems.Prone]{Prone}.</li>\n<li><strong>Cloudless Void</strong> The jiang-shi gains a +1 circumstance bonus to AC and their claw Strikes gain the reach trait.</li>\n<li><strong>Sundered Veins</strong> Creatures struck by the jiang-shi's claw Strikes take [[/r 1d10[bleed]]]. On a critical hit, they are also @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1}.</li>\n</ul>"
                 },
                 "requirements": {
                     "value": ""
@@ -1039,10 +1045,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1066,10 +1068,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1093,10 +1091,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1120,10 +1114,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1147,10 +1137,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1174,10 +1160,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1201,10 +1183,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"

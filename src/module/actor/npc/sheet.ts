@@ -6,7 +6,7 @@ import { NPCPF2e } from "@actor/index";
 import { NPCSkillsEditor } from "@actor/npc/skills-editor";
 import { AbilityString } from "@actor/types";
 import { ABILITY_ABBREVIATIONS, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/values";
-import { EffectData } from "@item/data";
+import { ActionItemPF2e, EffectPF2e } from "@item";
 import { Size } from "@module/data";
 import { createTagifyTraits } from "@module/sheet/helpers";
 import { DicePF2e } from "@scripts/dice";
@@ -79,7 +79,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
         this.#prepareSaves(sheetData.data);
         await this.#prepareActions(sheetData);
         sheetData.effectItems = sheetData.items.filter(
-            (data): data is NPCSheetItemData<EffectData> => data.type === "effect"
+            (data): data is NPCSheetItemData<EffectPF2e> => data.type === "effect"
         );
         sheetData.spellcastingEntries = await this.prepareSpellcasting();
     }
@@ -223,8 +223,6 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
             .find<HTMLInputElement | HTMLSelectElement>(".attack-input, .dc-input, .ability-score select")
             .on("change", (event) => this.#onChangeSpellcastingEntry(event));
 
-        $html.find(".effects-list > .effect > .item-image").on("contextmenu", (event) => this.onClickDeleteItem(event));
-
         $html.find(".recall-knowledge button.breakdown").on("click", (event) => {
             event.preventDefault();
             const identifyCreatureData = this.actor.system.details.identification;
@@ -339,14 +337,18 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
         for (const entry of entries) {
             const entryItem = this.actor.items.get(entry.id);
             if (!entryItem?.isOfType("spellcastingEntry")) continue;
-            entry.adjustedHigher = {
-                dc: entry.statistic.dc.value > entryItem._source.system.spelldc.dc,
-                mod: entry.statistic.check.mod > entryItem._source.system.spelldc.value,
-            };
-            entry.adjustedLower = {
-                dc: entry.statistic.dc.value < entryItem._source.system.spelldc.dc,
-                mod: entry.statistic.check.mod < entryItem._source.system.spelldc.value,
-            };
+            entry.adjustedHigher = entry.statistic
+                ? {
+                      dc: entry.statistic.dc.value > entryItem._source.system.spelldc.dc,
+                      mod: entry.statistic.check.mod > entryItem._source.system.spelldc.value,
+                  }
+                : { dc: false, mod: false };
+            entry.adjustedLower = entry.statistic
+                ? {
+                      dc: entry.statistic.dc.value < entryItem._source.system.spelldc.dc,
+                      mod: entry.statistic.check.mod < entryItem._source.system.spelldc.value,
+                  }
+                : { dc: false, mod: false };
         }
 
         return entries;
@@ -379,7 +381,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
         };
 
         for (const item of this.actor.itemTypes.action) {
-            const itemData = item.toObject(false);
+            const itemData = item.toObject(false) as unknown as ActionItemPF2e;
             const chatData = await item.getChatData();
             const traits = chatData.traits ?? [];
 
@@ -397,7 +399,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
                     chatData,
                     traits,
                     hasAura,
-                });
+                } as unknown as NPCSheetItemData<ActionItemPF2e>);
             }
         }
 

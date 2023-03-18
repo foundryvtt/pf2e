@@ -28,6 +28,9 @@ export class DamagePF2e {
         if (context.sourceType === "attack") {
             const outcomeLabel = game.i18n.localize(`PF2E.Check.Result.Degree.Attack.${outcome}`);
             flavor += ` (${outcomeLabel})`;
+        } else if (context.sourceType === "check") {
+            const outcomeLabel = game.i18n.localize(`PF2E.Check.Result.Degree.Check.${outcome}`);
+            flavor += ` (${outcomeLabel})`;
         }
 
         if (data.traits) {
@@ -182,9 +185,6 @@ export class DamagePF2e {
             return null;
         })();
 
-        // Create the damage roll, roll it, and pull the result
-        const rollData = roll.options.result;
-
         const rollMode = context.rollMode ?? "roll";
         const contextFlag: DamageRollContextFlag = {
             type: context.type,
@@ -212,7 +212,6 @@ export class DamagePF2e {
                     core: { canPopout: true },
                     pf2e: {
                         context: contextFlag,
-                        damageRoll: rollData,
                         target: targetFlag,
                         modifiers: data.modifiers,
                         origin,
@@ -245,8 +244,8 @@ export class DamagePF2e {
             await ChatMessagePF2e.create(messageData, { rollMode });
         }
 
-        Hooks.callAll(`pf2e.damageRoll`, rollData);
-        if (callback) callback(rollData);
+        Hooks.callAll(`pf2e.damageRoll`, roll);
+        if (callback) callback(roll);
 
         return roll;
     }

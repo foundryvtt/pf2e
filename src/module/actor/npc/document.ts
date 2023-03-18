@@ -23,13 +23,18 @@ import { PredicatePF2e } from "@system/predication";
 import { RollParameters } from "@system/rolls";
 import { Statistic } from "@system/statistic";
 import { objectHasKey, sluggify } from "@util";
-import { NPCData, NPCFlags, NPCSource } from "./data";
+import { NPCFlags, NPCSource, NPCSystemData } from "./data";
 import { NPCSheetPF2e } from "./sheet";
 import { VariantCloneParams } from "./types";
 
 class NPCPF2e extends CreaturePF2e {
     override get allowedItemTypes(): (ItemType | "physical")[] {
         return [...super.allowedItemTypes, "physical", "spellcastingEntry", "spell", "action", "melee", "lore"];
+    }
+
+    /** The level of this creature without elite/weak adjustments */
+    get baseLevel(): number {
+        return this._source.system.details.level.value;
     }
 
     /** This NPC's ability scores */
@@ -133,11 +138,14 @@ class NPCPF2e extends CreaturePF2e {
         level.value = this.isElite ? level.base + 1 : this.isWeak ? level.base - 1 : level.base;
         this.rollOptions.all[`self:level:${level.value}`] = true;
 
-        this.system.attributes.classDC = ((): { value: number } => {
+        attributes.classDC = ((): { value: number } => {
             const levelBasedDC = calculateDC(level.base, { proficiencyWithoutLevel, rarity: this.rarity });
             const adjusted = this.isElite ? levelBasedDC + 2 : this.isWeak ? levelBasedDC - 2 : levelBasedDC;
             return { value: adjusted };
         })();
+
+        // Set default ritual attack and DC values if none are stored */
+        this.system.spellcasting = mergeObject({ rituals: { dc: 0 } }, this.system.spellcasting ?? {});
     }
 
     override prepareDerivedData(): void {
@@ -526,11 +534,17 @@ class NPCPF2e extends CreaturePF2e {
             });
         }
 
+        // A class-or-spell DC to go alongside the fake class DC
+        this.system.attributes.classOrSpellDC = ((): { value: number } => {
+            const spellDCs = this.itemTypes.spellcastingEntry.map((e) => e.system.spelldc.dc);
+            return { value: Math.max(...spellDCs, this.system.attributes.classDC.value) };
+        })();
+
         // Initiative
         this.prepareInitiative();
     }
 
-    prepareSaves(): void {
+    private prepareSaves(): void {
         const systemData = this.system;
         const { modifierAdjustments } = this.synthetics;
 
@@ -623,7 +637,7 @@ class NPCPF2e extends CreaturePF2e {
         return notes;
     }
 
-    protected getHpAdjustment(level: number, adjustment: "elite" | "weak" | null): number {
+    private getHpAdjustment(level: number, adjustment: "elite" | "weak" | null): number {
         if (adjustment === "elite") {
             // Elite adjustment: Increase/decrease the creature's Hit Points based on its starting level (20+ 30HP, 5~19 20HP, 2~4 15HP, 1 or lower 10HP).
             if (level >= 20) {
@@ -663,14 +677,14 @@ class NPCPF2e extends CreaturePF2e {
 
         const currentHPAdjustment = (() => {
             if (isElite) {
-                return this.getHpAdjustment(this.getBaseLevel(), "elite");
+                return this.getHpAdjustment(this.baseLevel, "elite");
             } else if (isWeak) {
-                return this.getHpAdjustment(this.getBaseLevel(), "weak");
+                return this.getHpAdjustment(this.baseLevel, "weak");
             } else {
                 return 0;
             }
         })();
-        const newHPAdjustment = this.getHpAdjustment(this.getBaseLevel(), adjustment);
+        const newHPAdjustment = this.getHpAdjustment(this.baseLevel, adjustment);
         const currentHP = this.system.attributes.hp.value;
         const maxHP = this.system.attributes.hp.max;
         const newHP = (() => {
@@ -705,17 +719,6 @@ class NPCPF2e extends CreaturePF2e {
         });
     }
 
-    /** Returns the base level of a creature, as this gets modified on elite and weak adjustments */
-    getBaseLevel(): number {
-        if (this.isElite) {
-            return this.level - 1;
-        } else if (this.isWeak) {
-            return this.level + 1;
-        } else {
-            return this.level;
-        }
-    }
-
     /** Create a variant clone of this NPC, adjusting any of name, description, and images */
     variantClone(params: VariantCloneParams & { save?: false }): this;
     variantClone(params: VariantCloneParams & { save: true }): Promise<this>;
@@ -740,9 +743,9 @@ class NPCPF2e extends CreaturePF2e {
 }
 
 interface NPCPF2e extends CreaturePF2e {
-    readonly data: NPCData;
-
     flags: NPCFlags;
+    readonly _source: NPCSource;
+    system: NPCSystemData;
 
     _sheet: NPCSheetPF2e<this> | null;
 

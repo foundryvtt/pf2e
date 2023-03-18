@@ -2,7 +2,7 @@ import { ALLIANCES } from "@actor/creature/values";
 import { createSheetOptions, SheetOptions } from "@module/sheet/helpers";
 import { ErrorPF2e, setHasElement } from "@util";
 import { CreaturePF2e } from ".";
-import { BaseCreatureSource } from "./data";
+import { BaseCreatureSource, CreatureSystemSource, CreatureType } from "./data";
 
 /** A DocumentSheet presenting additional, per-actor settings */
 abstract class CreatureConfig<TActor extends CreaturePF2e> extends DocumentSheet<TActor> {
@@ -26,7 +26,7 @@ abstract class CreatureConfig<TActor extends CreaturePF2e> extends DocumentSheet
     }
 
     override async getData(options: Partial<DocumentSheetOptions> = {}): Promise<CreatureConfigData<TActor>> {
-        const source: BaseCreatureSource = this.actor._source;
+        const source: BaseCreatureSource<CreatureType, CreatureSystemSource> = this.actor._source;
         const alliance =
             source.system.details?.alliance === null ? "neutral" : source.system.details?.alliance ?? "default";
         const defaultValue = game.i18n.localize(

@@ -2,6 +2,7 @@ import { ModifierAdjustment } from "@actor/modifiers";
 import { ItemPF2e } from "@item";
 import { DamageType } from "@system/damage/types";
 import { DAMAGE_TYPES } from "@system/damage/values";
+import { PredicatePF2e } from "@system/predication";
 import { setHasElement } from "@util";
 import {
     ArrayField,
@@ -46,14 +47,16 @@ class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> 
             path: new fields.StringField({ blank: true }),
             selector: new fields.StringField({ required: false, blank: false, initial: undefined }),
             selectors: new fields.ArrayField(new fields.StringField({ required: true, blank: false })),
-            relabel: new fields.StringField({ required: false, blank: false, initial: undefined }),
-            damageType: new fields.StringField({ required: false, blank: false, initial: undefined }),
-            suppress: new fields.BooleanField({ required: false, initial: undefined }),
-            maxApplications: new fields.NumberField({ required: false, nullable: false, initial: undefined }),
+            relabel: new fields.StringField({ required: false, nullable: true, blank: false, initial: undefined }),
+            damageType: new fields.StringField({ required: false, nullable: true, blank: false, initial: null }),
+            suppress: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
+            maxApplications: new fields.NumberField({ required: false, nullable: true, initial: undefined }),
         };
     }
 
     protected override _validateModel(data: Record<string, unknown>): void {
+        super._validateModel(data);
+
         if (!["string", "number"].includes(typeof data.value) && !this.isBracketedValue(data.value)) {
             throw Error("`value` must be a string, number, or bracketed value");
         }
@@ -70,7 +73,7 @@ class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> 
 
         const adjustment: ModifierAdjustment = {
             slug: this.slug,
-            predicate: this.predicate,
+            predicate: new PredicatePF2e(this.resolveInjectedProperties(deepClone([...this.predicate]))),
             suppress: this.suppress,
             getNewValue: (current: number): number => {
                 const change = this.resolveValue();
@@ -123,14 +126,14 @@ interface AdjustModifierRuleElement
 
 type AdjustModifierSchema = AELikeSchema & {
     /** An optional relabeling of the adjusted modifier */
-    relabel: StringField<string, string, false, true>;
+    relabel: StringField<string, string, false, true, false>;
     selector: StringField<string, string, false, false, false>;
-    selectors: ArrayField<StringField<string, string, true>>;
-    damageType: StringField<string, string, false, false, false>;
+    selectors: ArrayField<StringField<string, string, true, false, false>>;
+    damageType: StringField<string, string, false, true, true>;
     /** Rather than changing a modifier's value, ignore it entirely */
-    suppress: BooleanField<boolean, boolean, false, false, false>;
+    suppress: BooleanField<boolean, boolean, false, true, false>;
     /** The maximum number of times this adjustment can be applied */
-    maxApplications: NumberField<number, number, false, false, false>;
+    maxApplications: NumberField<number, number, false, true, false>;
 };
 
 interface AdjustModifierSource extends Exclude<AELikeSource, "path"> {

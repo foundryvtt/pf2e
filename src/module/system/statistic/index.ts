@@ -27,7 +27,7 @@ import { StatisticChatData, StatisticTraceData, StatisticData, StatisticCheckDat
 
 export * from "./data";
 
-export interface StatisticRollParameters {
+interface StatisticRollParameters {
     /** Which attack this is (for the purposes of multiple attack penalty) */
     attackNumber?: number;
     /** Optional target for the roll */
@@ -64,7 +64,7 @@ interface RollOptionParameters {
 }
 
 /** Object used to perform checks or get dcs, or both. These are created from StatisticData which drives its behavior. */
-export class Statistic {
+class Statistic {
     /** Source of truth of all statistic data and the params used to create it. Necessary for cloning. */
     #data: StatisticData;
 
@@ -117,6 +117,9 @@ export class Statistic {
 
         this.modifiers = [baseModifiers, data.modifiers ?? []].flat();
         this.check = new StatisticCheck(this, this.#data, this.options);
+
+        // Add DC data with an additional domain if not already set
+        this.#data.dc ??= { domains: [`${this.slug}-dc`] };
         this.dc = new StatisticDifficultyClass(this, this.#data, this.options);
 
         // Add from synthetics, but only after check/dc are created so that modifiers aren't duplicated
@@ -335,10 +338,10 @@ class StatisticCheck {
         const domains = this.domains;
 
         // This is required to determine the AC for attack dialogs
-        const rollContext = (() => {
-            const isCreature = actor.isOfType("creature");
+        const rollContext = await (() => {
+            const isValidAttacker = actor.isOfType("creature", "hazard");
             const isAttackItem = item?.isOfType("weapon", "melee", "spell");
-            if (isCreature && isAttackItem && ["attack-roll", "spell-attack-roll"].includes(this.type)) {
+            if (isValidAttacker && isAttackItem && ["attack-roll", "spell-attack-roll"].includes(this.type)) {
                 return actor.getAttackRollContext({ item, domains, options: new Set() });
             }
 
@@ -491,3 +494,5 @@ class StatisticDifficultyClass {
             .join(", ");
     }
 }
+
+export { Statistic, StatisticDifficultyClass, StatisticRollParameters };

@@ -1,11 +1,14 @@
 import { sluggify } from "@util";
 import { CompendiumBrowser } from "..";
+import { ContentTabName } from "../data";
 import { CompendiumBrowserTab } from "./base";
 import { CompendiumBrowserIndexData, HazardFilters } from "./data";
 
 export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
-    override filterData!: HazardFilters;
-    override templatePath = "systems/pf2e/templates/compendium-browser/partials/hazard.hbs";
+    tabName: ContentTabName = "hazard";
+    filterData: HazardFilters;
+    templatePath = "systems/pf2e/templates/compendium-browser/partials/hazard.hbs";
+
     /* MiniSearch */
     override searchFields = ["name"];
     override storeFields = ["type", "name", "img", "uuid", "level", "complexity", "traits", "rarity", "source"];
@@ -13,13 +16,13 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
     protected index = ["img", "system.details.level.value", "system.details.isComplex", "system.traits"];
 
     constructor(browser: CompendiumBrowser) {
-        super(browser, "hazard");
+        super(browser);
 
         // Set the filterData object of this tab
-        this.prepareFilterData();
+        this.filterData = this.prepareFilterData();
     }
 
-    protected override async loadData() {
+    protected override async loadData(): Promise<void> {
         console.debug("PF2e System | Compendium Browser | Started loading Hazard actors");
 
         const hazardActors: CompendiumBrowserIndexData[] = [];
@@ -106,8 +109,8 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
         return true;
     }
 
-    protected override prepareFilterData(): void {
-        this.filterData = {
+    protected override prepareFilterData(): HazardFilters {
+        return {
             checkboxes: {
                 complexity: {
                     isExpanded: true,

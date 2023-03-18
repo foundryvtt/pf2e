@@ -1,23 +1,9 @@
-import { EffectBadge } from "@item/abstract-effect";
-import { EffectAuraData, EffectContextData, EffectTraits, TimeUnit } from "@item/abstract-effect/data";
-import {
-    BaseItemDataPF2e,
-    BaseItemSourcePF2e,
-    ItemFlagsPF2e,
-    ItemLevelData,
-    ItemSystemData,
-    ItemSystemSource,
-} from "@item/data/base";
-import { EffectPF2e } from ".";
+import { EffectAuraData, EffectBadge, EffectContextData, EffectTraits, TimeUnit } from "@item/abstract-effect";
+import { BaseItemSourcePF2e, ItemFlagsPF2e, ItemSystemData, ItemSystemSource } from "@item/data/base";
 
 type EffectSource = BaseItemSourcePF2e<"effect", EffectSystemSource> & {
     flags: DeepPartial<EffectFlags>;
 };
-
-type EffectData = Omit<EffectSource, "system" | "effects" | "flags"> &
-    BaseItemDataPF2e<EffectPF2e, "effect", EffectSystemData, EffectSource> & {
-        flags: EffectFlags;
-    };
 
 type EffectFlags = ItemFlagsPF2e & {
     pf2e: {
@@ -25,7 +11,8 @@ type EffectFlags = ItemFlagsPF2e & {
     };
 };
 
-interface EffectSystemSource extends Omit<ItemSystemSource, "traits">, ItemLevelData {
+interface EffectSystemSource extends ItemSystemSource {
+    level: { value: number };
     traits: EffectTraits;
     start: {
         value: number;
@@ -49,11 +36,11 @@ interface EffectSystemSource extends Omit<ItemSystemSource, "traits">, ItemLevel
     context: EffectContextData | null;
 }
 
-interface EffectSystemData extends EffectSystemSource, Omit<ItemSystemData, "traits"> {
+interface EffectSystemData extends EffectSystemSource, Omit<ItemSystemData, "level" | "traits"> {
     expired: boolean;
     remaining: string;
 }
 
 type EffectExpiryType = "turn-start" | "turn-end";
 
-export { EffectData, EffectExpiryType, EffectFlags, EffectSource, EffectSystemData };
+export { EffectExpiryType, EffectFlags, EffectSource, EffectSystemData };

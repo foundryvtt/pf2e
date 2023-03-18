@@ -48,7 +48,66 @@
             }
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "selector": "{item|_id}-damage",
+                "text": "PF2E.AmmunitionNotes.AntlerArrow.Text",
+                "title": "PF2E.AmmunitionNotes.AntlerArrow.Title"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "selector": "{item|_id}-damage",
+                "text": "PF2E.Item.Weapon.CriticalSpecialization.bow",
+                "title": "PF2E.Actor.Creature.CriticalSpecialization"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "not": "critical-specialization"
+                    }
+                ],
+                "selector": "{item|_id}-damage",
+                "text": "PF2E.AmmunitionNotes.AntlerArrow.Text",
+                "title": "PF2E.AmmunitionNotes.AntlerArrow.Title"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "not": "critical-specialization"
+                    }
+                ],
+                "selector": "{item|_id}-damage",
+                "text": "PF2E.Item.Weapon.CriticalSpecialization.bow",
+                "title": "PF2E.Actor.Creature.CriticalSpecialization"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "critical-specialization"
+                ],
+                "selector": "{item|_id}-damage",
+                "text": "PF2E.AmmunitionNotes.AntlerArrow.CriticalText",
+                "title": "PF2E.AmmunitionNotes.AntlerArrow.Title"
+            }
+        ],
         "size": "med",
         "source": {
             "value": "Pathfinder Advanced Player's Guide"

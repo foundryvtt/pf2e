@@ -1,9 +1,9 @@
 {{#with entry as |entry|}}
-    <ol class="directory-list spell-list" data-casting-type="{{castingType}}">
+    <ol class="directory-list spell-list" data-category="{{entry.category}}">
         {{!-- Add section for each level --}}
         {{#each entry.levels as |section|}}
-            {{#if (or (gt section.active.length 0) entry.system.showSlotlessLevels.value)}}
-                <li class="spell-level-header spellbook-header item" data-item-id="{{entry._id}}" data-item-type="spellLevel" data-level="{{section.level}}">
+            {{#if (or (gt section.active.length 0) entry.showSlotlessLevels)}}
+                <li class="spell-level-header spellbook-header item" data-item-id="{{entry.id}}" data-item-type="spellLevel" data-level="{{section.level}}">
                     <div class="item-name flexrow">
                         <h3>{{localize section.label}}</h3>
 
@@ -33,7 +33,7 @@
                             </span>
                             {{#if section.uses.value includeZero=true}}
                                 {{#if @root.options.editable}}
-                                    <a class="spell-slots-increment-reset" data-item-id="{{entry._id}}" data-level="{{section.level}}"><i class="fas fa-redo"></i></a>
+                                    <a class="spell-slots-increment-reset" data-item-id="{{entry.id}}" data-level="{{section.level}}"><i class="fas fa-redo"></i></a>
                                 {{/if}}
                             {{/if}}
                         {{/if}}
@@ -65,7 +65,7 @@
                             class="item spell{{#if virtual}} virtual{{/if}}"
                             data-item-id="{{spell.id}}"
                             data-entry-id="{{entry.id}}"
-                            data-cast-level="{{chatData.castLevel}}"
+                            data-cast-level="{{coalesce castLevel spell.level}}"
                             data-slot-level="{{section.level}}"
                             {{#if entry.isPrepared}}data-slot-id="{{i}}"{{/if}}
                             data-item-type="spell"
@@ -81,7 +81,7 @@
 
                             <div class="spell-range">
                                 {{!-- Innate spells replace range for uses --}}
-                                {{#unless entry.isInnate}}
+                                {{#if (not entry.isInnate)}}
                                     {{spell.system.range.value}}
                                 {{else if uses}}
                                     <div class="uses">
@@ -98,7 +98,7 @@
                                     </div>
                                 {{else}}
                                     {{localize "PF2E.SpellUnlimitedLabel"}}
-                                {{/unless}}
+                                {{/if}}
                             </div>
 
                             <div class="spell-components tags">
@@ -126,7 +126,7 @@
                                             {{/unless}}
                                             <a class="item-control item-unprepare" title="{{localize "PF2E.UnprepareItemTitle"}}"><i class="fas fa-fw fa-trash"></i></a>
                                         {{else}}
-                                            {{#if (and (eq entry.system.prepared.value "spontaneous") (not section.isCantrip))}}
+                                            {{#if (and entry.isSpontaneous (not section.isCantrip))}}
                                                 <a class="item-control toggle-signature-spell" title="{{localize "PF2E.ToggleSignatureSpellTitle"}}">
                                                     {{#if signature}}<i class="fas fa-fw fa-star"></i>{{else}}<i class="far fa-fw fa-star"></i>{{/if}}
                                                 </a>
@@ -148,6 +148,7 @@
                 {{/each}}
             {{/if}}
         {{/each}}
+
         {{#if (and (not entry.levels) @root.options.editable)}}
             <li class="spellbook-header spellbook-empty">
                 <h4>{{localize "PF2E.SpellSlotEmpty"}}</h4>

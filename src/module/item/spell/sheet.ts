@@ -4,7 +4,8 @@ import { ItemSheetDataPF2e } from "../sheet/data-types";
 import { SpellDamage, SpellHeighteningInterval, SpellSystemData } from "./data";
 import { ErrorPF2e, fontAwesomeIcon, getActionGlyph, objectHasKey, pick, tagify, tupleHasValue } from "@util";
 import { OneToTen } from "@module/data";
-import { DamageCategoryUnique, DAMAGE_CATEGORIES_UNIQUE } from "@system/damage";
+import { DamageCategoryUnique } from "@system/damage/types";
+import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values";
 
 /** Set of properties that are legal for the purposes of spell overrides */
 const spellOverridable: Partial<Record<keyof SpellSystemData, string>> = {
@@ -99,12 +100,6 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             : super.title;
     }
 
-    override get validTraits() {
-        const traits = deepClone(CONFIG.PF2E.spellTraits);
-        delete traits[this.item.school];
-        return traits;
-    }
-
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
@@ -134,7 +129,8 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
         $html.find("[data-action=damage-create]").on("click", (event) => {
             event.preventDefault();
-            const baseKey = this.getOverlayFromEvent(event) ?? "data";
+            const overlayData = this.getOverlayFromEvent(event);
+            const baseKey = overlayData?.base ?? "system";
             const emptyDamage: SpellDamage = { value: "", type: { value: "bludgeoning", categories: [] } };
             this.item.update({ [`${baseKey}.damage.value.${randomID()}`]: emptyDamage });
         });

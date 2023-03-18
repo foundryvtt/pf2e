@@ -12,8 +12,9 @@ import {
 } from "@module/rules/helpers";
 import { TokenDocumentPF2e } from "@scene";
 import { CheckPF2e, CheckRoll } from "@system/check";
-import { DamagePF2e, DamageRollContext, WeaponDamagePF2e } from "@system/damage";
+import { DamagePF2e, DamageRollContext } from "@system/damage";
 import { DamageRoll } from "@system/damage/roll";
+import { WeaponDamagePF2e } from "@system/damage/weapon";
 import { AttackRollParams, DamageRollParams } from "@system/rolls";
 import { ErrorPF2e, getActionGlyph, getActionIcon, sluggify } from "@util";
 import { ActorSourcePF2e } from "./data";
@@ -25,10 +26,9 @@ import { AttackItem } from "./types";
 import { ANIMAL_COMPANION_SOURCE_ID, CONSTRUCT_COMPANION_SOURCE_ID } from "./values";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { ZeroToTwo } from "@module/data";
-import { UUIDUtils } from "@util/uuid-utils";
 
 /** Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors */
-async function resetAndRerenderActors(actors?: Iterable<ActorPF2e>): Promise<void> {
+async function resetActors(actors?: Iterable<ActorPF2e>, { rerender = true } = {}): Promise<void> {
     actors ??= [
         game.actors.contents,
         game.scenes.contents.flatMap((s) => s.tokens.contents).flatMap((t) => t.actor ?? []),
@@ -36,7 +36,7 @@ async function resetAndRerenderActors(actors?: Iterable<ActorPF2e>): Promise<voi
 
     for (const actor of actors) {
         actor.reset();
-        ui.windows[actor.sheet.appId]?.render();
+        if (rerender) actor.render();
     }
     game.pf2e.effectPanel.refresh();
 
@@ -61,8 +61,10 @@ async function resetAndRerenderActors(actors?: Iterable<ActorPF2e>): Promise<voi
 }
 
 async function migrateActorSource(source: PreCreate<ActorSourcePF2e>): Promise<ActorSourcePF2e> {
-    if (Object.keys(source).length === 2 && "name" in source && "type" in source) {
-        // The item consists of only a `name` and `type`: set schema version and skip
+    source.effects = []; // Never
+
+    if (!["flags", "items", "system"].some((k) => k in source)) {
+        // The actor has no migratable data: set schema version and return early
         source.system = { schema: { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION } };
     }
 
@@ -90,7 +92,7 @@ async function checkAreaEffects(this: ActorPF2e): Promise<void> {
         if (!auraData?.removeOnExit) continue;
 
         const auraToken = await (async (): Promise<TokenDocumentPF2e | null> => {
-            const document = await UUIDUtils.fromUuid(auraData.origin);
+            const document = await fromUuid(auraData.origin);
             if (document instanceof TokenDocumentPF2e) {
                 return document;
             } else if (document instanceof ActorPF2e) {
@@ -266,7 +268,7 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
 
                 params.options ??= [];
                 // Always add all weapon traits as options
-                const context = actor.getAttackRollContext({
+                const context = await actor.getAttackRollContext({
                     item,
                     viewOnly: false,
                     domains,
@@ -326,8 +328,8 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
     const damageRoll =
         (outcome: "success" | "criticalSuccess"): DamageRollFunction =>
         async (params: DamageRollParams = {}): Promise<Rolled<DamageRoll> | string | null> => {
-            const domains = ["all", "strike-damage", "damage-roll"];
-            const context = actor.getStrikeRollContext({
+            const domains = ["all", `{item.id}-damage`, "strike-damage", "damage-roll"];
+            const context = await actor.getStrikeRollContext({
                 item,
                 viewOnly: false,
                 domains,
@@ -460,6 +462,6 @@ export {
     getRangeIncrement,
     isReallyPC,
     migrateActorSource,
-    resetAndRerenderActors,
+    resetActors,
     strikeFromMeleeItem,
 };

@@ -1,9 +1,8 @@
 import { ActorSheetPF2e } from "../sheet/base";
 import { VehiclePF2e } from "@actor/vehicle";
-import { ItemDataPF2e } from "@item/data";
 import { ErrorPF2e, getActionIcon, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
-import { AbstractEffectPF2e, EffectPF2e } from "@item";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
+import { ActionItemPF2e } from "@item";
 
 export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
     static override get defaultOptions(): ActorSheetOptions {
@@ -41,29 +40,18 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         const actorData = sheetData.actor;
 
         // Actions
-        const actions: Record<"action" | "reaction" | "free", { label: string; actions: ItemDataPF2e[] }> = {
+        const actions: Record<"action" | "reaction" | "free", { label: string; actions: ActionItemPF2e[] }> = {
             action: { label: game.i18n.localize("PF2E.ActionsActionsHeader"), actions: [] },
             reaction: { label: game.i18n.localize("PF2E.ActionsReactionsHeader"), actions: [] },
             free: { label: game.i18n.localize("PF2E.ActionsFreeActionsHeader"), actions: [] },
         };
 
-        for (const itemData of actorData.items) {
-            const item = this.actor.items.get(itemData._id, { strict: true });
-            if (item.isOfType("physical")) {
-                const systemData = item.system;
-                itemData.showEdit = sheetData.user.isGM || systemData.identification.status === "identified";
-                itemData.isInvestable = false;
-                itemData.isIdentified = systemData.identification.status === "identified";
-                itemData.assetValue = item.assetValue;
-                itemData.showEdit = true;
-            }
-
-            // Actions
-            if (item.isOfType("action")) {
-                itemData.img = getActionIcon(item.actionCost);
-                const actionType = item.actionCost?.type ?? "free";
-                actions[actionType].actions.push(itemData);
-            }
+        // Actions
+        for (const item of this.actor.itemTypes.action.sort((a, b) => a.sort - b.sort)) {
+            const itemData = item.toObject(false) as unknown as ActionItemPF2e;
+            const img = getActionIcon(item.actionCost);
+            const actionType = item.actionCost?.type ?? "free";
+            actions[actionType].actions.push({ ...itemData, img } as ActionItemPF2e);
         }
 
         actorData.actions = actions;
@@ -95,40 +83,6 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         // Add tag selector listeners
         for (const element of htmlQueryAll(html, ".crb-tag-selector")) {
             element.addEventListener("click", (event) => this.openTagSelector(event));
-        }
-
-        // Change whether an effect is secret to players or not
-        for (const element of htmlQueryAll(html, ".effects-list [data-action=effect-toggle-unidentified]")) {
-            element.addEventListener("click", async () => {
-                const effectId = htmlClosest(element, "[data-item-id]")?.dataset.itemId;
-                const effect = this.actor.items.get(effectId, { strict: true });
-                if (effect instanceof EffectPF2e) {
-                    const isUnidentified = effect.unidentified;
-                    await effect.update({ "system.unidentified": !isUnidentified });
-                }
-            });
-        }
-
-        // Decrease effect value
-        for (const element of htmlQueryAll(html, ".effects-list .decrement")) {
-            element.addEventListener("click", async () => {
-                const parent = htmlClosest(element, ".item");
-                const effect = this.actor.items.get(parent?.dataset.dataItemId ?? "");
-                if (effect instanceof AbstractEffectPF2e) {
-                    await effect.decrease();
-                }
-            });
-        }
-
-        // Increase effect value
-        for (const element of htmlQueryAll(html, ".effects-list .increment")) {
-            element.addEventListener("click", async () => {
-                const parent = htmlClosest(element, ".item");
-                const effect = this.actor?.items.get(parent?.dataset.dataItemId ?? "");
-                if (effect instanceof AbstractEffectPF2e) {
-                    await effect.increase();
-                }
-            });
         }
     }
 }

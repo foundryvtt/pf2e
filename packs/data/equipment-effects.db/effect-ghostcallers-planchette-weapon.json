@@ -19,17 +19,24 @@
         "rules": [
             {
                 "choices": {
+                    "includeHandwraps": true,
                     "ownedItems": true,
                     "types": [
                         "weapon"
                     ]
                 },
+                "flag": "effectGhostcallersPlanchetteWeapon",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "definition": [
-                    "item:id:{item|flags.pf2e.rulesSelections.effectGhostcallersPlanchetteWeapon}"
+                    {
+                        "or": [
+                            "item:category:{item|flags.pf2e.rulesSelections.effectGhostcallersPlanchetteWeapon}",
+                            "item:id:{item|flags.pf2e.rulesSelections.effectGhostcallersPlanchetteWeapon}"
+                        ]
+                    }
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",

@@ -225,3 +225,9 @@ export { Migration824SneakAttackDamageSource } from "./824-sneak-attack-damage-s
 export { Migration825KhakkharaFengHuoLun } from "./825-khakkhara-feng-huo-lun";
 export { Migration826GutConditionData } from "./826-gut-condition-data";
 export { Migration827FixTVShieldTraits } from "./827-fix-tv-shield-traits";
+export { Migration828PruneInvalidTraits } from "./828-prune-invalid-traits";
+export { Migration829RMRitualEntries } from "./829-rm-ritual-entries";
+export { Migration830BarbarianRework } from "./830-condense-instincts";
+export { Migration831ClericDoctrines } from "./831-cleric-doctrines";
+export { Migration832ChoiceSetFlags } from "./832-choice-set-flags";
+export { Migration833AddRogueToysFixPrecision } from "./833-add-rogue-toys-fix-precision";

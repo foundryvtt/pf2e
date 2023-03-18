@@ -5,7 +5,7 @@ import { TokenPF2e } from "@module/canvas/token";
 import { EncounterPF2e } from "@module/encounter";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { PersistentDialog } from "@item/condition/persistent-damage-dialog";
-import { resetAndRerenderActors } from "@actor/helpers";
+import { resetActors } from "@actor/helpers";
 
 const debouncedRender = foundry.utils.debounce(() => {
     canvas.tokens.hud.render();
@@ -51,7 +51,7 @@ export class StatusEffects {
         CONFIG.PF2E.statusEffects.iconDir = iconDir;
         CONFIG.PF2E.statusEffects.lastIconTheme = chosenSetting;
         this.#updateStatusIcons();
-        await resetAndRerenderActors();
+        await resetActors();
         if (canvas.ready) {
             for (const token of canvas.tokens.placeables) {
                 token.drawEffects();
@@ -270,11 +270,10 @@ export class StatusEffects {
         const statusEffectList = conditions.map((condition): string => {
             const conditionInfo = StatusEffects.conditions[condition.slug];
             const summary = conditionInfo.summary ?? "";
-            const conditionValue = condition.value ?? "";
             return `
                 <li><img src="${condition.img}" title="${summary}">
                     <span class="statuseffect-li">
-                        <span class="statuseffect-li-text">${condition.name} ${conditionValue}</span>
+                        <span class="statuseffect-li-text">${condition.name}</span>
                         <div class="statuseffect-rules"><h2>${condition.name}</h2>${condition.description}</div>
                     </span>
                 </li>`;

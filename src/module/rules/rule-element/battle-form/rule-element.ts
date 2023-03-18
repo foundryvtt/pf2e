@@ -398,7 +398,11 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         for (const action of strikeActions) {
             const strike = (this.overrides.strikes[action.slug ?? ""] ?? null) as BattleFormStrike | null;
 
-            if (!this.ownUnarmed && strike && (strike.modifier >= action.totalModifier || !strike.ownIfHigher)) {
+            if (
+                !this.ownUnarmed &&
+                strike &&
+                (Number(this.resolveValue(strike.modifier)) >= action.totalModifier || !strike.ownIfHigher)
+            ) {
                 // The battle form's static attack-roll modifier is >= the character's unarmed attack modifier:
                 // replace inapplicable attack-roll modifiers with the battle form's
                 this.suppressModifiers(action);

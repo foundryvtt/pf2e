@@ -9,13 +9,13 @@ declare module foundry {
          * @property data The constructed data object for the document.
          */
         class BaseChatMessage extends abstract.Document {
+            blind: boolean;
             content: string;
-
-            speaker: foundry.data.ChatSpeakerSource;
-
-            rolls: Rolled<Roll>[];
-
             flags: foundry.data.ChatMessageFlags;
+            rolls: Rolled<Roll>[];
+            speaker: foundry.data.ChatSpeakerSource;
+            type: ChatMessageType;
+            whisper: string[];
 
             static override get schema(): typeof data.ChatMessageData;
 

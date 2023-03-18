@@ -1,5 +1,5 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
-import { PartyData } from "./data";
+import { PartySource, PartySystemData } from "./data";
 
 class PartyPF2e extends ActorPF2e {
     /** Friendship lives in our hearts */
@@ -20,7 +20,8 @@ class PartyPF2e extends ActorPF2e {
 }
 
 interface PartyPF2e extends ActorPF2e {
-    readonly data: PartyData;
+    readonly _source: PartySource;
+    system: PartySystemData;
 }
 
 export { PartyPF2e };

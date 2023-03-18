@@ -14,7 +14,7 @@ interface CollectionDiff<T extends foundry.data.ActiveEffectSource | ItemSourceP
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.827;
+    static LATEST_SCHEMA_VERSION = 0.833;
 
     static MINIMUM_SAFE_VERSION = 0.618;
 
@@ -193,9 +193,9 @@ export class MigrationRunnerBase {
     }
 
     async getUpdatedUser(
-        userData: foundry.data.UserSource,
+        userData: foundry.documents.UserSource,
         migrations: MigrationBase[]
-    ): Promise<foundry.data.UserSource> {
+    ): Promise<foundry.documents.UserSource> {
         const current = deepClone(userData);
         for (const migration of migrations) {
             try {

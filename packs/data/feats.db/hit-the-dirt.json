@@ -21,7 +21,24 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "ac",
+                "key": "RollOption",
+                "option": "hit-the-dirt",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "hit-the-dirt",
+                    "item:ranged"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": "Pathfinder Guns & Gears"
         },

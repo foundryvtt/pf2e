@@ -515,41 +515,19 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "First attack on hunted prey this round",
+                        "label": "PF2E.SpecificRule.Ranger.HuntersEdge.FirstAttack",
                         "option": "first-attack",
                         "toggleable": true
                     },
                     {
-                        "damageType": "precision",
+                        "category": "precision",
+                        "diceNumber": "ternary(lt(@actor.level, 11), 1, ternary(lt(@actor.level, 19), 2, 3))",
                         "dieSize": "d8",
                         "key": "DamageDice",
                         "predicate": [
                             "first-attack"
                         ],
-                        "selector": "strike-damage",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 10,
-                                    "value": {
-                                        "diceNumber": 1
-                                    }
-                                },
-                                {
-                                    "end": 18,
-                                    "start": 11,
-                                    "value": {
-                                        "diceNumber": 2
-                                    }
-                                },
-                                {
-                                    "start": 19,
-                                    "value": {
-                                        "diceNumber": 3
-                                    }
-                                }
-                            ]
-                        }
+                        "selector": "strike-damage"
                     }
                 ],
                 "slug": "precision",
@@ -896,10 +874,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -923,10 +897,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -950,10 +920,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"

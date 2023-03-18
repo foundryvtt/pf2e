@@ -2,29 +2,25 @@ import { ActionMacroHelpers, SkillActionOptions } from "..";
 import { ModifierPF2e } from "@actor/modifiers";
 
 export function subsist(options: SkillActionOptions) {
-    if (!options.skill) {
+    if (!options?.skill) {
         ui.notifications.warn(game.i18n.localize("PF2E.Actions.Subsist.Warning.NoSkill"));
         return;
     }
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options.skill!);
     const modifiers = [
         new ModifierPF2e({
             label: "PF2E.Actions.Subsist.AfterExplorationPenalty",
             modifier: -5,
             predicate: ["action:subsist:after-exploration"],
         }),
-    ];
+    ].concat(options?.modifiers ?? []);
+    const { skill: slug } = options;
+    const rollOptions = ["action:subsist", `action:subsist:${slug}`];
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph,
         title: "PF2E.Actions.Subsist.Title",
-        subtitle,
-        modifiers: modifiers.concat(options.modifiers ?? []),
-        rollOptions: ["all", checkType, stat, "action:subsist"],
-        extraOptions: ["action:subsist"],
+        checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["downtime"],
-        checkType,
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,

@@ -3,7 +3,7 @@ import { PhysicalItemPF2e } from "@item/physical";
 import { ItemPF2e } from "@item/base";
 import { ErrorPF2e } from "@util";
 import { UserPF2e } from "@module/user";
-import { LootData, LootSource } from "./data";
+import { LootSource, LootSystemData } from "./data";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { ItemSourcePF2e, ItemType } from "@item/data";
 import { TokenDocumentPF2e } from "@module/scene/token-document";
@@ -149,7 +149,8 @@ class LootPF2e extends ActorPF2e {
 }
 
 interface LootPF2e extends ActorPF2e {
-    readonly data: LootData;
+    readonly _source: LootSource;
+    system: LootSystemData;
 
     readonly saves?: never;
 

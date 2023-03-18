@@ -4,7 +4,7 @@ import { getResilientBonus, PhysicalItemHitPoints, PhysicalItemPF2e } from "@ite
 import { MAGIC_TRADITIONS } from "@item/spell/values";
 import { LocalizePF2e } from "@module/system/localize";
 import { addSign, ErrorPF2e, setHasElement, sluggify } from "@util";
-import { ArmorCategory, ArmorData, ArmorGroup, BaseArmorType } from ".";
+import { ArmorCategory, ArmorGroup, ArmorSource, ArmorSystemData, BaseArmorType } from ".";
 
 class ArmorPF2e extends PhysicalItemPF2e {
     override isStackableWith(item: PhysicalItemPF2e): boolean {
@@ -18,6 +18,10 @@ class ArmorPF2e extends PhysicalItemPF2e {
 
     get isArmor(): boolean {
         return !this.isShield;
+    }
+
+    get isBarding(): boolean {
+        return ["light-barding", "heavy-barding"].includes(this.category);
     }
 
     get baseType(): BaseArmorType | null {
@@ -100,7 +104,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
         this.system.potencyRune.value ||= null;
         this.system.resiliencyRune.value ||= null;
         // Strip out fundamental runes if ABP is enabled: requires this item and its actor (if any) to be initialized
-        if (this.initialized) ABP.cleanupRunes(this);
+        ABP.cleanupRunes(this);
 
         // Add traits from potency rune
         const baseTraits = this.system.traits.value;
@@ -209,7 +213,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
         const systemData = this.system;
         const translations = LocalizePF2e.translations.PF2E;
         const properties = [
-            this.isArmor ? CONFIG.PF2E.armorTypes[this.category] : CONFIG.PF2E.weaponCategories.martial,
+            this.isArmor ? CONFIG.PF2E.armorCategories[this.category] : CONFIG.PF2E.weaponCategories.martial,
             `${addSign(this.acBonus)} ${translations.ArmorArmorLabel}`,
             this.isArmor ? `${systemData.dex.value || 0} ${translations.ArmorDexLabel}` : null,
             this.isArmor ? `${systemData.check.value || 0} ${translations.ArmorCheckLabel}` : null,
@@ -217,7 +221,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
         ];
 
         return this.processChatData(htmlOptions, {
-            ...super.getChatData(),
+            ...(await super.getChatData()),
             traits: this.traitChatData(CONFIG.PF2E.armorTraits),
             properties,
         });
@@ -239,7 +243,8 @@ class ArmorPF2e extends PhysicalItemPF2e {
 }
 
 interface ArmorPF2e extends PhysicalItemPF2e {
-    readonly data: ArmorData;
+    readonly _source: ArmorSource;
+    system: ArmorSystemData;
 }
 
 export { ArmorPF2e };

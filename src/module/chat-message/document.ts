@@ -285,7 +285,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     protected override _onCreate(
         data: foundry.data.ChatMessageSource,
-        options: DocumentModificationContext,
+        options: DocumentModificationContext<this>,
         userId: string
     ) {
         super._onCreate(data, options, userId);
@@ -299,12 +299,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
 interface ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     readonly data: ChatMessageDataPF2e<this>;
-
     flags: ChatMessageFlagsPF2e;
-
-    blind: this["data"]["blind"];
-    type: this["data"]["type"];
-    whisper: this["data"]["whisper"];
 
     get user(): UserPF2e;
 }

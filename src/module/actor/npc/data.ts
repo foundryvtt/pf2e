@@ -1,11 +1,12 @@
 import {
     Abilities,
-    BaseCreatureData,
     BaseCreatureSource,
     CreatureAttributes,
     CreatureDetails,
     CreatureHitPoints,
     CreatureInitiative,
+    CreatureResources,
+    CreatureResourcesSource,
     CreatureSpeeds,
     CreatureSystemData,
     CreatureSystemSource,
@@ -22,18 +23,11 @@ import { ActorSizePF2e } from "@actor/data/size";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers";
 import { AbilityString, ActorAlliance, SaveType } from "@actor/types";
 import { MeleePF2e } from "@item";
-import { Rarity, Size, ValueAndMax } from "@module/data";
+import { Rarity, Size } from "@module/data";
 import { IdentifyCreatureData } from "@module/recall-knowledge";
-import type { NPCPF2e } from ".";
 
 interface NPCSource extends BaseCreatureSource<"npc", NPCSystemSource> {
     flags: DeepPartial<NPCFlags>;
-}
-
-interface NPCData
-    extends Omit<NPCSource, "data" | "system" | "effects" | "items" | "prototypeToken" | "type">,
-        BaseCreatureData<NPCPF2e, "npc", NPCSystemData, NPCSource> {
-    flags: NPCFlags;
 }
 
 type NPCFlags = ActorFlagsPF2e & {
@@ -41,6 +35,8 @@ type NPCFlags = ActorFlagsPF2e & {
 };
 
 interface NPCSystemSource extends CreatureSystemSource {
+    traits: NPCTraitsSource;
+
     /** The six primary ability scores. */
     abilities: Abilities;
 
@@ -53,11 +49,14 @@ interface NPCSystemSource extends CreatureSystemSource {
     /** The three saves for NPCs. NPC saves have a 'base' score which is the score before applying custom modifiers. */
     saves: NPCSavesSource;
 
-    resources: {
-        focus?: ValueAndMax;
+    /** Spellcasting data: currently only used for rituals */
+    spellcasting?: {
+        rituals?: {
+            dc: number;
+        };
     };
 
-    traits: NPCTraitsSource;
+    resources: CreatureResourcesSource;
 }
 
 interface NPCAttributesSource extends Required<ActorAttributesSource> {
@@ -88,49 +87,6 @@ interface NPCAttributesSource extends Required<ActorAttributesSource> {
     };
 }
 
-type NPCSavesSource = Record<SaveType, { value: number; saveDetail: string }>;
-
-interface NPCTraitsSource extends CreatureTraitsSource {
-    /** A description of special senses this NPC has */
-    senses: { value: string };
-    rarity: Rarity;
-    size: { value: Size };
-}
-
-/** The raw information contained within the actor data object for NPCs. */
-interface NPCSystemData extends Omit<CreatureSystemData, "senses">, NPCSystemSource {
-    /** The six primary ability scores. */
-    abilities: Abilities;
-
-    /** The three saves for NPCs. NPC saves have a 'base' score which is the score before applying custom modifiers. */
-    saves: NPCSaves;
-
-    /** Details about this actor, such as alignment or ancestry. */
-    details: NPCDetails;
-
-    /** Any special attributes for this NPC, such as AC or health. */
-    attributes: NPCAttributes;
-
-    /** Skills that this actor possesses; skills the actor is actually trained on are marked 'visible'. */
-    skills: Record<string, NPCSkillData>;
-
-    /** Special strikes which the creature can take. */
-    actions: NPCStrike[];
-
-    resources: {
-        focus?: { value: number; max: number };
-    };
-
-    traits: NPCTraitsData;
-
-    customModifiers: Record<string, ModifierPF2e[]>;
-}
-
-interface NPCTraitsData extends Omit<CreatureTraitsData, "senses">, NPCTraitsSource {
-    rarity: Rarity;
-    size: ActorSizePF2e;
-}
-
 interface NPCDetailsSource extends Omit<CreatureDetails, "creature"> {
     level: {
         value: number;
@@ -150,6 +106,77 @@ interface NPCDetailsSource extends Omit<CreatureDetails, "creature"> {
     publicNotes: string;
     /** The private GM notes */
     privateNotes: string;
+}
+
+type NPCSavesSource = Record<SaveType, { value: number; saveDetail: string }>;
+
+interface NPCTraitsSource extends CreatureTraitsSource {
+    /** A description of special senses this NPC has */
+    senses: { value: string };
+    rarity: Rarity;
+    size: { value: Size };
+}
+
+/** The raw information contained within the actor data object for NPCs. */
+interface NPCSystemData extends Omit<NPCSystemSource, "attributes">, CreatureSystemData {
+    /** The six primary ability scores. */
+    abilities: Abilities;
+
+    /** The three saves for NPCs. NPC saves have a 'base' score which is the score before applying custom modifiers. */
+    saves: NPCSaves;
+
+    /** Details about this actor, such as alignment or ancestry. */
+    details: NPCDetails;
+
+    /** Any special attributes for this NPC, such as AC or health. */
+    attributes: NPCAttributes;
+
+    /** Skills that this actor possesses; skills the actor is actually trained on are marked 'visible'. */
+    skills: Record<string, NPCSkillData>;
+
+    /** Special strikes which the creature can take. */
+    actions: NPCStrike[];
+
+    traits: NPCTraitsData;
+
+    resources: CreatureResources;
+
+    spellcasting: {
+        rituals: { dc: number };
+    };
+
+    customModifiers: Record<string, ModifierPF2e[]>;
+}
+
+interface NPCTraitsData extends Omit<CreatureTraitsData, "senses">, NPCTraitsSource {
+    rarity: Rarity;
+    size: ActorSizePF2e;
+}
+
+interface NPCAttributes
+    extends Omit<NPCAttributesSource, "initiative" | "immunities" | "weaknesses" | "resistances">,
+        CreatureAttributes {
+    ac: NPCArmorClass;
+    adjustment: "elite" | "weak" | null;
+    hp: NPCHitPoints;
+    perception: NPCPerception;
+
+    initiative: CreatureInitiative;
+
+    speed: NPCSpeeds;
+    /**
+     * Data related to the currently equipped shield. This is copied from the shield data itself, and exists to
+     * allow for the shield health to be shown in a token.
+     */
+    shield: HeldShieldData;
+    /** Textual information about any special benefits that apply to all saves. */
+    allSaves: { value: string };
+    familiarAbilities: StatisticModifier;
+
+    /** A fake class DC (set to a level-based DC) for use with critical specialization effects that require it */
+    classDC: { value: number };
+    /** And a fake class-or-spell DC to go along with it */
+    classOrSpellDC: { value: number };
 }
 
 interface NPCDetails extends NPCDetailsSource {
@@ -217,30 +244,6 @@ interface NPCSkillData extends SkillData {
     expanded: string;
 }
 
-interface NPCAttributes
-    extends Omit<NPCAttributesSource, "immunities" | "weaknesses" | "resistances">,
-        CreatureAttributes {
-    ac: NPCArmorClass;
-    adjustment: "elite" | "weak" | null;
-    hp: NPCHitPoints;
-    perception: NPCPerception;
-
-    initiative: CreatureInitiative;
-
-    speed: NPCSpeeds;
-    /**
-     * Data related to the currently equipped shield. This is copied from the shield data itself, and exists to
-     * allow for the shield health to be shown in a token.
-     */
-    shield: HeldShieldData;
-    /** Textual information about any special benefits that apply to all saves. */
-    allSaves: { value: string };
-    familiarAbilities: StatisticModifier;
-
-    /** A fake class DC (set to a level-based DC) for use with critical specialization effects that require it */
-    classDC: { value: number };
-}
-
 interface NPCSpeeds extends CreatureSpeeds {
     details: string;
 }
@@ -249,7 +252,6 @@ export {
     NPCArmorClass,
     NPCAttributes,
     NPCAttributesSource,
-    NPCData,
     NPCFlags,
     NPCHitPoints,
     NPCPerception,

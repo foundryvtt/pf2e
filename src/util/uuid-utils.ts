@@ -3,21 +3,6 @@ import { ItemPF2e } from "@item";
 import { ErrorPF2e } from "./misc";
 
 class UUIDUtils {
-    /** A replacement for core fromUuid that returns cached compendium documents. Remove in v11. */
-    static async fromUuid<T extends ClientDocument = ClientDocument>(
-        uuid: string,
-        relative?: ClientDocument
-    ): Promise<T | null> {
-        const { doc, embedded } = this.#parseUuid(uuid, relative);
-        if (doc) {
-            if (embedded.length) {
-                return (_resolveEmbedded(doc, embedded) as T) ?? null;
-            }
-            return doc as T;
-        }
-        return fromUuid<T>(uuid, relative);
-    }
-
     /** A replacement for core fromUuidSync that returns cached compendium documents. Remove in v11. */
     static fromUuidSync(uuid: string, relative?: ClientDocument): ClientDocument | CompendiumIndexData | null {
         const { doc, embedded } = this.#parseUuid(uuid, relative);

@@ -8,7 +8,7 @@ import { extractDegreeOfSuccessAdjustments, extractModifiers, extractRollTwice }
 import { CheckPF2e, CheckRoll } from "@system/check";
 import { RollParameters } from "@system/rolls";
 import { Statistic } from "@system/statistic";
-import { FamiliarData, FamiliarSystemData } from "./data";
+import { FamiliarSource, FamiliarSystemData } from "./data";
 
 class FamiliarPF2e extends CreaturePF2e {
     /** The familiar's master, if selected */
@@ -39,7 +39,7 @@ class FamiliarPF2e extends CreaturePF2e {
     }
 
     /** Set base emphemeral data for later updating by derived-data preparation */
-    override prepareBaseData() {
+    override prepareBaseData(): void {
         type PartialSystemData = DeepPartial<FamiliarSystemData> & {
             attributes: { speed: RawSpeed; flanking: {} };
             details: {};
@@ -337,7 +337,7 @@ class FamiliarPF2e extends CreaturePF2e {
     }
 
     /** Familiars cannot have item bonuses. Nor do they have ability mods nor proficiency (sans master level) */
-    private stripInvalidModifiers() {
+    private stripInvalidModifiers(): void {
         const invalidModifierTypes: string[] = [MODIFIER_TYPE.ABILITY, MODIFIER_TYPE.PROFICIENCY, MODIFIER_TYPE.ITEM];
         for (const key of Object.keys(this.synthetics.statisticsModifiers)) {
             this.synthetics.statisticsModifiers[key] = this.synthetics.statisticsModifiers[key]?.filter((modifier) => {
@@ -359,7 +359,8 @@ class FamiliarPF2e extends CreaturePF2e {
 }
 
 interface FamiliarPF2e extends CreaturePF2e {
-    readonly data: FamiliarData;
+    readonly _source: FamiliarSource;
+    system: FamiliarSystemData;
 }
 
 export { FamiliarPF2e };

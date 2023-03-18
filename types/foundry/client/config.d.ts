@@ -2,25 +2,26 @@ import type * as TinyMCE from "tinymce";
 
 declare global {
     interface Config<
-        TAmbientLightDocument extends AmbientLightDocument = AmbientLightDocument,
-        TActiveEffect extends ActiveEffect = ActiveEffect,
-        TActor extends Actor = Actor,
-        TActorDirectory extends ActorDirectory<TActor> = ActorDirectory<TActor>,
-        TChatLog extends ChatLog = ChatLog,
-        TChatMessage extends ChatMessage = ChatMessage,
-        TCombat extends Combat = Combat,
-        TCombatant extends Combatant<TCombat | null, TActor | null> = Combatant<TCombat | null, TActor | null>,
-        TCombatTracker extends CombatTracker<TCombat | null> = CombatTracker<TCombat | null>,
-        TCompendiumDirectory extends CompendiumDirectory = CompendiumDirectory,
-        THotbar extends Hotbar = Hotbar,
-        TItem extends Item = Item,
-        TMacro extends Macro = Macro,
-        TMeasuredTemplateDocument extends MeasuredTemplateDocument = MeasuredTemplateDocument,
-        TTileDocument extends TileDocument = TileDocument,
-        TTokenDocument extends TokenDocument = TokenDocument,
-        TScene extends Scene = Scene,
-        TUser extends User = User,
-        TEffectsCanvasGroup extends EffectsCanvasGroup = EffectsCanvasGroup
+        TAmbientLightDocument extends AmbientLightDocument,
+        TActiveEffect extends ActiveEffect,
+        TActor extends Actor,
+        TActorDirectory extends ActorDirectory<TActor>,
+        TChatLog extends ChatLog,
+        TChatMessage extends ChatMessage,
+        TCombat extends Combat,
+        TCombatant extends Combatant<TCombat | null, TActor | null>,
+        TCombatTracker extends CombatTracker<TCombat | null>,
+        TCompendiumDirectory extends CompendiumDirectory,
+        THotbar extends Hotbar,
+        TItem extends Item,
+        TMacro extends Macro,
+        TMeasuredTemplateDocument extends MeasuredTemplateDocument,
+        TTileDocument extends TileDocument,
+        TTokenDocument extends TokenDocument,
+        TWallDocument extends WallDocument<TScene | null>,
+        TScene extends Scene,
+        TUser extends User,
+        TEffectsCanvasGroup extends EffectsCanvasGroup
     > {
         /** Configure debugging flags to display additional information */
         debug: {
@@ -239,6 +240,13 @@ declare global {
             prototypeSheetClass: ConstructorOf<TTokenDocument["sheet"]>;
         };
 
+        /** Configuration for the Wall embedded document type and its representation on the game Canvas */
+        Wall: {
+            documentClass: ConstructorOf<TWallDocument>;
+            objectClass: ConstructorOf<Wall<TWallDocument>>;
+            layerClass: ConstructorOf<TWallDocument["object"]["layer"]>;
+        };
+
         /* -------------------------------------------- */
         /*  Canvas                                      */
         /* -------------------------------------------- */
@@ -300,7 +308,7 @@ declare global {
                 };
                 walls: {
                     group: "effects";
-                    layerClass: typeof WallsLayer;
+                    layerClass: ConstructorOf<TWallDocument["object"]["layer"]>;
                 };
                 templates: {
                     group: "primary";
@@ -474,16 +482,7 @@ declare global {
         };
 
         /** The control icons used for rendering common HUD operations */
-        controlIcons: {
-            combat: ImageFilePath | VideoFilePath;
-            visibility: ImageFilePath | VideoFilePath;
-            effects: ImageFilePath | VideoFilePath;
-            lock: ImageFilePath | VideoFilePath;
-            up: ImageFilePath | VideoFilePath;
-            down: ImageFilePath | VideoFilePath;
-            defeated: ImageFilePath | VideoFilePath;
-            [key: string]: ImageFilePath | VideoFilePath | undefined;
-        };
+        controlIcons: ControlIconsConfig;
 
         /** A collection of fonts to load either from the user's local system, or remotely. */
         fontDefinitions: Record<string, FontFamilyDefinition>;
@@ -562,6 +561,17 @@ declare global {
             tables: typeof RollTableDirectory;
             // webrtc: typeof CameraViews;
         };
+    }
+
+    interface ControlIconsConfig {
+        combat: ImageFilePath | VideoFilePath;
+        visibility: ImageFilePath | VideoFilePath;
+        effects: ImageFilePath | VideoFilePath;
+        lock: ImageFilePath | VideoFilePath;
+        up: ImageFilePath | VideoFilePath;
+        down: ImageFilePath | VideoFilePath;
+        defeated: ImageFilePath | VideoFilePath;
+        [key: string]: ImageFilePath | VideoFilePath | undefined;
     }
 
     interface StatusEffect {

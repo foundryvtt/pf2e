@@ -2,7 +2,7 @@ import { ItemSummaryData } from "@item/data";
 import { PhysicalItemPF2e } from "@item/physical";
 import { LocalizePF2e } from "@module/system/localize";
 import { objectHasKey, sluggify } from "@util";
-import { EquipmentData, EquipmentTrait } from "./data";
+import { EquipmentSource, EquipmentSystemData, EquipmentTrait } from "./data";
 import { OtherEquipmentTag } from "./types";
 
 class EquipmentPF2e extends PhysicalItemPF2e {
@@ -30,9 +30,10 @@ class EquipmentPF2e extends PhysicalItemPF2e {
         this: Embedded<EquipmentPF2e>,
         htmlOptions: EnrichHTMLOptions = {}
     ): Promise<ItemSummaryData> {
-        const data = this.system;
-        const traits = this.traitChatData(CONFIG.PF2E.equipmentTraits);
-        return this.processChatData(htmlOptions, { ...data, traits });
+        return this.processChatData(htmlOptions, {
+            ...(await super.getChatData()),
+            traits: this.traitChatData(CONFIG.PF2E.equipmentTraits),
+        });
     }
 
     override generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
@@ -55,7 +56,8 @@ class EquipmentPF2e extends PhysicalItemPF2e {
 }
 
 interface EquipmentPF2e extends PhysicalItemPF2e {
-    readonly data: EquipmentData;
+    readonly _source: EquipmentSource;
+    system: EquipmentSystemData;
 
     get traits(): Set<EquipmentTrait>;
 }

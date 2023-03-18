@@ -57,11 +57,25 @@ export class AuraRuleElement extends RuleElementPF2e {
         if (typeof Number.isInteger(radius) && radius > 0 && radius % 5 === 0) {
             const data = {
                 slug: this.slug,
+                level: this.item.system.level?.value ?? null,
                 radius,
                 effects: this.#processEffects(),
                 traits: this.traits,
                 colors: this.colors,
             };
+
+            // Late validation check of effect UUID
+            for (const effect of data.effects) {
+                const indexEntry = UUIDUtils.fromUuidSync(effect.uuid);
+                if (!(indexEntry && "type" in indexEntry && typeof indexEntry.type === "string")) {
+                    this.failValidation(`Unable to resolve effect uuid: ${effect.uuid}`);
+                    return;
+                }
+                if (!["effect", "affliction"].includes(indexEntry.type)) {
+                    this.failValidation(`effects transmitted by auras must be of type "effect" or "affliction"`);
+                }
+            }
+
             this.actor.auras.set(this.slug, data);
         }
     }
@@ -103,16 +117,8 @@ export class AuraRuleElement extends RuleElementPF2e {
         effect.save ??= null;
         effect.includesSelf ??= effect.affects !== "enemies";
 
-        if (typeof effect.uuid !== "string") return false;
-
-        const indexEntry = UUIDUtils.fromUuidSync(effect.uuid);
-        if (!(indexEntry && "type" in indexEntry && typeof indexEntry.type === "string")) {
-            this.failValidation(`Unable to resolve effect uuid: ${effect.uuid}`);
-            return false;
-        }
-
         return (
-            ["effect", "affliction"].includes(indexEntry.type) &&
+            typeof effect.uuid === "string" &&
             (!("level" in effect) || ["string", "number"].includes(typeof effect.level)) &&
             typeof effect.affects === "string" &&
             ["allies", "enemies", "all"].includes(effect.affects) &&
@@ -125,7 +131,11 @@ export class AuraRuleElement extends RuleElementPF2e {
 
     /** Resolve level values on effects */
     #processEffects(): AuraEffectData[] {
-        return this.effects.map((e) => ({ ...e, level: Number(this.resolveValue(e.level)) || null }));
+        return this.effects.map((e) => ({
+            ...e,
+            uuid: this.resolveInjectedProperties(e.uuid),
+            level: Number(this.resolveValue(e.level)) || null,
+        }));
     }
 }
 

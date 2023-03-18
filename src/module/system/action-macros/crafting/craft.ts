@@ -6,15 +6,11 @@ import { CheckDC } from "@system/degree-of-success";
 import { ActionMacroHelpers } from "../helpers";
 import { SkillActionOptions } from "../types";
 import { SelectItemDialog } from "./select-item";
-import { UUIDUtils } from "@util/uuid-utils";
 
 export async function craft(options: CraftActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "crafting");
-
     // resolve item
     const item =
-        options.item ??
-        (options.uuid ? await UUIDUtils.fromUuid(options.uuid) : await SelectItemDialog.getItem("craft"));
+        options.item ?? (options.uuid ? await fromUuid(options.uuid) : await SelectItemDialog.getItem("craft"));
 
     // ensure item is a valid crafting target
     if (!item) {
@@ -40,17 +36,15 @@ export async function craft(options: CraftActionOptions) {
     // whether the player needs to pay crafting costs
     const free = !!options.free;
 
+    const slug = options?.skill ?? "crafting";
+    const rollOptions = ["action:craft"];
+    const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph,
         title: "PF2E.Actions.Craft.Title",
-        subtitle,
-        modifiers: options.modifiers,
-        rollOptions: ["all", checkType, stat, "action:craft"],
-        extraOptions: ["action:craft"],
+        checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["downtime", "manipulate"],
-        checkType,
         event: options.event,
         difficultyClass: dc,
         extraNotes: (selector: string) => [

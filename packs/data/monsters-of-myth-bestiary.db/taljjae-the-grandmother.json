@@ -1907,50 +1907,10 @@
             "type": "action"
         },
         {
-            "_id": "mjcG5ZLl4rRTxraH",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Gentle Facade",
-            "sort": 2300000,
-            "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Template[type:emanation|distance:60] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Serenity and a sense of ease blot out all other emotions. Creatures in the emanation must succeed at a @Check[type:will|dc:37] save or become unable to be affected by beneficial emotion effects while within the aura and for 1 minute after leaving it. The creature is then temporarily immune for 10 minutes.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "emotion",
-                        "mental"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "hvib7p262mdkyhpf",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Exit Stage",
-            "sort": 2400000,
+            "sort": 2300000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1979,6 +1939,56 @@
                         "conjuration",
                         "primal",
                         "teleportation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mjcG5ZLl4rRTxraH",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Gentle Facade",
+            "sort": 2400000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:60] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Serenity and a sense of ease blot out all other emotions. Creatures in the emanation must succeed at a @Check[type:will|dc:37] save or become unable to be affected by beneficial emotion effects while within the aura and for 1 minute after leaving it. The creature is then temporarily immune for 10 minutes.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "slug": "gentle-facade",
+                        "traits": [
+                            "emotion",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "emotion",
+                        "mental"
                     ]
                 },
                 "trigger": {
@@ -2188,10 +2198,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -2215,10 +2221,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -2242,10 +2244,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -2269,10 +2267,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"

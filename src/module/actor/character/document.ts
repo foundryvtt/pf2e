@@ -2,7 +2,6 @@ import { CreaturePF2e, FamiliarPF2e } from "@actor";
 import { Abilities, CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation } from "@actor/creature/data";
 import { CreatureUpdateContext } from "@actor/creature/types";
 import { ALLIANCES } from "@actor/creature/values";
-import { CharacterSource } from "@actor/data";
 import { ActorSizePF2e } from "@actor/data/size";
 import { calculateMAPs } from "@actor/helpers";
 import {
@@ -65,8 +64,9 @@ import {
 import { UserPF2e } from "@module/user";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check";
-import { DamagePF2e, DamageRollContext, WeaponDamagePF2e } from "@system/damage";
+import { DamagePF2e, DamageRollContext } from "@system/damage";
 import { DamageRoll } from "@system/damage/roll";
+import { WeaponDamagePF2e } from "@system/damage/weapon";
 import { PredicatePF2e } from "@system/predication";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls";
 import { Statistic } from "@system/statistic";
@@ -78,12 +78,12 @@ import {
     BaseWeaponProficiencyKey,
     CharacterArmorClass,
     CharacterAttributes,
-    CharacterData,
     CharacterFlags,
     CharacterProficiency,
     CharacterSaves,
     CharacterSkillData,
     CharacterStrike,
+    CharacterSource,
     CharacterSystemData,
     ClassDCData,
     LinkedProficiency,
@@ -174,6 +174,7 @@ class CharacterPF2e extends CreaturePF2e {
 
     async getCraftingFormulas(): Promise<CraftingFormula[]> {
         const { formulas } = this.system.crafting;
+        formulas.sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0));
         const formulaMap = new Map(formulas.map((data) => [data.uuid, data]));
         const items: unknown[] = await UUIDUtils.fromUUIDs(formulas.map((data) => data.uuid));
         if (!items.every((i): i is ItemPF2e => i instanceof ItemPF2e)) return [];
@@ -403,6 +404,12 @@ class CharacterPF2e extends CreaturePF2e {
         for (const category of [...ARMOR_CATEGORIES, ...WEAPON_CATEGORIES]) {
             const proficiency: Partial<CharacterProficiency> = martial[category] ?? {};
             proficiency.rank = martial[category]?.rank ?? 0;
+
+            // These will only be trained under unusual circumstances, so make sure they never get stored
+            if (["light-barding", "heavy-barding"].includes(category)) {
+                proficiency.immutable = true;
+            }
+
             martial[category] = proficiency;
         }
 
@@ -644,84 +651,10 @@ class CharacterPF2e extends CreaturePF2e {
         systemData.attributes.classDC = Object.values(systemData.proficiencies.classDCs).find((c) => c.primary) ?? null;
 
         // Armor Class
-        const { wornArmor, heldShield } = this;
-        {
-            const modifiers = [this.getShieldBonus() ?? []].flat();
-            const dexCapSources: DexterityModifierCapData[] = [
-                { value: Infinity, source: "" },
-                ...synthetics.dexterityModifierCaps,
-            ];
-            let armorCheckPenalty = 0;
-            const proficiency = wornArmor?.category ?? "unarmored";
-
-            if (wornArmor) {
-                dexCapSources.push({ value: Number(wornArmor.dexCap ?? 0), source: wornArmor.name });
-                if (wornArmor.checkPenalty) {
-                    // armor check penalty
-                    if (typeof wornArmor.strength === "number" && systemData.abilities.str.value < wornArmor.strength) {
-                        armorCheckPenalty = Number(wornArmor.checkPenalty ?? 0);
-                    }
-                }
-
-                const slug = wornArmor.baseType ?? wornArmor.slug ?? sluggify(wornArmor.name);
-                modifiers.unshift(
-                    new ModifierPF2e({
-                        label: wornArmor.name,
-                        type: "item",
-                        slug,
-                        modifier: wornArmor.acBonus,
-                        adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, ["all", "ac"], slug),
-                    })
-                );
-
-                const shoddyPenalty = createShoddyPenalty(this, wornArmor, ["all", "ac"]);
-                if (shoddyPenalty) modifiers.push(shoddyPenalty);
-            }
-
-            // DEX modifier is limited by the lowest cap, usually from armor
-            const dexModifier = createAbilityModifier({
-                actor: this,
-                ability: "dex",
-                domains: ["all", "ac", "dex-based"],
-            });
-            const dexCap = dexCapSources.reduce((lowest, candidate) =>
-                lowest.value > candidate.value ? candidate : lowest
-            );
-            dexModifier.modifier = Math.min(dexModifier.modifier, dexCap.value);
-
-            // In case an ability other than DEX is added, find the best ability modifier and use that as the ability on
-            // which AC is based
-            const abilityModifier = modifiers
-                .filter((m) => m.type === "ability" && !!m.ability)
-                .reduce((best, modifier) => (modifier.modifier > best.modifier ? modifier : best), dexModifier);
-            const acAbility = abilityModifier.ability!;
-            const domains = ["all", "ac", `${acAbility}-based`];
-
-            const rank = systemData.martial[proficiency]?.rank ?? 0;
-            modifiers.unshift(createProficiencyModifier({ actor: this, rank, domains }));
-            modifiers.unshift(dexModifier);
-            modifiers.push(...extractModifiers(synthetics, domains));
-
-            const rollOptions = this.getRollOptions(domains);
-            const stat: CharacterArmorClass = mergeObject(new StatisticModifier("ac", modifiers, rollOptions), {
-                value: 10,
-                breakdown: "",
-                check: armorCheckPenalty,
-                dexCap,
-            });
-            stat.value += stat.totalModifier;
-            stat.breakdown = [game.i18n.localize("PF2E.ArmorClassBase")]
-                .concat(
-                    stat.modifiers
-                        .filter((m) => m.enabled)
-                        .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                )
-                .join(", ");
-
-            systemData.attributes.ac = stat;
-        }
+        systemData.attributes.ac = this.prepareArmorClass();
 
         // Apply the speed penalty from this character's held shield
+        const { heldShield } = this;
         if (heldShield?.speedPenalty) {
             const speedPenalty = new ModifierPF2e(heldShield.name, heldShield.speedPenalty, MODIFIER_TYPE.UNTYPED);
             speedPenalty.predicate.push({ not: "self:shield:ignore-speed-penalty" });
@@ -818,7 +751,7 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     private setAbilityScores(): void {
-        const { build, details } = this.system;
+        const { build } = this.system;
 
         if (!build.abilities.manual) {
             for (const section of ["ancestry", "background", "class", 1, 5, 10, 15, 20] as const) {
@@ -842,8 +775,6 @@ class CharacterPF2e extends CreaturePF2e {
                     ability.value -= 2;
                 }
             }
-
-            details.keyability.value = build.abilities.boosts.class ?? "str";
         }
 
         // Enforce a minimum of 1 for rolled scores and a maximum of 30 for homebrew "mythic" mechanics
@@ -899,6 +830,89 @@ class CharacterPF2e extends CreaturePF2e {
         // Some rules specify ignoring the Free Hand trait
         const handsReallyFree = heldItems.reduce((count, i) => Math.max(count - i.handsHeld, 0), 2);
         rollOptionsAll[`hands-free:but-really:${handsReallyFree}`] = true;
+    }
+
+    private prepareArmorClass(): CharacterArmorClass {
+        const { synthetics, wornArmor } = this;
+
+        // Upgrade light barding proficiency to trained if this PC is somehow an animal
+        this.system.martial["light-barding"].rank = this.traits.has("animal")
+            ? (Math.max(this.system.martial["light-barding"].rank, 1) as ZeroToFour)
+            : 0;
+
+        const modifiers = [this.getShieldBonus() ?? []].flat();
+        const dexCapSources: DexterityModifierCapData[] = [
+            { value: Infinity, source: "" },
+            ...synthetics.dexterityModifierCaps,
+        ];
+        let armorCheckPenalty = 0;
+        const proficiency = wornArmor?.category ?? "unarmored";
+
+        if (wornArmor) {
+            dexCapSources.push({ value: Number(wornArmor.dexCap ?? 0), source: wornArmor.name });
+            if (wornArmor.checkPenalty) {
+                // armor check penalty
+                if (typeof wornArmor.strength === "number" && this.system.abilities.str.value < wornArmor.strength) {
+                    armorCheckPenalty = Number(wornArmor.checkPenalty ?? 0);
+                }
+            }
+
+            const slug = wornArmor.baseType ?? wornArmor.slug ?? sluggify(wornArmor.name);
+            modifiers.unshift(
+                new ModifierPF2e({
+                    label: wornArmor.name,
+                    type: "item",
+                    slug,
+                    modifier: wornArmor.acBonus,
+                    adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, ["all", "ac"], slug),
+                })
+            );
+
+            const shoddyPenalty = createShoddyPenalty(this, wornArmor, ["all", "ac"]);
+            if (shoddyPenalty) modifiers.push(shoddyPenalty);
+        }
+
+        // DEX modifier is limited by the lowest cap, usually from armor
+        const dexModifier = createAbilityModifier({
+            actor: this,
+            ability: "dex",
+            domains: ["all", "ac", "dex-based"],
+        });
+        const dexCap = dexCapSources.reduce((lowest, candidate) =>
+            lowest.value > candidate.value ? candidate : lowest
+        );
+        dexModifier.modifier = Math.min(dexModifier.modifier, dexCap.value);
+
+        // In case an ability other than DEX is added, find the best ability modifier and use that as the ability on
+        // which AC is based
+        const abilityModifier = modifiers
+            .filter((m) => m.type === "ability" && !!m.ability)
+            .reduce((best, modifier) => (modifier.modifier > best.modifier ? modifier : best), dexModifier);
+        const acAbility = abilityModifier.ability!;
+        const domains = ["all", "ac", `${acAbility}-based`];
+
+        const rank = this.system.martial[proficiency]?.rank ?? 0;
+        modifiers.unshift(createProficiencyModifier({ actor: this, rank, domains }));
+        modifiers.unshift(dexModifier);
+        modifiers.push(...extractModifiers(synthetics, domains));
+
+        const rollOptions = this.getRollOptions(domains);
+        const stat: CharacterArmorClass = mergeObject(new StatisticModifier("ac", modifiers, rollOptions), {
+            value: 10,
+            breakdown: "",
+            check: armorCheckPenalty,
+            dexCap,
+        });
+        stat.value += stat.totalModifier;
+        stat.breakdown = [game.i18n.localize("PF2E.ArmorClassBase")]
+            .concat(
+                stat.modifiers
+                    .filter((m) => m.enabled)
+                    .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+            )
+            .join(", ");
+
+        return stat;
     }
 
     private prepareSaves(): void {
@@ -1032,7 +1046,7 @@ class CharacterPF2e extends CreaturePF2e {
             stat.rank = skill.rank;
             stat.roll = async (params: RollParameters): Promise<Rolled<CheckRoll> | null> => {
                 console.warn(
-                    `Rolling skill checks via actor.system.skills.${shortForm}.roll() is deprecated, use actor.skills.${longForm}.check.roll() instead`
+                    `Rolling skill checks via actor.system.skills.${shortForm}.roll() is deprecated: use actor.skills.${longForm}.roll() instead.`
                 );
                 const label = game.i18n.format("PF2E.SkillCheckWithName", {
                     skillName: game.i18n.localize(CONFIG.PF2E.skills[shortForm]),
@@ -1113,7 +1127,7 @@ class CharacterPF2e extends CreaturePF2e {
                 .join(", ");
             stat.roll = async (params: RollParameters): Promise<Rolled<CheckRoll> | null> => {
                 console.warn(
-                    `Rolling skill checks via actor.system.skills.${shortForm}.roll() is deprecated, use actor.skills.${shortForm}.check.roll() instead`
+                    `Rolling skill checks via actor.system.skills.${shortForm}.roll() is deprecated: use actor.skills.${shortForm}.roll() instead.`
                 );
                 const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: loreItem.name });
                 const rollOptions = new Set(params.options ?? []);
@@ -1646,11 +1660,6 @@ class CharacterPF2e extends CreaturePF2e {
             auxiliaryActions,
         });
 
-        // Define these as getters so that Foundry's TokenDocument#getBarAttribute method doesn't recurse infinitely
-        Object.defineProperty(action, "origin", {
-            get: () => this.items.get(weapon.id),
-        });
-
         // Show the ammo list if the weapon requires ammo
         if (weapon.requiresAmmo) {
             const compatible = ammos.filter((a) => a.isAmmoFor(weapon));
@@ -1716,7 +1725,9 @@ class CharacterPF2e extends CreaturePF2e {
             .map(([label, constructModifier], mapIncreases) => ({
                 label,
                 roll: async (params: AttackRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
+                    params.options ??= [];
                     params.consumeAmmo ??= weapon.requiresAmmo;
+
                     if (weapon.requiresAmmo && params.consumeAmmo && !weapon.ammo) {
                         ui.notifications.warn(
                             game.i18n.format("PF2E.Strike.Ranged.NoAmmo", { weapon: weapon.name, actor: this.name })
@@ -1724,12 +1735,11 @@ class CharacterPF2e extends CreaturePF2e {
                         return null;
                     }
 
-                    params.options ??= [];
-                    const context = this.getAttackRollContext({
+                    const context = await this.getAttackRollContext({
                         item: weapon,
                         domains: selectors,
                         options: new Set([...baseOptions, ...params.options, ...action.options]),
-                        viewOnly: params.getFormula ?? false,
+                        viewOnly: params.getFormula,
                     });
 
                     // Check whether target is out of maximum range; abort early if so
@@ -1795,9 +1805,10 @@ class CharacterPF2e extends CreaturePF2e {
 
         for (const method of ["damage", "critical"] as const) {
             action[method] = async (params: DamageRollParams = {}): Promise<string | Rolled<DamageRoll> | null> => {
-                const domains = ["all", "strike-damage", "damage-roll"];
+                const domains = ["all", `{weapon.id}-damage`, "strike-damage", "damage-roll"];
                 params.options ??= [];
-                const context = this.getStrikeRollContext({
+
+                const context = await this.getStrikeRollContext({
                     item: weapon,
                     viewOnly: params.getFormula ?? false,
                     domains,
@@ -1881,11 +1892,11 @@ class CharacterPF2e extends CreaturePF2e {
         return flavor;
     }
 
-    /** Possibly modify this weapon depending on its */
-    override getStrikeRollContext<I extends AttackItem>(
+    /** Modify this weapon from AdjustStrike rule elements */
+    override async getStrikeRollContext<I extends AttackItem>(
         params: StrikeRollContextParams<I>
-    ): StrikeRollContext<this, I> {
-        const context = super.getStrikeRollContext(params);
+    ): Promise<StrikeRollContext<this, I>> {
+        const context = await super.getStrikeRollContext(params);
         if (context.self.item.isOfType("weapon")) {
             StrikeWeaponTraits.adjustWeapon(context.self.item);
         }
@@ -1894,10 +1905,10 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     /** Create attack-roll modifiers from weapon traits */
-    override getAttackRollContext<I extends AttackItem>(
+    override async getAttackRollContext<I extends AttackItem>(
         params: StrikeRollContextParams<I>
-    ): AttackRollContext<this, I> {
-        const context = super.getAttackRollContext(params);
+    ): Promise<AttackRollContext<this, I>> {
+        const context = await super.getAttackRollContext(params);
         if (context.self.item.isOfType("weapon")) {
             const fromTraits = StrikeWeaponTraits.createAttackModifiers(context.self.item, params.domains);
             context.self.modifiers.push(...fromTraits);
@@ -2105,8 +2116,9 @@ class CharacterPF2e extends CreaturePF2e {
 }
 
 interface CharacterPF2e extends CreaturePF2e {
-    readonly data: CharacterData;
     flags: CharacterFlags;
+    readonly _source: CharacterSource;
+    system: CharacterSystemData;
 }
 
 export { CharacterPF2e };

@@ -2,18 +2,9 @@ import { ActionTrait } from "@item/action/data";
 import { ArmorTrait } from "@item/armor/types";
 import { ConsumableTrait } from "@item/consumable/data";
 import { EquipmentTrait } from "@item/equipment/data";
-import type { PhysicalItemPF2e } from "@item/physical";
 import { WeaponTrait } from "@item/weapon/types";
 import { Size, TraitsWithRarity, ValuesList } from "@module/data";
-import {
-    ActionCost,
-    BaseItemDataPF2e,
-    BaseItemSourcePF2e,
-    Frequency,
-    ItemLevelData,
-    ItemSystemData,
-    ItemSystemSource,
-} from "../data/base";
+import { ActionCost, BaseItemSourcePF2e, Frequency, ItemSystemData, ItemSystemSource } from "../data/base";
 import type { ITEM_CARRY_TYPES } from "../data/values";
 import { CoinsPF2e } from "./helpers";
 import { PhysicalItemType, PreciousMaterialGrade, PreciousMaterialType } from "./types";
@@ -22,18 +13,12 @@ import { UsageDetails } from "./usage";
 type ItemCarryType = SetElement<typeof ITEM_CARRY_TYPES>;
 
 type BasePhysicalItemSource<
-    TType extends PhysicalItemType = PhysicalItemType,
+    TType extends PhysicalItemType,
     TSystemSource extends PhysicalSystemSource = PhysicalSystemSource
 > = BaseItemSourcePF2e<TType, TSystemSource>;
 
-type BasePhysicalItemData<
-    TItem extends PhysicalItemPF2e = PhysicalItemPF2e,
-    TType extends PhysicalItemType = PhysicalItemType,
-    TSystemData extends PhysicalSystemData = PhysicalSystemData,
-    TSource extends BasePhysicalItemSource<TType> = BasePhysicalItemSource<TType>
-> = Omit<BasePhysicalItemSource, "system" | "effects" | "flags"> & BaseItemDataPF2e<TItem, TType, TSystemData, TSource>;
-
-interface PhysicalSystemSource extends ItemSystemSource, ItemLevelData {
+interface PhysicalSystemSource extends ItemSystemSource {
+    level: { value: number };
     traits: PhysicalItemTraits;
     quantity: number;
     baseItem: string | null;
@@ -71,7 +56,7 @@ interface PhysicalSystemSource extends ItemSystemSource, ItemLevelData {
     temporary?: boolean;
 }
 
-interface PhysicalSystemData extends PhysicalSystemSource, ItemSystemData {
+interface PhysicalSystemData extends PhysicalSystemSource, Omit<ItemSystemData, "level"> {
     price: Price;
     bulk: BulkData;
     traits: PhysicalItemTraits;
@@ -174,7 +159,6 @@ interface Price extends PartialPrice {
 }
 
 export {
-    BasePhysicalItemData,
     BasePhysicalItemSource,
     Coins,
     EquippedData,

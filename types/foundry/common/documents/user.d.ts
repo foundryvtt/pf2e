@@ -9,13 +9,16 @@ declare module foundry {
          * @property data The constructed data object for the document.
          */
         class BaseUser extends abstract.Document {
-            constructor(data: PreCreate<data.UserSource>, context?: DocumentConstructionContext<null>);
-
-            flags: Record<string, Record<string, unknown>>;
+            flags: DocumentFlags;
 
             readonly role: UserRole;
 
-            static override get schema(): typeof data.UserData;
+            name: string;
+            avatar: ImageFilePath;
+            color: HexColorString;
+            charname: string;
+            character: BaseActor | null | undefined;
+            border: HexColorString;
 
             static override get metadata(): UserMetadata;
 
@@ -54,12 +57,14 @@ declare module foundry {
             hasRole(role: UserRole | UserRoleName, { exact }?: { exact: boolean }): boolean;
         }
 
-        interface BaseUser {
-            readonly data: data.UserData<this>;
-
+        interface BaseUser extends abstract.Document {
             readonly parent: null;
 
             get documentName(): "User";
+        }
+
+        class UserData extends abstract.DocumentData {
+            readonly _source: UserSource;
         }
 
         interface UserMetadata extends abstract.DocumentMetadata {
@@ -67,6 +72,19 @@ declare module foundry {
             collection: "users";
             label: "DOCUMENT.User";
             isPrimary: true;
+        }
+
+        interface UserSource {
+            _id: string;
+            avatar: ImageFilePath;
+            img: ImageFilePath;
+            character: string | null;
+            color: HexColorString;
+            hotbar: Record<number, string>;
+            name: string;
+            password: string;
+            role: UserRole;
+            flags: DocumentFlags;
         }
     }
 }

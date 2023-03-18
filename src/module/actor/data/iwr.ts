@@ -1,6 +1,7 @@
 import { ImmunityType, IWRType, ResistanceType, WeaknessType } from "@actor/types";
 import { CONDITION_SLUGS } from "@actor/values";
-import { MAGIC_SCHOOLS, WEAPON_MATERIAL_EFFECTS } from "@item";
+import { MAGIC_SCHOOLS } from "@item/spell/values";
+import { WEAPON_MATERIAL_EFFECTS } from "@item/weapon/values";
 import { PredicatePF2e, PredicateStatement } from "@system/predication";
 import { setHasElement } from "@util";
 

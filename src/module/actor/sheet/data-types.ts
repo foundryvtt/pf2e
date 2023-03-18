@@ -5,6 +5,7 @@ import { LootPF2e } from "@actor/loot";
 import { PhysicalItemPF2e } from "@item";
 import { Coins } from "@item/physical/data";
 import { PhysicalItemType } from "@item/physical/types";
+import { RollOptionToggle } from "@module/rules/synthetics";
 import { SheetOptions } from "@module/sheet/helpers";
 
 export interface InventoryItem<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> {
@@ -45,6 +46,7 @@ export interface ActorSheetDataPF2e<TActor extends ActorPF2e> extends ActorSheet
     traits: SheetOptions;
     isTargetFlatFooted: boolean;
     user: { isGM: boolean };
+    toggles: RollOptionToggle[];
     totalCoinage: CoinageSummary;
     totalCoinageGold: string;
     totalWealth: Coins;

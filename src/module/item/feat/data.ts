@@ -1,20 +1,8 @@
-import {
-    ActionType,
-    BaseItemDataPF2e,
-    BaseItemSourcePF2e,
-    Frequency,
-    FrequencySource,
-    ItemLevelData,
-    ItemSystemSource,
-} from "@item/data/base";
+import { ActionType, BaseItemSourcePF2e, Frequency, FrequencySource, ItemSystemSource } from "@item/data/base";
 import { OneToThree, TraitsWithRarity } from "@module/data";
-import { FeatPF2e } from ".";
 import { FEAT_TYPES } from "./values";
 
 type FeatSource = BaseItemSourcePF2e<"feat", FeatSystemSource>;
-
-type FeatData = Omit<FeatSource, "system" | "effects" | "flags"> &
-    BaseItemDataPF2e<FeatPF2e, "feat", FeatSystemData, FeatSource>;
 
 export type FeatTrait = keyof ConfigPF2e["PF2E"]["featTraits"];
 export type FeatTraits = TraitsWithRarity<FeatTrait>;
@@ -24,7 +12,8 @@ export interface PrerequisiteTagData {
     value: string;
 }
 
-export interface FeatSystemSource extends ItemSystemSource, ItemLevelData {
+export interface FeatSystemSource extends ItemSystemSource {
+    level: { value: number };
     traits: FeatTraits;
     featType: {
         value: FeatType;
@@ -52,4 +41,4 @@ interface FeatSystemData extends Omit<FeatSystemSource, "maxTaken"> {
     frequency?: Frequency;
 }
 
-export { FeatData, FeatSource, FeatSystemData };
+export { FeatSource, FeatSystemData };

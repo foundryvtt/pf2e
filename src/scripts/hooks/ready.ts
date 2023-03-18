@@ -1,4 +1,4 @@
-import { resetAndRerenderActors } from "@actor/helpers";
+import { resetActors } from "@actor/helpers";
 import { MigrationSummary } from "@module/apps/migration-summary";
 import { SceneDarknessAdjuster } from "@module/apps/scene-darkness-adjuster";
 import { SetAsInitiative } from "@module/chat-message/listeners/set-as-initiative";
@@ -83,6 +83,7 @@ export const Ready = {
             if (
                 canvas.ready &&
                 game.user.isGM &&
+                !game.modules.get("gm-vision")?.active &&
                 !game.modules.get("perfect-vision")?.active &&
                 game.settings.get("pf2e", "gmVision")
             ) {
@@ -108,7 +109,7 @@ export const Ready = {
             // Now that all game data is available, reprepare actor data among those actors currently in an encounter
             const participants = game.combats.contents.flatMap((e) => e.combatants.contents);
             const fightyActors = new Set(participants.flatMap((c) => c.actor ?? []));
-            resetAndRerenderActors(fightyActors);
+            resetActors(fightyActors);
 
             // Prepare familiars now that all actors are initialized
             for (const familiar of game.actors.filter((a) => a.type === "familiar")) {

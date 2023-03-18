@@ -8,7 +8,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers";
 import { UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility";
 import { htmlClosest, objectHasKey, sluggify } from "@util";
-import { damageDiceIcon, looksLikeDamageFormula } from "./damage";
+import { damageDiceIcon, looksLikeDamageFormula } from "./damage/helpers";
 import { DamageRoll } from "./damage/roll";
 import { Statistic } from "./statistic";
 
@@ -333,7 +333,7 @@ class TextEditorPF2e extends TextEditor {
                 html.setAttribute("data-pf2-check", "flat");
                 break;
             case "perception":
-                html.innerHTML = inlineLabel ?? game.i18n.localize("PF2E.PerceptionCheck");
+                html.innerHTML = inlineLabel ?? game.i18n.localize("PF2E.PerceptionLabel");
                 html.setAttribute("data-pf2-check", "perception");
                 break;
             case "fortitude":

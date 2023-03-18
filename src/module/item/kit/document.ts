@@ -5,7 +5,7 @@ import { DENOMINATIONS } from "@item/physical/values";
 import { UserPF2e } from "@module/user";
 import { ErrorPF2e, isObject } from "@util";
 import { UUIDUtils } from "@util/uuid-utils";
-import { KitData, KitEntryData } from "./data";
+import { KitEntryData, KitSource, KitSystemData } from "./data";
 
 class KitPF2e extends ItemPF2e {
     get entries(): KitEntryData[] {
@@ -79,7 +79,8 @@ class KitPF2e extends ItemPF2e {
 }
 
 interface KitPF2e extends ItemPF2e {
-    readonly data: KitData;
+    readonly _source: KitSource;
+    system: KitSystemData;
 }
 
 export { KitPF2e };
