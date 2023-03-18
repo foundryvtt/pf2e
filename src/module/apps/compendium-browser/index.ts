@@ -1,4 +1,6 @@
 import { KitPF2e, PhysicalItemPF2e } from "@item";
+import { ActionTrait } from "@item/action";
+import { ActionType } from "@item/data/base";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry";
 import { LocalizePF2e } from "@system/localize";
 import { ErrorPF2e, htmlQueryAll, isObject, objectHasKey } from "@util";
@@ -246,6 +248,25 @@ class CompendiumBrowser extends Application {
             return this.tabs[tabName].open(filter);
         }
         return this.loadTab(tabName);
+    }
+
+    async openActionTab(typeFilters: ActionType[], traitFilters: ActionTrait[]): Promise<void> {
+        const actionTab = this.tabs.action;
+        const filter = await actionTab.getFilterData();
+        const { types } = filter.checkboxes;
+        const { traits } = filter.multiselects;
+
+        types.selected = [];
+        for (const type in types.options) {
+            if (typeFilters.includes(type as ActionType)) {
+                types.options[type].selected = true;
+                types.selected.push(type);
+            }
+        }
+
+        traits.selected = traitFilters.length ? traits.options.filter(trait => traitFilters.includes(trait.value)) : [];
+
+        actionTab.open(filter);
     }
 
     async openSpellTab(entry: BaseSpellcastingEntry, maxLevel = 10): Promise<void> {

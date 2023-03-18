@@ -2,8 +2,10 @@ import { CreaturePF2e } from "@actor";
 import { createSpellcastingDialog } from "@actor/sheet/spellcasting-dialog";
 import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values";
 import { ItemPF2e, SpellPF2e } from "@item";
+import { ActionTrait } from "@item/action";
 import { SpellcastingEntryPF2e, SpellcastingSheetData } from "@item/spellcasting-entry";
 import { ItemSourcePF2e } from "@item/data";
+import { ActionType } from "@item/data/base";
 import { ITEM_CARRY_TYPES } from "@item/data/values";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { goesToEleven, ZeroToFour } from "@module/data";
@@ -367,7 +369,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
         // Action Browser
         for (const button of htmlQueryAll(html, ".action-browse")) {
-            button.addEventListener("click", () => game.pf2e.compendiumBrowser.openTab("action"));
+            button.addEventListener("click", () => this.#onClickBrowseActions(button));
         }
 
         // Spell Browser
@@ -512,6 +514,13 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         }
 
         spell.update({ "system.location.signature": !spell.system.location.signature });
+    }
+
+    #onClickBrowseActions(button: HTMLElement) {
+        const actionTypes = (button.dataset.actionType || '').split(',') as ActionType[];
+        const actionTraits = (button.dataset.actionTrait || '').split(',') as ActionTrait[];
+
+        game.pf2e.compendiumBrowser.openActionTab(actionTypes, actionTraits);
     }
 
     #onClickBrowseSpellCompendia(button: HTMLElement) {
