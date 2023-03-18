@@ -1,8 +1,3 @@
-declare interface ItemSheetData<I extends Item> extends DocumentSheetData<I> {
-    item: object;
-    data: object;
-}
-
 /**
  * The default Item Sheet
  *
@@ -36,4 +31,9 @@ declare class ItemSheet<TItem extends Item = Item> extends DocumentSheet<TItem> 
      * @param html The HTML object returned by template rendering
      */
     override activateListeners(html: JQuery): void;
+}
+
+declare interface ItemSheetData<TItem extends Item> extends DocumentSheetData<TItem> {
+    item: TItem;
+    data: object;
 }
