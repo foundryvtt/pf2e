@@ -26,7 +26,13 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
         console.debug("PF2e System | Compendium Browser | Started loading actions");
 
         const actions: CompendiumBrowserIndexData[] = [];
-        const indexFields = ["img", "system.actionType.value", "system.traits.value", "system.actionType.value", "system.source.value"];
+        const indexFields = [
+            "img",
+            "system.actionType.value",
+            "system.traits.value",
+            "system.actionType.value",
+            "system.source.value",
+        ];
         const sources: Set<string> = new Set();
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(

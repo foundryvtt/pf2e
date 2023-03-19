@@ -264,7 +264,9 @@ class CompendiumBrowser extends Application {
             }
         }
 
-        traits.selected = traitFilters.length ? traits.options.filter(trait => traitFilters.includes(trait.value)) : [];
+        traits.selected = traitFilters.length
+            ? traits.options.filter((trait) => traitFilters.includes(trait.value))
+            : [];
 
         actionTab.open(filter);
     }

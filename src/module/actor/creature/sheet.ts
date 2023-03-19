@@ -517,8 +517,8 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
     }
 
     #onClickBrowseActions(button: HTMLElement) {
-        const actionTypes = (button.dataset.actionType || '').split(',') as ActionType[];
-        const actionTraits = (button.dataset.actionTrait || '').split(',') as ActionTrait[];
+        const actionTypes = (button.dataset.actionType || "").split(",") as ActionType[];
+        const actionTraits = (button.dataset.actionTrait || "").split(",") as ActionTrait[];
 
         game.pf2e.compendiumBrowser.openActionTab(actionTypes, actionTraits);
     }
