@@ -34,7 +34,14 @@ export class EffectsPanel extends Application {
     override async getData(options?: ApplicationOptions): Promise<EffectsPanelData> {
         const { actor } = this;
         if (!actor || !game.user.settings.showEffectPanel) {
-            return { afflictions: [], conditions: [], effects: [], descriptions: ({} as EffectsDescriptionData), actor: null, user: { isGM: false } };
+            return {
+                afflictions: [],
+                conditions: [],
+                effects: [],
+                descriptions: {} as EffectsDescriptionData,
+                actor: null,
+                user: { isGM: false },
+            };
         }
 
         const effects =
@@ -65,12 +72,12 @@ export class EffectsPanel extends Application {
         const conditions = game.pf2e.ConditionManager.getFlattenedConditions(actor.itemTypes.condition);
 
         const afflictions = actor.itemTypes.affliction;
-        
+
         const descriptions = {
             afflictions: await this.#getEnrichedDescriptions(afflictions),
             conditions: await this.#getEnrichedDescriptions(conditions),
             effects: await this.#getEnrichedDescriptions(effects),
-        }
+        };
 
         return {
             ...(await super.getData(options)),
@@ -213,12 +220,10 @@ export class EffectsPanel extends Application {
         }
     }
 
-    async #getEnrichedDescriptions(
-        effects: AfflictionPF2e[] | EffectPF2e[] | FlattenedCondition[] 
-    ): Promise<String[]> {
-        return await Promise.all(effects.map(async effect =>
-            await TextEditor.enrichHTML(effect.description, { async: true })
-        ));
+    async #getEnrichedDescriptions(effects: AfflictionPF2e[] | EffectPF2e[] | FlattenedCondition[]): Promise<String[]> {
+        return await Promise.all(
+            effects.map(async (effect) => await TextEditor.enrichHTML(effect.description, { async: true }))
+        );
     }
 }
 
