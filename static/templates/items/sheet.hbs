@@ -2,13 +2,15 @@
 
     <!-- ITEM SHEET HEADER -->
     <header class="sheet-header">
-        <img src="{{item.img}}" data-edit="img" />
+        {{!-- Source image in case of change during data preparation --}}
+        <img src="{{item._source.img}}" data-edit="img" />
         <div class="details">
-            <input name="name" type="text" value="{{item.name}}" placeholder="{{localize "PF2E.ItemNamePlaceholder"}}" spellcheck="false" />
+            {{!-- Likewise with source name --}}
+            <input name="name" type="text" value="{{item._source.name}}" placeholder="{{localize "PF2E.ItemNamePlaceholder"}}" spellcheck="false" />
 
-            {{#if (and document.actionCost (not (eq document.type "action")))}}
+            {{#if (and item.actionCost (not (eq item.type "action")))}}
                 <span class="feat-action-cost">
-                    {{{actionGlyph document.actionCost}}}
+                    {{{actionGlyph item.actionCost}}}
                 </span>
             {{/if}}
 

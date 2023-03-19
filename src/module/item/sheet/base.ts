@@ -37,7 +37,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         options.width = 691;
         options.height = 460;
         options.classes = options.classes.concat(["pf2e", "item"]);
-        options.template = "systems/pf2e/templates/items/item-sheet.hbs";
+        options.template = "systems/pf2e/templates/items/sheet.hbs";
         options.scrollY = [".tab.active"];
         options.tabs = [
             {
@@ -81,26 +81,27 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         options.classes?.push(this.item.type);
         options.editable = this.isEditable;
 
-        const item = this.item.clone({}, { keepId: true });
-        const itemData = item.toObject(false) as unknown as TItem;
-        const rules = this.item.toObject().system.rules;
+        const { item } = this;
+        const rules = item.toObject().system.rules;
 
         // Enrich content
         const enrichedContent: Record<string, string> = {};
         const rollData = { ...this.item.getRollData(), ...this.actor?.getRollData() };
-        enrichedContent.description = await TextEditor.enrichHTML(itemData.system.description.value, {
+
+        // Get the source description in case this is an unidentified physical item
+        enrichedContent.description = await TextEditor.enrichHTML(item._source.system.description.value, {
             rollData,
             async: true,
         });
-        enrichedContent.gmNotes = await TextEditor.enrichHTML(itemData.system.description.gm.trim(), {
+        enrichedContent.gmNotes = await TextEditor.enrichHTML(item.system.description.gm.trim(), {
             rollData,
             async: true,
         });
 
         const validTraits = this.validTraits;
-        const hasRarity = !this.item.isOfType("action", "condition", "deity", "effect", "lore", "melee");
-        const itemTraits = this.item.system.traits?.value ?? [];
-        const sourceTraits = this.item._source.system.traits?.value ?? [];
+        const hasRarity = !item.isOfType("action", "condition", "deity", "effect", "lore", "melee");
+        const itemTraits = item.system.traits?.value ?? [];
+        const sourceTraits = item._source.system.traits?.value ?? [];
         const traits = validTraits ? createSheetTags(validTraits, itemTraits) : null;
         const traitTagifyData = validTraits
             ? createTagifyTraits(itemTraits, { sourceTraits, record: validTraits })
@@ -128,8 +129,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             }),
             cssClass: this.isEditable ? "editable" : "locked",
             editable: this.isEditable,
-            document: this.item,
-            item: itemData,
+            document: item,
+            item,
             isPhysical: false,
             data: item.system,
             enrichedContent,

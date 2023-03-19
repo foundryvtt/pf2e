@@ -15,7 +15,7 @@
 </ol>
 
 {{#each stages as |stage stageId|}}
-    <ol class="form-list subsection" data-stage-id="{{stageId}}">
+    <ol class="form-list subsection affliction-stage" data-stage-id="{{stageId}}">
         <header>
             <h3>{{localize "PF2E.Item.Affliction.Stage" stage=stage.stage}}</h3>
             <div class="item-controls">
@@ -67,7 +67,7 @@
             </h3>
             <div class="form-group two-by-two">
                 {{#each stage.conditions as |condition key|}}
-                    <div class="form-fields" data-condition-id="{{key}}">
+                    <div class="form-fields stage-condition" data-condition-id="{{key}}">
                         <select name="system.stages.{{stageId}}.conditions.{{key}}.slug">
                             {{#select condition.slug}}
                                 {{#each @root.conditionTypes as |label slug|}}
@@ -80,6 +80,9 @@
                         {{/if}}
                         {{#if @root.options.editable}}
                             <div class="item-controls">
+                                <a class="link {{#if condition.linked}}linked{{/if}}" data-action="condition-link" title="{{localize "PF2E.Item.Affliction.Linked.Title"}}">
+                                    <i class="fas fa-fw {{#if condition.linked}}fa-link{{else}}fa-link-slash{{/if}}"></i>
+                                </a>
                                 <a class="remove" data-action="condition-delete"><i class="fa fa-fw fa-times"></i></a>
                             </div>
                         {{/if}}
