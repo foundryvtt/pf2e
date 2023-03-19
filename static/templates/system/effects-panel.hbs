@@ -6,7 +6,7 @@
     {{#if (and afflictions.length conditions.length)}}<hr />{{/if}}
 
     {{#each conditions as |condition|}}
-        {{> effect effect=condition}}
+        {{> effect effect=condition descriptions=../descriptions.conditions}}
     {{/each}}
 
     {{#if (and conditions.length effects.length)}}<hr />{{/if}}
