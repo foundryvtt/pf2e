@@ -512,6 +512,10 @@ abstract class CreaturePF2e extends ActorPF2e {
                 const updateTracker = args.updateTracker ?? true;
                 if (updateTracker) {
                     game.combat?.setInitiative(combatant.id, roll.total);
+                    await combatant.update(
+                        { flags: { pf2e: { initiativeStatistic: proficiency } } },
+                        { render: false }
+                    );
                 }
 
                 return { combatant, roll };
