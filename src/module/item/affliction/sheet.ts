@@ -136,13 +136,19 @@ class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
             });
         }
 
-        for (const deleteIcon of htmlQueryAll(html, "[data-action=condition-delete")) {
-            deleteIcon.addEventListener("click", (event) => {
-                const stageId = htmlClosest(event.target, "[data-stage-id]")?.dataset.stageId;
-                if (!this.item.system.stages[stageId ?? ""]) return;
+        for (const conditionEl of htmlQueryAll(html, ".stage-condition[data-condition-id]")) {
+            const stageId = htmlClosest(conditionEl, "[data-stage-id]")?.dataset.stageId;
+            const conditionId = conditionEl.dataset.conditionId ?? "";
+            const stage = this.item.system.stages[stageId ?? ""];
+            if (!stage || !(conditionId in stage.conditions)) continue;
 
-                const deleteId = htmlClosest(event.target, "[data-condition-id]")?.dataset.conditionId;
-                this.item.update({ [`system.stages.${stageId}.conditions.-=${deleteId}`]: null });
+            htmlQuery(conditionEl, "[data-action=condition-link]")?.addEventListener("click", () => {
+                const linked = stage.conditions[conditionId].linked;
+                this.item.update({ [`system.stages.${stageId}.conditions.${conditionId}.linked`]: !linked });
+            });
+
+            htmlQuery(conditionEl, "[data-action=condition-delete]")?.addEventListener("click", () => {
+                this.item.update({ [`system.stages.${stageId}.conditions.-=${conditionId}`]: null });
             });
         }
 

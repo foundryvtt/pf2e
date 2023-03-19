@@ -1,15 +1,15 @@
 <section class="effect-panel">
-    {{#each conditions as |condition|}}
-        {{> effect effect=condition}}
-    {{/each}}
-
-    {{#if (and conditions.length afflictions.length)}}<hr />{{/if}}
-
     {{#each afflictions as |affliction|}}
         {{> effect effect=affliction}}
     {{/each}}
 
-    {{#if (and afflictions.length effects.length)}}<hr />{{/if}}
+    {{#if (and afflictions.length conditions.length)}}<hr />{{/if}}
+
+    {{#each conditions as |condition|}}
+        {{> effect effect=condition}}
+    {{/each}}
+
+    {{#if (and conditions.length effects.length)}}<hr />{{/if}}
 
     {{#each effects as |effect|}}
         {{> effect effect=effect}}
