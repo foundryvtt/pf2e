@@ -997,7 +997,23 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "critical": false,
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "hellforged-glaive-damage"
+                    },
+                    {
+                        "key": "Note",
+                        "selector": "hellforged-glaive-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": "infernal-wound",
                 "source": {
                     "value": ""
