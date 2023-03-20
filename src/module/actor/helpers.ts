@@ -268,9 +268,10 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
 
                 params.options ??= [];
                 // Always add all weapon traits as options
-                const context = await actor.getAttackRollContext({
+                const context = await actor.getCheckRollContext({
                     item,
-                    viewOnly: false,
+                    viewOnly: params.getFormula ?? false,
+                    statistic: strike,
                     domains,
                     options: new Set([...baseOptions, ...params.options]),
                 });
@@ -291,7 +292,7 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
                 );
 
                 const roll = await CheckPF2e.roll(
-                    new CheckModifier(checkName, strike, otherModifiers),
+                    new CheckModifier(checkName, context.self.statistic ?? strike, otherModifiers),
                     {
                         type: "attack-roll",
                         actor: context.self.actor,
@@ -329,9 +330,10 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
         (outcome: "success" | "criticalSuccess"): DamageRollFunction =>
         async (params: DamageRollParams = {}): Promise<Rolled<DamageRoll> | string | null> => {
             const domains = ["all", `{item.id}-damage`, "strike-damage", "damage-roll"];
-            const context = await actor.getStrikeRollContext({
+            const context = await actor.getRollContext({
                 item,
-                viewOnly: false,
+                statistic: strike,
+                viewOnly: params.getFormula ?? false,
                 domains,
                 options: new Set(params.options ?? []),
             });

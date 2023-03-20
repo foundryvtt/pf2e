@@ -22,6 +22,7 @@ import { CheckContextOptions, CheckContext, SimpleRollActionCheckOptions, CheckC
 import { getRangeIncrement } from "@actor/helpers";
 import { CheckPF2e, CheckType } from "@system/check";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
+import { TokenDocumentPF2e } from "@scene";
 
 export class ActionMacroHelpers {
     static resolveStat(stat: string): {
@@ -282,7 +283,10 @@ export class ActionMacroHelpers {
         }
     }
 
-    static target() {
+    static target(): {
+        token: TokenDocumentPF2e<ActorPF2e> | null;
+        actor: ActorPF2e | null;
+    } {
         const targets = Array.from(game.user.targets).filter((t) => t.actor instanceof CreaturePF2e);
         const target = targets.shift()?.document ?? null;
         const targetActor = target?.actor ?? null;

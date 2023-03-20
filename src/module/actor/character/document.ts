@@ -17,6 +17,7 @@ import {
     AbilityString,
     AttackItem,
     AttackRollContext,
+    AttackRollContextParams,
     SaveType,
     StrikeRollContext,
     StrikeRollContextParams,
@@ -69,7 +70,7 @@ import { DamageRoll } from "@system/damage/roll";
 import { WeaponDamagePF2e } from "@system/damage/weapon";
 import { PredicatePF2e } from "@system/predication";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls";
-import { Statistic } from "@system/statistic";
+import { Statistic, StatisticCheck } from "@system/statistic";
 import { ErrorPF2e, getActionGlyph, objectHasKey, sluggify, sortedStringify, traitSlugToObject } from "@util";
 import { UUIDUtils } from "@util/uuid-utils";
 import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting";
@@ -97,6 +98,7 @@ import { CharacterFeats } from "./feats";
 import { createForceOpenPenalty, createShoddyPenalty, StrikeWeaponTraits } from "./helpers";
 import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams, DexterityModifierCapData } from "./types";
 import { CHARACTER_SHEET_TABS } from "./values";
+import { StrikeData } from "@actor/data/base";
 
 class CharacterPF2e extends CreaturePF2e {
     /** Core singular embeds for PCs */
@@ -1704,21 +1706,22 @@ class CharacterPF2e extends CreaturePF2e {
             game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: multipleAttackPenalty.map2 }),
         ];
         const checkModifiers = [
-            (otherModifiers: ModifierPF2e[]) => new CheckModifier(checkName, action, otherModifiers),
-            (otherModifiers: ModifierPF2e[]) =>
-                new CheckModifier(checkName, action, [
+            (statistic: StrikeData, otherModifiers: ModifierPF2e[]) =>
+                new CheckModifier(checkName, statistic, otherModifiers),
+            (statistic: StrikeData, otherModifiers: ModifierPF2e[]) =>
+                new CheckModifier(checkName, statistic, [
                     ...otherModifiers,
                     new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map1, MODIFIER_TYPE.UNTYPED),
                 ]),
-            (otherModifiers: ModifierPF2e[]) =>
-                new CheckModifier(checkName, action, [
+            (statistic: StrikeData, otherModifiers: ModifierPF2e[]) =>
+                new CheckModifier(checkName, statistic, [
                     ...otherModifiers,
                     new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map2, MODIFIER_TYPE.UNTYPED),
                 ]),
         ];
 
         action.variants = [0, 1, 2]
-            .map((index): [string, (otherModifiers: ModifierPF2e[]) => CheckModifier] => [
+            .map((index): [string, (statistic: StrikeData, otherModifiers: ModifierPF2e[]) => CheckModifier] => [
                 labels[index],
                 checkModifiers[index],
             ])
@@ -1735,9 +1738,10 @@ class CharacterPF2e extends CreaturePF2e {
                         return null;
                     }
 
-                    const context = await this.getAttackRollContext({
+                    const context = await this.getCheckRollContext({
                         item: weapon,
                         domains: selectors,
+                        statistic: action,
                         options: new Set([...baseOptions, ...params.options, ...action.options]),
                         viewOnly: params.getFormula,
                     });
@@ -1788,7 +1792,7 @@ class CharacterPF2e extends CreaturePF2e {
                     }
 
                     const roll = await CheckPF2e.roll(
-                        constructModifier(context.self.modifiers),
+                        constructModifier(context.self.statistic ?? action, context.self.modifiers),
                         checkContext,
                         params.event,
                         params.callback
@@ -1808,9 +1812,10 @@ class CharacterPF2e extends CreaturePF2e {
                 const domains = ["all", `{weapon.id}-damage`, "strike-damage", "damage-roll"];
                 params.options ??= [];
 
-                const context = await this.getStrikeRollContext({
+                const context = await this.getRollContext({
                     item: weapon,
                     viewOnly: params.getFormula ?? false,
+                    statistic: action,
                     domains,
                     options: new Set([...params.options, ...baseOptions, ...action.options]),
                 });
@@ -1893,11 +1898,13 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     /** Modify this weapon from AdjustStrike rule elements */
-    override async getStrikeRollContext<I extends AttackItem>(
-        params: StrikeRollContextParams<I>
-    ): Promise<StrikeRollContext<this, I>> {
-        const context = await super.getStrikeRollContext(params);
-        if (context.self.item.isOfType("weapon")) {
+    override getRollContext<
+        TStatistic extends StatisticModifier | StatisticCheck | null,
+        TItem extends AttackItem | null
+    >(params: StrikeRollContextParams<TStatistic, TItem>): Promise<StrikeRollContext<this, TStatistic, TItem>>;
+    override async getRollContext(params: StrikeRollContextParams): Promise<StrikeRollContext<this>> {
+        const context = await super.getRollContext(params);
+        if (context.self.item?.isOfType("weapon")) {
             StrikeWeaponTraits.adjustWeapon(context.self.item);
         }
 
@@ -1905,11 +1912,13 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     /** Create attack-roll modifiers from weapon traits */
-    override async getAttackRollContext<I extends AttackItem>(
-        params: StrikeRollContextParams<I>
-    ): Promise<AttackRollContext<this, I>> {
-        const context = await super.getAttackRollContext(params);
-        if (context.self.item.isOfType("weapon")) {
+    override getCheckRollContext<
+        TStatistic extends StatisticCheck | StatisticModifier,
+        TItem extends AttackItem | null
+    >(params: AttackRollContextParams<TStatistic, TItem>): Promise<AttackRollContext<this, TStatistic, TItem>>;
+    override async getCheckRollContext(params: AttackRollContextParams): Promise<AttackRollContext<this>> {
+        const context = await super.getCheckRollContext(params);
+        if (context.self.item?.isOfType("weapon")) {
             const fromTraits = StrikeWeaponTraits.createAttackModifiers(context.self.item, params.domains);
             context.self.modifiers.push(...fromTraits);
         }

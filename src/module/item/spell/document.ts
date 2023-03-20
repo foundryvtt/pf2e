@@ -282,6 +282,7 @@ class SpellPF2e extends ItemPF2e {
             self: {
                 actor: this.actor,
                 item: this,
+                statistic: null,
                 token: this.actor.token,
                 modifiers: [],
             },

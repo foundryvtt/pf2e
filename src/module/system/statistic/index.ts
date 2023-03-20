@@ -342,7 +342,7 @@ class StatisticCheck {
             const isValidAttacker = actor.isOfType("creature", "hazard");
             const isAttackItem = item?.isOfType("weapon", "melee", "spell");
             if (isValidAttacker && isAttackItem && ["attack-roll", "spell-attack-roll"].includes(this.type)) {
-                return actor.getAttackRollContext({ item, domains, options: new Set() });
+                return actor.getCheckRollContext({ item, domains, statistic: this, options: new Set() });
             }
 
             return null;
@@ -495,4 +495,4 @@ class StatisticDifficultyClass {
     }
 }
 
-export { Statistic, StatisticDifficultyClass, StatisticRollParameters };
+export { Statistic, StatisticCheck, StatisticDifficultyClass, StatisticRollParameters };
