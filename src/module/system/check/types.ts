@@ -23,6 +23,7 @@ type CheckType =
 interface CheckRollContext extends BaseRollContext {
     /** The type of this roll, like 'perception-check' or 'saving-throw'. */
     type?: CheckType;
+    /** Targeting data for the check, if applicable */
     target?: AttackTarget | null;
     /** Should this roll be rolled twice? If so, should it keep highest or lowest? */
     rollTwice?: RollTwiceOption;

@@ -4,6 +4,7 @@ import {
     ApplyDamageParams,
     AttackItem,
     AttackRollContext,
+    AttackRollContextParams,
     AuraData,
     SaveType,
     StrikeRollContext,
@@ -37,7 +38,7 @@ import { TokenDocumentPF2e } from "@scene";
 import { DicePF2e } from "@scripts/dice";
 import { DamageType } from "@system/damage";
 import { applyIWR, IWRApplicationData, maxPersistentAfterIWR } from "@system/damage/iwr";
-import { Statistic } from "@system/statistic";
+import { Statistic, StatisticCheck } from "@system/statistic";
 import { TextEditorPF2e } from "@system/text-editor";
 import {
     ErrorPF2e,
@@ -751,9 +752,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /*  Rolls                                       */
     /* -------------------------------------------- */
 
-    async getStrikeRollContext<I extends AttackItem>(
-        params: StrikeRollContextParams<I>
-    ): Promise<StrikeRollContext<this, I>> {
+    getRollContext<TStatistic extends StatisticModifier | StatisticCheck | null, TItem extends AttackItem | null>(
+        params: StrikeRollContextParams<TStatistic, TItem>
+    ): Promise<StrikeRollContext<this, TStatistic, TItem>>;
+    async getRollContext(params: StrikeRollContextParams): Promise<StrikeRollContext<this>> {
         const [selfToken, targetToken] =
             canvas.ready && !params.viewOnly
                 ? [
@@ -762,9 +764,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                   ]
                 : [null, null];
 
-        const reach = params.item.isOfType("melee")
+        const reach = params.item?.isOfType("melee")
             ? params.item.reach
-            : params.item.isOfType("weapon")
+            : params.item?.isOfType("weapon")
             ? this.getReach({ action: "attack", weapon: params.item })
             : null;
 
@@ -778,9 +780,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             affects: "origin",
             origin: this,
             target: targetToken?.actor ?? null,
-            item: params.item,
+            item: params.item ?? null,
             domains: params.domains,
-            options: [...params.options, ...params.item.getRollOptions("item")],
+            options: [...params.options, ...(params.item?.getRollOptions("item") ?? [])],
         });
 
         const selfActor =
@@ -792,34 +794,52 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                   );
         const actions: StrikeData[] = selfActor.system.actions?.flatMap((a) => [a, a.altUsages ?? []].flat()) ?? [];
 
-        const selfItem: AttackItem =
-            params.viewOnly || params.item.isOfType("spell")
-                ? params.item
-                : actions
-                      .map((a): AttackItem => a.item)
-                      .find((weapon) => {
-                          // Find the matching weapon or melee item
-                          if (!(params.item.id === weapon.id && weapon.name === params.item.name)) return false;
-                          if (params.item.isOfType("melee") && weapon.isOfType("melee")) return true;
+        const statistic = params.viewOnly
+            ? params.statistic
+            : actions.find((action): boolean => {
+                  // Find the matching weapon or melee item
+                  if (params.item?.id !== action.item.id || params?.item.name !== action.item.name) return false;
+                  if (params.item.isOfType("melee") && action.item.isOfType("melee")) return true;
 
-                          // Discriminate between melee/thrown usages by checking that both are either melee or ranged
-                          return (
-                              params.item.isOfType("weapon") &&
-                              weapon.isOfType("weapon") &&
-                              params.item.isMelee === weapon.isMelee
-                          );
-                      }) ?? params.item;
+                  // Discriminate between melee/thrown usages by checking that both are either melee or ranged
+                  return (
+                      params.item.isOfType("weapon") &&
+                      action.item.isOfType("weapon") &&
+                      params.item.isMelee === action.item.isMelee
+                  );
+              }) ?? params.statistic;
+        const selfItem = ((): AttackItem | null => {
+            // 1. Simplest case: no context clone, so used the item passed to this method
+            if (selfActor === this) return params.item ?? null;
 
-        const itemOptions = selfItem.getRollOptions("item");
+            // 2. Get the item from the statistic if it's stored therein
+            if (
+                statistic &&
+                "item" in statistic &&
+                statistic.item instanceof ItemPF2e &&
+                statistic.item.isOfType("melee", "spell", "weapon")
+            ) {
+                return statistic.item;
+            }
+
+            // 3. Get the item directly from the context clone
+            const itemClone = selfActor.items.get(params.item?.id ?? "");
+            if (itemClone?.isOfType("melee", "spell", "weapon")) return itemClone;
+
+            // 4 Give up :(
+            return params.item ?? null;
+        })();
+
+        const itemOptions = selfItem?.getRollOptions("item") ?? [];
 
         const traitSlugs: ActionTrait[] = [
             "attack" as const,
             // CRB p. 544: "Due to the complexity involved in preparing bombs, Strikes to throw alchemical bombs gain
             // the manipulate trait."
-            selfItem.isOfType("weapon") && selfItem.baseType === "alchemical-bomb" ? ("manipulate" as const) : [],
+            selfItem?.isOfType("weapon") && selfItem.baseType === "alchemical-bomb" ? ("manipulate" as const) : [],
         ].flat();
         for (const adjustment of this.synthetics.strikeAdjustments) {
-            if (selfItem.isOfType("weapon", "melee")) {
+            if (selfItem?.isOfType("weapon", "melee")) {
                 adjustment.adjustTraits?.(selfItem, traitSlugs);
             }
         }
@@ -849,7 +869,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             affects: "target",
             origin: selfActor,
             target: targetToken?.actor ?? null,
-            item: params.item,
+            item: selfItem,
             domains: params.domains,
             options: [...params.options, ...itemOptions, ...targetRollOptions],
         });
@@ -876,13 +896,14 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         ]);
 
         if (targetDistance) rollOptions.add(targetDistance);
-        const rangeIncrement = getRangeIncrement(selfItem, distance);
+        const rangeIncrement = selfItem ? getRangeIncrement(selfItem, distance) : null;
         if (rangeIncrement) rollOptions.add(`target:range-increment:${rangeIncrement}`);
 
         const self = {
             actor: selfActor,
             token: selfToken?.document ?? null,
-            item: selfItem as I,
+            statistic,
+            item: selfItem,
             modifiers: [],
         };
 
@@ -904,10 +925,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
      * All attack rolls have the "all" and "attack-roll" domains and the "attack" trait,
      * but more can be added via the options.
      */
-    async getAttackRollContext<I extends AttackItem>(
-        params: StrikeRollContextParams<I>
-    ): Promise<AttackRollContext<this, I>> {
-        const context = await this.getStrikeRollContext(params);
+    async getCheckRollContext<TStatistic extends StatisticCheck | StatisticModifier, TItem extends AttackItem | null>(
+        params: AttackRollContextParams<TStatistic, TItem>
+    ): Promise<AttackRollContext<this, TStatistic, TItem>> {
+        const context = await this.getRollContext(params);
         const targetActor = context.target?.actor;
         const rangeIncrement = context.target?.rangeIncrement ?? null;
 

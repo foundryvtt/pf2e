@@ -73,7 +73,7 @@ async function extractEphemeralEffects({
 
     const [effectsFrom, effectsTo] = affects === "target" ? [origin, target] : [target, origin];
     const fullOptions = [...options, ...effectsTo.getSelfRollOptions(affects)];
-    const resolvables = item.isOfType("spell") ? { spell: item } : { weapon: item };
+    const resolvables = item ? (item.isOfType("spell") ? { spell: item } : { weapon: item }) : {};
     return (
         await Promise.all(
             domains
@@ -87,7 +87,7 @@ interface ExtractEphemeralEffectsParams {
     affects: "target" | "origin";
     origin: ActorPF2e;
     target: Maybe<ActorPF2e>;
-    item: AttackItem;
+    item: AttackItem | null;
     domains: string[];
     options: Set<string> | string[];
 }
