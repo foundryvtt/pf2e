@@ -1,30 +1,74 @@
+import { SkillLongForm } from "@actor/types";
+import { SKILL_LONG_FORMS } from "@actor/values";
+import { CombatantPF2e } from "@module/encounter";
+import { fontAwesomeIcon, setHasElement } from "@util";
+
 /** Add a button to set a check roll as the roller's initiative */
 export const SetAsInitiative = {
     listen: ($li: JQuery) => {
-        const message = game.messages.get($li.attr("data-message-id") ?? "", { strict: true });
+        const li = $li[0];
+
+        const message = game.messages.get(li.dataset.messageId ?? "", { strict: true });
         const { context } = message.flags.pf2e;
         if (
             message.token &&
             ((message.isAuthor && !message.blind) || game.user.isGM) &&
             (context?.type === "skill-check" || context?.type === "perception-check")
         ) {
-            const btnStyling = "width: 22px; height:22px; font-size:10px;line-height:1px";
-            const initiativeButtonTitle = game.i18n.localize("PF2E.ClickToSetInitiative");
-            const setInitiativeButton = $(
-                `<button class="dice-total-setInitiative-btn" style="${btnStyling}"><i class="fa-solid fa-swords" title="${initiativeButtonTitle}"></i></button>`
-            );
-            const btnContainer = $(
-                '<span class="dmgBtn-container" style="position:absolute; right:0; bottom:1px;"></span>'
-            );
-            btnContainer.append(setInitiativeButton);
-            const $diceTotal = $li.find(".dice-total");
-            $diceTotal.append(btnContainer);
+            const btnContainer = document.createElement("span");
+            btnContainer.classList.add("dmgBtn-container");
+            Object.assign(btnContainer.style, {
+                position: "absolute",
+                right: "0",
+                bottom: "1px",
+            });
+            const setInitiativeButton = document.createElement("button");
+            setInitiativeButton.classList.add("dice-total-setInitiative-btn");
+            Object.assign(setInitiativeButton.style, {
+                width: "22px",
+                height: "22px",
+                fontSize: "10px",
+                lineHeight: "1px",
+            });
+            setInitiativeButton.title = game.i18n.localize("PF2E.ClickToSetInitiative");
+            setInitiativeButton.appendChild(fontAwesomeIcon("fa-swords", { style: "solid" }));
+            btnContainer.appendChild(setInitiativeButton);
+            li.querySelector(".dice-total")?.appendChild(btnContainer);
 
-            setInitiativeButton.on("click", () => {
-                message.token?.setInitiative({
-                    initiative: message.rolls.at(0)?.total ?? 0,
-                    sendMessage: !message.blind,
-                });
+            setInitiativeButton.addEventListener("click", async (event): Promise<void> => {
+                event.stopPropagation();
+                if (!game.combat) {
+                    ui.notifications.error(game.i18n.localize("PF2E.Encounter.NoActiveEncounter"));
+                    return;
+                }
+                const actor = message.token?.actor;
+                if (!actor) return;
+
+                const combatant = ((): Embedded<CombatantPF2e> | null => {
+                    const existing = game.combat.combatants.find((combatant) => combatant.actor === actor);
+                    if (existing) return existing;
+                    ui.notifications.error(game.i18n.format("PF2E.Encounter.NotParticipating", { actor: actor.name }));
+                    return null;
+                })();
+                if (!combatant) return;
+
+                const statistic =
+                    message.flags.pf2e.context?.domains.find(
+                        (s): s is SkillLongForm | "perception" =>
+                            setHasElement(SKILL_LONG_FORMS, s) || s === "perception"
+                    ) ?? null;
+                const value = message.rolls[0].total;
+
+                await game.combat.setMultipleInitiatives([
+                    {
+                        id: combatant.id,
+                        value,
+                        statistic,
+                    },
+                ]);
+                ui.notifications.info(
+                    game.i18n.format("PF2E.Encounter.InitiativeSet", { actor: actor.name, initiative: value })
+                );
             });
         }
     },
