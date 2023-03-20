@@ -44,6 +44,7 @@ import { IWREditor } from "./popups/iwr-editor";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup";
 import { CraftingFormula } from "@actor/character/crafting";
 import { UUIDUtils } from "@util/uuid-utils";
+import { CombatantPF2e } from "@module/encounter";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -264,10 +265,19 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         const rollInitElem = htmlQuery(html, ".roll-init");
-        rollInitElem?.addEventListener("click", (event) => {
+        rollInitElem?.addEventListener("click", (): void => {
             const { attributes } = this.actor.system;
             if (!rollInitElem.classList.contains("disabled") && attributes.initiative?.roll) {
-                attributes.initiative.roll?.(eventToRollParams(event));
+                if (!game.combat) return;
+                const { actor } = this;
+                const combatant = ((): Embedded<CombatantPF2e> | null => {
+                    const existing = game.combat.combatants.find((combatant) => combatant.actor === actor);
+                    if (existing) return existing;
+                    ui.notifications.error(game.i18n.format("PF2E.Encounter.NotParticipating", { actor: actor.name }));
+                    return null;
+                })();
+                if (!combatant) return;
+                game.combat.rollInitiative([combatant.id]);
             }
         });
 
