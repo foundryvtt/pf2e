@@ -46,6 +46,8 @@ type CharacterFlags = ActorFlagsPF2e & {
     pf2e: {
         /** If applicable, the character's proficiency rank in their deity's favored weapon */
         favoredWeaponRank: number;
+        /** The highest number of damage dice among the character's equipped weapons and available unarmed attacks */
+        highestWeaponDamageDice: number;
         /** Whether items are crafted without consuming resources */
         freeCrafting: boolean;
         /** Whether the alchemist's (and related dedications) Quick Alchemy ability is enabled */

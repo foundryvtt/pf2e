@@ -668,7 +668,12 @@ class CharacterPF2e extends CreaturePF2e {
         const speeds = (systemData.attributes.speed = this.prepareSpeed("land"));
         speeds.otherSpeeds = (["burrow", "climb", "fly", "swim"] as const).flatMap((m) => this.prepareSpeed(m) ?? []);
 
+        // Strike actions
         systemData.actions = this.prepareStrikes();
+        this.flags.pf2e.highestWeaponDamageDice = Math.max(
+            ...systemData.actions.filter((s) => s.ready).map((s) => s.item.system.damage.dice),
+            0
+        );
 
         // Spellcasting Entries
         for (const entry of itemTypes.spellcastingEntry) {
