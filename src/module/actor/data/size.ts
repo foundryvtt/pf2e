@@ -37,14 +37,17 @@ export class ActorSizePF2e {
      * @param value A size category
      * @param [length] A length of a Pathfinder "space"
      * @param [width]  A width of a Pathfinder "space"
+     * @param [smallIsMedium] Treat small as medium
      */
-    constructor({ value, length, width }: { value: Size; length?: number; width?: number }) {
-        if (typeof value !== "string") value = "med"; // Temporary line for pre-migration 728 size data
+    constructor(params: { value?: Size; length?: number; width?: number; smallIsMedium?: boolean }) {
+        if (typeof params.value !== "string" || (params.smallIsMedium && params.value === "sm")) {
+            params.value = "med";
+        }
 
-        this.value = value;
-        const spaces = ActorSizePF2e.defaultSpaces[value] ?? ActorSizePF2e.defaultSpaces.med;
-        this.length = length ?? spaces.length;
-        this.width = width ?? spaces.width;
+        this.value = params.value;
+        const spaces = ActorSizePF2e.defaultSpaces[params.value] ?? ActorSizePF2e.defaultSpaces.med;
+        this.length = params.length ?? spaces.length;
+        this.width = params.width ?? spaces.width;
     }
 
     /**

@@ -442,7 +442,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         const items = await (async () => {
             /** Internal function to recursively get all simple granted items */
             async function getSimpleGrants(item: Embedded<ItemPF2e>): Promise<Embedded<ItemPF2e>[]> {
-                const granted = (await item.createGrantedItems?.()) ?? [];
+                const granted = (await item.createGrantedItems?.({ size: context.parent?.size })) ?? [];
                 if (!granted.length) return [];
                 const reparented = granted.map(
                     (i): Embedded<ItemPF2e> =>
@@ -698,7 +698,7 @@ interface ItemPF2e extends Item<ActorPF2e> {
     prepareActorData?(this: Embedded<ItemPF2e>): void;
 
     /** Returns items that should also be added when this item is created */
-    createGrantedItems(): Promise<ItemPF2e[]>;
+    createGrantedItems?(options?: object): Promise<ItemPF2e[]>;
 
     /** Returns items that should also be deleted should this item be deleted */
     getLinkedItems?(): Embedded<ItemPF2e>[];
