@@ -67,6 +67,7 @@ interface BaseFilterData {
 
 interface ActionFilters extends BaseFilterData {
     checkboxes: {
+        types: CheckboxData;
         source: CheckboxData;
     };
     multiselects: {
