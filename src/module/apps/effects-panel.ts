@@ -38,7 +38,7 @@ export class EffectsPanel extends Application {
                 afflictions: [],
                 conditions: [],
                 effects: [],
-                descriptions: {} as EffectsDescriptionData,
+                descriptions: { afflictions: [], conditions: [], effects: [] },
                 actor: null,
                 user: { isGM: false },
             };
