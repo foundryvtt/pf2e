@@ -8,7 +8,7 @@ import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
 import { CheckRoll } from "@system/check";
 import { DamageRoll } from "@system/damage/roll";
-import { htmlQuery, parseHTML } from "@util";
+import { htmlQuery, htmlQueryAll, parseHTML } from "@util";
 import { ChatRollDetails } from "./chat-roll-details";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
 import { ChatMessageDataPF2e, ChatMessageFlagsPF2e, ChatMessageSourcePF2e, StrikeLookupData } from "./data";
@@ -202,7 +202,10 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         const $html = await super.getHTML();
         const html = $html[0]!;
         if (!this.flags.pf2e.suppressDamageButtons && this.isDamageRoll) {
-            await Listeners.DamageButtons.listen(this, html);
+            // Mark each button group with the index in the message's `rolls` array
+            htmlQueryAll(html, ".damage-application").forEach((buttons, index) => {
+                buttons.dataset.rollIndex = index.toString();
+            });
         }
 
         await Listeners.DamageTaken.listen(this, html);
