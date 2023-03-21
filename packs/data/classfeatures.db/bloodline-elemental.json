@@ -50,6 +50,67 @@
                 "path": "system.proficiencies.aliases.sorcerer",
                 "priority": 39,
                 "value": "primal"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAir",
+                        "value": "air"
+                    },
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "value": "earth"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "value": "water"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Sorcerer.Elemental.Prompt",
+                "rollOption": "elemental-bloodline"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.sorcerer.elementalBloodline.damageType",
+                "predicate": [
+                    {
+                        "not": "elemental-bloodline:fire"
+                    }
+                ],
+                "value": "bludgeoning"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.sorcerer.elementalBloodline.damageType",
+                "predicate": [
+                    "elemental-bloodline:fire"
+                ],
+                "value": "fire"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "damageType": "{actor|flags.pf2e.sorcerer.elementalBloodline.damageType}"
+                },
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:produce-flame",
+                            "item:slug:burning-hands",
+                            "item:slug:fireball",
+                            "item:slug:elemental-toss",
+                            "item:slug:elemental-blast"
+                        ]
+                    }
+                ],
+                "selector": "spell-damage"
             }
         ],
         "source": {
