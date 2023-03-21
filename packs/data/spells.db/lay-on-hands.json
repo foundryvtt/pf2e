@@ -11,6 +11,7 @@
             "value": "focus"
         },
         "components": {
+            "focus": false,
             "material": false,
             "somatic": true,
             "verbal": false
@@ -20,9 +21,11 @@
         },
         "damage": {
             "value": {
-                "0": {
+                "bJrcA6hDZiJkMxLy": {
+                    "applyMod": false,
                     "type": {
                         "categories": [],
+                        "subtype": "",
                         "value": "positive"
                     },
                     "value": "6"
@@ -38,18 +41,44 @@
         "hasCounteractCheck": {
             "value": false
         },
-        "heightening": {
-            "damage": {
-                "0": "6"
-            },
-            "interval": 1,
-            "type": "interval"
-        },
         "level": {
             "value": 1
         },
         "materials": {
             "value": ""
+        },
+        "overlays": {
+            "Q9PNuNypfBZAFQHU": {
+                "_id": "Q9PNuNypfBZAFQHU",
+                "name": "Lay on Hands (Heal Living)",
+                "overlayType": "override",
+                "sort": 1,
+                "system": {
+                    "save": {
+                        "value": ""
+                    }
+                }
+            },
+            "o9LXHZMv9GEC32fH": {
+                "_id": "o9LXHZMv9GEC32fH",
+                "name": "Lay on Hands (Damage Undead)",
+                "overlayType": "override",
+                "sort": 2,
+                "system": {
+                    "damage": {
+                        "value": {
+                            "0": {
+                                "value": "1d6"
+                            }
+                        }
+                    },
+                    "heightening": {
+                        "damage": {
+                            "0": "1d6"
+                        }
+                    }
+                }
+            }
         },
         "prepared": {
             "value": ""
@@ -63,7 +92,7 @@
         "rules": [],
         "save": {
             "basic": "",
-            "value": "fortitude"
+            "value": ""
         },
         "school": {
             "value": "necromancy"
