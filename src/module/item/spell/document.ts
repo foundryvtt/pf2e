@@ -36,24 +36,24 @@ import { applyDamageDiceOverrides, createFormulaAndTagsForPartial, DamageInstanc
 import { SpellOverlayCollection } from "./overlay";
 import { EffectAreaSize, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
 
-interface SpellConstructionContext extends DocumentConstructionContext<ActorPF2e | null> {
+interface SpellConstructionContext<TParent extends ActorPF2e | null> extends DocumentConstructionContext<TParent> {
     fromConsumable?: boolean;
 }
 
-class SpellPF2e extends ItemPF2e {
+class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     readonly isFromConsumable: boolean;
 
     /** The original spell. Only exists if this is a variant */
-    original?: SpellPF2e;
+    original?: SpellPF2e<NonNullable<TParent>>;
     /** The overlays that were applied to create this variant */
     appliedOverlays?: Map<SpellOverlayType, string>;
 
     /** Set if casted with trick magic item. Will be replaced via overriding spellcasting on cast later. */
-    trickMagicEntry: TrickMagicItemEntry | null = null;
+    trickMagicEntry: TrickMagicItemEntry<NonNullable<TParent>> | null = null;
 
     overlays!: SpellOverlayCollection;
 
-    constructor(data: PreCreate<ItemSourcePF2e>, context: SpellConstructionContext = {}) {
+    constructor(data: PreCreate<ItemSourcePF2e>, context: SpellConstructionContext<TParent> = {}) {
         super(data, context);
         this.isFromConsumable = !!context.fromConsumable;
     }
@@ -105,9 +105,11 @@ class SpellPF2e extends ItemPF2e {
             : new Set(this.system.traditions.value);
     }
 
-    get spellcasting(): BaseSpellcastingEntry | null {
+    get spellcasting(): BaseSpellcastingEntry<NonNullable<TParent>> | null {
         const spellcastingId = this.system.location.value;
-        return this.actor?.spellcasting.find((entry) => entry.id === spellcastingId) ?? null;
+        return (this.actor?.spellcasting.find((e) => e.id === spellcastingId) ?? null) as BaseSpellcastingEntry<
+            NonNullable<TParent>
+        > | null;
     }
 
     get isAttack(): boolean {
@@ -281,7 +283,7 @@ class SpellPF2e extends ItemPF2e {
             options,
             self: {
                 actor: this.actor,
-                item: this,
+                item: this as SpellPF2e<ActorPF2e>,
                 statistic: null,
                 token: this.actor.token,
                 modifiers: [],
@@ -292,7 +294,8 @@ class SpellPF2e extends ItemPF2e {
         // Add modifiers and damage die adjustments
         const modifiers: ModifierPF2e[] = [];
         const damageDice: DamageDicePF2e[] = [];
-        if (actor?.isOfType("character", "npc")) {
+        if (actor.system.abilities) {
+            const { abilities } = actor.system;
             const abilityModifiers = Object.entries(this.system.damage.value)
                 .filter(([, d]) => d.applyMod)
                 .map(
@@ -302,7 +305,7 @@ class SpellPF2e extends ItemPF2e {
                             slug: `ability-${k}`,
                             // Not a restricted ability modifier in the same way it is for checks or weapon damage
                             type: "untyped",
-                            modifier: actor.abilities[ability].mod,
+                            modifier: abilities[ability].mod,
                             damageType: d.type.value,
                             damageCategory: d.type.subtype ?? null,
                         })
@@ -453,7 +456,7 @@ class SpellPF2e extends ItemPF2e {
      * This handles heightening as well as alternative cast modes of spells.
      * If there's nothing to apply, returns null.
      */
-    loadVariant(options: { castLevel?: number; overlayIds?: string[] } = {}): Embedded<SpellPF2e> | null {
+    loadVariant(options: { castLevel?: number; overlayIds?: string[] } = {}): SpellPF2e<NonNullable<TParent>> | null {
         if (this.original) {
             return this.original.loadVariant(options);
         }
@@ -462,7 +465,7 @@ class SpellPF2e extends ItemPF2e {
         const heightenEntries = this.getHeightenLayers(castLevel);
         const overlays = overlayIds?.map((id) => ({ id, data: this.overlays.get(id, { strict: true }) })) ?? [];
 
-        const override = (() => {
+        const overrides = (() => {
             // If there are no overlays, only return an override if this is a simple heighten
             if (!heightenEntries.length && !overlays.length) {
                 if (castLevel !== this.level) {
@@ -507,11 +510,13 @@ class SpellPF2e extends ItemPF2e {
 
             return source;
         })();
-        if (!override) return null;
+        if (!overrides) return null;
 
         const fromConsumable = this.isFromConsumable;
-        const variant = new SpellPF2e(override, { parent: this.actor, fromConsumable }) as Embedded<SpellPF2e>;
-        variant.original = this;
+        const variant = new SpellPF2e(overrides, { parent: this.actor, fromConsumable }) as SpellPF2e<
+            NonNullable<TParent>
+        >;
+        variant.original = this as SpellPF2e<NonNullable<TParent>>;
         variant.appliedOverlays = appliedOverlays;
         // Retrieve tradition since `#prepareSiblingData` isn't run:
         variant.system.traits.value = Array.from(new Set([...variant.traits, ...variant.traditions]));
@@ -544,7 +549,7 @@ class SpellPF2e extends ItemPF2e {
         if (!area) throw ErrorPF2e("Attempted to create template with non-area spell");
         const areaType = templateConversion[area.type];
 
-        const templateData: DeepPartial<foundry.data.MeasuredTemplateSource> = {
+        const templateData: DeepPartial<foundry.documents.MeasuredTemplateSource> = {
             t: areaType,
             distance: (Number(area.value) / 5) * (canvas.dimensions?.distance ?? 0),
             fillColor: game.user.color,
@@ -598,7 +603,7 @@ class SpellPF2e extends ItemPF2e {
         this.overlays = new SpellOverlayCollection(this, this.system.overlays);
     }
 
-    override prepareSiblingData(this: Embedded<SpellPF2e>): void {
+    override prepareSiblingData(this: SpellPF2e<ActorPF2e>): void {
         this.system.traits.value.push(...this.traditions);
         if (this.spellcasting?.isInnate) {
             mergeObject(this.system.location, { uses: { value: 1, max: 1 } }, { overwrite: false });
@@ -701,7 +706,7 @@ class SpellPF2e extends ItemPF2e {
     }
 
     override async getChatData(
-        this: Embedded<SpellPF2e>,
+        this: SpellPF2e<ActorPF2e>,
         htmlOptions: EnrichHTMLOptionsPF2e = {},
         rollOptions: { castLevel?: number | string; slotLevel?: number | string } = {}
     ): Promise<Omit<ItemSummaryData, "traits">> {
@@ -843,7 +848,7 @@ class SpellPF2e extends ItemPF2e {
     }
 
     async rollAttack(
-        this: Embedded<SpellPF2e>,
+        this: SpellPF2e<ActorPF2e>,
         event: MouseEvent | JQuery.ClickEvent,
         attackNumber = 1,
         context: StatisticRollParameters = {}
@@ -861,7 +866,7 @@ class SpellPF2e extends ItemPF2e {
     }
 
     async rollDamage(
-        this: Embedded<SpellPF2e>,
+        this: SpellPF2e<ActorPF2e>,
         event: MouseEvent | JQuery.ClickEvent,
         mapIncreases?: ZeroToTwo
     ): Promise<Rolled<DamageRoll> | null> {
@@ -954,17 +959,21 @@ class SpellPF2e extends ItemPF2e {
         );
     }
 
-    override async update(data: DocumentUpdateData<this>, options?: DocumentModificationContext<this>): Promise<this> {
+    override async update(data: DocumentUpdateData<this>, options: DocumentUpdateContext<TParent> = {}): Promise<this> {
         // Redirect the update of override spell variants to the appropriate update method if the spell sheet is currently rendered
-        if (this.original && this.appliedOverlays!.has("override") && this.sheet.rendered) {
-            return this.original.overlays.updateOverride(this as Embedded<SpellPF2e>, data, options) as Promise<this>;
+        if (options.parent && this.original && this.appliedOverlays!.has("override") && this.sheet.rendered) {
+            return this.original.overlays.updateOverride(
+                this as SpellPF2e<ActorPF2e>,
+                data,
+                options as DocumentUpdateContext<ActorPF2e>
+            ) as Promise<this>;
         }
         return super.update(data, options);
     }
 
     protected override async _preCreate(
         data: PreDocumentId<this["_source"]>,
-        options: DocumentModificationContext<this>,
+        options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<void> {
         this._source.system.location.value ||= null;
@@ -977,7 +986,7 @@ class SpellPF2e extends ItemPF2e {
 
     protected override async _preUpdate(
         changed: DeepPartial<SpellSource>,
-        options: DocumentModificationContext<this>,
+        options: DocumentUpdateContext<TParent>,
         user: UserPF2e
     ): Promise<void> {
         await super._preUpdate(changed, options, user);
@@ -1009,7 +1018,7 @@ class SpellPF2e extends ItemPF2e {
     }
 }
 
-interface SpellPF2e extends ItemPF2e {
+interface SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     readonly _source: SpellSource;
     system: SpellSystemData;
 }

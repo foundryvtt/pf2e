@@ -6,22 +6,10 @@ declare module foundry {
          * @property autoplay Should the video play automatically?
          * @property volume   The volume level of any audio that the video file contains
          */
-        interface VideoSource {
+        interface VideoData {
             loop: boolean;
             autoplay: boolean;
             volume: boolean;
-        }
-
-        class VideoData<
-            TDocument extends abstract.Document = abstract.Document
-        > extends abstract.DocumentData<TDocument> {
-            static override defineSchema(): abstract.DocumentSchema;
-
-            protected override _initialize(): void;
-        }
-
-        interface VideoData extends VideoSource {
-            readonly _source: VideoSource;
         }
     }
 }

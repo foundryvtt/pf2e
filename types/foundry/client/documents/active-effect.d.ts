@@ -1,4 +1,4 @@
-import { ActiveEffectConstructor } from "./constructors";
+import { ClientBaseActiveEffect } from "./client-base-mixes.mjs";
 
 declare global {
     /**
@@ -6,17 +6,25 @@ declare global {
      * Each ActiveEffect belongs to the effects collection of its parent Document.
      * Each ActiveEffect contains a ActiveEffectData object which provides its source data.
      */
-    class ActiveEffect extends ActiveEffectConstructor implements TemporaryEffect {
+    class ActiveEffect<
+            TParent extends
+                | Actor<TokenDocument<Scene | null> | null>
+                | Item<Actor<TokenDocument<Scene | null> | null> | null>
+                | null
+        >
+        extends ClientBaseActiveEffect<TParent>
+        implements TemporaryEffect
+    {
         constructor(
-            data: PreCreate<foundry.data.ActiveEffectSource>,
-            context?: DocumentConstructionContext<ActiveEffect["parent"]>
+            data: PreCreate<foundry.documents.ActiveEffectSource>,
+            context?: DocumentConstructionContext<TParent>
         );
 
         /** A cached reference to the source name to avoid recurring database lookups */
         protected _sourceName: string | null;
 
         /** A cached reference to the ActiveEffectConfig instance which configures this effect */
-        override _sheet: ActiveEffectConfig<this> | null;
+        protected override _sheet: ActiveEffectConfig<this> | null;
 
         /** Summarize the active effect duration */
         get duration(): {
@@ -65,7 +73,7 @@ declare global {
          * @param change The change data being applied
          * @return The resulting applied value
          */
-        apply(actor: Actor, change: ApplicableChangeData<this>): unknown;
+        apply(actor: Actor<TokenDocument<Scene | null>>, change: foundry.documents.EffectChangeSource): unknown;
 
         /**
          * Apply an ActiveEffect that uses an ADD application mode.
@@ -80,7 +88,10 @@ declare global {
          * @param change The change data being applied
          * @return The resulting applied value
          */
-        protected _applyAdd(actor: Actor, change: ApplicableChangeData<this>): unknown;
+        protected _applyAdd(
+            actor: Actor<TokenDocument<Scene | null>>,
+            change: foundry.documents.EffectChangeSource
+        ): unknown;
 
         /**
          * Apply an ActiveEffect that uses a MULTIPLY application mode.
@@ -89,7 +100,10 @@ declare global {
          * @param change The change data being applied
          * @return The resulting applied value
          */
-        protected _applyMultiply(actor: Actor, change: ApplicableChangeData<this>): unknown;
+        protected _applyMultiply(
+            actor: Actor<TokenDocument<Scene | null>>,
+            change: foundry.documents.EffectChangeSource
+        ): unknown;
 
         /**
          * Apply an ActiveEffect that uses an OVERRIDE application mode.
@@ -98,7 +112,10 @@ declare global {
          * @param change The change data being applied
          * @return The resulting applied value
          */
-        protected _applyOverride(actor: Actor, change: ApplicableChangeData<this>): unknown;
+        protected _applyOverride(
+            actor: Actor<TokenDocument<Scene | null>>,
+            change: foundry.documents.EffectChangeSource
+        ): unknown;
 
         /**
          * Apply an ActiveEffect that uses an UPGRADE, or DOWNGRADE application mode.
@@ -107,7 +124,10 @@ declare global {
          * @param change The change data being applied
          * @return The resulting applied value
          */
-        protected _applyUpgrade(actor: Actor, change: ApplicableChangeData<this>): unknown;
+        protected _applyUpgrade(
+            actor: Actor<TokenDocument<Scene | null>>,
+            change: foundry.documents.EffectChangeSource
+        ): unknown;
 
         /**
          * Apply an ActiveEffect that uses a CUSTOM application mode.
@@ -115,7 +135,10 @@ declare global {
          * @param change The change data being applied
          * @return The resulting applied value
          */
-        protected _applyCustom(actor: Actor, change: ApplicableChangeData<this>): unknown;
+        protected _applyCustom(
+            actor: Actor<TokenDocument<Scene | null>>,
+            change: foundry.documents.EffectChangeSource
+        ): unknown;
 
         /** Get the name of the source of the Active Effect */
         protected _getSourceName(): Promise<string>;
@@ -126,14 +149,17 @@ declare global {
 
         protected override _preCreate(
             data: PreDocumentId<this["_source"]>,
-            options: DocumentModificationContext,
+            options: DocumentModificationContext<TParent>,
             user: User
         ): Promise<void>;
     }
 
-    interface ActiveEffect {
-        readonly parent: Actor | Item;
-
+    interface ActiveEffect<
+        TParent extends
+            | Actor<TokenDocument<Scene | null> | null>
+            | Item<Actor<TokenDocument<Scene | null> | null> | null>
+            | null
+    > extends ClientBaseActiveEffect<TParent> {
         disabled: boolean;
         icon: ImageFilePath;
         tint?: string;
@@ -144,9 +170,5 @@ declare global {
         isTemporary: boolean;
         icon: ImageFilePath;
         tint?: string;
-    }
-
-    interface ApplicableChangeData<T extends ActiveEffect> extends foundry.data.EffectChangeSource {
-        effect: T;
     }
 }

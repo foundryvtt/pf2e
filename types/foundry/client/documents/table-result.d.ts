@@ -1,14 +1,12 @@
-import { TableResultConstructor } from "./constructors";
+import { ClientBaseTableResult } from "./client-base-mixes.mjs";
+
 declare global {
     /**
-     * The TableResult embedded document within a RollTable document which extends the BaseRollTable abstraction.
-     * Each TableResult belongs to the results collection of a RollTable entity.
-     * Each TableResult contains a TableResultData object which provides its source data.
+     * The client-side TableResult document which extends the common BaseTableResult document model.
      *
-     * @see {@link data.TableResultData}        The TableResult data schema
-     * @see {@link documents.RollTable}         The RollTable document which contains TableResult embedded documents
+     * @see {@link RollTable} The RollTable document type which contains TableResult documents
      */
-    class TableResult extends TableResultConstructor {
+    class TableResult<TParent extends RollTable> extends ClientBaseTableResult<TParent> {
         /** A path reference to the icon image used to represent this result */
         get icon(): string;
 
@@ -17,9 +15,5 @@ declare global {
          * text
          */
         getChatText(): string;
-    }
-
-    interface TableResult {
-        readonly parent: RollTable | null;
     }
 }

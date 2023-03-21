@@ -8,41 +8,41 @@ declare global {
              * @param data                 Initial data from which to construct the document.
              * @property data The constructed data object for the document.
              */
-            class BaseScene extends abstract.Document {
-                grid: data.GridData;
-
+            class BaseScene extends abstract.Document<null> {
+                active: boolean;
+                background: data.TextureData;
+                grid: GridData;
                 darkness: number;
-
                 tokenVision: boolean;
-
                 globalLight: boolean;
-
                 hasGlobalThreshold: boolean;
-
                 globalLightThreshold: number;
-
-                flags: Record<string, Record<string, unknown>>;
+                flags: DocumentFlags;
+                playlist: BasePlaylist | null;
+                playlistSound: string | null;
+                journal: BaseJournalEntry | null;
+                journalEntryPage: string | null;
 
                 /** A reference to the Collection of Drawing instances in the Scene document, indexed by _id. */
-                readonly drawings: abstract.EmbeddedCollection<BaseDrawing>;
+                readonly drawings: abstract.EmbeddedCollection<BaseDrawing<this>>;
 
                 /** A reference to the Collection of AmbientLight instances in the Scene document, indexed by _id. */
-                readonly lights: abstract.EmbeddedCollection<BaseAmbientLight>;
+                readonly lights: abstract.EmbeddedCollection<BaseAmbientLight<this>>;
 
                 /** A reference to the Collection of Note instances in the Scene document, indexed by _id. */
-                readonly notes: abstract.EmbeddedCollection<BaseNote>;
+                readonly notes: abstract.EmbeddedCollection<BaseNote<this>>;
 
                 /** A reference to the Collection of AmbientSound instances in the Scene document, indexed by _id. */
-                readonly sounds: abstract.EmbeddedCollection<BaseAmbientSound>;
+                readonly sounds: abstract.EmbeddedCollection<BaseAmbientSound<this>>;
 
                 /** A reference to the Collection of MeasuredTemplate instances in the Scene document, indexed by _id. */
-                readonly templates: abstract.EmbeddedCollection<BaseMeasuredTemplate>;
+                readonly templates: abstract.EmbeddedCollection<BaseMeasuredTemplate<this>>;
 
                 /** A reference to the Collection of Token instances in the Scene document, indexed by _id. */
-                readonly tokens: abstract.EmbeddedCollection<BaseToken>;
+                readonly tokens: abstract.EmbeddedCollection<BaseToken<this>>;
 
                 /** A reference to the Collection of Tile instances in the Scene document, indexed by _id. */
-                readonly tiles: abstract.EmbeddedCollection<BaseTile>;
+                readonly tiles: abstract.EmbeddedCollection<BaseTile<this>>;
 
                 /** A reference to the Collection of Wall instances in the Scene document, indexed by _id. */
                 readonly walls: abstract.EmbeddedCollection<BaseWall<this>>;
@@ -65,12 +65,86 @@ declare global {
                 }: GetDimensionsParams): SceneDimensions;
             }
 
-            interface BaseScene {
-                readonly data: data.SceneData<this>;
-
-                readonly parent: null;
-
+            interface BaseScene extends foundry.abstract.Document<null> {
+                readonly _source: SceneSource;
                 get documentName(): (typeof BaseScene)["metadata"]["name"];
+            }
+
+            interface SceneSource {
+                _id: string;
+                name: string;
+
+                // Navigation
+                active: boolean;
+                navigation: boolean;
+                navOrder: number;
+                navName: string;
+
+                // Canvas Dimensions
+                img: VideoFilePath;
+                foreground: VideoFilePath;
+                thumb: ImageFilePath;
+                width: number;
+                height: number;
+                padding: number;
+                initial: {
+                    x: number;
+                    y: number;
+                    scale: number;
+                };
+
+                backgroundColor: HexColorString;
+
+                grid: GridData;
+
+                shiftX: number;
+                shiftY: number;
+
+                // Vision and Lighting Configuration
+                tokenVision: boolean;
+                fogExploration: boolean;
+                fogReset: string;
+                globalLight: boolean;
+                globalLightThreshold: number;
+                hasGlobalThreshold: boolean;
+                darkness: number;
+
+                // Embedded Collections
+                drawings: DrawingSource[];
+                tokens: TokenSource[];
+                lights: AmbientLightSource[];
+                notes: NoteSource[];
+                sounds: AmbientSoundSource[];
+                templates: MeasuredTemplateSource[];
+                tiles: TileSource[];
+                walls: WallSource[];
+
+                // Linked Documents
+                playlist: PlaylistSource | null;
+                playlistSound: PlaylistSoundSource | null;
+                journal: JournalEntrySource | null;
+                weather: string;
+
+                // Permissions
+                folder: string | null;
+                sort: number;
+                ownership: Record<string, DocumentOwnershipLevel>;
+                flags: Record<string, Record<string, unknown>>;
+            }
+
+            interface GridData {
+                /** The type of grid, a number from CONST.GRID_TYPES. */
+                type: GridType;
+                /** The grid size which represents the width (or height) of a single grid space. */
+                size: number;
+                /** A string representing the color used to render the grid lines. */
+                color: HexColorString;
+                /** A number between 0 and 1 for the opacity of the grid lines. */
+                alpha: number;
+                /** The number of distance units which are represented by a single grid space. */
+                distance: number;
+                /** A label for the units of measure which are used for grid distance. */
+                units: string;
             }
 
             interface SceneMetadata extends abstract.DocumentMetadata {
@@ -95,7 +169,8 @@ declare global {
     /**
      * @property [isUndo] Is the operation undoing a previous operation, only used by embedded Documents within a Scene
      */
-    interface SceneEmbeddedModificationContext extends DocumentModificationContext {
+    interface SceneEmbeddedModificationContext<TParent extends foundry.documents.BaseScene>
+        extends DocumentModificationContext<TParent> {
         isUndo?: boolean;
     }
 

@@ -59,7 +59,7 @@ declare global {
             pack: CompendiumCollection,
             id: string,
             updateData?: DocumentUpdateData<TDocument>,
-            options?: DocumentModificationContext<TDocument>
+            options?: DocumentModificationContext<null>
         ): Promise<TDocument | null>;
 
         /**

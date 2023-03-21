@@ -1,4 +1,4 @@
-import { CharacterPF2e } from "@actor";
+import { ActorPF2e, CharacterPF2e } from "@actor";
 import { ConsumablePF2e } from "@item";
 import { calculateTrickMagicItemCheckDC, TrickMagicItemDifficultyData } from "@item/consumable/spell-consumables";
 import { TrickMagicItemEntry, TrickMagicItemSkill, TRICK_MAGIC_SKILLS } from "@item/spellcasting-entry/trick";
@@ -7,7 +7,7 @@ import { ErrorPF2e } from "@util";
 
 export class TrickMagicItemPopup {
     /** The wand or scroll being "tricked" */
-    readonly item: Embedded<ConsumablePF2e>;
+    readonly item: ConsumablePF2e<ActorPF2e>;
 
     /** The actor doing the tricking */
     readonly actor!: CharacterPF2e;
@@ -15,9 +15,9 @@ export class TrickMagicItemPopup {
     /** The skill DC of the action's check */
     readonly checkDC: TrickMagicItemDifficultyData;
 
-    private translations = LocalizePF2e.translations.PF2E.TrickMagicItemPopup;
+    #translations = LocalizePF2e.translations.PF2E.TrickMagicItemPopup;
 
-    constructor(item: Embedded<ConsumablePF2e>) {
+    constructor(item: ConsumablePF2e<ActorPF2e>) {
         if (!item.isOfType("consumable")) {
             throw ErrorPF2e("Unexpected item used for Trick Magic Item");
         }
@@ -26,15 +26,15 @@ export class TrickMagicItemPopup {
         this.checkDC = calculateTrickMagicItemCheckDC(item);
 
         if (!(item.actor instanceof CharacterPF2e)) {
-            ui.notifications.warn(this.translations.InvalidActor);
+            ui.notifications.warn(this.#translations.InvalidActor);
             return;
         }
         this.actor = item.actor;
 
-        this.initialize();
+        this.#initialize();
     }
 
-    private async initialize() {
+    async #initialize(): Promise<void> {
         const skills = TRICK_MAGIC_SKILLS.filter((skill) => skill in this.checkDC).map((value) => ({
             value,
             label: game.i18n.localize(`PF2E.Skill${value.capitalize()}`),
@@ -44,21 +44,21 @@ export class TrickMagicItemPopup {
             const button: DialogButton = {
                 icon: '<i class="fas fa-dice-d20"></i>',
                 label: `${skill.label} (${skill.modifier < 0 ? "" : "+"}${skill.modifier})`,
-                callback: () => this.handleTrickItem(skill.value),
+                callback: () => this.#handleTrickItem(skill.value),
             };
             return { ...accumulated, [skill.value]: button };
         }, {});
         new Dialog(
             {
-                title: this.translations.Title,
-                content: `<p>${this.translations.Label}</p>`,
+                title: this.#translations.Title,
+                content: `<p>${this.#translations.Label}</p>`,
                 buttons,
             },
             { classes: ["dialog", "trick-magic-item"], width: "auto" }
         ).render(true);
     }
 
-    handleTrickItem(skill: TrickMagicItemSkill) {
+    #handleTrickItem(skill: TrickMagicItemSkill): void {
         const stat = this.actor.skills[skill];
         stat.check.roll({
             extraRollOptions: ["action:trick-magic-item"],

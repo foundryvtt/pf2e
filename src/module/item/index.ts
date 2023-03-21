@@ -3,6 +3,7 @@ export { PhysicalItemPF2e } from "./physical/document";
 export { ABCItemPF2e } from "./abc/document";
 export { AbstractEffectPF2e } from "./abstract-effect/document";
 export { ActionItemPF2e } from "./action/document";
+export { AfflictionPF2e } from "./affliction/document";
 export { AncestryPF2e } from "./ancestry/document";
 export { ArmorPF2e } from "./armor/document";
 export { BackgroundPF2e } from "./background/document";

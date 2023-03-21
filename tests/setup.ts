@@ -1,8 +1,8 @@
 import * as path from "path";
 import * as fs from "fs";
-import { FakeActor } from "./fakes/fake-actor";
-import { FakeItem } from "./fakes/fake-item";
-import { FakeToken } from "./fakes/fake-token";
+import { MockActor } from "./fakes/actor";
+import { MockItem } from "./fakes/item";
+import { MockToken } from "./fakes/token";
 
 export const fetchSpell = (name: string) => {
     const spellsDb = "./packs/data/spells.db/";
@@ -251,9 +251,9 @@ function mergeObject(
 globalThis.mergeObject = mergeObject;
 globalThis.duplicate = duplicate;
 globalThis.deepClone = deepClone;
-(global as any).Actor = FakeActor;
-(global as any).Item = FakeItem;
-(global as any).Token = FakeToken;
+(global as any).Actor = MockActor;
+(global as any).Item = MockItem;
+(global as any).Token = MockToken;
 (global as any).FormApplication = class {};
 (global as any).Roll = class {};
 (global as any).Application = class {};

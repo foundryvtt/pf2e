@@ -2,18 +2,18 @@ import { ANIMAL_COMPANION_SOURCE_ID } from "@actor/values";
 import { EffectPF2e } from "@item";
 import { TokenDocumentPF2e } from "@module/scene";
 import { pick } from "@util";
-import { CanvasPF2e, measureDistanceCuboid, TokenLayerPF2e } from "..";
+import { CanvasPF2e, TokenLayerPF2e, measureDistanceCuboid } from "..";
 import { HearingSource } from "../perception/hearing-source";
 import { AuraRenderers } from "./aura";
 
-class TokenPF2e extends Token<TokenDocumentPF2e> {
+class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends Token<TDocument> {
     /** Visual representation and proximity-detection facilities for auras */
     readonly auras: AuraRenderers;
 
     /** The token's line hearing source */
     hearing: HearingSource<this>;
 
-    constructor(document: TokenDocumentPF2e) {
+    constructor(document: TDocument) {
         super(document);
 
         this.hearing = new HearingSource(this);
@@ -385,7 +385,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 
     /** Destroy auras before removing this token from the canvas */
-    override _onDelete(options: DocumentModificationContext<TokenDocumentPF2e>, userId: string): void {
+    override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void {
         super._onDelete(options, userId);
         this.auras.clear();
     }
@@ -407,7 +407,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 }
 
-interface TokenPF2e extends Token<TokenDocumentPF2e> {
+interface TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends Token<TDocument> {
     get layer(): TokenLayerPF2e<this>;
 
     icon?: TokenImage;

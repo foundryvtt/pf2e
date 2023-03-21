@@ -1,6 +1,6 @@
 import { SkillLongForm } from "@actor/types";
 import { SKILL_LONG_FORMS } from "@actor/values";
-import { CombatantPF2e } from "@module/encounter";
+import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
 import { fontAwesomeIcon, setHasElement } from "@util";
 
 /** Add a button to set a check roll as the roller's initiative */
@@ -44,8 +44,8 @@ export const SetAsInitiative = {
                 const actor = message.token?.actor;
                 if (!actor) return;
 
-                const combatant = ((): Embedded<CombatantPF2e> | null => {
-                    const existing = game.combat.combatants.find((combatant) => combatant.actor === actor);
+                const combatant = ((): CombatantPF2e<EncounterPF2e> | null => {
+                    const existing = game.combat.combatants.find((c) => c.actor === actor);
                     if (existing) return existing;
                     ui.notifications.error(game.i18n.format("PF2E.Encounter.NotParticipating", { actor: actor.name }));
                     return null;

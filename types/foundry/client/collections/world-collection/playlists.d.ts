@@ -6,11 +6,9 @@
  * @see {@link PlaylistDirectory} The PlaylistDirectory sidebar directory
  */
 declare class Playlists extends WorldCollection<Playlist> {
-    /** @override */
-    constructor(data?: foundry.data.PlaylistSoundData[]);
+    constructor(data?: foundry.documents.PlaylistSoundSource[]);
 
-    /** @override */
-    static documentName: "Playlist";
+    static override documentName: "Playlist";
 
     /** Return the subset of Playlist entities which are currently playing */
     get playing(): Playlist[];

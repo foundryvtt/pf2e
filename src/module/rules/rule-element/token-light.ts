@@ -1,6 +1,7 @@
+import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import { isObject } from "@util";
-import { RuleElementPF2e, RuleElementData, RuleElementOptions } from "./";
+import { RuleElementData, RuleElementOptions, RuleElementPF2e } from "./";
 import { RuleElementSource } from "./data";
 
 /**
@@ -8,7 +9,7 @@ import { RuleElementSource } from "./data";
  * @category RuleElement
  */
 class TokenLightRuleElement extends RuleElementPF2e {
-    constructor(data: RuleElementSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: RuleElementSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
         this.validateData();
     }

@@ -1,7 +1,24 @@
-/** System note: refactored `ClientDocument` mixin typing approach in testing */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-declare class ClientDocument2<TParent extends ClientDocument2<any> | null = ClientDocument2<any> | null> extends foundry
-    .abstract.Document {
+type ParentData = { name: string; hasParents: boolean };
+
+const genClientBase = (
+    className: string,
+    {
+        hasSheet = true,
+        isCanvasDoc = false,
+        parents = isCanvasDoc ? [{ name: "Scene", hasParents: false }] : [],
+    }: { hasSheet?: boolean; isCanvasDoc?: boolean; parents?: ParentData[] }
+) => {
+    const declareOrExportClientBase = isCanvasDoc ? "declare" : "export";
+    const clientBaseName = `ClientBase${className}`;
+    const typeParamName = parents
+        .map((p) => (p.hasParents ? `ClientBase${p.name}<any>` : `ClientBase${p.name}`))
+        .join(" | ");
+    const typeParams = typeParamName ? `<TParent extends ${typeParamName} | null>` : "";
+    const tParentOrBlank = typeParamName ? "<TParent>" : "";
+    const tParentOrNull = typeParamName ? "TParent" : "null";
+    console.log(String.raw`${declareOrExportClientBase} class ${clientBaseName}${typeParams} extends foundry.documents.Base${className}${tParentOrBlank} {
+    protected _sheet: FormApplication<this> | null;
+
     /**
      * A collection of Application instances which should be re-rendered whenever this document is updated.
      * The keys of this object are the application ids and the values are Application instances. Each
@@ -10,9 +27,10 @@ declare class ClientDocument2<TParent extends ClientDocument2<any> | null = Clie
      */
     apps: { [K in number]?: Application };
 
-    constructor(data: object, context: DocumentConstructionContext<TParent>);
+    constructor(data: object, context?: DocumentConstructionContext<${tParentOrNull}>);
 
     static override name: string;
+
 
     protected override _initialize(options?: Record<string, unknown>): void;
 
@@ -46,16 +64,16 @@ declare class ClientDocument2<TParent extends ClientDocument2<any> | null = Clie
      * See the CONST.DOCUMENT_OWNERSHIP_LEVELS object for an enumeration of these levels.
      *
      * @example Get the permission level the current user has for a document
-     * ```js
+     * \`\`\`js
      * game.user.id; // "dkasjkkj23kjf"
      * actor.data.permission; // {default: 1, "dkasjkkj23kjf": 2};
      * actor.permission; // 2
-     * ```
+     * \`\`\`
      */
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this> | null;
+    get sheet(): ${hasSheet ? "FormApplication<this>" : "null"};
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -119,7 +137,7 @@ declare class ClientDocument2<TParent extends ClientDocument2<any> | null = Clie
      * @param doc The document to compare against.
      */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    getRelativeUUID(doc: ClientDocument2<any>): string;
+    getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
      * Handle clicking on a content link for this document.
@@ -133,17 +151,17 @@ declare class ClientDocument2<TParent extends ClientDocument2<any> | null = Clie
 
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<this>,
+        options: DocumentModificationContext<${tParentOrNull}>,
         userId: string
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<this>,
+        options: DocumentModificationContext<${tParentOrNull}>,
         userId: string
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void;
+    protected override _onDelete(options: DocumentModificationContext<${tParentOrNull}>, userId: string): void;
 
     /**
      * Preliminary actions taken before a set of embedded Documents in this parent Document are created.
@@ -169,7 +187,7 @@ declare class ClientDocument2<TParent extends ClientDocument2<any> | null = Clie
      */
     protected _onCreateEmbeddedDocuments(
         embeddedName: string,
-        documents: ClientDocument2<this>[],
+        documents: foundry.abstract.Document<this>[],
         result: object[],
         options: DocumentModificationContext<this>,
         userId: string
@@ -199,7 +217,7 @@ declare class ClientDocument2<TParent extends ClientDocument2<any> | null = Clie
      */
     protected _onUpdateEmbeddedDocuments(
         embeddedName: string,
-        documents: ClientDocument2<this>[],
+        documents: foundry.abstract.Document<this>[],
         result: object,
         options: DocumentUpdateContext<this>,
         userId: string
@@ -229,7 +247,7 @@ declare class ClientDocument2<TParent extends ClientDocument2<any> | null = Clie
      */
     protected _onDeleteEmbeddedDocuments(
         embeddedName: string,
-        documents: ClientDocument[],
+        documents: foundry.abstract.Document<this>[],
         result: string[],
         options: DocumentModificationContext<this>,
         userId: string
@@ -249,18 +267,14 @@ declare class ClientDocument2<TParent extends ClientDocument2<any> | null = Clie
      * @param [context={}] Additional context options or dialog positioning options
      * @returns A Promise which resolves to the created Document, or null if the dialog was closed.
      */
-    static createDialog(
+    static createDialog<TDocument extends foundry.abstract.Document>(
+        this: ConstructorOf<TDocument>,
         data?: Record<string, unknown>,
-        {
-            parent,
-            pack,
-            ...options
-        }?: {
-            parent: ClientDocument | null;
-            pack: CompendiumCollection<CompendiumDocument> | null;
-            options?: Record<string, unknown>;
-        }
-    ): Promise<InstanceType<typeof this> | null>;
+        context?: {
+            parent?: TDocument["parent"];
+            pack?: Collection<TDocument> | null;
+        } & Partial<FormApplicationOptions>
+    ): Promise<TDocument | null>;
 
     /**
      * Present a Dialog form to confirm deletion of this Document.
@@ -303,14 +317,17 @@ declare class ClientDocument2<TParent extends ClientDocument2<any> | null = Clie
      * The dropped data could have:
      * 1. A data object explicitly provided
      * 2. A UUID
-     * @memberof ClientDocumentMixin
      *
      * @param data    The data object extracted from a DataTransfer event
      * @param options Additional options which affect drop data behavior
      * @returns The resolved Document
      * @throws If a Document could not be retrieved from the provided data.
      */
-    static fromDropData(data?: object, options?: Record<string, unknown>): Promise<ClientDocument>;
+    static fromDropData<TDocument extends foundry.abstract.Document>(
+        this: ConstructorOf<TDocument>,
+        data?: object,
+        options?: Record<string, unknown>
+    ): Promise<TDocument | undefined>;
 
     /**
      * Update this Document using a provided JSON string.
@@ -345,26 +362,109 @@ declare class ClientDocument2<TParent extends ClientDocument2<any> | null = Clie
         }
     ): this["_source"];
 }
+`);
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-declare interface ClientDocument2<TParent extends ClientDocument2<any> | null = ClientDocument2<any> | null>
-    extends foundry.abstract.Document {
-    readonly parent: TParent;
+    if (isCanvasDoc) {
+        const canvasBaseName = `CanvasBase${className}`;
+
+        console.log(String.raw`/**
+ * A specialized sub-class of the ClientDocumentMixin which is used for document types that are intended to be
+ * represented upon the game Canvas.
+ * @category - Mixins
+ */
+export class ${canvasBaseName}<
+    TParent extends ClientBaseScene | null
+> extends ${clientBaseName}<TParent> {
+    /** A reference to the PlaceableObject instance which represents this Embedded Document. */
+    _object: PlaceableObject<this> | null;
+
+    /** Has this object been deliberately destroyed as part of the deletion workflow? */
+    protected _destroyed: boolean;
+
+    constructor(data: object, context: DocumentConstructionContext<TParent>);
+
+    /* -------------------------------------------- */
+    /*  Properties                                  */
+    /* -------------------------------------------- */
+
+    /** A lazily constructed PlaceableObject instance which can represent this Document on the game canvas. */
+    get object(): this["_object"];
+
+    /** A reference to the CanvasLayer which contains Document objects of this type. */
+    get layer(): NonNullable<this["object"]>["layer"] | null;
+
+    /** An indicator for whether this document is currently rendered on the game canvas. */
+    get rendered(): boolean;
+
+    /* -------------------------------------------- */
+    /*  Event Handlers                              */
+    /* -------------------------------------------- */
+
+    /**
+     * @see abstract.Document#_onCreate
+     */
+    protected override _onCreate(data: this["_source"], options: DocumentModificationContext<TParent>, userId: string): void;
+
+    /**
+     * @see abstract.Document#_onUpdate
+     */
+    protected override _onUpdate(
+        changed: DeepPartial<this["_source"]>,
+        options: DocumentUpdateContext<TParent>,
+        userId: string
+    ): void;
+
+    /**
+     * @see abstract.Document#_onDelete
+     */
+    protected _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
 }
 
-type BaseDocumentWithOmissions<TDocument extends foundry.abstract.Document> = Omit<
-    TDocument,
-    | "_initialize"
-    | "_source"
-    | "clone"
-    | "delete"
-    | "documentName"
-    | "getUserLevel"
-    | "parent"
-    | "setFlag"
-    | "toJSON"
-    | "toObject"
-    | "unsetFlag"
-    | "update"
-    | "updateSource"
->;
+export interface ${canvasBaseName}<
+    TParent extends ClientBaseScene | null
+> extends ${clientBaseName}<TParent> {
+    // System note: in most but not all canvas documents
+    hidden?: boolean;
+}
+`);
+    }
+};
+
+const clientDocs: Record<string, { hasSheet?: boolean; isCanvasDoc?: boolean; parents?: ParentData[] }> = {
+    AmbientLight: { isCanvasDoc: true },
+    AmbientSound: { isCanvasDoc: true },
+    ActiveEffect: {
+        parents: [
+            { name: "Actor", hasParents: true },
+            { name: "Item", hasParents: true },
+        ],
+    },
+    Actor: { parents: [{ name: "Token", hasParents: true }] },
+    Adventure: {},
+    Cards: {},
+    ChatMessage: {},
+    Combat: {},
+    Combatant: { parents: [{ name: "Combat", hasParents: false }] },
+    Drawing: { isCanvasDoc: true },
+    FogExploration: { hasSheet: false },
+    Folder: {},
+    Item: { parents: [{ name: "Actor", hasParents: true }] },
+    JournalEntry: {},
+    JournalEntryPage: { parents: [{ name: "JournalEntry", hasParents: false }] },
+    Macro: {},
+    MeasuredTemplate: { isCanvasDoc: true },
+    Note: { isCanvasDoc: true },
+    Playlist: {},
+    PlaylistSound: { parents: [{ name: "Playlist", hasParents: false }] },
+    RollTable: {},
+    Scene: {},
+    TableResult: { parents: [{ name: "RollTable", hasParents: false }] },
+    Tile: { isCanvasDoc: true },
+    Token: { isCanvasDoc: true },
+    User: {},
+    Wall: { isCanvasDoc: true },
+};
+
+for (const [className, data] of Object.entries(clientDocs)) {
+    genClientBase(className, data);
+}

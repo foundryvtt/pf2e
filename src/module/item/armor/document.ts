@@ -1,3 +1,4 @@
+import { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression";
 import { ItemSummaryData } from "@item/data";
 import { getResilientBonus, PhysicalItemHitPoints, PhysicalItemPF2e } from "@item/physical";
@@ -6,8 +7,8 @@ import { LocalizePF2e } from "@module/system/localize";
 import { addSign, ErrorPF2e, setHasElement, sluggify } from "@util";
 import { ArmorCategory, ArmorGroup, ArmorSource, ArmorSystemData, BaseArmorType } from ".";
 
-class ArmorPF2e extends PhysicalItemPF2e {
-    override isStackableWith(item: PhysicalItemPF2e): boolean {
+class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
+    override isStackableWith(item: PhysicalItemPF2e<TParent>): boolean {
         if (this.isEquipped || item.isEquipped) return false;
         return super.isStackableWith(item);
     }
@@ -82,7 +83,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
             return false;
         }
 
-        return this.actor.heldShield === this && this.actor.attributes.shield.raised;
+        return this.id === this.actor.attributes.shield.itemId && this.actor.attributes.shield.raised;
     }
 
     /** Generate a list of strings for use in predication */
@@ -137,7 +138,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
         }
     }
 
-    override prepareActorData(): void {
+    override prepareActorData(this: ArmorPF2e<ActorPF2e>): void {
         const { actor } = this;
         if (!actor) throw ErrorPF2e("This method may only be called from embedded items");
 
@@ -207,7 +208,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
     }
 
     override async getChatData(
-        this: Embedded<ArmorPF2e>,
+        this: ArmorPF2e<ActorPF2e>,
         htmlOptions: EnrichHTMLOptions = {}
     ): Promise<ItemSummaryData> {
         const systemData = this.system;
@@ -242,7 +243,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
     }
 }
 
-interface ArmorPF2e extends PhysicalItemPF2e {
+interface ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     readonly _source: ArmorSource;
     system: ArmorSystemData;
 }

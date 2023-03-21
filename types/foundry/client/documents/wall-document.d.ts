@@ -1,11 +1,9 @@
-import { WallDocumentConstructor } from "./constructors";
+import { CanvasBaseWall } from "./client-base-mixes.mjs";
 
 declare global {
-    class WallDocument<TParent extends Scene | null> extends WallDocumentConstructor {}
+    class WallDocument<TParent extends Scene | null> extends CanvasBaseWall<TParent> {}
 
-    interface WallDocument<TParent extends Scene | null> {
-        readonly parent: TParent;
-
-        readonly _object: Wall<this>;
+    interface WallDocument<TParent extends Scene | null> extends CanvasBaseWall<TParent> {
+        get object(): Wall<this> | null;
     }
 }

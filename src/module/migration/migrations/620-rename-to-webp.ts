@@ -70,18 +70,18 @@ export class Migration620RenameToWebp extends MigrationBase {
         }
     }
 
-    override async updateMacro(macroData: foundry.data.MacroSource): Promise<void> {
+    override async updateMacro(macroData: foundry.documents.MacroSource): Promise<void> {
         macroData.img = this.renameToWebP(macroData.img);
     }
 
-    override async updateTable(tableData: foundry.data.RollTableSource): Promise<void> {
+    override async updateTable(tableData: foundry.documents.RollTableSource): Promise<void> {
         tableData.img = this.renameToWebP(tableData.img);
         for (const result of tableData.results) {
             result.img = this.renameToWebP(result.img);
         }
     }
 
-    override async updateToken(tokenData: foundry.data.TokenSource): Promise<void> {
+    override async updateToken(tokenData: foundry.documents.TokenSource): Promise<void> {
         tokenData.texture.src = this.renameToWebP(tokenData.texture.src);
         tokenData.effects = tokenData.effects.filter((texture) => !this.regexp.test(texture));
     }

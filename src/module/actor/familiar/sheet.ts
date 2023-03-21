@@ -6,11 +6,11 @@ import { FamiliarSheetData } from "./types";
 /**
  * @category Actor
  */
-export class FamiliarSheetPF2e extends CreatureSheetPF2e<FamiliarPF2e> {
+export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureSheetPF2e<TActor> {
     /** There is currently no actor config for familiars */
     protected readonly actorConfigClass = null;
 
-    static override get defaultOptions() {
+    static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         mergeObject(options, {
             classes: [...options.classes, "familiar"],
@@ -25,12 +25,12 @@ export class FamiliarSheetPF2e extends CreatureSheetPF2e<FamiliarPF2e> {
         return "systems/pf2e/templates/actors/familiar-sheet.hbs";
     }
 
-    override async getData(options?: ActorSheetOptions): Promise<FamiliarSheetData> {
+    override async getData(options?: ActorSheetOptions): Promise<FamiliarSheetData<TActor>> {
         const baseData = await super.getData(options);
         const familiar = this.actor;
         // Get all potential masters of the familiar
         const masters = game.actors.filter(
-            (a): a is CharacterPF2e => a.isOfType("character") && a.testUserPermission(game.user, "OWNER")
+            (a): a is CharacterPF2e<null> => a.type === "character" && a.testUserPermission(game.user, "OWNER")
         );
 
         // list of abilities that can be selected as spellcasting ability

@@ -1,17 +1,16 @@
+import { AuraColors, AuraData } from "@actor/types";
 import { ItemTrait } from "@item/data/base";
+import { measureDistanceCuboid } from "@module/canvas";
 import { EffectAreaSquare } from "@module/canvas/effect-area-square";
 import { getAreaSquares } from "@module/canvas/token/aura/util";
 import { ScenePF2e } from "@scene/document";
-import { TokenAuraData } from "./types";
 import { TokenDocumentPF2e } from "../document";
-import { measureDistanceCuboid } from "@module/canvas";
-import { ActorPF2e } from "@actor";
-import { AuraColors, AuraData } from "@actor/types";
+import { TokenAuraData } from "./types";
 
 class TokenAura implements TokenAuraData {
     slug: string;
 
-    token: Embedded<TokenDocumentPF2e>;
+    token: TokenDocumentPF2e;
 
     level: number | null;
 
@@ -42,7 +41,7 @@ class TokenAura implements TokenAuraData {
     }
 
     private get scene(): ScenePF2e {
-        return this.token.scene;
+        return this.token.scene!;
     }
 
     get bounds(): PIXI.Rectangle {
@@ -68,12 +67,12 @@ class TokenAura implements TokenAuraData {
     }
 
     /** Does this aura overlap with (at least part of) a token? */
-    containsToken(token: Embedded<TokenDocumentPF2e>): boolean {
+    containsToken(token: TokenDocumentPF2e): boolean {
         // 1. If the token is the one emitting the aura, return true early
         if (token === this.token) return true;
 
         // 2. If this aura is out of range, return false early
-        if (this.token.object.distanceTo(token.object) > this.radius) return false;
+        if (this.token.object!.distanceTo(token.object!) > this.radius) return false;
 
         // 3. Check whether any aura square intersects the token's space
         return this.squares.some((s) => s.active && measureDistanceCuboid(s, token.bounds) === 0);
@@ -88,8 +87,7 @@ class TokenAura implements TokenAuraData {
         if (!(auraActor && this.scene.isInFocus)) return;
 
         const tokensToCheck = (specific ? specific : this.token.scene?.tokens.contents ?? []).filter(
-            (t): t is Embedded<TokenDocumentPF2e> & { actor: ActorPF2e } =>
-                !!t.actor?.canUserModify(game.user, "update")
+            (t) => !!t.actor?.canUserModify(game.user, "update")
         );
 
         const auraData = auraActor.auras.get(this.slug);
@@ -98,7 +96,7 @@ class TokenAura implements TokenAuraData {
         const containedTokens = tokensToCheck.filter((t) => this.containsToken(t));
 
         // Get unique actors and notify
-        const affectedActors = new Set(containedTokens.map((t) => t.actor));
+        const affectedActors = new Set(containedTokens.flatMap((t) => t.actor ?? []));
         const origin = { actor: auraActor, token: this.token };
         for (const actor of affectedActors) {
             await actor.applyAreaEffects(auraData, origin);
@@ -110,7 +108,7 @@ interface TokenAuraParams extends Omit<AuraData, "effects" | "traits"> {
     slug: string;
     level: number | null;
     radius: number;
-    token: Embedded<TokenDocumentPF2e>;
+    token: TokenDocumentPF2e;
     traits: Set<ItemTrait>;
 }
 

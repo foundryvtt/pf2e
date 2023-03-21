@@ -1,4 +1,4 @@
-import { DrawingConstructor } from "./constructors";
+import { CanvasBaseDrawing } from "./client-base-mixes.mjs";
 
 declare global {
     /**
@@ -9,7 +9,7 @@ declare global {
      * @see {@link applications.DrawingConfig}    The Drawing configuration application
      *
      */
-    class DrawingDocument extends DrawingConstructor {
+    class DrawingDocument<TParent extends Scene | null> extends CanvasBaseDrawing<TParent> {
         /** A reference to the User who created the Drawing document. */
         get author(): User | undefined;
 
@@ -17,9 +17,7 @@ declare global {
         override get isOwner(): boolean;
     }
 
-    interface DrawingDocument {
-        readonly parent: Scene | null;
-
-        readonly _object: Drawing;
+    interface DrawingDocument<TParent extends Scene | null> extends CanvasBaseDrawing<TParent> {
+        readonly _object: Drawing<this> | null;
     }
 }

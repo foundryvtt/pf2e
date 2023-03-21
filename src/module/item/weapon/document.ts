@@ -1,3 +1,4 @@
+import { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression";
 import { ActorSizePF2e } from "@actor/data/size";
 import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e } from "@item";
@@ -36,7 +37,7 @@ import {
 } from "./types";
 import { CROSSBOW_WEAPONS, MANDATORY_RANGED_GROUPS, THROWN_RANGES } from "./values";
 
-class WeaponPF2e extends PhysicalItemPF2e {
+class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     /** Given this weapon is an alternative usage, whether it is melee or thrown */
     altUsageType: "melee" | "thrown" | null = null;
 
@@ -51,7 +52,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
         return super.isEquipped || (this.handsHeld === 1 && traits.value.some((t) => /^jousting-d\d{1,2}$/.test(t)));
     }
 
-    override isStackableWith(item: PhysicalItemPF2e): boolean {
+    override isStackableWith(item: PhysicalItemPF2e<TParent>): boolean {
         if (this.category === "unarmed" || !item.isOfType("weapon") || item.category === "unarmed") {
             return false;
         }
@@ -134,7 +135,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
         return this.isRanged && ![null, "-"].includes(this.reload);
     }
 
-    get ammo(): Embedded<ConsumablePF2e> | null {
+    get ammo(): ConsumablePF2e<NonNullable<TParent>> | null {
         const ammo = this.actor?.items.get(this.system.selectedAmmoId ?? "");
         return ammo instanceof ConsumablePF2e && ammo.quantity > 0 ? ammo : null;
     }
@@ -436,7 +437,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     override async getChatData(
-        this: Embedded<WeaponPF2e>,
+        this: WeaponPF2e<ActorPF2e>,
         htmlOptions: EnrichHTMLOptions = {}
     ): Promise<ItemSummaryData> {
         const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
@@ -533,7 +534,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
      * @param [options.recurse=true] Whether to get the alternative usages of alternative usages
      */
     getAltUsages(options?: { recurse?: boolean }): this[];
-    getAltUsages({ recurse = true } = {}): WeaponPF2e[] {
+    getAltUsages({ recurse = true } = {}): WeaponPF2e<TParent>[] {
         const meleeUsage = this.toMeleeUsage();
 
         return [
@@ -605,7 +606,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     /** Generate a melee item from this weapon for use by NPCs */
-    toNPCAttacks(this: Embedded<WeaponPF2e>): Embedded<MeleePF2e>[] {
+    toNPCAttacks(this: WeaponPF2e<ActorPF2e>): MeleePF2e<ActorPF2e>[] {
         const { actor } = this;
         if (!actor.isOfType("npc")) throw ErrorPF2e("Melee items can only be generated for NPCs");
 
@@ -745,7 +746,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             flags: { pf2e: { linkedWeapon: this.id } },
         };
 
-        const attack = new MeleePF2e(source, { parent: this.actor }) as Embedded<MeleePF2e>;
+        const attack = new MeleePF2e(source, { parent: this.actor });
         // Melee items retrieve these during `prepareSiblingData`, but if the attack is from a Strike rule element,
         // there will be no inventory weapon from which to pull the data.
         attack.category = this.category;
@@ -761,7 +762,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
     protected override _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<this>,
+        options: DocumentUpdateContext<TParent>,
         user: UserPF2e
     ): Promise<void> {
         const traits = changed.system?.traits ?? {};
@@ -773,7 +774,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     /** Remove links to this weapon from NPC attacks */
-    protected override _onDelete(options: DocumentModificationContext, userId: string): void {
+    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
         super._onDelete(options, userId);
 
         if (game.user.id === userId) {
@@ -786,7 +787,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
     }
 }
 
-interface WeaponPF2e extends PhysicalItemPF2e {
+interface WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     flags: WeaponFlags;
     readonly _source: WeaponSource;
     system: WeaponSystemData;

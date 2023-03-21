@@ -7,7 +7,7 @@ import { ItemType } from ".";
 import { PhysicalItemTrait } from "../physical/data";
 
 interface BaseItemSourcePF2e<TType extends ItemType, TSystemSource extends ItemSystemSource = ItemSystemSource>
-    extends foundry.data.ItemSource<TType, TSystemSource> {
+    extends foundry.documents.ItemSource<TType, TSystemSource> {
     flags: ItemSourceFlagsPF2e;
 }
 

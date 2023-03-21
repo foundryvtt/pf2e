@@ -34,7 +34,9 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
 
         if (itemType === "spellSlot") return;
 
-        const item = isFormula ? ((await fromUuid(itemId ?? "")) as Embedded<ItemPF2e>) : actor.items.get(itemId ?? "");
+        const item = isFormula
+            ? ((await fromUuid(itemId ?? "")) as ItemPF2e<ActorPF2e>)
+            : actor.items.get(itemId ?? "");
 
         const summary = await (async () => {
             const existing = htmlQuery(element, ":scope > .item-summary");
@@ -95,7 +97,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
     /**
      * Called when an item summary is expanded and needs to be filled out.
      */
-    async renderItemSummary(div: HTMLElement, item: Embedded<ItemPF2e>, chatData: ItemSummaryData): Promise<void> {
+    async renderItemSummary(div: HTMLElement, item: ItemPF2e<ActorPF2e>, chatData: ItemSummaryData): Promise<void> {
         const description = isItemSystemData(chatData)
             ? chatData.description.value
             : await TextEditor.enrichHTML(item.description, { rollData: item.getRollData(), async: true });

@@ -1,4 +1,4 @@
-import { CharacterPF2e } from "@actor";
+import { ActorPF2e, CharacterPF2e } from "@actor";
 import { ActorType } from "@actor/data";
 import { ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
 import { AbilityString } from "@actor/types";
@@ -21,7 +21,7 @@ class FixedProficiencyRuleElement extends RuleElementPF2e {
 
     private ability: AbilityString | null;
 
-    constructor(data: FixedProficiencySource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: FixedProficiencySource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
         if (typeof data.selector === "string") {

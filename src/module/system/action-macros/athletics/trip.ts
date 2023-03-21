@@ -1,12 +1,13 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActorPF2e } from "@actor";
 import { MODIFIER_TYPE, ModifierPF2e } from "@actor/modifiers";
-import { extractModifierAdjustments } from "@module/rules/helpers";
 import { WeaponPF2e } from "@item";
+import { extractModifierAdjustments } from "@module/rules/helpers";
+import { ActionMacroHelpers, SkillActionOptions } from "..";
 
 export function trip(options: SkillActionOptions) {
     const slug = options?.skill ?? "athletics";
     const rollOptions = ["action:trip"];
-    ActionMacroHelpers.simpleRollActionCheck<Embedded<WeaponPF2e>>({
+    ActionMacroHelpers.simpleRollActionCheck<WeaponPF2e<ActorPF2e>>({
         actors: options.actors,
         actionGlyph: options.glyph ?? "A",
         title: "PF2E.Actions.Trip.Title",

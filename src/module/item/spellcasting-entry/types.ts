@@ -8,10 +8,10 @@ import { Statistic, StatisticChatData } from "@system/statistic";
 import { SpellCollection } from "./collection";
 import { SpellcastingEntrySystemData } from "./data";
 
-interface BaseSpellcastingEntry {
+interface BaseSpellcastingEntry<TActor extends ActorPF2e | null = ActorPF2e | null> {
     id: string;
     name: string;
-    actor: ActorPF2e | null;
+    actor: TActor;
     sort: number;
     category: SpellcastingCategory;
     ability?: AbilityString;
@@ -23,7 +23,7 @@ interface BaseSpellcastingEntry {
     isSpontaneous: boolean;
     statistic?: Statistic | null;
     tradition: MagicTradition | null;
-    spells: SpellCollection | null;
+    spells: SpellCollection<NonNullable<TActor>, this> | null;
     system?: SpellcastingEntrySystemData;
 
     getSheetData(): Promise<SpellcastingSheetData>;
@@ -33,7 +33,7 @@ interface BaseSpellcastingEntry {
     cast(spell: SpellPF2e, options: CastOptions): Promise<void>;
 }
 
-interface SpellcastingEntry extends BaseSpellcastingEntry {
+interface SpellcastingEntry<TActor extends ActorPF2e | null> extends BaseSpellcastingEntry<TActor> {
     ability: AbilityString;
     statistic: Statistic;
 }
@@ -57,7 +57,7 @@ type OptionalProperties = "isFlexible" | "isFocusPool" | "isInnate" | "isPrepare
 
 /** Spell list render data for a `BaseSpellcastingEntry` */
 interface SpellcastingSheetData
-    extends Omit<BaseSpellcastingEntry, "statistic" | OptionalProperties | UnusedProperties> {
+    extends Omit<BaseSpellcastingEntry<ActorPF2e>, "statistic" | OptionalProperties | UnusedProperties> {
     statistic: StatisticChatData | null;
     hasCollection: boolean;
     flexibleAvailable?: { value: number; max: number } | null;
@@ -91,12 +91,12 @@ interface SpellcastingSlotLevel {
 }
 
 interface SpellPrepEntry {
-    spell: Embedded<SpellPF2e>;
+    spell: SpellPF2e<ActorPF2e>;
     signature?: boolean;
 }
 
 interface ActiveSpell {
-    spell: Embedded<SpellPF2e>;
+    spell: SpellPF2e<ActorPF2e>;
     /** The level at which a spell is cast (if prepared or automatically heighted) */
     castLevel?: number;
     expended?: boolean;

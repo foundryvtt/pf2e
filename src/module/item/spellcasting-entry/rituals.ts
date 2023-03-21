@@ -5,12 +5,12 @@ import { SpellCollection } from "./collection";
 import { BaseSpellcastingEntry, CastOptions, SpellcastingSheetData } from "./types";
 
 /** An in-memory spellcasting entry for rituals */
-export class RitualSpellcasting implements BaseSpellcastingEntry {
-    actor: ActorPF2e;
+export class RitualSpellcasting<TActor extends ActorPF2e> implements BaseSpellcastingEntry<TActor> {
+    actor: TActor;
 
-    spells: SpellCollection;
+    spells: SpellCollection<TActor, this>;
 
-    constructor(actor: ActorPF2e, rituals: Embedded<SpellPF2e>[]) {
+    constructor(actor: TActor, rituals: SpellPF2e<TActor>[]) {
         this.actor = actor;
         this.spells = new SpellCollection(this);
         for (const ritual of rituals) {

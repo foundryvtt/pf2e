@@ -5,9 +5,12 @@ import { MigrationList, MigrationRunner } from "./migration";
 import { MigrationRunnerBase } from "./migration/runner/base";
 
 /** Ensure that the import JSON is actually importable and that the data is fully migrated */
-async function preImportJSON<T extends ActorPF2e | ItemPF2e>(document: T, json: string): Promise<string | null> {
+async function preImportJSON<TDocument extends ActorPF2e | ItemPF2e>(
+    document: TDocument,
+    json: string
+): Promise<string | null> {
     const source: unknown = JSON.parse(json);
-    if (!isObject<T["_source"] & { data?: unknown }>(source)) return null;
+    if (!isObject<TDocument["_source"] & { data?: unknown }>(source)) return null;
     if ("data" in source) {
         if ("items" in source) {
             ActorPF2e.migrateData(source);
@@ -31,7 +34,7 @@ async function preImportJSON<T extends ActorPF2e | ItemPF2e>(document: T, json: 
         return null;
     }
 
-    const newDoc = new (document.constructor as ConstructorOf<T>)(source, { parent: document.parent });
+    const newDoc = new (document.constructor as ConstructorOf<TDocument>)(source, { parent: document.parent });
     const migrations = MigrationList.constructFromVersion(newDoc.schemaVersion);
     await MigrationRunner.ensureSchemaVersion(newDoc, migrations);
 

@@ -5,9 +5,12 @@ import { ErrorPF2e, sluggify } from "@util";
 import { EffectBadge } from "./data";
 import { UUIDUtils } from "@util/uuid-utils";
 import { ShowFloatyEffectParams } from "@module/canvas/token/object";
+import { ConditionSource, ConditionSystemData } from "@item/condition";
+import { EffectSource, EffectSystemData } from "@item/effect";
+import { AfflictionSource, AfflictionSystemData } from "@item/affliction";
 
 /** Base effect type for all PF2e effects including conditions and afflictions */
-export abstract class AbstractEffectPF2e extends ItemPF2e {
+abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     /** A normalized version of the slug that shows in roll options, removing certain prefixes */
     rollOptionSlug!: string;
 
@@ -73,7 +76,7 @@ export abstract class AbstractEffectPF2e extends ItemPF2e {
         const badge = this.badge;
         if (typeof badge?.value === "number") {
             const otherEffects = actor.items.filter(
-                (i): i is Embedded<AbstractEffectPF2e> =>
+                (i): i is AbstractEffectPF2e<ActorPF2e> =>
                     i instanceof AbstractEffectPF2e && i.rollOptionSlug === this.rollOptionSlug
             );
             const values = otherEffects
@@ -87,14 +90,14 @@ export abstract class AbstractEffectPF2e extends ItemPF2e {
 
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<this>,
+        options: DocumentModificationContext<TParent>,
         userId: string
     ): void {
         super._onCreate(data, options, userId);
         this.handleChange({ create: this });
     }
 
-    protected override _onDelete(options: DocumentModificationContext, userId: string): void {
+    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
         super._onDelete(options, userId);
         this.handleChange({ delete: { name: this._source.name } });
     }
@@ -125,3 +128,10 @@ export abstract class AbstractEffectPF2e extends ItemPF2e {
         game.pf2e.StatusEffects.refresh();
     }
 }
+
+interface AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
+    readonly _source: AfflictionSource | ConditionSource | EffectSource;
+    system: AfflictionSystemData | ConditionSystemData | EffectSystemData;
+}
+
+export { AbstractEffectPF2e };

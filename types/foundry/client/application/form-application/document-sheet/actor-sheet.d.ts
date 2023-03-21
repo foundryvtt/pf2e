@@ -2,15 +2,16 @@ export {};
 
 declare global {
     interface ActorSheetOptions extends DocumentSheetOptions {
-        token: TokenDocument | null;
+        token: TokenDocument<Scene | null> | null;
     }
 
-    interface ActorSheetData<A extends Actor> extends DocumentSheetData<A> {
+    interface ActorSheetData<TActor extends Actor<TokenDocument<Scene | null> | null>>
+        extends DocumentSheetData<TActor> {
         actor: any;
         data: any;
         items: any;
         cssClass: "editable" | "locked";
-        effects: RawObject<foundry.data.ActiveEffectData>[];
+        effects: RawObject<ActiveEffect<TActor>>[];
         limited: boolean;
         options: ActorSheetOptions;
     }
@@ -24,10 +25,10 @@ declare global {
      * @param actor                   The Actor instance being displayed within the sheet.
      * @param options    Additional application configuration options.
      */
-    class ActorSheet<TActor extends Actor = Actor, TItem extends Item = Item> extends DocumentSheet<
-        TActor,
-        ActorSheetOptions
-    > {
+    class ActorSheet<
+        TActor extends Actor<TokenDocument<Scene | null> | null>,
+        TItem extends Item<Actor<TokenDocument<Scene | null> | null> | null> = Item<Actor<TokenDocument<Scene | null> | null> | null>
+    > extends DocumentSheet<TActor, ActorSheetOptions> {
         static override get defaultOptions(): ActorSheetOptions;
 
         override get id(): string;
@@ -89,10 +90,10 @@ declare global {
          * @param data The data transfer extracted from the event
          * @return A data object which describes the result of the drop
          */
-        protected _onDropActiveEffect<D extends ActiveEffect>(
+        protected _onDropActiveEffect<TDocument extends ActiveEffect<TActor>>(
             event: ElementDragEvent,
-            data?: DropCanvasData<"ActiveEffect", D>
-        ): Promise<D | void>;
+            data?: DropCanvasData<"ActiveEffect", TDocument>
+        ): Promise<TDocument | void>;
 
         /**
          * Handle dropping of an Actor data onto another Actor sheet
@@ -124,13 +125,18 @@ declare global {
          * This method is factored out to allow downstream classes the opportunity to override item creation behavior.
          * @param itemData The item data requested for creation
          */
-        protected _onDropItemCreate(itemData: TItem["_source"] | TItem["_source"][]): Promise<TItem[]>;
+        protected _onDropItemCreate(
+            itemData: foundry.documents.ItemSource | foundry.documents.ItemSource[]
+        ): Promise<Item<TActor>[]>;
 
         /**
          * Handle a drop event for an existing embedded Item to sort that Item relative to its siblings
          * @param  event
          * @param itemData
          */
-        protected _onSortItem(event: ElementDragEvent, itemData: TItem["_source"]): Promise<TItem[]>;
+        protected _onSortItem(
+            event: ElementDragEvent,
+            itemData: CollectionValue<TActor["items"]>["_source"]
+        ): Promise<Item<TActor>[]>;
     }
 }

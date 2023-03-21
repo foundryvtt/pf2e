@@ -14,14 +14,14 @@ declare global {
      * @param socket    The open web-socket which should be used to transact game-state data
      */
     class Game<
-        TActor extends Actor,
+        TActor extends Actor<null>,
         TActors extends Actors<TActor>,
-        TChatMessage extends ChatMessage<TActor>,
+        TChatMessage extends ChatMessage,
         TCombat extends Combat,
-        TItem extends Item<TActor>,
+        TItem extends Item<null>,
         TMacro extends Macro,
         TScene extends Scene,
-        TUser extends User<TActor>
+        TUser extends User
     > {
         /**
          * The named view which is currently active.
@@ -36,11 +36,11 @@ declare global {
         data: {
             actors: TActor["_source"][];
             items: TItem["_source"][];
-            macros: foundry.data.MacroSource[];
-            messages: foundry.data.ChatMessageSource[];
+            macros: TMacro["_source"][];
+            messages: TChatMessage["_source"][];
             packs: CompendiumMetadata[];
-            tables: foundry.data.RollTableSource[];
-            users: foundry.documents.UserSource[];
+            tables: foundry.documents.RollTableSource[];
+            users: TUser["_source"][];
             version: string;
         };
 
@@ -163,7 +163,9 @@ declare global {
          * Fetch World data and return a Game instance
          * @return A Promise which resolves to the created Game instance
          */
-        static create(): Promise<Game<Actor, Actors<Actor>, ChatMessage, Combat, Item, Macro, Scene, User>>;
+        static create(): Promise<
+            Game<Actor<null>, Actors<Actor<null>>, ChatMessage, Combat, Item<null>, Macro, Scene, User>
+        >;
 
         /** Request World data from server and return it */
         static getWorldData(socket: io.Socket): Promise<object>;

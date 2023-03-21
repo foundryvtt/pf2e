@@ -6,12 +6,14 @@ import { SlotKey } from "./data";
 import { RitualSpellcasting } from "./rituals";
 import { ActiveSpell, BaseSpellcastingEntry, SpellcastingSlotLevel, SpellPrepEntry } from "./types";
 
-class SpellCollection extends Collection<Embedded<SpellPF2e>> {
-    readonly entry: BaseSpellcastingEntry;
+class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingEntry<TActor | null>> extends Collection<
+    SpellPF2e<TActor>
+> {
+    readonly entry: TEntry;
 
-    readonly actor: ActorPF2e;
+    readonly actor: TActor;
 
-    constructor(entry: BaseSpellcastingEntry) {
+    constructor(entry: TEntry) {
         if (!entry.actor) throw ErrorPF2e("a spell collection must have an associated actor");
         super();
 
@@ -29,7 +31,9 @@ class SpellCollection extends Collection<Embedded<SpellPF2e>> {
         return Math.min(10, Math.max(highestSpell, actorSpellLevel));
     }
 
-    #assertEntryIsDocument(entry: BaseSpellcastingEntry): asserts entry is SpellcastingEntryPF2e {
+    #assertEntryIsDocument(
+        entry: BaseSpellcastingEntry<TActor | null>
+    ): asserts entry is SpellcastingEntryPF2e<TActor> {
         if (!(entry instanceof ItemPF2e)) {
             throw ErrorPF2e("`this#entry` is not a `SpellcastingEntryPF2e`");
         }
@@ -39,8 +43,8 @@ class SpellCollection extends Collection<Embedded<SpellPF2e>> {
      * Adds a spell to this spellcasting entry, either moving it from another one if its the same actor,
      * or creating a new spell if its not. If given a level, it will heighten to that level if it can be.
      */
-    async addSpell(spell: SpellPF2e, options: { slotLevel?: number } = {}): Promise<SpellPF2e | null> {
-        const actor = this.actor;
+    async addSpell(spell: SpellPF2e, options: { slotLevel?: number } = {}): Promise<SpellPF2e<TActor> | null> {
+        const { actor } = this;
         if (!actor.isOfType("creature")) {
             throw ErrorPF2e("Spellcasting entries can only exist on creatures");
         }
@@ -84,7 +88,10 @@ class SpellCollection extends Collection<Embedded<SpellPF2e>> {
             canHeighten && heightenLevel >= spell.baseLevel ? { "system.location.heightenedLevel": heightenLevel } : {};
 
         if (spell.actor === actor) {
-            return spell.update({ "system.location.value": this.id, ...heightenedUpdate });
+            return spell.update({
+                "system.location.value": this.id,
+                ...heightenedUpdate,
+            }) as Promise<SpellPF2e<TActor> | null>;
         } else {
             const source = spell.clone({ "system.location.value": this.id, ...heightenedUpdate }).toObject();
             const created = (await actor.createEmbeddedDocuments("Item", [source])).shift();
@@ -94,7 +101,7 @@ class SpellCollection extends Collection<Embedded<SpellPF2e>> {
     }
 
     /** Saves the prepared spell slot data to the spellcasting entry  */
-    async prepareSpell(spell: SpellPF2e, slotLevel: number, spellSlot: number): Promise<SpellcastingEntryPF2e> {
+    async prepareSpell(spell: SpellPF2e, slotLevel: number, spellSlot: number): Promise<TEntry> {
         this.#assertEntryIsDocument(this.entry);
 
         if (spell.baseLevel > slotLevel && !(slotLevel === 0 && spell.isCantrip)) {
@@ -134,7 +141,7 @@ class SpellCollection extends Collection<Embedded<SpellPF2e>> {
     }
 
     /** Removes the spell slot and updates the spellcasting entry */
-    unprepareSpell(slotLevel: number, spellSlot: number): Promise<SpellcastingEntryPF2e> {
+    unprepareSpell(slotLevel: number, spellSlot: number): Promise<TEntry> {
         this.#assertEntryIsDocument(this.entry);
 
         if (CONFIG.debug.hooks === true) {
@@ -155,7 +162,7 @@ class SpellCollection extends Collection<Embedded<SpellPF2e>> {
     }
 
     /** Sets the expended state of a spell slot and updates the spellcasting entry */
-    setSlotExpendedState(slotLevel: number, spellSlot: number, isExpended: boolean): Promise<SpellcastingEntryPF2e> {
+    setSlotExpendedState(slotLevel: number, spellSlot: number, isExpended: boolean): Promise<TEntry> {
         this.#assertEntryIsDocument(this.entry);
 
         const key = `system.slots.slot${slotLevel}.prepared.${spellSlot}.expended`;
@@ -233,7 +240,7 @@ class SpellCollection extends Collection<Embedded<SpellPF2e>> {
             if (leveled.length) {
                 const active = await Promise.all(leveled.map(async (spell) => ({ spell })));
                 results.push({
-                    label: actor.isOfType("character") ? "PF2E.Focus.Spells" : "PF2E.Focus.Pool",
+                    label: actor.type === "character" ? "PF2E.Focus.Spells" : "PF2E.Focus.Pool",
                     level: Math.max(1, Math.ceil(actor.level / 2)) as OneToTen,
                     isCantrip: false,
                     uses: actor.system.resources.focus ?? { value: 0, max: 0 },
@@ -333,7 +340,7 @@ class SpellCollection extends Collection<Embedded<SpellPF2e>> {
         return { levels, spellPrepList: null };
     }
 
-    protected getSpellPrepList(spells: Embedded<SpellPF2e>[]): Record<number, SpellPrepEntry[]> | null {
+    protected getSpellPrepList(spells: SpellPF2e<TActor>[]): Record<number, SpellPrepEntry[]> | null {
         if (!this.entry.isPrepared) return {};
 
         const spellPrepList: Record<number, SpellPrepEntry[]> = {};

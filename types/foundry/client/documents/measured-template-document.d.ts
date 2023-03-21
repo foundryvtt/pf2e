@@ -1,27 +1,26 @@
-import { MeasuredTemplateDocumentConstructor } from "./constructors";
+import { CanvasBaseMeasuredTemplate } from "./client-base-mixes.mjs";
 
 declare global {
     /**
-     * The client-side MeasuredTemplate embedded document which extends the common BaseMeasuredTemplate abstraction.
-     * Each MeasuredTemplate document contains MeasuredTemplateData which defines its data schema.
+     * The client-side MeasuredTemplate document which extends the common BaseMeasuredTemplate document model.
+     *
+     * @see {@link Scene}                     The Scene document type which contains MeasuredTemplate documents
+     * @see {@link MeasuredTemplateConfig}    The MeasuredTemplate configuration application
      */
-    class MeasuredTemplateDocument extends MeasuredTemplateDocumentConstructor {
+    class MeasuredTemplateDocument<TParent extends Scene | null> extends CanvasBaseMeasuredTemplate<TParent> {
         /* -------------------------------------------- */
-        /*  Properties                                  */
+        /*  Model Properties                            */
         /* -------------------------------------------- */
-
-        /** A flag for whether the current User has full ownership over the MeasuredTemplate document. */
-        override get isOwner(): boolean;
-    }
-
-    interface MeasuredTemplateDocument {
-        readonly parent: Scene | null;
-
-        _sheet: MeasuredTemplateConfig | null;
 
         /** A reference to the User who created the MeasuredTemplate document. */
-        readonly author: User | undefined;
+        get author(): User;
 
-        readonly _object: MeasuredTemplate<MeasuredTemplateDocument> | null;
+        /** Rotation is an alias for direction */
+        get rotation(): number;
+    }
+
+    interface MeasuredTemplateDocument<TParent extends Scene | null> extends CanvasBaseMeasuredTemplate<TParent> {
+        _sheet: MeasuredTemplateConfig<this> | null;
+        _object: MeasuredTemplate<this> | null;
     }
 }

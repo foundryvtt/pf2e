@@ -33,7 +33,7 @@ class PersistentDamageDialog extends Application {
 
     override async getData(): Promise<PersistentDialogData> {
         const existing = this.actor.itemTypes.condition
-            .filter((c): c is Embedded<PersistentDamagePF2e> => c.slug === "persistent-damage")
+            .filter((c): c is PersistentDamagePF2e<ActorPF2e> => c.slug === "persistent-damage")
             .map((c) => ({
                 id: c.id,
                 bullet: damageDiceIcon(c.system.persistent.damage).outerHTML,
@@ -112,7 +112,7 @@ class PersistentDamageDialog extends Application {
 
         html.querySelector("[data-action=roll-persistent]")?.addEventListener("click", () => {
             const existing = this.actor.itemTypes.condition.filter(
-                (c): c is Embedded<PersistentDamagePF2e> => c.slug === "persistent-damage"
+                (c): c is PersistentDamagePF2e<ActorPF2e> => c.slug === "persistent-damage"
             );
 
             for (const condition of existing) {

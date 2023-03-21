@@ -1,15 +1,16 @@
 import { ActorPF2e } from "@actor";
 import { TokenPF2e } from "@module/canvas";
 import { ScenePF2e, TokenConfigPF2e } from "@module/scene";
-import { TokenDataPF2e } from "./data";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
 import { PrototypeTokenPF2e } from "@actor/data/base";
 import { TokenAura } from "./aura";
 import { objectHasKey, sluggify } from "@util";
 import { LightLevels } from "@scene/data";
+import { TokenFlagsPF2e } from "./data";
+import { DataModel } from "types/foundry/common/abstract/module.mjs";
 
-class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
+class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends TokenDocument<TParent> {
     /** Has this token gone through at least one cycle of data preparation? */
     private initialized?: boolean;
 
@@ -83,7 +84,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
     /** Is this token emitting light with a negative value */
     get emitsDarkness(): boolean {
-        return this.data.brightLight < 0;
+        return this.light.bright < 0;
     }
 
     get rulesBasedVision(): boolean {
@@ -156,7 +157,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
                     slug: key,
                     level: data.level,
                     radius: data.radius,
-                    token: this as Embedded<TokenDocumentPF2e>,
+                    token: this,
                     traits: new Set(data.traits),
                     colors: data.colors,
                 })
@@ -235,8 +236,8 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
         if (tokenOverrides.light) {
             this.light = new foundry.data.LightData(tokenOverrides.light, {
-                parent: this,
-            } as unknown as this);
+                parent: this as unknown as DataModel,
+            });
         }
 
         // Token dimensions from actor size
@@ -368,7 +369,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
     /** Toggle token hiding if this token's actor is a loot actor */
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<this>,
+        options: DocumentModificationContext<TParent>,
         userId: string
     ): void {
         super._onCreate(data, options, userId);
@@ -377,7 +378,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext,
+        options: DocumentUpdateContext<TParent>,
         userId: string
     ): void {
         // Possibly re-render encounter tracker if token's `displayName` property has changed
@@ -387,7 +388,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         }
 
         // Workaround for actor-data preparation issue: release token if this is made unlinked while controlled
-        if (changed.actorLink === false && this.rendered && this.object.controlled) {
+        if (changed.actorLink === false && this.rendered && this.object?.controlled) {
             this.object.release();
         }
 
@@ -403,7 +404,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             if (preUpdateIcon !== this.texture.src) {
                 changed.texture = mergeObject(changed.texture ?? {}, {
                     src: this.texture.src,
-                }) as foundry.data.TokenSource["texture"];
+                }) as foundry.documents.TokenSource["texture"];
             }
             delete changed.actorData; // Prevent upstream from doing so a second time
         }
@@ -412,7 +413,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
     }
 
     /** Reinitialize vision if the actor's senses were updated directly */
-    override _onUpdateBaseActor(update?: Record<string, unknown>, options?: DocumentModificationContext<Actor>): void {
+    override _onUpdateBaseActor(update?: Record<string, unknown>, options?: DocumentModificationContext<null>): void {
         super._onUpdateBaseActor(update, options);
         if (!this.isLinked) return;
 
@@ -424,7 +425,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         }
     }
 
-    protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void {
+    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
         super._onDelete(options, userId);
         if (!this.actor) return;
 
@@ -441,7 +442,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
     /** Re-render token placeable if REs have ephemerally changed any visuals of this token */
     onActorEmbeddedItemChange(): void {
-        if (!(this.isLinked && this.rendered && this.object.visible)) return;
+        if (!(this.isLinked && this.rendered && this.object?.visible)) return;
 
         this.object.drawEffects().then(() => {
             const preUpdate = this.toObject(false);
@@ -470,23 +471,16 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             // Update combat tracker with changed effects
             if (this.combatant?.parent.active) ui.combat.render();
         });
-        this.object.drawBars();
+        this.object?.drawBars();
     }
 }
 
-interface TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
-    readonly data: TokenDataPF2e<this>;
+interface TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends TokenDocument<TParent> {
+    flags: TokenFlagsPF2e;
 
-    readonly _object: TokenPF2e | null;
-
-    get object(): TokenPF2e;
-
-    readonly parent: ScenePF2e | null;
-
-    get combatant(): CombatantPF2e<EncounterPF2e> | null;
-
-    _sheet: TokenConfigPF2e<this> | null;
-
+    get actor(): ActorPF2e<this | null> | null;
+    get combatant(): CombatantPF2e<EncounterPF2e, this> | null;
+    get object(): TokenPF2e<this> | null;
     get sheet(): TokenConfigPF2e<this>;
 
     overlayEffect: ImageFilePath;

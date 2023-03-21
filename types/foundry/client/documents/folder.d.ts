@@ -1,27 +1,27 @@
-import { FolderConstructor } from "./constructors";
+import { ClientBaseFolder } from "./client-base-mixes.mjs";
 
 declare global {
     /**
-     * The client-side Folder document which extends the common BaseFolder abstraction.
-     * Each Folder document contains FolderData which defines its data schema.
-     * @see {@link data.FolderData}              The Folder data schema
-     * @see {@link documents.Folders}            The world-level collection of Folder documents
-     * @see {@link embedded.FolderSound}         The FolderSound embedded document within a parent Folder
-     * @see {@link applications.FolderConfig}    The Folder configuration application
+     * The client-side Folder document which extends the common BaseFolder model.
      *
-     ent
-    */
-    class Folder<TDocument extends EnfolderableDocument = EnfolderableDocument> extends FolderConstructor {
+     * @see {@link Folders}                     The world-level collection of Folder documents
+     * @see {@link FolderConfig}                The Folder configuration application
+     */
+    class Folder<TDocument extends EnfolderableDocument = EnfolderableDocument> extends ClientBaseFolder {
         /**
          * Create a new Folder by rendering a dialog window to provide basic creation details
          * @param data Initial data with which to populate the creation form
          * @param options Initial positioning and sizing options for the dialog form
          * @return An active FolderConfig instance for creating the new Folder entity
          */
-        static override createDialog(
-            data?: { folder?: string },
-            options?: FormApplicationOptions
-        ): Promise<Folder | undefined>;
+        static createDialog<TDocument extends foundry.abstract.Document>(
+            this: ConstructorOf<TDocument>,
+            data?: Record<string, unknown>,
+            context?: {
+                parent?: TDocument["parent"];
+                pack?: Collection<TDocument> | null;
+            } & Partial<FormApplicationOptions>
+        ): Promise<TDocument | null>;
 
         /** The depth of this folder in its sidebar tree */
         depth: number;
@@ -74,8 +74,8 @@ declare global {
          */
         getSubfolders(recursive?: boolean): this[];
 
-        protected override _onDelete(options: DocumentModificationContext, userId: string): void;
+        protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
     }
 
-    type EnfolderableDocument = Actor | Item | Macro | Scene | JournalEntry | RollTable;
+    type EnfolderableDocument = Actor<null> | Item<null> | Macro | Scene | JournalEntry | RollTable;
 }

@@ -41,15 +41,15 @@ export class AbilityBuilderPopup extends Application {
             abilityScores: actor.abilities,
             manualKeyAbility: actor.keyAbility,
             keyOptions: build.keyOptions,
-            ancestryBoosts: this.calculateAncestryBoosts(),
-            backgroundBoosts: this.calculateBackgroundBoosts(),
+            ancestryBoosts: this.#calculateAncestryBoosts(),
+            backgroundBoosts: this.#calculateBackgroundBoosts(),
             alternateAncestryBoosts: !!actor.ancestry?.system.alternateAncestryBoosts,
             legacyFlaws: actor.ancestry?.system.voluntary?.boost !== undefined,
-            levelBoosts: this.calculatedLeveledBoosts(),
+            levelBoosts: this.#calculatedLeveledBoosts(),
         };
     }
 
-    private calculateAncestryBoosts(): AncestryBoosts | null {
+    #calculateAncestryBoosts(): AncestryBoosts | null {
         const { actor } = this;
         const ancestry = actor.ancestry;
         if (!ancestry) return null;
@@ -152,7 +152,7 @@ export class AbilityBuilderPopup extends Application {
         };
     }
 
-    private calculateBackgroundBoosts(): BackgroundBoosts | null {
+    #calculateBackgroundBoosts(): BackgroundBoosts | null {
         const { actor } = this;
         if (!actor.background) return null;
 
@@ -214,7 +214,7 @@ export class AbilityBuilderPopup extends Application {
         };
     }
 
-    private calculatedLeveledBoosts() {
+    #calculatedLeveledBoosts() {
         const build = this.actor.system.build.abilities;
         const isGradual = game.settings.get("pf2e", "gradualBoostsVariant");
         return ([1, 5, 10, 15, 20] as const).reduce(
@@ -450,9 +450,9 @@ interface AbilityBuilderSheetData {
     abilityScores: Abilities;
     manualKeyAbility: AbilityString;
     abilities: Record<AbilityString, string>;
-    ancestry: Embedded<AncestryPF2e> | null;
-    background: Embedded<BackgroundPF2e> | null;
-    class: Embedded<ClassPF2e> | null;
+    ancestry: AncestryPF2e<CharacterPF2e> | null;
+    background: BackgroundPF2e<CharacterPF2e> | null;
+    class: ClassPF2e<CharacterPF2e> | null;
     manual: boolean;
     ancestryBoosts: AncestryBoosts | null;
     backgroundBoosts: BackgroundBoosts | null;

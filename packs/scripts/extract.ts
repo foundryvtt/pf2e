@@ -114,7 +114,7 @@ const npcSystemKeys = new Set([
 
 const idsToNames: Map<string, Map<string, string>> = new Map();
 
-type CompendiumDocumentPF2e = ActorPF2e | ItemPF2e | JournalEntry | MacroPF2e | RollTable;
+type CompendiumDocumentPF2e = ActorPF2e | ItemPF2e<ActorPF2e | null> | JournalEntry | MacroPF2e | RollTable;
 type PackEntry = CompendiumDocumentPF2e["_source"];
 
 function assertDocIdSame(newSource: PackEntry, jsonPath: string): void {

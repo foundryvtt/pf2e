@@ -5,6 +5,7 @@ import { PredicatePF2e } from "@system/predication";
 import { isObject, sluggify } from "@util";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./";
 import { UUIDUtils } from "@util/uuid-utils";
+import { ActorPF2e } from "@actor";
 
 /** A Pathfinder 2e aura, capable of transmitting effects and with a visual representation on the canvas */
 export class AuraRuleElement extends RuleElementPF2e {
@@ -25,7 +26,7 @@ export class AuraRuleElement extends RuleElementPF2e {
      */
     colors: AuraColors | null;
 
-    constructor(source: AuraRuleElementSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(source: AuraRuleElementSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         source.effects ??= [];
         source.traits ??= [];
 

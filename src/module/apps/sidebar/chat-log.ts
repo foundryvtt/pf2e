@@ -1,3 +1,4 @@
+import { ActorPF2e } from "@actor";
 import { ArmorPF2e } from "@item";
 import { TokenPF2e } from "@module/canvas";
 import { ChatMessagePF2e } from "@module/chat-message";
@@ -11,7 +12,7 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
     protected override async _processDiceCommand(
         command: string,
         matches: RegExpMatchArray[],
-        chatData: DeepPartial<foundry.data.ChatMessageSource>,
+        chatData: DeepPartial<foundry.documents.ChatMessageSource>,
         createOptions: ChatMessageModificationContext
     ): Promise<void> {
         const actor = ChatMessage.getSpeakerActor(chatData.speaker ?? {}) || game.user.character;
@@ -104,7 +105,7 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             }
             return tokens;
         };
-        const getNonBrokenShields = (tokens: TokenPF2e[]): Embedded<ArmorPF2e>[] => {
+        const getNonBrokenShields = (tokens: TokenPF2e[]): ArmorPF2e<ActorPF2e>[] => {
             const actor = tokens[0].actor!;
             const heldShields = actor.itemTypes.armor.filter((armor) => armor.isEquipped && armor.isShield);
             return heldShields.filter((shield) => !shield.isBroken);

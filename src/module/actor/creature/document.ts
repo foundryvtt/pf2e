@@ -4,12 +4,12 @@ import { CreatureSource } from "@actor/data";
 import { StrikeData } from "@actor/data/base";
 import {
     CheckModifier,
-    ensureProficiencyOption,
-    ModifierPF2e,
     MODIFIER_TYPE,
     MODIFIER_TYPES,
+    ModifierPF2e,
     RawModifier,
     StatisticModifier,
+    ensureProficiencyOption,
 } from "@actor/modifiers";
 import { SaveType } from "@actor/types";
 import { SKILL_DICTIONARY } from "@actor/values";
@@ -20,7 +20,7 @@ import { EquippedData, ItemCarryType } from "@item/physical/data";
 import { isEquipped } from "@item/physical/usage";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { Rarity, SIZES, SIZE_SLUGS } from "@module/data";
-import { CombatantPF2e } from "@module/encounter";
+import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
 import { RollNotePF2e } from "@module/notes";
 import { RuleElementSynthetics } from "@module/rules";
 import {
@@ -32,6 +32,7 @@ import {
 import { BaseSpeedSynthetic } from "@module/rules/synthetics";
 import { LightLevels } from "@module/scene/data";
 import { UserPF2e } from "@module/user";
+import { TokenDocumentPF2e } from "@scene";
 import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check";
 import { DamageType } from "@system/damage/types";
 import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values";
@@ -66,7 +67,9 @@ import {
 import { SIZE_TO_REACH } from "./values";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
-abstract class CreaturePF2e extends ActorPF2e {
+abstract class CreaturePF2e<
+    TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null
+> extends ActorPF2e<TParent> {
     // Internal cached value for creature skills
     protected _skills: CreatureSkills | null = null;
 
@@ -224,12 +227,12 @@ abstract class CreaturePF2e extends ActorPF2e {
         return Statistic.from(this, stat, "perception", "PF2E.PerceptionCheck", "perception-check");
     }
 
-    get wornArmor(): Embedded<ArmorPF2e> | null {
+    get wornArmor(): ArmorPF2e<this> | null {
         return this.itemTypes.armor.find((armor) => armor.isEquipped && armor.isArmor) ?? null;
     }
 
     /** Get the held shield of most use to the wielder */
-    override get heldShield(): Embedded<ArmorPF2e> | null {
+    override get heldShield(): ArmorPF2e<this> | null {
         const heldShields = this.itemTypes.armor.filter((armor) => armor.isEquipped && armor.isShield);
         return heldShields.length === 0
             ? null
@@ -396,7 +399,7 @@ abstract class CreaturePF2e extends ActorPF2e {
         if (this.isFlatFooted({ dueTo: "flanking" })) {
             const name = game.i18n.localize("PF2E.Item.Condition.Flanked");
             const condition = game.pf2e.ConditionManager.getCondition("flat-footed", { name });
-            const flatFooted = new ConditionPF2e(condition.toObject(), { parent: this }) as Embedded<ConditionPF2e>;
+            const flatFooted = new ConditionPF2e(condition.toObject(), { parent: this });
 
             const rule = flatFooted.prepareRuleElements().shift();
             if (!rule) throw ErrorPF2e("Unexpected error retrieving condition");
@@ -460,7 +463,7 @@ abstract class CreaturePF2e extends ActorPF2e {
                 }
 
                 // Get or create the combatant
-                const combatant = await (async (): Promise<Embedded<CombatantPF2e> | null> => {
+                const combatant = await (async (): Promise<CombatantPF2e<EncounterPF2e> | null> => {
                     if (!game.combat) {
                         ui.notifications.error(game.i18n.localize("PF2E.Encounter.NoActiveEncounter"));
                         return null;
@@ -564,7 +567,7 @@ abstract class CreaturePF2e extends ActorPF2e {
      * @param inSlot     Whether the item is in the slot or not. Equivilent to "equipped" previously
      */
     async adjustCarryType(
-        item: Embedded<PhysicalItemPF2e>,
+        item: PhysicalItemPF2e<CreaturePF2e>,
         carryType: ItemCarryType,
         handsHeld = 0,
         inSlot = false
@@ -811,25 +814,23 @@ abstract class CreaturePF2e extends ActorPF2e {
     /* -------------------------------------------- */
 
     /** Remove any features linked to a to-be-deleted ABC item */
-    override async deleteEmbeddedDocuments(
+    override deleteEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
         ids: string[],
-        context: DocumentModificationContext = {}
-    ): Promise<ActiveEffectPF2e[] | ItemPF2e[]> {
+        context?: DocumentModificationContext<this>
+    ): Promise<CollectionValue<this["effects"]>[] | CollectionValue<this["items"]>[]> {
         if (embeddedName === "Item") {
             const items = ids.map((id) => this.items.get(id));
             const linked = items.flatMap((item) => item?.getLinkedItems?.() ?? []);
             ids.push(...linked.map((item) => item.id));
         }
 
-        return super.deleteEmbeddedDocuments(embeddedName, [...new Set(ids)], context) as Promise<
-            ActiveEffectPF2e[] | ItemPF2e[]
-        >;
+        return super.deleteEmbeddedDocuments(embeddedName, [...new Set(ids)], context);
     }
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: CreatureUpdateContext<this>,
+        options: CreatureUpdateContext<TParent>,
         user: UserPF2e
     ): Promise<void> {
         // Clamp hit points
@@ -857,7 +858,7 @@ abstract class CreaturePF2e extends ActorPF2e {
     }
 }
 
-interface CreaturePF2e extends ActorPF2e {
+interface CreaturePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     readonly _source: CreatureSource;
     system: CreatureSystemData;
 
@@ -869,40 +870,40 @@ interface CreaturePF2e extends ActorPF2e {
     get hitPoints(): HitPointsSummary;
 
     /** Expand DocumentModificationContext for creatures */
-    update(data: DocumentUpdateData<this>, options?: CreatureUpdateContext<this>): Promise<this>;
+    update(data: DocumentUpdateData<this>, options?: CreatureUpdateContext<TParent>): Promise<this>;
 
     /** See implementation in class */
     updateEmbeddedDocuments(
         embeddedName: "ActiveEffect",
-        updateData: EmbeddedDocumentUpdateData<this>[],
-        options?: DocumentModificationContext
-    ): Promise<ActiveEffectPF2e[]>;
+        updateData: EmbeddedDocumentUpdateData<ActiveEffectPF2e<this>>[],
+        options?: DocumentUpdateContext<this>
+    ): Promise<ActiveEffectPF2e<this>[]>;
     updateEmbeddedDocuments(
         embeddedName: "Item",
-        updateData: EmbeddedDocumentUpdateData<this>[],
-        options?: DocumentModificationContext
-    ): Promise<ItemPF2e[]>;
+        updateData: EmbeddedDocumentUpdateData<ItemPF2e<this>>[],
+        options?: DocumentUpdateContext<this>
+    ): Promise<ItemPF2e<this>[]>;
     updateEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
-        updateData: EmbeddedDocumentUpdateData<this>[],
-        options?: DocumentModificationContext
-    ): Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
+        updateData: EmbeddedDocumentUpdateData<ActiveEffectPF2e<this> | ItemPF2e<this>>[],
+        options?: DocumentUpdateContext<this>
+    ): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
 
     deleteEmbeddedDocuments(
         embeddedName: "ActiveEffect",
-        dataId: string[],
-        context?: DocumentModificationContext
-    ): Promise<ActiveEffectPF2e[]>;
+        ids: string[],
+        context?: DocumentModificationContext<this>
+    ): Promise<CollectionValue<this["effects"]>[]>;
     deleteEmbeddedDocuments(
         embeddedName: "Item",
-        dataId: string[],
-        context?: DocumentModificationContext
-    ): Promise<ItemPF2e[]>;
+        ids: string[],
+        context?: DocumentModificationContext<this>
+    ): Promise<CollectionValue<this["items"]>[]>;
     deleteEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
-        dataId: string[],
-        context?: DocumentModificationContext
-    ): Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
+        ids: string[],
+        context?: DocumentModificationContext<this>
+    ): Promise<CollectionValue<this["effects"]>[] | CollectionValue<this["items"]>[]>;
 }
 
 export { CreaturePF2e };

@@ -1,3 +1,4 @@
+import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item/base";
 import { RuleElementPF2e, RuleElementSource } from "@module/rules";
 
@@ -11,7 +12,7 @@ function coerceNumber<T extends string | unknown>(value: T): T | number {
 }
 
 interface RuleElementFormOptions<TSource extends RuleElementSource, TObject extends RuleElementPF2e> {
-    item: ItemPF2e;
+    item: ItemPF2e<ActorPF2e>;
     index: number;
     rule: TSource;
     object: TObject | null;
@@ -24,7 +25,7 @@ class RuleElementForm<
 > {
     template = "systems/pf2e/templates/items/rules/default.hbs";
 
-    readonly item: ItemPF2e;
+    readonly item: ItemPF2e<ActorPF2e>;
     readonly index: number;
     readonly rule: TSource;
     readonly object: TObject | null;

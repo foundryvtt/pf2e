@@ -1,11 +1,14 @@
+import * as ActorInstance from "@actor";
 import { ActorPF2e } from "@actor";
-import { MeleePF2e, SpellPF2e, WeaponPF2e } from "@item";
+import * as ItemInstance from "@item";
 import { EffectTrait } from "@item/abstract-effect";
+import { ItemInstances } from "@item/types";
 import { TokenDocumentPF2e } from "@scene";
 import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr";
 import { DamageRoll } from "@system/damage/roll";
 import { CheckDC } from "@system/degree-of-success";
 import { PredicatePF2e } from "@system/predication";
+import { StatisticCheck } from "@system/statistic";
 import { TraitViewData } from "./data/base";
 import { ModifierPF2e, StatisticModifier } from "./modifiers";
 import {
@@ -16,8 +19,22 @@ import {
     SKILL_LONG_FORMS,
     UNAFFECTED_TYPES,
 } from "./values";
-import { StatisticCheck } from "@system/statistic";
 
+/** Used exclusively to resolve `ActorPF2e#isOfType` */
+interface ActorInstances<TParent extends TokenDocumentPF2e | null> {
+    character: ActorInstance.CharacterPF2e<TParent>;
+    creature: ActorInstance.CreaturePF2e<TParent>;
+    familiar: ActorInstance.FamiliarPF2e<TParent>;
+    hazard: ActorInstance.HazardPF2e<TParent>;
+    loot: ActorInstance.LootPF2e<TParent>;
+    party: ActorInstance.PartyPF2e<TParent>;
+    npc: ActorInstance.NPCPF2e<TParent>;
+    vehicle: ActorInstance.VehiclePF2e<TParent>;
+}
+
+type EmbeddedItemInstances<TParent extends ActorPF2e> = {
+    [K in keyof ItemInstances<TParent>]: ItemInstances<TParent>[K][];
+};
 type AbilityString = SetElement<typeof ABILITY_ABBREVIATIONS>;
 
 interface ActorDimensions {
@@ -67,7 +84,10 @@ interface AuraColors {
 /*  Attack Rolls                                */
 /* -------------------------------------------- */
 
-type AttackItem = WeaponPF2e | MeleePF2e | SpellPF2e;
+type AttackItem =
+    | ItemInstance.WeaponPF2e<ActorPF2e>
+    | ItemInstance.MeleePF2e<ActorPF2e>
+    | ItemInstance.SpellPF2e<ActorPF2e>;
 
 interface StrikeSelf<
     TActor extends ActorPF2e = ActorPF2e,
@@ -153,6 +173,7 @@ export {
     AbilityString,
     ActorAlliance,
     ActorDimensions,
+    ActorInstances,
     ApplyDamageParams,
     AttackItem,
     AttackRollContext,
@@ -162,6 +183,7 @@ export {
     AuraData,
     AuraEffectData,
     DCSlug,
+    EmbeddedItemInstances,
     IWRType,
     ImmunityType,
     ResistanceType,

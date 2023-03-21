@@ -8,17 +8,15 @@ declare module foundry {
          * @param data                 Initial data from which to construct the document.
          * @property data The constructed data object for the document.
          */
-        class BaseUser extends abstract.Document {
-            flags: DocumentFlags;
-
-            readonly role: UserRole;
-
-            name: string;
+        class BaseUser extends abstract.Document<null> {
             avatar: ImageFilePath;
-            color: HexColorString;
-            charname: string;
-            character: BaseActor | null | undefined;
             border: HexColorString;
+            character: BaseActor | null | undefined;
+            charname: string;
+            color: HexColorString;
+            flags: DocumentFlags;
+            name: string;
+            readonly role: UserRole;
 
             static override get metadata(): UserMetadata;
 
@@ -57,14 +55,10 @@ declare module foundry {
             hasRole(role: UserRole | UserRoleName, { exact }?: { exact: boolean }): boolean;
         }
 
-        interface BaseUser extends abstract.Document {
-            readonly parent: null;
+        interface BaseUser extends abstract.Document<null> {
+            readonly _source: UserSource;
 
             get documentName(): "User";
-        }
-
-        class UserData extends abstract.DocumentData {
-            readonly _source: UserSource;
         }
 
         interface UserMetadata extends abstract.DocumentMetadata {

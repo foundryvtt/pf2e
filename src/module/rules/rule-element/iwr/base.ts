@@ -1,13 +1,14 @@
-import { RuleElementPF2e, RuleElementSource, RuleElementOptions, RuleElementSchema } from "../";
-import { ItemPF2e } from "@item";
+import { ActorPF2e } from "@actor";
 import { ImmunityData, ResistanceData, WeaknessData } from "@actor/data/iwr";
+import { ItemPF2e } from "@item";
 import { ArrayField, BooleanField, ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "../";
 
 const { fields } = foundry.data;
 
 /** @category RuleElement */
 abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElementPF2e<TSchema> {
-    constructor(data: IWRRuleElementSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: IWRRuleElementSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         if (typeof data.type === "string") {
             data.type = [data.type];
         }

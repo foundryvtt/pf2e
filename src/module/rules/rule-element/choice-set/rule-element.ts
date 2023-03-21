@@ -1,3 +1,4 @@
+import { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base";
 import { FeatPF2e, ItemPF2e } from "@item";
 import { ItemType } from "@item/data";
@@ -34,7 +35,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
     /** The user's selection from among the options in `choices`, or otherwise `null` */
     selection: string | number | object | null;
 
-    constructor(data: ChoiceSetSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: ChoiceSetSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
         this.flag = this.#setDefaultFlag(this.data);
@@ -318,7 +319,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                 type: itemType,
             };
             const items = (await pack?.getDocuments(query)) ?? [];
-            if (!items.every((i): i is ItemPF2e => i instanceof ItemPF2e)) {
+            if (!items.every((i): i is ItemPF2e<null> => i instanceof ItemPF2e)) {
                 return [];
             }
 

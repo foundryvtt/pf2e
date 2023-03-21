@@ -1,17 +1,15 @@
-import { PlaylistConstructor } from "./constructors";
+import { ClientBasePlaylist } from "./client-base-mixes.mjs";
 
 declare global {
     /**
-     * The client-side Playlist document which extends the common BasePlaylist abstraction.
-     * Each Playlist document contains PlaylistData which defines its data schema.
-     * @see {@link data.PlaylistData}               The Playlist data schema
-     * @see {@link documents.Playlists}             The world-level collection of Playlist documents
-     * @see {@link embedded.PlaylistSound}          The PlaylistSound embedded document within a parent Playlist
-     * @see {@link applications.PlaylistConfig}     The Playlist configuration application
+     * The client-side Playlist document which extends the common BasePlaylist model.
+     *
+     * @see {@link Playlists}             The world-level collection of Playlist documents
+     * @see {@link PlaylistSound}         The PlaylistSound embedded document within a parent Playlist
+     * @see {@link PlaylistConfig}        The Playlist configuration application
      */
-    class Playlist extends PlaylistConstructor {
-        /** @override */
-        constructor(data: PreCreate<foundry.data.PlaylistSource>, context?: DocumentConstructionContext<Playlist>);
+    class Playlist extends ClientBasePlaylist {
+        constructor(data: PreCreate<foundry.documents.PlaylistSource>, context?: DocumentConstructionContext<null>);
 
         /**
          * Each sound which is played within the Playlist has a created Howl instance.
@@ -61,7 +59,7 @@ declare global {
          * @param sound The desired sound that should play
          * @returns The updated Playlist
          */
-        playSound(sound: PlaylistSound): Promise<this>;
+        playSound(sound: PlaylistSound<this>): Promise<this>;
 
         /**
          * Stop playback of a specific Sound within this Playlist.
@@ -69,7 +67,7 @@ declare global {
          * @param sound The desired sound that should play
          * @returns The updated Plaaylist
          */
-        stopSound(sound: PlaylistSound): Promise<this | undefined>;
+        stopSound(sound: PlaylistSound<this>): Promise<this | undefined>;
         /**
          * End playback for any/all currently playing sounds within the Playlist.
          * @returns The updated Playlist entity
@@ -83,63 +81,65 @@ declare global {
         cycleMode(): Promise<this | undefined>;
 
         /** Get the next sound in the cached playback order. For internal use. */
-        protected _getNextSound(soundId: string): PlaylistSound;
+        protected _getNextSound(soundId: string): PlaylistSound<this>;
 
-        /**
-         * Get the previous sound in the cached playback order. For internal use.
-         */
-        protected _getPreviousSound(soundId: string): PlaylistSound;
+        /** Get the previous sound in the cached playback order. For internal use. */
+        protected _getPreviousSound(soundId: string): PlaylistSound<this>;
 
         /** Define the sorting order for the Sounds within this Playlist. For internal use. */
-        protected _sortSounds(a: PlaylistSound, b: PlaylistSound): number;
+        protected _sortSounds(a: PlaylistSound<this>, b: PlaylistSound<this>): number;
 
         protected override _preUpdate(
             data: DocumentUpdateData<this>,
-            options: DocumentModificationContext,
+            options: DocumentModificationContext<null>,
             user: User
         ): Promise<void>;
 
         protected override _onUpdate(
             changed: DeepPartial<this["_source"]>,
-            options: DocumentModificationContext,
+            options: DocumentModificationContext<null>,
             userId: string
         ): void;
 
-        protected override _onDelete(options: DocumentModificationContext, userId: string): void;
+        protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
 
         protected override _onCreateEmbeddedDocuments(
             embeddedName: "PlaylistSound",
-            documents: PlaylistSound[],
-            result: foundry.data.PlaylistSoundSource[],
-            options: DocumentModificationContext,
+            documents: PlaylistSound<this>[],
+            result: PlaylistSound<this>["_source"][],
+            options: DocumentModificationContext<this>,
             userId: string
         ): void;
 
         protected override _onUpdateEmbeddedDocuments(
             embeddedName: "PlaylistSound",
-            documents: PlaylistSound[],
-            result: foundry.data.PlaylistSoundSource[],
-            options: DocumentModificationContext,
+            documents: PlaylistSound<this>[],
+            result: PlaylistSound<this>["_source"][],
+            options: DocumentModificationContext<this>,
             userId: string
         ): void;
 
         protected override _onDeleteEmbeddedDocuments(
             embeddedName: "PlaylistSound",
-            documents: ClientDocument[],
-            result: PlaylistSound[],
-            options: DocumentModificationContext,
+            documents: PlaylistSound<this>[],
+            result: string[],
+            options: DocumentModificationContext<this>,
             userId: string
         ): void;
 
         /** Handle callback logic when an individual sound within the Playlist concludes playback naturally */
-        protected _onSoundEnd(sound: PlaylistSound): Promise<this | undefined>;
+        protected _onSoundEnd(sound: PlaylistSound<this>): Promise<this | undefined>;
 
         /**
          * Handle callback logic when playback for an individual sound within the Playlist is started.
          * Schedule auto-preload of next track
          */
-        protected _onSoundStart(sound: PlaylistSound): Promise<void>;
+        protected _onSoundStart(sound: PlaylistSound<this>): Promise<void>;
 
-        override toCompendium(pack: CompendiumCollection<this>): foundry.data.PlaylistSource;
+        override toCompendium(pack: CompendiumCollection<this>): this["_source"];
+    }
+
+    interface Playlist extends ClientBasePlaylist {
+        readonly sounds: foundry.abstract.EmbeddedCollection<PlaylistSound<this>>;
     }
 }

@@ -1,7 +1,8 @@
+import { ItemPF2e } from "@item";
 import { fontAwesomeIcon, htmlQuery, htmlQueryAll } from "@util";
 
 /** Extend ItemDirectory to show more information */
-export class ItemDirectoryPF2e<TItem extends Item> extends ItemDirectory<TItem> {
+export class ItemDirectoryPF2e<TItem extends ItemPF2e<null>> extends ItemDirectory<TItem> {
     static override get defaultOptions(): SidebarDirectoryOptions {
         const options = super.defaultOptions;
         options.renderUpdateKeys.push("system.level.value");

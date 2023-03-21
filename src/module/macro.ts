@@ -1,3 +1,5 @@
+import { ChatMessagePF2e } from "./chat-message";
+
 export class MacroPF2e extends Macro {
     /** Raise permission requirement of world macro visibility to observer */
     override get visible(): boolean {
@@ -5,9 +7,12 @@ export class MacroPF2e extends Macro {
     }
 
     /** Allow unbound variables to be shadowed in script's evaluation scope */
-    protected override _executeScript({ actor, token }: { actor?: Actor; token?: Token | null } = {}): void {
+    protected override _executeScript({
+        actor,
+        token,
+    }: { actor?: Actor<TokenDocument<Scene | null> | null>; token?: Token | null } = {}): void {
         // Add variables to the evaluation scope
-        const speaker = ChatMessage.implementation.getSpeaker();
+        const speaker = ChatMessagePF2e.getSpeaker();
         const character = game.user.character;
         actor ??= game.actors.get(speaker.actor ?? "");
         token ??= canvas.ready ? canvas.tokens.get(speaker.token ?? "") : null;

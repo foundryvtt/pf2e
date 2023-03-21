@@ -3,12 +3,12 @@ import { ActorType } from "@actor/data";
 import { DiceModifierPF2e, ModifierPF2e } from "@actor/modifiers";
 import { ItemPF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
-import { LaxSchemaField, PredicateField, SlugField } from "@system/schema-data-fields";
 import { TokenDocumentPF2e } from "@scene";
 import { CheckRoll } from "@system/check";
+import { LaxSchemaField, PredicateField, SlugField } from "@system/schema-data-fields";
 import { isObject, tupleHasValue } from "@util";
-import { BracketedValue, RuleElementData, RuleElementSchema, RuleElementSource, RuleValue } from "./data";
 import { DataModelValidationOptions } from "types/foundry/common/abstract/module.mjs";
+import { BracketedValue, RuleElementData, RuleElementSchema, RuleElementSource, RuleValue } from "./data";
 
 const { DataModel } = foundry.abstract;
 const { fields } = foundry.data;
@@ -33,7 +33,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
      * @param source unserialized JSON data from the actual rule input
      * @param item where the rule is persisted on
      */
-    constructor(source: RuleElementSource, public item: Embedded<ItemPF2e>, options: RuleElementOptions = {}) {
+    constructor(source: RuleElementSource, public item: ItemPF2e<ActorPF2e>, options: RuleElementOptions = {}) {
         source.label ??= item.name;
         super(source, { strict: false });
 
@@ -417,16 +417,16 @@ namespace RuleElementPF2e {
         /** All items pending creation in a `ItemPF2e.createDocuments` call */
         pendingItems: PreCreate<ItemSourcePF2e>[];
         /** The context object from the `ItemPF2e.createDocuments` call */
-        context: DocumentModificationContext<ItemPF2e>;
+        context: DocumentModificationContext<ActorPF2e | null>;
         /** Whether this preCreate run is from a pre-update reevaluation */
         reevaluation?: boolean;
     }
 
     export interface PreDeleteParams {
         /** All items pending deletion in a `ItemPF2e.deleteDocuments` call */
-        pendingItems: Embedded<ItemPF2e>[];
+        pendingItems: ItemPF2e<ActorPF2e>[];
         /** The context object from the `ItemPF2e.deleteDocuments` call */
-        context: DocumentModificationContext<ItemPF2e>;
+        context: DocumentModificationContext<ActorPF2e | null>;
     }
 
     export interface AfterRollParams {

@@ -1,10 +1,11 @@
 import { MeasuredTemplatePF2e } from "@module/canvas/measured-template";
 import { ScenePF2e } from "./document";
 
-export class MeasuredTemplateDocumentPF2e extends MeasuredTemplateDocument {}
+export class MeasuredTemplateDocumentPF2e<
+    TParent extends ScenePF2e | null = ScenePF2e | null
+> extends MeasuredTemplateDocument<TParent> {}
 
-export interface MeasuredTemplateDocumentPF2e extends MeasuredTemplateDocument {
-    readonly parent: ScenePF2e | null;
-
-    readonly _object: MeasuredTemplatePF2e | null;
+export interface MeasuredTemplateDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null>
+    extends MeasuredTemplateDocument<TParent> {
+    get object(): MeasuredTemplatePF2e<this> | null;
 }

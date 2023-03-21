@@ -1,7 +1,8 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
+import { TokenDocumentPF2e } from "@scene";
 import { PartySource, PartySystemData } from "./data";
 
-class PartyPF2e extends ActorPF2e {
+class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     /** Friendship lives in our hearts */
     override get canAct(): false {
         return false;
@@ -19,7 +20,7 @@ class PartyPF2e extends ActorPF2e {
     }
 }
 
-interface PartyPF2e extends ActorPF2e {
+interface PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     readonly _source: PartySource;
     system: PartySystemData;
 }

@@ -1,25 +1,17 @@
-import { CombatantConstructor } from "./constructors";
+import { ClientBaseCombatant } from "./client-base-mixes.mjs";
 
 declare global {
     /**
-     * The Combatant embedded document within a Combat document which extends the BaseRollTable abstraction.
-     * Each Combatant belongs to the effects collection of its parent Document.
-     * Each Combatant contains a CombatantData object which provides its source data.
+     * The client-side Combatant document which extends the common BaseCombatant model.
      *
-     * @see {@link data.CombatantData} The Combatant data schema
-     * @see {@link documents.Combat}   The Combat document which contains Combatant embedded documents
+     * @see {@link Combat}                  The Combat document which contains Combatant embedded documents
+     * @see {@link CombatantConfig}         The application which configures a Combatant.
      */
     class Combatant<
-        TParent extends Combat | null = Combat | null,
-        TActor extends Actor | null = Actor | null
-    > extends CombatantConstructor {
-        constructor(data: PreCreate<foundry.data.CombatantSource>, context?: DocumentConstructionContext<TParent>);
-
-        /** A cached reference to the Token which this Combatant represents, if any */
-        protected _token: NonNullable<TActor>["parent"];
-
-        /** A cached reference to the Actor which this Combatant represents, if any */
-        protected _actor: TActor;
+        TParent extends Combat | null,
+        TTokenDocument extends TokenDocument<Scene | null> | null = TokenDocument<Scene | null> | null
+    > extends ClientBaseCombatant<TParent> {
+        constructor(data: PreCreate<foundry.documents.CombatantSource>, context?: DocumentConstructionContext<TParent>);
 
         /** The current value of the special tracked resource which pertains to this Combatant */
         resource: { value: number } | null;
@@ -46,10 +38,10 @@ declare global {
         get isVisible(): boolean;
 
         /** A reference to the Actor document which this Combatant represents, if any */
-        get actor(): TActor;
+        get actor(): NonNullable<TTokenDocument>["actor"];
 
         /** A reference to the Token document which this Combatant represents, if any */
-        get token(): NonNullable<TActor>["parent"];
+        get token(): TTokenDocument;
 
         /** An array of User documents who have ownership of this Document */
         get players(): User[];
@@ -62,7 +54,7 @@ declare global {
         /* -------------------------------------------- */
 
         override testUserPermission(
-            user: foundry.documents.BaseUser,
+            user: User,
             permission: DocumentOwnershipString | DocumentOwnershipLevel,
             { exact }?: { exact?: boolean }
         ): boolean;
@@ -94,11 +86,10 @@ declare global {
         _getInitiativeFormula(): string;
     }
 
-    interface Combatant<TParent extends Combat | null = Combat | null, TActor extends Actor | null = Actor | null> {
-        readonly data: foundry.data.CombatantData<this>;
-
-        readonly parent: TParent;
-
+    interface Combatant<
+        TParent extends Combat | null,
+        TTokenDocument extends TokenDocument<Scene | null> | null = TokenDocument<Scene | null> | null
+    > extends ClientBaseCombatant<TParent> {
         _sheet: CombatantConfig<this>;
     }
 }

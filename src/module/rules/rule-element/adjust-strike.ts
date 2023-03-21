@@ -1,3 +1,4 @@
+import { ActorPF2e } from "@actor";
 import { ActorType } from "@actor/data";
 import { ItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/action/data";
@@ -15,7 +16,7 @@ const { fields } = foundry.data;
 class AdjustStrikeRuleElement extends AELikeRuleElement<AdjustStrikeSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
-    constructor(data: AdjustStrikeSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: AdjustStrikeSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         super({ ...data, path: "ignore", phase: "beforeDerived", priority: 110 }, item, options);
     }
 

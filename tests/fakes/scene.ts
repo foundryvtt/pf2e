@@ -2,7 +2,7 @@
 
 import { FoundryUtils } from "tests/utils";
 
-export class FakeScene {
+export class MockScene {
     data: Partial<foundry.data.SceneData> & { _id: string; name: string };
     constructor(data: Partial<foundry.data.SceneSource>) {
         this.data = { _id: FoundryUtils.randomID(), name: "", ...data } as any;

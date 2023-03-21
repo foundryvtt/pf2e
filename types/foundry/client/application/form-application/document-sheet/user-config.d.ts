@@ -23,6 +23,6 @@ declare global {
 
     interface UserConfigData<TUser extends User> extends DocumentSheetData<TUser> {
         user: User;
-        actors: Actor[];
+        actors: Actor<null>[];
     }
 }

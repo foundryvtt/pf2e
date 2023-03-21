@@ -13,7 +13,7 @@ export class Migration662LinkToActorSizeDefaults extends MigrationBase {
         actorSource.prototypeToken.flags.pf2e.linkToActorSize ??= linkToActorSize;
     }
 
-    override async updateToken(tokenSource: foundry.data.TokenSource, actor: ActorPF2e): Promise<void> {
+    override async updateToken(tokenSource: foundry.documents.TokenSource, actor: ActorPF2e): Promise<void> {
         const linkToActorSize = !["hazard", "loot"].includes(actor.type);
         tokenSource.flags.pf2e ??= { linkToActorSize };
         tokenSource.flags.pf2e.linkToActorSize ??= linkToActorSize;

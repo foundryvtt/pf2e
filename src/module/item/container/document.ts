@@ -1,3 +1,4 @@
+import { ActorPF2e } from "@actor";
 import { InventoryBulk } from "@actor/inventory";
 import { ItemSummaryData } from "@item/data";
 import { EquipmentTrait } from "@item/equipment/data";
@@ -6,9 +7,9 @@ import { Bulk, weightToBulk } from "@item/physical/bulk";
 import { ContainerSource, ContainerSystemData } from "./data";
 import { hasExtraDimensionalParent } from "./helpers";
 
-class ContainerPF2e extends PhysicalItemPF2e {
+class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     /** This container's contents, reloaded every data preparation cycle */
-    contents: Collection<Embedded<PhysicalItemPF2e>> = new Collection();
+    contents: Collection<PhysicalItemPF2e<NonNullable<TParent>>> = new Collection();
 
     /** Is this an actual stowing container or merely one of the old pouches/quivers/etc.? */
     get stowsItems(): boolean {
@@ -38,9 +39,9 @@ class ContainerPF2e extends PhysicalItemPF2e {
     }
 
     /** Reload this container's contents following Actor embedded-document preparation */
-    override prepareSiblingData(this: Embedded<ContainerPF2e>): void {
+    override prepareSiblingData(this: ContainerPF2e<ActorPF2e>): void {
         this.contents = new Collection(
-            this.actor.inventory.filter((item) => item.container?.id === this.id).map((item) => [item.id, item])
+            this.actor.inventory.filter((i) => i.container?.id === this.id).map((item) => [item.id, item])
         );
     }
 
@@ -53,7 +54,7 @@ class ContainerPF2e extends PhysicalItemPF2e {
     }
 
     override async getChatData(
-        this: Embedded<ContainerPF2e>,
+        this: ContainerPF2e<TParent>,
         htmlOptions: EnrichHTMLOptions = {}
     ): Promise<ItemSummaryData> {
         return this.processChatData(htmlOptions, {
@@ -63,7 +64,7 @@ class ContainerPF2e extends PhysicalItemPF2e {
     }
 }
 
-interface ContainerPF2e extends PhysicalItemPF2e {
+interface ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     readonly _source: ContainerSource;
     system: ContainerSystemData;
 

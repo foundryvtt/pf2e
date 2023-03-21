@@ -37,6 +37,7 @@ import { ZeroToFour } from "@module/data";
 import { PredicatePF2e } from "@system/predication";
 import { StatisticTraceData } from "@system/statistic";
 import { CharacterSheetTabVisibility } from "./sheet";
+import { CharacterPF2e } from "..";
 
 interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemData> {
     flags: DeepPartial<CharacterFlags>;
@@ -231,7 +232,7 @@ interface ClassDCData extends Required<AbilityBasedStatistic>, StatisticTraceDat
 
 /** The full data for a character strike */
 interface CharacterStrike extends StrikeData {
-    item: Embedded<WeaponPF2e>;
+    item: WeaponPF2e<CharacterPF2e>;
     /** Whether this attack is visible on the sheet */
     visible: boolean;
     altUsages: CharacterStrike[];

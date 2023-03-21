@@ -1,4 +1,4 @@
-import { CharacterPF2e, NPCPF2e } from "@actor";
+import { ActorPF2e } from "@actor";
 import { EffectPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ActionDefaultOptions } from "@system/action-macros";
@@ -19,16 +19,17 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
 
     const actors = Array.isArray(options.actors) ? options.actors : [options.actors];
     const actor = actors[0];
-    if (actors.length > 1 || !(actor instanceof CharacterPF2e || actor instanceof NPCPF2e)) {
+    if (actors.length > 1 || !(actor && ["character", "npc"].includes(actor.type))) {
         ui.notifications.error(translations.BadArgs);
         return;
     }
 
     const shield = actor.heldShield;
-    const speaker = ChatMessagePF2e.getSpeaker({ actor: actor });
+    const speaker = ChatMessagePF2e.getSpeaker({ actor });
 
     const isSuccess = await (async (): Promise<boolean> => {
-        const existingEffect = actor.itemTypes.effect.find((e) => e.flags.core?.sourceId === ITEM_UUID);
+        const effects: EffectPF2e<ActorPF2e>[] = actor.itemTypes.effect;
+        const existingEffect = effects.find((e) => e.flags.core?.sourceId === ITEM_UUID);
         if (existingEffect) {
             await existingEffect.delete();
             return false;

@@ -7,6 +7,7 @@ export type DropCanvasItemDataPF2e = DropCanvasData<"Item", ItemPF2e> & {
     context?: EffectContextData;
 };
 
-export type DropCanvasDataPF2e<T extends string = string, D extends object = object> = T extends "Item"
-    ? DropCanvasItemDataPF2e
-    : DropCanvasData<T, D>;
+export type DropCanvasDataPF2e<
+    TDocumentType extends string = string,
+    TObject extends object = object
+> = TDocumentType extends "Item" ? DropCanvasItemDataPF2e : DropCanvasData<TDocumentType, TObject>;
