@@ -1,9 +1,9 @@
 import { CreaturePF2e } from "@actor";
 import { createSpellcastingDialog } from "@actor/sheet/spellcasting-dialog";
 import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values";
-import { ItemPF2e, SpellPF2e } from "@item";
+import { ItemPF2e, SpellPF2e, SpellcastingEntryPF2e } from "@item";
 import { ActionTrait } from "@item/action";
-import { SpellcastingEntryPF2e, SpellcastingSheetData } from "@item/spellcasting-entry";
+import { SpellcastingSheetData } from "@item/spellcasting-entry";
 import { ItemSourcePF2e } from "@item/data";
 import { ActionType } from "@item/data/base";
 import { ITEM_CARRY_TYPES } from "@item/data/values";
