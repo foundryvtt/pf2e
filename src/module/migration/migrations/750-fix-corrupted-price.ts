@@ -10,7 +10,7 @@ export class Migration750FixCorruptedPrice extends MigrationBase {
         if (!isPhysicalData(item) && item.type !== "kit") return;
 
         if (typeof item.system.price === "string") {
-            item.system.price = { value: CoinsPF2e.fromString(item.system.price).strip() };
+            item.system.price = { value: CoinsPF2e.fromString(item.system.price).toObject() };
         }
     }
 }

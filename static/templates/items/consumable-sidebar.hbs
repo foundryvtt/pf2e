@@ -64,9 +64,16 @@
     <div class="form-group">
         <label>{{localize "PF2E.PriceLabel"}}</label>
         <div class="price-fields">
-            <input type="text" name="system.price.value" value="{{priceString}}" />
+            <input
+                type="text"
+                {{#if (eq priceAdjustment "higher")}}class="adjusted-higher"{{else if (eq priceAdjustment "lower")}}class="adjusted-lower"{{/if}}
+                data-property="system.price.value"
+                data-value-base="{{basePrice}}"
+                value="{{this.item.price.value}}"
+                spellcheck="false"
+            />
             /
-            <input type="number" name="system.price.per" value="{{data.price.per}}" />
+            <input type="number" name="system.price.per" value="{{item.system.price.per}}" />
         </div>
     </div>
 
