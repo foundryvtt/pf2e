@@ -1,4 +1,4 @@
-import { NoteDocumentConstructor } from "./constructors";
+import { CanvasBaseNote } from "./client-base-mixes.mjs";
 
 declare global {
     /**
@@ -8,7 +8,7 @@ declare global {
      * @see {@link documents.Scene}               The Scene document type which contains Note embedded documents
      * @see {@link applications.NoteConfig}       The Note configuration application
      */
-    class NoteDocument extends NoteDocumentConstructor {
+    class NoteDocument<TParent extends Scene | null> extends CanvasBaseNote<TParent> {
         /** The associated JournalEntry which is referenced by this Note */
         get entry(): JournalEntry;
 
@@ -16,9 +16,7 @@ declare global {
         get label(): string;
     }
 
-    interface NoteDocument {
-        readonly parent: Scene | null;
-
-        readonly _object: Note;
+    interface NoteDocument<TParent extends Scene | null> extends CanvasBaseNote<TParent> {
+        readonly _object: Note<this> | null;
     }
 }

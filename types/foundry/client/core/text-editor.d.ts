@@ -146,10 +146,10 @@ declare global {
          * Toggle playing or stopping an embedded {@link PlaylistSound} link.
          * @param doc The PlaylistSound document to play/stop.
          */
-        protected static _onPlaySound(doc: PlaylistSound): void;
+        protected static _onPlaySound(doc: PlaylistSound<Playlist>): void;
 
         /** Find all content links belonging to a given PlaylistSound. */
-        protected static _getSoundContentLinks(doc: PlaylistSound): NodeListOf<HTMLAnchorElement>;
+        protected static _getSoundContentLinks(doc: PlaylistSound<Playlist>): NodeListOf<HTMLAnchorElement>;
 
         /**
          * Begin a Drag+Drop workflow for a dynamic content link

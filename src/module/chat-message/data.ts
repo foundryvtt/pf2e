@@ -2,21 +2,16 @@ import { ItemType } from "@item/data";
 import { MagicTradition } from "@item/spell/types";
 import { BaseRawModifier } from "@actor/modifiers";
 import { DegreeAdjustmentsRecord, DegreeOfSuccessString } from "@system/degree-of-success";
-import { ChatMessagePF2e } from ".";
 import { RollNoteSource } from "@module/notes";
 import { CheckRollContext } from "@system/check";
 import { DamageRollContext } from "@system/damage";
 import { ZeroToTwo } from "@module/data";
 
-interface ChatMessageDataPF2e<TChatMessage extends ChatMessagePF2e> extends foundry.data.ChatMessageData<TChatMessage> {
-    readonly _source: ChatMessageSourcePF2e;
-}
-
-interface ChatMessageSourcePF2e extends foundry.data.ChatMessageSource {
+interface ChatMessageSourcePF2e extends foundry.documents.ChatMessageSource {
     flags: ChatMessageFlagsPF2e;
 }
 
-type ChatMessageFlagsPF2e = foundry.data.ChatMessageFlags & {
+type ChatMessageFlagsPF2e = foundry.documents.ChatMessageFlags & {
     pf2e: {
         damageRoll?: DamageRollFlag;
         context?: ChatContextFlag;
@@ -31,7 +26,7 @@ type ChatMessageFlagsPF2e = foundry.data.ChatMessageFlags & {
         strike?: StrikeLookupData | null;
         [key: string]: unknown;
     };
-    core: NonNullable<foundry.data.ChatMessageFlags["core"]>;
+    core: NonNullable<foundry.documents.ChatMessageFlags["core"]>;
 };
 
 type ChatContextFlag = CheckRollContextFlag | DamageRollContextFlag | SpellCastContextFlag;
@@ -107,7 +102,6 @@ interface SpellCastContextFlag {
 
 export {
     ChatContextFlag,
-    ChatMessageDataPF2e,
     ChatMessageSourcePF2e,
     ChatMessageFlagsPF2e,
     CheckRollContextFlag,

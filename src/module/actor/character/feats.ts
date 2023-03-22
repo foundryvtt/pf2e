@@ -16,11 +16,11 @@ interface FeatCategoryOptions {
     level?: number;
 }
 
-class CharacterFeats extends Collection<FeatCategory> {
+class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatCategory> {
     /** Feats with no actual category ("bonus feats" in rules text) */
     unorganized: BonusFeat[] = [];
 
-    constructor(private actor: CharacterPF2e) {
+    constructor(private actor: TActor) {
         super();
 
         const classFeatSlots = actor.class?.grantedFeatSlots;
@@ -129,7 +129,7 @@ class CharacterFeats extends Collection<FeatCategory> {
     }
 
     /** Inserts a feat into the character. If category is empty string, its a bonus feat */
-    async insertFeat(feat: FeatPF2e, options: { categoryId: string; slotId?: string }): Promise<ItemPF2e[]> {
+    async insertFeat(feat: FeatPF2e, options: { categoryId: string; slotId?: string }): Promise<ItemPF2e<TActor>[]> {
         const { category, slotId } = this.get(options.categoryId)?.isFeatValid(feat)
             ? {
                   category: this.get(options.categoryId),
@@ -160,7 +160,7 @@ class CharacterFeats extends Collection<FeatCategory> {
             return this.actor.updateEmbeddedDocuments("Item", [{ _id: feat.id, "system.location": null }]);
         }
 
-        const changed: ItemPF2e[] = [];
+        const changed: ItemPF2e<TActor>[] = [];
 
         // If this is a new feat, create a new feat item on the actor first
         if (!alreadyHasFeat && (isFeatValidInSlot || !location)) {
@@ -257,7 +257,7 @@ class CharacterFeats extends Collection<FeatCategory> {
     }
 }
 
-interface CharacterFeats {
+interface CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatCategory> {
     get(key: "ancestryfeature"): FeatCategory;
     get(key: "classfeature"): FeatCategory;
     get(key: "ancestry"): FeatCategory;

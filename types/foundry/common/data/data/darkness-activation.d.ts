@@ -5,19 +5,9 @@ declare module foundry {
          * @property [min=0] The minimum darkness level for which activation occurs
          * @property [max=1] The maximum darkness level for which activation occurs
          */
-        interface DarknessActivationSource {
+        interface DarknessActivation {
             min: number;
             max: number;
-        }
-
-        class DarknessActivation extends abstract.DocumentData<
-            documents.BaseAmbientLight | documents.BaseAmbientSound
-        > {}
-
-        interface DarknessActivation extends DarknessActivationSource {
-            readonly _source: DarknessActivationSource;
-
-            readonly parent: null;
         }
     }
 }

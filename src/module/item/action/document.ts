@@ -4,8 +4,9 @@ import { UserPF2e } from "@module/user";
 import { ActionCost, Frequency } from "@item/data/base";
 import { ItemSummaryData } from "@item/data";
 import { getActionTypeLabel } from "@util";
+import { ActorPF2e } from "@actor";
 
-class ActionItemPF2e extends ItemPF2e {
+class ActionItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     get actionCost(): ActionCost | null {
         const actionType = this.system.actionType.value || "passive";
         if (actionType === "passive") return null;
@@ -30,7 +31,7 @@ class ActionItemPF2e extends ItemPF2e {
     }
 
     override async getChatData(
-        this: Embedded<ActionItemPF2e>,
+        this: ActionItemPF2e<ActorPF2e>,
         htmlOptions: EnrichHTMLOptions = {}
     ): Promise<ItemSummaryData> {
         const systemData = this.system;
@@ -42,7 +43,7 @@ class ActionItemPF2e extends ItemPF2e {
 
     protected override async _preCreate(
         data: PreDocumentId<ActionItemSource>,
-        options: DocumentModificationContext<this>,
+        options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<void> {
         // In case this was copied from an actor, clear any active frequency value
@@ -57,7 +58,7 @@ class ActionItemPF2e extends ItemPF2e {
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<this>,
+        options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<void> {
         // Normalize action data
@@ -74,7 +75,7 @@ class ActionItemPF2e extends ItemPF2e {
     }
 }
 
-interface ActionItemPF2e extends ItemPF2e {
+interface ActionItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     readonly _source: ActionItemSource;
     system: ActionSystemData;
 }

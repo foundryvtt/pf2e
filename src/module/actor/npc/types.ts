@@ -1,6 +1,6 @@
 import { CreatureSheetData } from "@actor/creature/types";
 import { HitPointsData, PerceptionData } from "@actor/data/base";
-import { SaveType } from "@actor/types";
+import { SaveType, SkillAbbreviation } from "@actor/types";
 import { ActionItemPF2e, EffectPF2e, ItemPF2e } from "@item";
 import { SpellcastingSheetData } from "@item/spellcasting-entry";
 import { ZeroToFour } from "@module/data";
@@ -11,7 +11,7 @@ import { NPCArmorClass, NPCAttributes, NPCSaveData, NPCSkillData, NPCSystemData,
 
 interface ActionsDetails {
     label: string;
-    actions: NPCSheetItemData<ActionItemPF2e>[];
+    actions: NPCSheetItemData<ActionItemPF2e<NPCPF2e>>[];
 }
 
 interface NPCActionSheetData {
@@ -39,6 +39,7 @@ interface VariantCloneParams {
 }
 
 type WithRank = { icon?: string; hover?: string; rank: ZeroToFour };
+type NPCSkillSheetData = NPCSkillData & WithAdjustments & WithRank;
 
 interface NPCSystemSheetData extends NPCSystemData {
     actions: NPCStrikeSheetData[];
@@ -53,9 +54,9 @@ interface NPCSystemSheetData extends NPCSystemData {
             localizedName?: string;
         };
     };
-    sortedSkills: Record<string, NPCSkillData & WithAdjustments>;
+    sortedSkills: Record<SkillAbbreviation, NPCSkillSheetData>;
     saves: Record<SaveType, NPCSaveData & WithAdjustments & WithRank & { labelShort?: string }>;
-    skills: Record<string, NPCSkillData & WithAdjustments & WithRank>;
+    skills: Record<SkillAbbreviation, NPCSkillSheetData>;
     traits: NPCTraitsData & {
         size: {
             localizedName?: string;
@@ -74,10 +75,10 @@ interface NPCSpellcastingSheetData extends SpellcastingSheetData {
 }
 
 /** Additional fields added in sheet data preparation */
-interface NPCSheetData<T extends NPCPF2e = NPCPF2e> extends CreatureSheetData<T> {
+interface NPCSheetData<TActor extends NPCPF2e> extends CreatureSheetData<TActor> {
     actions: NPCActionSheetData;
     data: NPCSystemSheetData;
-    items: NPCSheetItemData[];
+    items: NPCSheetItemData<ItemPF2e<TActor>>[];
     effectItems: EffectPF2e[];
     spellcastingEntries: SpellcastingSheetData[];
     orphanedSpells: boolean;
@@ -107,7 +108,7 @@ interface NPCSheetData<T extends NPCPF2e = NPCPF2e> extends CreatureSheetData<T>
     languageDetails?: string;
 }
 
-type NPCSheetItemData<T extends ItemPF2e = ItemPF2e> = T & {
+type NPCSheetItemData<TItem extends ItemPF2e<NPCPF2e>> = RawObject<TItem> & {
     glyph: string;
     imageUrl: string;
     traits: {
@@ -135,6 +136,7 @@ export {
     NPCActionSheetData,
     NPCSheetData,
     NPCSheetItemData,
+    NPCSkillSheetData,
     NPCSpellcastingSheetData,
     NPCStrikeSheetData,
     NPCSystemSheetData,

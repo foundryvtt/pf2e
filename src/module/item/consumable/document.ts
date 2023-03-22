@@ -1,3 +1,4 @@
+import { ActorPF2e } from "@actor";
 import { TrickMagicItemPopup } from "@actor/sheet/trick-magic-item-popup";
 import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, WeaponPF2e } from "@item";
 import { ItemSummaryData } from "@item/data";
@@ -9,7 +10,7 @@ import { ErrorPF2e } from "@util";
 import { ConsumableCategory, ConsumableSystemData, ConsumableSource } from "./data";
 import { OtherConsumableTag } from "./types";
 
-class ConsumablePF2e extends PhysicalItemPF2e {
+class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     get otherTags(): Set<OtherConsumableTag> {
         return new Set(this.system.traits.otherTags);
     }
@@ -34,14 +35,14 @@ class ConsumablePF2e extends PhysicalItemPF2e {
         return this.system.autoDestroy.value;
     }
 
-    get embeddedSpell(): Embedded<SpellPF2e> | null {
+    get embeddedSpell(): SpellPF2e<ActorPF2e> | null {
         if (!this.actor) throw ErrorPF2e(`No owning actor found for "${this.name}" (${this.id})`);
         if (!this.system.spell) return null;
 
         return new SpellPF2e(deepClone(this.system.spell), {
             parent: this.actor,
             fromConsumable: true,
-        }) as Embedded<SpellPF2e>;
+        }) as SpellPF2e<ActorPF2e>;
     }
 
     get formula(): string | null {
@@ -77,7 +78,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
     }
 
     override async getChatData(
-        this: Embedded<ConsumablePF2e>,
+        this: ConsumablePF2e<ActorPF2e>,
         htmlOptions: EnrichHTMLOptions = {},
         rollOptions: Record<string, unknown> = {}
     ): Promise<ItemSummaryData> {
@@ -147,7 +148,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
     }
 
     /** Use a consumable item, sending the result to chat */
-    async consume(this: Embedded<ConsumablePF2e>): Promise<void> {
+    async consume(this: ConsumablePF2e<ActorPF2e>): Promise<void> {
         const { value, max } = this.uses;
 
         if (["scroll", "wand"].includes(this.category) && this.system.spell) {
@@ -217,7 +218,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
         }
     }
 
-    async castEmbeddedSpell(this: Embedded<ConsumablePF2e>, trickMagicItemData?: TrickMagicItemEntry): Promise<void> {
+    async castEmbeddedSpell(this: ConsumablePF2e<ActorPF2e>, trickMagicItemData?: TrickMagicItemEntry): Promise<void> {
         const spell = this.embeddedSpell;
         if (!spell) return;
         const actor = this.actor;
@@ -227,7 +228,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
             if (trickMagicItemData) return trickMagicItemData;
             return actor.spellcasting
                 .filter(
-                    (e): e is SpellcastingEntryPF2e =>
+                    (e): e is SpellcastingEntryPF2e<ActorPF2e> =>
                         e instanceof SpellcastingEntryPF2e && e.canCast(spell, { origin: this })
                 )
                 .reduce((previous, current) => {
@@ -248,7 +249,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
     }
 }
 
-interface ConsumablePF2e extends PhysicalItemPF2e {
+interface ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     readonly _source: ConsumableSource;
     system: ConsumableSystemData;
 }

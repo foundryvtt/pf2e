@@ -40,18 +40,19 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         const actorData = sheetData.actor;
 
         // Actions
-        const actions: Record<"action" | "reaction" | "free", { label: string; actions: ActionItemPF2e[] }> = {
-            action: { label: game.i18n.localize("PF2E.ActionsActionsHeader"), actions: [] },
-            reaction: { label: game.i18n.localize("PF2E.ActionsReactionsHeader"), actions: [] },
-            free: { label: game.i18n.localize("PF2E.ActionsFreeActionsHeader"), actions: [] },
-        };
+        const actions: Record<"action" | "reaction" | "free", { label: string; actions: RawObject<ActionItemPF2e>[] }> =
+            {
+                action: { label: game.i18n.localize("PF2E.ActionsActionsHeader"), actions: [] },
+                reaction: { label: game.i18n.localize("PF2E.ActionsReactionsHeader"), actions: [] },
+                free: { label: game.i18n.localize("PF2E.ActionsFreeActionsHeader"), actions: [] },
+            };
 
         // Actions
         for (const item of this.actor.itemTypes.action.sort((a, b) => a.sort - b.sort)) {
-            const itemData = item.toObject(false) as unknown as ActionItemPF2e;
+            const itemData = item.toObject(false);
             const img = getActionIcon(item.actionCost);
             const actionType = item.actionCost?.type ?? "free";
-            actions[actionType].actions.push({ ...itemData, img } as ActionItemPF2e);
+            actions[actionType].actions.push({ ...itemData, img });
         }
 
         actorData.actions = actions;

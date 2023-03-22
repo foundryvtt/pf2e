@@ -19,7 +19,7 @@ class UUIDUtils {
     static async fromUUIDs(uuids: Exclude<ActorUUID | TokenDocumentUUID, CompendiumUUID>[]): Promise<ActorPF2e[]>;
     static async fromUUIDs(uuids: Exclude<ItemUUID, CompendiumUUID>[]): Promise<ItemPF2e[]>;
     static async fromUUIDs(uuids: string[]): Promise<ClientDocument[]>;
-    static async fromUUIDs(uuids: string[]): Promise<ClientDocument[]> {
+    static async fromUUIDs(uuids: string[]): Promise<foundry.abstract.Document[] | ActorPF2e[] | ItemPF2e[]> {
         const actors: ActorPF2e[] = [];
         const items: ItemPF2e[] = [];
 

@@ -18,7 +18,7 @@ class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
     batchSize?: number;
     fieldDiscoveryBatchSize?: number;
     maxItemLevel: number;
-    parentItem: Embedded<ItemPF2e>;
+    parentItem: ItemPF2e<ActorPF2e>;
 
     constructor(actor: CharacterPF2e, knownFormulas: CraftingFormula[], data: CraftingEntryData) {
         this.selector = data.selector;

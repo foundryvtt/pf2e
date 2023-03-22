@@ -43,7 +43,7 @@ export class Migration645TokenImageSize extends MigrationBase {
     }
 
     override async updateToken(
-        tokenSource: foundry.data.TokenSource,
+        tokenSource: foundry.documents.TokenSource,
         actor: Readonly<ActorPF2e | null>
     ): Promise<void> {
         tokenSource.texture.src = this.imageOverrides.get(actor?.id ?? "") ?? tokenSource.texture.src;

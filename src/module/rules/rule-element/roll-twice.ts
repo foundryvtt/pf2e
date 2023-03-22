@@ -1,3 +1,4 @@
+import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import { RuleElementSource } from ".";
 import { RollTwiceSynthetic } from "../synthetics";
@@ -12,7 +13,7 @@ export class RollTwiceRuleElement extends RuleElementPF2e {
     /** If the hosting item is an effect, remove or expire it after a matching roll is made */
     removeAfterRoll = this.item.isOfType("effect");
 
-    constructor(data: RollTwiceSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: RollTwiceSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
         if (this.#isValid(data)) {

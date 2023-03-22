@@ -1,3 +1,4 @@
+import { ActorPF2e } from "@actor/base";
 import {
     Abilities,
     BaseCreatureSource,
@@ -193,7 +194,7 @@ interface NPCDetails extends NPCDetailsSource {
 
 /** The full data for a NPC action (used primarily for strikes.) */
 interface NPCStrike extends StrikeData {
-    item: Embedded<MeleePF2e>;
+    item: MeleePF2e<ActorPF2e>;
     /** The type of attack as a localization string */
     attackRollType?: string;
     /** The id of the item this strike is generated from */

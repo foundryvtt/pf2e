@@ -10,7 +10,7 @@ import { CONDITION_SLUGS } from "@actor/values";
 export class ConditionManager {
     static #initialized = false;
 
-    static conditions: Map<ConditionSlug | ItemUUID, ConditionPF2e> = new Map();
+    static conditions: Map<ConditionSlug | ItemUUID, ConditionPF2e<null>> = new Map();
 
     /** Gets a list of condition slugs. */
     static get conditionsSlugs(): string[] {
@@ -20,11 +20,11 @@ export class ConditionManager {
     static async initialize(force = false): Promise<void> {
         if (this.#initialized && !force) return;
 
-        type ConditionCollection = CompendiumCollection<ConditionPF2e>;
+        type ConditionCollection = CompendiumCollection<ConditionPF2e<null>>;
         const content = (await game.packs.get<ConditionCollection>("pf2e.conditionitems")?.getDocuments()) ?? [];
         const entries = [
-            ...content.map((c): [ConditionSlug, ConditionPF2e] => [c.slug, c]),
-            ...content.map((c): [ItemUUID, ConditionPF2e] => [c.uuid, c]),
+            ...content.map((c): [ConditionSlug, ConditionPF2e<null>] => [c.slug, c]),
+            ...content.map((c): [ItemUUID, ConditionPF2e<null>] => [c.uuid, c]),
         ];
         this.conditions = new Map(entries);
         this.#initialized = true;
@@ -34,9 +34,9 @@ export class ConditionManager {
      * Get a condition using the condition name.
      * @param slug A condition slug
      */
-    static getCondition(slug: ConditionSlug, modifications?: DeepPartial<ConditionSource>): ConditionPF2e;
-    static getCondition(slug: string, modifications?: DeepPartial<ConditionSource>): ConditionPF2e | null;
-    static getCondition(slug: string, modifications: DeepPartial<ConditionSource> = {}): ConditionPF2e | null {
+    static getCondition(slug: ConditionSlug, modifications?: DeepPartial<ConditionSource>): ConditionPF2e<null>;
+    static getCondition(slug: string, modifications?: DeepPartial<ConditionSource>): ConditionPF2e<null> | null;
+    static getCondition(slug: string, modifications: DeepPartial<ConditionSource> = {}): ConditionPF2e<null> | null {
         slug = sluggify(slug);
         if (!setHasElement(CONDITION_SLUGS, slug)) return null;
 
@@ -72,7 +72,7 @@ export class ConditionManager {
         }
     }
 
-    static getFlattenedConditions(items: Embedded<ConditionPF2e>[]): FlattenedCondition[] {
+    static getFlattenedConditions(items: ConditionPF2e<ActorPF2e>[]): FlattenedCondition[] {
         const flatteneds: Map<string, FlattenedCondition> = new Map();
 
         for (const condition of items.sort(this.sortConditions)) {
@@ -225,7 +225,7 @@ export class ConditionManager {
         return Array.from(flatteneds.values());
     }
 
-    private static sortConditions(conditionA: ConditionPF2e, conditionB: ConditionPF2e): number {
+    private static sortConditions(conditionA: ConditionPF2e<ActorPF2e>, conditionB: ConditionPF2e<ActorPF2e>): number {
         return conditionA.slug === conditionB.slug
             ? conditionA.active
                 ? -1

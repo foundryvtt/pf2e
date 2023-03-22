@@ -47,6 +47,7 @@ import { TokenImageRuleElement } from "./rule-element/token-image";
 import { TokenLightRuleElement } from "./rule-element/token-light";
 import { TokenNameRuleElement } from "./rule-element/token-name";
 import { WeaponPotencyRuleElement } from "./rule-element/weapon-potency";
+import { ActorPF2e } from "@actor";
 export { RuleElementSynthetics } from "./synthetics";
 
 /**
@@ -102,7 +103,7 @@ class RuleElements {
         return { ...this.builtin, ...this.custom };
     }
 
-    static fromOwnedItem(item: Embedded<ItemPF2e>, options?: RuleElementOptions): RuleElementPF2e[] {
+    static fromOwnedItem(item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions): RuleElementPF2e[] {
         const rules: RuleElementPF2e[] = [];
         for (const [sourceIndex, source] of item.system.rules.entries()) {
             if (typeof source.key !== "string") {
@@ -139,7 +140,7 @@ class RuleElements {
 
 type RuleElementConstructor = { schema: LaxSchemaField<RuleElementSchema> } & (new (
     data: RuleElementSource,
-    item: Embedded<ItemPF2e>,
+    item: ItemPF2e<ActorPF2e>,
     options?: RuleElementOptions
 ) => RuleElementPF2e);
 

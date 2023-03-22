@@ -1,3 +1,4 @@
+import { ActorPF2e } from "@actor";
 import { type ContainerPF2e, ItemPF2e } from "@item";
 import { ItemSummaryData, PhysicalItemSource, TraitChatData } from "@item/data";
 import { MystifiedTraits } from "@item/data/values";
@@ -20,9 +21,9 @@ import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
 import { getUsageDetails, isEquipped } from "./usage";
 import { DENOMINATIONS } from "./values";
 
-abstract class PhysicalItemPF2e extends ItemPF2e {
+abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     // The cached container of this item, if in a container, or null
-    private _container: Embedded<ContainerPF2e> | null = null;
+    private _container: ContainerPF2e<ActorPF2e> | null = null;
 
     get level(): number {
         return this.system.level.value;
@@ -130,13 +131,10 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     /** Get this item's container, returning null if it is not in a container */
-    get container(): Embedded<ContainerPF2e> | null {
+    get container(): ContainerPF2e<ActorPF2e> | null {
         if (this.system.containerId === null) return (this._container = null);
-
-        const container = this._container ?? this.actor?.items.get(this.system.containerId ?? "");
-        if (container?.isOfType("backpack")) this._container = container;
-
-        return this._container;
+        return (this._container ??=
+            this.actor?.itemTypes.backpack.find((c) => c.id === this.system.containerId) ?? null);
     }
 
     /** Returns the bulk of this item and all sub-containers */
@@ -405,7 +403,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
     /** Set to unequipped upon acquiring */
     protected override async _preCreate(
         data: PreDocumentId<this["_source"]>,
-        options: DocumentModificationContext<this>,
+        options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<void> {
         await super._preCreate(data, options, user);
@@ -427,7 +425,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<this>,
+        options: DocumentUpdateContext<TParent>,
         user: UserPF2e
     ): Promise<void> {
         // Clamp hit points to between zero and max
@@ -480,7 +478,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 }
 
-interface PhysicalItemPF2e extends ItemPF2e {
+interface PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     readonly _source: PhysicalItemSource;
     system: PhysicalSystemData;
 

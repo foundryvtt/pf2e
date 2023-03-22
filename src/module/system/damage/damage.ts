@@ -6,6 +6,7 @@ import { ZeroToThree } from "@module/data";
 import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success";
 import { DamageRoll, DamageRollDataPF2e } from "./roll";
 import { DamageRollContext, DamageTemplate } from "./types";
+import { ActorPF2e } from "@actor";
 
 /** Create a chat message containing a damage roll */
 export class DamagePF2e {
@@ -168,7 +169,8 @@ export class DamagePF2e {
             if (isStrike && item && self?.actor?.isOfType("character", "npc")) {
                 const strikes: StrikeData[] = self.actor.system.actions;
                 const strike = strikes.find(
-                    (a): a is StrikeData & { item: ItemPF2e } => a.item?.id === item.id && a.item.slug === item.slug
+                    (a): a is StrikeData & { item: ItemPF2e<ActorPF2e> } =>
+                        a.item?.id === item.id && a.item.slug === item.slug
                 );
 
                 if (strike) {

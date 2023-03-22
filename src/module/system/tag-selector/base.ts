@@ -11,9 +11,7 @@ interface TagSelectorOptions extends FormApplicationOptions {
     customChoices?: Record<string, string>;
 }
 
-abstract class BaseTagSelector<
-    TDocument extends ActorPF2e | ItemPF2e = ActorPF2e | ItemPF2e
-> extends FormApplication<TDocument> {
+abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends FormApplication<TDocument> {
     choices: Record<string, string>;
 
     /** The object path to the property containing the tags */
@@ -70,10 +68,6 @@ abstract class BaseTagSelector<
                 {}
             );
     }
-}
-
-interface BaseTagSelector {
-    options: FormApplicationOptions;
 }
 
 export { BaseTagSelector, TagSelectorOptions };

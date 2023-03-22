@@ -4,6 +4,7 @@ import "./ambient-light-document";
 import "./ambient-sound-document";
 import "./cards";
 import "./chat-message";
+import "./client-document";
 import "./combat";
 import "./combatant";
 import "./drawing-document";
@@ -14,7 +15,6 @@ import "./journal-entry";
 import "./journal-entry-page";
 import "./macro";
 import "./measured-template-document";
-import "./mixins";
 import "./note-document";
 import "./playlist";
 import "./playlist-sound";
@@ -26,15 +26,16 @@ import "./tile-document";
 import "./token-document";
 import "./user";
 import "./wall-document";
+import "./client-base-mixes.mjs";
 
 declare global {
     type WorldDocument =
-        | Actor
+        | Actor<null>
         | Cards
         | ChatMessage
         | Combat
         | Folder
-        | Item
+        | Item<null>
         | JournalEntry
         | Macro
         | Playlist

@@ -2,7 +2,7 @@ export {};
 
 declare global {
     /** The sidebar directory which organizes and displays world-level Actor documents. */
-    class ActorDirectory<TActor extends Actor> extends SidebarDirectory<TActor> {
+    class ActorDirectory<TActor extends Actor<null>> extends SidebarDirectory<TActor> {
         constructor(options: SidebarDirectoryOptions);
 
         static override documentName: "Actor";

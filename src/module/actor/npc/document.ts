@@ -1,8 +1,8 @@
-import { CreaturePF2e } from "@actor";
+import { ActorPF2e, CreaturePF2e } from "@actor";
 import { Abilities } from "@actor/creature/data";
 import { SIZE_TO_REACH } from "@actor/creature/values";
 import { strikeFromMeleeItem } from "@actor/helpers";
-import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
+import { CheckModifier, MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "@actor/modifiers";
 import { SaveType } from "@actor/types";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
 import { ItemPF2e, MeleePF2e } from "@item";
@@ -17,6 +17,7 @@ import {
     extractNotes,
     extractRollTwice,
 } from "@module/rules/helpers";
+import { TokenDocumentPF2e } from "@scene";
 import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check";
 import { LocalizePF2e } from "@system/localize";
 import { PredicatePF2e } from "@system/predication";
@@ -27,7 +28,7 @@ import { NPCFlags, NPCSource, NPCSystemData } from "./data";
 import { NPCSheetPF2e } from "./sheet";
 import { VariantCloneParams } from "./types";
 
-class NPCPF2e extends CreaturePF2e {
+class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends CreaturePF2e<TParent> {
     override get allowedItemTypes(): (ItemType | "physical")[] {
         return [...super.allowedItemTypes, "physical", "spellcastingEntry", "spell", "action", "melee", "lore"];
     }
@@ -398,7 +399,7 @@ class NPCPF2e extends CreaturePF2e {
 
         // process OwnedItem instances, which for NPCs include skills, attacks, equipment, special abilities etc.
         const generatedMelee = Array.from(strikes.values()).flatMap((w) => w.toNPCAttacks());
-        const items = this.items.contents.concat(generatedMelee);
+        const items: ItemPF2e<ActorPF2e>[] = [...this.items.contents, ...generatedMelee];
         for (const item of items) {
             if (item.isOfType("lore")) {
                 // override untrained skills if defined in the NPC data
@@ -593,13 +594,13 @@ class NPCPF2e extends CreaturePF2e {
                 })
             );
         }
-        const formatItemName = (item: ItemPF2e): string => {
+        const formatItemName = (item: ItemPF2e<this | null>): string => {
             if (item.isOfType("consumable")) {
                 return `${item.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${item.quantity}) <button type="button" style="width: auto; line-height: 14px;" data-action="consume" data-item="${item.id}">${LocalizePF2e.translations.PF2E.ConsumableUseLabel}</button>`;
             }
             return item.name;
         };
-        const formatNoteText = (item: ItemPF2e): Promise<string> => {
+        const formatNoteText = (item: ItemPF2e<this | null>): Promise<string> => {
             // Call enrichHTML with the correct item context
             const rollData = item.getRollData();
             return TextEditor.enrichHTML(item.description, { rollData, async: true });
@@ -742,12 +743,10 @@ class NPCPF2e extends CreaturePF2e {
     }
 }
 
-interface NPCPF2e extends CreaturePF2e {
+interface NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends CreaturePF2e<TParent> {
     flags: NPCFlags;
     readonly _source: NPCSource;
     system: NPCSystemData;
-
-    _sheet: NPCSheetPF2e<this> | null;
 
     get sheet(): NPCSheetPF2e<this>;
 }

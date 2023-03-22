@@ -1,5 +1,5 @@
 import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions } from ".";
-import { CharacterPF2e } from "@actor";
+import { ActorPF2e, CharacterPF2e } from "@actor";
 import { MartialProficiency } from "@actor/character/data";
 import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
@@ -14,7 +14,7 @@ class MartialProficiencyRuleElement extends RuleElementPF2e {
     /** Predication test for whether a weapon matches this proficiency */
     definition: PredicatePF2e;
 
-    constructor(data: MartialProficiencySource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: MartialProficiencySource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         data.priority = 9;
         data.immutable = Boolean(data.immutable ?? true);
         data.value ??= 1;

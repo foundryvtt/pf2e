@@ -1,4 +1,4 @@
-export {};
+import { ClientBaseJournalEntryPage } from "./client-base-mixes.mjs";
 
 declare global {
     /**
@@ -6,7 +6,7 @@ declare global {
      *
      * @see {@link JournalEntry}  The JournalEntry document type which contains JournalEntryPage embedded documents.
      */
-    class JournalEntryPage<TParent extends JournalEntry | null> extends ClientDocument2<TParent> {
+    class JournalEntryPage<TParent extends JournalEntry | null> extends ClientBaseJournalEntryPage<TParent> {
         /** The table of contents for this JournalEntryPage. */
         get toc(): JournalEntryPageHeading;
 
@@ -61,17 +61,14 @@ declare global {
 
         protected override _onUpdate(
             data: DeepPartial<this["_source"]>,
-            options: DocumentModificationContext<this>,
+            options: DocumentModificationContext<TParent>,
             userId: string
         ): void;
     }
 
-    interface JournalEntryPage<TParent extends JournalEntry | null>
-        extends BaseDocumentWithOmissions<foundry.documents.BaseJournalEntryPage<TParent>>,
-            ClientDocument2<TParent> {
-        readonly _source: foundry.documents.JournalEntryPageSource;
-
+    interface JournalEntryPage<TParent extends JournalEntry | null> extends ClientBaseJournalEntryPage<TParent> {
         get documentName(): "JournalEntryPage";
+        get sheet(): JournalPageSheet<this>;
     }
 
     interface JournalEntryPageHeading {

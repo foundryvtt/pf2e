@@ -1,4 +1,4 @@
-import { RollTableConstructor } from "./constructors";
+import { ClientBaseRollTable } from "./client-base-mixes.mjs";
 
 declare global {
     /**
@@ -8,7 +8,7 @@ declare global {
      * @see {@link documents.RollTables}            The world-level collection of RollTable documents
      * @see {@link applications.RollTableConfig}    The RollTable configuration application
      */
-    class RollTable extends RollTableConstructor {
+    class RollTable extends ClientBaseRollTable {
         /* -------------------------------------------- */
         /*  Methods                                     */
         /* -------------------------------------------- */
@@ -24,15 +24,15 @@ declare global {
          * @param [options.messageOptions={}] Additional options which customize the created messages
          */
         toMessage(
-            results: TableResult[],
+            results: TableResult<this>[],
             {
                 roll,
                 messageData,
                 messageOptions,
             }?: {
                 roll?: Roll | null;
-                messageData?: Partial<foundry.data.ChatMessageSource>;
-                messageOptions?: DocumentModificationContext;
+                messageData?: Partial<foundry.documents.ChatMessageSource>;
+                messageOptions?: ChatMessageModificationContext;
             }
         ): Promise<ChatMessage | undefined>;
 
@@ -55,10 +55,10 @@ declare global {
         }?: {
             roll?: Roll | null;
             recursive?: boolean;
-            results?: TableResult[];
+            results?: TableResult<RollTable>[];
             displayChat?: boolean;
-            rollMode?: RollMode | null;
-        }): Promise<RollTableDraw>;
+            rollMode?: RollMode | "roll" | null;
+        }): Promise<RollTableDraw<this>>;
 
         /**
          * Draw multiple results from a RollTable, constructing a final synthetic Roll as a dice pool of inner rolls.
@@ -78,7 +78,7 @@ declare global {
                 displayChat,
                 rollMode,
             }?: { roll?: Roll | null; recursive?: boolean; displayChat?: boolean; rollMode?: RollMode | null }
-        ): Promise<RollTableDraw>;
+        ): Promise<RollTableDraw<this>>;
 
         /** Normalize the probabilities of rolling each item in the RollTable based on their assigned weights */
         normalize(): Promise<this>;
@@ -113,14 +113,14 @@ declare global {
             roll?: Roll;
             recursive?: boolean;
             _depth?: number;
-        }): Promise<RollTableDraw>;
+        }): Promise<RollTableDraw<this>>;
 
         /**
          * Get an Array of valid results for a given rolled total
          * @param value The rolled value
          * @return An Array of results
          */
-        getResultsForRoll(value: number): TableResult[];
+        getResultsForRoll(value: number): TableResult<this>[];
 
         /* -------------------------------------------- */
         /*  Event Handlers                              */
@@ -128,17 +128,17 @@ declare global {
 
         protected override _onCreateEmbeddedDocuments(
             embeddedName: "TableResult",
-            documents: TableResult[],
-            result: foundry.data.TableResultSource[],
-            options: DocumentModificationContext,
+            documents: TableResult<this>[],
+            result: TableResult<this>["_source"][],
+            options: DocumentModificationContext<this>,
             userId: string
         ): void;
 
         protected override _onDeleteEmbeddedDocuments(
             embeddedName: "TableResult",
-            documents: TableResult[],
-            result: foundry.data.TableResultSource[],
-            options: DocumentModificationContext,
+            documents: TableResult<this>[],
+            result: string[],
+            options: DocumentModificationContext<this>,
             userId: string
         ): void;
 
@@ -146,14 +146,18 @@ declare global {
         /*  Importing and Exporting                     */
         /* -------------------------------------------- */
 
-        override toCompendium(pack: CompendiumCollection<this>): foundry.data.RollTableSource;
+        override toCompendium(pack: CompendiumCollection<this>): this["_source"];
 
         /**
          * Create a new RollTable entity using all of the Entities from a specific Folder as new results.
          * @param folder  The Folder entity from which to create a roll table
          * @param options Additional options passed to the RollTable.create method
          */
-        static fromFolder(folder: Folder, options?: DocumentModificationContext): Promise<RollTable | undefined>;
+        static fromFolder(folder: Folder, options?: DocumentModificationContext<null>): Promise<RollTable | undefined>;
+    }
+
+    interface RollTable extends ClientBaseRollTable {
+        readonly results: foundry.abstract.EmbeddedCollection<TableResult<this>>;
     }
 
     /**
@@ -161,8 +165,8 @@ declare global {
      * @property roll    The Dice roll which generated the draw
      * @property results An array of drawn TableResult documents
      */
-    interface RollTableDraw {
+    interface RollTableDraw<TParent extends RollTable> {
         roll: Roll;
-        results: TableResult[];
+        results: TableResult<TParent>[];
     }
 }

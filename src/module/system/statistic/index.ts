@@ -41,7 +41,7 @@ interface StatisticRollParameters {
     /** Additional modifiers */
     modifiers?: ModifierPF2e[];
     /** The originating item of this attack, if any */
-    item?: Embedded<ItemPF2e> | null;
+    item?: ItemPF2e<ActorPF2e> | null;
     /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
     rollMode?: RollMode | "roll";
     /** Should the dialog be skipped */

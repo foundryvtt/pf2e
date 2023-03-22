@@ -144,40 +144,45 @@ declare global {
         protected override _onCreateDocuments(
             documents: TDocument[],
             result: TDocument["_source"][],
-            options: DocumentModificationContext,
+            options: DocumentModificationContext<null>,
             userId: string
         ): void;
 
         protected override _onUpdateDocuments(
             documents: TDocument[],
             result: TDocument["_source"][],
-            options: DocumentModificationContext,
+            options: DocumentUpdateContext<null>,
             userId: string
         ): void;
 
         protected override _onDeleteDocuments(
             documents: TDocument[],
-            result: TDocument["_source"][],
-            options: DocumentModificationContext,
+            result: string[],
+            options: DocumentModificationContext<null>,
             userId: string
         ): void;
 
         /** Follow-up actions taken when Documents within this Compendium pack are modified */
-        protected _onModifyContents(documents: TDocument[], options: DocumentModificationContext, userId: string): void;
+        protected _onModifyContents(
+            documents: TDocument[],
+            options: DocumentModificationContext<null>,
+            userId: string
+        ): void;
     }
 
     type CompendiumDocumentType = (typeof CONST.COMPENDIUM_DOCUMENT_TYPES)[number];
     type CompendiumUUID = `Compendium.${string}.${string}`;
     type DocumentUUID = WorldDocumentUUID | CompendiumUUID | TokenDocumentUUID;
 
-    function fromUuid<T extends CompendiumDocument = CompendiumDocument>(
-        uuid: CompendiumUUID,
-        relative?: CompendiumDocument
-    ): Promise<T | null>;
-    function fromUuid<T extends ClientDocument = ClientDocument>(
+    function fromUuid(uuid: CompendiumUUID, relative?: CompendiumDocument): Promise<CompendiumDocument | null>;
+    function fromUuid(
+        uuid: TokenDocumentUUID,
+        relative?: foundry.abstract.Document
+    ): Promise<TokenDocument<Scene> | null>;
+    function fromUuid<TDocument extends ClientDocument>(
         uuid: string,
-        relative?: ClientDocument
-    ): Promise<T | null>;
+        relative?: foundry.abstract.Document
+    ): Promise<TDocument | null>;
 
     /**
      * Retrieve a Document by its Universally Unique Identifier (uuid) synchronously. If the uuid resolves to a compendium
@@ -190,7 +195,7 @@ declare global {
     function fromUuidSync(
         uuid: WorldDocumentUUID,
         relative?: ClientDocument | CompendiumIndexData | null
-    ): ClientDocument | null;
+    ): foundry.abstract.Document | null;
     function fromUuidSync(
         uuid: string,
         relative?: ClientDocument | CompendiumIndexData | null
@@ -203,7 +208,7 @@ declare global {
      * @returns The Collection and the Document ID to resolve the parent document, as
      *          well as the remaining Embedded Document parts, if any.
      */
-    function _parseUuid(uuid: string, relative?: ClientDocument): ResolvedUUID;
+    function _parseUuid(uuid: string, relative?: foundry.abstract.Document): ResolvedUUID;
 
     interface ResolvedUUID {
         /** The parent collection. */
@@ -249,5 +254,5 @@ declare global {
 
     type CompendiumIndex = Collection<CompendiumIndexData>;
 
-    type CompendiumDocument = Exclude<WorldDocument, Combat | ChatMessage | Folder | User>;
+    type CompendiumDocument = Actor<null> | Cards | Item<null> | JournalEntry | Macro | Playlist | RollTable | Scene;
 }

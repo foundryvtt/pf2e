@@ -25,7 +25,7 @@ declare global {
         protected _forceSnap: boolean;
 
         /** Track the most recently created or updated wall data for use with the clone tool */
-        protected _cloneType: foundry.data.WallSource;
+        protected _cloneType: foundry.documents.WallSource;
 
         /** Reference the last interacted wall endpoint for the purposes of chaining */
         last: { id: string | null; point: PointArray };
@@ -133,7 +133,7 @@ declare global {
          * This method helps to translate each tool into a default wall data configuration for that type
          * @param tool The active canvas tool
          */
-        protected _getWallDataFromActiveTool(tool: string): Partial<foundry.data.WallSource>;
+        protected _getWallDataFromActiveTool(tool: string): Partial<foundry.documents.WallSource>;
 
         /* -------------------------------------------- */
         /*  Event Listeners and Handlers                */

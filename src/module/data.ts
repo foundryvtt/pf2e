@@ -132,7 +132,10 @@ export const MATH_FUNCTION_NAMES: Set<MathFunctionName> = new Set([
     "trunc",
 ] as const);
 
-type EnfolderableDocumentPF2e = ActorPF2e | ItemPF2e | Exclude<EnfolderableDocument, Actor | Item>;
+type EnfolderableDocumentPF2e =
+    | ActorPF2e<null>
+    | ItemPF2e<null>
+    | Exclude<EnfolderableDocument, Actor<null> | Item<null>>;
 
 export {
     DocumentSchemaRecord,

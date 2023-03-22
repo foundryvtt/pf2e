@@ -355,17 +355,17 @@ declare global {
          *         or the Object of prepared chatData otherwise.
          */
         toMessage(
-            messageData: PreCreate<foundry.data.ChatMessageSource> | undefined,
+            messageData: PreCreate<foundry.documents.ChatMessageSource> | undefined,
             { rollMode, create }: { rollMode?: RollMode | "roll"; create: false }
-        ): Promise<foundry.data.ChatMessageSource>;
+        ): Promise<foundry.documents.ChatMessageSource>;
         toMessage(
-            messageData?: PreCreate<foundry.data.ChatMessageSource>,
+            messageData?: PreCreate<foundry.documents.ChatMessageSource>,
             { rollMode, create }?: { rollMode?: RollMode | "roll"; create?: true }
         ): Promise<ChatMessage>;
         toMessage(
-            messageData?: PreCreate<foundry.data.ChatMessageSource>,
+            messageData?: PreCreate<foundry.documents.ChatMessageSource>,
             { rollMode, create }?: { rollMode?: RollMode | "roll"; create?: boolean }
-        ): Promise<ChatMessage | foundry.data.ChatMessageSource>;
+        ): Promise<ChatMessage | foundry.documents.ChatMessageSource>;
 
         /* -------------------------------------------- */
         /*  Interface Helpers                           */

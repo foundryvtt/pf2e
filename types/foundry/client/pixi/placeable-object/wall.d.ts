@@ -58,6 +58,8 @@ declare class Wall<TDocument extends WallDocument<Scene | null>> extends Placeab
 
     refresh(): this;
 
+    protected override _refresh(options: object): void;
+
     /**
      * Compute an approximate Polygon which encloses the line segment providing a specific hitArea for the line
      * @param coords The original wall coordinates
@@ -104,19 +106,19 @@ declare class Wall<TDocument extends WallDocument<Scene | null>> extends Placeab
     /*  Socket Listeners and Handlers               */
     /* -------------------------------------------- */
 
-    override _onCreate(
-        data: foundry.data.WallSource,
-        options: DocumentModificationContext<TDocument>,
+    protected override _onCreate(
+        data: TDocument["_source"],
+        options: DocumentModificationContext<TDocument["parent"]>,
         userId: string
     ): void;
 
-    override _onUpdate(
-        changed: DocumentUpdateData,
-        options: DocumentModificationContext<TDocument>,
+    protected override _onUpdate(
+        changed: DeepPartial<TDocument["_source"]>,
+        options: DocumentModificationContext<TDocument["parent"]>,
         userId: string
     ): void;
 
-    override _onDelete(options: DocumentModificationContext<TDocument>, userId: string): void;
+    protected override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;
 
     /**
      * Callback actions when a wall that contains a door is moved or its state is changed

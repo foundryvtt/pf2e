@@ -1,14 +1,15 @@
+import { ActorPF2e } from "@actor";
 import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect";
 import { UserPF2e } from "@module/user";
 import { AfflictionFlags, AfflictionSource, AfflictionSystemData } from "./data";
 
-class AfflictionPF2e extends AbstractEffectPF2e {
+class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
     override get badge(): EffectBadge {
         const label = game.i18n.format("PF2E.Item.Affliction.Stage", { stage: this.stage });
         return { type: "counter", value: this.stage, label };
     }
 
-    get stage() {
+    get stage(): number {
         return this.system.stage;
     }
 
@@ -45,7 +46,7 @@ class AfflictionPF2e extends AbstractEffectPF2e {
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<this>,
+        options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<void> {
         const duration = changed.system?.duration;
@@ -57,7 +58,7 @@ class AfflictionPF2e extends AbstractEffectPF2e {
     }
 }
 
-interface AfflictionPF2e extends AbstractEffectPF2e {
+interface AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
     flags: AfflictionFlags;
     readonly _source: AfflictionSource;
     system: AfflictionSystemData;

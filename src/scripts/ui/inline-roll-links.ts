@@ -12,7 +12,7 @@ import { MeasuredTemplatePF2e } from "@module/canvas";
 const inlineSelector = ["action", "check", "effect-area", "repost"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
 
 export const InlineRollLinks = {
-    injectRepostElement: (links: HTMLElement[], foundryDoc?: ClientDocument | ClientDocument2): void => {
+    injectRepostElement: (links: HTMLElement[], foundryDoc?: ClientDocument): void => {
         for (const link of links) {
             if (!foundryDoc || foundryDoc.isOwner) link.classList.add("with-repost");
 
@@ -37,7 +37,7 @@ export const InlineRollLinks = {
         }
     },
 
-    listen: ($html: HTMLElement | JQuery, foundryDoc?: ClientDocument | ClientDocument2): void => {
+    listen: ($html: HTMLElement | JQuery, foundryDoc?: ClientDocument): void => {
         const html = $html instanceof HTMLElement ? $html : $html[0]!;
         if ($html instanceof HTMLElement) $html = $($html);
 
@@ -219,7 +219,7 @@ export const InlineRollLinks = {
             } as const;
 
             if (typeof pf2EffectArea === "string") {
-                const templateData: DeepPartial<foundry.data.MeasuredTemplateSource> = JSON.parse(
+                const templateData: DeepPartial<foundry.documents.MeasuredTemplateSource> = JSON.parse(
                     pf2TemplateData ?? "{}"
                 );
                 templateData.distance ||= Number(pf2Distance);

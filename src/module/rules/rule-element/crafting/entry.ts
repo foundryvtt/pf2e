@@ -1,5 +1,5 @@
 import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions } from "..";
-import { CharacterPF2e } from "@actor";
+import { ActorPF2e, CharacterPF2e } from "@actor";
 import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
 import { sluggify } from "@util";
@@ -13,7 +13,7 @@ class CraftingEntryRuleElement extends RuleElementPF2e {
 
     private selector: string;
 
-    constructor(data: CraftingEntryRuleSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: CraftingEntryRuleSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         super({ maxItemLevel: 1, priority: 19, ...data }, item, options);
 
         if (data.selector && typeof data.selector === "string") {

@@ -2,15 +2,12 @@ export {};
 
 declare global {
     /**
-     * A Tile is an implementation of PlaceableObject which represents a static piece of artwork or prop within the Scene.
-     * Tiles are drawn inside a {@link BackgroundLayer} container.
-     *
-     * @see {@link TileDocument}
-     * @see {@link BackgroundLayer}
-     * @see {@link TileSheet}
-     * @see {@link TileHUD}
+     * A PlaceablesLayer designed for rendering the visual Scene for a specific vertical cross-section.
+     * @category - Canvas
      */
-    class Tile<TDocument extends TileDocument = TileDocument> extends PlaceableObject<TDocument> {
+    class Tile<
+        TDocument extends TileDocument<Scene | null> = TileDocument<Scene | null>
+    > extends PlaceableObject<TDocument> {
         /* -------------------------------------------- */
         /*  Attributes                                  */
         /* -------------------------------------------- */
@@ -72,10 +69,10 @@ declare global {
 
         override destroy(options: object): void;
 
-        /**
-         * @param [refreshPerception=false]  Also refresh the perception layer.
-         */
-        override refresh({ refreshPerception }?: { refreshPerception?: boolean }): this;
+        /** @param [options.refreshPerception=false]  Also refresh the perception layer. */
+        override refresh(options?: { refreshPerception?: boolean }): this;
+
+        protected override _refresh(options: { refreshPerception?: boolean }): void;
 
         /** Refresh the display of the Tile border */
         protected _refreshBorder(b: PIXI.Rectangle): void;
@@ -89,11 +86,11 @@ declare global {
 
         override _onUpdate(
             changed: DeepPartial<TDocument["_source"]>,
-            options: DocumentModificationContext<TDocument>,
+            options: DocumentModificationContext<TDocument["parent"]>,
             userId: string
         ): void;
 
-        override _onDelete(options: DocumentModificationContext<TDocument>, userId: string): void;
+        override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;
 
         /**
          * Update wall states and refresh lighting and vision when a tile becomes a roof, or when an existing roof tile's
@@ -169,10 +166,11 @@ declare global {
          * Create a preview tile with a background texture instead of an image
          * @param data Initial data with which to create the preview Tile
          */
-        static createPreview(data: DeepPartial<foundry.data.TileSource>): Tile;
+        static createPreview(data: DeepPartial<foundry.documents.TileSource>): Tile;
     }
 
-    interface Tile<TDocument extends TileDocument = TileDocument> extends PlaceableObject<TDocument> {
+    interface Tile<TDocument extends TileDocument<Scene | null> = TileDocument<Scene | null>>
+        extends PlaceableObject<TDocument> {
         get layer(): TilesLayer<this>;
     }
 }

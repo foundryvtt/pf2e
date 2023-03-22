@@ -1,13 +1,14 @@
+import { ActorPF2e, ActorUpdateContext } from "@actor/base";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
-import { MeleePF2e, WeaponPF2e } from "@item";
-import { CreaturePF2e } from ".";
-import { SheetOptions } from "@module/sheet/helpers";
-import { ALIGNMENTS, ALIGNMENT_TRAITS } from "./values";
-import { FlattenedCondition } from "@system/conditions";
-import { ActorUpdateContext } from "@actor/base";
-import { AbilityData, CreatureSystemData, SaveData, SkillData } from "./data";
-import { ZeroToFour } from "@module/data";
 import { AbilityString, SaveType } from "@actor/types";
+import { MeleePF2e, WeaponPF2e } from "@item";
+import { ZeroToFour } from "@module/data";
+import { SheetOptions } from "@module/sheet/helpers";
+import { TokenDocumentPF2e } from "@scene";
+import { FlattenedCondition } from "@system/conditions";
+import { CreaturePF2e } from ".";
+import { AbilityData, CreatureSystemData, SaveData, SkillData } from "./data";
+import { ALIGNMENTS, ALIGNMENT_TRAITS } from "./values";
 
 type Alignment = SetElement<typeof ALIGNMENTS>;
 type AlignmentTrait = SetElement<typeof ALIGNMENT_TRAITS>;
@@ -17,7 +18,7 @@ type ModeOfBeing = "living" | "undead" | "construct" | "object";
 
 interface GetReachParameters {
     action?: "interact" | "attack";
-    weapon?: WeaponPF2e | MeleePF2e | null;
+    weapon?: WeaponPF2e<ActorPF2e> | MeleePF2e<ActorPF2e> | null;
 }
 
 interface IsFlatFootedParams {
@@ -25,13 +26,13 @@ interface IsFlatFootedParams {
     dueTo: "flanking" | "surprise" | "hidden" | "undetected";
 }
 
-interface CreatureUpdateContext<T extends CreaturePF2e> extends ActorUpdateContext<T> {
+interface CreatureUpdateContext<TParent extends TokenDocumentPF2e | null> extends ActorUpdateContext<TParent> {
     allowHPOverage?: boolean;
 }
 
 type WithRank = { icon?: string; hover?: string; rank: ZeroToFour };
 
-interface CreatureSheetData<TActor extends CreaturePF2e = CreaturePF2e> extends ActorSheetDataPF2e<TActor> {
+interface CreatureSheetData<TActor extends CreaturePF2e> extends ActorSheetDataPF2e<TActor> {
     data: CreatureSystemData & {
         abilities: Record<AbilityString, AbilityData & { label?: string }>;
         attributes: {

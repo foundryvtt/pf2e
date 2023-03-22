@@ -1,6 +1,7 @@
 import { SpellOverlay, SpellOverlayType, SpellSource } from "./data";
 import { ErrorPF2e } from "@util";
 import { SpellPF2e } from ".";
+import { ActorPF2e } from "@actor";
 
 class SpellOverlayCollection extends Collection<SpellOverlay> {
     constructor(public readonly spell: SpellPF2e, entries?: Record<string, SpellOverlay>) {
@@ -8,8 +9,8 @@ class SpellOverlayCollection extends Collection<SpellOverlay> {
     }
 
     /** Returns all variants based on override overlays */
-    get overrideVariants(): Embedded<SpellPF2e>[] {
-        return [...this.entries()].reduce((result: Embedded<SpellPF2e>[], [overlayId, data]) => {
+    get overrideVariants(): SpellPF2e<ActorPF2e>[] {
+        return [...this.entries()].reduce((result: SpellPF2e<ActorPF2e>[], [overlayId, data]) => {
             if (data.overlayType === "override") {
                 const spell = this.spell.loadVariant({ overlayIds: [overlayId] });
                 if (spell) return [...result, spell];
@@ -48,10 +49,10 @@ class SpellOverlayCollection extends Collection<SpellOverlay> {
     }
 
     async updateOverride(
-        variantSpell: Embedded<SpellPF2e>,
+        variantSpell: SpellPF2e<ActorPF2e>,
         data: Partial<SpellSource>,
-        options?: DocumentModificationContext
-    ): Promise<Embedded<SpellPF2e>> {
+        options?: DocumentModificationContext<ActorPF2e>
+    ): Promise<SpellPF2e<ActorPF2e>> {
         // Perform local data update of spell variant data
         variantSpell.updateSource(data, options);
 

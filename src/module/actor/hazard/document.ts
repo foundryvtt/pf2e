@@ -1,18 +1,19 @@
 import { ActorPF2e } from "@actor";
 import { strikeFromMeleeItem } from "@actor/helpers";
-import { ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
+import { MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "@actor/modifiers";
 import { SaveType } from "@actor/types";
 import { SAVE_TYPES } from "@actor/values";
 import { ConditionPF2e } from "@item";
 import { ItemType } from "@item/data";
 import { Rarity } from "@module/data";
 import { extractModifiers } from "@module/rules/helpers";
+import { TokenDocumentPF2e } from "@scene";
 import { DamageType } from "@system/damage";
 import { Statistic } from "@system/statistic";
 import { isObject, objectHasKey } from "@util";
 import { HazardSource, HazardSystemData } from "./data";
 
-class HazardPF2e extends ActorPF2e {
+class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     override get allowedItemTypes(): (ItemType | "physical")[] {
         return [...super.allowedItemTypes, "action", "melee"];
     }
@@ -131,7 +132,7 @@ class HazardPF2e extends ActorPF2e {
     }
 }
 
-interface HazardPF2e extends ActorPF2e {
+interface HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     readonly _source: HazardSource;
     system: HazardSystemData;
 

@@ -1,10 +1,10 @@
-import type { ActorPF2e } from "@actor";
+import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { FakeActor } from "./fake-actor";
-import { FakeItem } from "./fake-item";
+import { MockActor } from "./actor";
+import { MockItem } from "./item";
 
 /** In Foundry this is actually a subclass of Map, but it incompatibly extends it at several points. */
-export class FakeCollection<V> {
+export class MockCollection<V> {
     #map: Map<string, V>;
 
     constructor(entries: [string, V][] = []) {
@@ -27,7 +27,7 @@ export class FakeCollection<V> {
         return this.#map.get(key) ?? null;
     }
 
-    set(key: string, value: V): FakeCollection<V> {
+    set(key: string, value: V): MockCollection<V> {
         this.#map.set(key, value);
         return this;
     }
@@ -57,24 +57,24 @@ export class FakeCollection<V> {
     }
 }
 
-export class FakeWorldCollection<V extends { data: object }> extends FakeCollection<V> {}
+export class MockWorldCollection<V extends { readonly parent: null }> extends MockCollection<V> {}
 
-export class FakeActors extends FakeWorldCollection<ActorPF2e> {
+export class MockActors extends MockWorldCollection<ActorPF2e<null>> {
     tokens: Record<string, ActorPF2e | undefined> = {};
 
-    documentClass = FakeActor as unknown as typeof ActorPF2e;
+    documentClass = MockActor as unknown as typeof ActorPF2e;
 
-    constructor(entries: [string, ActorPF2e][] = []) {
+    constructor(entries: [string, ActorPF2e<null>][] = []) {
         super(entries);
     }
 }
 
-export class FakeItems extends FakeWorldCollection<ActorPF2e> {
+export class MockItems extends MockWorldCollection<ItemPF2e<null>> {
     tokens: Record<string, ActorPF2e | undefined> = {};
 
-    documentClass = FakeItem as unknown as typeof ItemPF2e;
+    documentClass = MockItem as unknown as typeof ItemPF2e;
 
-    constructor(entries: [string, ActorPF2e][] = []) {
+    constructor(entries: [string, ItemPF2e<null>][] = []) {
         super(entries);
     }
 }

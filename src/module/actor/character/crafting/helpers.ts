@@ -116,7 +116,7 @@ export async function craftSpellConsumable(
         .reduce((result, spell) => {
             result[spell.baseLevel] = [...(result[spell.baseLevel] || []), spell];
             return result;
-        }, <Record<number, Embedded<SpellPF2e>[]>>{});
+        }, <Record<number, SpellPF2e<ActorPF2e>[]>>{});
     const content = await renderTemplate("systems/pf2e/templates/actors/crafting-select-spell-dialog.hbs", {
         spells: validSpells,
     });

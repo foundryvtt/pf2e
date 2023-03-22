@@ -1,4 +1,4 @@
-import { CreaturePF2e } from "@actor";
+import { ActorPF2e, CreaturePF2e } from "@actor";
 import { SIZE_TO_REACH } from "@actor/creature/values";
 import { ActorType } from "@actor/data";
 import { ActorSizePF2e } from "@actor/data/size";
@@ -21,7 +21,7 @@ class CreatureSizeRuleElement extends RuleElementPF2e {
 
     resizeEquipment: boolean;
 
-    constructor(data: CreatureSizeSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: CreatureSizeSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
         this.resizeEquipment = !!data.resizeEquipment;
 

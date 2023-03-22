@@ -1,4 +1,4 @@
-import { CombatConstructor } from "./constructors";
+import { ClientBaseCombat } from "./client-base-mixes.mjs";
 
 declare global {
     /**
@@ -6,13 +6,13 @@ declare global {
      * Each Combat document contains CombatData which defines its data schema.
      * @param [data={}] Initial data provided to construct the Combat document
      */
-    class Combat extends CombatConstructor {
-        constructor(data: PreCreate<foundry.data.CombatSource>, context?: DocumentConstructionContext<null>);
+    class Combat extends ClientBaseCombat {
+        constructor(data: PreCreate<foundry.documents.CombatSource>, context?: DocumentConstructionContext<null>);
 
         active: boolean;
 
         /** Track the sorted turn order of this combat encounter */
-        turns: Combatant<this>[];
+        turns: CollectionValue<this["combatants"]>[];
 
         /** Record the current round, turn, and tokenId to understand changes in the encounter state */
         current: {
@@ -38,13 +38,13 @@ declare global {
         /* -------------------------------------------- */
 
         /** Get the Combatant who has the current turn. */
-        get combatant(): Combatant<this> | undefined;
+        get combatant(): CollectionValue<this["combatants"]> | undefined;
 
         /** The numeric round of the Combat encounter */
         get round(): number;
 
         /** A reference to the Scene document within which this Combat encounter occurs */
-        get scene(): Scene | undefined;
+        get scene(): NonNullable<CollectionValue<this["combatants"]>["actor"]>["parent"];
 
         /** Return the object of settings which modify the Combat Tracker behavior */
         get settings(): Record<string, unknown>;
@@ -158,54 +158,45 @@ declare global {
 
         protected override _onCreate(
             data: this["_source"],
-            options: DocumentModificationContext<this>,
+            options: DocumentModificationContext<null>,
             userId: string
         ): void;
 
         protected override _onUpdate(
             changed: DeepPartial<this["_source"]>,
-            options: DocumentModificationContext<this>,
+            options: DocumentModificationContext<null>,
             userId: string
         ): void;
 
-        protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void;
+        protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
 
         protected override _onCreateEmbeddedDocuments(
             type: "Combatant",
-            documents: Combatant[],
-            result: Combatant["_source"][],
-            options: DocumentModificationContext<Combatant>,
+            documents: Combatant<this>[],
+            result: Combatant<this>["_source"][],
+            options: DocumentModificationContext<this>,
             userId: string
         ): void;
 
         protected override _onUpdateEmbeddedDocuments(
             embeddedName: "Combatant",
-            documents: Combatant[],
-            result: Combatant["_source"][],
-            options: DocumentModificationContext<Combatant>,
+            documents: Combatant<this>[],
+            result: Combatant<this>["_source"][],
+            options: DocumentModificationContext<this>,
             userId: string
         ): void;
 
         protected override _onDeleteEmbeddedDocuments(
             embeddedName: "Combatant",
-            documents: Combatant[],
-            result: Combatant["_source"][],
-            options: DocumentModificationContext<Combatant>,
+            documents: Combatant<this>[],
+            result: string[],
+            options: DocumentModificationContext<this>,
             userId: string
         ): void;
     }
 
-    interface Combat {
-        readonly data: foundry.data.CombatData<this, Combatant>;
-
-        // V10 shim
-        readonly flags: this["data"]["flags"];
-
-        createEmbeddedDocuments(
-            embeddedName: "Combatant",
-            data: PreCreate<Combatant["_source"]>[],
-            context?: DocumentModificationContext<Combatant>
-        ): Promise<Combatant<this>[]>;
+    interface Combat extends ClientBaseCombat {
+        readonly combatants: foundry.abstract.EmbeddedCollection<Combatant<this>>;
     }
 
     interface RollInitiativeOptions {

@@ -263,7 +263,9 @@ export class StatusEffects {
     }
 
     /** Creates a ChatMessage with the Actors current status effects. */
-    static #createChatMessage(token: TokenPF2e, whisper = false) {
+    static #createChatMessage(token: TokenPF2e | null, whisper = false): Promise<ChatMessagePF2e | undefined> | null {
+        if (!token) return null;
+
         // Get the active applied conditions.
         // Iterate the list to create the chat and bubble chat dialog.
         const conditions = token.actor?.itemTypes.condition.filter((c) => c.active) ?? [];
@@ -279,7 +281,7 @@ export class StatusEffects {
                 </li>`;
         });
 
-        if (statusEffectList.length === 0) return;
+        if (statusEffectList.length === 0) return null;
 
         const content = `
             <div class="dice-roll">
@@ -291,7 +293,7 @@ export class StatusEffects {
             </div>
         `;
 
-        const messageSource: DeepPartial<foundry.data.ChatMessageSource> = {
+        const messageSource: DeepPartial<foundry.documents.ChatMessageSource> = {
             user: game.user.id,
             speaker: { alias: game.i18n.format("PF2E.StatusEffects", { name: token.name }) },
             content,
@@ -302,7 +304,8 @@ export class StatusEffects {
         if (hideNPCEvent || whisper) {
             messageSource.whisper = ChatMessage.getWhisperRecipients("GM").map((u) => u.id);
         }
-        ChatMessagePF2e.create(messageSource);
+
+        return ChatMessagePF2e.create(messageSource);
     }
 
     /** Re-render the token HUD */

@@ -1,14 +1,15 @@
+import { ActorPF2e } from "@actor";
 import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
 import { FeatPF2e, ItemPF2e } from "@item";
 import { isObject, objectHasKey } from "@util";
 import { ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
 import {
-    RuleElementPF2e,
-    RuleElementSource,
     RuleElementData,
     RuleElementOptions,
-    RuleValue,
+    RuleElementPF2e,
     RuleElementSchema,
+    RuleElementSource,
+    RuleValue,
 } from "./";
 
 const { fields } = foundry.data;
@@ -18,7 +19,7 @@ const { fields } = foundry.data;
  * @category RuleElement
  */
 class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TSchema> {
-    constructor(data: AELikeSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: AELikeSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         const hasExplicitPriority = typeof data.priority === "number";
         super(data, item, options);
 

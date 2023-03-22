@@ -1,7 +1,8 @@
+import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 
 /** Check an item prior to its deletion for GrantItem on-delete actions */
-async function processGrantDeletions(item: Embedded<ItemPF2e>, pendingItems: Embedded<ItemPF2e>[]): Promise<void> {
+async function processGrantDeletions(item: ItemPF2e<ActorPF2e>, pendingItems: ItemPF2e<ActorPF2e>[]): Promise<void> {
     const { actor } = item;
 
     const granter = actor.items.get(item.flags.pf2e.grantedBy?.id ?? "");

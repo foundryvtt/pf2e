@@ -1,7 +1,7 @@
 import { FeatPF2e } from "@item/feat";
-import { FeatSheetData } from "../sheet/data-types";
 import { ItemSheetPF2e } from "../sheet/base";
 import Tagify from "@yaireo/tagify";
+import { ItemSheetDataPF2e } from "@item/sheet/data-types";
 
 export class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
     override get validTraits(): Record<string, string> {
@@ -59,4 +59,17 @@ export class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
 
         return super._updateObject(event, formData);
     }
+}
+
+interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
+    featTypes: ConfigPF2e["PF2E"]["featTypes"];
+    actionTypes: ConfigPF2e["PF2E"]["actionTypes"];
+    actionsNumber: ConfigPF2e["PF2E"]["actionsNumber"];
+    frequencies: ConfigPF2e["PF2E"]["frequencies"];
+    damageTypes: ConfigPF2e["PF2E"]["damageTypes"] & ConfigPF2e["PF2E"]["healingTypes"];
+    categories: ConfigPF2e["PF2E"]["actionCategories"];
+    prerequisites: string;
+    isFeat: boolean;
+    mandatoryTakeOnce: boolean;
+    hasLineageTrait: boolean;
 }

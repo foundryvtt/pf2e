@@ -5,6 +5,7 @@ import { DegreeOfSuccessString, DEGREE_OF_SUCCESS_STRINGS } from "@system/degree
 import { isObject } from "@util";
 import { ArrayField, ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
 import { BracketedValue, RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./";
+import { ActorPF2e } from "@actor";
 
 const { fields } = foundry.data;
 
@@ -30,7 +31,7 @@ class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
     /** The main text of the note */
     text: string | BracketedValue<string>;
 
-    constructor(source: RollNoteSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(source: RollNoteSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         super(source, item, options);
 
         if (this.#isValid(source)) {

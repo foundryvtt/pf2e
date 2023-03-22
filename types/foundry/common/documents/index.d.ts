@@ -1,5 +1,6 @@
 import "./active-effect";
 import "./actor";
+import "./adventure";
 import "./ambient-light";
 import "./ambient-sound";
 import "./cards";

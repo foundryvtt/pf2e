@@ -83,7 +83,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
                 },
                 callback: async ($li) => {
                     const compendium = game.packs.get($li.data("pack"), { strict: true }) as CompendiumCollection<
-                        ActorPF2e | ItemPF2e
+                        ActorPF2e<null> | ItemPF2e<null>
                     >;
                     const runner = new MigrationRunner(MigrationList.constructFromVersion(null));
                     runner.runCompendiumMigration(compendium);
@@ -116,7 +116,9 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
                     const packCollection = game.packs.get(UUIDUtils.fromUuidSync(uuid)?.pack ?? "", { strict: true });
                     const worldCollection = game.collections.get(packCollection.documentName, { strict: true });
                     const indexData = UUIDUtils.fromUuidSync(uuid) ?? { _id: "" };
-                    if (!("_id" in indexData)) throw ErrorPF2e("Unexpected missing document _id");
+                    if (!("_id" in indexData && typeof indexData._id === "string")) {
+                        throw ErrorPF2e("Unexpected missing document _id");
+                    }
 
                     return worldCollection.importFromCompendium(
                         packCollection,

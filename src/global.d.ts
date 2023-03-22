@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor/base";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 import { FeatCategoryOptions } from "@actor/character/feats";
-import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
+import { CheckModifier, MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "@actor/modifiers";
 import { ItemPF2e } from "@item/base";
 import { CoinsPF2e } from "@item/physical/helpers";
 import { ActiveEffectPF2e } from "@module/active-effect";
@@ -48,14 +48,14 @@ import { ConditionManager } from "./module/system/conditions";
 
 declare global {
     interface Game<
-        TActor extends Actor,
+        TActor extends Actor<null>,
         TActors extends Actors<TActor>,
-        TChatMessage extends ChatMessage<TActor>,
+        TChatMessage extends ChatMessage,
         TCombat extends Combat,
-        TItem extends Item<TActor>,
+        TItem extends Item<null>,
         TMacro extends Macro,
         TScene extends Scene,
-        TUser extends User<TActor>
+        TUser extends User
     > {
         pf2e: {
             actions: Record<string, Function>;
@@ -111,10 +111,25 @@ declare global {
 
     namespace globalThis {
         // eslint-disable-next-line no-var
-        var game: Game<ActorPF2e, ActorsPF2e, ChatMessagePF2e, EncounterPF2e, ItemPF2e, MacroPF2e, ScenePF2e, UserPF2e>;
+        var game: Game<
+            ActorPF2e<null>,
+            ActorsPF2e<ActorPF2e<null>>,
+            ChatMessagePF2e,
+            EncounterPF2e,
+            ItemPF2e<null>,
+            MacroPF2e,
+            ScenePF2e,
+            UserPF2e
+        >;
 
         // eslint-disable-next-line no-var
-        var ui: FoundryUI<ActorPF2e, ActorDirectoryPF2e<ActorPF2e>, ItemPF2e, ChatLogPF2e, CompendiumDirectoryPF2e>;
+        var ui: FoundryUI<
+            ActorPF2e<null>,
+            ActorDirectoryPF2e<ActorPF2e<null>>,
+            ItemPF2e<null>,
+            ChatLogPF2e,
+            CompendiumDirectoryPF2e
+        >;
     }
 
     interface Window {
@@ -201,14 +216,13 @@ declare global {
 }
 
 type ConfiguredConfig = Config<
-    AmbientLightDocumentPF2e,
-    ActiveEffectPF2e,
+    AmbientLightDocumentPF2e<ScenePF2e | null>,
+    ActiveEffectPF2e<ActorPF2e | ItemPF2e | null>,
     ActorPF2e,
-    ActorDirectoryPF2e<ActorPF2e>,
     ChatLogPF2e,
     ChatMessagePF2e,
     EncounterPF2e,
-    CombatantPF2e,
+    CombatantPF2e<EncounterPF2e | null, TokenDocumentPF2e>,
     EncounterTrackerPF2e<EncounterPF2e | null>,
     CompendiumDirectoryPF2e,
     HotbarPF2e,
@@ -219,6 +233,6 @@ type ConfiguredConfig = Config<
     TokenDocumentPF2e,
     WallDocument<ScenePF2e | null>,
     ScenePF2e,
-    UserPF2e<ActorPF2e>,
+    UserPF2e,
     EffectsCanvasGroupPF2e
 >;

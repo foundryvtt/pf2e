@@ -138,11 +138,11 @@ const isJournalEntryData = (docSource: CompendiumSource): docSource is foundry.d
     return "pages" in docSource && Array.isArray(docSource.pages);
 };
 
-const isMacroData = (docSource: CompendiumSource): docSource is foundry.data.MacroSource => {
+const isMacroData = (docSource: CompendiumSource): docSource is foundry.documents.MacroSource => {
     return "type" in docSource && ["chat", "script"].includes(docSource.type);
 };
 
-const isTableData = (docSource: CompendiumSource): docSource is foundry.data.RollTableSource => {
+const isTableData = (docSource: CompendiumSource): docSource is foundry.documents.RollTableSource => {
     return "results" in docSource && Array.isArray(docSource.results);
 };
 
@@ -201,8 +201,8 @@ async function migrate() {
             | ActorSourcePF2e
             | ItemSourcePF2e
             | foundry.documents.JournalEntrySource
-            | foundry.data.MacroSource
-            | foundry.data.RollTableSource;
+            | foundry.documents.MacroSource
+            | foundry.documents.RollTableSource;
         try {
             // Parse file content
             source = JSON.parse(content);
@@ -217,8 +217,8 @@ async function migrate() {
             | ActorSourcePF2e
             | ItemSourcePF2e
             | foundry.documents.JournalEntrySource
-            | foundry.data.MacroSource
-            | foundry.data.RollTableSource
+            | foundry.documents.MacroSource
+            | foundry.documents.RollTableSource
         > => {
             source.flags ??= {};
             try {

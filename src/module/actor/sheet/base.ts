@@ -44,7 +44,7 @@ import { IWREditor } from "./popups/iwr-editor";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup";
 import { CraftingFormula } from "@actor/character/crafting";
 import { UUIDUtils } from "@util/uuid-utils";
-import { CombatantPF2e } from "@module/encounter";
+import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -140,7 +140,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         };
 
         const actorSize = new ActorSizePF2e({ value: this.actor.size });
-        const createInventoryItem = (item: PhysicalItemPF2e): InventoryItem => {
+        const createInventoryItem = (item: PhysicalItemPF2e<TActor>): InventoryItem => {
             const editable = game.user.isGM || item.isIdentified;
             const heldItems = item.isOfType("backpack") ? item.contents.map((i) => createInventoryItem(i)) : undefined;
             heldItems?.sort((a, b) => (a.item.sort || 0) - (b.item.sort || 0));
@@ -270,8 +270,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             if (!rollInitElem.classList.contains("disabled") && attributes.initiative?.roll) {
                 if (!game.combat) return;
                 const { actor } = this;
-                const combatant = ((): Embedded<CombatantPF2e> | null => {
-                    const existing = game.combat.combatants.find((combatant) => combatant.actor === actor);
+                const combatant = ((): CombatantPF2e<EncounterPF2e> | null => {
+                    const existing = game.combat.combatants.find((c) => c.actor === actor);
                     if (existing) return existing;
                     ui.notifications.error(game.i18n.format("PF2E.Encounter.NotParticipating", { actor: actor.name }));
                     return null;
@@ -803,7 +803,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     /** Handle a drop event for an existing Owned Item to sort that item */
-    protected override async _onSortItem(event: ElementDragEvent, itemSource: ItemSourcePF2e): Promise<ItemPF2e[]> {
+    protected override async _onSortItem(
+        event: ElementDragEvent,
+        itemSource: ItemSourcePF2e
+    ): Promise<ItemPF2e<TActor>[]>;
+    protected override async _onSortItem(event: ElementDragEvent, itemSource: ItemSourcePF2e): Promise<Item<TActor>[]> {
         const item = this.actor.items.get(itemSource._id);
         if (!item) return [];
 
@@ -844,14 +848,18 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     /** Emulate a sheet item drop from the canvas */
-    async emulateItemDrop(data: DropCanvasItemDataPF2e): Promise<ItemPF2e[]> {
+    async emulateItemDrop(data: DropCanvasItemDataPF2e): Promise<ItemPF2e<TActor | null>[]> {
         return this._onDropItem({ preventDefault(): void {} } as ElementDragEvent, data);
     }
 
-    protected override async _onDropItem(event: ElementDragEvent, data: DropCanvasItemDataPF2e): Promise<ItemPF2e[]> {
+    protected override async _onDropItem(
+        event: ElementDragEvent,
+        data: DropCanvasItemDataPF2e
+    ): Promise<ItemPF2e<TActor | null>[]> {
         event.preventDefault();
+        super._onDropItem;
 
-        const item = await ItemPF2e.fromDropData(data);
+        const item = (await ItemPF2e.fromDropData(data)) as ItemPF2e<TActor | null>;
         if (!item) return [];
         const itemSource = item.toObject();
 
@@ -881,9 +889,14 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
      */
     protected async _handleDroppedItem(
         event: ElementDragEvent,
-        item: ItemPF2e,
+        item: ItemPF2e<TActor | null>,
         data: DropCanvasItemDataPF2e
-    ): Promise<ItemPF2e[]> {
+    ): Promise<ItemPF2e<TActor | null>[]>;
+    protected async _handleDroppedItem(
+        event: ElementDragEvent,
+        item: ItemPF2e<TActor | null>,
+        data: DropCanvasItemDataPF2e
+    ): Promise<Item<TActor | null>[]> {
         const { actor } = this;
         const itemSource = item.toObject();
 
@@ -993,9 +1006,13 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     protected override async _onDropFolder(
         _event: ElementDragEvent,
         data: DropCanvasData<"Folder", Folder>
-    ): Promise<ItemPF2e[]> {
+    ): Promise<ItemPF2e<TActor>[]>;
+    protected override async _onDropFolder(
+        _event: ElementDragEvent,
+        data: DropCanvasData<"Folder", Folder>
+    ): Promise<Item<TActor>[]> {
         if (!(this.actor.isOwner && data.documentName === "Item")) return [];
-        const folder = (await Folder.fromDropData(data)) as Folder<ItemPF2e> | undefined;
+        const folder = (await Folder.fromDropData(data)) as Folder<ItemPF2e<null>> | undefined;
         if (!folder) return [];
         const itemSources = [folder, ...folder.getSubfolders()].flatMap((f) => f.contents).map((i) => i.toObject());
         return this._onDropItemCreate(itemSources);

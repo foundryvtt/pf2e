@@ -2,30 +2,26 @@ import type { ActorPF2e } from "@actor";
 import type { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 
-export class FakeItem {
-    _data: ItemSourcePF2e;
+export class MockItem {
+    readonly _source: ItemSourcePF2e;
 
-    parent: ActorPF2e | null = null;
+    readonly parent: ActorPF2e | null;
 
     constructor(data: ItemSourcePF2e, public options: DocumentConstructionContext<ActorPF2e | null> = {}) {
-        this._data = duplicate(data);
+        this._source = duplicate(data);
         this.parent = options.parent ?? null;
     }
 
     get id(): string {
-        return this.data._id;
-    }
-
-    get data() {
-        return this._data;
+        return this._source._id;
     }
 
     get name() {
-        return this._data.name;
+        return this._source.name;
     }
 
     get system() {
-        return this._data.system;
+        return this._source.system;
     }
 
     get level(): number | null {
@@ -45,23 +41,23 @@ export class FakeItem {
     }
 
     static async updateDocuments(
-        updates: DocumentUpdateData<ItemPF2e>[] = [],
-        _context: DocumentModificationContext = {}
-    ): Promise<ItemPF2e[]> {
+        updates: DocumentUpdateData<ItemPF2e<ActorPF2e | null>>[] = [],
+        _context: DocumentModificationContext<ActorPF2e | null> = {}
+    ): Promise<ItemPF2e<ActorPF2e | null>[]> {
         return updates.flatMap((update) => {
             const item = game.items.find((item) => item.id === update._id);
-            if (item) mergeObject(item.data, update);
+            if (item) mergeObject(item._source, update);
             return item ?? [];
         });
     }
 
     update(changes: object) {
         for (const [k, v] of Object.entries(changes)) {
-            global.setProperty(this._data, k, v);
+            global.setProperty(this._source, k, v);
         }
     }
 
-    toObject(source = true) {
-        return source ? duplicate(this._data) : duplicate(this.data);
+    toObject(): ItemSourcePF2e {
+        return duplicate(this._source);
     }
 }

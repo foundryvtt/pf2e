@@ -5,9 +5,7 @@ declare global {
      * An Abstract Base Class which defines a Placeable Object which represents an Entity placed on the Canvas
      * @param document The Document instance which is represented by this object
      */
-    abstract class PlaceableObject<
-        TDocument extends CanvasDocument | CanvasDocument2 = CanvasDocument | CanvasDocument2
-    > extends PIXI.Container {
+    abstract class PlaceableObject<TDocument extends CanvasDocument = CanvasDocument> extends PIXI.Container {
         constructor(document: TDocument);
 
         /** Retain a reference to the Scene within which this Placeable Object resides */
@@ -158,18 +156,30 @@ declare global {
          */
         refresh(): this;
 
+        /**
+         * The inner _refresh method which must be defined by each PlaceableObject subclass.
+         * @param options Options which may modify the refresh workflow
+         */
+        protected abstract _refresh(options: object): void;
+
         /** Register pending canvas operations which should occur after a new PlaceableObject of this type is created */
-        _onCreate(data: TDocument["_source"], options: DocumentModificationContext<TDocument>, userId: string): void;
+        protected _onCreate(
+            data: TDocument["_source"],
+            options: DocumentModificationContext<TDocument["parent"]>,
+            userId: string
+        ): void;
 
         /** Define additional steps taken when an existing placeable object of this type is updated with new data */
-        _onUpdate(
-            changed: DocumentUpdateData<TDocument>,
-            options: DocumentModificationContext<TDocument>,
+
+        protected _onUpdate(
+            changed: DeepPartial<TDocument["_source"]>,
+            options: DocumentUpdateContext<TDocument["parent"]>,
             userId: string
         ): void;
 
         /** Define additional steps taken when an existing placeable object of this type is deleted */
-        _onDelete(options: DocumentModificationContext<TDocument>, userId: string): void;
+
+        protected _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;
 
         /* -------------------------------------------- */
         /*  Methods                                     */
@@ -289,8 +299,7 @@ declare global {
         protected _onDragLeftCancel(event: PIXI.InteractionEvent): void;
     }
 
-    interface PlaceableObject<TDocument extends CanvasDocument | CanvasDocument2 = CanvasDocument | CanvasDocument2>
-        extends PIXI.Container {
+    interface PlaceableObject<TDocument extends CanvasDocument = CanvasDocument> extends PIXI.Container {
         hitArea: PIXI.Rectangle;
     }
 }

@@ -13,7 +13,7 @@ import { Statistic } from "@system/statistic";
 import { ErrorPF2e } from "@util";
 import { ConditionKey, ConditionSlug, ConditionSource, ConditionSystemData, PersistentDamageData } from "./data";
 
-class ConditionPF2e extends AbstractEffectPF2e {
+class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
     active!: boolean;
 
     override get badge(): EffectBadge | null {
@@ -35,7 +35,7 @@ class ConditionPF2e extends AbstractEffectPF2e {
         return this.system.persistent ? `persistent-damage-${this.system.persistent.damageType}` : this.slug;
     }
 
-    get appliedBy(): ItemPF2e | null {
+    get appliedBy(): ItemPF2e<ActorPF2e> | null {
         return this.actor?.items.get(this.system.references.parent?.id ?? this.flags.pf2e.grantedBy?.id ?? "") ?? null;
     }
 
@@ -70,12 +70,12 @@ class ConditionPF2e extends AbstractEffectPF2e {
         return options;
     }
 
-    override async increase(): Promise<void> {
-        await this.actor?.increaseCondition(this as Embedded<ConditionPF2e>);
+    override async increase(this: ConditionPF2e<ActorPF2e>): Promise<void> {
+        await this.actor?.increaseCondition(this);
     }
 
-    override async decrease(): Promise<void> {
-        await this.actor?.decreaseCondition(this as Embedded<ConditionPF2e>);
+    override async decrease(this: ConditionPF2e<ActorPF2e>): Promise<void> {
+        await this.actor?.decreaseCondition(this);
     }
 
     async onEndTurn(options: { token?: TokenDocumentPF2e | null } = {}): Promise<void> {
@@ -160,7 +160,7 @@ class ConditionPF2e extends AbstractEffectPF2e {
         // Inactive conditions shouldn't deactivate others
         if (!this.active) return;
 
-        const deactivate = (condition: ConditionPF2e): void => {
+        const deactivate = (condition: ConditionPF2e<ActorPF2e>): void => {
             condition.active = false;
             condition.system.references.overriddenBy.push({ id: this.id, type: "condition" as const });
         };
@@ -194,7 +194,7 @@ class ConditionPF2e extends AbstractEffectPF2e {
     }
 
     /** Log self in parent's conditions map */
-    override prepareActorData(): void {
+    override prepareActorData(this: ConditionPF2e<ActorPF2e>): void {
         super.prepareActorData();
 
         if (this.active) {
@@ -213,7 +213,7 @@ class ConditionPF2e extends AbstractEffectPF2e {
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: ConditionModificationContext<this>,
+        options: ConditionModificationContext<TParent>,
         user: UserPF2e
     ): Promise<void> {
         options.conditionValue = this.value;
@@ -222,7 +222,7 @@ class ConditionPF2e extends AbstractEffectPF2e {
 
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: ConditionModificationContext<this>,
+        options: ConditionModificationContext<TParent>,
         userId: string
     ): void {
         super._onUpdate(changed, options, userId);
@@ -244,18 +244,18 @@ class ConditionPF2e extends AbstractEffectPF2e {
     }
 }
 
-interface ConditionPF2e extends AbstractEffectPF2e {
+interface ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
     readonly _source: ConditionSource;
     system: ConditionSystemData;
 
     get slug(): ConditionSlug;
 }
 
-interface PersistentDamagePF2e extends ConditionPF2e {
+interface PersistentDamagePF2e<TParent extends ActorPF2e | null> extends ConditionPF2e<TParent> {
     system: Omit<ConditionSystemData, "persistent"> & { persistent: PersistentDamageData };
 }
 
-interface ConditionModificationContext<T extends ConditionPF2e> extends DocumentModificationContext<T> {
+interface ConditionModificationContext<TParent extends ActorPF2e | null> extends DocumentModificationContext<TParent> {
     conditionValue?: number | null;
 }
 

@@ -274,8 +274,10 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             for (const element of htmlQueryAll(section, "[data-action=spellcasting-edit]") ?? []) {
                 element.addEventListener("click", (event) => {
                     const containerId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
-                    const entry = this.actor.spellcasting.get(containerId, { strict: true });
-                    createSpellcastingDialog(event, entry as Embedded<SpellcastingEntryPF2e>);
+                    const entry = this.actor.items.get(containerId, { strict: true });
+                    if (entry.isOfType("spellcastingEntry")) {
+                        createSpellcastingDialog(event, entry);
+                    }
                 });
             }
 
@@ -379,7 +381,10 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
     }
 
     /** Adds support for moving spells between spell levels, spell collections, and spell preparation */
-    protected override async _onSortItem(event: ElementDragEvent, itemSource: ItemSourcePF2e): Promise<ItemPF2e[]> {
+    protected override async _onSortItem(
+        event: ElementDragEvent,
+        itemSource: ItemSourcePF2e
+    ): Promise<ItemPF2e<TActor>[]> {
         const dropItemEl = htmlClosest(event.target, ".item");
         const dropContainerEl = htmlClosest(event.target, ".item-container");
 
@@ -406,7 +411,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
                 if (Number.isInteger(dropId) && Number.isInteger(slotLevel)) {
                     const allocated = await collection.prepareSpell(item, slotLevel, dropId);
-                    if (allocated) return [allocated];
+                    if (allocated instanceof SpellcastingEntryPF2e) return [allocated];
                 }
             } else if (dropSlotType === "spell") {
                 const dropId = dropItemEl.dataset.itemId ?? "";
@@ -467,9 +472,9 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
     /** Handle dragging spells onto spell slots. */
     protected override async _handleDroppedItem(
         event: ElementDragEvent,
-        item: ItemPF2e,
+        item: ItemPF2e<TActor | null>,
         data: DropCanvasItemDataPF2e
-    ): Promise<ItemPF2e[]> {
+    ): Promise<ItemPF2e<TActor | null>[]> {
         const containerEl = htmlClosest(event.target, ".item-container[data-container-type=spellcastingEntry]");
         if (containerEl && item.isOfType("spell") && !item.isRitual) {
             const entryId = containerEl.dataset.containerId;

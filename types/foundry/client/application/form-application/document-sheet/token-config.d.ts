@@ -1,6 +1,6 @@
 /** A Token Configuration Application */
 declare class TokenConfig<
-    TDocument extends TokenDocument = TokenDocument,
+    TDocument extends TokenDocument<Scene | null>,
     TOptions extends DocumentSheetOptions = DocumentSheetOptions
 > extends DocumentSheet<TDocument, TOptions> {
     constructor(object: TDocument, options?: Partial<FormApplicationOptions>);
@@ -58,19 +58,19 @@ declare class TokenConfig<
     protected _onBarChange(event: Event): void;
 }
 
-declare interface TokenConfigData<T extends TokenDocument> extends DocumentSheetData<T> {
+declare interface TokenConfigData<TDocument extends TokenDocument<Scene | null>> extends DocumentSheetData<TDocument> {
     cssClasses: string;
     isPrototype: boolean;
     hasAlternates: boolean;
     alternateImages: string[];
-    object: T["data"];
+    object: TDocument;
     options: DocumentSheetOptions;
     gridUnits: string;
     barAttributes: string[];
     bar1: string;
     bar2: string;
     displayModes: Record<string, string>;
-    actors: T["actor"][];
+    actors: TDocument["actor"][];
     dispositions: Record<string, string>;
     isGM: boolean;
 }

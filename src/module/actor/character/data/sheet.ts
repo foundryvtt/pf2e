@@ -64,14 +64,14 @@ interface CraftingSheetData {
 
 type CharacterSheetTabVisibility = Record<(typeof CHARACTER_SHEET_TABS)[number], boolean>;
 
-interface CharacterSheetData extends CreatureSheetData<CharacterPF2e> {
+interface CharacterSheetData<TActor extends CharacterPF2e> extends CreatureSheetData<TActor> {
     abpEnabled: boolean;
-    ancestry: Embedded<AncestryPF2e> | null;
-    heritage: Embedded<HeritagePF2e> | null;
-    background: Embedded<BackgroundPF2e> | null;
+    ancestry: AncestryPF2e<CharacterPF2e> | null;
+    heritage: HeritagePF2e<CharacterPF2e> | null;
+    background: BackgroundPF2e<CharacterPF2e> | null;
     adjustedBonusEncumbranceBulk: boolean;
     adjustedBonusLimitBulk: boolean;
-    class: Embedded<ClassPF2e> | null;
+    class: ClassPF2e<CharacterPF2e> | null;
     classDCs: {
         dcs: ClassDCSheetData[];
         /** The slug of the character's primary class DC */
@@ -81,7 +81,7 @@ interface CharacterSheetData extends CreatureSheetData<CharacterPF2e> {
     };
     crafting: CraftingSheetData;
     data: CharacterSystemSheetData;
-    deity: Embedded<DeityPF2e> | null;
+    deity: DeityPF2e<CharacterPF2e> | null;
     hasStamina: boolean;
     /** This actor has actual containers for stowing, rather than just containers serving as a UI convenience */
     hasRealContainers: boolean;

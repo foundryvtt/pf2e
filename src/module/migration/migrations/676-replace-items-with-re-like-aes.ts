@@ -58,5 +58,5 @@ interface ReplaceItemArgs {
     items: ItemSourcePF2e[];
     type: string;
     slug: string;
-    replacement: ClientDocument | ClientDocument2 | null;
+    replacement: ClientDocument | null;
 }

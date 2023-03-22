@@ -114,13 +114,14 @@ declare global {
          * Simultaneously rotate multiple PlaceableObjects using a provided angle or incremental.
          * This executes a single database operation using Scene.update.
          * If rotating only a single object, it is better to use the PlaceableObject.rotate instance method.
-
-         * @param angle A target angle of rotation (in degrees) where zero faces "south"
-         * @param delta An incremental angle of rotation (in degrees)
-         * @param snap  Snap the resulting angle to a multiple of some increment (in degrees)
-         * @param ids   An Array or Set of object IDs to target for rotation
-
-         * @return      The resulting Promise from the Scene.update operation
+         *
+         * @param  options Options which configure how multiple objects are rotated
+         * @param [options.angle] A target angle of rotation (in degrees) where zero faces "south"
+         * @param [options.delta] An incremental angle of rotation (in degrees)
+         * @param [options.snap]  Snap the resulting angle to a multiple of some increment (in degrees)
+         * @param [options.ids]   An Array of object IDs to target for rotation
+         *
+         * @return An array of objects which were rotated
          */
         rotateMany({
             angle,
@@ -131,20 +132,21 @@ declare global {
             angle?: number;
             delta?: number;
             snap?: number;
-            ids?: number[] | Set<number>;
-        }): Promise<any>;
+            ids?: string[];
+        }): Promise<TObject[]>;
 
         /**
          * Simultaneously move multiple PlaceableObjects via keyboard movement offsets.
          * This executes a single database operation using Scene.update.
          * If moving only a single object, this will delegate to PlaceableObject.update for performance reasons.
          *
-         * @param dx        The number of incremental grid units in the horizontal direction
-         * @param dy        The number of incremental grid units in the vertical direction
-         * @param rotate    Rotate the token to the keyboard direction instead of moving
-         * @param ids       An Array or Set of object IDs to target for rotation
+         * @param options Options which configure how multiple objects are moved
+         * @param [options.dx=0]         The number of incremental grid units in the horizontal direction
+         * @param [options.dy=0]         The number of incremental grid units in the vertical direction
+         * @param [options.rotate=false] Rotate the token to the keyboard direction instead of moving
+         * @param [options.ids]          An Array of object IDs to target for movement
          *
-         * @return          The resulting Promise from the Scene.update operation
+         * @returns An array of objects which were moved during the operation
          */
         moveMany({
             dx,
@@ -155,40 +157,20 @@ declare global {
             dx?: number;
             dy?: number;
             rotate?: boolean;
-            ids?: number[] | Set<number>;
-        }): Promise<any>;
+            ids?: string[];
+        }): Promise<TObject[]>;
 
         /**
          * Undo a change to the objects in this layer
          * This method is typically activated using CTRL+Z while the layer is active
+         * @returns An array of documents which were modified by the undo operation
          */
-        undoHistory(): Promise<any>;
-
-        /**
-         * Update multiple embedded entities in a parent Entity collection using an Array of provided data
-         *
-         * @param data      An Array of update data Objects which provide incremental data
-         * @param options   Additional options which customize the update workflow
-         *
-         * @return          A Promise which resolves to the returned socket response (if successful)
-         */
-        updateMany(data: any[], options?: any): Promise<any>;
-
-        /**
-         * Simultaneously delete multiple PlaceableObjects.
-         * This executes a single database operation using Scene.update.
-         * If deleting only a single object, this will delegate to PlaceableObject.delete for performance reasons.
-         *
-         * @param ids       An Array of object IDs to target for deletion
-         * @param options   Additional options which customize the update workflow
-         *
-         * @return          A Promise which resolves to the returned socket response (if successful)
-         */
-        deleteMany(ids: number[], options?: any): Promise<any>;
+        undoHistory(): Promise<TObject["document"][]>;
 
         /**
          * A helper method to prompt for deletion of all PlaceableObject instances within the Scene
          * Renders a confirmation dialogue to confirm with the requester that all objects will be deleted
+         * @returns An array of Document objects which were deleted by the operation
          */
         deleteAll(): Promise<TObject["document"][] | void>;
 
@@ -250,11 +232,9 @@ declare global {
          * @return An array of updated data once the operation is complete
          */
         updateAll(
-            transformation: (
-                document: TObject
-            ) => DocumentUpdateData<TObject["document"]> | DocumentUpdateData<TObject["document"]>,
+            transformation: (document: TObject) => Record<string, unknown>,
             condition?: Function | null,
-            options?: DocumentModificationContext
+            options?: DocumentModificationContext<TObject["document"]["parent"]>
         ): Promise<TObject["document"][]>;
 
         /* -------------------------------------------- */

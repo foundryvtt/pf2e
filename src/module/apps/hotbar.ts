@@ -87,7 +87,7 @@ if (!actor) {
 }`;
 
         const toggleMacro =
-            game.macros.find((m) => m.name === name && m.data.command === command) ??
+            game.macros.find((m) => m.name === name && m.command === command) ??
             (await MacroPF2e.create({ type: "script", name, img, command }, { renderSheet: false })) ??
             null;
 

@@ -1,4 +1,4 @@
-import { CreaturePF2e } from "@actor";
+import { ActorPF2e, CreaturePF2e } from "@actor";
 import { MovementType } from "@actor/creature/data";
 import { ActorType } from "@actor/data";
 import { MOVEMENT_TYPES } from "@actor/values";
@@ -17,7 +17,7 @@ class BaseSpeedRuleElement extends RuleElementPF2e {
 
     private value: number | string | BracketedValue = 0;
 
-    constructor(data: BaseSpeedSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: BaseSpeedSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
         this.selector = String(data.selector)

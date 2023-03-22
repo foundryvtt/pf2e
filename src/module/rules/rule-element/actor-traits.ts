@@ -1,12 +1,13 @@
+import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { RuleElementPF2e, RuleElementSource, RuleElementOptions } from "./";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./";
 
 class ActorTraitsRuleElement extends RuleElementPF2e {
     add: string[] = [];
 
     remove: string[] = [];
 
-    constructor(data: ActorTraitsSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: ActorTraitsSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         data.add ??= [];
         data.remove ??= [];
 

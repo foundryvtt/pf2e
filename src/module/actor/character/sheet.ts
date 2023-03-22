@@ -35,7 +35,7 @@ import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProfi
 import { CharacterSheetData, ClassDCSheetData, CraftingEntriesSheetData, FeatCategorySheetData } from "./data/sheet";
 import { PCSheetTabManager } from "./tab-manager";
 
-class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
+class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e<TActor> {
     protected readonly actorConfigClass = CharacterConfig;
 
     /** A cache of this PC's known formulas, for use by sheet callbacks */
@@ -62,8 +62,8 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         return `systems/pf2e/templates/actors/character/${template}.hbs`;
     }
 
-    override async getData(options?: ActorSheetOptions): Promise<CharacterSheetData> {
-        const sheetData = (await super.getData(options)) as CharacterSheetData;
+    override async getData(options?: ActorSheetOptions): Promise<CharacterSheetData<TActor>> {
+        const sheetData = (await super.getData(options)) as CharacterSheetData<TActor>;
 
         // Martial Proficiencies
         const proficiencies = Object.entries(sheetData.data.martial);
@@ -165,7 +165,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Is the stamina variant rule enabled?
         sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant") > 0;
         sheetData.spellcastingEntries = await this.prepareSpellcasting();
-        sheetData.feats = this.prepareFeats();
+        sheetData.feats = this.#prepareFeats();
 
         const formulasByLevel = await this.prepareCraftingFormulas();
         const flags = this.actor.flags.pf2e;
@@ -278,7 +278,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         };
 
         // Skills
-        const lores: LorePF2e[] = [];
+        const lores: LorePF2e<TActor>[] = [];
 
         for (const itemData of sheetData.items) {
             const item = this.actor.items.get(itemData._id, { strict: true });
@@ -362,7 +362,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         return craftingEntries;
     }
 
-    private prepareFeats(): FeatCategorySheetData[] {
+    #prepareFeats(): FeatCategorySheetData[] {
         const unorganized: FeatCategorySheetData = {
             id: "bonus",
             label: "PF2E.FeatBonusHeader",
@@ -1003,7 +1003,10 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         return typeof categoryId === "string" ? { slotId, categoryId: categoryId } : null;
     }
 
-    protected override async _onDropItem(event: ElementDragEvent, data: DropCanvasItemDataPF2e): Promise<ItemPF2e[]> {
+    protected override async _onDropItem(
+        event: ElementDragEvent,
+        data: DropCanvasItemDataPF2e
+    ): Promise<ItemPF2e<TActor | null>[]> {
         const item = await ItemPF2e.fromDropData(data);
         if (!item) throw ErrorPF2e("Unable to create item from drop data!");
         const actor = this.actor;
@@ -1132,8 +1135,11 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 
     /** Handle a drop event for an existing Owned Item to sort that item */
-    protected override async _onSortItem(event: ElementDragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
-        const item = this.actor.items.get(itemData._id);
+    protected override async _onSortItem(
+        event: ElementDragEvent,
+        itemSource: ItemSourcePF2e
+    ): Promise<ItemPF2e<TActor>[]> {
+        const item = this.actor.items.get(itemSource._id);
         if (item?.isOfType("feat")) {
             const featSlot = this.#getNearestFeatSlotId(event);
             if (!featSlot) return [];
@@ -1147,7 +1153,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         }
 
-        return super._onSortItem(event, itemData);
+        return super._onSortItem(event, itemSource);
     }
 
     /** Get the font-awesome icon used to display hero points */
@@ -1162,7 +1168,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 }
 
-interface CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
+interface CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e<TActor> {
     getStrikeFromDOM(target: HTMLElement): CharacterStrike | null;
 }
 

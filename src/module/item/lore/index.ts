@@ -1,9 +1,12 @@
+import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item/base";
 import { LoreSource, LoreSystemData } from "./data";
 
-export class LorePF2e extends ItemPF2e {}
+class LorePF2e<TParent extends ActorPF2e | null> extends ItemPF2e<TParent> {}
 
-export interface LorePF2e {
+interface LorePF2e<TParent extends ActorPF2e | null> extends ItemPF2e<TParent> {
     readonly _source: LoreSource;
     system: LoreSystemData;
 }
+
+export { LorePF2e };

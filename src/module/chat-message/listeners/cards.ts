@@ -220,7 +220,7 @@ export const ChatCards = {
     }: {
         event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement>;
         actor: ActorPF2e;
-        item: Embedded<ItemPF2e>;
+        item: ItemPF2e<ActorPF2e>;
     }): Promise<void> => {
         if (canvas.tokens.controlled.length > 0) {
             const saveType = event.currentTarget.dataset.save;

@@ -1,3 +1,4 @@
+import { ActorPF2e } from "@actor";
 import { DexterityModifierCapData } from "@actor/character/types";
 import { MovementType, LabeledSpeed } from "@actor/creature/data";
 import { CreatureSensePF2e } from "@actor/creature/sense";
@@ -35,11 +36,11 @@ interface RuleElementSynthetics {
     senses: SenseSynthetic[];
     statisticsModifiers: ModifierSynthetics;
     strikeAdjustments: StrikeAdjustment[];
-    strikes: Map<string, Embedded<WeaponPF2e>>;
+    strikes: Map<string, WeaponPF2e<ActorPF2e>>;
     striking: Record<string, StrikingSynthetic[]>;
     targetMarks: Map<TokenDocumentUUID, string>;
     toggles: RollOptionToggle[];
-    tokenOverrides: DeepPartial<Pick<foundry.data.TokenSource, "light" | "name">> & {
+    tokenOverrides: DeepPartial<Pick<foundry.documents.TokenSource, "light" | "name">> & {
         texture?: { src: VideoFilePath } | { src: VideoFilePath; scaleX: number; scaleY: number };
     };
     weaponPotency: Record<string, PotencySynthetic[]>;

@@ -1,4 +1,4 @@
-export {};
+import { ClientBaseJournalEntry } from "./client-base-mixes.mjs";
 
 declare global {
     /**
@@ -7,7 +7,7 @@ declare global {
      * @see {@link Journal}                       The world-level collection of JournalEntry documents
      * @see {@link JournalSheet}                  The JournalEntry configuration application
      */
-    class JournalEntry extends ClientDocument2<null> {
+    class JournalEntry extends ClientBaseJournalEntry {
         /* -------------------------------------------- */
         /*  Properties                                  */
         /* -------------------------------------------- */
@@ -52,20 +52,16 @@ declare global {
 
         protected override _onUpdate(
             changed: DeepPartial<this["_source"]>,
-            options: DocumentModificationContext,
+            options: DocumentUpdateContext<null>,
             userId: string
         ): void;
 
-        protected override _onDelete(options: DocumentModificationContext, userId: string): void;
+        protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
     }
 
-    interface JournalEntry
-        extends BaseDocumentWithOmissions<foundry.documents.BaseJournalEntry>,
-            ClientDocument2<null> {
-        readonly _source: foundry.documents.JournalEntrySource;
+    interface JournalEntry extends ClientBaseJournalEntry {
         readonly pages: foundry.abstract.EmbeddedCollection<JournalEntryPage<this>>;
 
-        get documentName(): "JournalEntry";
         get sheet(): JournalSheet<this>;
     }
 }

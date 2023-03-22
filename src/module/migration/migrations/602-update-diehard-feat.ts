@@ -6,7 +6,7 @@ export class Migration602UpdateDiehardFeat extends MigrationBase {
     static override version = 0.602;
     override requiresFlush = true;
 
-    private diehardPromise: Promise<ClientDocument | ClientDocument2 | null>;
+    private diehardPromise: Promise<ClientDocument | null>;
 
     constructor() {
         super();

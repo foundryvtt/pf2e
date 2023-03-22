@@ -9,10 +9,7 @@ export class Migration692CraftingEntryFeatReplacement extends MigrationBase {
     static override version = 0.692;
     override requiresFlush = true;
 
-    private slugToPromise = new Map<
-        string,
-        Promise<ClientDocument<foundry.abstract.Document> | ClientDocument2 | null>
-    >([
+    private slugToPromise = new Map<string, Promise<ClientDocument | null>>([
         ["advanced-alchemy", fromUuid("Compendium.pf2e.classfeatures.Pe0zmIqyTBc2Td0I")],
         ["field-discovery-bomber", fromUuid("Compendium.pf2e.classfeatures.8QAFgy9U8PxEa7Dw")],
         ["field-discovery-chirurgeon", fromUuid("Compendium.pf2e.classfeatures.qC0Iz6SlG2i9gv6g")],
@@ -71,5 +68,5 @@ export class Migration692CraftingEntryFeatReplacement extends MigrationBase {
 interface ReplaceItemArgs {
     items: ItemSourcePF2e[];
     current: ItemSourcePF2e;
-    replacement: ClientDocument | ClientDocument2 | null;
+    replacement: ClientDocument | null;
 }

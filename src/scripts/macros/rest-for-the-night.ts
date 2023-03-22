@@ -1,4 +1,4 @@
-import { CharacterPF2e } from "@actor";
+import { ActorPF2e, CharacterPF2e } from "@actor";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ItemPF2e } from "@item";
 import { ActionDefaultOptions } from "@system/action-macros";
@@ -30,7 +30,7 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
 
     for (const actor of characters) {
         const actorUpdates: ActorUpdates = { attributes: {}, resources: {} };
-        const itemUpdates: EmbeddedDocumentUpdateData<ItemPF2e>[] = [];
+        const itemUpdates: EmbeddedDocumentUpdateData<ItemPF2e<ActorPF2e>>[] = [];
         // A list of messages informing the user of updates made due to rest
         const statements: string[] = [];
 
