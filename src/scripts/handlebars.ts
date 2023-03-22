@@ -3,141 +3,57 @@ import { CoinsPF2e } from "@item/physical/helpers";
 import { getActionGlyph, ordinal, sluggify } from "../util";
 
 export function registerHandlebarsHelpers(): void {
-    Handlebars.registerHelper("pad", (value, length, character): string => {
+    Handlebars.registerHelper("pad", (value: unknown, length: number, character: string): string => {
         return `${value}`.padStart(length, character);
     });
 
-    Handlebars.registerHelper("add", (a, b) => {
-        return a + b;
-    });
-
-    Handlebars.registerHelper("if_all", (...args) => {
-        const opts = args.pop();
-
-        let { fn } = opts;
-        for (let i = 0; i < args.length; ++i) {
-            if (args[i]) continue;
-            fn = opts.inverse;
-            break;
-        }
-
-        return fn();
+    Handlebars.registerHelper("add", (a: unknown, b: unknown): number => {
+        return Number(a) + Number(b);
     });
 
     Handlebars.registerHelper("nor", (...args: unknown[]): boolean => {
         return !args.slice(0, -1).some((a) => !!a);
     });
 
-    Handlebars.registerHelper("any", (...args) => {
-        const opts = args.pop();
-        return args.some((v) => !!v) ? opts : opts.inverse;
+    Handlebars.registerHelper("any", (...args: unknown[]): boolean => {
+        return args.slice(0, -1).some((a) => !!a);
     });
 
-    Handlebars.registerHelper("disabled", (condition: unknown) => {
+    Handlebars.registerHelper("disabled", (condition: unknown): string => {
         return condition ? "disabled" : "";
     });
 
     /** Return the first argument that is neither undefined nor null */
-    Handlebars.registerHelper("coalesce", (...args: unknown[]) => {
-        return args.find((arg) => arg !== undefined && arg !== null) ?? null;
+    Handlebars.registerHelper("coalesce", (...args: unknown[]): unknown => {
+        return args.find((a) => a !== undefined && a !== null) ?? null;
     });
 
-    Handlebars.registerHelper("lower", (str) => {
-        return String.prototype.toLowerCase.call(str ?? "");
+    Handlebars.registerHelper("lower", (str: unknown): string => {
+        return String(str).toLowerCase();
     });
 
-    Handlebars.registerHelper("multiply", (a, b) => {
-        return a * b;
+    Handlebars.registerHelper("multiply", (a: unknown, b: unknown): number => {
+        return Number(a) * Number(b);
     });
 
-    Handlebars.registerHelper("percentage", (value, max) => {
-        return (value * 100) / max;
+    Handlebars.registerHelper("percentage", (value: unknown, max: unknown): number => {
+        return (Number(value) * 100) / Number(max);
     });
 
-    Handlebars.registerHelper("strip_tags", (value) => {
-        // eslint-disable-next-line camelcase
-        function strip_tags(input: unknown, allowed?: string): string {
-            const _phpCastString = (phpValue: unknown): string => {
-                if (typeof phpValue === "string") {
-                    return phpValue;
-                }
-
-                const type = typeof phpValue;
-                switch (type) {
-                    case "boolean":
-                        return phpValue ? "1" : "";
-                    case "number":
-                        if (Number.isNaN(phpValue)) {
-                            return "NAN";
-                        }
-
-                        if (phpValue === Infinity) {
-                            return `${phpValue < 0 ? "-" : ""}INF`;
-                        }
-
-                        return `${phpValue}`;
-                    case "undefined":
-                        return "";
-                    case "object":
-                        if (Array.isArray(phpValue)) {
-                            return "Array";
-                        }
-
-                        if (phpValue !== null) {
-                            return "Object";
-                        }
-
-                        return "";
-                    case "function":
-                    // fall through
-                    default:
-                        throw new Error("Unsupported value type");
-                }
-            };
-
-            // making sure the allowed arg is a string containing only tags in lowercase (<a><b><c>)
-            allowed = (`${allowed || ""}`.toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join("");
-
-            const tags = /<\/?([a-z0-9]*)\b[^>]*>?/gi;
-            const commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi;
-
-            let after = _phpCastString(input);
-            // removes tha '<' char at the end of the string to replicate PHP's behaviour
-            after = after.substring(after.length - 1) === "<" ? after.substring(0, after.length - 1) : after;
-
-            // recursively remove tags to ensure that the returned string doesn't contain forbidden tags after previous passes (e.g. '<<bait/>switch/>')
-            let before: string;
-            do {
-                before = after;
-                after = before
-                    .replace(commentsAndPhpTags, "")
-                    .replace(tags, ($0, $1) => (allowed!.indexOf(`<${$1.toLowerCase()}>`) > -1 ? $0 : ""));
-
-                // return once no more tags are removed
-                if (before === after) {
-                    return after;
-                }
-            } while (before !== after);
-            return "";
-        }
-
-        return strip_tags(String(value));
-    });
-
-    Handlebars.registerHelper("ordinal", (value: unknown) => {
+    Handlebars.registerHelper("ordinal", (value: unknown): string | null => {
         const numericValue = Number(value);
         return isNaN(numericValue) ? null : ordinal(numericValue);
     });
 
-    Handlebars.registerHelper("sluggify", (text: unknown) => {
+    Handlebars.registerHelper("sluggify", (text: unknown): string => {
         return sluggify(String(text));
     });
 
-    Handlebars.registerHelper("json", (html) => {
-        return JSON.stringify(html);
+    Handlebars.registerHelper("json", (data: unknown): string => {
+        return JSON.stringify(data);
     });
 
-    Handlebars.registerHelper("actionGlyph", (value, options) => {
+    Handlebars.registerHelper("actionGlyph", (value, options: Handlebars.HelperOptions): string | null => {
         const glyph = getActionGlyph(value ?? "");
         if (glyph) {
             return `<span class="activity-icon">${glyph}</span>`;
@@ -148,22 +64,17 @@ export function registerHandlebarsHelpers(): void {
         return null;
     });
 
-    // From https://github.com/leapfrogtechnology/just-handlebars-helpers/
-    Handlebars.registerHelper("concat", function (...params): string {
+    Handlebars.registerHelper("times", (count: unknown, options: Handlebars.HelperOptions): string =>
+        [...Array(Number(count)).keys()].map((i) => options.fn(i)).join("")
+    );
+
+    Handlebars.registerHelper("concat", (...params: unknown[]): string => {
         return params.slice(0, -1).join("");
     });
 
-    Handlebars.registerHelper("times", function (count, block) {
-        const results = new Array<string>();
-        for (let i = 0; i < count; i++) {
-            results.push(block.fn(i));
-        }
-        return results.join("");
-    });
-
-    Handlebars.registerHelper("developMode", function (this: unknown, body: Handlebars.HelperOptions) {
+    Handlebars.registerHelper("developMode", function (this: unknown, options: Handlebars.HelperOptions): string {
         if (BUILD_MODE === "development") {
-            return body.fn(this);
+            return options.fn(this);
         }
 
         return "";
@@ -177,7 +88,7 @@ export function registerHandlebarsHelpers(): void {
         return value === null || value === undefined;
     });
 
-    Handlebars.registerHelper("coinLabel", function (value: Coins | PartialPrice) {
+    Handlebars.registerHelper("coinLabel", (value: Maybe<Coins | PartialPrice>): CoinsPF2e | null => {
         if (!value) return null;
         if ("value" in value) {
             // todo: handle per pricing
@@ -186,7 +97,7 @@ export function registerHandlebarsHelpers(): void {
         return new CoinsPF2e(value);
     });
 
-    Handlebars.registerHelper("contains", function (arr: object[], element: object) {
+    Handlebars.registerHelper("contains", (arr: unknown, element: unknown): boolean => {
         return Array.isArray(arr) && arr.includes(element);
     });
 }
