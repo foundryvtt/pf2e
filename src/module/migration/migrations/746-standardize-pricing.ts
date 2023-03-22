@@ -12,7 +12,7 @@ export class Migration746StandardizePricing extends MigrationBase {
         if (!isPhysicalData(item) && item.type !== "kit") return;
 
         if (!isObject(item.system.price)) {
-            item.system.price = { value: CoinsPF2e.fromString(String(item.system.price)).strip() };
+            item.system.price = { value: CoinsPF2e.fromString(String(item.system.price)).toObject() };
         }
 
         if (item.type === "treasure") {
@@ -28,7 +28,7 @@ export class Migration746StandardizePricing extends MigrationBase {
                 delete systemData.value;
             }
         } else if (!isObject(item.system.price.value)) {
-            item.system.price.value = CoinsPF2e.fromString(String(item.system.price.value)).strip();
+            item.system.price.value = CoinsPF2e.fromString(String(item.system.price.value)).toObject();
         }
     }
 }

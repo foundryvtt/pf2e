@@ -85,7 +85,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     get isMagical(): boolean {
         const traits: Set<string> = this.traits;
         const magicTraits = ["magical", "arcane", "primal", "divine", "occult"] as const;
-        return magicTraits.some((trait) => traits.has(trait));
+        return magicTraits.some((t) => traits.has(t));
     }
 
     get isInvested(): boolean | null {
@@ -242,8 +242,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
-        const systemData = this.system;
-        systemData.identification.identified ??= {
+        this.system.identification.identified ??= {
             name: this.name,
             img: this.img,
             data: {
@@ -257,13 +256,17 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             const basePrice = this.price.value;
             const modifiedIsHigher = adjustedPrice.copperValue > basePrice.copperValue;
             const highestPrice = modifiedIsHigher ? adjustedPrice : basePrice;
-            systemData.price.value = highestPrice;
+            this.system.price.value = highestPrice;
         }
+
         if (this.isShoddy) {
-            systemData.price.value = systemData.price.value.scale(0.5);
-            systemData.hp.max = Math.floor(systemData.hp.max / 2);
-            systemData.hp.brokenThreshold = Math.floor(systemData.hp.brokenThreshold / 2);
+            this.system.price.value = this.system.price.value.scale(0.5);
+            this.system.hp.max = Math.floor(this.system.hp.max / 2);
+            this.system.hp.value = Math.min(this.system.hp.value, this.system.hp.max);
+            this.system.hp.brokenThreshold = Math.floor(this.system.hp.brokenThreshold / 2);
         }
+
+        this.system.price.value = this.adjustPriceForSize();
 
         // Update properties according to identification status
         const mystifiedData = this.getMystifiedData(this.identificationStatus);
@@ -272,7 +275,12 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         this.system.description.value = mystifiedData.data.description.value;
 
         // Fill gaps in unidentified data with defaults
-        systemData.identification.unidentified = this.getMystifiedData("unidentified");
+        this.system.identification.unidentified = this.getMystifiedData("unidentified");
+    }
+
+    /** Increase the price if it is larger than medium and not magical. */
+    protected adjustPriceForSize(): CoinsPF2e {
+        return this.isMagical ? this.price.value : this.price.value.adjustForSize(this.size);
     }
 
     override prepareSiblingData(): void {

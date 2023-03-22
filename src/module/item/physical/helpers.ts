@@ -1,4 +1,5 @@
 import { Coins, PartialPrice } from "@item/physical/data";
+import { Size } from "@module/data";
 
 // Redefined to avoid cyclical reference
 const DENOMINATIONS = ["cp", "sp", "gp", "pp"] as const;
@@ -34,6 +35,7 @@ class CoinsPF2e implements Coins {
         });
     }
 
+    /** Multiply by a number and clean up result */
     scale(factor: number): CoinsPF2e {
         const result = new CoinsPF2e(this);
         result.pp *= factor;
@@ -56,8 +58,27 @@ class CoinsPF2e implements Coins {
         return result;
     }
 
+    /** Increase a price for larger physical-item sizes */
+    adjustForSize(size: Size): CoinsPF2e {
+        const basePrice = new CoinsPF2e(this);
+
+        switch (size) {
+            case "lg": {
+                return basePrice.scale(2);
+            }
+            case "huge": {
+                return basePrice.scale(4);
+            }
+            case "grg": {
+                return basePrice.scale(8);
+            }
+            default:
+                return basePrice;
+        }
+    }
+
     /** Returns a coins data object with all zero value denominations omitted */
-    strip(): Coins {
+    toObject(): Coins {
         return DENOMINATIONS.reduce((result, denomination) => {
             if (this[denomination] !== 0) {
                 return { ...result, [denomination]: this[denomination] };
