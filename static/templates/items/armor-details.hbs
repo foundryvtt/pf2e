@@ -9,7 +9,7 @@
     </select>
 </div>
 
-{{#if item.isArmor}}
+{{#if (and item.isArmor (not item.isBarding))}}
     <div class="form-group">
         <label>{{localize "PF2E.ArmorGroupLabel"}}</label>
         <select name="system.group">
