@@ -721,20 +721,14 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         }
 
         const variants = this.overlays.overrideVariants
-            .flatMap((variant): SpellVariantChatData => {
-                const overlayIds = [...variant.appliedOverlays!.values()];
-                const actions = (() => {
-                    const actionIcon = getActionIcon(variant.system.time.value, null);
-                    return variant.system.time.value !== this.system.time.value && actionIcon ? actionIcon : null;
-                })();
-
-                return {
-                    actions,
+            .map(
+                (variant): SpellVariantChatData => ({
+                    actions: getActionIcon(variant.system.time.value, null),
                     name: variant.name,
-                    overlayIds,
+                    overlayIds: [...variant.appliedOverlays!.values()],
                     sort: variant.sort,
-                };
-            })
+                })
+            )
             .sort((a, b) => a.sort - b.sort);
 
         const rollData = htmlOptions.rollData ?? this.getRollData({ castLevel });
@@ -961,7 +955,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     override async update(data: DocumentUpdateData<this>, options: DocumentUpdateContext<TParent> = {}): Promise<this> {
         // Redirect the update of override spell variants to the appropriate update method if the spell sheet is currently rendered
-        if (options.parent && this.original && this.appliedOverlays!.has("override") && this.sheet.rendered) {
+        if (this.original && this.appliedOverlays!.has("override") && this.sheet.rendered) {
             return this.original.overlays.updateOverride(
                 this as SpellPF2e<ActorPF2e>,
                 data,
