@@ -32,19 +32,17 @@
     </section>
 
     <section class="card-buttons">
-        {{#if data.isSave}}
-            <button type="button" data-action="save" data-save="{{data.save.type}}" data-dc="{{data.save.value}}" data-owner-title="{{data.save.breakdown}}">{{data.save.label}}</button>
-        {{/if}}
-        {{#if (or data.check data.hasDamage data.hasCounteractCheck.value data.area.type)}}
-            <section class="owner-buttons">
-                {{#if item.hasVariants}}
-                    {{#each data.variants as |variant|}}
-                        <button type="button" data-action="selectVariant" data-overlay-ids="{{variant.overlayIds}}"{{#if variant.actions}} class="with-image"{{/if}}>
-                            {{#if variant.actions}}<img src="{{variant.actions}}" />{{/if}}
-                            <span>{{variant.name}}</span>
-                        </button>
-                    {{/each}}
-                {{else}}
+        {{#each data.variants as |variant|}}
+            <button type="button" data-action="selectVariant" data-overlay-ids="{{variant.overlayIds}}"{{#if variant.actions}} class="with-image"{{/if}}>
+                {{#if variant.actions}}<img src="{{variant.actions}}" />{{/if}}
+                <span>{{variant.name}}</span>
+            </button>
+        {{else}}
+            {{#if data.isSave}}
+                <button type="button" data-action="save" data-save="{{data.save.type}}" data-dc="{{data.save.value}}" data-owner-title="{{data.save.breakdown}}">{{data.save.label}}</button>
+            {{/if}}
+            {{#if (or data.check data.hasDamage data.hasCounteractCheck.value data.area.type)}}
+                <section class="owner-buttons">
                     {{#if data.check}}
                         <div class="spell-attack-buttons">
                             <button type="button" data-action="spellAttack">{{localize "PF2E.AttackLabel"}}</button>
@@ -70,9 +68,9 @@
                     {{#if item.isVariant}}
                         <button type="button" data-action="selectVariant" data-original-id="{{item.original.id}}">{{localize "PF2E.Item.Spell.Variants.SelectOtherVariantLabel"}}</button>
                     {{/if}}
-                {{/if}}
-            </section>
-        {{/if}}
+                </section>
+            {{/if}}
+        {{/each}}
     </section>
 
     <footer class="card-footer">
