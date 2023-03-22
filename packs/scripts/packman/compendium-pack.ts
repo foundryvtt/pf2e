@@ -1,7 +1,7 @@
 import { ActorSourcePF2e } from "@actor/data";
 import { ItemSourcePF2e, MeleeSource } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
-import { FEAT_TYPES } from "@item/feat/values";
+import { FEAT_CATEGORIES } from "@item/feat/values";
 import { SIZES } from "@module/data";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
 import { RuleElementSource } from "@module/rules";
@@ -216,9 +216,9 @@ class CompendiumPack {
             if (isPhysicalData(docSource)) {
                 docSource.system.equipped = { carryType: "worn" };
             } else if (docSource.type === "feat") {
-                const featType = docSource.system.featType.value;
-                if (!setHasElement(FEAT_TYPES, featType)) {
-                    throw PackError(`${docSource.name} has an unrecognized feat type: ${featType}`);
+                const featCategory = docSource.system.category;
+                if (!setHasElement(FEAT_CATEGORIES, featCategory)) {
+                    throw PackError(`${docSource.name} has an unrecognized feat category: ${featCategory}`);
                 }
             }
 

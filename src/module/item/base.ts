@@ -521,7 +521,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 (i): i is FeatSource =>
                     i.type === "feat" &&
                     typeof i.system?.level?.value === "number" &&
-                    i.system.featType?.value === "classfeature" &&
+                    i.system.category === "classfeature" &&
                     !i.flags?.pf2e?.grantedBy
             );
             for (const feature of classFeatures) {

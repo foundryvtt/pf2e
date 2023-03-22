@@ -1221,17 +1221,17 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         const campaignFeatSections = game.settings.get("pf2e", "campaignFeatSections");
         for (const section of campaignFeatSections) {
-            this.feats.createCategory(section);
+            this.feats.createGroup(section);
         }
 
         this.feats.assignFeats();
 
         // These are not handled by character feats
         const feats = this.itemTypes.feat
-            .filter((f) => ["pfsboon", "deityboon", "curse"].includes(f.featType))
+            .filter((f) => ["pfsboon", "deityboon", "curse"].includes(f.category))
             .sort((f1, f2) => f1.sort - f2.sort);
         for (const feat of feats) {
-            if (feat.featType === "pfsboon") {
+            if (feat.category === "pfsboon") {
                 this.pfsBoons.push(feat);
             } else {
                 this.deityBoonsCurses.push(feat);
@@ -2077,7 +2077,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const newLevel = changed.system?.details?.level?.value ?? this.level;
         const actorClass = this.class;
         if (actorClass && newLevel !== this.level) {
-            const current = this.itemTypes.feat.filter((feat) => feat.featType === "classfeature");
+            const current = this.itemTypes.feat.filter((feat) => feat.category === "classfeature");
             if (newLevel > this.level) {
                 const classFeaturesToCreate = (await actorClass.createGrantedItems({ level: newLevel }))
                     .filter(

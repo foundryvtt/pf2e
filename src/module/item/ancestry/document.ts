@@ -40,7 +40,7 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
         return Array.from(
             new Set([
                 ...super.getLinkedItems(),
-                ...this.actor.itemTypes.feat.filter((f) => f.featType === "ancestryfeature"),
+                ...this.actor.itemTypes.feat.filter((f) => f.category === "ancestryfeature"),
             ])
         );
     }

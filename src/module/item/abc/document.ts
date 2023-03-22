@@ -33,7 +33,7 @@ abstract class ABCItemPF2e<TParent extends ActorPF2e | null> extends ItemPF2e<TP
 
         return items.flatMap((item): FeatPF2e<null> | never[] => {
             if (item instanceof FeatPF2e) {
-                if (item.featType === "classfeature") {
+                if (item.category === "classfeature") {
                     const level = entries.find((e) => item.sourceId === e.uuid)?.level ?? item.level;
                     item.updateSource({ "system.level.value": level });
                 }

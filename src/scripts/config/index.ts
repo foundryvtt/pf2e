@@ -29,7 +29,7 @@ import { AfflictionPF2e } from "@item/affliction/document";
 import { ConditionSlug } from "@item/condition/data";
 import { RANGE_TRAITS } from "@item/data/values";
 import { DeityDomain } from "@item/deity/types";
-import { FeatType } from "@item/feat/data";
+import { FeatCategory } from "@item/feat";
 import { WEAPON_PROPERTY_RUNES } from "@item/physical/runes";
 import { PreciousMaterialGrade } from "@item/physical/types";
 import {
@@ -650,14 +650,13 @@ const sizeTypes: Record<Size, string> = {
     grg: "PF2E.ActorSizeGargantuan",
 };
 
-const featTypes: Record<FeatType, string> = {
+const featCategories: Record<FeatCategory, string> = {
     ancestry: "PF2E.FeatTypeAncestry",
     ancestryfeature: "PF2E.FeatTypeAncestryfeature",
     class: "PF2E.FeatTypeClass",
     classfeature: "PF2E.FeatTypeClassfeature",
     skill: "PF2E.FeatTypeSkill",
     general: "PF2E.FeatTypeGeneral",
-    archetype: "PF2E.FeatTypeArchetype",
     bonus: "PF2E.FeatTypeBonus",
     pfsboon: "PF2E.FeatPFSBoonHeader",
     deityboon: "PF2E.FeatDeityBoonHeader",
@@ -1270,7 +1269,7 @@ export const PF2ECONFIG = {
         10: "PF2E.SpellLevel10",
     }, // TODO: Compute levels!
 
-    featTypes,
+    featCategories,
 
     actionTypes: {
         action: "PF2E.ActionTypeAction",
