@@ -39,7 +39,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
     }
 
     /** This NPC's ability scores */
-    get abilities(): Abilities {
+    override get abilities(): Abilities {
         return deepClone(this.system.abilities);
     }
 
