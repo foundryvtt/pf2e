@@ -73,7 +73,7 @@ import { StatisticModifier } from "./modifiers";
 import { ActorSheetPF2e } from "./sheet/base";
 import { ActorSpellcasting } from "./spellcasting";
 import { TokenEffect } from "./token-effect";
-import { CREATURE_ACTOR_TYPES, UNAFFECTED_TYPES } from "./values";
+import { CONDITION_SLUGS, CREATURE_ACTOR_TYPES, UNAFFECTED_TYPES } from "./values";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -1556,6 +1556,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Toggle a condition as present or absent. If a valued condition is toggled on, it will be set to a value of 1. */
     async toggleCondition(conditionSlug: ConditionSlug): Promise<void> {
+        if (!setHasElement(CONDITION_SLUGS, conditionSlug)) {
+            throw ErrorPF2e(`Unrecognized condition: ${conditionSlug}`);
+        }
+
         if (this.hasCondition(conditionSlug)) {
             await this.decreaseCondition(conditionSlug, { forceRemove: true });
         } else {
