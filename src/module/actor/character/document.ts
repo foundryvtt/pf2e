@@ -137,7 +137,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     }
 
     /** This PC's ability scores */
-    get abilities(): Abilities {
+    override get abilities(): Abilities {
         return deepClone(this.system.abilities);
     }
 

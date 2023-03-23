@@ -459,7 +459,7 @@ class StatisticModifier {
         const seen: ModifierPF2e[] = [];
         for (const modifier of modifiers) {
             const found = seen.some((m) => m.slug === modifier.slug);
-            if (!found || modifier.type === "ability") seen.push(modifier);
+            if (!found) seen.push(modifier);
         }
         this._modifiers = seen;
 

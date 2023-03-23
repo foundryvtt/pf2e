@@ -53,7 +53,7 @@ import {
     traitSlugToObject,
     tupleHasValue,
 } from "@util";
-import { VisionLevel, VisionLevels } from "./creature/data";
+import { Abilities, VisionLevel, VisionLevels } from "./creature/data";
 import { GetReachParameters, ModeOfBeing } from "./creature/types";
 import { ActorSourcePF2e, ActorType } from "./data";
 import {
@@ -1658,6 +1658,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends Actor<TParent> {
     flags: ActorFlagsPF2e;
     readonly _source: ActorSourcePF2e;
+    readonly abilities?: Abilities;
     readonly effects: foundry.abstract.EmbeddedCollection<ActiveEffectPF2e<this>>;
     readonly items: foundry.abstract.EmbeddedCollection<ItemPF2e<this>>;
     system: ActorSystemData;
