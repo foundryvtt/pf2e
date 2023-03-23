@@ -28,7 +28,7 @@
         <span class="details-label">{{localize "PF2E.PFS.Reputation"}}</span>
         {{#each data.pfs.reputation as |rep faction|}}
             <div class="reputation">
-                <label for="{{@root.options.id}}-pfs-rep-{{faction}}">{{localize (add "PF2E.PFS.Factions." faction)}}:</label>
+                <label for="{{@root.options.id}}-pfs-rep-{{faction}}">{{localize (concat "PF2E.PFS.Factions." faction)}}:</label>
                 <input type="number" class="details-input small-input" id="{{@root.options.id}}-pfs-rep-{{faction}}" name="system.pfs.reputation.{{faction}}" value="{{rep}}" placeholder="0" />
             </div>
         {{/each}}
