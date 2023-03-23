@@ -41,7 +41,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
 
             // Step 0: Inapplicable damage outside the IWR framework
             if (!actor.isAffectedBy(instance.type)) {
-                return [{ category: "unaffected", type: instance.type, adjustment: -1 * instance.total }];
+                return [{ category: "unaffected", type: instance.type, adjustment: -1 * calculateImmunityResistanceAdjustment(roll, instance) }];
             }
 
             // Step 1: Immunities
@@ -49,7 +49,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             // If the target is immune to the entire instance, we're done with it.
             const immunity = immunities.find((i) => i.test(formalDescription));
             if (immunity) {
-                return [{ category: "immunity", type: immunity.label, adjustment: -1 * instance.total }];
+                return [{ category: "immunity", type: immunity.label, adjustment: -1 * calculateImmunityResistanceAdjustment(roll, instance) }];
             }
 
             // Before getting a manually-adjusted total, check for immunity to critical hits and "undouble"
@@ -91,7 +91,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             }
 
             const afterImmunities = Math.max(
-                instance.total + instanceApplications.reduce((sum, a) => sum + a.adjustment, 0),
+                calculateImmunityResistanceAdjustment(roll, instance) + instanceApplications.reduce((sum, a) => sum + a.adjustment, 0),
                 0
             );
 
@@ -190,6 +190,11 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
     const finalDamage = Math.max(roll.total + adjustment, 0);
 
     return { finalDamage, applications, persistent };
+}
+
+/** When calculating IWR, 0 damage rolls should use 1 damage for calculations rather than the instance total of 0 */
+function calculateImmunityResistanceAdjustment(roll:Rolled<DamageRoll>, instance:Rolled<DamageInstance>): number {
+    return roll.options?.increasedFrom === 0 ? 1 : instance.total;
 }
 
 /** Get the theoretic maximum damage for an instance of persistent damage after applying IWR */
