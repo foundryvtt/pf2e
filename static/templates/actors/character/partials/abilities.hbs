@@ -3,7 +3,7 @@
         <li class="ability {{#if (eq ../data.details.keyability.value key)}}key{{/if}}" data-ability="{{key}}">
             <label for="{{@root.options.id}}-{{key}}-ability-score" class="details-label ability-name">{{localize ability.label}}</label>
             <h2 class="ability-id" title="{{localize "PF2E.AbilityTitle"}}">
-                {{localize (add "PF2E.AbilityId." key)}}
+                {{localize (concat "PF2E.AbilityId." key)}}
                 {{#if (eq ../data.details.keyability.value key)}}<i class="fas fa-key"></i>{{/if}}
             </h2>
             <h3 class="ability-mod" title="{{localize "PF2E.ModifierTitle"}}">

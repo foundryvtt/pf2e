@@ -7,7 +7,7 @@
             {{#if (or modifier.enabled (not modifier.hideIfDisabled))}}
                 <li class="item {{#unless modifier.enabled}}no-effect{{/unless}}">
                     <span class="tag-legacy">
-                        {{localize (add "PF2E.ModifierType." modifier.type)}}
+                        {{localize (concat "PF2E.ModifierType." modifier.type)}}
                     </span>
                     <span class="label">{{modifier.label}}</span>
                     <span class="data">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
