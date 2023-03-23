@@ -19,7 +19,33 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "ac",
+                "key": "RollOption",
+                "option": "deflect-arrow",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "deflect-arrow",
+                    "item:ranged",
+                    {
+                        "gte": [
+                            "hands-free",
+                            1
+                        ]
+                    },
+                    {
+                        "not": "self:condition:flat-footed"
+                    }
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 4
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
