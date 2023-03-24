@@ -22,6 +22,7 @@ import { CheckContextOptions, CheckContext, SimpleRollActionCheckOptions, CheckC
 import { getRangeIncrement } from "@actor/helpers";
 import { CheckPF2e, CheckType } from "@system/check";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
+import { TokenDocumentPF2e } from "@scene";
 
 export class ActionMacroHelpers {
     static resolveStat(stat: string): {
@@ -59,7 +60,7 @@ export class ActionMacroHelpers {
         }
     }
 
-    static defaultCheckContext<ItemType extends Embedded<ItemPF2e>>(
+    static defaultCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
         options: CheckContextOptions<ItemType>,
         data: {
             item?: ItemType;
@@ -125,7 +126,7 @@ export class ActionMacroHelpers {
         });
     }
 
-    static async simpleRollActionCheck<ItemType extends Embedded<ItemPF2e>>(
+    static async simpleRollActionCheck<ItemType extends ItemPF2e<ActorPF2e>>(
         options: SimpleRollActionCheckOptions<ItemType>
     ): Promise<void> {
         // figure out actors to roll for
@@ -166,7 +167,7 @@ export class ActionMacroHelpers {
                             options.traits,
                             targetOptions,
                             !!target?.object &&
-                            !!selfToken?.object.isFlanking(target.object, { reach: actor.getReach({ action }) })
+                            !!selfToken?.object?.isFlanking(target.object, { reach: actor.getReach({ action }) })
                                 ? "self:flanking"
                                 : [],
                         ].flat();
@@ -282,7 +283,10 @@ export class ActionMacroHelpers {
         }
     }
 
-    static target() {
+    static target(): {
+        token: TokenDocumentPF2e | null;
+        actor: ActorPF2e | null;
+    } {
         const targets = Array.from(game.user.targets).filter((t) => t.actor instanceof CreaturePF2e);
         const target = targets.shift()?.document ?? null;
         const targetActor = target?.actor ?? null;
@@ -292,7 +296,7 @@ export class ActionMacroHelpers {
         };
     }
 
-    static getWeaponPotencyModifier(item: Embedded<WeaponPF2e>, selector: string): ModifierPF2e | null {
+    static getWeaponPotencyModifier(item: WeaponPF2e<ActorPF2e>, selector: string): ModifierPF2e | null {
         const slug = "potency";
         if (AutomaticBonusProgression.isEnabled(item.actor)) {
             return new ModifierPF2e({
@@ -315,7 +319,7 @@ export class ActionMacroHelpers {
         }
     }
 
-    static getApplicableEquippedWeapons(actor: ActorPF2e, trait: WeaponTrait): Embedded<WeaponPF2e>[] {
+    static getApplicableEquippedWeapons(actor: ActorPF2e, trait: WeaponTrait): WeaponPF2e<ActorPF2e>[] {
         if (actor.isOfType("character")) {
             return actor.system.actions.flatMap((s) => (s.ready && s.item.traits.has(trait) ? s.item : []));
         } else {

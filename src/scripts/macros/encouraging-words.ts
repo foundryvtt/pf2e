@@ -1,8 +1,8 @@
 import { CharacterPF2e } from "@actor";
-import { CharacterSkillData } from "@actor/character/data";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ActionDefaultOptions } from "@system/action-macros";
 import { LocalizePF2e } from "@system/localize";
+import { Statistic } from "@system/statistic";
 
 export function encouragingWords(options: ActionDefaultOptions): void {
     const translations = LocalizePF2e.translations.PF2E.Actions.EncouragingWords;
@@ -14,18 +14,13 @@ export function encouragingWords(options: ActionDefaultOptions): void {
         return;
     }
 
-    const encouragingWordsMacro = async (DC: number, bonus: number, dip: CharacterSkillData) => {
-        const options = actor.getRollOptions(["all", "skill-check", "diplomacy"]);
-
-        options.push(translations.Title);
-        options.push("action:encourage-words");
-
+    const encouragingWordsMacro = async (DC: number, bonus: number, dip: Statistic) => {
         dip.roll({
             dc: { value: DC },
-            options: options,
+            extraRollOptions: ["action:encourage-words"],
             callback: async (roll: Rolled<Roll>) => {
                 let healFormula: string | undefined, successLabel: string | undefined;
-                const degreeOfSuccess = Number(roll.data.degreeOfSuccess) || 0;
+                const degreeOfSuccess = Number(roll.options.degreeOfSuccess) || 0;
 
                 const bonusString = bonus > 0 ? `+ ${bonus}` : "";
                 if (degreeOfSuccess === 3) {
@@ -57,13 +52,13 @@ export function encouragingWords(options: ActionDefaultOptions): void {
     };
 
     const applyChanges = ($html: JQuery): void => {
-        const { dip } = actor.system.skills;
+        const { diplomacy } = actor.skills;
         const { name } = actor;
         const mod = Number($html.find("[name=modifier]").val()) || 0;
         const requestedProf = Number($html.find("[name=dc-type]").val()) || 1;
 
-        let usedProf = 0;
-        usedProf = requestedProf <= dip.rank ? requestedProf : dip.rank;
+        const rank = diplomacy.rank ?? 0;
+        const usedProf = requestedProf <= rank ? requestedProf : rank;
 
         const roll = [
             () =>
@@ -72,10 +67,10 @@ export function encouragingWords(options: ActionDefaultOptions): void {
                         name: name,
                     })
                 ),
-            () => encouragingWordsMacro(15 + mod, 0, dip),
-            () => encouragingWordsMacro(20 + mod, 5, dip),
-            () => encouragingWordsMacro(30 + mod, 15, dip),
-            () => encouragingWordsMacro(40 + mod, 25, dip),
+            () => encouragingWordsMacro(15 + mod, 0, diplomacy),
+            () => encouragingWordsMacro(20 + mod, 5, diplomacy),
+            () => encouragingWordsMacro(30 + mod, 15, diplomacy),
+            () => encouragingWordsMacro(40 + mod, 25, diplomacy),
         ][usedProf];
 
         roll();

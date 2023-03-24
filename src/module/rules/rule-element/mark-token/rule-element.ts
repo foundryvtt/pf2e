@@ -1,3 +1,4 @@
+import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import { TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e, sluggify } from "@util";
@@ -13,7 +14,7 @@ class MarkTokenRuleElement extends RuleElementPF2e {
     /** The uuid of the token */
     tokenUUID: string | null;
 
-    constructor(data: MarkTokenSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: MarkTokenSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
         if (typeof data.slug === "string" && data.slug.length > 0) {

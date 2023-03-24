@@ -1,17 +1,18 @@
 import { AmbientLightPF2e } from "@module/canvas";
 import { ScenePF2e } from ".";
 
-class AmbientLightDocumentPF2e extends AmbientLightDocument {
+class AmbientLightDocumentPF2e<
+    TParent extends ScenePF2e | null = ScenePF2e | null
+> extends AmbientLightDocument<TParent> {
     /** Is this light actually a source of darkness? */
     get isDarkness(): boolean {
-        return this.object.source.isDarkness;
+        return this.object?.source.isDarkness ?? false;
     }
 }
 
-interface AmbientLightDocumentPF2e extends AmbientLightDocument {
-    readonly parent: ScenePF2e | null;
-
-    get object(): AmbientLightPF2e;
+interface AmbientLightDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null>
+    extends AmbientLightDocument<TParent> {
+    get object(): AmbientLightPF2e<this> | null;
 }
 
 export { AmbientLightDocumentPF2e };

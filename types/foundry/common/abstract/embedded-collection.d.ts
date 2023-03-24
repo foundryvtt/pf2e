@@ -7,7 +7,7 @@ declare global {
              * Used for the specific task of containing embedded Document instances within a parent Document.
              * @param sourceArray The source data array for the collection in the parent Document data
              */
-            class EmbeddedCollection<TDocument extends Document> extends utils.Collection<Embedded<TDocument>> {
+            class EmbeddedCollection<TDocument extends Document<Document>> extends utils.Collection<TDocument> {
                 constructor(
                     sourceArray: TDocument["_source"][],
                     documentClass: {
@@ -23,8 +23,8 @@ declare global {
                 override delete(key: string, { modifySource }?: { modifySource?: boolean }): boolean;
 
                 toObject<T extends true>(source?: T): TDocument["_source"][];
-                toObject<T extends false>(source: T): RawObject<TDocument["data"]>[];
-                toObject<T extends boolean>(source?: T): TDocument["_source"][] | RawObject<TDocument["data"]>[];
+                toObject<T extends false>(source: T): RawObject<TDocument>[];
+                toObject<T extends boolean>(source?: T): TDocument["_source"][] | RawObject<TDocument>[];
             }
         }
     }

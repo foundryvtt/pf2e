@@ -9,11 +9,9 @@
         "actions": {
             "value": null
         },
+        "category": "ancestry",
         "description": {
             "value": "<p>You were raised to be ambitious and always reach for the stars, leading you to progress quickly in your chosen field. You gain a 1st-level class feat for your class. You must meet the prerequisites, but you can select the feat later in the character creation process in order to determine which prerequisites you meet.</p>"
-        },
-        "featType": {
-            "value": "ancestry"
         },
         "level": {
             "value": 1
@@ -51,7 +49,7 @@
                             ]
                         }
                     ],
-                    "query": "{\"system.featType.value\":\"class\",\"system.level.value\":1,\"system.traits.value\":{\"$elemMatch\":\"{actor|system.details.class.trait}\"}}"
+                    "query": "{\"system.category\":\"class\",\"system.level.value\":1,\"system.traits.value\":{\"$elemMatch\":\"{actor|system.details.class.trait}\"}}"
                 },
                 "flag": "naturalAmbition",
                 "key": "ChoiceSet",

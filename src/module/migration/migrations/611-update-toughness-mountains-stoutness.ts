@@ -9,11 +9,11 @@ export class Migration611UpdateToughnessMountainsStoutness extends MigrationBase
     override requiresFlush = true;
 
     private featSlugs = ["mountains-stoutness", "mountain-s-stoutness", "toughness"];
-    private featsPromise: Promise<FeatPF2e[]>;
+    private featsPromise: Promise<FeatPF2e<null>[]>;
 
     constructor() {
         super();
-        this.featsPromise = game.packs.get<CompendiumCollection<FeatPF2e>>("pf2e.feats-srd")!.getDocuments();
+        this.featsPromise = game.packs.get<CompendiumCollection<FeatPF2e<null>>>("pf2e.feats-srd")!.getDocuments();
     }
 
     override async updateActor(actorData: ActorSourcePF2e) {

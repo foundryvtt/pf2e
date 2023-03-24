@@ -3,7 +3,6 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { calculateDC } from "@module/dc";
 import { CheckDC } from "@system/degree-of-success";
 import { ActionMacroHelpers } from "../helpers";
-import { CharacterPF2e } from "@actor";
 import { SkillActionOptions } from "../types";
 import { SelectItemDialog } from "./select-item";
 
@@ -67,11 +66,11 @@ async function repair(options: RepairActionOptions) {
         createMessage: false,
         callback: async (result) => {
             // react to check result by posting a chat message with appropriate follow-up options
-            if (item && result.message instanceof ChatMessagePF2e) {
+            const { actor } = result;
+            if (item && result.message instanceof ChatMessagePF2e && actor.isOfType("creature")) {
                 const messageSource = result.message.toObject();
                 const flavor = await (async () => {
-                    const proficiencyRank =
-                        result.actor instanceof CharacterPF2e ? result.actor.skills.crafting.rank : 0;
+                    const proficiencyRank = actor.skills.crafting.rank ?? 0;
                     if ("criticalSuccess" === result.outcome) {
                         const label = "PF2E.Actions.Repair.Labels.RestoreItemHitPoints";
                         const restored = String(10 + proficiencyRank * 10);

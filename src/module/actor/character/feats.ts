@@ -1,6 +1,6 @@
 import { FeatPF2e, ItemPF2e } from "@item";
 import { ItemGrantData } from "@item/data/base";
-import { FeatType } from "@item/feat/data";
+import { FeatCategory } from "@item/feat/types";
 import { sluggify } from "@util";
 import { CharacterPF2e } from ".";
 import { BonusFeat, GrantedFeat, SlottedFeat } from "./data";
@@ -11,16 +11,16 @@ interface FeatCategoryOptions {
     id: string;
     label: string;
     featFilter?: string | null;
-    supported?: FeatType[];
+    supported?: FeatCategory[];
     slots?: FeatSlotLevel[];
     level?: number;
 }
 
-class CharacterFeats extends Collection<FeatCategory> {
+class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup> {
     /** Feats with no actual category ("bonus feats" in rules text) */
     unorganized: BonusFeat[] = [];
 
-    constructor(private actor: CharacterPF2e) {
+    constructor(private actor: TActor) {
         super();
 
         const classFeatSlots = actor.class?.grantedFeatSlots;
@@ -31,17 +31,17 @@ class CharacterFeats extends Collection<FeatCategory> {
             return [];
         })();
 
-        this.createCategory({
+        this.createGroup({
             id: "ancestryfeature",
             label: "PF2E.FeaturesAncestryHeader",
             supported: ["ancestryfeature"],
         });
-        this.createCategory({
+        this.createGroup({
             id: "classfeature",
             label: "PF2E.FeaturesClassHeader",
             supported: ["classfeature"],
         });
-        this.createCategory({
+        this.createGroup({
             id: "ancestry",
             label: "PF2E.FeatAncestryHeader",
             featFilter: actor.system.details.ancestry?.trait ? `traits-${actor.system.details.ancestry.trait}` : null,
@@ -58,7 +58,7 @@ class CharacterFeats extends Collection<FeatCategory> {
                 ? `hb_${classSlug}`
                 : null;
 
-        this.createCategory({
+        this.createGroup({
             id: "class",
             label: "PF2E.FeatClassHeader",
             featFilter: classTrait ? `traits-${classTrait},traits-archetype` : null,
@@ -73,7 +73,7 @@ class CharacterFeats extends Collection<FeatCategory> {
 
         // Add dual class if active
         if (game.settings.get("pf2e", "dualClassVariant")) {
-            this.createCategory({
+            this.createGroup({
                 id: "dualclass",
                 label: "PF2E.FeatDualClassHeader",
                 supported: ["class"],
@@ -83,7 +83,7 @@ class CharacterFeats extends Collection<FeatCategory> {
 
         // Add free archetype (if active)
         if (game.settings.get("pf2e", "freeArchetypeVariant")) {
-            this.createCategory({
+            this.createGroup({
                 id: "archetype",
                 label: "PF2E.FeatArchetypeHeader",
                 supported: ["class"],
@@ -91,13 +91,13 @@ class CharacterFeats extends Collection<FeatCategory> {
             });
         }
 
-        this.createCategory({
+        this.createGroup({
             id: "skill",
             label: "PF2E.FeatSkillHeader",
             supported: ["skill"],
             slots: [...skillPrepend, ...(classFeatSlots?.skill ?? [])],
         });
-        this.createCategory({
+        this.createGroup({
             id: "general",
             label: "PF2E.FeatGeneralHeader",
             supported: ["general", "skill"],
@@ -106,12 +106,12 @@ class CharacterFeats extends Collection<FeatCategory> {
 
         // Add campaign feats if enabled
         if (game.settings.get("pf2e", "campaignFeats")) {
-            this.createCategory({ id: "campaign", label: "PF2E.FeatCampaignHeader" });
+            this.createGroup({ id: "campaign", label: "PF2E.FeatCampaignHeader" });
         }
     }
 
-    createCategory(options: FeatCategoryOptions) {
-        this.set(options.id, new FeatCategory(this.actor, options));
+    createGroup(options: FeatCategoryOptions) {
+        this.set(options.id, new FeatGroup(this.actor, options));
     }
 
     #combineGrants(feat: FeatPF2e): { feat: FeatPF2e; grants: GrantedFeat[] } {
@@ -129,7 +129,7 @@ class CharacterFeats extends Collection<FeatCategory> {
     }
 
     /** Inserts a feat into the character. If category is empty string, its a bonus feat */
-    async insertFeat(feat: FeatPF2e, options: { categoryId: string; slotId?: string }): Promise<ItemPF2e[]> {
+    async insertFeat(feat: FeatPF2e, options: { categoryId: string; slotId?: string }): Promise<ItemPF2e<TActor>[]> {
         const { category, slotId } = this.get(options.categoryId)?.isFeatValid(feat)
             ? {
                   category: this.get(options.categoryId),
@@ -160,7 +160,7 @@ class CharacterFeats extends Collection<FeatCategory> {
             return this.actor.updateEmbeddedDocuments("Item", [{ _id: feat.id, "system.location": null }]);
         }
 
-        const changed: ItemPF2e[] = [];
+        const changed: ItemPF2e<TActor>[] = [];
 
         // If this is a new feat, create a new feat item on the actor first
         if (!alreadyHasFeat && (isFeatValidInSlot || !location)) {
@@ -190,8 +190,8 @@ class CharacterFeats extends Collection<FeatCategory> {
     private findBestLocation(
         feat: FeatPF2e,
         { requested }: { requested?: string }
-    ): { category: FeatCategory | null; slotId: string | null } {
-        if (feat.isFeature) return { category: this.get(feat.featType) ?? null, slotId: null };
+    ): { category: FeatGroup | null; slotId: string | null } {
+        if (feat.isFeature) return { category: this.get(feat.category) ?? null, slotId: null };
         if (requested === "bonus") return { category: null, slotId: null };
 
         const validCategories = this.filter((c) => c.isFeatValid(feat) && !c.isFull);
@@ -208,7 +208,7 @@ class CharacterFeats extends Collection<FeatCategory> {
 
     assignFeats(): void {
         const slotted = this.contents.filter((category) => category.slotted);
-        const categoryBySlot = slotted.reduce((previous: Partial<Record<string, FeatCategory>>, current) => {
+        const categoryBySlot = slotted.reduce((previous: Partial<Record<string, FeatGroup>>, current) => {
             for (const slot of Object.keys(current.slots)) {
                 previous[slot] = current;
             }
@@ -224,7 +224,7 @@ class CharacterFeats extends Collection<FeatCategory> {
             }
 
             // We don't handle certain feat types here
-            if (["pfsboon", "deityboon", "curse"].includes(feat.featType)) {
+            if (["pfsboon", "deityboon", "curse"].includes(feat.category)) {
                 continue;
             }
 
@@ -239,14 +239,14 @@ class CharacterFeats extends Collection<FeatCategory> {
             } else if (slot) {
                 slot.feat = feat;
                 slot.grants = base.grants;
-                feat.category = categoryForSlot;
+                feat.group = categoryForSlot;
             } else {
                 // Perhaps this belongs to a un-slotted group matched on the location or
                 // on the feat type. Failing that, it gets dumped into bonuses.
-                const group = this.get(feat.system.location ?? "") ?? this.get(feat.featType);
+                const group = this.get(feat.system.location ?? "") ?? this.get(feat.category);
                 if (group && !group.slotted) {
                     group.feats.push(base);
-                    feat.category = group;
+                    feat.group = group;
                 } else {
                     this.unorganized.push(base);
                 }
@@ -257,17 +257,12 @@ class CharacterFeats extends Collection<FeatCategory> {
     }
 }
 
-interface CharacterFeats {
-    get(key: "ancestryfeature"): FeatCategory;
-    get(key: "classfeature"): FeatCategory;
-    get(key: "ancestry"): FeatCategory;
-    get(key: "class"): FeatCategory;
-    get(key: "skill"): FeatCategory;
-    get(key: "general"): FeatCategory;
-    get(key: string): FeatCategory | undefined;
+interface CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup> {
+    get(key: "ancestry" | "ancestryfeature" | "class" | "classfeature" | "general" | "skill"): FeatGroup;
+    get(key: string): FeatGroup | undefined;
 }
 
-class FeatCategory {
+class FeatGroup {
     id: string;
     label: string;
     feats: (SlottedFeat | BonusFeat)[] = [];
@@ -277,7 +272,7 @@ class FeatCategory {
     featFilter: string | null;
 
     /** Feat Types that are supported */
-    supported: FeatType[] = [];
+    supported: FeatCategory[] = [];
 
     /** Lookup for the slots themselves */
     slots: Record<string, SlottedFeat> = {};
@@ -309,20 +304,8 @@ class FeatCategory {
     }
 
     isFeatValid(feat: FeatPF2e): boolean {
-        const resolvedFeatType = (() => {
-            if (feat.featType === "archetype") {
-                if (feat.system.traits.value.includes("skill")) {
-                    return "skill";
-                } else {
-                    return "class";
-                }
-            }
-
-            return feat.featType;
-        })();
-
-        return this.supported.length === 0 || this.supported.includes(resolvedFeatType);
+        return this.supported.length === 0 || this.supported.includes(feat.category);
     }
 }
 
-export { CharacterFeats, FeatCategory, FeatCategoryOptions, FeatSlotLevel };
+export { CharacterFeats, FeatGroup, FeatCategoryOptions, FeatSlotLevel };

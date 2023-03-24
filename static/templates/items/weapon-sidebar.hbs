@@ -52,7 +52,14 @@
             {{localize "PF2E.PriceLabel"}}
             {{#if adjustedPriceHint}}<i class="fas fa-info-circle small" title="{{adjustedPriceHint}}"></i>{{/if}}
         </label>
-        <input type="text"{{#if adjustedPriceHint}} class="adjusted"{{/if}} data-property="system.price.value" data-value-base="{{basePriceString}}" value="{{priceString}}" spellcheck="false" />
+        <input
+            type="text"
+            {{#if (eq priceAdjustment "higher")}}class="adjusted adjusted-higher"{{else if (eq priceAdjustment "lower")}}class="adjusted-lower"{{/if}}
+            data-property="system.price.value"
+            data-value-base="{{basePrice}}"
+            value="{{this.item.price.value}}"
+            spellcheck="false"
+        />
     </div>
     <ol class="item-tags tags">
         {{#if otherTags}}

@@ -1,10 +1,10 @@
-import { RuleElementPF2e, RuleElementData, RuleElementSource } from "./";
-import { CharacterPF2e, FamiliarPF2e } from "@actor";
+import { ActorPF2e, CharacterPF2e, FamiliarPF2e } from "@actor";
+import { CreatureSensePF2e, SENSE_ACUITIES, SENSE_TYPES, SenseAcuity, SenseType } from "@actor/creature/sense";
 import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
-import { CreatureSensePF2e, SenseAcuity, SenseType, SENSE_ACUITIES, SENSE_TYPES } from "@actor/creature/sense";
-import { RuleElementOptions } from "./base";
 import { setHasElement, tupleHasValue } from "@util";
+import { RuleElementData, RuleElementPF2e, RuleElementSource } from "./";
+import { RuleElementOptions } from "./base";
 
 /**
  * @category RuleElement
@@ -16,7 +16,7 @@ export class SenseRuleElement extends RuleElementPF2e {
 
     private acuity: SenseAcuity;
 
-    constructor(data: SenseRuleElementSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: SenseRuleElementSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         data.force ??= false;
         data.range ??= "";
         data.acuity ??= "precise";

@@ -31,6 +31,7 @@ import { Migration830BarbarianRework } from "@module/migration/migrations/830-co
 import { Migration831ClericDoctrines } from "@module/migration/migrations/831-cleric-doctrines";
 import { Migration832ChoiceSetFlags } from "@module/migration/migrations/832-choice-set-flags";
 import { Migration833AddRogueToysFixPrecision } from "@module/migration/migrations/833-add-rogue-toys-fix-precision";
+import { Migration834FeatCategories } from "@module/migration/migrations/834-feat-categories";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -65,6 +66,7 @@ const migrations: MigrationBase[] = [
     new Migration831ClericDoctrines(),
     new Migration832ChoiceSetFlags(),
     new Migration833AddRogueToysFixPrecision(),
+    new Migration834FeatCategories(),
 ];
 
 global.deepClone = <T>(original: T): T => {
@@ -138,11 +140,11 @@ const isJournalEntryData = (docSource: CompendiumSource): docSource is foundry.d
     return "pages" in docSource && Array.isArray(docSource.pages);
 };
 
-const isMacroData = (docSource: CompendiumSource): docSource is foundry.data.MacroSource => {
+const isMacroData = (docSource: CompendiumSource): docSource is foundry.documents.MacroSource => {
     return "type" in docSource && ["chat", "script"].includes(docSource.type);
 };
 
-const isTableData = (docSource: CompendiumSource): docSource is foundry.data.RollTableSource => {
+const isTableData = (docSource: CompendiumSource): docSource is foundry.documents.RollTableSource => {
     return "results" in docSource && Array.isArray(docSource.results);
 };
 
@@ -201,8 +203,8 @@ async function migrate() {
             | ActorSourcePF2e
             | ItemSourcePF2e
             | foundry.documents.JournalEntrySource
-            | foundry.data.MacroSource
-            | foundry.data.RollTableSource;
+            | foundry.documents.MacroSource
+            | foundry.documents.RollTableSource;
         try {
             // Parse file content
             source = JSON.parse(content);
@@ -217,8 +219,8 @@ async function migrate() {
             | ActorSourcePF2e
             | ItemSourcePF2e
             | foundry.documents.JournalEntrySource
-            | foundry.data.MacroSource
-            | foundry.data.RollTableSource
+            | foundry.documents.MacroSource
+            | foundry.documents.RollTableSource
         > => {
             source.flags ??= {};
             try {

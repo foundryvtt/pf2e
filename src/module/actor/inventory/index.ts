@@ -6,8 +6,8 @@ import { coinCompendiumIds, CoinsPF2e } from "@item/physical/helpers";
 import { ErrorPF2e, groupBy } from "@util";
 import { InventoryBulk } from "./bulk";
 
-class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
-    constructor(public readonly actor: ActorPF2e, entries?: Embedded<PhysicalItemPF2e>[]) {
+class ActorInventory<TActor extends ActorPF2e> extends Collection<PhysicalItemPF2e<TActor>> {
+    constructor(public readonly actor: TActor, entries?: PhysicalItemPF2e<TActor>[]) {
         super(entries?.map((entry) => [entry.id, entry]));
     }
 
@@ -23,7 +23,7 @@ class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
             .reduce((first, second) => first.add(second), new CoinsPF2e());
     }
 
-    get invested() {
+    get invested(): { value: number; max: number } | null {
         if (this.actor.isOfType("character")) {
             return {
                 value: this.filter((item) => !!item.isInvested).length,
@@ -50,7 +50,7 @@ class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
                     await item.update({ "system.quantity": item.quantity + quantity });
                 } else {
                     const compendiumId = coinCompendiumIds[denomination];
-                    const pack = game.packs.find<CompendiumCollection<PhysicalItemPF2e>>(
+                    const pack = game.packs.find<CompendiumCollection<PhysicalItemPF2e<null>>>(
                         (p) => p.collection === "pf2e.equipment-srd"
                     );
                     if (!pack) throw ErrorPF2e("Unexpected error retrieving equipment compendium");

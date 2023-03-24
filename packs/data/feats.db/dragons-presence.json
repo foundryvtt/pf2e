@@ -9,11 +9,9 @@
         "actions": {
             "value": null
         },
+        "category": "ancestry",
         "description": {
             "value": "<p>As a member of dragonkind, you project unflappable confidence (that collapses catastrophically against the deadliest foes).</p>\n<p>When you roll a success on a saving throw against a fear effect, you get a critical success instead. When you roll a failure against a fear effect, you get a critical failure instead.</p>\n<p>In addition, when you attempt to @UUID[Compendium.pf2e.actionspf2e.Demoralize]{Demoralize} a foe of your level or lower, you gain a +1 circumstance bonus to the Intimidation check.</p>"
-        },
-        "featType": {
-            "value": "ancestry"
         },
         "level": {
             "value": 1
@@ -27,7 +25,7 @@
                 "predicate": [
                     "action:demoralize",
                     {
-                        "lt": [
+                        "lte": [
                             "target:level",
                             "self:level"
                         ]

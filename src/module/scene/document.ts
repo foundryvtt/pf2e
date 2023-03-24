@@ -1,4 +1,4 @@
-import { LightLevels, SceneDataPF2e } from "./data";
+import { LightLevels, SceneFlagsPF2e } from "./data";
 import { SceneConfigPF2e } from "./sheet";
 import { AmbientLightDocumentPF2e, MeasuredTemplateDocumentPF2e, TileDocumentPF2e, TokenDocumentPF2e } from ".";
 import { checkAuras } from "./helpers";
@@ -71,11 +71,7 @@ class ScenePF2e extends Scene {
     /* -------------------------------------------- */
 
     /** Redraw auras if the scene was activated while being viewed */
-    override _onUpdate(
-        changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext,
-        userId: string
-    ): void {
+    override _onUpdate(changed: DeepPartial<this["_source"]>, options: SceneUpdateContext, userId: string): void {
         super._onUpdate(changed, options, userId);
 
         if (changed.active && canvas.scene === this) {
@@ -87,25 +83,17 @@ class ScenePF2e extends Scene {
 }
 
 interface ScenePF2e extends Scene {
+    flags: SceneFlagsPF2e;
+
     /** Added as debounced method: check for auras containing newly-placed or moved tokens */
     checkAuras(): void;
 
     _sheet: SceneConfigPF2e<this> | null;
 
-    readonly lights: foundry.abstract.EmbeddedCollection<AmbientLightDocumentPF2e>;
-    readonly templates: foundry.abstract.EmbeddedCollection<MeasuredTemplateDocumentPF2e>;
-    readonly tokens: foundry.abstract.EmbeddedCollection<TokenDocumentPF2e>;
-    readonly tiles: foundry.abstract.EmbeddedCollection<TileDocumentPF2e>;
-
-    flags: {
-        pf2e: {
-            [key: string]: unknown;
-            syncDarkness: "enabled" | "disabled" | "default";
-        };
-        [key: string]: Record<string, unknown>;
-    };
-
-    readonly data: SceneDataPF2e<this>;
+    readonly lights: foundry.abstract.EmbeddedCollection<AmbientLightDocumentPF2e<this>>;
+    readonly templates: foundry.abstract.EmbeddedCollection<MeasuredTemplateDocumentPF2e<this>>;
+    readonly tokens: foundry.abstract.EmbeddedCollection<TokenDocumentPF2e<this>>;
+    readonly tiles: foundry.abstract.EmbeddedCollection<TileDocumentPF2e<this>>;
 
     get sheet(): SceneConfigPF2e<this>;
 }

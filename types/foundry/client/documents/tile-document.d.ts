@@ -1,11 +1,9 @@
-import { TileDocumentConstructor } from "./constructors";
+import { CanvasBaseTile } from "./client-base-mixes.mjs";
 
 declare global {
-    class TileDocument extends TileDocumentConstructor {}
+    class TileDocument<TParent extends Scene | null> extends CanvasBaseTile<TParent> {}
 
-    interface TileDocument {
-        readonly parent: Scene | null;
-
-        readonly _object: Tile;
+    interface TileDocument<TParent extends Scene | null> extends CanvasBaseTile<TParent> {
+        readonly _object: Tile<this> | null;
     }
 }

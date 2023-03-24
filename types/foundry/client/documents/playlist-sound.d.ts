@@ -1,4 +1,4 @@
-import { PlaylistSoundConstructor } from "./constructors";
+import { ClientBasePlaylistSound } from "./client-base-mixes.mjs";
 
 declare global {
     /**
@@ -10,11 +10,10 @@ declare global {
      * @see {@link documents.Playlist}        The Playlist document which contains PlaylistSound embedded documents
      * @see {@link Sound}                     The Sound API which manages web audio playback
      */
-    class PlaylistSound extends PlaylistSoundConstructor {
-        /** @override */
+    class PlaylistSound<TParent extends Playlist | null> extends ClientBasePlaylistSound<TParent> {
         constructor(
-            data: PreCreate<foundry.data.PlaylistSoundSource>,
-            context?: DocumentConstructionContext<PlaylistSound>
+            data: PreCreate<foundry.documents.PlaylistSoundSource>,
+            context?: DocumentConstructionContext<TParent>
         );
 
         /** The Sound which manages playback for this playlist sound */
@@ -30,10 +29,6 @@ declare global {
         static VOLUME_DEBOUNCE_MS: number;
 
         /** @todo fill the rest of this in */
-    }
-
-    interface PlaylistSound {
-        readonly parent: Playlist | null;
     }
 
     /** @todo: fill in */

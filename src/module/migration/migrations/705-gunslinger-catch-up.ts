@@ -1,14 +1,24 @@
-import { ItemSourcePF2e } from "@item/data";
+import { FeatSource, ItemSourcePF2e } from "@item/data";
+import { isObject } from "@util";
 import { MigrationBase } from "../base";
 
 /** Catch up Gunslinger class features with newly-included REs */
 export class Migration705GunslingerCatchUp extends MigrationBase {
     static override version = 0.705;
 
-    override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
-        if (!(itemSource.type === "feat" && itemSource.system.featType.value === "classfeature")) return;
+    #isClassFeature(source: ItemSourcePF2e): source is FeatSource & { system: { featType: "classfeature" } } {
+        return (
+            source.type === "feat" &&
+            "featType" in source.system &&
+            isObject<{ value: string }>(source.system.featType) &&
+            source.system.featType.value === "classfeature"
+        );
+    }
 
-        switch (itemSource.system.slug) {
+    override async updateItem(source: ItemSourcePF2e): Promise<void> {
+        if (!this.#isClassFeature(source)) return;
+
+        switch (source.system.slug) {
             case "singular-expertise": {
                 const rules = [
                     {
@@ -25,7 +35,7 @@ export class Migration705GunslingerCatchUp extends MigrationBase {
                         value: 1,
                     },
                 ];
-                itemSource.system.rules = rules;
+                source.system.rules = rules;
                 break;
             }
             case "gunslinger-weapon-mastery": {
@@ -67,7 +77,7 @@ export class Migration705GunslingerCatchUp extends MigrationBase {
                         value: 3,
                     },
                 ];
-                itemSource.system.rules = rules;
+                source.system.rules = rules;
                 break;
             }
             case "gunslinging-legend": {
@@ -109,7 +119,7 @@ export class Migration705GunslingerCatchUp extends MigrationBase {
                         value: 4,
                     },
                 ];
-                itemSource.system.rules = rules;
+                source.system.rules = rules;
                 break;
             }
         }

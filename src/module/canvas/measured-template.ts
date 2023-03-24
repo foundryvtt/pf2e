@@ -1,8 +1,11 @@
 import { MeasuredTemplateDocumentPF2e } from "@module/scene/measured-template-document";
 import { TemplateLayerPF2e } from ".";
 import { highlightGrid } from "./helpers";
+import { ScenePF2e } from "@scene";
 
-class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e> {
+class MeasuredTemplatePF2e<
+    TDocument extends MeasuredTemplateDocumentPF2e<ScenePF2e | null> = MeasuredTemplateDocumentPF2e<ScenePF2e | null>
+> extends MeasuredTemplate<TDocument> {
     /** Track the timestamp when the last mouse move event was captured. */
     #moveTime = 0;
 
@@ -101,7 +104,9 @@ class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e
     };
 }
 
-interface MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e> {
+interface MeasuredTemplatePF2e<
+    TDocument extends MeasuredTemplateDocumentPF2e<ScenePF2e | null> = MeasuredTemplateDocumentPF2e<ScenePF2e | null>
+> extends MeasuredTemplate<TDocument> {
     get layer(): TemplateLayerPF2e<this>;
 }
 

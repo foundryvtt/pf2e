@@ -1,4 +1,4 @@
-import { CharacterPF2e, NPCPF2e } from "@actor";
+import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import {
     DegreeAdjustmentAmount,
@@ -15,7 +15,7 @@ import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource
 class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
     selector: string;
 
-    constructor(data: AdjustDegreeOfSuccessSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: AdjustDegreeOfSuccessSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
         if (typeof data.selector === "string") {
@@ -71,7 +71,7 @@ class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
     }
 }
 
-interface AdjustDegreeOfSuccessRuleElement {
+interface AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
     data: RuleElementData & { adjustment?: DegreeAdjustmentsRuleRecord };
 
     get actor(): CharacterPF2e | NPCPF2e;

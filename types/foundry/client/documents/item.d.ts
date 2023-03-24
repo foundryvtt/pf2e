@@ -1,4 +1,4 @@
-import { ItemConstructor } from "./constructors";
+import { ClientBaseItem } from "./client-base-mixes.mjs";
 
 declare global {
     /**
@@ -8,9 +8,9 @@ declare global {
      * @see {@link documents.Items}            The world-level collection of Item documents
      * @see {@link applications.ItemSheet}     The Item configuration application
      */
-    class Item<TParent extends Actor = Actor> extends ItemConstructor {
+    class Item<TParent extends Actor<TokenDocument<Scene | null> | null> | null> extends ClientBaseItem<TParent> {
         /** A convenience alias of Item#parent which is more semantically intuitive */
-        get actor(): this["parent"];
+        get actor(): TParent;
 
         img: ImageFilePath;
 
@@ -31,24 +31,20 @@ declare global {
 
         protected override _getSheetClass(): ConstructorOf<NonNullable<this["_sheet"]>>;
 
-        protected static override _onCreateDocuments<T extends Item>(
-            this: ConstructorOf<T>,
-            items: T[],
-            context: DocumentModificationContext<T>
+        protected static override _onCreateDocuments<TDocument extends foundry.abstract.Document>(
+            this: ConstructorOf<TDocument>,
+            items: TDocument[],
+            context: DocumentModificationContext<TDocument["parent"]>
         ): void;
 
-        protected static override _onDeleteDocuments<T extends Item>(
-            this: ConstructorOf<T>,
-            items: T[],
-            context: DocumentModificationContext<T>
+        protected static override _onDeleteDocuments<TDocument extends foundry.abstract.Document>(
+            this: ConstructorOf<TDocument>,
+            items: TDocument[],
+            context: DocumentModificationContext<TDocument["parent"]>
         ): void;
     }
 
-    interface Item<TParent extends Actor = Actor> {
-        readonly parent: TParent | null;
-
-        get collection(): Items<this>;
-
+    interface Item<TParent extends Actor<TokenDocument<Scene | null> | null> | null> extends ClientBaseItem<TParent> {
         get uuid(): ItemUUID;
 
         _sheet: ItemSheet<this> | null;
@@ -57,5 +53,5 @@ declare global {
     }
 
     type EmbeddedItemUUID = `Actor.${string}.Item.${string}`;
-    type ItemUUID = WorldDocumentUUID<Item> | EmbeddedItemUUID | CompendiumUUID;
+    type ItemUUID = WorldDocumentUUID<Item<null>> | EmbeddedItemUUID | CompendiumUUID;
 }

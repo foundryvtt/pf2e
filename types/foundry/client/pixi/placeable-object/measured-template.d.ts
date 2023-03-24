@@ -17,7 +17,7 @@
  * });
  */
 declare class MeasuredTemplate<
-    TDocument extends MeasuredTemplateDocument = MeasuredTemplateDocument
+    TDocument extends MeasuredTemplateDocument<Scene | null> = MeasuredTemplateDocument<Scene | null>
 > extends PlaceableObject<TDocument> {
     /** The template shape used for testing point intersection */
     shape: PIXI.Circle | PIXI.Ellipse | PIXI.Polygon | PIXI.Rectangle | PIXI.RoundedRectangle;
@@ -76,6 +76,8 @@ declare class MeasuredTemplate<
 
     override refresh(): this;
 
+    protected override _refresh(options: object): void;
+
     /** Get a Circular area of effect given a radius of effect */
     protected _getCircleShape(distance: number): PIXI.Circle;
 
@@ -117,16 +119,17 @@ declare class MeasuredTemplate<
     /*  Socket Listeners and Handlers               */
     /* -------------------------------------------- */
 
-    override _onUpdate(
+    protected override _onUpdate(
         changed: DeepPartial<TDocument["_source"]>,
-        options: DocumentModificationContext<TDocument>,
+        options: DocumentModificationContext<TDocument["parent"]>,
         userId: string
     ): void;
 
-    override _onDelete(options: DocumentModificationContext<TDocument>, userId: string): void;
+    protected override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;
 }
 
-declare interface MeasuredTemplate<TDocument extends MeasuredTemplateDocument = MeasuredTemplateDocument>
-    extends PlaceableObject<TDocument> {
+declare interface MeasuredTemplate<
+    TDocument extends MeasuredTemplateDocument<Scene | null> = MeasuredTemplateDocument<Scene | null>
+> extends PlaceableObject<TDocument> {
     get layer(): TemplateLayer<this>;
 }

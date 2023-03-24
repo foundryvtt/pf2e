@@ -38,7 +38,7 @@ export class CriticalHitAndFumbleCards {
             .getDocument(tableId)
             .then((rollTable) => {
                 rollTable!.draw({ displayChat: false }).then((draw) => {
-                    const data: { roll: Roll; messageData: Partial<foundry.data.ChatMessageSource> } = {
+                    const data: { roll: Roll; messageData: Partial<foundry.documents.ChatMessageSource> } = {
                         roll: draw.roll,
                         messageData: {},
                     };

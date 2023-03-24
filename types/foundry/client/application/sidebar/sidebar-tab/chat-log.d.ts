@@ -122,7 +122,7 @@ declare class ChatLog<TChatMessage extends ChatMessage = ChatMessage> extends Si
      * @param message The original string of the message content
      * @return A Promise resolving to the prepared chat data object
      */
-    protected processMessage(message: string): Promise<foundry.data.ChatMessageData>;
+    protected processMessage(message: string): Promise<foundry.documents.ChatMessageSource>;
 
     /**
      * Process messages which are posted using a dice-roll command
@@ -134,7 +134,7 @@ declare class ChatLog<TChatMessage extends ChatMessage = ChatMessage> extends Si
     protected _processDiceCommand(
         command: string,
         matches: RegExpMatchArray[],
-        chatData: DeepPartial<foundry.data.ChatMessageSource>,
+        chatData: DeepPartial<foundry.documents.ChatMessageSource>,
         createOptions: ChatMessageModificationContext
     ): Promise<void>;
 

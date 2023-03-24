@@ -44,13 +44,13 @@ class DicePF2e {
         rollType = "",
     }: {
         event: JQuery.Event;
-        item?: Embedded<ItemPF2e> | null;
+        item?: ItemPF2e<ActorPF2e> | null;
         parts: (string | number)[];
         actor?: ActorPF2e;
         data: Record<string, unknown>;
         template?: string;
         title: string;
-        speaker: foundry.data.ChatSpeakerSource;
+        speaker: foundry.documents.ChatSpeakerData;
         flavor?: Function;
         onClose?: Function;
         dialogOptions?: Partial<ApplicationOptions>;

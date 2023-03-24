@@ -1,3 +1,4 @@
+import { ActorPF2e } from "@actor";
 import { ItemSummaryData } from "@item/data";
 import { PhysicalItemPF2e } from "@item/physical";
 import { LocalizePF2e } from "@module/system/localize";
@@ -5,7 +6,7 @@ import { objectHasKey, sluggify } from "@util";
 import { EquipmentSource, EquipmentSystemData, EquipmentTrait } from "./data";
 import { OtherEquipmentTag } from "./types";
 
-class EquipmentPF2e extends PhysicalItemPF2e {
+class EquipmentPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     get otherTags(): Set<OtherEquipmentTag> {
         return new Set(this.system.traits.otherTags);
     }
@@ -27,7 +28,7 @@ class EquipmentPF2e extends PhysicalItemPF2e {
     }
 
     override async getChatData(
-        this: Embedded<EquipmentPF2e>,
+        this: EquipmentPF2e<ActorPF2e>,
         htmlOptions: EnrichHTMLOptions = {}
     ): Promise<ItemSummaryData> {
         return this.processChatData(htmlOptions, {
@@ -55,7 +56,7 @@ class EquipmentPF2e extends PhysicalItemPF2e {
     }
 }
 
-interface EquipmentPF2e extends PhysicalItemPF2e {
+interface EquipmentPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     readonly _source: EquipmentSource;
     system: EquipmentSystemData;
 

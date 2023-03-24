@@ -615,7 +615,7 @@ export const UPLOADABLE_FILE_EXTENSIONS: typeof IMAGE_FILE_EXTENSIONS &
  * A list of MIME types which are treated as uploaded "media", which are allowed to overwrite existing files.
  * Any non-media MIME type is not allowed to replace an existing file.
  */
-export const MEDIA_MIME_TYPES: typeof UPLOADABLE_FILE_EXTENSIONS[keyof typeof UPLOADABLE_FILE_EXTENSIONS];
+export const MEDIA_MIME_TYPES: (typeof UPLOADABLE_FILE_EXTENSIONS)[keyof typeof UPLOADABLE_FILE_EXTENSIONS];
 
 /** An enumeration of file type categories which can be selected */
 export const FILE_CATEGORIES: {
@@ -657,41 +657,42 @@ declare global {
         defaultRole: UserRole;
     }
 
+    type ActiveEffectChangeMode = (typeof CONST.ACTIVE_EFFECT_MODES)[keyof typeof CONST.ACTIVE_EFFECT_MODES];
     type AudioFileExtension = keyof typeof AUDIO_FILE_EXTENSIONS;
-    type CanvasPerformanceMode = typeof CANVAS_PERFORMANCE_MODES[keyof typeof CANVAS_PERFORMANCE_MODES];
-    type ChatMessageType = typeof CONST.CHAT_MESSAGE_TYPES[keyof typeof CONST.CHAT_MESSAGE_TYPES];
-    type CompatibilityMode = typeof CONST.COMPATIBILITY_MODES[keyof typeof CONST.COMPATIBILITY_MODES];
-    type DocumentOwnershipLevel = typeof DOCUMENT_OWNERSHIP_LEVELS[DocumentOwnershipString];
+    type CanvasPerformanceMode = (typeof CANVAS_PERFORMANCE_MODES)[keyof typeof CANVAS_PERFORMANCE_MODES];
+    type ChatMessageType = (typeof CONST.CHAT_MESSAGE_TYPES)[keyof typeof CONST.CHAT_MESSAGE_TYPES];
+    type CompatibilityMode = (typeof CONST.COMPATIBILITY_MODES)[keyof typeof CONST.COMPATIBILITY_MODES];
+    type DocumentOwnershipLevel = (typeof DOCUMENT_OWNERSHIP_LEVELS)[DocumentOwnershipString];
     type DocumentOwnershipString = keyof typeof DOCUMENT_OWNERSHIP_LEVELS;
-    type DrawingFillType = typeof DRAWING_FILL_TYPES[keyof typeof DRAWING_FILL_TYPES];
+    type DrawingFillType = (typeof DRAWING_FILL_TYPES)[keyof typeof DRAWING_FILL_TYPES];
     type FileCategory = keyof typeof FILE_CATEGORIES;
     type FileExtension = keyof typeof UPLOADABLE_FILE_EXTENSIONS;
-    type FolderDocumentType = typeof FOLDER_DOCUMENT_TYPES[number];
-    type GridType = typeof GRID_TYPES[keyof typeof GRID_TYPES];
+    type FolderDocumentType = (typeof FOLDER_DOCUMENT_TYPES)[number];
+    type GridType = (typeof GRID_TYPES)[keyof typeof GRID_TYPES];
     type ImageFileExtension = keyof typeof IMAGE_FILE_EXTENSIONS;
-    type JournalEntryPageFormat = typeof JOURNAL_ENTRY_PAGE_FORMATS[keyof typeof JOURNAL_ENTRY_PAGE_FORMATS];
-    type MacroScope = typeof MACRO_SCOPES[number];
-    type MacroType = typeof MACRO_TYPES[keyof typeof MACRO_TYPES];
-    type MeasuredTemplateType = typeof MEASURED_TEMPLATE_TYPES[keyof typeof MEASURED_TEMPLATE_TYPES];
-    type PackageType = typeof PACKAGE_TYPES[number];
-    type PlaylistMode = typeof PLAYLIST_MODES[keyof typeof PLAYLIST_MODES];
-    type PlaylistSortMode = typeof PLAYLIST_SORT_MODES[keyof typeof PLAYLIST_SORT_MODES];
-    type RollMode = typeof CONST.DICE_ROLL_MODES[keyof typeof CONST.DICE_ROLL_MODES];
-    type TableResultType = typeof TABLE_RESULT_TYPES[keyof typeof TABLE_RESULT_TYPES];
-    type TextAnchorPoint = typeof TEXT_ANCHOR_POINTS[keyof typeof TEXT_ANCHOR_POINTS];
-    type TileOcclusionMode = typeof TILE_OCCLUSION_MODES[keyof typeof TILE_OCCLUSION_MODES];
-    type TokenDisplayMode = typeof TOKEN_DISPLAY_MODES[keyof typeof TOKEN_DISPLAY_MODES];
-    type TokenDisposition = typeof TOKEN_DISPOSITIONS[keyof typeof TOKEN_DISPOSITIONS];
+    type JournalEntryPageFormat = (typeof JOURNAL_ENTRY_PAGE_FORMATS)[keyof typeof JOURNAL_ENTRY_PAGE_FORMATS];
+    type MacroScope = (typeof MACRO_SCOPES)[number];
+    type MacroType = (typeof MACRO_TYPES)[keyof typeof MACRO_TYPES];
+    type MeasuredTemplateType = (typeof MEASURED_TEMPLATE_TYPES)[keyof typeof MEASURED_TEMPLATE_TYPES];
+    type PackageType = (typeof PACKAGE_TYPES)[number];
+    type PlaylistMode = (typeof PLAYLIST_MODES)[keyof typeof PLAYLIST_MODES];
+    type PlaylistSortMode = (typeof PLAYLIST_SORT_MODES)[keyof typeof PLAYLIST_SORT_MODES];
+    type RollMode = (typeof CONST.DICE_ROLL_MODES)[keyof typeof CONST.DICE_ROLL_MODES];
+    type TableResultType = (typeof TABLE_RESULT_TYPES)[keyof typeof TABLE_RESULT_TYPES];
+    type TextAnchorPoint = (typeof TEXT_ANCHOR_POINTS)[keyof typeof TEXT_ANCHOR_POINTS];
+    type TileOcclusionMode = (typeof TILE_OCCLUSION_MODES)[keyof typeof TILE_OCCLUSION_MODES];
+    type TokenDisplayMode = (typeof TOKEN_DISPLAY_MODES)[keyof typeof TOKEN_DISPLAY_MODES];
+    type TokenDisposition = (typeof TOKEN_DISPOSITIONS)[keyof typeof TOKEN_DISPOSITIONS];
     type UserAction = "create" | "update" | "delete";
     type UserPermissionString = keyof typeof USER_PERMISSIONS;
     type UserRole = keyof typeof USER_ROLE_NAMES;
     type UserRoleName = keyof typeof USER_ROLES;
     type VideoFileExtension = keyof typeof VIDEO_FILE_EXTENSIONS;
-    type WallDirection = typeof WALL_DIRECTIONS[keyof typeof WALL_DIRECTIONS];
-    type WallDoorState = typeof WALL_DOOR_STATES[keyof typeof WALL_DOOR_STATES];
-    type WallDoorType = typeof WALL_DOOR_TYPES[keyof typeof WALL_DOOR_TYPES];
-    type WallMovementType = typeof WALL_MOVEMENT_TYPES[keyof typeof WALL_MOVEMENT_TYPES];
-    type WallRestrictionType = typeof WALL_RESTRICTION_TYPES[number];
-    type WallSenseType = typeof WALL_SENSE_TYPES[keyof typeof WALL_SENSE_TYPES];
+    type WallDirection = (typeof WALL_DIRECTIONS)[keyof typeof WALL_DIRECTIONS];
+    type WallDoorState = (typeof WALL_DOOR_STATES)[keyof typeof WALL_DOOR_STATES];
+    type WallDoorType = (typeof WALL_DOOR_TYPES)[keyof typeof WALL_DOOR_TYPES];
+    type WallMovementType = (typeof WALL_MOVEMENT_TYPES)[keyof typeof WALL_MOVEMENT_TYPES];
+    type WallRestrictionType = (typeof WALL_RESTRICTION_TYPES)[number];
+    type WallSenseType = (typeof WALL_SENSE_TYPES)[keyof typeof WALL_SENSE_TYPES];
     type DrawingShapeType = "r" | "e" | "t" | "p" | "f";
 }

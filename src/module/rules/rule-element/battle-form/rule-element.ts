@@ -7,7 +7,7 @@ import { WeaknessRuleElement } from "../iwr/weakness";
 import { SenseRuleElement } from "../sense";
 import { StrikeRuleElement } from "../strike";
 import { TempHPRuleElement } from "../temp-hp";
-import { CharacterPF2e } from "@actor";
+import { ActorPF2e, CharacterPF2e } from "@actor";
 import { SENSE_TYPES } from "@actor/creature/sense";
 import { ActorType } from "@actor/data";
 import { MOVEMENT_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values";
@@ -30,7 +30,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
 
     protected static override validActorTypes: ActorType[] = ["character"];
 
-    constructor(data: BattleFormSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: BattleFormSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         data.value ??= {};
         data.overrides ??= {};
         super(data, item, options);

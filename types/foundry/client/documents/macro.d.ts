@@ -1,16 +1,15 @@
-import { MacroConstructor } from "./constructors";
+import { ClientBaseMacro } from "./client-base-mixes.mjs";
 
 declare global {
     /**
-     * The client-side Macro document which extends the common BaseMacro abstraction.
-     * Each Macro document contains MacroData which defines its data schema.
+     * The client-side Folder document which extends the common BaseFolder model.
      *
-     * @see {@link data.MacroData}              The Macro data schema
-     * @see {@link documents.Macros}            The world-level collection of Macro documents
-     * @see {@link applications.MacroConfig}    The Macro configuration application
+     * @see {@link Folders}                     The world-level collection of Folder documents
+     * @see {@link FolderConfig}                The Folder configuration application
      */
-    class Macro extends MacroConstructor {
+    class Macro extends ClientBaseMacro {
         command: string;
+
         /* -------------------------------------------- */
         /*  Properties                                  */
         /* -------------------------------------------- */
@@ -28,18 +27,30 @@ declare global {
          * @param [scope.actor] An Actor who is the protagonist of the executed action
          * @param [scope.token] A Token which is the protagonist of the executed action
          */
-        execute({ actor, token }?: { actor?: Actor; token?: Token }): void;
+        execute({ actor, token }?: { actor?: Actor<TokenDocument<Scene | null> | null>; token?: Token }): void;
 
         /**
          * Execute the command as a chat macro.
          * Chat macros simulate the process of the command being entered into the Chat Log input textarea.
          */
-        protected _executeChat({ actor, token }?: { actor?: Actor; token?: Token }): void;
+        protected _executeChat({
+            actor,
+            token,
+        }?: {
+            actor?: Actor<TokenDocument<Scene | null> | null>;
+            token?: Token;
+        }): void;
 
         /**
          * Execute the command as a script macro.
          * Script Macros are wrapped in an async IIFE to allow the use of asynchronous commands and await statements.
          */
-        protected _executeScript({ actor, token }?: { actor?: Actor; token?: Token }): void;
+        protected _executeScript({
+            actor,
+            token,
+        }?: {
+            actor?: Actor<TokenDocument<Scene | null> | null>;
+            token?: Token;
+        }): void;
     }
 }

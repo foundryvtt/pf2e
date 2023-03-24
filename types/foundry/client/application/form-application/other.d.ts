@@ -19,8 +19,10 @@ declare class FolderConfig extends FormApplication {
  * @param options           Additional application rendering options
  * @param options.preview   Configure a preview version of a sound which is not yet saved
  */
-declare class MeasuredTemplateConfig extends FormApplication {
-    protected override _updateObject(event: Event, formData: {}): Promise<void>;
+declare class MeasuredTemplateConfig<
+    TParent extends MeasuredTemplateDocument<Scene | null>
+> extends DocumentSheet<TParent> {
+    protected override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
 }
 
 /**

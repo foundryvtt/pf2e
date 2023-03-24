@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data";
+import { FeatSource, ItemSourcePF2e } from "@item/data";
 import { RuleElementSource } from "@module/rules";
 import { PredicateStatement } from "@system/predication";
 import { isObject } from "@util";
@@ -10,6 +10,15 @@ export class Migration775AgileFinesseRanged extends MigrationBase {
 
     #findDamageDiceRE(source: ItemSourcePF2e): RuleElementSource | null {
         return source.system.rules.find((r) => r.key === "DamageDice") ?? null;
+    }
+
+    #isClassFeature(source: ItemSourcePF2e): source is FeatSource & { system: { featType: "classfeature" } } {
+        return (
+            source.type === "feat" &&
+            "featType" in source.system &&
+            isObject<{ value: string }>(source.system.featType) &&
+            source.system.featType.value === "classfeature"
+        );
     }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
@@ -59,7 +68,7 @@ export class Migration775AgileFinesseRanged extends MigrationBase {
                         const damageDiceRE = this.#findDamageDiceRE(source);
                         if (damageDiceRE) {
                             const predicate = this.#sneakAttackPredicate;
-                            if (source.system.featType.value === "classfeature") {
+                            if (this.#isClassFeature(source)) {
                                 predicate.all?.unshift("class:rogue");
                             }
                             damageDiceRE.predicate = predicate;

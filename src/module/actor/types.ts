@@ -1,13 +1,16 @@
+import * as ActorInstance from "@actor";
 import { ActorPF2e } from "@actor";
-import { MeleePF2e, SpellPF2e, WeaponPF2e } from "@item";
+import * as ItemInstance from "@item";
 import { EffectTrait } from "@item/abstract-effect";
+import { ItemInstances } from "@item/types";
 import { TokenDocumentPF2e } from "@scene";
 import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr";
 import { DamageRoll } from "@system/damage/roll";
 import { CheckDC } from "@system/degree-of-success";
 import { PredicatePF2e } from "@system/predication";
+import { StatisticCheck } from "@system/statistic";
 import { TraitViewData } from "./data/base";
-import { ModifierPF2e } from "./modifiers";
+import { ModifierPF2e, StatisticModifier } from "./modifiers";
 import {
     ABILITY_ABBREVIATIONS,
     DC_SLUGS,
@@ -17,6 +20,21 @@ import {
     UNAFFECTED_TYPES,
 } from "./values";
 
+/** Used exclusively to resolve `ActorPF2e#isOfType` */
+interface ActorInstances<TParent extends TokenDocumentPF2e | null> {
+    character: ActorInstance.CharacterPF2e<TParent>;
+    creature: ActorInstance.CreaturePF2e<TParent>;
+    familiar: ActorInstance.FamiliarPF2e<TParent>;
+    hazard: ActorInstance.HazardPF2e<TParent>;
+    loot: ActorInstance.LootPF2e<TParent>;
+    party: ActorInstance.PartyPF2e<TParent>;
+    npc: ActorInstance.NPCPF2e<TParent>;
+    vehicle: ActorInstance.VehiclePF2e<TParent>;
+}
+
+type EmbeddedItemInstances<TParent extends ActorPF2e> = {
+    [K in keyof ItemInstances<TParent>]: ItemInstances<TParent>[K][];
+};
 type AbilityString = SetElement<typeof ABILITY_ABBREVIATIONS>;
 
 interface ActorDimensions {
@@ -66,13 +84,22 @@ interface AuraColors {
 /*  Attack Rolls                                */
 /* -------------------------------------------- */
 
-type AttackItem = WeaponPF2e | MeleePF2e | SpellPF2e;
+type AttackItem =
+    | ItemInstance.WeaponPF2e<ActorPF2e>
+    | ItemInstance.MeleePF2e<ActorPF2e>
+    | ItemInstance.SpellPF2e<ActorPF2e>;
 
-interface StrikeSelf<A extends ActorPF2e = ActorPF2e, I extends AttackItem = AttackItem> {
-    actor: A;
+interface StrikeSelf<
+    TActor extends ActorPF2e = ActorPF2e,
+    TStatistic extends StatisticCheck | StatisticModifier | null = StatisticCheck | StatisticModifier | null,
+    TItem extends AttackItem | null = AttackItem | null
+> {
+    actor: TActor;
     token: TokenDocumentPF2e | null;
+    /** The Strike statistic in use */
+    statistic: TStatistic;
     /** The item used for the strike */
-    item: I;
+    item: TItem;
     /** Bonuses and penalties added at the time of a strike */
     modifiers: ModifierPF2e[];
 }
@@ -85,17 +112,26 @@ interface AttackTarget {
 }
 
 /** Context for the attack or damage roll of a strike */
-interface StrikeRollContext<A extends ActorPF2e, I extends AttackItem> {
+interface StrikeRollContext<
+    TActor extends ActorPF2e,
+    TStatistic extends StatisticCheck | StatisticModifier | null = StatisticCheck | StatisticModifier | null,
+    TItem extends AttackItem | null = AttackItem | null
+> {
     /** Roll options */
     options: Set<string>;
-    self: StrikeSelf<A, I>;
+    self: StrikeSelf<TActor, TStatistic, TItem>;
     target: AttackTarget | null;
     traits: TraitViewData[];
 }
 
-interface StrikeRollContextParams<T extends AttackItem> {
+interface StrikeRollContextParams<
+    TStatistic extends StatisticCheck | StatisticModifier | null = StatisticCheck | StatisticModifier | null,
+    TItem extends AttackItem | null = AttackItem | null
+> {
+    /** The statistic used for the roll */
+    statistic: TStatistic;
     /** The item being used in the attack or damage roll */
-    item: T;
+    item?: TItem;
     /** Domains from which to draw roll options */
     domains: string[];
     /** Initial roll options for the strike */
@@ -104,7 +140,16 @@ interface StrikeRollContextParams<T extends AttackItem> {
     viewOnly?: boolean;
 }
 
-interface AttackRollContext<A extends ActorPF2e, I extends AttackItem> extends StrikeRollContext<A, I> {
+type AttackRollContextParams<
+    TStatistic extends StatisticCheck | StatisticModifier = StatisticCheck | StatisticModifier,
+    TItem extends AttackItem | null = AttackItem | null
+> = StrikeRollContextParams<TStatistic, TItem>;
+
+interface AttackRollContext<
+    TActor extends ActorPF2e,
+    TStatistic extends StatisticCheck | StatisticModifier = StatisticCheck | StatisticModifier,
+    TItem extends AttackItem | null = AttackItem | null
+> extends StrikeRollContext<TActor, TStatistic, TItem> {
     dc: CheckDC | null;
 }
 
@@ -128,14 +173,17 @@ export {
     AbilityString,
     ActorAlliance,
     ActorDimensions,
+    ActorInstances,
     ApplyDamageParams,
     AttackItem,
     AttackRollContext,
+    AttackRollContextParams,
     AttackTarget,
     AuraColors,
     AuraData,
     AuraEffectData,
     DCSlug,
+    EmbeddedItemInstances,
     IWRType,
     ImmunityType,
     ResistanceType,

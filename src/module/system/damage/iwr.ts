@@ -39,9 +39,15 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
         .flatMap((instance): IWRApplication[] => {
             const formalDescription = new Set([...instance.formalDescription, ...rollOptions]);
 
+            // If the roll's total was increased to a minimum of 1, treat the first instance as having a total of 1
+            const wasIncreased = instance.total <= 0 && typeof roll.options.increasedFrom === "number";
+            const isFirst = instances.indexOf(instance) === 0;
+            const instanceTotal = wasIncreased && isFirst ? 1 : Math.max(instance.total, 0);
+            if (instanceTotal === 0) return [];
+
             // Step 0: Inapplicable damage outside the IWR framework
             if (!actor.isAffectedBy(instance.type)) {
-                return [{ category: "unaffected", type: instance.type, adjustment: -1 * instance.total }];
+                return [{ category: "unaffected", type: instance.type, adjustment: -1 * instanceTotal }];
             }
 
             // Step 1: Immunities
@@ -49,7 +55,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             // If the target is immune to the entire instance, we're done with it.
             const immunity = immunities.find((i) => i.test(formalDescription));
             if (immunity) {
-                return [{ category: "immunity", type: immunity.label, adjustment: -1 * instance.total }];
+                return [{ category: "immunity", type: immunity.label, adjustment: -1 * instanceTotal }];
             }
 
             // Before getting a manually-adjusted total, check for immunity to critical hits and "undouble"
@@ -61,16 +67,16 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             const critImmuneTotal =
                 critImmunityApplies && roll.options.degreeOfSuccess === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS
                     ? instance.critImmuneTotal
-                    : instance.total;
+                    : instanceTotal;
 
             const instanceApplications: IWRApplication[] = [];
 
             // If the total was undoubled, log it as an immunity application
-            if (critImmunity && critImmuneTotal < instance.total) {
+            if (critImmunity && critImmuneTotal < instanceTotal) {
                 instanceApplications.push({
                     category: "immunity",
                     type: critImmunity.label,
-                    adjustment: -1 * (instance.total - critImmuneTotal),
+                    adjustment: -1 * (instanceTotal - critImmuneTotal),
                 });
             }
 
@@ -91,7 +97,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             }
 
             const afterImmunities = Math.max(
-                instance.total + instanceApplications.reduce((sum, a) => sum + a.adjustment, 0),
+                instanceTotal + instanceApplications.reduce((sum, a) => sum + a.adjustment, 0),
                 0
             );
 

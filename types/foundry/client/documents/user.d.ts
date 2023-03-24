@@ -1,21 +1,24 @@
-import { UserConstructor } from "./constructors";
+import { ClientBaseUser } from "./client-base-mixes.mjs";
 
 declare global {
     /**
      * The client-side User document which extends the common BaseUser model.
      * Each User document contains UserData which defines its data schema.
      *
+     * @extends documents.BaseUser
+     * @mixes ClientDocumentMixin
+     *
      * @see {@link documents.Users}             The world-level collection of User documents
      * @see {@link applications.UserConfig}     The User configuration application
      */
-    class User<TActor extends Actor = Actor> extends UserConstructor {
+    class User extends ClientBaseUser {
         constructor(data: PreCreate<foundry.documents.UserSource>, context?: DocumentConstructionContext<null>);
 
         /** Track whether the user is currently active in the game */
         active: boolean;
 
         /** Track references to the current set of Tokens which are targeted by the User */
-        targets: Set<NonNullable<NonNullable<TActor["token"]>["object"]>>;
+        targets: Set<Token>;
 
         /** Track the ID of the Scene that is currently being viewed by the User */
         viewedScene: string | null;
@@ -85,15 +88,15 @@ declare global {
 
         protected override _onUpdate(
             changed: DeepPartial<foundry.documents.UserSource>,
-            options: DocumentModificationContext<this>,
+            options: DocumentModificationContext<null>,
             userId: string
         ): void;
 
-        protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void;
+        protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
     }
 
-    interface User<TActor extends Actor = Actor> {
-        character: TActor | null | undefined;
+    interface User extends ClientBaseUser {
+        character: Actor<null> | null;
     }
 
     interface UserActivity {

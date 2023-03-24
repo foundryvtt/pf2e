@@ -1,9 +1,11 @@
-import { CreaturePF2e } from "@actor";
+import { ActorPF2e, CreaturePF2e } from "@actor";
 import { createSpellcastingDialog } from "@actor/sheet/spellcasting-dialog";
 import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values";
-import { ItemPF2e, SpellPF2e } from "@item";
-import { SpellcastingEntryPF2e, SpellcastingSheetData } from "@item/spellcasting-entry";
+import { ItemPF2e, SpellPF2e, SpellcastingEntryPF2e } from "@item";
+import { ActionTrait } from "@item/action";
+import { SpellcastingSheetData } from "@item/spellcasting-entry";
 import { ItemSourcePF2e } from "@item/data";
+import { ActionType } from "@item/data/base";
 import { ITEM_CARRY_TYPES } from "@item/data/values";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { goesToEleven, ZeroToFour } from "@module/data";
@@ -272,8 +274,10 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             for (const element of htmlQueryAll(section, "[data-action=spellcasting-edit]") ?? []) {
                 element.addEventListener("click", (event) => {
                     const containerId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
-                    const entry = this.actor.spellcasting.get(containerId, { strict: true });
-                    createSpellcastingDialog(event, entry as Embedded<SpellcastingEntryPF2e>);
+                    const entry = this.actor.items.get(containerId, { strict: true });
+                    if (entry.isOfType("spellcastingEntry")) {
+                        createSpellcastingDialog(event, entry);
+                    }
                 });
             }
 
@@ -367,7 +371,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
         // Action Browser
         for (const button of htmlQueryAll(html, ".action-browse")) {
-            button.addEventListener("click", () => game.pf2e.compendiumBrowser.openTab("action"));
+            button.addEventListener("click", () => this.#onClickBrowseActions(button));
         }
 
         // Spell Browser
@@ -377,7 +381,10 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
     }
 
     /** Adds support for moving spells between spell levels, spell collections, and spell preparation */
-    protected override async _onSortItem(event: ElementDragEvent, itemSource: ItemSourcePF2e): Promise<ItemPF2e[]> {
+    protected override async _onSortItem(
+        event: ElementDragEvent,
+        itemSource: ItemSourcePF2e
+    ): Promise<ItemPF2e<TActor>[]> {
         const dropItemEl = htmlClosest(event.target, ".item");
         const dropContainerEl = htmlClosest(event.target, ".item-container");
 
@@ -404,7 +411,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
                 if (Number.isInteger(dropId) && Number.isInteger(slotLevel)) {
                     const allocated = await collection.prepareSpell(item, slotLevel, dropId);
-                    if (allocated) return [allocated];
+                    if (allocated instanceof SpellcastingEntryPF2e) return [allocated];
                 }
             } else if (dropSlotType === "spell") {
                 const dropId = dropItemEl.dataset.itemId ?? "";
@@ -465,9 +472,9 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
     /** Handle dragging spells onto spell slots. */
     protected override async _handleDroppedItem(
         event: ElementDragEvent,
-        item: ItemPF2e,
+        item: ItemPF2e<ActorPF2e | null>,
         data: DropCanvasItemDataPF2e
-    ): Promise<ItemPF2e[]> {
+    ): Promise<ItemPF2e<ActorPF2e | null>[]> {
         const containerEl = htmlClosest(event.target, ".item-container[data-container-type=spellcastingEntry]");
         if (containerEl && item.isOfType("spell") && !item.isRitual) {
             const entryId = containerEl.dataset.containerId;
@@ -512,6 +519,13 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         }
 
         spell.update({ "system.location.signature": !spell.system.location.signature });
+    }
+
+    #onClickBrowseActions(button: HTMLElement) {
+        const actionTypes = (button.dataset.actionType || "").split(",") as ActionType[];
+        const actionTraits = (button.dataset.actionTrait || "").split(",") as ActionTrait[];
+
+        game.pf2e.compendiumBrowser.openActionTab(actionTypes, actionTraits);
     }
 
     #onClickBrowseSpellCompendia(button: HTMLElement) {

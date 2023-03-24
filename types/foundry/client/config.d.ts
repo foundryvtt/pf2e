@@ -2,22 +2,21 @@ import type * as TinyMCE from "tinymce";
 
 declare global {
     interface Config<
-        TAmbientLightDocument extends AmbientLightDocument,
-        TActiveEffect extends ActiveEffect,
-        TActor extends Actor,
-        TActorDirectory extends ActorDirectory<TActor>,
+        TAmbientLightDocument extends AmbientLightDocument<TScene | null>,
+        TActiveEffect extends ActiveEffect<TActor | TItem | null>,
+        TActor extends Actor<TTokenDocument | null>,
         TChatLog extends ChatLog,
         TChatMessage extends ChatMessage,
         TCombat extends Combat,
-        TCombatant extends Combatant<TCombat | null, TActor | null>,
+        TCombatant extends Combatant<TCombat | null, TTokenDocument | null>,
         TCombatTracker extends CombatTracker<TCombat | null>,
         TCompendiumDirectory extends CompendiumDirectory,
         THotbar extends Hotbar,
-        TItem extends Item,
+        TItem extends Item<TActor | null>,
         TMacro extends Macro,
-        TMeasuredTemplateDocument extends MeasuredTemplateDocument,
-        TTileDocument extends TileDocument,
-        TTokenDocument extends TokenDocument,
+        TMeasuredTemplateDocument extends MeasuredTemplateDocument<TScene | null>,
+        TTileDocument extends TileDocument<TScene | null>,
+        TTokenDocument extends TokenDocument<TScene | null>,
         TWallDocument extends WallDocument<TScene | null>,
         TScene extends Scene,
         TUser extends User,
@@ -49,7 +48,7 @@ declare global {
                     context?: DocumentConstructionContext<TActor["parent"]>
                 ): TActor;
             };
-            collection: ConstructorOf<Actors<TActor>>;
+            collection: ConstructorOf<Actors<Actor<null>>>;
             sheetClasses: Record<
                 string,
                 Record<
@@ -183,8 +182,8 @@ declare global {
         /** Configuration for the AmbientLight embedded document type and its representation on the game Canvas */
         AmbientLight: {
             documentClass: ConstructorOf<TAmbientLightDocument>;
-            objectClass: ConstructorOf<TAmbientLightDocument["object"]>;
-            layerClass: ConstructorOf<TAmbientLightDocument["object"]["layer"]>;
+            objectClass: ConstructorOf<NonNullable<TAmbientLightDocument["object"]>>;
+            layerClass: ConstructorOf<NonNullable<TAmbientLightDocument["object"]>["layer"]>;
         };
 
         /** Configuration for the ActiveEffect embedded document type */
@@ -217,26 +216,23 @@ declare global {
                 rect: string;
                 ray: string;
             };
-            documentClass: new (
-                data: PreCreate<foundry.data.MeasuredTemplateSource>,
-                context?: DocumentConstructionContext<TMeasuredTemplateDocument["parent"]>
-            ) => TMeasuredTemplateDocument;
-            objectClass: ConstructorOf<TMeasuredTemplateDocument["object"]>;
-            layerClass: ConstructorOf<TMeasuredTemplateDocument["object"]["layer"]>;
+            documentClass: ConstructorOf<TMeasuredTemplateDocument>;
+            objectClass: ConstructorOf<NonNullable<TMeasuredTemplateDocument["object"]>>;
+            layerClass: ConstructorOf<NonNullable<TMeasuredTemplateDocument["object"]>["layer"]>;
         };
 
         /** Configuration for the Tile embedded document type and its representation on the game Canvas */
         Tile: {
             documentClass: ConstructorOf<TTileDocument>;
-            objectClass: ConstructorOf<TTileDocument["object"]>;
-            layerClass: ConstructorOf<BackgroundLayer>;
+            objectClass: ConstructorOf<NonNullable<TTileDocument["object"]>>;
+            layerClass: ConstructorOf<TilesLayer<NonNullable<TTileDocument["object"]>>>;
         };
 
         /** Configuration for the Token embedded document type and its representation on the game Canvas */
         Token: {
             documentClass: ConstructorOf<TTokenDocument>;
-            objectClass: ConstructorOf<TTokenDocument["object"]>;
-            layerClass: ConstructorOf<TTokenDocument["object"]["layer"]>;
+            objectClass: ConstructorOf<NonNullable<TTokenDocument["object"]>>;
+            layerClass: ConstructorOf<NonNullable<TTokenDocument["object"]>["layer"]>;
             prototypeSheetClass: ConstructorOf<TTokenDocument["sheet"]>;
         };
 
@@ -244,7 +240,7 @@ declare global {
         Wall: {
             documentClass: ConstructorOf<TWallDocument>;
             objectClass: ConstructorOf<Wall<TWallDocument>>;
-            layerClass: ConstructorOf<TWallDocument["object"]["layer"]>;
+            layerClass: ConstructorOf<NonNullable<TWallDocument["object"]>["layer"]>;
         };
 
         /* -------------------------------------------- */
@@ -294,10 +290,6 @@ declare global {
                 };
             };
             layers: {
-                background: {
-                    group: "primary";
-                    layerClass: typeof BackgroundLayer;
-                };
                 drawings: {
                     group: "primary";
                     layerClass: typeof DrawingsLayer;
@@ -308,11 +300,11 @@ declare global {
                 };
                 walls: {
                     group: "effects";
-                    layerClass: ConstructorOf<TWallDocument["object"]["layer"]>;
+                    layerClass: ConstructorOf<NonNullable<TWallDocument["object"]>["layer"]>;
                 };
                 templates: {
                     group: "primary";
-                    layerClass: ConstructorOf<TMeasuredTemplateDocument["object"]["layer"]>;
+                    layerClass: ConstructorOf<NonNullable<TMeasuredTemplateDocument["object"]>["layer"]>;
                 };
                 notes: {
                     group: "interface";
@@ -320,11 +312,11 @@ declare global {
                 };
                 tokens: {
                     group: "primary";
-                    layerClass: ConstructorOf<TTokenDocument["object"]["layer"]>;
+                    layerClass: ConstructorOf<NonNullable<TTokenDocument["object"]>["layer"]>;
                 };
-                foreground: {
+                tiles: {
                     group: "primary";
-                    layerClass: typeof ForegroundLayer;
+                    layerClass: typeof TilesLayer;
                 };
                 sounds: {
                     group: "interface";
@@ -332,7 +324,7 @@ declare global {
                 };
                 lighting: {
                     group: "effects";
-                    layerClass: ConstructorOf<TAmbientLightDocument["object"]["layer"]>;
+                    layerClass: ConstructorOf<NonNullable<TAmbientLightDocument["object"]>["layer"]>;
                 };
                 controls: {
                     group: "interface";
@@ -540,13 +532,13 @@ declare global {
         };
 
         ui: {
-            actors: ConstructorOf<TActorDirectory>;
+            actors: ConstructorOf<ActorDirectory<Actor<null>>>;
             chat: ConstructorOf<TChatLog>;
             combat: ConstructorOf<TCombatTracker>;
             compendium: ConstructorOf<TCompendiumDirectory>;
             controls: typeof SceneControls;
             hotbar: ConstructorOf<THotbar>;
-            items: typeof ItemDirectory;
+            items: ConstructorOf<ItemDirectory<Item<null>>>;
             // journal: typeof JournalDirectory;
             // macros: typeof MacroDirectory;
             menu: typeof MainMenu;

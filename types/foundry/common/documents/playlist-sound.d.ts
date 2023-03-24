@@ -1,22 +1,45 @@
 declare module foundry {
     module documents {
         /** The PlaylistSound document model. */
-        class BasePlaylistSound extends abstract.Document {
-            static override get schema(): typeof data.PlaylistSoundData;
-
+        class BasePlaylistSound<TParent extends BasePlaylist | null> extends abstract.Document<TParent> {
             static override get metadata(): PlaylistSoundMetadata;
 
             testUserPermission(
-                user: documents.BaseUser,
+                user: BaseUser,
                 permission: DocumentOwnershipString | DocumentOwnershipLevel,
                 { exact }?: { exact?: boolean }
             ): boolean;
         }
 
-        interface BasePlaylistSound {
-            readonly data: data.PlaylistSoundData<this>;
+        interface BasePlaylistSound<TParent extends BasePlaylist | null> extends abstract.Document<TParent> {
+            readonly _source: PlaylistSoundSource;
+        }
 
-            readonly parent: BasePlaylist | null;
+        /**
+         * The data schema for a PlaylistSound embedded document.
+         * @see BasePlaylistSound
+         *
+         * @param data       Initial data used to construct the data object
+         * @param [document] The document to which this data object belongs
+         *
+         * @property _id               The _id which uniquely identifies this PlaylistSound document
+         * @property name              The name of this sound track
+         * @property path              The audio file path that is played by this sound
+         * @property [playing=false]   Is this sound currently playing?
+         * @property [repeat=false]    Does this sound loop?
+         * @property [volume=0.5]      The audio volume of the sound, from 0 to 1
+         * @property [streaming=false] Does this audio file use the "large file streaming" mode?
+         * @property [flags={}]        An object of optional key/value flags
+         */
+        interface PlaylistSoundSource {
+            _id: string;
+            name: string;
+            path: string;
+            playing: boolean;
+            repeat: boolean;
+            volumn: number;
+            streaming: boolean;
+            flags: Record<string, unknown>;
         }
 
         interface PlaylistSoundMetadata extends abstract.DocumentMetadata {

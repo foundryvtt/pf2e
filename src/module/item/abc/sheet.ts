@@ -1,11 +1,11 @@
 import { AbilityString } from "@actor/types";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e, FeatPF2e, ItemPF2e } from "@item";
 import { ABCFeatureEntryData } from "@item/abc/data";
-import { FeatType } from "@item/feat/data";
-import { ItemSheetDataPF2e } from "@item/sheet/data-types";
+import { FeatCategory } from "@item/feat/types";
+import { FEAT_CATEGORIES } from "@item/feat/values";
+import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/sheet";
 import { LocalizePF2e } from "@system/localize";
-import { ABCItemPF2e } from ".";
-import { ItemSheetPF2e } from "../sheet/base";
+import { htmlClosest, setHasElement } from "@util";
 
 abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<TItem> {
     static override get defaultOptions(): DocumentSheetOptions {
@@ -49,17 +49,19 @@ abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<TItem> 
 
     /** Is the dropped feat or feature valid for the given section? */
     #isValidDrop(event: ElementDragEvent, feat: FeatPF2e): boolean {
-        const validFeatTypes: FeatType[] = $(event.target).closest(".abc-list").data("valid-drops")?.split(" ") ?? [];
-        if (validFeatTypes.includes(feat.featType)) {
+        const validCategories = (htmlClosest(event.target, ".abc-list")?.dataset.validDrops?.split(" ") ?? []).filter(
+            (f): f is FeatCategory => setHasElement(FEAT_CATEGORIES, f)
+        );
+        if (validCategories.includes(feat.category)) {
             return true;
         }
 
-        const goodTypes = validFeatTypes.map((featType) => game.i18n.localize(CONFIG.PF2E.featTypes[featType]));
-        if (goodTypes.length === 1) {
-            const badType = game.i18n.localize(CONFIG.PF2E.featTypes[feat.featType]);
+        const goodCategories = validCategories.map((c) => game.i18n.localize(CONFIG.PF2E.featCategories[c]));
+        if (goodCategories.length === 1) {
+            const badCategory = game.i18n.localize(CONFIG.PF2E.featCategories[feat.category]);
             const warning = game.i18n.format(LocalizePF2e.translations.PF2E.Item.ABC.InvalidDrop, {
-                badType,
-                goodType: goodTypes[0],
+                badType: badCategory,
+                goodType: goodCategories[0],
             });
             ui.notifications.warn(warning);
             return false;
@@ -119,12 +121,12 @@ abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<TItem> 
     }
 }
 
-type ABCItem = AncestryPF2e | BackgroundPF2e | ClassPF2e;
-
-interface ABCSheetData<TItem extends ABCItemPF2e> extends ItemSheetDataPF2e<TItem> {
+interface ABCSheetData<TItem extends ABCItem> extends ItemSheetDataPF2e<TItem> {
     hasDetails: true;
     features: { key: string; item: FeatureSheetData }[];
 }
+
+type ABCItem = AncestryPF2e | BackgroundPF2e | ClassPF2e;
 
 interface FeatureSheetData extends ABCFeatureEntryData {
     fromWorld: boolean;

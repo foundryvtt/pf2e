@@ -1,26 +1,34 @@
 import { ItemSourcePF2e } from "@item/data";
+import { FeatSystemSource } from "@item/feat";
+import { isObject } from "@util";
 import { MigrationBase } from "../base";
 
 /** Fix featType properties erroneously set to a non-existent "dedication" type */
 export class Migration732FixDedicationFeatTypes extends MigrationBase {
     static override version = 0.732;
 
-    #hasWellFormedFeatType(featType: unknown): boolean {
-        return featType instanceof Object && "value" in featType && typeof featType["value"] === "string";
+    #hasWellFormedFeatType(system: FeatSystemSource): system is FeatSystemSource & { featType: { value: string } } {
+        return (
+            "featType" in system &&
+            isObject(system.featType) &&
+            "value" in system.featType &&
+            typeof system.featType === "string"
+        );
     }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (source.type === "feat") {
-            if (!this.#hasWellFormedFeatType(source.system.featType)) {
-                source.system.featType = { value: "bonus" };
+            const system: FeatSystemSource & { featType?: { value: string } } = source.system;
+            if (!this.#hasWellFormedFeatType(system)) {
+                system.featType = { value: "bonus" };
+            } else {
+                const { featType } = system;
+                const shouldBeArchetype =
+                    featType.value === "dedication" ||
+                    (featType.value === "class" && source.system.slug?.endsWith("-dedication"));
+
+                if (shouldBeArchetype) featType.value = "archetype";
             }
-
-            const featType: { value: string } = source.system.featType;
-            const shouldBeArchetype =
-                featType.value === "dedication" ||
-                (featType.value === "class" && source.system.slug?.endsWith("-dedication"));
-
-            if (shouldBeArchetype) featType.value = "archetype";
         }
     }
 }

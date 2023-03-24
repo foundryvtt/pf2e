@@ -5,7 +5,7 @@ declare global {
      * A specialized subclass of the PointSource abstraction which is used to control the rendering of light sources.
      * @param object The light-emitting object that generates this light source
      */
-    class LightSource<TObject extends AmbientLight | Token | undefined> extends PointSource<TObject> {
+    class LightSource<TObject extends Maybe<AmbientLight | Token>> extends PointSource<TObject> {
         constructor(object: TObject);
 
         /** The light or darkness container for this source */

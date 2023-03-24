@@ -4,7 +4,7 @@ import { SpellcastingEntryPF2e } from "@item";
 import { SpellcastingEntrySource, SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data";
 import { omit, pick } from "@util";
 
-function createEmptySpellcastingEntry(actor: ActorPF2e): Embedded<SpellcastingEntryPF2e> {
+function createEmptySpellcastingEntry(actor: ActorPF2e): SpellcastingEntryPF2e<ActorPF2e> {
     return new SpellcastingEntryPF2e(
         {
             name: "Untitled",
@@ -17,14 +17,14 @@ function createEmptySpellcastingEntry(actor: ActorPF2e): Embedded<SpellcastingEn
             },
         },
         { actor }
-    ) as Embedded<SpellcastingEntryPF2e>;
+    ) as SpellcastingEntryPF2e<ActorPF2e>;
 }
 
 /** Dialog to create or edit spellcasting entries. It works on a clone of spellcasting entry, but will not persist unless the changes are accepted */
-class SpellcastingCreateAndEditDialog extends FormApplication<Embedded<SpellcastingEntryPF2e>> {
+class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryPF2e<ActorPF2e>> {
     private actor: ActorPF2e;
 
-    constructor(object: ActorPF2e | Embedded<SpellcastingEntryPF2e>, options: Partial<FormApplicationOptions>) {
+    constructor(object: ActorPF2e | SpellcastingEntryPF2e<ActorPF2e>, options: Partial<FormApplicationOptions>) {
         super(
             object instanceof ActorPF2e ? createEmptySpellcastingEntry(object) : object.clone({}, { keepId: true }),
             options
@@ -160,7 +160,7 @@ class SpellcastingCreateAndEditDialog extends FormApplication<Embedded<Spellcast
     }
 }
 
-interface SpellcastingCreateAndEditDialogSheetData extends FormApplicationData<Embedded<SpellcastingEntryPF2e>> {
+interface SpellcastingCreateAndEditDialogSheetData extends FormApplicationData<SpellcastingEntryPF2e<ActorPF2e>> {
     actor: ActorPF2e;
     data: SpellcastingEntrySystemSource;
     classDCs: ClassDCData[];
@@ -170,7 +170,10 @@ interface SpellcastingCreateAndEditDialogSheetData extends FormApplicationData<E
     hasAbility: boolean;
 }
 
-export async function createSpellcastingDialog(event: MouseEvent, object: ActorPF2e | Embedded<SpellcastingEntryPF2e>) {
+export async function createSpellcastingDialog(
+    event: MouseEvent,
+    object: ActorPF2e | SpellcastingEntryPF2e<ActorPF2e>
+) {
     const dialog = new SpellcastingCreateAndEditDialog(object, {
         top: event.clientY - 80,
         left: window.innerWidth - 710,

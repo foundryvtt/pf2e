@@ -18,11 +18,11 @@ export class Migration653AEstoREs extends MigrationBase {
         "system.attributes.classDC.rank",
     ]);
 
-    private isRemovableAE(effect: foundry.data.ActiveEffectSource): boolean {
+    private isRemovableAE(effect: foundry.documents.ActiveEffectSource): boolean {
         return effect.changes.every(this.isRemoveableChange);
     }
 
-    private isRemoveableChange(change: foundry.data.EffectChangeSource) {
+    private isRemoveableChange(change: foundry.documents.EffectChangeSource) {
         return (
             (change.mode !== 0 && Number.isInteger(Number(change.value))) ||
             (change.mode === 5 && !change.value.startsWith("{"))

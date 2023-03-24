@@ -37,6 +37,7 @@ import { ZeroToFour } from "@module/data";
 import { PredicatePF2e } from "@system/predication";
 import { StatisticTraceData } from "@system/statistic";
 import { CharacterSheetTabVisibility } from "./sheet";
+import { CharacterPF2e } from "..";
 
 interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemData> {
     flags: DeepPartial<CharacterFlags>;
@@ -46,6 +47,8 @@ type CharacterFlags = ActorFlagsPF2e & {
     pf2e: {
         /** If applicable, the character's proficiency rank in their deity's favored weapon */
         favoredWeaponRank: number;
+        /** The highest number of damage dice among the character's equipped weapons and available unarmed attacks */
+        highestWeaponDamageDice: number;
         /** Whether items are crafted without consuming resources */
         freeCrafting: boolean;
         /** Whether the alchemist's (and related dedications) Quick Alchemy ability is enabled */
@@ -229,7 +232,7 @@ interface ClassDCData extends Required<AbilityBasedStatistic>, StatisticTraceDat
 
 /** The full data for a character strike */
 interface CharacterStrike extends StrikeData {
-    item: Embedded<WeaponPF2e>;
+    item: WeaponPF2e<CharacterPF2e>;
     /** Whether this attack is visible on the sheet */
     visible: boolean;
     altUsages: CharacterStrike[];

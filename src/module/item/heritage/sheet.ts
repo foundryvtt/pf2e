@@ -1,6 +1,6 @@
 import { AncestryPF2e, HeritagePF2e, ItemPF2e } from "@item";
 import { ItemSheetPF2e } from "@item/sheet/base";
-import { HeritageSheetData } from "@item/sheet/data-types";
+import { ItemSheetDataPF2e } from "@item/sheet/data-types";
 import { ErrorPF2e, sluggify } from "@util";
 
 export class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
@@ -59,4 +59,9 @@ export class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
 
         await this.item.update({ "system.ancestry": ancestryReference });
     }
+}
+
+interface HeritageSheetData extends ItemSheetDataPF2e<HeritagePF2e> {
+    ancestry: AncestryPF2e | null;
+    ancestryRefBroken: boolean;
 }

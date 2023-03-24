@@ -21,6 +21,7 @@ interface ConditionSystemSource extends ItemSystemSource {
     group: string | null;
     value: ConditionValueData;
     overrides: string[];
+    context?: never;
     level?: never;
     traits?: never;
 }

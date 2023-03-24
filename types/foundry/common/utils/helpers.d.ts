@@ -29,8 +29,6 @@ declare global {
              * For a subset of cases the deepClone function will offer better performance.
              * @param original Some sort of data
              */
-            function duplicate<T extends foundry.abstract.Document>(original: T): T["data"];
-            function duplicate<T extends foundry.abstract.DocumentData>(original: T): RawObject<T>;
             function duplicate<T>(original: T): T;
 
             /**
@@ -68,7 +66,7 @@ declare global {
              */
             function mergeObject<T extends object, U extends object = T>(
                 original: T,
-                other?: U,
+                other: U,
                 { insertKeys, insertValues, overwrite, inplace, enforceTypes, performDeletions }?: MergeObjectOptions,
                 _d?: number
             ): T & U;

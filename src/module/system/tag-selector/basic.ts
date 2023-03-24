@@ -25,7 +25,7 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
     /** Search string for filtering */
     searchString = "";
 
-    private filterTimeout: number | null = null;
+    #filterTimeout: number | null = null;
 
     protected objectProperty: string;
 
@@ -142,11 +142,11 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
     private onFilterResults(event: JQuery.TriggeredEvent) {
         event.preventDefault();
         const input: HTMLFormElement = event.currentTarget;
-        if (this.filterTimeout) {
-            clearTimeout(this.filterTimeout);
-            this.filterTimeout = null;
+        if (this.#filterTimeout) {
+            clearTimeout(this.#filterTimeout);
+            this.#filterTimeout = null;
         }
-        this.filterTimeout = window.setTimeout(() => this.search(input.value), 100);
+        this.#filterTimeout = window.setTimeout(() => this.search(input.value), 100);
     }
 }
 

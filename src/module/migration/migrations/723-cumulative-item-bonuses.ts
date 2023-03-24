@@ -70,7 +70,7 @@ export class Migration723CumulativeItemBonuses extends MigrationBase {
     }
 
     /** Replace the retired toggle macro with a simple hotbar-drop effect macro */
-    override async updateMacro(source: foundry.data.MacroSource): Promise<void> {
+    override async updateMacro(source: foundry.documents.MacroSource): Promise<void> {
         if (source.type === "script" && source.command.includes("Stance: Mountain Stance")) {
             source.command = String.raw`const actors = canvas.tokens.controlled.flatMap((token) => token.actor ?? []);
 if (actors.length === 0 && game.user.character) actors.push(game.user.character);

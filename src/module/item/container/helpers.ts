@@ -1,3 +1,4 @@
+import { ActorPF2e } from "@actor";
 import { ContainerPF2e, PhysicalItemPF2e } from "@item";
 
 /**
@@ -5,7 +6,7 @@ import { ContainerPF2e, PhysicalItemPF2e } from "@item";
  * @param item The item being added to a container
  * @param container The container to which the item is being added
  */
-export function isCycle(item: PhysicalItemPF2e, container: Embedded<ContainerPF2e>): boolean {
+export function isCycle(item: PhysicalItemPF2e, container: ContainerPF2e<ActorPF2e>): boolean {
     if (item === container) return true;
     if (container.container) return isCycle(item, container.container);
     return false;

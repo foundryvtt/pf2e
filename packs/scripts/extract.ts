@@ -114,7 +114,7 @@ const npcSystemKeys = new Set([
 
 const idsToNames: Map<string, Map<string, string>> = new Map();
 
-type CompendiumDocumentPF2e = ActorPF2e | ItemPF2e | JournalEntry | MacroPF2e | RollTable;
+type CompendiumDocumentPF2e = ActorPF2e | ItemPF2e<ActorPF2e | null> | JournalEntry | MacroPF2e | RollTable;
 type PackEntry = CompendiumDocumentPF2e["_source"];
 
 function assertDocIdSame(newSource: PackEntry, jsonPath: string): void {
@@ -196,63 +196,7 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                         }
                     }
                 } else if (isItemSource(docSource)) {
-                    // Prune several common item data defaults
-                    docSource.system.description = {
-                        gm: docSource.system.description.gm ?? "",
-                        value: docSource.system.description.value,
-                    };
-
-                    if (!docSource.system.description.gm.trim()) {
-                        delete (docSource.system.description as { gm?: unknown }).gm;
-                    }
-
-                    if (isPhysicalData(docSource)) {
-                        delete (docSource.system as { identification?: unknown }).identification;
-                        if (docSource.system.traits.otherTags?.length === 0) {
-                            delete (docSource.system.traits as { otherTags?: unknown }).otherTags;
-                        }
-
-                        if (docSource.type === "consumable" && !docSource.system.spell) {
-                            delete (docSource.system as { spell?: unknown }).spell;
-                        }
-
-                        if (docSource.type === "weapon") {
-                            delete (docSource.system as { property1?: unknown }).property1;
-                            if ("value" in docSource.system.damage) {
-                                delete docSource.system.damage.value;
-                            }
-                            if (docSource.system.specific?.value === false) {
-                                delete docSource.system.specific;
-                            }
-                            if (!docSource.system.damage.persistent) {
-                                delete (docSource.system.damage as { persistent?: unknown }).persistent;
-                            }
-                        }
-                    } else if (docSource.type === "melee") {
-                        for (const formulaData of Object.values(docSource.system.damageRolls)) {
-                            if (!formulaData.category) {
-                                delete (formulaData as { category?: unknown }).category;
-                            }
-                        }
-                    } else if (docSource.type === "action" && !docSource.system.deathNote) {
-                        delete (docSource.system as { deathNote?: boolean }).deathNote;
-                    } else if (docSource.type === "effect") {
-                        delete (docSource.system as { context?: unknown }).context;
-                    } else if (docSource.type === "feat") {
-                        const isFeat = !["ancestryfeature", "classfeature"].includes(docSource.system.featType.value);
-                        if (isFeat && docSource.img === "systems/pf2e/icons/default-icons/feat.svg") {
-                            docSource.img = "systems/pf2e/icons/features/feats/feats.webp";
-                        }
-
-                        if (docSource.system.maxTakable === 1) {
-                            delete (docSource.system as { maxTakable?: number }).maxTakable;
-                        }
-                        if (!docSource.system.onlyLevel1) {
-                            delete (docSource.system as { onlyLevel1?: boolean }).onlyLevel1;
-                        }
-                    } else if (docSource.type === "spellcastingEntry" && lastActor?.type === "npc") {
-                        delete (docSource.system as { ability?: unknown }).ability;
-                    }
+                    pruneItem(docSource);
                 } else if (docSource.type !== "script") {
                     delete (docSource as Partial<PackEntry>).ownership;
                 }
@@ -262,6 +206,68 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
         } else if (docSource[key as DocumentKey] instanceof Object) {
             pruneTree(docSource[key as DocumentKey] as unknown as PackEntry, topLevel);
         }
+    }
+}
+
+/**  Prune several common item data defaults */
+function pruneItem(source: ItemSourcePF2e): void {
+    source.system.description = {
+        gm: source.system.description.gm ?? "",
+        value: source.system.description.value,
+    };
+
+    if (!source.system.description.gm.trim()) {
+        delete (source.system.description as { gm?: unknown }).gm;
+    }
+
+    if (isPhysicalData(source)) {
+        delete (source.system as { identification?: unknown }).identification;
+        if (source.system.traits.otherTags?.length === 0) {
+            delete (source.system.traits as { otherTags?: unknown }).otherTags;
+        }
+
+        if (source.type === "consumable" && !source.system.spell) {
+            delete (source.system as { spell?: unknown }).spell;
+        }
+
+        if (source.type === "weapon") {
+            delete (source.system as { property1?: unknown }).property1;
+            if ("value" in source.system.damage) {
+                delete source.system.damage.value;
+            }
+            if (source.system.specific?.value === false) {
+                delete source.system.specific;
+            }
+            if (!source.system.damage.persistent) {
+                delete (source.system.damage as { persistent?: unknown }).persistent;
+            }
+        }
+    } else if (source.type === "melee") {
+        for (const formulaData of Object.values(source.system.damageRolls)) {
+            if (!formulaData.category) {
+                delete (formulaData as { category?: unknown }).category;
+            }
+        }
+    } else if (source.type === "action" && !source.system.deathNote) {
+        delete (source.system as { deathNote?: boolean }).deathNote;
+    } else if (source.type === "effect") {
+        delete (source.system as { context?: unknown }).context;
+    } else if (source.type === "feat") {
+        const isFeat = !["ancestryfeature", "classfeature", "pfsboon", "deityboon", "curse"].includes(
+            source.system.category
+        );
+        if (isFeat && source.img === "systems/pf2e/icons/default-icons/feat.svg") {
+            source.img = "systems/pf2e/icons/features/feats/feats.webp";
+        }
+
+        if (source.system.maxTakable === 1) {
+            delete (source.system as { maxTakable?: number }).maxTakable;
+        }
+        if (!source.system.onlyLevel1) {
+            delete (source.system as { onlyLevel1?: boolean }).onlyLevel1;
+        }
+    } else if (source.type === "spellcastingEntry" && lastActor?.type === "npc") {
+        delete (source.system as { ability?: unknown }).ability;
     }
 }
 

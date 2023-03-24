@@ -4,12 +4,12 @@ import type { EffectPF2e } from "@item/index";
 import { EncounterPF2e } from "@module/encounter";
 
 export class EffectTracker {
-    effects: Embedded<EffectPF2e>[] = [];
+    effects: EffectPF2e<ActorPF2e>[] = [];
 
     /** A separate collection of aura effects, including ones with unlimited duration */
-    auraEffects: Collection<Embedded<EffectPF2e>> = new Collection();
+    auraEffects: Collection<EffectPF2e<ActorPF2e>> = new Collection();
 
-    private insert(effect: Embedded<EffectPF2e>, duration: { expired: boolean; remaining: number }): void {
+    private insert(effect: EffectPF2e<ActorPF2e>, duration: { expired: boolean; remaining: number }): void {
         if (this.effects.length === 0) {
             this.effects.push(effect);
         } else {
@@ -39,7 +39,7 @@ export class EffectTracker {
         }
     }
 
-    register(effect: Embedded<EffectPF2e>): void {
+    register(effect: EffectPF2e<ActorPF2e>): void {
         if (effect.fromAura && (canvas.ready || !effect.actor.isToken) && effect.id) {
             this.auraEffects.set(effect.uuid, effect);
         }
@@ -73,7 +73,7 @@ export class EffectTracker {
         }
     }
 
-    unregister(toRemove: Embedded<EffectPF2e>): void {
+    unregister(toRemove: EffectPF2e<ActorPF2e>): void {
         this.effects = this.effects.filter((e) => e !== toRemove);
         this.auraEffects.delete(toRemove.uuid);
     }

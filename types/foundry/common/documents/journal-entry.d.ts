@@ -1,15 +1,13 @@
 declare module foundry {
     module documents {
         /** The JournalEntry document model. */
-        class BaseJournalEntry extends abstract.Document {
+        class BaseJournalEntry extends abstract.Document<null> {
             static override get metadata(): JournalEntryMetadata;
 
             readonly pages: abstract.EmbeddedCollection<BaseJournalEntryPage<this>>;
         }
 
-        interface BaseJournalEntry {
-            readonly parent: null;
-
+        interface BaseJournalEntry extends abstract.Document<null> {
             readonly _source: JournalEntrySource;
 
             get documentName(): (typeof BaseJournalEntry)["metadata"]["name"];
@@ -31,7 +29,7 @@ declare module foundry {
          * @property [permission] An object which configures user permissions to this JournalEntry
          * @property [flags={}]   An object of optional key/value flags
          */
-        interface JournalEntrySource extends abstract.DocumentSource {
+        interface JournalEntrySource {
             _id: string;
             name: string;
             pages: JournalEntryPageSource[];

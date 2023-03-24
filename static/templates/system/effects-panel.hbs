@@ -1,18 +1,18 @@
 <section class="effect-panel">
-    {{#each conditions as |condition|}}
-        {{> effect effect=condition}}
-    {{/each}}
-
-    {{#if (and conditions.length afflictions.length)}}<hr />{{/if}}
-
     {{#each afflictions as |affliction|}}
-        {{> effect effect=affliction}}
+        {{> effect effect=affliction descriptions=../descriptions.afflictions}}
     {{/each}}
 
-    {{#if (and afflictions.length effects.length)}}<hr />{{/if}}
+    {{#if (and afflictions.length conditions.length)}}<hr />{{/if}}
+
+    {{#each conditions as |condition|}}
+        {{> effect effect=condition descriptions=../descriptions.conditions}}
+    {{/each}}
+
+    {{#if (and conditions.length effects.length)}}<hr />{{/if}}
 
     {{#each effects as |effect|}}
-        {{> effect effect=effect}}
+        {{> effect effect=effect descriptions=../descriptions.effects}}
     {{/each}}
 </section>
 
@@ -20,7 +20,10 @@
 {{#if (or effect.isIdentified @root.user.isGM)}}
 <div class="effect-item" data-item-id="{{effect.id}}" data-badge-type="{{effect.badge.type}}">
     <div class="effect-info">
-        <h1>{{effect.name}}</h1>
+        <h1>
+            {{effect.name}}
+            <i class="fas fa-comment-alt" data-action="send-to-chat" title="{{localize "PF2E.NPC.SendToChat"}}"></i>
+        </h1>
         {{#if (or (eq effect.type "effect") effect.breakdown)}}
             <div class="tags">
                 {{#if (and effect.system.duration.sustained (not effect.system.expired))}}
@@ -42,6 +45,9 @@
                 {{localize "PF2E.Item.Condition.PersistentDamage.AssistedRecovery"}}
             </a>
         {{/if}}
+        <div class="effect-description">
+            {{{ lookup descriptions @index }}}    
+        </div>
         <div class="instructions">
             {{#if (not effect.isLocked)}}
                 {{#if (eq effect.badge.type "formula")}}

@@ -1,3 +1,4 @@
+import { ActorPF2e, CharacterPF2e } from "@actor";
 import { ClassDCData } from "@actor/character/data";
 import { FeatSlotLevel } from "@actor/character/feats";
 import { SaveType } from "@actor/types";
@@ -10,7 +11,7 @@ import { ZeroToFour } from "@module/data";
 import { setHasElement, sluggify } from "@util";
 import { ClassAttackProficiencies, ClassDefenseProficiencies, ClassSource, ClassSystemData, ClassTrait } from "./data";
 
-class ClassPF2e extends ABCItemPF2e {
+class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABCItemPF2e<TParent> {
     get attacks(): ClassAttackProficiencies {
         return this.system.attacks;
     }
@@ -57,24 +58,25 @@ class ClassPF2e extends ABCItemPF2e {
     }
 
     /** Include all top-level class features in addition to any with the expected location ID */
-    override getLinkedItems(): Embedded<FeatPF2e>[] {
-        if (!this.actor) return [];
+    override getLinkedItems(): FeatPF2e<ActorPF2e>[] {
+        const { actor } = this;
+        if (!actor) return [];
 
         return Array.from(
             new Set([
                 ...super.getLinkedItems(),
-                ...this.actor.itemTypes.feat.filter(
+                ...actor.itemTypes.feat.filter(
                     (f) =>
-                        f.featType === "classfeature" &&
-                        !(f.flags.pf2e.grantedBy && this.actor?.items.has(f.flags.pf2e.grantedBy.id))
+                        f.category === "classfeature" &&
+                        !(f.flags.pf2e.grantedBy && actor.items.has(f.flags.pf2e.grantedBy.id))
                 ),
             ])
         );
     }
 
     /** Pulls the features that should be granted by this class, sorted by level and choice set */
-    override async createGrantedItems(options: { level?: number } = {}): Promise<FeatPF2e[]> {
-        const hasChoiceSet = (f: FeatPF2e) => f.system.rules.some((re) => re.key === "ChoiceSet");
+    override async createGrantedItems(options: { level?: number } = {}): Promise<FeatPF2e<null>[]> {
+        const hasChoiceSet = (f: FeatPF2e<null>) => f.system.rules.some((re) => re.key === "ChoiceSet");
         return (await super.createGrantedItems(options)).sort((a, b) => {
             const [aLevel, bLevel] = [a.system.level.value, b.system.level.value];
             if (aLevel !== bLevel) return aLevel - bLevel;
@@ -92,8 +94,8 @@ class ClassPF2e extends ABCItemPF2e {
     }
 
     /** Prepare a character's data derived from their class */
-    override prepareActorData(this: Embedded<ClassPF2e>): void {
-        if (!this.actor.isOfType("character")) {
+    override prepareActorData(this: ClassPF2e<CharacterPF2e>): void {
+        if (!this.actor?.isOfType("character")) {
             console.error("Only a character can have a class");
             return;
         }
@@ -158,7 +160,7 @@ class ClassPF2e extends ABCItemPF2e {
     }
 }
 
-interface ClassPF2e extends ABCItemPF2e {
+interface ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABCItemPF2e<TParent> {
     readonly _source: ClassSource;
     system: ClassSystemData;
 

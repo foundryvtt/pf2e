@@ -1,4 +1,4 @@
-import { ActorPF2e } from "@actor";
+import { ActorPF2e, CreaturePF2e } from "@actor";
 import { ItemSummaryRenderer } from "@actor/sheet/item-summary-renderer";
 import { ItemPF2e, SpellPF2e } from "@item";
 import { ItemSourcePF2e, SpellSource } from "@item/data";
@@ -8,11 +8,11 @@ import { SpellcastingSheetData, SpellcastingEntryPF2e } from "@item/spellcasting
  * Sheet used to render the the spell list for prepared casting.
  * It overrides the actor sheet to inherit important drag/drop behavior for actor items (the spells).
  */
-class SpellPreparationSheet extends ActorSheet<ActorPF2e, ItemPF2e> {
+class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TActor> {
     /** Implementation used to handle the toggling and rendering of item summaries */
-    itemRenderer: ItemSummaryRenderer<ActorPF2e> = new ItemSummaryRenderer(this);
+    itemRenderer: ItemSummaryRenderer<TActor> = new ItemSummaryRenderer(this);
 
-    constructor(public item: Embedded<SpellcastingEntryPF2e>, options: Partial<ActorSheetOptions>) {
+    constructor(public item: SpellcastingEntryPF2e<TActor>, options: Partial<ActorSheetOptions>) {
         super(item.actor, options);
     }
 
@@ -52,7 +52,7 @@ class SpellPreparationSheet extends ActorSheet<ActorPF2e, ItemPF2e> {
         return buttons;
     }
 
-    override async getData(): Promise<SpellPreparationSheetData> {
+    override async getData(): Promise<SpellPreparationSheetData<TActor>> {
         return {
             ...(await super.getData()),
             owner: this.actor.isOwner,
@@ -111,14 +111,17 @@ class SpellPreparationSheet extends ActorSheet<ActorPF2e, ItemPF2e> {
         });
     }
 
-    private getItemFromEvent(event: JQuery.TriggeredEvent): Embedded<ItemPF2e> {
+    private getItemFromEvent(event: JQuery.TriggeredEvent): ItemPF2e<ActorPF2e> {
         const $li = $(event.currentTarget).closest("li[data-item-id]");
         const itemId = $li.attr("data-item-id") ?? "";
         return this.actor.items.get(itemId, { strict: true });
     }
 
     /** Allow adding new spells to the shortlist by dragging directly into the window */
-    protected override async _onDropItemCreate(itemSource: ItemSourcePF2e | ItemSourcePF2e[]): Promise<ItemPF2e[]> {
+    protected override async _onDropItemCreate(
+        itemSource: ItemSourcePF2e | ItemSourcePF2e[]
+    ): Promise<ItemPF2e<TActor>[]>;
+    protected override async _onDropItemCreate(itemSource: ItemSourcePF2e | ItemSourcePF2e[]): Promise<Item<TActor>[]> {
         const sources = Array.isArray(itemSource) ? itemSource : [itemSource];
         const spellSources = sources.filter((source): source is SpellSource => source.type === "spell");
         for (const spellSource of spellSources) {
@@ -129,7 +132,11 @@ class SpellPreparationSheet extends ActorSheet<ActorPF2e, ItemPF2e> {
     }
 
     /** Allow transferring spells between open windows */
-    protected override async _onSortItem(event: ElementDragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
+    protected override async _onSortItem(
+        event: ElementDragEvent,
+        itemData: ItemSourcePF2e
+    ): Promise<ItemPF2e<TActor>[]>;
+    protected override async _onSortItem(event: ElementDragEvent, itemData: ItemSourcePF2e): Promise<Item<TActor>[]> {
         if (itemData.type !== "spell") return [];
 
         const spell = this.actor.items.get(itemData._id);
@@ -149,8 +156,7 @@ class SpellPreparationSheet extends ActorSheet<ActorPF2e, ItemPF2e> {
     }
 }
 
-interface SpellPreparationSheetData extends ActorSheetData<ActorPF2e> {
-    actor: ActorPF2e;
+interface SpellPreparationSheetData<TActor extends CreaturePF2e> extends ActorSheetData<TActor> {
     owner: boolean;
     entry: SpellcastingSheetData;
 }

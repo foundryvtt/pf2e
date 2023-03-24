@@ -26,7 +26,13 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
         console.debug("PF2e System | Compendium Browser | Started loading actions");
 
         const actions: CompendiumBrowserIndexData[] = [];
-        const indexFields = ["img", "system.actionType.value", "system.traits.value", "system.source.value"];
+        const indexFields = [
+            "img",
+            "system.actionType.value",
+            "system.traits.value",
+            "system.actionType.value",
+            "system.source.value",
+        ];
         const sources: Set<string> = new Set();
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
@@ -58,6 +64,7 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
                         img: actionData.img,
                         uuid: `Compendium.${pack.collection}.${actionData._id}`,
                         traits: actionData.system.traits.value,
+                        actionType: actionData.system.actionType.value,
                         source: actionData.system.source.value,
                     });
                 }
@@ -69,6 +76,7 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
 
         // Set Filters
         this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.actionTraits);
+        this.filterData.checkboxes.types.options = this.generateCheckboxOptions(CONFIG.PF2E.actionTypes);
         this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(sources);
 
         console.debug("PF2e System | Compendium Browser | Finished loading actions");
@@ -77,6 +85,10 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
     protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
         const { checkboxes, multiselects } = this.filterData;
 
+        // Types
+        if (checkboxes.types.selected.length) {
+            if (!checkboxes.types.selected.includes(entry.actionType)) return false;
+        }
         // Traits
         if (!this.filterTraits(entry.traits, multiselects.traits.selected, multiselects.traits.conjunction))
             return false;
@@ -90,6 +102,12 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
     protected override prepareFilterData(): ActionFilters {
         return {
             checkboxes: {
+                types: {
+                    isExpanded: true,
+                    label: "PF2E.ActionActionTypeLabel",
+                    options: {},
+                    selected: [],
+                },
                 source: {
                     isExpanded: false,
                     label: "PF2E.BrowserFilterSource",

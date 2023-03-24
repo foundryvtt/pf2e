@@ -213,8 +213,8 @@ export class Migration601SplitEffectCompendia extends MigrationBase {
     }
 
     override async migrate(): Promise<void> {
-        game.macros.forEach((macro) => {
-            macro.data.command = macro.data.command.replace(
+        for (const macro of game.macros) {
+            macro._source.command = macro._source.command.replace(
                 /(Compendium\.pf2e\.)(spell-effects)(\.)([a-zA-Z0-9]{16})/g,
                 (_full, first, _replace, dot, itemId): string => {
                     const packName = objectHasKey(Migration601SplitEffectCompendia.effectLocations, itemId)
@@ -223,6 +223,6 @@ export class Migration601SplitEffectCompendia extends MigrationBase {
                     return first + packName + dot + itemId;
                 }
             );
-        });
+        }
     }
 }

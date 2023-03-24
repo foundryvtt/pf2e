@@ -41,7 +41,7 @@ interface StatisticRollParameters {
     /** Additional modifiers */
     modifiers?: ModifierPF2e[];
     /** The originating item of this attack, if any */
-    item?: Embedded<ItemPF2e> | null;
+    item?: ItemPF2e<ActorPF2e> | null;
     /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
     rollMode?: RollMode | "roll";
     /** Should the dialog be skipped */
@@ -342,7 +342,7 @@ class StatisticCheck {
             const isValidAttacker = actor.isOfType("creature", "hazard");
             const isAttackItem = item?.isOfType("weapon", "melee", "spell");
             if (isValidAttacker && isAttackItem && ["attack-roll", "spell-attack-roll"].includes(this.type)) {
-                return actor.getAttackRollContext({ item, domains, options: new Set() });
+                return actor.getCheckRollContext({ item, domains, statistic: this, options: new Set() });
             }
 
             return null;
@@ -495,4 +495,4 @@ class StatisticDifficultyClass {
     }
 }
 
-export { Statistic, StatisticDifficultyClass, StatisticRollParameters };
+export { Statistic, StatisticCheck, StatisticDifficultyClass, StatisticRollParameters };

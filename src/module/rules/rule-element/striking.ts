@@ -1,3 +1,4 @@
+import { ActorPF2e } from "@actor";
 import { ActorType } from "@actor/data";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import { getStrikingDice } from "@item/physical/runes";
@@ -9,7 +10,7 @@ export class StrikingRuleElement extends RuleElementPF2e {
 
     selector: string;
 
-    constructor(data: StrikingSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: StrikingSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
         if (typeof data.selector === "string") {

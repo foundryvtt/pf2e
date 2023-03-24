@@ -9,11 +9,9 @@
         "actions": {
             "value": null
         },
+        "category": "ancestry",
         "description": {
             "value": "<p>You've learned to split your focus between multiple classes with ease. You gain a 2nd-level multiclass dedication feat, even if you normally couldn't take another dedication feat until you take more feats from your current archetype. If you're a half-elf, you don't need to meet the feat's ability score prerequisites.</p>"
-        },
-        "featType": {
-            "value": "ancestry"
         },
         "level": {
             "value": 9
@@ -34,7 +32,7 @@
                     ]
                 },
                 "choices": {
-                    "query": "{\"system.featType.value\":\"archetype\",\"system.level.value\":2,\"$and\":[{\"system.traits.value\":{\"$elemMatch\":\"dedication\"}},{\"system.traits.value\":{\"$elemMatch\":\"multiclass\"}}],\"type\":\"feat\",\"$not\":{\"system.slug\":\"{actor|system.details.class.trait}-dedication\"}}"
+                    "query": "{\"system.category\":\"archetype\",\"system.level.value\":2,\"$and\":[{\"system.traits.value\":{\"$elemMatch\":\"dedication\"}},{\"system.traits.value\":{\"$elemMatch\":\"multiclass\"}}],\"type\":\"feat\",\"$not\":{\"system.slug\":\"{actor|system.details.class.trait}-dedication\"}}"
                 },
                 "flag": "multitalented",
                 "key": "ChoiceSet",

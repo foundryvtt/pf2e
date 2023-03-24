@@ -40,7 +40,6 @@ const SELECTABLE_TAG_FIELDS = [
     "dcAdjustments",
     "equipmentTraits",
     "featTraits",
-    "featTypes",
     "hazardTraits",
     "healingTypes",
     "itemBonuses",

@@ -1,4 +1,4 @@
-import { Abilities, AbilityData } from "@actor/creature/data";
+import { Abilities, AbilityData, SkillAbbreviation } from "@actor/creature/data";
 import { CreatureSheetPF2e } from "@actor/creature/sheet";
 import { CreatureSheetData } from "@actor/creature/types";
 import { ALIGNMENT_TRAITS } from "@actor/creature/values";
@@ -6,7 +6,6 @@ import { NPCPF2e } from "@actor/index";
 import { NPCSkillsEditor } from "@actor/npc/skills-editor";
 import { AbilityString } from "@actor/types";
 import { ABILITY_ABBREVIATIONS, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/values";
-import { ActionItemPF2e, EffectPF2e } from "@item";
 import { Size } from "@module/data";
 import { createTagifyTraits } from "@module/sheet/helpers";
 import { DicePF2e } from "@scripts/dice";
@@ -18,7 +17,7 @@ import { NPCSkillData } from "./data";
 import {
     NPCActionSheetData,
     NPCSheetData,
-    NPCSheetItemData,
+    NPCSkillSheetData,
     NPCSpellcastingSheetData,
     NPCStrikeSheetData,
     NPCSystemSheetData,
@@ -78,9 +77,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
         this.#prepareSkills(sheetData.data);
         this.#prepareSaves(sheetData.data);
         await this.#prepareActions(sheetData);
-        sheetData.effectItems = sheetData.items.filter(
-            (data): data is NPCSheetItemData<EffectPF2e> => data.type === "effect"
-        );
+        sheetData.effectItems = this.actor.itemTypes.effect;
         sheetData.spellcastingEntries = await this.prepareSpellcasting();
     }
 
@@ -292,11 +289,11 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
     #prepareSkills(sheetSystemData: NPCSystemSheetData): void {
         // Prepare a list of skill IDs sorted by their localized name
         // This will help in displaying the skills in alphabetical order in the sheet
-        const sortedSkillsIds = Object.keys(sheetSystemData.skills);
+        const sortedSkillsIds = Object.keys(sheetSystemData.skills) as SkillAbbreviation[];
 
         const skills = sheetSystemData.skills;
-        for (const skillId of sortedSkillsIds) {
-            const skill = skills[skillId];
+        for (const shortForm of sortedSkillsIds) {
+            const skill = skills[shortForm as SkillAbbreviation];
             skill.label = objectHasKey(CONFIG.PF2E.skillList, skill.expanded)
                 ? game.i18n.localize(CONFIG.PF2E.skillList[skill.expanded])
                 : skill.label ?? skill.slug;
@@ -304,7 +301,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
             skill.adjustedLower = skill.value < Number(skill.base);
         }
 
-        sortedSkillsIds.sort((a: string, b: string) => {
+        sortedSkillsIds.sort((a: SkillAbbreviation, b: SkillAbbreviation) => {
             const skillA = skills[a];
             const skillB = skills[b];
 
@@ -320,7 +317,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
             sortedSkills[skillId] = skills[skillId];
         }
 
-        sheetSystemData.sortedSkills = sortedSkills;
+        sheetSystemData.sortedSkills = sortedSkills as Record<SkillAbbreviation, NPCSkillSheetData>;
     }
 
     #prepareSaves(systemData: NPCSystemSheetData): void {
@@ -381,7 +378,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
         };
 
         for (const item of this.actor.itemTypes.action) {
-            const itemData = item.toObject(false) as unknown as ActionItemPF2e;
+            const itemData = item.toObject(false);
             const chatData = await item.getChatData();
             const traits = chatData.traits ?? [];
 
@@ -399,7 +396,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
                     chatData,
                     traits,
                     hasAura,
-                } as unknown as NPCSheetItemData<ActionItemPF2e>);
+                });
             }
         }
 

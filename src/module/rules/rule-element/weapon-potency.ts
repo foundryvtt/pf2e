@@ -1,3 +1,4 @@
+import { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression";
 import { ActorType } from "@actor/data";
 import { ItemPF2e, WeaponPF2e } from "@item";
@@ -13,7 +14,7 @@ export class WeaponPotencyRuleElement extends RuleElementPF2e {
 
     selector: string;
 
-    constructor(data: WeaponPotencySource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: WeaponPotencySource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
         this.selector = String(data.selector);
     }

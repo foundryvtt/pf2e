@@ -5,7 +5,7 @@ declare global {
      * A helper class used by the Sight Layer to represent a source of vision or illumination.
      * @param object The object responsible for the PointSource
      */
-    abstract class PointSource<TObject extends PlaceableObject | undefined = PlaceableObject | undefined> {
+    abstract class PointSource<TObject extends Maybe<PlaceableObject> = Maybe<PlaceableObject>> {
         constructor(object: TObject);
 
         /** The PlaceableObject which is the origin of this PointSource. */

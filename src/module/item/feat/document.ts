@@ -1,17 +1,19 @@
-import { ItemPF2e } from "..";
-import { FeatSource, FeatSystemData, FeatTrait, FeatType } from "./data";
+import { ActorPF2e } from "@actor";
+import { FeatGroup } from "@actor/character/feats";
+import { ItemSummaryData } from "@item/data";
+import { Frequency } from "@item/data/base";
 import { OneToThree } from "@module/data";
 import { UserPF2e } from "@module/user";
 import { getActionTypeLabel, sluggify } from "@util";
-import { FeatCategory } from "@actor/character/feats";
-import { Frequency } from "@item/data/base";
-import { ItemSummaryData } from "@item/data";
+import { ItemPF2e } from "..";
+import { FeatSource, FeatSystemData } from "./data";
+import { FeatCategory, FeatTrait } from "./types";
 
-class FeatPF2e extends ItemPF2e {
-    category!: FeatCategory | null;
+class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
+    group!: FeatGroup | null;
 
-    get featType(): FeatType {
-        return this.system.featType.value;
+    get category(): FeatCategory {
+        return this.system.category;
     }
 
     get level(): number {
@@ -37,7 +39,7 @@ class FeatPF2e extends ItemPF2e {
     }
 
     get isFeature(): boolean {
-        return ["classfeature", "ancestryfeature"].includes(this.featType);
+        return ["classfeature", "ancestryfeature"].includes(this.category);
     }
 
     get isFeat(): boolean {
@@ -57,7 +59,7 @@ class FeatPF2e extends ItemPF2e {
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        this.category = null;
+        this.group = null;
 
         // Handle legacy data with empty-string locations
         this.system.location ||= null;
@@ -65,11 +67,11 @@ class FeatPF2e extends ItemPF2e {
         const traits = this.system.traits.value;
 
         // Add the General trait if of the general feat type
-        if (this.featType === "general" && !traits.includes("general")) {
+        if (this.category === "general" && !traits.includes("general")) {
             traits.push("general");
         }
 
-        if (this.featType === "skill") {
+        if (this.category === "skill") {
             // Add the Skill trait
             if (!traits.includes("skill")) traits.push("skill");
 
@@ -81,7 +83,7 @@ class FeatPF2e extends ItemPF2e {
 
         // Only archetype feats can have the dedication trait
         if (traits.includes("dedication")) {
-            this.featType === "archetype";
+            this.system.category = "class";
             if (!traits.includes("archetype")) traits.push("archetype");
         }
 
@@ -105,14 +107,14 @@ class FeatPF2e extends ItemPF2e {
     }
 
     /** Set a self roll option for this feat(ure) */
-    override prepareActorData(this: Embedded<FeatPF2e>): void {
+    override prepareActorData(this: FeatPF2e<ActorPF2e>): void {
         const prefix = this.isFeature ? "feature" : "feat";
         const slug = this.slug ?? sluggify(this.name);
         this.actor.rollOptions.all[`${prefix}:${slug}`] = true;
     }
 
     override async getChatData(
-        this: Embedded<FeatPF2e>,
+        this: FeatPF2e<ActorPF2e>,
         htmlOptions: EnrichHTMLOptions = {}
     ): Promise<ItemSummaryData> {
         const levelLabel = game.i18n.format("PF2E.LevelN", { level: this.level });
@@ -126,11 +128,10 @@ class FeatPF2e extends ItemPF2e {
     /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = "feat"): string[] {
         prefix = prefix === "feat" && this.isFeature ? "feature" : prefix;
-        const baseOptions = super.getRollOptions(prefix).filter((o) => !o.endsWith("level:0"));
-        const featTypeInfix = this.isFeature ? "feature-type" : "feat-type";
-        const featTypeSuffix = this.featType.replace("feature", "");
-
-        return [...baseOptions, `${prefix}:${featTypeInfix}:${featTypeSuffix}`];
+        return [
+            ...super.getRollOptions(prefix).filter((o) => !o.endsWith("level:0")),
+            `${prefix}:category:${this.category}`,
+        ];
     }
 
     /* -------------------------------------------- */
@@ -139,7 +140,7 @@ class FeatPF2e extends ItemPF2e {
 
     protected override async _preCreate(
         data: PreDocumentId<FeatSource>,
-        options: DocumentModificationContext<this>,
+        options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<void> {
         // In case this was copied from an actor, clear the location if there's no parent.
@@ -155,7 +156,7 @@ class FeatPF2e extends ItemPF2e {
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<this>,
+        options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<void> {
         // Ensure an empty-string `location` property is null
@@ -185,7 +186,7 @@ class FeatPF2e extends ItemPF2e {
             changed.system.onlyLevel1 = false;
             changed.system.maxTakable = 1;
 
-            if (this.featType !== "ancestry" && Array.isArray(traits)) {
+            if (this.category !== "ancestry" && Array.isArray(traits)) {
                 traits.findSplice((t) => t === "lineage");
             }
         } else if ((Array.isArray(traits) && traits.includes("lineage")) || changed.system?.onlyLevel1) {
@@ -196,7 +197,11 @@ class FeatPF2e extends ItemPF2e {
     }
 
     /** Warn the owning user(s) if this feat was taken despite some restriction */
-    protected override _onCreate(data: FeatSource, options: DocumentModificationContext<this>, userId: string): void {
+    protected override _onCreate(
+        data: FeatSource,
+        options: DocumentModificationContext<TParent>,
+        userId: string
+    ): void {
         super._onCreate(data, options, userId);
 
         if (!(this.isOwner && this.actor?.isOfType("character") && this.isFeat)) return;
@@ -224,7 +229,7 @@ class FeatPF2e extends ItemPF2e {
     }
 }
 
-interface FeatPF2e extends ItemPF2e {
+interface FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     readonly _source: FeatSource;
     system: FeatSystemData;
 }

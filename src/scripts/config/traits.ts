@@ -848,6 +848,7 @@ const armorTraits = {
     bulwark: "PF2E.TraitBulwark",
     clockwork: "PF2E.TraitClockwork",
     comfort: "PF2E.TraitComfort",
+    companion: "PF2E.TraitCompanion",
     cursed: "PF2E.TraitCursed",
     "entrench-melee": "PF2E.TraitEntrenchMelee",
     "entrench-ranged": "PF2E.TraitEntrenchRanged",

@@ -6,11 +6,11 @@ import { RitualSpellcasting } from "@item/spellcasting-entry/rituals";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types";
 import { ErrorPF2e } from "@util";
 
-export class ActorSpellcasting extends Collection<BaseSpellcastingEntry> {
+export class ActorSpellcasting<TActor extends ActorPF2e> extends Collection<BaseSpellcastingEntry<TActor>> {
     /** All available spell lists on this actor */
-    collections = new Collection<SpellCollection>();
+    collections = new Collection<SpellCollection<TActor, BaseSpellcastingEntry<TActor>>>();
 
-    constructor(public readonly actor: ActorPF2e, entries: BaseSpellcastingEntry[]) {
+    constructor(public readonly actor: TActor, entries: BaseSpellcastingEntry<TActor>[]) {
         super(entries.map((entry) => [entry.id, entry]));
 
         for (const entry of entries) {
@@ -19,12 +19,12 @@ export class ActorSpellcasting extends Collection<BaseSpellcastingEntry> {
     }
 
     /** Returns a list of entries pre-filtered to SpellcastingEntryPF2e */
-    get regular(): SpellcastingEntryPF2e[] {
-        return this.filter((e): e is SpellcastingEntryPF2e => e instanceof SpellcastingEntryPF2e);
+    get regular(): SpellcastingEntryPF2e<TActor>[] {
+        return this.filter((e): e is SpellcastingEntryPF2e<TActor> => e instanceof SpellcastingEntryPF2e);
     }
 
     /** Get this actor's ritual casting ability */
-    get ritual(): RitualSpellcasting | null {
+    get ritual(): RitualSpellcasting<TActor> | null {
         const ritualCasting = this.collections.get("rituals")?.entry;
         return ritualCasting instanceof RitualSpellcasting ? ritualCasting : null;
     }
@@ -33,7 +33,7 @@ export class ActorSpellcasting extends Collection<BaseSpellcastingEntry> {
      * All spellcasting entries that count as prepared/spontaneous, which qualify as a
      * full fledged spellcasting feature for wands and scrolls.
      */
-    get spellcastingFeatures(): SpellcastingEntryPF2e[] {
+    get spellcastingFeatures(): SpellcastingEntryPF2e<TActor>[] {
         return this.regular.filter((e) => e.isPrepared || e.isSpontaneous);
     }
 

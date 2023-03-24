@@ -2,11 +2,12 @@ import { ActorSheetPF2e } from "../sheet/base";
 import { LootPF2e } from "@actor/loot";
 import { DistributeCoinsPopup } from "../sheet/popups/distribute-coins-popup";
 import { LootNPCsPopup } from "../sheet/loot/loot-npcs-popup";
-import { LootSheetDataPF2e } from "../sheet/data-types";
-import { ItemPF2e } from "@item";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
+import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
+import { ItemPF2e } from "@item";
+import { ActorPF2e } from "@module/documents";
 
-export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
+export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActor> {
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
 
@@ -28,7 +29,7 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
         return !this.actor.isOwner && this.actor.isLootableBy(game.user);
     }
 
-    override async getData(): Promise<LootSheetDataPF2e> {
+    override async getData(): Promise<LootSheetDataPF2e<TActor>> {
         const sheetData = await super.getData();
         const isLoot = this.actor.system.lootSheetType === "Loot";
 
@@ -49,11 +50,11 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
             $html
                 .find(".split-coins")
                 .removeAttr("disabled")
-                .on("click", (event) => this.distributeCoins(event));
+                .on("click", (event) => this.#distributeCoins(event));
             $html
                 .find(".loot-npcs")
                 .removeAttr("disabled")
-                .on("click", (event) => this.lootNPCs(event));
+                .on("click", (event) => this.#lootNPCs(event));
             $html.find("i.fa-info-circle.help[title]").tooltipster({
                 maxWidth: 275,
                 position: "right",
@@ -63,12 +64,12 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
         }
     }
 
-    private async distributeCoins(event: JQuery.ClickEvent): Promise<void> {
+    async #distributeCoins(event: JQuery.ClickEvent): Promise<void> {
         event.preventDefault();
         await new DistributeCoinsPopup(this.actor, {}).render(true);
     }
 
-    private async lootNPCs(event: JQuery.ClickEvent): Promise<void> {
+    async #lootNPCs(event: JQuery.ClickEvent): Promise<void> {
         event.preventDefault();
         if (canvas.tokens.controlled.some((token) => token.actor?.id !== this.actor.id)) {
             await new LootNPCsPopup(this.actor).render(true);
@@ -80,7 +81,7 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
     protected override async _onDropItem(
         event: ElementDragEvent,
         itemData: DropCanvasItemDataPF2e
-    ): Promise<ItemPF2e[]> {
+    ): Promise<ItemPF2e<ActorPF2e | null>[]> {
         // Prevent a Foundry permissions error from being thrown when a player drops an item from an unowned
         // loot sheet to the same sheet
         if (this.actor.id === itemData.actorId && !this.actor.testUserPermission(game.user, "OWNER")) {
@@ -88,4 +89,8 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
         }
         return super._onDropItem(event, itemData);
     }
+}
+
+interface LootSheetDataPF2e<TActor extends LootPF2e> extends ActorSheetDataPF2e<TActor> {
+    isLoot: boolean;
 }

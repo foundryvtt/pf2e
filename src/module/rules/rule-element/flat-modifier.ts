@@ -1,4 +1,5 @@
-import { DeferredValueParams, ModifierPF2e, ModifierType, MODIFIER_TYPES } from "@actor/modifiers";
+import { ActorPF2e } from "@actor";
+import { DeferredValueParams, MODIFIER_TYPES, ModifierPF2e, ModifierType } from "@actor/modifiers";
 import { AbilityString } from "@actor/types";
 import { ABILITY_ABBREVIATIONS } from "@actor/values";
 import { ItemPF2e } from "@item";
@@ -21,7 +22,7 @@ const { fields } = foundry.data;
  * @category RuleElement
  */
 class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
-    constructor(source: FlatModifierSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(source: FlatModifierSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         if (!item.isOfType("physical") && source.type !== "item") {
             source.fromEquipment = false;
         }
@@ -30,8 +31,9 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
 
         if (this.type === "ability") {
             if (this.ability) {
-                this.label = typeof source.label === "string" ? source.label : CONFIG.PF2E.abilities[this.ability];
-                this.data.value ??= `@actor.abilities.${this.ability}.mod`;
+                this.slug = this.ability;
+                this.label = CONFIG.PF2E.abilities[this.ability];
+                this.data.value ??= this.actor.abilities?.[this.ability].mod ?? 0;
             } else {
                 this.failValidation(
                     'A flat modifier of type "ability" must also have an "ability" property with an ability abbreviation'
@@ -90,7 +92,7 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
 
         // Strip out the title ("Effect:", etc.) of the effect name
         const label = this.label.includes(":") ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : this.label;
-        const slug = this.slug ?? (this.type === "ability" && this.ability ? this.ability : sluggify(label));
+        const slug = this.slug ?? sluggify(label);
 
         const selectors = this.selectors.map((s) => this.resolveInjectedProperties(s)).filter((s) => !!s);
         if (selectors.length === 0 || !this.data.value) {
