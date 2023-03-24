@@ -82,7 +82,6 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         htmlOptions: EnrichHTMLOptions = {},
         rollOptions: Record<string, unknown> = {}
     ): Promise<ItemSummaryData> {
-        const systemData = this.system;
         const traits = this.traitChatData(CONFIG.PF2E.consumableTraits);
         const [consumableType, isUsable] = this.isIdentified
             ? [game.i18n.localize(CONFIG.PF2E.consumableTypes[this.category]), true]
@@ -95,12 +94,10 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         const fromFormula = !!rollOptions.fromFormula;
 
         return this.processChatData(htmlOptions, {
-            ...systemData,
+            ...(await super.getChatData()),
             traits,
             properties:
-                this.isIdentified && this.uses.max > 0
-                    ? [`${systemData.charges.value}/${systemData.charges.max} ${usesLabel}`]
-                    : [],
+                this.isIdentified && this.uses.max > 1 ? [`${this.uses.value}/${this.uses.max} ${usesLabel}`] : [],
             usesCharges: this.uses.max > 0,
             hasCharges: this.uses.max > 0 && this.uses.value > 0,
             consumableType,
