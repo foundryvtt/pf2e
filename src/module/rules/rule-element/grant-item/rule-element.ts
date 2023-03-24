@@ -1,3 +1,4 @@
+import { ActorPF2e } from "@actor";
 import { ActorType } from "@actor/data";
 import { ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
@@ -7,12 +8,11 @@ import { MigrationList, MigrationRunner } from "@module/migration";
 import { SlugField } from "@system/schema-data-fields";
 import { ErrorPF2e, isObject, pick, setHasElement, sluggify, tupleHasValue } from "@util";
 import { ModelPropsFromSchema } from "types/foundry/common/data/fields.mjs";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "..";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "../";
+import { ItemAlterationField, applyAlterations } from "../alter-item";
 import { ChoiceSetSource } from "../choice-set/data";
 import { ChoiceSetRuleElement } from "../choice-set/rule-element";
-import { ItemAlterationField, WithItemAlterations } from "../mixins";
 import { GrantItemSchema } from "./schema";
-import { ActorPF2e } from "@actor";
 
 const { fields } = foundry.data;
 
@@ -160,7 +160,14 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         }
 
         this.#applyChoiceSelections(tempGranted);
-        this.applyAlterations(grantedSource);
+
+        const alterations = this.alterations.map((a) => ({ ...a, value: this.resolveValue(a.value) }));
+        try {
+            applyAlterations(grantedSource, alterations);
+        } catch (error) {
+            if (error instanceof Error) this.failValidation(error.message);
+            return;
+        }
 
         if (this.ignored) return;
 
@@ -315,13 +322,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
     }
 }
 
-interface GrantItemRuleElement
-    extends RuleElementPF2e<GrantItemSchema>,
-        ModelPropsFromSchema<GrantItemSchema>,
-        WithItemAlterations<GrantItemSchema> {}
-
-// Apply mixin
-WithItemAlterations.mixIn(GrantItemRuleElement);
+interface GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema>, ModelPropsFromSchema<GrantItemSchema> {}
 
 interface GrantItemSource extends RuleElementSource {
     uuid?: unknown;

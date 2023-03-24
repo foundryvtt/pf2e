@@ -125,7 +125,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
     }
 
     /** Test this rule element's predicate, if present */
-    test(rollOptions?: string[] | Set<string>): boolean {
+    protected test(rollOptions?: string[] | Set<string>): boolean {
         if (this.ignored) return false;
         if (this.predicate.length === 0) return true;
 
@@ -136,7 +136,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
     }
 
     /** Send a deferred warning to the console indicating that a rule element's validation failed */
-    failValidation(...message: string[]): void {
+    protected failValidation(...message: string[]): void {
         const fullMessage = message.join(" ");
         const { name, uuid } = this.item;
         if (!this.suppressWarnings) {
