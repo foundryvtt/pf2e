@@ -37,9 +37,16 @@
         "quantity": 1,
         "rules": [
             {
+                "domain": "skill-check",
+                "key": "RollOption",
+                "option": "lawbringers-lasso",
+                "toggleable": true
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
                     "action:grapple",
+                    "lawbringers-lasso",
                     "target:trait:chaotic"
                 ],
                 "selector": "athletics",
@@ -53,6 +60,7 @@
                 "key": "AdjustDegreeOfSuccess",
                 "predicate": [
                     "action:grapple",
+                    "lawbringers-lasso",
                     "target:trait:chaotic"
                 ],
                 "selector": "athletics",
