@@ -83,7 +83,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /** Has this actor completed construction? */
     private constructed = true;
 
-    /** Is this actor preparing its embedded documents? */
+    /** Is this actor preparing its embedded documents? Used to prevent premature data preparation of embedded items */
     preparingEmbeds?: boolean;
 
     /** A separate collection of owned physical items for convenient access */
