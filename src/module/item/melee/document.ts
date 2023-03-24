@@ -6,6 +6,7 @@ import { WeaponPF2e } from "@item/weapon";
 import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponRangeIncrement } from "@item/weapon/types";
 import { combineTerms } from "@scripts/dice";
 import { ConvertedNPCDamage, WeaponDamagePF2e } from "@system/damage/weapon";
+import { DamageCategorization } from "@system/damage/helpers";
 import { tupleHasValue } from "@util";
 import { MeleeFlags, MeleeSource, MeleeSystemData, NPCAttackTrait } from "./data";
 
@@ -182,6 +183,9 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     override getRollOptions(prefix = this.type): string[] {
         const baseOptions = super.getRollOptions(prefix);
 
+        const { damageType } = this.baseDamage;
+        const damageCategory = DamageCategorization.fromDamageType(damageType);
+
         const otherOptions = Object.entries({
             equipped: true,
             melee: this.isMelee,
@@ -191,6 +195,8 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             [`group:${this.group}`]: !!this.group,
             [`base:${this.baseType}`]: !!this.baseType,
             [`range-increment:${this.rangeIncrement}`]: !!this.rangeIncrement,
+            [`damage:type:${damageType}`]: true,
+            [`damage:category:${damageCategory}`]: !!damageCategory,
         })
             .filter(([, isTrue]) => isTrue)
             .map(([key]) => `${prefix}:${key}`);
