@@ -130,7 +130,7 @@ const genClientBase = (
      * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({ updateData, ...sortOptions }: { updateData?: object; sortOptions?: object }): Promise<void>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object } & SortingOptions<this>): Promise<void>;
 
     /**
      * Construct a UUID relative to another document.
@@ -310,7 +310,7 @@ const genClientBase = (
      * Serialize salient information about this Document when dragging it.
      * @returns An object of drag data.
      */
-    toDragData(): object;
+    toDragData(): { type: string; [key: string]: unknown };
 
     /**
      * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
@@ -325,7 +325,7 @@ const genClientBase = (
      */
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: object,
+        data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
 

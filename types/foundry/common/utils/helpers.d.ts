@@ -66,7 +66,7 @@ declare global {
              */
             function mergeObject<T extends object, U extends object = T>(
                 original: T,
-                other?: U,
+                other: U,
                 { insertKeys, insertValues, overwrite, inplace, enforceTypes, performDeletions }?: MergeObjectOptions,
                 _d?: number
             ): T & U;

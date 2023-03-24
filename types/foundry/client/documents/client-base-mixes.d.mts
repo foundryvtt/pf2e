@@ -112,7 +112,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
      * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({ updateData, ...sortOptions }: { updateData?: object; sortOptions?: object }): Promise<void>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object } & SortingOptions<this>): Promise<void>;
 
     /**
      * Construct a UUID relative to another document.
@@ -292,7 +292,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
      * Serialize salient information about this Document when dragging it.
      * @returns An object of drag data.
      */
-    toDragData(): object;
+    toDragData(): { type: string; [key: string]: unknown };
 
     /**
      * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
@@ -307,7 +307,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
      */
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: object,
+        data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
 
@@ -520,7 +520,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
      * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({ updateData, ...sortOptions }: { updateData?: object; sortOptions?: object }): Promise<void>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object } & SortingOptions<this>): Promise<void>;
 
     /**
      * Construct a UUID relative to another document.
@@ -700,7 +700,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
      * Serialize salient information about this Document when dragging it.
      * @returns An object of drag data.
      */
-    toDragData(): object;
+    toDragData(): { type: string; [key: string]: unknown };
 
     /**
      * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
@@ -715,7 +715,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
      */
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: object,
+        data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
 
@@ -928,7 +928,7 @@ export class ClientBaseActiveEffect<TParent extends ClientBaseActor<any> | Clien
      * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({ updateData, ...sortOptions }: { updateData?: object; sortOptions?: object }): Promise<void>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object } & SortingOptions<this>): Promise<void>;
 
     /**
      * Construct a UUID relative to another document.
@@ -1108,7 +1108,7 @@ export class ClientBaseActiveEffect<TParent extends ClientBaseActor<any> | Clien
      * Serialize salient information about this Document when dragging it.
      * @returns An object of drag data.
      */
-    toDragData(): object;
+    toDragData(): { type: string; [key: string]: unknown };
 
     /**
      * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
@@ -1123,7 +1123,7 @@ export class ClientBaseActiveEffect<TParent extends ClientBaseActor<any> | Clien
      */
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: object,
+        data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
 
@@ -1274,7 +1274,7 @@ export class ClientBaseActor<TParent extends ClientBaseToken<any> | null> extend
      * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({ updateData, ...sortOptions }: { updateData?: object; sortOptions?: object }): Promise<void>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object } & SortingOptions<this>): Promise<void>;
 
     /**
      * Construct a UUID relative to another document.
@@ -1454,7 +1454,7 @@ export class ClientBaseActor<TParent extends ClientBaseToken<any> | null> extend
      * Serialize salient information about this Document when dragging it.
      * @returns An object of drag data.
      */
-    toDragData(): object;
+    toDragData(): { type: string; [key: string]: unknown };
 
     /**
      * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
@@ -1469,7 +1469,7 @@ export class ClientBaseActor<TParent extends ClientBaseToken<any> | null> extend
      */
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: object,
+        data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
 
@@ -1620,7 +1620,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
      * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({ updateData, ...sortOptions }: { updateData?: object; sortOptions?: object }): Promise<void>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object } & SortingOptions<this>): Promise<void>;
 
     /**
      * Construct a UUID relative to another document.
@@ -1800,7 +1800,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
      * Serialize salient information about this Document when dragging it.
      * @returns An object of drag data.
      */
-    toDragData(): object;
+    toDragData(): { type: string; [key: string]: unknown };
 
     /**
      * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
@@ -1815,7 +1815,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
      */
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: object,
+        data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
 
@@ -1966,7 +1966,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
      * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({ updateData, ...sortOptions }: { updateData?: object; sortOptions?: object }): Promise<void>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object } & SortingOptions<this>): Promise<void>;
 
     /**
      * Construct a UUID relative to another document.
@@ -2146,7 +2146,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
      * Serialize salient information about this Document when dragging it.
      * @returns An object of drag data.
      */
-    toDragData(): object;
+    toDragData(): { type: string; [key: string]: unknown };
 
     /**
      * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
@@ -2161,7 +2161,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
      */
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: object,
+        data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
 
@@ -2312,7 +2312,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
      * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({ updateData, ...sortOptions }: { updateData?: object; sortOptions?: object }): Promise<void>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object } & SortingOptions<this>): Promise<void>;
 
     /**
      * Construct a UUID relative to another document.
@@ -2492,7 +2492,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
      * Serialize salient information about this Document when dragging it.
      * @returns An object of drag data.
      */
-    toDragData(): object;
+    toDragData(): { type: string; [key: string]: unknown };
 
     /**
      * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
@@ -2507,7 +2507,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
      */
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: object,
+        data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
 
@@ -2658,7 +2658,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
      * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({ updateData, ...sortOptions }: { updateData?: object; sortOptions?: object }): Promise<void>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object } & SortingOptions<this>): Promise<void>;
 
     /**
      * Construct a UUID relative to another document.
@@ -2838,7 +2838,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
      * Serialize salient information about this Document when dragging it.
      * @returns An object of drag data.
      */
-    toDragData(): object;
+    toDragData(): { type: string; [key: string]: unknown };
 
     /**
      * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
@@ -2853,7 +2853,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
      */
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: object,
+        data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
 
@@ -3005,7 +3005,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
      * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({ updateData, ...sortOptions }: { updateData?: object; sortOptions?: object }): Promise<void>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object } & SortingOptions<this>): Promise<void>;
 
     /**
      * Construct a UUID relative to another document.
@@ -3185,7 +3185,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
      * Serialize salient information about this Document when dragging it.
      * @returns An object of drag data.
      */
-    toDragData(): object;
+    toDragData(): { type: string; [key: string]: unknown };
 
     /**
      * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
@@ -3200,7 +3200,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
      */
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: object,
+        data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
 
@@ -3351,7 +3351,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
      * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({ updateData, ...sortOptions }: { updateData?: object; sortOptions?: object }): Promise<void>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object } & SortingOptions<this>): Promise<void>;
 
     /**
      * Construct a UUID relative to another document.
@@ -3531,7 +3531,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
      * Serialize salient information about this Document when dragging it.
      * @returns An object of drag data.
      */
-    toDragData(): object;
+    toDragData(): { type: string; [key: string]: unknown };
 
     /**
      * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
@@ -3546,7 +3546,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
      */
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: object,
+        data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
 
@@ -3757,7 +3757,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
      * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({ updateData, ...sortOptions }: { updateData?: object; sortOptions?: object }): Promise<void>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object } & SortingOptions<this>): Promise<void>;
 
     /**
      * Construct a UUID relative to another document.
@@ -3937,7 +3937,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
      * Serialize salient information about this Document when dragging it.
      * @returns An object of drag data.
      */
-    toDragData(): object;
+    toDragData(): { type: string; [key: string]: unknown };
 
     /**
      * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
@@ -3952,7 +3952,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
      */
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: object,
+        data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
 
@@ -4103,7 +4103,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
      * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({ updateData, ...sortOptions }: { updateData?: object; sortOptions?: object }): Promise<void>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object } & SortingOptions<this>): Promise<void>;
 
     /**
      * Construct a UUID relative to another document.
@@ -4283,7 +4283,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
      * Serialize salient information about this Document when dragging it.
      * @returns An object of drag data.
      */
-    toDragData(): object;
+    toDragData(): { type: string; [key: string]: unknown };
 
     /**
      * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
@@ -4298,7 +4298,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
      */
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: object,
+        data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
 
@@ -4449,7 +4449,7 @@ export class ClientBaseItem<TParent extends ClientBaseActor<any> | null> extends
      * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({ updateData, ...sortOptions }: SortingOptions & { updateData?: object }): Promise<void>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object } & SortingOptions<this>): Promise<void>;
 
     /**
      * Construct a UUID relative to another document.
@@ -4629,7 +4629,7 @@ export class ClientBaseItem<TParent extends ClientBaseActor<any> | null> extends
      * Serialize salient information about this Document when dragging it.
      * @returns An object of drag data.
      */
-    toDragData(): { type: string };
+    toDragData(): { type: string; [key: string]: unknown };
 
     /**
      * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
@@ -4644,7 +4644,7 @@ export class ClientBaseItem<TParent extends ClientBaseActor<any> | null> extends
      */
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: object,
+        data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
 
@@ -4795,7 +4795,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
      * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({ updateData, ...sortOptions }: { updateData?: object; sortOptions?: object }): Promise<void>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object } & SortingOptions<this>): Promise<void>;
 
     /**
      * Construct a UUID relative to another document.
@@ -4975,7 +4975,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
      * Serialize salient information about this Document when dragging it.
      * @returns An object of drag data.
      */
-    toDragData(): object;
+    toDragData(): { type: string; [key: string]: unknown };
 
     /**
      * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
@@ -4990,7 +4990,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
      */
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: object,
+        data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
 
@@ -5142,7 +5142,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
      * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({ updateData, ...sortOptions }: { updateData?: object; sortOptions?: object }): Promise<void>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object } & SortingOptions<this>): Promise<void>;
 
     /**
      * Construct a UUID relative to another document.
@@ -5322,7 +5322,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
      * Serialize salient information about this Document when dragging it.
      * @returns An object of drag data.
      */
-    toDragData(): object;
+    toDragData(): { type: string; [key: string]: unknown };
 
     /**
      * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
@@ -5337,7 +5337,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
      */
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: object,
+        data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
 
@@ -5488,7 +5488,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
      * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({ updateData, ...sortOptions }: { updateData?: object; sortOptions?: object }): Promise<void>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object } & SortingOptions<this>): Promise<void>;
 
     /**
      * Construct a UUID relative to another document.
@@ -5668,7 +5668,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
      * Serialize salient information about this Document when dragging it.
      * @returns An object of drag data.
      */
-    toDragData(): object;
+    toDragData(): { type: string; [key: string]: unknown };
 
     /**
      * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
@@ -5683,7 +5683,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
      */
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: object,
+        data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
 
@@ -5835,7 +5835,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
      * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({ updateData, ...sortOptions }: { updateData?: object; sortOptions?: object }): Promise<void>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object } & SortingOptions<this>): Promise<void>;
 
     /**
      * Construct a UUID relative to another document.
@@ -6015,7 +6015,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
      * Serialize salient information about this Document when dragging it.
      * @returns An object of drag data.
      */
-    toDragData(): object;
+    toDragData(): { type: string; [key: string]: unknown };
 
     /**
      * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
@@ -6030,7 +6030,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
      */
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: object,
+        data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
 
@@ -6244,7 +6244,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
      * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({ updateData, ...sortOptions }: { updateData?: object; sortOptions?: object }): Promise<void>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object } & SortingOptions<this>): Promise<void>;
 
     /**
      * Construct a UUID relative to another document.
@@ -6424,7 +6424,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
      * Serialize salient information about this Document when dragging it.
      * @returns An object of drag data.
      */
-    toDragData(): object;
+    toDragData(): { type: string; [key: string]: unknown };
 
     /**
      * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
@@ -6439,7 +6439,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
      */
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: object,
+        data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
 
@@ -6650,7 +6650,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
      * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({ updateData, ...sortOptions }: { updateData?: object; sortOptions?: object }): Promise<void>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object } & SortingOptions<this>): Promise<void>;
 
     /**
      * Construct a UUID relative to another document.
@@ -6830,7 +6830,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
      * Serialize salient information about this Document when dragging it.
      * @returns An object of drag data.
      */
-    toDragData(): object;
+    toDragData(): { type: string; [key: string]: unknown };
 
     /**
      * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
@@ -6845,7 +6845,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
      */
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: object,
+        data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
 
@@ -6997,7 +6997,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
      * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({ updateData, ...sortOptions }: { updateData?: object; sortOptions?: object }): Promise<void>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object } & SortingOptions<this>): Promise<void>;
 
     /**
      * Construct a UUID relative to another document.
@@ -7177,7 +7177,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
      * Serialize salient information about this Document when dragging it.
      * @returns An object of drag data.
      */
-    toDragData(): object;
+    toDragData(): { type: string; [key: string]: unknown };
 
     /**
      * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
@@ -7192,7 +7192,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
      */
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: object,
+        data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
 
@@ -7343,7 +7343,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
      * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({ updateData, ...sortOptions }: { updateData?: object; sortOptions?: object }): Promise<void>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object } & SortingOptions<this>): Promise<void>;
 
     /**
      * Construct a UUID relative to another document.
@@ -7523,7 +7523,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
      * Serialize salient information about this Document when dragging it.
      * @returns An object of drag data.
      */
-    toDragData(): object;
+    toDragData(): { type: string; [key: string]: unknown };
 
     /**
      * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
@@ -7538,7 +7538,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
      */
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: object,
+        data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
 
@@ -7689,7 +7689,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
      * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({ updateData, ...sortOptions }: { updateData?: object; sortOptions?: object }): Promise<void>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object } & SortingOptions<this>): Promise<void>;
 
     /**
      * Construct a UUID relative to another document.
@@ -7869,7 +7869,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
      * Serialize salient information about this Document when dragging it.
      * @returns An object of drag data.
      */
-    toDragData(): object;
+    toDragData(): { type: string; [key: string]: unknown };
 
     /**
      * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
@@ -7884,7 +7884,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
      */
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: object,
+        data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
 
@@ -8036,7 +8036,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
      * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({ updateData, ...sortOptions }: { updateData?: object; sortOptions?: object }): Promise<void>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object } & SortingOptions<this>): Promise<void>;
 
     /**
      * Construct a UUID relative to another document.
@@ -8216,7 +8216,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
      * Serialize salient information about this Document when dragging it.
      * @returns An object of drag data.
      */
-    toDragData(): object;
+    toDragData(): { type: string; [key: string]: unknown };
 
     /**
      * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
@@ -8231,7 +8231,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
      */
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: object,
+        data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
 
@@ -8382,7 +8382,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
      * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({ updateData, ...sortOptions }: { updateData?: object; sortOptions?: object }): Promise<void>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object } & SortingOptions<this>): Promise<void>;
 
     /**
      * Construct a UUID relative to another document.
@@ -8562,7 +8562,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
      * Serialize salient information about this Document when dragging it.
      * @returns An object of drag data.
      */
-    toDragData(): object;
+    toDragData(): { type: string; [key: string]: unknown };
 
     /**
      * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
@@ -8577,7 +8577,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
      */
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: object,
+        data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
 
@@ -8788,7 +8788,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
      * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({ updateData, ...sortOptions }: { updateData?: object; sortOptions?: object }): Promise<void>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object } & SortingOptions<this>): Promise<void>;
 
     /**
      * Construct a UUID relative to another document.
@@ -8968,7 +8968,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
      * Serialize salient information about this Document when dragging it.
      * @returns An object of drag data.
      */
-    toDragData(): object;
+    toDragData(): { type: string; [key: string]: unknown };
 
     /**
      * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
@@ -8983,7 +8983,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
      */
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: object,
+        data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
 
@@ -9194,7 +9194,7 @@ export class ClientBaseUser extends foundry.documents.BaseUser {
      * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({ updateData, ...sortOptions }: { updateData?: object; sortOptions?: object }): Promise<void>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object } & SortingOptions<this>): Promise<void>;
 
     /**
      * Construct a UUID relative to another document.
@@ -9374,7 +9374,7 @@ export class ClientBaseUser extends foundry.documents.BaseUser {
      * Serialize salient information about this Document when dragging it.
      * @returns An object of drag data.
      */
-    toDragData(): object;
+    toDragData(): { type: string; [key: string]: unknown };
 
     /**
      * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
@@ -9389,7 +9389,7 @@ export class ClientBaseUser extends foundry.documents.BaseUser {
      */
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: object,
+        data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
 
@@ -9540,7 +9540,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
      * @param [sortOptions]        Options which are passed to the SortingHelpers.performIntegerSort method
      * @returns The Document after it has been re-sorted
      */
-    sortRelative({ updateData, ...sortOptions }: { updateData?: object; sortOptions?: object }): Promise<void>;
+    sortRelative({ updateData, ...sortOptions }: { updateData?: object } & SortingOptions<this>): Promise<void>;
 
     /**
      * Construct a UUID relative to another document.
@@ -9720,7 +9720,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
      * Serialize salient information about this Document when dragging it.
      * @returns An object of drag data.
      */
-    toDragData(): object;
+    toDragData(): { type: string; [key: string]: unknown };
 
     /**
      * A helper function to handle obtaining the relevant Document from dropped data provided via a DataTransfer event.
@@ -9735,7 +9735,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
      */
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: object,
+        data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
 
