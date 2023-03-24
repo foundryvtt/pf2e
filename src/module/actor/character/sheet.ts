@@ -34,6 +34,7 @@ import { PreparedFormulaData } from "./crafting/entry";
 import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProficiencies } from "./data";
 import { CharacterSheetData, ClassDCSheetData, CraftingEntriesSheetData, FeatCategorySheetData } from "./data/sheet";
 import { PCSheetTabManager } from "./tab-manager";
+import { ActorPF2e } from "@module/documents";
 
 class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e<TActor> {
     protected readonly actorConfigClass = CharacterConfig;
@@ -1006,7 +1007,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     protected override async _onDropItem(
         event: ElementDragEvent,
         data: DropCanvasItemDataPF2e
-    ): Promise<ItemPF2e<TActor | null>[]> {
+    ): Promise<ItemPF2e<ActorPF2e | null>[]> {
         const item = await ItemPF2e.fromDropData(data);
         if (!item) throw ErrorPF2e("Unable to create item from drop data!");
         const actor = this.actor;
