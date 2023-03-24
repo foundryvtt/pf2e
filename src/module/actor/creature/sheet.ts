@@ -1,4 +1,4 @@
-import { CreaturePF2e } from "@actor";
+import { ActorPF2e, CreaturePF2e } from "@actor";
 import { createSpellcastingDialog } from "@actor/sheet/spellcasting-dialog";
 import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values";
 import { ItemPF2e, SpellPF2e, SpellcastingEntryPF2e } from "@item";
@@ -472,9 +472,9 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
     /** Handle dragging spells onto spell slots. */
     protected override async _handleDroppedItem(
         event: ElementDragEvent,
-        item: ItemPF2e<TActor | null>,
+        item: ItemPF2e<ActorPF2e | null>,
         data: DropCanvasItemDataPF2e
-    ): Promise<ItemPF2e<TActor | null>[]> {
+    ): Promise<ItemPF2e<ActorPF2e | null>[]> {
         const containerEl = htmlClosest(event.target, ".item-container[data-container-type=spellcastingEntry]");
         if (containerEl && item.isOfType("spell") && !item.isRitual) {
             const entryId = containerEl.dataset.containerId;

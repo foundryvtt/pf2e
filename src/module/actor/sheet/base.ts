@@ -848,26 +848,23 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     /** Emulate a sheet item drop from the canvas */
-    async emulateItemDrop(data: DropCanvasItemDataPF2e): Promise<ItemPF2e<TActor | null>[]> {
+    async emulateItemDrop(data: DropCanvasItemDataPF2e): Promise<ItemPF2e<ActorPF2e | null>[]> {
         return this._onDropItem({ preventDefault(): void {} } as ElementDragEvent, data);
     }
 
     protected override async _onDropItem(
         event: ElementDragEvent,
         data: DropCanvasItemDataPF2e
-    ): Promise<ItemPF2e<TActor | null>[]> {
+    ): Promise<ItemPF2e<ActorPF2e | null>[]> {
         event.preventDefault();
-        super._onDropItem;
 
-        const item = (await ItemPF2e.fromDropData(data)) as ItemPF2e<TActor | null>;
+        const item = await ItemPF2e.fromDropData(data);
         if (!item) return [];
-        const itemSource = item.toObject();
 
         if (item.actor?.uuid === this.actor.uuid) {
-            return this._onSortItem(event, itemSource);
+            return this._onSortItem(event, item.toObject());
         }
 
-        const sourceItemId = itemSource._id;
         if (item.actor && item.isOfType("physical")) {
             await this.moveItemBetweenActors(
                 event,
@@ -875,7 +872,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 item.actor?.token?.id ?? null,
                 this.actor.id,
                 this.actor.token?.id ?? null,
-                sourceItemId
+                item.id
             );
             return [item];
         }
@@ -889,14 +886,14 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
      */
     protected async _handleDroppedItem(
         event: ElementDragEvent,
-        item: ItemPF2e<TActor | null>,
+        item: ItemPF2e<ActorPF2e | null>,
         data: DropCanvasItemDataPF2e
-    ): Promise<ItemPF2e<TActor | null>[]>;
+    ): Promise<ItemPF2e<ActorPF2e | null>[]>;
     protected async _handleDroppedItem(
         event: ElementDragEvent,
-        item: ItemPF2e<TActor | null>,
+        item: ItemPF2e<ActorPF2e | null>,
         data: DropCanvasItemDataPF2e
-    ): Promise<Item<TActor | null>[]> {
+    ): Promise<Item<ActorPF2e | null>[]> {
         const { actor } = this;
         const itemSource = item.toObject();
 
