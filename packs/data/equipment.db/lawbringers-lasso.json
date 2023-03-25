@@ -35,7 +35,38 @@
             }
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "domain": "skill-check",
+                "key": "RollOption",
+                "option": "lawbringers-lasso",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:grapple",
+                    "lawbringers-lasso",
+                    "target:trait:chaotic"
+                ],
+                "selector": "athletics",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:grapple",
+                    "lawbringers-lasso",
+                    "target:trait:chaotic"
+                ],
+                "selector": "athletics",
+                "type": "skill"
+            }
+        ],
         "size": "med",
         "source": {
             "value": "Pathfinder #180: The Smoking Gun"
