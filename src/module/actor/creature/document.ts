@@ -37,7 +37,7 @@ import {
     VisionLevel,
     VisionLevels,
 } from "./data";
-import { setTraitIWR } from "./helpers";
+import { setImmunitiesFromTraits } from "./helpers";
 import { ActorInitiative } from "../initiative";
 import { CreatureSensePF2e } from "./sense";
 import {
@@ -315,7 +315,7 @@ abstract class CreaturePF2e<
         attributes.wounded = { value: 0, max: 3 };
 
         // Set IWR guaranteed by traits
-        setTraitIWR(this);
+        setImmunitiesFromTraits(this);
     }
 
     override prepareEmbeddedDocuments(): void {
