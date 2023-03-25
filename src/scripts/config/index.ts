@@ -745,13 +745,13 @@ export const PF2ECONFIG = {
     },
 
     dcAdjustments: {
-        "incredibly easy": "PF2E.DCAdjustmentIncrediblyEasy",
-        "very easy": "PF2E.DCAdjustmentVeryEasy",
+        "incredibly-easy": "PF2E.DCAdjustmentIncrediblyEasy",
+        "very-easy": "PF2E.DCAdjustmentVeryEasy",
         easy: "PF2E.DCAdjustmentEasy",
         normal: "PF2E.DCAdjustmentNormal",
         hard: "PF2E.DCAdjustmentHard",
-        "very hard": "PF2E.DCAdjustmentVeryHard",
-        "incredibly hard": "PF2E.DCAdjustmentIncrediblyHard",
+        "very-hard": "PF2E.DCAdjustmentVeryHard",
+        "incredibly-hard": "PF2E.DCAdjustmentIncrediblyHard",
     },
 
     skills: {

@@ -363,7 +363,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             strike?.[method]?.({ getFormula: true, altUsage }).then((formula) => {
                 if (!formula) return;
                 button.title = formula.toString();
-                $(button).tooltipster({ position: "bottom", theme: "crb-hover" });
+                $(button).tooltipster({ position: "top", theme: "crb-hover" });
             });
         }
 
