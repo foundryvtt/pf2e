@@ -67,6 +67,7 @@ import {
 import { ImmunityData, ResistanceData, WeaknessData } from "./data/iwr";
 import { ActorSizePF2e } from "./data/size";
 import { calculateRangePenalty, checkAreaEffects, getRangeIncrement, isReallyPC, migrateActorSource } from "./helpers";
+import { ActorInitiative } from "./initiative";
 import { ActorInventory } from "./inventory";
 import { ItemTransfer } from "./item-transfer";
 import { StatisticModifier } from "./modifiers";
@@ -85,6 +86,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Is this actor preparing its embedded documents? Used to prevent premature data preparation of embedded items */
     preparingEmbeds?: boolean;
+
+    /** Handles rolling initiative for the current actor */
+    initiative?: ActorInitiative;
 
     /** A separate collection of owned physical items for convenient access */
     inventory!: ActorInventory<this>;

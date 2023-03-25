@@ -6,7 +6,7 @@ import {
     CreatureAttributes,
     CreatureDetails,
     CreatureHitPoints,
-    CreatureInitiative,
+    CreatureInitiativeData,
     CreatureResources,
     CreatureSystemData,
     CreatureTraitsData,
@@ -374,7 +374,7 @@ interface CharacterAttributes extends CreatureAttributes {
     /** Creature armor class, used to defend against attacks. */
     ac: CharacterArmorClass;
     /** Initiative, used to determine turn order in combat. */
-    initiative: CreatureInitiative;
+    initiative: CreatureInitiativeData;
     /** The amount of HP provided per level by the character's class. */
     classhp: number;
     /** The amount of HP provided at level 1 by the character's ancestry. */

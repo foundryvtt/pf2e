@@ -2,6 +2,7 @@ import { ActorPF2e, CreaturePF2e } from "@actor";
 import { Abilities } from "@actor/creature/data";
 import { SIZE_TO_REACH } from "@actor/creature/values";
 import { strikeFromMeleeItem } from "@actor/helpers";
+import { ActorInitiative } from "@actor/initiative";
 import { CheckModifier, MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "@actor/modifiers";
 import { SaveType } from "@actor/types";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
@@ -29,6 +30,8 @@ import { NPCSheetPF2e } from "./sheet";
 import { VariantCloneParams } from "./types";
 
 class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends CreaturePF2e<TParent> {
+    override initiative!: ActorInitiative;
+
     override get allowedItemTypes(): (ItemType | "physical")[] {
         return [...super.allowedItemTypes, "physical", "spellcastingEntry", "spell", "action", "melee", "lore"];
     }

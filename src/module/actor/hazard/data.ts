@@ -7,11 +7,12 @@ import {
     ActorTraitsSource,
     ActorAttributesSource,
     ActorHitPoints,
+    InitiativeData,
 } from "@actor/data/base";
 import { ActorSizePF2e } from "@actor/data/size";
 import { NPCStrike } from "@actor/npc";
 import { SaveType } from "@actor/types";
-import { Rarity, Size, ZeroToTwo } from "@module/data";
+import { Rarity, Size } from "@module/data";
 import { HazardTrait } from "./types";
 
 /** The stored source data of a hazard actor */
@@ -35,7 +36,6 @@ interface HazardAttributesSource extends ActorAttributesSource {
         details: string;
     };
     perception?: never;
-    initiative?: never;
     hardness: number;
     stealth: {
         value: number | null;
@@ -71,10 +71,7 @@ interface HazardAttributes
     hp: HazardHitPoints;
     shield?: never;
     hardness: number;
-    initiative: {
-        roll?: undefined;
-        tiebreakPriority: ZeroToTwo;
-    };
+    initiative?: InitiativeData;
     stealth: {
         value: number | null;
         details: string;
