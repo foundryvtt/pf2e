@@ -10,13 +10,11 @@ import { CharacterPF2e } from "./document";
 class AutomaticBonusProgression {
     /** Whether the ABP variant is enabled and also not selectively disabled for a particular actor */
     static isEnabled(actor: ActorPF2e | null): boolean {
-        // Synthetic actors begin data preparation before their data model is initialized
-        if (!actor?.flags) return false;
-
+        if (actor && !actor.flags?.pf2e) return false;
         const settingEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
-        const actorIsPC = actor.isOfType("character") && !actor.flags.pf2e.disableABP;
+        const abpDisabledForActor = !!actor?.flags.pf2e.disableABP;
 
-        return settingEnabled && actorIsPC;
+        return settingEnabled && !abpDisabledForActor;
     }
 
     /** Get striking damage dice according to character level */

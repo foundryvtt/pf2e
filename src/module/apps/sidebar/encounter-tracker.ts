@@ -19,6 +19,23 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
             const combatantId = row.dataset.combatantId ?? "";
             const combatant = encounter.combatants.get(combatantId, { strict: true });
 
+            // Highlight the active-turn particpant's alliance color
+            if (combatant?.actor && this.viewed?.combatant === combatant) {
+                const alliance = combatant.actor.alliance;
+                const allyColor = combatant.actor.hasPlayerOwner
+                    ? CONFIG.Canvas.dispositionColors.PARTY
+                    : CONFIG.Canvas.dispositionColors.FRIENDLY;
+                const dispositionColor = new foundry.utils.Color(
+                    alliance === "party"
+                        ? allyColor
+                        : alliance === "opposition"
+                        ? CONFIG.Canvas.dispositionColors.HOSTILE
+                        : CONFIG.Canvas.dispositionColors.NEUTRAL
+                );
+                row.style.background = dispositionColor.toRGBA(0.1);
+                row.style.borderColor = dispositionColor.toString();
+            }
+
             // Set each combatant's initiative as a data attribute for use in drag/drop feature
             row.setAttribute("data-initiative", String(combatant.initiative));
 

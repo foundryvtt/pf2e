@@ -19,13 +19,7 @@ interface FamiliarSystemSource extends Pick<CreatureSystemSource, "schema"> {
             value: string;
         };
     };
-    attributes: {
-        hp: { value: number };
-        initiative?: never;
-        immunities?: never;
-        weaknesses?: never;
-        resistances?: never;
-    };
+    attributes: FamiliarAttributesSource;
     master: {
         id: string | null;
         ability: AbilityString | null;
@@ -56,6 +50,14 @@ interface FamiliarSystemData
         ability: AbilityString | null;
     };
     traits: FamiliarTraitsData;
+}
+
+interface FamiliarAttributesSource {
+    hp: { value: number };
+    initiative?: never;
+    immunities?: never;
+    weaknesses?: never;
+    resistances?: never;
 }
 
 interface FamiliarAttributes extends CreatureAttributes {

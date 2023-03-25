@@ -53,7 +53,7 @@ import {
     traitSlugToObject,
     tupleHasValue,
 } from "@util";
-import { VisionLevel, VisionLevels } from "./creature/data";
+import { Abilities, VisionLevel, VisionLevels } from "./creature/data";
 import { GetReachParameters, ModeOfBeing } from "./creature/types";
 import { ActorSourcePF2e, ActorType } from "./data";
 import {
@@ -73,7 +73,7 @@ import { StatisticModifier } from "./modifiers";
 import { ActorSheetPF2e } from "./sheet/base";
 import { ActorSpellcasting } from "./spellcasting";
 import { TokenEffect } from "./token-effect";
-import { CREATURE_ACTOR_TYPES, UNAFFECTED_TYPES } from "./values";
+import { CONDITION_SLUGS, CREATURE_ACTOR_TYPES, UNAFFECTED_TYPES } from "./values";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -83,7 +83,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /** Has this actor completed construction? */
     private constructed = true;
 
-    /** Is this actor preparing its embedded documents? */
+    /** Is this actor preparing its embedded documents? Used to prevent premature data preparation of embedded items */
     preparingEmbeds?: boolean;
 
     /** A separate collection of owned physical items for convenient access */
@@ -1556,6 +1556,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Toggle a condition as present or absent. If a valued condition is toggled on, it will be set to a value of 1. */
     async toggleCondition(conditionSlug: ConditionSlug): Promise<void> {
+        if (!setHasElement(CONDITION_SLUGS, conditionSlug)) {
+            throw ErrorPF2e(`Unrecognized condition: ${conditionSlug}`);
+        }
+
         if (this.hasCondition(conditionSlug)) {
             await this.decreaseCondition(conditionSlug, { forceRemove: true });
         } else {
@@ -1658,6 +1662,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends Actor<TParent> {
     flags: ActorFlagsPF2e;
     readonly _source: ActorSourcePF2e;
+    readonly abilities?: Abilities;
     readonly effects: foundry.abstract.EmbeddedCollection<ActiveEffectPF2e<this>>;
     readonly items: foundry.abstract.EmbeddedCollection<ItemPF2e<this>>;
     system: ActorSystemData;

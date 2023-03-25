@@ -22,6 +22,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
 interface PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     readonly _source: PartySource;
+    readonly abilities?: never;
     system: PartySystemData;
 }
 

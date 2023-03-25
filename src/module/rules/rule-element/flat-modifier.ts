@@ -31,8 +31,10 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
 
         if (this.type === "ability") {
             if (this.ability) {
-                this.label = typeof source.label === "string" ? source.label : CONFIG.PF2E.abilities[this.ability];
-                this.data.value ??= `@actor.abilities.${this.ability}.mod`;
+                this.slug = this.ability;
+                this.label = CONFIG.PF2E.abilities[this.ability];
+                // As a resolvable since ability modifiers aren't yet set for PCs
+                this.data.value = `@actor.abilities.${this.ability}.mod`;
             } else {
                 this.failValidation(
                     'A flat modifier of type "ability" must also have an "ability" property with an ability abbreviation'
@@ -91,12 +93,15 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
 
         // Strip out the title ("Effect:", etc.) of the effect name
         const label = this.label.includes(":") ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : this.label;
-        const slug = this.slug ?? (this.type === "ability" && this.ability ? this.ability : sluggify(label));
+        const slug = this.slug ?? sluggify(label);
 
         const selectors = this.selectors.map((s) => this.resolveInjectedProperties(s)).filter((s) => !!s);
-        if (selectors.length === 0 || !this.data.value) {
-            this.failValidation("Flat modifier requires selector and value properties");
-            return;
+        if (selectors.length === 0) {
+            return this.failValidation("must have at least one selector");
+        }
+
+        if (!this.data.value) {
+            return this.failValidation("must have a value");
         }
 
         for (const selector of selectors) {
