@@ -43,7 +43,6 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             const wasIncreased = instance.total <= 0 && typeof roll.options.increasedFrom === "number";
             const isFirst = instances.indexOf(instance) === 0;
             const instanceTotal = wasIncreased && isFirst ? 1 : Math.max(instance.total, 0);
-            if (instanceTotal === 0) return [];
 
             // Step 0: Inapplicable damage outside the IWR framework
             if (!actor.isAffectedBy(instance.type)) {
@@ -101,6 +100,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
                 0
             );
 
+            // Push applicable persistent damage to a separate list
             if (instance.persistent && !instance.options.evaluatePersistent) {
                 persistent.push(instance);
             }
