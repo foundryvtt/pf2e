@@ -46,7 +46,7 @@ declare global {
                 /*  Color Manipulation Methods                */
                 /* ------------------------------------------ */
 
-                override toString(radix: number): string;
+                override toString(radix?: number): string;
 
                 /**
                  * Test whether this color equals some other color
