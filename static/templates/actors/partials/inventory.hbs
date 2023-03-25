@@ -1,18 +1,58 @@
 <section class="inventory-list directory-list inventory-pane">
     {{#each inventory.sections as |section|}}
         <div class="inventory-header" >
-            <h3 class="item-name" data-type="{{section.type}}" data-sort="item-name">{{section.label}}</h3>
+            <h3 class="item-name" data-type="{{section.type}}" data-sort-category="item-name">
+                {{section.label}}
+                {{#if (eq section.sortData.category "item-name")}}
+                    {{#if (eq section.sortData.direction "descending")}}
+                        <i class="fa fa-chevron-down"></i>
+                    {{/if}}
+                    {{#if (eq section.sortData.direction "ascending")}}
+                        <i class="fa fa-chevron-up"></i>
+                    {{/if}}
+                {{/if}}
+            </h3>
             {{#if (and (eq section.type "equipment") @root.inventory.invested)}}
                 <span class="item-invested-total{{#if (gt @root.inventory.invested.value @root.inventory.invested.max)}} overinvested{{/if}}">
                     {{localize "PF2E.InvestedLabel"}} ({{@root.inventory.invested.value}}/{{@root.inventory.invested.max}})
                 </span>
             {{/if}}
             {{#if (or @root.inventory.showValueAlways (eq section.type "treasure"))}}
-                <span class="item-sell-value" data-type="{{section.type}}" data-sort="item-sell-value">{{localize "PF2E.ValueLabel"}}</span>
+                <span class="item-sell-value" data-type="{{section.type}}" data-sort-category="item-sell-value">
+                    {{localize "PF2E.ValueLabel"}}
+                    {{#if (eq section.sortData.category "item-sell-value")}}
+                        {{#if (eq section.sortData.direction "descending")}}
+                            <i class="fa fa-chevron-up"></i>
+                        {{/if}}
+                        {{#if (eq section.sortData.direction "ascending")}}
+                            <i class="fa fa-chevron-down"></i>
+                        {{/if}}
+                    {{/if}}
+                </span>
             {{/if}}
-            <span class="item-quantity" data-type="{{section.type}}" data-sort="item-quantity">{{localize "PF2E.QuantityLabel"}}</span>
+            <span class="item-quantity" data-type="{{section.type}}" data-sort-category="item-quantity">
+                {{localize "PF2E.QuantityLabel"}}
+                {{#if (eq section.sortData.category "item-quantity")}}
+                    {{#if (eq section.sortData.direction "descending")}}
+                        <i class="fa fa-chevron-up"></i>
+                    {{/if}}
+                    {{#if (eq section.sortData.direction "ascending")}}
+                        <i class="fa fa-chevron-down"></i>
+                    {{/if}}
+                {{/if}}
+            </span>
             {{#if (ne @root.actor.type "npc")}}
-                <span class="item-weight" data-type="{{section.type}}" data-sort="item-weight">{{localize "PF2E.BulkShortLabel"}}</span>
+                <span class="item-weight" data-type="{{section.type}}" data-sort-category="item-weight">
+                    {{localize "PF2E.BulkShortLabel"}}
+                    {{#if (eq section.sortData.category "item-weight")}}
+                        {{#if (eq section.sortData.direction "descending")}}
+                            <i class="fa fa-chevron-up"></i>
+                        {{/if}}
+                        {{#if (eq section.sortData.direction "ascending")}}
+                            <i class="fa fa-chevron-down"></i>
+                        {{/if}}
+                    {{/if}}
+                </span>
             {{/if}}
             {{#if @root.editable}}
                 <div class="item-controls">

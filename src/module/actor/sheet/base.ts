@@ -45,7 +45,7 @@ import { RemoveCoinsPopup } from "./popups/remove-coins-popup";
 import { CraftingFormula } from "@actor/character/crafting";
 import { UUIDUtils } from "@util/uuid-utils";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
-import { ItemSortCategory, ItemSortType } from "@actor/inventory/data";
+import { ItemSortCategory, ItemSortData, ItemSortDirection } from "@actor/inventory/data";
 import { PhysicalItemType } from "@item/physical";
 
 /**
@@ -132,13 +132,44 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     protected prepareInventory(): SheetInventory {
+        const inventorySorting = this.actor.inventory.inventorySorting;
         const sections: SheetInventory["sections"] = {
-            weapon: { label: game.i18n.localize("PF2E.InventoryWeaponsHeader"), type: "weapon", items: [] },
-            armor: { label: game.i18n.localize("PF2E.InventoryArmorHeader"), type: "armor", items: [] },
-            equipment: { label: game.i18n.localize("PF2E.InventoryEquipmentHeader"), type: "equipment", items: [] },
-            consumable: { label: game.i18n.localize("PF2E.InventoryConsumablesHeader"), type: "consumable", items: [] },
-            treasure: { label: game.i18n.localize("PF2E.InventoryTreasureHeader"), type: "treasure", items: [] },
-            backpack: { label: game.i18n.localize("PF2E.InventoryBackpackHeader"), type: "backpack", items: [] },
+            weapon: {
+                label: game.i18n.localize("PF2E.InventoryWeaponsHeader"),
+                type: "weapon",
+                items: [],
+                sortData: inventorySorting.weapon,
+            },
+            armor: {
+                label: game.i18n.localize("PF2E.InventoryArmorHeader"),
+                type: "armor",
+                items: [],
+                sortData: inventorySorting.armor,
+            },
+            equipment: {
+                label: game.i18n.localize("PF2E.InventoryEquipmentHeader"),
+                type: "equipment",
+                items: [],
+                sortData: inventorySorting.equipment,
+            },
+            consumable: {
+                label: game.i18n.localize("PF2E.InventoryConsumablesHeader"),
+                type: "consumable",
+                items: [],
+                sortData: inventorySorting.consumable,
+            },
+            treasure: {
+                label: game.i18n.localize("PF2E.InventoryTreasureHeader"),
+                type: "treasure",
+                items: [],
+                sortData: inventorySorting.treasure,
+            },
+            backpack: {
+                label: game.i18n.localize("PF2E.InventoryBackpackHeader"),
+                type: "backpack",
+                items: [],
+                sortData: inventorySorting.backpack,
+            },
         };
 
         const actorSize = new ActorSizePF2e({ value: this.actor.size });
@@ -1093,9 +1124,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const section = event.currentTarget as HTMLElement;
         const sectionDataset = duplicate(section.dataset);
 
-        const sortCategory: ItemSortCategory = sectionDataset.sort as ItemSortCategory;
+        const sortCategory: ItemSortCategory = sectionDataset.sortCategory as ItemSortCategory;
         const sectionItemType: PhysicalItemType = sectionDataset.type as PhysicalItemType;
-        const contents = this.actor.inventory.contents.filter((item) => item.type === sectionItemType);
+        const itemTypeSortData: ItemSortData = this.actor.inventory.inventorySorting[sectionItemType];
+        const contents = this.actor.inventory.contents.filter(
+            (item) => item.type === sectionItemType && !item.isInContainer
+        );
 
         switch (sortCategory) {
             case "item-name":
@@ -1114,12 +1148,13 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 break;
         }
 
-        const inventorySortingForType = this.actor.inventory.inventorySorting[sectionItemType];
-        if (inventorySortingForType === ItemSortType.Ascending) {
-            this.actor.inventory.inventorySorting[sectionItemType] = ItemSortType.Descending;
+        itemTypeSortData.category = sortCategory;
+
+        if (itemTypeSortData.direction === ItemSortDirection.Ascending) {
+            itemTypeSortData.direction = ItemSortDirection.Descending;
             contents.reverse();
         } else {
-            this.actor.inventory.inventorySorting[sectionItemType] = ItemSortType.Ascending;
+            itemTypeSortData.direction = ItemSortDirection.Ascending;
         }
 
         contents.forEach((content, i) => (content.sort = i));

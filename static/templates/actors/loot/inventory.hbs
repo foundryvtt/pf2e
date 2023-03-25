@@ -3,10 +3,50 @@
     <ol class="inventory-list directory-list inventory-pane item-container item-list" data-container-type="actorInventory">
         {{#each inventory.sections as |section|}}
             <li class="inventory-header">
-                <h3 class="item-name" data-category="{{section.type}}" data-type="item-name">{{section.label}}</h3>
-                <span class="item-sell-value" data-category="{{section.type}}" data-type="item-sell-value">{{localize "PF2E.UnitPriceLabel"}}</span>
-                <span class="item-quantity" data-category="{{section.type}}" data-type="item-quantity">{{localize "PF2E.QuantityLabel"}}</span>
-                <span class="item-weight" data-category="{{section.type}}" data-type="item-weight">{{localize "PF2E.BulkShortLabel"}}</span>
+                <h3 class="item-name" data-type="{{section.type}}" data-sort-category="item-name">
+                    {{section.label}}
+                    {{#if (eq section.sortData.category "item-name")}}
+                        {{#if (eq section.sortData.direction "descending")}}
+                            <i class="fa fa-chevron-down"></i>
+                        {{/if}}
+                        {{#if (eq section.sortData.direction "ascending")}}
+                            <i class="fa fa-chevron-up"></i>
+                        {{/if}}
+                    {{/if}}
+                </h3>
+                <span class="item-sell-value" data-type="{{section.type}}" data-sort-category="item-sell-value">
+                    {{localize "PF2E.UnitPriceLabel"}}
+                    {{#if (eq section.sortData.category "item-sell-value")}}
+                        {{#if (eq section.sortData.direction "descending")}}
+                            <i class="fa fa-chevron-up"></i>
+                        {{/if}}
+                        {{#if (eq section.sortData.direction "ascending")}}
+                            <i class="fa fa-chevron-down"></i>
+                        {{/if}}
+                    {{/if}}
+                </span>
+                <span class="item-quantity" data-type="{{section.type}}" data-sort-category="item-quantity">
+                    {{localize "PF2E.QuantityLabel"}}
+                    {{#if (eq section.sortData.category "item-quantity")}}
+                        {{#if (eq section.sortData.direction "descending")}}
+                            <i class="fa fa-chevron-up"></i>
+                        {{/if}}
+                        {{#if (eq section.sortData.direction "ascending")}}
+                            <i class="fa fa-chevron-down"></i>
+                        {{/if}}
+                    {{/if}}
+                </span>
+                <span class="item-weight" data-type="{{section.type}}" data-sort-category="item-weight">
+                    {{localize "PF2E.BulkShortLabel"}}
+                    {{#if (eq section.sortData.category "item-weight")}}
+                        {{#if (eq section.sortData.direction "descending")}}
+                            <i class="fa fa-chevron-up"></i>
+                        {{/if}}
+                        {{#if (eq section.sortData.direction "ascending")}}
+                            <i class="fa fa-chevron-down"></i>
+                        {{/if}}
+                    {{/if}}
+                </span>
                 {{#if @root.owner}}
                     <div class="item-controls">
                         <a class="item-control item-create" title="{{localize "PF2E.CreateItemTitle"}}" data-type="{{section.type}}"><i class="fa-solid fa-fw fa-plus"></i></a>

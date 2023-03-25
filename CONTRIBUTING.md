@@ -34,3 +34,5 @@ As new OGL content is released by Paizo, we would like to incorporate it as soon
 ### Prettier
 
 We have started to integrate Prettier into this project, but it is still early days. Please do not submit any merge requests with reformatted / auto-formatted code outside what you are actively contributing to. Unfortunately there is a lot of technical debt in this project, and we will be biting it off in small chunks.
+
+Before committing, you can run `npm run test` to ensure your code will pass test runs. You can also use `npm run lint:fix` to auto-resolve some issues.

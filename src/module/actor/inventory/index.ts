@@ -5,23 +5,23 @@ import { DENOMINATIONS } from "@item/physical/values";
 import { coinCompendiumIds, CoinsPF2e } from "@item/physical/helpers";
 import { ErrorPF2e, groupBy } from "@util";
 import { InventoryBulk } from "./bulk";
-import { ItemSortType } from "./data";
+import { ItemSortData, ItemSortDirection } from "./data";
 import { PhysicalItemType } from "@item/physical/types";
 
 class ActorInventory<TActor extends ActorPF2e> extends Collection<PhysicalItemPF2e<TActor>> {
     /** How the inventory is sorted */
-    inventorySorting: { [K in PhysicalItemType]: ItemSortType };
+    inventorySorting: { [K in PhysicalItemType]: ItemSortData };
 
     constructor(public readonly actor: TActor, entries?: PhysicalItemPF2e<TActor>[]) {
         super(entries?.map((entry) => [entry.id, entry]));
         this.inventorySorting = {
-            armor: ItemSortType.Unsorted,
-            backpack: ItemSortType.Unsorted,
-            book: ItemSortType.Unsorted,
-            consumable: ItemSortType.Unsorted,
-            equipment: ItemSortType.Unsorted,
-            treasure: ItemSortType.Unsorted,
-            weapon: ItemSortType.Unsorted,
+            armor: { direction: ItemSortDirection.Unsorted },
+            backpack: { direction: ItemSortDirection.Unsorted },
+            book: { direction: ItemSortDirection.Unsorted },
+            consumable: { direction: ItemSortDirection.Unsorted },
+            equipment: { direction: ItemSortDirection.Unsorted },
+            treasure: { direction: ItemSortDirection.Unsorted },
+            weapon: { direction: ItemSortDirection.Unsorted },
         };
     }
 

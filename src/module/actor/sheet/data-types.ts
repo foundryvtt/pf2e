@@ -6,6 +6,7 @@ import { Coins } from "@item/physical/data";
 import { PhysicalItemType } from "@item/physical/types";
 import { RollOptionToggle } from "@module/rules/synthetics";
 import { SheetOptions } from "@module/sheet/helpers";
+import { ItemSortData } from "@actor/inventory/data";
 
 export interface InventoryItem<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> {
     item: TItem;
@@ -30,6 +31,7 @@ export type CoinageSummary = { [K in keyof Coins]?: CoinDisplayData };
 interface SheetItemList {
     label: string;
     type: PhysicalItemType;
+    sortData: ItemSortData;
     items: InventoryItem[];
 }
 
