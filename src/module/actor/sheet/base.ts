@@ -45,6 +45,8 @@ import { RemoveCoinsPopup } from "./popups/remove-coins-popup";
 import { CraftingFormula } from "@actor/character/crafting";
 import { UUIDUtils } from "@util/uuid-utils";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
+import { ItemSortCategory, ItemSortType } from "@actor/inventory/data";
+import { PhysicalItemType } from "@item/physical";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -427,6 +429,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         /* -------------------------------------------- */
         /*  Inventory                                   */
         /* -------------------------------------------- */
+        // Make headers sortable
+        $html.find(".inventory-list .inventory-header h3.item-name").on("click", (event) => this.onClickSortInventory(event, ItemSortCategory.ItemName));        
+        $html.find(".inventory-list .inventory-header span.item-sell-value").on("click", (event) => this.onClickSortInventory(event, ItemSortCategory.ItemSellValue));        
+        $html.find(".inventory-list .inventory-header span.item-quantity").on("click", (event) => this.onClickSortInventory(event, ItemSortCategory.ItemQuantity));        
+        $html.find(".inventory-list .inventory-header span.item-weight").on("click", (event) => this.onClickSortInventory(event, ItemSortCategory.ItemWeight));  
 
         // Create New Item
         $html.find(".item-create").on("click", (event) => this.onClickCreateItem(event));
@@ -1080,6 +1087,49 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         const isCollapsed = item.system.collapsed ?? false;
         await item.update({ "system.collapsed": !isCollapsed });
+    }
+
+    /** Handle Sorting Inventory */
+    private onClickSortInventory(event: JQuery.ClickEvent, category: ItemSortCategory) {
+            const sectionType: PhysicalItemType = event.target.parentElement.dataset.type;
+            const contents = this.actor.inventory.contents.filter((item) => item.type === sectionType);              
+
+            switch(category){
+                case ItemSortCategory.ItemName:
+                    contents.sort((a,b)=>{
+                        if(a.name.capitalize() < b.name.capitalize()) return -1;
+                        else if (a.name.capitalize() > b.name.capitalize()) return 1;
+                        else return 0;
+                    });                 
+                break;
+                case ItemSortCategory.ItemSellValue:
+                    contents.sort((a,b)=> a.assetValue.copperValue - b.assetValue.copperValue);         
+                    contents.forEach((content, i) => {content.sort = i;})
+                break;
+                case ItemSortCategory.ItemQuantity:
+                    contents.sort((a,b)=> a.quantity - b.quantity);
+                    contents.forEach((content, i) => {content.sort = i;})
+                break;
+                case ItemSortCategory.ItemWeight:
+                    contents.sort((a,b)=> {
+                        if(a.bulk.isSmallerThan(b.bulk)) return -1;
+                        else if (a.bulk.isBiggerThan(b.bulk)) return 1;
+                        else return 0;
+                    });
+                break;
+            }
+            
+            let inventorySortingForType = this.actor.inventory.inventorySorting[sectionType];
+            if(inventorySortingForType === ItemSortType.Ascending) {
+                this.actor.inventory.inventorySorting[sectionType] = ItemSortType.Descending;
+                contents.reverse();
+            } else {
+                this.actor.inventory.inventorySorting[sectionType]  = ItemSortType.Ascending;
+            }
+
+            contents.forEach((content, i) => {content.sort = i;})
+
+            this.render();   
     }
 
     /** Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset */

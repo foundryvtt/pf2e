@@ -2,7 +2,7 @@
     {{> "systems/pf2e/templates/actors/partials/coinage.hbs" owner=owner}}
     <ol class="inventory-list directory-list inventory-pane item-container item-list" data-container-type="actorInventory">
         {{#each inventory.sections as |section|}}
-            <li class="inventory-header">
+            <li class="inventory-header" data-type="{{section.type}}">
                 <h3 class="item-name">{{section.label}}</h3>
                 <span class="item-sell-value">{{localize "PF2E.UnitPriceLabel"}}</span>
                 <span class="item-quantity">{{localize "PF2E.QuantityLabel"}}</span>

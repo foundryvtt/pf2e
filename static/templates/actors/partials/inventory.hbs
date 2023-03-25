@@ -1,6 +1,6 @@
 <section class="inventory-list directory-list inventory-pane">
     {{#each inventory.sections as |section|}}
-        <div class="inventory-header">
+        <div class="inventory-header" data-type="{{section.type}}">
             <h3 class="item-name">{{section.label}}</h3>
             {{#if (and (eq section.type "equipment") @root.inventory.invested)}}
                 <span class="item-invested-total{{#if (gt @root.inventory.invested.value @root.inventory.invested.max)}} overinvested{{/if}}">
