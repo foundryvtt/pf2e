@@ -1,12 +1,12 @@
 export enum ItemSortType {
     Ascending = "ASC",
     Descending = "DES",
-    Unsorted = ""
+    Unsorted = "",
 }
 
 export enum ItemSortCategory {
     ItemName = "ItemName",
     ItemSellValue = "ItemSellValue",
     ItemQuantity = "ItemQuantity",
-    ItemWeight = "ItemWeight"
+    ItemWeight = "ItemWeight",
 }

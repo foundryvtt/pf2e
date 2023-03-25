@@ -10,10 +10,10 @@ import { PhysicalItemType } from "@item/physical/types";
 
 class ActorInventory<TActor extends ActorPF2e> extends Collection<PhysicalItemPF2e<TActor>> {
     /** How the inventory is sorted */
-    inventorySorting: {[K in PhysicalItemType]:ItemSortType};
+    inventorySorting: { [K in PhysicalItemType]: ItemSortType };
 
-    constructor(public readonly actor: TActor, entries?: PhysicalItemPF2e<TActor>[]) {            
-        super(entries?.map((entry) => [entry.id, entry]));       
+    constructor(public readonly actor: TActor, entries?: PhysicalItemPF2e<TActor>[]) {
+        super(entries?.map((entry) => [entry.id, entry]));
         this.inventorySorting = {
             armor: ItemSortType.Unsorted,
             backpack: ItemSortType.Unsorted,
@@ -21,8 +21,8 @@ class ActorInventory<TActor extends ActorPF2e> extends Collection<PhysicalItemPF
             consumable: ItemSortType.Unsorted,
             equipment: ItemSortType.Unsorted,
             treasure: ItemSortType.Unsorted,
-            weapon: ItemSortType.Unsorted
-        } 
+            weapon: ItemSortType.Unsorted,
+        };
     }
 
     get coins(): CoinsPF2e {

@@ -430,10 +430,18 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         /*  Inventory                                   */
         /* -------------------------------------------- */
         // Make headers sortable
-        $html.find(".inventory-list .inventory-header h3.item-name").on("click", (event) => this.onClickSortInventory(event, ItemSortCategory.ItemName));        
-        $html.find(".inventory-list .inventory-header span.item-sell-value").on("click", (event) => this.onClickSortInventory(event, ItemSortCategory.ItemSellValue));        
-        $html.find(".inventory-list .inventory-header span.item-quantity").on("click", (event) => this.onClickSortInventory(event, ItemSortCategory.ItemQuantity));        
-        $html.find(".inventory-list .inventory-header span.item-weight").on("click", (event) => this.onClickSortInventory(event, ItemSortCategory.ItemWeight));  
+        $html
+            .find(".inventory-list .inventory-header h3.item-name")
+            .on("click", (event) => this.onClickSortInventory(event, ItemSortCategory.ItemName));
+        $html
+            .find(".inventory-list .inventory-header span.item-sell-value")
+            .on("click", (event) => this.onClickSortInventory(event, ItemSortCategory.ItemSellValue));
+        $html
+            .find(".inventory-list .inventory-header span.item-quantity")
+            .on("click", (event) => this.onClickSortInventory(event, ItemSortCategory.ItemQuantity));
+        $html
+            .find(".inventory-list .inventory-header span.item-weight")
+            .on("click", (event) => this.onClickSortInventory(event, ItemSortCategory.ItemWeight));
 
         // Create New Item
         $html.find(".item-create").on("click", (event) => this.onClickCreateItem(event));
@@ -1091,43 +1099,39 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     /** Handle Sorting Inventory */
     private onClickSortInventory(event: JQuery.ClickEvent, category: ItemSortCategory) {
-            const sectionType: PhysicalItemType = event.target.parentElement.dataset.type;
-            const contents = this.actor.inventory.contents.filter((item) => item.type === sectionType);              
+        const sectionType: PhysicalItemType = event.target.parentElement.dataset.type;
+        const contents = this.actor.inventory.contents.filter((item) => item.type === sectionType);
 
-            switch(category){
-                case ItemSortCategory.ItemName:
-                    contents.sort((a,b)=>{
-                        if(a.name.capitalize() < b.name.capitalize()) return -1;
-                        else if (a.name.capitalize() > b.name.capitalize()) return 1;
-                        else return 0;
-                    });                 
+        switch (category) {
+            case ItemSortCategory.ItemName:
+                contents.sort((a, b) =>
+                    a.name.capitalize() < b.name.capitalize() ? -1 : a.name.capitalize() > b.name.capitalize() ? 1 : 0
+                );
                 break;
-                case ItemSortCategory.ItemSellValue:
-                    contents.sort((a,b)=> a.assetValue.copperValue - b.assetValue.copperValue);         
+            case ItemSortCategory.ItemSellValue:
+                contents.sort((a, b) => a.assetValue.copperValue - b.assetValue.copperValue);
                 break;
-                case ItemSortCategory.ItemQuantity:
-                    contents.sort((a,b)=> a.quantity - b.quantity);
+            case ItemSortCategory.ItemQuantity:
+                contents.sort((a, b) => a.quantity - b.quantity);
                 break;
-                case ItemSortCategory.ItemWeight:
-                    contents.sort((a,b)=> {
-                        if(a.bulk.isSmallerThan(b.bulk)) return -1;
-                        else if (a.bulk.isBiggerThan(b.bulk)) return 1;
-                        else return 0;
-                    });
+            case ItemSortCategory.ItemWeight:
+                contents.sort((a, b) => (a.bulk.isSmallerThan(b.bulk) ? -1 : a.bulk.isBiggerThan(b.bulk) ? 1 : 0));
                 break;
-            }
-            
-            let inventorySortingForType = this.actor.inventory.inventorySorting[sectionType];
-            if(inventorySortingForType === ItemSortType.Ascending) {
-                this.actor.inventory.inventorySorting[sectionType] = ItemSortType.Descending;
-                contents.reverse();
-            } else {
-                this.actor.inventory.inventorySorting[sectionType]  = ItemSortType.Ascending;
-            }
+        }
 
-            contents.forEach((content, i) => {content.sort = i;})
+        const inventorySortingForType = this.actor.inventory.inventorySorting[sectionType];
+        if (inventorySortingForType === ItemSortType.Ascending) {
+            this.actor.inventory.inventorySorting[sectionType] = ItemSortType.Descending;
+            contents.reverse();
+        } else {
+            this.actor.inventory.inventorySorting[sectionType] = ItemSortType.Ascending;
+        }
 
-            this.render();   
+        contents.forEach((content, i) => {
+            content.sort = i;
+        });
+
+        this.render();
     }
 
     /** Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset */
