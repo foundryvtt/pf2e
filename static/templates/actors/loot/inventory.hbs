@@ -2,11 +2,11 @@
     {{> "systems/pf2e/templates/actors/partials/coinage.hbs" owner=owner}}
     <ol class="inventory-list directory-list inventory-pane item-container item-list" data-container-type="actorInventory">
         {{#each inventory.sections as |section|}}
-            <li class="inventory-header" data-type="{{section.type}}">
-                <h3 class="item-name">{{section.label}}</h3>
-                <span class="item-sell-value">{{localize "PF2E.UnitPriceLabel"}}</span>
-                <span class="item-quantity">{{localize "PF2E.QuantityLabel"}}</span>
-                <span class="item-weight">{{localize "PF2E.BulkShortLabel"}}</span>
+            <li class="inventory-header">
+                <h3 class="item-name" data-category="{{section.type}}" data-type="item-name">{{section.label}}</h3>
+                <span class="item-sell-value" data-category="{{section.type}}" data-type="item-sell-value">{{localize "PF2E.UnitPriceLabel"}}</span>
+                <span class="item-quantity" data-category="{{section.type}}" data-type="item-quantity">{{localize "PF2E.QuantityLabel"}}</span>
+                <span class="item-weight" data-category="{{section.type}}" data-type="item-weight">{{localize "PF2E.BulkShortLabel"}}</span>
                 {{#if @root.owner}}
                     <div class="item-controls">
                         <a class="item-control item-create" title="{{localize "PF2E.CreateItemTitle"}}" data-type="{{section.type}}"><i class="fa-solid fa-fw fa-plus"></i></a>

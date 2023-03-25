@@ -5,8 +5,8 @@ export enum ItemSortType {
 }
 
 export enum ItemSortCategory {
-    ItemName = "ItemName",
-    ItemSellValue = "ItemSellValue",
-    ItemQuantity = "ItemQuantity",
-    ItemWeight = "ItemWeight",
+    ItemName = "item-name",
+    ItemSellValue = "item-sell-value",
+    ItemQuantity = "item-quantity",
+    ItemWeight = "item-weight",
 }

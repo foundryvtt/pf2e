@@ -1,18 +1,18 @@
 <section class="inventory-list directory-list inventory-pane">
     {{#each inventory.sections as |section|}}
-        <div class="inventory-header" data-type="{{section.type}}">
-            <h3 class="item-name">{{section.label}}</h3>
+        <div class="inventory-header" >
+            <h3 class="item-name" data-type="{{section.type}}" data-sort="item-name">{{section.label}}</h3>
             {{#if (and (eq section.type "equipment") @root.inventory.invested)}}
                 <span class="item-invested-total{{#if (gt @root.inventory.invested.value @root.inventory.invested.max)}} overinvested{{/if}}">
                     {{localize "PF2E.InvestedLabel"}} ({{@root.inventory.invested.value}}/{{@root.inventory.invested.max}})
                 </span>
             {{/if}}
             {{#if (or @root.inventory.showValueAlways (eq section.type "treasure"))}}
-                <span class="item-sell-value">{{localize "PF2E.ValueLabel"}}</span>
+                <span class="item-sell-value" data-type="{{section.type}}" data-sort="item-sell-value">{{localize "PF2E.ValueLabel"}}</span>
             {{/if}}
-            <span class="item-quantity">{{localize "PF2E.QuantityLabel"}}</span>
+            <span class="item-quantity" data-type="{{section.type}}" data-sort="item-quantity">{{localize "PF2E.QuantityLabel"}}</span>
             {{#if (ne @root.actor.type "npc")}}
-                <span class="item-weight">{{localize "PF2E.BulkShortLabel"}}</span>
+                <span class="item-weight" data-type="{{section.type}}" data-sort="item-weight">{{localize "PF2E.BulkShortLabel"}}</span>
             {{/if}}
             {{#if @root.editable}}
                 <div class="item-controls">

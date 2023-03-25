@@ -430,18 +430,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         /*  Inventory                                   */
         /* -------------------------------------------- */
         // Make headers sortable
-        $html
-            .find(".inventory-list .inventory-header h3.item-name")
-            .on("click", (event) => this.onClickSortInventory(event, ItemSortCategory.ItemName));
-        $html
-            .find(".inventory-list .inventory-header span.item-sell-value")
-            .on("click", (event) => this.onClickSortInventory(event, ItemSortCategory.ItemSellValue));
-        $html
-            .find(".inventory-list .inventory-header span.item-quantity")
-            .on("click", (event) => this.onClickSortInventory(event, ItemSortCategory.ItemQuantity));
-        $html
-            .find(".inventory-list .inventory-header span.item-weight")
-            .on("click", (event) => this.onClickSortInventory(event, ItemSortCategory.ItemWeight));
+        for (const inventoryHeader of htmlQueryAll(html, ".inventory-list .inventory-header :is(span, h3)")) {
+            inventoryHeader.addEventListener("click", (event) => this.onClickSortInventory(event));
+        }
 
         // Create New Item
         $html.find(".item-create").on("click", (event) => this.onClickCreateItem(event));
@@ -1098,38 +1089,40 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     /** Handle Sorting Inventory */
-    private onClickSortInventory(event: JQuery.ClickEvent, category: ItemSortCategory) {
-        const sectionType: PhysicalItemType = event.target.parentElement.dataset.type;
-        const contents = this.actor.inventory.contents.filter((item) => item.type === sectionType);
+    private onClickSortInventory(event: MouseEvent) {
+        const section = event.currentTarget as HTMLElement;
+        const sectionDataset = duplicate(section.dataset);
 
-        switch (category) {
-            case ItemSortCategory.ItemName:
+        const sortCategory: ItemSortCategory = sectionDataset.sort as ItemSortCategory;
+        const sectionItemType: PhysicalItemType = sectionDataset.type as PhysicalItemType;
+        const contents = this.actor.inventory.contents.filter((item) => item.type === sectionItemType);
+
+        switch (sortCategory) {
+            case "item-name":
                 contents.sort((a, b) =>
                     a.name.capitalize() < b.name.capitalize() ? -1 : a.name.capitalize() > b.name.capitalize() ? 1 : 0
                 );
                 break;
-            case ItemSortCategory.ItemSellValue:
+            case "item-sell-value":
                 contents.sort((a, b) => a.assetValue.copperValue - b.assetValue.copperValue);
                 break;
-            case ItemSortCategory.ItemQuantity:
+            case "item-quantity":
                 contents.sort((a, b) => a.quantity - b.quantity);
                 break;
-            case ItemSortCategory.ItemWeight:
+            case "item-weight":
                 contents.sort((a, b) => (a.bulk.isSmallerThan(b.bulk) ? -1 : a.bulk.isBiggerThan(b.bulk) ? 1 : 0));
                 break;
         }
 
-        const inventorySortingForType = this.actor.inventory.inventorySorting[sectionType];
+        const inventorySortingForType = this.actor.inventory.inventorySorting[sectionItemType];
         if (inventorySortingForType === ItemSortType.Ascending) {
-            this.actor.inventory.inventorySorting[sectionType] = ItemSortType.Descending;
+            this.actor.inventory.inventorySorting[sectionItemType] = ItemSortType.Descending;
             contents.reverse();
         } else {
-            this.actor.inventory.inventorySorting[sectionType] = ItemSortType.Ascending;
+            this.actor.inventory.inventorySorting[sectionItemType] = ItemSortType.Ascending;
         }
 
-        contents.forEach((content, i) => {
-            content.sort = i;
-        });
+        contents.forEach((content, i) => (content.sort = i));
 
         this.render();
     }
