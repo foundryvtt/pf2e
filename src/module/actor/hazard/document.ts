@@ -132,7 +132,7 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
         }, {});
     }
 
-    protected prepareInitiative() {
+    protected prepareInitiative(): void {
         if (!this.isComplex) return;
 
         const skillName = game.i18n.localize(CONFIG.PF2E.skillList.stealth);
