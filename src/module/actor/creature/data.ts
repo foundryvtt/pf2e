@@ -7,14 +7,12 @@ import {
     ActorTraitsData,
     ActorTraitsSource,
     HitPointsData,
-    InitiativeData,
     Rollable,
     StrikeData,
-    InitiativeRollResult,
-    InitiativeRollParams,
     RollFunction,
+    InitiativeData,
 } from "@actor/data/base";
-import { CheckModifier, DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers";
+import { DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers";
 import { AbilityString, ActorAlliance, SaveType, SkillAbbreviation, SkillLongForm } from "@actor/types";
 import type { CREATURE_ACTOR_TYPES } from "@actor/values";
 import { LabeledNumber, Size, ValueAndMax, ValuesList, ZeroToThree } from "@module/data";
@@ -147,7 +145,7 @@ interface CreatureAttributes extends ActorAttributes {
     ac: { value: number };
     hardness?: { value: number };
     perception: CreaturePerception;
-    initiative?: CreatureInitiative;
+    initiative?: CreatureInitiativeData;
 
     /** The creature's natural reach */
     reach: {
@@ -198,9 +196,14 @@ interface CreatureHitPoints extends HitPointsData {
     negativeHealing: boolean;
 }
 
-interface CreatureInitiative extends Omit<InitiativeData, "totalModifier">, CheckModifier {
-    ability: SkillAbbreviation | "perception";
-    roll: (parameters: InitiativeRollParams) => Promise<InitiativeRollResult | null>;
+/** Creature initiative statistic */
+interface CreatureInitiativeSource {
+    /** What skill or ability is currently being used to compute initiative. */
+    statistic: SkillLongForm | "perception";
+}
+
+interface CreatureInitiativeData extends InitiativeData {
+    statistic: SkillLongForm | "perception";
 }
 
 interface CreatureResources extends CreatureResourcesSource {
@@ -253,7 +256,8 @@ export {
     CreatureAttributes,
     CreatureDetails,
     CreatureHitPoints,
-    CreatureInitiative,
+    CreatureInitiativeSource,
+    CreatureInitiativeData,
     CreatureResources,
     CreatureResourcesSource,
     CreatureSaves,
@@ -265,8 +269,6 @@ export {
     CreatureTraitsSource,
     CreatureType,
     HeldShieldData,
-    InitiativeRollParams,
-    InitiativeRollResult,
     LabeledSpeed,
     Language,
     MovementType,

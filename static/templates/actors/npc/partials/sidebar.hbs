@@ -89,11 +89,11 @@
         </div>
     </div>
     <div class="side-bar-section-content">
-        <select name="system.attributes.initiative.ability">
-            {{#select data.attributes.initiative.ability}}
+        <select name="system.attributes.initiative.statistic">
+            {{#select data.attributes.initiative.statistic}}
                 <option value="perception">{{localize "PF2E.PerceptionLabel"}}</option>
-                {{#each data.sortedSkills as |skill key|}}
-                    <option value="{{key}}">{{skill.label}}</option>
+                {{#each data.sortedSkills as |skill|}}
+                    <option value="{{skill.slug}}">{{skill.label}}</option>
                 {{/each}}
             {{/select}}
         </select>

@@ -266,8 +266,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         const rollInitElem = htmlQuery(html, ".roll-init");
         rollInitElem?.addEventListener("click", (): void => {
-            const { attributes } = this.actor.system;
-            if (!rollInitElem.classList.contains("disabled") && attributes.initiative?.roll) {
+            if (!rollInitElem.classList.contains("disabled") && this.actor.initiative) {
                 if (!game.combat) return;
                 const { actor } = this;
                 const combatant = ((): CombatantPF2e<EncounterPF2e> | null => {

@@ -105,9 +105,7 @@ class CombatantPF2e<
         if (!actor) return "1d20";
         let bonus = 0;
 
-        if (actor.isOfType("hazard")) {
-            bonus = actor.attributes.stealth.value ?? 0;
-        } else if (typeof actor.attributes.initiative?.totalModifier === "number") {
+        if (typeof actor.attributes.initiative?.totalModifier === "number") {
             bonus = actor.attributes.initiative.totalModifier;
         } else if (actor.attributes.perception) {
             bonus = actor.attributes.perception.value;

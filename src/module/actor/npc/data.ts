@@ -5,7 +5,8 @@ import {
     CreatureAttributes,
     CreatureDetails,
     CreatureHitPoints,
-    CreatureInitiative,
+    CreatureInitiativeSource,
+    CreatureInitiativeData,
     CreatureResources,
     CreatureResourcesSource,
     CreatureSpeeds,
@@ -16,7 +17,6 @@ import {
     HeldShieldData,
     LabeledSpeed,
     SaveData,
-    SkillAbbreviation,
     SkillData,
 } from "@actor/creature/data";
 import { ActorAttributesSource, ActorFlagsPF2e, ArmorClassData, PerceptionData, StrikeData } from "@actor/data/base";
@@ -72,9 +72,7 @@ interface NPCAttributesSource extends Required<ActorAttributesSource> {
         temp: number;
         details: string;
     };
-    initiative: {
-        ability: SkillAbbreviation | "perception";
-    };
+    initiative: CreatureInitiativeSource;
     perception: {
         value: number;
     };
@@ -162,7 +160,7 @@ interface NPCAttributes
     hp: NPCHitPoints;
     perception: NPCPerception;
 
-    initiative: CreatureInitiative;
+    initiative: CreatureInitiativeData;
 
     speed: NPCSpeeds;
     /**

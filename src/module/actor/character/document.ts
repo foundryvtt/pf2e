@@ -5,6 +5,7 @@ import { ALLIANCES } from "@actor/creature/values";
 import { StrikeData } from "@actor/data/base";
 import { ActorSizePF2e } from "@actor/data/size";
 import { calculateMAPs } from "@actor/helpers";
+import { ActorInitiative } from "@actor/initiative";
 import {
     CheckModifier,
     MODIFIER_TYPE,
@@ -123,6 +124,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     classDC!: Statistic | null;
     /** All class DCs regardless of whether or not its the primary */
     classDCs!: Record<string, Statistic>;
+
+    override initiative!: ActorInitiative;
 
     // Internal cached value of character skills
     protected override _skills: CharacterSkills | null = null;

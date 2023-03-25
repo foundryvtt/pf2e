@@ -1,5 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { strikeFromMeleeItem } from "@actor/helpers";
+import { ActorInitiative } from "@actor/initiative";
 import { MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "@actor/modifiers";
 import { SaveType } from "@actor/types";
 import { SAVE_TYPES } from "@actor/values";
@@ -57,7 +58,6 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
         super.prepareBaseData();
 
         const { attributes, details } = this.system;
-        attributes.initiative = { tiebreakPriority: this.hasPlayerOwner ? 2 : 1 };
         attributes.hp.negativeHealing = false;
         attributes.hp.brokenThreshold = Math.floor(attributes.hp.max / 2);
         attributes.hasHealth = attributes.hp.max > 0;
@@ -70,6 +70,7 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
         const { system } = this;
 
         this.prepareSynthetics();
+        this.prepareInitiative();
 
         // Armor Class
         {
@@ -129,6 +130,27 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
             saves[saveType] = stat;
             return saves;
         }, {});
+    }
+
+    protected prepareInitiative(): void {
+        if (!this.isComplex) return;
+
+        const skillName = game.i18n.localize(CONFIG.PF2E.skillList.stealth);
+        const label = game.i18n.format("PF2E.InitiativeWithSkill", { skillName });
+        const baseMod = this.system.attributes.stealth.value || 0;
+        const statistic = new Statistic(this, {
+            slug: "initiative",
+            label,
+            domains: ["initiative"],
+            check: {
+                type: "initiative",
+                modifiers: [new ModifierPF2e("PF2E.ModifierTitle", baseMod, MODIFIER_TYPE.UNTYPED)],
+            },
+        });
+
+        this.initiative = new ActorInitiative(this, statistic);
+        const tiebreakPriority: 1 | 2 = this.hasPlayerOwner ? 2 : 1;
+        this.system.attributes.initiative = mergeObject({ tiebreakPriority }, statistic.getTraceData());
     }
 }
 
