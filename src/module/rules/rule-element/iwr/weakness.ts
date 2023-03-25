@@ -34,7 +34,7 @@ class WeaknessRuleElement extends IWRRuleElement<WeaknessRuleSchema> {
             if (current) {
                 if (this.override) {
                     weaknesses.splice(weaknesses.indexOf(current), 1);
-                } else {
+                } else if (this.mode !== "remove") {
                     current.value = Math.max(current.value, value);
                     current.source = this.label;
                     this.type.splice(this.type.indexOf(weaknessType), 1);

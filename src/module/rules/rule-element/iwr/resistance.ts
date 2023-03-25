@@ -42,7 +42,7 @@ class ResistanceRuleElement extends IWRRuleElement<ResistanceRuleSchema> {
             if (current) {
                 if (this.override) {
                     resistances.splice(resistances.indexOf(current), 1);
-                } else {
+                } else if (this.mode !== "remove") {
                     current.value = Math.max(current.value, value);
                     current.source = this.label;
                     this.type.splice(this.type.indexOf(resistanceType), 1);
