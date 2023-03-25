@@ -3,9 +3,8 @@ import { ItemPF2e } from "@item";
 import { ConditionSource, EffectSource } from "@item/data";
 import { UUIDUtils } from "@util/uuid-utils";
 import { ArrayField, BooleanField, ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
-import { RuleElementPF2e } from "./base";
-import { RuleElementSchema } from "./data";
-import { ItemAlterationField, WithItemAlterations } from "./mixins";
+import { RuleElementPF2e, RuleElementSchema } from "./";
+import { ItemAlterationField, applyAlterations } from "./alter-item";
 
 const { fields } = foundry.data;
 
@@ -79,7 +78,12 @@ class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> 
                 source.name = `${source.name} (${label})`;
             }
 
-            this.applyAlterations(source);
+            try {
+                applyAlterations(source, this.alterations);
+            } catch (error) {
+                if (error instanceof Error) this.failValidation(error.message);
+                return null;
+            }
 
             return source;
         };
@@ -88,11 +92,7 @@ class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> 
 
 interface EphemeralEffectRuleElement
     extends RuleElementPF2e<EphemeralEffectSchema>,
-        ModelPropsFromSchema<EphemeralEffectSchema>,
-        WithItemAlterations<EphemeralEffectSchema> {}
-
-// Apply mixin
-WithItemAlterations.mixIn(EphemeralEffectRuleElement);
+        ModelPropsFromSchema<EphemeralEffectSchema> {}
 
 type EphemeralEffectSchema = RuleElementSchema & {
     affects: StringField<"target" | "origin", "target" | "origin", true, false, true>;
