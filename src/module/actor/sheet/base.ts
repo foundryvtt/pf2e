@@ -1104,11 +1104,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 break;
                 case ItemSortCategory.ItemSellValue:
                     contents.sort((a,b)=> a.assetValue.copperValue - b.assetValue.copperValue);         
-                    contents.forEach((content, i) => {content.sort = i;})
                 break;
                 case ItemSortCategory.ItemQuantity:
                     contents.sort((a,b)=> a.quantity - b.quantity);
-                    contents.forEach((content, i) => {content.sort = i;})
                 break;
                 case ItemSortCategory.ItemWeight:
                     contents.sort((a,b)=> {
