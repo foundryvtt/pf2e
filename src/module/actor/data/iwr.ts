@@ -46,48 +46,39 @@ abstract class IWRData<TType extends IWRType> {
         }
 
         switch (iwrType) {
-            case "all-damage":
-                return ["damage"];
-            case "magical":
-                return ["item:magical"];
-            case "non-magical":
-                return [{ not: "item:magical" }];
-            case "critical-hits":
-                return ["damage:component:critical"];
-            case "area-damage":
-                return ["area-damage"];
-            case "ghost-touch":
-                return ["item:rune:property:ghost-touch"];
-            case "unarmed-attacks":
-                return ["item:category:unarmed"];
-            case "mental":
-                return [{ or: ["damage:type:mental", { and: ["item:type:effect", "item:trait:mental"] }] }];
-            case "emotion":
-                return ["item:type:effect", "item:trait:emotion"];
-            case "fear-effects":
-                return ["item:type:effect", "item:trait:fear"];
-            case "damage-from-spells":
-                return ["damage", "item:type:spell"];
-            case "auditory":
-                return ["item:trait:auditory"];
-            case "visual":
-                return ["item:trait:visual"];
-            case "axe-vulnerability":
-                return ["item:group:axe"];
-            case "arrow-vulnerability":
-                return ["item:group:bow", { not: "item:tag:crossbow" }];
-            case "physical":
-            case "energy":
-                return [`damage:category:${iwrType}`];
-            case "precision":
-            case "splash-damage": {
-                const component = iwrType === "splash-damage" ? "splash" : "precision";
-                return [`damage:component:${component}`];
-            }
             case "air":
             case "earth":
             case "water":
                 return [`item:trait:${iwrType}`];
+            case "all-damage":
+                return ["damage"];
+            case "area-damage":
+                return ["area-damage"];
+            case "arrow-vulnerability":
+                return ["item:group:bow", { not: "item:tag:crossbow" }];
+            case "auditory":
+                return ["item:trait:auditory"];
+            case "axe-vulnerability":
+                return ["item:group:axe"];
+            case "critical-hits":
+                return ["damage:component:critical"];
+            case "damage-from-spells":
+                return ["damage", "item:type:spell"];
+            case "emotion":
+                return ["item:type:effect", "item:trait:emotion"];
+            case "energy":
+            case "physical":
+                return [`damage:category:${iwrType}`];
+            case "fear-effects":
+                return ["item:type:effect", "item:trait:fear"];
+            case "ghost-touch":
+                return ["item:rune:property:ghost-touch"];
+            case "magical":
+                return ["item:magical"];
+            case "mental":
+                return [{ or: ["damage:type:mental", { and: ["item:type:effect", "item:trait:mental"] }] }];
+            case "non-magical":
+                return [{ not: "item:magical" }];
             case "object-immunities":
                 return [
                     {
@@ -113,6 +104,15 @@ abstract class IWRData<TType extends IWRType> {
                         ],
                     },
                 ];
+            case "precision":
+            case "splash-damage": {
+                const component = iwrType === "splash-damage" ? "splash" : "precision";
+                return [`damage:component:${component}`];
+            }
+            case "visual":
+                return ["item:trait:visual"];
+            case "unarmed-attacks":
+                return ["item:category:unarmed"];
             default: {
                 if (iwrType in CONFIG.PF2E.damageTypes) {
                     return [`damage:type:${iwrType}`];
