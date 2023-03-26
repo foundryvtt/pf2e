@@ -17,6 +17,7 @@ import { RenderJournalTextPageSheet } from "./render-journal-text-page-sheet";
 import { RenderSettings } from "./render-settings";
 import { RenderTokenHUD } from "./render-token-hud";
 import { Setup } from "./setup";
+import { TargetToken } from "./target-token";
 import { UpdateWorldTime } from "./update-world-time";
 
 export const HooksPF2e = {
@@ -41,6 +42,7 @@ export const HooksPF2e = {
             RenderSettings,
             RenderTokenHUD,
             Setup,
+            TargetToken,
             UpdateWorldTime,
         ];
         for (const Listener of listeners) {

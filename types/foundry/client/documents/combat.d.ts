@@ -44,7 +44,7 @@ declare global {
         get round(): number;
 
         /** A reference to the Scene document within which this Combat encounter occurs */
-        get scene(): NonNullable<CollectionValue<this["combatants"]>["actor"]>["parent"];
+        get scene(): NonNullable<NonNullable<CollectionValue<this["combatants"]>["actor"]>["parent"]>["parent"];
 
         /** Return the object of settings which modify the Combat Tracker behavior */
         get settings(): Record<string, unknown>;
