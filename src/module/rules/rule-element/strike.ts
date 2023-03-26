@@ -35,6 +35,8 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
     constructor(source: StrikeSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
+        source.img ??= item.img;
+
         super(source, item, options);
 
         // Force a label of "Fist" if the `fist` shorthand is being used
