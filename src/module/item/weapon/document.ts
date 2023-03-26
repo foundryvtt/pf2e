@@ -115,6 +115,13 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         return this.isRanged && this.reload === "-";
     }
 
+    get isOversized(): boolean {
+        return (
+            this.category !== "unarmed" &&
+            !!this.parent?.system.traits?.size.isSmallerThan(this.size, { smallIsMedium: true })
+        );
+    }
+
     /** This weapon's damage before modification by creature abilities, effects, etc. */
     get baseDamage(): WeaponDamage {
         return deepClone(this.system.damage);
@@ -155,8 +162,6 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             },
         };
         const { actor } = this;
-        const actorSize = actor?.system.traits?.size;
-        const oversized = this.category !== "unarmed" && !!actorSize?.isSmallerThan(this.size, { smallIsMedium: true });
         const isDeityFavored = !!(
             this.baseType &&
             actor?.isOfType("character") &&
@@ -217,7 +222,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 [`damage-dice:${damage.dice.number}`]: !!damage.dice.faces,
                 [`damage:persistent:${persistent?.type}`]: !!persistent,
                 "deity-favored": isDeityFavored,
-                oversized,
+                oversized: this.isOversized,
                 melee: this.isMelee,
                 ranged: this.isRanged,
                 thrown: this.isThrown,

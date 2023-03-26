@@ -397,10 +397,10 @@ abstract class CreaturePF2e<
         attributes.doomed.max = attributes.dying.max;
 
         // Set dying, doomed, and wounded statuses according to embedded conditions
-        for (const conditionName of ["doomed", "wounded", "dying"] as const) {
-            const condition = this.itemTypes.condition.find((condition) => condition.slug === conditionName);
-            const status = attributes[conditionName];
-            if (conditionName === "dying") {
+        for (const conditionSlug of ["doomed", "wounded", "dying"] as const) {
+            const condition = this.conditions.bySlug(conditionSlug, { active: true }).at(0);
+            const status = attributes[conditionSlug];
+            if (conditionSlug === "dying") {
                 status.max -= attributes.doomed.value;
             }
             status.value = Math.min(condition?.value ?? 0, status.max);

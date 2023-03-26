@@ -76,7 +76,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             return TextEditor.enrichHTML(content, { rollData, async: true });
         };
         const actorRollData = this.actor.getRollData();
-        const conditions = game.pf2e.ConditionManager.getFlattenedConditions(actor.itemTypes.condition);
+        const conditions = game.pf2e.ConditionManager.getFlattenedConditions(actor);
         for (const condition of conditions) {
             const item = this.actor.items.get(condition.id);
             if (item) {

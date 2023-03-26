@@ -62,7 +62,9 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TAct
 
     override activateListeners($html: JQuery<HTMLElement>): void {
         super.activateListeners($html);
-        this.itemRenderer.activateListeners($html);
+        const html = $html[0];
+
+        this.itemRenderer.activateListeners(html);
 
         // Update an embedded item
         $html.find(".item-edit").on("click", (event) => {
