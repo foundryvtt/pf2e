@@ -139,7 +139,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
         }
 
         for (const tracker of htmlQueryAll(document, "#combat, #combat-popout")) {
-            const combatantRow = htmlQuery(tracker, `li.combatant[data-combatant-id=${combatant?.id ?? null}]`);
+            const combatantRow = htmlQuery(tracker, `li.combatant[data-combatant-id="${combatant?.id ?? null}"]`);
             if (!combatantRow) return;
 
             const usersTargetting = game.users.filter((u) =>
