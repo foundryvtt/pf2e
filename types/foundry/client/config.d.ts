@@ -263,6 +263,7 @@ declare global {
             };
             exploredColor: number;
             unexploredColor: number;
+            globalLightConfig: DeepPartial<foundry.data.LightSource>;
             groups: {
                 hidden: {
                     groupClass: ConstructorOf<PIXI.Container>;
