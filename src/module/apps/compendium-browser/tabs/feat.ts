@@ -31,7 +31,6 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
             "system.actionType.value",
             "system.actions.value",
             "system.category",
-            "system.featType.value",
             "system.level.value",
             "system.traits",
             "system.source.value",
@@ -57,10 +56,13 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
             for (const featData of index) {
                 if (featData.type === "feat") {
                     featData.filters = {};
-                    // Skip check for "system.featType.value", which is retrieve for unmigrated feats in non-system
-                    // compendiums.
-                    const nonLegacyFields = indexFields.filter((f) => f !== "system.featType.value");
-                    if (!this.hasAllIndexFields(featData, nonLegacyFields)) {
+                    // Check separately for one of "system.category or "system.featType.value" to provide backward
+                    // compatible support for unmigrated feats in non-system compendiums.
+                    const nonCategoryPaths = indexFields.filter((f) => f !== "system.category");
+                    const categoryPaths = ["system.category", "system.featType.value"];
+                    const categoryPathFound = categoryPaths.some((p) => foundry.utils.hasProperty(featData, p));
+
+                    if (!this.hasAllIndexFields(featData, nonCategoryPaths) || !categoryPathFound) {
                         console.warn(
                             `Feat "${featData.name}" does not have all required data fields.`,
                             `Consider unselecting pack "${pack.metadata.label}" in the compendium browser settings.`
@@ -72,6 +74,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                     const featType: unknown = featData.system.featType;
                     if (isObject(featType) && "value" in featType && typeof featType.value === "string") {
                         featData.system.category = featType.value;
+                        delete featData.system.featType;
                     }
 
                     // Prerequisites are strings that could contain translated skill names
@@ -134,7 +137,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
         if (!(entry.level >= sliders.level.values.min && entry.level <= sliders.level.values.max)) return false;
         // Feat types
         if (checkboxes.category.selected.length) {
-            if (!checkboxes.category.selected.includes(entry.featType)) return false;
+            if (!checkboxes.category.selected.includes(entry.category)) return false;
         }
         // Skills
         if (checkboxes.skills.selected.length) {
