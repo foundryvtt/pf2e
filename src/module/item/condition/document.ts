@@ -200,7 +200,8 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         if (this.active) {
             this.actor?.conditions.set(this.slug, this);
             if (this.system.persistent) {
-                this.actor.rollOptions.all[`self:${this.type}:persistent-damage:${this.system.persistent.damageType}`] = true;
+                this.actor.rollOptions.all[`self:${this.type}:persistent-damage:${this.system.persistent.damageType}`] =
+                    true;
             }
         }
     }
