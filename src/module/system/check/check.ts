@@ -634,14 +634,16 @@ class CheckPF2e {
             if (!adjustedNode) throw ErrorPF2e("Unexpected error processing roll template");
             adjustedNode.dataset.circumstances = JSON.stringify(adjustment.circumstances);
         }
+
+        const dosSlug = sluggify(DEGREE_OF_SUCCESS_STRINGS[degree.value]);
         convertXMLNode(html, "unadjusted", {
             visible: resultData.visible,
-            classes: degree.adjustment ? ["unadjusted"] : [DEGREE_OF_SUCCESS_STRINGS[degree.value]],
+            classes: degree.adjustment ? ["label", "unadjusted"] : ["label", dosSlug],
         });
         if (degree.adjustment) {
             const adjustedNode = convertXMLNode(html, "adjusted", {
                 visible: resultData.visible,
-                classes: [DEGREE_OF_SUCCESS_STRINGS[degree.value], "adjusted"],
+                classes: ["label", dosSlug, "adjusted"],
             });
             if (!adjustedNode) throw ErrorPF2e("Unexpected error processing roll template");
             adjustedNode.dataset.adjustment = game.i18n.localize(degree.adjustment.label);
