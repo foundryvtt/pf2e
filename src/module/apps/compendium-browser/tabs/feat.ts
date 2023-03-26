@@ -57,9 +57,13 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
             for (const featData of index) {
                 if (featData.type === "feat") {
                     featData.filters = {};
-                    if (!this.hasAllIndexFields(featData, indexFields)) {
+                    // Skip check for "system.featType.value", which is retrieve for unmigrated feats in non-system
+                    // compendiums.
+                    const nonLegacyFields = indexFields.filter((f) => f !== "system.featType.value");
+                    if (!this.hasAllIndexFields(featData, nonLegacyFields)) {
                         console.warn(
-                            `Feat '${featData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`
+                            `Feat "${featData.name}" does not have all required data fields.`,
+                            `Consider unselecting pack "${pack.metadata.label}" in the compendium browser settings.`
                         );
                         continue;
                     }
