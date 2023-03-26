@@ -1,8 +1,9 @@
 import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { SingleCheckAction } from "@actor/actions";
 
 const PREFIX = "PF2E.Actions.Hide";
 
-export function hide(options: SkillActionOptions) {
+function hide(options: SkillActionOptions) {
     const slug = options?.skill ?? "stealth";
     const rollOptions = ["action:hide"];
     const modifiers = options?.modifiers;
@@ -21,3 +22,17 @@ export function hide(options: SkillActionOptions) {
         ],
     });
 }
+
+const action = new SingleCheckAction({
+    cost: 1,
+    description: `${PREFIX}.Description`,
+    difficultyClass: "perception",
+    name: `${PREFIX}.Title`,
+    notes: [{ outcome: ["success", "criticalSuccess"], text: `${PREFIX}.Notes.success` }],
+    rollOptions: ["action:hide"],
+    slug: "hide",
+    statistic: "stealth",
+    traits: ["secret"],
+});
+
+export { hide as legacy, action };

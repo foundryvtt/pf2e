@@ -24,18 +24,24 @@ import {
     treatWounds,
 } from "@scripts/macros";
 import { remigrate } from "@scripts/system/remigrate";
-import { ActionMacros } from "@system/action-macros";
+import { ActionMacros, SystemActions } from "@system/action-macros";
 import { CheckPF2e } from "@system/check";
 import { ConditionManager } from "@system/conditions";
 import { EffectTracker } from "@system/effect-tracker";
 import { ModuleArt } from "@system/module-art";
 import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
+import { Action } from "@actor/actions";
 
 /** Expose public game.pf2e interface */
 export const SetGamePF2e = {
     onInit: (): void => {
-        const actions: Record<string, Function> = {
+        type ActionCollection = Record<string, Function> & Map<string, Action>;
+        const actions = new Map<string, Action>(
+            SystemActions.map((action) => [action.slug, action])
+        ) as ActionCollection;
+        // keep the old action functions around until everything has been converted
+        for (const [name, action] of Object.entries({
             encouragingWords,
             raiseAShield,
             restForTheNight,
@@ -43,7 +49,9 @@ export const SetGamePF2e = {
             steelYourResolve,
             treatWounds,
             ...ActionMacros,
-        };
+        })) {
+            actions[name] = action;
+        }
 
         const initSafe: Partial<(typeof game)["pf2e"]> = {
             Check: CheckPF2e,

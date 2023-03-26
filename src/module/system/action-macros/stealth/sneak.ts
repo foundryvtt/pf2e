@@ -1,8 +1,9 @@
 import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { SingleCheckAction } from "@actor/actions";
 
 const PREFIX = "PF2E.Actions.Sneak";
 
-export function sneak(options: SkillActionOptions) {
+function sneak(options: SkillActionOptions) {
     const slug = options?.skill ?? "stealth";
     const rollOptions = ["action:sneak"];
     const modifiers = options?.modifiers;
@@ -23,3 +24,21 @@ export function sneak(options: SkillActionOptions) {
         ],
     });
 }
+
+const action = new SingleCheckAction({
+    cost: 1,
+    description: `${PREFIX}.Description`,
+    difficultyClass: "perception",
+    name: `${PREFIX}.Title`,
+    notes: [
+        { outcome: ["success", "criticalSuccess"], text: `${PREFIX}.Notes.success` },
+        { outcome: ["failure"], text: `${PREFIX}.Notes.failure` },
+        { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
+    ],
+    rollOptions: ["action:sneak"],
+    slug: "sneak",
+    statistic: "stealth",
+    traits: ["move", "secret"],
+});
+
+export { sneak as legacy, action };
