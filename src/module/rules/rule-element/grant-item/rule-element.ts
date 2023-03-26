@@ -54,6 +54,10 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
             const grantedItem = this.actor.inventory.get(this.grantedId ?? "") ?? null;
             this.#trackItem(grantedItem);
         }
+
+        if (item.isOfType("physical")) {
+            this.failValidation("parent item must not be physical");
+        }
     }
 
     static override defineSchema(): GrantItemSchema {
