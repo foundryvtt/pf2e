@@ -3,6 +3,8 @@ import { ItemPF2e } from "@item";
 import { isObject } from "@util";
 import { MigrationList, MigrationRunner } from "./migration";
 import { MigrationRunnerBase } from "./migration/runner/base";
+import { CombatantPF2e } from "./encounter";
+import { TokenDocumentPF2e } from "@scene";
 
 /** Ensure that the import JSON is actually importable and that the data is fully migrated */
 async function preImportJSON<TDocument extends ActorPF2e | ItemPF2e>(
@@ -41,4 +43,13 @@ async function preImportJSON<TDocument extends ActorPF2e | ItemPF2e>(
     return JSON.stringify(newDoc.toObject());
 }
 
-export { preImportJSON };
+function combatantAndTokenDoc(document: CombatantPF2e | TokenDocumentPF2e): {
+    combatant: CombatantPF2e | null;
+    tokenDoc: TokenDocumentPF2e | null;
+} {
+    return document instanceof CombatantPF2e
+        ? { combatant: document, tokenDoc: document.token }
+        : { combatant: document.combatant, tokenDoc: document };
+}
+
+export { combatantAndTokenDoc, preImportJSON };

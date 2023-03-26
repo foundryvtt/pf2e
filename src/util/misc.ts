@@ -322,8 +322,9 @@ function ordinal(value: number) {
 }
 
 /** Localizes a list of strings into a comma delimited list for the current language */
-function localizeList(items: string[]) {
-    const parts = LocalizePF2e.translations.PF2E.ListPartsOr;
+function localizeList(items: string[], { conjunction = "or" }: { conjunction?: "and" | "or" } = {}): string {
+    const parts =
+        conjunction === "or" ? LocalizePF2e.translations.PF2E.ListPartsOr : LocalizePF2e.translations.PF2E.ListPartsAnd;
 
     if (items.length === 0) return "";
     if (items.length === 1) return items[0];

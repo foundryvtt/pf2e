@@ -4,7 +4,7 @@ import { ErrorPF2e } from "@util";
 import { EncounterPF2e } from ".";
 
 class CombatantPF2e<
-    TParent extends EncounterPF2e | null,
+    TParent extends EncounterPF2e | null = EncounterPF2e | null,
     TTokenDocument extends TokenDocumentPF2e | null = TokenDocumentPF2e | null
 > extends Combatant<TParent, TTokenDocument> {
     get encounter(): TParent {
@@ -170,7 +170,7 @@ class CombatantPF2e<
 }
 
 interface CombatantPF2e<
-    TParent extends EncounterPF2e | null,
+    TParent extends EncounterPF2e | null = EncounterPF2e | null,
     TTokenDocument extends TokenDocumentPF2e | null = TokenDocumentPF2e | null
 > extends Combatant<TParent, TTokenDocument> {
     flags: CombatantFlags;
