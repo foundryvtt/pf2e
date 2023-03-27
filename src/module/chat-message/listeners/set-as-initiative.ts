@@ -1,7 +1,5 @@
-import { SkillLongForm } from "@actor/types";
-import { SKILL_LONG_FORMS } from "@actor/values";
-import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
-import { fontAwesomeIcon, setHasElement } from "@util";
+import { CombatantPF2e } from "@module/encounter";
+import { fontAwesomeIcon } from "@util";
 
 /** Add a button to set a check roll as the roller's initiative */
 export const SetAsInitiative = {
@@ -37,35 +35,22 @@ export const SetAsInitiative = {
 
             setInitiativeButton.addEventListener("click", async (event): Promise<void> => {
                 event.stopPropagation();
-                if (!game.combat) {
-                    ui.notifications.error(game.i18n.localize("PF2E.Encounter.NoActiveEncounter"));
+                const { actor, token } = message;
+                if (!token) {
+                    ui.notifications.error(
+                        game.i18n.format("PF2E.Encounter.NoTokenInScene", {
+                            actor: message.actor?.name ?? message.user?.name ?? "",
+                        })
+                    );
                     return;
                 }
-                const actor = message.token?.actor;
                 if (!actor) return;
-
-                const combatant = ((): CombatantPF2e<EncounterPF2e> | null => {
-                    const existing = game.combat.combatants.find((c) => c.actor === actor);
-                    if (existing) return existing;
-                    ui.notifications.error(game.i18n.format("PF2E.Encounter.NotParticipating", { actor: actor.name }));
-                    return null;
-                })();
+                const combatant = await CombatantPF2e.fromActor(actor);
                 if (!combatant) return;
+                const value = message.rolls.at(0)?.total ?? 0;
 
-                const statistic =
-                    message.flags.pf2e.context?.domains.find(
-                        (s): s is SkillLongForm | "perception" =>
-                            setHasElement(SKILL_LONG_FORMS, s) || s === "perception"
-                    ) ?? null;
-                const value = message.rolls[0].total;
+                await combatant.encounter.setInitiative(combatant.id, value);
 
-                await game.combat.setMultipleInitiatives([
-                    {
-                        id: combatant.id,
-                        value,
-                        statistic,
-                    },
-                ]);
                 ui.notifications.info(
                     game.i18n.format("PF2E.Encounter.InitiativeSet", { actor: actor.name, initiative: value })
                 );

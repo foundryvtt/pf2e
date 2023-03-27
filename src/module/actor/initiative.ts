@@ -31,25 +31,9 @@ class ActorInitiative {
         this.statistic = statistic;
     }
 
-    async roll(args: InitiativeRollParams): Promise<InitiativeRollResult | null> {
+    async roll(args: InitiativeRollParams = {}): Promise<InitiativeRollResult | null> {
         // Get or create the combatant
-        const combatant = await (async (): Promise<CombatantPF2e<EncounterPF2e> | null> => {
-            if (!game.combat) {
-                ui.notifications.error(game.i18n.localize("PF2E.Encounter.NoActiveEncounter"));
-                return null;
-            }
-            const token = this.actor.getActiveTokens().pop();
-            const existing = game.combat.combatants.find((combatant) => combatant.actor === this.actor);
-            if (existing) {
-                return existing;
-            } else if (token) {
-                await token.toggleCombat(game.combat);
-                return token.combatant ?? null;
-            } else {
-                ui.notifications.error(game.i18n.format("PF2E.Encounter.NoTokenInScene", { actor: this.actor.name }));
-                return null;
-            }
-        })();
+        const combatant = await CombatantPF2e.fromActor(this.actor, false);
         if (!combatant) return null;
 
         if (combatant.hidden) {
@@ -57,12 +41,16 @@ class ActorInitiative {
         }
 
         const roll = await this.statistic.roll(args);
-        if (!roll) return null;
+        if (!roll) {
+            // Render combat sidebar in case a combatant was created but the roll was not completed
+            game.combats.render(false);
+            return null;
+        }
 
         // Update the tracker unless requested not to
         const updateTracker = args.updateTracker ?? true;
         if (updateTracker) {
-            game.combat?.setInitiative(combatant.id, roll.total);
+            combatant.encounter.setInitiative(combatant.id, roll.total);
         }
 
         return { combatant, roll };

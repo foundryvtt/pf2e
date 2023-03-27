@@ -44,6 +44,7 @@ declare module foundry {
         interface CombatantSource {
             _id: string | null;
             actorId: string;
+            sceneId: string;
             tokenId: string;
             img: VideoFilePath;
             initiative: number | null;

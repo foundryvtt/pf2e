@@ -3,9 +3,10 @@ import { ArmorPF2e } from "@item";
 import { TokenPF2e } from "@module/canvas";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { applyDamageFromMessage } from "@module/chat-message/helpers";
+import { CombatantPF2e } from "@module/encounter";
 import { CheckPF2e } from "@system/check";
 import { DamageRoll } from "@system/damage/roll";
-import { ErrorPF2e, fontAwesomeIcon, htmlClosest, htmlQuery, objectHasKey } from "@util";
+import { fontAwesomeIcon, htmlClosest, htmlQuery, objectHasKey } from "@util";
 
 export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
     /** Replace parent method in order to use DamageRoll class as needed */
@@ -294,12 +295,9 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 name: "PF2E.ClickToSetInitiativeContext",
                 icon: fontAwesomeIcon("swords").outerHTML,
                 condition: canApplyInitiative,
-                callback: ($li) => {
+                callback: async ($li) => {
                     const message = game.messages.get($li[0].dataset.messageId, { strict: true });
-                    const roll = message.rolls.at(0);
-                    if (!roll || Number.isNaN(roll.total || "NaN")) throw ErrorPF2e("No roll found");
-
-                    const token = message.token;
+                    const { actor, token } = message;
                     if (!token) {
                         ui.notifications.error(
                             game.i18n.format("PF2E.Encounter.NoTokenInScene", {
@@ -308,8 +306,16 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                         );
                         return;
                     }
+                    if (!actor) return;
+                    const combatant = await CombatantPF2e.fromActor(actor);
+                    if (!combatant) return;
+                    const value = message.rolls.at(0)?.total ?? 0;
 
-                    token.setInitiative({ initiative: roll.total });
+                    await combatant.encounter.setInitiative(combatant.id, value);
+
+                    ui.notifications.info(
+                        game.i18n.format("PF2E.Encounter.InitiativeSet", { actor: actor.name, initiative: value })
+                    );
                 },
             },
             {
