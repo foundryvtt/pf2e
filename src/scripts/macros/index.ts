@@ -8,5 +8,5 @@ export { stealthForSelected } from "./stealth-for-selected-tokens.ts";
 export { steelYourResolve } from "./steel-your-resolve.ts";
 export { launchTravelSheet } from "./travel/index.ts";
 export { treatWounds } from "./treat-wounds.ts";
-export { calculateXP } from "./xp.ts";
+export { calculateXP, xpFromEncounter } from "./xp/index.ts";
 export { editPersistent } from "./edit-persistent.ts";

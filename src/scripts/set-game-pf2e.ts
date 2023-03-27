@@ -1,5 +1,6 @@
+import { Action } from "@actor/actions/index.ts";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
-import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers.ts";
+import { CheckModifier, MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { CompendiumBrowser } from "@module/apps/compendium-browser/index.ts";
 import { EffectsPanel } from "@module/apps/effects-panel.ts";
@@ -31,7 +32,7 @@ import { EffectTracker } from "@system/effect-tracker.ts";
 import { ModuleArt } from "@system/module-art.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { sluggify } from "@util";
-import { Action } from "@actor/actions/index.ts";
+import { xpFromEncounter } from "./macros/xp/dialog.ts";
 
 /** Expose public game.pf2e interface */
 export const SetGamePF2e = {
@@ -69,7 +70,14 @@ export const SetGamePF2e = {
             actions,
             effectPanel: new EffectsPanel(),
             effectTracker: new EffectTracker(),
-            gm: { calculateXP, launchTravelSheet, perceptionForSelected, stealthForSelected, editPersistent },
+            gm: {
+                calculateXP,
+                editPersistent,
+                launchTravelSheet,
+                perceptionForSelected,
+                stealthForSelected,
+                xpFromEncounter,
+            },
             licenseViewer: new LicenseViewer(),
             rollActionMacro,
             rollItemMacro,
