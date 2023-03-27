@@ -6,7 +6,6 @@ import {
     CreatureDetails,
     CreatureHitPoints,
     CreatureInitiativeSource,
-    CreatureInitiativeData,
     CreatureResources,
     CreatureResourcesSource,
     CreatureSpeeds,
@@ -19,7 +18,14 @@ import {
     SaveData,
     SkillData,
 } from "@actor/creature/data";
-import { ActorAttributesSource, ActorFlagsPF2e, ArmorClassData, PerceptionData, StrikeData } from "@actor/data/base";
+import {
+    ActorAttributesSource,
+    ActorFlagsPF2e,
+    ArmorClassData,
+    InitiativeData,
+    PerceptionData,
+    StrikeData,
+} from "@actor/data/base";
 import { ActorSizePF2e } from "@actor/data/size";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers";
 import { AbilityString, ActorAlliance, SaveType } from "@actor/types";
@@ -159,9 +165,7 @@ interface NPCAttributes
     adjustment: "elite" | "weak" | null;
     hp: NPCHitPoints;
     perception: NPCPerception;
-
-    initiative: CreatureInitiativeData;
-
+    initiative: InitiativeData;
     speed: NPCSpeeds;
     /**
      * Data related to the currently equipped shield. This is copied from the shield data itself, and exists to

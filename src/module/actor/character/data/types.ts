@@ -6,7 +6,6 @@ import {
     CreatureAttributes,
     CreatureDetails,
     CreatureHitPoints,
-    CreatureInitiativeData,
     CreatureResources,
     CreatureSystemData,
     CreatureTraitsData,
@@ -20,6 +19,7 @@ import {
     AbilityBasedStatistic,
     ActorFlagsPF2e,
     ArmorClassData,
+    InitiativeData,
     PerceptionData,
     StrikeData,
     TraitViewData,
@@ -374,7 +374,7 @@ interface CharacterAttributes extends CreatureAttributes {
     /** Creature armor class, used to defend against attacks. */
     ac: CharacterArmorClass;
     /** Initiative, used to determine turn order in combat. */
-    initiative: CreatureInitiativeData;
+    initiative: InitiativeData;
     /** The amount of HP provided per level by the character's class. */
     classhp: number;
     /** The amount of HP provided at level 1 by the character's ancestry. */
