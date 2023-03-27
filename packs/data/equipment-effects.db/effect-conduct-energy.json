@@ -48,7 +48,12 @@
                 "choices": {
                     "ownedItems": true,
                     "predicate": [
-                        "item:trait:resonant"
+                        {
+                            "or": [
+                                "item:rune:property:conducting",
+                                "item:trait:resonant"
+                            ]
+                        }
                     ],
                     "types": [
                         "weapon"
@@ -61,8 +66,33 @@
             {
                 "damageType": "{item|flags.pf2e.rulesSelections.effectConductEnergyType}",
                 "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:resonant"
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.effectConductEnergyWeapon}-damage",
                 "value": "@weapon.system.damage.dice"
+            },
+            {
+                "damageType": "{item|flags.pf2e.rulesSelections.effectConductEnergyType}",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:rune:property:conducting"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectConductEnergyWeapon}-damage"
+            },
+            {
+                "critical": true,
+                "category": "persistent",
+                "damageType": "{item|flags.pf2e.rulesSelections.effectConductEnergyType}",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:rune:property:conducting"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectConductEnergyWeapon}-damage"
             }
         ],
         "source": {
