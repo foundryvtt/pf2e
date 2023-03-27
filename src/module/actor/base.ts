@@ -1717,8 +1717,11 @@ interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     ): ConditionPF2e<this>[] | ConditionPF2e<this> | null;
 
     getActiveTokens(linked: boolean | undefined, document: true): TokenDocumentPF2e<ScenePF2e>[];
-    getActiveTokens(linked?: undefined, document?: undefined): TokenPF2e[];
-    getActiveTokens(linked?: boolean, document?: boolean): TokenDocumentPF2e<ScenePF2e>[] | TokenPF2e[];
+    getActiveTokens(linked?: undefined, document?: undefined): TokenPF2e<TokenDocumentPF2e<ScenePF2e>>[];
+    getActiveTokens(
+        linked?: boolean,
+        document?: boolean
+    ): TokenDocumentPF2e<ScenePF2e>[] | TokenPF2e<TokenDocumentPF2e<ScenePF2e>>[];
 
     /** Added as debounced method */
     checkAreaEffects(): void;

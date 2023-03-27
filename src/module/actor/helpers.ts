@@ -297,6 +297,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                     {
                         type: "attack-roll",
                         actor: context.self.actor,
+                        token: context.self.token,
                         item: context.self.item,
                         target: context.target,
                         domains,

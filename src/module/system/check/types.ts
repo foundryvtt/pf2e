@@ -3,7 +3,6 @@ import { AttackTarget } from "@actor/types";
 import { ItemPF2e } from "@item";
 import { ZeroToTwo } from "@module/data";
 import { RollSubstitution } from "@module/rules/synthetics";
-import { ScenePF2e } from "@scene";
 import { TokenDocumentPF2e } from "@scene/token-document";
 import { CheckDC, DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { BaseRollContext } from "@system/rolls";
@@ -31,7 +30,7 @@ interface CheckRollContext extends BaseRollContext {
     /** The actor which initiated this roll. */
     actor?: ActorPF2e;
     /** The token which initiated this roll. */
-    token?: TokenDocumentPF2e<ScenePF2e>;
+    token?: TokenDocumentPF2e | null;
     /** The originating item of this attack, if any */
     item?: ItemPF2e<ActorPF2e> | null;
     /** Optional title of the roll options dialog; defaults to the check name */

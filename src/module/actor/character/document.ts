@@ -1789,6 +1789,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     const checkContext: CheckRollContext = {
                         type: "attack-roll",
                         actor: context.self.actor,
+                        token: context.self.token,
                         target: context.target,
                         item: context.self.item,
                         altUsage: params.altUsage ?? null,
