@@ -102,11 +102,7 @@ declare global {
          * @param [options.initiativeOptions={}]   Additional options passed to the Combat#rollInitiative method.
          * @return A promise which resolves to the Combat entity once rolls are complete.
          */
-        rollInitiative({
-            createCombatants,
-            rerollInitiative,
-            initiativeOptions,
-        }?: {
+        rollInitiative(options?: {
             createCombatants?: boolean;
             rerollInitiative?: boolean;
             initiativeOptions?: object;
