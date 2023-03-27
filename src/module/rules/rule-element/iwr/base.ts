@@ -34,6 +34,8 @@ abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElement
     }
 
     protected override _validateModel(source: SourceFromSchema<IWRRuleSchema>): void {
+        super._validateModel(source);
+
         if (source.type.length === 0) {
             throw Error("must have at least one type");
         }
