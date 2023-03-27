@@ -145,6 +145,20 @@ class EncounterPF2e extends Combat {
         await this.update({ turn: this.turns.findIndex((c) => c.id === currentId) });
     }
 
+    override async setInitiative(id: string, value: number): Promise<void> {
+        const combatant = this.combatants.get(id, { strict: true });
+        if (combatant.actor?.isOfType("character", "npc")) {
+            return this.setMultipleInitiatives([
+                {
+                    id: combatant.id,
+                    value,
+                    statistic: combatant.actor.attributes.initiative.statistic || "perception",
+                },
+            ]);
+        }
+        super.setInitiative(id, value);
+    }
+
     /**
      * Rerun data preparation for participating actors
      * `async` since this is usually called from CRUD hooks, which are called prior to encounter/combatant data resets
