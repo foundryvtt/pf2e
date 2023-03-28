@@ -53,7 +53,7 @@
                                                 <div class="action-options" data-item-id="{{action.item.id}}">
                                                     {{#with action.item.ammo.uses}}
                                                         {{#if (gt max 1)}}
-                                                            <span class="ammo-remaining"><i class="ammo-icon"></i> {{value}}</span>
+                                                            <span class="ammo-remaining"><i class="magazine-icon"></i> {{value}}</span>
                                                         {{/if}}
                                                     {{/with}}
                                                 </div>
@@ -65,6 +65,18 @@
                                         {{/if}}
                                     </div>
                                 </div>
+                                {{#if (and action.ready action.ammunition)}}
+                                    <div class="ammo">
+                                        <select name="ammo-used"{{#if action.ammunition.selected}} data-compatible="{{action.ammunition.selected.compatible}}"{{/if}}>
+                                            {{#select action.ammunition.selected.id}}
+                                                <option value="">{{localize "PF2E.NoAmmoLabel"}}</option>
+                                                {{#each action.ammunition.compatible as |ammo|}}
+                                                    <option value="{{ammo.id}}" data-compatible="true">{{ammo.name}} ({{ammo.quantity}})</option>
+                                                {{/each}}
+                                            {{/select}}
+                                        </select>
+                                    </div>
+                                {{/if}}
                                 {{#if (and action.altUsages (or action.ready ../actor.flags.pf2e.showUnreadyStrikes))}}
                                     {{#each action.altUsages as |usage|}}
                                         <div class="alt-usage">
@@ -264,16 +276,6 @@
             <button type="button" class="tag damage" data-action="strike-critical"
                 {{#if isAltUsage}}data-alt-usage="{{#if item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
             >{{localize "PF2E.CriticalDamageLabel"}}</button>
-        {{/if}}
-        {{#if ammunition}}
-            <select name="ammo-used"{{#if ammunition.selected}} data-compatible="{{ammunition.selected.compatible}}"{{/if}}>
-                {{#select ammunition.selected.id}}
-                    <option value="">{{localize "PF2E.NoAmmoLabel"}}</option>
-                    {{#each ammunition.compatible as |ammo|}}
-                        <option value="{{ammo.id}}" data-compatible="true">{{ammo.name}} ({{ammo.quantity}})</option>
-                    {{/each}}
-                {{/select}}
-            </select>
         {{/if}}
     </div>
 {{/inline}}

@@ -8,9 +8,7 @@
         }
 
         li.strike {
-            .item-name {
-                align-items: flex-start;
-            }
+            gap: 3px;
 
             .ammo-remaining {
                 white-space: nowrap;
@@ -20,7 +18,7 @@
                 font-weight: 600;
                 gap: 2px;
 
-                .ammo-icon {
+                .magazine-icon {
                     display: inline-block;
                     width: 14px;
                     height: 14px;
@@ -30,6 +28,8 @@
             }
 
             .item-name {
+                align-items: start;
+
                 .item-image {
                     @include frame-icon;
                     height: 32px;
@@ -54,6 +54,7 @@
             .button-group {
                 flex-wrap: nowrap;
                 font-size: var(--font-size-14);
+                margin-bottom: 0;
 
                 button {
                     @include button;
@@ -82,6 +83,26 @@
                             box-shadow: none;
                             text-shadow: 0 0 2px white;
                         }
+                    }
+                }
+            }
+
+            .ammo {
+                flex-basis: 100%;
+
+                select[name="ammo-used"] {
+                    margin-left: 2.5rem;
+                    max-width: fit-content;
+                    font-family: var(--sans-serif);
+                    font-weight: normal;
+                    font-size: 0.8em;
+
+                    &[data-compatible="false"] {
+                        color: #ffffff99;
+                    }
+
+                    option, optgroup {
+                        color: white;
                     }
                 }
             }
@@ -183,22 +204,5 @@
     .item-controls {
         min-width: 28px;
         text-align: right;
-    }
-
-    select[name="ammo-used"] {
-        max-width: fit-content;
-        font-family: var(--sans-serif);
-        font-weight: normal;
-        margin-left: auto;
-        padding-top: 0;
-        padding-bottom: 0;
-        font-size: 0.75em;
-        &[data-compatible="false"] {
-            color: #ffffff99;
-        }
-
-        option, optgroup {
-            color: white;
-        }
     }
 }
