@@ -1524,10 +1524,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         // Resolves the condition. If the argument is a condition, return it. Otherwise find an existing one.
         // If value is defined, this is a condition being dragged, so prioritized unlocked
         const existing = (() => {
-            if (!(typeof conditionSlug === "string")) return conditionSlug;
+            if (typeof conditionSlug !== "string") return conditionSlug;
 
             const conditions = this.conditions.stored;
-            return value ? conditions.find((c) => !c.isLocked) : conditions.find((c) => c.active);
+            return value
+                ? conditions.find((c) => c.slug === conditionSlug && !c.isLocked)
+                : conditions.find((c) => c.slug === conditionSlug && c.active);
         })();
 
         if (existing) {
