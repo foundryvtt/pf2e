@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { AbstractEffectPF2e, ItemPF2e } from "@item";
+import { AbstractEffectPF2e, ConsumablePF2e, ItemPF2e, SpellPF2e } from "@item";
 import { ItemSummaryData } from "@item/data";
 import { isItemSystemData } from "@item/data/helpers";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
@@ -31,16 +31,18 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
     async toggleSummary(element: HTMLElement, options: { instant?: boolean } = {}): Promise<void> {
         const actor = this.sheet.actor;
 
-        const { itemId, itemType } = element.dataset;
+        const { itemId, itemType, actionIndex } = element.dataset;
         const isFormula = !!element.dataset.isFormula;
         const duration = 0.4;
 
         if (itemType === "spellSlot") return;
 
-        const item = isFormula
+        const item: ClientDocument | null = isFormula
             ? await fromUuid(itemId ?? "")
             : itemType === "condition"
             ? actor.conditions.get(itemId, { strict: true })
+            : actionIndex
+            ? actor.system.actions?.[Number(actionIndex)].item ?? null
             : actor.items.get(itemId, { strict: true });
 
         if (!(item instanceof ItemPF2e)) return;
@@ -49,7 +51,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
             const existing = htmlQuery(element, ":scope > .item-summary");
             if (existing) return existing;
 
-            if (item instanceof ItemPF2e && !item.isOfType("spellcastingEntry")) {
+            if (!item.isOfType("spellcastingEntry")) {
                 const insertLocation = htmlQueryAll(
                     element,
                     ":scope > .item-name, :scope > .item-controls, :scope > .action-header"
@@ -104,7 +106,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
     /**
      * Called when an item summary is expanded and needs to be filled out.
      */
-    async renderItemSummary(div: HTMLElement, item: ItemPF2e<ActorPF2e>, chatData: ItemSummaryData): Promise<void> {
+    async renderItemSummary(div: HTMLElement, item: ItemPF2e, chatData: ItemSummaryData): Promise<void> {
         const description = isItemSystemData(chatData)
             ? chatData.description.value
             : await TextEditor.enrichHTML(item.description, { rollData: item.getRollData(), async: true });
@@ -130,11 +132,9 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
                     event.preventDefault();
                     event.stopPropagation();
 
-                    const spell = item.isOfType("spell")
-                        ? item
-                        : item.isOfType("consumable")
-                        ? item.embeddedSpell
-                        : null;
+                    const spell = (
+                        item.isOfType("spell") ? item : item.isOfType("consumable") ? item.embeddedSpell : null
+                    ) as SpellPF2e<ActorPF2e> | null;
 
                     // Which function gets called depends on the type of button stored in the dataset attribute action
                     switch (button.dataset.action) {
@@ -146,7 +146,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
                             break;
                         case "consume":
                             if (item.isOfType("consumable")) {
-                                item.consume();
+                                (item as ConsumablePF2e<ActorPF2e>).consume();
                             }
                             break;
                     }
