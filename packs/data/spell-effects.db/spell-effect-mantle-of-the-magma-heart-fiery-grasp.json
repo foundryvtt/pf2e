@@ -30,7 +30,6 @@
                 "label": "PF2E.BattleForm.Attack.LavaFist",
                 "range": null,
                 "traits": [
-                    "melee",
                     "unarmed"
                 ]
             },
@@ -42,10 +41,12 @@
                 "selector": "{item|_id}-damage"
             },
             {
-                "key": "Note",
-                "selector": "{item|_id}-damage",
-                "text": "Your Lava Fist Strikes also deal [[/r 1d6[persistent,fire]]] damage on a hit.",
-                "title": "Fiery Grasp"
+                "category": "persistent",
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "{item|_id}-damage"
             }
         ],
         "source": {
