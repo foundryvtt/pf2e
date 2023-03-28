@@ -114,10 +114,7 @@ declare global {
          * @param [options.messageOptions={}] Additional options with which to customize created Chat Messages
          * @return A promise which resolves to the updated Combat entity once updates are complete.
          */
-        rollInitiative(
-            ids: string | string[],
-            { formula, updateTurn, messageOptions }?: RollInitiativeOptions
-        ): Promise<this>;
+        rollInitiative(ids: string | string[], options?: RollInitiativeOptions): Promise<this>;
 
         /**
          * Roll initiative for all combatants which have not already rolled
