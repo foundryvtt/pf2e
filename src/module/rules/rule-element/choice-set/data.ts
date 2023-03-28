@@ -16,7 +16,7 @@ type ChoiceSetSchema = RuleElementSchema & {
      */
     flag: StringField<string, string, false, false, false>;
     /** An optional roll option to be set from the selection */
-    rollOption: StringField<string, string, false, true, false>;
+    rollOption: StringField<string, string, false, true, true>;
     /** A predicate indicating valid dropped item selections */
     allowedDrops: SchemaField<
         AllowedDropsData,
@@ -27,7 +27,7 @@ type ChoiceSetSchema = RuleElementSchema & {
         true
     >;
     /** Allow the user to make no selection without suppressing all other rule elements on the parent item */
-    allowNoSelection: BooleanField<boolean, boolean, false, false, false>;
+    allowNoSelection: BooleanField<boolean, boolean, false, false, true>;
 };
 
 type AllowedDropsData = {
