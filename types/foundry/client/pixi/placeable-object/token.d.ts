@@ -402,11 +402,17 @@ declare global {
         ): void;
 
         /**
-         * Add or remove the currently controlled Tokens from the active combat encounter
-         * @param [combat] A specific combat encounter to which this Token should be added
-         * @return The Token which initiated the toggle
+         * Add or remove the set of currently controlled Tokens from the active combat encounter
+         * @param [state]  The desired combat state which determines if each Token is added (true) or removed (false)
+         * @param [combat] A Combat encounter from which to add or remove the Token
+         * @param [token]  A specific Token which is the origin of the group toggle request
+         * @return The Combatants added or removed
          */
-        toggleCombat(combat: Combat): Promise<this>;
+        toggleCombat(
+            state?: boolean,
+            combat?: Combat | null,
+            { token }?: { token?: Token | null }
+        ): Promise<Combatant<Combat>[]>;
 
         /**
          * Toggle an active effect by its texture path.

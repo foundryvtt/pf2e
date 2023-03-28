@@ -39,8 +39,6 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         super(data, item, options);
 
         this.flag = this.#setDefaultFlag(this.data);
-        this.rollOption ??= null;
-        this.allowNoSelection ??= false;
         this.choices = this.data.choices;
         this.selection =
             typeof data.selection === "string" || typeof data.selection === "number" || isObject(data.selection)
@@ -84,8 +82,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                 { required: false, nullable: true, initial: null }
             ),
             flag: new fields.StringField({ required: false, blank: false, nullable: false, initial: undefined }),
-            rollOption: new fields.StringField({ required: false, blank: false, nullable: true, initial: undefined }),
-            allowNoSelection: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
+            rollOption: new fields.StringField({ required: false, blank: false, nullable: true, initial: null }),
+            allowNoSelection: new fields.BooleanField({ required: false, nullable: false, initial: false }),
         };
     }
 
@@ -246,8 +244,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
     }
 
     private choicesFromOwnedItems(options: ChoiceSetOwnedItems): PickableThing<string>[] {
-        const predicate = options.predicate ?? new PredicatePF2e();
-        const { includeHandwraps, types } = options;
+        const { includeHandwraps, predicate, types } = options;
 
         const choices = this.actor.items
             .filter((i) => i.isOfType(...types) && predicate.test(i.getRollOptions("item")))
@@ -263,7 +260,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         if (includeHandwraps) {
             choices.push(
                 ...this.actor.itemTypes.weapon
-                    .filter((i) => i.slug === "handwraps-of-mighty-blows")
+                    .filter((i) => i.slug === "handwraps-of-mighty-blows" && predicate.test(i.getRollOptions("item")))
                     .map((h) => ({ img: h.img, label: h.name, value: "unarmed" }))
             );
         }
@@ -368,8 +365,6 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
 interface ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema>, ModelPropsFromSchema<ChoiceSetSchema> {
     data: ChoiceSetData;
     flag: string;
-    rollOption: string | null;
-    allowNoSelection: boolean;
 }
 
 export { ChoiceSetRuleElement };
