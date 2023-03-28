@@ -39,6 +39,13 @@ interface CheckContextOptions<ItemType extends ItemPF2e<ActorPF2e>> {
     target?: ActorPF2e | null;
 }
 
+interface CheckContextData<ItemType extends ItemPF2e<ActorPF2e>> {
+    item?: ItemType;
+    modifiers?: ModifierPF2e[];
+    rollOptions: string[];
+    slug: string;
+}
+
 interface CheckContext<ItemType extends ItemPF2e<ActorPF2e>> {
     actor: ActorPF2e;
     item?: ItemType;
@@ -94,6 +101,7 @@ interface SkillActionOptions extends ActionDefaultOptions {
 export {
     ActionGlyph,
     CheckContext,
+    CheckContextData,
     CheckContextError,
     CheckContextOptions,
     CheckResultCallback,

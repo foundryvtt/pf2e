@@ -1,4 +1,10 @@
-import { ActionGlyph, CheckResultCallback } from "@system/action-macros/types";
+import {
+    ActionGlyph,
+    CheckContext,
+    CheckContextData,
+    CheckContextOptions,
+    CheckResultCallback,
+} from "@system/action-macros/types";
 import { ActionUseOptions } from "./types";
 import { ModifierPF2e } from "@actor/modifiers";
 import { ActionMacroHelpers } from "@system/action-macros";
@@ -8,6 +14,7 @@ import { RollNotePF2e, RollNoteSource } from "@module/notes";
 import { BaseAction, BaseActionData, BaseActionVariant, BaseActionVariantData } from "./base";
 import { getActionGlyph } from "@util";
 import { ActorPF2e } from "@actor";
+import { ItemPF2e } from "@item";
 
 type SingleCheckActionRollNoteData = Omit<RollNoteSource, "selector"> & { selector?: string };
 function toRollNoteSource(data: SingleCheckActionRollNoteData): RollNoteSource {
@@ -102,7 +109,7 @@ class SingleCheckActionVariant extends BaseActionVariant {
                 title,
                 actionGlyph: getActionGlyph(this.cost ?? null) as ActionGlyph,
                 callback: resolve,
-                checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
+                checkContext: (opts) => this.checkContext(opts, { modifiers, rollOptions, slug }),
                 difficultyClass: isCheckDC(difficultyClass) ? difficultyClass : undefined,
                 difficultyClassStatistic: isString(difficultyClass)
                     ? (target) => getProperty(target, difficultyClass) as Statistic
@@ -116,6 +123,13 @@ class SingleCheckActionVariant extends BaseActionVariant {
                 traits: this.traits,
             });
         });
+    }
+
+    protected checkContext<ItemType extends ItemPF2e<ActorPF2e>>(
+        opts: CheckContextOptions<ItemType>,
+        data: CheckContextData<ItemType>
+    ): CheckContext<ItemType> | undefined {
+        return ActionMacroHelpers.defaultCheckContext(opts, data);
     }
 }
 
@@ -138,4 +152,4 @@ class SingleCheckAction extends BaseAction<SingleCheckActionVariantData, SingleC
     }
 }
 
-export { SingleCheckAction, SingleCheckActionVariantData };
+export { SingleCheckAction, SingleCheckActionVariant, SingleCheckActionVariantData };
