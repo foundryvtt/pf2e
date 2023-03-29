@@ -1456,10 +1456,14 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /* -------------------------------------------- */
 
     /** Gets an active condition on the actor or a list of conditions sorted by descending value. */
+    getCondition(slugOrKey: ConditionKey, { all }: { all: true }): ConditionPF2e<this>[];
+    getCondition(slugOrKey: ConditionKey, { all }: { all?: false }): ConditionPF2e<this> | null;
+    getCondition(slugOrKey: ConditionKey): ConditionPF2e<this> | null;
     getCondition(
         slugOrKey: ConditionKey,
-        { all }: { all: boolean } = { all: false }
-    ): ConditionPF2e<this>[] | ConditionPF2e<this> | null {
+        { all }: { all?: boolean }
+    ): ConditionPF2e<this>[] | ConditionPF2e<this> | null;
+    getCondition(slugOrKey: ConditionKey, { all = false } = {}): ConditionPF2e<this>[] | ConditionPF2e<this> | null {
         const conditions = this.conditions.filter((c) => c.key === slugOrKey || c.slug === slugOrKey);
 
         if (all) {
@@ -1468,7 +1472,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 return valueA > valueB ? -1 : valueA < valueB ? 1 : 0;
             });
         } else {
-            return conditions.filter((c) => c.active);
+            return conditions.find((c) => c.active) ?? null;
         }
     }
 
@@ -1709,14 +1713,6 @@ interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         updateData: EmbeddedDocumentUpdateData<ActiveEffectPF2e<this> | ItemPF2e<this>>[],
         options?: DocumentUpdateContext<this>
     ): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
-
-    getCondition(conditionType: ConditionKey, { all }: { all: true }): ConditionPF2e<this>[];
-    getCondition(conditionType: ConditionKey, { all }: { all: false }): ConditionPF2e<this> | null;
-    getCondition(conditionType: ConditionKey): ConditionPF2e<this> | null;
-    getCondition(
-        conditionType: ConditionKey,
-        { all }: { all: boolean }
-    ): ConditionPF2e<this>[] | ConditionPF2e<this> | null;
 
     getActiveTokens(linked: boolean | undefined, document: true): TokenDocumentPF2e<ScenePF2e>[];
     getActiveTokens(linked?: undefined, document?: undefined): TokenPF2e<TokenDocumentPF2e<ScenePF2e>>[];
