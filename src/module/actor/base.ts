@@ -40,7 +40,7 @@ import { UserPF2e } from "@module/user";
 import { ScenePF2e, TokenDocumentPF2e } from "@scene";
 import { DicePF2e } from "@scripts/dice";
 import { DamageType } from "@system/damage";
-import { IWRApplicationData, applyIWR, maxPersistentAfterIWR } from "@system/damage/iwr";
+import { IWRApplicationData, applyIWR } from "@system/damage/iwr";
 import { Statistic, StatisticCheck } from "@system/statistic";
 import { TextEditorPF2e } from "@system/text-editor";
 import {
@@ -1202,11 +1202,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             };
             return condition;
         });
-
-        for (const source of [...persistentDamage]) {
-            const maxDamage = await maxPersistentAfterIWR(this, deepClone(source), rollOptions);
-            if (maxDamage === 0) persistentDamage.splice(persistentDamage.indexOf(source), 1);
-        }
 
         const persistentCreated = (
             persistentDamage.length > 0 ? await this.createEmbeddedDocuments("Item", persistentDamage) : []
