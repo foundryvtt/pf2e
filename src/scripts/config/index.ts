@@ -960,6 +960,7 @@ export const PF2ECONFIG = {
         "affixed-to-unarmored-defense-item": "PF2E.TraitAffixedToUnarmoredItem",
         "affixed-to-weapon": "PF2E.TraitAffixedToWeapon",
         "applied-to-a-basket-bag-or-other-container": "PF2E.TraitAppliedToBasketBagOrContainer",
+        "applied-to-a-weapon": "PF2E.TraitAppliedToAWeapon",
         "applied-to-a-wind-powered-vehicle": "PF2E.TraitAppliedToAWindPoweredVehicle",
         "applied-to-a-non-injection-melee-weapon-piercing-damage":
             "PF2E.TraitAppliedToANoninjectionMeleePiercingWeapon",
