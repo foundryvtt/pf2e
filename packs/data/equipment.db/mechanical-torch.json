@@ -39,21 +39,25 @@
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "PF2E.SpecificRule.MechanicalTorch.LitRadius",
-                "option": "lit-mechanical-torch-radius",
-                "toggleable": true
-            },
-            {
-                "domain": "all",
-                "key": "RollOption",
-                "label": "PF2E.SpecificRule.MechanicalTorch.LitCone",
-                "option": "lit-mechanical-torch-cone",
-                "toggleable": true
+                "label": "PF2E.SpecificRule.MechanicalTorch.Label",
+                "option": "lit-mechanical-torch",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.MechanicalTorch.LitCone",
+                        "value": "cone"
+                    },
+                    {
+                        "label": "PF2E.PF2E.SpecificRule.MechanicalTorch.LitRadius",
+                        "value": "radius"
+                    }
+                ],
+                "toggleable": true,
+                "value": true
             },
             {
                 "key": "TokenLight",
                 "predicate": [
-                    "lit-mechanical-torch-radius"
+                    "lit-mechanical-torch:radius"
                 ],
                 "value": {
                     "animation": {
@@ -62,7 +66,7 @@
                         "type": "torch"
                     },
                     "bright": 20,
-                    "color": "#9b7337",
+                    "color": "#535387",
                     "dim": 60,
                     "shadows": 0.2
                 }
@@ -70,7 +74,7 @@
             {
                 "key": "TokenLight",
                 "predicate": [
-                    "lit-mechanical-torch-cone"
+                    "lit-mechanical-torch:cone"
                 ],
                 "value": {
                     "angle": 90,
@@ -80,7 +84,7 @@
                         "type": "torch"
                     },
                     "bright": 40,
-                    "color": "#9b7337",
+                    "color": "#535387",
                     "dim": 80,
                     "shadows": 0.2
                 }
