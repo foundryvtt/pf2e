@@ -1,5 +1,77 @@
 # Changelog
 
+## Version 4.10.0
+
+### System Improvements
+* (Chup) Add confirmation dialog when selling treasure from inventory
+* (Dire Weasel) Include damage type of persistent damage conditions and NPCs' attacks in roll options
+* (In3luki) Speed up adding event listeners to large numbers of damage chat cards
+* (JulieWinchester) Show effect descriptions in effects panel, add button to send to chat
+* (Rory) Add pre-filtering to action compendium browser
+* (stwlam) Adjust derived equipment prices for size
+* (stwlam) Highlight row of encounter tracker's active turn with alliance color
+* (stwlam) Indicate which users are targeting combatants in Encounter Tracker, add targeting toggle
+* (stwlam) Apply clumsy condition to PCs wielding oversized weapons
+* (Supe) Allow rolling of lore skills for initiative
+
+### Bugfixes
+* (In3luki) Fix several issues with certain types of spell variants
+* (JDCalvert) Propagate auras' levels to the levels of their effects
+* (Rory) Prevent image blurring on sidebar of resized character sheets
+* (stwlam) Fix appearance of duplicate ability modifiers in roll dialog
+* (stwlam) Fix display of rarity in consumable chat cards
+* (stwlam) Inflate kit contents to correspond with its owning actor's size
+* (stwlam) Always show token name as speaker for check messages
+* (stwlam) Automatically add immunities to non-PC creatures with construct trait
+* (Supe) Fix Encouraging Words macro
+* (Supe) Show roll inspector to GM regardless of RE player access
+
+### Data Updates
+* (Dire Weasel) Add Note rule elements to Antler Arrow, Exsanguinating Ammunition, Meteor Shot
+* (Dire Weasel) Add REs and damage links for Crushing Grab, Deadly Strikes, Deflect Arrow, Inner Fire (Monk)
+* (Dire Weasel) Add additional automation to Anjelique Loveless
+* (Dire Weasel) Add bleed damage to Grim Tendrils, clean up description of Phantom Pain
+* (Dire Weasel) Add effects for Conduct Energy, Shining Ammunition, Stoneskin
+* (Dire Weasel) Add leveled damage link to Holy Cascade and Shocking Grasp
+* (Dire Weasel) Add rule elements to Hamatula/Sea Devil Bloodletting, Hit the Dirt!, Infernal Wound, Lawbringer's Lasso, Scalding Spit, Steady Balance, Shanrigol's Shred Flesh, Terror Bird's Tearing Clutch, and Torch Goblin
+* (Dire Weasel) Add toggle for Sunburst Corpse Blinding Aura. Remove duplicate Constrict ability.
+* (Dire Weasel) Automate Bloody Sneak Attack application of Flat-Footed
+* (Dire Weasel) Fix Linzi (Level 1)'s and Tristian (Level 10)'s spellcasting ability, Merisiel (Beginner Box)'s proficiency in Medicine
+* (Dire Weasel) Fix RollOption rule element for Wolf Drag
+* (Dire Weasel) Fix action count of Lekmek's Bark Command
+* (Dire Weasel) Fix damage type in Explosive Ammunition and add Note RE
+* (Dire Weasel) Fix details of Lashing Rope
+* (Dire Weasel) Fix duration in description of Camouflage Dye (Greater)
+* (Dire Weasel) Fix resistance type of Invulnerable Juggernaut and Unstoppable Juggernaut
+* (Dire Weasel) Fix some TokenLight brightness and radius
+* (Dire Weasel) Fix spell slots of Terwa Star Reader
+* (Dire Weasel) Move Yshula's key details to GM note
+* (Dire Weasel) Refresh Harm, Heal, and Searing Light spells on all compendium actors
+* (Dire Weasel) Remove damaging roll option from Meteor Shot emanation
+* (Dire Weasel) Update description of Fighter Weapon Mastery class feature
+* (dogstarrb, Tikael, TMun) Add content from Lost Omens: Firebrands
+* (InfamousSky) Add icon to Belittling Boast
+* (Manni) Fix actions of Topple Crates
+* (MySurvive) Update Sixth Pillar feats to Ruby Phoenix reprint
+* (Rapida) Add stances for Inspiring Marshal Stance and Dread Marshal Stance
+* (stwlam) Add light and heavy barding
+* (stwlam) Add/correct bonuses to save DCs on several feats
+* (Tikael) Add Wyrmblessed bloodline dragon choices to Dragon Disciple
+* (Tikael) Add skill selection to Skilled Heritage
+* (Tikael) Grant actions from Time Traveler background, Unexpected Sharpshooter Dedication feat
+* (Tikael) Add missing traits to fulcrum lens
+* (Tikael) Allow Elemental Bloodline Sorcerer to select an Elemental Type
+* (Tikael) Automate the skill selection of Marshal Dedication
+* (Tikael) Brushup Barbarian class feats
+* (Tikael) Data Entry World changes for March
+* (Tikael) Fix Frog Animal Instinct's tongue strike
+* (Tikael) Fix rage damage of Animal Instinct given Greater Weapon Specialization
+* (Tikael) Fix strike details on Gatewalkers actors
+* (Tikael) Fix rule elements on Combination Finisher feat, Tempest mystery
+* (Tikael) Tone down Lantern light REs
+* (tyrielv) Fix rule element on Dragon's Presence
+
+
 ## Version 4.9.3
 
 ### Bugfixes
