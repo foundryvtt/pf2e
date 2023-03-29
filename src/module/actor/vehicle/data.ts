@@ -24,6 +24,7 @@ interface VehicleAttributesSource extends ActorAttributes {
     ac: { value: number };
     hardness: number;
     hp: VehicleHitPointsData;
+    initiative?: never;
 }
 
 interface VehicleSystemSource extends ActorSystemSource {
@@ -63,6 +64,7 @@ interface VehicleSystemData extends VehicleSystemSource, Omit<ActorSystemData, "
 interface VehicleAttributes extends VehicleAttributesSource, ActorAttributes {
     ac: StatisticTraceData;
     hp: VehicleHitPoints;
+    initiative?: never;
     shield?: never;
 }
 

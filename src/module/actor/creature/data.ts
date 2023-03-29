@@ -10,7 +10,6 @@ import {
     Rollable,
     StrikeData,
     RollFunction,
-    InitiativeData,
 } from "@actor/data/base";
 import { DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers";
 import { AbilityString, ActorAlliance, SaveType, SkillAbbreviation, SkillLongForm } from "@actor/types";
@@ -145,7 +144,6 @@ interface CreatureAttributes extends ActorAttributes {
     ac: { value: number };
     hardness?: { value: number };
     perception: CreaturePerception;
-    initiative?: CreatureInitiativeData;
 
     /** The creature's natural reach */
     reach: {
@@ -202,10 +200,6 @@ interface CreatureInitiativeSource {
     statistic: SkillLongForm | "perception";
 }
 
-interface CreatureInitiativeData extends InitiativeData {
-    statistic: SkillLongForm | "perception";
-}
-
 interface CreatureResources extends CreatureResourcesSource {
     /** The current number of focus points and pool size */
     focus: {
@@ -257,7 +251,6 @@ export {
     CreatureDetails,
     CreatureHitPoints,
     CreatureInitiativeSource,
-    CreatureInitiativeData,
     CreatureResources,
     CreatureResourcesSource,
     CreatureSaves,

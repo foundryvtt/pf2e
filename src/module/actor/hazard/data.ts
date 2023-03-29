@@ -36,6 +36,7 @@ interface HazardAttributesSource extends ActorAttributesSource {
         details: string;
     };
     perception?: never;
+    initiative?: never;
     hardness: number;
     stealth: {
         value: number | null;
@@ -69,9 +70,8 @@ interface HazardAttributes
     };
     hasHealth: boolean;
     hp: HazardHitPoints;
-    shield?: never;
     hardness: number;
-    initiative?: InitiativeData;
+    initiative?: HazardInitiativeData;
     stealth: {
         value: number | null;
         details: string;
@@ -81,6 +81,12 @@ interface HazardAttributes
      * silent until an encounter begins.
      */
     emitsSound: boolean | "encounter";
+
+    shield?: never;
+}
+
+interface HazardInitiativeData extends InitiativeData {
+    statistic: "stealth";
 }
 
 interface HazardDetailsSource {

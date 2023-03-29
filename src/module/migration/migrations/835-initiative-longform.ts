@@ -1,4 +1,4 @@
-import { CreatureInitiativeSource, CreatureInitiativeData, SkillAbbreviation } from "@actor/creature";
+import { CreatureInitiativeSource, SkillAbbreviation } from "@actor/creature";
 import { ActorSourcePF2e } from "@actor/data";
 import { SKILL_DICTIONARY } from "@actor/values";
 import { objectHasKey } from "@util";
@@ -26,7 +26,7 @@ export class Migration835InitiativeLongform extends MigrationBase {
     }
 }
 
-interface InitiativeSourceOld extends Partial<CreatureInitiativeData> {
+interface InitiativeSourceOld extends Partial<CreatureInitiativeSource> {
     statistic?: CreatureInitiativeSource["statistic"];
     ability?: SkillAbbreviation | "perception";
     "-=ability"?: null;
