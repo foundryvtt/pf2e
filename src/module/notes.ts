@@ -16,6 +16,8 @@ class RollNotePF2e {
     /** An optional visibility restriction for the note */
     visibility: UserVisibility | null;
 
+    #textResolver: ((text: string) => string) | null;
+
     constructor(params: RollNoteSource) {
         this.selector = params.selector;
         this.predicate = PredicatePF2e.create(params.predicate ?? []);
@@ -23,11 +25,13 @@ class RollNotePF2e {
         this.visibility = params.visibility ?? null;
         this.#title = params.title ?? null;
         this.#text = params.text;
+        this.#textResolver = params.textResolver ?? null;
     }
 
     get text(): string {
         const section = document.createElement("section");
-        section.innerHTML = game.i18n.localize(this.#text);
+        const localizedText = game.i18n.localize(this.#text);
+        section.innerHTML = this.#textResolver ? this.#textResolver(localizedText) : localizedText;
         // Remove wrapping elements, such as from item descriptions
         const { firstChild } = section;
         if (section.childNodes.length === 1 && firstChild instanceof HTMLElement) {
@@ -41,7 +45,8 @@ class RollNotePF2e {
 
         if (this.#title) {
             const strong = document.createElement("strong");
-            strong.innerHTML = game.i18n.localize(this.#title);
+            const localizedTitle = game.i18n.localize(this.#title);
+            strong.innerHTML = this.#textResolver ? this.#textResolver(localizedTitle) : localizedTitle;
             section.prepend(strong, " ");
         }
 
@@ -60,6 +65,7 @@ class RollNotePF2e {
             predicate: this.predicate,
             outcome: this.outcome,
             visibility: this.visibility,
+            textResolver: this.#textResolver,
         };
     }
 }
@@ -71,6 +77,7 @@ interface RollNoteSource {
     predicate?: RawPredicate;
     outcome?: DegreeOfSuccessString[];
     visibility?: UserVisibility | null;
+    textResolver?: ((text: string) => string) | null;
 }
 
 export { RollNotePF2e, RollNoteSource };
