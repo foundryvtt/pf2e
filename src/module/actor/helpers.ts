@@ -269,10 +269,12 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
 
                 params.options ??= [];
                 // Always add all weapon traits as options
-                const context = await actor.getCheckRollContext({
+                const context = await actor.getCheckContext({
                     item,
                     viewOnly: params.getFormula ?? false,
                     statistic: strike,
+                    target: { token: game.user.targets.first() ?? null },
+                    targetedDC: "armor",
                     domains,
                     options: new Set([...baseOptions, ...params.options]),
                 });
@@ -335,6 +337,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
             const context = await actor.getRollContext({
                 item,
                 statistic: strike,
+                target: { token: game.user.targets.first() ?? null },
                 viewOnly: params.getFormula ?? false,
                 domains,
                 options: new Set(params.options ?? []),

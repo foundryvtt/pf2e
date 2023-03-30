@@ -1,4 +1,4 @@
-import { AttackTarget } from "@actor/types";
+import { RollTarget } from "@actor/types";
 import { TraitViewData } from "@actor/data/base";
 import { RollNotePF2e, RollNoteSource } from "@module/notes";
 import { ModifierPF2e } from "../actor/modifiers";
@@ -48,7 +48,7 @@ interface BaseRollContext {
     /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
     rollMode?: RollMode | "roll";
     /** If this is an attack, the target of that attack */
-    target?: AttackTarget | null;
+    target?: RollTarget | null;
     /** Any traits for the check. */
     traits?: TraitViewData[];
     /** The outcome a roll (usually relevant only to rerolls) */

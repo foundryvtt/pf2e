@@ -66,7 +66,7 @@ class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryP
     /** Returns whether or not the spellcasting data can include an ability */
     #canSetAbility(): boolean {
         const slug = this.object._source.system.proficiency.slug;
-        const baseStat = this.actor.isOfType("character") ? this.actor.getProficiencyStatistic(slug) : null;
+        const baseStat = this.actor.isOfType("character") ? this.actor.getStatistic(slug) : null;
         return !slug || (!!baseStat && !baseStat.ability);
     }
 
