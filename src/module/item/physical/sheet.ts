@@ -200,7 +200,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         }
 
         // Convert price from a string to an actual object
-        if (formData["system.price.value"]) {
+        if ("system.price.value" in formData) {
             formData["system.price.value"] = CoinsPF2e.fromString(String(formData["system.price.value"]));
         }
 
