@@ -368,10 +368,12 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         // Get a list of all flattened damage partial values, sorted by category
         const order = [null, "precision", "splash"];
-        const allPartials = sortBy(Object.values(formulas), (f) => {
-            const idx = order.indexOf(f.damageCategory);
-            return idx >= 0 ? idx : order.length;
-        });
+        const allPartials = Object.values(formulas).sort(
+            sortBy((f) => {
+                const idx = order.indexOf(f.damageCategory);
+                return idx >= 0 ? idx : order.length;
+            })
+        );
 
         // Combine damage partials into new instances by damage type (except persistent)
         const notPersistent = allPartials.filter((p) => p.damageCategory !== "persistent");

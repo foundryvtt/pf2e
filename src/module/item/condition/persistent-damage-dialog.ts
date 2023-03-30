@@ -59,7 +59,7 @@ class PersistentDamageDialog extends Application {
             };
         });
 
-        return sortBy(types, (type) => type.label);
+        return types.sort(sortBy((type) => type.label));
     }
 
     override activateListeners($html: JQuery<HTMLElement>): void {

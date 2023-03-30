@@ -23,15 +23,13 @@ function groupBy<T, R>(array: T[], criterion: (value: T) => R): Map<R, T[]> {
     return result;
 }
 
-/** Sorts an array given the natural sorting behavior of the result of a mapping function */
-function sortBy<T, J>(array: T[], mapping: (value: T) => J) {
-    const compareFn = (a: T, b: T): number => {
+/** Creates a sorting comparator that sorts by the numerical result of a mapping function */
+function sortBy<T, J>(mapping: (value: T) => J) {
+    return (a: T, b: T): number => {
         const value1 = mapping(a);
         const value2 = mapping(b);
         return value1 < value2 ? -1 : value1 === value2 ? 0 : 1;
     };
-
-    return array.sort(compareFn);
 }
 
 /**
