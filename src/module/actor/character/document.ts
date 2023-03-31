@@ -99,7 +99,7 @@ import {
 import { CharacterSheetTabVisibility } from "./data/sheet";
 import { CharacterFeats } from "./feats";
 import {
-    StrikeWeaponTraits,
+    PCStrikeAttackTraits,
     createForceOpenPenalty,
     createShoddyPenalty,
     imposeOversizedWeaponCondition,
@@ -1922,7 +1922,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     override async getRollContext(params: StrikeRollContextParams): Promise<StrikeRollContext<this>> {
         const context = await super.getRollContext(params);
         if (context.self.item?.isOfType("weapon")) {
-            StrikeWeaponTraits.adjustWeapon(context.self.item);
+            PCStrikeAttackTraits.adjustWeapon(context.self.item);
         }
 
         return context;
@@ -1936,7 +1936,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     override async getCheckRollContext(params: AttackRollContextParams): Promise<AttackRollContext<this>> {
         const context = await super.getCheckRollContext(params);
         if (context.self.item?.isOfType("weapon")) {
-            const fromTraits = StrikeWeaponTraits.createAttackModifiers(context.self.item, params.domains);
+            const fromTraits = PCStrikeAttackTraits.createAttackModifiers({
+                weapon: context.self.item,
+                domains: params.domains,
+            });
             context.self.modifiers.push(...fromTraits);
         }
 

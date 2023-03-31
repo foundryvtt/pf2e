@@ -1,14 +1,15 @@
+import { StrikeAttackTraits } from "@actor/creature/helpers";
+import { ModifierPF2e } from "@actor/modifiers";
 import { ArmorPF2e, ConditionPF2e, WeaponPF2e } from "@item";
-import { ModifierPF2e, MODIFIER_TYPE } from "@actor/modifiers";
+import { extractModifierAdjustments } from "@module/rules/helpers";
+import { DAMAGE_DIE_FACES } from "@system/damage/values";
 import { PredicatePF2e } from "@system/predication";
 import { ErrorPF2e, objectHasKey, setHasElement } from "@util";
-import { DAMAGE_DIE_FACES } from "@system/damage/values";
-import { extractModifierAdjustments } from "@module/rules/helpers";
 import { type CharacterPF2e } from ".";
 import clumsySource from "../../../../packs/data/conditions.db/clumsy.json";
 
 /** Handle weapon traits that introduce modifiers or add other weapon traits */
-class StrikeWeaponTraits {
+class PCStrikeAttackTraits extends StrikeAttackTraits {
     static adjustWeapon(weapon: WeaponPF2e): void {
         const traits = weapon.system.traits.value;
         for (const trait of [...traits]) {
@@ -37,85 +38,44 @@ class StrikeWeaponTraits {
         }
     }
 
-    static createAttackModifiers(weapon: WeaponPF2e, domains: string[]): ModifierPF2e[] {
+    static override createAttackModifiers({ weapon, domains }: CreateAttackModifiersParams): ModifierPF2e[] {
         const { actor } = weapon;
         if (!actor) throw ErrorPF2e("The weapon must be embedded");
 
         const traitsAndTags = [weapon.system.traits.value, weapon.system.traits.otherTags].flat();
+        const synthetics = actor.synthetics.modifierAdjustments;
 
-        const getLabel = (traitOrTag: string): string => {
-            const traits: Record<string, string | undefined> = CONFIG.PF2E.weaponTraits;
-            const tags: Record<string, string | undefined> = CONFIG.PF2E.otherWeaponTags;
-            return traits[traitOrTag] ?? tags[traitOrTag] ?? traitOrTag;
-        };
-
-        return traitsAndTags
-            .flatMap((trait) => {
-                const reducedTrait = trait.replace(/-d?\d{1,3}$/, "");
-                switch (reducedTrait) {
-                    case "kickback": {
-                        // "Firing a kickback weapon gives a –2 circumstance penalty to the attack roll, but characters with
-                        // 14 or more Strength ignore the penalty."
-                        return new ModifierPF2e({
-                            slug: reducedTrait,
-                            label: CONFIG.PF2E.weaponTraits.kickback,
-                            modifier: -2,
-                            type: MODIFIER_TYPE.CIRCUMSTANCE,
-                            predicate: new PredicatePF2e({ lt: ["ability:str:score", 14] }),
-                        });
-                    }
-                    case "volley": {
-                        if (!weapon.rangeIncrement) return [];
-
-                        const penaltyRange = Number(/-(\d+)$/.exec(trait)![1]);
-                        return new ModifierPF2e({
-                            slug: reducedTrait,
-                            label: getLabel(trait),
-                            modifier: -2,
-                            type: MODIFIER_TYPE.UNTYPED,
-                            ignored: true,
-                            predicate: new PredicatePF2e(
-                                { lte: ["target:distance", penaltyRange] },
-                                { not: "self:ignore-volley-penalty" }
-                            ),
-                        });
-                    }
-                    case "improvised": {
-                        return new ModifierPF2e({
-                            slug: reducedTrait,
-                            label: getLabel(trait),
-                            modifier: -2,
-                            type: MODIFIER_TYPE.ITEM,
-                            predicate: new PredicatePF2e({ not: "self:ignore-improvised-penalty" }),
-                        });
-                    }
-                    case "sweep": {
-                        return new ModifierPF2e({
-                            slug: reducedTrait,
-                            label: getLabel(trait),
-                            modifier: 1,
-                            type: MODIFIER_TYPE.CIRCUMSTANCE,
-                            predicate: new PredicatePF2e("self:sweep-bonus"),
-                        });
-                    }
-                    case "backswing": {
-                        return new ModifierPF2e({
-                            slug: reducedTrait,
-                            label: getLabel(trait),
-                            modifier: 1,
-                            type: MODIFIER_TYPE.CIRCUMSTANCE,
-                            predicate: new PredicatePF2e("self:backswing-bonus"),
-                        });
-                    }
-                    default:
-                        return [];
+        const pcSpecificModifiers = traitsAndTags.flatMap((trait) => {
+            const unannotatedTrait = this.getUnannotatedTrait(trait);
+            switch (unannotatedTrait) {
+                case "kickback": {
+                    // "Firing a kickback weapon gives a –2 circumstance penalty to the attack roll, but characters with
+                    // 14 or more Strength ignore the penalty."
+                    return new ModifierPF2e({
+                        slug: unannotatedTrait,
+                        label: CONFIG.PF2E.weaponTraits.kickback,
+                        modifier: -2,
+                        type: "circumstance",
+                        predicate: new PredicatePF2e({ lt: ["ability:str:score", 14] }),
+                        adjustments: extractModifierAdjustments(synthetics, domains, unannotatedTrait),
+                    });
                 }
-            })
-            .map((modifier) => {
-                const synthetics = actor.synthetics.modifierAdjustments;
-                modifier.adjustments = extractModifierAdjustments(synthetics, domains, modifier.slug);
-                return modifier;
-            });
+                case "improvised": {
+                    return new ModifierPF2e({
+                        slug: unannotatedTrait,
+                        label: this.getLabel(trait),
+                        modifier: -2,
+                        type: "item",
+                        predicate: new PredicatePF2e({ not: "self:ignore-improvised-penalty" }),
+                        adjustments: extractModifierAdjustments(synthetics, domains, unannotatedTrait),
+                    });
+                }
+                default:
+                    return [];
+            }
+        });
+
+        return [...super.createAttackModifiers({ weapon }), ...pcSpecificModifiers];
     }
 }
 
@@ -145,6 +105,11 @@ function imposeOversizedWeaponCondition(actor: CharacterPF2e): void {
     for (const rule of clumsyOne.prepareRuleElements()) {
         rule.beforePrepareData?.();
     }
+}
+
+interface CreateAttackModifiersParams {
+    weapon: WeaponPF2e;
+    domains: string[];
 }
 
 /** Create a penalty for attempting to Force Open without a crowbar or equivalent tool */
@@ -180,4 +145,4 @@ function createShoddyPenalty(
     });
 }
 
-export { createForceOpenPenalty, createShoddyPenalty, imposeOversizedWeaponCondition, StrikeWeaponTraits };
+export { createForceOpenPenalty, createShoddyPenalty, imposeOversizedWeaponCondition, PCStrikeAttackTraits };

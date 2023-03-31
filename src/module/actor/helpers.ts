@@ -23,9 +23,9 @@ import { ActorSourcePF2e } from "./data";
 import { DamageRollFunction, TraitViewData } from "./data/base";
 import { CheckModifier, MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "./modifiers";
 import { NPCStrike } from "./npc/data";
-import { StrikeAttackTraits } from "./npc/strike-attack-traits";
 import { AttackItem } from "./types";
 import { ANIMAL_COMPANION_SOURCE_ID, CONSTRUCT_COMPANION_SOURCE_ID } from "./values";
+import { StrikeAttackTraits } from "./creature/helpers";
 
 /** Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors */
 async function resetActors(actors?: Iterable<ActorPF2e>, { rerender = true } = {}): Promise<void> {
@@ -186,7 +186,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     ];
 
     modifiers.push(...extractModifiers(synthetics, domains));
-    modifiers.push(...StrikeAttackTraits.createAttackModifiers(item));
+    modifiers.push(...StrikeAttackTraits.createAttackModifiers({ weapon: item }));
     const notes = extractNotes(synthetics.rollNotes, domains);
 
     const attackEffects: Record<string, string | undefined> = CONFIG.PF2E.attackEffects;
