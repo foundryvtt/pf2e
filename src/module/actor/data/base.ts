@@ -297,6 +297,7 @@ export {
     BaseHitPointsSource,
     DamageRollFunction,
     GangUpCircumstance,
+    FlatFootableCircumstance,
     HitPointsData,
     InitiativeData,
     PerceptionData,
