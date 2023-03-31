@@ -1,4 +1,4 @@
-import { balance } from "./acrobatics/balance";
+import * as balance from "./acrobatics/balance";
 import { maneuverInFlight } from "./acrobatics/maneuver-in-flight";
 import { squeeze } from "./acrobatics/squeeze";
 import { tumbleThrough } from "./acrobatics/tumble-through";
@@ -79,7 +79,7 @@ export const ActionMacros = {
     track,
 
     // Acrobatics
-    balance,
+    balance: balance.legacy,
     maneuverInFlight,
     squeeze,
     tumbleThrough,
@@ -147,6 +147,7 @@ export const ActionMacros = {
 };
 
 export const SystemActions: Action[] = [
+    balance.action,
     crawl,
     delay,
     dropProne,
