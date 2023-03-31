@@ -1,5 +1,22 @@
 # Changelog
 
+## Version 4.10.1
+
+### System Improvements
+* (In3luki) Add `extraRollNotes` and `label` as optional parameters of `StatisticCheck#roll`
+
+### Bugfixes
+* (nikolaj-a) Fix roll substitutions and degree-of-success adjustments in action macros
+* (stwlam) Fix price input on treasure item sheet
+
+### Data Updates
+* (Dire Weasel) Fix Dread Marshal Stance extra damage to only be on strike damage
+* (Dire Weasel) Fix instances of NPCs adding damage dice of type "precision"
+* (Dire Weasel) Add Note to Freezing Ammunition
+* (stwlam) Fix level of Percussive Impact spell
+* (Tikael) Fix functionality of Swashbuckler's Combination Finisher
+
+
 ## Version 4.10.0
 
 ### System Improvements
