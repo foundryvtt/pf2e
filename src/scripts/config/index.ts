@@ -64,6 +64,7 @@ import {
     traitDescriptions,
     vehicleTraits,
     weaponTraits,
+    armyTraits
 } from "./traits.ts";
 import { AbilityString } from "@actor/types.ts";
 
@@ -669,6 +670,7 @@ export const PF2ECONFIG = {
     monsterTraits: creatureTraits,
     npcAttackTraits,
     hazardTraits,
+    armyTraits,
     vehicleTraits,
 
     traitsDescriptions: traitDescriptions,
