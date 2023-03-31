@@ -1,7 +1,7 @@
 import * as balance from "./acrobatics/balance";
 import { maneuverInFlight } from "./acrobatics/maneuver-in-flight";
 import { squeeze } from "./acrobatics/squeeze";
-import { tumbleThrough } from "./acrobatics/tumble-through";
+import * as tumbleThrough from "./acrobatics/tumble-through";
 import { arcaneSlam } from "./ancestry/automaton/arcane-slam";
 import { climb } from "./athletics/climb";
 import { disarm } from "./athletics/disarm";
@@ -82,7 +82,7 @@ export const ActionMacros = {
     balance: balance.legacy,
     maneuverInFlight,
     squeeze,
-    tumbleThrough,
+    tumbleThrough: tumbleThrough.legacy,
 
     // Athletics
     climb,
@@ -162,4 +162,5 @@ export const SystemActions: Action[] = [
     stride,
     takeCover,
     trip.action,
+    tumbleThrough.action,
 ];

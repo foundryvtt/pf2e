@@ -1,8 +1,9 @@
 import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { SingleCheckAction } from "@actor/actions";
 
 const PREFIX = "PF2E.Actions.TumbleThrough";
 
-export function tumbleThrough(options: SkillActionOptions) {
+function tumbleThrough(options: SkillActionOptions) {
     const slug = options?.skill ?? "acrobatics";
     const rollOptions = ["action:tumble-through"];
     const modifiers = options?.modifiers;
@@ -22,3 +23,20 @@ export function tumbleThrough(options: SkillActionOptions) {
         ],
     });
 }
+
+const action = new SingleCheckAction({
+    cost: 1,
+    description: `${PREFIX}.Description`,
+    difficultyClass: "saves.reflex",
+    name: `${PREFIX}.Title`,
+    notes: [
+        { outcome: ["success", "criticalSuccess"], text: `${PREFIX}.Notes.success` },
+        { outcome: ["failure", "criticalFailure"], text: `${PREFIX}.Notes.failure` },
+    ],
+    rollOptions: ["action:tumble-through"],
+    slug: "tumble-through",
+    statistic: "acrobatics",
+    traits: ["move"],
+});
+
+export { tumbleThrough as legacy, action };
