@@ -26,7 +26,7 @@ import {
     WeaponPF2e,
 } from "@item";
 import { AfflictionPF2e } from "@item/affliction/document";
-import { ConditionSlug } from "@item/condition/data";
+import { ConditionSlug } from "@item/condition/types";
 import { RANGE_TRAITS } from "@item/data/values";
 import { DeityDomain } from "@item/deity/types";
 import { FeatCategory } from "@item/feat";

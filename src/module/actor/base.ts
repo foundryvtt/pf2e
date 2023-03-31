@@ -75,7 +75,8 @@ import { StatisticModifier } from "./modifiers";
 import { ActorSheetPF2e } from "./sheet/base";
 import { ActorSpellcasting } from "./spellcasting";
 import { TokenEffect } from "./token-effect";
-import { CONDITION_SLUGS, CREATURE_ACTOR_TYPES, UNAFFECTED_TYPES } from "./values";
+import { CREATURE_ACTOR_TYPES, UNAFFECTED_TYPES } from "./values";
+import { CONDITION_SLUGS } from "@item/condition/values";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
