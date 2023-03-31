@@ -5,7 +5,7 @@ import { ActorPF2e } from "./base";
 /** A collection of conditions on an actor, filterable by whether they're active or stored/temporary */
 class ActorConditions<TActor extends ActorPF2e> extends Collection<ConditionPF2e<TActor>> {
     /** A secondary internal map by condition slug */
-    #slugMap = new Map<ConditionSlug, ConditionPF2e<TActor>[]>();
+    #slugMap = new Map<string, ConditionPF2e<TActor>[]>();
 
     /** Return an array of only active conditions */
     get active(): ConditionPF2e<TActor>[] {
@@ -56,12 +56,15 @@ class ActorConditions<TActor extends ActorPF2e> extends Collection<ConditionPF2e
         return false;
     }
 
+    /**
+     * Get an array of conditions by slug
+     * The "dead" slug is permitted due to `StatusEffectsPF2e`'s usage of this class, though it will always return an
+     * empty array.
+     */
     bySlug(slug: "persistent-damage", options?: ConditionsBySlugOptions): PersistentDamagePF2e<TActor>[];
-    bySlug(slug: ConditionSlug, options?: ConditionsBySlugOptions): ConditionPF2e<TActor>[];
-    bySlug(
-        slug: ConditionSlug,
-        { active = null, temporary = null }: ConditionsBySlugOptions = {}
-    ): ConditionPF2e<TActor>[] {
+    bySlug(slug: "dead", options?: ConditionsBySlugOptions): never[];
+    bySlug(slug: ConditionSlug | "dead", options?: ConditionsBySlugOptions): ConditionPF2e<TActor>[];
+    bySlug(slug: string, { active = null, temporary = null }: ConditionsBySlugOptions = {}): ConditionPF2e<TActor>[] {
         return (this.#slugMap.get(slug) ?? []).filter((condition): boolean => {
             const activeFilterSatisfied =
                 active === true ? condition.active : active === false ? !condition.active : true;
