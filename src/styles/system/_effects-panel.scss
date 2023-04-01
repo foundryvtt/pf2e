@@ -15,22 +15,21 @@
 
         &[data-badge-type=formula] .icon {
             cursor: pointer;
-            &:hover {
-                &::before {
-                    content: "\f6cf";
-                    background: rgba(0, 0, 0, 0.5);
-                    font-family: "Font Awesome 5 Free";
-                    font-weight: 900;
-                    font-size: var(--font-size-26);
-                    color: white;
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    padding-bottom: 4px; // offset
-                }
+
+            &:hover::before {
+                content: "\f6cf";
+                background: rgba(0, 0, 0, 0.5);
+                font-family: "Font Awesome 5 Free";
+                font-weight: 900;
+                font-size: var(--font-size-26);
+                color: white;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding-bottom: 4px; // offset
             }
         }
 
@@ -43,26 +42,23 @@
         }
 
         .effect-info {
-            display: none;
-            height: min-content;
-            max-width: 300px;
-            margin-right: 0.5em;
-            padding: 0.25em 0.5rem;
             background-color: rgba(0, 0, 0, 0.75);
             color: white;
+            display: none;
+            height: min-content;
+            margin-right: 0.5em;
+            max-width: 300px;
+            padding: 0.25em 0.5rem;
 
             h1 {
-                font-size: var(--font-size-12);
-                text-align: right;
-                border: none;
                 @include p-reset;
+                border: none;
+                font-size: var(--font-size-12);
+                padding-top: 0.25em;
+                text-align: right;
 
-                i.fas.fa-comment-alt {
+                i.fa-comment-alt {
                     margin-left: 2px;
-                }
-
-                i.fas.fa-comment-alt:hover {
-                    text-shadow: 0 0 8px var(--color-shadow-primary);
                 }
             }
 
@@ -79,32 +75,33 @@
                 }
             }
 
-            a {
+            > a, .description a {
                 display: block;
                 border: 1px outset white;
                 font-size: var(--font-size-10);
                 margin-top: 0.125rem;
-                padding: 0.125rem;   
+                padding: 0.125rem;
+
                 &.content-link, &.inline-roll {
                     padding: 1px 4px;
                     border: 1px solid var(--color-border-dark-tertiary);
                     width: fit-content;
                     display: inline;
                     color: var(--color-text-dark-primary);
-                } 
+                }
             }
 
             span[data-pf2-check] {
                 color: var(--color-text-dark-primary);
             }
 
-            .instructions, .effect-description {
+            .instructions, .description {
                 font-size: 0.75em;
                 text-align: right;
             }
 
-            .effect-description {
-                max-height: 100px;
+            .description {
+                max-height: 15em;
                 overflow-y: auto;
                 text-align: justify;
             }
@@ -180,8 +177,8 @@
         }
     }
 
-    hr {
+    > hr {
         margin-right: 0;
-        width: 40px;
+        width: 48px;
     }
 }
