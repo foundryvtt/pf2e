@@ -61,7 +61,7 @@ class SimpleActionVariant extends BaseActionVariant {
         const name = this.name
             ? `${game.i18n.localize(this.#action.name)} - ${game.i18n.localize(this.name)}`
             : game.i18n.localize(this.#action.name);
-        const flavor = await renderTemplate("systems/pf2e/templates/system/actions/simple/chat-message-flavor.hbs", {
+        const flavor = await renderTemplate("systems/pf2e/templates/actors/actions/simple/chat-message-flavor.hbs", {
             effect,
             glyph: this.glyph,
             name,
