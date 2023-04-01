@@ -446,7 +446,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         // Avoid setting a `baseItem` or `stackGroup` to an empty string
         for (const key of ["baseItem", "stackGroup"] as const) {
             if (typeof changed.system?.[key] === "string") {
-                changed.system[key] = sluggify(String(changed.system[key])) || null;
+                changed.system[key] = String(changed.system[key]).trim() || null;
             }
         }
 

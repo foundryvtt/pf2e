@@ -465,7 +465,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     /** Generate a weapon name base on precious-material composition and runes */
     generateMagicName(): string {
         const translations = LocalizePF2e.translations.PF2E;
-        const baseWeapons = translations.Weapon.Base;
+        const baseWeapons = CONFIG.PF2E.baseWeaponTypes;
 
         const storedName = this._source.name;
         if (this.isSpecific || !this.baseType || storedName !== baseWeapons[this.baseType]) {
