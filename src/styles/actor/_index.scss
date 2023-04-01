@@ -10,6 +10,8 @@ $header-height: 89px;   /* Adjust height of the header */
 
 .actor.sheet {
     .image-container {
+        position: relative;
+
         .hover-icon {
             display: none;
             font-size: var(--font-size-16);
@@ -17,6 +19,12 @@ $header-height: 89px;   /* Adjust height of the header */
 
         &:hover .hover-icon {
             display: block;
+        }
+
+        [data-action=show-image] {
+            position: absolute;
+            bottom: 0;
+            right: 0;
         }
     }
 
