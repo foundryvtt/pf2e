@@ -270,7 +270,7 @@ class EncounterPF2e extends Combat {
 }
 
 interface EncounterPF2e extends Combat {
-    readonly combatants: foundry.abstract.EmbeddedCollection<CombatantPF2e<this, TokenDocumentPF2e>>;
+    readonly combatants: foundry.abstract.EmbeddedCollection<CombatantPF2e<this, TokenDocumentPF2e | null>>;
 
     rollNPC(options: RollInitiativeOptionsPF2e): Promise<this>;
 }
