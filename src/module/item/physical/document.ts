@@ -6,7 +6,7 @@ import { CoinsPF2e } from "@item/physical/helpers";
 import { Rarity, Size } from "@module/data";
 import { LocalizePF2e } from "@module/system/localize";
 import { UserPF2e } from "@module/user";
-import { isObject, sluggify } from "@util";
+import { ErrorPF2e, isObject, sluggify, sortBy } from "@util";
 import { getUnidentifiedPlaceholderImage } from "../identification";
 import { Bulk, stackDefinitions, weightToBulk } from "./bulk";
 import {
@@ -20,6 +20,7 @@ import {
 import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
 import { getUsageDetails, isEquipped } from "./usage";
 import { DENOMINATIONS } from "./values";
+import { isCycle } from "@item/container/helpers";
 
 abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     // The cached container of this item, if in a container, or null
@@ -316,6 +317,106 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         thisData.identification = otherData.identification;
 
         return JSON.stringify(thisData) === JSON.stringify(otherData);
+    }
+
+    /** Combine this item with a target item if possible */
+    async stackWith(targetItem: PhysicalItemPF2e): Promise<boolean> {
+        if (this.isStackableWith(targetItem)) {
+            const stackQuantity = this.quantity + targetItem.quantity;
+            if (await this.delete({ render: false })) {
+                await targetItem.update({ "system.quantity": stackQuantity });
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Move this item somewhere else in the inventory, possibly before or after another item or in or out of a container.
+     * If this item and the target item are stackable they will be stacked automatically
+     * @param options Options to control where this item is moved to
+     * @param options.relativeTo An optional target item to sort this item relative to
+     * @param options.sortBefore Should this item be sorted before or after the target item?
+     * @param options.toContainer An optional container to move this item into. If the target item is in a container this can be omitted
+     * @param options.render Render the update? Overridden by moving the item in or out of a container. Defaults to true
+     * @returns
+     */
+    async move({
+        relativeTo,
+        sortBefore,
+        toContainer,
+        render = true,
+    }: {
+        relativeTo?: PhysicalItemPF2e;
+        sortBefore?: boolean;
+        toContainer?: ContainerPF2e<ActorPF2e> | null;
+        render?: boolean;
+    }): Promise<void> {
+        if (!this.actor) {
+            throw ErrorPF2e(`Tried to move an unonwned item!`);
+        }
+        if (!toContainer && !relativeTo) {
+            throw ErrorPF2e(`You must provide either the relativeTo or the toContainer parameter!`);
+        }
+        if (relativeTo) {
+            if (!relativeTo.isOfType("physical")) {
+                throw ErrorPF2e(`The relativeTo item is not a physical item!`);
+            } else if (!relativeTo.actor) {
+                throw ErrorPF2e(`The relativeTo item is not an owned item!`);
+            }
+
+            // If theses two items are stackable, combine them
+            if (await this.stackWith(relativeTo)) return;
+        }
+        if (toContainer) {
+            if (!toContainer.isOfType("backpack")) {
+                throw ErrorPF2e(`The toContainer item is not a container item!`);
+            } else if (!toContainer.actor) {
+                throw ErrorPF2e(`The toContainer item is not an owned item!`);
+            }
+        }
+
+        const containerResolved = toContainer ?? relativeTo?.container;
+        const mainContainerUpdate = (() => {
+            // Move into a container
+            if (containerResolved && !isCycle(this, containerResolved)) {
+                const carryType = containerResolved.stowsItems ? "stowed" : "worn";
+                const equipped = { carryType, handsHeld: 0, inSlot: false };
+                return { system: { containerId: containerResolved?.id, equipped } };
+            }
+            // Move out of a container
+            if (!containerResolved && this.isInContainer) {
+                const equipped = { carryType: "worn", handsHeld: 0, inSlot: false };
+                return { system: { containerId: null, equipped } };
+            }
+            // Move without changing container state
+            return null;
+        })();
+        const inventory = this.actor.inventory;
+        const siblings = (containerResolved?.contents.contents ?? inventory.contents).sort(sortBy((i) => i.sort));
+
+        // If there is nothing to sort, perform the normal update and end here
+        if (!sortBefore && !siblings.length && !!mainContainerUpdate) {
+            await this.update(mainContainerUpdate);
+            return;
+        }
+
+        const sorting = SortingHelpers.performIntegerSort(this, {
+            target: relativeTo,
+            siblings,
+            sortBefore,
+        });
+        const updates = sorting.map((s) => {
+            const baseUpdate = { _id: s.target.id, ...s.update };
+            if (mainContainerUpdate && s.target.id === this.id) {
+                return mergeObject(baseUpdate, mainContainerUpdate);
+            }
+            return baseUpdate;
+        });
+
+        // Always render if moved in or out of a container
+        const stowedOrUnstowed = (!this.container && !!containerResolved) || (this.container && !containerResolved);
+        await this.actor.updateEmbeddedDocuments("Item", updates, { render: stowedOrUnstowed || render });
     }
 
     /* Retrieve subtitution data for an unidentified or misidentified item, generating defaults as necessary */

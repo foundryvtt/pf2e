@@ -1,5 +1,5 @@
-<li class="list-row">
-    <div class="item {{#if item.isTemporary}}temporary-item{{/if}}" data-item-id="{{item.id}}" data-item-is-container="{{isContainer}}">
+<li class="list-row"{{#if item.isInContainer}} data-item-type="{{item.type}}"{{/if}}>
+    <div class="item{{#if item.isTemporary}} temporary-item{{/if}}" data-item-id="{{item.id}}" data-item-is-container="{{isContainer}}">
         <div class="item-name rollable{{#if (and (ne @root.actor.type "loot") (not owner))}} long{{/if}}">
             <div class="item-image" style="background-image: url('{{item.img}}')"></div>
             <h4 {{#if (or user.isGM item.isIdentified)}}class="rarity-{{item.system.traits.rarity}}"{{/if}}>

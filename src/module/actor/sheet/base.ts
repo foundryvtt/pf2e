@@ -44,6 +44,7 @@ import { IWREditor } from "./popups/iwr-editor";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup";
 import { CraftingFormula } from "@actor/character/crafting";
 import { UUIDUtils } from "@util/uuid-utils";
+import Sortable, { type SortableEvent } from "sortablejs";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -54,6 +55,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         options.dragDrop.push({ dragSelector: ".drag-handle" }, { dragSelector: ".item[draggable=true]" });
+        const itemDrag = options.dragDrop.find((d) => d.dragSelector === ".item-list .item");
+        if (itemDrag) {
+            // Inventory items are handled by Sortable
+            itemDrag.dragSelector = ".item-list .item:not(.inventory-list *)";
+        }
         return mergeObject(options, {
             classes: ["default", "sheet", "actor"],
             scrollY: [".sheet-sidebar", ".tab.active", ".inventory-list"],
@@ -62,6 +68,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     /** Implementation used to handle the toggling and rendering of item summaries */
     itemRenderer: ItemSummaryRenderer<TActor> = new ItemSummaryRenderer(this);
+
+    /** Stores data from the Sortable onMove event */
+    #sortableOnMoveData: { related?: HTMLElement; willInsertAfter?: boolean } = {};
 
     /** Can non-owning users loot items from this sheet? */
     get isLootSheet(): boolean {
@@ -589,6 +598,78 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             ]);
         });
 
+        // Inventory sorting
+        const inventoryList = htmlQuery(html, "section.inventory-list, ol[data-container-type=actorInventory]");
+        if (inventoryList) {
+            const sortableOptions: Sortable.Options = {
+                animation: 200,
+                direction: "vertical",
+                dragClass: "drag-preview",
+                dragoverBubble: true,
+                easing: "cubic-bezier(1, 0, 0, 1)",
+                ghostClass: "drag-gap",
+                scroll: inventoryList,
+                scrollSensitivity: 30,
+                scrollSpeed: 15,
+                setData: (dataTransfer, dragEl) => {
+                    const item = this.actor.inventory.get(htmlQuery(dragEl, "div[data-item-id]")?.dataset.itemId, {
+                        strict: true,
+                    });
+                    dataTransfer.setData("text/plain", JSON.stringify({ ...item.toDragData(), fromInventory: true }));
+                },
+                onStart: () => {
+                    // Reset move data
+                    this.#sortableOnMoveData = {};
+                },
+                onMove: (event, originalEvent) => this.#sortableOnMove(event, originalEvent),
+                onEnd: (event) => this.#sortableOnEnd(event),
+            };
+
+            for (const list of htmlQueryAll(inventoryList, "ol.inventory-items, ol.item-list")) {
+                const itemType = list.dataset.itemType;
+                // Ignore nested container lists that have the same selector. They will be handled by the backpack section
+                if (list.dataset.containerId || !itemType) continue;
+
+                // Containers
+                if (itemType === "backpack") {
+                    Sortable.create(list, {
+                        ...sortableOptions,
+                        group: {
+                            name: "container",
+                            put: (_to, _from, dragEl) => dragEl.dataset.itemType === "backpack",
+                        },
+                        swapThreshold: 0.2,
+                    });
+                    // Nested items inside containers
+                    for (const subList of htmlQueryAll(list, "ol.container-held-items")) {
+                        Sortable.create(subList, {
+                            ...sortableOptions,
+                            group: {
+                                name: "nested-item",
+                                put: true,
+                            },
+                            swapThreshold: 0.2,
+                        });
+                    }
+                    continue;
+                }
+
+                // Everything else
+                Sortable.create(list, {
+                    ...sortableOptions,
+                    group: {
+                        name: itemType,
+                        put: (to, from, dragEl) => {
+                            // Return early if both lists are the same
+                            if (from === to) return true;
+                            // Allow dragging by item type
+                            return dragEl.dataset.itemType === to.el.dataset.itemType;
+                        },
+                    },
+                });
+            }
+        }
+
         // Select all text in an input field on focus
         for (const inputElem of htmlQueryAll<HTMLInputElement>(html, "input[type=text], input[type=number]")) {
             inputElem.addEventListener("focus", () => {
@@ -603,6 +684,58 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 const match = /[+-]?\d*/.exec(deltaInput.value)?.at(0);
                 deltaInput.value = match ?? deltaInput.value;
             });
+        }
+    }
+
+    /** Handle dragging of items in the inventory */
+    #sortableOnMove(event: Sortable.MoveEvent, originalEvent: Event): boolean | void | 1 | -1 {
+        // This data is not available in the onEnd event. Store it here.
+        this.#sortableOnMoveData = {
+            related: event.related,
+            willInsertAfter: event.willInsertAfter,
+        };
+        const sourceItem = this.actor.inventory.get(
+            htmlQuery(event.dragged, "div[data-item-id]")?.dataset.itemId ?? ""
+        );
+        const targetItem = this.actor.inventory.get(
+            htmlClosest(originalEvent.target, "div[data-item-id]")?.dataset.itemId ?? ""
+        );
+        if (sourceItem && targetItem) {
+            // Return false to cancel the move animation
+            return !sourceItem.isStackableWith(targetItem);
+        }
+        return;
+    }
+
+    /** Handle drop of inventory items */
+    async #sortableOnEnd(event: SortableEvent & { originalEvent?: DragEvent }): Promise<void> {
+        const targetElement = event.originalEvent?.target instanceof HTMLElement ? event.originalEvent.target : null;
+        // Item dragged out of the inventory to some other element like the item sidebar
+        if (!event.from.contains(targetElement) && !event.to.contains(targetElement)) {
+            // Render the sheet to reset positional changes caused by dragging the item around
+            this.render();
+            return;
+        }
+
+        const itemId = htmlQuery(event.item, "div[data-item-id]")?.dataset.itemId;
+        const sourceItem = this.actor.inventory.get(itemId, { strict: true });
+
+        const { related, willInsertAfter } = this.#sortableOnMoveData;
+        const targetItem = ((): PhysicalItemPF2e | null => {
+            const originalItemId = htmlClosest(targetElement, "div[data-item-id]")?.dataset.itemId;
+            if (originalItemId) {
+                // Dropped directly on an item. Return the original drop target if it isn't a container
+                const originalItem = this.actor.inventory.get(originalItemId);
+                if (!originalItem?.isOfType("backpack")) {
+                    return originalItem ?? null;
+                }
+            }
+            // Dropped before or after an item. Use related item data
+            const targetItemId = htmlQuery(related, "div[data-item-id]")?.dataset.itemId ?? "";
+            return this.actor.inventory.get(targetItemId) ?? null;
+        })();
+        if (targetItem) {
+            await sourceItem.move({ relativeTo: targetItem, sortBefore: !willInsertAfter, render: false });
         }
     }
 
@@ -799,42 +932,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         itemSource: ItemSourcePF2e
     ): Promise<ItemPF2e<TActor>[]>;
     protected override async _onSortItem(event: ElementDragEvent, itemSource: ItemSourcePF2e): Promise<Item<TActor>[]> {
-        const item = this.actor.items.get(itemSource._id);
-        if (!item) return [];
-
-        if (item.isOfType("physical")) {
-            const $target = $(event.target).closest("[data-item-id]");
-            const targetId = $target.attr("data-item-id") ?? "";
-            const target = this.actor.inventory.get(targetId);
-
-            if (target && item.isStackableWith(target)) {
-                const stackQuantity = item.quantity + target.quantity;
-                if (await item.delete({ render: false })) {
-                    await target.update({ "system.quantity": stackQuantity });
-                }
-
-                return [];
-            }
-
-            const $container = $(event.target).closest('[data-item-is-container="true"]');
-            const containerId = $container.attr("data-item-id") ?? "";
-            const container = this.actor.inventory.get(containerId);
-            const pullingOutOfContainer = item.isInContainer && !container;
-            const puttingIntoContainer = container?.isOfType("backpack") && item.container?.id !== container.id;
-            if (pullingOutOfContainer || puttingIntoContainer) {
-                await this.actor.stowOrUnstow(item, container);
-                return [item];
-            }
-
-            // This is a regular resort, but we can't rely on the default foundry resort implementation.
-            // The default implement only treats same type as siblings, and physical can have many sub-types.
-            if (target) {
-                const siblings = this.actor.items.filter((i): i is PhysicalItemPF2e<TActor> => i.isOfType("physical"));
-                await item.sortRelative({ target, siblings });
-                return [target];
-            }
-        }
-
         return super._onSortItem(event, itemSource);
     }
 
@@ -845,7 +942,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     protected override async _onDropItem(
         event: ElementDragEvent,
-        data: DropCanvasItemDataPF2e
+        data: DropCanvasItemDataPF2e & { fromInventory?: boolean }
     ): Promise<ItemPF2e<ActorPF2e | null>[]> {
         event.preventDefault();
 
@@ -853,7 +950,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         if (!item) return [];
 
         if (item.actor?.uuid === this.actor.uuid) {
-            return this._onSortItem(event, item.toObject());
+            // Drops from inventory are handled by Sortable
+            return data.fromInventory ? [] : this._onSortItem(event, item.toObject());
         }
 
         if (item.actor && item.isOfType("physical")) {
