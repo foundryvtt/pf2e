@@ -196,7 +196,9 @@ export class StatusEffects {
         event.stopPropagation();
 
         const slug = control.dataset.statusId;
-        if (!setHasElement(CONDITION_SLUGS, slug)) return;
+        if (!setHasElement(CONDITION_SLUGS, slug) && slug !== "dead") {
+            return;
+        }
 
         for (const token of canvas.tokens.controlled) {
             const { actor } = token;
@@ -222,7 +224,7 @@ export class StatusEffects {
                 }
             } else if (event.type === "contextmenu") {
                 // Remove or decrement condition
-                if (event.ctrlKey) {
+                if (event.ctrlKey && slug !== "dead") {
                     // Remove all conditions
                     const conditionIds = actor.conditions.bySlug(slug, { temporary: false }).map((c) => c.id);
                     await token.actor?.deleteEmbeddedDocuments("Item", conditionIds);
@@ -240,7 +242,9 @@ export class StatusEffects {
         if (!actor) return;
 
         const slug = control.dataset.statusId ?? "";
-        if (!setHasElement(CONDITION_SLUGS, slug)) return;
+        if (!setHasElement(CONDITION_SLUGS, slug) && slug !== "dead") {
+            return;
+        }
 
         const imgElement = control.querySelector("img");
         const iconSrc = imgElement?.getAttribute("src") as ImageFilePath | null | undefined;
