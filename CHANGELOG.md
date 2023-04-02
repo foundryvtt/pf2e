@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 4.10.3
+* (stwlam) Fix generation of magic weapon names
+
+
 ## Version 4.10.2
 
 ### Bugfixes
