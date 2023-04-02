@@ -1,8 +1,8 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
 import { CharacterSheetPF2e } from "@actor/character/sheet";
-import { InitiativeRollResult } from "@actor/creature";
 import { RollInitiativeOptionsPF2e } from "@actor/data";
 import { resetActors } from "@actor/helpers";
+import { InitiativeRollResult } from "@actor/initiative";
 import { SkillLongForm } from "@actor/types";
 import { SKILL_DICTIONARY, SKILL_LONG_FORMS } from "@actor/values";
 import { ScenePF2e, TokenDocumentPF2e } from "@scene";
@@ -80,12 +80,10 @@ class EncounterPF2e extends Combat {
         const combatants: { id: string; actor: ActorPF2e | null }[] = ids.flatMap(
             (id) => this.combatants.get(id) ?? []
         );
-        const fightyCombatants = combatants.filter(
-            (c): c is { id: string; actor: ActorPF2e } => !!c.actor?.isOfType("character", "npc")
-        );
+        const fightyCombatants = combatants.filter((c): c is { id: string; actor: ActorPF2e } => !!c.actor?.initiative);
         const rollResults = await Promise.all(
             fightyCombatants.map(async (combatant): Promise<InitiativeRollResult | null> => {
-                const checkType = combatant.actor.system.attributes.initiative?.ability ?? "";
+                const checkType = combatant.actor.initiative?.ability ?? "";
                 const skills: Record<string, string | undefined> = SKILL_DICTIONARY;
                 const rollOptions = combatant.actor.getRollOptions([
                     "all",
@@ -94,7 +92,7 @@ class EncounterPF2e extends Combat {
                 ]);
                 if (options.secret) rollOptions.push("secret");
                 return (
-                    combatant.actor.system.attributes.initiative?.roll?.({
+                    combatant.actor.initiative?.roll({
                         options: rollOptions,
                         updateTracker: false,
                         skipDialog: !!options.skipDialog,
@@ -145,6 +143,20 @@ class EncounterPF2e extends Combat {
         await this.updateEmbeddedDocuments("Combatant", updates);
         // Ensure the current turn is preserved
         await this.update({ turn: this.turns.findIndex((c) => c.id === currentId) });
+    }
+
+    override async setInitiative(id: string, value: number): Promise<void> {
+        const combatant = this.combatants.get(id, { strict: true });
+        if (combatant.actor?.isOfType("character", "npc")) {
+            return this.setMultipleInitiatives([
+                {
+                    id: combatant.id,
+                    value,
+                    statistic: combatant.actor.attributes.initiative.statistic || "perception",
+                },
+            ]);
+        }
+        super.setInitiative(id, value);
     }
 
     /**
@@ -258,7 +270,7 @@ class EncounterPF2e extends Combat {
 }
 
 interface EncounterPF2e extends Combat {
-    readonly combatants: foundry.abstract.EmbeddedCollection<CombatantPF2e<this, TokenDocumentPF2e>>;
+    readonly combatants: foundry.abstract.EmbeddedCollection<CombatantPF2e<this, TokenDocumentPF2e | null>>;
 
     rollNPC(options: RollInitiativeOptionsPF2e): Promise<this>;
 }

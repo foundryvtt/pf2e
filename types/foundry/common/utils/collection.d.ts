@@ -14,7 +14,7 @@ declare module foundry {
             [Symbol.iterator](): IterableIterator<V>;
 
             /** Return an Array of all the entry values in the Collection */
-            readonly contents: V[];
+            get contents(): V[];
 
             /**
              * Find an entry in the Map using an functional condition.
@@ -55,8 +55,8 @@ declare module foundry {
 
             /**
              * Get an element from the Collection by its key.
-             * @param key      The key of the entry to retrieve
-             * @param strict  Throw an Error if the requested id does not exist, otherwise return null. Default false
+             * @param key    The key of the entry to retrieve
+             * @param strict Throw an Error if the requested id does not exist, otherwise return null. Default false
              * @return The retrieved entry value, if the key exists, otherwise null
              *
              * @example
@@ -65,8 +65,8 @@ declare module foundry {
              * c.get("d"); // null
              * c.get("d", {strict: true}); // throws Error
              */
-            get<T extends V = V>(key: string | null | undefined, { strict }: { strict: true }): T;
-            get<T extends V = V>(key: string, { strict }?: { strict?: boolean }): T | undefined;
+            get<T extends V = V>(key: Maybe<string>, { strict }: { strict: true }): T;
+            get<T extends V = V>(key: string, { strict }?: CollectionGetOptions): T | undefined;
 
             /**
              * Get an entry from the Collection by name.
@@ -122,3 +122,6 @@ declare module foundry {
 
 declare type Collection<V> = foundry.utils.Collection<V>;
 declare const Collection: typeof foundry.utils.Collection;
+declare interface CollectionGetOptions {
+    strict?: boolean;
+}

@@ -1,12 +1,11 @@
 import { DexterityModifierCapData } from "@actor/character/types";
-import { Abilities, SkillAbbreviation } from "@actor/creature/data";
+import { Abilities } from "@actor/creature/data";
 import { ActorSizePF2e } from "@actor/data/size";
 import { StatisticModifier } from "@actor/modifiers";
-import { AbilityString, ActorAlliance } from "@actor/types";
+import { AbilityString, ActorAlliance, SkillLongForm } from "@actor/types";
 import { ConsumablePF2e, MeleePF2e, WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { DocumentSchemaRecord, Rarity, Size, ValueAndMaybeMax, ZeroToTwo } from "@module/data";
-import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
 import { AutoChangeEntry } from "@module/rules/rule-element/ae-like";
 import { RollParameters, AttackRollParams, DamageRollParams } from "@module/system/rolls";
 import { CheckRoll } from "@system/check";
@@ -14,6 +13,7 @@ import { DamageRoll } from "@system/damage/roll";
 import { ActorType } from ".";
 import { ImmunityData, ImmunitySource, ResistanceData, ResistanceSource, WeaknessData, WeaknessSource } from "./iwr";
 import { ActorPF2e } from "@actor/base";
+import { StatisticTraceData } from "@system/statistic";
 
 /** Base interface for all actor data */
 interface BaseActorSourcePF2e<TType extends ActorType, TSystemSource extends ActorSystemSource = ActorSystemSource>
@@ -43,9 +43,6 @@ interface ActorSystemSource {
 interface ActorAttributesSource {
     hp?: ActorHitPointsSource;
     perception?: { value: number };
-    initiative?: {
-        ability?: SkillAbbreviation | "perception";
-    };
     immunities?: ImmunitySource[];
     weaknesses?: WeaknessSource[];
     resistances?: ResistanceSource[];
@@ -168,31 +165,13 @@ type RollFunction<T extends RollParameters = RollParameters> = (
 
 type DamageRollFunction = (params?: DamageRollParams) => Promise<string | Rolled<DamageRoll> | null>;
 
-/** Creature initiative statistic */
-interface InitiativeData {
-    roll?: (parameters: InitiativeRollParams) => Promise<InitiativeRollResult | null>;
-    /** What skill or ability is currently being used to compute initiative. */
-    ability?: SkillAbbreviation | "perception";
-    /** The textual name for what type of initiative is being rolled (usually includes the skill). */
-    label?: string;
-    totalModifier?: number;
+interface InitiativeData extends StatisticTraceData {
+    statistic: SkillLongForm | "perception";
     /**
      * If a pair of initiative rolls are tied, the next resolution step is the tiebreak priority. A lower value
      * constitutes a higher priority.
      */
     tiebreakPriority: ZeroToTwo;
-}
-
-interface InitiativeRollResult {
-    combatant: CombatantPF2e<EncounterPF2e>;
-    roll: Rolled<CheckRoll>;
-}
-
-interface InitiativeRollParams extends RollParameters {
-    /** Whether the encounter tracker should be updated with the roll result */
-    updateTracker?: boolean;
-    skipDialog?: boolean;
-    rollMode?: RollMode | "roll";
 }
 
 /** The full data for character perception rolls (which behave similarly to skills). */
@@ -317,8 +296,6 @@ export {
     GangUpCircumstance,
     HitPointsData,
     InitiativeData,
-    InitiativeRollParams,
-    InitiativeRollResult,
     PerceptionData,
     PrototypeTokenPF2e,
     RollFunction,

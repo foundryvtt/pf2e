@@ -1,5 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { strikeFromMeleeItem } from "@actor/helpers";
+import { ActorInitiative } from "@actor/initiative";
 import { MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "@actor/modifiers";
 import { SaveType } from "@actor/types";
 import { SAVE_TYPES } from "@actor/values";
@@ -12,6 +13,7 @@ import { DamageType } from "@system/damage";
 import { Statistic } from "@system/statistic";
 import { isObject, objectHasKey } from "@util";
 import { HazardSource, HazardSystemData } from "./data";
+import { InitiativeData } from "@actor/data/base";
 
 class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     override get allowedItemTypes(): (ItemType | "physical")[] {
@@ -57,10 +59,20 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
         super.prepareBaseData();
 
         const { attributes, details } = this.system;
-        attributes.initiative = { tiebreakPriority: this.hasPlayerOwner ? 2 : 1 };
         attributes.hp.negativeHealing = false;
         attributes.hp.brokenThreshold = Math.floor(attributes.hp.max / 2);
         attributes.hasHealth = attributes.hp.max > 0;
+        if (this.isComplex) {
+            // Ensure stealth value is numeric and set baseline initiative data
+            attributes.stealth.value ??= 0;
+            const partialAttributes: { initiative?: Pick<InitiativeData, "statistic" | "tiebreakPriority"> } =
+                this.system.attributes;
+            partialAttributes.initiative = {
+                statistic: "stealth",
+                tiebreakPriority: this.hasPlayerOwner ? 2 : 1,
+            };
+        }
+
         details.alliance = null;
     }
 
@@ -70,6 +82,7 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
         const { system } = this;
 
         this.prepareSynthetics();
+        this.prepareInitiative();
 
         // Armor Class
         {
@@ -129,6 +142,27 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
             saves[saveType] = stat;
             return saves;
         }, {});
+    }
+
+    private prepareInitiative(): void {
+        const { attributes } = this;
+        if (!attributes.initiative) return;
+
+        const skillName = game.i18n.localize(CONFIG.PF2E.skillList.stealth);
+        const label = game.i18n.format("PF2E.InitiativeWithSkill", { skillName });
+        const baseMod = attributes.stealth.value || 0;
+        const statistic = new Statistic(this, {
+            slug: "initiative",
+            label,
+            domains: ["initiative"],
+            check: {
+                type: "initiative",
+                modifiers: [new ModifierPF2e("PF2E.ModifierTitle", baseMod, MODIFIER_TYPE.UNTYPED)],
+            },
+        });
+
+        this.initiative = new ActorInitiative(this, statistic);
+        attributes.initiative = mergeObject(attributes.initiative, statistic.getTraceData());
     }
 }
 

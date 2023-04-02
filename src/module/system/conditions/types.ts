@@ -4,6 +4,7 @@ interface FlattenedCondition {
     id: string;
     active: boolean;
     name: string;
+    type: "condition";
     slug: string;
     badge: EffectBadge | null;
     value: number | null;
@@ -14,6 +15,7 @@ interface FlattenedCondition {
     isLocked: boolean;
     references: boolean;
     breakdown?: string;
+    temporary: boolean;
     parents: ConditionReference[];
     children: ConditionReference[];
     overrides: ConditionReference[];

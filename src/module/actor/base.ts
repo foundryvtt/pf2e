@@ -40,7 +40,7 @@ import { UserPF2e } from "@module/user";
 import { ScenePF2e, TokenDocumentPF2e } from "@scene";
 import { DicePF2e } from "@scripts/dice";
 import { DamageType } from "@system/damage";
-import { IWRApplicationData, applyIWR, maxPersistentAfterIWR } from "@system/damage/iwr";
+import { IWRApplicationData, applyIWR } from "@system/damage/iwr";
 import { Statistic, StatisticCheck } from "@system/statistic";
 import { TextEditorPF2e } from "@system/text-editor";
 import {
@@ -53,6 +53,7 @@ import {
     traitSlugToObject,
     tupleHasValue,
 } from "@util";
+import { ActorConditions } from "./conditions";
 import { Abilities, VisionLevel, VisionLevels } from "./creature/data";
 import { GetReachParameters, ModeOfBeing } from "./creature/types";
 import { ActorSourcePF2e, ActorType } from "./data";
@@ -67,6 +68,7 @@ import {
 import { ImmunityData, ResistanceData, WeaknessData } from "./data/iwr";
 import { ActorSizePF2e } from "./data/size";
 import { calculateRangePenalty, checkAreaEffects, getRangeIncrement, isReallyPC, migrateActorSource } from "./helpers";
+import { ActorInitiative } from "./initiative";
 import { ActorInventory } from "./inventory";
 import { ItemTransfer } from "./item-transfer";
 import { StatisticModifier } from "./modifiers";
@@ -83,8 +85,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /** Has this actor completed construction? */
     private constructed = true;
 
-    /** Is this actor preparing its embedded documents? */
+    /** Is this actor preparing its embedded documents? Used to prevent premature data preparation of embedded items */
     preparingEmbeds?: boolean;
+
+    /** Handles rolling initiative for the current actor */
+    initiative?: ActorInitiative;
 
     /** A separate collection of owned physical items for convenient access */
     inventory!: ActorInventory<this>;
@@ -103,8 +108,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /** Data from rule elements for auras this actor may be emanating */
     auras!: Map<string, AuraData>;
 
-    /** Conditions this actor has */
-    conditions!: Map<ConditionSlug, ConditionPF2e<this>>;
+    /** A collection of this actor's conditions */
+    conditions!: ActorConditions<this>;
 
     /** A cached copy of `Actor#itemTypes`, lazily regenerated every data preparation cycle */
     private _itemTypes?: EmbeddedItemInstances<this> | null;
@@ -271,7 +276,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Add effect icons from effect items and rule elements */
     override get temporaryEffects(): TemporaryEffect[] {
-        const conditionTokenIcons = this.itemTypes.condition.map((condition) => condition.img);
+        const conditionTokenIcons = this.conditions.active.map((c) => c.img);
         const conditionTokenEffects = Array.from(new Set(conditionTokenIcons)).map((icon) => new TokenEffect(icon));
 
         const effectTokenEffects = this.itemTypes.effect
@@ -537,7 +542,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     protected override _initialize(): void {
         this.constructed ??= false;
         this.rules = [];
-        this.conditions = new Map();
+        this.conditions = new ActorConditions();
         this.auras = new Map();
 
         const preparationWarnings: Set<string> = new Set();
@@ -1198,11 +1203,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             return condition;
         });
 
-        for (const source of [...persistentDamage]) {
-            const maxDamage = await maxPersistentAfterIWR(this, deepClone(source), rollOptions);
-            if (maxDamage === 0) persistentDamage.splice(persistentDamage.indexOf(source), 1);
-        }
-
         const persistentCreated = (
             persistentDamage.length > 0 ? await this.createEmbeddedDocuments("Item", persistentDamage) : []
         ) as ConditionPF2e<this>[];
@@ -1451,13 +1451,15 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /* -------------------------------------------- */
 
     /** Gets an active condition on the actor or a list of conditions sorted by descending value. */
+    getCondition(slugOrKey: ConditionKey, { all }: { all: true }): ConditionPF2e<this>[];
+    getCondition(slugOrKey: ConditionKey, { all }: { all?: false }): ConditionPF2e<this> | null;
+    getCondition(slugOrKey: ConditionKey): ConditionPF2e<this> | null;
     getCondition(
-        slug: ConditionKey,
-        { all }: { all: boolean } = { all: false }
-    ): ConditionPF2e<this>[] | ConditionPF2e<this> | null {
-        const conditions = this.itemTypes.condition.filter(
-            (condition) => condition.key === slug || condition.slug === slug
-        );
+        slugOrKey: ConditionKey,
+        { all }: { all?: boolean }
+    ): ConditionPF2e<this>[] | ConditionPF2e<this> | null;
+    getCondition(slugOrKey: ConditionKey, { all = false } = {}): ConditionPF2e<this>[] | ConditionPF2e<this> | null {
+        const conditions = this.conditions.filter((c) => c.key === slugOrKey || c.slug === slugOrKey);
 
         if (all) {
             return conditions.sort((conditionA, conditionB) => {
@@ -1474,7 +1476,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
      * @param slugs Slug(s) of the queried condition(s)
      */
     hasCondition(...slugs: ConditionSlug[]): boolean {
-        return slugs.some((s) => this.conditions.has(s));
+        return slugs.some((s) => this.conditions.bySlug(s, { active: true }).length > 0);
     }
 
     /** Decrease the value of condition or remove it entirely */
@@ -1488,7 +1490,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         // If this is persistent damage, remove all matching types, heal from all at once
         if (condition.slug === "persistent-damage") {
-            const matching = this.itemTypes.condition.filter((c) => c.key === condition.key).map((c) => c.id);
+            const matching = this.conditions.stored.filter((c) => c.key === condition.key).map((c) => c.id);
             await this.deleteEmbeddedDocuments("Item", matching);
             return;
         }
@@ -1521,10 +1523,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         // Resolves the condition. If the argument is a condition, return it. Otherwise find an existing one.
         // If value is defined, this is a condition being dragged, so prioritized unlocked
         const existing = (() => {
-            if (!(typeof conditionSlug === "string")) return conditionSlug;
+            if (typeof conditionSlug !== "string") return conditionSlug;
 
-            const conditions = this.getCondition(conditionSlug, { all: true });
-            return value ? conditions.find((c) => !c.isLocked) : conditions.find((c) => c.active);
+            const conditions = this.conditions.stored;
+            return value
+                ? conditions.find((c) => c.slug === conditionSlug && !c.isLocked)
+                : conditions.find((c) => c.slug === conditionSlug && c.active);
         })();
 
         if (existing) {
@@ -1705,17 +1709,12 @@ interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         options?: DocumentUpdateContext<this>
     ): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
 
-    getCondition(conditionType: ConditionKey, { all }: { all: true }): ConditionPF2e<this>[];
-    getCondition(conditionType: ConditionKey, { all }: { all: false }): ConditionPF2e<this> | null;
-    getCondition(conditionType: ConditionKey): ConditionPF2e<this> | null;
-    getCondition(
-        conditionType: ConditionKey,
-        { all }: { all: boolean }
-    ): ConditionPF2e<this>[] | ConditionPF2e<this> | null;
-
     getActiveTokens(linked: boolean | undefined, document: true): TokenDocumentPF2e<ScenePF2e>[];
-    getActiveTokens(linked?: undefined, document?: undefined): TokenPF2e[];
-    getActiveTokens(linked?: boolean, document?: boolean): TokenDocumentPF2e<ScenePF2e>[] | TokenPF2e[];
+    getActiveTokens(linked?: undefined, document?: undefined): TokenPF2e<TokenDocumentPF2e<ScenePF2e>>[];
+    getActiveTokens(
+        linked?: boolean,
+        document?: boolean
+    ): TokenDocumentPF2e<ScenePF2e>[] | TokenPF2e<TokenDocumentPF2e<ScenePF2e>>[];
 
     /** Added as debounced method */
     checkAreaEffects(): void;

@@ -47,7 +47,7 @@ declare global {
         "renderChatMessage",
         [ChatMessage, JQuery, foundry.documents.ChatMessageSource]
     >;
-    type HookParamsTargetToken = HookParameters<"targetToken", [User, Token, boolean]>;
+    type HookParamsTargetToken = HookParameters<"targetToken", [User, Token<TokenDocument<Scene>>, boolean]>;
     type HookParamsUpdate<T extends foundry.abstract.Document, N extends string> = HookParameters<
         `update${N}`,
         [T, DocumentUpdateData<T>, DocumentModificationContext<T["parent"]>]

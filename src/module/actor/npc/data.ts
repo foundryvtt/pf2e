@@ -5,7 +5,7 @@ import {
     CreatureAttributes,
     CreatureDetails,
     CreatureHitPoints,
-    CreatureInitiative,
+    CreatureInitiativeSource,
     CreatureResources,
     CreatureResourcesSource,
     CreatureSpeeds,
@@ -16,10 +16,16 @@ import {
     HeldShieldData,
     LabeledSpeed,
     SaveData,
-    SkillAbbreviation,
     SkillData,
 } from "@actor/creature/data";
-import { ActorAttributesSource, ActorFlagsPF2e, ArmorClassData, PerceptionData, StrikeData } from "@actor/data/base";
+import {
+    ActorAttributesSource,
+    ActorFlagsPF2e,
+    ArmorClassData,
+    InitiativeData,
+    PerceptionData,
+    StrikeData,
+} from "@actor/data/base";
 import { ActorSizePF2e } from "@actor/data/size";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers";
 import { AbilityString, ActorAlliance, SaveType } from "@actor/types";
@@ -72,9 +78,7 @@ interface NPCAttributesSource extends Required<ActorAttributesSource> {
         temp: number;
         details: string;
     };
-    initiative: {
-        ability: SkillAbbreviation | "perception";
-    };
+    initiative: CreatureInitiativeSource;
     perception: {
         value: number;
     };
@@ -161,9 +165,7 @@ interface NPCAttributes
     adjustment: "elite" | "weak" | null;
     hp: NPCHitPoints;
     perception: NPCPerception;
-
-    initiative: CreatureInitiative;
-
+    initiative: InitiativeData;
     speed: NPCSpeeds;
     /**
      * Data related to the currently equipped shield. This is copied from the shield data itself, and exists to

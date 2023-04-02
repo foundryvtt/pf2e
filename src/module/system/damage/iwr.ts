@@ -1,6 +1,5 @@
 import { ActorPF2e } from "@actor";
 import { ResistanceData, WeaknessData } from "@actor/data/iwr";
-import { ConditionSource } from "@item/condition";
 import { DEGREE_OF_SUCCESS } from "@system/degree-of-success";
 import { DamageInstance, DamageRoll } from "./roll";
 
@@ -43,7 +42,6 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             const wasIncreased = instance.total <= 0 && typeof roll.options.increasedFrom === "number";
             const isFirst = instances.indexOf(instance) === 0;
             const instanceTotal = wasIncreased && isFirst ? 1 : Math.max(instance.total, 0);
-            if (instanceTotal === 0) return [];
 
             // Step 0: Inapplicable damage outside the IWR framework
             if (!actor.isAffectedBy(instance.type)) {
@@ -101,6 +99,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
                 0
             );
 
+            // Push applicable persistent damage to a separate list
             if (instance.persistent && !instance.options.evaluatePersistent) {
                 persistent.push(instance);
             }
@@ -198,22 +197,6 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
     return { finalDamage, applications, persistent };
 }
 
-/** Get the theoretic maximum damage for an instance of persistent damage after applying IWR */
-async function maxPersistentAfterIWR(
-    actor: ActorPF2e,
-    data: ConditionSource,
-    rollOptions: Set<string>
-): Promise<number> {
-    const ConditionPF2e = CONFIG.PF2E.Item.documentClasses.condition;
-    const { damage, damageType } = new ConditionPF2e(data, { ready: true }).system.persistent!;
-    const roll = await new DamageRoll(
-        `${damage.maximumValue}[${damageType}]`,
-        {},
-        { evaluatePersistent: true } // In case of bleed damage
-    ).evaluate({ async: true });
-    return applyIWR(actor, roll, rollOptions).finalDamage;
-}
-
 interface IWRApplicationData {
     finalDamage: number;
     applications: IWRApplication[];
@@ -247,4 +230,4 @@ interface ResistanceApplication {
 
 type IWRApplication = UnafectedApplication | ImmunityApplication | WeaknessApplication | ResistanceApplication;
 
-export { IWRApplication, IWRApplicationData, applyIWR, maxPersistentAfterIWR };
+export { IWRApplication, IWRApplicationData, applyIWR };

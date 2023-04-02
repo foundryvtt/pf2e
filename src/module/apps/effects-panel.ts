@@ -69,7 +69,7 @@ export class EffectsPanel extends Application {
                 return effect;
             }) ?? [];
 
-        const conditions = game.pf2e.ConditionManager.getFlattenedConditions(actor.itemTypes.condition);
+        const conditions = game.pf2e.ConditionManager.getFlattenedConditions(actor);
 
         const afflictions = actor.itemTypes.affliction;
 
@@ -133,15 +133,15 @@ export class EffectsPanel extends Application {
             });
 
             // Send effect to chat
-            effectEl.querySelector("[data-action=send-to-chat]")?.addEventListener("click", async () => {
+            effectEl.querySelector("[data-action=send-to-chat]")?.addEventListener("click", () => {
                 const { actor } = this;
-                const effect = actor?.items.get(itemId);
-                if (effect) await effect.toMessage();
+                const effect = actor?.conditions.get(itemId) ?? actor?.items.get(itemId);
+                effect?.toMessage();
             });
 
             // Uses a scale transform to fit the text within the box
             // Note that the value container cannot have padding or measuring will fail.
-            // They cannot be inline elements pre-computation, but most be post-computation (for ellipses)
+            // They cannot be inline elements pre-computation, but must be post-computation (for ellipses)
             const valueContainer = htmlQuery(iconElem, ".value");
             const textElement = htmlQuery(valueContainer, "strong");
             if (valueContainer && textElement) {

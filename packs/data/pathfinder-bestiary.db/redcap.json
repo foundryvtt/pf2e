@@ -609,24 +609,21 @@
                 },
                 "rules": [
                     {
-                        "domain": "attack-roll",
+                        "domain": "damage-roll",
                         "key": "RollOption",
                         "option": "stomp",
                         "toggleable": true
                     },
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess",
-                            "success"
-                        ],
+                        "damageType": "bleed",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
                         "predicate": [
                             "stomp",
                             "target:condition:prone"
                         ],
-                        "selector": "boot-attack",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
+                        "selector": "boot-damage"
                     }
                 ],
                 "slug": null,
@@ -822,7 +819,7 @@
                 "value": 60
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 12

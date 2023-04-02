@@ -25,6 +25,7 @@ import { PHYSICAL_ITEM_TYPES } from "./physical/values";
 import { ItemSheetPF2e } from "./sheet/base";
 import { ItemFlagsPF2e, ItemSystemData } from "./data/base";
 import { ItemInstances } from "./types";
+import { UUIDUtils } from "@util/uuid-utils";
 
 /** Override and extend the basic :class:`Item` implementation */
 class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item<TParent> {
@@ -53,6 +54,33 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /** The item that granted this item, if any */
     get grantedBy(): ItemPF2e<ActorPF2e> | null {
         return this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "") ?? null;
+    }
+
+    /** Check whether this item is in-memory-only on an actor rather than being a world item or embedded and stored */
+    get isTemporary(): boolean {
+        return !!this.actor && !this.actor.items.has(this.id ?? "");
+    }
+
+    /**
+     * Set a source ID on a dropped embedded item without a full data reset
+     * This is currently necessary as of 10.291 due to system measures to prevent premature data preparation
+     */
+    static override fromDropData<TDocument extends foundry.abstract.Document>(
+        this: ConstructorOf<TDocument>,
+        data: object,
+        options?: Record<string, unknown>
+    ): Promise<TDocument | undefined>;
+    static override fromDropData(data: object, options?: Record<string, unknown>): Promise<ClientDocument | undefined> {
+        if ("uuid" in data && UUIDUtils.isItemUUID(data.uuid)) {
+            const item = fromUuidSync(data.uuid);
+            if (item instanceof ItemPF2e && item.parent && !item.sourceId) {
+                // Upstream would do this via `item.updateSource(...)`, causing a data reset
+                item._source.flags = mergeObject(item._source.flags, { core: { sourceId: item.uuid } });
+                item.flags = mergeObject(item.flags, { core: { sourceId: item.uuid } });
+            }
+        }
+
+        return super.fromDropData(data, options);
     }
 
     /** Check this item's type (or whether it's one among multiple types) without a call to `instanceof` */
@@ -130,7 +158,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
      * follow-up options for attack rolls, effect application, etc.
      */
     async toMessage(
-        event?: JQuery.TriggeredEvent,
+        event?: MouseEvent | JQuery.TriggeredEvent,
         {
             rollMode = undefined,
             create = true,
@@ -142,7 +170,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         // Basic template rendering data
         const template = `systems/pf2e/templates/chat/${this.type}-card.hbs`;
         const token = this.actor.token;
-        const nearestItem = event ? event.currentTarget.closest(".item") : {};
+        const nearestItem = event?.currentTarget.closest(".item") ?? {};
         const contextualData = Object.keys(data).length > 0 ? data : nearestItem.dataset || {};
         const templateData = {
             actor: this.actor,
@@ -374,6 +402,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         };
         const newItem = super.createDialog(data, withClasses);
         game.system.documentTypes.Item = original;
+
         return newItem;
     }
 

@@ -410,13 +410,13 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "stalk-damage",
-                        "text": "On a critical hit with a stalk Strike, the target takes [[/r 1d4[persistent,fire]]] damage.",
-                        "title": "{item|name}"
+                        "critical": true,
+                        "category": "persistent",
+                        "damageType": "fire",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "selector": "stalk-damage"
                     }
                 ],
                 "slug": null,
@@ -585,7 +585,7 @@
                 "value": 12
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 5

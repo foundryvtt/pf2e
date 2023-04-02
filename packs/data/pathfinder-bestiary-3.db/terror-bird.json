@@ -189,12 +189,19 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The terror bird's powerful beak can tear through flesh. On a successful beak Strike, the target takes @Localize[PF2E.PersistentDamage.Bleed1.success]. This bleed damage increases to [[/r 1d4[bleed]]] on a critical hit.</p>"
+                    "value": "<p>The terror bird's powerful beak can tear through flesh. On a successful beak Strike, the target takes [[/r 1[bleed]]] damage. This bleed damage increases to [[/r 1d4[bleed]]] on a critical hit.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "beak-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}"
+                    }
+                ],
                 "slug": "tearing-clutch",
                 "source": {
                     "value": ""
@@ -340,7 +347,7 @@
                 "value": 30
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 6

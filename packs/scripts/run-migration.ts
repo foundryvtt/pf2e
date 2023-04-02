@@ -32,6 +32,7 @@ import { Migration831ClericDoctrines } from "@module/migration/migrations/831-cl
 import { Migration832ChoiceSetFlags } from "@module/migration/migrations/832-choice-set-flags";
 import { Migration833AddRogueToysFixPrecision } from "@module/migration/migrations/833-add-rogue-toys-fix-precision";
 import { Migration834FeatCategories } from "@module/migration/migrations/834-feat-categories";
+import { Migration835InitiativeLongform } from "@module/migration/migrations/835-initiative-longform";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -67,6 +68,7 @@ const migrations: MigrationBase[] = [
     new Migration832ChoiceSetFlags(),
     new Migration833AddRogueToysFixPrecision(),
     new Migration834FeatCategories(),
+    new Migration835InitiativeLongform(),
 ];
 
 global.deepClone = <T>(original: T): T => {

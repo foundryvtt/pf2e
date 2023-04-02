@@ -11,7 +11,7 @@ import { highJump } from "./athletics/high-jump";
 import { longJump } from "./athletics/long-jump";
 import { shove } from "./athletics/shove";
 import { swim } from "./athletics/swim";
-import { trip } from "./athletics/trip";
+import * as trip from "./athletics/trip";
 import { whirlingThrow } from "./athletics/whirling-throw";
 import { escape } from "./basic/escape";
 import { seek } from "./basic/seek";
@@ -40,12 +40,13 @@ import { commandAnAnimal } from "./nature/command-an-animal";
 import { perform } from "./performance/perform";
 import { createForgery } from "./society/create-forgery";
 import { concealAnObject } from "./stealth/conceal-an-object";
-import { hide } from "./stealth/hide";
-import { sneak } from "./stealth/sneak";
+import * as hide from "./stealth/hide";
+import * as sneak from "./stealth/sneak";
 import { palmAnObject } from "./thievery/palm-an-object";
 import { disableDevice } from "./thievery/disable-device";
 import { pickALock } from "./thievery/pick-a-lock";
 import { steal } from "./thievery/steal";
+import { Action } from "@actor/actions";
 export { ActionMacroHelpers } from "./helpers";
 export { ActionDefaultOptions, SkillActionOptions } from "./types";
 
@@ -81,7 +82,7 @@ export const ActionMacros = {
     longJump,
     shove,
     swim,
-    trip,
+    trip: trip.legacy,
     whirlingThrow,
 
     // Crafting
@@ -124,8 +125,8 @@ export const ActionMacros = {
 
     // Stealth
     concealAnObject,
-    hide,
-    sneak,
+    hide: hide.legacy,
+    sneak: sneak.legacy,
 
     // Thievery
     palmAnObject,
@@ -133,3 +134,5 @@ export const ActionMacros = {
     pickALock,
     steal,
 };
+
+export const SystemActions: Action[] = [hide.action, sneak.action, trip.action];

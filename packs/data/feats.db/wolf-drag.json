@@ -25,7 +25,7 @@
         },
         "rules": [
             {
-                "domain": "damage-roll",
+                "domain": "all",
                 "key": "RollOption",
                 "option": "wolf-drag",
                 "toggleable": true
@@ -41,6 +41,20 @@
                 ],
                 "property": "weapon-traits",
                 "value": "fatal-d12"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "predicate": [
+                    "item:slug:wolf-jaws",
+                    "wolf-drag"
+                ],
+                "selector": "wolf-jaws-attack",
+                "text": "PF2E.SpecificRule.Monk.WolfDrag.Note",
+                "title": "{item|name}"
             }
         ],
         "source": {

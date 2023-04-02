@@ -5,6 +5,7 @@ import { ALLIANCES } from "@actor/creature/values";
 import { StrikeData } from "@actor/data/base";
 import { ActorSizePF2e } from "@actor/data/size";
 import { calculateMAPs } from "@actor/helpers";
+import { ActorInitiative } from "@actor/initiative";
 import {
     CheckModifier,
     MODIFIER_TYPE,
@@ -97,7 +98,12 @@ import {
 } from "./data";
 import { CharacterSheetTabVisibility } from "./data/sheet";
 import { CharacterFeats } from "./feats";
-import { StrikeWeaponTraits, createForceOpenPenalty, createShoddyPenalty } from "./helpers";
+import {
+    StrikeWeaponTraits,
+    createForceOpenPenalty,
+    createShoddyPenalty,
+    imposeOversizedWeaponCondition,
+} from "./helpers";
 import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams, DexterityModifierCapData } from "./types";
 import { CHARACTER_SHEET_TABS } from "./values";
 
@@ -123,6 +129,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     classDC!: Statistic | null;
     /** All class DCs regardless of whether or not its the primary */
     classDCs!: Record<string, Statistic>;
+
+    override initiative!: ActorInitiative;
 
     // Internal cached value of character skills
     protected override _skills: CharacterSkills | null = null;
@@ -459,6 +467,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     override prepareDerivedData(): void {
         super.prepareDerivedData();
+
+        imposeOversizedWeaponCondition(this);
 
         const systemData = this.system;
         const { synthetics } = this;
@@ -1779,6 +1789,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     const checkContext: CheckRollContext = {
                         type: "attack-roll",
                         actor: context.self.actor,
+                        token: context.self.token,
                         target: context.target,
                         item: context.self.item,
                         altUsage: params.altUsage ?? null,

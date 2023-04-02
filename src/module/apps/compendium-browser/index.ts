@@ -112,8 +112,9 @@ class CompendiumBrowser extends Application {
         return game.i18n.localize("PF2E.CompendiumBrowser.Title");
     }
 
-    static override get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+    static override get defaultOptions(): ApplicationOptions {
+        return {
+            ...super.defaultOptions,
             id: "compendium-browser",
             classes: [],
             template: "systems/pf2e/templates/compendium-browser/compendium-browser.hbs",
@@ -129,11 +130,7 @@ class CompendiumBrowser extends Application {
                 },
             ],
             scrollY: [".control-area", ".item-list"],
-        });
-    }
-
-    override async render(force?: boolean, options?: RenderOptions): Promise<this> {
-        return super.render(force, options);
+        };
     }
 
     /** Reset initial filtering */

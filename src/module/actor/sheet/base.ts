@@ -44,7 +44,6 @@ import { IWREditor } from "./popups/iwr-editor";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup";
 import { CraftingFormula } from "@actor/character/crafting";
 import { UUIDUtils } from "@util/uuid-utils";
-import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -209,7 +208,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const html = $html[0]!;
 
         // Item summaries
-        this.itemRenderer.activateListeners($html);
+        this.itemRenderer.activateListeners(html);
 
         // Pop out window with actor portrait
         htmlQuery(html, "a[data-action=show-image]")?.addEventListener("click", () => {
@@ -265,19 +264,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         const rollInitElem = htmlQuery(html, ".roll-init");
-        rollInitElem?.addEventListener("click", (): void => {
-            const { attributes } = this.actor.system;
-            if (!rollInitElem.classList.contains("disabled") && attributes.initiative?.roll) {
-                if (!game.combat) return;
-                const { actor } = this;
-                const combatant = ((): CombatantPF2e<EncounterPF2e> | null => {
-                    const existing = game.combat.combatants.find((c) => c.actor === actor);
-                    if (existing) return existing;
-                    ui.notifications.error(game.i18n.format("PF2E.Encounter.NotParticipating", { actor: actor.name }));
-                    return null;
-                })();
-                if (!combatant) return;
-                game.combat.rollInitiative([combatant.id]);
+        rollInitElem?.addEventListener("click", (event): void => {
+            if (!rollInitElem.classList.contains("disabled") && this.actor.initiative) {
+                this.actor.initiative.roll(eventToRollParams(event));
             }
         });
 
@@ -408,11 +397,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         // Trait Selector
         $html.find(".tag-selector").on("click", (event) => this.openTagSelector(event));
 
-        $html.find(".add-coins-popup button").on("click", (event) => this.onAddCoinsPopup(event));
+        $html.find(".add-coins-popup button").on("click", (event) => this.#onAddCoinsPopup(event));
 
-        $html.find(".remove-coins-popup button").on("click", (event) => this.onRemoveCoinsPopup(event));
+        $html.find(".remove-coins-popup button").on("click", (event) => this.#onRemoveCoinsPopup(event));
 
-        $html.find(".sell-all-treasure button").on("click", (event) => this.onSellAllTreasure(event));
+        $html.find(".sell-all-treasure button").on("click", (event) => this.#onSellAllTreasure(event));
 
         // Inventory Browser
         for (const link of htmlQueryAll(html, ".inventory-browse")) {
@@ -422,18 +411,18 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const $spellcasting = $html.find(".tab.spellcasting, .tab.spells");
         const $spellControls = $spellcasting.find(".item-control");
         // Spell Create
-        $spellControls.filter(".spell-create").on("click", (event) => this.onClickCreateItem(event));
+        $spellControls.filter(".spell-create").on("click", (event) => this.#onClickCreateItem(event));
 
         /* -------------------------------------------- */
         /*  Inventory                                   */
         /* -------------------------------------------- */
 
         // Create New Item
-        $html.find(".item-create").on("click", (event) => this.onClickCreateItem(event));
+        $html.find(".item-create").on("click", (event) => this.#onClickCreateItem(event));
 
-        $html.find(".item-repair").on("click", (event) => this.repairItem(event));
+        $html.find(".item-repair").on("click", (event) => this.#repairItem(event));
 
-        $html.find(".item-toggle-container").on("click", (event) => this.toggleContainer(event));
+        $html.find(".item-toggle-container").on("click", (event) => this.#toggleContainer(event));
 
         // Sell treasure item
         for (const sellButton of htmlQueryAll(html, ".item-sell-treasure")) {
@@ -536,7 +525,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         // Delete Inventory Item
-        $html.find(".item-delete").on("click", (event) => this.onClickDeleteItem(event));
+        for (const deleteLink of htmlQueryAll(html, ".item-delete")) {
+            deleteLink.addEventListener("click", (event) => this.#onClickDeleteItem(event));
+        }
 
         // Increase Item Quantity
         $html.find(".item-increase-quantity").on("click", (event) => {
@@ -561,7 +552,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             }
         });
 
-        // Item Rolling
+        // Item chat cards
         for (const element of htmlQueryAll(html, ".item[data-item-id] .item-image, .item[data-item-id] .item-chat")) {
             element.addEventListener("click", async () => {
                 const itemId = htmlClosest(element, "[data-item-id]")?.dataset.itemId ?? "";
@@ -615,13 +606,13 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
     }
 
-    async onClickDeleteItem(event: JQuery.TriggeredEvent): Promise<void> {
-        const $li = $(event.currentTarget).closest("[data-item-id]");
-        const itemId = $li.attr("data-item-id") ?? "";
-        const item = this.actor.items.get(itemId);
+    async #onClickDeleteItem(event: MouseEvent): Promise<void> {
+        const row = htmlClosest(event.currentTarget, "[data-item-id]");
+        const itemId = row?.dataset.itemId;
+        const item = this.actor.items.get(itemId ?? "");
 
         if (item?.isOfType("condition")) {
-            const references = $li.find(".condition-references");
+            const references = htmlQuery(row, ".condition-references");
 
             const deleteCondition = async (): Promise<void> => {
                 this.actor.decreaseCondition(item, { forceRemove: true });
@@ -634,7 +625,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
             const content = await renderTemplate("systems/pf2e/templates/actors/delete-condition-dialog.hbs", {
                 question: game.i18n.format("PF2E.DeleteConditionQuestion", { condition: item.name }),
-                ref: references.html(),
+                ref: references?.innerHTML,
             });
             new Dialog({
                 title: game.i18n.localize("PF2E.DeleteConditionTitle"),
@@ -652,10 +643,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 },
                 default: "Yes",
             }).render(true);
-        } else if (item) {
+        } else if (row && item) {
             const deleteItem = async (): Promise<void> => {
                 await item.delete();
-                $li.slideUp(200, () => this.render(false));
+                $(row).slideUp(200, () => this.render(false));
             };
             if (event.ctrlKey) {
                 deleteItem();
@@ -1064,7 +1055,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     /** Attempt to repair the item */
-    private async repairItem(event: JQuery.ClickEvent): Promise<void> {
+    async #repairItem(event: JQuery.ClickEvent): Promise<void> {
         const itemId = $(event.currentTarget).parents(".item").data("item-id");
         const item = this.actor.items.get(itemId);
         if (!item) return;
@@ -1073,7 +1064,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     /** Opens an item container */
-    private async toggleContainer(event: JQuery.ClickEvent): Promise<void> {
+    async #toggleContainer(event: JQuery.ClickEvent): Promise<void> {
         const itemId = $(event.currentTarget).parents(".item").data("item-id");
         const item = this.actor.items.get(itemId);
         if (!item?.isOfType("backpack")) return;
@@ -1083,7 +1074,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     /** Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset */
-    private onClickCreateItem(event: JQuery.ClickEvent) {
+    #onClickCreateItem(event: JQuery.ClickEvent) {
         event.preventDefault();
         const header = event.currentTarget;
         const data = duplicate(header.dataset);
@@ -1119,17 +1110,17 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         this.actor.createEmbeddedDocuments("Item", [data]);
     }
 
-    private onAddCoinsPopup(event: JQuery.ClickEvent) {
+    #onAddCoinsPopup(event: JQuery.ClickEvent) {
         event.preventDefault();
         new AddCoinsPopup(this.actor, {}).render(true);
     }
 
-    private onRemoveCoinsPopup(event: JQuery.ClickEvent) {
+    #onRemoveCoinsPopup(event: JQuery.ClickEvent) {
         event.preventDefault();
         new RemoveCoinsPopup(this.actor, {}).render(true);
     }
 
-    private onSellAllTreasure(event: JQuery.ClickEvent) {
+    #onSellAllTreasure(event: JQuery.ClickEvent) {
         event.preventDefault();
         // Render confirmation modal dialog
         renderTemplate("systems/pf2e/templates/actors/sell-all-treasure-dialog.hbs").then((html) => {

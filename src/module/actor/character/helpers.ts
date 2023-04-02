@@ -1,10 +1,11 @@
-import { ArmorPF2e, WeaponPF2e } from "@item";
+import { ArmorPF2e, ConditionPF2e, WeaponPF2e } from "@item";
 import { ModifierPF2e, MODIFIER_TYPE } from "@actor/modifiers";
 import { PredicatePF2e } from "@system/predication";
 import { ErrorPF2e, objectHasKey, setHasElement } from "@util";
 import { DAMAGE_DIE_FACES } from "@system/damage/values";
 import { extractModifierAdjustments } from "@module/rules/helpers";
 import { type CharacterPF2e } from ".";
+import clumsySource from "../../../../packs/data/conditions.db/clumsy.json";
 
 /** Handle weapon traits that introduce modifiers or add other weapon traits */
 class StrikeWeaponTraits {
@@ -118,6 +119,34 @@ class StrikeWeaponTraits {
     }
 }
 
+/** Make a PC Clumsy 1 when wielding an oversized weapon */
+function imposeOversizedWeaponCondition(actor: CharacterPF2e): void {
+    const wieldedOversizedWeapon = actor.itemTypes.weapon.find(
+        (w) => w.isEquipped && w.isOversized && w.category !== "unarmed"
+    );
+
+    const conditionSource =
+        wieldedOversizedWeapon && actor.conditions.bySlug("clumsy").length === 0
+            ? mergeObject(
+                  clumsySource,
+                  {
+                      _id: "xxxxOVERSIZExxxx",
+                      name: game.i18n.localize(CONFIG.PF2E.statusEffects.conditions.clumsy),
+                      system: { slug: "clumsy", references: { parent: { id: wieldedOversizedWeapon.id } } },
+                  },
+                  { inplace: false }
+              )
+            : null;
+    if (!conditionSource) return;
+
+    const clumsyOne = new ConditionPF2e(conditionSource, { parent: actor });
+    clumsyOne.prepareSiblingData();
+    clumsyOne.prepareActorData();
+    for (const rule of clumsyOne.prepareRuleElements()) {
+        rule.beforePrepareData?.();
+    }
+}
+
 /** Create a penalty for attempting to Force Open without a crowbar or equivalent tool */
 function createForceOpenPenalty(actor: CharacterPF2e, domains: string[]): ModifierPF2e {
     const slug = "no-crowbar";
@@ -151,4 +180,4 @@ function createShoddyPenalty(
     });
 }
 
-export { createForceOpenPenalty, createShoddyPenalty, StrikeWeaponTraits };
+export { createForceOpenPenalty, createShoddyPenalty, imposeOversizedWeaponCondition, StrikeWeaponTraits };

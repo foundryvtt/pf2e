@@ -18,7 +18,13 @@ import {
 import { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success";
 import { setHasElement, sluggify } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils";
-import { CheckContextOptions, CheckContext, SimpleRollActionCheckOptions, CheckContextError } from "./types";
+import {
+    CheckContextOptions,
+    CheckContext,
+    SimpleRollActionCheckOptions,
+    CheckContextError,
+    CheckContextData,
+} from "./types";
 import { getRangeIncrement } from "@actor/helpers";
 import { CheckPF2e, CheckType } from "@system/check";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
@@ -62,12 +68,7 @@ export class ActionMacroHelpers {
 
     static defaultCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
         options: CheckContextOptions<ItemType>,
-        data: {
-            item?: ItemType;
-            modifiers?: ModifierPF2e[];
-            rollOptions: string[];
-            slug: string;
-        }
+        data: CheckContextData<ItemType>
     ): CheckContext<ItemType> | undefined {
         const { checkType: type, property, stat: slug, subtitle } = this.resolveStat(data.slug);
         const statistic = getProperty(options.actor, property) as StatisticModifier & { rank?: number };
@@ -233,6 +234,8 @@ export class ActionMacroHelpers {
                         ? getRangeIncrement(weapon, distance)
                         : null;
 
+                const domains = ["all", type, statistic.slug];
+
                 const targetInfo =
                     target && targetActor && typeof distance === "number"
                         ? { token: target, actor: targetActor, distance, rangeIncrement }
@@ -240,11 +243,11 @@ export class ActionMacroHelpers {
                 const notes = [options.extraNotes?.(statistic.slug) ?? [], statistic.notes ?? []].flat();
                 const substitutions = extractRollSubstitutions(
                     actor.synthetics.rollSubstitutions,
-                    [statistic.slug],
+                    domains,
                     finalOptions
                 );
 
-                const dosAdjustments = extractDegreeOfSuccessAdjustments(actor.synthetics, [statistic.slug]);
+                const dosAdjustments = extractDegreeOfSuccessAdjustments(actor.synthetics, domains);
 
                 CheckPF2e.roll(
                     check,

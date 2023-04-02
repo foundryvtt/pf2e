@@ -547,33 +547,17 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
                         "predicate": [
                             "self:effect:rage",
                             {
                                 "not": "range"
                             }
                         ],
-                        "selector": "strike-damage",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": [
-                            "self:effect:rage",
-                            {
-                                "not": "range"
-                            }
-                        ],
-                        "selector": "strike-damage",
-                        "text": "<p class='compact-text'><strong>{item|name}</strong></p><p>While the charau-ka butcher is raging, its melee Strikes deal [[/r (2*1d4)[persistent,bleed]]].</p>"
+                        "selector": "strike-damage"
                     }
                 ],
                 "slug": null,
@@ -908,7 +892,7 @@
                 "value": 95
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 11

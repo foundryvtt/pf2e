@@ -128,7 +128,8 @@ declare global {
             ActorDirectoryPF2e<ActorPF2e<null>>,
             ItemPF2e<null>,
             ChatLogPF2e,
-            CompendiumDirectoryPF2e
+            CompendiumDirectoryPF2e,
+            EncounterTrackerPF2e<EncounterPF2e | null>
         >;
     }
 

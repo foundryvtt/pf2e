@@ -30,6 +30,10 @@
                     "Title": "Exsanguinating Ammunition"
                 }
             },
+            "FreezingAmmunition": {
+                "Text": "The target must succeed at a @Check[type:fortitude|dc:19] save or be @UUID[Compendium.pf2e.conditionitems.xYTAsEpcJE1Ccni3]{Slowed 1} for 1 round by the intense cold (slowed 1 for 1 minute on a critical failure).",
+                "Title": "Freezing Ammunition"
+            },
             "MeteorShot": {
                 "CriticalFailureText": "On a critical failure, the weapon misfires.",
                 "Greater": {
@@ -44,6 +48,10 @@
                     "Text": "In addition to the weapon's normal damage, the meteor shot deals fire damage and the ground in the area becomes difficult terrain. The ammunition deals [[/r 3d6[fire]]] damage in a @Template[type:emanation|distance:5] around the target (@Check[type:reflex|dc:23|basic:true|name:Meteor Shot] save).",
                     "Title": "Meteor Shot"
                 }
+            },
+            "ShiningAmmunition": {
+                "Text": "The ammunition sheds bright light in a 20-foot radius (and dim light to the next 20 feet) for 10 minutes. If it hits a target, it sticks, causing the target to shed light in the same radius. @UUID[Compendium.pf2e.equipment-effects.Sf6UO6vgCeicggOK]{Effect: Shining Ammunition}",
+                "Title": "Shining Ammunition"
             }
         },
         "AttackEffects": {
@@ -1032,6 +1040,7 @@
             "DisarmStoneMetal": "To Disarm Stone or Metal Objects",
             "DiscernAndPredictWeather": "Discern Weather Patterns and Predict Upcoming Weather Conditions",
             "Escape": "To Escape",
+            "EscapeForceOpenOrLift": "To Escape, Force Open, or Lift Heavy Objects",
             "Feint": "To Feint",
             "Forests": "In Forests",
             "ForestsOrSnow": "In Forests or Snow",
@@ -1225,6 +1234,12 @@
                 "Instinct": {
                     "Drops": "Level 1 barbarian class feature",
                     "Prompt": "Select an instinct."
+                },
+                "InuredToAlchemy": {
+                    "CriticalSuccess": "Each critical success reduces the stage by 3 for an alchemical poison, drug, or addiction.",
+                    "CriticalSuccessVirulent": "Each critical success reduces the stage by 2 for a virulent alchemical poison, drug, or addiction.",
+                    "Success": "Each of your successful saving throws against an alchemical poison, a drug, or an addiction reduces the stage by 2",
+                    "SuccessVirulent": "Each of your successful saving throws against a virulent alchemical poison, a drug, or an addiction reduces the stage by 1"
                 },
                 "Spirit": {
                     "NegativeDamage": "Negative Damage",
@@ -1642,6 +1657,9 @@
                 },
                 "TorchGoblin": {
                     "Note": "As long as you are suffering persistent fire damage, all your melee attacks against adjacent creatures deal an additional [[/r 1[fire]]]{1 Fire Damage} per weapon damage die."
+                },
+                "ScaldingSpit": {
+                    "BoilingSpit": "Boiling Spit"
                 }
             },
             "Gunslinger": {
@@ -1897,8 +1915,9 @@
                 "SimpleMartialTwoHandedMeleeWeapons": "Simple & Martial Two-Handed Melee Weapons"
             },
             "MechanicalTorch": {
-                "LitCone": "Mechanical torch is lit (cone)",
-                "LitRadius": "Mechanical torch is lit (radius)"
+                "Label": "Mechanical Torch is lit",
+                "LitCone": "Cone",
+                "LitRadius": "Radius"
             },
             "Mindmoppet": {
                 "BrokenShell": "Shell is Broken"
@@ -1913,6 +1932,9 @@
                 },
                 "StunningFist": {
                     "Note": "The target must succeed at a @Check[type:fortitude|dc:resolve(@actor.system.proficiencies.classDCs.monk.value)|traits:incapacitation|overrideTraits:true] save against your class DC or be @UUID[Compendium.pf2e.conditionitems.dfCMdR4wnpbYNTix]{Stunned 1} (or @UUID[Compendium.pf2e.conditionitems.dfCMdR4wnpbYNTix]{Stunned 3} on a critical failure)."
+                },
+                "WolfDrag": {
+                    "Note": "If the attack succeeds, you knock the target @UUID[Compendium.pf2e.conditionitems.j91X7x0XSomq8d60]{Prone}."
                 }
             },
             "MountainStance": {
@@ -2052,6 +2074,11 @@
                     "Prompt": "Select a skill to become trained in."
                 }
             },
+            "SaveSuccessToCriticalSuccess": {
+                "Fortitude": "When you roll a success on a Fortitude save, you get a critical success instead.",
+                "Reflex": "When you roll a success on a Reflex save, you get a critical success instead.",
+                "Will": "When you roll a success on a Will save, you get a critical success instead."
+            },
             "ScionOfDomora": {
                 "GuardiansEmbrace": {
                     "PhysicalAttackLabel": "Guarding Against a Physical Attack",
@@ -2160,6 +2187,9 @@
                     "WindCrash": "Wind Crash",
                     "WolfJaws": "Wolf Jaws"
                 }
+            },
+            "SteadyBalance": {
+                "Note": "If you roll a success using the Balance action, you get a critical success instead."
             },
             "SterlingDynamo": {
                 "AutomaticPercussive": "Automatic Percussive Striker Dynamo",

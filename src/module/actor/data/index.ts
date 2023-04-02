@@ -16,6 +16,7 @@ interface RollInitiativeOptionsPF2e extends RollInitiativeOptions {
     secret?: boolean;
     skipDialog?: boolean;
 }
+
 export {
     ActorSourcePF2e,
     ActorType,

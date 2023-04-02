@@ -19,11 +19,31 @@
         "prerequisites": {
             "value": [
                 {
-                    "value": "Acute Scent, or precise or imprecise scent and low-light vision"
+                    "value": "Acute Scent, or precise or imprecise scent"
+                },
+                {
+                    "value": "low-light vision"
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "range": 60,
+                "selector": "scent"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "selector": "darkvision"
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },

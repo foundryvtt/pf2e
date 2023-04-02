@@ -24,6 +24,7 @@ import { CheckPF2e, CheckRoll, CheckRollCallback, CheckRollContext, CheckType, R
 import { CheckDC, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success";
 import { isObject, Optional, traitSlugToObject } from "@util";
 import { StatisticChatData, StatisticTraceData, StatisticData, StatisticCheckData } from "./data";
+import { RollNotePF2e, RollNoteSource } from "@module/notes";
 
 export * from "./data";
 
@@ -36,6 +37,10 @@ interface StatisticRollParameters {
     origin?: ActorPF2e | null;
     /** Optional DC data for the roll */
     dc?: CheckDC | null;
+    /** Optional override for the check modifier label */
+    label?: string;
+    /** Any additional roll notes which should be used in the roll. */
+    extraRollNotes?: (RollNotePF2e | RollNoteSource)[];
     /** Any additional options which should be used in the roll. */
     extraRollOptions?: string[];
     /** Additional modifiers */
@@ -360,6 +365,7 @@ class StatisticCheck {
         const extraModifiers = [...(args.modifiers ?? [])];
         const extraRollOptions = [...(args.extraRollOptions ?? []), ...(rollContext?.options ?? [])];
         const options = this.createRollOptions({ ...args, origin, target, extraRollOptions });
+        const notes = [...extractNotes(actor.synthetics.rollNotes, this.domains), ...(args.extraRollNotes ?? [])];
         const dc = args.dc ?? rollContext?.dc ?? null;
 
         // Get just-in-time roll options from rule elements
@@ -425,7 +431,7 @@ class StatisticCheck {
             domains,
             target: rollContext?.target ?? null,
             dc,
-            notes: extractNotes(actor.synthetics.rollNotes, this.domains),
+            notes,
             options,
             type: this.type,
             rollMode,
@@ -443,7 +449,7 @@ class StatisticCheck {
         }
 
         const roll = await CheckPF2e.roll(
-            new CheckModifier(this.label, this.#stat, extraModifiers),
+            new CheckModifier(args.label || this.label, this.#stat, extraModifiers),
             context,
             null,
             args.callback

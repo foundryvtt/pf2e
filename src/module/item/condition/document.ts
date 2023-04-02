@@ -197,8 +197,11 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     override prepareActorData(this: ConditionPF2e<ActorPF2e>): void {
         super.prepareActorData();
 
-        if (this.active) {
-            this.actor?.conditions.set(this.slug, this);
+        this.actor.conditions.set(this.id, this);
+
+        if (this.active && this.system.persistent) {
+            const { damageType } = this.system.persistent;
+            this.actor.rollOptions.all[`self:condition:persistent-damage:${damageType}`] = true;
         }
     }
 

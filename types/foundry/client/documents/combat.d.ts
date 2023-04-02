@@ -44,7 +44,7 @@ declare global {
         get round(): number;
 
         /** A reference to the Scene document within which this Combat encounter occurs */
-        get scene(): NonNullable<CollectionValue<this["combatants"]>["actor"]>["parent"];
+        get scene(): NonNullable<NonNullable<CollectionValue<this["combatants"]>["actor"]>["parent"]>["parent"];
 
         /** Return the object of settings which modify the Combat Tracker behavior */
         get settings(): Record<string, unknown>;
@@ -114,10 +114,7 @@ declare global {
          * @param [options.messageOptions={}] Additional options with which to customize created Chat Messages
          * @return A promise which resolves to the updated Combat entity once updates are complete.
          */
-        rollInitiative(
-            ids: string | string[],
-            { formula, updateTurn, messageOptions }?: RollInitiativeOptions
-        ): Promise<this>;
+        rollInitiative(ids: string | string[], options?: RollInitiativeOptions): Promise<this>;
 
         /**
          * Roll initiative for all combatants which have not already rolled

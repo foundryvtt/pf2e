@@ -281,13 +281,12 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "damage",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
+                        "critical": true,
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "damage"
                     }
                 ],
                 "slug": null,
@@ -529,7 +528,7 @@
                 "value": 170
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 18

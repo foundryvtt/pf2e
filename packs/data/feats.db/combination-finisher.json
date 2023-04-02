@@ -19,7 +19,28 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "MultipleAttackPenalty",
+                "predicate": [
+                    "agile",
+                    "finisher"
+                ],
+                "selector": "attack",
+                "value": -3
+            },
+            {
+                "key": "MultipleAttackPenalty",
+                "predicate": [
+                    {
+                        "not": "agile"
+                    },
+                    "finisher"
+                ],
+                "selector": "attack",
+                "value": -4
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },

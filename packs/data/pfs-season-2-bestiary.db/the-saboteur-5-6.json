@@ -538,25 +538,40 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
+                        "critical": false,
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed"
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "item:damage:type:piercing",
+                                    "item:damage:type:slashing"
+                                ]
+                            }
                         ],
-                        "selector": "attack",
-                        "text": "<div data-visibility='gm'><p><strong>{item|name}</strong></p>{item|system.description.value}</div>"
+                        "selector": "damage"
                     },
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
+                        "critical": true,
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
                         "predicate": [
                             {
                                 "not": "target:condition:flat-footed"
+                            },
+                            {
+                                "or": [
+                                    "item:damage:type:piercing",
+                                    "item:damage:type:slashing"
+                                ]
                             }
                         ],
-                        "selector": "attack",
-                        "text": "<div data-visibility='gm'><p><strong>{item|name}</strong></p>{item|system.description.value}</div>"
+                        "selector": "damage"
                     }
                 ],
                 "slug": null,
@@ -892,7 +907,7 @@
                 "value": 75
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 12

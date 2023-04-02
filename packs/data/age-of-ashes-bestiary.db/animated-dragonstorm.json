@@ -188,12 +188,44 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "fist-damage",
-                        "text": "On a critical hit, the animated dragonstorm's fist bursts with dragonstorm energy. The target takes [[/r {1d6[acid],1d6[cold],1d6[electricity],1d6[fire],1d6[poison]}]]{5d6 damage}."
+                        "critical": true,
+                        "damageType": "acid",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "fist-damage"
+                    },
+                    {
+                        "critical": true,
+                        "damageType": "cold",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "fist-damage"
+                    },
+                    {
+                        "critical": true,
+                        "damageType": "electricity",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "fist-damage"
+                    },
+                    {
+                        "critical": true,
+                        "damageType": "fire",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "fist-damage"
+                    },
+                    {
+                        "critical": true,
+                        "damageType": "poison",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "fist-damage"
                     }
                 ],
                 "slug": null,
@@ -273,49 +305,9 @@
                 "temp": 0,
                 "value": 255
             },
-            "immunities": [
-                {
-                    "type": "bleed"
-                },
-                {
-                    "type": "death-effects"
-                },
-                {
-                    "type": "disease"
-                },
-                {
-                    "type": "doomed"
-                },
-                {
-                    "type": "drained"
-                },
-                {
-                    "type": "fatigued"
-                },
-                {
-                    "type": "healing"
-                },
-                {
-                    "type": "necromancy"
-                },
-                {
-                    "type": "nonlethal-attacks"
-                },
-                {
-                    "type": "paralyzed"
-                },
-                {
-                    "type": "poison"
-                },
-                {
-                    "type": "sickened"
-                },
-                {
-                    "type": "unconscious"
-                }
-            ],
+            "immunities": [],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 30

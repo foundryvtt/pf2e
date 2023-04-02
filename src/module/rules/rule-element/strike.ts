@@ -35,6 +35,8 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
     constructor(source: StrikeSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
+        source.img ??= item.img;
+
         super(source, item, options);
 
         // Force a label of "Fist" if the `fist` shorthand is being used
@@ -62,9 +64,10 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             }),
             group: new fields.StringField({
                 required: true,
+                nullable: true,
                 blank: false,
                 choices: CONFIG.PF2E.weaponGroups,
-                initial: "brawling",
+                initial: null,
             }),
             baseType: new fields.StringField({
                 required: true,
@@ -276,7 +279,7 @@ type StrikeSchema = RuleElementSchema & {
     /** A weapon category */
     category: StringField<WeaponCategory, WeaponCategory, true, false, true>;
     /** A weapon group */
-    group: StringField<WeaponGroup, WeaponGroup, true, false, true>;
+    group: StringField<WeaponGroup, WeaponGroup, true, true, true>;
     /** A weapon base type */
     baseType: StringField<BaseWeaponType, BaseWeaponType, true, true, true>;
     /** Permit NPC attack traits to sneak in for battle forms */

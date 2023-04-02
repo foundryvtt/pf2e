@@ -25,13 +25,15 @@
         },
         "rules": [
             {
-                "key": "Note",
+                "damageType": "fire",
+                "key": "FlatModifier",
                 "predicate": [
-                    "self:condition:persistent-damage"
+                    "item:melee",
+                    "self:condition:persistent-damage:fire",
+                    "target:distance:5"
                 ],
-                "selector": "melee-attack-roll",
-                "text": "PF2E.SpecificRule.Goblin.TorchGoblin.Note",
-                "title": "{item|name}"
+                "selector": "strike-damage",
+                "value": "@weapon.system.damage.dice"
             }
         ],
         "source": {
