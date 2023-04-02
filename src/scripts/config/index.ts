@@ -306,6 +306,7 @@ const traitsDescriptions = {
     "deadly-d12": "PF2E.TraitDescriptionDeadly",
     "deadly-d6": "PF2E.TraitDescriptionDeadly",
     "deadly-d8": "PF2E.TraitDescriptionDeadly",
+    "deadly-d4": "PF2E.TraitDescriptionDeadly",
     death: "PF2E.TraitDescriptionDeath",
     "deflecting-bludgeoning": "PF2E.TraitDescriptionDeflecting",
     "deflecting-physical-ranged": "PF2E.TraitDescriptionDeflecting",
