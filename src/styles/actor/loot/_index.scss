@@ -24,10 +24,17 @@
             flex: 0;
         }
 
-        > img.actor-icon {
-            flex: none;
-            border: none;
-            border-bottom: 1px solid #888;
+        .image-container {
+            display: flex;
+            > img.actor-image {
+                flex: none;
+                border: none;
+                border-bottom: 1px solid #888;
+            }
+            [data-action=show-image] {
+                bottom: 3px;
+                right: 2px;
+            }
         }
 
         .gm-settings, .sidebar-meta {
