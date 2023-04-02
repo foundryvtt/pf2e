@@ -57,7 +57,7 @@ class SimpleActionVariant extends BaseActionVariant {
             label: traitLabels[trait] ?? trait,
             slug: trait,
         }));
-        const effect = await toEffectItem(this.effect);
+        const effect = options?.effect === false ? undefined : await toEffectItem(options?.effect ?? this.effect);
         const name = this.name
             ? `${game.i18n.localize(this.#action.name)} - ${game.i18n.localize(this.name)}`
             : game.i18n.localize(this.#action.name);
