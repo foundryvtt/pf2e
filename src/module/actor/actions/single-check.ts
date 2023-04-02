@@ -103,7 +103,9 @@ class SingleCheckActionVariant extends BaseActionVariant {
                 .map((note) => new RollNotePF2e(note));
             const rollOptions = this.rollOptions.concat(options?.rollOptions ?? []);
             const slug = this.statistic;
-            const title = this.name ? `${this.#action.name} - ${this.name}` : this.#action.name;
+            const title = this.name
+                ? `${game.i18n.localize(this.#action.name)} - ${game.i18n.localize(this.name)}`
+                : game.i18n.localize(this.#action.name);
             ActionMacroHelpers.simpleRollActionCheck({
                 actors: options?.actors,
                 title,
