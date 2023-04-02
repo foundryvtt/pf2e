@@ -22,7 +22,7 @@
     <div class="effect-info">
         <h1>
             {{effect.name}}
-            <i class="fas fa-comment-alt" data-action="send-to-chat" title="{{localize "PF2E.NPC.SendToChat"}}"></i>
+            <a data-action="send-to-chat" title="{{localize "PF2E.NPC.SendToChat"}}"><i class="fa-solid fa-comment-alt" ></i></a>
         </h1>
         {{#if (or (eq effect.type "effect") effect.breakdown)}}
             <div class="tags">
@@ -45,9 +45,6 @@
                 {{localize "PF2E.Item.Condition.PersistentDamage.AssistedRecovery"}}
             </a>
         {{/if}}
-        <div class="effect-description">
-            {{{ lookup descriptions @index }}}    
-        </div>
         <div class="instructions">
             {{#if (not effect.isLocked)}}
                 {{#if (eq effect.badge.type "formula")}}
@@ -62,10 +59,14 @@
                 {{/if}}
             {{/if}}
         </div>
+
+        <div class="description">
+            {{{lookup descriptions @index}}}
+        </div>
     </div>
     <div class="icon{{#if effect.isAura}} aura{{/if}}{{#unless effect.isIdentified}} unidentified{{/unless}}" data-locked="{{#if effect.isLocked}}true{{/if}}" style="background-image: url({{effect.img}})">
         {{#if effect.isLocked}}
-            <div class="linked"><i class="fas fa-link"></i></div>
+            <div class="linked"><i class="fa-solid fa-link"></i></div>
         {{/if}}
         {{#if effect.system.expired}}
             <span class="expired">{{localize "PF2E.EffectPanel.Expired"}}</span>
