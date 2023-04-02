@@ -24,29 +24,27 @@
                 "domain": "damage-roll",
                 "key": "RollOption",
                 "option": "crossbow-crack-shot",
-                "toggleable": true,
-                "label": "Crossbow Crack Shot",
-                "value": true
+                "toggleable": true
             },
             {
                 "key": "DamageDice",
                 "predicate": [
+                    "crossbow-crack-shot",
                     "item:category:simple",
-                    "item:tag:crossbow",
-                    "crossbow-crack-shot"
+                    "item:base:crossbow"
                 ],
                 "override": {
                     "upgrade": true
                 },
-                "selector": "bow-weapon-group-damage"
+                "selector": "crossbow-damage"
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "item:tag:crossbow",
-                    "crossbow-crack-shot"
+                    "crossbow-crack-shot",
+                    "item:base:crossbow"
                 ],
-                "selector": "bow-weapon-group-damage",
+                "selector": "crossbow-damage",
                 "type": "circumstance",
                 "value": 2
             }
