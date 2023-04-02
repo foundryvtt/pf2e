@@ -38,10 +38,10 @@
 
             span.value {
                 display: inline-block;
+                max-width: 87%;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
-                width: 87%;
             }
         }
     }
@@ -147,7 +147,7 @@
                 flex-flow: column wrap;
                 justify-content: end;
 
-                label {
+                span {
                     text-align: right;
                 }
 
@@ -185,6 +185,14 @@
             }
             .detail-small {
                 display: flex;
+            }
+        }
+
+        .value.item-edit {
+            cursor: pointer;
+            &:hover {
+                color: var(--primary);
+                text-shadow: 0 0 3px var(--tertiary);
             }
         }
     }

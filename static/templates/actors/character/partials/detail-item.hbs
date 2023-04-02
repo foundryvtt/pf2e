@@ -1,0 +1,17 @@
+<div class="pc pc_{{ type }} item" data-item-id="{{item.id}}">
+    <span class="details-label">{{localize (concat "PF2E." (capitalize type))}}</span>
+    <span title="{{localize (concat "PF2E." (capitalize type) "Title")}}">
+        <h3>
+            {{#if @root.options.editable}}
+                {{#if item}}
+                    <span class="value item-edit">{{item.name}}</span>
+                    <a class="item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-fw fa-trash"></i></a>
+                {{else}}
+                    <a class="open-compendium" data-compendium={{ compendium }}><i class="fas fa-fw fa-plus-circle"></i></a>
+                {{/if}}
+            {{else}}
+                <span class="value">{{item.name}}</span>
+            {{/if}}
+        </h3>
+    </span>
+</div>
