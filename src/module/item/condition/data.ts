@@ -1,7 +1,7 @@
-import { CONDITION_SLUGS } from "@actor/values";
 import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "@item/data/base";
 import { DamageType } from "@system/damage";
 import { DamageRoll } from "@system/damage/roll";
+import { ConditionSlug } from "./types";
 
 type ConditionSource = BaseItemSourcePF2e<"condition", ConditionSystemSource>;
 
@@ -37,21 +37,10 @@ interface PersistentDamageData extends PersistentSourceData {
 
 type ConditionValueData = { isValued: true; value: number } | { isValued: false; value: null };
 
-type ConditionSlug = SetElement<typeof CONDITION_SLUGS>;
-type ConditionKey = ConditionSlug | `persistent-damage-${string}`;
-
 interface PersistentSourceData {
     formula: string;
     damageType: DamageType;
     dc: number;
 }
 
-export {
-    ConditionKey,
-    ConditionSlug,
-    ConditionSource,
-    ConditionSystemData,
-    ConditionSystemSource,
-    PersistentDamageData,
-    PersistentSourceData,
-};
+export { ConditionSource, ConditionSystemData, ConditionSystemSource, PersistentDamageData, PersistentSourceData };
