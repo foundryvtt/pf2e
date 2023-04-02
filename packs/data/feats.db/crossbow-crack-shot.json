@@ -19,7 +19,27 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "option": "crossbow-crack-shot",
+                "toggleable": true,
+                "label": "Crossbow Crack Shot",
+                "value": true
+            },
+            {
+                "key": "DamageDice",
+                "predicate": [
+                    "item:category:simple",
+                    "crossbow-crack-shot"
+                ],
+                "override": {
+                    "upgrade": true
+                },
+                "selector": "bow-weapon-group-damage"
+            }
+        ],
         "source": {
             "value": "Pathfinder Guns & Gears"
         },
