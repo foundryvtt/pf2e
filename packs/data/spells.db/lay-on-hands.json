@@ -11,6 +11,7 @@
             "value": "focus"
         },
         "components": {
+            "focus": false,
             "material": false,
             "somatic": true,
             "verbal": false
@@ -19,18 +20,10 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "positive"
-                    },
-                    "value": "6"
-                }
-            }
+            "value": {}
         },
         "description": {
-            "value": "<p>Your hands become infused with positive energy, healing a living creature or damaging an undead creature with a touch.</p>\n<p>If you use lay on hands on a willing living target, you restore 6 Hit Points; if the target is one of your allies, they also gain a +2 status bonus to AC for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Lay on Hands]{Spell Effect: Lay on Hands}</p>\n<p>Against an undead target, you deal 1d6 damage and it must attempt a basic Fortitude save; if it fails, it also takes a -2 status penalty to AC for 1 round.</p>\n<p><em>@UUID[Compendium.pf2e.spells-srd.Lay on Hands (Vs. Undead)]{Lay on Hands (Vs. Undead)}</em></p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 6, and the damage to an undead target increases by 1d6.</p>"
+            "value": "<p>Your hands become infused with positive energy, healing a living creature or damaging an undead creature with a touch.</p>\n<p>If you use lay on hands on a willing living target, you restore 6 Hit Points; if the target is one of your allies, they also gain a +2 status bonus to AC for 1 round.</p>\n<p>Against an undead target, you deal 1d6 damage and it must attempt a basic Fortitude save; if it fails, it also takes a -2 status penalty to AC for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Lay on Hands]{Spell Effect: Lay on Hands}</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 6, and the damage to an undead target increases by 1d6.</p>"
         },
         "duration": {
             "value": ""
@@ -39,9 +32,7 @@
             "value": false
         },
         "heightening": {
-            "damage": {
-                "0": "6"
-            },
+            "damage": {},
             "interval": 1,
             "type": "interval"
         },
@@ -50,6 +41,67 @@
         },
         "materials": {
             "value": ""
+        },
+        "overlays": {
+            "Hac2Q2Gx5gU0lcJe": {
+                "_id": "Hac2Q2Gx5gU0lcJe",
+                "name": "Lay on Hands (Vs. Undead)",
+                "overlayType": "override",
+                "sort": 2,
+                "system": {
+                    "damage": {
+                        "value": {
+                            "HwD0K60L5ntCPmGo": {
+                                "applyMod": false,
+                                "type": {
+                                    "categories": [],
+                                    "subtype": "",
+                                    "value": "positive"
+                                },
+                                "value": "1d6"
+                            }
+                        }
+                    },
+                    "heightening": {
+                        "damage": {
+                            "HwD0K60L5ntCPmGo": "1d6"
+                        }
+                    },
+                    "save": {
+                        "basic": "basic",
+                        "value": "fortitude"
+                    },
+                    "spellType": {
+                        "value": "save"
+                    }
+                }
+            },
+            "RKe6biRFT9zIr1s5": {
+                "_id": "RKe6biRFT9zIr1s5",
+                "name": "Lay on Hands (Vs. Living)",
+                "overlayType": "override",
+                "sort": 1,
+                "system": {
+                    "damage": {
+                        "value": {
+                            "0": {
+                                "applyMod": false,
+                                "type": {
+                                    "categories": [],
+                                    "subtype": "",
+                                    "value": "positive"
+                                },
+                                "value": "6"
+                            }
+                        }
+                    },
+                    "heightening": {
+                        "damage": {
+                            "0": "6"
+                        }
+                    }
+                }
+            }
         },
         "prepared": {
             "value": ""
@@ -63,7 +115,7 @@
         "rules": [],
         "save": {
             "basic": "",
-            "value": "fortitude"
+            "value": ""
         },
         "school": {
             "value": "necromancy"
