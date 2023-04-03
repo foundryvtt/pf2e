@@ -13,6 +13,7 @@ import { shove } from "./athletics/shove";
 import { swim } from "./athletics/swim";
 import * as trip from "./athletics/trip";
 import { whirlingThrow } from "./athletics/whirling-throw";
+import { crawl } from "./basic/crawl";
 import { escape } from "./basic/escape";
 import { seek } from "./basic/seek";
 import { senseMotive } from "./basic/sense-motive";
@@ -136,4 +137,4 @@ export const ActionMacros = {
     steal,
 };
 
-export const SystemActions: Action[] = [hide.action, sneak.action, takeCover, trip.action];
+export const SystemActions: Action[] = [crawl, hide.action, sneak.action, takeCover, trip.action];
