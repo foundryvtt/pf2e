@@ -25,6 +25,7 @@ import { seek } from "./basic/seek";
 import { senseMotive } from "./basic/sense-motive";
 import { stand } from "./basic/stand";
 import { step } from "./basic/step";
+import { stride } from "./basic/stride";
 import { takeCover } from "./basic/take-cover";
 import { tamper } from "./class/inventor/tamper";
 import { craft, repair } from "./crafting";
@@ -157,6 +158,7 @@ export const SystemActions: Action[] = [
     sneak.action,
     stand,
     step,
+    stride,
     takeCover,
     trip.action,
 ];
