@@ -15,6 +15,7 @@ import * as trip from "./athletics/trip";
 import { whirlingThrow } from "./athletics/whirling-throw";
 import { crawl } from "./basic/crawl";
 import { delay } from "./basic/delay";
+import { dropProne } from "./basic/drop-prone";
 import { escape } from "./basic/escape";
 import { seek } from "./basic/seek";
 import { senseMotive } from "./basic/sense-motive";
@@ -138,4 +139,4 @@ export const ActionMacros = {
     steal,
 };
 
-export const SystemActions: Action[] = [crawl, delay, hide.action, sneak.action, trip.action];
+export const SystemActions: Action[] = [crawl, delay, dropProne, hide.action, sneak.action, trip.action];
