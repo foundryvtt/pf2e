@@ -19,6 +19,7 @@ import { dropProne } from "./basic/drop-prone";
 import { escape } from "./basic/escape";
 import { interact } from "./basic/interact";
 import { leap } from "./basic/leap";
+import { ready } from "./basic/ready";
 import { seek } from "./basic/seek";
 import { senseMotive } from "./basic/sense-motive";
 import { takeCover } from "./basic/take-cover";
@@ -141,4 +142,14 @@ export const ActionMacros = {
     steal,
 };
 
-export const SystemActions: Action[] = [crawl, delay, dropProne, hide.action, interact, leap, sneak.action, trip.action];
+export const SystemActions: Action[] = [
+    crawl,
+    delay,
+    dropProne,
+    hide.action,
+    interact,
+    leap,
+    ready,
+    sneak.action,
+    trip.action,
+];
