@@ -20,6 +20,7 @@ import { escape } from "./basic/escape";
 import { interact } from "./basic/interact";
 import { leap } from "./basic/leap";
 import { ready } from "./basic/ready";
+import { release } from "./basic/release";
 import { seek } from "./basic/seek";
 import { senseMotive } from "./basic/sense-motive";
 import { takeCover } from "./basic/take-cover";
@@ -150,6 +151,7 @@ export const SystemActions: Action[] = [
     interact,
     leap,
     ready,
+    release,
     sneak.action,
     trip.action,
 ];
