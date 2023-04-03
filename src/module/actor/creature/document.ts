@@ -208,7 +208,15 @@ abstract class CreaturePF2e<
 
     get perception(): Statistic {
         const stat = this.system.attributes.perception;
-        return Statistic.from(this, stat, "perception", "PF2E.PerceptionCheck", "perception-check");
+        return new Statistic(this, {
+            slug: "perception",
+            label: "PF2E.PerceptionLabel",
+            check: {
+                label: "PF2E.PerceptionCheck",
+                type: "perception-check",
+            },
+            modifiers: [...stat.modifiers],
+        });
     }
 
     get wornArmor(): ArmorPF2e<this> | null {
