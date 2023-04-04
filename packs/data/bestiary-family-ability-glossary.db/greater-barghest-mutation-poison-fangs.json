@@ -13,7 +13,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>The barghest grows elongated fangs that seep poison. Its jaws deal [[/r 1d6[poison]]]{1d6 additional poison damage} and [[/r 1d6[persistent,poison]]].</p>"
+            "value": "<p>The barghest grows elongated fangs that seep poison. Its jaws deal 1d6 additional poison damage and 1d6 persistent poison damage.</p>"
         },
         "requirements": {
             "value": ""
@@ -24,37 +24,15 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "selector": "jaws-damage",
-                "traits": [
-                    "poison"
-                ]
+                "selector": "jaws-damage"
             },
             {
-                "key": "Note",
-                "outcome": [
-                    "success"
-                ],
-                "selector": "jaws-damage",
-                "text": "PF2E.PersistentDamage.Poison1d6.success",
-                "visibility": "gm"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "selector": "jaws-damage",
-                "text": "PF2E.PersistentDamage.Poison1d6.criticalSuccess",
-                "visibility": "gm"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "success"
-                ],
-                "selector": "jaws-attack",
-                "text": "{item|system.description.value}",
-                "title": "{item|name}"
+                "category": "persistent",
+                "damageType": "poison",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "jaws-damage"
             }
         ],
         "source": {
