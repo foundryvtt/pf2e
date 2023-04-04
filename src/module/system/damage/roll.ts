@@ -4,7 +4,6 @@ import { UserPF2e } from "@module/user";
 import { DegreeOfSuccessIndex } from "@system/degree-of-success";
 import { RollDataPF2e } from "@system/rolls";
 import { ErrorPF2e, fontAwesomeIcon, isObject, objectHasKey, setHasElement, tupleHasValue } from "@util";
-import Peggy from "peggy";
 import { DamageCategorization, deepFindTerms, renderComponentDamage } from "./helpers";
 import { ArithmeticExpression, Grouping, GroupingData, InstancePool, IntermediateDie } from "./terms";
 import { DamageCategory, DamageTemplate, DamageType, MaterialDamageEffect } from "./types";
@@ -23,7 +22,7 @@ abstract class AbstractDamageRoll extends Roll {
         super(formula, data, options);
     }
 
-    static parser = Peggy.generate(ROLL_GRAMMAR);
+    protected static parser = ROLL_PARSER;
 
     /** Strip out parentheses enclosing constants */
     static override replaceFormulaData(
@@ -112,7 +111,7 @@ class DamageRoll extends AbstractDamageRoll {
     /** Identify each "DiceTerm" raw object with a non-abstract subclass name */
     static classifyDice(data: RollTermData): void {
         // Find all dice terms and resolve their class
-        type PreProcessedDiceTerm = { class?: string; faces?: string | number | object };
+        type PreProcessedDiceTerm = { class: string; faces?: string | number | object };
         const isDiceTerm = (v: unknown): v is PreProcessedDiceTerm =>
             isObject<PreProcessedDiceTerm>(v) && v.class === "DiceTerm";
         const deepFindDice = (value: object): PreProcessedDiceTerm[] => {

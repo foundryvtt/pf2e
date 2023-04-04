@@ -5,7 +5,7 @@ import {
     PhysicalSystemSource,
 } from "@item/physical/data";
 import { SpellSource } from "@item/spell/data";
-import { ConsumableTrait, OtherConsumableTag } from "./types";
+import type { ConsumableTrait, OtherConsumableTag } from "./types";
 
 type ConsumableSource = BasePhysicalItemSource<"consumable", ConsumableSystemSource>;
 

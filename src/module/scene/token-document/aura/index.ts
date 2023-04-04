@@ -5,7 +5,7 @@ import { EffectAreaSquare } from "@module/canvas/effect-area-square";
 import { getAreaSquares } from "@module/canvas/token/aura/util";
 import { ScenePF2e } from "@scene/document";
 import { TokenDocumentPF2e } from "../document";
-import { TokenAuraData } from "./types";
+import type { TokenAuraData } from "./types";
 
 class TokenAura implements TokenAuraData {
     slug: string;

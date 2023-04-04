@@ -12,7 +12,7 @@ import Datastore from "nedb-promises";
 import * as path from "path";
 import * as process from "process";
 import templateJSON from "static/template.json";
-import systemJSON from "system.json";
+import systemJSON from "static/system.json";
 import yargs from "yargs";
 import { CompendiumPack, isActorSource, isItemSource } from "./packman/compendium-pack";
 

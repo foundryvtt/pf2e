@@ -61,7 +61,7 @@ class CompendiumPack {
 
     static outDir = path.resolve(process.cwd(), "static/packs");
     private static namesToIds = new Map<string, Map<string, string>>();
-    private static packsMetadata = JSON.parse(fs.readFileSync("system.json", "utf-8")).packs as PackMetadata[];
+    private static packsMetadata = JSON.parse(fs.readFileSync("static/system.json", "utf-8")).packs as PackMetadata[];
 
     static LINK_PATTERNS = {
         world: /@(?:Item|JournalEntry|Actor)\[[^\]]+\]|@Compendium\[world\.[^\]]{16}\]|@UUID\[(?:Item|JournalEntry|Actor)/g,

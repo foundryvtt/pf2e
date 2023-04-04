@@ -1,11 +1,13 @@
 {
     "compilerOptions": {
-        "target": "es2018",
+        "target": "es2022",
         "module": "commonjs",
+        "moduleResolution": "node",
         "lib": ["esnext", "dom", "dom.iterable"],
         "noEmit": true,
         "strict": true,
         "noFallthroughCasesInSwitch": true,
+        "skipLibCheck": true,
         "noImplicitOverride": true,
         "noImplicitReturns": true,
         "noUnusedLocals": true,
@@ -18,6 +20,7 @@
         "allowUnusedLabels": false,
         "removeComments": false,
         "resolveJsonModule": true,
+        "useDefineForClassFields": true,
         "paths": {
             "@actor": ["src/module/actor"],
             "@actor/*": ["src/module/actor/*"],
@@ -29,11 +32,7 @@
             "@module/*": ["src/module/*"],
             "@scripts/*": ["src/scripts/*"],
             "@util": ["src/util"],
-            "@util/*": ["src/util/*"],
-            // https://github.com/Hypercubed/mini-signals/issues/20
-            "mini-signals": [
-                "node_modules/resource-loader/typings/mini-signals.d.ts"
-            ]
+            "@util/*": ["src/util/*"]
         },
         "types": [
             "jquery",
@@ -41,7 +40,6 @@
             "gsap",
             "jest",
             "node",
-            "webpack-env",
             "handlebars"
         ],
         "typeRoots": [

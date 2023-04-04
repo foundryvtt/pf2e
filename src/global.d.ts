@@ -43,6 +43,7 @@ import { ModuleArt } from "@system/module-art";
 import { CustomDamageData, HomebrewTag, HomebrewTraitSettingsKey } from "@system/settings/homebrew";
 import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
+import Peggy from "peggy";
 import { CombatantPF2e, EncounterPF2e } from "./module/encounter";
 import { ConditionManager } from "./module/system/conditions";
 
@@ -213,7 +214,7 @@ declare global {
     }
 
     const BUILD_MODE: "development" | "production";
-    const ROLL_GRAMMAR: string;
+    const ROLL_PARSER: Peggy.Parser;
 }
 
 type ConfiguredConfig = Config<
