@@ -1,6 +1,22 @@
 # Changelog
 
+## Version 4.10.4
+
+### Bugfixes
+* (Dire Weasel) Include orichalcum in material damage effects
+* (stwlam) Fix expansion of item summaries on PC effects tab
+* (Supe) Fix perception label in modifiers dialog
+
+### Data Updates
+* (Dire Weasel) Fix name of Devrin's Dazzling Diversion
+* (Dire Weasel) Fix selectors on several Sense rule elements for low-light vision
+* (MrVauxs) Add Deadly D4 trait
+* (stwlam) Fix Dread Marshal Stance effect to apply to all damage rolls
+
+
 ## Version 4.10.3
+
+### Bugfixes
 * (stwlam) Fix generation of magic weapon names
 
 
