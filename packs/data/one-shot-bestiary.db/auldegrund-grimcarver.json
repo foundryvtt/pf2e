@@ -1837,7 +1837,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Auldegrund takes time to line up a shot with his bow and smiles cruelly as he makes a ranged Strike with it.</p>\n<p>If he hits, he deals 2d6 precision damage and [[/r 1d6[bleed]]]. Even if he misses, he still deals [[/r 2d6]] damage from the glancing blow. Only on a critical miss does his cruel shot deal no damage.</p>"
+                    "value": "<p>Auldegrund takes time to line up a shot with his bow and smiles cruelly as he makes a ranged Strike with it.</p>\n<p>If he hits, he deals 2d6 precision damage and 1d6 bleed damage. Even if he misses, he still deals [[/r 2d6]] damage from the glancing blow. Only on a critical miss does his cruel shot deal no damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1851,6 +1851,9 @@
                     },
                     {
                         "key": "Note",
+                        "outcome": [
+                            "failure"
+                        ],
                         "predicate": [
                             "cruel-shot"
                         ],
@@ -1869,26 +1872,14 @@
                         "selector": "shortbow-damage"
                     },
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
                         "predicate": [
                             "cruel-shot"
                         ],
-                        "selector": "shortbow-damage",
-                        "text": "PF2E.PersistentDamage.Bleed1d6.success"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": [
-                            "cruel-shot"
-                        ],
-                        "selector": "shortbow-damage",
-                        "text": "PF2E.PersistentDamage.Bleed1d6.criticalSuccess"
+                        "selector": "shortbow-damage"
                     }
                 ],
                 "slug": null,
