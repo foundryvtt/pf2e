@@ -48,62 +48,6 @@ nav.sheet-navigation {
         margin-left: 8px;
     }
 
-    nav {
-        @include p-reset;
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: center;
-        align-items: center;
-        list-style: none;
-
-        background-color: var(--bg);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
-        width: 100%;
-        flex: 0 0 44px;
-        padding-right: 20px;
-
-        &::before, &::after {
-            content: "";
-            width: 37px;
-            height: 16px;
-            background: url("/assets/sheet/sub-nav-decoration.png");
-            margin: 0 16px;
-        }
-
-        &::after {
-            transform: scaleX(-100%);
-        }
-
-        .tab {
-            border-left: 1px solid rgba(255, 255, 255, 0.3);
-            border-right: 1px solid rgba(0, 0, 0, 0.2);
-            color: var(--alt);
-            cursor: pointer;
-            display: block;
-            flex: 1;
-            font: 400 var(--font-size-16) var(--serif);
-            text-align: center;
-            text-decoration: none;
-
-            &.active {
-                color: var(--primary);
-                font-weight: 600;
-            }
-
-            &:first-child {
-                border-left: none;
-            }
-
-            &:last-child {
-                border-right: none;
-            }
-
-            &:hover {
-                text-shadow: 0 0 3px rgba(255, 255, 255, 0.5);
-            }
-        }
-    }
-
     nav + .tab-content {
         padding-top: 12px;
     }

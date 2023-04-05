@@ -121,7 +121,7 @@ type Language = keyof ConfigPF2e["PF2E"]["languages"];
 type Attitude = keyof ConfigPF2e["PF2E"]["attitude"];
 
 interface CreatureTraitsData extends ActorTraitsData<CreatureTrait>, Omit<CreatureTraitsSource, "rarity" | "size"> {
-    senses?: unknown;
+    senses?: { value: string } | CreatureSensePF2e[];
     /** Languages which this actor knows and can speak. */
     languages: ValuesList<Language>;
 }

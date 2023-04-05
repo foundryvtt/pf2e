@@ -144,7 +144,7 @@ abstract class CreaturePF2e<
         const { senses } = this.system.traits;
         const hasSensesData =
             Array.isArray(senses) &&
-            senses.every((s): s is { type: string } => isObject(s) && "type" in s && typeof s.type === "string");
+            senses.every((s): s is CreatureSensePF2e => isObject(s) && "type" in s && typeof s.type === "string");
         if (!hasSensesData) {
             return VisionLevels.NORMAL;
         }
@@ -288,6 +288,13 @@ abstract class CreaturePF2e<
     protected override _initialize(): void {
         this.parties ??= new Set();
         super._initialize();
+    }
+
+    override prepareData(): void {
+        super.prepareData();
+        for (const party of this.parties) {
+            party.reset({ actor: true });
+        }
     }
 
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */

@@ -23,6 +23,10 @@ class CoinsPF2e implements Coins {
         return cp + sp * 10 + gp * 100 + pp * 1000;
     }
 
+    get goldValue(): number {
+        return this.copperValue / 100;
+    }
+
     add(coins: Coins): CoinsPF2e {
         const other = new CoinsPF2e(coins);
         return new CoinsPF2e({
