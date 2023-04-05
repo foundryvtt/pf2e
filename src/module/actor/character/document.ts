@@ -179,6 +179,16 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         return this._skills;
     }
 
+    override get perception(): Statistic {
+        const data = this.system.attributes.perception;
+        const perception = super.perception;
+        return mergeObject(perception, {
+            rank: data.rank,
+            ability: data.ability,
+            proficient: data.rank >= 1,
+        });
+    }
+
     get heroPoints(): { value: number; max: number } {
         return deepClone(this.system.resources.heroPoints);
     }
