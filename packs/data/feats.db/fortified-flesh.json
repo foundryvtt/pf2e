@@ -23,7 +23,20 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.livingMonolith.archetypeFeatCount",
+                "value": 1
+            },
+            {
+                "exceptions": ["adamantine"],
+                "key": "Resistance",
+                "type": "physical",
+                "value": "@actor.flags.pf2e.livingMonolith.archetypeFeatCount"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: World Guide"
         },
