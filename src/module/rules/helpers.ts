@@ -1,7 +1,6 @@
-import { ActorPF2e } from "@actor";
 import { DamageDicePF2e, DeferredValueParams, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers";
-import { AttackItem } from "@actor/types";
 import { ConditionSource, EffectSource, ItemSourcePF2e } from "@item/data";
+import { ActorPF2e, ItemPF2e } from "@module/documents";
 import { RollNotePF2e } from "@module/notes";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { RollTwiceOption } from "@system/rolls";
@@ -69,7 +68,7 @@ async function extractEphemeralEffects({
     domains,
     options,
 }: ExtractEphemeralEffectsParams): Promise<(ConditionSource | EffectSource)[]> {
-    if (!target) return [];
+    if (!(origin && target)) return [];
 
     const [effectsFrom, effectsTo] = affects === "target" ? [origin, target] : [target, origin];
     const fullOptions = [...options, ...effectsTo.getSelfRollOptions(affects)];
@@ -85,9 +84,9 @@ async function extractEphemeralEffects({
 
 interface ExtractEphemeralEffectsParams {
     affects: "target" | "origin";
-    origin: ActorPF2e;
+    origin: ActorPF2e | null;
     target: Maybe<ActorPF2e>;
-    item: AttackItem | null;
+    item: ItemPF2e | null;
     domains: string[];
     options: Set<string> | string[];
 }
