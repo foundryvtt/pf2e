@@ -19,7 +19,40 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:aid"
+                ],
+                "selector": [
+                    "attack",
+                    "skill-check"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:aid"
+                ],
+                "selector": "attack"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:aid"
+                ],
+                "selector": "skill-check"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Knights of Lastwall"
         },
