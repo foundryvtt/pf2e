@@ -21,7 +21,7 @@
             "die": "d4"
         },
         "description": {
-            "value": "<p>These special poi are made from a rare, light metal or from fire-retardant fibers and can be ignited before being wielded. Igniting a pair of fire poi is an Interact action and requires 1 pint of @UUID[Compendium.pf2e.equipment-srd.Oil (1 pint)]{Oil} for every 10 minutes the poi remain ignited.</p>\n<p>While lit, fire poi cast dim light in a 10-foot radius; in combat, they deal 1d4 bludgeoning plus 1d4 fire damage. On a critical hit with a lit fire poi, the target takes 1 @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent} fire damage. The fire can be extinguished using the Interact action.</p>\n<p>When unlit, the poi deal only the listed bludgeoning damage. Regardless of whether it is lit, the poi's 1d4 bludgeoning damage is the weapon damage dice, so <em>striking</em> runes and other effects don't affect the fire damage.</p>"
+            "value": "<p>These special poi are made from a rare, light metal or from fire-retardant fibers and can be ignited before being wielded. Igniting a pair of fire poi is an Interact action and requires 1 pint of @UUID[Compendium.pf2e.equipment-srd.Oil (1 pint)]{Oil} for every 10 minutes the poi remain ignited.</p>\n<p>While lit, fire poi cast dim light in a 10-foot radius; in combat, they deal 1d4 bludgeoning plus 1d4 fire damage. On a critical hit with a lit fire poi, the target takes 1 persistent fire damage. The fire can be extinguished using the Interact action.</p>\n<p>When unlit, the poi deal only the listed bludgeoning damage. Regardless of whether it is lit, the poi's 1d4 bludgeoning damage is the weapon damage dice, so <em>striking</em> runes and other effects don't affect the fire damage.</p>"
         },
         "equippedBulk": {
             "value": ""
@@ -72,11 +72,55 @@
         },
         "rules": [
             {
-                "key": "Note",
-                "outcome": "criticalSuccess",
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.LitFirePoi",
+                "option": "lit-fire-poi",
+                "toggleable": true
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "lit-fire-poi"
+                ],
+                "selector": "{item|_id}-damage"
+            },
+            {
+                "critical": true,
+                "damageCategory": "persistent",
+                "damageType": "fire",
+                "key": "FlatModifier",
+                "predicate": [
+                    "lit-fire-poi"
+                ],
                 "selector": "{item|_id}-damage",
-                "text": "The poi also deals [[/r 1[persistent,fire]]] damage on a crit",
-                "title": "{item|name}"
+                "value": 1
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "lit-fire-poi"
+                ],
+                "value": {
+                    "animation": {
+                        "intensity": 4,
+                        "speed": 1,
+                        "type": "torch"
+                    },
+                    "color": "#9b7337",
+                    "dim": 10,
+                    "shadows": 0.2
+                }
+            },
+            {
+                "key": "TokenEffectIcon",
+                "predicate": [
+                    "lit-fire-poi"
+                ],
+                "value": "systems/pf2e/icons/equipment/weapons/fire-poi.webp"
             }
         ],
         "size": "med",
