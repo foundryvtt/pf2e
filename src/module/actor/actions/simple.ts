@@ -15,7 +15,7 @@ interface SimpleActionData extends BaseActionData<SimpleActionVariantData> {
 interface SimpleActionUseOptions extends ActionUseOptions {
     actors: ActorPF2e[];
     cost: ActionCost;
-    effect: string | EffectPF2e;
+    effect: string | EffectPF2e | false;
     traits: string[];
 }
 
@@ -57,8 +57,10 @@ class SimpleActionVariant extends BaseActionVariant {
             label: traitLabels[trait] ?? trait,
             slug: trait,
         }));
-        const effect = await toEffectItem(this.effect);
-        const name = this.name ? `${this.#action.name} - ${this.name}` : this.#action.name;
+        const effect = options?.effect === false ? undefined : await toEffectItem(options?.effect ?? this.effect);
+        const name = this.name
+            ? `${game.i18n.localize(this.#action.name)} - ${game.i18n.localize(this.name)}`
+            : game.i18n.localize(this.#action.name);
         const flavor = await renderTemplate("systems/pf2e/templates/system/actions/simple/chat-message-flavor.hbs", {
             effect,
             glyph: this.glyph,

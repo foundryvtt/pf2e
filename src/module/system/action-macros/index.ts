@@ -16,6 +16,7 @@ import { whirlingThrow } from "./athletics/whirling-throw";
 import { escape } from "./basic/escape";
 import { seek } from "./basic/seek";
 import { senseMotive } from "./basic/sense-motive";
+import { takeCover } from "./basic/take-cover";
 import { tamper } from "./class/inventor/tamper";
 import { craft, repair } from "./crafting";
 import { createADiversion } from "./deception/create-a-diversion";
@@ -135,4 +136,4 @@ export const ActionMacros = {
     steal,
 };
 
-export const SystemActions: Action[] = [hide.action, sneak.action, trip.action];
+export const SystemActions: Action[] = [hide.action, sneak.action, takeCover, trip.action];
