@@ -320,15 +320,13 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     }
 
     /** Combine this item with a target item if possible */
-    async stackWith(targetItem: PhysicalItemPF2e): Promise<boolean> {
+    async stackWith(targetItem: PhysicalItemPF2e): Promise<void> {
         if (this.isStackableWith(targetItem)) {
             const stackQuantity = this.quantity + targetItem.quantity;
             if (await this.delete({ render: false })) {
                 await targetItem.update({ "system.quantity": stackQuantity });
-                return true;
             }
         }
-        return false;
     }
 
     /**
@@ -345,37 +343,21 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         relativeTo,
         sortBefore,
         toContainer,
+        toStack,
         render = true,
     }: {
         relativeTo?: PhysicalItemPF2e;
         sortBefore?: boolean;
         toContainer?: ContainerPF2e<ActorPF2e> | null;
+        toStack?: PhysicalItemPF2e;
         render?: boolean;
     }): Promise<void> {
         if (!this.actor) {
             throw ErrorPF2e(`Tried to move an unonwned item!`);
         }
-        if (!toContainer && !relativeTo) {
-            throw ErrorPF2e(`You must provide either the relativeTo or the toContainer parameter!`);
+        if (toStack) {
+            return this.stackWith(toStack);
         }
-        if (relativeTo) {
-            if (!relativeTo.isOfType("physical")) {
-                throw ErrorPF2e(`The relativeTo item is not a physical item!`);
-            } else if (!relativeTo.actor) {
-                throw ErrorPF2e(`The relativeTo item is not an owned item!`);
-            }
-
-            // If theses two items are stackable, combine them
-            if (await this.stackWith(relativeTo)) return;
-        }
-        if (toContainer) {
-            if (!toContainer.isOfType("backpack")) {
-                throw ErrorPF2e(`The toContainer item is not a container item!`);
-            } else if (!toContainer.actor) {
-                throw ErrorPF2e(`The toContainer item is not an owned item!`);
-            }
-        }
-
         const containerResolved = toContainer ?? relativeTo?.container;
         const mainContainerUpdate = (() => {
             // Move into a container

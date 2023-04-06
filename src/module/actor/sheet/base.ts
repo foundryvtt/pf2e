@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { RollFunction, StrikeData } from "@actor/data/base";
 import { SAVE_TYPES } from "@actor/values";
-import { AbstractEffectPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
+import { AbstractEffectPF2e, ContainerPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
@@ -701,6 +701,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             htmlClosest(originalEvent.target, "div[data-item-id]")?.dataset.itemId ?? ""
         );
         if (sourceItem && targetItem) {
+            if (sourceItem.isOfType("backpack") && targetItem.isOfType("backpack") && targetItem.isCollapsed) {
+                // Allow a container to be dropped on a collapsed container
+                return false;
+            }
             // Return false to cancel the move animation
             return !sourceItem.isStackableWith(targetItem);
         }
@@ -709,33 +713,49 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     /** Handle drop of inventory items */
     async #sortableOnEnd(event: SortableEvent & { originalEvent?: DragEvent }): Promise<void> {
+        // The item that was dropped
+        const itemId = htmlQuery(event.item, "div[data-item-id]")?.dataset.itemId;
+        const sourceItem = this.actor.inventory.get(itemId, { strict: true });
+
+        // Get the target item if possible. This should only be present if the drop target was a container or a stackable item
         const targetElement = event.originalEvent?.target instanceof HTMLElement ? event.originalEvent.target : null;
+        const targetItemId = htmlClosest(targetElement, "div[data-item-id]")?.dataset.itemId ?? "";
+        const targetItem = this.actor.inventory.get(targetItemId);
+
         // Item dragged out of the inventory to some other element like the item sidebar
-        if (!event.from.contains(targetElement) && !event.to.contains(targetElement)) {
+        if (!targetItem && !event.from.contains(targetElement) && !event.to.contains(targetElement)) {
             // Render the sheet to reset positional changes caused by dragging the item around
             this.render();
             return;
         }
 
-        const itemId = htmlQuery(event.item, "div[data-item-id]")?.dataset.itemId;
-        const sourceItem = this.actor.inventory.get(itemId, { strict: true });
-
-        const { related, willInsertAfter } = this.#sortableOnMoveData;
-        const targetItem = ((): PhysicalItemPF2e | null => {
-            const originalItemId = htmlClosest(targetElement, "div[data-item-id]")?.dataset.itemId;
-            if (originalItemId) {
-                // Dropped directly on an item. Return the original drop target if it isn't a container
-                const originalItem = this.actor.inventory.get(originalItemId);
-                if (!originalItem?.isOfType("backpack")) {
-                    return originalItem ?? null;
-                }
+        // Drop target is container item
+        if (targetItem?.isOfType("backpack")) {
+            const toContent = !!htmlClosest(targetElement, "ol[data-container-id]");
+            if (!toContent || targetItem.contents.size === 0) {
+                // Container item was targeted directly or container is empty. Move to container and be done
+                return sourceItem.move({ toContainer: targetItem as ContainerPF2e<ActorPF2e> });
             }
-            // Dropped before or after an item. Use related item data
-            const targetItemId = htmlQuery(related, "div[data-item-id]")?.dataset.itemId ?? "";
-            return this.actor.inventory.get(targetItemId) ?? null;
-        })();
-        if (targetItem) {
-            await sourceItem.move({ relativeTo: targetItem, sortBefore: !willInsertAfter, render: false });
+        }
+
+        // Get the item that the source item was dropped relative to
+        const { related, willInsertAfter } = this.#sortableOnMoveData;
+        const relativeItemId = htmlQuery(related, "div[data-item-id]")?.dataset.itemId ?? "";
+        const relativeItem = this.actor.inventory.get(relativeItemId);
+
+        if (relativeItem || targetItem) {
+            if (targetItem && !targetItem.isOfType("backpack")) {
+                // A targetItem that is not a container should be stackable with the source item
+                return sourceItem.move({
+                    toStack: targetItem,
+                });
+            }
+            // Move source item relative to relativeItem. Containers are handled by the move mehtod
+            return sourceItem.move({
+                relativeTo: relativeItem,
+                sortBefore: !willInsertAfter,
+                render: false,
+            });
         }
     }
 
