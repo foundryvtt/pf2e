@@ -119,7 +119,7 @@ class CreatureSizeRuleElement extends RuleElementPF2e {
         reach.manipulate = Math.max(reach.manipulate, reach.base);
 
         if (this.resizeEquipment) {
-            const sizeDifference = originalSize.difference(actor.system.traits.size);
+            const sizeDifference = originalSize.difference(actor.system.traits.size, { smallIsMedium: true });
             for (const item of actor.inventory.filter((i) => !(i instanceof TreasurePF2e && i.isCoinage))) {
                 if (sizeDifference < 0) {
                     item.system.size = this.incrementSize(item.size, Math.abs(sizeDifference));
