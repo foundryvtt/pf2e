@@ -18,13 +18,16 @@ export class CheckModifiersDialog extends Application {
     resolve: (value: boolean) => void;
     /** Pre-determined D20 roll results */
     substitutions: RollSubstitution[];
+    /** Determine the dice used for this roll */
+    getDice: (context: CheckRollContext) => string;
     /** Has the promise been resolved? */
     isResolved = false;
 
     constructor(
         check: StatisticModifier,
         resolve: (value: boolean) => void,
-        context: CheckRollContext = { options: new Set() }
+        context: CheckRollContext = { options: new Set() },
+        getDice: (context: CheckRollContext) => string
     ) {
         super({ title: context?.title || check.slug });
 
@@ -32,6 +35,7 @@ export class CheckModifiersDialog extends Application {
         this.resolve = resolve;
         this.substitutions = context?.substitutions ?? [];
         this.context = context;
+        this.getDice = getDice;
     }
 
     static override get defaultOptions(): ApplicationOptions {
@@ -55,6 +59,7 @@ export class CheckModifiersDialog extends Application {
         return {
             appId: this.id,
             modifiers: this.check.modifiers,
+            dice: this.getDice(this.context),
             totalModifier: this.check.totalModifier,
             rollModes: CONFIG.Dice.rollModes,
             rollMode,
@@ -135,6 +140,7 @@ export class CheckModifiersDialog extends Application {
         for (const rollTwice of htmlQueryAll<HTMLInputElement>(html, ".fate input[type=radio]")) {
             rollTwice.addEventListener("click", () => {
                 this.context.rollTwice = (rollTwice.value || false) as RollTwiceOption;
+                this.render();
             });
         }
 
@@ -198,6 +204,7 @@ export class CheckModifiersDialog extends Application {
 interface CheckDialogData {
     appId: string;
     modifiers: readonly ModifierPF2e[];
+    dice: string;
     totalModifier: number;
     rollModes: Record<RollMode, string>;
     rollMode: RollMode | "roll" | undefined;

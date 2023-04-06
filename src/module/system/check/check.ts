@@ -7,6 +7,7 @@ import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { ChatMessageSourcePF2e, CheckRollContextFlag, TargetFlag } from "@module/chat-message/data.ts";
 import { isCheckContextFlag } from "@module/chat-message/helpers.ts";
 import { RollNotePF2e } from "@module/notes.ts";
+import { RollSubstitution } from "@module/rules/synthetics.ts";
 import { ScenePF2e, TokenDocumentPF2e } from "@scene";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { StatisticDifficultyClass } from "@system/statistic/index.ts";
@@ -66,59 +67,21 @@ class CheckPF2e {
         }
 
         if (!context.skipDialog) {
+            const getDice = (context: CheckRollContext): string => {
+                const [dice, _] = this.selectDice(context, rollOptions);
+                return dice;
+            };
             const dialogClosed = new Promise((resolve: (value: boolean) => void) => {
-                new CheckModifiersDialog(check, resolve, context).render(true);
+                new CheckModifiersDialog(check, resolve, context, getDice).render(true);
             });
             const rolled = await dialogClosed;
             if (!rolled) return null;
         }
 
-        const extraTags: string[] = [];
         const isReroll = context.isReroll ?? false;
         if (isReroll) context.rollTwice = false;
-        const substitutions = context.substitutions ?? [];
 
-        // Acquire the d20 roll expression and resolve fortune/misfortune effects
-        const [dice, tagsFromDice] = ((): [string, string[]] => {
-            const substitutions =
-                context.substitutions?.filter((s) => (!s.ignored && s.predicate?.test(rollOptions)) ?? true) ?? [];
-            const rollTwice = context.rollTwice ?? false;
-
-            // Determine whether both fortune and misfortune apply to the check
-            const fortuneMisfortune = new Set(
-                substitutions
-                    .map((s) => s.effectType)
-                    .concat(rollTwice === "keep-higher" ? "fortune" : rollTwice === "keep-lower" ? "misfortune" : [])
-                    .flat()
-            );
-            for (const trait of fortuneMisfortune) {
-                rollOptions.add(trait);
-            }
-
-            const substitution = substitutions.at(-1);
-            if (rollOptions.has("fortune") && rollOptions.has("misfortune")) {
-                return ["1d20", ["PF2E.TraitFortune", "PF2E.TraitMisfortune"]];
-            } else if (substitution) {
-                const effectType = {
-                    fortune: "PF2E.TraitFortune",
-                    misfortune: "PF2E.TraitMisfortune",
-                }[substitution.effectType];
-                const extraTag = game.i18n.format("PF2E.SpecificRule.SubstituteRoll.EffectType", {
-                    type: game.i18n.localize(effectType),
-                    substitution: game.i18n.localize(substitution.label),
-                });
-
-                return [substitution.value.toString(), [extraTag]];
-            } else if (context.rollTwice === "keep-lower") {
-                return ["2d20kl", ["PF2E.TraitMisfortune"]];
-            } else if (context.rollTwice === "keep-higher") {
-                return ["2d20kh", ["PF2E.TraitFortune"]];
-            } else {
-                return ["1d20", []];
-            }
-        })();
-
-        extraTags.push(...tagsFromDice);
+        const [dice, extraTags] = this.selectDice(context, rollOptions);
 
         const isStrike = context.type === "attack-roll" && context.item?.isOfType("weapon", "melee");
         const RollCls = isStrike ? StrikeAttackRoll : CheckRoll;
@@ -221,7 +184,7 @@ class CheckPF2e {
             title: context.title ?? "PF2E.Check.Label",
             type: context.type ?? "check",
             traits: context.traits ?? [],
-            substitutions,
+            substitutions: context.substitutions ?? [],
             dc: context.dc ?? null,
             skipDialog: context.skipDialog ?? !game.user.settings.showRollDialogs,
             isReroll: context.isReroll ?? false,
@@ -267,6 +230,53 @@ class CheckPF2e {
         }
 
         return roll;
+    }
+
+    private static resolveSubstitutions(context: CheckRollContext, rollOptions: Set<string>): RollSubstitution[] {
+        return context.substitutions?.filter((s) => (!s.ignored && s.predicate?.test(rollOptions)) ?? true) ?? [];
+    }
+
+    private static resolveFortune(context: CheckRollContext, origRollOptions: Set<string>): Set<string> {
+        const rollOptions = new Set(origRollOptions);
+        const rollTwice = context.rollTwice ?? false;
+
+        // Determine whether both fortune and misfortune apply to the check
+        const fortuneMisfortune = new Set(
+            this.resolveSubstitutions(context, rollOptions)
+                .map((s) => s.effectType)
+                .concat(rollTwice === "keep-higher" ? "fortune" : rollTwice === "keep-lower" ? "misfortune" : [])
+                .flat()
+        );
+        for (const trait of fortuneMisfortune) {
+            rollOptions.add(trait);
+        }
+        return rollOptions;
+    }
+
+    // Acquire the d20 roll expression and resolve fortune/misfortune effects
+    private static selectDice(context: CheckRollContext, rollOptions: Set<string>): [string, string[]] {
+        const substitution = this.resolveSubstitutions(context, rollOptions).at(-1);
+        const fortuneOptions = this.resolveFortune(context, rollOptions);
+        if (fortuneOptions.has("fortune") && fortuneOptions.has("misfortune")) {
+            return ["1d20", ["PF2E.TraitFortune", "PF2E.TraitMisfortune"]];
+        } else if (substitution) {
+            const effectType = {
+                fortune: "PF2E.TraitFortune",
+                misfortune: "PF2E.TraitMisfortune",
+            }[substitution.effectType];
+            const extraTag = game.i18n.format("PF2E.SpecificRule.SubstituteRoll.EffectType", {
+                type: game.i18n.localize(effectType),
+                substitution: game.i18n.localize(substitution.label),
+            });
+
+            return [substitution.value.toString(), [extraTag]];
+        } else if (context.rollTwice === "keep-lower") {
+            return ["2d20kl", ["PF2E.TraitMisfortune"]];
+        } else if (context.rollTwice === "keep-higher") {
+            return ["2d20kh", ["PF2E.TraitFortune"]];
+        } else {
+            return ["1d20", []];
+        }
     }
 
     private static createTagFlavor({ check, context, extraTags }: CreateTagFlavorParams): HTMLElement[] {
