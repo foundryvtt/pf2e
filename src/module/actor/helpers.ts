@@ -331,7 +331,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     const damageRoll =
         (outcome: "success" | "criticalSuccess"): DamageRollFunction =>
         async (params: DamageRollParams = {}): Promise<Rolled<DamageRoll> | string | null> => {
-            const domains = ["all", `{item.id}-damage`, "strike-damage", "damage-roll"];
+            const domains = ["all", `${item.id}-damage`, "strike-damage", "damage-roll"];
             const context = await actor.getRollContext({
                 item,
                 statistic: strike,
