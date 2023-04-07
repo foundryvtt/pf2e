@@ -15,7 +15,7 @@ import { ConditionSource, ConditionSystemData, PersistentDamageData } from "./da
 import { ConditionKey, ConditionSlug } from "./types";
 
 class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
-    active!: boolean;
+    declare active: boolean;
 
     override get badge(): EffectBadge | null {
         if (this.system.persistent) {

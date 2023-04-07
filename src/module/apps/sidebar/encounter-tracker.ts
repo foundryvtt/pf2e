@@ -6,7 +6,7 @@ import { ErrorPF2e, createHTMLElement, fontAwesomeIcon, htmlQuery, htmlQueryAll,
 import Sortable, { SortableEvent } from "sortablejs";
 
 export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> extends CombatTracker<TEncounter> {
-    sortable!: Sortable;
+    declare sortable: Sortable;
 
     /** Make the combatants sortable */
     override activateListeners($html: JQuery): void {

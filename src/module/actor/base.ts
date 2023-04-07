@@ -87,33 +87,33 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     private constructed = true;
 
     /** Is this actor preparing its embedded documents? Used to prevent premature data preparation of embedded items */
-    preparingEmbeds?: boolean;
+    preparingEmbeds = false;
 
     /** Handles rolling initiative for the current actor */
-    initiative?: ActorInitiative;
+    declare initiative?: ActorInitiative;
 
     /** A separate collection of owned physical items for convenient access */
-    inventory!: ActorInventory<this>;
+    declare inventory: ActorInventory<this>;
 
     /** A separate collection of owned spellcasting entries for convenience */
-    spellcasting!: ActorSpellcasting<this>;
+    declare spellcasting: ActorSpellcasting<this>;
 
     /** Rule elements drawn from owned items */
-    rules!: RuleElementPF2e[];
+    declare rules: RuleElementPF2e[];
 
-    synthetics!: RuleElementSynthetics;
+    declare synthetics: RuleElementSynthetics;
 
     /** Saving throw statistics */
-    saves?: { [K in SaveType]?: Statistic };
+    declare saves?: { [K in SaveType]?: Statistic };
 
     /** Data from rule elements for auras this actor may be emanating */
-    auras!: Map<string, AuraData>;
+    declare auras: Map<string, AuraData>;
 
     /** A collection of this actor's conditions */
-    conditions!: ActorConditions<this>;
+    declare conditions: ActorConditions<this>;
 
     /** A cached copy of `Actor#itemTypes`, lazily regenerated every data preparation cycle */
-    private _itemTypes?: EmbeddedItemInstances<this> | null;
+    private declare _itemTypes: EmbeddedItemInstances<this> | null;
 
     constructor(data: PreCreate<ActorSourcePF2e>, context: DocumentConstructionContext<TParent> = {}) {
         super(data, context);
@@ -543,6 +543,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     protected override _initialize(): void {
         this.constructed ??= false;
+        this._itemTypes = null;
         this.rules = [];
         this.conditions = new ActorConditions();
         this.auras = new Map();
@@ -605,8 +606,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Prepare token data derived from this actor, refresh Effects Panel */
     override prepareData(): void {
-        delete this._itemTypes;
-
         // To prevent (or delay) console spam, will send out a deprecation notice in a later release
         Object.defineProperty(this.system, "toggles", {
             get: (): RollOptionToggle[] => this.synthetics.toggles,

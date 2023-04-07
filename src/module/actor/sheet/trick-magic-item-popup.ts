@@ -10,7 +10,7 @@ export class TrickMagicItemPopup {
     readonly item: ConsumablePF2e<ActorPF2e>;
 
     /** The actor doing the tricking */
-    readonly actor!: CharacterPF2e;
+    declare readonly actor: CharacterPF2e;
 
     /** The skill DC of the action's check */
     readonly checkDC: TrickMagicItemDifficultyData;
