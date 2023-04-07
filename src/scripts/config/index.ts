@@ -26,7 +26,7 @@ import {
     WeaponPF2e,
 } from "@item";
 import { AfflictionPF2e } from "@item/affliction/document";
-import { ConditionSlug } from "@item/condition/data";
+import { ConditionSlug } from "@item/condition/types";
 import { RANGE_TRAITS } from "@item/data/values";
 import { DeityDomain } from "@item/deity/types";
 import { FeatCategory } from "@item/feat";
@@ -306,6 +306,7 @@ const traitsDescriptions = {
     "deadly-d12": "PF2E.TraitDescriptionDeadly",
     "deadly-d6": "PF2E.TraitDescriptionDeadly",
     "deadly-d8": "PF2E.TraitDescriptionDeadly",
+    "deadly-d4": "PF2E.TraitDescriptionDeadly",
     death: "PF2E.TraitDescriptionDeath",
     "deflecting-bludgeoning": "PF2E.TraitDescriptionDeflecting",
     "deflecting-physical-ranged": "PF2E.TraitDescriptionDeflecting",

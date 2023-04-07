@@ -1,12 +1,12 @@
-import { LocalizePF2e } from "@system/localize";
-import { StatusEffectIconTheme } from "@scripts/config";
-import { ErrorPF2e, fontAwesomeIcon, htmlQueryAll, objectHasKey, setHasElement } from "@util";
-import { TokenPF2e } from "@module/canvas/token";
-import { EncounterPF2e } from "@module/encounter";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { PersistentDialog } from "@item/condition/persistent-damage-dialog";
 import { resetActors } from "@actor/helpers";
-import { CONDITION_SLUGS } from "@actor/values";
+import { PersistentDialog } from "@item/condition/persistent-damage-dialog";
+import { CONDITION_SLUGS } from "@item/condition/values";
+import { TokenPF2e } from "@module/canvas/token";
+import { ChatMessagePF2e } from "@module/chat-message";
+import { EncounterPF2e } from "@module/encounter";
+import { StatusEffectIconTheme } from "@scripts/config";
+import { LocalizePF2e } from "@system/localize";
+import { ErrorPF2e, fontAwesomeIcon, htmlQueryAll, objectHasKey, setHasElement } from "@util";
 
 const debouncedRender = foundry.utils.debounce(() => {
     canvas.tokens.hud.render();

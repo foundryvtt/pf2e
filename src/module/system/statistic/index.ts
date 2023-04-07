@@ -137,24 +137,6 @@ class Statistic {
         }
     }
 
-    /** Compatibility function which creates a statistic from a StatisticModifier instead of from StatisticData. */
-    static from(
-        actor: ActorPF2e,
-        stat: StatisticModifier,
-        slug: string,
-        label: string,
-        type: CheckType,
-        domains?: string[]
-    ) {
-        return new Statistic(actor, {
-            slug,
-            domains,
-            label,
-            check: { type },
-            modifiers: [...stat.modifiers],
-        });
-    }
-
     /** Convenience getter to the statistic's total modifier */
     get mod(): number {
         return this.check.mod;

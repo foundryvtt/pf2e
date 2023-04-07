@@ -167,7 +167,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         if (!this.initialized) return;
 
         // Dimensions and scale
-        const linkDefault = !["hazard", "loot"].includes(this.actor.type ?? "");
+        const linkDefault = !["hazard", "loot", "party"].includes(this.actor.type ?? "");
         const linkToActorSize = this.flags.pf2e?.linkToActorSize ?? linkDefault;
 
         const autoscaleDefault = game.settings.get("pf2e", "tokens.autoscale");

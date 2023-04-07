@@ -11,7 +11,8 @@ import { PERSISTENT_DAMAGE_IMAGES } from "@system/damage/values";
 import { DegreeOfSuccess } from "@system/degree-of-success";
 import { Statistic } from "@system/statistic";
 import { ErrorPF2e } from "@util";
-import { ConditionKey, ConditionSlug, ConditionSource, ConditionSystemData, PersistentDamageData } from "./data";
+import { ConditionSource, ConditionSystemData, PersistentDamageData } from "./data";
+import { ConditionKey, ConditionSlug } from "./types";
 
 class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
     active!: boolean;

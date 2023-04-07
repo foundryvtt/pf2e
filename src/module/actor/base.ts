@@ -75,7 +75,8 @@ import { StatisticModifier } from "./modifiers";
 import { ActorSheetPF2e } from "./sheet/base";
 import { ActorSpellcasting } from "./spellcasting";
 import { TokenEffect } from "./token-effect";
-import { CONDITION_SLUGS, CREATURE_ACTOR_TYPES, UNAFFECTED_TYPES } from "./values";
+import { CREATURE_ACTOR_TYPES, UNAFFECTED_TYPES } from "./values";
+import { CONDITION_SLUGS } from "@item/condition/values";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -509,6 +510,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                     merged.prototypeToken.vision = true;
                     break;
                 case "loot":
+                case "party":
                     // Make loot actors linked and interactable
                     merged.prototypeToken.actorLink = true;
                     merged.ownership.default = CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED;
