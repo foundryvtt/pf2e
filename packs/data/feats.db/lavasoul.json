@@ -30,29 +30,31 @@
                         "die": "d4"
                     }
                 },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/spells/fire-ray.webp",
                 "key": "Strike",
-                "label": "Magma spike",
+                "label": "PF2E.SpecificRule.Ifrit.Lavasoul.MagmaSpike",
                 "range": null,
                 "traits": [
-                    "finesse",
                     "agile",
+                    "finesse",
                     "unarmed"
                 ]
             },
             {
                 "damageType": "fire",
                 "key": "FlatModifier",
-                "label": "Magma spike",
+                "label": "PF2E.SpecificRule.Ifrit.Lavasoul.MagmaSpike",
                 "selector": "{item|_id}-damage",
                 "value": 1
             },
             {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
+                "alternate": true,
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "item:id:{item|_id}"
                 ],
-                "selector": "{item|_id}-damage",
-                "text": "Instead of the normal critical specialization effect, the target takes [[/r 1d6[persistent,fire]]] damage fire damage; you gain a bonus on this persistent damage equal to your item bonus to attack rolls on unarmed attacks."
+                "text": "PF2E.SpecificRule.Ifrit.Lavasoul.MagmaSpikeCriticalSpecialization"
             }
         ],
         "source": {
