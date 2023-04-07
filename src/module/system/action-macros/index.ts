@@ -32,6 +32,8 @@ import { senseDirection } from "./exploration/sense-direction";
 import { track } from "./exploration/track";
 import { decipherWriting } from "./general/decipher-writing";
 import { subsist } from "./general/subsist";
+import { discover } from "./influence/discover";
+import { influence } from "./influence/influence";
 import { coerce } from "./intimidation/coerce";
 import { demoralize } from "./intimidation/demoralize";
 import { administerFirstAid } from "./medicine/administer-first-aid";
@@ -105,6 +107,10 @@ export const ActionMacros = {
     // General Skill Actions
     decipherWriting,
     subsist,
+
+    // Influence
+    discover,
+    influence,
 
     // Intimidation
     coerce,

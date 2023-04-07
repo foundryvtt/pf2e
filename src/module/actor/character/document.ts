@@ -761,6 +761,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Initiative
         this.prepareInitiative();
 
+        // Influence
+        this.prepareDerivedInfluence();
+
         // Resources
         const { focus, crafting } = this.system.resources;
         focus.max = Math.clamped(focus.max, 0, focus.cap);
