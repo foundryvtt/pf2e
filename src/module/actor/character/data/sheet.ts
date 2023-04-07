@@ -9,6 +9,7 @@ import { SpellcastingSheetData } from "@item/spellcasting-entry";
 import { FlattenedCondition } from "@system/conditions";
 import { CHARACTER_SHEET_TABS } from "../values";
 import { BonusFeat, CharacterSaveData, CharacterSystemData, ClassDCData, SlottedFeat } from "./types";
+import { ActorActions } from "@actor/actions";
 
 type CharacterSheetOptions = ActorSheetOptions;
 
@@ -66,6 +67,7 @@ type CharacterSheetTabVisibility = Record<(typeof CHARACTER_SHEET_TABS)[number],
 
 interface CharacterSheetData<TActor extends CharacterPF2e> extends CreatureSheetData<TActor> {
     abpEnabled: boolean;
+    actions: ActorActions;
     ancestry: AncestryPF2e<CharacterPF2e> | null;
     heritage: HeritagePF2e<CharacterPF2e> | null;
     background: BackgroundPF2e<CharacterPF2e> | null;

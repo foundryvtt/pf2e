@@ -48,6 +48,8 @@ import { TokenLightRuleElement } from "./rule-element/token-light";
 import { TokenNameRuleElement } from "./rule-element/token-name";
 import { WeaponPotencyRuleElement } from "./rule-element/weapon-potency";
 import { ActorPF2e } from "@actor";
+import { SimpleActionRuleElement } from "@module/rules/rule-element/simple-action";
+import { SingleCheckActionRuleElement } from "@module/rules/rule-element/single-check-action";
 export { RuleElementSynthetics } from "./synthetics";
 
 /**
@@ -85,6 +87,8 @@ class RuleElements {
         RollOption: RollOptionRuleElement,
         RollTwice: RollTwiceRuleElement,
         Sense: SenseRuleElement,
+        SimpleAction: SimpleActionRuleElement,
+        SingleCheckAction: SingleCheckActionRuleElement,
         Strike: StrikeRuleElement,
         Striking: StrikingRuleElement,
         SubstituteRoll: SubstituteRollRuleElement,
