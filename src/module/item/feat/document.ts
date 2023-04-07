@@ -10,7 +10,7 @@ import { FeatSource, FeatSystemData } from "./data";
 import { FeatCategory, FeatTrait } from "./types";
 
 class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
-    group!: FeatGroup | null;
+    declare group: FeatGroup | null;
 
     get category(): FeatCategory {
         return this.system.category;

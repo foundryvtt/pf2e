@@ -12,9 +12,9 @@ import { MeleeFlags, MeleeSource, MeleeSystemData, NPCAttackTrait } from "./data
 
 class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     /** Set during data preparation if a linked weapon is found */
-    category!: WeaponCategory | null;
-    group!: WeaponGroup | null;
-    baseType!: BaseWeaponType | null;
+    declare category: WeaponCategory | null;
+    declare group: WeaponGroup | null;
+    declare baseType: BaseWeaponType | null;
 
     get traits(): Set<NPCAttackTrait> {
         return new Set(this.system.traits.value);

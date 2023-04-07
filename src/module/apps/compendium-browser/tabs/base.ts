@@ -10,7 +10,7 @@ export abstract class CompendiumBrowserTab {
     /** The filter schema for this tab; The tabs filters are rendered based on this.*/
     abstract filterData: BrowserFilter;
     /** An unmodified copy of this.filterData */
-    defaultFilterData!: this["filterData"];
+    declare defaultFilterData: this["filterData"];
     /** The full CompendiumIndex of this tab */
     protected indexData: CompendiumBrowserIndexData[] = [];
     /** Is this tab initialized? */
@@ -26,7 +26,7 @@ export abstract class CompendiumBrowserTab {
     /** The path to the result list template of this tab */
     abstract templatePath: string;
     /** Minisearch */
-    searchEngine!: MiniSearch;
+    declare searchEngine: MiniSearch;
     /** Names of the document fields to be indexed. */
     searchFields: string[] = [];
     /** Names of fields to store, so that search results would include them.

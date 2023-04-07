@@ -44,14 +44,14 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     readonly isFromConsumable: boolean;
 
     /** The original spell. Only exists if this is a variant */
-    original?: SpellPF2e<NonNullable<TParent>>;
+    declare original?: SpellPF2e<NonNullable<TParent>>;
     /** The overlays that were applied to create this variant */
-    appliedOverlays?: Map<SpellOverlayType, string>;
+    declare appliedOverlays?: Map<SpellOverlayType, string>;
 
     /** Set if casted with trick magic item. Will be replaced via overriding spellcasting on cast later. */
     trickMagicEntry: TrickMagicItemEntry<NonNullable<TParent>> | null = null;
 
-    overlays!: SpellOverlayCollection;
+    declare overlays: SpellOverlayCollection;
 
     constructor(data: PreCreate<ItemSourcePF2e>, context: SpellConstructionContext<TParent> = {}) {
         super(data, context);

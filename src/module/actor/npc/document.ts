@@ -30,7 +30,7 @@ import { NPCSheetPF2e } from "./sheet";
 import { VariantCloneParams } from "./types";
 
 class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends CreaturePF2e<TParent> {
-    override initiative!: ActorInitiative;
+    declare initiative: ActorInitiative;
 
     override get allowedItemTypes(): (ItemType | "physical")[] {
         return [...super.allowedItemTypes, "physical", "spellcastingEntry", "spell", "action", "melee", "lore"];

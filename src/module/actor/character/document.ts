@@ -109,28 +109,28 @@ import { CHARACTER_SHEET_TABS } from "./values";
 
 class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends CreaturePF2e<TParent> {
     /** Core singular embeds for PCs */
-    ancestry!: AncestryPF2e<this> | null;
-    heritage!: HeritagePF2e<this> | null;
-    background!: BackgroundPF2e<this> | null;
-    class!: ClassPF2e<this> | null;
-    deity!: DeityPF2e<this> | null;
+    declare ancestry: AncestryPF2e<this> | null;
+    declare heritage: HeritagePF2e<this> | null;
+    declare background: BackgroundPF2e<this> | null;
+    declare class: ClassPF2e<this> | null;
+    declare deity: DeityPF2e<this> | null;
 
     /** A cached reference to this PC's familiar */
-    familiar: FamiliarPF2e | null = null;
+    declare familiar: FamiliarPF2e | null;
 
-    feats!: CharacterFeats<this>;
-    pfsBoons!: FeatPF2e<this>[];
-    deityBoonsCurses!: FeatPF2e<this>[];
+    declare feats: CharacterFeats<this>;
+    declare pfsBoons: FeatPF2e<this>[];
+    declare deityBoonsCurses: FeatPF2e<this>[];
 
     /** All base casting tradition proficiences, which spellcasting build off of */
-    traditions!: Record<MagicTradition, Statistic>;
+    declare traditions: Record<MagicTradition, Statistic>;
 
     /** The primary class DC */
-    classDC!: Statistic | null;
-    /** All class DCs regardless of whether or not its the primary */
-    classDCs!: Record<string, Statistic>;
+    declare classDC: Statistic | null;
+    /** All class DCs, including the primary */
+    declare classDCs: Record<string, Statistic>;
 
-    override initiative!: ActorInitiative;
+    declare initiative: ActorInitiative;
 
     // Internal cached value of character skills
     protected override _skills: CharacterSkills | null = null;
@@ -260,6 +260,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 await this.addToInventory(itemSource);
             }
         }
+    }
+
+    protected override _initialize() {
+        this.familiar ??= null;
+        super._initialize();
     }
 
     /** If one exists, prepare this character's familiar */

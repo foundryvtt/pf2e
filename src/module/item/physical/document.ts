@@ -23,7 +23,7 @@ import { DENOMINATIONS } from "./values";
 
 abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     // The cached container of this item, if in a container, or null
-    private _container: ContainerPF2e<ActorPF2e> | null = null;
+    private declare _container: ContainerPF2e<ActorPF2e> | null;
 
     get level(): number {
         return this.system.level.value;
@@ -175,6 +175,11 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             .concat(this.system.traits.otherTags.map((t) => `${prefix}:tag:${t}`));
 
         return [baseOptions, physicalItemOptions].flat();
+    }
+
+    protected override _initialize(): void {
+        this._container = null;
+        super._initialize();
     }
 
     override prepareBaseData(): void {
