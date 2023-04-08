@@ -102,4 +102,4 @@ class SimpleAction extends BaseAction<SimpleActionVariantData, SimpleActionVaria
     }
 }
 
-export { SimpleAction, SimpleActionVariantData };
+export { SimpleAction, SimpleActionResult, SimpleActionVariant, SimpleActionVariantData, SimpleActionUseOptions };
