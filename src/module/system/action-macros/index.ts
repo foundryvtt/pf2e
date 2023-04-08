@@ -1,7 +1,7 @@
-import { balance } from "./acrobatics/balance";
-import { maneuverInFlight } from "./acrobatics/maneuver-in-flight";
-import { squeeze } from "./acrobatics/squeeze";
-import { tumbleThrough } from "./acrobatics/tumble-through";
+import * as balance from "./acrobatics/balance";
+import * as maneuverInFlight from "./acrobatics/maneuver-in-flight";
+import * as squeeze from "./acrobatics/squeeze";
+import * as tumbleThrough from "./acrobatics/tumble-through";
 import { arcaneSlam } from "./ancestry/automaton/arcane-slam";
 import { climb } from "./athletics/climb";
 import { disarm } from "./athletics/disarm";
@@ -79,10 +79,10 @@ export const ActionMacros = {
     track,
 
     // Acrobatics
-    balance,
-    maneuverInFlight,
-    squeeze,
-    tumbleThrough,
+    balance: balance.legacy,
+    maneuverInFlight: maneuverInFlight.legacy,
+    squeeze: squeeze.legacy,
+    tumbleThrough: tumbleThrough.legacy,
 
     // Athletics
     climb,
@@ -147,18 +147,22 @@ export const ActionMacros = {
 };
 
 export const SystemActions: Action[] = [
+    balance.action,
     crawl,
     delay,
     dropProne,
     hide.action,
     interact,
     leap,
+    maneuverInFlight.action,
     ready,
     release,
     sneak.action,
+    squeeze.action,
     stand,
     step,
     stride,
     takeCover,
     trip.action,
+    tumbleThrough.action,
 ];
