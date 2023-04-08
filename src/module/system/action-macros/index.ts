@@ -56,7 +56,7 @@ import * as sneak from "./stealth/sneak.ts";
 import * as palmAnObject from "./thievery/palm-an-object.ts";
 import * as disableDevice from "./thievery/disable-device.ts";
 import * as pickALock from "./thievery/pick-a-lock.ts";
-import { steal } from "./thievery/steal.ts";
+import * as steal from "./thievery/steal.ts";
 import { Action } from "@actor/actions/index.ts";
 export { ActionMacroHelpers } from "./helpers.ts";
 export type { ActionDefaultOptions, SkillActionOptions } from "./types.ts";
@@ -143,7 +143,7 @@ export const ActionMacros = {
     palmAnObject: palmAnObject.legacy,
     disableDevice: disableDevice.legacy,
     pickALock: pickALock.legacy,
-    steal,
+    steal: steal.legacy,
 };
 
 export const SystemActions: Action[] = [
@@ -163,6 +163,7 @@ export const SystemActions: Action[] = [
     sneak.action,
     squeeze.action,
     stand,
+    steal.action,
     step,
     stride,
     takeCover,
