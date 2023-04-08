@@ -19,5 +19,8 @@ export function feint(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Feint", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Feint", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

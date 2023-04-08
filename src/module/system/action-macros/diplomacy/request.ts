@@ -19,5 +19,8 @@ export function request(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Request", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Request", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

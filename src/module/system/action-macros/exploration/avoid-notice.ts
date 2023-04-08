@@ -17,5 +17,8 @@ export function avoidNotice(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.AvoidNotice", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.AvoidNotice", "success"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

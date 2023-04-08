@@ -73,6 +73,9 @@ export async function craft(options: CraftActionOptions) {
             }
             options.callback?.(result);
         },
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }
 

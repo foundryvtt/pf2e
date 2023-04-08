@@ -55,5 +55,8 @@ export function arcaneSlam(options: SkillActionOptions) {
             return notes;
         },
         target: () => (target && token ? { actor: target, token } : null),
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

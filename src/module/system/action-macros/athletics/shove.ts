@@ -34,5 +34,8 @@ export function shove(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Shove", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Shove", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

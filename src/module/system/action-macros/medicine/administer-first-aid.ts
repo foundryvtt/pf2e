@@ -65,5 +65,8 @@ export function administerFirstAid(options: { variant: AdministerFirstAidVariant
             ActionMacroHelpers.outcomesNote(selector, notes.success, ["success", "criticalSuccess"]),
             ActionMacroHelpers.outcomesNote(selector, notes.criticalFailure, ["criticalFailure"]),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

@@ -20,5 +20,8 @@ export function coerce(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Coerce", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Coerce", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

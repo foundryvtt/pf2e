@@ -35,5 +35,8 @@ export function grapple(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Grapple", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Grapple", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

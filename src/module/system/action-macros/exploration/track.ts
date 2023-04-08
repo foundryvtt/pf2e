@@ -19,5 +19,8 @@ export function track(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Track", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Track", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

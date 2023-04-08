@@ -21,6 +21,9 @@ function maneuverInFlight(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, PREFIX, "failure"),
             ActionMacroHelpers.note(selector, PREFIX, "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }
 

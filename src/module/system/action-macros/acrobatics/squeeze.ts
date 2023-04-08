@@ -21,6 +21,9 @@ function squeeze(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Squeeze", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Squeeze", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }
 

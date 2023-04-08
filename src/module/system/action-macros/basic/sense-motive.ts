@@ -20,5 +20,8 @@ export function senseMotive(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.SenseMotive", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.SenseMotive", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

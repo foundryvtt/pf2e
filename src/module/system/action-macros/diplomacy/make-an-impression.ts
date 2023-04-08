@@ -19,5 +19,8 @@ export function makeAnImpression(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.MakeAnImpression", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.MakeAnImpression", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

@@ -18,5 +18,8 @@ export function forceOpen(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.ForceOpen", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.ForceOpen", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

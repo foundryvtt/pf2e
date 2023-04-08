@@ -19,5 +19,8 @@ export function bonMot(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.BonMot", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.BonMot", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }
