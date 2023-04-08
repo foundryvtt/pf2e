@@ -13,9 +13,19 @@ import { shove } from "./athletics/shove";
 import { swim } from "./athletics/swim";
 import * as trip from "./athletics/trip";
 import { whirlingThrow } from "./athletics/whirling-throw";
+import { crawl } from "./basic/crawl";
+import { delay } from "./basic/delay";
+import { dropProne } from "./basic/drop-prone";
 import { escape } from "./basic/escape";
+import { interact } from "./basic/interact";
+import { leap } from "./basic/leap";
+import { ready } from "./basic/ready";
+import { release } from "./basic/release";
 import { seek } from "./basic/seek";
 import { senseMotive } from "./basic/sense-motive";
+import { stand } from "./basic/stand";
+import { step } from "./basic/step";
+import { stride } from "./basic/stride";
 import { takeCover } from "./basic/take-cover";
 import { tamper } from "./class/inventor/tamper";
 import { craft, repair } from "./crafting";
@@ -136,4 +146,19 @@ export const ActionMacros = {
     steal,
 };
 
-export const SystemActions: Action[] = [hide.action, sneak.action, takeCover, trip.action];
+export const SystemActions: Action[] = [
+    crawl,
+    delay,
+    dropProne,
+    hide.action,
+    interact,
+    leap,
+    ready,
+    release,
+    sneak.action,
+    stand,
+    step,
+    stride,
+    takeCover,
+    trip.action,
+];
