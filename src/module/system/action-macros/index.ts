@@ -53,7 +53,7 @@ import { createForgery } from "./society/create-forgery.ts";
 import { concealAnObject } from "./stealth/conceal-an-object.ts";
 import * as hide from "./stealth/hide.ts";
 import * as sneak from "./stealth/sneak.ts";
-import { palmAnObject } from "./thievery/palm-an-object.ts";
+import * as palmAnObject from "./thievery/palm-an-object.ts";
 import * as disableDevice from "./thievery/disable-device.ts";
 import { pickALock } from "./thievery/pick-a-lock.ts";
 import { steal } from "./thievery/steal.ts";
@@ -140,7 +140,7 @@ export const ActionMacros = {
     sneak: sneak.legacy,
 
     // Thievery
-    palmAnObject,
+    palmAnObject: palmAnObject.legacy,
     disableDevice: disableDevice.legacy,
     pickALock,
     steal,
@@ -156,6 +156,7 @@ export const SystemActions: Action[] = [
     interact,
     leap,
     maneuverInFlight.action,
+    palmAnObject.action,
     ready,
     release,
     sneak.action,
