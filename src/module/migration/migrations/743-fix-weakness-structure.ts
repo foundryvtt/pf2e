@@ -1,7 +1,7 @@
-import { CharacterTraitsData } from "@actor/character/data";
-import { ActorSourcePF2e } from "@actor/data";
-import { NPCTraitsSource } from "@actor/npc/data";
-import { MigrationBase } from "../base";
+import { CharacterTraitsData } from "@actor/character/data/index.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { NPCTraitsSource } from "@actor/npc/data.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Move tracking of roll-option toggles to the rules themselves */
 export class Migration743FixWeaknessStructure extends MigrationBase {

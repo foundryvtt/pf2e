@@ -1,9 +1,9 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemSourcePF2e } from "@item/data";
-import { SpellSource, SpellSystemData } from "@item/spell/data";
-import { SpellcastingEntrySource, SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data";
-import { OneToTen } from "@module/data";
-import { MigrationBase } from "../base";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { SpellSource, SpellSystemData } from "@item/spell/data.ts";
+import { SpellcastingEntrySource, SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data.ts";
+import { OneToTen } from "@module/data.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Certain actor specific spell properties moved to spell.location such as signature */
 export class Migration734SpellLocationPropsAndSignature extends MigrationBase {

@@ -1,9 +1,9 @@
-import { DamageRoll } from "@system/damage/roll";
-import { LocalizePF2e } from "@system/localize";
+import { DamageRoll } from "@system/damage/roll.ts";
+import { LocalizePF2e } from "@system/localize.ts";
 import { ErrorPF2e, htmlQuery, tupleHasValue } from "@util";
-import { ChatContextFlag, CheckRollContextFlag } from "./data";
-import { ChatMessagePF2e } from "./document";
-import { extractEphemeralEffects } from "@module/rules/helpers";
+import { ChatContextFlag, CheckRollContextFlag } from "./data.ts";
+import { ChatMessagePF2e } from "./document.ts";
+import { extractEphemeralEffects } from "@module/rules/helpers.ts";
 
 function isCheckContextFlag(flag?: ChatContextFlag): flag is CheckRollContextFlag {
     return !!flag && !tupleHasValue(["damage-roll", "spell-cast"], flag.type);

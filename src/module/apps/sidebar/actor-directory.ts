@@ -1,4 +1,4 @@
-import { ActorPF2e } from "@actor/base";
+import { ActorPF2e } from "@actor/base.ts";
 import { fontAwesomeIcon, htmlQuery, htmlQueryAll } from "@util";
 
 /** Extend ActorDirectory to show more information */

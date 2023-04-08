@@ -1,5 +1,5 @@
 import { DataModel } from "./common/abstract/data.mjs";
-import { DataSchema } from "./common/data/fields.mjs";
+import { DataSchema } from "./common/data/fields.js";
 
 declare global {
     interface ElementDragEvent extends DragEvent {

@@ -1,7 +1,9 @@
-import * as path from "path";
-import * as fs from "fs";
-import { CompendiumPack, PackError } from "./packman/compendium-pack";
+import fs from "fs";
+import path from "path";
+import url from "url";
+import { CompendiumPack, PackError } from "./lib/compendium-pack.ts";
 
+const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 const packsDataPath = path.resolve(__dirname, "../data");
 const packDirPaths = fs.readdirSync(packsDataPath).map((dirName) => path.resolve(__dirname, packsDataPath, dirName));
 

@@ -1,6 +1,6 @@
 import { isObject, tupleHasValue } from "@util";
-import { isSystemDamageTerm, markAsCrit, renderComponentDamage } from "./helpers";
-import { DamageInstance } from "./roll";
+import { isSystemDamageTerm, markAsCrit, renderComponentDamage } from "./helpers.ts";
+import { DamageInstance } from "./roll.ts";
 
 class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
     operator: ArithmeticOperator;

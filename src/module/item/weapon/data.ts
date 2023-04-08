@@ -1,4 +1,4 @@
-import { ItemFlagsPF2e } from "@item/data/base";
+import { ItemFlagsPF2e } from "@item/data/base.ts";
 import {
     BasePhysicalItemSource,
     Investable,
@@ -7,9 +7,9 @@ import {
     PhysicalSystemSource,
     PreciousMaterialGrade,
     UsageDetails,
-} from "@item/physical";
-import { OneToFour, ZeroToFour, ZeroToThree } from "@module/data";
-import { DamageDieSize, DamageType } from "@system/damage";
+} from "@item/physical/index.ts";
+import { OneToFour, ZeroToFour, ZeroToThree } from "@module/data.ts";
+import { DamageDieSize, DamageType } from "@system/damage/index.ts";
 import {
     BaseWeaponType,
     MeleeWeaponGroup,
@@ -22,7 +22,7 @@ import {
     WeaponRangeIncrement,
     WeaponReloadTime,
     WeaponTrait,
-} from "./types";
+} from "./types.ts";
 
 type WeaponSource = BasePhysicalItemSource<"weapon", WeaponSystemSource> & {
     flags: DeepPartial<WeaponFlags>;

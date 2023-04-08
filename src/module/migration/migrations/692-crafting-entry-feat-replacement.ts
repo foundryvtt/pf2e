@@ -1,8 +1,8 @@
-import { ActorSourcePF2e } from "@actor/data";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data";
+import { ItemSourcePF2e } from "@item/data/index.ts";
 import { ErrorPF2e } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Normalize weapon range to numeric or null, remove ability property, and let's do category and group too! */
 export class Migration692CraftingEntryFeatReplacement extends MigrationBase {

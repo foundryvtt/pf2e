@@ -1,8 +1,8 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 import { CharacterPF2e, NPCPF2e } from "@actor";
-import { StrikeData } from "@actor/data/base";
-import { StatisticModifier } from "@actor/modifiers";
-import { CheckContext, CheckContextError } from "@system/action-macros/types";
+import { StrikeData } from "@actor/data/base.ts";
+import { StatisticModifier } from "@actor/modifiers.ts";
+import { CheckContext, CheckContextError } from "@system/action-macros/types.ts";
 
 const toHighestModifier = (highest: StatisticModifier | null, current: StatisticModifier) => {
     return current.totalModifier > (highest?.totalModifier ?? 0) ? current : highest;

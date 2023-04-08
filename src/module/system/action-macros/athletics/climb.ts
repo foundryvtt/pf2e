@@ -1,4 +1,4 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 export function climb(options: SkillActionOptions) {
     const slug = options?.skill ?? "athletics";

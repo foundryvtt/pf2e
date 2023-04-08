@@ -1,10 +1,10 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e, SpellPF2e, SpellcastingEntryPF2e } from "@item";
-import { OneToTen, ValueAndMax, ZeroToTen } from "@module/data";
+import { OneToTen, ValueAndMax, ZeroToTen } from "@module/data.ts";
 import { ErrorPF2e, groupBy, ordinal } from "@util";
-import { SlotKey } from "./data";
-import { RitualSpellcasting } from "./rituals";
-import { ActiveSpell, BaseSpellcastingEntry, SpellcastingSlotLevel, SpellPrepEntry } from "./types";
+import { SlotKey } from "./data.ts";
+import { RitualSpellcasting } from "./rituals.ts";
+import { ActiveSpell, BaseSpellcastingEntry, SpellcastingSlotLevel, SpellPrepEntry } from "./types.ts";
 
 class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingEntry<TActor | null>> extends Collection<
     SpellPF2e<TActor>

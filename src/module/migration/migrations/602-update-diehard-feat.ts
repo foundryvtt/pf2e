@@ -1,5 +1,5 @@
-import { MigrationBase } from "../base";
-import { ActorSourcePF2e } from "@actor/data";
+import { MigrationBase } from "../base.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { FeatPF2e } from "@item";
 
 export class Migration602UpdateDiehardFeat extends MigrationBase {

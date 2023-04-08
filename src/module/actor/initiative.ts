@@ -1,9 +1,9 @@
-import { ActorPF2e } from "@module/documents";
-import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
-import { CheckRoll } from "@system/check";
-import { RollParameters } from "@system/rolls";
-import { Statistic } from "@system/statistic";
-import { AbilityString } from "./types";
+import { ActorPF2e } from "@module/documents.ts";
+import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
+import { CheckRoll } from "@system/check/index.ts";
+import { RollParameters } from "@system/rolls.ts";
+import { Statistic } from "@system/statistic/index.ts";
+import { AbilityString } from "./types.ts";
 
 interface InitiativeRollResult {
     combatant: CombatantPF2e<EncounterPF2e>;

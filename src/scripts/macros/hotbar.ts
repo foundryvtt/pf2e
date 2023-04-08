@@ -1,12 +1,12 @@
-import { ItemPF2e } from "@item/base";
-import { ItemSourcePF2e } from "@item/data";
-import { EffectPF2e } from "@item/effect";
-import { MacroPF2e } from "@module/macro";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { SKILL_DICTIONARY } from "@actor/values";
-import { SkillAbbreviation } from "@actor/creature/data";
-import { LocalizePF2e } from "@system/localize";
-import { StrikeData } from "@actor/data/base";
+import { SkillAbbreviation } from "@actor/creature/data.ts";
+import { StrikeData } from "@actor/data/base.ts";
+import { SKILL_DICTIONARY } from "@actor/values.ts";
+import { ItemPF2e } from "@item/base.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { EffectPF2e } from "@item/effect/index.ts";
+import { ChatMessagePF2e } from "@module/chat-message/document.ts";
+import { MacroPF2e } from "@module/macro.ts";
+import { LocalizePF2e } from "@system/localize.ts";
 
 /**
  * Create a Macro from an Item drop.

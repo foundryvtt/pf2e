@@ -1,12 +1,9 @@
-import type { ActorPF2e } from "@actor";
-import { ActorSourcePF2e } from "@actor/data";
-import { ActorSystemSource } from "@actor/data/base";
-import type { ItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data";
-import { ActiveEffectPF2e } from "@module/active-effect";
-import { ScenePF2e, TokenDocumentPF2e } from "@scene";
-import { MockCollection } from "./collection";
-import { MockItem } from "./item";
+import type { ActiveEffectPF2e, ActorPF2e, ItemPF2e, ScenePF2e, TokenDocumentPF2e } from "@module/documents.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ActorSystemSource } from "@actor/data/base.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { MockCollection } from "./collection.ts";
+import { MockItem } from "./item.ts";
 
 export class MockActor {
     _source: ActorSourcePF2e;

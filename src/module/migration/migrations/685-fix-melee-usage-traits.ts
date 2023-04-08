@@ -1,7 +1,7 @@
-import { ItemSourcePF2e } from "@item/data";
-import { ComboWeaponMeleeUsage } from "@item/weapon/data";
-import { WeaponTrait } from "@item/weapon/types";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ComboWeaponMeleeUsage } from "@item/weapon/data.ts";
+import { WeaponTrait } from "@item/weapon/types.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Fix melee-usage traits on combination weapons */
 export class Migration685FixMeleeUsageTraits extends MigrationBase {

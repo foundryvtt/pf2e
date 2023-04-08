@@ -1,9 +1,9 @@
 import { ConsumablePF2e, SpellPF2e } from "@item";
-import { ConsumableSource } from "@item/data";
-import { MagicTradition } from "@item/spell/types";
-import { MAGIC_TRADITIONS } from "@item/spell/values";
-import { traditionSkills } from "@item/spellcasting-entry/trick";
-import { calculateDC, DCOptions } from "@module/dc";
+import { ConsumableSource } from "@item/data/index.ts";
+import { MagicTradition } from "@item/spell/types.ts";
+import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
+import { traditionSkills } from "@item/spellcasting-entry/trick.ts";
+import { calculateDC, DCOptions } from "@module/dc.ts";
 import { ErrorPF2e, setHasElement } from "@util";
 
 const cantripDeckId = "tLa4bewBhyqzi6Ow";

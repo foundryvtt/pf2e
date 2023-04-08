@@ -1,14 +1,14 @@
 import { ActorPF2e } from "@actor";
-import { ActorType } from "@actor/data";
-import { DiceModifierPF2e, ModifierPF2e } from "@actor/modifiers";
+import { ActorType } from "@actor/data/index.ts";
+import { DiceModifierPF2e, ModifierPF2e } from "@actor/modifiers.ts";
 import { ItemPF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data";
-import { TokenDocumentPF2e } from "@scene";
-import { CheckRoll } from "@system/check";
-import { LaxSchemaField, PredicateField, SlugField } from "@system/schema-data-fields";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { CheckRoll } from "@system/check/index.ts";
+import { LaxSchemaField, PredicateField, SlugField } from "@system/schema-data-fields.ts";
 import { isObject, tupleHasValue } from "@util";
-import { DataModelValidationOptions } from "types/foundry/common/abstract/module.mjs";
-import { BracketedValue, RuleElementData, RuleElementSchema, RuleElementSource, RuleValue } from "./data";
+import type { DataModelValidationOptions } from "types/foundry/common/abstract/data.d.mts";
+import { BracketedValue, RuleElementData, RuleElementSchema, RuleElementSource, RuleValue } from "./data.ts";
 
 const { DataModel } = foundry.abstract;
 const { fields } = foundry.data;

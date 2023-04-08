@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { SelectableTagField } from ".";
+import { SelectableTagField } from "./index.ts";
 
 interface TagSelectorOptions extends FormApplicationOptions {
     /* Show the custom input field (defaults to true) */

@@ -1,4 +1,4 @@
-import { ClientBaseScene } from "./client-base-mixes.mjs";
+import { ClientBaseScene } from "./client-base-mixes.js";
 
 declare global {
     // Interfaces for ClientDocuments, given there is no common base with the generated intermediate classes

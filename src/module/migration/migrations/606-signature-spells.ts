@@ -1,6 +1,6 @@
-import { ItemSourcePF2e } from "@item/data";
-import { SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data.ts";
+import { MigrationBase } from "../base.ts";
 
 export class Migration606SignatureSpells extends MigrationBase {
     static override version = 0.606;

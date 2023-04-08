@@ -1,7 +1,6 @@
-import { ActorPF2e } from "@actor";
-import { ItemPF2e } from "@item";
-import { MockActor } from "./actor";
-import { MockItem } from "./item";
+import { ActorPF2e, ItemPF2e } from "@module/documents.ts";
+import { MockActor } from "./actor.ts";
+import { MockItem } from "./item.ts";
 
 /** In Foundry this is actually a subclass of Map, but it incompatibly extends it at several points. */
 export class MockCollection<V> {

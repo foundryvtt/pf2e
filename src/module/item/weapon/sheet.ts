@@ -1,16 +1,16 @@
-import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression";
+import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import {
     CoinsPF2e,
     PhysicalItemSheetData,
     PhysicalItemSheetPF2e,
     WEAPON_MATERIAL_VALUATION_DATA,
-} from "@item/physical";
-import { OneToFour, OneToThree } from "@module/data";
-import { createSheetTags, SheetOptions } from "@module/sheet/helpers";
+} from "@item/physical/index.ts";
+import { OneToFour, OneToThree } from "@module/data.ts";
+import { createSheetTags, SheetOptions } from "@module/sheet/helpers.ts";
 import { ErrorPF2e, htmlQueryAll, objectHasKey, setHasElement, sortStringRecord, tupleHasValue } from "@util";
-import { WeaponPersistentDamage, WeaponPropertyRuneSlot } from "./data";
-import { type WeaponPF2e } from "./document";
-import { MANDATORY_RANGED_GROUPS, WEAPON_RANGES } from "./values";
+import { WeaponPersistentDamage, WeaponPropertyRuneSlot } from "./data.ts";
+import { type WeaponPF2e } from "./document.ts";
+import { MANDATORY_RANGED_GROUPS, WEAPON_RANGES } from "./values.ts";
 
 export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>) {

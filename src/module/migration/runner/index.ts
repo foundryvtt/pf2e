@@ -1,13 +1,13 @@
-import type { ActorPF2e } from "@actor/base";
-import type { ItemPF2e } from "@item/base";
-import type { MacroPF2e } from "@module/macro";
-import { MigrationRunnerBase } from "@module/migration/runner/base";
-import { MigrationBase } from "@module/migration/base";
-import type { UserPF2e } from "@module/user";
-import { TokenDocumentPF2e } from "@module/scene/token-document";
-import { ItemSourcePF2e } from "@item/data";
-import { ActorSourcePF2e } from "@actor/data";
-import { ScenePF2e } from "@scene";
+import type { ActorPF2e } from "@actor/base.ts";
+import type { ItemPF2e } from "@item/base.ts";
+import type { MacroPF2e } from "@module/macro.ts";
+import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
+import { MigrationBase } from "@module/migration/base.ts";
+import type { UserPF2e } from "@module/user/index.ts";
+import { TokenDocumentPF2e } from "@scene/token-document/index.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ScenePF2e } from "@scene/index.ts";
 
 export class MigrationRunner extends MigrationRunnerBase {
     override needsMigration(): boolean {

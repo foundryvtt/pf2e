@@ -10,15 +10,15 @@ import {
     Rollable,
     StrikeData,
     RollFunction,
-} from "@actor/data/base";
-import { DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers";
-import type { AbilityString, ActorAlliance, SaveType, SkillAbbreviation, SkillLongForm } from "@actor/types";
-import type { CREATURE_ACTOR_TYPES } from "@actor/values";
-import { LabeledNumber, Size, ValueAndMax, ValuesList, ZeroToThree } from "@module/data";
-import { RollParameters } from "@system/rolls";
-import { Statistic, StatisticTraceData } from "@system/statistic";
-import { CreatureSensePF2e, SenseAcuity, SenseType } from "./sense";
-import { Alignment, CreatureTrait } from "./types";
+} from "@actor/data/base.ts";
+import { DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
+import type { AbilityString, ActorAlliance, SaveType, SkillAbbreviation, SkillLongForm } from "@actor/types.ts";
+import type { CREATURE_ACTOR_TYPES } from "@actor/values.ts";
+import { LabeledNumber, Size, ValueAndMax, ValuesList, ZeroToThree } from "@module/data.ts";
+import { RollParameters } from "@system/rolls.ts";
+import { Statistic, StatisticTraceData } from "@system/statistic/index.ts";
+import { CreatureSensePF2e, SenseAcuity, SenseType } from "./sense.ts";
+import { Alignment, CreatureTrait } from "./types.ts";
 
 type BaseCreatureSource<TType extends CreatureType, TSystemSource extends CreatureSystemSource> = BaseActorSourcePF2e<
     TType,

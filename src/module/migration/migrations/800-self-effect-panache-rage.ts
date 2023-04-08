@@ -1,7 +1,7 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemSourcePF2e } from "@item/data";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
 import { recursiveReplaceString } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Rename any predicate statement of "rage" or "panache" to a statement that the effect is present  */
 export class Migration800SelfEffectPanacheRage extends MigrationBase {

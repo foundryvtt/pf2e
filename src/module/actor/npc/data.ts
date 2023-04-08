@@ -1,4 +1,4 @@
-import { ActorPF2e } from "@actor/base";
+import { ActorPF2e } from "@actor/base.ts";
 import {
     Abilities,
     BaseCreatureSource,
@@ -17,7 +17,7 @@ import {
     LabeledSpeed,
     SaveData,
     SkillData,
-} from "@actor/creature/data";
+} from "@actor/creature/data.ts";
 import {
     ActorAttributesSource,
     ActorFlagsPF2e,
@@ -25,13 +25,13 @@ import {
     InitiativeData,
     PerceptionData,
     StrikeData,
-} from "@actor/data/base";
-import { ActorSizePF2e } from "@actor/data/size";
-import { ModifierPF2e, StatisticModifier } from "@actor/modifiers";
-import { AbilityString, ActorAlliance, SaveType } from "@actor/types";
+} from "@actor/data/base.ts";
+import { ActorSizePF2e } from "@actor/data/size.ts";
+import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { AbilityString, ActorAlliance, SaveType } from "@actor/types.ts";
 import { MeleePF2e } from "@item";
-import { Rarity, Size } from "@module/data";
-import { IdentifyCreatureData } from "@module/recall-knowledge";
+import { Rarity, Size } from "@module/data.ts";
+import { IdentifyCreatureData } from "@module/recall-knowledge.ts";
 
 interface NPCSource extends BaseCreatureSource<"npc", NPCSystemSource> {
     flags: DeepPartial<NPCFlags>;

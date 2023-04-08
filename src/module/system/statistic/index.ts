@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
-import { TraitViewData } from "@actor/data/base";
-import { calculateMAPs } from "@actor/helpers";
+import { TraitViewData } from "@actor/data/base.ts";
+import { calculateMAPs } from "@actor/helpers.ts";
 import {
     CheckModifier,
     createAbilityModifier,
@@ -8,25 +8,32 @@ import {
     ModifierPF2e,
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
-} from "@actor/modifiers";
-import { AbilityString } from "@actor/types";
+} from "@actor/modifiers.ts";
+import { AbilityString } from "@actor/types.ts";
 import { ItemPF2e } from "@item";
-import { ZeroToFour, ZeroToTwo } from "@module/data";
+import { ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import {
     extractDegreeOfSuccessAdjustments,
     extractModifiers,
     extractNotes,
     extractRollSubstitutions,
     extractRollTwice,
-} from "@module/rules/helpers";
-import { eventToRollParams } from "@scripts/sheet-util";
-import { CheckPF2e, CheckRoll, CheckRollCallback, CheckRollContext, CheckType, RollTwiceOption } from "@system/check";
-import { CheckDC, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success";
+} from "@module/rules/helpers.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
+import {
+    CheckPF2e,
+    CheckRoll,
+    CheckRollCallback,
+    CheckRollContext,
+    CheckType,
+    RollTwiceOption,
+} from "@system/check/index.ts";
+import { CheckDC, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success.ts";
 import { isObject, Optional, traitSlugToObject } from "@util";
-import { StatisticChatData, StatisticTraceData, StatisticData, StatisticCheckData } from "./data";
-import { RollNotePF2e, RollNoteSource } from "@module/notes";
+import { StatisticChatData, StatisticTraceData, StatisticData, StatisticCheckData } from "./data.ts";
+import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
 
-export * from "./data";
+export * from "./data.ts";
 
 interface StatisticRollParameters {
     /** Which attack this is (for the purposes of multiple attack penalty) */

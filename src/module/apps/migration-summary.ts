@@ -1,5 +1,5 @@
-import { MigrationRunner } from "@module/migration";
-import { LocalizePF2e } from "@system/localize";
+import { MigrationRunner } from "@module/migration/index.ts";
+import { LocalizePF2e } from "@system/localize.ts";
 
 /** A summary window that opens after a system migration completes */
 export class MigrationSummary extends Application<MigrationSummaryOptions> {

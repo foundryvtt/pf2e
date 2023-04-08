@@ -1,11 +1,11 @@
 import { ActorPF2e } from "@actor";
 import { ArmorPF2e } from "@item";
-import { TokenPF2e } from "@module/canvas";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { applyDamageFromMessage } from "@module/chat-message/helpers";
-import { CombatantPF2e } from "@module/encounter";
-import { CheckPF2e } from "@system/check";
-import { DamageRoll } from "@system/damage/roll";
+import { TokenPF2e } from "@module/canvas/index.ts";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { applyDamageFromMessage } from "@module/chat-message/helpers.ts";
+import { CombatantPF2e } from "@module/encounter/index.ts";
+import { CheckPF2e } from "@system/check/index.ts";
+import { DamageRoll } from "@system/damage/roll.ts";
 import { fontAwesomeIcon, htmlClosest, htmlQuery, objectHasKey } from "@util";
 
 export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {

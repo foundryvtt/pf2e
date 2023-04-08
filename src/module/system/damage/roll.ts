@@ -1,13 +1,13 @@
-import { ResistanceType } from "@actor/types";
-import { DamageRollFlag } from "@module/chat-message";
-import { UserPF2e } from "@module/user";
-import { DegreeOfSuccessIndex } from "@system/degree-of-success";
-import { RollDataPF2e } from "@system/rolls";
+import { ResistanceType } from "@actor/types.ts";
+import { DamageRollFlag } from "@module/chat-message/index.ts";
+import { UserPF2e } from "@module/user/index.ts";
+import { DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
+import { RollDataPF2e } from "@system/rolls.ts";
 import { ErrorPF2e, fontAwesomeIcon, isObject, objectHasKey, setHasElement, tupleHasValue } from "@util";
-import { DamageCategorization, deepFindTerms, renderComponentDamage } from "./helpers";
-import { ArithmeticExpression, Grouping, GroupingData, InstancePool, IntermediateDie } from "./terms";
-import { DamageCategory, DamageTemplate, DamageType, MaterialDamageEffect } from "./types";
-import { DAMAGE_TYPES, DAMAGE_TYPE_ICONS } from "./values";
+import { DamageCategorization, deepFindTerms, renderComponentDamage } from "./helpers.ts";
+import { ArithmeticExpression, Grouping, GroupingData, InstancePool, IntermediateDie } from "./terms.ts";
+import { DamageCategory, DamageTemplate, DamageType, MaterialDamageEffect } from "./types.ts";
+import { DAMAGE_TYPES, DAMAGE_TYPE_ICONS } from "./values.ts";
 
 abstract class AbstractDamageRoll extends Roll {
     /** Ensure the presence and validity of the `critRule` option for this roll */

@@ -1,4 +1,4 @@
-import { MigrationRunner } from "../module/migration/runner";
+import { MigrationRunner } from "../module/migration/runner/index.ts";
 
 /** Store the world system and schema versions for the first time */
 export async function storeInitialWorldVersions(): Promise<void> {

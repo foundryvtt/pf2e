@@ -1,3 +1,3 @@
-export { AncestryPF2e } from "./document";
-export { AncestrySheetPF2e } from "./sheet";
-export * from "./data";
+export { AncestryPF2e } from "./document.ts";
+export { AncestrySheetPF2e } from "./sheet.ts";
+export * from "./data.ts";

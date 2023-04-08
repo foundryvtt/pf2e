@@ -1,8 +1,8 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { CraftingEntryRuleData, CraftingEntryRuleSource } from "@module/rules/rule-element/crafting/entry";
-import { PredicatePF2e, RawPredicate } from "@system/predication";
-import { CraftingFormula } from "./formula";
+import { CraftingEntryRuleData, CraftingEntryRuleSource } from "@module/rules/rule-element/crafting/entry.ts";
+import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
+import { CraftingFormula } from "./formula.ts";
 
 class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
     preparedCraftingFormulas: PreparedCraftingFormula[];

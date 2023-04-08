@@ -1,5 +1,5 @@
-import { ClassSource } from "@item/data";
-import { MigrationBase } from "../base";
+import { ClassSource } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 export class Migration604FixClassItem extends MigrationBase {
     static override version = 0.604;

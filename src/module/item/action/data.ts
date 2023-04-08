@@ -6,8 +6,8 @@ import {
     ItemSystemData,
     ItemSystemSource,
     ItemTraits,
-} from "@item/data/base";
-import { OneToThree } from "@module/data";
+} from "@item/data/base.ts";
+import { OneToThree } from "@module/data.ts";
 
 type ActionItemSource = BaseItemSourcePF2e<"action", ActionSystemSource>;
 

@@ -1,6 +1,6 @@
-import { ActionType, BaseItemSourcePF2e, Frequency, FrequencySource, ItemSystemSource } from "@item/data/base";
-import { OneToThree, TraitsWithRarity } from "@module/data";
-import { FeatCategory, FeatTrait } from "./types";
+import { ActionType, BaseItemSourcePF2e, Frequency, FrequencySource, ItemSystemSource } from "@item/data/base.ts";
+import { OneToThree, TraitsWithRarity } from "@module/data.ts";
+import { FeatCategory, FeatTrait } from "./types.ts";
 
 type FeatSource = BaseItemSourcePF2e<"feat", FeatSystemSource>;
 

@@ -1,8 +1,8 @@
-import * as path from "path";
-import * as fs from "fs";
-import { MockActor } from "./fakes/actor";
-import { MockItem } from "./fakes/item";
-import { MockToken } from "./fakes/token";
+import fs from "fs";
+import path from "path";
+import { MockActor } from "./mocks/actor.ts";
+import { MockItem } from "./mocks/item.ts";
+import { MockToken } from "./mocks/token.ts";
 
 export const fetchSpell = (name: string) => {
     const spellsDb = "./packs/data/spells.db/";

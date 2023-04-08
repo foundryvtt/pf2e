@@ -1,6 +1,6 @@
-import { SpellOverlay, SpellOverlayType, SpellSource } from "./data";
+import { SpellOverlay, SpellOverlayType, SpellSource } from "./data.ts";
 import { ErrorPF2e } from "@util";
-import { SpellPF2e } from ".";
+import { SpellPF2e } from "./index.ts";
 import { ActorPF2e } from "@actor";
 
 class SpellOverlayCollection extends Collection<SpellOverlay> {

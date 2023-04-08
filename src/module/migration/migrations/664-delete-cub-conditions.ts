@@ -1,5 +1,5 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { MigrationBase } from "../base";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Delete conditions originating from the Combat Utility Belt module */
 export class Migration664DeleteCUBConditions extends MigrationBase {

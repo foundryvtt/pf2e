@@ -1,7 +1,7 @@
-import { ABCFeatureEntryData } from "@item/abc/data";
-import { ClassSource, FeatSource, ItemSourcePF2e } from "@item/data";
+import { ABCFeatureEntryData } from "@item/abc/data.ts";
+import { ClassSource, FeatSource, ItemSourcePF2e } from "@item/data/index.ts";
 import { isObject, sluggify } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Consolidate all class features with multiple instances for different levels to single items */
 export class Migration700SingleClassFeatures extends MigrationBase {

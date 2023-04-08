@@ -1,8 +1,8 @@
-import { ItemSourcePF2e } from "@item/data";
-import { isPhysicalData } from "@item/data/helpers";
-import { MeleeSystemSource } from "@item/melee/data";
-import { IdentificationData, MystifiedData } from "@item/physical/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { isPhysicalData } from "@item/data/helpers.ts";
+import { MeleeSystemSource } from "@item/melee/data.ts";
+import { IdentificationData, MystifiedData } from "@item/physical/data.ts";
+import { MigrationBase } from "../base.ts";
 
 /** OK, let's not store mystified traits. */
 export class Migration633DeleteUnidentifiedTraits extends MigrationBase {

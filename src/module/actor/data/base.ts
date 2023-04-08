@@ -1,19 +1,19 @@
-import { DexterityModifierCapData } from "@actor/character/types";
-import { Abilities } from "@actor/creature/data";
-import { ActorSizePF2e } from "@actor/data/size";
-import { StatisticModifier } from "@actor/modifiers";
-import { AbilityString, ActorAlliance, SkillLongForm } from "@actor/types";
+import { DexterityModifierCapData } from "@actor/character/types.ts";
+import { Abilities } from "@actor/creature/data.ts";
+import { ActorSizePF2e } from "@actor/data/size.ts";
+import { StatisticModifier } from "@actor/modifiers.ts";
+import { AbilityString, ActorAlliance, SkillLongForm } from "@actor/types.ts";
 import { ConsumablePF2e, MeleePF2e, WeaponPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data";
-import { DocumentSchemaRecord, Rarity, Size, ValueAndMaybeMax, ZeroToTwo } from "@module/data";
-import { AutoChangeEntry } from "@module/rules/rule-element/ae-like";
-import { RollParameters, AttackRollParams, DamageRollParams } from "@module/system/rolls";
-import { CheckRoll } from "@system/check";
-import { DamageRoll } from "@system/damage/roll";
-import { ActorType } from ".";
-import { ImmunityData, ImmunitySource, ResistanceData, ResistanceSource, WeaknessData, WeaknessSource } from "./iwr";
-import { ActorPF2e } from "@actor/base";
-import { StatisticTraceData } from "@system/statistic";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { DocumentSchemaRecord, Rarity, Size, ValueAndMaybeMax, ZeroToTwo } from "@module/data.ts";
+import { AutoChangeEntry } from "@module/rules/rule-element/ae-like.ts";
+import { RollParameters, AttackRollParams, DamageRollParams } from "@module/system/rolls.ts";
+import { CheckRoll } from "@system/check/roll.ts";
+import { DamageRoll } from "@system/damage/roll.ts";
+import { ActorType } from "./index.ts";
+import { ImmunityData, ImmunitySource, ResistanceData, ResistanceSource, WeaknessData, WeaknessSource } from "./iwr.ts";
+import { ActorPF2e } from "@actor/base.ts";
+import { StatisticTraceData } from "@system/statistic/data.ts";
 
 /** Base interface for all actor data */
 interface BaseActorSourcePF2e<TType extends ActorType, TSystemSource extends ActorSystemSource = ActorSystemSource>

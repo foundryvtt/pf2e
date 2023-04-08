@@ -1,18 +1,18 @@
 import { ActorPF2e } from "@actor";
-import { ActorType } from "@actor/data";
+import { ActorType } from "@actor/data/index.ts";
 import { ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data";
-import { ItemGrantDeleteAction } from "@item/data/base";
-import { PHYSICAL_ITEM_TYPES } from "@item/physical/values";
-import { MigrationList, MigrationRunner } from "@module/migration";
-import { SlugField } from "@system/schema-data-fields";
+import { ItemGrantDeleteAction } from "@item/data/base.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
+import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
+import { SlugField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, isObject, pick, setHasElement, sluggify, tupleHasValue } from "@util";
-import { ModelPropsFromSchema } from "types/foundry/common/data/fields.mjs";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "../";
-import { ItemAlterationField, applyAlterations } from "../alter-item";
-import { ChoiceSetSource } from "../choice-set/data";
-import { ChoiceSetRuleElement } from "../choice-set/rule-element";
-import { GrantItemSchema } from "./schema";
+import type { ModelPropsFromSchema } from "types/foundry/common/data/fields.d.ts";
+import { ItemAlterationField, applyAlterations } from "../alter-item/index.ts";
+import { ChoiceSetSource } from "../choice-set/data.ts";
+import { ChoiceSetRuleElement } from "../choice-set/rule-element.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "../index.ts";
+import { GrantItemSchema } from "./schema.ts";
 
 const { fields } = foundry.data;
 

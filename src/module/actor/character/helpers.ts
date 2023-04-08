@@ -1,12 +1,12 @@
-import { StrikeAttackTraits } from "@actor/creature/helpers";
-import { ModifierPF2e } from "@actor/modifiers";
+import { StrikeAttackTraits } from "@actor/creature/helpers.ts";
+import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ArmorPF2e, ConditionPF2e, WeaponPF2e } from "@item";
-import { extractModifierAdjustments } from "@module/rules/helpers";
-import { DAMAGE_DIE_FACES } from "@system/damage/values";
-import { PredicatePF2e } from "@system/predication";
+import { extractModifierAdjustments } from "@module/rules/helpers.ts";
+import { DAMAGE_DIE_FACES } from "@system/damage/values.ts";
+import { PredicatePF2e } from "@system/predication.ts";
 import { ErrorPF2e, objectHasKey, setHasElement } from "@util";
-import { type CharacterPF2e } from ".";
 import clumsySource from "../../../../packs/data/conditions.db/clumsy.json";
+import type { CharacterPF2e } from "./document.ts";
 
 /** Handle weapon traits that introduce modifiers or add other weapon traits */
 class PCStrikeAttackTraits extends StrikeAttackTraits {

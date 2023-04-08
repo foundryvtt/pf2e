@@ -1,5 +1,5 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { MigrationBase } from "../base";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Ensure actor speed values are numbers */
 export class Migration780NumifySpeeds extends MigrationBase {

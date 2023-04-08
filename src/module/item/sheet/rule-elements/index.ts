@@ -1,8 +1,8 @@
-import { RuleElementForm } from "./base";
-import { FastHealingForm } from "./fast-healing-form";
-import { FlatModifierForm } from "./flat-modifier-form";
-import { GrantItemForm } from "./grant-item-form";
-import { RollNoteForm } from "./roll-note-form";
+import { RuleElementForm } from "./base.ts";
+import { FastHealingForm } from "./fast-healing-form.ts";
+import { FlatModifierForm } from "./flat-modifier-form.ts";
+import { GrantItemForm } from "./grant-item-form.ts";
+import { RollNoteForm } from "./roll-note-form.ts";
 
 const RULE_ELEMENT_FORMS: Partial<Record<string, ConstructorOf<RuleElementForm>>> = {
     Note: RollNoteForm,

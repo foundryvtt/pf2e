@@ -1,4 +1,4 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const PERFORM_VARIANT_TRAITS = {
     acting: ["auditory", "linguistic", "visual"],

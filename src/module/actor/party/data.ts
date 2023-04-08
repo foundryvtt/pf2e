@@ -5,7 +5,7 @@ import {
     ActorSystemData,
     ActorSystemSource,
     BaseActorSourcePF2e,
-} from "@actor/data/base";
+} from "@actor/data/base.ts";
 
 type PartySource = BaseActorSourcePF2e<"party", PartySystemSource>;
 

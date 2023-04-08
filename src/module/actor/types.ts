@@ -1,16 +1,17 @@
 import * as ActorInstance from "@actor";
-import { ActorPF2e } from "@actor";
+import { ActorPF2e } from "@actor/base.ts";
 import * as ItemInstance from "@item";
-import { EffectTrait } from "@item/abstract-effect";
-import { ItemInstances } from "@item/types";
-import { TokenDocumentPF2e } from "@scene";
-import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr";
-import { DamageRoll } from "@system/damage/roll";
-import { CheckDC } from "@system/degree-of-success";
-import { PredicatePF2e } from "@system/predication";
-import { StatisticCheck } from "@system/statistic";
-import { StrikeData, TraitViewData } from "./data/base";
-import { ModifierPF2e } from "./modifiers";
+import { EffectTrait } from "@item/abstract-effect/index.ts";
+import { ItemInstances } from "@item/types.ts";
+import { TokenPF2e } from "@module/canvas/index.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr.ts";
+import { DamageRoll } from "@system/damage/roll.ts";
+import { CheckDC } from "@system/degree-of-success.ts";
+import { PredicatePF2e } from "@system/predication.ts";
+import { StatisticCheck } from "@system/statistic/index.ts";
+import { StrikeData, TraitViewData } from "./data/base.ts";
+import { ModifierPF2e } from "./modifiers.ts";
 import {
     ABILITY_ABBREVIATIONS,
     DC_SLUGS,
@@ -18,8 +19,7 @@ import {
     SKILL_ABBREVIATIONS,
     SKILL_LONG_FORMS,
     UNAFFECTED_TYPES,
-} from "./values";
-import { TokenPF2e } from "@module/canvas";
+} from "./values.ts";
 
 /** Used exclusively to resolve `ActorPF2e#isOfType` */
 interface ActorInstances<TParent extends TokenDocumentPF2e | null> {

@@ -1,6 +1,5 @@
-import { ActorPF2e } from "../../base";
-import { CharacterPF2e } from "@actor/character";
-import { CoinsPF2e } from "@item/physical/helpers";
+import { ActorPF2e, CharacterPF2e } from "@actor";
+import { CoinsPF2e } from "@item/physical/helpers.ts";
 
 interface PopupData extends FormApplicationData<ActorPF2e> {
     selection?: string[];

@@ -1,6 +1,6 @@
-import { TraitViewData } from "@actor/data/base";
+import { TraitViewData } from "@actor/data/base.ts";
 import Tagify from "@yaireo/tagify";
-import { ErrorPF2e, objectHasKey } from "./misc";
+import { ErrorPF2e, objectHasKey } from "./misc.ts";
 
 type WhitelistData = string[] | Record<string, string | { label: string }>;
 

@@ -1,14 +1,14 @@
 import { ActorPF2e } from "@actor";
 import { type ContainerPF2e, ItemPF2e } from "@item";
-import { ItemSummaryData, PhysicalItemSource, TraitChatData } from "@item/data";
-import { MystifiedTraits } from "@item/data/values";
-import { CoinsPF2e } from "@item/physical/helpers";
-import { Rarity, Size } from "@module/data";
-import { LocalizePF2e } from "@module/system/localize";
-import { UserPF2e } from "@module/user";
+import { ItemSummaryData, PhysicalItemSource, TraitChatData } from "@item/data/index.ts";
+import { MystifiedTraits } from "@item/data/values.ts";
+import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { Rarity, Size } from "@module/data.ts";
+import { LocalizePF2e } from "@system/localize.ts";
+import { UserPF2e } from "@module/user/document.ts";
 import { ErrorPF2e, isObject, sluggify, sortBy } from "@util";
-import { getUnidentifiedPlaceholderImage } from "../identification";
-import { Bulk, stackDefinitions, weightToBulk } from "./bulk";
+import { getUnidentifiedPlaceholderImage } from "../identification.ts";
+import { Bulk, stackDefinitions, weightToBulk } from "./bulk.ts";
 import {
     IdentificationStatus,
     ItemCarryType,
@@ -16,11 +16,11 @@ import {
     PhysicalItemTrait,
     PhysicalSystemData,
     Price,
-} from "./data";
-import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
-import { getUsageDetails, isEquipped } from "./usage";
-import { DENOMINATIONS } from "./values";
-import { isCycle } from "@item/container/helpers";
+} from "./data.ts";
+import { PreciousMaterialGrade, PreciousMaterialType } from "./types.ts";
+import { getUsageDetails, isEquipped } from "./usage.ts";
+import { DENOMINATIONS } from "./values.ts";
+import { isCycle } from "@item/container/helpers.ts";
 
 abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     // The cached container of this item, if in a container, or null

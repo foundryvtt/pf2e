@@ -1,6 +1,6 @@
 import { ConsumablePF2e } from "@item";
-import { PhysicalItemSheetData, PhysicalItemSheetPF2e } from "@item/physical";
-import { createSheetTags, SheetOptions } from "@module/sheet/helpers";
+import { PhysicalItemSheetData, PhysicalItemSheetPF2e } from "@item/physical/index.ts";
+import { createSheetTags, SheetOptions } from "@module/sheet/helpers.ts";
 
 export class ConsumableSheetPF2e extends PhysicalItemSheetPF2e<ConsumablePF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<ConsumableSheetData> {

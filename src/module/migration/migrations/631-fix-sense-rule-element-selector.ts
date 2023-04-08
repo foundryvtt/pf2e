@@ -1,5 +1,5 @@
-import { MigrationBase } from "../base";
-import { ItemSourcePF2e } from "@item/data";
+import { MigrationBase } from "../base.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
 
 /** Correct any sense rule element selector values that are using the old lowercase selector values */
 export class Migration631FixSenseRuleElementSelector extends MigrationBase {

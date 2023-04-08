@@ -1,4 +1,4 @@
-import { resetActors } from "@actor/helpers";
+import { resetActors } from "@actor/helpers.ts";
 
 const SETTINGS: Record<string, SettingRegistration> = {
     gradualBoostsVariant: {

@@ -1,6 +1,6 @@
-import type { ActorPF2e } from "@actor";
-import type { ItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data";
+import type { ActorPF2e } from "@actor/index.js";
+import type { ItemPF2e } from "@item/index.js";
+import { ItemSourcePF2e } from "@item/data/index.js";
 
 export class MockItem {
     readonly _source: ItemSourcePF2e;

@@ -6,35 +6,35 @@ import {
     ensureProficiencyOption,
     ModifierPF2e,
     StatisticModifier,
-} from "@actor/modifiers";
-import { AbilityString } from "@actor/types";
+} from "@actor/modifiers.ts";
+import { AbilityString } from "@actor/types.ts";
 import { ItemPF2e, SpellcastingEntryPF2e } from "@item";
-import { ActionTrait } from "@item/action/data";
-import { ItemSourcePF2e, ItemSummaryData } from "@item/data";
-import { BaseSpellcastingEntry } from "@item/spellcasting-entry";
-import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
-import { MeasuredTemplatePF2e } from "@module/canvas";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { OneToTen, ZeroToTwo } from "@module/data";
-import { extractDamageDice, extractDamageModifiers } from "@module/rules/helpers";
-import { UserPF2e } from "@module/user";
-import { MeasuredTemplateDocumentPF2e } from "@scene";
-import { combineTerms } from "@scripts/dice";
-import { eventToRollParams } from "@scripts/sheet-util";
-import { CheckPF2e, CheckRoll } from "@system/check";
-import { DamagePF2e } from "@system/damage/damage";
-import { DamageCategorization } from "@system/damage/helpers";
-import { DamageModifierDialog } from "@system/damage/modifier-dialog";
-import { DamageInstance, DamageRoll } from "@system/damage/roll";
-import { InstancePool } from "@system/damage/terms";
-import { DamageRollContext, DamageType, SpellDamageTemplate } from "@system/damage/types";
-import { StatisticRollParameters } from "@system/statistic";
-import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
+import { ActionTrait } from "@item/action/data.ts";
+import { ItemSourcePF2e, ItemSummaryData } from "@item/data/index.ts";
+import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types.ts";
+import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
+import { MeasuredTemplatePF2e } from "@module/canvas/index.ts";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { OneToTen, ZeroToTwo } from "@module/data.ts";
+import { extractDamageDice, extractDamageModifiers } from "@module/rules/helpers.ts";
+import { UserPF2e } from "@module/user/index.ts";
+import { MeasuredTemplateDocumentPF2e } from "@scene/index.ts";
+import { combineTerms } from "@scripts/dice.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { CheckPF2e, CheckRoll } from "@system/check/index.ts";
+import { DamagePF2e } from "@system/damage/damage.ts";
+import { DamageCategorization } from "@system/damage/helpers.ts";
+import { DamageModifierDialog } from "@system/damage/modifier-dialog.ts";
+import { DamageInstance, DamageRoll } from "@system/damage/roll.ts";
+import { InstancePool } from "@system/damage/terms.ts";
+import { DamageRollContext, DamageType, SpellDamageTemplate } from "@system/damage/types.ts";
+import { StatisticRollParameters } from "@system/statistic/index.ts";
+import { EnrichHTMLOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, getActionIcon, groupBy, htmlClosest, ordinal, sortBy, traitSlugToObject } from "@util";
-import { SpellHeightenLayer, SpellOverlayType, SpellSource, SpellSystemData, SpellSystemSource } from "./data";
-import { applyDamageDiceOverrides, createFormulaAndTagsForPartial, DamageInstancePartial } from "./helpers";
-import { SpellOverlayCollection } from "./overlay";
-import { EffectAreaSize, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
+import { SpellHeightenLayer, SpellOverlayType, SpellSource, SpellSystemData, SpellSystemSource } from "./data.ts";
+import { applyDamageDiceOverrides, createFormulaAndTagsForPartial, DamageInstancePartial } from "./helpers.ts";
+import { SpellOverlayCollection } from "./overlay.ts";
+import { EffectAreaSize, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types.ts";
 
 interface SpellConstructionContext<TParent extends ActorPF2e | null> extends DocumentConstructionContext<TParent> {
     fromConsumable?: boolean;

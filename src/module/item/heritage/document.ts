@@ -1,9 +1,9 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
-import { CreatureTrait } from "@actor/creature";
+import { CreatureTrait } from "@actor/creature/index.ts";
 import { ItemPF2e } from "@item";
-import { Rarity } from "@module/data";
+import { Rarity } from "@module/data.ts";
 import { ErrorPF2e, sluggify } from "@util";
-import { HeritageSource, HeritageSystemData } from "./data";
+import { HeritageSource, HeritageSystemData } from "./data.ts";
 
 class HeritagePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     get traits(): Set<CreatureTrait> {

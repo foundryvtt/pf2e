@@ -1,17 +1,17 @@
 import type { ActorPF2e } from "@actor";
-import { RollFunction, StrikeData } from "@actor/data/base";
-import { SAVE_TYPES } from "@actor/values";
+import { RollFunction, StrikeData } from "@actor/data/base.ts";
+import { SAVE_TYPES } from "@actor/values.ts";
 import { AbstractEffectPF2e, ContainerPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
-import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
-import { ItemSourcePF2e } from "@item/data";
-import { isPhysicalData } from "@item/data/helpers";
-import { Coins } from "@item/physical/data";
-import { DENOMINATIONS } from "@item/physical/values";
-import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
-import { createSheetTags, maintainTagifyFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers";
-import { eventToRollParams } from "@scripts/sheet-util";
-import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
-import { LocalizePF2e } from "@system/localize";
+import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { isPhysicalData } from "@item/data/helpers.ts";
+import { Coins } from "@item/physical/data.ts";
+import { DENOMINATIONS } from "@item/physical/values.ts";
+import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
+import { createSheetTags, maintainTagifyFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
+import { LocalizePF2e } from "@system/localize.ts";
 import {
     BasicConstructorOptions,
     SelectableTagField,
@@ -22,7 +22,7 @@ import {
     TagSelectorOptions,
     TagSelectorType,
     TAG_SELECTOR_TYPES,
-} from "@system/tag-selector";
+} from "@system/tag-selector/index.ts";
 import {
     ErrorPF2e,
     fontAwesomeIcon,
@@ -33,17 +33,17 @@ import {
     objectHasKey,
     tupleHasValue,
 } from "@util";
-import { ActorSizePF2e } from "../data/size";
-import { ActorSheetDataPF2e, CoinageSummary, InventoryItem, SheetInventory } from "./data-types";
-import { ItemSummaryRenderer } from "./item-summary-renderer";
-import { MoveLootPopup } from "./loot/move-loot-popup";
-import { AddCoinsPopup } from "./popups/add-coins-popup";
-import { CastingItemCreateDialog } from "./popups/casting-item-create-dialog";
-import { IdentifyItemPopup } from "./popups/identify-popup";
-import { IWREditor } from "./popups/iwr-editor";
-import { RemoveCoinsPopup } from "./popups/remove-coins-popup";
-import { CraftingFormula } from "@actor/character/crafting";
-import { UUIDUtils } from "@util/uuid-utils";
+import { ActorSizePF2e } from "../data/size.ts";
+import { ActorSheetDataPF2e, CoinageSummary, InventoryItem, SheetInventory } from "./data-types.ts";
+import { ItemSummaryRenderer } from "./item-summary-renderer.ts";
+import { MoveLootPopup } from "./loot/move-loot-popup.ts";
+import { AddCoinsPopup } from "./popups/add-coins-popup.ts";
+import { CastingItemCreateDialog } from "./popups/casting-item-create-dialog.ts";
+import { IdentifyItemPopup } from "./popups/identify-popup.ts";
+import { IWREditor } from "./popups/iwr-editor.ts";
+import { RemoveCoinsPopup } from "./popups/remove-coins-popup.ts";
+import { CraftingFormula } from "@actor/character/crafting/index.ts";
+import { UUIDUtils } from "@util/uuid-utils.ts";
 import Sortable, { type SortableEvent } from "sortablejs";
 
 /**

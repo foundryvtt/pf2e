@@ -1,24 +1,24 @@
-import { BabeleReady } from "./babele-ready";
-import { CanvasInit } from "./canvas-init";
-import { CanvasReady } from "./canvas-ready";
-import { CloseCombatTrackerConfig } from "./close-combat-tracker-config";
-import { CloseWorldClockSettings } from "./close-world-clock-settings";
-import { DiceSoNiceReady } from "./dice-so-nice-ready";
-import { DropCanvasData } from "./drop-canvas-data";
-import { GetSceneControlButtons } from "./get-scene-control-buttons";
-import { Init } from "./init";
-import { LightingRefresh } from "./lighting-refresh";
-import { Load } from "./load";
-import { Ready } from "./ready";
-import { RenderCombatTrackerConfig } from "./render-combat-tracker-config";
-import { RenderDialog } from "./render-dialog";
-import { RenderJournalPageSheet } from "./render-journal-page-sheet";
-import { RenderJournalTextPageSheet } from "./render-journal-text-page-sheet";
-import { RenderSettings } from "./render-settings";
-import { RenderTokenHUD } from "./render-token-hud";
-import { Setup } from "./setup";
-import { TargetToken } from "./target-token";
-import { UpdateWorldTime } from "./update-world-time";
+import { BabeleReady } from "./babele-ready.ts";
+import { CanvasInit } from "./canvas-init.ts";
+import { CanvasReady } from "./canvas-ready.ts";
+import { CloseCombatTrackerConfig } from "./close-combat-tracker-config.ts";
+import { CloseWorldClockSettings } from "./close-world-clock-settings.ts";
+import { DiceSoNiceReady } from "./dice-so-nice-ready.ts";
+import { DropCanvasData } from "./drop-canvas-data.ts";
+import { GetSceneControlButtons } from "./get-scene-control-buttons.ts";
+import { Init } from "./init.ts";
+import { LightingRefresh } from "./lighting-refresh.ts";
+import { Load } from "./load.ts";
+import { Ready } from "./ready.ts";
+import { RenderCombatTrackerConfig } from "./render-combat-tracker-config.ts";
+import { RenderDialog } from "./render-dialog.ts";
+import { RenderJournalPageSheet } from "./render-journal-page-sheet.ts";
+import { RenderJournalTextPageSheet } from "./render-journal-text-page-sheet.ts";
+import { RenderSettings } from "./render-settings.ts";
+import { RenderTokenHUD } from "./render-token-hud.ts";
+import { Setup } from "./setup.ts";
+import { TargetToken } from "./target-token.ts";
+import { UpdateWorldTime } from "./update-world-time.ts";
 
 export const HooksPF2e = {
     listen(): void {

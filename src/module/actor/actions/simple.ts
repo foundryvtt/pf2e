@@ -1,7 +1,7 @@
-import { ActionCost, ActionUseOptions } from "./types";
+import { ActionCost, ActionUseOptions } from "./types.ts";
 import { ActorPF2e } from "@actor";
-import { getSelectedOrOwnActors } from "@util/token-actor-utils";
-import { BaseAction, BaseActionData, BaseActionVariant, BaseActionVariantData } from "./base";
+import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
+import { BaseAction, BaseActionData, BaseActionVariant, BaseActionVariantData } from "./base.ts";
 import { EffectPF2e } from "@item";
 
 interface SimpleActionVariantData extends BaseActionVariantData {

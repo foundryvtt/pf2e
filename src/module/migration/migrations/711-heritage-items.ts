@@ -1,12 +1,12 @@
-import { CharacterDetails } from "@actor/character/data";
-import { CreatureTrait } from "@actor/creature/types";
-import { ActorSourcePF2e } from "@actor/data";
-import { FeatSource, ItemSourcePF2e } from "@item/data";
-import { FeatSystemSource } from "@item/feat/data";
-import { HeritageSource, HeritageSystemSource } from "@item/heritage/data";
-import { Rarity } from "@module/data";
-import { creatureTraits } from "@scripts/config/traits";
-import { MigrationBase } from "../base";
+import { CharacterDetails } from "@actor/character/data/index.ts";
+import { CreatureTrait } from "@actor/creature/types.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { FeatSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { FeatSystemSource } from "@item/feat/data.ts";
+import { HeritageSource, HeritageSystemSource } from "@item/heritage/data.ts";
+import { Rarity } from "@module/data.ts";
+import { creatureTraits } from "@scripts/config/traits.ts";
+import { MigrationBase } from "../base.ts";
 
 const toDelete = ["featType", "actionCategory", "actions", "actionType", "level", "location"] as const;
 

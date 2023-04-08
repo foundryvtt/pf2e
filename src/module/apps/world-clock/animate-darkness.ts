@@ -1,5 +1,5 @@
-import { WorldClock } from "./app";
 import { DateTime, Duration, Interval } from "luxon";
+import { WorldClock } from "./app.ts";
 
 interface DarknessTransition {
     /** Target darkness level; between 0 and 1 */

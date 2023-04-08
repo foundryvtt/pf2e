@@ -1,10 +1,10 @@
-import { StrikeData } from "@actor/data/base";
-import { ActorSheetPF2e } from "@actor/sheet/base";
-import { SAVE_TYPES } from "@actor/values";
+import { StrikeData } from "@actor/data/base.ts";
+import { ActorSheetPF2e } from "@actor/sheet/base.ts";
+import { SAVE_TYPES } from "@actor/values.ts";
 import { tagify, traitSlugToObject } from "@util";
-import { HazardPF2e } from ".";
-import { HazardSystemData } from "./data";
-import { HazardActionSheetData, HazardSaveSheetData, HazardSheetData } from "./types";
+import { HazardPF2e } from "./document.ts";
+import { HazardSystemData } from "./data.ts";
+import { HazardActionSheetData, HazardSaveSheetData, HazardSheetData } from "./types.ts";
 
 export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     static override get defaultOptions() {

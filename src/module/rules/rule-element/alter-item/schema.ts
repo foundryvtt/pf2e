@@ -1,5 +1,5 @@
-import { ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
-import { AELikeChangeMode } from "../ae-like";
+import type { ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.d.ts";
+import { AELikeChangeMode } from "../ae-like.ts";
 
 const { fields } = foundry.data;
 

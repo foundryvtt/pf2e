@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { ActorUpdateContext } from "@actor/base";
+import { ActorUpdateContext } from "@actor/base.ts";
 
 export class ActorsPF2e<TActor extends ActorPF2e<null>> extends Actors<TActor> {
     /** Work around a bug as of Foundry V9.242 in which token default settings are ignored for compendium imports */

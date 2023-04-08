@@ -1,8 +1,8 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { ItemSummaryRenderer } from "@actor/sheet/item-summary-renderer";
+import { ItemSummaryRenderer } from "@actor/sheet/item-summary-renderer.ts";
 import { ItemPF2e, SpellPF2e } from "@item";
-import { ItemSourcePF2e, SpellSource } from "@item/data";
-import { SpellcastingSheetData, SpellcastingEntryPF2e } from "@item/spellcasting-entry";
+import { ItemSourcePF2e, SpellSource } from "@item/data/index.ts";
+import { SpellcastingSheetData, SpellcastingEntryPF2e } from "@item/spellcasting-entry/index.ts";
 
 /**
  * Sheet used to render the the spell list for prepared casting.

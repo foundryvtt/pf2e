@@ -1,5 +1,4 @@
-import { ActorPF2e } from "@actor/base";
-import { ScenePF2e, TokenDocumentPF2e } from "@module/scene";
+import type { ActorPF2e, ScenePF2e, TokenDocumentPF2e } from "@module/documents.js";
 
 export class MockToken {
     actor: ActorPF2e | null;

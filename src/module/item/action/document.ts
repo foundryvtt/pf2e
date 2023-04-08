@@ -1,8 +1,8 @@
-import { ItemPF2e } from "@item/base";
-import { ActionItemSource, ActionSystemData } from "./data";
-import { UserPF2e } from "@module/user";
-import { ActionCost, Frequency } from "@item/data/base";
-import { ItemSummaryData } from "@item/data";
+import { ItemPF2e } from "@item/base.ts";
+import { ActionItemSource, ActionSystemData } from "./data.ts";
+import { UserPF2e } from "@module/user/index.ts";
+import { ActionCost, Frequency } from "@item/data/base.ts";
+import { ItemSummaryData } from "@item/data/index.ts";
 import { getActionTypeLabel } from "@util";
 import { ActorPF2e } from "@actor";
 

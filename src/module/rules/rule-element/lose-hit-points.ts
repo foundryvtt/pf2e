@@ -1,9 +1,9 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { ActorType } from "@actor/data";
+import { ActorType } from "@actor/data/index.ts";
 import { ItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data";
-import { RuleElementPF2e, RuleElementSource } from "./";
-import { RuleElementOptions } from "./base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { RuleElementPF2e, RuleElementSource } from "./index.ts";
+import { RuleElementOptions } from "./base.ts";
 
 /** Reduce current hit points without applying damage */
 export class LoseHitPointsRuleElement extends RuleElementPF2e {

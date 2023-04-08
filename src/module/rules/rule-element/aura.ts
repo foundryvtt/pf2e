@@ -1,10 +1,10 @@
-import { AuraColors, AuraEffectData } from "@actor/types";
+import { AuraColors, AuraEffectData } from "@actor/types.ts";
 import { ItemPF2e } from "@item";
-import { EffectTrait } from "@item/abstract-effect/data";
-import { PredicatePF2e } from "@system/predication";
+import { EffectTrait } from "@item/abstract-effect/data.ts";
+import { PredicatePF2e } from "@system/predication.ts";
 import { isObject, sluggify } from "@util";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./";
-import { UUIDUtils } from "@util/uuid-utils";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
+import { UUIDUtils } from "@util/uuid-utils.ts";
 import { ActorPF2e } from "@actor";
 
 /** A Pathfinder 2e aura, capable of transmitting effects and with a visual representation on the canvas */

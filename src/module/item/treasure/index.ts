@@ -1,2 +1,2 @@
-export { TreasurePF2e } from "./document";
-export { TreasureSheetPF2e } from "./sheet";
+export { TreasurePF2e } from "./document.ts";
+export { TreasureSheetPF2e } from "./sheet.ts";

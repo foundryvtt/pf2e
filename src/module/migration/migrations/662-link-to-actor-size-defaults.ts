@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
-import { ActorSourcePF2e } from "@actor/data";
-import { MigrationBase } from "../base";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Set default linkToActorSize flag */
 export class Migration662LinkToActorSizeDefaults extends MigrationBase {

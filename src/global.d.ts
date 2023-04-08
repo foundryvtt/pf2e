@@ -1,32 +1,37 @@
-import { ActorPF2e } from "@actor/base";
-import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
-import { FeatCategoryOptions } from "@actor/character/feats";
-import { CheckModifier, MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "@actor/modifiers";
-import { ItemPF2e } from "@item/base";
-import { CoinsPF2e } from "@item/physical/helpers";
-import { ActiveEffectPF2e } from "@module/active-effect";
-import { CompendiumBrowser, CompendiumBrowserSettings } from "@module/apps/compendium-browser";
-import { EffectsPanel } from "@module/apps/effects-panel";
-import { HotbarPF2e } from "@module/apps/hotbar";
-import { LicenseViewer } from "@module/apps/license-viewer";
-import { ActorDirectoryPF2e, ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/sidebar";
-import { WorldClock } from "@module/apps/world-clock";
-import { CanvasPF2e, EffectsCanvasGroupPF2e } from "@module/canvas";
-import { StatusEffects } from "@module/canvas/status-effects";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { ActorsPF2e } from "@module/collection/actors";
-import { MacroPF2e } from "@module/macro";
-import { RuleElementPF2e, RuleElements } from "@module/rules";
+import { ActorPF2e } from "@actor/base.ts";
+import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
+import { FeatCategoryOptions } from "@actor/character/feats.ts";
+import { CheckModifier, MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { ItemPF2e } from "@item/base.ts";
+import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { ActiveEffectPF2e } from "@module/active-effect.ts";
+import { CompendiumBrowser, CompendiumBrowserSettings } from "@module/apps/compendium-browser/index.ts";
+import { EffectsPanel } from "@module/apps/effects-panel.ts";
+import { HotbarPF2e } from "@module/apps/hotbar.ts";
+import { LicenseViewer } from "@module/apps/license-viewer/app.ts";
+import {
+    ActorDirectoryPF2e,
+    ChatLogPF2e,
+    CompendiumDirectoryPF2e,
+    EncounterTrackerPF2e,
+} from "@module/apps/sidebar/index.ts";
+import { WorldClock } from "@module/apps/world-clock/app.ts";
+import { CanvasPF2e, EffectsCanvasGroupPF2e } from "@module/canvas/index.ts";
+import { StatusEffects } from "@module/canvas/status-effects.ts";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { ActorsPF2e } from "@module/collection/actors.ts";
+import { MacroPF2e } from "@module/macro.ts";
+import { RuleElementPF2e, RuleElements } from "@module/rules/index.ts";
+import { UserPF2e } from "@module/user/index.ts";
 import {
     AmbientLightDocumentPF2e,
     MeasuredTemplateDocumentPF2e,
     ScenePF2e,
     TileDocumentPF2e,
     TokenDocumentPF2e,
-} from "@module/scene";
-import { UserPF2e } from "@module/user";
-import { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config";
-import { DicePF2e } from "@scripts/dice";
+} from "@scene/index.ts";
+import { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config/index.ts";
+import { DicePF2e } from "@scripts/dice.ts";
 import {
     calculateXP,
     editPersistent,
@@ -35,17 +40,17 @@ import {
     rollActionMacro,
     rollItemMacro,
     stealthForSelected,
-} from "@scripts/macros";
-import { remigrate } from "@scripts/system/remigrate";
-import { CheckPF2e } from "@system/check";
-import { EffectTracker } from "@system/effect-tracker";
-import { ModuleArt } from "@system/module-art";
-import { CustomDamageData, HomebrewTag, HomebrewTraitSettingsKey } from "@system/settings/homebrew";
-import { TextEditorPF2e } from "@system/text-editor";
+} from "@scripts/macros/index.ts";
+import { remigrate } from "@scripts/system/remigrate.ts";
+import { CheckPF2e } from "@system/check/index.ts";
+import { EffectTracker } from "@system/effect-tracker.ts";
+import { ModuleArt } from "@system/module-art.ts";
+import { CustomDamageData, HomebrewTag, HomebrewTraitSettingsKey } from "@system/settings/homebrew/index.ts";
+import { TextEditorPF2e } from "@system/text-editor.ts";
 import { sluggify } from "@util";
 import Peggy from "peggy";
-import { CombatantPF2e, EncounterPF2e } from "./module/encounter";
-import { ConditionManager } from "./module/system/conditions";
+import { CombatantPF2e, EncounterPF2e } from "./module/encounter/index.ts";
+import { ConditionManager } from "./module/system/conditions/index.ts";
 
 declare global {
     interface Game<

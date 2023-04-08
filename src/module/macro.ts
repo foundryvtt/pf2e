@@ -1,4 +1,4 @@
-import { ChatMessagePF2e } from "./chat-message";
+import { ChatMessagePF2e } from "./chat-message/index.ts";
 
 export class MacroPF2e extends Macro {
     /** Raise permission requirement of world macro visibility to observer */

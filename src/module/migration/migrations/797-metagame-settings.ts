@@ -1,4 +1,4 @@
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Migrate all metagame settings from . to _ prefixes, and the visibility ones to booleans */
 export class Migration797MetagameSetting extends MigrationBase {

@@ -1,7 +1,7 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
-import { MODIFIER_TYPE, ModifierPF2e } from "@actor/modifiers";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { MODIFIER_TYPE, ModifierPF2e } from "@actor/modifiers.ts";
 import { CreaturePF2e } from "@actor";
-import { ActorSizePF2e } from "@actor/data/size";
+import { ActorSizePF2e } from "@actor/data/size.ts";
 
 function determineSizeBonus(actorSize: ActorSizePF2e, targetSize: ActorSizePF2e) {
     const sizeDifference = actorSize.difference(targetSize);

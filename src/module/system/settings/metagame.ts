@@ -1,4 +1,4 @@
-import { SettingsMenuPF2e } from "./menu";
+import { SettingsMenuPF2e } from "./menu.ts";
 
 const MetagameSettingsConfig = {
     showDC: {

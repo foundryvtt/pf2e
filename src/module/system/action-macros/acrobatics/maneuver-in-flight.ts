@@ -1,9 +1,9 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
-import { SingleCheckAction } from "@actor/actions";
+import { SingleCheckAction } from "@actor/actions/index.ts";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const PREFIX = "PF2E.Actions.ManeuverInFlight";
 
-function maneuverInFlight(options: SkillActionOptions) {
+function maneuverInFlight(options: SkillActionOptions): void {
     const slug = options?.skill ?? "acrobatics";
     const rollOptions = ["action:maneuver-in-flight"];
     const modifiers = options?.modifiers;

@@ -1,8 +1,8 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { RuleElementSource } from ".";
-import { RollTwiceSynthetic } from "../synthetics";
-import { RuleElementOptions, RuleElementPF2e } from "./base";
+import { RuleElementSource } from "./index.ts";
+import { RollTwiceSynthetic } from "../synthetics.ts";
+import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 
 /** Roll Twice and keep either the higher or lower result */
 export class RollTwiceRuleElement extends RuleElementPF2e {

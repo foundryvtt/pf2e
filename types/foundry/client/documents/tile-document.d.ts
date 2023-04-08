@@ -1,4 +1,4 @@
-import { CanvasBaseTile } from "./client-base-mixes.mjs";
+import { CanvasBaseTile } from "./client-base-mixes.js";
 
 declare global {
     class TileDocument<TParent extends Scene | null> extends CanvasBaseTile<TParent> {}

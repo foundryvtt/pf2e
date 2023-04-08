@@ -1,7 +1,7 @@
-import { ItemSourcePF2e } from "@item/data";
-import { WeaponSystemSource } from "@item/weapon/data";
-import { WeaponCategory, WeaponRangeIncrement } from "@item/weapon/types";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { WeaponSystemSource } from "@item/weapon/data.ts";
+import { WeaponCategory, WeaponRangeIncrement } from "@item/weapon/types.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Ensure weapon categories and ranges have valid properties */
 export class Migration650StringifyWeaponProperties extends MigrationBase {

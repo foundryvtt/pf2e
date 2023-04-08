@@ -1,6 +1,6 @@
-import { SkillAbbreviation } from "@actor/creature/data";
-import { AbilityString, ImmunityType, ResistanceType, SkillLongForm, WeaknessType } from "@actor/types";
-import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr";
+import { SkillAbbreviation } from "@actor/creature/data.ts";
+import { AbilityString, ImmunityType, ResistanceType, SkillLongForm, WeaknessType } from "@actor/types.ts";
+import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr.ts";
 
 const ABILITY_ABBREVIATIONS = new Set(["str", "dex", "con", "int", "wis", "cha"] as const);
 

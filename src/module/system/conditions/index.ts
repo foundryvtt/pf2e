@@ -1,2 +1,2 @@
-export { ConditionManager } from "./manager";
-export { ConditionReference, FlattenedCondition } from "./types";
+export { ConditionManager } from "./manager.ts";
+export { ConditionReference, FlattenedCondition } from "./types.ts";

@@ -1,9 +1,10 @@
 import { CharacterPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, NPCPF2e, PartyPF2e, VehiclePF2e } from "@actor";
-import { SenseAcuity, SenseType } from "@actor/creature/sense";
-import { Alignment } from "@actor/creature/types";
-import { ActorType } from "@actor/data";
+import { SenseAcuity, SenseType } from "@actor/creature/sense.ts";
+import { Alignment } from "@actor/creature/types.ts";
+import { ActorType } from "@actor/data/index.ts";
 import {
     ActionItemPF2e,
+    AfflictionPF2e,
     AncestryPF2e,
     ArmorPF2e,
     BackgroundPF2e,
@@ -25,26 +26,25 @@ import {
     TreasurePF2e,
     WeaponPF2e,
 } from "@item";
-import { AfflictionPF2e } from "@item/affliction/document";
-import { ConditionSlug } from "@item/condition/types";
-import { RANGE_TRAITS } from "@item/data/values";
-import { DeityDomain } from "@item/deity/types";
-import { FeatCategory } from "@item/feat";
-import { WEAPON_PROPERTY_RUNES } from "@item/physical/runes";
-import { PreciousMaterialGrade } from "@item/physical/types";
+import { ConditionSlug } from "@item/condition/types.ts";
+import { RANGE_TRAITS } from "@item/data/values.ts";
+import { DeityDomain } from "@item/deity/types.ts";
+import { FeatCategory } from "@item/feat/index.ts";
+import { WEAPON_PROPERTY_RUNES } from "@item/physical/runes.ts";
+import { PreciousMaterialGrade } from "@item/physical/types.ts";
 import {
     BaseWeaponType,
     MeleeWeaponGroup,
     WeaponGroup,
     WeaponPropertyRuneType,
     WeaponReloadTime,
-} from "@item/weapon/types";
-import { Size } from "@module/data";
-import { JournalSheetPF2e } from "@module/journal-entry/sheet";
+} from "@item/weapon/types.ts";
+import { Size } from "@module/data.ts";
+import { JournalSheetPF2e } from "@module/journal-entry/sheet.ts";
 import { sluggify } from "@util";
 import enJSON from "../../../static/lang/en.json";
-import { damageCategories, damageRollFlavors, damageTypes, materialDamageEffects } from "./damage";
-import { immunityTypes, resistanceTypes, weaknessTypes } from "./iwr";
+import { damageCategories, damageRollFlavors, damageTypes, materialDamageEffects } from "./damage.ts";
+import { immunityTypes, resistanceTypes, weaknessTypes } from "./iwr.ts";
 import {
     actionTraits,
     alignmentTraits,
@@ -69,7 +69,7 @@ import {
     spellTraits,
     vehicleTraits,
     weaponTraits,
-} from "./traits";
+} from "./traits.ts";
 
 export type StatusEffectIconTheme = "default" | "blackWhite";
 

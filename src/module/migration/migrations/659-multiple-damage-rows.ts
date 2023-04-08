@@ -1,8 +1,8 @@
-import { ItemSourcePF2e } from "@item/data";
-import { SpellDamage, SpellSystemData } from "@item/spell/data";
-import { DamageType } from "@system/damage";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { SpellDamage, SpellSystemData } from "@item/spell/data.ts";
+import { DamageType } from "@system/damage/index.ts";
 import { tupleHasValue } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 const formulaHasValue = (value?: string | null): value is string => {
     return !!value && value !== "0";

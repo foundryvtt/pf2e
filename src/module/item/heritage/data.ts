@@ -1,5 +1,5 @@
-import { CreatureTraits } from "@item/ancestry/data";
-import { BaseItemSourcePF2e, ItemSystemData } from "@item/data/base";
+import { CreatureTraits } from "@item/ancestry/data.ts";
+import { BaseItemSourcePF2e, ItemSystemData } from "@item/data/base.ts";
 
 type HeritageSource = BaseItemSourcePF2e<"heritage", HeritageSystemSource>;
 

@@ -1,4 +1,4 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const PREFIX = "PF2E.Actions.CreateADiversion";
 const CREATE_A_DIVERSION_VARIANTS = ["distracting-words", "gesture", "trick"] as const;

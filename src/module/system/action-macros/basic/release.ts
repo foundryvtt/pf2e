@@ -1,4 +1,4 @@
-import { SimpleAction } from "@actor/actions";
+import { SimpleAction } from "@actor/actions/index.ts";
 
 const release = new SimpleAction({
     cost: "free",

@@ -1,7 +1,7 @@
-import { ItemSourcePF2e } from "@item/data";
-import { isPhysicalData } from "@item/data/helpers";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { isPhysicalData } from "@item/data/helpers.ts";
 import { sluggify } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Set appropriate usage and mark certain containers as being for stowing */
 export class Migration666UsageAndStowingContainers extends MigrationBase {

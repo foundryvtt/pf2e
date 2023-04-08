@@ -5,9 +5,9 @@ import {
     DegreeOfSuccessString,
     DEGREE_ADJUSTMENT_AMOUNTS,
     DEGREE_OF_SUCCESS_STRINGS,
-} from "@system/degree-of-success";
+} from "@system/degree-of-success.ts";
 import { isObject } from "@util";
-import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./";
+import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
 
 /**
  * @category RuleElement

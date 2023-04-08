@@ -1,5 +1,5 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
-import { Statistic } from "@system/statistic";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { Statistic } from "@system/statistic/index.ts";
 
 const ADMINISTER_FIRST_AID_VARIANTS = ["stabilize", "stop-bleeding"] as const;
 type AdministerFirstAidVariant = (typeof ADMINISTER_FIRST_AID_VARIANTS)[number];

@@ -1,5 +1,5 @@
-import { ActorPF2e } from "@actor/base";
-import { PhysicalItemSource } from "@item/data";
+import { ActorPF2e } from "@actor/base.ts";
+import { PhysicalItemSource } from "@item/data/index.ts";
 import { ErrorPF2e } from "@util";
 
 interface PopupData extends FormApplicationData<ActorPF2e> {

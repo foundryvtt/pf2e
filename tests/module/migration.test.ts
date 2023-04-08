@@ -1,24 +1,23 @@
 // @ts-nocheck
 
-import { populateFoundryUtilFunctions } from "../fixtures/foundryshim";
-import { ActorSourcePF2e, CharacterSource } from "@actor/data";
-import { MigrationRunner } from "@module/migration/runner";
-import { MigrationBase } from "@module/migration/base";
-import { MockActor } from "tests/fakes/actor";
-import { MockItem } from "tests/fakes/item";
-import { MockMacro } from "tests/fakes/macro";
-import { MockRollTable } from "tests/fakes/roll-table";
-import { MockUser } from "tests/fakes/user";
-import { MockScene } from "tests/fakes/scene";
-import { MockChatMessage } from "tests/fakes/chat-message";
-
+import { populateFoundryUtilFunctions } from "../fixtures/foundryshim.ts";
+import { ActorSourcePF2e, CharacterSource } from "@actor/data/index.ts";
+import { MigrationRunner } from "@module/migration/runner/index.ts";
+import { MigrationBase } from "@module/migration/base.ts";
+import { MockActor } from "tests/mocks/actor.ts";
+import { MockItem } from "tests/mocks/item.ts";
+import { MockMacro } from "tests/mocks/macro.ts";
+import { MockRollTable } from "tests/mocks/roll-table.ts";
+import { MockUser } from "tests/mocks/user.ts";
+import { MockScene } from "tests/mocks/scene.ts";
+import { MockChatMessage } from "tests/mocks/chat-message.ts";
 import characterJSON from "../../packs/data/iconics.db/amiri-level-1.json";
 import armorJSON from "../../packs/data/equipment.db/scale-mail.json";
-import { ArmorSource, ItemSourcePF2e } from "@item/data";
-import { FoundryUtils } from "tests/utils";
-import { MockActors, MockCollection, MockItems, MockWorldCollection } from "tests/fakes/collection";
-import { LocalizePF2e } from "@module/system/localize";
-import { MockJournalEntry } from "tests/fakes/journal-entry";
+import { ArmorSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { FoundryUtils } from "tests/utils.ts";
+import { MockActors, MockCollection, MockItems, MockWorldCollection } from "tests/mocks/collection.ts";
+import { LocalizePF2e } from "@system/localize.ts";
+import { MockJournalEntry } from "tests/mocks/journal-entry.ts";
 
 const characterData = FoundryUtils.duplicate(characterJSON) as unknown as CharacterSource;
 characterData.effects = [];

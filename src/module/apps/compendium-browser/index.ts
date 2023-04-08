@@ -1,15 +1,15 @@
 import { KitPF2e, PhysicalItemPF2e } from "@item";
-import { ActionTrait } from "@item/action";
-import { ActionType } from "@item/data/base";
-import { BaseSpellcastingEntry } from "@item/spellcasting-entry";
-import { LocalizePF2e } from "@system/localize";
+import { ActionTrait } from "@item/action/index.ts";
+import { ActionType } from "@item/data/base.ts";
+import { BaseSpellcastingEntry } from "@item/spellcasting-entry/index.ts";
+import { LocalizePF2e } from "@system/localize.ts";
 import { ErrorPF2e, htmlQueryAll, isObject, objectHasKey } from "@util";
-import { getSelectedOrOwnActors } from "@util/token-actor-utils";
+import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
 import Tagify from "@yaireo/tagify";
 import noUiSlider from "nouislider";
-import { BrowserTabs, PackInfo, SortDirection, TabData, TabName } from "./data";
-import { Progress } from "./progress";
-import * as browserTabs from "./tabs";
+import { BrowserTabs, PackInfo, SortDirection, TabData, TabName } from "./data.ts";
+import { Progress } from "./progress.ts";
+import * as browserTabs from "./tabs/index.ts";
 import {
     ActionFilters,
     BestiaryFilters,
@@ -22,7 +22,7 @@ import {
     RenderResultListOptions,
     SliderData,
     SpellFilters,
-} from "./tabs/data";
+} from "./tabs/data.ts";
 
 class PackLoader {
     loadedPacks: {

@@ -1,4 +1,4 @@
-import { Optional } from "./misc";
+import { Optional } from "./misc.ts";
 
 /**  DOM helper functions that return HTMLElement(s) (or `null`) */
 

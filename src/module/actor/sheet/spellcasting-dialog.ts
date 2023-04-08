@@ -1,8 +1,8 @@
 import { ActorPF2e } from "@actor";
-import { ClassDCData } from "@actor/character/data";
+import { ClassDCData } from "@actor/character/data/types.ts";
 import { SpellcastingEntryPF2e } from "@item";
-import { SpellcastingEntrySource, SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data";
-import { omit, pick } from "@util";
+import { SpellcastingEntrySource, SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data.ts";
+import { omit, pick } from "@util/misc.ts";
 
 function createEmptySpellcastingEntry(actor: ActorPF2e): SpellcastingEntryPF2e<ActorPF2e> {
     return new SpellcastingEntryPF2e(

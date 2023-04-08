@@ -1,9 +1,13 @@
 {
     "compilerOptions": {
         "target": "es2022",
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "lib": ["esnext", "dom", "dom.iterable"],
+        "module": "es2022",
+        "moduleResolution": "node16",
+        "lib": [
+            "esnext",
+            "dom",
+            "dom.iterable"
+        ],
         "noEmit": true,
         "strict": true,
         "noFallthroughCasesInSwitch": true,
@@ -13,25 +17,28 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
 
+        "allowImportingTsExtensions": true,
         "forceConsistentCasingInFileNames": true,
         "esModuleInterop": true,
         "sourceMap": true,
         "baseUrl": ".",
+        "rootDir": ".",
+        "outDir": "dist",
         "allowUnusedLabels": false,
         "removeComments": false,
         "resolveJsonModule": true,
         "useDefineForClassFields": true,
         "paths": {
-            "@actor": ["src/module/actor"],
+            "@actor": ["src/module/actor/index.js"],
             "@actor/*": ["src/module/actor/*"],
-            "@item": ["src/module/item"],
+            "@item": ["src/module/item/index.js"],
             "@item/*": ["src/module/item/*"],
-            "@scene": ["src/module/scene"],
+            "@scene": ["src/module/scene/index.js"],
             "@scene/*": ["src/module/scene/*"],
             "@system/*": ["src/module/system/*"],
             "@module/*": ["src/module/*"],
             "@scripts/*": ["src/scripts/*"],
-            "@util": ["src/util"],
+            "@util": ["src/util/index.js"],
             "@util/*": ["src/util/*"]
         },
         "types": [
@@ -49,9 +56,11 @@
         ]
     },
     "watchOptions": {
-        "excludeDirectories": ["packs/data/", "static/packs/"],
+        "excludeDirectories": ["packs/data/", "static/packs/"]
     },
     "ts-node": {
+        "esm": true,
+        "experimentalSpecifierResolution": "node",
         "files": true
     }
 }

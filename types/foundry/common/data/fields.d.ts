@@ -1,4 +1,4 @@
-import { DataModel, EmbeddedCollection } from "../abstract/module.mjs";
+import { DataModel, EmbeddedCollection } from "../abstract/module.js";
 
 /* ---------------------------------------- */
 /*  Abstract Data Field                     */
@@ -18,7 +18,7 @@ import { DataModel, EmbeddedCollection } from "../abstract/module.mjs";
  *                             document name, field name, and candidate value.
  */
 export interface DataFieldOptions<
-    TSourceProp extends unknown,
+    TSourceProp,
     TRequired extends boolean,
     TNullable extends boolean,
     THasInitial extends boolean
@@ -38,7 +38,7 @@ export interface DataFieldOptions<
 }
 
 export abstract class DataField<
-    TSourceProp extends unknown = unknown,
+    TSourceProp = unknown,
     TModelProp = TSourceProp,
     TRequired extends boolean = boolean,
     TNullable extends boolean = boolean,
@@ -469,7 +469,7 @@ export class ArrayField<
     protected override _cast(value: unknown): TSourceProp;
 
     protected _cleanType(
-        value: Array<unknown> | Set<unknown>,
+        value: unknown[] | Set<unknown>,
         options?: CleanFieldOptions
     ): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
 

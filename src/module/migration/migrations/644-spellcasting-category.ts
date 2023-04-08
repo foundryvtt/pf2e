@@ -1,8 +1,8 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ClassSource, ItemSourcePF2e } from "@item/data";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ClassSource, ItemSourcePF2e } from "@item/data/index.ts";
 import { sluggify, tupleHasValue } from "@util";
-import { SpellcastingEntrySource, SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data";
-import { MigrationBase } from "../base";
+import { SpellcastingEntrySource, SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data.ts";
+import { MigrationBase } from "../base.ts";
 
 const oldTraditions = ["arcane", "occult", "primal", "divine", "focus", "ritual", "halcyon", ""] as const;
 

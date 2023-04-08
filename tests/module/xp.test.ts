@@ -1,4 +1,4 @@
-import { calculateXP } from "../../src/scripts/macros/xp";
+import { calculateXP } from "@scripts/macros/xp.ts";
 
 const dcOptions = {
     proficiencyWithoutLevel: false,

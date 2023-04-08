@@ -1,6 +1,6 @@
 import { VehiclePF2e } from "@actor";
 import { ErrorPF2e, fontAwesomeIcon, htmlQuery } from "@util";
-import { TokenDocumentPF2e } from ".";
+import { TokenDocumentPF2e } from "./index.ts";
 
 class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<TDocument> {
     override get template(): string {

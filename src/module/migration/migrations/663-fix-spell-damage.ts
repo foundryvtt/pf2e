@@ -1,8 +1,8 @@
-import { ItemSourcePF2e } from "@item/data";
-import { SpellSystemData } from "@item/spell/data";
-import { DamageType } from "@system/damage";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { SpellSystemData } from "@item/spell/data.ts";
+import { DamageType } from "@system/damage/index.ts";
 import { sluggify } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 function createBasicDamage(value: string, applyMod: boolean, damageType: DamageType) {
     return {

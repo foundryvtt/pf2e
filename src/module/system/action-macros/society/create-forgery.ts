@@ -1,7 +1,7 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
-import { CheckResultCallback } from "@system/action-macros/types";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { CheckResultCallback } from "@system/action-macros/types.ts";
 import { CreaturePF2e } from "@actor";
-import { RawModifier, ModifierPF2e } from "@actor/modifiers";
+import { RawModifier, ModifierPF2e } from "@actor/modifiers.ts";
 
 interface ChatMessageCheckFlags {
     context: {

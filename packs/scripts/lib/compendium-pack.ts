@@ -1,14 +1,14 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemSourcePF2e, MeleeSource } from "@item/data";
-import { isPhysicalData } from "@item/data/helpers";
-import { FEAT_CATEGORIES } from "@item/feat/values";
-import { SIZES } from "@module/data";
-import { MigrationRunnerBase } from "@module/migration/runner/base";
-import { RuleElementSource } from "@module/rules";
-import { isObject, setHasElement, sluggify, tupleHasValue } from "@util";
-import * as fs from "fs";
-import * as path from "path";
-import coreIconsList from "../core-icons.json";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ItemSourcePF2e, MeleeSource, isPhysicalData } from "@item/data/index.ts";
+import { FEAT_CATEGORIES } from "@item/feat/values.ts";
+import { SIZES } from "@module/data.ts";
+import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
+import { isObject, setHasElement, sluggify, tupleHasValue } from "@util/misc.ts";
+import fs from "fs";
+import path from "path";
+import { PackError } from "./helpers.ts";
+import { PackEntry } from "./types.ts";
 
 interface PackMetadata {
     system: string;
@@ -17,11 +17,6 @@ interface PackMetadata {
     type: string;
 }
 
-const PackError = (message: string) => {
-    console.error(`Error: ${message}`);
-    process.exit(1);
-};
-
 /** A rule element, possibly an Aura, ChoiceSet, GrantItem */
 interface REMaybeWithUUIDs extends RuleElementSource {
     effects?: unknown[];
@@ -29,35 +24,28 @@ interface REMaybeWithUUIDs extends RuleElementSource {
     uuid?: unknown;
 }
 
-type CompendiumSource = CompendiumDocument["_source"];
-function isActorSource(docSource: CompendiumSource): docSource is ActorSourcePF2e {
+function isActorSource(docSource: PackEntry): docSource is ActorSourcePF2e {
     return (
         "system" in docSource && isObject(docSource.system) && "items" in docSource && Array.isArray(docSource.items)
     );
 }
 
-function isItemSource(docSource: CompendiumSource): docSource is ItemSourcePF2e {
-    return (
-        "system" in docSource &&
-        "type" in docSource &&
-        !("text" in docSource) &&
-        isObject(docSource.system) &&
-        !isActorSource(docSource)
-    );
+function isItemSource(docSource: PackEntry): docSource is ItemSourcePF2e {
+    return "system" in docSource && "type" in docSource && isObject(docSource.system) && !isActorSource(docSource);
 }
 
 /**
  * This is used to check paths to core icons to ensure correctness. The JSON file will need to be periodically refreshed
  *  as upstream adds more icons.
  */
-const coreIcons = new Set(coreIconsList);
+const coreIcons = new Set((await import("../core-icons.json")).default);
 
 class CompendiumPack {
     packId: string;
     packDir: string;
     documentType: string;
     systemId: string;
-    data: CompendiumSource[];
+    data: PackEntry[];
 
     static outDir = path.resolve(process.cwd(), "static/packs");
     private static namesToIds = new Map<string, Map<string, string>>();
@@ -164,7 +152,7 @@ class CompendiumPack {
         const filePaths = filenames.map((f) => path.resolve(dirPath, f));
         const parsedData = filePaths.map((filePath) => {
             const jsonString = fs.readFileSync(filePath, "utf-8");
-            const packSource: CompendiumSource = (() => {
+            const packSource: PackEntry = (() => {
                 try {
                     return JSON.parse(jsonString);
                 } catch (error) {
@@ -191,7 +179,7 @@ class CompendiumPack {
         return new CompendiumPack(dbFilename, parsedData);
     }
 
-    #finalize(docSource: CompendiumSource): string {
+    #finalize(docSource: PackEntry): string {
         // Replace all compendium documents linked by name to links by ID
         const stringified = JSON.stringify(docSource);
         const worldItemLink = CompendiumPack.LINK_PATTERNS.world.exec(stringified);
@@ -325,7 +313,7 @@ class CompendiumPack {
         return this.data.length;
     }
 
-    #isDocumentSource(maybeDocSource: unknown): maybeDocSource is CompendiumSource {
+    #isDocumentSource(maybeDocSource: unknown): maybeDocSource is PackEntry {
         if (!isObject(maybeDocSource)) return false;
         const checks = Object.entries({
             name: (data: { name?: unknown }) => typeof data.name === "string",
@@ -344,7 +332,7 @@ class CompendiumPack {
         return true;
     }
 
-    #isPackData(packData: unknown[]): packData is CompendiumSource[] {
+    #isPackData(packData: unknown[]): packData is PackEntry[] {
         return packData.every((maybeDocSource: unknown) => this.#isDocumentSource(maybeDocSource));
     }
 

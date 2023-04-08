@@ -1,5 +1,4 @@
-import { ActionCost } from "@item/data/base";
-import { LocalizePF2e } from "@system/localize";
+import { ActionCost } from "@item/data/base.ts";
 
 /**
  * Given an array and a key function, create a map where the key is the value that
@@ -313,30 +312,28 @@ function ErrorPF2e(message: string): Error {
 
 /** Returns the number in an ordinal format, like 1st, 2nd, 3rd, 4th, etc */
 function ordinal(value: number) {
-    const suffixes = LocalizePF2e.translations.PF2E.OrdinalSuffixes;
     const pluralRules = new Intl.PluralRules(game.i18n.lang, { type: "ordinal" });
-    const suffix = suffixes[pluralRules.select(value)];
+    const suffix = game.i18n.localize(`PF2E.OrdinalSuffixes.${pluralRules.select(value)}`);
     return game.i18n.format("PF2E.OrdinalNumber", { value, suffix });
 }
 
 /** Localizes a list of strings into a comma delimited list for the current language */
 function localizeList(items: string[], { conjunction = "or" }: { conjunction?: "and" | "or" } = {}): string {
-    const parts =
-        conjunction === "or" ? LocalizePF2e.translations.PF2E.ListPartsOr : LocalizePF2e.translations.PF2E.ListPartsAnd;
+    const parts = conjunction === "or" ? "PF2E.ListPartsOr" : "PF2E.ListPartsAnd";
 
     if (items.length === 0) return "";
     if (items.length === 1) return items[0];
     if (items.length === 2) {
-        return game.i18n.format(parts.two, { first: items[0], second: items[1] });
+        return game.i18n.format(`${parts}.two`, { first: items[0], second: items[1] });
     }
 
-    let result = game.i18n.format(parts.start, { first: items[0], second: "{second}" });
+    let result = game.i18n.format(`${parts}.start`, { first: items[0], second: "{second}" });
     for (let i = 1; i <= items.length - 2; i++) {
         if (i === items.length - 2) {
-            const end = game.i18n.format(parts.end, { first: items[i], second: items[items.length - 1] });
+            const end = game.i18n.format(`${parts}.end`, { first: items[i], second: items[items.length - 1] });
             result = result.replace("{second}", end);
         } else {
-            const newSegment = game.i18n.format(parts.middle, { first: items[i], second: "{second}" });
+            const newSegment = game.i18n.format(`${parts}.middle`, { first: items[i], second: "{second}" });
             result = result.replace("{second}", newSegment);
         }
     }

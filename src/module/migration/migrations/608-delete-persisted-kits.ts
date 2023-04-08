@@ -1,6 +1,6 @@
-import { MigrationBase } from "../base";
-import { ItemSourcePF2e } from "@item/data";
-import { ActorSourcePF2e } from "@actor/data";
+import { MigrationBase } from "../base.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
 
 /** Unbreak actor sheets that have kit items in their inventories */
 export class Migration608DeletePersistedKits extends MigrationBase {

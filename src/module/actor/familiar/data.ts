@@ -5,11 +5,11 @@ import {
     CreatureSystemSource,
     CreatureTraitsData,
     SkillAbbreviation,
-} from "@actor/creature/data";
-import { CreatureSensePF2e } from "@actor/creature/sense";
-import { Rollable } from "@actor/data/base";
-import { StatisticModifier } from "@actor/modifiers";
-import { AbilityString } from "@actor/types";
+} from "@actor/creature/data.ts";
+import { CreatureSensePF2e } from "@actor/creature/sense.ts";
+import { Rollable } from "@actor/data/base.ts";
+import { StatisticModifier } from "@actor/modifiers.ts";
+import { AbilityString } from "@actor/types.ts";
 
 type FamiliarSource = BaseCreatureSource<"familiar", FamiliarSystemSource>;
 

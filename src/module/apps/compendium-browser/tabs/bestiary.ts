@@ -1,8 +1,8 @@
 import { sluggify } from "@util";
-import { CompendiumBrowser } from "..";
-import { ContentTabName } from "../data";
-import { CompendiumBrowserTab } from "./base";
-import { BestiaryFilters, CompendiumBrowserIndexData } from "./data";
+import { CompendiumBrowser } from "../index.ts";
+import { ContentTabName } from "../data.ts";
+import { CompendiumBrowserTab } from "./base.ts";
+import { BestiaryFilters, CompendiumBrowserIndexData } from "./data.ts";
 
 export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "bestiary";

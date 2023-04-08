@@ -4,7 +4,7 @@ import {
     BaseActorSourcePF2e,
     ActorAttributesSource,
     ActorAttributes,
-} from "@actor/data/base";
+} from "@actor/data/base.ts";
 
 /** The stored source data of a loot actor */
 type LootSource = BaseActorSourcePF2e<"loot", LootSystemSource>;

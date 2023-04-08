@@ -1,7 +1,7 @@
-import { PHYSICAL_ITEM_TYPES } from "@item/physical/values";
-import { PC_ITEM_TYPES } from "@item/values";
-import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
-import { LocalizePF2e } from "@system/localize";
+import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
+import { PC_ITEM_TYPES } from "@item/values.ts";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
+import { LocalizePF2e } from "@system/localize.ts";
 
 export const RenderDialog = {
     listen: () => {

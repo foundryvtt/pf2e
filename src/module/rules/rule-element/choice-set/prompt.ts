@@ -1,12 +1,12 @@
 import { ItemPF2e } from "@item";
-import { DropCanvasDataPF2e } from "@module/canvas/drop-canvas-data";
+import { DropCanvasDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import {
     PickableThing,
     PickAThingConstructorArgs,
     PickAThingPrompt,
     PromptTemplateData,
-} from "@module/apps/pick-a-thing-prompt";
-import { PredicatePF2e } from "@system/predication";
+} from "@module/apps/pick-a-thing-prompt.ts";
+import { PredicatePF2e } from "@system/predication.ts";
 import { ErrorPF2e } from "@util";
 
 /** Prompt the user for a selection among a set of options */

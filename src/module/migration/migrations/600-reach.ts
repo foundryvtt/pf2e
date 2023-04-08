@@ -1,5 +1,5 @@
-import { MigrationBase } from "../base";
-import { ItemSourcePF2e } from "@item/data";
+import { MigrationBase } from "../base.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
 
 export class Migration600Reach extends MigrationBase {
     static override version = 0.6;

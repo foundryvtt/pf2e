@@ -1,8 +1,8 @@
-import { LocalizePF2e } from "@system/localize";
+import { LocalizePF2e } from "@system/localize.ts";
 import { ErrorPF2e, ordinal, tupleHasValue } from "@util";
 import { DateTime } from "luxon";
-import { animateDarkness } from "./animate-darkness";
-import { TimeChangeMode, TimeOfDay } from "./time-of-day";
+import { animateDarkness } from "./animate-darkness.ts";
+import { TimeChangeMode, TimeOfDay } from "./time-of-day.ts";
 
 interface WorldClockData {
     date: string;

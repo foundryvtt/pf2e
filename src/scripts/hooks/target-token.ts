@@ -1,4 +1,4 @@
-import { TokenDocumentPF2e } from "@scene";
+import { TokenDocumentPF2e } from "@scene/index.ts";
 
 export const TargetToken = {
     listen: () => {

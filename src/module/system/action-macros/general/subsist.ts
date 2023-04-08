@@ -1,5 +1,5 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
-import { ModifierPF2e } from "@actor/modifiers";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { ModifierPF2e } from "@actor/modifiers.ts";
 
 export function subsist(options: SkillActionOptions) {
     if (!options?.skill) {

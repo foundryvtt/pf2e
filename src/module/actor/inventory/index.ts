@@ -1,10 +1,10 @@
 import { ActorPF2e } from "@actor";
 import { PhysicalItemPF2e, TreasurePF2e } from "@item";
-import { Coins } from "@item/physical/data";
-import { DENOMINATIONS } from "@item/physical/values";
-import { coinCompendiumIds, CoinsPF2e } from "@item/physical/helpers";
+import { Coins } from "@item/physical/data.ts";
+import { DENOMINATIONS } from "@item/physical/values.ts";
+import { coinCompendiumIds, CoinsPF2e } from "@item/physical/helpers.ts";
 import { ErrorPF2e, groupBy } from "@util";
-import { InventoryBulk } from "./bulk";
+import { InventoryBulk } from "./bulk.ts";
 
 class ActorInventory<TActor extends ActorPF2e> extends Collection<PhysicalItemPF2e<TActor>> {
     constructor(public readonly actor: TActor, entries?: PhysicalItemPF2e<TActor>[]) {

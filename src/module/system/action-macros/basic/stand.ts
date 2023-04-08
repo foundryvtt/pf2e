@@ -4,7 +4,7 @@ import {
     SimpleActionUseOptions,
     SimpleActionVariant,
     SimpleActionVariantData,
-} from "@actor/actions";
+} from "@actor/actions/index.ts";
 
 class StandActionVariant extends SimpleActionVariant {
     override async use(options: Partial<SimpleActionUseOptions> = {}): Promise<SimpleActionResult[]> {

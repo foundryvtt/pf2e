@@ -1,6 +1,6 @@
-import { EffectAreaSquare } from "@module/canvas/effect-area-square";
-import { measureDistanceCuboid } from "@module/canvas/helpers";
-import { TokenAuraData } from "@scene/token-document/aura/types";
+import { EffectAreaSquare } from "@module/canvas/effect-area-square.ts";
+import { measureDistanceCuboid } from "@module/canvas/helpers.ts";
+import { TokenAuraData } from "@scene/token-document/aura/types.ts";
 
 export function getAreaSquares(aura: TokenAuraData) {
     if (!canvas.dimensions) return [];

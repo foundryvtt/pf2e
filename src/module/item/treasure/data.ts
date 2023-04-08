@@ -1,4 +1,4 @@
-import { BasePhysicalItemSource, PhysicalSystemData, PhysicalSystemSource } from "@item/physical/data";
+import { BasePhysicalItemSource, PhysicalSystemData, PhysicalSystemSource } from "@item/physical/data.ts";
 
 type TreasureSource = BasePhysicalItemSource<"treasure", TreasureSystemSource>;
 

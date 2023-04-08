@@ -1,7 +1,7 @@
-import { ActorPF2e } from "@actor/base";
-import { UserFlagsPF2e, UserSourcePF2e } from "./data";
-import { TokenPF2e } from "@module/canvas";
-import { ScenePF2e, TokenDocumentPF2e } from "@scene";
+import { ActorPF2e } from "@actor/base.ts";
+import { TokenPF2e } from "@module/canvas/index.ts";
+import { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
+import { UserFlagsPF2e, UserSourcePF2e } from "./data.ts";
 
 class UserPF2e extends User {
     override prepareData(): void {

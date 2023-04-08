@@ -1,4 +1,4 @@
-import { Coins } from "@item/physical/data";
+import { Coins } from "@item/physical/data.ts";
 import { ActorPF2e } from "@actor";
 
 interface PopupFormData extends Coins {

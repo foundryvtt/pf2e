@@ -1,5 +1,5 @@
-import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
-import { DamageRoll } from "@system/damage/roll";
+import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
+import { DamageRoll } from "@system/damage/roll.ts";
 
 export const DropCanvasData = {
     listen: (): void => {

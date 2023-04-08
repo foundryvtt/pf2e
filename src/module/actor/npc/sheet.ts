@@ -1,19 +1,19 @@
-import { Abilities, AbilityData, SkillAbbreviation } from "@actor/creature/data";
-import { CreatureSheetPF2e } from "@actor/creature/sheet";
-import { CreatureSheetData } from "@actor/creature/types";
-import { ALIGNMENT_TRAITS } from "@actor/creature/values";
-import { NPCPF2e } from "@actor/index";
-import { NPCSkillsEditor } from "@actor/npc/skills-editor";
-import { AbilityString } from "@actor/types";
-import { ABILITY_ABBREVIATIONS, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/values";
-import { Size } from "@module/data";
-import { createTagifyTraits } from "@module/sheet/helpers";
-import { DicePF2e } from "@scripts/dice";
-import { eventToRollParams } from "@scripts/sheet-util";
+import { Abilities, AbilityData, SkillAbbreviation } from "@actor/creature/data.ts";
+import { CreatureSheetPF2e } from "@actor/creature/sheet.ts";
+import { CreatureSheetData } from "@actor/creature/types.ts";
+import { ALIGNMENT_TRAITS } from "@actor/creature/values.ts";
+import { NPCPF2e } from "@actor";
+import { NPCSkillsEditor } from "@actor/npc/skills-editor.ts";
+import { AbilityString } from "@actor/types.ts";
+import { ABILITY_ABBREVIATIONS, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/values.ts";
+import { Size } from "@module/data.ts";
+import { createTagifyTraits } from "@module/sheet/helpers.ts";
+import { DicePF2e } from "@scripts/dice.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { getActionGlyph, getActionIcon, objectHasKey, setHasElement, tagify } from "@util";
-import { RecallKnowledgePopup } from "../sheet/popups/recall-knowledge-popup";
-import { NPCConfig } from "./config";
-import { NPCSkillData } from "./data";
+import { RecallKnowledgePopup } from "../sheet/popups/recall-knowledge-popup.ts";
+import { NPCConfig } from "./config.ts";
+import { NPCSkillData } from "./data.ts";
 import {
     NPCActionSheetData,
     NPCSheetData,
@@ -21,7 +21,7 @@ import {
     NPCSpellcastingSheetData,
     NPCStrikeSheetData,
     NPCSystemSheetData,
-} from "./types";
+} from "./types.ts";
 
 class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
     protected readonly actorConfigClass = NPCConfig;

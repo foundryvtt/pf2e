@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { PredicatePF2e } from "@system/predication";
+import { PredicatePF2e } from "@system/predication.ts";
 import { ErrorPF2e, sluggify } from "@util";
 import Tagify from "@yaireo/tagify";
 

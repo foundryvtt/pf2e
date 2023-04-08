@@ -1,8 +1,8 @@
-import { ActionMacroHelpers, SkillActionOptions } from "../..";
-import { RollNotePF2e } from "@module/notes";
-import { PredicatePF2e } from "@system/predication";
+import { ActionMacroHelpers, SkillActionOptions } from "../../index.ts";
+import { RollNotePF2e } from "@module/notes.ts";
+import { PredicatePF2e } from "@system/predication.ts";
 import { CreaturePF2e } from "@actor";
-import { MODIFIER_TYPE, ModifierPF2e } from "@actor/modifiers";
+import { MODIFIER_TYPE, ModifierPF2e } from "@actor/modifiers.ts";
 
 export function arcaneSlam(options: SkillActionOptions) {
     const { actor: target, token } = ActionMacroHelpers.target();

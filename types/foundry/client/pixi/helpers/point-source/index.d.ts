@@ -1,4 +1,4 @@
-import "./base";
-import "./light-source";
-import "./sound-source";
-import "./vision-source";
+import "./base.js";
+import "./light-source.js";
+import "./sound-source.js";
+import "./vision-source.js";

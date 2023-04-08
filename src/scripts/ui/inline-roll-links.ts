@@ -1,13 +1,13 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { SKILL_DICTIONARY } from "@actor/values";
-import { Statistic } from "@system/statistic";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { calculateDC } from "@module/dc";
-import { eventToRollParams } from "@scripts/sheet-util";
+import { SKILL_DICTIONARY } from "@actor/values.ts";
+import { Statistic } from "@system/statistic/index.ts";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { calculateDC } from "@module/dc.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { htmlClosest, htmlQueryAll, objectHasKey, sluggify } from "@util";
-import { getSelectedOrOwnActors } from "@util/token-actor-utils";
-import { MeasuredTemplateDocumentPF2e } from "@scene";
-import { MeasuredTemplatePF2e } from "@module/canvas";
+import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
+import { MeasuredTemplateDocumentPF2e } from "@scene/index.ts";
+import { MeasuredTemplatePF2e } from "@module/canvas/index.ts";
 
 const inlineSelector = ["action", "check", "effect-area", "repost"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
 

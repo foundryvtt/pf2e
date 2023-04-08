@@ -1,6 +1,6 @@
-import { ItemSourcePF2e } from "@item/data";
-import { AELikeSource } from "@module/rules/rule-element/ae-like";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Convert crafting-entry field discovery data to predicates */
 export class Migration817FieldDiscoveryPredicates extends MigrationBase {

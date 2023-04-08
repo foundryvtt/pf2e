@@ -1,19 +1,19 @@
 import { ActorPF2e } from "@actor";
-import { ModifierAdjustment } from "@actor/modifiers";
+import { ModifierAdjustment } from "@actor/modifiers.ts";
 import { ItemPF2e } from "@item";
-import { DamageType } from "@system/damage/types";
-import { DAMAGE_TYPES } from "@system/damage/values";
-import { PredicatePF2e } from "@system/predication";
+import { DamageType } from "@system/damage/types.ts";
+import { DAMAGE_TYPES } from "@system/damage/values.ts";
+import { PredicatePF2e } from "@system/predication.ts";
 import { setHasElement } from "@util";
-import {
+import type {
     ArrayField,
     BooleanField,
     ModelPropsFromSchema,
     NumberField,
     StringField,
-} from "types/foundry/common/data/fields.mjs";
-import { RuleElementOptions } from "./";
-import { AELikeData, AELikeRuleElement, AELikeSchema, AELikeSource } from "./ae-like";
+} from "types/foundry/common/data/fields.d.ts";
+import { AELikeData, AELikeRuleElement, AELikeSchema, AELikeSource } from "./ae-like.ts";
+import { RuleElementOptions } from "./index.ts";
 
 const { fields } = foundry.data;
 

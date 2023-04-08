@@ -1,9 +1,9 @@
-import { CharacterDetails } from "@actor/character/data";
-import { ActorSourcePF2e } from "@actor/data";
-import { ABCFeatureEntryData } from "@item/abc/data";
-import { AncestrySource, BackgroundSource, ClassSource, ItemSourcePF2e, KitSource } from "@item/data";
-import { KitEntryData } from "@item/kit/data";
-import { MigrationBase } from "../base";
+import { CharacterDetails } from "@actor/character/data/index.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ABCFeatureEntryData } from "@item/abc/data.ts";
+import { AncestrySource, BackgroundSource, ClassSource, ItemSourcePF2e, KitSource } from "@item/data/index.ts";
+import { KitEntryData } from "@item/kit/data.ts";
+import { MigrationBase } from "../base.ts";
 
 export class Migration620RenameToWebp extends MigrationBase {
     static override version = 0.62;

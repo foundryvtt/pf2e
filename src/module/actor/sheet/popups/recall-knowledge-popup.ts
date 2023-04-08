@@ -1,4 +1,4 @@
-import { IdentifyCreatureData } from "@module/recall-knowledge";
+import { IdentifyCreatureData } from "@module/recall-knowledge.ts";
 import { padArray } from "@util";
 
 export class RecallKnowledgePopup extends Application {

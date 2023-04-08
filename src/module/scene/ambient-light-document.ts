@@ -1,5 +1,5 @@
-import { AmbientLightPF2e } from "@module/canvas";
-import { ScenePF2e } from ".";
+import { AmbientLightPF2e } from "@module/canvas/index.ts";
+import { ScenePF2e } from "./index.ts";
 
 class AmbientLightDocumentPF2e<
     TParent extends ScenePF2e | null = ScenePF2e | null

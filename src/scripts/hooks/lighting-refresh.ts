@@ -1,4 +1,4 @@
-import { SceneDarknessAdjuster } from "@module/apps/scene-darkness-adjuster";
+import { SceneDarknessAdjuster } from "@module/apps/scene-darkness-adjuster.ts";
 
 export const LightingRefresh = {
     listen: () => {

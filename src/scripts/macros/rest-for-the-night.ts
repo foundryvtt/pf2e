@@ -1,10 +1,10 @@
+import { CharacterAttributes, CharacterResources } from "@actor/character/data/index.ts";
 import { ActorPF2e, CharacterPF2e } from "@actor";
-import { ChatMessagePF2e } from "@module/chat-message";
 import { ItemPF2e } from "@item";
-import { ActionDefaultOptions } from "@system/action-macros";
-import { LocalizePF2e } from "@system/localize";
-import { ChatMessageSourcePF2e } from "@module/chat-message/data";
-import { CharacterAttributes, CharacterResources } from "@actor/character/data";
+import { ChatMessageSourcePF2e } from "@module/chat-message/data.ts";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { ActionDefaultOptions } from "@system/action-macros/index.ts";
+import { LocalizePF2e } from "@system/localize.ts";
 import { Duration } from "luxon";
 
 /** A macro for the Rest for the Night quasi-action */

@@ -1,14 +1,14 @@
-import { ActorPF2e, ActorUpdateContext } from "@actor/base";
-import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
-import { AbilityString, SaveType } from "@actor/types";
+import { ActorPF2e, ActorUpdateContext } from "@actor/base.ts";
+import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
+import { AbilityString, SaveType } from "@actor/types.ts";
 import { MeleePF2e, WeaponPF2e } from "@item";
-import { ZeroToFour } from "@module/data";
-import { SheetOptions } from "@module/sheet/helpers";
-import { TokenDocumentPF2e } from "@scene";
-import { FlattenedCondition } from "@system/conditions";
-import { CreaturePF2e } from ".";
-import { AbilityData, CreatureSystemData, SaveData, SkillData } from "./data";
-import { ALIGNMENTS, ALIGNMENT_TRAITS } from "./values";
+import { ZeroToFour } from "@module/data.ts";
+import { SheetOptions } from "@module/sheet/helpers.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { FlattenedCondition } from "@system/conditions/types.ts";
+import { CreaturePF2e } from "./document.ts";
+import { AbilityData, CreatureSystemData, SaveData, SkillData } from "./data.ts";
+import { ALIGNMENTS, ALIGNMENT_TRAITS } from "./values.ts";
 
 type Alignment = SetElement<typeof ALIGNMENTS>;
 type AlignmentTrait = SetElement<typeof ALIGNMENT_TRAITS>;

@@ -1,11 +1,11 @@
 import { ActorPF2e } from "@actor";
-import { RollTarget } from "@actor/types";
+import { RollTarget } from "@actor/types.ts";
 import { ItemPF2e } from "@item";
-import { ZeroToTwo } from "@module/data";
-import { RollSubstitution } from "@module/rules/synthetics";
-import { TokenDocumentPF2e } from "@scene/token-document";
-import { CheckDC, DegreeOfSuccessAdjustment } from "@system/degree-of-success";
-import { BaseRollContext } from "@system/rolls";
+import { ZeroToTwo } from "@module/data.ts";
+import { RollSubstitution } from "@module/rules/synthetics.ts";
+import { TokenDocumentPF2e } from "@scene/token-document/index.ts";
+import { CheckDC, DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
+import { BaseRollContext } from "@system/rolls.ts";
 
 type RollTwiceOption = "keep-higher" | "keep-lower" | false;
 

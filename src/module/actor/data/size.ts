@@ -1,4 +1,4 @@
-import { Size, SIZES, ZeroToFive } from "@module/data";
+import { Size, SIZES, ZeroToFive } from "@module/data.ts";
 
 interface SizeDimensions {
     length: number;

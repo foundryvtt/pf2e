@@ -1,8 +1,8 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import { sluggify, tupleHasValue } from "@util";
-import { RuleElementSource } from ".";
-import { RuleElementOptions, RuleElementPF2e } from "./base";
+import { RuleElementSource } from "./index.ts";
+import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 
 /** Substitute a pre-determined result for a check's D20 roll */
 class SubstituteRollRuleElement extends RuleElementPF2e {

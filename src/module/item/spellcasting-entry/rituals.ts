@@ -1,8 +1,8 @@
 import { ActorPF2e } from "@actor";
-import { SpellPF2e } from "@item/spell";
+import { SpellPF2e } from "@item/spell/document.ts";
 import { ErrorPF2e } from "@util";
-import { SpellCollection } from "./collection";
-import { BaseSpellcastingEntry, CastOptions, SpellcastingSheetData } from "./types";
+import { SpellCollection } from "./collection.ts";
+import { BaseSpellcastingEntry, CastOptions, SpellcastingSheetData } from "./types.ts";
 
 /** An in-memory spellcasting entry for rituals */
 export class RitualSpellcasting<TActor extends ActorPF2e> implements BaseSpellcastingEntry<TActor> {

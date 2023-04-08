@@ -1,9 +1,9 @@
 import { FeatPF2e, ItemPF2e } from "@item";
-import { ItemGrantData } from "@item/data/base";
-import { FeatCategory } from "@item/feat/types";
+import { ItemGrantData } from "@item/data/base.ts";
+import { FeatCategory } from "@item/feat/types.ts";
 import { sluggify } from "@util";
-import { CharacterPF2e } from ".";
-import { BonusFeat, GrantedFeat, SlottedFeat } from "./data";
+import { CharacterPF2e } from "./document.ts";
+import { BonusFeat, GrantedFeat, SlottedFeat } from "./data/index.ts";
 
 type FeatSlotLevel = number | { id: string; label: string };
 

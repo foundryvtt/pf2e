@@ -1,5 +1,5 @@
-import { EquipmentSystemData, EquipmentSystemSource } from "@item/equipment/data";
-import { BasePhysicalItemSource } from "@item/physical/data";
+import { EquipmentSystemData, EquipmentSystemSource } from "@item/equipment/data.ts";
+import { BasePhysicalItemSource } from "@item/physical/data.ts";
 
 type BookSource = BasePhysicalItemSource<"book", BookSystemSource>;
 

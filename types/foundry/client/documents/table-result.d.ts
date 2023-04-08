@@ -1,4 +1,4 @@
-import { ClientBaseTableResult } from "./client-base-mixes.mjs";
+import { ClientBaseTableResult } from "./client-base-mixes.js";
 
 declare global {
     /**

@@ -1,6 +1,6 @@
-import { ItemSourcePF2e } from "@item/data";
-import { SpellSystemSource } from "@item/spell/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { SpellSystemSource } from "@item/spell/data.ts";
+import { MigrationBase } from "../base.ts";
 
 /**
  * Makes spells use the category for focus/ritual spells instead

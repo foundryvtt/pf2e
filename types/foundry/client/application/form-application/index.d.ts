@@ -1,8 +1,8 @@
-import "./base";
-import "./client-settings";
-import "./document-sheet";
-import "./document-sheet-config";
-import "./image-popout";
-import "./other";
-import "./permission";
-import "./placeables-config";
+import "./base.js";
+import "./client-settings.js";
+import "./document-sheet/index.js";
+import "./document-sheet-config.js";
+import "./image-popout.js";
+import "./other.js";
+import "./permission.js";
+import "./placeables-config.js";

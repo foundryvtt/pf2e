@@ -1,8 +1,8 @@
 import type { NPCPF2e } from "@actor";
-import { NPCSkillData } from "@actor/npc/data";
-import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
+import { NPCSkillData } from "@actor/npc/data.ts";
+import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
 import { LorePF2e } from "@item";
-import { LoreSource } from "@item/data";
+import { LoreSource } from "@item/data/index.ts";
 import { ErrorPF2e, objectHasKey } from "@util";
 
 /** Specialized form to setup skills for an NPC character. */

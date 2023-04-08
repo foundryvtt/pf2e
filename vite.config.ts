@@ -74,7 +74,7 @@ const config = Vite.defineConfig(({ mode }): Vite.UserConfig => {
                         vendor: buildMode === "production" ? Object.keys(packageJSON.dependencies) : [],
                     },
                 },
-                watch: { buildDelay: 500 },
+                watch: { buildDelay: 100 },
             },
         },
         plugins,

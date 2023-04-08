@@ -1,5 +1,5 @@
-import { Coins, PartialPrice } from "@item/physical/data";
-import { Size } from "@module/data";
+import { Coins, PartialPrice } from "@item/physical/data.ts";
+import { Size } from "@module/data.ts";
 
 // Redefined to avoid cyclical reference
 const DENOMINATIONS = ["cp", "sp", "gp", "pp"] as const;

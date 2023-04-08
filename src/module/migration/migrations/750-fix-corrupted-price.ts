@@ -1,7 +1,7 @@
-import { ItemSourcePF2e } from "@item/data";
-import { isPhysicalData } from "@item/data/helpers";
-import { CoinsPF2e } from "@item/physical/helpers";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { isPhysicalData } from "@item/data/helpers.ts";
+import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { MigrationBase } from "../base.ts";
 
 export class Migration750FixCorruptedPrice extends MigrationBase {
     static override version = 0.75;

@@ -1,4 +1,4 @@
-import { CombatantPF2e } from "@module/encounter";
+import { CombatantPF2e } from "@module/encounter/index.ts";
 import { fontAwesomeIcon } from "@util";
 
 /** Add a button to set a check roll as the roller's initiative */

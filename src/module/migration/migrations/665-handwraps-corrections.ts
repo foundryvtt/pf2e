@@ -1,6 +1,6 @@
-import { ItemSourcePF2e } from "@item/data";
+import { ItemSourcePF2e } from "@item/data/index.ts";
 import { sluggify } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Correct the usage and misspelled icon filename for handwraps of mighty blows */
 export class Migration665HandwrapsCorrections extends MigrationBase {

@@ -1,16 +1,16 @@
-import { SkillAbbreviation } from "@actor/creature/data";
-import { createProficiencyModifier, MODIFIER_TYPE } from "@actor/modifiers";
-import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
+import { SkillAbbreviation } from "@actor/creature/data.ts";
+import { createProficiencyModifier, MODIFIER_TYPE } from "@actor/modifiers.ts";
+import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { ActionItemPF2e, ItemPF2e, LorePF2e } from "@item";
-import { isSpellConsumable } from "@item/consumable/spell-consumables";
-import { ItemSourcePF2e } from "@item/data";
-import { BaseWeaponType, WeaponGroup } from "@item/weapon";
-import { WEAPON_CATEGORIES } from "@item/weapon/values";
-import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
-import { PROFICIENCY_RANKS } from "@module/data";
-import { craft } from "@system/action-macros/crafting/craft";
-import { CheckDC } from "@system/degree-of-success";
-import { LocalizePF2e } from "@system/localize";
+import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { BaseWeaponType, WeaponGroup } from "@item/weapon/index.ts";
+import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
+import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
+import { PROFICIENCY_RANKS } from "@module/data.ts";
+import { craft } from "@system/action-macros/crafting/craft.ts";
+import { CheckDC } from "@system/degree-of-success.ts";
+import { LocalizePF2e } from "@system/localize.ts";
 import {
     ErrorPF2e,
     getActionIcon,
@@ -22,19 +22,19 @@ import {
     objectHasKey,
     setHasElement,
 } from "@util";
-import { UUIDUtils } from "@util/uuid-utils";
-import { CharacterPF2e } from ".";
-import { CreatureSheetPF2e } from "../creature/sheet";
-import { AbilityBuilderPopup } from "../sheet/popups/ability-builder";
-import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-proficiencies";
-import { AutomaticBonusProgression } from "./automatic-bonus-progression";
-import { CharacterConfig } from "./config";
-import { CraftingFormula, CraftingFormulaData, craftItem, craftSpellConsumable } from "./crafting";
-import { PreparedFormulaData } from "./crafting/entry";
-import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProficiencies } from "./data";
-import { CharacterSheetData, ClassDCSheetData, CraftingEntriesSheetData, FeatCategorySheetData } from "./data/sheet";
-import { PCSheetTabManager } from "./tab-manager";
-import { ActorPF2e } from "@module/documents";
+import { UUIDUtils } from "@util/uuid-utils.ts";
+import { CharacterPF2e } from "./document.ts";
+import { CreatureSheetPF2e } from "../creature/sheet.ts";
+import { AbilityBuilderPopup } from "../sheet/popups/ability-builder.ts";
+import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-proficiencies.ts";
+import { AutomaticBonusProgression } from "./automatic-bonus-progression.ts";
+import { CharacterConfig } from "./config.ts";
+import { CraftingFormula, CraftingFormulaData, craftItem, craftSpellConsumable } from "./crafting/index.ts";
+import { PreparedFormulaData } from "./crafting/entry.ts";
+import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProficiencies } from "./data/types.ts";
+import { CharacterSheetData, ClassDCSheetData, CraftingEntriesSheetData, FeatCategorySheetData } from "./data/sheet.ts";
+import { PCSheetTabManager } from "./tab-manager.ts";
+import { ActorPF2e } from "@module/documents.ts";
 
 class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e<TActor> {
     protected readonly actorConfigClass = CharacterConfig;

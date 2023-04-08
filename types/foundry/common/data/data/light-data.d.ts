@@ -8,7 +8,7 @@ import {
     NumberField,
     SchemaField,
     StringField,
-} from "../fields.mjs";
+} from "../fields.js";
 
 declare global {
     module foundry {

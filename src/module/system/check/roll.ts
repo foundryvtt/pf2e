@@ -1,8 +1,8 @@
-import { StrikeLookupData } from "@module/chat-message";
-import { ZeroToThree } from "@module/data";
-import { UserPF2e } from "@module/user";
-import { DegreeOfSuccessIndex } from "@system/degree-of-success";
-import { RollDataPF2e } from "@system/rolls";
+import { StrikeLookupData } from "@module/chat-message/index.ts";
+import { ZeroToThree } from "@module/data.ts";
+import { UserPF2e } from "@module/user/index.ts";
+import { DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
+import { RollDataPF2e } from "@system/rolls.ts";
 
 class CheckRoll extends Roll {
     roller: UserPF2e | null;

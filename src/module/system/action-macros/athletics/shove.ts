@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 import { WeaponPF2e } from "@item";
 
 export function shove(options: SkillActionOptions) {

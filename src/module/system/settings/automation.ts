@@ -1,4 +1,4 @@
-import { PartialSettingsData, SettingsMenuPF2e } from "./menu";
+import { PartialSettingsData, SettingsMenuPF2e } from "./menu.ts";
 
 type ConfigPF2eListName = (typeof AutomationSettings.SETTINGS)[number];
 

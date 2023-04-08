@@ -1,7 +1,7 @@
-import { ActorPF2e } from "@actor/index";
+import { ActorPF2e } from "@actor";
 import { SpellPF2e } from "@item";
-import { SpellConsumableItemType } from "@item/consumable/spell-consumables";
-import { OneToTen } from "@module/data";
+import { SpellConsumableItemType } from "@item/consumable/spell-consumables.ts";
+import { OneToTen } from "@module/data.ts";
 import { ErrorPF2e } from "@util";
 
 interface FormInputData extends FormApplicationData<ActorPF2e> {

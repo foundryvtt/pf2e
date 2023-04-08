@@ -1,5 +1,5 @@
-import { FeatPF2e } from "@item/feat";
-import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/sheet";
+import { FeatPF2e } from "@item/feat/document.ts";
+import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/sheet/index.ts";
 import Tagify from "@yaireo/tagify";
 
 class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {

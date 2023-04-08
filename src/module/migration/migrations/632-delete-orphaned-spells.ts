@@ -1,6 +1,6 @@
-import { MigrationBase } from "../base";
-import { SpellcastingEntrySource, SpellSource } from "@item/data";
-import { ActorSourcePF2e } from "@actor/data";
+import { MigrationBase } from "../base.ts";
+import { SpellcastingEntrySource, SpellSource } from "@item/data/index.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
 
 /** Delete owned spells with no corresponding spellcastiong entry */
 export class Migration632DeleteOrphanedSpells extends MigrationBase {

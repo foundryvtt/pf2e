@@ -1,9 +1,9 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { eventToRollParams } from "@scripts/sheet-util";
-import { ActionDefaultOptions } from "@system/action-macros";
-import { DamageRoll } from "@system/damage/roll";
-import { CheckDC, DegreeOfSuccessAdjustment, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { ActionDefaultOptions } from "@system/action-macros/index.ts";
+import { DamageRoll } from "@system/damage/roll.ts";
+import { CheckDC, DegreeOfSuccessAdjustment, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success.ts";
 
 function CheckFeat(actor: ActorPF2e, slug: string) {
     if (actor.items.find((i) => i.slug === slug && i.type === "feat")) {

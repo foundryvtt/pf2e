@@ -1,8 +1,8 @@
 import { ActorPF2e } from "@actor";
-import { ItemSummaryData } from "@item/data";
-import { CoinsPF2e, PhysicalItemPF2e } from "@item/physical";
-import { DENOMINATIONS } from "@item/physical/values";
-import { TreasureSource, TreasureSystemData } from "./data";
+import { ItemSummaryData } from "@item/data/index.ts";
+import { CoinsPF2e, PhysicalItemPF2e } from "@item/physical/index.ts";
+import { DENOMINATIONS } from "@item/physical/values.ts";
+import { TreasureSource, TreasureSystemData } from "./data.ts";
 
 class TreasurePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     get isCoinage(): boolean {
