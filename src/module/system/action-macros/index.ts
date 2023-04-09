@@ -50,7 +50,7 @@ import { treatPoison } from "./medicine/treat-poison.ts";
 import { commandAnAnimal } from "./nature/command-an-animal.ts";
 import { perform } from "./performance/perform.ts";
 import { createForgery } from "./society/create-forgery.ts";
-import { concealAnObject } from "./stealth/conceal-an-object.ts";
+import * as concealAnObject from "./stealth/conceal-an-object.ts";
 import * as hide from "./stealth/hide.ts";
 import * as sneak from "./stealth/sneak.ts";
 import * as palmAnObject from "./thievery/palm-an-object.ts";
@@ -135,7 +135,7 @@ export const ActionMacros = {
     createForgery,
 
     // Stealth
-    concealAnObject,
+    concealAnObject: concealAnObject.legacy,
     hide: hide.legacy,
     sneak: sneak.legacy,
 
@@ -148,6 +148,7 @@ export const ActionMacros = {
 
 export const SystemActions: Action[] = [
     balance.action,
+    concealAnObject.action,
     crawl,
     delay,
     disableDevice.action,
