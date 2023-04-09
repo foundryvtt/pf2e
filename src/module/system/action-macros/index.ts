@@ -22,7 +22,7 @@ import { leap } from "./basic/leap.ts";
 import { ready } from "./basic/ready.ts";
 import { release } from "./basic/release.ts";
 import * as seek from "./basic/seek.ts";
-import { senseMotive } from "./basic/sense-motive.ts";
+import * as senseMotive from "./basic/sense-motive.ts";
 import { stand } from "./basic/stand.ts";
 import { step } from "./basic/step.ts";
 import { stride } from "./basic/stride.ts";
@@ -65,7 +65,7 @@ export const ActionMacros = {
     // Basic
     escape: escape.legacy,
     seek: seek.legacy,
-    senseMotive,
+    senseMotive: senseMotive.legacy,
 
     // Ancestry
     arcaneSlam,
@@ -162,6 +162,7 @@ export const SystemActions: Action[] = [
     ready,
     release,
     seek.action,
+    senseMotive.action,
     sneak.action,
     squeeze.action,
     stand,
