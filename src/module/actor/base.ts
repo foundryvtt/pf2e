@@ -778,14 +778,14 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                   ]
                 : [null, null];
 
-        const reach = params.item?.isOfType("melee")
-            ? params.item.reach
+        const [reach, isMelee] = params.item?.isOfType("melee")
+            ? [params.item.reach, params.item.isMelee]
             : params.item?.isOfType("weapon")
-            ? this.getReach({ action: "attack", weapon: params.item })
-            : null;
+            ? [this.getReach({ action: "attack", weapon: params.item }), params.item.isMelee]
+            : [null, false];
 
         const selfOptions = this.getRollOptions(params.domains ?? []);
-        if (targetToken && typeof reach === "number" && selfToken?.isFlanking(targetToken, { reach })) {
+        if (targetToken && isMelee && typeof reach === "number" && selfToken?.isFlanking(targetToken, { reach })) {
             selfOptions.push("self:flanking");
         }
 
