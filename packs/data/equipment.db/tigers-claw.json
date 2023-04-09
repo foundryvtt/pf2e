@@ -72,13 +72,12 @@
         },
         "rules": [
             {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "selector": "{item|_id}-damage",
-                "text": "This firearm's bullets deal slashing damage instead of piercing and add an additional [[/r 1d6[bleed]]] on a critical hit.",
-                "title": "{item|name}"
+                "critical": true,
+                "damageType": "bleed",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "{item|_id}-damage"
             }
         ],
         "size": "med",

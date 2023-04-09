@@ -30,7 +30,7 @@ import { UUIDUtils } from "@util/uuid-utils";
 /** Override and extend the basic :class:`Item` implementation */
 class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item<TParent> {
     /** Prepared rule elements from this item */
-    rules!: RuleElementPF2e[];
+    declare rules: RuleElementPF2e[];
 
     /** The sluggified name of the item **/
     get slug(): string | null {

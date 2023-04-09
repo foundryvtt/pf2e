@@ -24,5 +24,8 @@ export function senseDirection(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.SenseDirection", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.SenseDirection", "success"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

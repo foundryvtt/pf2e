@@ -1,10 +1,6 @@
 {{#each conditions as |item ii|}}
     {{#if (or item.isIdentified @root.user.isGM)}}
-        <li class="item effects expandable{{#unless item.isIdentified}} unidentified{{/unless}}"
-            data-item-type="{{item.type}}"
-            data-item-id="{{item.id}}"
-            data-action-index="{{ii}}"
-        >
+        <li class="item effects expandable{{#unless item.isIdentified}} unidentified{{/unless}}" data-item-type="{{item.type}}" data-item-id="{{item.id}}">
             <div class="item-name rollable">
                 <div class="item-image" style="background-image: url({{item.img}})">
                     <i class="fas fa-comment-alt"></i>

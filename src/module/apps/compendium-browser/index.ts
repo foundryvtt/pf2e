@@ -89,7 +89,7 @@ class CompendiumBrowser extends Application {
     tabs: BrowserTabs;
 
     packLoader = new PackLoader();
-    activeTab!: TabName;
+    declare activeTab: TabName;
 
     constructor(options = {}) {
         super(options);

@@ -19,7 +19,36 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "option": "crossbow-crack-shot",
+                "toggleable": true
+            },
+            {
+                "key": "DamageDice",
+                "predicate": [
+                    "crossbow-crack-shot",
+                    "item:category:simple",
+                    "item:tag:crossbow"
+                ],
+                "override": {
+                    "upgrade": true
+                },
+                "selector": "strike-damage"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "crossbow-crack-shot",
+                    "item:tag:crossbow"
+                ],
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": "Pathfinder Guns & Gears"
         },

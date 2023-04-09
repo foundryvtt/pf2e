@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { AttackTarget } from "@actor/types";
+import { RollTarget } from "@actor/types";
 import { ItemPF2e } from "@item";
 import { ZeroToTwo } from "@module/data";
 import { RollSubstitution } from "@module/rules/synthetics";
@@ -24,7 +24,7 @@ interface CheckRollContext extends BaseRollContext {
     /** The type of this roll, like 'perception-check' or 'saving-throw'. */
     type?: CheckType;
     /** Targeting data for the check, if applicable */
-    target?: AttackTarget | null;
+    target?: RollTarget | null;
     /** Should this roll be rolled twice? If so, should it keep highest or lowest? */
     rollTwice?: RollTwiceOption;
     /** The actor which initiated this roll. */

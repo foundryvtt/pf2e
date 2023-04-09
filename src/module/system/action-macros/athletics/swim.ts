@@ -18,5 +18,8 @@ export function swim(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Swim", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Swim", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

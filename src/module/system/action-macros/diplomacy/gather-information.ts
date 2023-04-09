@@ -19,5 +19,8 @@ export function gatherInformation(options: SkillActionOptions) {
             ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.success`, ["success", "criticalSuccess"]),
             ActionMacroHelpers.note(selector, PREFIX, "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

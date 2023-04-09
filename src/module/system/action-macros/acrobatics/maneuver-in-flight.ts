@@ -1,8 +1,9 @@
 import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { SingleCheckAction } from "@actor/actions";
 
 const PREFIX = "PF2E.Actions.ManeuverInFlight";
 
-export function maneuverInFlight(options: SkillActionOptions) {
+function maneuverInFlight(options: SkillActionOptions) {
     const slug = options?.skill ?? "acrobatics";
     const rollOptions = ["action:maneuver-in-flight"];
     const modifiers = options?.modifiers;
@@ -20,5 +21,25 @@ export function maneuverInFlight(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, PREFIX, "failure"),
             ActionMacroHelpers.note(selector, PREFIX, "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }
+
+const action = new SingleCheckAction({
+    cost: 1,
+    description: `${PREFIX}.Description`,
+    name: `${PREFIX}.Title`,
+    notes: [
+        { outcome: ["success", "criticalSuccess"], text: `${PREFIX}.Notes.success` },
+        { outcome: ["failure"], text: `${PREFIX}.Notes.failure` },
+        { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
+    ],
+    rollOptions: ["action:maneuver-in-flight"],
+    slug: "maneuver-in-flight",
+    statistic: "acrobatics",
+    traits: ["move"],
+});
+
+export { maneuverInFlight as legacy, action };

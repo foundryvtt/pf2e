@@ -3,7 +3,7 @@ import { HitPointsSummary } from "@actor/base";
 import { CreatureSource } from "@actor/data";
 import { StrikeData } from "@actor/data/base";
 import { MODIFIER_TYPE, MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers";
-import { SaveType } from "@actor/types";
+import { SaveType, SkillLongForm } from "@actor/types";
 import { ArmorPF2e, ConditionPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
 import { isCycle } from "@item/container/helpers";
 import { ArmorSource, ItemType } from "@item/data";
@@ -58,7 +58,7 @@ abstract class CreaturePF2e<
     protected _skills: CreatureSkills | null = null;
 
     /** Skill `Statistic`s for the creature */
-    get skills(): CreatureSkills {
+    override get skills(): CreatureSkills {
         if (this._skills) return this._skills;
 
         this._skills = Object.entries(this.system.skills).reduce((current, [shortForm, skill]: [string, SkillData]) => {
@@ -208,7 +208,15 @@ abstract class CreaturePF2e<
 
     get perception(): Statistic {
         const stat = this.system.attributes.perception;
-        return Statistic.from(this, stat, "perception", "PF2E.PerceptionCheck", "perception-check");
+        return new Statistic(this, {
+            slug: "perception",
+            label: "PF2E.PerceptionLabel",
+            check: {
+                label: "PF2E.PerceptionCheck",
+                type: "perception-check",
+            },
+            modifiers: [...stat.modifiers],
+        });
     }
 
     get wornArmor(): ArmorPF2e<this> | null {
@@ -267,6 +275,12 @@ abstract class CreaturePF2e<
         }
 
         return false;
+    }
+
+    override getStatistic(slug: SaveType | SkillLongForm | "perception"): Statistic;
+    override getStatistic(slug: string): Statistic | null;
+    override getStatistic(slug: string): Statistic | null {
+        return slug === "perception" ? this.perception : super.getStatistic(slug);
     }
 
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */

@@ -23,5 +23,8 @@ export function decipherWriting(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.DecipherWriting", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.DecipherWriting", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

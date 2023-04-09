@@ -440,7 +440,7 @@ class StatisticModifier {
     /** The list of modifiers which affect the statistic. */
     protected _modifiers: ModifierPF2e[];
     /** The total modifier for the statistic, after applying stacking rules. */
-    totalModifier!: number;
+    declare totalModifier: number;
     /** A textual breakdown of the modifiers factoring into this statistic */
     breakdown = "";
     /** Optional notes, which are often added to statistic modifiers */

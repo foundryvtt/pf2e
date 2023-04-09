@@ -43,5 +43,8 @@ export function whirlingThrow(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.WhirlingThrow", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.WhirlingThrow", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

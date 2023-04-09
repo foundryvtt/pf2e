@@ -141,7 +141,7 @@ export class ActionMacroHelpers {
         }
 
         if (rollers.length === 0) {
-            return ui.notifications.warn(game.i18n.localize("PF2E.ActionsWarning.NoActor"));
+            throw new Error(game.i18n.localize("PF2E.ActionsWarning.NoActor"));
         }
 
         const { token: target, actor: targetActor } = options.target?.() ?? this.target();
@@ -249,7 +249,7 @@ export class ActionMacroHelpers {
 
                 const dosAdjustments = extractDegreeOfSuccessAdjustments(actor.synthetics, domains);
 
-                CheckPF2e.roll(
+                await CheckPF2e.roll(
                     check,
                     {
                         actor: selfActor,

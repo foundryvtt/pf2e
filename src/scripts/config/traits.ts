@@ -398,6 +398,7 @@ const weaponTraits = {
     consumable: "PF2E.TraitConsumable",
     "critical-fusion": "PF2E.TraitCriticalFusion",
     cursed: "PF2E.TraitCursed",
+    "deadly-d4": "PF2E.TraitDeadlyD4",
     "deadly-d6": "PF2E.TraitDeadlyD6",
     "deadly-d8": "PF2E.TraitDeadlyD8",
     "deadly-2d8": "PF2E.TraitDeadly2D8",

@@ -1,7 +1,7 @@
-import { balance } from "./acrobatics/balance";
-import { maneuverInFlight } from "./acrobatics/maneuver-in-flight";
-import { squeeze } from "./acrobatics/squeeze";
-import { tumbleThrough } from "./acrobatics/tumble-through";
+import * as balance from "./acrobatics/balance";
+import * as maneuverInFlight from "./acrobatics/maneuver-in-flight";
+import * as squeeze from "./acrobatics/squeeze";
+import * as tumbleThrough from "./acrobatics/tumble-through";
 import { arcaneSlam } from "./ancestry/automaton/arcane-slam";
 import { climb } from "./athletics/climb";
 import { disarm } from "./athletics/disarm";
@@ -13,9 +13,20 @@ import { shove } from "./athletics/shove";
 import { swim } from "./athletics/swim";
 import * as trip from "./athletics/trip";
 import { whirlingThrow } from "./athletics/whirling-throw";
+import { crawl } from "./basic/crawl";
+import { delay } from "./basic/delay";
+import { dropProne } from "./basic/drop-prone";
 import { escape } from "./basic/escape";
+import { interact } from "./basic/interact";
+import { leap } from "./basic/leap";
+import { ready } from "./basic/ready";
+import { release } from "./basic/release";
 import { seek } from "./basic/seek";
 import { senseMotive } from "./basic/sense-motive";
+import { stand } from "./basic/stand";
+import { step } from "./basic/step";
+import { stride } from "./basic/stride";
+import { takeCover } from "./basic/take-cover";
 import { tamper } from "./class/inventor/tamper";
 import { craft, repair } from "./crafting";
 import { createADiversion } from "./deception/create-a-diversion";
@@ -68,10 +79,10 @@ export const ActionMacros = {
     track,
 
     // Acrobatics
-    balance,
-    maneuverInFlight,
-    squeeze,
-    tumbleThrough,
+    balance: balance.legacy,
+    maneuverInFlight: maneuverInFlight.legacy,
+    squeeze: squeeze.legacy,
+    tumbleThrough: tumbleThrough.legacy,
 
     // Athletics
     climb,
@@ -135,4 +146,23 @@ export const ActionMacros = {
     steal,
 };
 
-export const SystemActions: Action[] = [hide.action, sneak.action, trip.action];
+export const SystemActions: Action[] = [
+    balance.action,
+    crawl,
+    delay,
+    dropProne,
+    hide.action,
+    interact,
+    leap,
+    maneuverInFlight.action,
+    ready,
+    release,
+    sneak.action,
+    squeeze.action,
+    stand,
+    step,
+    stride,
+    takeCover,
+    trip.action,
+    tumbleThrough.action,
+];

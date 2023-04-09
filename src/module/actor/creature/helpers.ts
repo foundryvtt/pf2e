@@ -1,6 +1,70 @@
 import { ImmunityData } from "@actor/data/iwr";
 import { CreaturePF2e } from "./document";
 import { ImmunityType } from "@actor/types";
+import { MeleePF2e, WeaponPF2e } from "@item";
+import { ModifierPF2e } from "@actor/modifiers";
+import { ErrorPF2e } from "@util";
+import { PredicatePF2e } from "@system/predication";
+
+/** A static class of helper functions for applying automation for certain weapon traits on attack rolls */
+class StrikeAttackTraits {
+    protected static getLabel(traitOrTag: string): string {
+        const traits: Record<string, string | undefined> = CONFIG.PF2E.weaponTraits;
+        const tags: Record<string, string | undefined> = CONFIG.PF2E.otherWeaponTags;
+        return traits[traitOrTag] ?? tags[traitOrTag] ?? traitOrTag;
+    }
+
+    protected static getUnannotatedTrait(trait: string): string {
+        return trait.replace(/-d?\d{1,3}$/, "");
+    }
+
+    static createAttackModifiers({ weapon }: { weapon: WeaponPF2e | MeleePF2e }): ModifierPF2e[] {
+        const { actor } = weapon;
+        if (!actor) throw ErrorPF2e("The weapon must be embedded");
+
+        return weapon.system.traits.value.flatMap((trait) => {
+            const unannotatedTrait = this.getUnannotatedTrait(trait);
+            switch (unannotatedTrait) {
+                case "volley": {
+                    if (!weapon.rangeIncrement) return [];
+
+                    const penaltyRange = Number(/-(\d+)$/.exec(trait)![1]);
+                    return new ModifierPF2e({
+                        slug: unannotatedTrait,
+                        label: this.getLabel(trait),
+                        modifier: -2,
+                        type: "untyped",
+                        ignored: true,
+                        predicate: new PredicatePF2e(
+                            { lte: ["target:distance", penaltyRange] },
+                            { not: "self:ignore-volley-penalty" }
+                        ),
+                    });
+                }
+                case "sweep": {
+                    return new ModifierPF2e({
+                        slug: unannotatedTrait,
+                        label: this.getLabel(trait),
+                        modifier: 1,
+                        type: "circumstance",
+                        predicate: new PredicatePF2e("self:sweep-bonus"),
+                    });
+                }
+                case "backswing": {
+                    return new ModifierPF2e({
+                        slug: unannotatedTrait,
+                        label: this.getLabel(trait),
+                        modifier: 1,
+                        type: "circumstance",
+                        predicate: new PredicatePF2e("self:backswing-bonus"),
+                    });
+                }
+                default:
+                    return [];
+            }
+        });
+    }
+}
 
 /** Set immunities for creatures with traits call for them */
 function setImmunitiesFromTraits(actor: CreaturePF2e): void {
@@ -44,4 +108,4 @@ function setImmunitiesFromTraits(actor: CreaturePF2e): void {
     }
 }
 
-export { setImmunitiesFromTraits };
+export { StrikeAttackTraits, setImmunitiesFromTraits };

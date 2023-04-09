@@ -30,5 +30,8 @@ export function subsist(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Subsist", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Subsist", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

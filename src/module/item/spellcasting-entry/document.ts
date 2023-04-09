@@ -20,10 +20,10 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     extends ItemPF2e<TParent>
     implements SpellcastingEntry<TParent>
 {
-    spells!: SpellCollection<NonNullable<TParent>, this> | null;
+    declare spells: SpellCollection<NonNullable<TParent>, this> | null;
 
     /** Spellcasting attack and dc data created during actor preparation */
-    statistic!: Statistic;
+    declare statistic: Statistic;
 
     get ability(): AbilityString {
         return this.system.ability.value || "int";

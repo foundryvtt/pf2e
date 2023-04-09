@@ -102,3 +102,11 @@ declare interface Array<T> {
 declare interface RegExpConstructor {
     escape(string: string): string;
 }
+
+declare interface Set<T> {
+    /**
+     * Return the first value from the set.
+     * @returns The first element in the set, or undefined
+     */
+    first(): T | undefined;
+}

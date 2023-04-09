@@ -18,5 +18,8 @@ export function pickALock(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.PickALock", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.PickALock", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

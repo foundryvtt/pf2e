@@ -45,6 +45,7 @@
                 "Title": "Avoid Notice"
             },
             "Balance": {
+                "Description": "<p>You move across a narrow surface or uneven ground, attempting an Acrobatics check against its Balance DC. You are flat-footed while on a narrow surface or uneven ground.</p><p><strong>Critical Success</strong> You move up to your Speed.<br><strong>Success</strong> You move up to your Speed, treating it as difficult terrain (every 5 feet costs 10 feet of movement).<br><strong>Failure</strong> You must remain stationary to keep your balance (wasting the action) or you fall. If you fall, your turn ends.<br><strong>Critical Failure</strong> You fall and your turn ends.</p><section class=\"sample-tasks\"><h2>Sample Balance Tasks</h2><p><strong>Untrained</strong> tangled roots, uneven cobblestones</p><p><strong>Trained</strong> wooden beam</p><p><strong>Expert</strong> deep, loose gravel</p><p><strong>Master</strong> tightrope, smooth sheet of ice</p><p><strong>Legendary</strong> razor's edge, chunks of floor falling in midair</p></section>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> You fall and your turn ends.",
                     "criticalSuccess": "<strong>Critical Success</strong> You move up to your Speed.",
@@ -134,6 +135,10 @@
                     "NotPhysicalItem": "Specified item {item} is not a physical item."
                 }
             },
+            "Crawl": {
+                "Description": "<p>You move 5 feet by crawling and continue to stay prone.</p>",
+                "Title": "Crawl"
+            },
             "CreateADiversion": {
                 "DistractingWords": {
                     "Title": "Create a Diversion - Distracting Words"
@@ -182,6 +187,10 @@
                     "NoSkill": "The Decipher Writing action can be used with different skills, and no skill was specified. Arcana is typically used for writing about magic or science, Occultism for esoteric texts about mysteries and philosophy, Religion for scripture, and Society for coded messages or archaic documents."
                 }
             },
+            "Delay": {
+                "Description": "<p>You wait for the right moment to act. The rest of your turn doesn't happen yet. Instead, you're removed from the initiative order. You can return to the initiative order as a free action triggered by the end of any other creature's turn. This permanently changes your initiative to the new position. You can't use reactions until you return to the initiative order. If you Delay an entire round without returning to the initiative order, the actions from the Delayed turn are lost, your initiative doesn't change, and your next turn occurs at your original position in the initiative order.</p><p>When you Delay, any persistent damage or other negative effects that normally occur at the start or end of your turn occur immediately when you use the Delay action. Any beneficial effects that would end at any point during your turn also end. The GM might determine that other effects end when you Delay as well. Essentially, you can't Delay to avoid negative consequences that would happen on your turn or to extend beneficial effects that would end on your turn.</p>",
+                "Title": "Delay"
+            },
             "Demoralize": {
                 "Notes": {
                     "criticalSuccess": "<strong>Critical Success</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.TBSHQspnbcqxsmjL]{Frightened 2}.",
@@ -205,6 +214,10 @@
                     "success": "<strong>Success</strong> You weaken your opponent's grasp on the item. Until the start of that creature's turn, attempts to Disarm the opponent of that item gain a +2 circumstance bonus, and the target takes a -2 circumstance penalty to attacks with the item or other checks requiring a firm grasp on the item. @UUID[Compendium.pf2e.equipment-effects.z3ATL8DcRVrT0Uzt]{Effect: Disarm (Success)}"
                 },
                 "Title": "Disarm"
+            },
+            "DropProne": {
+                "Description": "<p>You fall prone.</p>",
+                "Title": "Drop Prone"
             },
             "EncouragingWords": {
                 "BadArgs": "This action must be performed with exactly one character or NPC.",
@@ -292,6 +305,7 @@
                 "Title": "Impersonate"
             },
             "Interact": {
+                "Description": "<p>You use your hand or hands to manipulate an object or the terrain. You can grab an unattended or stored object, open a door, or produce some similar effect. You might have to attempt a skill check to determine if your Interact action was successful.</p>",
                 "Draw1H": {
                     "Description": "{actor} draws their {weapon}.",
                     "Title": "Draw (1H)"
@@ -327,6 +341,10 @@
                 },
                 "Title": "Interact"
             },
+            "Leap": {
+                "Description": "<p>You take a careful, short jump. You can Leap up to 10 feet horizontally if your Speed is at least 15 feet, or up to 15 feet horizontally if your Speed is at least 30 feet. You land in the space where your Leap ends (meaning you can typically clear a 5-foot gap, or a 10-foot gap if your Speed is 30 feet or more).</p><p>If you Leap vertically, you can move up to 3 feet vertically and 5 feet horizontally onto an elevated surface.</p><p>Jumping a greater distance requires using the Athletics skill.</p>",
+                "Title": "Leap"
+            },
             "Lie": {
                 "Notes": {
                     "failure": "<strong>Failure</strong> The target doesn't believe your lie and gains a +4 circumstance bonus against your attempts to Lie for the duration of your conversation. The target is also more likely to be suspicious of you in the future.",
@@ -351,6 +369,7 @@
                 "Title": "Make an Impression"
             },
             "ManeuverInFlight": {
+                "Description": "<p>You try a difficult maneuver while flying. Attempt an Acrobatics check. The GM determines what maneuvers are possible, but they rarely allow you to move farther than your fly Speed.</p><p><strong>Success</strong> You succeed at the maneuver.<br><strong>Failure</strong> Your maneuver fails. The GM chooses if you simply can't move or if some other detrimental effect happens. The outcome should be appropriate for the maneuver you attempted (for instance, being blown off course if you were trying to fly against a strong wind).<br><strong>Critical Failure</strong> As failure, but the consequence is more dire.</p><section class=\"sample-tasks\"><h2>Sample Maneuver in Flight Tasks</h2><p><p><strong>Trained</strong> steep ascent or descent</p><p><strong>Expert</strong> fly against the wind, hover midair</p><p><strong>Master</strong> reverse direction</p><p><strong>Legendary</strong> fly through gale force winds</p></section>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> As failure, but the consequence is more dire.",
                     "failure": "<strong>Failure</strong> Your maneuver fails. The GM chooses if you simply can't move or if some other detrimental effect happens. The outcome should be appropriate for the maneuver you attempted (for instance, being blown off course if you were trying to fly against a strong wind).",
@@ -421,7 +440,12 @@
                 "ShieldIsDestroyed": "{actor}'s {shield} is destroyed.",
                 "SingleActionTitle": "Raise a Shield"
             },
+            "Ready": {
+                "Description": "<p>You prepare to use an action that will occur outside your turn. Choose a single action or free action you can use, and designate a trigger. Your turn then ends. If the trigger you designated occurs before the start of your next turn, you can use the chosen action as a reaction (provided you still meet the requirements to use it). You can't Ready a free action that already has a trigger.</p><p>If you have a multiple attack penalty and your readied action is an attack action, your readied attack takes the multiple attack penalty you had at the time you used Ready. This is one of the few times the multiple attack penalty applies when it's not your turn.</p>",
+                "Title": "Ready"
+            },
             "Release": {
+                "Description": "<p>You release something you're holding in your hand or hands. This might mean dropping an item, removing one hand from your weapon while continuing to hold it in another hand, releasing a rope suspending a chandelier, or performing a similar action. Unlike most manipulate actions, Release does not trigger reactions that can be triggered by actions with the manipulate trait (such as Attack of Opportunity).</p><p>If you want to prepare to Release something outside of your turn, use the Ready activity.</p>",
                 "Drop": {
                     "Description": "{actor} drops their {weapon} onto the ground.",
                     "Title": "Drop"
@@ -520,12 +544,17 @@
                 "Title": "Sneak"
             },
             "Squeeze": {
+                "Description": "<p>You contort yourself to squeeze through a space so small you can barely fit through. This action is for exceptionally small spaces; many tight spaces are difficult terrain that you can move through more quickly and without a check.</p><p><strong>Critical Success</strong> You squeeze through the tight space in 1 minute per 10 feet of squeezing.<br><strong>Success</strong> You squeeze through in 1 minute per 5 feet.<br><strong>Critical Failure</strong> You become stuck in the tight space. While you're stuck, you can spend 1 minute attempting another Acrobatics check at the same DC. Any result on that check other than a critical failure causes you to become unstuck.</p><section class=\"sample-tasks\"><h2>Sample Squeeze Tasks</h2><p><p><strong>Trained</strong> space barely fitting your shoulders</p><p><strong>Master</strong> space barely fitting your head</p></section>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> You become stuck in the tight space. While you're stuck, you can spend 1 minute attempting another Acrobatics check at the same DC. Any result on that check other than a critical failure causes you to become unstuck.",
                     "criticalSuccess": "<strong>Critical Success</strong> You squeeze through the tight space in 1 minute per 10 feet of squeezing.",
                     "success": "<strong>Success</strong> You squeeze through in 1 minute per 5 feet."
                 },
                 "Title": "Squeeze"
+            },
+            "Stand": {
+                "Description": "<p>You stand up from prone.</p>",
+                "Title": "Stand"
             },
             "Steal": {
                 "Notes": {
@@ -542,6 +571,14 @@
                 "RecoverStamina": "{name} has {ratio} SP and spends a resolve point, recovering half their maximum Stamina.",
                 "StaminaNotEnabled": "The Stamina variant is not enabled.",
                 "Title": "Steel Your Resolve"
+            },
+            "Step": {
+                "Description": "<p>You carefully move 5 feet. Unlike most types of movement, Stepping doesn't trigger reactions, such as Attacks of Opportunity, that can be triggered by move actions or upon leaving or entering a square.</p><p>You can't Step into difficult terrain, and you can't Step using a Speed other than your land Speed.</p>",
+                "Title": "Step"
+            },
+            "Stride": {
+                "Description": "<p>You move up to your Speed.</p>",
+                "Title": "Stride"
             },
             "Subsist": {
                 "AfterExplorationPenalty": "After Exploration",
@@ -563,6 +600,10 @@
                     "success": "<strong>Success</strong> You move through the water 5 feet, plus 5 feet per 20 feet of your land Speed (a total of 10 feet for most PCs)."
                 },
                 "Title": "Swim"
+            },
+            "TakeCover": {
+                "Description": "<p>You press yourself against a wall or duck behind an obstacle to take better advantage of cover. If you would have standard cover, you instead gain greater cover, which provides a +4 circumstance bonus to AC; to Reflex saves against area effects; and to Stealth checks to Hide, Sneak, or otherwise avoid detection. Otherwise, you gain the benefits of standard cover (a +2 circumstance bonus instead). This lasts until you move from your current space, use an attack action, become unconscious, or end this effect as a free action.</p>",
+                "Title": "Take Cover"
             },
             "Tamper": {
                 "Notes": {
@@ -629,6 +670,7 @@
                 "Title": "Trip"
             },
             "TumbleThrough": {
+                "Description": "<p>You Stride up to your Speed. During this movement, you can try to move through the space of one enemy. Attempt an Acrobatics check against the enemy's Reflex DC as soon as you try to enter its space. You can Tumble Through using Climb, Fly, Swim, or another action instead of Stride in the appropriate environment.</p><p><strong>Success</strong> You move through the enemy's space, treating the squares in its space as difficult terrain (every 5 feet costs 10 feet of movement). If you don't have enough Speed to move all the way through its space, you get the same effect as a failure.<br><strong>Failure</strong> Your movement ends, and you trigger reactions as if you had moved out of the square you started in.</p>",
                 "Notes": {
                     "failure": "<strong>Failure</strong> Your movement ends, and you trigger reactions as if you had moved out of the square you started in.",
                     "success": "<strong>Success</strong> You move through the enemy's space, treating the squares in its space as difficult terrain (every 5 feet costs 10 feet of movement). If you don't have enough Speed to move all the way through its space, you get the same effect as a failure."

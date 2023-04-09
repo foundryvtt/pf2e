@@ -19,5 +19,8 @@ export function highJump(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.HighJump", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.HighJump", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

@@ -18,11 +18,12 @@ import {
 import {
     AbilityString,
     AttackItem,
-    AttackRollContext,
-    AttackRollContextParams,
+    CheckContext,
+    CheckContextParams,
     SaveType,
-    StrikeRollContext,
-    StrikeRollContextParams,
+    RollContext,
+    RollContextParams,
+    SkillLongForm,
 } from "@actor/types";
 import {
     ABILITY_ABBREVIATIONS,
@@ -99,7 +100,7 @@ import {
 import { CharacterSheetTabVisibility } from "./data/sheet";
 import { CharacterFeats } from "./feats";
 import {
-    StrikeWeaponTraits,
+    PCStrikeAttackTraits,
     createForceOpenPenalty,
     createShoddyPenalty,
     imposeOversizedWeaponCondition,
@@ -109,28 +110,28 @@ import { CHARACTER_SHEET_TABS } from "./values";
 
 class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends CreaturePF2e<TParent> {
     /** Core singular embeds for PCs */
-    ancestry!: AncestryPF2e<this> | null;
-    heritage!: HeritagePF2e<this> | null;
-    background!: BackgroundPF2e<this> | null;
-    class!: ClassPF2e<this> | null;
-    deity!: DeityPF2e<this> | null;
+    declare ancestry: AncestryPF2e<this> | null;
+    declare heritage: HeritagePF2e<this> | null;
+    declare background: BackgroundPF2e<this> | null;
+    declare class: ClassPF2e<this> | null;
+    declare deity: DeityPF2e<this> | null;
 
     /** A cached reference to this PC's familiar */
-    familiar: FamiliarPF2e | null = null;
+    declare familiar: FamiliarPF2e | null;
 
-    feats!: CharacterFeats<this>;
-    pfsBoons!: FeatPF2e<this>[];
-    deityBoonsCurses!: FeatPF2e<this>[];
+    declare feats: CharacterFeats<this>;
+    declare pfsBoons: FeatPF2e<this>[];
+    declare deityBoonsCurses: FeatPF2e<this>[];
 
     /** All base casting tradition proficiences, which spellcasting build off of */
-    traditions!: Record<MagicTradition, Statistic>;
+    declare traditions: Record<MagicTradition, Statistic>;
 
     /** The primary class DC */
-    classDC!: Statistic | null;
-    /** All class DCs regardless of whether or not its the primary */
-    classDCs!: Record<string, Statistic>;
+    declare classDC: Statistic | null;
+    /** All class DCs, including the primary */
+    declare classDCs: Record<string, Statistic>;
 
-    override initiative!: ActorInitiative;
+    declare initiative: ActorInitiative;
 
     // Internal cached value of character skills
     protected override _skills: CharacterSkills | null = null;
@@ -179,8 +180,27 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         return this._skills;
     }
 
+    override get perception(): Statistic {
+        const data = this.system.attributes.perception;
+        const perception = super.perception;
+        return mergeObject(perception, {
+            rank: data.rank,
+            ability: data.ability,
+            proficient: data.rank >= 1,
+        });
+    }
+
     get heroPoints(): { value: number; max: number } {
         return deepClone(this.system.resources.heroPoints);
+    }
+
+    /** Retrieve lore skills, class statistics, and spellcasting */
+    override getStatistic(slug: SaveType | SkillLongForm | "perception" | "classDC" | MagicTradition): Statistic;
+    override getStatistic(slug: string): Statistic | null;
+    override getStatistic(slug: string): Statistic | null {
+        if (slug === "classDC") return this.classDC;
+        if (objectHasKey(this.traditions, slug)) return this.traditions[slug];
+        return this.classDCs[slug] ?? super.getStatistic(slug);
     }
 
     async getCraftingFormulas(): Promise<CraftingFormula[]> {
@@ -250,6 +270,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 await this.addToInventory(itemSource);
             }
         }
+    }
+
+    protected override _initialize() {
+        this.familiar ??= null;
+        super._initialize();
     }
 
     /** If one exists, prepare this character's familiar */
@@ -694,7 +719,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             }
 
             // Spellcasting entries extend other statistics, usually a tradition, but sometimes class dc
-            const baseStat = this.getProficiencyStatistic(entry.system.proficiency.slug);
+            const baseStat = this.getStatistic(entry.system.proficiency.slug);
             if (!baseStat) continue;
 
             entry.system.ability.value = baseStat.ability ?? entry.system.ability.value;
@@ -759,13 +784,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         if (systemData.attributes.familiarAbilities.value > 0) {
             this.rollOptions.all["self:has-familiar"] = true;
         }
-    }
-
-    /** Using a string, attempts to retrieve a statistic proficiency */
-    getProficiencyStatistic(slug: string): Statistic | null {
-        if (slug === "classDC") return this.classDC;
-        if (objectHasKey(this.traditions, slug)) return this.traditions[slug];
-        return this.classDCs[slug] ?? this.skills[slug] ?? null;
     }
 
     private setAbilityScores(): void {
@@ -1754,10 +1772,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                         return null;
                     }
 
-                    const context = await this.getCheckRollContext({
+                    const context = await this.getCheckContext({
                         item: weapon,
                         domains: selectors,
                         statistic: action,
+                        target: { token: game.user.targets.first() ?? null },
+                        targetedDC: "armor",
                         options: new Set([...baseOptions, ...params.options, ...action.options]),
                         viewOnly: params.getFormula,
                     });
@@ -1826,13 +1846,14 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         for (const method of ["damage", "critical"] as const) {
             action[method] = async (params: DamageRollParams = {}): Promise<string | Rolled<DamageRoll> | null> => {
-                const domains = ["all", `{weapon.id}-damage`, "strike-damage", "damage-roll"];
+                const domains = ["all", `${weapon.id}-damage`, "strike-damage", "damage-roll"];
                 params.options ??= [];
 
                 const context = await this.getRollContext({
                     item: weapon,
                     viewOnly: params.getFormula ?? false,
                     statistic: action,
+                    target: { token: game.user.targets.first() ?? null },
                     domains,
                     options: new Set([...params.options, ...baseOptions, ...action.options]),
                 });
@@ -1915,28 +1936,29 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     }
 
     /** Modify this weapon from AdjustStrike rule elements */
-    override getRollContext<
-        TStatistic extends StatisticModifier | StatisticCheck | null,
-        TItem extends AttackItem | null
-    >(params: StrikeRollContextParams<TStatistic, TItem>): Promise<StrikeRollContext<this, TStatistic, TItem>>;
-    override async getRollContext(params: StrikeRollContextParams): Promise<StrikeRollContext<this>> {
+    override getRollContext<TStatistic extends StatisticCheck | StrikeData | null, TItem extends AttackItem | null>(
+        params: RollContextParams<TStatistic, TItem>
+    ): Promise<RollContext<this, TStatistic, TItem>>;
+    override async getRollContext(params: RollContextParams): Promise<RollContext<this>> {
         const context = await super.getRollContext(params);
-        if (context.self.item?.isOfType("weapon")) {
-            StrikeWeaponTraits.adjustWeapon(context.self.item);
+        if (params.statistic instanceof StatisticModifier && context.self.item?.isOfType("weapon")) {
+            PCStrikeAttackTraits.adjustWeapon(context.self.item);
         }
 
         return context;
     }
 
     /** Create attack-roll modifiers from weapon traits */
-    override getCheckRollContext<
-        TStatistic extends StatisticCheck | StatisticModifier,
-        TItem extends AttackItem | null
-    >(params: AttackRollContextParams<TStatistic, TItem>): Promise<AttackRollContext<this, TStatistic, TItem>>;
-    override async getCheckRollContext(params: AttackRollContextParams): Promise<AttackRollContext<this>> {
-        const context = await super.getCheckRollContext(params);
-        if (context.self.item?.isOfType("weapon")) {
-            const fromTraits = StrikeWeaponTraits.createAttackModifiers(context.self.item, params.domains);
+    override getCheckContext<TStatistic extends StatisticCheck | StrikeData, TItem extends AttackItem | null>(
+        params: CheckContextParams<TStatistic, TItem>
+    ): Promise<CheckContext<this, TStatistic, TItem>>;
+    override async getCheckContext(params: CheckContextParams): Promise<CheckContext<this>> {
+        const context = await super.getCheckContext(params);
+        if (params.statistic instanceof StatisticModifier && context.self.item?.isOfType("weapon")) {
+            const fromTraits = PCStrikeAttackTraits.createAttackModifiers({
+                weapon: context.self.item,
+                domains: params.domains,
+            });
             context.self.modifiers.push(...fromTraits);
         }
 

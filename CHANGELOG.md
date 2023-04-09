@@ -1,5 +1,41 @@
 # Changelog
 
+## Version 4.10.4
+
+### Bugfixes
+* (Dire Weasel) Include orichalcum in material damage effects
+* (stwlam) Fix expansion of item summaries on PC effects tab
+* (Supe) Fix perception label in modifiers dialog
+
+### Data Updates
+* (Dire Weasel) Fix name of Devrin's Dazzling Diversion
+* (Dire Weasel) Fix selectors on several Sense rule elements for low-light vision
+* (MrVauxs) Add Deadly D4 trait
+* (stwlam) Fix Dread Marshal Stance effect to apply to all damage rolls
+
+
+## Version 4.10.3
+
+### Bugfixes
+* (stwlam) Fix generation of magic weapon names
+
+
+## Version 4.10.2
+
+### Bugfixes
+* (stwlam) Fix setting homebrew base weapon types in weapon sheet
+* (stwlam) Fix toggling of "dead" overlay from status effects HUD
+
+### Data Updates
+* (Dire Weasel) Update Tiger's Claw Note RE to DamageDice
+* (Dire Weasel) Add Note RE to Wolf Drag
+* (Dire Weasel) Add damage type to Sparkblade lightning
+* (InfamousSky) Add labeled counter to Vital Beacon effect
+* (Roxim) Remove bestiary ability link from Reflection of Life
+* (TMun) Add NPCs and items from PFS 4-11
+* (zachjb) Adjust Formulated Sunlight quantity and charges to match rations
+
+
 ## Version 4.10.1
 
 ### System Improvements
@@ -23,7 +59,7 @@
 * (Chup) Add confirmation dialog when selling treasure from inventory
 * (Dire Weasel) Include damage type of persistent damage conditions and NPCs' attacks in roll options
 * (In3luki) Speed up adding event listeners to large numbers of damage chat cards
-* (JulieWinchester) Show effect descriptions in effects panel, add button to send to chat
+* (JellyfishJail) Show effect descriptions in effects panel, add button to send to chat
 * (Rory) Add pre-filtering to action compendium browser
 * (stwlam) Adjust derived equipment prices for size
 * (stwlam) Highlight row of encounter tracker's active turn with alliance color

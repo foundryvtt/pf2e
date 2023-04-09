@@ -73,6 +73,9 @@ function trip(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Trip", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Trip", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }
 

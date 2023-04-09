@@ -18,5 +18,8 @@ export function treatPoison(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.TreatPoison", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.TreatPoison", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

@@ -36,7 +36,7 @@ interface SingleCheckActionData extends BaseActionData<SingleCheckActionVariantD
     statistic: string;
 }
 
-interface SingleCheckActionRollOptions extends ActionUseOptions {
+interface SingleCheckActionUseOptions extends ActionUseOptions {
     actors: ActorPF2e | ActorPF2e[];
     difficultyClass: CheckDC | string;
     modifiers: ModifierPF2e[];
@@ -88,41 +88,43 @@ class SingleCheckActionVariant extends BaseActionVariant {
         return this.#statistic ?? this.#action.statistic;
     }
 
-    override async use(options: Partial<SingleCheckActionRollOptions> = {}) {
-        return new Promise((resolve: (result: CheckResultCallback) => void) => {
-            const difficultyClass = options?.difficultyClass ?? this.difficultyClass;
-            const modifiers = options?.modifiers ?? [];
-            if (options?.multipleAttackPenalty) {
-                const map = options.multipleAttackPenalty;
-                const modifier = map > 0 ? Math.min(2, map) * -5 : map;
-                modifiers.push(new ModifierPF2e({ label: "PF2E.MultipleAttackPenalty", modifier }));
-            }
-            const notes = (this.notes as SingleCheckActionRollNoteData[])
-                .concat(options?.notes ?? [])
-                .map(toRollNoteSource)
-                .map((note) => new RollNotePF2e(note));
-            const rollOptions = this.rollOptions.concat(options?.rollOptions ?? []);
-            const slug = this.statistic;
-            const title = this.name ? `${this.#action.name} - ${this.name}` : this.#action.name;
-            ActionMacroHelpers.simpleRollActionCheck({
-                actors: options?.actors,
-                title,
-                actionGlyph: getActionGlyph(this.cost ?? null) as ActionGlyph,
-                callback: resolve,
-                checkContext: (opts) => this.checkContext(opts, { modifiers, rollOptions, slug }),
-                difficultyClass: isCheckDC(difficultyClass) ? difficultyClass : undefined,
-                difficultyClassStatistic: isString(difficultyClass)
-                    ? (target) => getProperty(target, difficultyClass) as Statistic
-                    : undefined,
-                event: options?.event,
-                extraNotes: (selector) =>
-                    notes.map((note) => {
-                        note.selector ||= selector; // treat empty selectors as always applicable to this check
-                        return note;
-                    }),
-                traits: this.traits,
-            });
+    override async use(options: Partial<SingleCheckActionUseOptions> = {}) {
+        const difficultyClass = options?.difficultyClass ?? this.difficultyClass;
+        const modifiers = options?.modifiers ?? [];
+        if (options?.multipleAttackPenalty) {
+            const map = options.multipleAttackPenalty;
+            const modifier = map > 0 ? Math.min(2, map) * -5 : map;
+            modifiers.push(new ModifierPF2e({ label: "PF2E.MultipleAttackPenalty", modifier }));
+        }
+        const notes = (this.notes as SingleCheckActionRollNoteData[])
+            .concat(options?.notes ?? [])
+            .map(toRollNoteSource)
+            .map((note) => new RollNotePF2e(note));
+        const rollOptions = this.rollOptions.concat(options?.rollOptions ?? []);
+        const slug = this.statistic;
+        const title = this.name
+            ? `${game.i18n.localize(this.#action.name)} - ${game.i18n.localize(this.name)}`
+            : game.i18n.localize(this.#action.name);
+        const results: CheckResultCallback[] = [];
+        await ActionMacroHelpers.simpleRollActionCheck({
+            actors: options?.actors,
+            title,
+            actionGlyph: getActionGlyph(this.cost ?? null) as ActionGlyph,
+            callback: (result) => results.push(result),
+            checkContext: (opts) => this.checkContext(opts, { modifiers, rollOptions, slug }),
+            difficultyClass: isCheckDC(difficultyClass) ? difficultyClass : undefined,
+            difficultyClassStatistic: isString(difficultyClass)
+                ? (target) => getProperty(target, difficultyClass) as Statistic
+                : undefined,
+            event: options?.event,
+            extraNotes: (selector) =>
+                notes.map((note) => {
+                    note.selector ||= selector; // treat empty selectors as always applicable to this check
+                    return note;
+                }),
+            traits: this.traits,
         });
+        return results;
     }
 
     protected checkContext<ItemType extends ItemPF2e<ActorPF2e>>(

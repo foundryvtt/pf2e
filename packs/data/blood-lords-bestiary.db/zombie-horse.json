@@ -228,7 +228,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The zombie horse's previous action was a jaws Strike that dealt damage to its target</p>\n<hr />\n<p><strong>Effect</strong> the zombie horse makes a second jaws Strike as it violently gnashes its teeth and bites deep into the target's flesh. On a success, the target takes an additional [[/r 1d4[bleed]]].</p>"
+                    "value": "<p><strong>Requirements</strong> The zombie horse's previous action was a jaws Strike that dealt damage to its target</p>\n<hr />\n<p><strong>Effect</strong> the zombie horse makes a second jaws Strike as it violently gnashes its teeth and bites deep into the target's flesh. On a success, the target takes an additional 1d4 persistent bleed damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -238,16 +238,17 @@
                         "domain": "damage",
                         "key": "RollOption",
                         "option": "chomp-at-the-bone",
-                        "toggleable": true,
-                        "value": false
+                        "toggleable": true
                     },
                     {
-                        "key": "Note",
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
                         "predicate": [
                             "chomp-at-the-bone"
                         ],
-                        "selector": "jaws-damage",
-                        "text": "PF2E.PersistentDamage.Bleed1d4.success"
+                        "selector": "jaws-damage"
                     }
                 ],
                 "slug": null,

@@ -1,7 +1,7 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
 import { StrikeData, TraitViewData } from "@actor/data/base";
 import { CheckModifier, StatisticModifier } from "@actor/modifiers";
-import { AttackTarget } from "@actor/types";
+import { RollTarget } from "@actor/types";
 import { WeaponPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ChatMessageSourcePF2e, CheckRollContextFlag, TargetFlag } from "@module/chat-message/data";
@@ -666,7 +666,7 @@ class CheckPF2e {
 
 interface CreateResultFlavorParams {
     degree: DegreeOfSuccess | null;
-    target?: AttackTarget | TargetFlag | null;
+    target?: RollTarget | TargetFlag | null;
 }
 
 interface ResultFlavorTemplateData {

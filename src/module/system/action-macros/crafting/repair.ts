@@ -92,6 +92,9 @@ async function repair(options: RepairActionOptions) {
                 await ChatMessage.create(messageSource);
             }
         },
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }
 
