@@ -8,6 +8,7 @@ import { DamageCategorization, deepFindTerms, renderComponentDamage } from "./he
 import { ArithmeticExpression, Grouping, GroupingData, InstancePool, IntermediateDie } from "./terms.ts";
 import { DamageCategory, DamageTemplate, DamageType, MaterialDamageEffect } from "./types.ts";
 import { DAMAGE_TYPES, DAMAGE_TYPE_ICONS } from "./values.ts";
+import type Peggy from "peggy";
 
 abstract class AbstractDamageRoll extends Roll {
     /** Ensure the presence and validity of the `critRule` option for this roll */
@@ -22,7 +23,9 @@ abstract class AbstractDamageRoll extends Roll {
         super(formula, data, options);
     }
 
-    protected static parser = ROLL_PARSER;
+    protected static get parser(): Peggy.Parser {
+        return ROLL_PARSER;
+    }
 
     /** Strip out parentheses enclosing constants */
     static override replaceFormulaData(

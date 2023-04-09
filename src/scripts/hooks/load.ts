@@ -74,5 +74,16 @@ export const Load = {
                 element.blur();
             }
         });
+
+        // HMR for template files
+        if (import.meta.hot) {
+            import.meta.hot.on("template-update", async ({ path }: { path: string }): Promise<void> => {
+                delete _templateCache[path];
+                await getTemplate(path);
+                for (const app of Object.values(ui.windows)) {
+                    app.render();
+                }
+            });
+        }
     },
 };

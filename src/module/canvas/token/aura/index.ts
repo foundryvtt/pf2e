@@ -1,2 +1,2 @@
 export { AuraRenderers } from "./map.ts";
-export { AuraRenderer, TokenAuraColors } from "./renderer.ts";
+export { AuraRenderer, type TokenAuraColors } from "./renderer.ts";

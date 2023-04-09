@@ -48,7 +48,7 @@ import { TokenLightRuleElement } from "./rule-element/token-light.ts";
 import { TokenNameRuleElement } from "./rule-element/token-name.ts";
 import { WeaponPotencyRuleElement } from "./rule-element/weapon-potency.ts";
 import { ActorPF2e } from "@actor";
-export { RuleElementSynthetics } from "./synthetics.ts";
+export type { RuleElementSynthetics } from "./synthetics.ts";
 
 /**
  * @category RuleElement

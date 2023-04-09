@@ -8,10 +8,16 @@ import Peggy from "peggy";
 import packageJSON from "./package.json";
 import esbuild from "esbuild";
 
-const config = Vite.defineConfig(({ mode }): Vite.UserConfig => {
+const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
     const buildMode = mode === "production" ? "production" : "development";
     const rollGrammar = fs.readFileSync("roll-grammar.peggy", { encoding: "utf-8" });
-    const outDir = "dist";
+    const outDir = ((): string => {
+        const configPath = path.resolve(process.cwd(), "foundryconfig.json");
+        const config: unknown = fs.readJSONSync(configPath, { throws: false });
+        return config instanceof Object && "dataPath" in config && typeof config.dataPath === "string"
+            ? path.join(config.dataPath, "Data", "systems", "pf2e")
+            : path.resolve(__dirname, "dist");
+    })();
 
     const plugins = [checker({ typescript: true }), tsconfigPaths()];
     // Handle minification after build to allow for tree-shaking and whitespace minification
@@ -30,22 +36,52 @@ const config = Vite.defineConfig(({ mode }): Vite.UserConfig => {
             },
         });
     } else {
-        // Foundry expects all esm files listed in system.json to exist: create empty vendor module when in dev mode
-        plugins.push({
-            name: "touch-vendor-mjs",
-            apply: "build",
-            writeBundle: {
-                async handler() {
-                    if (buildMode === "development") {
-                        fs.closeSync(fs.openSync(path.resolve(path.resolve(__dirname, outDir), "vendor.mjs"), "w"));
-                    }
+        plugins.push(
+            // Foundry expects all esm files listed in system.json to exist: create empty vendor module when in dev mode
+            {
+                name: "touch-vendor-mjs",
+                apply: "build",
+                writeBundle: {
+                    async handler() {
+                        if (buildMode === "development") {
+                            fs.closeSync(fs.openSync(path.resolve(outDir, "vendor.mjs"), "w"));
+                        }
+                    },
                 },
             },
-        });
+            // Vite HMR is only preconfigured for css files: add handler for HBS templates
+            {
+                name: "hmr-handler",
+                apply: "serve",
+                handleHotUpdate(context) {
+                    if (context.file.endsWith(".hbs") && !context.file.startsWith(outDir)) {
+                        const basePath = context.file.slice(context.file.indexOf("templates/"));
+                        console.log(`Updating template at ${basePath}`);
+                        fs.promises.copyFile(context.file, `${outDir}/${basePath}`).then(() => {
+                            context.server.ws.send({
+                                type: "custom",
+                                event: "template-update",
+                                data: { path: `systems/pf2e/${basePath}` },
+                            });
+                        });
+                    }
+                },
+            }
+        );
+    }
+
+    // Create dummy files for vite dev server
+    if (command === "serve") {
+        const message = "This file is for a running vite dev server and is not copied to a build";
+        fs.writeFileSync("./index.html", `<h1>${message}</h1>\n`);
+        fs.writeFileSync("./pf2e.css", `/** ${message} */\n`);
+        fs.writeFileSync("./pf2e.mjs", `/** ${message} */\n\nimport "./src/pf2e.ts";\n`);
+        fs.writeFileSync("./vendor.mjs", `/** ${message} */\n`);
     }
 
     return {
-        base: "./",
+        root: "./",
+        base: buildMode === "production" ? "./" : "/systems/pf2e/",
         publicDir: "static",
         define: {
             BUILD_MODE: JSON.stringify(buildMode),
@@ -66,7 +102,8 @@ const config = Vite.defineConfig(({ mode }): Vite.UserConfig => {
             rollupOptions: {
                 output: {
                     assetFileNames: ({ name }): string => {
-                        return /\.css$/.test(name ?? "") ? "styles/pf2e.css" : name ?? "what-is-this.txt";
+                        console.log(name);
+                        return /\.css$/.test(name ?? "") ? "pf2e.css" : name ?? "what-is-this.txt";
                     },
                     chunkFileNames: "[name].mjs",
                     entryFileNames: "pf2e.mjs",
@@ -75,6 +112,17 @@ const config = Vite.defineConfig(({ mode }): Vite.UserConfig => {
                     },
                 },
                 watch: { buildDelay: 100 },
+            },
+        },
+        server: {
+            port: 30001,
+            open: "/game",
+            proxy: {
+                "^(?!/systems/pf2e/)": "http://localhost:30000/",
+                "/socket.io": {
+                    target: "ws://localhost:30000",
+                    ws: true,
+                },
             },
         },
         plugins,

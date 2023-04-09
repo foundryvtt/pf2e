@@ -8,7 +8,7 @@
         "build": "npm run build:packs && vite build",
         "build:packs": "node --loader @bleed-believer/path-alias ./packs/scripts/build.ts",
         "watch": "npm run build:packs && vite build --watch --mode development",
-        "hot": "npm run build:packs && vite serve --mode development",
+        "hot": "vite serve",
         "extractPacks": "node --loader @bleed-believer/path-alias ./packs/scripts/extract.ts",
         "pretest": "eslint ./ --ext .ts && eslint ./static --ext .json",
         "test": "jest",
@@ -67,7 +67,7 @@
     "dependencies": {
         "@codemirror/autocomplete": "^6.4.2",
         "@codemirror/lang-json": "^6.0.1",
-        "@yaireo/tagify": "4.17.7",
+        "@yaireo/tagify": "^4.16.4",
         "codemirror": "^6.0.1",
         "luxon": "^3.3.0",
         "minisearch": "^5.1.0",

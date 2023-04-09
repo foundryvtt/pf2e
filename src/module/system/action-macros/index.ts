@@ -59,7 +59,7 @@ import { pickALock } from "./thievery/pick-a-lock.ts";
 import { steal } from "./thievery/steal.ts";
 import { Action } from "@actor/actions/index.ts";
 export { ActionMacroHelpers } from "./helpers.ts";
-export { ActionDefaultOptions, SkillActionOptions } from "./types.ts";
+export type { ActionDefaultOptions, SkillActionOptions } from "./types.ts";
 
 export const ActionMacros = {
     // Basic
