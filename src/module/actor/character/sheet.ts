@@ -577,8 +577,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             if (!(event.currentTarget instanceof HTMLElement)) {
                 throw ErrorPF2e("Unexpected error retrieving detail-item-control link");
             }
-            $('.detail-item-control-hover').tooltipster("close");
-        }
+            $(".detail-item-control-hover").tooltipster("close");
+        };
         for (const detailMenu of htmlQueryAll(html, ".character-details a.item-control")) {
             detailMenu.addEventListener("click", detailItemControlListener);
         }
