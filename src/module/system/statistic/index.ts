@@ -286,7 +286,7 @@ class StatisticCheck {
         this.mod = this.#stat.totalModifier;
     }
 
-    #calculateLabel(data: StatisticData) {
+    #calculateLabel(data: StatisticData): string {
         const parentLabel = this.parent.label;
         if (data.check?.label) return game.i18n.localize(data.check?.label);
 
@@ -329,7 +329,13 @@ class StatisticCheck {
             const isValidAttacker = actor.isOfType("creature", "hazard");
             const isAttackItem = item?.isOfType("weapon", "melee", "spell");
             if (isValidAttacker && isAttackItem && ["attack-roll", "spell-attack-roll"].includes(this.type)) {
-                return actor.getCheckRollContext({ item, domains, statistic: this, options: new Set() });
+                return actor.getCheckContext({
+                    item,
+                    domains,
+                    statistic: this,
+                    targetedDC: "armor",
+                    options: new Set(),
+                });
             }
 
             return null;

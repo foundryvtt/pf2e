@@ -9,8 +9,8 @@ import { DamageRoll } from "@system/damage/roll";
 import { CheckDC } from "@system/degree-of-success";
 import { PredicatePF2e } from "@system/predication";
 import { StatisticCheck } from "@system/statistic";
-import { TraitViewData } from "./data/base";
-import { ModifierPF2e, StatisticModifier } from "./modifiers";
+import { StrikeData, TraitViewData } from "./data/base";
+import { ModifierPF2e } from "./modifiers";
 import {
     ABILITY_ABBREVIATIONS,
     DC_SLUGS,
@@ -19,6 +19,7 @@ import {
     SKILL_LONG_FORMS,
     UNAFFECTED_TYPES,
 } from "./values";
+import { TokenPF2e } from "@module/canvas";
 
 /** Used exclusively to resolve `ActorPF2e#isOfType` */
 interface ActorInstances<TParent extends TokenDocumentPF2e | null> {
@@ -91,7 +92,7 @@ type AttackItem =
 
 interface StrikeSelf<
     TActor extends ActorPF2e = ActorPF2e,
-    TStatistic extends StatisticCheck | StatisticModifier | null = StatisticCheck | StatisticModifier | null,
+    TStatistic extends StatisticCheck | StrikeData | null = StatisticCheck | StrikeData | null,
     TItem extends AttackItem | null = AttackItem | null
 > {
     actor: TActor;
@@ -104,7 +105,7 @@ interface StrikeSelf<
     modifiers: ModifierPF2e[];
 }
 
-interface AttackTarget {
+interface RollTarget {
     actor: ActorPF2e;
     token: TokenDocumentPF2e;
     distance: number;
@@ -112,24 +113,26 @@ interface AttackTarget {
 }
 
 /** Context for the attack or damage roll of a strike */
-interface StrikeRollContext<
+interface RollContext<
     TActor extends ActorPF2e,
-    TStatistic extends StatisticCheck | StatisticModifier | null = StatisticCheck | StatisticModifier | null,
+    TStatistic extends StatisticCheck | StrikeData | null = StatisticCheck | StrikeData | null,
     TItem extends AttackItem | null = AttackItem | null
 > {
     /** Roll options */
     options: Set<string>;
     self: StrikeSelf<TActor, TStatistic, TItem>;
-    target: AttackTarget | null;
+    target: RollTarget | null;
     traits: TraitViewData[];
 }
 
-interface StrikeRollContextParams<
-    TStatistic extends StatisticCheck | StatisticModifier | null = StatisticCheck | StatisticModifier | null,
+interface RollContextParams<
+    TStatistic extends StatisticCheck | StrikeData | null = StatisticCheck | StrikeData | null,
     TItem extends AttackItem | null = AttackItem | null
 > {
     /** The statistic used for the roll */
     statistic: TStatistic;
+    /** A targeted token: may not be applicable if the action isn't targeted */
+    target?: { actor?: ActorPF2e | null; token?: TokenPF2e | null } | null;
     /** The item being used in the attack or damage roll */
     item?: TItem;
     /** Domains from which to draw roll options */
@@ -140,16 +143,18 @@ interface StrikeRollContextParams<
     viewOnly?: boolean;
 }
 
-type AttackRollContextParams<
-    TStatistic extends StatisticCheck | StatisticModifier = StatisticCheck | StatisticModifier,
+interface CheckContextParams<
+    TStatistic extends StatisticCheck | StrikeData = StatisticCheck | StrikeData,
     TItem extends AttackItem | null = AttackItem | null
-> = StrikeRollContextParams<TStatistic, TItem>;
+> extends RollContextParams<TStatistic, TItem> {
+    targetedDC: DCSlug;
+}
 
-interface AttackRollContext<
+interface CheckContext<
     TActor extends ActorPF2e,
-    TStatistic extends StatisticCheck | StatisticModifier = StatisticCheck | StatisticModifier,
+    TStatistic extends StatisticCheck | StrikeData = StatisticCheck | StrikeData,
     TItem extends AttackItem | null = AttackItem | null
-> extends StrikeRollContext<TActor, TStatistic, TItem> {
+> extends RollContext<TActor, TStatistic, TItem> {
     dc: CheckDC | null;
 }
 
@@ -176,22 +181,22 @@ export {
     ActorInstances,
     ApplyDamageParams,
     AttackItem,
-    AttackRollContext,
-    AttackRollContextParams,
-    AttackTarget,
     AuraColors,
     AuraData,
     AuraEffectData,
+    CheckContext,
+    CheckContextParams,
     DCSlug,
     EmbeddedItemInstances,
     IWRType,
     ImmunityType,
     ResistanceType,
+    RollContext,
+    RollContextParams,
+    RollTarget,
     SaveType,
     SkillAbbreviation,
     SkillLongForm,
-    StrikeRollContext,
-    StrikeRollContextParams,
     StrikeSelf,
     UnaffectedType,
     WeaknessType,

@@ -60,7 +60,7 @@ const SKILL_DICTIONARY_REVERSE = Object.fromEntries(
     Object.entries(SKILL_DICTIONARY).map(([abbrev, value]) => [value, abbrev] as [SkillLongForm, SkillAbbreviation])
 );
 
-const DC_SLUGS = new Set(["ac", "perception", ...SAVE_TYPES, ...SKILL_LONG_FORMS] as const);
+const DC_SLUGS = new Set(["ac", "armor", "perception", ...SAVE_TYPES, ...SKILL_LONG_FORMS] as const);
 
 interface SkillExpanded {
     ability: AbilityString;

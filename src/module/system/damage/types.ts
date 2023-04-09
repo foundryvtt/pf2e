@@ -1,5 +1,5 @@
 import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers";
-import { AttackTarget, ResistanceType, StrikeSelf } from "@actor/types";
+import { RollTarget, ResistanceType, StrikeSelf } from "@actor/types";
 import { ZeroToTwo } from "@module/data";
 import { RollNotePF2e } from "@module/notes";
 import { DegreeOfSuccessString } from "@system/degree-of-success";
@@ -45,7 +45,7 @@ interface DamageRollContext extends BaseRollContext {
     sourceType: "attack" | "check" | "save";
     outcome?: DegreeOfSuccessString;
     self?: StrikeSelf | null;
-    target?: AttackTarget | null;
+    target?: RollTarget | null;
     options: Set<string>;
     secret?: boolean;
     /** The domains this roll had, for reporting purposes */
