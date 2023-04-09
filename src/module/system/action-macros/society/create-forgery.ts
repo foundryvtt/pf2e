@@ -101,5 +101,8 @@ export function createForgery(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.CreateForgery", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.CreateForgery", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

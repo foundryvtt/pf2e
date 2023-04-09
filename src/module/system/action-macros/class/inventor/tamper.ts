@@ -19,5 +19,8 @@ export function tamper(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Tamper", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Tamper", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

@@ -18,5 +18,8 @@ export function disableDevice(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.DisableDevice", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.DisableDevice", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

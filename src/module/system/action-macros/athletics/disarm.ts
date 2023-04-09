@@ -34,5 +34,8 @@ export function disarm(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Disarm", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Disarm", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

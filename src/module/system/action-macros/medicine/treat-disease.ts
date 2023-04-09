@@ -18,5 +18,8 @@ export function treatDisease(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.TreatDisease", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.TreatDisease", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

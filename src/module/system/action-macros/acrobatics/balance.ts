@@ -22,6 +22,9 @@ function balance(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Balance", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Balance", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }
 

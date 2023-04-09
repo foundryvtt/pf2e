@@ -18,5 +18,8 @@ export function climb(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Climb", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Climb", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

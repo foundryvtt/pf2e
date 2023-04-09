@@ -39,5 +39,8 @@ export function perform(options: { variant: PerformVariant } & SkillActionOption
             ActionMacroHelpers.note(selector, "PF2E.Actions.Perform", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Perform", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

@@ -19,6 +19,12 @@ interface SimpleActionUseOptions extends ActionUseOptions {
     traits: string[];
 }
 
+interface SimpleActionResult {
+    actor: ActorPF2e;
+    effect?: EffectPF2e;
+    message?: ChatMessage;
+}
+
 async function toEffectItem(effect?: string | EffectPF2e) {
     return typeof effect === "string" ? await fromUuid(effect) : effect;
 }
@@ -47,7 +53,7 @@ class SimpleActionVariant extends BaseActionVariant {
             actors.push(...getSelectedOrOwnActors());
         }
         if (actors.length === 0) {
-            return ui.notifications.warn(game.i18n.localize("PF2E.ActionsWarning.NoActor"));
+            throw new Error(game.i18n.localize("PF2E.ActionsWarning.NoActor"));
         }
 
         const traitLabels: Record<string, string | undefined> = CONFIG.PF2E.actionTraits;
@@ -67,17 +73,19 @@ class SimpleActionVariant extends BaseActionVariant {
             name,
             traits,
         });
-        const messages = [];
+        const results: SimpleActionResult[] = [];
         for (const actor of actors) {
-            messages.push({
+            const message = await ChatMessage.create({
                 flavor,
                 speaker: ChatMessage.getSpeaker({ actor }),
             });
-            if (effect && actor.isOwner) {
-                await actor.createEmbeddedDocuments("Item", [effect.toObject()]);
-            }
+            const item =
+                effect && actor.isOwner
+                    ? ((await actor.createEmbeddedDocuments("Item", [effect.toObject()]))[0] as EffectPF2e)
+                    : undefined;
+            results.push({ actor, effect: item, message });
         }
-        await ChatMessage.create(messages);
+        return results;
     }
 }
 
@@ -94,4 +102,4 @@ class SimpleAction extends BaseAction<SimpleActionVariantData, SimpleActionVaria
     }
 }
 
-export { SimpleAction, SimpleActionVariantData };
+export { SimpleAction, SimpleActionResult, SimpleActionVariant, SimpleActionVariantData, SimpleActionUseOptions };

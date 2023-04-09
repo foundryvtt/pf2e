@@ -107,5 +107,8 @@ export function escape(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Escape", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Escape", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

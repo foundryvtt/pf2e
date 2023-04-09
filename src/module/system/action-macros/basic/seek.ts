@@ -17,5 +17,8 @@ export function seek(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Seek", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Seek", "success"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }
