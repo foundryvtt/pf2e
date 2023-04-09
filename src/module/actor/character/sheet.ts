@@ -561,6 +561,28 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             await new AbilityBuilderPopup(this.actor).render(true);
         });
 
+        // Ancestry/Heritage/Class/Background/Deity edit and delete menu
+        $html.find(".detail-item-control-hover").tooltipster({
+            trigger: "click",
+            arrow: false,
+            contentAsHTML: true,
+            debug: BUILD_MODE === "development",
+            interactive: true,
+            side: ["bottom"],
+            theme: "crb-hover",
+            minWidth: 120,
+        });
+
+        const detailItemControlListener = (event: MouseEvent) => {
+            if (!(event.currentTarget instanceof HTMLElement)) {
+                throw ErrorPF2e("Unexpected error retrieving detail-item-control link");
+            }
+            $('.detail-item-control-hover').tooltipster("close");
+        }
+        for (const detailMenu of htmlQueryAll(html, ".character-details a.item-control")) {
+            detailMenu.addEventListener("click", detailItemControlListener);
+        }
+
         // SPELLCASTING
         const castingPanel = htmlQuery(html, ".tab.spellcasting");
 

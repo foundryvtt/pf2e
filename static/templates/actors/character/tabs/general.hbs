@@ -22,15 +22,18 @@
                 <span class="details-label">{{localize "ITEM.TypeDeity"}}</span>
                 <span title="{{localize "PF2E.DeityTitle"}}">
                     <h3>
+                        <span class="value">{{deity.name}}</span>
                         {{#if @root.options.editable}}
                             {{#if deity}}
-                                <span class="value item-edit">{{deity.name}}</span>
-                                <a class="item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-fw fa-trash"></i></a>
+                                <a class="detail-item-control-hover" data-tooltip-content="#{{options.id}}-{{deity.id}}-control">
+                                    <i class="fa-solid fa-fw fa-ellipsis-v"></i>
+                                </a>
+                                {{#with deity}}
+                                    {{> "systems/pf2e/templates/actors/character/partials/detail-item-tooltip.hbs"}}
+                                {{/with}}
                             {{else}}
                                 <a class="open-compendium" data-compendium="pf2e.deities"><i class="fas fa-fw fa-plus-circle"></i></a>
                             {{/if}}
-                        {{else}}
-                            <span class="value">{{deity.name}}</span>
                         {{/if}}
                     </h3>
                 </span>
