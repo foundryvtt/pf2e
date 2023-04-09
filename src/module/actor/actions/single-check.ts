@@ -109,7 +109,7 @@ class SingleCheckActionVariant extends BaseActionVariant {
             .map(toRollNoteSource)
             .map((note) => new RollNotePF2e(note));
         const rollOptions = this.rollOptions.concat(options?.rollOptions ?? []);
-        const slug = this.statistic;
+        const slug = options?.statistic?.trim() || this.statistic;
         const title = this.name
             ? `${game.i18n.localize(this.#action.name)} - ${game.i18n.localize(this.name)}`
             : game.i18n.localize(this.#action.name);
