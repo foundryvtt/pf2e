@@ -7,7 +7,7 @@ import { MigrationBase } from "../base.ts";
 export class Migration668ArmorSpeedPenalty extends MigrationBase {
     static override version = 0.668;
 
-    override async updateItem(itemSource: ItemSourcePF2e) {
+    override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         const slug = itemSource.system.slug ?? sluggify(itemSource.name);
         if (itemSource.type === "armor") {
             const rules = (itemSource.system.rules ??= []);

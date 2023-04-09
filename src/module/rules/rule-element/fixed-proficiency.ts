@@ -57,7 +57,7 @@ class FixedProficiencyRuleElement extends RuleElementPF2e {
         modifiers.push(() => modifier);
     }
 
-    override afterPrepareData() {
+    override afterPrepareData(): void {
         const selector = this.resolveInjectedProperties(this.selector);
         const systemData = this.actor.system;
         const skillLongForms: Record<string, { shortform?: string } | undefined> = SKILL_EXPANDED;

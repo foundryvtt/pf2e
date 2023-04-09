@@ -13,7 +13,7 @@ const PERFORM_VARIANT_TRAITS = {
 } as const;
 type PerformVariant = keyof typeof PERFORM_VARIANT_TRAITS;
 
-export function perform(options: { variant: PerformVariant } & SkillActionOptions) {
+export function perform(options: { variant: PerformVariant } & SkillActionOptions): void {
     const traits = PERFORM_VARIANT_TRAITS[options?.variant ?? ""];
     if (!traits) {
         const msg = game.i18n.format("PF2E.Actions.Perform.Warning.UnknownVariant", { variant: options.variant });

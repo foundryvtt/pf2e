@@ -47,7 +47,7 @@ function extractModifierAdjustments(
 }
 
 /** Extracts a list of all cloned notes across all given keys in a single list. */
-function extractNotes(rollNotes: Record<string, RollNotePF2e[]>, selectors: string[]) {
+function extractNotes(rollNotes: Record<string, RollNotePF2e[]>, selectors: string[]): RollNotePF2e[] {
     return selectors.flatMap((s) => (rollNotes[s] ?? []).map((n) => n.clone()));
 }
 

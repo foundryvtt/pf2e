@@ -6,7 +6,7 @@ import { NPCAttackDamage } from "@item/melee/data.ts";
 export class Migration607MeleeItemDamageRolls extends MigrationBase {
     static override version = 0.607;
 
-    override async updateItem(itemData: ItemSourcePF2e) {
+    override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         if (itemData.type === "melee") {
             if (Array.isArray(itemData.system.damageRolls)) {
                 const damageRolls: Record<string, NPCAttackDamage> = {};

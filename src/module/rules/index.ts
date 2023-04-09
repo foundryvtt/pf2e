@@ -99,7 +99,7 @@ class RuleElements {
 
     static custom: Record<string, RuleElementConstructor | undefined> = {};
 
-    static get all() {
+    static get all(): Record<string, RuleElementConstructor | undefined> {
         return { ...this.builtin, ...this.custom };
     }
 

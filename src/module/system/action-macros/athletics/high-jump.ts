@@ -1,6 +1,6 @@
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function highJump(options: SkillActionOptions) {
+export function highJump(options: SkillActionOptions): void {
     const slug = options?.skill ?? "athletics";
     const rollOptions = ["action:stride", "action:leap", "action:high-jump"];
     const modifiers = options?.modifiers;

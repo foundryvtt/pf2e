@@ -3,6 +3,7 @@ import { indentWithTab } from "@codemirror/commands";
 import { json, jsonParseLinter } from "@codemirror/lang-json";
 import { syntaxTree } from "@codemirror/language";
 import { linter } from "@codemirror/lint";
+import { Extension } from "@codemirror/state";
 import { keymap } from "@codemirror/view";
 import { RuleElements } from "@module/rules/index.ts";
 import { EditorView, basicSetup } from "codemirror";
@@ -12,11 +13,11 @@ export const CodeMirror = {
     EditorView,
     basicSetup,
     json,
-    jsonLinter: () => linter(jsonParseLinter()),
+    jsonLinter: (): Extension => linter(jsonParseLinter()),
     keybindings: keymap.of([indentWithTab]),
 
     /** All language and autocomplete extensions for rule element editing */
-    ruleElementExtensions: (options: RuleElementOptions) => [
+    ruleElementExtensions: (options: RuleElementOptions): Extension[] => [
         json(),
         CodeMirror.jsonLinter(),
         autocompletion({

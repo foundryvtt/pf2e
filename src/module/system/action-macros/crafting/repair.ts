@@ -6,7 +6,7 @@ import { ActionMacroHelpers } from "../helpers.ts";
 import { SkillActionOptions } from "../types.ts";
 import { SelectItemDialog } from "./select-item.ts";
 
-async function repair(options: RepairActionOptions) {
+async function repair(options: RepairActionOptions): Promise<void> {
     // resolve item
     const item =
         options.item ?? (options.uuid ? await fromUuid(options.uuid) : await SelectItemDialog.getItem("repair"));
@@ -98,7 +98,11 @@ async function repair(options: RepairActionOptions) {
     });
 }
 
-async function onRepairChatCardEvent(event: JQuery.ClickEvent, message: ChatMessagePF2e | undefined, $card: JQuery) {
+async function onRepairChatCardEvent(
+    event: JQuery.ClickEvent,
+    message: ChatMessagePF2e | undefined,
+    $card: JQuery
+): Promise<void> {
     const itemUuid = $card.attr("data-item-uuid");
     const item = await fromUuid(itemUuid ?? "");
     if (!(item instanceof PhysicalItemPF2e)) return;
@@ -175,7 +179,7 @@ async function renderRepairResult(
     result: "restore" | "roll-damage",
     buttonLabel: string,
     value: string
-) {
+): Promise<string> {
     const templatePath = "systems/pf2e/templates/system/actions/repair/repair-result-partial.hbs";
     const label = game.i18n.format(buttonLabel, { value });
     return renderTemplate(templatePath, { item, label, result, value });

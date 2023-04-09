@@ -55,7 +55,7 @@ export class MockActor {
         }
     }
 
-    update(changes: Record<string, any>) {
+    update(changes: Record<string, unknown>): void {
         delete changes.items;
         for (const [k, v] of Object.entries(changes)) {
             global.setProperty(this._source, k, v);
@@ -85,7 +85,7 @@ export class MockActor {
         });
     }
 
-    async updateEmbeddedDocuments(type: string, data: any[]): Promise<void> {
+    async updateEmbeddedDocuments(type: string, data: { _id: string }[]): Promise<void> {
         for (const changes of data) {
             if (type === "Item") {
                 const source = this._source.items.find((i) => i._id === changes._id);
@@ -117,7 +117,7 @@ export class MockActor {
         this.prepareData();
     }
 
-    toObject() {
+    toObject(): ActorSourcePF2e {
         return duplicate(this._source);
     }
 }

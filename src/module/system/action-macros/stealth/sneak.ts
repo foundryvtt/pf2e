@@ -3,7 +3,7 @@ import { SingleCheckAction } from "@actor/actions/index.ts";
 
 const PREFIX = "PF2E.Actions.Sneak";
 
-function sneak(options: SkillActionOptions) {
+function sneak(options: SkillActionOptions): void {
     const slug = options?.skill ?? "stealth";
     const rollOptions = ["action:sneak"];
     const modifiers = options?.modifiers;

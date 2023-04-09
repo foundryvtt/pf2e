@@ -1,6 +1,6 @@
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function avoidNotice(options: SkillActionOptions) {
+export function avoidNotice(options: SkillActionOptions): void {
     const slug = options?.skill ?? "stealth";
     const rollOptions = ["action:avoid-notice"];
     const modifiers = options?.modifiers;

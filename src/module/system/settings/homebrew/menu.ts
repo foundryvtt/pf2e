@@ -36,15 +36,15 @@ class HomebrewElements extends SettingsMenuPF2e {
 
     private damageManager = new DamageTypeManager();
 
-    static override get SETTINGS() {
+    static override get SETTINGS(): string[] {
         return Object.keys(this.settings);
     }
 
-    static override get defaultOptions() {
+    static override get defaultOptions(): FormApplicationOptions {
         return mergeObject(super.defaultOptions, { template: "systems/pf2e/templates/system/settings/homebrew.hbs" });
     }
 
-    protected static get traitSettings() {
+    protected static get traitSettings(): Record<HomebrewTraitKey, PartialSettingsData> {
         return HOMEBREW_TRAIT_KEYS.reduce((result, key) => {
             result[key] = {
                 name: CONFIG.PF2E.SETTINGS.homebrew[key].name,

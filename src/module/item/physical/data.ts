@@ -100,7 +100,7 @@ type IdentifiedData = DeepPartial<MystifiedData>;
 interface IdentificationSource {
     status: IdentificationStatus;
     unidentified: MystifiedData;
-    misidentified: {};
+    misidentified: object;
 }
 
 interface IdentificationData extends IdentificationSource {

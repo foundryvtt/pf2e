@@ -4,7 +4,7 @@ import { ActorSourcePF2e } from "@actor/data/index.ts";
 export class Migration612NormalizeRarities extends MigrationBase {
     static override version = 0.612;
 
-    override async updateActor(actorData: ActorSourcePF2e) {
+    override async updateActor(actorData: ActorSourcePF2e): Promise<void> {
         const traitsRaw = actorData.system.traits;
         if (actorData.type === "familiar" || !traitsRaw) return;
 

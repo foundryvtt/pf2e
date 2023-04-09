@@ -24,7 +24,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         return new Set(this.system.traits.value);
     }
 
-    get actionCost() {
+    get actionCost(): { type: "action" | "reaction" | "free"; value: OneToThree | null } | null {
         const actionType = this.system.actionType.value || "passive";
         if (actionType === "passive") return null;
 

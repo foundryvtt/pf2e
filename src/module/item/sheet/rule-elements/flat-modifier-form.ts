@@ -8,6 +8,7 @@ import { coerceNumber, RuleElementForm } from "./base.ts";
 /** Form handler for the flat modifier rule element */
 class FlatModifierForm extends RuleElementForm<FlatModifierSource> {
     override template = "systems/pf2e/templates/items/rules/flat-modifier.hbs";
+
     override activateListeners(html: HTMLElement): void {
         // Tagify the selector list
         const selectorElement = htmlQuery<HTMLInputElement>(html, ".selector-list");

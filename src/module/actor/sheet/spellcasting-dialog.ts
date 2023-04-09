@@ -173,7 +173,7 @@ interface SpellcastingCreateAndEditDialogSheetData extends FormApplicationData<S
 export async function createSpellcastingDialog(
     event: MouseEvent,
     object: ActorPF2e | SpellcastingEntryPF2e<ActorPF2e>
-) {
+): Promise<SpellcastingCreateAndEditDialog> {
     const dialog = new SpellcastingCreateAndEditDialog(object, {
         top: event.clientY - 80,
         left: window.innerWidth - 710,

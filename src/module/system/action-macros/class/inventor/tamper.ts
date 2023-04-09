@@ -1,6 +1,6 @@
 import { ActionMacroHelpers, SkillActionOptions } from "../../index.ts";
 
-export function tamper(options: SkillActionOptions) {
+export function tamper(options: SkillActionOptions): void {
     const slug = options?.skill ?? "crafting";
     const rollOptions = ["action:tamper"];
     const modifiers = options?.modifiers;

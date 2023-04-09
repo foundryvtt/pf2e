@@ -5,14 +5,14 @@ import { ActionDefaultOptions } from "@system/action-macros/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { CheckDC, DegreeOfSuccessAdjustment, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success.ts";
 
-function CheckFeat(actor: ActorPF2e, slug: string) {
+function CheckFeat(actor: ActorPF2e, slug: string): boolean {
     if (actor.items.find((i) => i.slug === slug && i.type === "feat")) {
         return true;
     }
     return false;
 }
 
-export async function treatWounds(options: ActionDefaultOptions) {
+export async function treatWounds(options: ActionDefaultOptions): Promise<void> {
     const actors = Array.isArray(options.actors) ? options.actors : [options.actors];
     const actor = actors[0];
     if (!actor || !actor.isOfType("creature")) {

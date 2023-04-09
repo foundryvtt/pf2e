@@ -5,7 +5,7 @@ import { MigrationBase } from "../base.ts";
 export class Migration726JournalSetting extends MigrationBase {
     static override version = 0.726;
 
-    override async migrate() {
+    override async migrate(): Promise<void> {
         // If the sheet is already configured, leave it as is
         const sheetClasses = game.settings.get("core", "sheetClasses");
         if (isObject<SheetConfig>(sheetClasses) && sheetClasses.JournalEntry?.base) {

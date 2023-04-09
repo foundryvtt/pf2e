@@ -1261,7 +1261,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         });
     }
 
-    protected openTagSelector(event: JQuery.ClickEvent | MouseEvent) {
+    protected openTagSelector(event: JQuery.ClickEvent | MouseEvent): void {
         event.preventDefault();
         const $anchor = $(event.currentTarget);
         const selectorType = $anchor.attr("data-tag-selector") ?? "";
@@ -1317,7 +1317,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     /** Override of inner render function to maintain item summary state */
-    protected override async _renderInner(data: Record<string, unknown>, options: RenderOptions) {
+    protected override async _renderInner(data: Record<string, unknown>, options: RenderOptions): Promise<JQuery> {
         return this.itemRenderer.saveAndRestoreState(() => {
             return super._renderInner(data, options);
         });

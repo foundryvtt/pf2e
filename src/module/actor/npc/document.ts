@@ -93,7 +93,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         user: User,
         permission: DocumentOwnershipString | DocumentOwnershipLevel,
         options?: { exact?: boolean }
-    ) {
+    ): boolean {
         // Temporary measure until a lootable view of the legacy sheet is ready
         if (game.user.isGM || !this.isLootable) {
             return super.testUserPermission(user, permission, options);

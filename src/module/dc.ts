@@ -91,11 +91,11 @@ function rarityToDCAdjustment(rarity: Rarity = "common"): PositiveDCAdjustment {
     }
 }
 
-function adjustDC(dc: number, adjustment: DCAdjustment = "normal") {
+function adjustDC(dc: number, adjustment: DCAdjustment = "normal"): number {
     return dc + (dcAdjustments.get(adjustment) ?? 0);
 }
 
-function adjustDCByRarity(dc: number, rarity: Rarity = "common") {
+function adjustDCByRarity(dc: number, rarity: Rarity = "common"): number {
     return adjustDC(dc, rarityToDCAdjustment(rarity));
 }
 

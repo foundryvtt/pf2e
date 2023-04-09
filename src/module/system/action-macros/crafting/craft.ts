@@ -7,7 +7,7 @@ import { ActionMacroHelpers } from "../helpers.ts";
 import { SkillActionOptions } from "../types.ts";
 import { SelectItemDialog } from "./select-item.ts";
 
-export async function craft(options: CraftActionOptions) {
+export async function craft(options: CraftActionOptions): Promise<void> {
     // resolve item
     const item =
         options.item ?? (options.uuid ? await fromUuid(options.uuid) : await SelectItemDialog.getItem("craft"));

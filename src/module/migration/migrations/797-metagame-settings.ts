@@ -13,7 +13,7 @@ export class Migration797MetagameSetting extends MigrationBase {
         "partyVision",
     ];
 
-    override async migrate() {
+    override async migrate(): Promise<void> {
         for (const setting of this.settings) {
             const storage = game.settings.storage.get("world");
             const newKey = `metagame_${setting}`;

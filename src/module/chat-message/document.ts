@@ -172,7 +172,7 @@ class ChatMessagePF2e extends ChatMessage {
         }
     }
 
-    async showDetails() {
+    async showDetails(): Promise<void> {
         if (!this.flags.pf2e.context) return;
         new ChatRollDetails(this).render(true);
     }
@@ -286,7 +286,11 @@ class ChatMessagePF2e extends ChatMessage {
         }
     }
 
-    protected override _onCreate(data: this["_source"], options: DocumentModificationContext<null>, userId: string) {
+    protected override _onCreate(
+        data: this["_source"],
+        options: DocumentModificationContext<null>,
+        userId: string
+    ): void {
         super._onCreate(data, options, userId);
 
         // Handle critical hit and fumble card drawing

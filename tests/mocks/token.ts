@@ -29,7 +29,7 @@ export class MockToken {
     update(
         changes: EmbeddedDocumentUpdateData<TokenDocumentPF2e<this["parent"]>>,
         context: SceneEmbeddedModificationContext<NonNullable<this["parent"]>> = {}
-    ) {
+    ): void {
         changes["_id"] = this.id;
         this.scene?.updateEmbeddedDocuments("Token", [changes], context);
     }

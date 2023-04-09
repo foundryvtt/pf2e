@@ -12,18 +12,13 @@
         "extractPacks": "node --loader @bleed-believer/path-alias ./packs/scripts/extract.ts",
         "pretest": "eslint ./ --ext .ts && eslint ./static --ext .json",
         "test": "jest",
-        "posttest": "npm run betterer",
         "migrate": "node --loader @bleed-believer/path-alias ./packs/scripts/run-migration.ts",
         "lint": "eslint ./src ./tests ./types --ext .ts && eslint ./static --ext .json",
-        "lint:fix": "eslint ./src ./tests ./types --ext .ts --fix",
-        "betterer": "betterer --strict"
+        "lint:fix": "eslint ./src ./tests ./types --ext .ts --fix"
     },
     "author": "",
     "license": "",
     "devDependencies": {
-        "@betterer/cli": "^5.4.0",
-        "@betterer/eslint": "^5.4.0",
-        "@betterer/typescript": "^5.4.0",
         "@bleed-believer/path-alias": "^0.14.0",
         "@pixi/graphics-smooth": "^0.0.30",
         "@pixi/particle-emitter": "5.0.7",

@@ -5,7 +5,7 @@ import { ItemSourcePF2e } from "@item/data/index.ts";
 export class Migration615RemoveInstinctTrait extends MigrationBase {
     static override version = 0.615;
 
-    override async updateItem(itemData: ItemSourcePF2e) {
+    override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         const traits: { value?: string[] } | undefined = itemData.system.traits;
         if (!traits) return;
         if (typeof traits.value === "string") {

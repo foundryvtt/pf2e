@@ -69,7 +69,7 @@ export class WorldClock extends Application {
         return this.worldCreatedOn.plus({ seconds: game.time.worldTime });
     }
 
-    static override get defaultOptions() {
+    static override get defaultOptions(): ApplicationOptions {
         return mergeObject(super.defaultOptions, {
             id: "world-clock",
             width: 400,

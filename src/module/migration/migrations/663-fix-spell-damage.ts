@@ -22,7 +22,7 @@ function createBasicScaling(interval: number, scaling: string) {
 export class Migration663FixSpellDamage extends MigrationBase {
     static override version = 0.663;
 
-    override async updateItem(itemData: ItemSourcePF2e) {
+    override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         if (itemData.type !== "spell") return;
         if (Object.keys(itemData.system.damage?.value ?? {}).length > 0) return;
 

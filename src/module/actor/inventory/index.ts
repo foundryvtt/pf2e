@@ -38,7 +38,7 @@ class ActorInventory<TActor extends ActorPF2e> extends Collection<PhysicalItemPF
         return new InventoryBulk(this.actor);
     }
 
-    async addCoins(coins: Partial<Coins>, { combineStacks = true }: { combineStacks?: boolean } = {}) {
+    async addCoins(coins: Partial<Coins>, { combineStacks = true }: { combineStacks?: boolean } = {}): Promise<void> {
         const topLevelCoins = this.actor.itemTypes.treasure.filter((item) => combineStacks && item.isCoinage);
         const coinsByDenomination = groupBy(topLevelCoins, (item) => item.denomination);
 
@@ -65,7 +65,7 @@ class ActorInventory<TActor extends ActorPF2e> extends Collection<PhysicalItemPF
         }
     }
 
-    async removeCoins(coins: Partial<Coins>, { byValue = true }: { byValue?: boolean } = {}) {
+    async removeCoins(coins: Partial<Coins>, { byValue = true }: { byValue?: boolean } = {}): Promise<boolean> {
         const coinsToRemove = new CoinsPF2e(coins);
         const actorCoins = this.coins;
         const coinsToAdd = new CoinsPF2e();

@@ -4,7 +4,7 @@ import { Statistic } from "@system/statistic/index.ts";
 const ADMINISTER_FIRST_AID_VARIANTS = ["stabilize", "stop-bleeding"] as const;
 type AdministerFirstAidVariant = (typeof ADMINISTER_FIRST_AID_VARIANTS)[number];
 
-export function administerFirstAid(options: { variant: AdministerFirstAidVariant } & SkillActionOptions) {
+export function administerFirstAid(options: { variant: AdministerFirstAidVariant } & SkillActionOptions): void {
     const { notes, title, variant } = (() => {
         switch (options?.variant) {
             case "stabilize":

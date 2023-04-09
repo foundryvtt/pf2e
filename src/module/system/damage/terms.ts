@@ -364,7 +364,7 @@ class IntermediateDie extends RollTerm<IntermediateDieData> {
     }
 
     /** `MathTerm` incorrectly reports as being deterministic, so consider them to always not be so */
-    override get isDeterministic() {
+    override get isDeterministic(): boolean {
         return (
             this.number.isDeterministic &&
             this.faces.isDeterministic &&

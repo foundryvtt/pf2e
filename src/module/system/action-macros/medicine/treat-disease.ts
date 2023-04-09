@@ -1,6 +1,6 @@
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function treatDisease(options: SkillActionOptions) {
+export function treatDisease(options: SkillActionOptions): void {
     const slug = options?.skill ?? "medicine";
     const rollOptions = ["action:treat-disease"];
     const modifiers = options?.modifiers;

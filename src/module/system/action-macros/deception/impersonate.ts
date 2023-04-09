@@ -2,7 +2,7 @@ import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const PREFIX = "PF2E.Actions.Impersonate";
 
-export function impersonate(options: SkillActionOptions) {
+export function impersonate(options: SkillActionOptions): void {
     const slug = options?.skill ?? "deception";
     const rollOptions = ["action:impersonate"];
     const modifiers = options?.modifiers;

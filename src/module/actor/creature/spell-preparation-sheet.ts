@@ -31,7 +31,7 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TAct
         return `${super.id}-spellprep-${this.item.id}`;
     }
 
-    override get title() {
+    override get title(): string {
         return game.i18n.format("PF2E.Actor.Creature.SpellPreparation.Title", { actor: this.actor.name });
     }
 

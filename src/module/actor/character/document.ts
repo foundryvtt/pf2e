@@ -277,7 +277,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
     }
 
-    protected override _initialize() {
+    protected override _initialize(): void {
         this.familiar ??= null;
         super._initialize();
     }

@@ -43,7 +43,7 @@ export class Migration666UsageAndStowingContainers extends MigrationBase {
         "extradimensional-stash",
     ]);
 
-    override async updateItem(itemSource: ItemSourcePF2e) {
+    override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         if (!itemSource.system.traits) return;
 
         const traits: TraitsWithUsage = itemSource.system.traits;

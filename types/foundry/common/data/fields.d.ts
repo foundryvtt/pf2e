@@ -535,7 +535,7 @@ export class SetField<
 export class EmbeddedDataField<
     TDataSchema extends DataSchema,
     TSourceProp extends SourceFromSchema<TDataSchema>,
-    TModelProp extends DataModel<any> = DataModel<any>,
+    TModelProp extends DataModel = DataModel,
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true
@@ -571,7 +571,7 @@ export class EmbeddedCollectionField<
 > extends ArrayField<
     SchemaField<TDataSchema>,
     SourceFromSchema<TDataSchema>[],
-    EmbeddedCollection<DataModel<any>>,
+    EmbeddedCollection<DataModel>,
     TRequired,
     TNullable,
     THasInitial
@@ -639,7 +639,7 @@ export class DocumentIdField<
  * This field may also be null to indicate that no foreign model is linked.
  */
 export class ForeignDocumentField<
-    TModelProp extends string | DataModel = DataModel<any>,
+    TModelProp extends string | DataModel = DataModel,
     TRequired extends boolean = true,
     TNullable extends boolean = true,
     THasInitial extends boolean = true

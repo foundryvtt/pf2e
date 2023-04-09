@@ -457,7 +457,7 @@ class StatisticCheck {
         return roll;
     }
 
-    get breakdown() {
+    get breakdown(): string {
         return this.modifiers
             .filter((m) => m.enabled)
             .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
@@ -488,7 +488,7 @@ class StatisticDifficultyClass {
         this.value = (data.dc?.base ?? 10) + new StatisticModifier("", this.modifiers, this.options).totalModifier;
     }
 
-    get breakdown() {
+    get breakdown(): string {
         const enabledMods = this.modifiers.filter((m) => m.enabled);
         return [game.i18n.localize("PF2E.DCBase")]
             .concat(enabledMods.map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`))

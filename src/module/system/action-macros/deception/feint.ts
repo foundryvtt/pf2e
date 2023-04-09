@@ -1,6 +1,6 @@
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function feint(options: SkillActionOptions) {
+export function feint(options: SkillActionOptions): void {
     const slug = options?.skill ?? "deception";
     const rollOptions = ["action:feint"];
     const modifiers = options?.modifiers;

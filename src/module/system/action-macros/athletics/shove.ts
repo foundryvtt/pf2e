@@ -2,7 +2,7 @@ import { ActorPF2e } from "@actor";
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 import { WeaponPF2e } from "@item";
 
-export function shove(options: SkillActionOptions) {
+export function shove(options: SkillActionOptions): void {
     const slug = options?.skill ?? "athletics";
     const rollOptions = ["action:shove"];
     ActionMacroHelpers.simpleRollActionCheck<WeaponPF2e<ActorPF2e>>({

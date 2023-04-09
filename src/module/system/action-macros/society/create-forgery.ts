@@ -10,7 +10,7 @@ interface ChatMessageCheckFlags {
     modifiers: RawModifier[];
 }
 
-export function createForgery(options: SkillActionOptions) {
+export function createForgery(options: SkillActionOptions): Promise<void> {
     const modifiers = [
         new ModifierPF2e({
             label: "PF2E.Actions.CreateForgery.UnspecificHandwriting",
@@ -21,6 +21,7 @@ export function createForgery(options: SkillActionOptions) {
     ].concat(options?.modifiers ?? []);
     const slug = options?.skill ?? "society";
     const rollOptions = ["action:create-forgery"];
+
     return ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         actionGlyph: options.glyph,

@@ -9,7 +9,7 @@ import { MigrationBase } from "../base.ts";
 export class Migration626UpdateSpellCategory extends MigrationBase {
     static override version = 0.626;
 
-    override async updateItem(source: ItemSourcePF2e) {
+    override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (source.type !== "spell") return;
 
         interface MaybeCategorie extends Omit<Partial<SpellSystemSource>, "traditions"> {

@@ -261,7 +261,7 @@ class ModifierPF2e implements RawModifier {
         return duplicate(this);
     }
 
-    toString() {
+    toString(): string {
         return this.label;
     }
 }

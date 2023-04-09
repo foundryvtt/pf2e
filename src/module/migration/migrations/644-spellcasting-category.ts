@@ -19,7 +19,7 @@ const defaultTraditionByClass: Record<string, keyof ConfigPF2e["PF2E"]["magicTra
 export class Migration644SpellcastingCategory extends MigrationBase {
     static override version = 0.644;
 
-    override async updateItem(item: ItemSourcePF2e, actor?: ActorSourcePF2e) {
+    override async updateItem(item: ItemSourcePF2e, actor?: ActorSourcePF2e): Promise<void> {
         if (!actor || item.type !== "spellcastingEntry") return;
         interface SpellcastingOld extends Omit<SpellcastingEntrySystemSource, "tradition"> {
             tradition: {

@@ -4,7 +4,7 @@ import { PredicatePF2e } from "@system/predication.ts";
 import { CreaturePF2e } from "@actor";
 import { MODIFIER_TYPE, ModifierPF2e } from "@actor/modifiers.ts";
 
-export function arcaneSlam(options: SkillActionOptions) {
+export function arcaneSlam(options: SkillActionOptions): void {
     const { actor: target, token } = ActionMacroHelpers.target();
     const slug = options?.skill ?? "acrobatics";
     const rollOptions = ["action:arcane-slam"];

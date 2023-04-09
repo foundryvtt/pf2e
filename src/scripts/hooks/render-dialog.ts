@@ -4,7 +4,7 @@ import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import { LocalizePF2e } from "@system/localize.ts";
 
 export const RenderDialog = {
-    listen: () => {
+    listen: (): void => {
         Hooks.on("renderDialog", (_dialog, $html) => {
             // For macros and modules
             InlineRollLinks.listen($html);

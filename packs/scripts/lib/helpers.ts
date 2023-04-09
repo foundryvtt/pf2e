@@ -1,4 +1,4 @@
-const PackError = (message: string) => {
+const PackError = (message: string): void => {
     console.error(`Error: ${message}`);
     process.exit(1);
 };

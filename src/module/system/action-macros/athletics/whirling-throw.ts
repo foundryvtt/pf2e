@@ -9,7 +9,7 @@ function determineSizeBonus(actorSize: ActorSizePF2e, targetSize: ActorSizePF2e)
     return Math.clamped(2 * sizeDifference, -4, 4);
 }
 
-export function whirlingThrow(options: SkillActionOptions) {
+export function whirlingThrow(options: SkillActionOptions): void {
     const slug = options?.skill ?? "athletics";
     const rollOptions = ["action:whirling-throw"];
     ActionMacroHelpers.simpleRollActionCheck({

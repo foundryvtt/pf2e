@@ -47,7 +47,7 @@ async function add(actor: CharacterPF2e, event: MouseEvent): Promise<void> {
     dialog.render(true);
 }
 
-function remove(actor: CharacterPF2e, event: MouseEvent) {
+function remove(actor: CharacterPF2e, event: MouseEvent): void {
     const weaponGroups = CONFIG.PF2E.weaponGroups;
     const baseWeapons = LocalizePF2e.translations.PF2E.Weapon.Base;
     const key = htmlClosest(event.currentTarget, "li.skill.custom")?.dataset.skill ?? "";

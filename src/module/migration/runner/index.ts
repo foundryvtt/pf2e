@@ -273,7 +273,9 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
-    async runCompendiumMigration<T extends ActorPF2e<null> | ItemPF2e<null>>(compendium: CompendiumCollection<T>) {
+    async runCompendiumMigration<T extends ActorPF2e<null> | ItemPF2e<null>>(
+        compendium: CompendiumCollection<T>
+    ): Promise<void> {
         ui.notifications.info(game.i18n.format("PF2E.Migrations.Starting", { version: game.system.version }), {
             permanent: true,
         });
@@ -359,7 +361,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
-    async runMigration(force = false) {
+    async runMigration(force = false): Promise<void> {
         const schemaVersion = {
             latest: MigrationRunner.LATEST_SCHEMA_VERSION,
             current: game.settings.get("pf2e", "worldSchemaVersion"),

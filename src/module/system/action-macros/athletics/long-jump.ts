@@ -2,7 +2,7 @@ import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const PREFIX = "PF2E.Actions.LongJump";
 
-export function longJump(options: SkillActionOptions) {
+export function longJump(options: SkillActionOptions): void {
     const slug = options?.skill ?? "athletics";
     const rollOptions = ["action:stride", "action:leap", "action:long-jump"];
     const modifiers = options?.modifiers;

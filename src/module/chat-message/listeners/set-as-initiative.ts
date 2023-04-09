@@ -3,7 +3,7 @@ import { fontAwesomeIcon } from "@util";
 
 /** Add a button to set a check roll as the roller's initiative */
 export const SetAsInitiative = {
-    listen: ($li: JQuery) => {
+    listen: ($li: JQuery): void => {
         const li = $li[0];
 
         const message = game.messages.get(li.dataset.messageId ?? "", { strict: true });

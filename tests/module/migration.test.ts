@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 
 import { populateFoundryUtilFunctions } from "../fixtures/foundryshim.ts";
@@ -40,6 +41,7 @@ describe("test migration runner", () => {
         worldSchemaVersion: 10,
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (global as any).game = {
         data: {
             version: "3.2.1",
@@ -70,13 +72,16 @@ describe("test migration runner", () => {
         scenes: new MockWorldCollection<MockScene>(),
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (global as any).CONFIG = {
         Actor: { documentClass: MockActor },
         Item: { documentClass: MockItem },
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (global as any).ui = {
         notifications: {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             info(_msg: string, _other?: any) {},
         },
     };
@@ -112,6 +117,7 @@ describe("test migration runner", () => {
 
     class RemoveItemProperty extends MigrationBase {
         static version = 14;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         async updateItem(item: any) {
             item.system["-=someFakeProperty"] = null;
         }
@@ -214,6 +220,7 @@ describe("test migration runner", () => {
     test("migrations run in sequence", async () => {
         class ChangeItemProp extends MigrationBase {
             static version = 13;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             async updateItem(item: any) {
                 item.system.prop = 456;
             }
@@ -238,6 +245,7 @@ describe("test migration runner", () => {
     test("migrations can remove items from actors", async () => {
         class RemoveItemsFromActor extends MigrationBase {
             static version = 13;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             async updateActor(actor: any) {
                 actor.items = [];
             }
@@ -256,6 +264,7 @@ describe("test migration runner", () => {
 
         requiresFlush = true;
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         async updateActor(actor: { items: any[] }) {
             actor.items.push({
                 name: "sample item",
@@ -285,7 +294,9 @@ describe("test migration runner", () => {
 
     class SetActorPropertyToAddedItem extends MigrationBase {
         static version = 14;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         async updateActor(actor: { items: any[] }) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             actor.system.sampleItemId = actor.items.find((x: any) => x.name === "sample item")._id;
         }
     }

@@ -7,8 +7,11 @@ declare global {
 
     interface ActorSheetData<TActor extends Actor<TokenDocument<Scene | null> | null>>
         extends DocumentSheetData<TActor> {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         actor: any;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         data: any;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         items: any;
         cssClass: "editable" | "locked";
         effects: RawObject<ActiveEffect<TActor>>[];

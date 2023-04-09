@@ -4,11 +4,11 @@ import { StrikeData } from "@actor/data/base.ts";
 import { StatisticModifier } from "@actor/modifiers.ts";
 import { CheckContext, CheckContextError } from "@system/action-macros/types.ts";
 
-const toHighestModifier = (highest: StatisticModifier | null, current: StatisticModifier) => {
+const toHighestModifier = (highest: StatisticModifier | null, current: StatisticModifier): StatisticModifier | null => {
     return current.totalModifier > (highest?.totalModifier ?? 0) ? current : highest;
 };
 
-export function escape(options: SkillActionOptions) {
+export function escape(options: SkillActionOptions): void {
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         checkContext: (context): CheckContext<never> => {

@@ -1,6 +1,6 @@
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function decipherWriting(options: SkillActionOptions) {
+export function decipherWriting(options: SkillActionOptions): void {
     if (!options?.skill) {
         ui.notifications.warn(game.i18n.localize("PF2E.Actions.DecipherWriting.Warning.NoSkill"));
         return;

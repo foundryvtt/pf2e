@@ -1273,7 +1273,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return this;
     }
 
-    isLootableBy(user: UserPF2e) {
+    isLootableBy(user: UserPF2e): boolean {
         return this.canUserModify(user, "update");
     }
 

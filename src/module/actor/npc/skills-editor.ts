@@ -26,7 +26,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
     }
 
     /** Prepare data to be sent to HTML. */
-    override getData() {
+    override async getData(): Promise<EditorData> {
         const trainedSkills: Record<string, NPCSkillData> = {};
         const untrainedSkills: Record<string, NPCSkillData> = {};
 
@@ -42,7 +42,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
             }
         }
 
-        return { ...super.getData(), trainedSkills, untrainedSkills };
+        return { ...(await super.getData()), trainedSkills, untrainedSkills };
     }
 
     override activateListeners($html: JQuery): void {
@@ -179,4 +179,9 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
 
         return loreItem;
     }
+}
+
+interface EditorData extends FormApplicationData {
+    trainedSkills: Record<string, NPCSkillData>;
+    untrainedSkills: Record<string, NPCSkillData>;
 }

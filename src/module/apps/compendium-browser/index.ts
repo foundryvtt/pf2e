@@ -5,6 +5,7 @@ import { BaseSpellcastingEntry } from "@item/spellcasting-entry/index.ts";
 import { LocalizePF2e } from "@system/localize.ts";
 import { ErrorPF2e, htmlQueryAll, isObject, objectHasKey } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
+import { UserPF2e } from "@module/user/document.ts";
 import Tagify from "@yaireo/tagify";
 import noUiSlider from "nouislider";
 import { BrowserTabs, PackInfo, SortDirection, TabData, TabName } from "./data.ts";
@@ -30,7 +31,11 @@ class PackLoader {
         Item: Record<string, { pack: CompendiumCollection; index: CompendiumIndex } | undefined>;
     } = { Actor: {}, Item: {} };
 
-    async *loadPacks(documentType: "Actor" | "Item", packs: string[], indexFields: string[]) {
+    async *loadPacks(
+        documentType: "Actor" | "Item",
+        packs: string[],
+        indexFields: string[]
+    ): AsyncGenerator<{ pack: CompendiumCollection<CompendiumDocument>; index: CompendiumIndex }, void, unknown> {
         this.loadedPacks[documentType] ??= {};
         const translations = LocalizePF2e.translations.PF2E.CompendiumBrowser.ProgressBar;
 
@@ -820,11 +825,11 @@ class CompendiumBrowser extends Application {
         return item;
     }
 
-    protected override _canDragStart() {
+    protected override _canDragStart(): boolean {
         return true;
     }
 
-    protected override _canDragDrop() {
+    protected override _canDragDrop(): boolean {
         return true;
     }
 
@@ -858,7 +863,7 @@ class CompendiumBrowser extends Application {
         this.element.css({ pointerEvents: "none" });
     }
 
-    override getData() {
+    override getData(): { user: Active<UserPF2e>; settings?: CompendiumBrowserSettings; scrollLimit?: number } {
         const activeTab = this.activeTab;
         // Settings
         if (activeTab === "settings") {

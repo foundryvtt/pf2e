@@ -111,7 +111,12 @@ export async function rollActionMacro(itemId: string, _actionIndex: number, acti
     ChatMessagePF2e.create(chatData);
 }
 
-export async function createSkillMacro(skill: SkillAbbreviation, skillName: string, actorId: string, slot: number) {
+export async function createSkillMacro(
+    skill: SkillAbbreviation,
+    skillName: string,
+    actorId: string,
+    slot: number
+): Promise<void> {
     const dictName = SKILL_DICTIONARY[skill] ?? skill;
     const command = `
 const a = game.actors.get("${actorId}");
@@ -137,7 +142,7 @@ if (a) {
     game.user.assignHotbarMacro(skillMacro ?? null, slot);
 }
 
-export async function createToggleEffectMacro(effect: EffectPF2e, slot: number) {
+export async function createToggleEffectMacro(effect: EffectPF2e, slot: number): Promise<void> {
     const uuid = effect.uuid.startsWith("Actor") ? effect.sourceId : effect.uuid;
     if (!uuid) {
         const message = LocalizePF2e.translations.PF2E.ErrorMessage.CantCreateEffectMacro;

@@ -7,6 +7,7 @@ import { RuleElementSource } from "@module/rules/index.ts";
 import { isObject, setHasElement, sluggify, tupleHasValue } from "@util/misc.ts";
 import fs from "fs";
 import path from "path";
+import coreIconsJSON from "../core-icons.json" assert { type: "json" };
 import { PackError } from "./helpers.ts";
 import { PackEntry } from "./types.ts";
 
@@ -38,7 +39,7 @@ function isItemSource(docSource: PackEntry): docSource is ItemSourcePF2e {
  * This is used to check paths to core icons to ensure correctness. The JSON file will need to be periodically refreshed
  *  as upstream adds more icons.
  */
-const coreIcons = new Set((await import("../core-icons.json")).default);
+const coreIcons = new Set(coreIconsJSON);
 
 class CompendiumPack {
     packId: string;

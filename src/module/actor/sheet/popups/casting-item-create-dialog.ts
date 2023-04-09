@@ -45,7 +45,7 @@ export class CastingItemCreateDialog extends FormApplication<ActorPF2e> {
         this.onSubmitCallback = callback;
     }
 
-    static override get defaultOptions() {
+    static override get defaultOptions(): FormApplicationOptions {
         const options = super.defaultOptions;
 
         options.classes = [];
@@ -75,7 +75,7 @@ export class CastingItemCreateDialog extends FormApplication<ActorPF2e> {
         };
     }
 
-    override async _updateObject(event: Event, formData: FormOutputData) {
+    override async _updateObject(event: Event, formData: FormOutputData): Promise<void> {
         Object.assign(this.formDataCache, formData);
 
         if (event.type !== "submit") {

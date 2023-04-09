@@ -2,7 +2,7 @@ import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const PREFIX = "PF2E.Actions.CommandAnAnimal";
 
-export function commandAnAnimal(options: SkillActionOptions) {
+export function commandAnAnimal(options: SkillActionOptions): void {
     const slug = options?.skill ?? "nature";
     const rollOptions = ["action:command-an-animal"];
     const modifiers = options?.modifiers;

@@ -120,7 +120,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return this.traits.has("cantrip") && !this.isRitual;
     }
 
-    get isFocusSpell() {
+    get isFocusSpell(): boolean {
         return this.system.category.value === "focus";
     }
 

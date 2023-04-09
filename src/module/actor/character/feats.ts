@@ -110,7 +110,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup>
         }
     }
 
-    createGroup(options: FeatCategoryOptions) {
+    createGroup(options: FeatCategoryOptions): void {
         this.set(options.id, new FeatGroup(this.actor, options));
     }
 

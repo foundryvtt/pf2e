@@ -6,7 +6,7 @@ import { MigrationBase } from "../base.ts";
 export class Migration748BatchConsumablePricing extends MigrationBase {
     static override version = 0.748;
 
-    override async updateItem(item: ItemSourcePF2e) {
+    override async updateItem(item: ItemSourcePF2e): Promise<void> {
         if (!isPhysicalData(item)) return;
 
         const slug = item.system.slug ?? sluggify(item.name);

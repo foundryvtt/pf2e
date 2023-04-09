@@ -26,7 +26,7 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
         return "systems/pf2e/templates/system/migration-summary.hbs";
     }
 
-    static override get defaultOptions() {
+    static override get defaultOptions(): ApplicationOptions {
         return {
             ...super.defaultOptions,
             id: "migration-summary",

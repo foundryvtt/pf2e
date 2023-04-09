@@ -1,33 +1,32 @@
-// @ts-nocheck
-
-import { FoundryUtils } from "tests/utils";
+import { FoundryUtils } from "../utils.ts";
 
 export class MockScene {
-    data: Partial<foundry.data.SceneData> & { _id: string; name: string };
-    constructor(data: Partial<foundry.data.SceneSource>) {
-        this.data = { _id: FoundryUtils.randomID(), name: "", ...data } as any;
-        this.data.tokens = [];
+    _source: Partial<foundry.documents.SceneSource> & { _id: string; name: string };
+
+    constructor(data: Partial<foundry.documents.SceneSource>) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        this._source = { _id: FoundryUtils.randomID(), name: "", ...data } as any;
+        this._source.tokens = [];
     }
 
     get id(): string {
-        return this.data._id;
+        return this._source._id;
     }
 
     get name(): string {
-        return this.data.name ?? "";
+        return this._source.name ?? "";
     }
 
-    addToken(token: Partial<foundry.data.TokenData>) {
-        this.data.tokens ??= [];
+    addToken(token: Partial<foundry.documents.TokenSource>): void {
+        this._source.tokens ??= [];
 
-        this.data.tokens.push({
+        this._source.tokens.push({
             _id: "",
-            flags: [],
+            flags: {},
             x: 0,
             y: 0,
             height: 100,
             width: 100,
-            locked: false,
             brightLight: 0,
             dimLight: 0,
             lightAlpha: 0,
@@ -35,12 +34,15 @@ export class MockScene {
             lightAnimation: { type: "", speed: 0, intensity: 0 },
             lightColor: "",
             name: "test",
-            displayName: 1,
-            img: "icons/svg/mystery-man.svg",
-            scale: 1,
+            displayName: 10,
+            texture: {
+                src: "icons/svg/mystery-man.svg",
+                scaleX: 1,
+                scaleY: 1,
+            } as unknown as foundry.documents.TokenSource["texture"],
             elevation: 0,
             lockRotation: false,
-            effects: [],
+            effects: [] as VideoFilePath[],
             overlayEffect: "",
             vision: false,
             dimSight: 0,
@@ -52,22 +54,22 @@ export class MockScene {
             actorData: {},
             disposition: 0,
             displayBars: 0,
-            bar1: {},
-            bar2: {},
+            bar1: { attribute: "" },
+            bar2: { attribute: "" },
             ...token,
-        });
+        } as foundry.documents.TokenSource);
     }
 
-    update(changes: object) {
+    update(changes: object): void {
         for (const [k, v] of Object.entries(changes)) {
-            global.setProperty(this.data, k, v);
+            global.setProperty(this._source, k, v);
         }
     }
 
-    updateEmbeddedEntity(entityType: string, changes: any) {
-        let obj: TokenData | undefined;
+    updateEmbeddedEntity(entityType: string, changes: { _id: string }): void {
+        let obj: foundry.documents.TokenSource | undefined;
         if (entityType === "Token") {
-            obj = this.data.tokens?.find((x) => x._id === changes._id);
+            obj = this._source.tokens?.find((x) => x._id === changes._id);
         }
         for (const [k, v] of Object.entries(changes)) {
             global.setProperty(obj!, k, v);

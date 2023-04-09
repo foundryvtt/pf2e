@@ -21,7 +21,7 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
         return options;
     }
 
-    override get template() {
+    override get template(): string {
         return "systems/pf2e/templates/actors/familiar-sheet.hbs";
     }
 

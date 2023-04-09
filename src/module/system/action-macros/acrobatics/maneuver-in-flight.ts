@@ -3,10 +3,11 @@ import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const PREFIX = "PF2E.Actions.ManeuverInFlight";
 
-function maneuverInFlight(options: SkillActionOptions): void {
+async function maneuverInFlight(options: SkillActionOptions): Promise<void> {
     const slug = options?.skill ?? "acrobatics";
     const rollOptions = ["action:maneuver-in-flight"];
     const modifiers = options?.modifiers;
+
     return ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         actionGlyph: options.glyph ?? "A",

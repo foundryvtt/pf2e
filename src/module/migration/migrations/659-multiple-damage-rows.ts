@@ -14,7 +14,7 @@ const modes = ["level1", "level2", "level3", "level4"] as const;
 export class Migration659MultipleDamageRows extends MigrationBase {
     static override version = 0.659;
 
-    override async updateItem(itemData: ItemSourcePF2e) {
+    override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         if (itemData.type !== "spell") return;
 
         const data: SpellSystemDataOld = itemData.system;

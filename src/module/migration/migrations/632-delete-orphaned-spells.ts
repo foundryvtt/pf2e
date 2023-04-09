@@ -8,7 +8,7 @@ export class Migration632DeleteOrphanedSpells extends MigrationBase {
 
     override requiresFlush = true;
 
-    override async updateActor(actorData: ActorSourcePF2e) {
+    override async updateActor(actorData: ActorSourcePF2e): Promise<void> {
         const spells = actorData.items.filter((itemData): itemData is SpellSource => itemData.type === "spell");
         const entries = actorData.items.filter(
             (itemData): itemData is SpellcastingEntrySource => itemData.type === "spellcastingEntry"

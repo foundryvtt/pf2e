@@ -54,7 +54,7 @@ function tripCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
     return context;
 }
 
-function trip(options: SkillActionOptions) {
+function trip(options: SkillActionOptions): void {
     const slug = options?.skill ?? "athletics";
     const modifiers = options?.modifiers;
     const rollOptions = ["action:trip"];

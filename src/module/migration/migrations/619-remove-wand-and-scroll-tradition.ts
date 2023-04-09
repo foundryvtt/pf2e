@@ -31,7 +31,7 @@ function makeLowercase<T extends string>(value: T): Lowercase<T> {
 export class Migration619TraditionLowercaseAndRemoveWandScroll extends MigrationBase {
     static override version = 0.619;
 
-    override async updateItem(item: ItemSourcePF2e, actorData?: ActorSourcePF2e) {
+    override async updateItem(item: ItemSourcePF2e, actorData?: ActorSourcePF2e): Promise<void> {
         if (!actorData || item.type !== "spellcastingEntry") {
             return;
         }

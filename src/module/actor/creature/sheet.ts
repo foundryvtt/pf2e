@@ -130,7 +130,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
     }
 
     /** Opens the spell preparation sheet, but only if its a prepared entry */
-    protected openSpellPreparationSheet(entryId: string) {
+    protected openSpellPreparationSheet(entryId: string): void {
         const entry = this.actor.items.get(entryId);
         if (entry?.isOfType("spellcastingEntry") && entry.isPrepared) {
             const $book = this.element.find(`.item-container[data-container-id="${entry.id}"] .prepared-toggle`);

@@ -15,7 +15,7 @@ export class Migration774UnpersistCraftingEntries extends MigrationBase {
         any: ["item:trait:bomb", "item:subtype:ammo"],
     };
 
-    override async updateActor(source: ActorSourcePF2e) {
+    override async updateActor(source: ActorSourcePF2e): Promise<void> {
         if (source.type === "character") {
             const craftingData: MaybeWithOldEntries = source.system.crafting;
             const craftingEntries = craftingData.entries ?? {};

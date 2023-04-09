@@ -191,11 +191,11 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         this.auras.draw();
     }
 
-    emitHoverIn() {
+    emitHoverIn(): void {
         this.emit("mouseover", { data: { object: this } });
     }
 
-    emitHoverOut() {
+    emitHoverOut(): void {
         this.emit("mouseout", { data: { object: this } });
     }
 

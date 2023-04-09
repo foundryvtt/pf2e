@@ -1,6 +1,6 @@
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function bonMot(options: SkillActionOptions) {
+export function bonMot(options: SkillActionOptions): void {
     const slug = options?.skill ?? "diplomacy";
     const rollOptions = ["action:bon-mot"];
     const modifiers = options?.modifiers;
