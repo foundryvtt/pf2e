@@ -16,7 +16,7 @@ import { whirlingThrow } from "./athletics/whirling-throw.ts";
 import { crawl } from "./basic/crawl.ts";
 import { delay } from "./basic/delay.ts";
 import { dropProne } from "./basic/drop-prone.ts";
-import { escape } from "./basic/escape.ts";
+import * as escape from "./basic/escape.ts";
 import { interact } from "./basic/interact.ts";
 import { leap } from "./basic/leap.ts";
 import { ready } from "./basic/ready.ts";
@@ -63,7 +63,7 @@ export type { ActionDefaultOptions, SkillActionOptions } from "./types.ts";
 
 export const ActionMacros = {
     // Basic
-    escape,
+    escape: escape.legacy,
     seek,
     senseMotive,
 
@@ -152,6 +152,7 @@ export const SystemActions: Action[] = [
     delay,
     disableDevice.action,
     dropProne,
+    escape.action,
     hide.action,
     interact,
     leap,
