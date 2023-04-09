@@ -164,4 +164,4 @@ class SingleCheckAction extends BaseAction<SingleCheckActionVariantData, SingleC
     }
 }
 
-export { SingleCheckAction, SingleCheckActionVariant, SingleCheckActionVariantData };
+export { SingleCheckAction, SingleCheckActionUseOptions, SingleCheckActionVariant, SingleCheckActionVariantData };
