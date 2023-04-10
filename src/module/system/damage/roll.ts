@@ -23,9 +23,7 @@ abstract class AbstractDamageRoll extends Roll {
         super(formula, data, options);
     }
 
-    protected static get parser(): Peggy.Parser {
-        return ROLL_PARSER;
-    }
+    declare static parser: Peggy.Parser;
 
     /** Strip out parentheses enclosing constants */
     static override replaceFormulaData(
@@ -50,6 +48,11 @@ abstract class AbstractDamageRoll extends Roll {
         throw ErrorPF2e("Damage rolls must be evaluated asynchronously");
     }
 }
+
+// Vite sets globals too late in dev server mode: push this to the end of the task queue so it'll wait
+Promise.resolve().then(() => {
+    AbstractDamageRoll.parser = ROLL_PARSER;
+});
 
 class DamageRoll extends AbstractDamageRoll {
     roller: UserPF2e | null;
