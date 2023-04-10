@@ -1,5 +1,5 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { MigrationBase } from "../base";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 interface BaseSaveData {
     value: number;

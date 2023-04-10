@@ -1,7 +1,7 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
-import { CheckResultCallback } from "@system/action-macros/types";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { CheckResultCallback } from "@system/action-macros/types.ts";
 import { CreaturePF2e } from "@actor";
-import { RawModifier, ModifierPF2e } from "@actor/modifiers";
+import { RawModifier, ModifierPF2e } from "@actor/modifiers.ts";
 
 interface ChatMessageCheckFlags {
     context: {
@@ -10,7 +10,7 @@ interface ChatMessageCheckFlags {
     modifiers: RawModifier[];
 }
 
-export function createForgery(options: SkillActionOptions) {
+export function createForgery(options: SkillActionOptions): Promise<void> {
     const modifiers = [
         new ModifierPF2e({
             label: "PF2E.Actions.CreateForgery.UnspecificHandwriting",
@@ -21,6 +21,7 @@ export function createForgery(options: SkillActionOptions) {
     ].concat(options?.modifiers ?? []);
     const slug = options?.skill ?? "society";
     const rollOptions = ["action:create-forgery"];
+
     return ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         actionGlyph: options.glyph,

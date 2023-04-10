@@ -1,7 +1,7 @@
-import { SlugField } from "@system/schema-data-fields";
-import { ArrayField, BooleanField, StringField } from "types/foundry/common/data/fields.mjs";
-import { ItemAlterationField } from "../alter-item";
-import { RuleElementSchema } from "../data";
+import { SlugField } from "@system/schema-data-fields.ts";
+import type { ArrayField, BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
+import { ItemAlterationField } from "../alter-item/index.ts";
+import { RuleElementSchema } from "../data.ts";
 
 type GrantItemSchema = RuleElementSchema & {
     /** The UUID of the item to grant: must be a compendium or world item */

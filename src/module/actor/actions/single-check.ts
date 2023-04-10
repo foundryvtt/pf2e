@@ -4,14 +4,14 @@ import {
     CheckContextData,
     CheckContextOptions,
     CheckResultCallback,
-} from "@system/action-macros/types";
-import { ActionUseOptions } from "./types";
-import { ModifierPF2e } from "@actor/modifiers";
-import { ActionMacroHelpers } from "@system/action-macros";
-import { CheckDC } from "@system/degree-of-success";
-import { Statistic } from "@system/statistic";
-import { RollNotePF2e, RollNoteSource } from "@module/notes";
-import { BaseAction, BaseActionData, BaseActionVariant, BaseActionVariantData } from "./base";
+} from "@system/action-macros/types.ts";
+import { ActionUseOptions } from "./types.ts";
+import { ModifierPF2e } from "@actor/modifiers.ts";
+import { ActionMacroHelpers } from "@system/action-macros/index.ts";
+import { CheckDC } from "@system/degree-of-success.ts";
+import { Statistic } from "@system/statistic/index.ts";
+import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
+import { BaseAction, BaseActionData, BaseActionVariant, BaseActionVariantData } from "./base.ts";
 import { getActionGlyph } from "@util";
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";

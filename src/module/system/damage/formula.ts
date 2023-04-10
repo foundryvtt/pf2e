@@ -1,8 +1,14 @@
-import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers";
-import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS } from "@system/degree-of-success";
+import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
+import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
 import { groupBy } from "@util";
-import { CriticalInclusion, DamageCategoryUnique, DamageFormulaData, DamageType, MaterialDamageEffect } from "./types";
-import { CRITICAL_INCLUSION } from "./values";
+import {
+    CriticalInclusion,
+    DamageCategoryUnique,
+    DamageFormulaData,
+    DamageType,
+    MaterialDamageEffect,
+} from "./types.ts";
+import { CRITICAL_INCLUSION } from "./values.ts";
 
 /** A compiled formula with its associated breakdown */
 interface AssembledFormula {

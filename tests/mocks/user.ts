@@ -1,4 +1,4 @@
-import { UserSourcePF2e } from "@module/user/data";
+import { UserSourcePF2e } from "@module/user/data.js";
 
 export class MockUser {
     readonly _source: UserSourcePF2e;

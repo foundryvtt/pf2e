@@ -1,11 +1,11 @@
-import { StrikeData } from "@actor/data/base";
+import { StrikeData } from "@actor/data/base.ts";
 import { ItemPF2e } from "@item";
-import { ItemType } from "@item/data";
-import { ChatMessagePF2e, DamageRollContextFlag } from "@module/chat-message";
-import { ZeroToThree } from "@module/data";
-import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success";
-import { DamageRoll, DamageRollDataPF2e } from "./roll";
-import { DamageRollContext, DamageTemplate } from "./types";
+import { ItemType } from "@item/data/index.ts";
+import { ChatMessagePF2e, DamageRollContextFlag } from "@module/chat-message/index.ts";
+import { ZeroToThree } from "@module/data.ts";
+import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
+import { DamageRoll, DamageRollDataPF2e } from "./roll.ts";
+import { DamageRollContext, DamageTemplate } from "./types.ts";
 import { ActorPF2e } from "@actor";
 
 /** Create a chat message containing a damage roll */

@@ -1,12 +1,12 @@
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
-import { AbilityString } from "@actor/types";
-import { RollNotePF2e } from "@module/notes";
-import { extractModifierAdjustments } from "@module/rules/helpers";
-import { DamageCategoryUnique, DamageDieSize, DamageType } from "@system/damage/types";
-import { DAMAGE_TYPES } from "@system/damage/values";
-import { PredicatePF2e, RawPredicate } from "@system/predication";
+import { AbilityString } from "@actor/types.ts";
+import { RollNotePF2e } from "@module/notes.ts";
+import { extractModifierAdjustments } from "@module/rules/helpers.ts";
+import { DamageCategoryUnique, DamageDieSize, DamageType } from "@system/damage/types.ts";
+import { DAMAGE_TYPES } from "@system/damage/values.ts";
+import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
 import { ErrorPF2e, setHasElement, signedInteger, sluggify, tupleHasValue } from "@util";
-import { ZeroToFour } from "@module/data";
+import { ZeroToFour } from "@module/data.ts";
 
 const PROFICIENCY_RANK_OPTION = [
     "proficiency:untrained",
@@ -261,7 +261,7 @@ class ModifierPF2e implements RawModifier {
         return duplicate(this);
     }
 
-    toString() {
+    toString(): string {
         return this.label;
     }
 }

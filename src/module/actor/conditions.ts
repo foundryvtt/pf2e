@@ -1,6 +1,6 @@
 import { ConditionPF2e } from "@item";
-import { ConditionSlug, PersistentDamagePF2e } from "@item/condition";
-import { ActorPF2e } from "./base";
+import { ConditionSlug, PersistentDamagePF2e } from "@item/condition/index.ts";
+import { ActorPF2e } from "./base.ts";
 
 /** A collection of conditions on an actor, filterable by whether they're active or stored/temporary */
 class ActorConditions<TActor extends ActorPF2e> extends Collection<ConditionPF2e<TActor>> {

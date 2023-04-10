@@ -1,5 +1,5 @@
-import { ActorPF2e } from "@actor/base";
-import { Coins } from "@item/physical/data";
+import { ActorPF2e } from "@actor/base.ts";
+import { Coins } from "@item/physical/data.ts";
 
 interface AddCoinsFormData extends Coins {
     combineStacks: boolean;

@@ -1,11 +1,11 @@
-import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers";
-import { RollTarget, ResistanceType, StrikeSelf } from "@actor/types";
-import { ZeroToTwo } from "@module/data";
-import { RollNotePF2e } from "@module/notes";
-import { DegreeOfSuccessString } from "@system/degree-of-success";
-import { BaseRollContext } from "@system/rolls";
-import { DamageRoll } from "./roll";
-import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_DIE_FACES, DAMAGE_TYPES } from "./values";
+import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
+import { RollTarget, ResistanceType, StrikeSelf } from "@actor/types.ts";
+import { ZeroToTwo } from "@module/data.ts";
+import { RollNotePF2e } from "@module/notes.ts";
+import { DegreeOfSuccessString } from "@system/degree-of-success.ts";
+import { BaseRollContext } from "@system/rolls.ts";
+import { DamageRoll } from "./roll.ts";
+import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_DIE_FACES, DAMAGE_TYPES } from "./values.ts";
 
 type DamageCategoryUnique = SetElement<typeof DAMAGE_CATEGORIES_UNIQUE>;
 type MaterialDamageEffect = keyof ConfigPF2e["PF2E"]["materialDamageEffects"];

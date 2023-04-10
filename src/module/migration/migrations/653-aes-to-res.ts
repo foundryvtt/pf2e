@@ -1,8 +1,8 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ClassSource, ItemSourcePF2e } from "@item/data";
-import { MigrationBase } from "../base";
-import { CharacterProficiency } from "@actor/character/data";
-import { AbilityString } from "@actor/types";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ClassSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
+import { CharacterProficiency } from "@actor/character/data/index.ts";
+import { AbilityString } from "@actor/types.ts";
 
 /** Remove `ActiveEffect`s from classes, convert AE changes on several item types to AE-likes */
 export class Migration653AEstoREs extends MigrationBase {

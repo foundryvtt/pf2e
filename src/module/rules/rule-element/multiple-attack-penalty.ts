@@ -1,8 +1,8 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { MAPSynthetic } from "../synthetics";
-import { RuleElementOptions, RuleElementPF2e } from "./";
-import { RuleElementSource } from "./data";
+import { MAPSynthetic } from "../synthetics.ts";
+import { RuleElementOptions, RuleElementPF2e } from "./index.ts";
+import { RuleElementSource } from "./data.ts";
 
 /**
  * @category RuleElement

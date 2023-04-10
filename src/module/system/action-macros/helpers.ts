@@ -1,34 +1,34 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { DC_SLUGS, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
+import { DC_SLUGS, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
 import {
     CheckModifier,
     ensureProficiencyOption,
     ModifierPF2e,
     MODIFIER_TYPE,
     StatisticModifier,
-} from "@actor/modifiers";
+} from "@actor/modifiers.ts";
 import { ItemPF2e, WeaponPF2e } from "@item";
-import { WeaponTrait } from "@item/weapon/types";
-import { RollNotePF2e } from "@module/notes";
+import { WeaponTrait } from "@item/weapon/types.ts";
+import { RollNotePF2e } from "@module/notes.ts";
 import {
     extractDegreeOfSuccessAdjustments,
     extractModifierAdjustments,
     extractRollSubstitutions,
-} from "@module/rules/helpers";
-import { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success";
+} from "@module/rules/helpers.ts";
+import { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import { setHasElement, sluggify } from "@util";
-import { getSelectedOrOwnActors } from "@util/token-actor-utils";
+import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
 import {
     CheckContextOptions,
     CheckContext,
     SimpleRollActionCheckOptions,
     CheckContextError,
     CheckContextData,
-} from "./types";
-import { getRangeIncrement } from "@actor/helpers";
-import { CheckPF2e, CheckType } from "@system/check";
-import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
-import { TokenDocumentPF2e } from "@scene";
+} from "./types.ts";
+import { getRangeIncrement } from "@actor/helpers.ts";
+import { CheckPF2e, CheckType } from "@system/check/index.ts";
+import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
 
 export class ActionMacroHelpers {
     static resolveStat(stat: string): {

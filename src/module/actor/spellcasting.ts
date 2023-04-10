@@ -1,9 +1,9 @@
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { ConsumablePF2e, SpellcastingEntryPF2e } from "@item";
-import { SpellcastingEntrySource } from "@item/spellcasting-entry";
-import { SpellCollection } from "@item/spellcasting-entry/collection";
-import { RitualSpellcasting } from "@item/spellcasting-entry/rituals";
-import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types";
+import { SpellcastingEntrySource } from "@item/spellcasting-entry/index.ts";
+import { SpellCollection } from "@item/spellcasting-entry/collection.ts";
+import { RitualSpellcasting } from "@item/spellcasting-entry/rituals.ts";
+import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types.ts";
 import { ErrorPF2e } from "@util";
 
 export class ActorSpellcasting<TActor extends ActorPF2e> extends Collection<BaseSpellcastingEntry<TActor>> {

@@ -1,7 +1,7 @@
 import { ItemPF2e } from "@item";
-import { Rarity } from "@module/data";
-import { RuleElementSource } from "@module/rules";
-import { SheetOptions, TraitTagifyEntry } from "@module/sheet/helpers";
+import { Rarity } from "@module/data.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
+import { SheetOptions, TraitTagifyEntry } from "@module/sheet/helpers.ts";
 
 interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem> {
     /** The item type label that shows at the top right (for example, "Feat" for "Feat 6") */

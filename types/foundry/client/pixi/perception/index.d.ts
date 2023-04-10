@@ -1,5 +1,5 @@
-import "./clockwise-sweep";
-import "./color-manager";
-import "./detection-mode";
-import "./perception-manager";
-import "./vision-mode";
+import "./clockwise-sweep.js";
+import "./color-manager.js";
+import "./detection-mode.js";
+import "./perception-manager.js";
+import "./vision-mode.js";

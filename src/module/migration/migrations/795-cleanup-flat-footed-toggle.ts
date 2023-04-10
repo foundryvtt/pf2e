@@ -1,7 +1,7 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemSourcePF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules";
-import { MigrationBase } from "../base";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Remove stored roll options, add flat-footed toggle to select items  */
 export class Migration795CleanupFlatFootedToggle extends MigrationBase {

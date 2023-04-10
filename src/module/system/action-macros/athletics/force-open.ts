@@ -1,6 +1,6 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function forceOpen(options: SkillActionOptions) {
+export function forceOpen(options: SkillActionOptions): void {
     const slug = options?.skill ?? "athletics";
     const rollOptions = ["action:force-open"];
     const modifiers = options?.modifiers;

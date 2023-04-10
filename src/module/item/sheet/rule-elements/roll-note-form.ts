@@ -1,6 +1,6 @@
-import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success";
+import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
 import { tagify } from "@util";
-import { RuleElementForm } from "./base";
+import { RuleElementForm } from "./base.ts";
 
 /** Form handler for the RollNote rule element */
 class RollNoteForm extends RuleElementForm {

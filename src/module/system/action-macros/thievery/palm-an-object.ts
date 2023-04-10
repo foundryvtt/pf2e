@@ -1,8 +1,8 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const PREFIX = "PF2E.Actions.PalmAnObject";
 
-export function palmAnObject(options: SkillActionOptions) {
+export function palmAnObject(options: SkillActionOptions): void {
     const slug = options?.skill ?? "thievery";
     const rollOptions = ["action:palm-an-object"];
     const modifiers = options?.modifiers;

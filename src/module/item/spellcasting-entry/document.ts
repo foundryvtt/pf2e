@@ -1,20 +1,20 @@
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
-import { AbilityString } from "@actor/types";
+import { AbilityString } from "@actor/types.ts";
 import { ItemPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
-import { MagicTradition } from "@item/spell/types";
-import { MAGIC_TRADITIONS } from "@item/spell/values";
-import { goesToEleven, OneToFour, OneToTen, ZeroToFour } from "@module/data";
-import { UserPF2e } from "@module/user";
-import { Statistic } from "@system/statistic";
+import { MagicTradition } from "@item/spell/types.ts";
+import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
+import { goesToEleven, OneToFour, OneToTen, ZeroToFour } from "@module/data.ts";
+import { UserPF2e } from "@module/user/index.ts";
+import { Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e, setHasElement, sluggify } from "@util";
-import { SpellCollection } from "./collection";
-import { SpellcastingEntrySource, SpellcastingEntrySystemData } from "./data";
+import { SpellCollection } from "./collection.ts";
+import { SpellcastingEntrySource, SpellcastingEntrySystemData } from "./data.ts";
 import {
     SpellcastingCategory,
     SpellcastingEntry,
     SpellcastingEntryPF2eCastOptions,
     SpellcastingSheetData,
-} from "./types";
+} from "./types.ts";
 
 class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     extends ItemPF2e<TParent>

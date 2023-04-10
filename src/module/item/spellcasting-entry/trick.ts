@@ -1,10 +1,10 @@
 import { ActorPF2e } from "@actor";
-import { AbilityString } from "@actor/types";
+import { AbilityString } from "@actor/types.ts";
 import { SpellPF2e } from "@item";
-import { extractModifiers } from "@module/rules/helpers";
-import { Statistic } from "@system/statistic";
-import { CastOptions, SpellcastingEntry, SpellcastingSheetData } from "./types";
-import { ErrorPF2e } from "@util";
+import { extractModifiers } from "@module/rules/helpers.ts";
+import { Statistic } from "@system/statistic/index.ts";
+import { CastOptions, SpellcastingEntry, SpellcastingSheetData } from "./types.ts";
+import { ErrorPF2e } from "@util/misc.ts";
 
 const TRICK_MAGIC_SKILLS = ["arcana", "nature", "occultism", "religion"] as const;
 type TrickMagicItemSkill = (typeof TRICK_MAGIC_SKILLS)[number];

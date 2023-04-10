@@ -1,11 +1,11 @@
-import { AuraColors, AuraData } from "@actor/types";
-import { ItemTrait } from "@item/data/base";
-import { measureDistanceCuboid } from "@module/canvas";
-import { EffectAreaSquare } from "@module/canvas/effect-area-square";
-import { getAreaSquares } from "@module/canvas/token/aura/util";
-import { ScenePF2e } from "@scene/document";
-import { TokenDocumentPF2e } from "../document";
-import { TokenAuraData } from "./types";
+import { AuraColors, AuraData } from "@actor/types.ts";
+import { ItemTrait } from "@item/data/base.ts";
+import { measureDistanceCuboid } from "@module/canvas/index.ts";
+import { EffectAreaSquare } from "@module/canvas/effect-area-square.ts";
+import { getAreaSquares } from "@module/canvas/token/aura/util.ts";
+import { ScenePF2e } from "@scene/document.ts";
+import { TokenDocumentPF2e } from "../document.ts";
+import type { TokenAuraData } from "./types.ts";
 
 class TokenAura implements TokenAuraData {
     slug: string;

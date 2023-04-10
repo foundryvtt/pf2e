@@ -1,4 +1,4 @@
-import { EquippedData } from "./data";
+import { EquippedData } from "./data.ts";
 
 interface HeldUsage {
     value: string;

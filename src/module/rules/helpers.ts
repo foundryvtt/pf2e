@@ -1,13 +1,12 @@
-import { DamageDicePF2e, DeferredValueParams, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers";
-import { ConditionSource, EffectSource, ItemSourcePF2e } from "@item/data";
-import { ActorPF2e, ItemPF2e } from "@module/documents";
-import { RollNotePF2e } from "@module/notes";
-import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
-import { RollTwiceOption } from "@system/rolls";
+import { DamageDicePF2e, DeferredValueParams, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers.ts";
+import { ConditionSource, EffectSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { ActorPF2e, ItemPF2e } from "@module/documents.ts";
+import { RollNotePF2e } from "@module/notes.ts";
+import { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
+import { RollTwiceOption } from "@system/rolls.ts";
 import { isObject, pick } from "@util";
-import { RuleElementPF2e } from "./rule-element";
-import { BracketedValue } from "./rule-element/data";
-import { DamageDiceSynthetics, RollSubstitution, RollTwiceSynthetic, RuleElementSynthetics } from "./synthetics";
+import { BracketedValue, RuleElementPF2e } from "./rule-element/index.ts";
+import { DamageDiceSynthetics, RollSubstitution, RollTwiceSynthetic, RuleElementSynthetics } from "./synthetics.ts";
 
 /** Extracts a list of all cloned modifiers across all given keys in a single list. */
 function extractModifiers(
@@ -48,7 +47,7 @@ function extractModifierAdjustments(
 }
 
 /** Extracts a list of all cloned notes across all given keys in a single list. */
-function extractNotes(rollNotes: Record<string, RollNotePF2e[]>, selectors: string[]) {
+function extractNotes(rollNotes: Record<string, RollNotePF2e[]>, selectors: string[]): RollNotePF2e[] {
     return selectors.flatMap((s) => (rollNotes[s] ?? []).map((n) => n.clone()));
 }
 

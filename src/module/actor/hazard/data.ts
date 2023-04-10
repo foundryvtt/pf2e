@@ -1,4 +1,4 @@
-import { SaveData } from "@actor/creature/data";
+import { SaveData } from "@actor/creature/data.ts";
 import {
     ActorSystemData,
     ActorSystemSource,
@@ -8,12 +8,12 @@ import {
     ActorAttributesSource,
     ActorHitPoints,
     InitiativeData,
-} from "@actor/data/base";
-import { ActorSizePF2e } from "@actor/data/size";
-import { NPCStrike } from "@actor/npc";
-import { SaveType } from "@actor/types";
-import { Rarity, Size } from "@module/data";
-import { HazardTrait } from "./types";
+} from "@actor/data/base.ts";
+import { ActorSizePF2e } from "@actor/data/size.ts";
+import { NPCStrike } from "@actor/npc/index.ts";
+import { SaveType } from "@actor/types.ts";
+import { Rarity, Size } from "@module/data.ts";
+import { HazardTrait } from "./types.ts";
 
 /** The stored source data of a hazard actor */
 type HazardSource = BaseActorSourcePF2e<"hazard", HazardSystemSource>;

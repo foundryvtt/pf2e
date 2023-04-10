@@ -1,4 +1,4 @@
-import { BaseRollContext } from "@system/rolls";
+import { BaseRollContext } from "@system/rolls.ts";
 
 /** Returns statistic dialog roll parameters based on held keys */
 type ParamsFromEvent = Pick<BaseRollContext, "rollMode" | "skipDialog">;

@@ -1,7 +1,7 @@
-import { DamageCategoryUnique, DamageType } from "@system/damage/types";
-import { DAMAGE_TYPES } from "@system/damage/values";
+import { DamageCategoryUnique, DamageType } from "@system/damage/types.ts";
+import { DAMAGE_TYPES } from "@system/damage/values.ts";
 import { pick } from "@util";
-import { alignmentTraits, energyDamageTypes, preciousMaterials } from "./traits";
+import { alignmentTraits, energyDamageTypes, preciousMaterials } from "./traits.ts";
 
 const damageCategoriesUnique: Record<DamageCategoryUnique, string> = {
     persistent: "PF2E.ConditionTypePersistentShort",

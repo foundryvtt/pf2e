@@ -1,11 +1,12 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const PREFIX = "PF2E.Actions.ConcealAnObject";
 
-export function concealAnObject(options: SkillActionOptions) {
+export function concealAnObject(options: SkillActionOptions): Promise<void> {
     const slug = options?.skill ?? "stealth";
     const rollOptions = ["action:conceal-an-object"];
     const modifiers = options?.modifiers;
+
     return ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         actionGlyph: options.glyph ?? "A",

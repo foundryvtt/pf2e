@@ -1,10 +1,10 @@
-import { AbilityString } from "@actor/types";
+import { AbilityString } from "@actor/types.ts";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e, FeatPF2e, ItemPF2e } from "@item";
-import { ABCFeatureEntryData } from "@item/abc/data";
-import { FeatCategory } from "@item/feat/types";
-import { FEAT_CATEGORIES } from "@item/feat/values";
-import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/sheet";
-import { LocalizePF2e } from "@system/localize";
+import { ABCFeatureEntryData } from "@item/abc/data.ts";
+import { FeatCategory } from "@item/feat/types.ts";
+import { FEAT_CATEGORIES } from "@item/feat/values.ts";
+import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/sheet/index.ts";
+import { LocalizePF2e } from "@system/localize.ts";
 import { htmlClosest, setHasElement } from "@util";
 
 abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<TItem> {

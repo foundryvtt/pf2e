@@ -1,35 +1,35 @@
+import { ItemSourcePF2e } from "@item/data/index.ts";
 import { ItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data";
-import { RuleElements, RuleElementSource } from "@module/rules";
+import { RuleElements, RuleElementSource } from "@module/rules/index.ts";
 import {
     createSheetTags,
     createTagifyTraits,
     maintainTagifyFocusInRender,
     processTagifyInSubmitData,
-} from "@module/sheet/helpers";
-import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
-import { LocalizePF2e } from "@system/localize";
+} from "@module/sheet/helpers.ts";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
+import { LocalizePF2e } from "@system/localize.ts";
 import {
     BasicConstructorOptions,
-    SelectableTagField,
     SELECTABLE_TAG_FIELDS,
+    SelectableTagField,
     TagSelectorBasic,
-} from "@system/tag-selector";
+} from "@system/tag-selector/index.ts";
 import {
     ErrorPF2e,
+    fontAwesomeIcon,
+    htmlQuery,
+    htmlQueryAll,
+    objectHasKey,
     sluggify,
     sortStringRecord,
-    tupleHasValue,
-    objectHasKey,
     tagify,
-    htmlQueryAll,
-    htmlQuery,
-    fontAwesomeIcon,
+    tupleHasValue,
 } from "@util";
 import type * as TinyMCE from "tinymce";
-import { CodeMirror } from "./codemirror";
-import { ItemSheetDataPF2e } from "./data-types";
-import { RuleElementForm, RULE_ELEMENT_FORMS } from "./rule-elements";
+import { CodeMirror } from "./codemirror.ts";
+import { ItemSheetDataPF2e } from "./data-types.ts";
+import { RULE_ELEMENT_FORMS, RuleElementForm } from "./rule-elements/index.ts";
 
 export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     static override get defaultOptions(): DocumentSheetOptions {

@@ -72,7 +72,7 @@ declare global {
     }
 
     interface SettingsMenuConstructor {
-        new (object?: {}, options?: FormApplicationOptions): FormApplication;
+        new (object?: object, options?: FormApplicationOptions): FormApplication;
         registerSettings(): void;
     }
 

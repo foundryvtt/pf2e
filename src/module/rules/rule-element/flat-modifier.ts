@@ -1,19 +1,19 @@
 import { ActorPF2e } from "@actor";
-import { DeferredValueParams, MODIFIER_TYPES, ModifierPF2e, ModifierType } from "@actor/modifiers";
-import { AbilityString } from "@actor/types";
-import { ABILITY_ABBREVIATIONS } from "@actor/values";
+import { DeferredValueParams, MODIFIER_TYPES, ModifierPF2e, ModifierType } from "@actor/modifiers.ts";
+import { AbilityString } from "@actor/types.ts";
+import { ABILITY_ABBREVIATIONS } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
-import { DamageCategoryUnique } from "@system/damage/types";
-import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values";
+import { DamageCategoryUnique } from "@system/damage/types.ts";
+import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
 import { objectHasKey, sluggify } from "@util";
-import {
+import type {
     ArrayField,
     BooleanField,
     ModelPropsFromSchema,
     NumberField,
     StringField,
-} from "types/foundry/common/data/fields.mjs";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./";
+} from "types/foundry/common/data/fields.d.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 
 const { fields } = foundry.data;
 

@@ -1,6 +1,6 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function seek(options: SkillActionOptions) {
+export function seek(options: SkillActionOptions): void {
     const slug = options?.skill ?? "perception";
     const rollOptions = ["action:seek"];
     const modifiers = options?.modifiers;

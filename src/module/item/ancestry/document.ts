@@ -1,12 +1,12 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
-import { CreatureSensePF2e } from "@actor/creature/sense";
-import { CreatureTrait } from "@actor/creature/types";
-import { SIZE_TO_REACH } from "@actor/creature/values";
-import { AbilityString } from "@actor/types";
+import { CreatureSensePF2e } from "@actor/creature/sense.ts";
+import { CreatureTrait } from "@actor/creature/types.ts";
+import { SIZE_TO_REACH } from "@actor/creature/values.ts";
+import { AbilityString } from "@actor/types.ts";
 import { ABCItemPF2e, FeatPF2e } from "@item";
-import { Size } from "@module/data";
+import { Size } from "@module/data.ts";
 import { sluggify } from "@util";
-import { AncestrySource, AncestrySystemData } from "./data";
+import { AncestrySource, AncestrySystemData } from "./data.ts";
 
 class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABCItemPF2e<TParent> {
     get traits(): Set<CreatureTrait> {

@@ -1,10 +1,10 @@
-import { RollTarget } from "@actor/types";
-import { TraitViewData } from "@actor/data/base";
-import { RollNotePF2e, RollNoteSource } from "@module/notes";
-import { ModifierPF2e } from "../actor/modifiers";
-import { RollTwiceOption } from "./check";
-import { CheckDC, DEGREE_OF_SUCCESS_STRINGS } from "./degree-of-success";
-import { ZeroToTwo } from "@module/data";
+import { TraitViewData } from "@actor/data/base.ts";
+import { ModifierPF2e } from "@actor/modifiers.ts";
+import { RollTarget } from "@actor/types.ts";
+import { ZeroToTwo } from "@module/data.ts";
+import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
+import { RollTwiceOption } from "./check/index.ts";
+import { CheckDC, DEGREE_OF_SUCCESS_STRINGS } from "./degree-of-success.ts";
 
 interface RollDataPF2e extends RollOptions {
     rollerId?: string;

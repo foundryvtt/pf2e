@@ -1,6 +1,6 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function senseMotive(options: SkillActionOptions) {
+export function senseMotive(options: SkillActionOptions): void {
     const slug = options?.skill ?? "perception";
     const rollOptions = ["action:sense-motive"];
     const modifiers = options?.modifiers;

@@ -1,6 +1,6 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function track(options: SkillActionOptions) {
+export function track(options: SkillActionOptions): void {
     const slug = options?.skill ?? "survival";
     const rollOptions = ["action:track"];
     const modifiers = options?.modifiers;

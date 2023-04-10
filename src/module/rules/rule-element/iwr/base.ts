@@ -1,9 +1,14 @@
 import { ActorPF2e } from "@actor";
-import { IWRSource, ImmunityData, ResistanceData, WeaknessData } from "@actor/data/iwr";
+import { IWRSource, ImmunityData, ResistanceData, WeaknessData } from "@actor/data/iwr.ts";
 import { ItemPF2e } from "@item";
-import { ArrayField, BooleanField, ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "../";
-import { AELikeChangeMode } from "../ae-like";
+import type {
+    ArrayField,
+    BooleanField,
+    ModelPropsFromSchema,
+    StringField,
+} from "types/foundry/common/data/fields.d.ts";
+import { AELikeChangeMode } from "../ae-like.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "../index.ts";
 
 const { fields } = foundry.data;
 

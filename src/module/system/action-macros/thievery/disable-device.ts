@@ -1,6 +1,6 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function disableDevice(options: SkillActionOptions) {
+export function disableDevice(options: SkillActionOptions): void {
     const slug = options?.skill ?? "thievery";
     const rollOptions = ["action:disable-device"];
     const modifiers = options?.modifiers;

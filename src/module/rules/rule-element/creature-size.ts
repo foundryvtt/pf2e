@@ -1,11 +1,11 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { SIZE_TO_REACH } from "@actor/creature/values";
-import { ActorType } from "@actor/data";
-import { ActorSizePF2e } from "@actor/data/size";
+import { SIZE_TO_REACH } from "@actor/creature/values.ts";
+import { ActorType } from "@actor/data/index.ts";
+import { ActorSizePF2e } from "@actor/data/size.ts";
 import { ItemPF2e, TreasurePF2e } from "@item";
-import { Size, SIZES } from "@module/data";
+import { Size, SIZES } from "@module/data.ts";
 import { isObject, tupleHasValue } from "@util";
-import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions, BracketedValue } from "./";
+import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions, BracketedValue } from "./index.ts";
 
 /**
  * @category RuleElement

@@ -1,7 +1,7 @@
-import { BaseItemSourcePF2e, ItemFlagsPF2e, ItemSystemData, ItemSystemSource, ItemTraits } from "@item/data/base";
-import { PreciousMaterialGrade } from "@item/physical/types";
-import { WeaponMaterialType } from "@item/weapon/types";
-import { DamageType } from "@system/damage";
+import { BaseItemSourcePF2e, ItemFlagsPF2e, ItemSystemData, ItemSystemSource, ItemTraits } from "@item/data/base.ts";
+import { PreciousMaterialGrade } from "@item/physical/types.ts";
+import { WeaponMaterialType } from "@item/weapon/types.ts";
+import { DamageType } from "@system/damage/types.ts";
 
 type MeleeSource = BaseItemSourcePF2e<"melee", MeleeSystemSource> & {
     flags: DeepPartial<MeleeFlags>;

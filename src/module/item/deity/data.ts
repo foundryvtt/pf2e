@@ -1,9 +1,9 @@
-import { SkillAbbreviation } from "@actor/creature/data";
-import { Alignment } from "@actor/creature/types";
-import { AbilityString } from "@actor/types";
-import { BaseItemSourcePF2e, ItemSystemSource } from "@item/data/base";
-import { BaseWeaponType } from "@item/weapon/types";
-import { DeityDomain } from "./types";
+import { SkillAbbreviation } from "@actor/creature/data.ts";
+import { Alignment } from "@actor/creature/types.ts";
+import { AbilityString } from "@actor/types.ts";
+import { BaseItemSourcePF2e, ItemSystemSource } from "@item/data/base.ts";
+import { BaseWeaponType } from "@item/weapon/types.ts";
+import { DeityDomain } from "./types.ts";
 
 type DeitySource = BaseItemSourcePF2e<"deity", DeitySystemSource>;
 

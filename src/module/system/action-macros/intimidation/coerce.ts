@@ -1,6 +1,6 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function coerce(options: SkillActionOptions) {
+export function coerce(options: SkillActionOptions): void {
     const slug = options?.skill ?? "intimidation";
     const rollOptions = ["action:coerce"];
     const modifiers = options?.modifiers;

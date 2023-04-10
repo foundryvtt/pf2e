@@ -1,6 +1,6 @@
-import { BaseRawModifier, DamageDicePF2e } from "@actor/modifiers";
+import { BaseRawModifier, DamageDicePF2e } from "@actor/modifiers.ts";
 import { addSign } from "@util";
-import { ChatMessagePF2e } from ".";
+import { ChatMessagePF2e } from "./index.ts";
 
 class ChatRollDetails extends Application {
     static override get defaultOptions(): ApplicationOptions {

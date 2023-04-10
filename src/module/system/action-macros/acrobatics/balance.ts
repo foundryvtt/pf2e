@@ -1,9 +1,9 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
-import { SingleCheckAction } from "@actor/actions";
+import { SingleCheckAction } from "@actor/actions/index.ts";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const PREFIX = "PF2E.Actions.Balance";
 
-function balance(options: SkillActionOptions) {
+function balance(options: SkillActionOptions): void {
     const slug = options?.skill ?? "acrobatics";
     const rollOptions = ["action:balance"];
     const modifiers = options?.modifiers;

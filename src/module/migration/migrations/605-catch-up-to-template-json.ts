@@ -1,7 +1,7 @@
-import { MigrationBase } from "../base";
-import { ItemSourcePF2e } from "@item/data";
-import { ActorSourcePF2e } from "@actor/data";
-import { isPhysicalData } from "@item/data/helpers";
+import { MigrationBase } from "../base.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { isPhysicalData } from "@item/data/helpers.ts";
 
 /** Catch up actors and items to the current template.json spec */
 export class Migration605CatchUpToTemplateJSON extends MigrationBase {

@@ -1,5 +1,5 @@
-import { MeasuredTemplatePF2e } from "./measured-template";
-import { TokenPF2e } from "./token";
+import { MeasuredTemplatePF2e } from "./measured-template.ts";
+import { TokenPF2e } from "./token/index.ts";
 
 /**
  * Measure the minimum distance between two rectangles

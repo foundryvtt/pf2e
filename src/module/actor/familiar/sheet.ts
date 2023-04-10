@@ -1,7 +1,7 @@
 import { CharacterPF2e } from "@actor";
-import { CreatureSheetPF2e } from "@actor/creature/sheet";
-import { FamiliarPF2e } from "@actor/familiar";
-import { FamiliarSheetData } from "./types";
+import { CreatureSheetPF2e } from "@actor/creature/sheet.ts";
+import { FamiliarPF2e } from "@actor/familiar/index.ts";
+import { FamiliarSheetData } from "./types.ts";
 
 /**
  * @category Actor
@@ -21,7 +21,7 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
         return options;
     }
 
-    override get template() {
+    override get template(): string {
         return "systems/pf2e/templates/actors/familiar-sheet.hbs";
     }
 

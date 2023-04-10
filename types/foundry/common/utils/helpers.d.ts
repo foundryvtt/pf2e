@@ -113,7 +113,7 @@ declare global {
              * @param _d   Recursion depth, to prevent overflow
              * @return     A flattened object
              */
-            function flattenObject(obj: {}, _d?: number): Record<string, unknown>;
+            function flattenObject(obj: object, _d?: number): Record<string, unknown>;
 
             /**
              * Expand a flattened object to be a standard multi-dimensional nested Object by converting all dot-notation keys to

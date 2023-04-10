@@ -1,4 +1,4 @@
-import { ChatMessagePF2e } from "@module/chat-message";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { htmlQueryAll, objectHasKey } from "@util";
 
 class UserVisibilityPF2e {

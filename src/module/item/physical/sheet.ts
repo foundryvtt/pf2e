@@ -1,5 +1,5 @@
-import { ItemSheetDataPF2e } from "@item/sheet/data-types";
-import { createSheetTags, SheetOptions } from "@module/sheet/helpers";
+import { ItemSheetDataPF2e } from "@item/sheet/data-types.ts";
+import { createSheetTags, SheetOptions } from "@module/sheet/helpers.ts";
 import { objectHasKey } from "@util";
 import {
     BasePhysicalItemSource,
@@ -10,9 +10,9 @@ import {
     PhysicalItemPF2e,
     PhysicalItemType,
     PreciousMaterialGrade,
-} from ".";
-import { ItemSheetPF2e } from "../sheet/base";
-import { PRECIOUS_MATERIAL_GRADES } from "./values";
+} from "./index.ts";
+import { ItemSheetPF2e } from "../sheet/base.ts";
+import { PRECIOUS_MATERIAL_GRADES } from "./values.ts";
 
 class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
     /** Show the identified data for editing purposes */

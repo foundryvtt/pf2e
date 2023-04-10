@@ -1,2 +1,2 @@
-export * from "./damage";
-export * from "./types";
+export * from "./damage.ts";
+export * from "./types.ts";

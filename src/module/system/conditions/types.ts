@@ -1,4 +1,4 @@
-import { EffectBadge } from "@item/abstract-effect/data";
+import { EffectBadge } from "@item/abstract-effect/data.ts";
 
 interface FlattenedCondition {
     id: string;

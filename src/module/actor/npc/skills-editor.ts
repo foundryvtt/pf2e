@@ -1,8 +1,8 @@
 import type { NPCPF2e } from "@actor";
-import { NPCSkillData } from "@actor/npc/data";
-import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
+import { NPCSkillData } from "@actor/npc/data.ts";
+import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
 import { LorePF2e } from "@item";
-import { LoreSource } from "@item/data";
+import { LoreSource } from "@item/data/index.ts";
 import { ErrorPF2e, objectHasKey } from "@util";
 
 /** Specialized form to setup skills for an NPC character. */
@@ -26,7 +26,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
     }
 
     /** Prepare data to be sent to HTML. */
-    override getData() {
+    override async getData(): Promise<EditorData> {
         const trainedSkills: Record<string, NPCSkillData> = {};
         const untrainedSkills: Record<string, NPCSkillData> = {};
 
@@ -42,7 +42,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
             }
         }
 
-        return { ...super.getData(), trainedSkills, untrainedSkills };
+        return { ...(await super.getData()), trainedSkills, untrainedSkills };
     }
 
     override activateListeners($html: JQuery): void {
@@ -179,4 +179,9 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
 
         return loreItem;
     }
+}
+
+interface EditorData extends FormApplicationData {
+    trainedSkills: Record<string, NPCSkillData>;
+    untrainedSkills: Record<string, NPCSkillData>;
 }

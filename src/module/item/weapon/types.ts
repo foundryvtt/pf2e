@@ -1,12 +1,12 @@
-import { PreciousMaterialType } from "@item/physical/types";
-import { LocalizePF2e } from "@system/localize";
+import { PreciousMaterialType } from "@item/physical/types.ts";
+import { LocalizePF2e } from "@system/localize.ts";
 import {
     MELEE_WEAPON_GROUPS,
     WEAPON_CATEGORIES,
     WEAPON_GROUPS,
     WEAPON_PROPERTY_RUNE_TYPES,
     WEAPON_RANGES,
-} from "./values";
+} from "./values.ts";
 
 type WeaponPropertyRuneType = SetElement<typeof WEAPON_PROPERTY_RUNE_TYPES>;
 

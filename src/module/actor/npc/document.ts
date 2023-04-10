@@ -1,33 +1,33 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { Abilities } from "@actor/creature/data";
-import { SIZE_TO_REACH } from "@actor/creature/values";
-import { strikeFromMeleeItem } from "@actor/helpers";
-import { ActorInitiative } from "@actor/initiative";
-import { CheckModifier, MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "@actor/modifiers";
-import { SaveType } from "@actor/types";
-import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
+import { Abilities } from "@actor/creature/data.ts";
+import { SIZE_TO_REACH } from "@actor/creature/values.ts";
+import { strikeFromMeleeItem } from "@actor/helpers.ts";
+import { ActorInitiative } from "@actor/initiative.ts";
+import { CheckModifier, MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { SaveType } from "@actor/types.ts";
+import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
 import { ItemPF2e, MeleePF2e } from "@item";
-import { ItemType } from "@item/data";
-import { calculateDC } from "@module/dc";
-import { RollNotePF2e } from "@module/notes";
-import { identifyCreature } from "@module/recall-knowledge";
+import { ItemType } from "@item/data/index.ts";
+import { calculateDC } from "@module/dc.ts";
+import { RollNotePF2e } from "@module/notes.ts";
+import { identifyCreature } from "@module/recall-knowledge.ts";
 import {
     extractDegreeOfSuccessAdjustments,
     extractModifierAdjustments,
     extractModifiers,
     extractNotes,
     extractRollTwice,
-} from "@module/rules/helpers";
-import { TokenDocumentPF2e } from "@scene";
-import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check";
-import { LocalizePF2e } from "@system/localize";
-import { PredicatePF2e } from "@system/predication";
-import { RollParameters } from "@system/rolls";
-import { Statistic } from "@system/statistic";
+} from "@module/rules/helpers.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check/index.ts";
+import { LocalizePF2e } from "@system/localize.ts";
+import { PredicatePF2e } from "@system/predication.ts";
+import { RollParameters } from "@system/rolls.ts";
+import { Statistic } from "@system/statistic/index.ts";
 import { objectHasKey, sluggify } from "@util";
-import { NPCFlags, NPCSource, NPCSystemData } from "./data";
-import { NPCSheetPF2e } from "./sheet";
-import { VariantCloneParams } from "./types";
+import { NPCFlags, NPCSource, NPCSystemData } from "./data.ts";
+import { NPCSheetPF2e } from "./sheet.ts";
+import { VariantCloneParams } from "./types.ts";
 
 class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends CreaturePF2e<TParent> {
     declare initiative: ActorInitiative;
@@ -93,7 +93,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         user: User,
         permission: DocumentOwnershipString | DocumentOwnershipLevel,
         options?: { exact?: boolean }
-    ) {
+    ): boolean {
         // Temporary measure until a lootable view of the legacy sheet is ready
         if (game.user.isGM || !this.isLootable) {
             return super.testUserPermission(user, permission, options);

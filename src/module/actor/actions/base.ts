@@ -1,3 +1,5 @@
+import { ChatMessagePF2e } from "@module/chat-message/document.ts";
+import { getActionGlyph, sluggify } from "@util";
 import {
     Action,
     ActionCost,
@@ -5,9 +7,7 @@ import {
     ActionUseOptions,
     ActionVariant,
     ActionVariantUseOptions,
-} from "./types";
-import { getActionGlyph, sluggify } from "@util";
-import { ChatMessagePF2e } from "@module/chat-message";
+} from "./types.ts";
 
 interface BaseActionVariantData {
     cost?: ActionCost;

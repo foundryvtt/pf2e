@@ -1,12 +1,12 @@
-import { ModifierPF2e, StatisticModifier } from "@actor/modifiers";
-import { ActorDimensions } from "@actor/types";
-import { ItemType } from "@item/data";
-import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers";
-import { UserPF2e } from "@module/user";
-import { TokenDocumentPF2e } from "@scene";
-import { Statistic } from "@system/statistic";
-import { ActorPF2e, HitPointsSummary } from "../base";
-import { TokenDimensions, VehicleSource, VehicleSystemData } from "./data";
+import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { ActorDimensions } from "@actor/types.ts";
+import { ItemType } from "@item/data/index.ts";
+import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
+import { UserPF2e } from "@module/user/index.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { Statistic } from "@system/statistic/index.ts";
+import { ActorPF2e, HitPointsSummary } from "../base.ts";
+import { TokenDimensions, VehicleSource, VehicleSystemData } from "./data.ts";
 
 class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     override get allowedItemTypes(): (ItemType | "physical")[] {

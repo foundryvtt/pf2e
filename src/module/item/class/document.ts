@@ -1,15 +1,21 @@
+import { ClassDCData } from "@actor/character/data/types.ts";
+import { FeatSlotLevel } from "@actor/character/feats.ts";
 import { ActorPF2e, CharacterPF2e } from "@actor";
-import { ClassDCData } from "@actor/character/data";
-import { FeatSlotLevel } from "@actor/character/feats";
-import { SaveType } from "@actor/types";
-import { SAVE_TYPES, SKILL_ABBREVIATIONS } from "@actor/values";
+import { SaveType } from "@actor/types.ts";
+import { SAVE_TYPES, SKILL_ABBREVIATIONS } from "@actor/values.ts";
+import { ArmorCategory } from "@item/armor/index.ts";
+import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { ABCItemPF2e, FeatPF2e } from "@item";
-import { ArmorCategory } from "@item/armor";
-import { ARMOR_CATEGORIES } from "@item/armor/values";
-import { WEAPON_CATEGORIES } from "@item/weapon/values";
-import { ZeroToFour } from "@module/data";
+import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
+import { ZeroToFour } from "@module/data.ts";
 import { setHasElement, sluggify } from "@util";
-import { ClassAttackProficiencies, ClassDefenseProficiencies, ClassSource, ClassSystemData, ClassTrait } from "./data";
+import {
+    ClassAttackProficiencies,
+    ClassDefenseProficiencies,
+    ClassSource,
+    ClassSystemData,
+    ClassTrait,
+} from "./data.ts";
 
 class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABCItemPF2e<TParent> {
     get attacks(): ClassAttackProficiencies {

@@ -1,6 +1,6 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function pickALock(options: SkillActionOptions) {
+export function pickALock(options: SkillActionOptions): void {
     const slug = options?.skill ?? "thievery";
     const rollOptions = ["action:pick-a-lock"];
     const modifiers = options?.modifiers;

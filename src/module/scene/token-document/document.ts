@@ -1,14 +1,13 @@
 import { ActorPF2e } from "@actor";
-import { TokenPF2e } from "@module/canvas";
-import { ScenePF2e, TokenConfigPF2e } from "@module/scene";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
-import { PrototypeTokenPF2e } from "@actor/data/base";
-import { TokenAura } from "./aura";
+import { PrototypeTokenPF2e } from "@actor/data/base.ts";
+import { TokenPF2e } from "@module/canvas/index.ts";
+import { ChatMessagePF2e } from "@module/chat-message/document.ts";
+import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
+import { LightLevels } from "@scene/data.ts";
+import { ScenePF2e, TokenConfigPF2e } from "@scene/index.ts";
 import { objectHasKey, sluggify } from "@util";
-import { LightLevels } from "@scene/data";
-import { TokenFlagsPF2e } from "./data";
-import { DataModel } from "types/foundry/common/abstract/module.mjs";
+import { TokenAura } from "./aura/index.ts";
+import { TokenFlagsPF2e } from "./data.ts";
 
 class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends TokenDocument<TParent> {
     /** Has this token gone through at least one cycle of data preparation? */
@@ -235,7 +234,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
         if (tokenOverrides.light) {
             this.light = new foundry.data.LightData(tokenOverrides.light, {
-                parent: this as unknown as DataModel,
+                parent: this as unknown as foundry.abstract.DataModel,
             });
         }
 

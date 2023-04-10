@@ -1,13 +1,14 @@
-import { MODIFIER_TYPES } from "@actor/modifiers";
-import { isBracketedValue } from "@module/rules/helpers";
-import { FlatModifierSource } from "@module/rules/rule-element/flat-modifier";
-import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values";
+import { MODIFIER_TYPES } from "@actor/modifiers.ts";
+import { isBracketedValue } from "@module/rules/helpers.ts";
+import { FlatModifierSource } from "@module/rules/rule-element/flat-modifier.ts";
+import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
 import { htmlQuery, isObject, pick, tagify, tupleHasValue } from "@util";
-import { coerceNumber, RuleElementForm } from "./base";
+import { coerceNumber, RuleElementForm } from "./base.ts";
 
 /** Form handler for the flat modifier rule element */
 class FlatModifierForm extends RuleElementForm<FlatModifierSource> {
     override template = "systems/pf2e/templates/items/rules/flat-modifier.hbs";
+
     override activateListeners(html: HTMLElement): void {
         // Tagify the selector list
         const selectorElement = htmlQuery<HTMLInputElement>(html, ".selector-list");

@@ -1,14 +1,14 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
-import { CharacterSheetPF2e } from "@actor/character/sheet";
-import { RollInitiativeOptionsPF2e } from "@actor/data";
-import { resetActors } from "@actor/helpers";
-import { InitiativeRollResult } from "@actor/initiative";
-import { SkillLongForm } from "@actor/types";
-import { SKILL_DICTIONARY, SKILL_LONG_FORMS } from "@actor/values";
-import { ScenePF2e, TokenDocumentPF2e } from "@scene";
-import { LocalizePF2e } from "@system/localize";
+import { CharacterSheetPF2e } from "@actor/character/sheet.ts";
+import { RollInitiativeOptionsPF2e } from "@actor/data/index.ts";
+import { resetActors } from "@actor/helpers.ts";
+import { InitiativeRollResult } from "@actor/initiative.ts";
+import { SkillLongForm } from "@actor/types.ts";
+import { SKILL_DICTIONARY, SKILL_LONG_FORMS } from "@actor/values.ts";
+import { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
+import { LocalizePF2e } from "@system/localize.ts";
 import { setHasElement } from "@util";
-import { CombatantFlags, CombatantPF2e, RolledCombatant } from "./combatant";
+import { CombatantFlags, CombatantPF2e, RolledCombatant } from "./combatant.ts";
 
 class EncounterPF2e extends Combat {
     /** Sort combatants by initiative rolls, falling back to tiebreak priority and then finally combatant ID (random) */

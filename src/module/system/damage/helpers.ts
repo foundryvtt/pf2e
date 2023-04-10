@@ -1,8 +1,8 @@
 import { ErrorPF2e, fontAwesomeIcon } from "@util";
-import { DamageInstance, DamageRoll } from "./roll";
-import { ArithmeticExpression, Grouping, IntermediateDie } from "./terms";
-import { DamageCategory, DamageDieSize, DamageType } from "./types";
-import { BASE_DAMAGE_TYPES_TO_CATEGORIES, DAMAGE_DIE_FACES_TUPLE } from "./values";
+import { DamageInstance, DamageRoll } from "./roll.ts";
+import { ArithmeticExpression, Grouping, IntermediateDie } from "./terms.ts";
+import { DamageCategory, DamageDieSize, DamageType } from "./types.ts";
+import { BASE_DAMAGE_TYPES_TO_CATEGORIES, DAMAGE_DIE_FACES_TUPLE } from "./values.ts";
 
 function nextDamageDieSize(next: { upgrade: DamageDieSize }): DamageDieSize;
 function nextDamageDieSize(next: { downgrade: DamageDieSize }): DamageDieSize;

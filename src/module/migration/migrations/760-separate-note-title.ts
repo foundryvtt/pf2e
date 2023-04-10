@@ -1,6 +1,6 @@
-import { ItemSourcePF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Replace inline HTML in roll note text with separate title and visibility */
 export class Migration760SeparateNoteTitle extends MigrationBase {

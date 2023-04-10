@@ -1,6 +1,6 @@
-import { CharacterPF2e } from "@actor/character";
-import { LocalizePF2e } from "@system/localize";
-import { ActionDefaultOptions } from "@system/action-macros";
+import { CharacterPF2e } from "@actor/character/document.ts";
+import { LocalizePF2e } from "@system/localize.ts";
+import { ActionDefaultOptions } from "@system/action-macros/index.ts";
 
 export function steelYourResolve(options: ActionDefaultOptions): void {
     const translations = LocalizePF2e.translations.PF2E.Actions.SteelYourResolve;

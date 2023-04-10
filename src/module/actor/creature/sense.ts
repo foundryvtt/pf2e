@@ -1,4 +1,4 @@
-import { SenseData } from "./data";
+import { SenseData } from "./data.ts";
 
 export class CreatureSensePF2e implements SenseData {
     /** low-light vision, darkvision, scent, etc. */

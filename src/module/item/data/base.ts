@@ -1,10 +1,10 @@
-import { CreatureTrait } from "@actor/creature";
-import { ActionTrait } from "@item/action";
-import { NPCAttackTrait } from "@item/melee";
-import { DocumentSchemaRecord, OneToThree, Rarity } from "@module/data";
-import { RuleElementSource } from "@module/rules";
-import { ItemType } from ".";
-import { PhysicalItemTrait } from "../physical/data";
+import { CreatureTrait } from "@actor/creature/types.ts";
+import { ActionTrait } from "@item/action/data.ts";
+import { NPCAttackTrait } from "@item/melee/data.ts";
+import { PhysicalItemTrait } from "@item/physical/data.ts";
+import { DocumentSchemaRecord, OneToThree, Rarity } from "@module/data.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
+import { ItemType } from "./index.ts";
 
 interface BaseItemSourcePF2e<TType extends ItemType, TSystemSource extends ItemSystemSource = ItemSystemSource>
     extends foundry.documents.ItemSource<TType, TSystemSource> {

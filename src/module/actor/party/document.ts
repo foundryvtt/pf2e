@@ -1,6 +1,6 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
-import { TokenDocumentPF2e } from "@scene";
-import { PartySource, PartySystemData } from "./data";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { PartySource, PartySystemData } from "./data.ts";
 
 class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     /** Friendship lives in our hearts */

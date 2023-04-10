@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemSourcePF2e } from "@item/data";
-import { ScenePF2e } from "@module/scene";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ScenePF2e } from "@scene/index.ts";
 
 /**
  * This is the base class for a migration.

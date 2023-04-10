@@ -12,39 +12,37 @@ import {
     RollContextParams,
     SaveType,
     UnaffectedType,
-} from "@actor/types";
+} from "@actor/types.ts";
 import { AbstractEffectPF2e, ArmorPF2e, ContainerPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e } from "@item";
-import { ActionTrait } from "@item/action/data";
-import { AfflictionSource } from "@item/affliction";
-import { ConditionKey, ConditionSlug, ConditionSource, type ConditionPF2e } from "@item/condition";
-import { PersistentDialog } from "@item/condition/persistent-damage-dialog";
-import { CONDITION_SLUGS } from "@item/condition/values";
-import { isCycle } from "@item/container/helpers";
-import { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
-import { ActionCost, ActionType } from "@item/data/base";
-import { hasInvestedProperty } from "@item/data/helpers";
-import { EffectFlags, EffectSource } from "@item/effect/data";
-import { RitualSpellcasting } from "@item/spellcasting-entry/rituals";
-import type { ActiveEffectPF2e } from "@module/active-effect";
-import { TokenPF2e } from "@module/canvas";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { OneToThree, Size } from "@module/data";
-import { preImportJSON } from "@module/doc-helpers";
-import { EncounterPF2e, RolledCombatant } from "@module/encounter";
-import { RuleElementSynthetics } from "@module/rules";
-import { extractEphemeralEffects, processPreUpdateActorHooks } from "@module/rules/helpers";
-import { RuleElementPF2e } from "@module/rules/rule-element/base";
-import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
-import { RollOptionToggle } from "@module/rules/synthetics";
-import { LocalizePF2e } from "@module/system/localize";
-import { UserPF2e } from "@module/user";
-import { ScenePF2e, TokenDocumentPF2e } from "@scene";
-import { DicePF2e } from "@scripts/dice";
-import { DamageType } from "@system/damage";
-import { IWRApplicationData, applyIWR } from "@system/damage/iwr";
-import { CheckDC } from "@system/degree-of-success";
-import { Statistic, StatisticCheck } from "@system/statistic";
-import { TextEditorPF2e } from "@system/text-editor";
+import { ActionTrait } from "@item/action/data.ts";
+import { AfflictionSource } from "@item/affliction/index.ts";
+import { ConditionKey, ConditionSlug, ConditionSource, type ConditionPF2e } from "@item/condition/index.ts";
+import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
+import { CONDITION_SLUGS } from "@item/condition/values.ts";
+import { isCycle } from "@item/container/helpers.ts";
+import { ActionCost, ActionType } from "@item/data/base.ts";
+import { hasInvestedProperty } from "@item/data/helpers.ts";
+import { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data/index.ts";
+import { EffectFlags, EffectSource } from "@item/effect/data.ts";
+import { RitualSpellcasting } from "@item/spellcasting-entry/rituals.ts";
+import type { ActiveEffectPF2e } from "@module/active-effect.ts";
+import { TokenPF2e } from "@module/canvas/index.ts";
+import { OneToThree, Size } from "@module/data.ts";
+import { preImportJSON } from "@module/doc-helpers.ts";
+import { ChatMessagePF2e, ScenePF2e, TokenDocumentPF2e, UserPF2e } from "@module/documents.ts";
+import { EncounterPF2e, RolledCombatant } from "@module/encounter/index.ts";
+import { extractEphemeralEffects, processPreUpdateActorHooks } from "@module/rules/helpers.ts";
+import { RuleElementSynthetics } from "@module/rules/index.ts";
+import { RuleElementPF2e } from "@module/rules/rule-element/base.ts";
+import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option.ts";
+import { RollOptionToggle } from "@module/rules/synthetics.ts";
+import { LocalizePF2e } from "@module/system/localize.ts";
+import { DicePF2e } from "@scripts/dice.ts";
+import { IWRApplicationData, applyIWR } from "@system/damage/iwr.ts";
+import { DamageType } from "@system/damage/types.ts";
+import { CheckDC } from "@system/degree-of-success.ts";
+import { Statistic, StatisticCheck } from "@system/statistic/index.ts";
+import { TextEditorPF2e } from "@system/text-editor.ts";
 import {
     ErrorPF2e,
     getActionGlyph,
@@ -55,10 +53,9 @@ import {
     traitSlugToObject,
     tupleHasValue,
 } from "@util";
-import { ActorConditions } from "./conditions";
-import { Abilities, CreatureSkills, VisionLevel, VisionLevels } from "./creature/data";
-import { GetReachParameters, ModeOfBeing } from "./creature/types";
-import { ActorSourcePF2e, ActorType } from "./data";
+import { ActorConditions } from "./conditions.ts";
+import { Abilities, CreatureSkills, VisionLevel, VisionLevels } from "./creature/data.ts";
+import { GetReachParameters, ModeOfBeing } from "./creature/types.ts";
 import {
     ActorFlagsPF2e,
     ActorSystemData,
@@ -66,18 +63,25 @@ import {
     PrototypeTokenPF2e,
     RollOptionFlags,
     StrikeData,
-} from "./data/base";
-import { ImmunityData, ResistanceData, WeaknessData } from "./data/iwr";
-import { ActorSizePF2e } from "./data/size";
-import { calculateRangePenalty, checkAreaEffects, getRangeIncrement, isReallyPC, migrateActorSource } from "./helpers";
-import { ActorInitiative } from "./initiative";
-import { ActorInventory } from "./inventory";
-import { ItemTransfer } from "./item-transfer";
-import { StatisticModifier } from "./modifiers";
-import { ActorSheetPF2e } from "./sheet/base";
-import { ActorSpellcasting } from "./spellcasting";
-import { TokenEffect } from "./token-effect";
-import { CREATURE_ACTOR_TYPES, SAVE_TYPES, SKILL_LONG_FORMS, UNAFFECTED_TYPES } from "./values";
+} from "./data/base.ts";
+import { ActorSourcePF2e, ActorType } from "./data/index.ts";
+import { ImmunityData, ResistanceData, WeaknessData } from "./data/iwr.ts";
+import { ActorSizePF2e } from "./data/size.ts";
+import {
+    calculateRangePenalty,
+    checkAreaEffects,
+    getRangeIncrement,
+    isReallyPC,
+    migrateActorSource,
+} from "./helpers.ts";
+import { ActorInitiative } from "./initiative.ts";
+import { ActorInventory } from "./inventory/index.ts";
+import { ItemTransfer } from "./item-transfer.ts";
+import { StatisticModifier } from "./modifiers.ts";
+import { ActorSheetPF2e } from "./sheet/base.ts";
+import { ActorSpellcasting } from "./spellcasting.ts";
+import { TokenEffect } from "./token-effect.ts";
+import { CREATURE_ACTOR_TYPES, SAVE_TYPES, SKILL_LONG_FORMS, UNAFFECTED_TYPES } from "./values.ts";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -1269,7 +1273,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return this;
     }
 
-    isLootableBy(user: UserPF2e) {
+    isLootableBy(user: UserPF2e): boolean {
         return this.canUserModify(user, "update");
     }
 

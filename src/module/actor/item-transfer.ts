@@ -1,8 +1,8 @@
-import { PhysicalItemPF2e } from "@item/index";
-import { LocalizePF2e } from "@module/system/localize";
-import { UserPF2e } from "@module/user";
+import { PhysicalItemPF2e } from "@item";
+import { LocalizePF2e } from "@system/localize.ts";
+import { UserPF2e } from "@module/user/index.ts";
 import { ErrorPF2e } from "@util";
-import { ActorPF2e } from "./index";
+import { ActorPF2e } from "./index.ts";
 
 export interface ItemTransferData {
     source: {

@@ -1,6 +1,6 @@
 import { NPCPF2e } from "@actor";
-import { Rarity } from "@module/data";
-import { identifyCreature } from "@module/recall-knowledge";
+import { Rarity } from "@module/data.ts";
+import { identifyCreature } from "@module/recall-knowledge.ts";
 
 function createCreature(level: number, rarity: Rarity, traits: string[]): NPCPF2e {
     return {

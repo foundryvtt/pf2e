@@ -1,4 +1,4 @@
-import { DataModel, EmbeddedCollection } from "../abstract/module.mjs";
+import { DataModel, EmbeddedCollection } from "../abstract/module.js";
 
 /* ---------------------------------------- */
 /*  Abstract Data Field                     */
@@ -18,7 +18,7 @@ import { DataModel, EmbeddedCollection } from "../abstract/module.mjs";
  *                             document name, field name, and candidate value.
  */
 export interface DataFieldOptions<
-    TSourceProp extends unknown,
+    TSourceProp,
     TRequired extends boolean,
     TNullable extends boolean,
     THasInitial extends boolean
@@ -38,7 +38,7 @@ export interface DataFieldOptions<
 }
 
 export abstract class DataField<
-    TSourceProp extends unknown = unknown,
+    TSourceProp = unknown,
     TModelProp = TSourceProp,
     TRequired extends boolean = boolean,
     TNullable extends boolean = boolean,
@@ -469,7 +469,7 @@ export class ArrayField<
     protected override _cast(value: unknown): TSourceProp;
 
     protected _cleanType(
-        value: Array<unknown> | Set<unknown>,
+        value: unknown[] | Set<unknown>,
         options?: CleanFieldOptions
     ): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
 
@@ -535,7 +535,7 @@ export class SetField<
 export class EmbeddedDataField<
     TDataSchema extends DataSchema,
     TSourceProp extends SourceFromSchema<TDataSchema>,
-    TModelProp extends DataModel<any> = DataModel<any>,
+    TModelProp extends DataModel = DataModel,
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true
@@ -571,7 +571,7 @@ export class EmbeddedCollectionField<
 > extends ArrayField<
     SchemaField<TDataSchema>,
     SourceFromSchema<TDataSchema>[],
-    EmbeddedCollection<DataModel<any>>,
+    EmbeddedCollection<DataModel>,
     TRequired,
     TNullable,
     THasInitial
@@ -639,7 +639,7 @@ export class DocumentIdField<
  * This field may also be null to indicate that no foreign model is linked.
  */
 export class ForeignDocumentField<
-    TModelProp extends string | DataModel = DataModel<any>,
+    TModelProp extends string | DataModel = DataModel,
     TRequired extends boolean = true,
     TNullable extends boolean = true,
     THasInitial extends boolean = true

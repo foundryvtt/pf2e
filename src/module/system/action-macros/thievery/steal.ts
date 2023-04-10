@@ -1,9 +1,9 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
-import { ModifierPF2e } from "@actor/modifiers";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { ModifierPF2e } from "@actor/modifiers.ts";
 
 const PREFIX = "PF2E.Actions.Steal";
 
-export function steal(options: SkillActionOptions) {
+export function steal(options: SkillActionOptions): void {
     const modifiers = [
         new ModifierPF2e({
             label: "PF2E.Actions.Steal.Pocketed",

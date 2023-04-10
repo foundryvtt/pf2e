@@ -1,11 +1,11 @@
 import { ActorPF2e } from "@actor";
-import { InventoryBulk } from "@actor/inventory";
-import { ItemSummaryData } from "@item/data";
-import { EquipmentTrait } from "@item/equipment/data";
-import { PhysicalItemPF2e } from "@item/physical";
-import { Bulk, weightToBulk } from "@item/physical/bulk";
-import { ContainerSource, ContainerSystemData } from "./data";
-import { hasExtraDimensionalParent } from "./helpers";
+import { InventoryBulk } from "@actor/inventory/index.ts";
+import { ItemSummaryData } from "@item/data/index.ts";
+import { EquipmentTrait } from "@item/equipment/data.ts";
+import { PhysicalItemPF2e } from "@item/physical/index.ts";
+import { Bulk, weightToBulk } from "@item/physical/bulk.ts";
+import { ContainerSource, ContainerSystemData } from "./data.ts";
+import { hasExtraDimensionalParent } from "./helpers.ts";
 
 class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     /** This container's contents, reloaded every data preparation cycle */

@@ -1,9 +1,9 @@
-import { StatisticModifier } from "@actor/modifiers";
-import { DCSlug } from "@actor/types";
-import { ZeroToThree } from "@module/data";
-import { CheckRoll } from "./check";
-import { PredicatePF2e } from "./predication";
-import { StatisticDifficultyClass } from "./statistic";
+import { StatisticModifier } from "@actor/modifiers.ts";
+import { DCSlug } from "@actor/types.ts";
+import { ZeroToThree } from "@module/data.ts";
+import { CheckRoll } from "./check/roll.ts";
+import { PredicatePF2e } from "./predication.ts";
+import { StatisticDifficultyClass } from "./statistic/index.ts";
 
 /** Get the degree of success from a roll and a difficulty class */
 class DegreeOfSuccess {

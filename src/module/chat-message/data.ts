@@ -1,11 +1,11 @@
-import { ItemType } from "@item/data";
-import { MagicTradition } from "@item/spell/types";
-import { BaseRawModifier } from "@actor/modifiers";
-import { DegreeAdjustmentsRecord, DegreeOfSuccessString } from "@system/degree-of-success";
-import { RollNoteSource } from "@module/notes";
-import { CheckRollContext } from "@system/check";
-import { DamageRollContext } from "@system/damage";
-import { ZeroToTwo } from "@module/data";
+import { ItemType } from "@item/data/index.ts";
+import { MagicTradition } from "@item/spell/types.ts";
+import { BaseRawModifier } from "@actor/modifiers.ts";
+import { DegreeAdjustmentsRecord, DegreeOfSuccessString } from "@system/degree-of-success.ts";
+import { RollNoteSource } from "@module/notes.ts";
+import { CheckRollContext } from "@system/check/index.ts";
+import { ZeroToTwo } from "@module/data.ts";
+import { DamageRollContext } from "@system/damage/types.ts";
 
 interface ChatMessageSourcePF2e extends foundry.documents.ChatMessageSource {
     flags: ChatMessageFlagsPF2e;

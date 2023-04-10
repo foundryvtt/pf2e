@@ -1,5 +1,5 @@
-import { BaseItemSourcePF2e, ItemSystemSource } from "@item/data/base";
-import { ZeroToFour } from "@module/data";
+import { BaseItemSourcePF2e, ItemSystemSource } from "@item/data/base.ts";
+import { ZeroToFour } from "@module/data.ts";
 
 type LoreSource = BaseItemSourcePF2e<"lore", LoreSystemSource>;
 

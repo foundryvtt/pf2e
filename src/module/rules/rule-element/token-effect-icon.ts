@@ -1,5 +1,5 @@
-import { TokenEffect } from "@actor/token-effect";
-import { RuleElementPF2e } from "./";
+import { TokenEffect } from "@actor/token-effect.ts";
+import { RuleElementPF2e } from "./index.ts";
 
 /**
  * Add an effect icon to an actor's token

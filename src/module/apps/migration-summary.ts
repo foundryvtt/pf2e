@@ -1,5 +1,5 @@
-import { MigrationRunner } from "@module/migration";
-import { LocalizePF2e } from "@system/localize";
+import { MigrationRunner } from "@module/migration/index.ts";
+import { LocalizePF2e } from "@system/localize.ts";
 
 /** A summary window that opens after a system migration completes */
 export class MigrationSummary extends Application<MigrationSummaryOptions> {
@@ -26,7 +26,7 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
         return "systems/pf2e/templates/system/migration-summary.hbs";
     }
 
-    static override get defaultOptions() {
+    static override get defaultOptions(): ApplicationOptions {
         return {
             ...super.defaultOptions,
             id: "migration-summary",

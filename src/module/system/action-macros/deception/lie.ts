@@ -1,8 +1,8 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const PREFIX = "PF2E.Actions.Lie";
 
-export function lie(options: SkillActionOptions) {
+export function lie(options: SkillActionOptions): void {
     const slug = options?.skill ?? "deception";
     const rollOptions = ["action:lie"];
     const modifiers = options?.modifiers;

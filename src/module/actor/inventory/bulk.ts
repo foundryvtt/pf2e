@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { PhysicalItemPF2e } from "@item";
-import { Bulk } from "@item/physical/bulk";
-import { Size } from "@module/data";
+import { Bulk } from "@item/physical/bulk.ts";
+import { Size } from "@module/data.ts";
 import { groupBy } from "@util";
 
 export class InventoryBulk {

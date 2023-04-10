@@ -1,5 +1,5 @@
 import * as io from "socket.io";
-import { ClientBaseFogExploration } from "./client-base-mixes.mjs";
+import { ClientBaseFogExploration } from "./client-base-mixes.js";
 
 declare global {
     /**

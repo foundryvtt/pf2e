@@ -1,4 +1,4 @@
-import { AmbientLightPF2e } from "../ambient-light";
+import { AmbientLightPF2e } from "../ambient-light.ts";
 
 export class LightingLayerPF2e<
     TAmbientLight extends AmbientLightPF2e = AmbientLightPF2e

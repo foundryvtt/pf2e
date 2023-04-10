@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { ErrorPF2e } from "@util";
-import { SelectableTagField, TagSelectorOptions } from ".";
-import { BaseTagSelector } from "./base";
+import { SelectableTagField, TagSelectorOptions } from "./index.ts";
+import { BaseTagSelector } from "./base.ts";
 
 export class SpeedSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
     protected objectProperty = "system.attributes.speed.otherSpeeds";

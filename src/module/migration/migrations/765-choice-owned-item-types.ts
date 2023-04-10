@@ -1,7 +1,7 @@
-import { ItemSourcePF2e } from "@item/data";
-import { ChoiceSetOwnedItems, ChoiceSetSource } from "@module/rules/rule-element/choice-set/data";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ChoiceSetOwnedItems, ChoiceSetSource } from "@module/rules/rule-element/choice-set/data.ts";
 import { isObject } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** The types choices was never enforced when it only worked for weapons */
 export class Migration765ChoiceOwnedItemTypes extends MigrationBase {

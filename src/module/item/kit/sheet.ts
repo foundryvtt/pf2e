@@ -1,9 +1,9 @@
-import { CoinsPF2e, PhysicalItemPF2e } from "@item/physical";
-import { ItemSheetDataPF2e } from "@item/sheet/data-types";
+import { CoinsPF2e, PhysicalItemPF2e } from "@item/physical/index.ts";
+import { ItemSheetDataPF2e } from "@item/sheet/data-types.ts";
 import { htmlClosest, htmlQueryAll } from "@util";
-import { ItemSheetPF2e } from "../sheet/base";
-import { KitEntryData } from "./data";
-import { KitPF2e } from "./index";
+import { ItemSheetPF2e } from "../sheet/base.ts";
+import { KitEntryData } from "./data.ts";
+import { KitPF2e } from "./document.ts";
 
 class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
     static override get defaultOptions(): DocumentSheetOptions {

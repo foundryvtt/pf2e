@@ -48,9 +48,9 @@ jobs:
         run: |
           npm run build:packs
 
-      - name: Webpack
+      - name: Vite
         run: |
-          node_modules/.bin/webpack --mode production
+          node_modules/.bin/vite build
 
       - name: Test
         run: |

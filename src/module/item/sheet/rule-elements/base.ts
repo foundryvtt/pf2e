@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
-import { ItemPF2e } from "@item/base";
-import { RuleElementPF2e, RuleElementSource } from "@module/rules";
+import { ItemPF2e } from "@item/base.ts";
+import { RuleElementPF2e, RuleElementSource } from "@module/rules/index.ts";
 
 /** Utility function to convert a value to a number if its a valid number */
 function coerceNumber<T extends string | unknown>(value: T): T | number {

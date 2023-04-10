@@ -1,8 +1,8 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { ItemSummaryRenderer } from "@actor/sheet/item-summary-renderer";
+import { ItemSummaryRenderer } from "@actor/sheet/item-summary-renderer.ts";
 import { ItemPF2e, SpellPF2e } from "@item";
-import { ItemSourcePF2e, SpellSource } from "@item/data";
-import { SpellcastingSheetData, SpellcastingEntryPF2e } from "@item/spellcasting-entry";
+import { ItemSourcePF2e, SpellSource } from "@item/data/index.ts";
+import { SpellcastingSheetData, SpellcastingEntryPF2e } from "@item/spellcasting-entry/index.ts";
 
 /**
  * Sheet used to render the the spell list for prepared casting.
@@ -31,7 +31,7 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TAct
         return `${super.id}-spellprep-${this.item.id}`;
     }
 
-    override get title() {
+    override get title(): string {
         return game.i18n.format("PF2E.Actor.Creature.SpellPreparation.Title", { actor: this.actor.name });
     }
 

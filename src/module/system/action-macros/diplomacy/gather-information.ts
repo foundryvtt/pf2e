@@ -1,8 +1,8 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const PREFIX = "PF2E.Actions.GatherInformation";
 
-export function gatherInformation(options: SkillActionOptions) {
+export function gatherInformation(options: SkillActionOptions): void {
     const slug = options?.skill ?? "diplomacy";
     const rollOptions = ["action:gather-information"];
     const modifiers = options?.modifiers;

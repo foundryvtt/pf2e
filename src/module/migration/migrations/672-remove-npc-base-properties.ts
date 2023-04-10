@@ -1,7 +1,7 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { SAVE_TYPES } from "@actor/values";
-import { ItemSourcePF2e } from "@item/data";
-import { MigrationBase } from "../base";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { SAVE_TYPES } from "@actor/values.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Remove the extra `base` subproperty of labeled values on NPCs */
 export class Migration672RemoveNPCBaseProperties extends MigrationBase {

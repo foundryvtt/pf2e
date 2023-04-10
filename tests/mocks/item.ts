@@ -1,6 +1,7 @@
-import type { ActorPF2e } from "@actor";
-import type { ItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data";
+import type { ActorPF2e } from "@actor/index.ts";
+import type { ItemPF2e } from "@item/index.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSystemSource } from "@item/data/base.ts";
 
 export class MockItem {
     readonly _source: ItemSourcePF2e;
@@ -16,11 +17,11 @@ export class MockItem {
         return this._source._id;
     }
 
-    get name() {
+    get name(): string {
         return this._source.name;
     }
 
-    get system() {
+    get system(): ItemSystemSource {
         return this._source.system;
     }
 
@@ -51,7 +52,7 @@ export class MockItem {
         });
     }
 
-    update(changes: object) {
+    update(changes: object): void {
         for (const [k, v] of Object.entries(changes)) {
             global.setProperty(this._source, k, v);
         }

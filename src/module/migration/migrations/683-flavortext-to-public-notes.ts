@@ -1,6 +1,6 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { NPCSystemSource } from "@actor/npc/data";
-import { MigrationBase } from "../base";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { NPCSystemSource } from "@actor/npc/data.ts";
+import { MigrationBase } from "../base.ts";
 
 interface NPCSystemDataOld extends NPCSystemSource {
     details: NPCSystemSource["details"] & {

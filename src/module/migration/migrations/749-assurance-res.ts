@@ -1,10 +1,10 @@
-import { SkillLongForm } from "@actor/types";
-import { SKILL_LONG_FORMS } from "@actor/values";
-import { ItemSourcePF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules";
-import { ChoiceSetSource } from "@module/rules/rule-element/choice-set/data";
+import { SkillLongForm } from "@actor/types.ts";
+import { SKILL_LONG_FORMS } from "@actor/values.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
+import { ChoiceSetSource } from "@module/rules/rule-element/choice-set/data.ts";
 import { setHasElement } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 export class Migration749AssuranceREs extends MigrationBase {
     static override version = 0.749;

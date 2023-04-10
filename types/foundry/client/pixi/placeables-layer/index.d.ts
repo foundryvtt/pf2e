@@ -1,0 +1,9 @@
+import "./base.js";
+import "./drawings-layer.js";
+import "./lighting-layer.js";
+import "./notes-layer.js";
+import "./sounds-layer.js";
+import "./template-layer.js";
+import "./tiles-layer.js";
+import "./token-layer.js";
+import "./walls-layer.js";

@@ -1,13 +1,13 @@
-import { resetActors } from "@actor/helpers";
-import { MigrationSummary } from "@module/apps/migration-summary";
-import { SceneDarknessAdjuster } from "@module/apps/scene-darkness-adjuster";
-import { SetAsInitiative } from "@module/chat-message/listeners/set-as-initiative";
-import { MigrationList } from "@module/migration";
-import { MigrationRunner } from "@module/migration/runner";
-import { SetGamePF2e } from "@scripts/set-game-pf2e";
-import { activateSocketListener } from "@scripts/socket";
-import { storeInitialWorldVersions } from "@scripts/store-versions";
-import { extendDragData } from "@scripts/system/dragstart-handler";
+import { resetActors } from "@actor/helpers.ts";
+import { MigrationSummary } from "@module/apps/migration-summary.ts";
+import { SceneDarknessAdjuster } from "@module/apps/scene-darkness-adjuster.ts";
+import { SetAsInitiative } from "@module/chat-message/listeners/set-as-initiative.ts";
+import { MigrationList } from "@module/migration/index.ts";
+import { MigrationRunner } from "@module/migration/runner/index.ts";
+import { SetGamePF2e } from "@scripts/set-game-pf2e.ts";
+import { activateSocketListener } from "@scripts/socket.ts";
+import { storeInitialWorldVersions } from "@scripts/store-versions.ts";
+import { extendDragData } from "@scripts/system/dragstart-handler.ts";
 
 export const Ready = {
     listen: (): void => {

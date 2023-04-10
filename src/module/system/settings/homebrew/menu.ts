@@ -1,19 +1,19 @@
-import { ItemSheetPF2e } from "@item/sheet/base";
-import { MigrationBase } from "@module/migration/base";
-import { MigrationRunner } from "@module/migration/runner";
-import { LocalizePF2e } from "@module/system/localize";
-import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr";
-import { DamageType } from "@system/damage/types";
+import { ItemSheetPF2e } from "@item/sheet/base.ts";
+import { MigrationBase } from "@module/migration/base.ts";
+import { MigrationRunner } from "@module/migration/runner/index.ts";
+import { LocalizePF2e } from "@system/localize.ts";
+import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr.ts";
+import { DamageType } from "@system/damage/types.ts";
 import {
     BASE_DAMAGE_TYPES_TO_CATEGORIES,
     DAMAGE_TYPES,
     DAMAGE_TYPE_ICONS,
     ENERGY_DAMAGE_TYPES,
     PHYSICAL_DAMAGE_TYPES,
-} from "@system/damage/values";
+} from "@system/damage/values.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, isObject, objectHasKey, pick, sluggify, tupleHasValue } from "@util";
 import Tagify from "@yaireo/tagify";
-import { PartialSettingsData, SettingsMenuPF2e, settingsToSheetData } from "../menu";
+import { PartialSettingsData, SettingsMenuPF2e, settingsToSheetData } from "../menu.ts";
 import {
     CustomDamageData,
     HomebrewElementsSheetData,
@@ -23,8 +23,8 @@ import {
     HomebrewTraitSettingsKey,
     HOMEBREW_TRAIT_KEYS,
     SECONDARY_TRAIT_RECORDS,
-} from "./data";
-import { isHomebrewCustomDamage, isHomebrewFlagCategory, prepareCleanup } from "./helpers";
+} from "./data.ts";
+import { isHomebrewCustomDamage, isHomebrewFlagCategory, prepareCleanup } from "./helpers.ts";
 
 import "@yaireo/tagify/src/tagify.scss";
 
@@ -36,15 +36,15 @@ class HomebrewElements extends SettingsMenuPF2e {
 
     private damageManager = new DamageTypeManager();
 
-    static override get SETTINGS() {
+    static override get SETTINGS(): string[] {
         return Object.keys(this.settings);
     }
 
-    static override get defaultOptions() {
+    static override get defaultOptions(): FormApplicationOptions {
         return mergeObject(super.defaultOptions, { template: "systems/pf2e/templates/system/settings/homebrew.hbs" });
     }
 
-    protected static get traitSettings() {
+    protected static get traitSettings(): Record<HomebrewTraitKey, PartialSettingsData> {
         return HOMEBREW_TRAIT_KEYS.reduce((result, key) => {
             result[key] = {
                 name: CONFIG.PF2E.SETTINGS.homebrew[key].name,

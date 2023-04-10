@@ -16,21 +16,21 @@ export class Progress {
         this.label = "";
     }
 
-    advance(label: string) {
+    advance(label: string): void {
         this.counter += 1;
         this.label = label;
-        this.updateUI();
+        this.#updateUI();
     }
 
-    close(label?: string) {
+    close(label?: string): void {
         if (label) {
             this.label = label;
         }
         this.counter = this.steps;
-        this.updateUI();
+        this.#updateUI();
     }
 
-    private updateUI() {
+    #updateUI(): void {
         const $loader = $("#loading");
         if ($loader.length === 0) return;
         const pct = Math.clamped((100 * this.counter) / this.steps, 0, 100);

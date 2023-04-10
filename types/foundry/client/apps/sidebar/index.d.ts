@@ -1,2 +1,2 @@
-import "./package-configuration";
-import "./apps/keybindings-config";
+import "./package-configuration.js";
+import "./apps/keybindings-config.js";

@@ -1,10 +1,10 @@
 import { ActorPF2e, CharacterPF2e, FamiliarPF2e } from "@actor";
-import { CreatureSensePF2e, SENSE_ACUITIES, SENSE_TYPES, SenseAcuity, SenseType } from "@actor/creature/sense";
-import { ActorType } from "@actor/data";
+import { CreatureSensePF2e, SENSE_ACUITIES, SENSE_TYPES, SenseAcuity, SenseType } from "@actor/creature/sense.ts";
+import { ActorType } from "@actor/data/index.ts";
 import { ItemPF2e } from "@item";
 import { setHasElement, tupleHasValue } from "@util";
-import { RuleElementData, RuleElementPF2e, RuleElementSource } from "./";
-import { RuleElementOptions } from "./base";
+import { RuleElementData, RuleElementPF2e, RuleElementSource } from "./index.ts";
+import { RuleElementOptions } from "./base.ts";
 
 /**
  * @category RuleElement

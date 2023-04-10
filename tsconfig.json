@@ -1,39 +1,45 @@
 {
     "compilerOptions": {
-        "target": "es2018",
-        "module": "commonjs",
-        "lib": ["esnext", "dom", "dom.iterable"],
+        "target": "es2022",
+        "module": "esnext",
+        "moduleResolution": "node16",
+        "lib": [
+            "esnext",
+            "dom",
+            "dom.iterable"
+        ],
         "noEmit": true,
         "strict": true,
         "noFallthroughCasesInSwitch": true,
+        "skipLibCheck": true,
         "noImplicitOverride": true,
         "noImplicitReturns": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
 
+        "allowImportingTsExtensions": true,
         "forceConsistentCasingInFileNames": true,
         "esModuleInterop": true,
         "sourceMap": true,
         "baseUrl": ".",
+        "rootDir": ".",
+        "outDir": "dist",
         "allowUnusedLabels": false,
         "removeComments": false,
         "resolveJsonModule": true,
+        "useDefineForClassFields": true,
         "paths": {
-            "@actor": ["src/module/actor"],
+            "@actor": ["src/module/actor/index.js"],
             "@actor/*": ["src/module/actor/*"],
-            "@item": ["src/module/item"],
+            "@item": ["src/module/item/index.js"],
             "@item/*": ["src/module/item/*"],
-            "@scene": ["src/module/scene"],
+            "@scene": ["src/module/scene/index.js"],
             "@scene/*": ["src/module/scene/*"],
             "@system/*": ["src/module/system/*"],
             "@module/*": ["src/module/*"],
             "@scripts/*": ["src/scripts/*"],
-            "@util": ["src/util"],
-            "@util/*": ["src/util/*"],
-            // https://github.com/Hypercubed/mini-signals/issues/20
-            "mini-signals": [
-                "node_modules/resource-loader/typings/mini-signals.d.ts"
-            ]
+            "@util": ["src/util/index.js"],
+            "@util/*": ["src/util/*"]
         },
         "types": [
             "jquery",
@@ -41,8 +47,8 @@
             "gsap",
             "jest",
             "node",
-            "webpack-env",
-            "handlebars"
+            "handlebars",
+            "vite/client"
         ],
         "typeRoots": [
             "node_modules/@types",
@@ -51,9 +57,11 @@
         ]
     },
     "watchOptions": {
-        "excludeDirectories": ["packs/data/", "static/packs/"],
+        "excludeDirectories": ["packs/data/", "static/packs/"]
     },
     "ts-node": {
+        "esm": true,
+        "experimentalSpecifierResolution": "node",
         "files": true
     }
 }

@@ -1,10 +1,10 @@
 import { ItemPF2e } from "@item";
-import { RollNotePF2e } from "@module/notes";
-import { UserVisibility } from "@scripts/ui/user-visibility";
-import { DegreeOfSuccessString, DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success";
+import { RollNotePF2e } from "@module/notes.ts";
+import { UserVisibility } from "@scripts/ui/user-visibility.ts";
+import { DegreeOfSuccessString, DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
 import { isObject } from "@util";
-import { ArrayField, ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
-import { BracketedValue, RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./";
+import type { ArrayField, ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.d.ts";
+import { BracketedValue, RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 import { ActorPF2e } from "@actor";
 
 const { fields } = foundry.data;

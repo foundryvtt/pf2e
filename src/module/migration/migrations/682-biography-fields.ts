@@ -1,6 +1,6 @@
-import { CharacterSystemData } from "@actor/character/data";
-import { ActorSourcePF2e } from "@actor/data";
-import { MigrationBase } from "../base";
+import { CharacterSystemData } from "@actor/character/data/index.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 interface CharacterSystemDataOld extends CharacterSystemData {
     details: CharacterSystemData["details"] & {

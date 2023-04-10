@@ -1,8 +1,8 @@
-import { SaveType } from "@actor/types";
-import { EffectAuraData, EffectContextData, EffectTraits, TimeUnit } from "@item/abstract-effect";
-import { ConditionSlug } from "@item/condition";
-import { BaseItemSourcePF2e, ItemFlagsPF2e, ItemSystemData, ItemSystemSource } from "@item/data/base";
-import { DamageCategoryUnique, DamageType } from "@system/damage";
+import { SaveType } from "@actor/types.ts";
+import { EffectAuraData, EffectContextData, EffectTraits, TimeUnit } from "@item/abstract-effect/index.ts";
+import { ConditionSlug } from "@item/condition/index.ts";
+import { BaseItemSourcePF2e, ItemFlagsPF2e, ItemSystemData, ItemSystemSource } from "@item/data/base.ts";
+import { DamageCategoryUnique, DamageType } from "@system/damage/index.ts";
 
 type AfflictionSource = BaseItemSourcePF2e<"affliction", AfflictionSystemSource> & {
     flags: DeepPartial<AfflictionFlags>;

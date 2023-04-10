@@ -1,11 +1,11 @@
 import { CreaturePF2e, FamiliarPF2e } from "@actor";
-import { Abilities, CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation } from "@actor/creature/data";
-import { CreatureUpdateContext } from "@actor/creature/types";
-import { ALLIANCES } from "@actor/creature/values";
-import { StrikeData } from "@actor/data/base";
-import { ActorSizePF2e } from "@actor/data/size";
-import { calculateMAPs } from "@actor/helpers";
-import { ActorInitiative } from "@actor/initiative";
+import { Abilities, CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation } from "@actor/creature/data.ts";
+import { CreatureUpdateContext } from "@actor/creature/types.ts";
+import { ALLIANCES } from "@actor/creature/values.ts";
+import { StrikeData } from "@actor/data/base.ts";
+import { ActorSizePF2e } from "@actor/data/size.ts";
+import { calculateMAPs } from "@actor/helpers.ts";
+import { ActorInitiative } from "@actor/initiative.ts";
 import {
     CheckModifier,
     MODIFIER_TYPE,
@@ -14,7 +14,7 @@ import {
     createAbilityModifier,
     createProficiencyModifier,
     ensureProficiencyOption,
-} from "@actor/modifiers";
+} from "@actor/modifiers.ts";
 import {
     AbilityString,
     AttackItem,
@@ -24,7 +24,7 @@ import {
     RollContext,
     RollContextParams,
     SkillLongForm,
-} from "@actor/types";
+} from "@actor/types.ts";
 import {
     ABILITY_ABBREVIATIONS,
     SAVE_TYPES,
@@ -32,7 +32,7 @@ import {
     SKILL_DICTIONARY,
     SKILL_DICTIONARY_REVERSE,
     SKILL_EXPANDED,
-} from "@actor/values";
+} from "@actor/values.ts";
 import {
     AncestryPF2e,
     BackgroundPF2e,
@@ -45,18 +45,18 @@ import {
     PhysicalItemPF2e,
     WeaponPF2e,
 } from "@item";
-import { ActionTrait } from "@item/action/data";
-import { ARMOR_CATEGORIES } from "@item/armor/values";
-import { ItemType, PhysicalItemSource } from "@item/data";
-import { ItemCarryType } from "@item/physical/data";
-import { getResilientBonus } from "@item/physical/runes";
-import { MagicTradition } from "@item/spell/types";
-import { MAGIC_TRADITIONS } from "@item/spell/values";
-import { WeaponDamage, WeaponSource, WeaponSystemSource } from "@item/weapon/data";
-import { WeaponCategory } from "@item/weapon/types";
-import { WEAPON_CATEGORIES } from "@item/weapon/values";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree, ZeroToTwo } from "@module/data";
+import { ActionTrait } from "@item/action/data.ts";
+import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
+import { ItemType, PhysicalItemSource } from "@item/data/index.ts";
+import { ItemCarryType } from "@item/physical/data.ts";
+import { getResilientBonus } from "@item/physical/runes.ts";
+import { MagicTradition } from "@item/spell/types.ts";
+import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
+import { WeaponDamage, WeaponSource, WeaponSystemSource } from "@item/weapon/data.ts";
+import { WeaponCategory } from "@item/weapon/types.ts";
+import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
+import { ChatMessagePF2e } from "@module/chat-message/document.ts";
+import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree, ZeroToTwo } from "@module/data.ts";
 import {
     extractDegreeOfSuccessAdjustments,
     extractModifierAdjustments,
@@ -64,20 +64,20 @@ import {
     extractNotes,
     extractRollSubstitutions,
     extractRollTwice,
-} from "@module/rules/helpers";
-import { UserPF2e } from "@module/user";
-import { TokenDocumentPF2e } from "@scene";
-import { eventToRollParams } from "@scripts/sheet-util";
-import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check";
-import { DamagePF2e, DamageRollContext } from "@system/damage";
-import { DamageRoll } from "@system/damage/roll";
-import { WeaponDamagePF2e } from "@system/damage/weapon";
-import { PredicatePF2e } from "@system/predication";
-import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls";
-import { Statistic, StatisticCheck } from "@system/statistic";
+} from "@module/rules/helpers.ts";
+import { UserPF2e } from "@module/user/document.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check/index.ts";
+import { DamagePF2e, DamageRollContext } from "@system/damage/index.ts";
+import { DamageRoll } from "@system/damage/roll.ts";
+import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
+import { PredicatePF2e } from "@system/predication.ts";
+import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls.ts";
+import { Statistic, StatisticCheck } from "@system/statistic/index.ts";
 import { ErrorPF2e, getActionGlyph, objectHasKey, sluggify, sortedStringify, traitSlugToObject } from "@util";
-import { UUIDUtils } from "@util/uuid-utils";
-import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting";
+import { UUIDUtils } from "@util/uuid-utils.ts";
+import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting/index.ts";
 import {
     AuxiliaryAction,
     BaseWeaponProficiencyKey,
@@ -96,17 +96,22 @@ import {
     MartialProficiencies,
     MartialProficiency,
     WeaponGroupProficiencyKey,
-} from "./data";
-import { CharacterSheetTabVisibility } from "./data/sheet";
-import { CharacterFeats } from "./feats";
+} from "./data/index.ts";
+import { CharacterSheetTabVisibility } from "./data/sheet.ts";
+import { CharacterFeats } from "./feats.ts";
 import {
     PCStrikeAttackTraits,
     createForceOpenPenalty,
     createShoddyPenalty,
     imposeOversizedWeaponCondition,
-} from "./helpers";
-import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams, DexterityModifierCapData } from "./types";
-import { CHARACTER_SHEET_TABS } from "./values";
+} from "./helpers.ts";
+import {
+    CharacterHitPointsSummary,
+    CharacterSkills,
+    CreateAuxiliaryParams,
+    DexterityModifierCapData,
+} from "./types.ts";
+import { CHARACTER_SHEET_TABS } from "./values.ts";
 
 class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends CreaturePF2e<TParent> {
     /** Core singular embeds for PCs */
@@ -272,7 +277,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
     }
 
-    protected override _initialize() {
+    protected override _initialize(): void {
         this.familiar ??= null;
         super._initialize();
     }

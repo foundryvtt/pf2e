@@ -1,10 +1,10 @@
-import { CreatureTrait, MovementType, SkillAbbreviation } from "@actor/creature";
-import { SenseAcuity, SenseType } from "@actor/creature/sense";
-import { AbilityString, ImmunityType, ResistanceType, WeaknessType } from "@actor/types";
-import { WeaponDamage } from "@item/weapon/data";
-import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponTrait } from "@item/weapon/types";
-import { Size } from "@module/data";
-import { BracketedValue, RuleElementSource } from "../";
+import { CreatureTrait, MovementType, SkillAbbreviation } from "@actor/creature/index.ts";
+import { SenseAcuity, SenseType } from "@actor/creature/sense.ts";
+import { AbilityString, ImmunityType, ResistanceType, WeaknessType } from "@actor/types.ts";
+import { WeaponDamage } from "@item/weapon/data.ts";
+import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponTrait } from "@item/weapon/types.ts";
+import { Size } from "@module/data.ts";
+import { BracketedValue, RuleElementSource } from "../index.ts";
 
 interface BattleFormSource extends RuleElementSource {
     overrides?: BattleFormOverrides;

@@ -1,4 +1,4 @@
-import { ClientBasePlaylist } from "./client-base-mixes.mjs";
+import { ClientBasePlaylist } from "./client-base-mixes.js";
 
 declare global {
     /**

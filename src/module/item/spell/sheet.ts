@@ -1,11 +1,11 @@
-import { SpellPF2e } from "@item/spell";
-import { ItemSheetPF2e } from "../sheet/base";
-import { ItemSheetDataPF2e } from "../sheet/data-types";
-import { SpellDamage, SpellHeighteningInterval, SpellSystemData } from "./data";
+import { SpellPF2e } from "@item/spell/index.ts";
+import { ItemSheetPF2e } from "../sheet/base.ts";
+import { ItemSheetDataPF2e } from "../sheet/data-types.ts";
+import { SpellDamage, SpellHeighteningInterval, SpellSystemData } from "./data.ts";
 import { ErrorPF2e, fontAwesomeIcon, getActionGlyph, objectHasKey, pick, tagify, tupleHasValue } from "@util";
-import { OneToTen } from "@module/data";
-import { DamageCategoryUnique } from "@system/damage/types";
-import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values";
+import { OneToTen } from "@module/data.ts";
+import { DamageCategoryUnique } from "@system/damage/types.ts";
+import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
 import { ActorPF2e } from "@actor";
 
 /** Set of properties that are legal for the purposes of spell overrides */

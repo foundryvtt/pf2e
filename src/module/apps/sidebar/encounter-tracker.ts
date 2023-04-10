@@ -1,7 +1,7 @@
-import { combatantAndTokenDoc } from "@module/doc-helpers";
-import { CombatantPF2e, EncounterPF2e, RolledCombatant } from "@module/encounter";
-import { TokenDocumentPF2e } from "@scene";
-import { eventToRollParams } from "@scripts/sheet-util";
+import { combatantAndTokenDoc } from "@module/doc-helpers.ts";
+import { CombatantPF2e, EncounterPF2e, RolledCombatant } from "@module/encounter/index.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { ErrorPF2e, createHTMLElement, fontAwesomeIcon, htmlQuery, htmlQueryAll, localizeList } from "@util";
 import Sortable, { SortableEvent } from "sortablejs";
 

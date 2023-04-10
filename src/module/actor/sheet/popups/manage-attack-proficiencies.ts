@@ -1,7 +1,7 @@
-import { CharacterPF2e } from "@actor/character";
-import { BaseWeaponProficiencyKey, WeaponGroupProficiencyKey } from "@actor/character/data";
-import { BaseWeaponType } from "@item/weapon/types";
-import { LocalizePF2e } from "@module/system/localize";
+import { CharacterPF2e } from "@actor/character/document.ts";
+import { BaseWeaponProficiencyKey, WeaponGroupProficiencyKey } from "@actor/character/data/index.ts";
+import { BaseWeaponType } from "@item/weapon/types.ts";
+import { LocalizePF2e } from "@system/localize.ts";
 import { fontAwesomeIcon, htmlClosest, objectHasKey } from "@util";
 
 async function add(actor: CharacterPF2e, event: MouseEvent): Promise<void> {
@@ -47,7 +47,7 @@ async function add(actor: CharacterPF2e, event: MouseEvent): Promise<void> {
     dialog.render(true);
 }
 
-function remove(actor: CharacterPF2e, event: MouseEvent) {
+function remove(actor: CharacterPF2e, event: MouseEvent): void {
     const weaponGroups = CONFIG.PF2E.weaponGroups;
     const baseWeapons = LocalizePF2e.translations.PF2E.Weapon.Base;
     const key = htmlClosest(event.currentTarget, "li.skill.custom")?.dataset.skill ?? "";

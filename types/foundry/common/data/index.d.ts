@@ -1,4 +1,4 @@
-import * as Fields from "./fields.mjs";
+import * as Fields from "./fields.js";
 
 declare global {
     module foundry {

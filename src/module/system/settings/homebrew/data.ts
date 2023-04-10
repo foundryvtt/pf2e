@@ -1,5 +1,5 @@
-import { BaseWeaponType } from "@item/weapon/types";
-import { MenuTemplateData, SettingsTemplateData } from "../menu";
+import { BaseWeaponType } from "@item/weapon/types.ts";
+import { MenuTemplateData, SettingsTemplateData } from "../menu.ts";
 
 const HOMEBREW_TRAIT_KEYS = [
     "creatureTraits",

@@ -1,2 +1,2 @@
-import "./document";
-import "./embedded-collection";
+import "./document.js";
+import "./embedded-collection.js";

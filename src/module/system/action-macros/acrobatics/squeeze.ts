@@ -1,9 +1,9 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
-import { SingleCheckAction } from "@actor/actions";
+import { SingleCheckAction } from "@actor/actions/index.ts";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const PREFIX = "PF2E.Actions.Squeeze";
 
-function squeeze(options: SkillActionOptions) {
+function squeeze(options: SkillActionOptions): void {
     const slug = options?.skill ?? "acrobatics";
     const rollOptions = ["action:squeeze"];
     const modifiers = options?.modifiers;
