@@ -81,7 +81,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 
     return {
         root: "./",
-        base: buildMode === "production" ? "./" : "/systems/pf2e/",
+        base: command === "build" ? "./" : "/systems/pf2e/",
         publicDir: "static",
         define: {
             BUILD_MODE: JSON.stringify(buildMode),
@@ -102,7 +102,6 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             rollupOptions: {
                 output: {
                     assetFileNames: ({ name }): string => {
-                        console.log(name);
                         return /\.css$/.test(name ?? "") ? "pf2e.css" : name ?? "what-is-this.txt";
                     },
                     chunkFileNames: "[name].mjs",
