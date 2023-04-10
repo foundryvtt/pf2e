@@ -5,9 +5,9 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "npm run build:packs && vite build --logLevel error",
+        "build": "npm run build:packs && vite build",
         "build:packs": "node --loader @bleed-believer/path-alias ./packs/scripts/build.ts",
-        "watch": "npm run build:packs && vite build --watch --mode development --logLevel error",
+        "watch": "npm run build:packs && vite build --watch --mode development",
         "hot": "vite serve",
         "extractPacks": "node --loader @bleed-believer/path-alias ./packs/scripts/extract.ts",
         "pretest": "eslint ./ --ext .ts && eslint ./static --ext .json",
