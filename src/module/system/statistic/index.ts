@@ -212,6 +212,7 @@ class Statistic {
         const result = mergeObject(deepClone(this.#data), data);
         result.domains = maybeMergeArrays(this.#data.domains, data.domains);
         result.modifiers = maybeMergeArrays(this.#data.modifiers, data.modifiers);
+        result.rollOptions = maybeMergeArrays(this.#data.rollOptions, data.rollOptions);
         if (result.check && this.#data.check) {
             result.check.domains = maybeMergeArrays(this.#data.check.domains, data.check?.domains);
             result.check.modifiers = maybeMergeArrays(this.#data.check.modifiers, data.check?.modifiers);
