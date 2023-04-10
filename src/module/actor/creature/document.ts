@@ -1,4 +1,4 @@
-import { ActorPF2e } from "@actor";
+import { ActorPF2e, PartyPF2e } from "@actor";
 import { HitPointsSummary } from "@actor/base.ts";
 import { CreatureSource } from "@actor/data/index.ts";
 import { StrikeData } from "@actor/data/base.ts";
@@ -56,6 +56,8 @@ abstract class CreaturePF2e<
 > extends ActorPF2e<TParent> {
     // Internal cached value for creature skills
     protected _skills: CreatureSkills | null = null;
+
+    declare parties: Set<PartyPF2e>;
 
     /** Skill `Statistic`s for the creature */
     override get skills(): CreatureSkills {
@@ -281,6 +283,11 @@ abstract class CreaturePF2e<
     override getStatistic(slug: string): Statistic | null;
     override getStatistic(slug: string): Statistic | null {
         return slug === "perception" ? this.perception : super.getStatistic(slug);
+    }
+
+    protected override _initialize(): void {
+        this.parties ??= new Set();
+        super._initialize();
     }
 
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
