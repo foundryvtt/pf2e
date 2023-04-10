@@ -432,6 +432,7 @@ abstract class CreaturePF2e<
             slug: "initiative",
             domains: ["initiative"],
             check: { type: "initiative", label },
+            rollOptions: [baseStatistic.slug],
         });
 
         this.initiative = new ActorInitiative(this, statistic);
