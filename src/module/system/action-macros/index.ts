@@ -53,10 +53,10 @@ import { createForgery } from "./society/create-forgery.ts";
 import { concealAnObject } from "./stealth/conceal-an-object.ts";
 import * as hide from "./stealth/hide.ts";
 import * as sneak from "./stealth/sneak.ts";
-import { palmAnObject } from "./thievery/palm-an-object.ts";
-import { disableDevice } from "./thievery/disable-device.ts";
-import { pickALock } from "./thievery/pick-a-lock.ts";
-import { steal } from "./thievery/steal.ts";
+import * as palmAnObject from "./thievery/palm-an-object.ts";
+import * as disableDevice from "./thievery/disable-device.ts";
+import * as pickALock from "./thievery/pick-a-lock.ts";
+import * as steal from "./thievery/steal.ts";
 import { Action } from "@actor/actions/index.ts";
 export { ActionMacroHelpers } from "./helpers.ts";
 export type { ActionDefaultOptions, SkillActionOptions } from "./types.ts";
@@ -140,26 +140,30 @@ export const ActionMacros = {
     sneak: sneak.legacy,
 
     // Thievery
-    palmAnObject,
-    disableDevice,
-    pickALock,
-    steal,
+    palmAnObject: palmAnObject.legacy,
+    disableDevice: disableDevice.legacy,
+    pickALock: pickALock.legacy,
+    steal: steal.legacy,
 };
 
 export const SystemActions: Action[] = [
     balance.action,
     crawl,
     delay,
+    disableDevice.action,
     dropProne,
     hide.action,
     interact,
     leap,
     maneuverInFlight.action,
+    palmAnObject.action,
+    pickALock.action,
     ready,
     release,
     sneak.action,
     squeeze.action,
     stand,
+    steal.action,
     step,
     stride,
     takeCover,

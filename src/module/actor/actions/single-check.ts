@@ -6,7 +6,7 @@ import {
     CheckResultCallback,
 } from "@system/action-macros/types.ts";
 import { ActionUseOptions } from "./types.ts";
-import { ModifierPF2e } from "@actor/modifiers.ts";
+import { ModifierPF2e, RawModifier } from "@actor/modifiers.ts";
 import { ActionMacroHelpers } from "@system/action-macros/index.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import { Statistic } from "@system/statistic/index.ts";
@@ -24,6 +24,7 @@ function toRollNoteSource(data: SingleCheckActionRollNoteData): RollNoteSource {
 
 interface SingleCheckActionVariantData extends BaseActionVariantData {
     difficultyClass?: CheckDC | string;
+    modifiers?: RawModifier[];
     notes?: SingleCheckActionRollNoteData[];
     rollOptions?: string[];
     statistic?: string;
@@ -31,6 +32,7 @@ interface SingleCheckActionVariantData extends BaseActionVariantData {
 
 interface SingleCheckActionData extends BaseActionData<SingleCheckActionVariantData> {
     difficultyClass?: CheckDC | string;
+    modifiers?: RawModifier[];
     notes?: SingleCheckActionRollNoteData[];
     rollOptions?: string[];
     statistic: string;
@@ -57,6 +59,7 @@ function isString(dc?: CheckDC | string | null): dc is string {
 class SingleCheckActionVariant extends BaseActionVariant {
     readonly #action: SingleCheckAction;
     readonly #difficultyClass?: CheckDC | string;
+    readonly #modifiers?: RawModifier[];
     readonly #notes?: RollNoteSource[];
     readonly #rollOptions?: string[];
     readonly #statistic?: string;
@@ -66,6 +69,7 @@ class SingleCheckActionVariant extends BaseActionVariant {
         this.#action = action;
         if (data) {
             this.#difficultyClass = data.difficultyClass;
+            this.#modifiers = data?.modifiers;
             this.#notes = data.notes ? data.notes.map(toRollNoteSource) : undefined;
             this.#rollOptions = data.rollOptions;
             this.#statistic = data.statistic;
@@ -74,6 +78,10 @@ class SingleCheckActionVariant extends BaseActionVariant {
 
     get difficultyClass() {
         return this.#difficultyClass ?? this.#action.difficultyClass;
+    }
+
+    get modifiers() {
+        return this.#modifiers ?? this.#action.modifiers;
     }
 
     get notes() {
@@ -90,7 +98,7 @@ class SingleCheckActionVariant extends BaseActionVariant {
 
     override async use(options: Partial<SingleCheckActionUseOptions> = {}) {
         const difficultyClass = options?.difficultyClass ?? this.difficultyClass;
-        const modifiers = options?.modifiers ?? [];
+        const modifiers = this.modifiers.map((raw) => new ModifierPF2e(raw)).concat(options?.modifiers ?? []);
         if (options?.multipleAttackPenalty) {
             const map = options.multipleAttackPenalty;
             const modifier = map > 0 ? Math.min(2, map) * -5 : map;
@@ -137,6 +145,7 @@ class SingleCheckActionVariant extends BaseActionVariant {
 
 class SingleCheckAction extends BaseAction<SingleCheckActionVariantData, SingleCheckActionVariant> {
     readonly difficultyClass?: CheckDC | string;
+    readonly modifiers: RawModifier[];
     readonly notes: RollNoteSource[];
     readonly rollOptions: string[];
     readonly statistic: string;
@@ -144,6 +153,7 @@ class SingleCheckAction extends BaseAction<SingleCheckActionVariantData, SingleC
     public constructor(data: SingleCheckActionData) {
         super(data);
         this.difficultyClass = data.difficultyClass;
+        this.modifiers = data.modifiers ?? [];
         this.notes = (data.notes ?? []).map(toRollNoteSource);
         this.rollOptions = data.rollOptions ?? [];
         this.statistic = data.statistic;
