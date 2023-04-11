@@ -15,6 +15,15 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     declare auras: Map<string, TokenAura>;
 
+    /** Returns if the token is in combat, though some actors have different conditions */
+    override get inCombat(): boolean {
+        if (this.actor?.isOfType("party")) {
+            return this.actor.members.every((a) => game.combat?.getCombatantByActor(a.id));
+        }
+
+        return super.inCombat;
+    }
+
     /** Check actor for effects found in `CONFIG.specialStatusEffects` */
     override hasStatusEffect(statusId: string): boolean {
         if (statusId === "dead") return this.overlayEffect === CONFIG.controlIcons.defeated;

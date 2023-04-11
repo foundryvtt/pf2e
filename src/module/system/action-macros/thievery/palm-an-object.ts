@@ -1,8 +1,9 @@
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { SingleCheckAction } from "@actor/actions/index.ts";
 
 const PREFIX = "PF2E.Actions.PalmAnObject";
 
-export function palmAnObject(options: SkillActionOptions): void {
+function palmAnObject(options: SkillActionOptions): void {
     const slug = options?.skill ?? "thievery";
     const rollOptions = ["action:palm-an-object"];
     const modifiers = options?.modifiers;
@@ -25,3 +26,20 @@ export function palmAnObject(options: SkillActionOptions): void {
         throw error;
     });
 }
+
+const action = new SingleCheckAction({
+    cost: 1,
+    description: `${PREFIX}.Description`,
+    difficultyClass: "perception",
+    name: `${PREFIX}.Title`,
+    notes: [
+        { outcome: ["success", "criticalSuccess"], text: `${PREFIX}.Notes.success` },
+        { outcome: ["failure", "criticalFailure"], text: `${PREFIX}.Notes.failure` },
+    ],
+    rollOptions: ["action:palm-an-object"],
+    slug: "palm-an-object",
+    statistic: "thievery",
+    traits: ["manipulate"],
+});
+
+export { palmAnObject as legacy, action };

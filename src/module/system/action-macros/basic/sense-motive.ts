@@ -1,6 +1,7 @@
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { SingleCheckAction } from "@actor/actions/index.ts";
 
-export function senseMotive(options: SkillActionOptions): void {
+function senseMotive(options: SkillActionOptions): void {
     const slug = options?.skill ?? "perception";
     const rollOptions = ["action:sense-motive"];
     const modifiers = options?.modifiers;
@@ -25,3 +26,22 @@ export function senseMotive(options: SkillActionOptions): void {
         throw error;
     });
 }
+
+const action = new SingleCheckAction({
+    cost: 1,
+    description: "PF2E.Actions.SenseMotive.Description",
+    difficultyClass: "skills.deception",
+    name: "PF2E.Actions.SenseMotive.Title",
+    notes: [
+        { outcome: ["criticalSuccess"], text: "PF2E.Actions.SenseMotive.Notes.criticalSuccess" },
+        { outcome: ["success"], text: "PF2E.Actions.SenseMotive.Notes.success" },
+        { outcome: ["failure"], text: "PF2E.Actions.SenseMotive.Notes.failure" },
+        { outcome: ["criticalFailure"], text: "PF2E.Actions.SenseMotive.Notes.criticalFailure" },
+    ],
+    rollOptions: ["action:sense-motive"],
+    slug: "sense-motive",
+    statistic: "perception",
+    traits: ["concentrate", "secret"],
+});
+
+export { senseMotive as legacy, action };

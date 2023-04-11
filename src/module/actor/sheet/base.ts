@@ -606,6 +606,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 direction: "vertical",
                 dragClass: "drag-preview",
                 dragoverBubble: true,
+                filter: "div.item-summary",
+                preventOnFilter: false,
                 easing: "cubic-bezier(1, 0, 0, 1)",
                 ghostClass: "drag-gap",
                 scroll: inventoryList,
@@ -620,6 +622,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 onStart: () => {
                     // Reset move data
                     this.#sortableOnMoveData = {};
+                },
+                onClone: (event) => {
+                    // Cloning sets draggable to false for some reason
+                    for (const link of htmlQueryAll(htmlQuery(event.item, "div.item-summary"), "a.content-link")) {
+                        link.draggable = true;
+                    }
                 },
                 onMove: (event, originalEvent) => this.#sortableOnMove(event, originalEvent),
                 onEnd: (event) => this.#sortableOnEnd(event),
