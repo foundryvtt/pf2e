@@ -25,13 +25,44 @@
                     },
                     "immunities": [
                         {
-                            "type": "critical-hits"
-                        },
+                            "type": [
+                                "critical-hits",
+                                "precision",
+                                "visual"
+                            ]
+                        }
+                    ],
+                    "resistances": [
                         {
-                            "type": "precision"
-                        },
-                        {
-                            "type": "visual"
+                            "type": [
+                                "acid",
+                                "piercing",
+                                "slashing"
+                            ],
+                            "value": {
+                                "brackets": [
+                                    {
+                                        "end": 3,
+                                        "start": 3,
+                                        "value": 5
+                                    },
+                                    {
+                                        "end": 4,
+                                        "start": 4,
+                                        "value": 7
+                                    },
+                                    {
+                                        "end": 7,
+                                        "start": 5,
+                                        "value": 10
+                                    },
+                                    {
+                                        "start": 8,
+                                        "value": 12
+                                    }
+                                ],
+                                "field": "item|system.level.value"
+                            }
                         }
                     ],
                     "senses": {
@@ -209,38 +240,6 @@
                 "selector": "strike-damage",
                 "text": "PF2E.BattleForm.Note.Grab",
                 "title": "{item|name}"
-            },
-            {
-                "key": "Resistance",
-                "type": [
-                    "acid",
-                    "piercing",
-                    "slashing"
-                ],
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 3,
-                            "start": 3,
-                            "value": 5
-                        },
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 7
-                        },
-                        {
-                            "end": 7,
-                            "start": 5,
-                            "value": 10
-                        },
-                        {
-                            "start": 8,
-                            "value": 12
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
             },
             {
                 "key": "ActiveEffectLike",
