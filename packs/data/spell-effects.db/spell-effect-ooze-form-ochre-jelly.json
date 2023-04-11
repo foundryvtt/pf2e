@@ -216,27 +216,10 @@
             },
             {
                 "damageType": "acid",
+                "diceNumber": "ternary(gte(@item.level, 5), 2, 1)",
                 "dieSize": "d8",
                 "key": "DamageDice",
-                "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 3,
-                            "value": {
-                                "diceNumber": 1
-                            }
-                        },
-                        {
-                            "start": 5,
-                            "value": {
-                                "diceNumber": 2
-                            }
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
+                "selector": "strike-damage"
             },
             {
                 "key": "Note",
