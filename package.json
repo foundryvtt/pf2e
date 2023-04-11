@@ -9,6 +9,7 @@
         "build:packs": "node --loader @bleed-believer/path-alias ./packs/scripts/build.ts",
         "watch": "npm run build:packs && vite build --watch --mode development",
         "hot": "vite serve",
+        "link": "ts-node-esm scripts/link.ts",
         "extractPacks": "node --loader @bleed-believer/path-alias ./packs/scripts/extract.ts",
         "pretest": "eslint ./ --ext .ts && eslint ./static --ext .json",
         "test": "jest",
@@ -16,8 +17,8 @@
         "lint": "eslint ./src ./tests ./types --ext .ts && eslint ./static --ext .json",
         "lint:fix": "eslint ./src ./tests ./types --ext .ts --fix"
     },
-    "author": "",
-    "license": "",
+    "author": "The PF2e System Developers",
+    "license": "Apache-2.0",
     "devDependencies": {
         "@bleed-believer/path-alias": "^0.14.0",
         "@pixi/graphics-smooth": "^0.0.30",
@@ -29,6 +30,7 @@
         "@types/jsdom": "^21.1.1",
         "@types/luxon": "^3.2.0",
         "@types/node": "^18.15.11",
+        "@types/prompts": "^2.4.4",
         "@types/sortablejs": "^1.15.1",
         "@types/tooltipster": "^0.0.31",
         "@types/yaireo__tagify": "^4.17.0",
@@ -52,6 +54,7 @@
         "peggy": "^3.0.2",
         "pixi.js": "6.5.2",
         "prettier": "^2.8.7",
+        "prompts": "^2.4.2",
         "socket.io": "4.5.1",
         "socket.io-client": "4.5.1",
         "tinymce": "6.1.2",
@@ -61,7 +64,7 @@
         "typescript": "^5.0.4",
         "vite": "^4.2.1",
         "vite-plugin-checker": "^0.5.6",
-        "vite-tsconfig-paths": "^4.0.8",
+        "vite-tsconfig-paths": "^4.1.0",
         "yargs": "^17.7.1"
     },
     "dependencies": {

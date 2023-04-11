@@ -28,7 +28,6 @@ const $ = (await import("jquery")).default;
 
 interface ExtractArgs {
     packDb: string;
-    foundryConfig?: string;
     disablePresort?: boolean;
     logWarnings?: boolean;
 }
@@ -36,8 +35,6 @@ interface ExtractArgs {
 class PackExtractor {
     /** The DB file to extract, with a special value of "all" */
     readonly packDB: string;
-    /** the path to Foundry linking configuration */
-    readonly foundryConfig: string | null;
     /** Whether to emit warnings on some events */
     readonly emitWarnings: boolean;
 
@@ -60,7 +57,6 @@ class PackExtractor {
 
     constructor(params: ExtractArgs) {
         this.emitWarnings = !!params.logWarnings;
-        this.foundryConfig = params.foundryConfig ?? null;
         this.packDB = params.packDb;
         this.disablePresort = !!params.disablePresort;
 
@@ -75,18 +71,10 @@ class PackExtractor {
             await fs.promises.mkdir(this.dataPath);
         }
 
-        const packsPath = (() => {
-            try {
-                const content = fs.readFileSync(this.foundryConfig ?? "", { encoding: "utf-8" });
-                const config = JSON.parse(content) ?? {};
-                return path.join(config.dataPath, "Data", "systems", config.systemName ?? "pf2e", "packs");
-            } catch (_error) {
-                return path.join(process.cwd(), "dist", "packs");
-            }
-        })();
+        const packsPath = path.join(process.cwd(), "dist", "packs");
 
         if (!fs.existsSync(packsPath)) {
-            throw Error("Foundry directory not found! Check your foundryconfig.json.");
+            throw Error("`dist/` directory not found! Build first if you haven't.");
         }
 
         console.log("Cleaning up old temp data...");

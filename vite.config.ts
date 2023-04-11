@@ -5,19 +5,13 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import checker from "vite-plugin-checker";
 import path from "path";
 import Peggy from "peggy";
-import packageJSON from "./package.json";
+import packageJSON from "./package.json" assert { type: "json" };
 import esbuild from "esbuild";
 
 const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
     const buildMode = mode === "production" ? "production" : "development";
     const rollGrammar = fs.readFileSync("roll-grammar.peggy", { encoding: "utf-8" });
-    const outDir = ((): string => {
-        const configPath = path.resolve(process.cwd(), "foundryconfig.json");
-        const config: unknown = fs.readJSONSync(configPath, { throws: false });
-        return config instanceof Object && "dataPath" in config && typeof config.dataPath === "string"
-            ? path.join(config.dataPath, "Data", "systems", "pf2e")
-            : path.resolve(__dirname, "dist");
-    })();
+    const outDir = "dist";
 
     const plugins = [checker({ typescript: true }), tsconfigPaths()];
     // Handle minification after build to allow for tree-shaking and whitespace minification
@@ -80,7 +74,6 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
     }
 
     return {
-        root: "./",
         base: command === "build" ? "./" : "/systems/pf2e/",
         publicDir: "static",
         define: {
@@ -91,19 +84,17 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
         build: {
             outDir,
             emptyOutDir: true,
-            minify: buildMode === "development",
+            minify: false,
             sourcemap: buildMode === "development" ? "inline" : false,
             lib: {
-                name: "main",
+                name: "pf2e",
                 entry: "src/pf2e.ts",
                 formats: ["es"],
-                fileName: "main",
+                fileName: "pf2e",
             },
             rollupOptions: {
                 output: {
-                    assetFileNames: ({ name }): string => {
-                        return /\.css$/.test(name ?? "") ? "pf2e.css" : name ?? "what-is-this.txt";
-                    },
+                    assetFileNames: ({ name }): string => (name === "style.css" ? "styles/pf2e.css" : name!),
                     chunkFileNames: "[name].mjs",
                     entryFileNames: "pf2e.mjs",
                     manualChunks: {
@@ -125,6 +116,9 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             },
         },
         plugins,
+        css: {
+            devSourcemap: buildMode === "development",
+        },
     };
 });
 
