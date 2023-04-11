@@ -4,6 +4,7 @@ import { MemberData, PartySource, PartySystemData } from "./data.ts";
 import { ItemType } from "@item/data/index.ts";
 import { tupleHasValue } from "@util";
 import { ActorUpdateContext } from "@actor/base.ts";
+import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 
 class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     declare members: CreaturePF2e[];
@@ -44,6 +45,13 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const existing = this.system.details.members.filter((d) => this.members.some((m) => m.uuid === d.uuid));
         const members: MemberData[] = existing.filter((m) => !tupleHasValue(uuids, m.uuid));
         this.update({ system: { details: { members } } });
+    }
+
+    /** Adds all members to combat */
+    async addToCombat(options: { combat?: EncounterPF2e } = {}): Promise<CombatantPF2e<EncounterPF2e>[]> {
+        const promises = this.members.map((a) => CombatantPF2e.fromActor(a, true, { combat: options.combat }));
+        const combatants = (await Promise.all(promises)).filter((c): c is CombatantPF2e<EncounterPF2e> => !!c);
+        return combatants;
     }
 
     /** Override to inform creatures when they were booted from a party */
