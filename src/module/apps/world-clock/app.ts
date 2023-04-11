@@ -116,7 +116,7 @@ export class WorldClock extends Application {
                 return months[month];
             }
             default:
-                return this.worldTime.monthLong;
+                return this.worldTime.monthLong!;
         }
     }
 
@@ -129,7 +129,7 @@ export class WorldClock extends Application {
                 return weekdays[weekday];
             }
             default:
-                return this.worldTime.weekdayLong;
+                return this.worldTime.weekdayLong!;
         }
     }
 
