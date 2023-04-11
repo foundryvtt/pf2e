@@ -39,11 +39,11 @@ class SimpleActionVariant extends BaseActionVariant {
         this.#effect = data?.effect ?? action.effect;
     }
 
-    get effect() {
+    get effect(): string | EffectPF2e | undefined {
         return this.#effect ?? this.#action.effect;
     }
 
-    override async use(options: Partial<SimpleActionUseOptions> = {}) {
+    override async use(options: Partial<SimpleActionUseOptions> = {}): Promise<SimpleActionResult[]> {
         const actors: ActorPF2e[] = [];
         if (Array.isArray(options.actors)) {
             actors.push(...options.actors);
