@@ -436,7 +436,7 @@ class StatisticModifier {
     /** The slug of this collection of modifiers for a statistic. */
     slug: string;
     /** The display label of this statistic */
-    label?: string;
+    declare label?: string;
     /** The list of modifiers which affect the statistic. */
     protected _modifiers: ModifierPF2e[];
     /** The total modifier for the statistic, after applying stacking rules. */
