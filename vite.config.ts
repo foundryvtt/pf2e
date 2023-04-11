@@ -85,7 +85,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             outDir,
             emptyOutDir: true,
             minify: false,
-            sourcemap: buildMode === "development" ? "inline" : false,
+            sourcemap: buildMode === "development",
             lib: {
                 name: "pf2e",
                 entry: "src/pf2e.ts",
