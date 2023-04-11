@@ -47,7 +47,7 @@ import { demoralize } from "./intimidation/demoralize.ts";
 import { administerFirstAid } from "./medicine/administer-first-aid.ts";
 import { treatDisease } from "./medicine/treat-disease.ts";
 import { treatPoison } from "./medicine/treat-poison.ts";
-import { commandAnAnimal } from "./nature/command-an-animal.ts";
+import * as commandAnAnimal from "./nature/command-an-animal.ts";
 import { perform } from "./performance/perform.ts";
 import { createForgery } from "./society/create-forgery.ts";
 import * as concealAnObject from "./stealth/conceal-an-object.ts";
@@ -126,7 +126,7 @@ export const ActionMacros = {
     treatPoison,
 
     // Nature
-    commandAnAnimal,
+    commandAnAnimal: commandAnAnimal.legacy,
 
     // Performance
     perform,
@@ -148,6 +148,7 @@ export const ActionMacros = {
 
 export const SystemActions: Action[] = [
     balance.action,
+    commandAnAnimal.action,
     concealAnObject.action,
     crawl,
     delay,

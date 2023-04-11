@@ -1,8 +1,9 @@
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { SingleCheckAction } from "@actor/actions/index.ts";
 
 const PREFIX = "PF2E.Actions.CommandAnAnimal";
 
-export function commandAnAnimal(options: SkillActionOptions): void {
+function commandAnAnimal(options: SkillActionOptions): void {
     const slug = options?.skill ?? "nature";
     const rollOptions = ["action:command-an-animal"];
     const modifiers = options?.modifiers;
@@ -26,3 +27,21 @@ export function commandAnAnimal(options: SkillActionOptions): void {
         throw error;
     });
 }
+
+const action = new SingleCheckAction({
+    cost: 1,
+    description: `${PREFIX}.Description`,
+    difficultyClass: "saves.will",
+    name: `${PREFIX}.Title`,
+    notes: [
+        { outcome: ["success", "criticalSuccess"], text: `${PREFIX}.Notes.success` },
+        { outcome: ["failure"], text: `${PREFIX}.Notes.failure` },
+        { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
+    ],
+    rollOptions: ["action:command-an-animal"],
+    slug: "command-an-animal",
+    statistic: "nature",
+    traits: ["auditory", "concentrate"],
+});
+
+export { commandAnAnimal as legacy, action };
