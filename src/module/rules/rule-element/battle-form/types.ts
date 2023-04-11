@@ -1,10 +1,11 @@
 import { CreatureTrait, MovementType, SkillAbbreviation } from "@actor/creature/index.ts";
 import { SenseAcuity, SenseType } from "@actor/creature/sense.ts";
-import { AbilityString, ImmunityType, ResistanceType, WeaknessType } from "@actor/types.ts";
+import { AbilityString } from "@actor/types.ts";
 import { WeaponDamage } from "@item/weapon/data.ts";
 import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponTrait } from "@item/weapon/types.ts";
 import { Size } from "@module/data.ts";
-import { BracketedValue, RuleElementSource } from "../index.ts";
+import { RuleElementSource } from "../index.ts";
+import { ImmunityRuleElement, ResistanceRuleElement, WeaknessRuleElement } from "../iwr/index.ts";
 
 interface BattleFormSource extends RuleElementSource {
     overrides?: BattleFormOverrides;
@@ -25,9 +26,9 @@ interface BattleFormOverrides {
     speeds?: { [K in MovementType]?: number };
     skills?: BattleFormSkills;
     strikes?: Record<string, BattleFormStrike>;
-    immunities?: { type: ImmunityType; except?: ImmunityType }[];
-    weaknesses?: { type: WeaknessType; except?: WeaknessType; value: number | BracketedValue<number> }[];
-    resistances?: { type: ResistanceType; except?: ResistanceType; value: number | BracketedValue<number> }[];
+    immunities?: Omit<ImmunityRuleElement["_source"], "key">[];
+    weaknesses?: Omit<WeaknessRuleElement["_source"], "key">[];
+    resistances?: Omit<ResistanceRuleElement["_source"], "key">[];
 }
 
 interface BattleFormAC {
