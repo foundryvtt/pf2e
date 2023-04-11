@@ -11,9 +11,11 @@ import { RollNotePF2e } from "@module/notes.ts";
 import { MaterialDamageEffect } from "@system/damage/types.ts";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
 import { PredicatePF2e } from "@system/predication.ts";
+import { Action } from "@actor/actions/index.ts";
 
 /** Defines a list of data provided by rule elements that an actor can pull from during its data preparation lifecycle */
 interface RuleElementSynthetics {
+    actions: Action[];
     criticalSpecalizations: {
         standard: CritSpecSynthetic[];
         alternate: CritSpecSynthetic[];
