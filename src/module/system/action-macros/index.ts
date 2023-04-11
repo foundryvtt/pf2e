@@ -16,13 +16,13 @@ import { whirlingThrow } from "./athletics/whirling-throw.ts";
 import { crawl } from "./basic/crawl.ts";
 import { delay } from "./basic/delay.ts";
 import { dropProne } from "./basic/drop-prone.ts";
-import { escape } from "./basic/escape.ts";
+import * as escape from "./basic/escape.ts";
 import { interact } from "./basic/interact.ts";
 import { leap } from "./basic/leap.ts";
 import { ready } from "./basic/ready.ts";
 import { release } from "./basic/release.ts";
-import { seek } from "./basic/seek.ts";
-import { senseMotive } from "./basic/sense-motive.ts";
+import * as seek from "./basic/seek.ts";
+import * as senseMotive from "./basic/sense-motive.ts";
 import { stand } from "./basic/stand.ts";
 import { step } from "./basic/step.ts";
 import { stride } from "./basic/stride.ts";
@@ -63,9 +63,9 @@ export type { ActionDefaultOptions, SkillActionOptions } from "./types.ts";
 
 export const ActionMacros = {
     // Basic
-    escape,
-    seek,
-    senseMotive,
+    escape: escape.legacy,
+    seek: seek.legacy,
+    senseMotive: senseMotive.legacy,
 
     // Ancestry
     arcaneSlam,
@@ -152,6 +152,7 @@ export const SystemActions: Action[] = [
     delay,
     disableDevice.action,
     dropProne,
+    escape.action,
     hide.action,
     interact,
     leap,
@@ -160,6 +161,8 @@ export const SystemActions: Action[] = [
     pickALock.action,
     ready,
     release,
+    seek.action,
+    senseMotive.action,
     sneak.action,
     squeeze.action,
     stand,
