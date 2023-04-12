@@ -1,8 +1,8 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { MigrationList, MigrationRunner } from "@module/migration";
+import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { ErrorPF2e, fontAwesomeIcon, htmlQueryAll } from "@util";
-import { UUIDUtils } from "@util/uuid-utils";
+import { UUIDUtils } from "@util/uuid-utils.ts";
 import MiniSearch from "minisearch";
 
 /** Extend CompendiumDirectory to support a search bar */

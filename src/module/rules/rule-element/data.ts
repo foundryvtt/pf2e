@@ -1,6 +1,6 @@
-import { PredicateField, SlugField } from "@system/schema-data-fields";
-import { RawPredicate } from "@system/predication";
-import { BooleanField, NumberField, StringField } from "types/foundry/common/data/fields.mjs";
+import { PredicateField, SlugField } from "@system/schema-data-fields.ts";
+import { RawPredicate } from "@system/predication.ts";
+import type { BooleanField, NumberField, StringField } from "types/foundry/common/data/fields.d.ts";
 
 type RuleElementSource = {
     key?: unknown;

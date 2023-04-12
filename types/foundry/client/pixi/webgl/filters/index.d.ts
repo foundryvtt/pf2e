@@ -1,1 +1,1 @@
-import "./filters";
+import "./filters.js";

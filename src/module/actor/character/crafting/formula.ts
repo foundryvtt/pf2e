@@ -1,9 +1,9 @@
 import { ConsumablePF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
-import { stackDefinitions } from "@item/physical/bulk";
-import { Coins, Price } from "@item/physical/data";
-import { CoinsPF2e } from "@item/physical/helpers";
-import { Rarity } from "@module/data";
-import { calculateDC } from "@module/dc";
+import { stackDefinitions } from "@item/physical/bulk.ts";
+import { Coins, Price } from "@item/physical/data.ts";
+import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { Rarity } from "@module/data.ts";
+import { calculateDC } from "@module/dc.ts";
 
 export class CraftingFormula implements CraftingFormulaData {
     /** The difficulty class to craft this item */

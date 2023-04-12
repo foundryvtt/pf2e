@@ -1,14 +1,14 @@
-import { ActionTrait } from "@item/action/data";
-import { ArmorTrait } from "@item/armor/types";
-import { ConsumableTrait } from "@item/consumable/data";
-import { EquipmentTrait } from "@item/equipment/data";
-import { WeaponTrait } from "@item/weapon/types";
-import { Size, TraitsWithRarity, ValuesList } from "@module/data";
-import { ActionCost, BaseItemSourcePF2e, Frequency, ItemSystemData, ItemSystemSource } from "../data/base";
-import type { ITEM_CARRY_TYPES } from "../data/values";
-import { CoinsPF2e } from "./helpers";
-import { PhysicalItemType, PreciousMaterialGrade, PreciousMaterialType } from "./types";
-import { UsageDetails } from "./usage";
+import { ActionTrait } from "@item/action/data.ts";
+import { ArmorTrait } from "@item/armor/types.ts";
+import { ConsumableTrait } from "@item/consumable/data.ts";
+import { EquipmentTrait } from "@item/equipment/data.ts";
+import { WeaponTrait } from "@item/weapon/types.ts";
+import { Size, TraitsWithRarity, ValuesList } from "@module/data.ts";
+import { ActionCost, BaseItemSourcePF2e, Frequency, ItemSystemData, ItemSystemSource } from "../data/base.ts";
+import type { ITEM_CARRY_TYPES } from "../data/values.ts";
+import { CoinsPF2e } from "./helpers.ts";
+import { PhysicalItemType, PreciousMaterialGrade, PreciousMaterialType } from "./types.ts";
+import { UsageDetails } from "./usage.ts";
 
 type ItemCarryType = SetElement<typeof ITEM_CARRY_TYPES>;
 
@@ -100,7 +100,7 @@ type IdentifiedData = DeepPartial<MystifiedData>;
 interface IdentificationSource {
     status: IdentificationStatus;
     unidentified: MystifiedData;
-    misidentified: {};
+    misidentified: object;
 }
 
 interface IdentificationData extends IdentificationSource {

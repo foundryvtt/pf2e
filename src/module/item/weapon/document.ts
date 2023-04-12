@@ -1,9 +1,9 @@
 import { ActorPF2e } from "@actor";
-import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression";
-import { ActorSizePF2e } from "@actor/data/size";
+import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
+import { ActorSizePF2e } from "@actor/data/size.ts";
 import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e } from "@item";
-import { ItemSummaryData, MeleeSource } from "@item/data";
-import { NPCAttackDamage, NPCAttackTrait } from "@item/melee/data";
+import { ItemSummaryData, MeleeSource } from "@item/data/index.ts";
+import { NPCAttackDamage, NPCAttackTrait } from "@item/melee/data.ts";
 import {
     Bulk,
     CoinsPF2e,
@@ -16,14 +16,14 @@ import {
     WEAPON_MATERIAL_VALUATION_DATA,
     WEAPON_PROPERTY_RUNES,
     WEAPON_VALUATION_DATA,
-} from "@item/physical";
-import { MAGIC_SCHOOLS, MAGIC_TRADITIONS } from "@item/spell/values";
-import { OneToThree } from "@module/data";
-import { UserPF2e } from "@module/user";
-import { DamageCategorization } from "@system/damage/helpers";
-import { LocalizePF2e } from "@system/localize";
+} from "@item/physical/index.ts";
+import { MAGIC_SCHOOLS, MAGIC_TRADITIONS } from "@item/spell/values.ts";
+import { OneToThree } from "@module/data.ts";
+import { UserPF2e } from "@module/user/index.ts";
+import { DamageCategorization } from "@system/damage/helpers.ts";
+import { LocalizePF2e } from "@system/localize.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify } from "@util";
-import { WeaponDamage, WeaponFlags, WeaponMaterialData, WeaponSource, WeaponSystemData } from "./data";
+import { WeaponDamage, WeaponFlags, WeaponMaterialData, WeaponSource, WeaponSystemData } from "./data.ts";
 import {
     BaseWeaponType,
     OtherWeaponTag,
@@ -34,8 +34,8 @@ import {
     WeaponRangeIncrement,
     WeaponReloadTime,
     WeaponTrait,
-} from "./types";
-import { CROSSBOW_WEAPONS, MANDATORY_RANGED_GROUPS, THROWN_RANGES } from "./values";
+} from "./types.ts";
+import { CROSSBOW_WEAPONS, MANDATORY_RANGED_GROUPS, THROWN_RANGES } from "./values.ts";
 
 class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     /** Given this weapon is an alternative usage, whether it is melee or thrown */

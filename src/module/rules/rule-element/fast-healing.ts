@@ -1,11 +1,11 @@
 import { ActorPF2e } from "@actor";
-import { ActorType } from "@actor/data";
+import { ActorType } from "@actor/data/index.ts";
 import { ItemPF2e } from "@item";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { DamageRoll } from "@system/damage/roll";
-import { LocalizePF2e } from "@system/localize";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { DamageRoll } from "@system/damage/roll.ts";
+import { LocalizePF2e } from "@system/localize.ts";
 import { localizeList, objectHasKey, tupleHasValue } from "@util";
-import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource } from ".";
+import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
 
 /**
  * Rule element to implement fast healing and regeneration.

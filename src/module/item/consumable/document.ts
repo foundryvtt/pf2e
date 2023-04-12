@@ -1,14 +1,14 @@
 import { ActorPF2e } from "@actor";
-import { TrickMagicItemPopup } from "@actor/sheet/trick-magic-item-popup";
+import { TrickMagicItemPopup } from "@actor/sheet/trick-magic-item-popup.ts";
 import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, WeaponPF2e } from "@item";
-import { ItemSummaryData } from "@item/data";
-import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
-import { ValueAndMax } from "@module/data";
-import { RuleElementPF2e } from "@module/rules";
-import { DamageRoll } from "@system/damage/roll";
+import { ItemSummaryData } from "@item/data/index.ts";
+import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
+import { ValueAndMax } from "@module/data.ts";
+import { RuleElementPF2e } from "@module/rules/index.ts";
+import { DamageRoll } from "@system/damage/roll.ts";
 import { ErrorPF2e } from "@util";
-import { ConsumableCategory, ConsumableSystemData, ConsumableSource } from "./data";
-import { OtherConsumableTag } from "./types";
+import { ConsumableCategory, ConsumableSystemData, ConsumableSource } from "./data.ts";
+import { OtherConsumableTag } from "./types.ts";
 
 class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     get otherTags(): Set<OtherConsumableTag> {

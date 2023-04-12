@@ -1,5 +1,4 @@
-import * as fields from "../data/fields.mjs";
-import { MergeObjectOptions } from "../utils/helpers.mjs";
+import * as fields from "../data/fields.js";
 import { EmbeddedCollection } from "./embedded-collection.mjs";
 
 /**

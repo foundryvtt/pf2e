@@ -7,10 +7,10 @@ import {
     ActorSystemSource,
     ActorDetailsSource,
     ActorHitPoints,
-} from "@actor/data/base";
-import { ActorSizePF2e } from "@actor/data/size";
-import { StatisticTraceData } from "@system/statistic";
-import { VehicleTrait } from "./types";
+} from "@actor/data/base.ts";
+import { ActorSizePF2e } from "@actor/data/size.ts";
+import { StatisticTraceData } from "@system/statistic/index.ts";
+import { VehicleTrait } from "./types.ts";
 
 /** The stored source data of a vehicle actor */
 type VehicleSource = BaseActorSourcePF2e<"vehicle", VehicleSystemSource>;

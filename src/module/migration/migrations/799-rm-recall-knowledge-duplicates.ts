@@ -1,5 +1,5 @@
-import { ItemSourcePF2e } from "@item/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Remove duplicate Recall Knowledge action items */
 export class Migration799RMRecallKnowledgeDuplicates extends MigrationBase {

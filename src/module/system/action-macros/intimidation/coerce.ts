@@ -1,6 +1,6 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function coerce(options: SkillActionOptions) {
+export function coerce(options: SkillActionOptions): void {
     const slug = options?.skill ?? "intimidation";
     const rollOptions = ["action:coerce"];
     const modifiers = options?.modifiers;
@@ -20,5 +20,8 @@ export function coerce(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Coerce", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Coerce", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

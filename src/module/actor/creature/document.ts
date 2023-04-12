@@ -1,30 +1,30 @@
-import { ActorPF2e } from "@actor";
-import { HitPointsSummary } from "@actor/base";
-import { CreatureSource } from "@actor/data";
-import { StrikeData } from "@actor/data/base";
-import { MODIFIER_TYPE, MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers";
-import { SaveType } from "@actor/types";
+import { ActorPF2e, PartyPF2e } from "@actor";
+import { HitPointsSummary } from "@actor/base.ts";
+import { CreatureSource } from "@actor/data/index.ts";
+import { StrikeData } from "@actor/data/base.ts";
+import { MODIFIER_TYPE, MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
+import { SaveType, SkillLongForm } from "@actor/types.ts";
 import { ArmorPF2e, ConditionPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
-import { isCycle } from "@item/container/helpers";
-import { ArmorSource, ItemType } from "@item/data";
-import { EquippedData, ItemCarryType } from "@item/physical/data";
-import { isEquipped } from "@item/physical/usage";
-import { ActiveEffectPF2e } from "@module/active-effect";
-import { Rarity, SIZES, SIZE_SLUGS } from "@module/data";
-import { RollNotePF2e } from "@module/notes";
-import { RuleElementSynthetics } from "@module/rules";
-import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers";
-import { BaseSpeedSynthetic } from "@module/rules/synthetics";
-import { LightLevels } from "@module/scene/data";
-import { UserPF2e } from "@module/user";
-import { TokenDocumentPF2e } from "@scene";
-import { CheckPF2e, CheckRoll } from "@system/check";
-import { DamageType } from "@system/damage/types";
-import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values";
-import { CheckDC } from "@system/degree-of-success";
-import { LocalizePF2e } from "@system/localize";
-import { PredicatePF2e, RawPredicate } from "@system/predication";
-import { Statistic } from "@system/statistic";
+import { isCycle } from "@item/container/helpers.ts";
+import { ArmorSource, ItemType } from "@item/data/index.ts";
+import { EquippedData, ItemCarryType } from "@item/physical/data.ts";
+import { isEquipped } from "@item/physical/usage.ts";
+import { ActiveEffectPF2e } from "@module/active-effect.ts";
+import { Rarity, SIZES, SIZE_SLUGS } from "@module/data.ts";
+import { RollNotePF2e } from "@module/notes.ts";
+import { RuleElementSynthetics } from "@module/rules/index.ts";
+import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
+import { BaseSpeedSynthetic } from "@module/rules/synthetics.ts";
+import { LightLevels } from "@scene/data.ts";
+import { UserPF2e } from "@module/user/index.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { CheckPF2e, CheckRoll } from "@system/check/index.ts";
+import { DamageType } from "@system/damage/types.ts";
+import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
+import { CheckDC } from "@system/degree-of-success.ts";
+import { LocalizePF2e } from "@system/localize.ts";
+import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
+import { Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e, isObject, objectHasKey, setHasElement } from "@util";
 import {
     CreatureSkills,
@@ -36,10 +36,10 @@ import {
     SkillData,
     VisionLevel,
     VisionLevels,
-} from "./data";
-import { setImmunitiesFromTraits } from "./helpers";
-import { ActorInitiative } from "../initiative";
-import { CreatureSensePF2e } from "./sense";
+} from "./data.ts";
+import { setImmunitiesFromTraits } from "./helpers.ts";
+import { ActorInitiative } from "../initiative.ts";
+import { CreatureSensePF2e } from "./sense.ts";
 import {
     Alignment,
     AlignmentTrait,
@@ -47,8 +47,8 @@ import {
     CreatureUpdateContext,
     GetReachParameters,
     IsFlatFootedParams,
-} from "./types";
-import { SIZE_TO_REACH } from "./values";
+} from "./types.ts";
+import { SIZE_TO_REACH } from "./values.ts";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 abstract class CreaturePF2e<
@@ -57,8 +57,10 @@ abstract class CreaturePF2e<
     // Internal cached value for creature skills
     protected _skills: CreatureSkills | null = null;
 
+    declare parties: Set<PartyPF2e>;
+
     /** Skill `Statistic`s for the creature */
-    get skills(): CreatureSkills {
+    override get skills(): CreatureSkills {
         if (this._skills) return this._skills;
 
         this._skills = Object.entries(this.system.skills).reduce((current, [shortForm, skill]: [string, SkillData]) => {
@@ -277,6 +279,17 @@ abstract class CreaturePF2e<
         return false;
     }
 
+    override getStatistic(slug: SaveType | SkillLongForm | "perception"): Statistic;
+    override getStatistic(slug: string): Statistic | null;
+    override getStatistic(slug: string): Statistic | null {
+        return slug === "perception" ? this.perception : super.getStatistic(slug);
+    }
+
+    protected override _initialize(): void {
+        this.parties ??= new Set();
+        super._initialize();
+    }
+
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
     override prepareBaseData(): void {
         super.prepareBaseData();
@@ -426,6 +439,7 @@ abstract class CreaturePF2e<
             slug: "initiative",
             domains: ["initiative"],
             check: { type: "initiative", label },
+            rollOptions: [baseStatistic.slug],
         });
 
         this.initiative = new ActorInitiative(this, statistic);

@@ -1,18 +1,18 @@
 import { ActorPF2e } from "@actor";
-import { StrikeData } from "@actor/data/base";
+import { StrikeData } from "@actor/data/base.ts";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
-import { traditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
-import { UserPF2e } from "@module/user";
-import { ScenePF2e, TokenDocumentPF2e } from "@scene";
-import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
-import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
-import { CheckRoll } from "@system/check";
-import { DamageRoll } from "@system/damage/roll";
+import { traditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
+import { UserPF2e } from "@module/user/index.ts";
+import { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
+import { UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
+import { CheckRoll } from "@system/check/index.ts";
+import { DamageRoll } from "@system/damage/roll.ts";
 import { htmlQuery, htmlQueryAll, parseHTML } from "@util";
-import { ChatRollDetails } from "./chat-roll-details";
-import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
-import { ChatMessageFlagsPF2e, ChatMessageSourcePF2e, StrikeLookupData } from "./data";
-import * as Listeners from "./listeners";
+import { ChatRollDetails } from "./chat-roll-details.ts";
+import { CriticalHitAndFumbleCards } from "./crit-fumble-cards.ts";
+import { ChatMessageFlagsPF2e, ChatMessageSourcePF2e, StrikeLookupData } from "./data.ts";
+import * as Listeners from "./listeners/index.ts";
 
 class ChatMessagePF2e extends ChatMessage {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -172,7 +172,7 @@ class ChatMessagePF2e extends ChatMessage {
         }
     }
 
-    async showDetails() {
+    async showDetails(): Promise<void> {
         if (!this.flags.pf2e.context) return;
         new ChatRollDetails(this).render(true);
     }
@@ -286,7 +286,11 @@ class ChatMessagePF2e extends ChatMessage {
         }
     }
 
-    protected override _onCreate(data: this["_source"], options: DocumentModificationContext<null>, userId: string) {
+    protected override _onCreate(
+        data: this["_source"],
+        options: DocumentModificationContext<null>,
+        userId: string
+    ): void {
         super._onCreate(data, options, userId);
 
         // Handle critical hit and fumble card drawing

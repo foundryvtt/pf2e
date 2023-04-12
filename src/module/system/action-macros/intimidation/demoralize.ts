@@ -1,6 +1,6 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function demoralize(options: SkillActionOptions) {
+export function demoralize(options: SkillActionOptions): void {
     const slug = options?.skill ?? "intimidation";
     const rollOptions = ["action:demoralize"];
     const modifiers = options?.modifiers;
@@ -18,5 +18,8 @@ export function demoralize(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Demoralize", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Demoralize", "success"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

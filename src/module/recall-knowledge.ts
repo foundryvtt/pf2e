@@ -7,8 +7,8 @@
  */
 
 import { NPCPF2e } from "@actor";
-import { SkillLongForm } from "@actor/types";
-import { Rarity } from "@module/data";
+import { SkillLongForm } from "@actor/types.ts";
+import { Rarity } from "@module/data.ts";
 import {
     adjustDC,
     calculateDC,
@@ -18,7 +18,7 @@ import {
     DCOptions,
     NegativeDCAdjustment,
     rarityToDCAdjustment,
-} from "./dc";
+} from "./dc.ts";
 
 const identifySkills = new Map<string, SkillLongForm[]>();
 identifySkills.set("aberration", ["occultism"]);

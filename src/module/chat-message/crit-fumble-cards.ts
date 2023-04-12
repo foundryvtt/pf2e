@@ -1,4 +1,4 @@
-import { ChatMessagePF2e } from ".";
+import { ChatMessagePF2e } from "./index.ts";
 
 export class CriticalHitAndFumbleCards {
     private static rollTypes = ["attack-roll", "spell-attack-roll"];

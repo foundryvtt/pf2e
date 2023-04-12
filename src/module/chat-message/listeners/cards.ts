@@ -1,14 +1,14 @@
 import { ActorPF2e } from "@actor";
-import { craftItem, craftSpellConsumable } from "@actor/character/crafting/helpers";
-import { SAVE_TYPES } from "@actor/values";
+import { craftItem, craftSpellConsumable } from "@actor/character/crafting/helpers.ts";
+import { SAVE_TYPES } from "@actor/values.ts";
 import { ItemPF2e, PhysicalItemPF2e } from "@item";
-import { isSpellConsumable } from "@item/consumable/spell-consumables";
-import { CoinsPF2e } from "@item/physical/helpers";
-import { eventToRollParams } from "@scripts/sheet-util";
-import { onRepairChatCardEvent } from "@system/action-macros/crafting/repair";
-import { LocalizePF2e } from "@system/localize";
+import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
+import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { onRepairChatCardEvent } from "@system/action-macros/crafting/repair.ts";
+import { LocalizePF2e } from "@system/localize.ts";
 import { ErrorPF2e, sluggify, tupleHasValue } from "@util";
-import { ChatMessagePF2e } from "..";
+import { ChatMessagePF2e } from "../index.ts";
 
 export const ChatCards = {
     listen: ($html: JQuery): void => {

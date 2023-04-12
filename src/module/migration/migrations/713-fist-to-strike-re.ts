@@ -1,5 +1,5 @@
-import { ItemSourcePF2e } from "@item/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Grant an extra fist attack from the "Powerful Fist" and "Martial Artist Dedication" items */
 export class Migration713FistToStrikeRE extends MigrationBase {

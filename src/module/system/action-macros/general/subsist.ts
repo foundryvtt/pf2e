@@ -1,7 +1,7 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
-import { ModifierPF2e } from "@actor/modifiers";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { ModifierPF2e } from "@actor/modifiers.ts";
 
-export function subsist(options: SkillActionOptions) {
+export function subsist(options: SkillActionOptions): void {
     if (!options?.skill) {
         ui.notifications.warn(game.i18n.localize("PF2E.Actions.Subsist.Warning.NoSkill"));
         return;
@@ -30,5 +30,8 @@ export function subsist(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Subsist", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Subsist", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

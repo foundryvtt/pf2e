@@ -3,9 +3,9 @@ import {
     PhysicalItemTraits,
     PhysicalSystemData,
     PhysicalSystemSource,
-} from "@item/physical/data";
-import { SpellSource } from "@item/spell/data";
-import { ConsumableTrait, OtherConsumableTag } from "./types";
+} from "@item/physical/data.ts";
+import { SpellSource } from "@item/spell/data.ts";
+import type { ConsumableTrait, OtherConsumableTag } from "./types.ts";
 
 type ConsumableSource = BasePhysicalItemSource<"consumable", ConsumableSystemSource>;
 

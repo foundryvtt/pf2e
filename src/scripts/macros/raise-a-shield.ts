@@ -1,8 +1,8 @@
 import { ActorPF2e } from "@actor";
 import { EffectPF2e } from "@item";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { ActionDefaultOptions } from "@system/action-macros";
-import { LocalizePF2e } from "@system/localize";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { ActionDefaultOptions } from "@system/action-macros/index.ts";
+import { LocalizePF2e } from "@system/localize.ts";
 import { ErrorPF2e } from "@util";
 
 /** Effect: Raise a Shield */

@@ -1,4 +1,4 @@
-export { HazardPF2e } from "./document";
-export * from "./types";
-export * from "./data";
-export * from "./sheet";
+export { HazardPF2e } from "./document.ts";
+export * from "./types.ts";
+export * from "./data.ts";
+export * from "./sheet.ts";

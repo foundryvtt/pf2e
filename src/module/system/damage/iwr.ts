@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
-import { ResistanceData, WeaknessData } from "@actor/data/iwr";
-import { DEGREE_OF_SUCCESS } from "@system/degree-of-success";
-import { DamageInstance, DamageRoll } from "./roll";
+import { ResistanceData, WeaknessData } from "@actor/data/iwr.ts";
+import { DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
+import { DamageInstance, DamageRoll } from "./roll.ts";
 
 /** Apply an actor's IWR applications to an evaluated damage roll's instances */
 function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<string>): IWRApplicationData {

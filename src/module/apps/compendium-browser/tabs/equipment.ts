@@ -1,10 +1,10 @@
-import { CoinsPF2e } from "@item/physical/helpers";
-import { LocalizePF2e } from "@system/localize";
+import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { LocalizePF2e } from "@system/localize.ts";
 import { sluggify } from "@util";
-import { CompendiumBrowser } from "..";
-import { ContentTabName } from "../data";
-import { CompendiumBrowserTab } from "./base";
-import { CompendiumBrowserIndexData, EquipmentFilters, RangesData } from "./data";
+import { CompendiumBrowser } from "../index.ts";
+import { ContentTabName } from "../data.ts";
+import { CompendiumBrowserTab } from "./base.ts";
+import { CompendiumBrowserIndexData, EquipmentFilters, RangesData } from "./data.ts";
 
 export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "equipment";

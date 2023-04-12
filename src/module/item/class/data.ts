@@ -1,8 +1,8 @@
-import { AbilityString, SaveType } from "@actor/types";
-import { ABCSystemSource } from "@item/abc/data";
-import { BaseItemSourcePF2e, ItemTraits } from "@item/data/base";
-import { ZeroToFour } from "@module/data";
-import { CLASS_TRAITS } from "./values";
+import { AbilityString, SaveType } from "@actor/types.ts";
+import { ABCSystemSource } from "@item/abc/data.ts";
+import { BaseItemSourcePF2e, ItemTraits } from "@item/data/base.ts";
+import { ZeroToFour } from "@module/data.ts";
+import { CLASS_TRAITS } from "./values.ts";
 
 type ClassSource = BaseItemSourcePF2e<"class", ClassSystemSource>;
 

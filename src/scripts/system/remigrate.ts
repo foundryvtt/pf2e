@@ -1,6 +1,6 @@
-import { MigrationRunner } from "@module/migration/runner";
-import { MigrationList } from "@module/migration";
-import { LocalizePF2e } from "@module/system/localize";
+import { MigrationRunner } from "@module/migration/runner/index.ts";
+import { MigrationList } from "@module/migration/index.ts";
+import { LocalizePF2e } from "@system/localize.ts";
 
 /** For use in worlds to rerun select migrations */
 export async function remigrate(versionRange: { from: number; to?: number }): Promise<void> {

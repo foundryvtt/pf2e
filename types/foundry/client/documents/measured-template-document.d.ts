@@ -1,4 +1,4 @@
-import { CanvasBaseMeasuredTemplate } from "./client-base-mixes.mjs";
+import { CanvasBaseMeasuredTemplate } from "./client-base-mixes.js";
 
 declare global {
     /**

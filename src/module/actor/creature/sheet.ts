@@ -1,22 +1,22 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { createSpellcastingDialog } from "@actor/sheet/spellcasting-dialog";
-import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values";
+import { createSpellcastingDialog } from "@actor/sheet/spellcasting-dialog.ts";
+import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values.ts";
 import { ItemPF2e, SpellPF2e, SpellcastingEntryPF2e } from "@item";
-import { ActionTrait } from "@item/action";
-import { SpellcastingSheetData } from "@item/spellcasting-entry";
-import { ItemSourcePF2e } from "@item/data";
-import { ActionType } from "@item/data/base";
-import { ITEM_CARRY_TYPES } from "@item/data/values";
-import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
-import { goesToEleven, ZeroToFour } from "@module/data";
-import { createSheetTags } from "@module/sheet/helpers";
-import { eventToRollParams } from "@scripts/sheet-util";
+import { ActionTrait } from "@item/action/index.ts";
+import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ActionType } from "@item/data/base.ts";
+import { ITEM_CARRY_TYPES } from "@item/data/values.ts";
+import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
+import { goesToEleven, ZeroToFour } from "@module/data.ts";
+import { createSheetTags } from "@module/sheet/helpers.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { ErrorPF2e, fontAwesomeIcon, htmlClosest, htmlQueryAll, objectHasKey, setHasElement } from "@util";
-import { ActorSheetPF2e } from "../sheet/base";
-import { CreatureConfig } from "./config";
-import { SkillAbbreviation, SkillData } from "./data";
-import { SpellPreparationSheet } from "./spell-preparation-sheet";
-import { CreatureSheetData } from "./types";
+import { ActorSheetPF2e } from "../sheet/base.ts";
+import { CreatureConfig } from "./config.ts";
+import { SkillAbbreviation, SkillData } from "./data.ts";
+import { SpellPreparationSheet } from "./spell-preparation-sheet.ts";
+import { CreatureSheetData } from "./types.ts";
 
 /**
  * Base class for NPC and character sheets
@@ -130,7 +130,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
     }
 
     /** Opens the spell preparation sheet, but only if its a prepared entry */
-    protected openSpellPreparationSheet(entryId: string) {
+    protected openSpellPreparationSheet(entryId: string): void {
         const entry = this.actor.items.get(entryId);
         if (entry?.isOfType("spellcastingEntry") && entry.isPrepared) {
             const $book = this.element.find(`.item-container[data-container-id="${entry.id}"] .prepared-toggle`);

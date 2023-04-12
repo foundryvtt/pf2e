@@ -1,8 +1,8 @@
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
-import { ActorType } from "@actor/data";
+import { ActorType } from "@actor/data/index.ts";
 import { ItemPF2e, WeaponPF2e } from "@item";
-import { NPCAttackTrait } from "@item/melee/data";
-import { WeaponSource } from "@item/weapon/data";
+import { NPCAttackTrait } from "@item/melee/data.ts";
+import { WeaponSource } from "@item/weapon/data.ts";
 import {
     BaseWeaponType,
     OtherWeaponTag,
@@ -10,11 +10,11 @@ import {
     WeaponGroup,
     WeaponRangeIncrement,
     WeaponTrait,
-} from "@item/weapon/types";
-import { DamageDieSize, DamageType } from "@system/damage";
-import { PredicatePF2e } from "@system/predication";
+} from "@item/weapon/types.ts";
+import { DamageDieSize, DamageType } from "@system/damage/index.ts";
+import { PredicatePF2e } from "@system/predication.ts";
 import { objectHasKey, sluggify } from "@util";
-import {
+import type {
     ArrayField,
     BooleanField,
     FilePathField,
@@ -22,8 +22,8 @@ import {
     NumberField,
     SchemaField,
     StringField,
-} from "types/foundry/common/data/fields.mjs";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./";
+} from "types/foundry/common/data/fields.d.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 
 const { fields } = foundry.data;
 

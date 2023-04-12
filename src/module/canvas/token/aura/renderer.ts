@@ -1,9 +1,9 @@
-import { AuraColors, AuraData } from "@actor/types";
-import { TokenPF2e } from "..";
-import { EffectAreaSquare } from "../../effect-area-square";
-import { ItemTrait } from "@item/data/base";
-import { getAreaSquares } from "./util";
-import { TokenAuraData } from "@scene/token-document/aura";
+import { AuraColors, AuraData } from "@actor/types.ts";
+import { TokenPF2e } from "../index.ts";
+import { EffectAreaSquare } from "../../effect-area-square.ts";
+import { ItemTrait } from "@item/data/base.ts";
+import { getAreaSquares } from "./util.ts";
+import { TokenAuraData } from "@scene/token-document/aura/index.ts";
 
 /** Visual rendering of auras emanated by a token's actor */
 class AuraRenderer extends PIXI.Graphics implements TokenAuraData {

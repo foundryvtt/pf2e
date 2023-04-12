@@ -1,8 +1,8 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ClassSource, ItemSourcePF2e } from "@item/data";
-import { SpellcastingEntrySystemData } from "@item/spellcasting-entry/data";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ClassSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { SpellcastingEntrySystemData } from "@item/spellcasting-entry/data.ts";
 import { sluggify } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 interface TraditionDataOld {
     value: SpellcastingEntrySystemData["tradition"]["value"] | "halcyon";

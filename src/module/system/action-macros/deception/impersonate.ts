@@ -1,8 +1,8 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const PREFIX = "PF2E.Actions.Impersonate";
 
-export function impersonate(options: SkillActionOptions) {
+export function impersonate(options: SkillActionOptions): void {
     const slug = options?.skill ?? "deception";
     const rollOptions = ["action:impersonate"];
     const modifiers = options?.modifiers;
@@ -21,5 +21,8 @@ export function impersonate(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, PREFIX, "failure"),
             ActionMacroHelpers.note(selector, PREFIX, "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

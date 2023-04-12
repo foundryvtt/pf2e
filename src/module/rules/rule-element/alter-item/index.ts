@@ -1,2 +1,2 @@
-export * from "./helpers";
-export * from "./schema";
+export * from "./helpers.ts";
+export * from "./schema.ts";

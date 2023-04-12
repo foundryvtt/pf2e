@@ -6,7 +6,7 @@ import {
     combineDCAdjustments,
     createDifficultyScale,
     rarityToDCAdjustment,
-} from "../../src/module/dc";
+} from "@module/dc.ts";
 
 describe("test DCs", () => {
     test("calculate DC by level", () => {

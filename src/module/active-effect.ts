@@ -1,4 +1,4 @@
-import { ActorPF2e, ItemPF2e } from "./documents";
+import { ActorPF2e, ItemPF2e } from "./documents.ts";
 
 /** Disable Active Effects */
 export class ActiveEffectPF2e<TParent extends ActorPF2e | ItemPF2e | null> extends ActiveEffect<TParent> {

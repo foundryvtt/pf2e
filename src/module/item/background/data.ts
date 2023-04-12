@@ -1,7 +1,7 @@
-import { SkillAbbreviation } from "@actor/creature/data";
-import { AbilityString } from "@actor/types";
-import { ABCSystemData, ABCSystemSource } from "@item/abc/data";
-import { BaseItemSourcePF2e, ItemTraits } from "@item/data/base";
+import { SkillAbbreviation } from "@actor/creature/data.ts";
+import { AbilityString } from "@actor/types.ts";
+import { ABCSystemData, ABCSystemSource } from "@item/abc/data.ts";
+import { BaseItemSourcePF2e, ItemTraits } from "@item/data/base.ts";
 
 type BackgroundSource = BaseItemSourcePF2e<"background", BackgroundSystemSource>;
 

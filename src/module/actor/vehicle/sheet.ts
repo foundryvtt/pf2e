@@ -1,7 +1,7 @@
-import { ActorSheetPF2e } from "../sheet/base";
-import { VehiclePF2e } from "@actor/vehicle";
+import { ActorSheetPF2e } from "../sheet/base.ts";
+import { VehiclePF2e } from "@actor/vehicle/index.ts";
 import { ErrorPF2e, getActionIcon, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
-import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
+import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { ActionItemPF2e } from "@item";
 
 export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {

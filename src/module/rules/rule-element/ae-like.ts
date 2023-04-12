@@ -1,8 +1,8 @@
-import { ActorPF2e } from "@actor";
-import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
+import { ActorPF2e } from "@actor/base.ts";
+import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
 import { FeatPF2e, ItemPF2e } from "@item";
 import { isObject, objectHasKey } from "@util";
-import { ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
+import type { ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.d.ts";
 import {
     RuleElementData,
     RuleElementOptions,
@@ -10,7 +10,7 @@ import {
     RuleElementSchema,
     RuleElementSource,
     RuleValue,
-} from "./";
+} from "./index.ts";
 
 const { fields } = foundry.data;
 

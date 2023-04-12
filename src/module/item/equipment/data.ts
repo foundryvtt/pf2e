@@ -4,8 +4,8 @@ import {
     PhysicalItemTraits,
     PhysicalSystemData,
     PhysicalSystemSource,
-} from "@item/physical/data";
-import { EquipmentTrait, OtherEquipmentTag } from "./types";
+} from "@item/physical/data.ts";
+import type { EquipmentTrait, OtherEquipmentTag } from "./types.ts";
 
 type EquipmentSource = BasePhysicalItemSource<"equipment", EquipmentSystemSource>;
 

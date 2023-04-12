@@ -1,11 +1,12 @@
-import { resetActors } from "@actor/helpers";
-import { PersistentDialog } from "@item/condition/persistent-damage-dialog";
-import { CONDITION_SLUGS } from "@item/condition/values";
-import { TokenPF2e } from "@module/canvas/token";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { EncounterPF2e } from "@module/encounter";
-import { StatusEffectIconTheme } from "@scripts/config";
-import { LocalizePF2e } from "@system/localize";
+import { resetActors } from "@actor/helpers.ts";
+import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
+import { CONDITION_SLUGS } from "@item/condition/values.ts";
+import { ConditionSlug } from "@item/condition/types.ts";
+import { TokenPF2e } from "@module/canvas/token/index.ts";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { EncounterPF2e } from "@module/encounter/index.ts";
+import { StatusEffectIconTheme } from "@scripts/config/index.ts";
+import { LocalizePF2e } from "@system/localize.ts";
 import { ErrorPF2e, fontAwesomeIcon, htmlQueryAll, objectHasKey, setHasElement } from "@util";
 
 const debouncedRender = foundry.utils.debounce(() => {
@@ -38,7 +39,7 @@ export class StatusEffects {
         this.#updateStatusIcons();
     }
 
-    static get conditions() {
+    static get conditions(): Record<ConditionSlug, { name: string; rules: string; summary: string }> {
         return LocalizePF2e.translations.PF2E.condition;
     }
 

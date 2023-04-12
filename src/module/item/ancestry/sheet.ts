@@ -1,6 +1,6 @@
-import { AncestryPF2e } from "@item/ancestry";
-import { ABCSheetData, ABCSheetPF2e } from "@item/abc/sheet";
-import { createSheetOptions, SheetOptions } from "@module/sheet/helpers";
+import { AncestryPF2e } from "@item/ancestry/index.ts";
+import { ABCSheetData, ABCSheetPF2e } from "@item/abc/sheet.ts";
+import { createSheetOptions, SheetOptions } from "@module/sheet/helpers.ts";
 
 class AncestrySheetPF2e extends ABCSheetPF2e<AncestryPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<AncestrySheetData> {

@@ -1,10 +1,10 @@
-import { HitPointsSummary } from "@actor/base";
-import { SkillAbbreviation } from "@actor/creature/data";
-import { AbilityString, SkillLongForm } from "@actor/types";
+import { HitPointsSummary } from "@actor/base.ts";
+import { SkillAbbreviation } from "@actor/creature/data.ts";
+import { AbilityString, SkillLongForm } from "@actor/types.ts";
 import { WeaponPF2e } from "@item";
-import { ZeroToFour } from "@module/data";
-import { Statistic } from "@system/statistic";
-import { CharacterPF2e } from ".";
+import { ZeroToFour } from "@module/data.ts";
+import { Statistic } from "@system/statistic/index.ts";
+import { CharacterPF2e } from "./document.ts";
 
 interface CharacterHitPointsSummary extends HitPointsSummary {
     recoveryMultiplier: number;

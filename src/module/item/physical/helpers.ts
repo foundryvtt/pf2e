@@ -1,8 +1,6 @@
-import { Coins, PartialPrice } from "@item/physical/data";
-import { Size } from "@module/data";
-
-// Redefined to avoid cyclical reference
-const DENOMINATIONS = ["cp", "sp", "gp", "pp"] as const;
+import { Coins, PartialPrice } from "@item/physical/data.ts";
+import { Size } from "@module/data.ts";
+import { DENOMINATIONS } from "./values.ts";
 
 /** Coins class that exposes methods to perform operations on coins without side effects */
 class CoinsPF2e implements Coins {

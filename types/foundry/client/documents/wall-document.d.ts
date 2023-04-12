@@ -1,4 +1,4 @@
-import { CanvasBaseWall } from "./client-base-mixes.mjs";
+import { CanvasBaseWall } from "./client-base-mixes.js";
 
 declare global {
     class WallDocument<TParent extends Scene | null> extends CanvasBaseWall<TParent> {}

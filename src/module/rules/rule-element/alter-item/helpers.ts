@@ -1,8 +1,8 @@
-import { ItemSourcePF2e } from "@item/data";
-import { isPhysicalData } from "@item/data/helpers";
-import { RARITIES } from "@module/data";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { isPhysicalData } from "@item/data/helpers.ts";
+import { RARITIES } from "@module/data.ts";
 import { tupleHasValue } from "@util";
-import { ItemAlterationData } from "./schema";
+import { ItemAlterationData } from "./schema.ts";
 
 /** Is the item alteration valid for the item type? */
 function validateAlteration(

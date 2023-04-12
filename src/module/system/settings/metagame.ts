@@ -1,4 +1,4 @@
-import { SettingsMenuPF2e } from "./menu";
+import { SettingsMenuPF2e } from "./menu.ts";
 
 const MetagameSettingsConfig = {
     showDC: {
@@ -64,7 +64,7 @@ class MetagameSettings extends SettingsMenuPF2e {
         return Object.keys(this.settings);
     }
 
-    static override get prefix() {
+    static override get prefix(): string {
         return `${this.namespace}_`;
     }
 }

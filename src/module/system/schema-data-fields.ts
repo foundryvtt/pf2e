@@ -1,7 +1,6 @@
-import { PredicatePF2e, PredicateStatement, RawPredicate, StatementValidator } from "@system/predication";
+import { PredicatePF2e, PredicateStatement, RawPredicate, StatementValidator } from "@system/predication.ts";
 import { SlugCamel, sluggify } from "@util";
-import { DataModel } from "types/foundry/common/abstract/data.mjs";
-import {
+import type {
     ArrayFieldOptions,
     CleanFieldOptions,
     DataFieldOptions,
@@ -9,7 +8,7 @@ import {
     MaybeSchemaProp,
     StringField,
     StringFieldOptions,
-} from "types/foundry/common/data/fields.mjs";
+} from "types/foundry/common/data/fields.d.ts";
 
 /* -------------------------------------------- */
 /*  System `DataSchema` `DataField`s            */
@@ -114,12 +113,12 @@ class PredicateField<
     /** Construct a `PredicatePF2e` from the initialized `PredicateStatement[]` */
     override initialize(
         value: RawPredicate,
-        model: ConstructorOf<DataModel>,
+        model: ConstructorOf<foundry.abstract.DataModel>,
         options?: ArrayFieldOptions<RawPredicate, TRequired, TNullable, THasInitial>
     ): MaybeSchemaProp<PredicatePF2e, TRequired, TNullable, THasInitial>;
     override initialize(
         value: RawPredicate,
-        model: ConstructorOf<DataModel>,
+        model: ConstructorOf<foundry.abstract.DataModel>,
         options: ArrayFieldOptions<RawPredicate, TRequired, TNullable, THasInitial>
     ): PredicatePF2e | null | undefined {
         const statements = super.initialize(value, model, options);

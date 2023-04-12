@@ -2,7 +2,7 @@
  * Rules are implemented as described in https://2e.aonprd.com/Rules.aspx?ID=575
  * including the variant rules for proficiency without level https://2e.aonprd.com/Rules.aspx?ID=1371
  */
-import { DCOptions } from "@module/dc";
+import { DCOptions } from "@module/dc.ts";
 
 // level without proficiency variant
 const xpVariantCreatureDifferences = new Map([

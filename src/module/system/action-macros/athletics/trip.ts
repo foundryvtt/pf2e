@@ -1,10 +1,10 @@
 import { ActorPF2e } from "@actor";
-import { MODIFIER_TYPE, ModifierPF2e } from "@actor/modifiers";
+import { MODIFIER_TYPE, ModifierPF2e } from "@actor/modifiers.ts";
 import { ItemPF2e, WeaponPF2e } from "@item";
-import { extractModifierAdjustments } from "@module/rules/helpers";
-import { ActionMacroHelpers, SkillActionOptions } from "..";
-import { SingleCheckAction, SingleCheckActionVariant, SingleCheckActionVariantData } from "@actor/actions";
-import { CheckContext, CheckContextData, CheckContextOptions } from "@system/action-macros/types";
+import { extractModifierAdjustments } from "@module/rules/helpers.ts";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { SingleCheckAction, SingleCheckActionVariant, SingleCheckActionVariantData } from "@actor/actions/index.ts";
+import { CheckContext, CheckContextData, CheckContextOptions } from "@system/action-macros/types.ts";
 
 function tripCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
     opts: CheckContextOptions<ItemType>,
@@ -54,7 +54,7 @@ function tripCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
     return context;
 }
 
-function trip(options: SkillActionOptions) {
+function trip(options: SkillActionOptions): void {
     const slug = options?.skill ?? "athletics";
     const modifiers = options?.modifiers;
     const rollOptions = ["action:trip"];
@@ -73,6 +73,9 @@ function trip(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Trip", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Trip", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }
 

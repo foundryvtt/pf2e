@@ -1,4 +1,4 @@
-import { LocalizePF2e } from "@system/localize";
+import { LocalizePF2e } from "@system/localize.ts";
 
 type ArmorTrait = keyof ConfigPF2e["PF2E"]["armorTraits"];
 type ArmorCategory = keyof ConfigPF2e["PF2E"]["armorCategories"];

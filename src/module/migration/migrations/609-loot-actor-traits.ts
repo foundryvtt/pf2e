@@ -1,6 +1,6 @@
-import { MigrationBase } from "../base";
-import { ActorSourcePF2e } from "@actor/data";
-import { ActorSystemSource, ActorTraitsSource } from "@actor/data/base";
+import { MigrationBase } from "../base.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ActorSystemSource, ActorTraitsSource } from "@actor/data/base.ts";
 
 /** Add basic actor traits to loot actors */
 export class Migration609LootActorTraits extends MigrationBase {

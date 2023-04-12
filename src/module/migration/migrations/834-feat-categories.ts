@@ -1,9 +1,9 @@
-import { ItemSourcePF2e } from "@item/data";
-import { FeatSystemSource } from "@item/feat";
-import { FEAT_CATEGORIES } from "@item/feat/values";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { FeatSystemSource } from "@item/feat/data.ts";
+import { FEAT_CATEGORIES } from "@item/feat/values.ts";
 import { isObject, recursiveReplaceString, setHasElement } from "@util";
-import { MigrationBase } from "../base";
-import { RuleElementSource } from "@module/rules";
+import { MigrationBase } from "../base.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
 
 /** Rename `featType.value` to `category`, remove "archetype" category */
 export class Migration834FeatCategories extends MigrationBase {

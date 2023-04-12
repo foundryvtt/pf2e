@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
-import { ImmunityData, IWRSource, ResistanceData, WeaknessData } from "@actor/data/iwr";
-import { ImmunityType, IWRType, ResistanceType, WeaknessType } from "@actor/types";
+import { ImmunityData, IWRSource, ResistanceData, WeaknessData } from "@actor/data/iwr.ts";
+import { ImmunityType, IWRType, ResistanceType, WeaknessType } from "@actor/types.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, isObject, tagify } from "@util";
 
 class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREditorOptions> {

@@ -1,11 +1,11 @@
-import { ActorSheetPF2e } from "../sheet/base";
-import { LootPF2e } from "@actor/loot";
-import { DistributeCoinsPopup } from "../sheet/popups/distribute-coins-popup";
-import { LootNPCsPopup } from "../sheet/loot/loot-npcs-popup";
-import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
-import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
+import { ActorSheetPF2e } from "../sheet/base.ts";
+import { LootPF2e } from "@actor/loot/index.ts";
+import { DistributeCoinsPopup } from "../sheet/popups/distribute-coins-popup.ts";
+import { LootNPCsPopup } from "../sheet/loot/loot-npcs-popup.ts";
+import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
+import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { ItemPF2e } from "@item";
-import { ActorPF2e } from "@module/documents";
+import { ActorPF2e } from "@module/documents.ts";
 
 export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActor> {
     static override get defaultOptions(): ActorSheetOptions {

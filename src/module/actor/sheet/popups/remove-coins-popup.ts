@@ -1,4 +1,4 @@
-import { Coins } from "@item/physical/data";
+import { Coins } from "@item/physical/data.ts";
 import { ActorPF2e } from "@actor";
 
 interface PopupFormData extends Coins {
@@ -9,7 +9,7 @@ interface PopupFormData extends Coins {
  * @category Other
  */
 export class RemoveCoinsPopup extends FormApplication<ActorPF2e> {
-    static override get defaultOptions() {
+    static override get defaultOptions(): FormApplicationOptions {
         const options = super.defaultOptions;
         options.id = "remove-coins";
         options.classes = [];
@@ -19,7 +19,7 @@ export class RemoveCoinsPopup extends FormApplication<ActorPF2e> {
         return options;
     }
 
-    override async _updateObject(_event: Event, formData: Record<string, unknown> & PopupFormData) {
+    override async _updateObject(_event: Event, formData: Record<string, unknown> & PopupFormData): Promise<void> {
         const actor = this.object;
         const coinsToRemove = {
             pp: formData.pp,

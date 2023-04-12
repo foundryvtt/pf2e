@@ -1,4 +1,4 @@
-import { ClientBaseRollTable } from "./client-base-mixes.mjs";
+import { ClientBaseRollTable } from "./client-base-mixes.js";
 
 declare global {
     /**

@@ -1,4 +1,4 @@
-import { ClientBaseUser } from "./client-base-mixes.mjs";
+import { ClientBaseUser } from "./client-base-mixes.js";
 
 declare global {
     /**

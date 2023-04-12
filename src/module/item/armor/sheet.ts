@@ -5,10 +5,10 @@ import {
     PhysicalItemSheetData,
     PhysicalItemSheetPF2e,
     PreparedMaterials,
-} from "@item/physical";
-import { createSheetTags, SheetOptions } from "@module/sheet/helpers";
-import { LocalizePF2e } from "@system/localize";
-import { ArmorCategory, ArmorGroup, ArmorPF2e, BaseArmorType } from ".";
+} from "@item/physical/index.ts";
+import { createSheetTags, SheetOptions } from "@module/sheet/helpers.ts";
+import { LocalizePF2e } from "@system/localize.ts";
+import { ArmorCategory, ArmorGroup, ArmorPF2e, BaseArmorType } from "./index.ts";
 
 class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<ArmorSheetData> {

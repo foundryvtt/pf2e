@@ -1,28 +1,28 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
-import { StrikeData, TraitViewData } from "@actor/data/base";
-import { CheckModifier, StatisticModifier } from "@actor/modifiers";
-import { AttackTarget } from "@actor/types";
+import { StrikeData, TraitViewData } from "@actor/data/base.ts";
+import { CheckModifier, StatisticModifier } from "@actor/modifiers.ts";
+import { RollTarget } from "@actor/types.ts";
 import { WeaponPF2e } from "@item";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { ChatMessageSourcePF2e, CheckRollContextFlag, TargetFlag } from "@module/chat-message/data";
-import { isCheckContextFlag } from "@module/chat-message/helpers";
-import { RollNotePF2e } from "@module/notes";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { ChatMessageSourcePF2e, CheckRollContextFlag, TargetFlag } from "@module/chat-message/data.ts";
+import { isCheckContextFlag } from "@module/chat-message/helpers.ts";
+import { RollNotePF2e } from "@module/notes.ts";
 import { ScenePF2e, TokenDocumentPF2e } from "@scene";
-import { eventToRollParams } from "@scripts/sheet-util";
-import { StatisticDifficultyClass } from "@system/statistic";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { StatisticDifficultyClass } from "@system/statistic/index.ts";
 import { ErrorPF2e, fontAwesomeIcon, objectHasKey, parseHTML, signedInteger, sluggify, traitSlugToObject } from "@util";
 import {
     DEGREE_OF_SUCCESS_STRINGS,
     DegreeAdjustmentsRecord,
     DegreeOfSuccess,
     DegreeOfSuccessString,
-} from "../degree-of-success";
-import { LocalizePF2e } from "../localize";
-import { TextEditorPF2e } from "../text-editor";
-import { CheckModifiersDialog } from "./dialog";
-import { CheckRoll, CheckRollDataPF2e } from "./roll";
-import { StrikeAttackRoll } from "./strike/attack-roll";
-import { CheckRollContext } from "./types";
+} from "../degree-of-success.ts";
+import { LocalizePF2e } from "../localize.ts";
+import { TextEditorPF2e } from "../text-editor.ts";
+import { CheckModifiersDialog } from "./dialog.ts";
+import { CheckRoll, CheckRollDataPF2e } from "./roll.ts";
+import { StrikeAttackRoll } from "./strike/attack-roll.ts";
+import { CheckRollContext } from "./types.ts";
 
 interface RerollOptions {
     heroPoint?: boolean;
@@ -360,7 +360,10 @@ class CheckPF2e {
     }
 
     /** Reroll a rolled check given a chat message. */
-    static async rerollFromMessage(message: ChatMessagePF2e, { heroPoint = false, keep = "new" }: RerollOptions = {}) {
+    static async rerollFromMessage(
+        message: ChatMessagePF2e,
+        { heroPoint = false, keep = "new" }: RerollOptions = {}
+    ): Promise<void> {
         if (!(message.isAuthor || game.user.isGM)) {
             ui.notifications.error(game.i18n.localize("PF2E.RerollMenu.ErrorCantDelete"));
             return;
@@ -666,7 +669,7 @@ class CheckPF2e {
 
 interface CreateResultFlavorParams {
     degree: DegreeOfSuccess | null;
-    target?: AttackTarget | TargetFlag | null;
+    target?: RollTarget | TargetFlag | null;
 }
 
 interface ResultFlavorTemplateData {

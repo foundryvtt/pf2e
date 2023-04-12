@@ -1,7 +1,7 @@
-import { ActorPF2e } from "@actor/index";
+import { ActorPF2e } from "@actor";
 import { SpellPF2e } from "@item";
-import { SpellConsumableItemType } from "@item/consumable/spell-consumables";
-import { OneToTen } from "@module/data";
+import { SpellConsumableItemType } from "@item/consumable/spell-consumables.ts";
+import { OneToTen } from "@module/data.ts";
 import { ErrorPF2e } from "@util";
 
 interface FormInputData extends FormApplicationData<ActorPF2e> {
@@ -45,7 +45,7 @@ export class CastingItemCreateDialog extends FormApplication<ActorPF2e> {
         this.onSubmitCallback = callback;
     }
 
-    static override get defaultOptions() {
+    static override get defaultOptions(): FormApplicationOptions {
         const options = super.defaultOptions;
 
         options.classes = [];
@@ -75,7 +75,7 @@ export class CastingItemCreateDialog extends FormApplication<ActorPF2e> {
         };
     }
 
-    override async _updateObject(event: Event, formData: FormOutputData) {
+    override async _updateObject(event: Event, formData: FormOutputData): Promise<void> {
         Object.assign(this.formDataCache, formData);
 
         if (event.type !== "submit") {

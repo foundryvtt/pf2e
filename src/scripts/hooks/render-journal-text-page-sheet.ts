@@ -1,5 +1,5 @@
-import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
-import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
+import { UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
 
 export const RenderJournalTextPageSheet = {
     listen: (): void => {

@@ -1,6 +1,6 @@
-import { CharacterSystemData } from "@actor/character/data";
-import { ActorSourcePF2e } from "@actor/data";
-import { MigrationBase } from "../base";
+import { CharacterSystemData } from "@actor/character/data/index.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Move hero points from attributes to resources */
 export class Migration686HeroPointsToResources extends MigrationBase {

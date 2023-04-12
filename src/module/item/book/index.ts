@@ -1,3 +1,3 @@
-export { BookSource } from "./data";
-export { BookPF2e } from "./document";
-export { BookSheetPF2e } from "./sheet";
+export { BookSource } from "./data.ts";
+export { BookPF2e } from "./document.ts";
+export { BookSheetPF2e } from "./sheet.ts";

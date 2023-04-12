@@ -1,10 +1,10 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ActorPF2e } from "@actor/index";
-import { ItemSourcePF2e } from "@item/data";
-import { ItemPF2e } from "@item/index";
-import { ValuesList } from "@module/data";
-import { BaseTagSelector } from "./base";
-import { SelectableTagField, TagSelectorOptions } from ".";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ActorPF2e } from "@actor";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemPF2e } from "@item";
+import { ValuesList } from "@module/data.ts";
+import { BaseTagSelector } from "./base.ts";
+import { SelectableTagField, TagSelectorOptions } from "./index.ts";
 
 /* Basic trait selector options */
 export interface BasicSelectorOptions extends TagSelectorOptions {

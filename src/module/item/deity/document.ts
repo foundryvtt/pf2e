@@ -1,10 +1,10 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
-import { Alignment } from "@actor/creature/types";
-import { ALIGNMENTS } from "@actor/creature/values";
+import { Alignment } from "@actor/creature/types.ts";
+import { ALIGNMENTS } from "@actor/creature/values.ts";
 import { ItemPF2e } from "@item";
-import { BaseWeaponType } from "@item/weapon/types";
+import { BaseWeaponType } from "@item/weapon/types.ts";
 import { sluggify } from "@util";
-import { DeitySource, DeitySystemData } from "./data";
+import { DeitySource, DeitySystemData } from "./data.ts";
 
 class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     get category(): "deity" | "pantheon" | "philosophy" {

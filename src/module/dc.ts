@@ -1,5 +1,5 @@
-import { ProficiencyRank } from "@item/data";
-import { Rarity } from "./data";
+import { ProficiencyRank } from "@item/data/index.ts";
+import { Rarity } from "./data.ts";
 
 /**
  * Implementation of Difficulty Classes https://2e.aonprd.com/Rules.aspx?ID=552
@@ -91,11 +91,11 @@ function rarityToDCAdjustment(rarity: Rarity = "common"): PositiveDCAdjustment {
     }
 }
 
-function adjustDC(dc: number, adjustment: DCAdjustment = "normal") {
+function adjustDC(dc: number, adjustment: DCAdjustment = "normal"): number {
     return dc + (dcAdjustments.get(adjustment) ?? 0);
 }
 
-function adjustDCByRarity(dc: number, rarity: Rarity = "common") {
+function adjustDCByRarity(dc: number, rarity: Rarity = "common"): number {
     return adjustDC(dc, rarityToDCAdjustment(rarity));
 }
 

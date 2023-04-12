@@ -1,4 +1,4 @@
-import { RuleElementPF2e } from "./";
+import { RuleElementPF2e } from "./index.ts";
 
 /**
  * Change the name representing an actor's token

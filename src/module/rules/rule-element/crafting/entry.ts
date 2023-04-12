@@ -1,9 +1,9 @@
-import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions } from "..";
+import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions } from "../index.ts";
 import { ActorPF2e, CharacterPF2e } from "@actor";
-import { ActorType } from "@actor/data";
+import { ActorType } from "@actor/data/index.ts";
 import { ItemPF2e } from "@item";
 import { sluggify } from "@util";
-import { PredicatePF2e, RawPredicate } from "@system/predication";
+import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
 
 /**
  * @category RuleElement

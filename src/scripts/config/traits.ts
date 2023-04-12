@@ -1,11 +1,11 @@
-import { AlignmentTrait } from "@actor/creature/types";
-import { OtherArmorTag } from "@item/armor/types";
-import { ClassTrait } from "@item/class/data";
-import { OtherConsumableTag } from "@item/consumable/types";
-import { RANGE_TRAITS } from "@item/data/values";
-import { PreciousMaterialType } from "@item/physical/types";
-import { MagicSchool, MagicTradition } from "@item/spell/types";
-import { OtherWeaponTag } from "@item/weapon/types";
+import { AlignmentTrait } from "@actor/creature/types.ts";
+import { OtherArmorTag } from "@item/armor/types.ts";
+import { ClassTrait } from "@item/class/data.ts";
+import { OtherConsumableTag } from "@item/consumable/types.ts";
+import { RANGE_TRAITS } from "@item/data/values.ts";
+import { PreciousMaterialType } from "@item/physical/types.ts";
+import { MagicSchool, MagicTradition } from "@item/spell/types.ts";
+import { OtherWeaponTag } from "@item/weapon/types.ts";
 import { sluggify } from "@util";
 
 // Ancestry and heritage traits

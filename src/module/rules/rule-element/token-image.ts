@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { BracketedValue, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./";
+import { BracketedValue, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
 
 /**
  * Change the image representing an actor's token

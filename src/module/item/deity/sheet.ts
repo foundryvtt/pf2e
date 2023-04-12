@@ -1,11 +1,11 @@
-import { SkillAbbreviation } from "@actor/creature/data";
-import { Alignment } from "@actor/creature/types";
+import { SkillAbbreviation } from "@actor/creature/data.ts";
+import { Alignment } from "@actor/creature/types.ts";
 import { DeityPF2e, ItemPF2e, SpellPF2e } from "@item";
-import { ItemSheetPF2e } from "@item/sheet/base";
-import { ItemSheetDataPF2e } from "@item/sheet/data-types";
-import { createSheetOptions, SheetOptions } from "@module/sheet/helpers";
+import { ItemSheetPF2e } from "@item/sheet/base.ts";
+import { ItemSheetDataPF2e } from "@item/sheet/data-types.ts";
+import { createSheetOptions, SheetOptions } from "@module/sheet/helpers.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, tagify } from "@util";
-import { UUIDUtils } from "@util/uuid-utils";
+import { UUIDUtils } from "@util/uuid-utils.ts";
 
 export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
     static override get defaultOptions(): DocumentSheetOptions {

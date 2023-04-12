@@ -1,9 +1,14 @@
-import { PickableThing } from "@module/apps/pick-a-thing-prompt";
-import { RuleElementData, RuleElementSchema, RuleElementSource } from "../";
-import { PredicatePF2e } from "@system/predication";
-import { ItemType } from "@item/data";
-import { BooleanField, ModelPropsFromSchema, SchemaField, StringField } from "types/foundry/common/data/fields.mjs";
-import { PredicateField } from "@system/schema-data-fields";
+import { PickableThing } from "@module/apps/pick-a-thing-prompt.ts";
+import { RuleElementData, RuleElementSchema, RuleElementSource } from "../index.ts";
+import { PredicatePF2e } from "@system/predication.ts";
+import { ItemType } from "@item/data/index.ts";
+import type {
+    BooleanField,
+    ModelPropsFromSchema,
+    SchemaField,
+    StringField,
+} from "types/foundry/common/data/fields.d.ts";
+import { PredicateField } from "@system/schema-data-fields.ts";
 
 type ChoiceSetSchema = RuleElementSchema & {
     /** The prompt to present in the ChoiceSet application window */

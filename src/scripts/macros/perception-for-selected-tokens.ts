@@ -1,6 +1,6 @@
 import { CreaturePF2e } from "@actor";
-import { TokenPF2e } from "@module/canvas";
-import { eventToRollParams } from "@scripts/sheet-util";
+import { TokenPF2e } from "@module/canvas/index.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
 
 export async function perceptionForSelected(event: JQuery.ClickEvent): Promise<void> {
     const actors = canvas.tokens.controlled

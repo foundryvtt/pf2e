@@ -1,4 +1,4 @@
-import { UserSettingsPF2e } from "./document";
+import { UserSettingsPF2e } from "./document.ts";
 
 interface UserSourcePF2e extends foundry.documents.UserSource {
     flags: DeepPartial<UserFlagsPF2e>;

@@ -1,8 +1,8 @@
-import { LocalizePF2e } from "@system/localize";
+import { LocalizePF2e } from "@system/localize.ts";
 import { ErrorPF2e, ordinal, tupleHasValue } from "@util";
 import { DateTime } from "luxon";
-import { animateDarkness } from "./animate-darkness";
-import { TimeChangeMode, TimeOfDay } from "./time-of-day";
+import { animateDarkness } from "./animate-darkness.ts";
+import { TimeChangeMode, TimeOfDay } from "./time-of-day.ts";
 
 interface WorldClockData {
     date: string;
@@ -69,7 +69,7 @@ export class WorldClock extends Application {
         return this.worldCreatedOn.plus({ seconds: game.time.worldTime });
     }
 
-    static override get defaultOptions() {
+    static override get defaultOptions(): ApplicationOptions {
         return mergeObject(super.defaultOptions, {
             id: "world-clock",
             width: 400,
@@ -116,7 +116,7 @@ export class WorldClock extends Application {
                 return months[month];
             }
             default:
-                return this.worldTime.monthLong;
+                return this.worldTime.monthLong!;
         }
     }
 
@@ -129,7 +129,7 @@ export class WorldClock extends Application {
                 return weekdays[weekday];
             }
             default:
-                return this.worldTime.weekdayLong;
+                return this.worldTime.weekdayLong!;
         }
     }
 

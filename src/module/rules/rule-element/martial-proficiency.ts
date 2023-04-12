@@ -1,12 +1,12 @@
-import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions } from ".";
+import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions } from "./index.ts";
 import { ActorPF2e, CharacterPF2e } from "@actor";
-import { MartialProficiency } from "@actor/character/data";
-import { ActorType } from "@actor/data";
+import { MartialProficiency } from "@actor/character/data/index.ts";
+import { ActorType } from "@actor/data/index.ts";
 import { ItemPF2e } from "@item";
-import { ProficiencyRank } from "@item/data";
-import { WeaponCategory } from "@item/weapon/types";
-import { PROFICIENCY_RANKS, ZeroToFour } from "@module/data";
-import { PredicatePF2e, RawPredicate } from "@system/predication";
+import { ProficiencyRank } from "@item/data/index.ts";
+import { WeaponCategory } from "@item/weapon/types.ts";
+import { PROFICIENCY_RANKS, ZeroToFour } from "@module/data.ts";
+import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
 
 class MartialProficiencyRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character"];

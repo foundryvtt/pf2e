@@ -1,11 +1,10 @@
-import { ANIMAL_COMPANION_SOURCE_ID } from "@actor/values";
+import { ANIMAL_COMPANION_SOURCE_ID } from "@actor/values.ts";
 import { EffectPF2e } from "@item";
-import { TokenDocumentPF2e } from "@module/scene";
+import { TokenDocumentPF2e } from "@scene/index.ts";
 import { pick } from "@util";
-import { CanvasPF2e, TokenLayerPF2e, measureDistanceCuboid } from "..";
-import { HearingSource } from "../perception/hearing-source";
-import { AuraRenderers } from "./aura";
-import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
+import { CanvasPF2e, TokenLayerPF2e, measureDistanceCuboid } from "../index.ts";
+import { HearingSource } from "../perception/hearing-source.ts";
+import { AuraRenderers } from "./aura/index.ts";
 
 class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends Token<TDocument> {
     /** Visual representation and proximity-detection facilities for auras */
@@ -191,11 +190,11 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         this.auras.draw();
     }
 
-    emitHoverIn() {
+    emitHoverIn(): void {
         this.emit("mouseover", { data: { object: this } });
     }
 
-    emitHoverOut() {
+    emitHoverOut(): void {
         this.emit("mouseout", { data: { object: this } });
     }
 
@@ -412,12 +411,6 @@ interface TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> ext
     get layer(): TokenLayerPF2e<this>;
 
     icon?: TokenImage;
-
-    toggleCombat(
-        state?: boolean,
-        combat?: EncounterPF2e | null,
-        options?: { token?: TokenPF2e | null }
-    ): Promise<CombatantPF2e<EncounterPF2e>[]>;
 }
 
 interface TokenImage extends PIXI.Sprite {

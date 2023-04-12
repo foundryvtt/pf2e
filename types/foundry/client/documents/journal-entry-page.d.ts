@@ -1,4 +1,4 @@
-import { ClientBaseJournalEntryPage } from "./client-base-mixes.mjs";
+import { ClientBaseJournalEntryPage } from "./client-base-mixes.js";
 
 declare global {
     /**

@@ -1,8 +1,8 @@
 import { ActorPF2e, ActorProxyPF2e } from "@actor";
 import { ItemPF2e, MeleePF2e } from "@item";
-import { ZeroToTwo } from "@module/data";
-import { MigrationList, MigrationRunner } from "@module/migration";
-import { MigrationRunnerBase } from "@module/migration/runner/base";
+import { ZeroToTwo } from "@module/data.ts";
+import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
+import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import {
     extractDegreeOfSuccessAdjustments,
     extractModifierAdjustments,
@@ -10,22 +10,22 @@ import {
     extractNotes,
     extractRollSubstitutions,
     extractRollTwice,
-} from "@module/rules/helpers";
-import { TokenDocumentPF2e } from "@scene";
-import { eventToRollParams } from "@scripts/sheet-util";
-import { CheckPF2e, CheckRoll } from "@system/check";
-import { DamagePF2e, DamageRollContext } from "@system/damage";
-import { DamageRoll } from "@system/damage/roll";
-import { WeaponDamagePF2e } from "@system/damage/weapon";
-import { AttackRollParams, DamageRollParams } from "@system/rolls";
+} from "@module/rules/helpers.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { CheckPF2e, CheckRoll } from "@system/check/index.ts";
+import { DamagePF2e, DamageRollContext } from "@system/damage/index.ts";
+import { DamageRoll } from "@system/damage/roll.ts";
+import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
+import { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
 import { ErrorPF2e, getActionGlyph, getActionIcon, sluggify } from "@util";
-import { ActorSourcePF2e } from "./data";
-import { DamageRollFunction, TraitViewData } from "./data/base";
-import { CheckModifier, MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "./modifiers";
-import { NPCStrike } from "./npc/data";
-import { AttackItem } from "./types";
-import { ANIMAL_COMPANION_SOURCE_ID, CONSTRUCT_COMPANION_SOURCE_ID } from "./values";
-import { StrikeAttackTraits } from "./creature/helpers";
+import { ActorSourcePF2e } from "./data/index.ts";
+import { DamageRollFunction, TraitViewData } from "./data/base.ts";
+import { CheckModifier, MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "./modifiers.ts";
+import { NPCStrike } from "./npc/data.ts";
+import { AttackItem } from "./types.ts";
+import { ANIMAL_COMPANION_SOURCE_ID, CONSTRUCT_COMPANION_SOURCE_ID } from "./values.ts";
+import { StrikeAttackTraits } from "./creature/helpers.ts";
 
 /** Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors */
 async function resetActors(actors?: Iterable<ActorPF2e>, { rerender = true } = {}): Promise<void> {
@@ -269,10 +269,12 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
 
                 params.options ??= [];
                 // Always add all weapon traits as options
-                const context = await actor.getCheckRollContext({
+                const context = await actor.getCheckContext({
                     item,
                     viewOnly: params.getFormula ?? false,
                     statistic: strike,
+                    target: { token: game.user.targets.first() ?? null },
+                    targetedDC: "armor",
                     domains,
                     options: new Set([...baseOptions, ...params.options]),
                 });
@@ -335,6 +337,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
             const context = await actor.getRollContext({
                 item,
                 statistic: strike,
+                target: { token: game.user.targets.first() ?? null },
                 viewOnly: params.getFormula ?? false,
                 domains,
                 options: new Set(params.options ?? []),

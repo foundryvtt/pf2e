@@ -1,6 +1,6 @@
-import { ItemSourcePF2e } from "@item/data";
-import { OneToTen } from "@module/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { OneToTen } from "@module/data.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Ensure spells have a minimum level of one */
 export class Migration688ClampSpellLevel extends MigrationBase {

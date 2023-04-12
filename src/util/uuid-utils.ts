@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { ErrorPF2e } from "./misc";
+import { ErrorPF2e } from "./misc.ts";
 
 class UUIDUtils {
     /** A replacement for core fromUuidSync that returns cached compendium documents. Remove in v11. */

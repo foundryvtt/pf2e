@@ -1,10 +1,10 @@
 import { ActorPF2e } from "@actor";
-import { damageDiceIcon } from "@system/damage/helpers";
-import { DamageRoll } from "@system/damage/roll";
-import { DamageType } from "@system/damage/types";
-import { DAMAGE_TYPE_ICONS } from "@system/damage/values";
+import { damageDiceIcon } from "@system/damage/helpers.ts";
+import { DamageRoll } from "@system/damage/roll.ts";
+import { DamageType } from "@system/damage/types.ts";
+import { DAMAGE_TYPE_ICONS } from "@system/damage/values.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, pick, sortBy } from "@util";
-import { PersistentDamagePF2e } from "./document";
+import { PersistentDamagePF2e } from "./document.ts";
 
 class PersistentDamageDialog extends Application {
     constructor(private actor: ActorPF2e, options: Partial<ApplicationOptions> = {}) {

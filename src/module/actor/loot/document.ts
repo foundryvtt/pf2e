@@ -1,14 +1,12 @@
-import { ActorPF2e } from "@actor/base";
-import { ItemPF2e } from "@item/base";
-import { ItemSourcePF2e, ItemType } from "@item/data";
-import { PhysicalItemPF2e } from "@item/physical";
-import { CoinsPF2e } from "@item/physical/helpers";
-import { ActiveEffectPF2e } from "@module/active-effect";
-import { ScenePF2e } from "@module/scene";
-import { TokenDocumentPF2e } from "@module/scene/token-document";
-import { UserPF2e } from "@module/user";
+import { ItemSourcePF2e, ItemType } from "@item/data/index.ts";
+import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { PhysicalItemPF2e } from "@item/physical/document.ts";
+import { ActiveEffectPF2e } from "@module/active-effect.ts";
+import { ActorPF2e, ItemPF2e } from "@module/documents.ts";
+import { UserPF2e } from "@module/user/document.ts";
+import { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
 import { ErrorPF2e } from "@util";
-import { LootSource, LootSystemData } from "./data";
+import { LootSource, LootSystemData } from "./data.ts";
 
 class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     override get allowedItemTypes(): (ItemType | "physical")[] {

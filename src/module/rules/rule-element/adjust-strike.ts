@@ -1,15 +1,15 @@
 import { ActorPF2e } from "@actor";
-import { ActorType } from "@actor/data";
+import { ActorType } from "@actor/data/index.ts";
 import { ItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
-import { ActionTrait } from "@item/action/data";
-import { WeaponRangeIncrement } from "@item/weapon/types";
-import { MaterialDamageEffect } from "@system/damage";
-import { PredicateField } from "@system/schema-data-fields";
+import { ActionTrait } from "@item/action/data.ts";
+import { WeaponRangeIncrement } from "@item/weapon/types.ts";
+import { MaterialDamageEffect } from "@system/damage/index.ts";
+import { PredicateField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, objectHasKey, sluggify } from "@util";
-import { ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
-import { StrikeAdjustment } from "../synthetics";
-import { AELikeRuleElement, AELikeSchema, AELikeSource } from "./ae-like";
-import { RuleElementOptions } from "./base";
+import type { ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.d.ts";
+import { StrikeAdjustment } from "../synthetics.ts";
+import { AELikeRuleElement, AELikeSchema, AELikeSource } from "./ae-like.ts";
+import { RuleElementOptions } from "./base.ts";
 
 const { fields } = foundry.data;
 

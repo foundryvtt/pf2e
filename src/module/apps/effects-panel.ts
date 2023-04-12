@@ -1,11 +1,11 @@
 import { ActorPF2e } from "@actor";
 import { AbstractEffectPF2e, EffectPF2e } from "@item";
-import { AfflictionPF2e } from "@item/affliction";
-import { EffectExpiryType } from "@item/effect/data";
-import { TokenDocumentPF2e } from "@scene";
-import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
+import { AfflictionPF2e } from "@item/affliction/document.ts";
+import { EffectExpiryType } from "@item/effect/data.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import { htmlQuery, htmlQueryAll } from "@util";
-import { FlattenedCondition } from "../system/conditions";
+import { FlattenedCondition } from "../system/conditions/index.ts";
 
 export class EffectsPanel extends Application {
     private get token(): TokenDocumentPF2e | null {

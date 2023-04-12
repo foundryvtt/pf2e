@@ -1,13 +1,13 @@
-import { CreatureSheetData } from "@actor/creature/types";
-import { HitPointsData, PerceptionData } from "@actor/data/base";
-import { SaveType, SkillAbbreviation } from "@actor/types";
+import { CreatureSheetData } from "@actor/creature/types.ts";
+import { HitPointsData, PerceptionData } from "@actor/data/base.ts";
+import { SaveType, SkillAbbreviation } from "@actor/types.ts";
 import { ActionItemPF2e, EffectPF2e, ItemPF2e } from "@item";
-import { SpellcastingSheetData } from "@item/spellcasting-entry";
-import { ZeroToFour } from "@module/data";
-import { IdentifyCreatureData } from "@module/recall-knowledge";
-import { TraitTagifyEntry } from "@module/sheet/helpers";
-import { NPCPF2e, NPCStrike } from ".";
-import { NPCArmorClass, NPCAttributes, NPCSaveData, NPCSkillData, NPCSystemData, NPCTraitsData } from "./data";
+import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
+import { ZeroToFour } from "@module/data.ts";
+import { IdentifyCreatureData } from "@module/recall-knowledge.ts";
+import { TraitTagifyEntry } from "@module/sheet/helpers.ts";
+import { NPCPF2e, NPCStrike } from "./index.ts";
+import { NPCArmorClass, NPCAttributes, NPCSaveData, NPCSkillData, NPCSystemData, NPCTraitsData } from "./data.ts";
 
 interface ActionsDetails {
     label: string;

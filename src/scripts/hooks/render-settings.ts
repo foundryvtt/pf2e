@@ -1,4 +1,4 @@
-import { MigrationSummary } from "@module/apps/migration-summary";
+import { MigrationSummary } from "@module/apps/migration-summary.ts";
 import { ErrorPF2e, fontAwesomeIcon } from "@util";
 
 /** Attach system buttons and other knickknacks to the settings sidebar */

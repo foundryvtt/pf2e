@@ -1,6 +1,6 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function bonMot(options: SkillActionOptions) {
+export function bonMot(options: SkillActionOptions): void {
     const slug = options?.skill ?? "diplomacy";
     const rollOptions = ["action:bon-mot"];
     const modifiers = options?.modifiers;
@@ -19,5 +19,8 @@ export function bonMot(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.BonMot", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.BonMot", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

@@ -1,7 +1,7 @@
-export { BasicConstructorOptions, TagSelectorBasic } from "./basic";
-export { SenseSelector } from "./senses";
-export { SpeedSelector } from "./speeds";
-export { TagSelectorOptions } from "./base";
+export { type BasicConstructorOptions, TagSelectorBasic } from "./basic.ts";
+export { SenseSelector } from "./senses.ts";
+export { SpeedSelector } from "./speeds.ts";
+export type { TagSelectorOptions } from "./base.ts";
 
 const TAG_SELECTOR_TYPES = ["basic", "senses", "speed-types"] as const;
 type TagSelectorType = (typeof TAG_SELECTOR_TYPES)[number];

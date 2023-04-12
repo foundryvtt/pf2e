@@ -1,4 +1,4 @@
-import { CheckRoll } from "../roll";
+import { CheckRoll } from "../roll.ts";
 
 export class StrikeAttackRoll extends CheckRoll {
     static override CHAT_TEMPLATE = "systems/pf2e/templates/chat/check/strike/attack-roll.hbs";

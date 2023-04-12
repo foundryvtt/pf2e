@@ -1,4 +1,4 @@
-import { ClientBaseMacro } from "./client-base-mixes.mjs";
+import { ClientBaseMacro } from "./client-base-mixes.js";
 
 declare global {
     /**

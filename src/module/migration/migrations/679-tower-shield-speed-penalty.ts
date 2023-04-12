@@ -1,6 +1,6 @@
-import { ArmorSource, ItemSourcePF2e } from "@item/data";
-import { ZeroToFour } from "@module/data";
-import { MigrationBase } from "../base";
+import { ArmorSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { ZeroToFour } from "@module/data.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Set a speed penalty of -5 on all tower shields, plus some basic tidying */
 export class Migration679TowerShieldSpeedPenalty extends MigrationBase {

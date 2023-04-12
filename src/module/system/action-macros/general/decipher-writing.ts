@@ -1,6 +1,6 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function decipherWriting(options: SkillActionOptions) {
+export function decipherWriting(options: SkillActionOptions): void {
     if (!options?.skill) {
         ui.notifications.warn(game.i18n.localize("PF2E.Actions.DecipherWriting.Warning.NoSkill"));
         return;
@@ -23,5 +23,8 @@ export function decipherWriting(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.DecipherWriting", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.DecipherWriting", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

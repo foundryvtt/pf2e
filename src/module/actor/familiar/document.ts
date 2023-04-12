@@ -1,15 +1,15 @@
 import { CharacterPF2e, CreaturePF2e } from "@actor";
-import { CreatureSaves, LabeledSpeed } from "@actor/creature/data";
-import { ActorSizePF2e } from "@actor/data/size";
-import { CheckModifier, MODIFIER_TYPE, ModifierPF2e, StatisticModifier, applyStackingRules } from "@actor/modifiers";
-import { SaveType } from "@actor/types";
-import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values";
-import { extractDegreeOfSuccessAdjustments, extractModifiers, extractRollTwice } from "@module/rules/helpers";
-import { TokenDocumentPF2e } from "@scene";
-import { CheckPF2e, CheckRoll } from "@system/check";
-import { RollParameters } from "@system/rolls";
-import { Statistic } from "@system/statistic";
-import { FamiliarSource, FamiliarSystemData } from "./data";
+import { CreatureSaves, LabeledSpeed } from "@actor/creature/data.ts";
+import { ActorSizePF2e } from "@actor/data/size.ts";
+import { CheckModifier, MODIFIER_TYPE, ModifierPF2e, StatisticModifier, applyStackingRules } from "@actor/modifiers.ts";
+import { SaveType } from "@actor/types.ts";
+import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
+import { extractDegreeOfSuccessAdjustments, extractModifiers, extractRollTwice } from "@module/rules/helpers.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { CheckPF2e, CheckRoll } from "@system/check/index.ts";
+import { RollParameters } from "@system/rolls.ts";
+import { Statistic } from "@system/statistic/index.ts";
+import { FamiliarSource, FamiliarSystemData } from "./data.ts";
 
 class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends CreaturePF2e<TParent> {
     /** The familiar's master, if selected */

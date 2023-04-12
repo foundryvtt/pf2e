@@ -1,7 +1,7 @@
-import { ItemSourcePF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
 import { recursiveReplaceString, sluggify } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Ensure flags in Choice Set rule elements are in dromedary case */
 export class Migration832ChoiceSetFlags extends MigrationBase {

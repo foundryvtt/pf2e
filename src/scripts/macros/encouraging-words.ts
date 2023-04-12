@@ -1,8 +1,8 @@
 import { CharacterPF2e } from "@actor";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { ActionDefaultOptions } from "@system/action-macros";
-import { LocalizePF2e } from "@system/localize";
-import { Statistic } from "@system/statistic";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { ActionDefaultOptions } from "@system/action-macros/index.ts";
+import { LocalizePF2e } from "@system/localize.ts";
+import { Statistic } from "@system/statistic/index.ts";
 
 export function encouragingWords(options: ActionDefaultOptions): void {
     const translations = LocalizePF2e.translations.PF2E.Actions.EncouragingWords;

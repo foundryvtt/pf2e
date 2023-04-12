@@ -1,7 +1,7 @@
-import { MigrationBase } from "../base";
-import { ItemSourcePF2e } from "@item/data";
+import { MigrationBase } from "../base.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
 import { SpellPF2e } from "@item";
-import { UUIDUtils } from "@util/uuid-utils";
+import { UUIDUtils } from "@util/uuid-utils.ts";
 import { setHasElement } from "@util";
 
 /** Update the descriptions of several spells with new effect items */

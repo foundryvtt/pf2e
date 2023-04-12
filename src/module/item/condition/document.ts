@@ -1,18 +1,18 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { RuleElementOptions, RuleElementPF2e } from "@module/rules";
-import { UserPF2e } from "@module/user";
-import { TokenDocumentPF2e } from "@scene";
-import { DamageCategorization } from "@system/damage/helpers";
-import { DamageRoll } from "@system/damage/roll";
-import { PERSISTENT_DAMAGE_IMAGES } from "@system/damage/values";
-import { DegreeOfSuccess } from "@system/degree-of-success";
-import { Statistic } from "@system/statistic";
+import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect/index.ts";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";
+import { UserPF2e } from "@module/user/index.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { DamageCategorization } from "@system/damage/helpers.ts";
+import { DamageRoll } from "@system/damage/roll.ts";
+import { PERSISTENT_DAMAGE_IMAGES } from "@system/damage/values.ts";
+import { DegreeOfSuccess } from "@system/degree-of-success.ts";
+import { Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e } from "@util";
-import { ConditionSource, ConditionSystemData, PersistentDamageData } from "./data";
-import { ConditionKey, ConditionSlug } from "./types";
+import { ConditionSource, ConditionSystemData, PersistentDamageData } from "./data.ts";
+import { ConditionKey, ConditionSlug } from "./types.ts";
 
 class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
     declare active: boolean;

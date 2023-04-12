@@ -1,9 +1,9 @@
-import { ModifierPF2e, MODIFIER_TYPES, StatisticModifier } from "@actor/modifiers";
-import { RollSubstitution } from "@module/rules/synthetics";
+import { ModifierPF2e, MODIFIER_TYPES, StatisticModifier } from "@actor/modifiers.ts";
+import { RollSubstitution } from "@module/rules/synthetics.ts";
 import { ErrorPF2e, htmlQuery, htmlQueryAll, setHasElement, tupleHasValue } from "@util";
-import { CheckRollContext } from "./types";
-import { LocalizePF2e } from "../localize";
-import { RollTwiceOption } from "../rolls";
+import { CheckRollContext } from "./types.ts";
+import { LocalizePF2e } from "../localize.ts";
+import { RollTwiceOption } from "../rolls.ts";
 
 /**
  * Dialog for excluding certain modifiers before rolling a check.

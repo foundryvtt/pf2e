@@ -1,4 +1,4 @@
-import { DamageCategory, DamageType } from "./types";
+import { DamageCategory, DamageType } from "./types.ts";
 
 const PHYSICAL_DAMAGE_TYPES = ["bludgeoning", "piercing", "slashing", "bleed"] as const;
 const LIFE_ENERGY_DAMAGE_TYPES = ["positive", "negative"] as const;

@@ -1,4 +1,4 @@
-import { CanvasBaseAmbientSound } from "./client-base-mixes.mjs";
+import { CanvasBaseAmbientSound } from "./client-base-mixes.js";
 
 declare global {
     class AmbientSoundDocument<TParent extends Scene | null> extends CanvasBaseAmbientSound<TParent> {}

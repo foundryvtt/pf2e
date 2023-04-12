@@ -1,3 +1,3 @@
-export { DeityPF2e } from "./document";
-export { DeitySheetPF2e } from "./sheet";
-export { DeitySource } from "./data";
+export { DeityPF2e } from "./document.ts";
+export { DeitySheetPF2e } from "./sheet.ts";
+export { DeitySource } from "./data.ts";

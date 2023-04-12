@@ -1,6 +1,6 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function forceOpen(options: SkillActionOptions) {
+export function forceOpen(options: SkillActionOptions): void {
     const slug = options?.skill ?? "athletics";
     const rollOptions = ["action:force-open"];
     const modifiers = options?.modifiers;
@@ -18,5 +18,8 @@ export function forceOpen(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.ForceOpen", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.ForceOpen", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

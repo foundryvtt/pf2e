@@ -1,6 +1,6 @@
-import { CreatureConfig, CreatureConfigData } from "@actor/creature/config";
-import { createSheetOptions, SheetOptions } from "@module/sheet/helpers";
-import { NPCPF2e } from ".";
+import { CreatureConfig, CreatureConfigData } from "@actor/creature/config.ts";
+import { createSheetOptions, SheetOptions } from "@module/sheet/helpers.ts";
+import { NPCPF2e } from "./document.ts";
 
 export class NPCConfig extends CreatureConfig<NPCPF2e> {
     override async getData(options: Partial<DocumentSheetOptions> = {}): Promise<NPCConfigData> {

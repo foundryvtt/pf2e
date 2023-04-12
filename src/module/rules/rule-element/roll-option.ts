@@ -1,16 +1,16 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { PredicateField } from "@system/schema-data-fields";
+import { PredicateField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, isObject } from "@util";
-import {
+import type {
     ArrayField,
     BooleanField,
     ModelPropsFromSchema,
     SchemaField,
     StringField,
-} from "types/foundry/common/data/fields.mjs";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from ".";
-import { RollOptionToggle } from "../synthetics";
+} from "types/foundry/common/data/fields.d.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
+import { RollOptionToggle } from "../synthetics.ts";
 
 const { fields } = foundry.data;
 

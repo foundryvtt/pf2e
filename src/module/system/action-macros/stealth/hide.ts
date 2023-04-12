@@ -1,9 +1,9 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
-import { SingleCheckAction } from "@actor/actions";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { SingleCheckAction } from "@actor/actions/index.ts";
 
 const PREFIX = "PF2E.Actions.Hide";
 
-function hide(options: SkillActionOptions) {
+function hide(options: SkillActionOptions): void {
     const slug = options?.skill ?? "stealth";
     const rollOptions = ["action:hide"];
     const modifiers = options?.modifiers;
@@ -20,6 +20,9 @@ function hide(options: SkillActionOptions) {
         extraNotes: (selector: string) => [
             ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.success`, ["success", "criticalSuccess"]),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }
 

@@ -1,7 +1,7 @@
 import { CharacterPF2e } from "@actor";
-import { Abilities } from "@actor/creature/data";
-import { AbilityString } from "@actor/types";
-import { ABILITY_ABBREVIATIONS } from "@actor/values";
+import { Abilities } from "@actor/creature/data.ts";
+import { AbilityString } from "@actor/types.ts";
+import { ABILITY_ABBREVIATIONS } from "@actor/values.ts";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e } from "@item";
 import { ErrorPF2e, htmlQuery, setHasElement } from "@util";
 

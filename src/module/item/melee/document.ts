@@ -1,14 +1,13 @@
+import { SIZE_TO_REACH } from "@actor/creature/values.ts";
 import { ActorPF2e } from "@actor";
-import { SIZE_TO_REACH } from "@actor/creature/values";
-import { ItemPF2e } from "@item/base";
-import { ItemSummaryData } from "@item/data";
-import { WeaponPF2e } from "@item/weapon";
-import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponRangeIncrement } from "@item/weapon/types";
-import { combineTerms } from "@scripts/dice";
-import { ConvertedNPCDamage, WeaponDamagePF2e } from "@system/damage/weapon";
-import { DamageCategorization } from "@system/damage/helpers";
+import { ItemSummaryData } from "@item/data/index.ts";
+import { ItemPF2e, WeaponPF2e } from "@item";
+import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponRangeIncrement } from "@item/weapon/types.ts";
+import { combineTerms } from "@scripts/dice.ts";
+import { DamageCategorization } from "@system/damage/helpers.ts";
+import { ConvertedNPCDamage, WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { tupleHasValue } from "@util";
-import { MeleeFlags, MeleeSource, MeleeSystemData, NPCAttackTrait } from "./data";
+import { MeleeFlags, MeleeSource, MeleeSystemData, NPCAttackTrait } from "./data.ts";
 
 class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     /** Set during data preparation if a linked weapon is found */

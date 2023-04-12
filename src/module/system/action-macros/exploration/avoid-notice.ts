@@ -1,6 +1,6 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function avoidNotice(options: SkillActionOptions) {
+export function avoidNotice(options: SkillActionOptions): void {
     const slug = options?.skill ?? "stealth";
     const rollOptions = ["action:avoid-notice"];
     const modifiers = options?.modifiers;
@@ -17,5 +17,8 @@ export function avoidNotice(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.AvoidNotice", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.AvoidNotice", "success"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

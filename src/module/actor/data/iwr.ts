@@ -1,8 +1,8 @@
-import { ImmunityType, IWRType, ResistanceType, WeaknessType } from "@actor/types";
-import { CONDITION_SLUGS } from "@item/condition/values";
-import { MAGIC_SCHOOLS } from "@item/spell/values";
-import { WEAPON_MATERIAL_EFFECTS } from "@item/weapon/values";
-import { PredicatePF2e, PredicateStatement } from "@system/predication";
+import { ImmunityType, IWRType, ResistanceType, WeaknessType } from "@actor/types.ts";
+import { CONDITION_SLUGS } from "@item/condition/values.ts";
+import { MAGIC_SCHOOLS } from "@item/spell/values.ts";
+import { WEAPON_MATERIAL_EFFECTS } from "@item/weapon/values.ts";
+import { PredicatePF2e, PredicateStatement } from "@system/predication.ts";
 import { setHasElement } from "@util";
 
 abstract class IWRData<TType extends IWRType> {
