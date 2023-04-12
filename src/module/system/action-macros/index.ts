@@ -42,7 +42,7 @@ import { senseDirection } from "./exploration/sense-direction.ts";
 import { track } from "./exploration/track.ts";
 import { decipherWriting } from "./general/decipher-writing.ts";
 import { subsist } from "./general/subsist.ts";
-import { coerce } from "./intimidation/coerce.ts";
+import * as coerce from "./intimidation/coerce.ts";
 import { demoralize } from "./intimidation/demoralize.ts";
 import * as administerFirstAid from "./medicine/administer-first-aid.ts";
 import * as treatDisease from "./medicine/treat-disease.ts";
@@ -117,7 +117,7 @@ export const ActionMacros = {
     subsist,
 
     // Intimidation
-    coerce,
+    coerce: coerce.legacy,
     demoralize,
 
     // Medicine
@@ -149,6 +149,7 @@ export const ActionMacros = {
 export const SystemActions: Action[] = [
     administerFirstAid.action,
     balance.action,
+    coerce.action,
     commandAnAnimal.action,
     concealAnObject.action,
     crawl,
