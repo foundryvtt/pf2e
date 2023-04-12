@@ -983,6 +983,7 @@ export const PF2ECONFIG = {
         "attached-to-firearm": "PF2E.TraitAttachedToFirearm",
         "attached-to-firearm-scope": "PF2E.TraitAttachedToFirearmScope",
         bonded: "PF2E.TraitBonded",
+        carried: "PF2E.TraitCarried",
         "each-rune-applied-to-a-separate-item-that-has-pockets":
             "PF2E.TraitEachRuneAppliedToASeparateItemThatHasPockets",
         "etched-onto-a-weapon": "PF2E.TraitEtchedOntoAWeapon",
