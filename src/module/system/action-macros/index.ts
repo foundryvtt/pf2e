@@ -44,7 +44,7 @@ import { decipherWriting } from "./general/decipher-writing.ts";
 import { subsist } from "./general/subsist.ts";
 import { coerce } from "./intimidation/coerce.ts";
 import { demoralize } from "./intimidation/demoralize.ts";
-import { administerFirstAid } from "./medicine/administer-first-aid.ts";
+import * as administerFirstAid from "./medicine/administer-first-aid.ts";
 import { treatDisease } from "./medicine/treat-disease.ts";
 import { treatPoison } from "./medicine/treat-poison.ts";
 import * as commandAnAnimal from "./nature/command-an-animal.ts";
@@ -121,7 +121,7 @@ export const ActionMacros = {
     demoralize,
 
     // Medicine
-    administerFirstAid,
+    administerFirstAid: administerFirstAid.legacy,
     treatDisease,
     treatPoison,
 
@@ -147,6 +147,7 @@ export const ActionMacros = {
 };
 
 export const SystemActions: Action[] = [
+    administerFirstAid.action,
     balance.action,
     commandAnAnimal.action,
     concealAnObject.action,
