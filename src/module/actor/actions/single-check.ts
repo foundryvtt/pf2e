@@ -76,27 +76,27 @@ class SingleCheckActionVariant extends BaseActionVariant {
         }
     }
 
-    get difficultyClass() {
+    get difficultyClass(): CheckDC | string | undefined {
         return this.#difficultyClass ?? this.#action.difficultyClass;
     }
 
-    get modifiers() {
+    get modifiers(): RawModifier[] {
         return this.#modifiers ?? this.#action.modifiers;
     }
 
-    get notes() {
+    get notes(): RollNoteSource[] {
         return this.#notes ?? this.#action.notes;
     }
 
-    get rollOptions() {
+    get rollOptions(): string[] {
         return this.#rollOptions ?? this.#action.rollOptions;
     }
 
-    get statistic() {
+    get statistic(): string {
         return this.#statistic ?? this.#action.statistic;
     }
 
-    override async use(options: Partial<SingleCheckActionUseOptions> = {}) {
+    override async use(options: Partial<SingleCheckActionUseOptions> = {}): Promise<CheckResultCallback[]> {
         const difficultyClass = options?.difficultyClass ?? this.difficultyClass;
         const modifiers = this.modifiers.map((raw) => new ModifierPF2e(raw)).concat(options?.modifiers ?? []);
         if (options?.multipleAttackPenalty) {
