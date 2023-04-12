@@ -1,13 +1,17 @@
-class ArmySheetPF2e extends ActorSheet {
+import { ArmyPF2e } from "@actor";
+import { ActorSheetPF2e } from "@actor/sheet/base";
+
+class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
     static override get defaultOptions() {
         const options = super.defaultOptions;
         return foundry.utils.mergeObject(options, {
             classes: [...options.classes, "pf2e", "army"],
             template: "systems/pf2e/templates/actors/army/sheet.hbs",
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "main" }],
-            scrollY: [".tab.main", ".tab.inventory", ".tab.effects", ".tab.notes"]
+            scrollY: [".tab.main", ".tab.inventory", ".tab.effects", ".tab.notes"],
         });
     }
+
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         const rollables = ["a.rollable", ".rollable a", ".item-icon.rollable"].join(", ");
@@ -17,7 +21,6 @@ class ArmySheetPF2e extends ActorSheet {
     async #onClickRollable(event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement>): Promise<void> {
         event.preventDefault();
     }
-
 }
 
-export {ArmySheetPF2e};
+export { ArmySheetPF2e };
