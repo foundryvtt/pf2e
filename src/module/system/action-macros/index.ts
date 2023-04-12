@@ -43,7 +43,7 @@ import { track } from "./exploration/track.ts";
 import { decipherWriting } from "./general/decipher-writing.ts";
 import { subsist } from "./general/subsist.ts";
 import * as coerce from "./intimidation/coerce.ts";
-import { demoralize } from "./intimidation/demoralize.ts";
+import * as demoralize from "./intimidation/demoralize.ts";
 import * as administerFirstAid from "./medicine/administer-first-aid.ts";
 import * as treatDisease from "./medicine/treat-disease.ts";
 import * as treatPoison from "./medicine/treat-poison.ts";
@@ -118,7 +118,7 @@ export const ActionMacros = {
 
     // Intimidation
     coerce: coerce.legacy,
-    demoralize,
+    demoralize: demoralize.legacy,
 
     // Medicine
     administerFirstAid: administerFirstAid.legacy,
@@ -155,6 +155,7 @@ export const SystemActions: Action[] = [
     crawl,
     createForgery.action,
     delay,
+    demoralize.action,
     disableDevice.action,
     dropProne,
     escape.action,
