@@ -13,7 +13,7 @@ import { Statistic } from "@system/statistic/index.ts";
 import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
 import { BaseAction, BaseActionData, BaseActionVariant, BaseActionVariantData } from "./base.ts";
 import { getActionGlyph } from "@util";
-import { ActorPF2e } from "@actor";
+import { ActorPF2e, CreaturePF2e } from "@actor";
 import { ItemPF2e } from "@item";
 
 type SingleCheckActionRollNoteData = Omit<RollNoteSource, "selector"> & { selector?: string };
@@ -123,7 +123,7 @@ class SingleCheckActionVariant extends BaseActionVariant {
             difficultyClass: isCheckDC(difficultyClass) ? difficultyClass : undefined,
             difficultyClassStatistic: isString(difficultyClass)
                 ? (target) => getProperty(target, difficultyClass) as Statistic
-                : undefined,
+                : this.difficultyClassWithTarget,
             event: options?.event,
             extraNotes: (selector) =>
                 notes.map((note) => {
@@ -140,6 +140,10 @@ class SingleCheckActionVariant extends BaseActionVariant {
         data: CheckContextData<ItemType>
     ): CheckContext<ItemType> | undefined {
         return ActionMacroHelpers.defaultCheckContext(opts, data);
+    }
+
+    protected difficultyClassWithTarget(_target: CreaturePF2e): Statistic | null {
+        return null;
     }
 }
 
