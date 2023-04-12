@@ -141,7 +141,7 @@ abstract class BaseAction<TData extends BaseActionVariantData, TAction extends B
         return new Collection(variants);
     }
 
-    protected async getDefaultVariant(options?: { variant?: string }): Promise<ActionVariant | TAction> {
+    protected async getDefaultVariant(options?: { variant?: string }): Promise<TAction> {
         const variants = this.variants;
         if (options?.variant && !variants.size) {
             const reason = game.i18n.format("PF2E.ActionsWarning.Variants.None", {
@@ -168,7 +168,8 @@ abstract class BaseAction<TData extends BaseActionVariantData, TAction extends B
     }
 
     async toMessage(options?: Partial<ActionMessageOptions>): Promise<ChatMessagePF2e | undefined> {
-        const variant = await this.getDefaultVariant();
+        // use the data from the action to construct the message if no variant is specified
+        const variant = options?.variant ? await this.getDefaultVariant(options) : undefined;
         return (variant ?? this.toActionVariant()).toMessage(options);
     }
 
