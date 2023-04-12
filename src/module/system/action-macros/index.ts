@@ -45,7 +45,7 @@ import { subsist } from "./general/subsist.ts";
 import { coerce } from "./intimidation/coerce.ts";
 import { demoralize } from "./intimidation/demoralize.ts";
 import * as administerFirstAid from "./medicine/administer-first-aid.ts";
-import { treatDisease } from "./medicine/treat-disease.ts";
+import * as treatDisease from "./medicine/treat-disease.ts";
 import { treatPoison } from "./medicine/treat-poison.ts";
 import * as commandAnAnimal from "./nature/command-an-animal.ts";
 import { perform } from "./performance/perform.ts";
@@ -122,7 +122,7 @@ export const ActionMacros = {
 
     // Medicine
     administerFirstAid: administerFirstAid.legacy,
-    treatDisease,
+    treatDisease: treatDisease.legacy,
     treatPoison,
 
     // Nature
@@ -174,6 +174,7 @@ export const SystemActions: Action[] = [
     step,
     stride,
     takeCover,
+    treatDisease.action,
     trip.action,
     tumbleThrough.action,
 ];
