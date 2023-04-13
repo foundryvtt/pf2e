@@ -19,7 +19,33 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "snagging-strike",
+                "toggleable": true
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "predicate": [
+                    "snagging-strike",
+                    {
+                        "gte": [
+                            "hands-free",
+                            1
+                        ]
+                    }
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.Fighter.SnaggingStrike.Note",
+                "title": "{item|name}"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
