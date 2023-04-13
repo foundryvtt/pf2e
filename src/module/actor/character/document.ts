@@ -138,8 +138,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     declare initiative: ActorInitiative;
 
-    // Internal cached value of character skills
-    protected override _skills: CharacterSkills | null = null;
+    /** Internal cached value of skill `Statistic`s: temporarily public until `StatisticModifier` is retired for skills */
+    override _skills: CharacterSkills | null = null;
 
     override get allowedItemTypes(): (ItemType | "physical")[] {
         const buildItems = ["ancestry", "heritage", "background", "class", "deity", "feat"] as const;
@@ -1075,16 +1075,20 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             const stat = mergeObject(new StatisticModifier(longForm, modifiers, this.getRollOptions(domains)), skill, {
                 overwrite: false,
             });
-            stat.breakdown = stat.modifiers
-                .filter((modifier) => modifier.enabled)
-                .map((modifier) => {
-                    const prefix = modifier.modifier < 0 ? "" : "+";
-                    return `${modifier.label} ${prefix}${modifier.modifier}`;
-                })
-                .join(", ");
             stat.value = stat.totalModifier;
             stat.notes = extractNotes(synthetics.rollNotes, domains);
             stat.rank = skill.rank;
+            Object.defineProperty(stat, "breakdown", {
+                get(): string {
+                    return stat.modifiers
+                        .filter((m) => m.enabled)
+                        .map((modifier) => {
+                            const prefix = modifier.modifier < 0 ? "" : "+";
+                            return `${modifier.label} ${prefix}${modifier.modifier}`;
+                        })
+                        .join(", ");
+                },
+            });
             stat.roll = async (params: RollParameters): Promise<Rolled<CheckRoll> | null> => {
                 console.warn(
                     `Rolling skill checks via actor.system.skills.${shortForm}.roll() is deprecated: use actor.skills.${longForm}.roll() instead.`
@@ -1685,6 +1689,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             imageUrl: weapon.img,
             quantity: weapon.quantity,
             ready: weapon.isEquipped,
+            domains: selectors,
             visible: weapon.slug !== "basic-unarmed" || this.flags.pf2e.showBasicUnarmed,
             glyph: "A",
             item: weapon,
@@ -1732,17 +1737,15 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             { weapon: weapon.name }
         );
 
-        const noMAPLabel = ((): string => {
-            const strike = game.i18n.localize("PF2E.WeaponStrikeLabel");
-            const value = action.totalModifier;
-            const sign = value < 0 ? "" : "+";
-            return `${strike} ${sign}${value}`;
-        })();
-
-        const labels: [string, string, string] = [
-            noMAPLabel,
-            game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: multipleAttackPenalty.map1 }),
-            game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: multipleAttackPenalty.map2 }),
+        const labels: [() => string, () => string, () => string] = [
+            () => {
+                const strike = game.i18n.localize("PF2E.WeaponStrikeLabel");
+                const value = action.totalModifier;
+                const sign = value < 0 ? "" : "+";
+                return `${strike} ${sign}${value}`;
+            },
+            () => game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: multipleAttackPenalty.map1 }),
+            () => game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: multipleAttackPenalty.map2 }),
         ];
         const checkModifiers = [
             (statistic: StrikeData, otherModifiers: ModifierPF2e[]) =>
@@ -1760,12 +1763,14 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         ];
 
         action.variants = [0, 1, 2]
-            .map((index): [string, (statistic: StrikeData, otherModifiers: ModifierPF2e[]) => CheckModifier] => [
+            .map((index): [() => string, (statistic: StrikeData, otherModifiers: ModifierPF2e[]) => CheckModifier] => [
                 labels[index],
                 checkModifiers[index],
             ])
-            .map(([label, constructModifier], mapIncreases) => ({
-                label,
+            .map(([getLabel, constructModifier], mapIncreases) => ({
+                get label(): string {
+                    return getLabel();
+                },
                 roll: async (params: AttackRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
                     params.options ??= [];
                     params.consumeAmmo ??= weapon.requiresAmmo;

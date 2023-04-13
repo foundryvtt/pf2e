@@ -235,6 +235,8 @@ interface CharacterStrike extends StrikeData {
     item: WeaponPF2e<CharacterPF2e>;
     /** Whether this attack is visible on the sheet */
     visible: boolean;
+    /** Domains/selectors from which modifiers are drawn */
+    domains: string[];
     altUsages: CharacterStrike[];
     auxiliaryActions: AuxiliaryAction[];
     weaponTraits: TraitViewData[];
