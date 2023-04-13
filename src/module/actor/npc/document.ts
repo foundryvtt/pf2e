@@ -10,7 +10,7 @@ import { ItemPF2e, MeleePF2e } from "@item";
 import { ItemType } from "@item/data/index.ts";
 import { calculateDC } from "@module/dc.ts";
 import { RollNotePF2e } from "@module/notes.ts";
-import { identifyCreature } from "@module/recall-knowledge.ts";
+import { CreatureIdentificationData, creatureIdentificationDCs } from "@module/recall-knowledge.ts";
 import {
     extractDegreeOfSuccessAdjustments,
     extractModifierAdjustments,
@@ -58,6 +58,11 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
     /** Does this NPC have the Weak adjustment? */
     get isWeak(): boolean {
         return this.attributes.adjustment === "weak";
+    }
+
+    get identificationDCs(): CreatureIdentificationData {
+        const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
+        return creatureIdentificationDCs(this, { proficiencyWithoutLevel });
     }
 
     /** Users with limited permission can loot a dead NPC */
@@ -127,9 +132,6 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             details.alliance = this.hasPlayerOwner ? "party" : "opposition";
         }
 
-        const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
-        details.identification = identifyCreature(this, { proficiencyWithoutLevel });
-
         // Ensure undead have negative healing
         attributes.hp.negativeHealing = systemData.traits.value.includes("undead");
 
@@ -143,6 +145,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         this.rollOptions.all[`self:level:${level.value}`] = true;
 
         attributes.classDC = ((): { value: number } => {
+            const proficiencyWithoutLevel =
+                game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
             const levelBasedDC = calculateDC(level.base, { proficiencyWithoutLevel, rarity: this.rarity });
             const adjusted = this.isElite ? levelBasedDC + 2 : this.isWeak ? levelBasedDC - 2 : levelBasedDC;
             return { value: adjusted };

@@ -219,6 +219,7 @@
                 }
             },
             "Creature": {
+                "AbilityModifiers": "Ability Modifiers",
                 "Alliance": {
                     "Default": "Ownership Default ({alliance})",
                     "Neutral": "Neutral",
@@ -314,6 +315,16 @@
                     },
                     "Label": "Generate Attack",
                     "Notification": "Generated NPC attack: {attack}"
+                },
+                "Identification": {
+                    "Skills": {
+                        "Label": "{skills}: DC {dc} ({adjustment})",
+                        "Tooltip": "\"The skill used to identify a creature usually depends on that creature’s trait, as shown on Table 10–7, but you have leeway on which skills apply.\" – CRB pg. 506"
+                    },
+                    "Lore": {
+                        "Label": "Applicable Lore: DC {dc1} ({adjustment1}) or DC {dc2} ({adjustment2})",
+                        "Tooltip": "\"Using the applicable Lore usually has an easy or very easy DC (before adjusting for rarity).\" – CRB pg. 506"
+                    }
                 }
             },
             "Plural": "Actors"
@@ -842,7 +853,7 @@
         "DCAdjustmentHard": "hard",
         "DCAdjustmentIncrediblyEasy": "incredibly easy",
         "DCAdjustmentIncrediblyHard": "incredibly hard",
-        "DCAdjustmentNormal": "normal",
+        "DCAdjustmentNormal": "baseline",
         "DCAdjustmentVeryEasy": "very easy",
         "DCAdjustmentVeryHard": "very hard",
         "DCBase": "Base DC 10",
@@ -2173,7 +2184,6 @@
         },
         "Lore": "Lore",
         "LoreProficiencyDisclaimer": "Informational only. Will not change the skill modifier.",
-        "LoreSkillFormat": "{name} Lore",
         "LoreSkillsHeader": "Lore Skills",
         "MAPAbbreviationLabel": "MAP {penalty}",
         "Macro": {
@@ -2539,12 +2549,12 @@
             "FourthAttempt": "4th DC",
             "Help": "You can attempt repeated Recall Knowledge actions to recall more information about a creature. These checks increase in difficulty as shown in the chart below. However, if you fail, or if no DC is listed, you can not attempt further Recall Knowledge checks against this creature.",
             "Label": "Recall Knowledge",
+            "LoreEasy": "Applicable Lore (Easy)",
+            "LoreVeryEasy": "Applicable Lore (Very Easy)",
             "SecondAttempt": "2nd DC",
             "SixthAttempt": "6th DC",
             "Skill": "Skill",
-            "SpecificLore": "Specific Lore",
-            "ThirdAttempt": "3rd DC",
-            "UnspecificLore": "Unspecific Lore"
+            "ThirdAttempt": "3rd DC"
         },
         "Recovery": {
             "critFailure": "Increase your dying value by 2.",
