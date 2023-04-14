@@ -68,7 +68,8 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
     if (command === "serve") {
         const message = "This file is for a running vite dev server and is not copied to a build";
         fs.writeFileSync("./index.html", `<h1>${message}</h1>\n`);
-        fs.writeFileSync("./pf2e.css", `/** ${message} */\n`);
+        if (!fs.existsSync("./styles")) fs.mkdirSync("./styles");
+        fs.writeFileSync("./styles/pf2e.css", `/** ${message} */\n`);
         fs.writeFileSync("./pf2e.mjs", `/** ${message} */\n\nimport "./src/pf2e.ts";\n`);
         fs.writeFileSync("./vendor.mjs", `/** ${message} */\n`);
     }
@@ -85,7 +86,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             outDir,
             emptyOutDir: true,
             minify: false,
-            sourcemap: buildMode === "development" ? "inline" : false,
+            sourcemap: buildMode === "development",
             lib: {
                 name: "pf2e",
                 entry: "src/pf2e.ts",

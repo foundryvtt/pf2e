@@ -5,6 +5,7 @@ type ActionCost = (typeof ACTION_COST)[number];
 
 interface ActionMessageOptions {
     blind: boolean;
+    variant: string;
     whisper: string[];
 }
 

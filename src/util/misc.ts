@@ -317,8 +317,9 @@ function ordinal(value: number): string {
     return game.i18n.format("PF2E.OrdinalNumber", { value, suffix });
 }
 
-/** Localizes a list of strings into a comma delimited list for the current language */
+/** Localizes a list of strings into a (possibly comma-delimited) list for the current language */
 function localizeList(items: string[], { conjunction = "or" }: { conjunction?: "and" | "or" } = {}): string {
+    items = [...items].sort((a, b) => a.localeCompare(b, game.i18n.lang));
     const parts = conjunction === "or" ? "PF2E.ListPartsOr" : "PF2E.ListPartsAnd";
 
     if (items.length === 0) return "";

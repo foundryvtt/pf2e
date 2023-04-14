@@ -2,7 +2,9 @@
     "PF2E": {
         "Actions": {
             "AdministerFirstAid": {
+                "Description": "<p>You perform first aid on an adjacent creature that is dying or bleeding. If a creature is both dying and bleeding, choose which ailment you're trying to treat before you roll. You can Administer First Aid again to attempt to remedy the other effect.</p><ol><li><strong>Stabilize</strong> Attempt a Medicine check on a creature that has 0 Hit Points and the dying condition. The DC is equal to 5 + that creature's recovery roll DC (typically 15 + its dying value).</li><li><strong>Stop Bleeding</strong> Attempt a Medicine check on a creature that is taking persistent bleed damage, giving them a chance to make another flat check to remove the persistent damage. The DC is usually the DC of the effect that caused the bleed.</li></ol><p><strong>Success</strong> If you're trying to stabilize, the creature loses the dying condition (but remains unconscious). If you're trying to stop bleeding, the creature attempts a flat check to end the bleeding.<br><strong>Critical Failure</strong> If you were trying to stabilize, the creature's dying value increases by 1. If you were trying to stop bleeding, it immediately takes an amount of damage equal to its persistent bleed damage.</p>",
                 "Stabilize": {
+                    "Description": "<p>You perform first aid on an adjacent creature that is dying. Attempt a Medicine check on a creature that has 0 Hit Points and the dying condition. The DC is equal to 5 + that creature's recovery roll DC (typically 15 + its dying value).</p><p><strong>Success</strong> The creature loses the dying condition (but remains unconscious).<br><strong>Critical Failure</strong> The creature's dying value increases by 1.</p>",
                     "DifficultyClass": {
                         "Label": "Administer First Aid DC"
                     },
@@ -10,15 +12,17 @@
                         "criticalFailure": "<strong>Critical Failure</strong> The creature's dying value increases by 1.",
                         "success": "<strong>Success</strong> The creature loses the dying condition (but remains unconscious)."
                     },
-                    "Title": "Administer First Aid - Stabilize"
+                    "Title": "Stabilize"
                 },
                 "StopBleeding": {
+                    "Description": "<p>You perform first aid on an adjacent creature that is bleeding. Attempt a Medicine check on a creature that is taking persistent bleed damage, giving them a chance to make another flat check to remove the persistent damage. The DC is usually the DC of the effect that caused the bleed.</p><p><strong>Success</strong> The creature attempts a flat check to end the bleeding.<br><strong>Critical Failure</strong> The creature immediately takes an amount of damage equal to its persistent bleed damage.</p>",
                     "Notes": {
                         "criticalFailure": "<strong>Critical Failure</strong> The creature immediately takes an amount of damage equal to its persistent bleed damage.",
                         "success": "<strong>Success</strong> The creature attempts a flat check to end the bleeding."
                     },
-                    "Title": "Administer First Aid - Stop Bleeding"
+                    "Title": "Stop Bleeding"
                 },
+                "Title": "Administer First Aid",
                 "Warning": {
                     "TargetNotDying": "Targeted creature is not dying.",
                     "UnknownVariant": "Unknown variant {variant} used for Administer First Aid, use one of {variants}."
@@ -71,6 +75,7 @@
                 "Title": "Climb"
             },
             "Coerce": {
+                "Description": "<p>With threats either veiled or overt, you attempt to bully a creature into doing what you want. You must spend at least 1 minute of conversation with a creature you can see and that can either see or sense you. At the end of the conversation, attempt an Intimidation check against the target's Will DC, modified by any circumstances the GM determines. The attitudes referenced in the effects below are summarized in the Changing Attitudes sidebar and described in full in the Conditions Appendix.</p><p><strong>Critical Success</strong> The target gives you the information you seek or agrees to follow your directives so long as they aren't likely to harm the target in any way. The target continues to comply for an amount of time determined by the GM but not exceeding 1 day, at which point the target becomes unfriendly (if they weren't already unfriendly or hostile). However, the target is too scared of you to retaliate - at least in the short term.<br><strong>Success</strong> As critical success, but once the target becomes unfriendly, they might decide to act against you — for example, by reporting you to the authorities or assisting your enemies.<br><strong>Failure</strong> The target doesn't do what you say, and if they were not already unfriendly or hostile, they become unfriendly.<br><strong>Critical Failure</strong> The target refuses to comply, becomes hostile if they weren't already, and can't be Coerced by you for at least 1 week.</p>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> The target refuses to comply, becomes hostile if they weren't already, and can't be Coerced by you for at least 1 week.",
                     "criticalSuccess": "<strong>Critical Success</strong> The target gives you the information you seek or agrees to follow your directives so long as they aren't likely to harm the target in any way. The target continues to comply for an amount of time determined by the GM but not exceeding 1 day, at which point the target becomes unfriendly (if they weren't already unfriendly or hostile). However, the target is too scared of you to retaliate—at least in the short term.",
@@ -80,6 +85,7 @@
                 "Title": "Coerce"
             },
             "CommandAnAnimal": {
+                "Description": "<p>You issue an order to an animal. Attempt a Nature check against the animal's Will DC. The GM might adjust the DC if the animal has a good attitude toward you, you suggest a course of action it was predisposed toward, or you offer it a treat.</p><p>You automatically fail if the animal is hostile or unfriendly to you. If the animal is helpful to you, increase your degree of success by one step. You might be able to Command an Animal more easily with a feat like Ride.</p><p>Most animals know the Drop Prone, Leap, Seek, Stand, Stride, and Strike basic actions. If an animal knows an activity, such as a horse's Gallop, you can Command the Animal to perform the activity, but you must spend as many actions on Command an Animal as the activity's number of actions. You can also spend multiple actions to Command the Animal to perform that number of basic actions on its next turn; for instance, you could spend 3 actions to Command an Animal to Stride three times or to Stride twice and then Strike.</p><p><strong>Success</strong> The animal does as you command on its next turn.<br><strong>Failure</strong> The animal is hesitant or resistant, and it does nothing.<br><strong>Critical Failure</strong> The animal misbehaves or misunderstands, and it takes some other action determined by the GM.</p>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> The animal misbehaves or misunderstands, and it takes some other action determined by the GM.",
                     "failure": "<strong>Failure</strong> The animal is hesitant or resistant, and it does nothing.",
@@ -88,6 +94,7 @@
                 "Title": "Command an Animal"
             },
             "ConcealAnObject": {
+                "Description": "<p>You hide a small object on your person (such as a weapon of light Bulk). When you try to sneak a concealed object past someone who might notice it, the GM rolls your Stealth check and compares it to this passive observer's Perception DC. Once the GM rolls your check for a concealed object, that same result is used no matter how many passive observers you try to sneak it past. If a creature is specifically searching you for an item, it can attempt a Perception check against your Stealth DC (finding the object on success).</p><p>You can also conceal an object somewhere other than your person, such as among undergrowth or in a secret compartment within a piece of furniture. In this case, characters Seeking in an area compare their Perception check results to your Stealth DC to determine whether they find the object.</p><p><strong>Success</strong> The object remains undetected.<br><strong>Failure</strong> The searcher finds the object.</p>",
                 "Notes": {
                     "failure": "<strong>Failure</strong> The searcher finds the object.",
                     "success": "<strong>Success</strong> The object remains undetected."
@@ -159,6 +166,7 @@
                 }
             },
             "CreateForgery": {
+                "Description": "<p>You create a forged document, usually over the course of a day or a week. You must have the proper writing material to create a forgery. When you Create a Forgery, the GM rolls a secret DC 20 Society check. If you succeed, the forgery is of good enough quality that passive observers can't notice the fake. Only those who carefully examine the document and attempt a Perception or Society check against your Society DC can do so.</p><p>If the document's handwriting doesn't need to be specific to a person, you need only to have seen a similar document before, and you gain up to a +4 circumstance bonus to your check, as well as to your DC (the GM determines the bonus). To forge a specific person's handwriting, you need a sample of that person's handwriting.</p><p>If your check result was below 20, the forgery has some obvious signs of being a fake, so the GM compares your result to each passive observer's Perception DC or Society DC, whichever is higher, using the success or failure results below. Once the GM rolls your check for a document, that same result is used against all passive observers' DCs no matter how many creatures passively observe that document.</p><p>An observer who was fooled on a passive glance can still choose to closely scrutinize the documents on the lookout for a forgery, using different techniques and analysis methods beyond the surface elements you successfully forged with your original check. In that case, the observer can attempt a Perception or Society check against your Society DC (if they succeed, they know your document is a forgery).</p><p><strong>Success</strong> The observer does not detect the forgery.<br><strong>Failure</strong> The observer knows your document is a forgery.</p>",
                 "ForgedDocument": {
                     "Description": "<p>An observer who was fooled on a passive glance can still choose to closely scrutinize the documents on the lookout for a forgery, using different techniques and analysis methods beyond the surface elements you successfully forged with your original check. In that case, the observer can attempt a @Check[type:perception|dc:{societyDC}] or @Check[type:society|dc:{societyDC}] check against your Society DC (if they succeed, they know your document is a forgery).</p>",
                     "FailureGmNote": "<p>The forgery has some obvious signs of being a fake, so the GM compares the result of {total} to each passive observer's Perception DC or Society DC, whichever is higher, using the success or failure results below. The same result is used against all passive observers' DCs no matter how many creatures passively observe that document.</p>\n<p>{success}</p>\n<p>{failure}</p>",
@@ -192,13 +200,16 @@
                 "Title": "Delay"
             },
             "Demoralize": {
+                "Description": "<p>With a sudden shout, a well-timed taunt, or a cutting put-down, you can shake an enemy's resolve. Choose a creature within 30 feet of you who you're aware of. Attempt an Intimidation check against that target's Will DC. If the target does not understand the language you are speaking, you're not speaking a language, or they can't hear you, you take a –4 circumstance penalty to the check. Regardless of your result, the target is temporarily immune to your attempts to Demoralize it for 10 minutes.</p><p><strong>Critical Success</strong> The target becomes frightened 2.<br><strong>Success</strong> The target becomes frightened 1.</p>",
                 "Notes": {
                     "criticalSuccess": "<strong>Critical Success</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.TBSHQspnbcqxsmjL]{Frightened 2}.",
                     "success": "<strong>Success</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.TBSHQspnbcqxsmjL]{Frightened 1}."
                 },
-                "Title": "Demoralize"
+                "Title": "Demoralize",
+                "Unintelligible": "Unintelligible"
             },
             "DisableDevice": {
+                "Description": "<p>This action allows you to disarm a trap or another complex device. Often, a device requires numerous successes before becoming disabled, depending on its construction and complexity. Thieves' tools are helpful and sometimes even required to Disable a Device, as determined by the GM, and sometimes a device requires a higher proficiency rank in Thievery to disable it.</p><p>Your Thievery check result determines how much progress you make.</p><p><strong>Critical Success</strong> You disable the device, or you achieve two successes toward disabling a complex device. You leave no trace of your tampering, and you can rearm the device later, if that type of device can be rearmed.<br><strong>Success</strong> You disable the device, or you achieve one success toward disabling a complex device.<br><strong>Critical Failure</strong> You trigger the device.</p>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> You trigger the device.",
                     "criticalSuccess": "<strong>Critical Success</strong> You disable the device, or you achieve two successes toward disabling a complex device. You leave no trace of your tampering, and you can rearm the device later, if that type of device can be rearmed.",
@@ -240,6 +251,7 @@
                 "Title": "Encouraging Words"
             },
             "Escape": {
+                "Description": "<p>You attempt to escape from being grabbed, immobilized, or restrained. Choose one creature, object, spell effect, hazard, or other impediment imposing any of those conditions on you. Attempt a check using your unarmed attack modifier against the DC of the effect. This is typically the Athletics DC of a creature grabbing you, the Thievery DC of a creature who tied you up, the spell DC for a spell effect, or the listed Escape DC of an object, hazard, or other impediment. You can attempt an Acrobatics or Athletics check instead of using your attack modifier if you choose (but this action still has the attack trait).</p><p><strong>Critical Success</strong> You get free and remove the grabbed, immobilized, and restrained conditions imposed by your chosen target. You can then Stride up to 5 feet.<br><strong>Success</strong> You get free and remove the grabbed, immobilized, and restrained conditions imposed by your chosen target.<br><strong>Critical Failure</strong> You don't get free, and you can't attempt to Escape again until your next turn.</p>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> You don't get free, and you can't attempt to Escape again until your next turn.",
                     "criticalSuccess": "<strong>Critical Success</strong> You get free and remove the grabbed, immobilized, and restrained conditions imposed by your chosen target. You can then Stride up to 5 feet.",
@@ -378,6 +390,7 @@
                 "Title": "Maneuver in Flight"
             },
             "PalmAnObject": {
+                "Description": "<p>Palming a small, unattended object without being noticed requires you to roll a single Thievery check against the Perception DCs of all creatures who are currently observing you. You take the object whether or not you successfully conceal that you did so. You can typically only Palm Objects of negligible Bulk, though the GM might determine otherwise depending on the situation.</p><p><strong>Success</strong> The creature does not notice you Palming the Object.<br><strong>Failure</strong> The creature notices you Palming the Object, and the GM determines the creature's response.</p>",
                 "Notes": {
                     "failure": "<strong>Failure</strong> The creature notices you Palming the Object, and the GM determines the creature's response.",
                     "success": "<strong>Success</strong> The creature does not notice you Palming the Object."
@@ -424,6 +437,7 @@
                 }
             },
             "PickALock": {
+                "Description": "<p>Opening a lock without a key is very similar to Disabling a Device, but the DC of the check is determined by the complexity and construction of the lock you are attempting to pick. Locks of higher qualities might require multiple successes to unlock, since otherwise even an unskilled burglar could easily crack the lock by attempting the check until they rolled a natural 20. If you lack the proper tools, the GM might let you used improvised picks, which are treated as shoddy tools, depending on the specifics of the lock.</p><p><strong>Critical Success</strong> You unlock the lock, or you achieve two successes toward opening a complex lock. You leave no trace of your tampering.<br><strong>Success</strong> You open the lock, or you achieve one success toward opening a complex lock.<br><strong>Critical Failure</strong> You break your tools. Fixing them requires using Crafting to Repair them or else swapping in replacement picks (costing 3 sp, or 3 gp for infiltrator thieves' tools).</p>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> You break your tools. Fixing them requires using Crafting to @UUID[Compendium.pf2e.actionspf2e.bT3skovyLUtP22ME]{Repair} them or else swapping in replacement picks (costing 3 sp, or 3 gp for infiltrator thieves' tools).",
                     "criticalSuccess": "<strong>Critical Success</strong> You unlock the lock, or you achieve two successes toward opening a complex lock. You leave no trace of your tampering.",
@@ -498,6 +512,7 @@
                 "Title": "Request"
             },
             "Seek": {
+                "Description": "<p>You scan an area for signs of creatures or objects. If you're looking for creatures, choose an area you're scanning. If precision is necessary, the GM can have you select a 30-foot cone or a 15-foot burst within line of sight. You might take a penalty if you choose an area that's far away.</p><p>If you're using Seek to search for objects (including secret doors and hazards), you search up to a 10-foot square adjacent to you. The GM might determine you need to Seek as an activity, taking more actions or even minutes or hours if you're searching a particularly cluttered area.</p><p>The GM attempts a single secret Perception check for you and compares the result to the Stealth DCs of any undetected or hidden creatures in the area or the DC to detect each object in the area (as determined by the GM or by someone Concealing the Object). A creature you detect might remain hidden, rather than becoming observed, if you're using an imprecise sense or if an effect (such as invisibility) prevents the subject from being observed.</p><p><strong>Critical Success</strong> If you were searching for creatures, any undetected or hidden creature you critically succeeded against becomes observed by you. If you were searching for an object, you learn its location.<br><strong>Success</strong> If you were searching for creatures, any undetected creature you succeeded against becomes hidden from you instead of undetected, and any hidden creature you succeeded against becomes observed by you. If you were searching for an object, you learn its location or get a clue to its whereabouts, as determined by the GM.</p>",
                 "Notes": {
                     "criticalSuccess": "<strong>Critical Success</strong> If you were searching for creatures, any @UUID[Compendium.pf2e.conditionitems.VRSef5y1LmL2Hkjf]{Undetected} or @UUID[Compendium.pf2e.conditionitems.iU0fEDdBp3rXpTMC]{Hidden} creature you critically succeeded against becomes @UUID[Compendium.pf2e.conditionitems.1wQY3JYyhMYeeV2G]{Observed} by you. If you were searching for an object, you learn its location.",
                     "success": "<strong>Success</strong> If you were searching for creatures, any @UUID[Compendium.pf2e.conditionitems.VRSef5y1LmL2Hkjf]{Undetected} creature you succeeded against becomes @UUID[Compendium.pf2e.conditionitems.iU0fEDdBp3rXpTMC]{Hidden} from you instead of @UUID[Compendium.pf2e.conditionitems.VRSef5y1LmL2Hkjf]{Undetected}, and any @UUID[Compendium.pf2e.conditionitems.iU0fEDdBp3rXpTMC]{Hidden} creature you succeeded against becomes @UUID[Compendium.pf2e.conditionitems.1wQY3JYyhMYeeV2G]{Observed} by you. If you were searching for an object, you learn its location or get a clue to its whereabouts, as determined by the GM."
@@ -515,6 +530,7 @@
                 "Title": "Sense Direction"
             },
             "SenseMotive": {
+                "Description": "<p>You try to tell whether a creature's behavior is abnormal. Choose one creature, and assess it for odd body language, signs of nervousness, and other indicators that it might be trying to deceive someone. The GM attempts a single secret Perception check for you and compares the result to the Deception DC of the creature, the DC of a spell affecting the creature's mental state, or another appropriate DC determined by the GM. You typically can't try to Sense the Motive of the same creature again until the situation changes significantly.</p><p><strong>Critical Success</strong> You determine the creature's true intentions and get a solid idea of any mental magic affecting it.<br><strong>Success</strong> You can tell whether the creature is behaving normally, but you don't know its exact intentions or what magic might be affecting it.<br><strong>Failure</strong> You detect what a deceptive creature wants you to believe. If they're not being deceptive, you believe they're behaving normally.<br><strong>Critical Failure</strong> You get a false sense of the creature's intentions.</p>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> You get a false sense of the creature's intentions.",
                     "criticalSuccess": "<strong>Critical Success</strong> You determine the creature's true intentions and get a solid idea of any mental magic affecting it.",
@@ -557,6 +573,7 @@
                 "Title": "Stand"
             },
             "Steal": {
+                "Description": "<p>You try to take a small object from another creature without being noticed. Typically, you can Steal only an object of negligible Bulk, and you automatically fail if the creature who has the object is in combat or on guard.</p><p>Attempt a Thievery check to determine if you successfully Steal the object. The DC to Steal is usually the Perception DC of the creature wearing the object. This assumes the object is worn but not closely guarded (like a loosely carried pouch filled with coins, or an object within such a pouch). If the object is in a pocket or similarly protected, you take a –5 penalty to your Thievery check. The GM might increase the DC of your check if the nature of the object makes it harder to steal (such as a very small item in a large pack, or a sheet of parchment mixed in with other documents).</p><p>You might also need to compare your Thievery check result against the Perception DCs of observers other than the person wearing the object. The GM may increase the Perception DCs of these observers if they're distracted.</p><p><strong>Success</strong> You steal the item without the bearer noticing, or an observer doesn't see you take or attempt to take the item.<br><strong>Failure</strong> The item's bearer notices your attempt before you can take the object, or an observer sees you take or attempt to take the item. The GM determines the response of any creature that notices your theft.</p>",
                 "Notes": {
                     "failure": "<strong>Failure</strong> The item's bearer notices your attempt before you can take the object, or an observer sees you take or attempt to take the item. The GM determines the response of any creature that notices your theft.",
                     "success": "<strong>Success</strong> You steal the item without the bearer noticing, or an observer doesn't see you take or attempt to take the item."
@@ -623,6 +640,7 @@
                 "Title": "Track"
             },
             "TreatDisease": {
+                "Description": "<p>You spend at least 8 hours caring for a diseased creature. Attempt a Medicine check against the disease's DC. After you attempt to Treat a Disease for a creature, you can't try again until after that creature's next save against the disease.</p><p><strong>Critical Success</strong> You grant the creature a +4 circumstance bonus to its next saving throw against the disease.<br><strong>Success</strong> You grant the creature a +2 circumstance bonus to its next saving throw against the disease.<br><strong>Critical Failure</strong> Your efforts cause the creature to take a –2 circumstance penalty to its next save against the disease.</p>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> Your efforts cause the creature to take a -2 circumstance penalty to its next save against the disease.<br/>@UUID[Compendium.pf2e.equipment-effects.5oYKYXAexr0vhx84]{Effect: Treat Disease (Critical Failure)}",
                     "criticalSuccess": "<strong>Critical Success</strong> You grant the creature a +4 circumstance bonus to its next saving throw against the disease.<br/>@UUID[Compendium.pf2e.equipment-effects.id20P4pj7zDKeLmy]{Effect: Treat Disease (Critical Success)}",
@@ -631,6 +649,7 @@
                 "Title": "Treat Disease"
             },
             "TreatPoison": {
+                "Description": "<p>You treat a patient to prevent the spread of poison. Attempt a Medicine check against the poison's DC. After you attempt to Treat a Poison for a creature, you can't try again until after the next time that creature attempts a save against the poison.</p><p><strong>Critical Success</strong> You grant the creature a +4 circumstance bonus to its next saving throw against the poison.<br><strong>Success</strong> You grant the creature a +2 circumstance bonus to its next saving throw against the poison.<br><strong>Critical Failure</strong> Your efforts cause the creature to take a –2 circumstance penalty to its next save against the poison.</p>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> Your efforts cause the creature to take a -2 circumstance penalty to its next save against the poison.<br/>@UUID[Compendium.pf2e.equipment-effects.ESuBosh3t1pXEcBj]{Effect: Treat Poison (Critical Failure)}",
                     "criticalSuccess": "<strong>Critical Success</strong> You grant the creature a +4 circumstance bonus to its next saving throw against the poison.<br/>@UUID[Compendium.pf2e.equipment-effects.XwCBalKJf3CiEiFa]{Effect: Treat Poison (Critical Success)}",

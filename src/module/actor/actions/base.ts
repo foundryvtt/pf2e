@@ -46,23 +46,23 @@ abstract class BaseActionVariant implements ActionVariant {
         }
     }
 
-    get cost() {
+    get cost(): ActionCost | undefined {
         return this.#cost ?? this.#action.cost;
     }
 
-    get description() {
+    get description(): string | undefined {
         return this.#description?.trim() || this.#action.description;
     }
 
-    get glyph() {
+    get glyph(): string {
         return getActionGlyph(this.cost ?? null);
     }
 
-    get slug() {
+    get slug(): string {
         return this.#slug || sluggify(this.name ?? "") || this.#action.slug;
     }
 
-    get traits() {
+    get traits(): string[] {
         return this.#traits ?? this.#action.traits;
     }
 
@@ -117,7 +117,7 @@ abstract class BaseAction<TData extends BaseActionVariantData, TAction extends B
             : [];
     }
 
-    get glyph() {
+    get glyph(): string {
         if (this.#variants.length === 1) {
             return this.#variants[0].glyph;
         }
@@ -136,12 +136,12 @@ abstract class BaseAction<TData extends BaseActionVariantData, TAction extends B
         return getActionGlyph(this.cost ?? "");
     }
 
-    get variants() {
-        const variants: [string, ActionVariant][] = this.#variants.map((variant) => [variant.slug, variant]);
+    get variants(): Collection<TAction> {
+        const variants: [string, TAction][] = this.#variants.map((variant) => [variant.slug, variant]);
         return new Collection(variants);
     }
 
-    protected async getDefaultVariant(options?: { variant?: string }): Promise<ActionVariant | TAction> {
+    protected async getDefaultVariant(options?: { variant?: string }): Promise<TAction> {
         const variants = this.variants;
         if (options?.variant && !variants.size) {
             const reason = game.i18n.format("PF2E.ActionsWarning.Variants.None", {
@@ -168,7 +168,8 @@ abstract class BaseAction<TData extends BaseActionVariantData, TAction extends B
     }
 
     async toMessage(options?: Partial<ActionMessageOptions>): Promise<ChatMessagePF2e | undefined> {
-        const variant = await this.getDefaultVariant();
+        // use the data from the action to construct the message if no variant is specified
+        const variant = options?.variant ? await this.getDefaultVariant(options) : undefined;
         return (variant ?? this.toActionVariant()).toMessage(options);
     }
 

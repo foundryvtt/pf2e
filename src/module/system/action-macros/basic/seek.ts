@@ -1,6 +1,7 @@
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { SingleCheckAction } from "@actor/actions/index.ts";
 
-export function seek(options: SkillActionOptions): void {
+function seek(options: SkillActionOptions): void {
     const slug = options?.skill ?? "perception";
     const rollOptions = ["action:seek"];
     const modifiers = options?.modifiers;
@@ -22,3 +23,19 @@ export function seek(options: SkillActionOptions): void {
         throw error;
     });
 }
+
+const action = new SingleCheckAction({
+    cost: 1,
+    description: "PF2E.Actions.Seek.Description",
+    name: "PF2E.Actions.Seek.Title",
+    notes: [
+        { outcome: ["criticalSuccess"], text: "PF2E.Actions.Seek.Notes.criticalSuccess" },
+        { outcome: ["success"], text: "PF2E.Actions.Seek.Notes.success" },
+    ],
+    rollOptions: ["action:seek"],
+    slug: "seek",
+    statistic: "perception",
+    traits: ["concentrate", "secret"],
+});
+
+export { seek as legacy, action };

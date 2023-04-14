@@ -4,10 +4,9 @@ import { SaveType, SkillAbbreviation } from "@actor/types.ts";
 import { ActionItemPF2e, EffectPF2e, ItemPF2e } from "@item";
 import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
 import { ZeroToFour } from "@module/data.ts";
-import { IdentifyCreatureData } from "@module/recall-knowledge.ts";
 import { TraitTagifyEntry } from "@module/sheet/helpers.ts";
 import { NPCPF2e, NPCStrike } from "./index.ts";
-import { NPCArmorClass, NPCAttributes, NPCSaveData, NPCSkillData, NPCSystemData, NPCTraitsData } from "./data.ts";
+import { NPCArmorClass, NPCAttributes, NPCSaveData, NPCSkillData, NPCSystemData } from "./data.ts";
 
 interface ActionsDetails {
     label: string;
@@ -57,11 +56,6 @@ interface NPCSystemSheetData extends NPCSystemData {
     sortedSkills: Record<SkillAbbreviation, NPCSkillSheetData>;
     saves: Record<SaveType, NPCSaveData & WithAdjustments & WithRank & { labelShort?: string }>;
     skills: Record<SkillAbbreviation, NPCSkillSheetData>;
-    traits: NPCTraitsData & {
-        size: {
-            localizedName?: string;
-        };
-    };
 }
 
 interface NPCStrikeSheetData extends NPCStrike {
@@ -82,18 +76,7 @@ interface NPCSheetData<TActor extends NPCPF2e> extends CreatureSheetData<TActor>
     effectItems: EffectPF2e[];
     spellcastingEntries: SpellcastingSheetData[];
     orphanedSpells: boolean;
-    identifyCreatureData: IdentifyCreatureData;
-    identifySkillDC?: number;
-    identifySkillAdjustment?: string;
-    identifySkillProgression?: string;
-    identificationSkills?: string[];
-    identificationSkillList?: string;
-    specificLoreDC?: number;
-    specificLoreAdjustment?: string;
-    specificLoreProgression?: string;
-    unspecificLoreDC?: number;
-    unspecificLoreAdjustment?: string;
-    unspecificLoreProgression?: string;
+    identificationDCs: NPCIdentificationSheetData;
     isNotCommon?: boolean;
     actorSize?: string;
     isWeak?: boolean;
@@ -132,8 +115,14 @@ type NPCSheetItemData<TItem extends ItemPF2e<NPCPF2e>> = RawObject<TItem> & {
     hasAura: boolean;
 };
 
+interface NPCIdentificationSheetData {
+    standard: string | null;
+    lore: string;
+}
+
 export {
     NPCActionSheetData,
+    NPCIdentificationSheetData,
     NPCSheetData,
     NPCSheetItemData,
     NPCSkillSheetData,

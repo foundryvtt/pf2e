@@ -1,6 +1,7 @@
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { SingleCheckAction } from "@actor/actions/index.ts";
 
-export function treatPoison(options: SkillActionOptions): void {
+function treatPoison(options: SkillActionOptions): void {
     const slug = options?.skill ?? "medicine";
     const rollOptions = ["action:treat-poison"];
     const modifiers = options?.modifiers;
@@ -23,3 +24,20 @@ export function treatPoison(options: SkillActionOptions): void {
         throw error;
     });
 }
+
+const action = new SingleCheckAction({
+    cost: 1,
+    description: "PF2E.Actions.TreatPoison.Description",
+    name: "PF2E.Actions.TreatPoison.Title",
+    notes: [
+        { outcome: ["criticalSuccess"], text: "PF2E.Actions.TreatPoison.Notes.criticalSuccess" },
+        { outcome: ["success"], text: "PF2E.Actions.TreatPoison.Notes.success" },
+        { outcome: ["criticalFailure"], text: "PF2E.Actions.TreatPoison.Notes.criticalFailure" },
+    ],
+    rollOptions: ["action:treat-poison"],
+    slug: "treat-poison",
+    statistic: "medicine",
+    traits: ["manipulate"],
+});
+
+export { treatPoison as legacy, action };

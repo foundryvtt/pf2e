@@ -16,13 +16,13 @@ import { whirlingThrow } from "./athletics/whirling-throw.ts";
 import { crawl } from "./basic/crawl.ts";
 import { delay } from "./basic/delay.ts";
 import { dropProne } from "./basic/drop-prone.ts";
-import { escape } from "./basic/escape.ts";
+import * as escape from "./basic/escape.ts";
 import { interact } from "./basic/interact.ts";
 import { leap } from "./basic/leap.ts";
 import { ready } from "./basic/ready.ts";
 import { release } from "./basic/release.ts";
-import { seek } from "./basic/seek.ts";
-import { senseMotive } from "./basic/sense-motive.ts";
+import * as seek from "./basic/seek.ts";
+import * as senseMotive from "./basic/sense-motive.ts";
 import { stand } from "./basic/stand.ts";
 import { step } from "./basic/step.ts";
 import { stride } from "./basic/stride.ts";
@@ -42,30 +42,30 @@ import { senseDirection } from "./exploration/sense-direction.ts";
 import { track } from "./exploration/track.ts";
 import { decipherWriting } from "./general/decipher-writing.ts";
 import { subsist } from "./general/subsist.ts";
-import { coerce } from "./intimidation/coerce.ts";
-import { demoralize } from "./intimidation/demoralize.ts";
-import { administerFirstAid } from "./medicine/administer-first-aid.ts";
-import { treatDisease } from "./medicine/treat-disease.ts";
-import { treatPoison } from "./medicine/treat-poison.ts";
-import { commandAnAnimal } from "./nature/command-an-animal.ts";
+import * as coerce from "./intimidation/coerce.ts";
+import * as demoralize from "./intimidation/demoralize.ts";
+import * as administerFirstAid from "./medicine/administer-first-aid.ts";
+import * as treatDisease from "./medicine/treat-disease.ts";
+import * as treatPoison from "./medicine/treat-poison.ts";
+import * as commandAnAnimal from "./nature/command-an-animal.ts";
 import { perform } from "./performance/perform.ts";
-import { createForgery } from "./society/create-forgery.ts";
-import { concealAnObject } from "./stealth/conceal-an-object.ts";
+import * as createForgery from "./society/create-forgery.ts";
+import * as concealAnObject from "./stealth/conceal-an-object.ts";
 import * as hide from "./stealth/hide.ts";
 import * as sneak from "./stealth/sneak.ts";
-import { palmAnObject } from "./thievery/palm-an-object.ts";
-import { disableDevice } from "./thievery/disable-device.ts";
-import { pickALock } from "./thievery/pick-a-lock.ts";
-import { steal } from "./thievery/steal.ts";
+import * as palmAnObject from "./thievery/palm-an-object.ts";
+import * as disableDevice from "./thievery/disable-device.ts";
+import * as pickALock from "./thievery/pick-a-lock.ts";
+import * as steal from "./thievery/steal.ts";
 import { Action } from "@actor/actions/index.ts";
 export { ActionMacroHelpers } from "./helpers.ts";
 export type { ActionDefaultOptions, SkillActionOptions } from "./types.ts";
 
 export const ActionMacros = {
     // Basic
-    escape,
-    seek,
-    senseMotive,
+    escape: escape.legacy,
+    seek: seek.legacy,
+    senseMotive: senseMotive.legacy,
 
     // Ancestry
     arcaneSlam,
@@ -117,52 +117,67 @@ export const ActionMacros = {
     subsist,
 
     // Intimidation
-    coerce,
-    demoralize,
+    coerce: coerce.legacy,
+    demoralize: demoralize.legacy,
 
     // Medicine
-    administerFirstAid,
-    treatDisease,
-    treatPoison,
+    administerFirstAid: administerFirstAid.legacy,
+    treatDisease: treatDisease.legacy,
+    treatPoison: treatPoison.legacy,
 
     // Nature
-    commandAnAnimal,
+    commandAnAnimal: commandAnAnimal.legacy,
 
     // Performance
     perform,
 
     // Society
-    createForgery,
+    createForgery: createForgery.legacy,
 
     // Stealth
-    concealAnObject,
+    concealAnObject: concealAnObject.legacy,
     hide: hide.legacy,
     sneak: sneak.legacy,
 
     // Thievery
-    palmAnObject,
-    disableDevice,
-    pickALock,
-    steal,
+    palmAnObject: palmAnObject.legacy,
+    disableDevice: disableDevice.legacy,
+    pickALock: pickALock.legacy,
+    steal: steal.legacy,
 };
 
 export const SystemActions: Action[] = [
+    administerFirstAid.action,
     balance.action,
+    coerce.action,
+    commandAnAnimal.action,
+    concealAnObject.action,
     crawl,
+    createForgery.action,
     delay,
+    demoralize.action,
+    disableDevice.action,
     dropProne,
+    escape.action,
     hide.action,
     interact,
     leap,
     maneuverInFlight.action,
+    palmAnObject.action,
+    pickALock.action,
     ready,
     release,
+    seek.action,
+    senseMotive.action,
     sneak.action,
     squeeze.action,
     stand,
+    steal.action,
     step,
     stride,
     takeCover,
+    treatDisease.action,
+    treatPoison.action,
     trip.action,
     tumbleThrough.action,
 ];

@@ -5,7 +5,6 @@ import { pick } from "@util";
 import { CanvasPF2e, TokenLayerPF2e, measureDistanceCuboid } from "../index.ts";
 import { HearingSource } from "../perception/hearing-source.ts";
 import { AuraRenderers } from "./aura/index.ts";
-import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 
 class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends Token<TDocument> {
     /** Visual representation and proximity-detection facilities for auras */
@@ -412,12 +411,6 @@ interface TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> ext
     get layer(): TokenLayerPF2e<this>;
 
     icon?: TokenImage;
-
-    toggleCombat(
-        state?: boolean,
-        combat?: EncounterPF2e | null,
-        options?: { token?: TokenPF2e | null }
-    ): Promise<CombatantPF2e<EncounterPF2e>[]>;
 }
 
 interface TokenImage extends PIXI.Sprite {

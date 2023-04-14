@@ -8,11 +8,11 @@ const dataPath: string | undefined = (
     await prompts({
         type: "text",
         name: "value",
-        format: (v: string) => v.replaceAll("\\", "/").replace(/\/$/, ""),
-        message: `What is the full path to your Foundry data folder?${windowsInstructions}`,
+        format: (v: string) => v.replace(/\W*$/, "").trim(),
+        message: `Enter the full path to your Foundry data folder.${windowsInstructions}`,
     })
 ).value;
-if (!dataPath?.endsWith("/Data")) {
+if (!dataPath || !/\bData$/.test(dataPath)) {
     console.error(`"${dataPath}" does not look like a Foundry data folder.`);
     process.exit(1);
 }
@@ -31,7 +31,7 @@ if (symlinkStats) {
             type: "confirm",
             name: "value",
             initial: false,
-            message: `A ${atPath} already exists in the "systems" subfolder. Replace with new symlink?`,
+            message: `A "pf2e" ${atPath} already exists in the "systems" subfolder. Replace with new symlink?`,
         })
     ).value;
     if (!proceed) {
