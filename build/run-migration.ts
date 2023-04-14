@@ -1,6 +1,6 @@
 import fs from "fs-extra";
 import path from "path";
-import { populateFoundryUtilFunctions } from "../../tests/fixtures/foundryshim.ts";
+import { populateFoundryUtilFunctions } from "../tests/fixtures/foundryshim.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { JSDOM } from "jsdom";

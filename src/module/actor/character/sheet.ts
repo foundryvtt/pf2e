@@ -13,6 +13,7 @@ import { CheckDC } from "@system/degree-of-success.ts";
 import { LocalizePF2e } from "@system/localize.ts";
 import {
     ErrorPF2e,
+    fontAwesomeIcon,
     getActionIcon,
     groupBy,
     htmlClosest,
@@ -450,6 +451,39 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 }
             }
         });
+
+        // Ancestry/Heritage/Class/Background/Deity context menu
+        new ContextMenu(
+            $html,
+            ".detail-item-control",
+            [
+                {
+                    name: "PF2E.EditItemTitle",
+                    icon: fontAwesomeIcon("edit").outerHTML,
+                    callback: (target) => {
+                        const itemId = $(target).closest("[data-item-id]").attr("data-item-id");
+                        const item = this.actor.items.get(itemId ?? "");
+                        item?.sheet.render(true, { focus: true });
+                    },
+                },
+                {
+                    name: "PF2E.DeleteItemTitle",
+                    icon: fontAwesomeIcon("trash").outerHTML,
+                    callback: (target) => {
+                        const row = htmlClosest(target[0], "[data-item-id]");
+                        const itemId = row?.dataset.itemId;
+                        const item = this.actor.items.get(itemId ?? "");
+
+                        if (row && item) {
+                            this.deleteItem(row, item);
+                        } else {
+                            throw ErrorPF2e("Item not found");
+                        }
+                    },
+                },
+            ],
+            { eventName: "click" }
+        );
 
         $html.find(".crb-tag-selector").on("click", (event) => this.openTagSelector(event));
 

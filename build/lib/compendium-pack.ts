@@ -32,7 +32,13 @@ function isActorSource(docSource: PackEntry): docSource is ActorSourcePF2e {
 }
 
 function isItemSource(docSource: PackEntry): docSource is ItemSourcePF2e {
-    return "system" in docSource && "type" in docSource && isObject(docSource.system) && !isActorSource(docSource);
+    return (
+        "system" in docSource &&
+        "type" in docSource &&
+        isObject(docSource.system) &&
+        !("text" in docSource) && // JournalEntryPage
+        !isActorSource(docSource)
+    );
 }
 
 /**

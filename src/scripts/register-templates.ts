@@ -8,13 +8,14 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/dice/damage-roll.hbs",
         "systems/pf2e/templates/dice/damage-tooltip.hbs",
 
-        // PC Sheet Tooltips
+        // PC Sheet Tooltips and Section Partials
         "systems/pf2e/templates/actors/character/partials/modifiers-tooltip.hbs",
         "systems/pf2e/templates/actors/character/partials/traits.hbs",
         "systems/pf2e/templates/actors/character/partials/background.hbs",
         "systems/pf2e/templates/actors/character/partials/abilities.hbs",
         "systems/pf2e/templates/actors/character/partials/header.hbs",
         "systems/pf2e/templates/actors/character/partials/granted-feat.hbs",
+        "systems/pf2e/templates/actors/character/partials/detail-item.hbs",
 
         // PC Sheet Sidebar
         "systems/pf2e/templates/actors/character/sidebar/armor-class.hbs",

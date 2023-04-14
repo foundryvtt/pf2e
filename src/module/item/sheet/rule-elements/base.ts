@@ -37,7 +37,7 @@ class RuleElementForm<
         this.object = options.object;
     }
 
-    async getData(): Promise<RuleElementFormOptions<TSource, TObject>> {
+    async getData(): Promise<RuleElementFormSheetData<TSource, TObject>> {
         return this.options;
     }
 

@@ -363,7 +363,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             strike?.[method]?.({ getFormula: true, altUsage }).then((formula) => {
                 if (!formula) return;
                 button.title = formula.toString();
-                $(button).tooltipster({ position: "bottom", theme: "crb-hover" });
+                $(button).tooltipster({ position: "top", theme: "crb-hover" });
             });
         }
 
@@ -805,37 +805,41 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 default: "Yes",
             }).render(true);
         } else if (row && item) {
-            const deleteItem = async (): Promise<void> => {
-                await item.delete();
-                $(row).slideUp(200, () => this.render(false));
-            };
-            if (event.ctrlKey) {
-                deleteItem();
-                return;
-            }
-
-            const content = await renderTemplate("systems/pf2e/templates/actors/delete-item-dialog.hbs", {
-                name: item.name,
-            });
-            new Dialog({
-                title: "Delete Confirmation",
-                content,
-                buttons: {
-                    Yes: {
-                        icon: '<i class="fa fa-check"></i>',
-                        label: "Yes",
-                        callback: deleteItem,
-                    },
-                    cancel: {
-                        icon: '<i class="fas fa-times"></i>',
-                        label: "Cancel",
-                    },
-                },
-                default: "Yes",
-            }).render(true);
+            this.deleteItem(row, item, event);
         } else {
             throw ErrorPF2e("Item not found");
         }
+    }
+
+    protected async deleteItem(element: HTMLElement, item: ItemPF2e, event?: MouseEvent): Promise<void> {
+        const deleteItem = async (): Promise<void> => {
+            await item.delete();
+            $(element).slideUp(200, () => this.render(false));
+        };
+        if (event?.ctrlKey) {
+            deleteItem();
+            return;
+        }
+
+        const content = await renderTemplate("systems/pf2e/templates/actors/delete-item-dialog.hbs", {
+            name: item.name,
+        });
+        new Dialog({
+            title: "Delete Confirmation",
+            content,
+            buttons: {
+                Yes: {
+                    icon: '<i class="fa fa-check"></i>',
+                    label: "Yes",
+                    callback: deleteItem,
+                },
+                cancel: {
+                    icon: '<i class="fas fa-times"></i>',
+                    label: "Cancel",
+                },
+            },
+            default: "Yes",
+        }).render(true);
     }
 
     async #onClickBrowseEquipmentCompendia(element: HTMLElement): Promise<void> {

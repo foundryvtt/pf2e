@@ -20,30 +20,22 @@
             <button type="button" class="breakdown">{{localize "PF2E.RecallKnowledge.Breakdown"}}</button>
         </div>
         <div class="section-body">
-            {{#if identificationSkills}}
-                <div class="tag-legacy identification-skills" title="{{identifySkillProgression}}">
-                    <ul>
-                        {{#each identificationSkills as |skill|}}
-                            <li>{{localize skill}}</li>
-                        {{/each}}
-                    </ul>
-                    {{identifySkillDC}} ({{localize identifySkillAdjustment}})
+            {{#if identificationDCs.standard}}
+                <div class="tag-legacy identification-skills" title="{{localize "PF2E.Actor.NPC.Identification.Skills.Tooltip"}}">
+                    {{identificationDCs.standard}}
                 </div>
             {{/if}}
-            <div class="unspecified-lore tag-legacy" title="{{unspecificLoreProgression}}">
-                {{localize "PF2E.RecallKnowledge.UnspecificLore"}} {{unspecificLoreDC}} ({{localize unspecificLoreAdjustment}})
-            </div>
-            <div class="specific-lore tag-legacy" title="{{specificLoreProgression}}">
-                {{localize "PF2E.RecallKnowledge.SpecificLore"}} {{specificLoreDC}} ({{localize specificLoreAdjustment}})
+            <div class="tag-legacy identification-skills" title="{{localize "PF2E.Actor.NPC.Identification.Lore.Tooltip"}}">
+                {{identificationDCs.lore}}
             </div>
         </div>
     </div>
     <div class="top-sections">
         <div class="ability-scores section-container">
             <div class="section-header">
-                <h4>{{localize "PF2E.AbilityScoresHeader"}}</h4>
+                <h4>{{localize "PF2E.Actor.Creature.AbilityModifiers"}}</h4>
             </div>
-            <!-- ABILITY SCORES -->
+            <!-- ABILITY MODIFIERS -->
             <div class="section-body">
                 <div class="list">
                     {{#each data.abilities as |ability id|}}
