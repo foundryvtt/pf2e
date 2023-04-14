@@ -454,8 +454,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         // Ancestry/Heritage/Class/Background/Deity context menu
         new ContextMenu(
-            $html, 
-            ".detail-item-control", 
+            $html,
+            ".detail-item-control",
             [
                 {
                     name: "PF2E.EditItemTitle",
@@ -464,7 +464,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                         const itemId = $(target).closest("[data-item-id]").attr("data-item-id");
                         const item = this.actor.items.get(itemId ?? "");
                         item?.sheet.render(true, { focus: true });
-                    }
+                    },
                 },
                 {
                     name: "PF2E.DeleteItemTitle",
@@ -479,8 +479,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                         } else {
                             throw ErrorPF2e("Item not found");
                         }
-                    }
-                }
+                    },
+                },
             ],
             { eventName: "click" }
         );
