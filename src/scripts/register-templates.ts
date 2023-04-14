@@ -16,7 +16,6 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/character/partials/header.hbs",
         "systems/pf2e/templates/actors/character/partials/granted-feat.hbs",
         "systems/pf2e/templates/actors/character/partials/detail-item.hbs",
-        "systems/pf2e/templates/actors/character/partials/detail-item-tooltip.hbs",
 
         // PC Sheet Sidebar
         "systems/pf2e/templates/actors/character/sidebar/armor-class.hbs",

@@ -17,26 +17,12 @@
                 </select>
             </span>
         </div>
-        <div class="pc pc_deity item" data-item-id="{{deity.id}}">
+        <div class="pc pc_deity item">
             <div class="input">
-                <span class="details-label">{{localize "ITEM.TypeDeity"}}</span>
-                <span title="{{localize "PF2E.DeityTitle"}}">
-                    <h3>
-                        <span class="value">{{deity.name}}</span>
-                        {{#if @root.options.editable}}
-                            {{#if deity}}
-                                <a class="detail-item-control-hover" data-tooltip-content="#{{options.id}}-{{deity.id}}-control">
-                                    <i class="fa-solid fa-fw fa-ellipsis-v"></i>
-                                </a>
-                                {{#with deity}}
-                                    {{> "systems/pf2e/templates/actors/character/partials/detail-item-tooltip.hbs"}}
-                                {{/with}}
-                            {{else}}
-                                <a class="open-compendium" data-compendium="pf2e.deities"><i class="fas fa-fw fa-plus-circle"></i></a>
-                            {{/if}}
-                        {{/if}}
-                    </h3>
-                </span>
+                {{> 
+                    "systems/pf2e/templates/actors/character/partials/detail-item.hbs" 
+                    item=deity type="deity" compendium="pf2e.deities"
+                }}
             </div>
             {{#if deity}}
                 <img class="symbol" src="{{deity.img}}" alt="{{deity.name}}" />
@@ -45,22 +31,30 @@
             {{/if}}
         </div>
         <div class="detail-sheet">
-            {{> 
-                "systems/pf2e/templates/actors/character/partials/detail-item.hbs" 
-                item=ancestry type="ancestry" compendium="pf2e.ancestries"
-            }}
-            {{> 
-                "systems/pf2e/templates/actors/character/partials/detail-item.hbs" 
-                item=heritage type="heritage" compendium="pf2e.heritages"
-            }}
-            {{> 
-                "systems/pf2e/templates/actors/character/partials/detail-item.hbs" 
-                item=class type="class" compendium="pf2e.classes"
-            }}
-            {{> 
-                "systems/pf2e/templates/actors/character/partials/detail-item.hbs" 
-                item=background type="background" compendium="pf2e.backgrounds"
-            }}
+            <div class="pc pc_ancestry item">
+                {{> 
+                    "systems/pf2e/templates/actors/character/partials/detail-item.hbs" 
+                    item=ancestry type="ancestry" compendium="pf2e.ancestries"
+                }}
+            </div>
+            <div class="pc pc_heritage item">
+                {{> 
+                    "systems/pf2e/templates/actors/character/partials/detail-item.hbs" 
+                    item=heritage type="heritage" compendium="pf2e.heritages"
+                }}
+            </div>
+            <div class="pc pc_class item">
+                {{> 
+                    "systems/pf2e/templates/actors/character/partials/detail-item.hbs" 
+                    item=class type="class" compendium="pf2e.classes"
+                }}
+            </div>
+            <div class="pc pc_background item">
+                {{> 
+                    "systems/pf2e/templates/actors/character/partials/detail-item.hbs" 
+                    item=background type="background" compendium="pf2e.backgrounds"
+                }}
+            </div>
         </div>
     </section>
 

@@ -186,7 +186,34 @@
 
         .detail-item-control-hover i.fa-solid {
             transform: translateY(10%);
-        } 
+        }
+
+        .detail-item-control {
+            cursor: pointer;
+            margin-left: auto;
+            
+            i.fa-ellipsis-v:hover {
+                text-shadow: 0 0 8px var(--color-shadow-primary);
+            }
+
+            #context-menu {
+                left: -85px;
+                min-width: 105px;
+                padding: 0;
+                text-align: left;
+
+                .context-item {
+                    font-family: var(--font-primary);
+                    font-weight: normal;
+                    min-width: 105px;
+    
+                    i {
+                        position: static;
+                        float: none;
+                    }
+                }
+            }
+        }
     }
 
     .character-background {
