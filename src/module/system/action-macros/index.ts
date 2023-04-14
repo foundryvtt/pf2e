@@ -41,7 +41,7 @@ import { avoidNotice } from "./exploration/avoid-notice.ts";
 import { senseDirection } from "./exploration/sense-direction.ts";
 import { track } from "./exploration/track.ts";
 import * as decipherWriting from "./general/decipher-writing.ts";
-import { subsist } from "./general/subsist.ts";
+import * as subsist from "./general/subsist.ts";
 import * as coerce from "./intimidation/coerce.ts";
 import * as demoralize from "./intimidation/demoralize.ts";
 import * as administerFirstAid from "./medicine/administer-first-aid.ts";
@@ -114,7 +114,7 @@ export const ActionMacros = {
 
     // General Skill Actions
     decipherWriting: decipherWriting.legacy,
-    subsist,
+    subsist: subsist.legacy,
 
     // Intimidation
     coerce: coerce.legacy,
@@ -176,6 +176,7 @@ export const SystemActions: Action[] = [
     steal.action,
     step,
     stride,
+    subsist.action,
     takeCover,
     treatDisease.action,
     treatPoison.action,
