@@ -38,10 +38,10 @@
 
             span.value {
                 display: inline-block;
+                max-width: 87%;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
-                width: 87%;
             }
         }
     }
@@ -143,7 +143,7 @@
                 flex-flow: column wrap;
                 justify-content: end;
 
-                label {
+                span {
                     text-align: right;
                 }
 
@@ -181,6 +181,33 @@
             }
             .detail-small {
                 display: flex;
+            }
+        }
+
+        .detail-item-control {
+            cursor: pointer;
+            margin-left: auto;
+            
+            i.fa-ellipsis-v:hover {
+                text-shadow: 0 0 8px var(--color-shadow-primary);
+            }
+
+            #context-menu {
+                left: -85px;
+                min-width: 105px;
+                padding: 0;
+                text-align: left;
+
+                .context-item {
+                    font-family: var(--font-primary);
+                    font-weight: normal;
+                    min-width: 105px;
+    
+                    i {
+                        position: static;
+                        float: none;
+                    }
+                }
             }
         }
     }

@@ -32,6 +32,10 @@ export function registerHandlebarsHelpers(): void {
         return String(str).toLowerCase();
     });
 
+    Handlebars.registerHelper("capitalize", (str: unknown): string => {
+        return String(str).capitalize();
+    });
+
     Handlebars.registerHelper("multiply", (a: unknown, b: unknown): number => {
         return Number(a) * Number(b);
     });
