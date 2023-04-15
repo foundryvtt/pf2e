@@ -13,6 +13,7 @@ import { shove } from "./athletics/shove.ts";
 import { swim } from "./athletics/swim.ts";
 import * as trip from "./athletics/trip.ts";
 import { whirlingThrow } from "./athletics/whirling-throw.ts";
+import { aid } from "./basic/aid.ts";
 import { crawl } from "./basic/crawl.ts";
 import { delay } from "./basic/delay.ts";
 import { dropProne } from "./basic/drop-prone.ts";
@@ -148,6 +149,7 @@ export const ActionMacros = {
 
 export const SystemActions: Action[] = [
     administerFirstAid.action,
+    aid,
     avoidNotice.action,
     balance.action,
     coerce.action,
