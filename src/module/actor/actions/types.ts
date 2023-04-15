@@ -10,8 +10,9 @@ interface ActionMessageOptions {
 }
 
 interface ActionVariantUseOptions extends Record<string, unknown> {
-    actors?: ActorPF2e | ActorPF2e[];
+    actors: ActorPF2e | ActorPF2e[];
     event: Event;
+    traits: string[];
 }
 
 interface ActionVariant {
