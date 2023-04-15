@@ -6,7 +6,6 @@ import { ItemSourcePF2e } from "@item/data/index.ts";
 import { EffectPF2e } from "@item/effect/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { MacroPF2e } from "@module/macro.ts";
-import { LocalizePF2e } from "@system/localize.ts";
 
 /**
  * Create a Macro from an Item drop.
@@ -145,8 +144,7 @@ if (a) {
 export async function createToggleEffectMacro(effect: EffectPF2e, slot: number): Promise<void> {
     const uuid = effect.uuid.startsWith("Actor") ? effect.sourceId : effect.uuid;
     if (!uuid) {
-        const message = LocalizePF2e.translations.PF2E.ErrorMessage.CantCreateEffectMacro;
-        ui.notifications.error(game.i18n.localize(message));
+        ui.notifications.error("PF2E.ErrorMessage.CantCreateEffectMacro", { localize: true });
         return;
     }
 
@@ -154,8 +152,7 @@ export async function createToggleEffectMacro(effect: EffectPF2e, slot: number):
 const actors = canvas.tokens.controlled.flatMap((token) => token.actor ?? []);
 if (actors.length === 0 && game.user.character) actors.push(game.user.character);
 if (actors.length === 0) {
-    const message = game.i18n.localize("PF2E.ErrorMessage.NoTokenSelected");
-    return ui.notifications.error(message);
+    return ui.notifications.error("PF2E.ErrorMessage.NoTokenSelected", { localize: true });
 }
 
 const ITEM_UUID = "${uuid}"; // ${effect.name}
