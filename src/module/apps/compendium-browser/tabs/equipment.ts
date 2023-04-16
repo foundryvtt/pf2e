@@ -43,10 +43,11 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         // Define index fields for different types of equipment
         const kitFields = ["img", "system.price", "system.traits"];
         const baseFields = [...kitFields, "system.stackGroup", "system.level.value", "system.source.value"];
-        const armorAndWeaponFields = [...baseFields, "system.category", "system.group"];
+        const armorFields = [...baseFields, "system.category", "system.group", "system.potencyRune.value"];
+        const weaponFields = [...armorFields, "system.strikingRune.value", "system.potencyRune.value"];
         const consumableFields = [...baseFields, "system.consumableType.value"];
         const indexFields = [
-            ...new Set([...armorAndWeaponFields, ...consumableFields]),
+            ...new Set([...armorFields, ...weaponFields, ...consumableFields]),
             "system.denomination.value",
             "system.value.value",
         ];
@@ -61,16 +62,20 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
             for (const itemData of index) {
                 if (itemData.type === "treasure" && itemData.system.stackGroup === "coins") continue;
                 if (itemTypes.includes(itemData.type)) {
-                    let skip = false;
-                    if (itemData.type === "weapon" || itemData.type === "armor") {
-                        if (!this.hasAllIndexFields(itemData, armorAndWeaponFields)) skip = true;
-                    } else if (itemData.type === "kit") {
-                        if (!this.hasAllIndexFields(itemData, kitFields)) skip = true;
-                    } else if (itemData.type === "consumable") {
-                        if (!this.hasAllIndexFields(itemData, consumableFields)) skip = true;
-                    } else {
-                        if (!this.hasAllIndexFields(itemData, baseFields)) skip = true;
-                    }
+                    const skip = (() => {
+                        switch (itemData.type) {
+                            case "armor":
+                                return !this.hasAllIndexFields(itemData, armorFields);
+                            case "weapon":
+                                return !this.hasAllIndexFields(itemData, weaponFields);
+                            case "kit":
+                                return !this.hasAllIndexFields(itemData, kitFields);
+                            case "consumable":
+                                return !this.hasAllIndexFields(itemData, consumableFields);
+                            default:
+                                return !this.hasAllIndexFields(itemData, baseFields);
+                        }
+                    })();
                     if (skip) {
                         console.warn(
                             `Item '${itemData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`
@@ -94,6 +99,16 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     if (source) {
                         sources.add(source);
                         itemData.system.source.value = sluggify(source);
+                    }
+
+                    // Infer magical trait from runes
+                    const traits = itemData.system.traits.value ?? [];
+                    if (
+                        (itemData.type === "armor" && itemData.system.potencyRune.value) ||
+                        (itemData.type === "weapon" &&
+                            (itemData.system.strikingRune.value || itemData.system.potencyRune.value))
+                    ) {
+                        traits.push("magical");
                     }
 
                     inventoryItems.push({
