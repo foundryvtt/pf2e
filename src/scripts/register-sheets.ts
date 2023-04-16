@@ -30,11 +30,9 @@ import { JournalSheetPF2e, JournalTextTinyMCESheetPF2e } from "@module/journal-e
 import { UserConfigPF2e } from "@module/user/sheet.ts";
 import { TokenConfigPF2e, TokenDocumentPF2e } from "@scene/index.ts";
 import { SceneConfigPF2e } from "@scene/sheet.ts";
-import { LocalizePF2e } from "@system/localize.ts";
 
 export function registerSheets(): void {
-    const translations = LocalizePF2e.translations.PF2E;
-    const sheetLabel = translations.SheetLabel;
+    const sheetLabel = game.i18n.localize("PF2E.SheetLabel");
 
     Scenes.registerSheet("pf2e", SceneConfigPF2e, { makeDefault: true });
     DocumentSheetConfig.registerSheet(TokenDocumentPF2e, "pf2e", TokenConfigPF2e, { makeDefault: true });
@@ -43,9 +41,9 @@ export function registerSheets(): void {
     Actors.unregisterSheet("core", ActorSheet);
 
     const localizeType = (type: string) => {
-        const entityType = type in CONFIG.PF2E.Actor.documentClasses ? "ACTOR" : "ITEM";
+        const docType = type in CONFIG.PF2E.Actor.documentClasses ? "ACTOR" : "ITEM";
         const camelized = type[0].toUpperCase() + type.slice(1).toLowerCase();
-        return game.i18n.localize(`${entityType}.Type${camelized}`);
+        return game.i18n.localize(`${docType}.Type${camelized}`);
     };
 
     Actors.registerSheet("pf2e", CharacterSheetPF2e, {

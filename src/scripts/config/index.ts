@@ -70,6 +70,7 @@ import {
     vehicleTraits,
     weaponTraits,
 } from "./traits.ts";
+import { BaseArmorType } from "@item/armor/types.ts";
 
 export type StatusEffectIconTheme = "default" | "blackWhite";
 
@@ -167,6 +168,14 @@ const weaponCategories = {
     advanced: "PF2E.WeaponTypeAdvanced",
     unarmed: "PF2E.WeaponTypeUnarmed",
 };
+
+const baseArmorTypes = Object.keys(enJSON.PF2E.Item.Armor.Base).reduce(
+    (map, slug) => ({
+        ...map,
+        [slug]: `PF2E.Weapon.Base.${slug}`,
+    }),
+    {} as Record<BaseArmorType, string>
+);
 
 const baseWeaponTypes = Object.keys(enJSON.PF2E.Weapon.Base).reduce(
     (map, slug) => ({
@@ -912,6 +921,7 @@ export const PF2ECONFIG = {
     weaponGroups,
     meleeWeaponGroups,
 
+    baseArmorTypes,
     baseWeaponTypes,
     equivalentWeapons,
 

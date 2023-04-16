@@ -425,6 +425,12 @@ function recursiveReplaceString(source: unknown, replace: (s: string) => string)
     return clone;
 }
 
+/** Create a localization function with a prefixed localization object path */
+function localizer(prefix: string): (...args: Parameters<Localization["format"]>) => string {
+    return (...[suffix, formatArgs]: Parameters<Localization["format"]>) =>
+        formatArgs ? game.i18n.format(`${prefix}.${suffix}`, formatArgs) : game.i18n.localize(`${prefix}.${suffix}`);
+}
+
 /** Does the parameter look like an image file path? */
 function isImageFilePath(path: unknown): path is ImageFilePath {
     return typeof path === "string" && Object.keys(CONST.IMAGE_FILE_EXTENSIONS).some((e) => path.endsWith(`.${e}`));
@@ -457,6 +463,7 @@ export {
     isObject,
     isVideoFilePath,
     localizeList,
+    localizer,
     mapValues,
     objectHasKey,
     omit,

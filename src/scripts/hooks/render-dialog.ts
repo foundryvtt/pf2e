@@ -1,7 +1,7 @@
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { PC_ITEM_TYPES } from "@item/values.ts";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
-import { LocalizePF2e } from "@system/localize.ts";
+import { localizer } from "@util";
 
 export const RenderDialog = {
     listen: (): void => {
@@ -14,11 +14,11 @@ export const RenderDialog = {
             const element = $html[0];
             if (element.classList.contains("dialog-item-create")) {
                 const select = element.querySelector<HTMLSelectElement>("select[name=type]");
-                const categories = LocalizePF2e.translations.PF2E.Item.CreationDialog.Categories;
+                const localize = localizer("PF2E.Item.CreationDialog");
                 if (select) {
-                    select.append(extractOptGroup(select, categories.Physical, [...PHYSICAL_ITEM_TYPES, "kit"]));
-                    select.append(extractOptGroup(select, categories.Character, Array.from(PC_ITEM_TYPES)));
-                    select.append(extractOptGroup(select, categories.Other));
+                    select.append(extractOptGroup(select, localize("Physical"), [...PHYSICAL_ITEM_TYPES, "kit"]));
+                    select.append(extractOptGroup(select, localize("Character"), Array.from(PC_ITEM_TYPES)));
+                    select.append(extractOptGroup(select, localize("Other")));
                     select.querySelector("option")!.selected = true;
                 }
             }
