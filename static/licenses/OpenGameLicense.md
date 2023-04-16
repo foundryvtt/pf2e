@@ -184,7 +184,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	*  Pathfinder Adventure Path #187: The Seventh Arch © 2023, Paizo Inc.; Author: James L. Sutter.
 	*  Pathfinder Adventure Path #188: They Watched The Stars © 2023, Paizo Inc.; Author: Jason Keeley.
 	*  Pathfinder Adventure Path #189: Dreamers Of The Nameless Spires © 2023, Paizo Inc.; Author: James Jacobs.
-	*  Stolen Fate Player's Guide © 2023, Paizo Inc.; Author: TBD
+	*  Stolen Fate Player's Guide © 2023, Paizo Inc.; Author: James Jacobs.
 	*  Pathfinder Adventure Path #190: The Choosing © 2023, Paizo Inc.; Author: Ron Lundeen.
 	*  Pathfinder Adventure Path #191: The Destiny War © 2023, Paizo Inc.; Author: Chris S. Sims.
 	*  Pathfinder Adventure Path #192: The Worst of All Possible Worlds © 2023, Paizo Inc.; Author: Luis Loza.
