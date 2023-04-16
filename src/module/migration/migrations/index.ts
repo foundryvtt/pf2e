@@ -233,3 +233,4 @@ export { Migration832ChoiceSetFlags } from "./832-choice-set-flags.ts";
 export { Migration833AddRogueToysFixPrecision } from "./833-add-rogue-toys-fix-precision.ts";
 export { Migration834FeatCategories } from "./834-feat-categories.ts";
 export { Migration835InitiativeLongform } from "./835-initiative-longform.ts";
+export { Migration836EnergizingConsolidation } from "./836-energizing-consolidation.ts";
