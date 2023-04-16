@@ -14,7 +14,7 @@ export const RenderDialog = {
             const element = $html[0];
             if (element.classList.contains("dialog-item-create")) {
                 const select = element.querySelector<HTMLSelectElement>("select[name=type]");
-                const localize = localizer("PF2E.Item.CreationDialog");
+                const localize = localizer("PF2E.Item.CreationDialog.Categories");
                 if (select) {
                     select.append(extractOptGroup(select, localize("Physical"), [...PHYSICAL_ITEM_TYPES, "kit"]));
                     select.append(extractOptGroup(select, localize("Character"), Array.from(PC_ITEM_TYPES)));
