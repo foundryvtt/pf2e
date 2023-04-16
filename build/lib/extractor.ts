@@ -461,6 +461,10 @@ class PackExtractor {
             delete (source.system as { deathNote?: boolean }).deathNote;
         } else if (source.type === "effect") {
             delete (source.system as { context?: unknown }).context;
+            delete (source.system as { unidentified?: unknown }).unidentified;
+            if (!source.system.badge) {
+                delete (source.system as { badge?: unknown }).badge;
+            }
         } else if (source.type === "feat") {
             const isFeat = !["ancestryfeature", "classfeature", "pfsboon", "deityboon", "curse"].includes(
                 source.system.category
