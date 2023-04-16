@@ -6,14 +6,14 @@
     "type": "module",
     "scripts": {
         "build": "npm run build:packs && vite build",
-        "build:packs": "esno ./packs/scripts/build.ts",
+        "build:packs": "esno ./build/build-packs.ts",
         "watch": "npm run build:packs && vite build --watch --mode development",
         "hot": "vite serve",
-        "link": "esno scripts/link.ts",
-        "extractPacks": "esno ./packs/scripts/extract.ts",
+        "link": "esno ./build/link-foundry.ts",
+        "extractPacks": "esno ./build/extract-packs.ts",
         "pretest": "eslint ./ --ext .ts && eslint ./static --ext .json",
         "test": "jest",
-        "migrate": "esno ./packs/scripts/run-migration.ts",
+        "migrate": "esno ./build/run-migration.ts",
         "lint": "eslint ./src ./tests ./types --ext .ts && eslint ./static --ext .json",
         "lint:fix": "eslint ./src ./tests ./types --ext .ts --fix"
     },
@@ -64,7 +64,7 @@
         "typescript": "^5.0.4",
         "vite": "^4.2.1",
         "vite-plugin-checker": "^0.5.6",
-        "vite-tsconfig-paths": "^4.1.0",
+        "vite-tsconfig-paths": "^4.2.0",
         "yargs": "^17.7.1"
     },
     "dependencies": {

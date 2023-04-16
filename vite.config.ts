@@ -24,7 +24,12 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                 order: "post",
                 async handler(code, chunk) {
                     return chunk.fileName.endsWith(".mjs")
-                        ? esbuild.transform(code, { minify: true, keepNames: true })
+                        ? esbuild.transform(code, {
+                              keepNames: true,
+                              minifyIdentifiers: false,
+                              minifySyntax: true,
+                              minifyWhitespace: true,
+                          })
                         : code;
                 },
             },
@@ -37,9 +42,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                 apply: "build",
                 writeBundle: {
                     async handler() {
-                        if (buildMode === "development") {
-                            fs.closeSync(fs.openSync(path.resolve(outDir, "vendor.mjs"), "w"));
-                        }
+                        fs.closeSync(fs.openSync(path.resolve(outDir, "vendor.mjs"), "w"));
                     },
                 },
             },

@@ -54,22 +54,19 @@ declare global {
         keyboard: KeyboardManager;
 
         /** A mapping of installed modules */
-        modules: Map<
-            string,
-            {
-                id: string;
-                active: boolean;
-                esmodules: Set<string>;
-                scripts: Set<string>;
-                flags: Record<string, Record<string, unknown>>;
-                title: string;
-                compatibility: {
-                    minimum?: string;
-                    verified?: string;
-                    maximum?: string;
-                };
-            }
-        >;
+        modules: Collection<{
+            id: string;
+            active: boolean;
+            esmodules: Set<string>;
+            scripts: Set<string>;
+            flags: DocumentFlags;
+            title: string;
+            compatibility: {
+                minimum?: string;
+                verified?: string;
+                maximum?: string;
+            };
+        }>;
 
         /** The user role permissions setting */
         permissions: Record<string, number[]>;

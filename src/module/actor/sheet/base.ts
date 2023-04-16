@@ -811,7 +811,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
     }
 
-    protected async deleteItem(element: HTMLElement, item: ItemPF2e, event?: MouseEvent) {
+    protected async deleteItem(element: HTMLElement, item: ItemPF2e, event?: MouseEvent): Promise<void> {
         const deleteItem = async (): Promise<void> => {
             await item.delete();
             $(element).slideUp(200, () => this.render(false));
