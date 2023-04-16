@@ -134,12 +134,12 @@ declare global {
         /**
          * Persist the scroll positions of containers within the app before re-rendering the content
          */
-        protected _saveScrollPositions(html: HTMLElement | JQuery, selectors: string[]): void;
+        protected _saveScrollPositions(html: HTMLElement | JQuery): void;
 
         /**
          * Restore the scroll positions of containers within the app after re-rendering the content
          */
-        protected _restoreScrollPositions(html: HTMLElement | JQuery, selectors: string[]): void;
+        protected _restoreScrollPositions(html: HTMLElement | JQuery): void;
 
         /**
          * Render the outer application wrapper

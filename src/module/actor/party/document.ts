@@ -5,6 +5,7 @@ import { ItemType } from "@item/data/index.ts";
 import { tupleHasValue } from "@util";
 import { ActorUpdateContext } from "@actor/base.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
+import { PartySheetRenderOptions } from "./sheet.ts";
 
 class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     declare members: CreaturePF2e[];
@@ -53,6 +54,20 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const combatants = (await Promise.all(promises)).filter((c): c is CombatantPF2e<EncounterPF2e> => !!c);
         return combatants;
     }
+
+    /** Re-render the sheet if data preparation is called from the familiar's master */
+    override reset({ actor = false } = {}): void {
+        if (actor) {
+            this._resetAndRerenderDebounced();
+        } else {
+            super.reset();
+        }
+    }
+
+    private _resetAndRerenderDebounced = foundry.utils.debounce(() => {
+        super.reset();
+        this.sheet.render(false, { actor: true } as PartySheetRenderOptions);
+    }, 500);
 
     /** Override to inform creatures when they were booted from a party */
     protected override _onUpdate(

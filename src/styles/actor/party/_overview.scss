@@ -1,0 +1,275 @@
+.summary {
+    @include frame-elegant;
+    padding: 0.5rem;
+    margin: 16px 16px 8px 16px;
+    label {
+        color: var(--alt-dark);
+        font-family: var(--serif);
+        font-weight: 500;
+        line-height: 1em;
+    }
+
+    .tags {
+        margin: 0;
+    }
+}
+
+.member-breakdown {
+    display: flex;
+    flex-direction: row;
+    font-family: var(--sans-serif);
+    padding: 0.5rem 16px;
+    position: relative;
+
+    &:not(:last-child):after {
+        content: "";
+        background-color: rgba(68, 55, 48, 0.1);
+        width: 100%;
+        height: 1px;
+        position: absolute;
+        bottom: 0;
+    }
+
+    .member-image {
+        position: relative;
+        min-width: 5.75rem;
+        height: 5.75rem;
+        margin-right: 8px;
+
+        img {
+            position: absolute;
+            border: none;
+            height: 100%;
+            width: 100%;
+            object-fit: contain;
+        }
+
+        .ac {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -0.5rem;
+            margin-left: auto;
+            margin-right: auto;
+
+            font-weight: 600;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: end;
+
+            width: 2.5rem;
+            height: 2.8rem;
+            padding-bottom: 0.55rem;
+
+            filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.4)) drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+
+            &::before, &::after {
+                content: "";
+                background: url("/assets/sheet/accent-decoration.webp");
+                position: absolute;
+                right: 50%;
+                bottom: 0.15rem;
+                width: 2.85rem;
+                height: 1.254rem;
+            }
+
+            &:after {
+                transform: scaleX(-1);
+                transform-origin: right center;
+            }
+
+            .shield, label, .value {
+                z-index: 1;
+            }
+
+            .shield {
+                position: absolute;
+                inset: 0;
+                background: url("/assets/sheet/shield-blue.webp") no-repeat center bottom;
+                background-size: contain;
+            }
+
+            label {
+                color: var(--tertiary-dark);
+                font-size: var(--font-size-12);
+                font-variant: all-small-caps;
+                line-height: 1em;
+            }
+            .value {
+                color: white;
+                font-size: var(--font-size-18);
+                line-height: 1em;
+            }
+        }
+    }
+
+    .member-data {
+        display: flex;
+        border-left: 1px solid #C9BFA9;
+        flex-direction: column;
+        min-height: 100%;
+        padding-left: 8px;
+        flex: 1;
+    }
+
+    .name {
+        align-items: center;
+        display: flex;
+        font-family: var(--serif);
+        font-size: var(--font-size-20);
+        font-weight: 600;
+        line-height: 1em; // make it line up better
+
+        .hero-points {
+            display: flex;
+            flex: 1;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 2px;
+
+            .empty {
+                border: 2px dashed rgba(0, 0, 0, 0.5);
+                border-radius: 50%;
+                width: 1.2rem;
+                height: 1.2rem;
+            }
+            img {
+                border: none;
+                width: 1.2rem;
+                height: 1.2rem;
+            }
+        }
+    }
+
+    .main-stats {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 0.25rem;
+
+        & > div {
+            border: 1px solid rgba(0, 0, 0, 0.28);
+            border-radius: 2px;
+            height: 2.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex: 1 1 0;
+        }
+
+        .score {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-size-18);
+
+            label {
+                font-size: var(--font-size-10);
+                font-weight: 500;
+            }
+        }
+
+        .health-section {
+            flex: 1;
+            min-width: 9rem;
+        }
+
+        .health {
+            padding-right: 0.5rem;
+            margin-right: 0.125rem;
+            justify-content: center;
+            gap: 0.5rem;
+
+            .max {
+                font-weight: 500;
+            }
+            .value, .max {
+                display: inline-block;
+                font-variant-numeric: tabular-nums;
+            }
+            .value {
+                text-align: end;
+            }
+        }
+
+        .saving-throws {
+            flex: 0.85;
+            min-width: 5.5rem;
+            .score {
+                flex: 1;
+                font-weight: 500;
+            }
+        }
+
+        .senses {
+            flex: 1.4;
+            .value {
+                display: flex;
+                font-size: var(--font-size-12);
+                gap: 0.125rem;
+                align-items: center;
+                overflow: hidden;
+            }
+            [data-acuity="imprecise"], [data-acuity="vague"] {
+                border-style: dashed;
+            }
+            .blank {
+                font-size: var(--font-size-14);
+            }
+        }
+
+        // not currently in use, but here in case we change our mind
+        .ability-scores {
+            flex: 1.2;
+            .ability-score-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2px 8px;
+                padding: 8px;
+                width: 100%;
+                .score {
+                    flex-direction: row;
+                    font-size: var(--font-size-12);
+                    justify-content: space-between;
+                    align-items: center;
+                    label {
+                        font-size: var(--font-size-12);
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+
+        .master {
+            flex: 1.15;
+            font-size: var(--font-size-16);
+        }
+    }
+
+    .skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+        .tag-light {
+            &[data-rank="1"] {
+                --tag-color: #{$rank-trained};
+            }
+            &[data-rank="2"] {
+                --tag-color: #{$rank-expert};
+            }
+            &[data-rank="3"] {
+                --tag-color: #{$rank-master};
+            }
+            &[data-rank="4"] {
+                --tag-color: #{$rank-legendary};
+            }
+        }
+
+        .perception {
+            color: white;
+            background-color: var(--tag-color);
+        }
+    }
+}
