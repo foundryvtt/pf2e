@@ -16,9 +16,8 @@ export class Migration836EnergizingConsolidation extends MigrationBase {
     }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        if (!source.system.description.value.includes("equipment-effects")) {
-            return;
+        if (source.system.description.value.includes("equipment-effects")) {
+            source.system.description.value = this.#rename(source.system.description.value);
         }
-        source.system.description.value = this.#rename(source.system.description.value);
     }
 }
