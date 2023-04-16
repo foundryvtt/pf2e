@@ -1,8 +1,9 @@
+import { DCOptions } from "@module/dc.ts";
+
 /**
  * Rules are implemented as described in https://2e.aonprd.com/Rules.aspx?ID=575
  * including the variant rules for proficiency without level https://2e.aonprd.com/Rules.aspx?ID=1371
  */
-import { DCOptions } from "@module/dc.ts";
 
 // level without proficiency variant
 const xpVariantCreatureDifferences = new Map([
@@ -65,12 +66,7 @@ function calculateCreatureXP(partyLevel: number, npcLevel: number, dcOptions: DC
     }
 }
 
-interface HazardLevel {
-    level: number;
-    isComplex: boolean;
-}
-
-function getHazardXp(partyLevel: number, hazard: HazardLevel, dcOptions: DCOptions): number {
+function getHazardXp(partyLevel: number, hazard: HazardBrief, dcOptions: DCOptions): number {
     if (hazard.isComplex) {
         return calculateCreatureXP(partyLevel, hazard.level, dcOptions);
     } else {
@@ -113,7 +109,7 @@ function calculateEncounterRating(challenge: number, budgets: EncounterBudgets):
     }
 }
 
-interface XP {
+interface XPCalculation {
     encounterBudgets: EncounterBudgets;
     rating: keyof EncounterBudgets;
     ratingXP: number;
@@ -123,13 +119,18 @@ interface XP {
     partyLevel: number;
 }
 
-export function calculateXP(
+interface HazardBrief {
+    level: number;
+    isComplex: boolean;
+}
+
+function calculateXP(
     partyLevel: number,
     partySize: number,
     npcLevels: number[],
-    hazards: HazardLevel[],
+    hazards: HazardBrief[],
     dcOptions: DCOptions
-): XP {
+): XPCalculation {
     const creatureChallenge = npcLevels
         .map((level) => calculateCreatureXP(partyLevel, level, dcOptions))
         .reduce((a, b) => a + b, 0);
@@ -150,3 +151,6 @@ export function calculateXP(
         xpPerPlayer: Math.floor((totalXP / partySize) * 4),
     };
 }
+
+export { xpFromEncounter } from "./dialog.ts";
+export { XPCalculation, calculateXP };

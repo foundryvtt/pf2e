@@ -40,6 +40,7 @@ import {
     rollActionMacro,
     rollItemMacro,
     stealthForSelected,
+    xpFromEncounter,
 } from "@scripts/macros/index.ts";
 import { remigrate } from "@scripts/system/remigrate.ts";
 import { CheckPF2e } from "@system/check/index.ts";
@@ -74,10 +75,11 @@ declare global {
             rollItemMacro: typeof rollItemMacro;
             gm: {
                 calculateXP: typeof calculateXP;
+                editPersistent: typeof editPersistent;
                 launchTravelSheet: typeof launchTravelSheet;
                 perceptionForSelected: typeof perceptionForSelected;
                 stealthForSelected: typeof stealthForSelected;
-                editPersistent: typeof editPersistent;
+                xpFromEncounter: typeof xpFromEncounter;
             };
             system: {
                 moduleArt: ModuleArt;
