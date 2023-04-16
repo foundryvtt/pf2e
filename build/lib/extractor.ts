@@ -461,9 +461,7 @@ class PackExtractor {
             delete (source.system as { deathNote?: boolean }).deathNote;
         } else if (source.type === "effect") {
             delete (source.system as { context?: unknown }).context;
-            if (!source.system.unidentified) {
-                delete (source.system as { unidentified?: unknown }).unidentified;
-            }
+            delete (source.system as { unidentified?: unknown }).unidentified;
             if (!source.system.badge) {
                 delete (source.system as { badge?: unknown }).badge;
             }
