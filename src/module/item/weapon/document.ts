@@ -252,7 +252,14 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         systemData.propertyRune2.value ||= null;
         systemData.propertyRune3.value ||= null;
         systemData.propertyRune4.value ||= null;
-        systemData.reload.value ||= null;
+
+        const reloadValue = (systemData.reload.value ||= null);
+        systemData.reload.label = reloadValue
+            ? game.i18n.format("PF2E.Item.Weapon.Reload.LabelN", {
+                  value: CONFIG.PF2E.weaponReload[reloadValue],
+              })
+            : null;
+
         systemData.selectedAmmoId ||= null;
         systemData.damage.die ||= null;
         systemData.damage.modifier ??= 0;
@@ -458,7 +465,12 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         return this.processChatData(htmlOptions, {
             ...chatData,
             traits,
-            properties: [CONFIG.PF2E.weaponCategories[this.category], rangeIncrement, maxRange].filter((p) => !!p),
+            properties: [
+                CONFIG.PF2E.weaponCategories[this.category],
+                this.system.reload.label,
+                rangeIncrement,
+                maxRange,
+            ].filter((p) => !!p),
         });
     }
 

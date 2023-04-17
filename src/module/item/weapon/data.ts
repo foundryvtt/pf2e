@@ -152,6 +152,8 @@ interface WeaponSystemData
         value: WeaponReloadTime | null;
         /** Whether the ammunition (or the weapon itself, if thrown) should be consumed upon firing */
         consume: boolean | null;
+        /** A display label for use in any view */
+        label: string | null;
     };
     runes: {
         potency: ZeroToFour;
