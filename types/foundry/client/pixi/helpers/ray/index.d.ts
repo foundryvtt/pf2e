@@ -1,2 +1,2 @@
-import "./base.js";
-import "./sight-ray.js";
+import "./base.d.ts";
+import "./sight-ray.d.ts";

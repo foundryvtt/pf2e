@@ -1,1 +1,1 @@
-import "./sampler.js";
+import "./sampler.d.ts";

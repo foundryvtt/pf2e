@@ -1,2 +1,2 @@
-import "./interaction/index.js";
-import "./shapes/index.js";
+import "./interaction/index.d.ts";
+import "./shapes/index.d.ts";

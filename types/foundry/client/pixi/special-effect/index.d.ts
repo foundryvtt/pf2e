@@ -1,1 +1,1 @@
-import "./base.js";
+import "./base.d.ts";

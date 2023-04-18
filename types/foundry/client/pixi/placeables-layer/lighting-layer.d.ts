@@ -19,7 +19,7 @@ declare global {
         constructor();
 
         /** A mapping of light sources which are active within the rendered Scene */
-        sources: foundry.utils.Collection<LightSource<TAmbientLight | Token>>;
+        sources: Collection<LightSource<TAmbientLight | Token>>;
 
         /**
          * Increment this whenever lighting channels are re-configured.

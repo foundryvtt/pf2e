@@ -1,4 +1,4 @@
-import { ClientBaseScene } from "./client-base-mixes.js";
+import type { ClientBaseScene } from "./client-base-mixes.d.ts";
 
 declare global {
     // Interfaces for ClientDocuments, given there is no common base with the generated intermediate classes

@@ -1,5 +1,5 @@
-import { DataModel } from "./common/abstract/data.mjs";
-import { DataSchema } from "./common/data/fields.js";
+import type DataModel from "./common/abstract/data.d.ts";
+import type { DataSchema } from "./common/data/fields.d.ts";
 
 declare global {
     interface ElementDragEvent extends DragEvent {
@@ -14,7 +14,7 @@ declare global {
         [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
     };
 
-    type CollectionValue<T> = T extends foundry.utils.Collection<infer U> ? U : never;
+    type CollectionValue<T> = T extends Collection<infer U> ? U : never;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     type AbstractConstructorOf<T> = abstract new (...args: any[]) => T;

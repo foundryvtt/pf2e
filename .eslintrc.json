@@ -5,11 +5,12 @@
         "jest/globals": true
     },
     "extends": [
-        "prettier",
-        "plugin:import/errors",
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
-        "plugin:json/recommended"
+        "plugin:import/errors",
+        "plugin:import/typescript",
+        "plugin:json/recommended",
+        "prettier"
     ],
     "parserOptions": {
         "ecmaVersion": 2018,
@@ -84,9 +85,7 @@
                 ]
             },
             "eslint-import-resolver-typescript": true,
-            "typescript": {
-                "alwaysTryTypes": true
-            }
+            "typescript": true
         },
         "import/parsers": {
             "@typescript-eslint/parser": [

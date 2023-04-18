@@ -7,7 +7,7 @@ import { TokenDocumentPF2e } from "@scene/index.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import { LaxSchemaField, PredicateField, SlugField } from "@system/schema-data-fields.ts";
 import { isObject, tupleHasValue } from "@util";
-import type { DataModelValidationOptions } from "types/foundry/common/abstract/data.d.mts";
+import type { DataModelValidationOptions } from "types/foundry/common/abstract/data.d.ts";
 import { BracketedValue, RuleElementData, RuleElementSchema, RuleElementSource, RuleValue } from "./data.ts";
 
 const { DataModel } = foundry.abstract;

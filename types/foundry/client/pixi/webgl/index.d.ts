@@ -1,3 +1,3 @@
-import "./base.js";
-import "./filters/index.js";
-import "./shaders/index.js";
+import "./base.d.ts";
+import "./filters/index.d.ts";
+import "./shaders/index.d.ts";
