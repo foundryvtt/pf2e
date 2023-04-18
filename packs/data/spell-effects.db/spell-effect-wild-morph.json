@@ -3,9 +3,8 @@
     "img": "systems/pf2e/icons/spells/wild-morph.webp",
     "name": "Spell Effect: Wild Morph",
     "system": {
-        "badge": null,
         "description": {
-            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Wild Morph]{Wild Morph}</em>.</p>"
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Wild Morph]{Wild Morph}</em></p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -70,7 +69,6 @@
                         "die": "d6"
                     }
                 },
-                "group": "brawling",
                 "img": "systems/pf2e/icons/unarmed-attacks/claw.webp",
                 "key": "Strike",
                 "label": "PF2E.Weapon.Base.claw",
@@ -95,7 +93,6 @@
                         "die": "d8"
                     }
                 },
-                "group": "brawling",
                 "img": "systems/pf2e/icons/unarmed-attacks/jaws.webp",
                 "key": "Strike",
                 "label": "PF2E.Weapon.Base.jaws",
@@ -135,6 +132,73 @@
                 ],
                 "selector": "fly",
                 "value": 30
+            },
+            {
+                "damageType": "bleed",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "wild-morph:wild-claws"
+                ],
+                "selector": "claw-damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "value": {
+                                "diceNumber": 0
+                            }
+                        },
+                        {
+                            "end": 9,
+                            "start": 6,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "start": 10,
+                            "value": {
+                                "diceNumber": 4
+                            }
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "category": "persistent",
+                "damageType": "poison",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "wild-morph:wild-jaws"
+                ],
+                "selector": "jaws-damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "value": {
+                                "diceNumber": 0
+                            }
+                        },
+                        {
+                            "end": 9,
+                            "start": 6,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "start": 10,
+                            "value": {
+                                "diceNumber": 4
+                            }
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
             }
         ],
         "source": {
