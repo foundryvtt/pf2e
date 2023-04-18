@@ -1,1 +1,1 @@
-import "./canvas-animation.js";
+import "./canvas-animation.d.ts";

@@ -1,11 +1,11 @@
-import "./context.js";
-import "./dialog.js";
-import "./drag-drop.js";
-import "./filepicker.js";
-import "./notifications.js";
-import "./tabs.js";
-import "./tooltip.js";
-import "./tour.js";
+import "./context.d.ts";
+import "./dialog.d.ts";
+import "./drag-drop.d.ts";
+import "./filepicker.d.ts";
+import "./notifications.d.ts";
+import "./tabs.d.ts";
+import "./tooltip.d.ts";
+import "./tour.d.ts";
 
 declare global {
     interface FoundryUI<

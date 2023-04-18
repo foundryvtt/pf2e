@@ -1,4 +1,4 @@
-import { ClientBasePlaylistSound } from "./client-base-mixes.js";
+import type { ClientBasePlaylistSound } from "./client-base-mixes.d.ts";
 
 declare global {
     /**

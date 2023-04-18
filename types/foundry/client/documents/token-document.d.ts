@@ -1,4 +1,4 @@
-import { CanvasBaseToken } from "./client-base-mixes.js";
+import type { CanvasBaseToken } from "./client-base-mixes.d.ts";
 
 declare global {
     class TokenDocument<TParent extends Scene | null> extends CanvasBaseToken<TParent> {
