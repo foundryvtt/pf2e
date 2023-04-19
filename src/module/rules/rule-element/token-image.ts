@@ -31,6 +31,10 @@ export class TokenImageRuleElement extends RuleElementPF2e {
         if (typeof data.tint === "string") {
             this.tint = data.tint;
         }
+
+        if (typeof data.alpha === "number") {
+            this.alpha = data.alpha
+        }
     }
 
     override afterPrepareData(): void {
