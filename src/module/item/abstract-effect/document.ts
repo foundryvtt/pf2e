@@ -42,9 +42,8 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
     }
 
     override getRollOptions(prefix = this.type): string[] {
-        const originRollOptions = new Set(
-            this.origin?.getRollOptions().map((o) => o.replace(/^(?:self:)?/, `${prefix}:origin:`)) ?? []
-        );
+        // If this effect came from another actor, get that actor's roll options as well
+        const originRollOptions = this.origin?.getSelfRollOptions("origin").map((o) => `${prefix}${o}`) ?? [];
 
         return [
             ...super.getRollOptions(prefix),
