@@ -19,6 +19,7 @@
             {
                 "choices": [
                     {
+                        "img": "systems/pf2e/icons/unarmed-attacks/claw.webp",
                         "label": "PF2E.SpecificRule.WildMorph.WildClaws",
                         "predicate": [
                             "feat:wild-shape"
@@ -26,6 +27,7 @@
                         "value": "wild-claws"
                     },
                     {
+                        "img": "systems/pf2e/icons/unarmed-attacks/jaws.webp",
                         "label": "PF2E.SpecificRule.WildMorph.WildJaws",
                         "predicate": [
                             "feat:insect-shape"
@@ -33,6 +35,7 @@
                         "value": "wild-jaws"
                     },
                     {
+                        "img": "systems/pf2e/icons/spells/summon-elemental.webp",
                         "label": "PF2E.SpecificRule.WildMorph.ElementalMatter",
                         "predicate": [
                             "feat:elemental-shape"
@@ -40,6 +43,7 @@
                         "value": "elemental-matter"
                     },
                     {
+                        "img": "systems/pf2e/icons/spells/murderous-vine.webp",
                         "label": "PF2E.SpecificRule.WildMorph.LongVines",
                         "predicate": [
                             "feat:plant-shape"
@@ -47,6 +51,7 @@
                         "value": "long-vines"
                     },
                     {
+                        "img": "systems/pf2e/icons/spells/angelic-wings.webp",
                         "label": "PF2E.SpecificRule.WildMorph.Wings",
                         "predicate": [
                             "feat:soaring-shape"
@@ -58,6 +63,270 @@
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.WildMorph.Prompt",
                 "rollOption": "wild-morph"
+            },
+            {
+                "allowNoSelection": true,
+                "choices": [
+                    {
+                        "img": "systems/pf2e/icons/unarmed-attacks/claw.webp",
+                        "label": "PF2E.SpecificRule.WildMorph.WildClaws",
+                        "predicate": [
+                            "feat:wild-shape",
+                            {
+                                "not": "wild-morph:wild-claws"
+                            }
+                        ],
+                        "value": "wild-claws"
+                    },
+                    {
+                        "img": "systems/pf2e/icons/unarmed-attacks/jaws.webp",
+                        "label": "PF2E.SpecificRule.WildMorph.WildJaws",
+                        "predicate": [
+                            "feat:insect-shape",
+                            {
+                                "not": "wild-morph:wild-jaws"
+                            }
+                        ],
+                        "value": "wild-jaws"
+                    },
+                    {
+                        "img": "systems/pf2e/icons/spells/summon-elemental.webp",
+                        "label": "PF2E.SpecificRule.WildMorph.ElementalMatter",
+                        "predicate": [
+                            "feat:elemental-shape",
+                            {
+                                "not": "wild-morph:elemental-matter"
+                            }
+                        ],
+                        "value": "elemental-matter"
+                    },
+                    {
+                        "img": "systems/pf2e/icons/spells/murderous-vine.webp",
+                        "label": "PF2E.SpecificRule.WildMorph.LongVines",
+                        "predicate": [
+                            "feat:plant-shape",
+                            {
+                                "not": "wild-morph:long-vines"
+                            }
+                        ],
+                        "value": "long-vines"
+                    },
+                    {
+                        "img": "systems/pf2e/icons/spells/angelic-wings.webp",
+                        "label": "PF2E.SpecificRule.WildMorph.Wings",
+                        "predicate": [
+                            "feat:soaring-shape",
+                            {
+                                "not": "wild-morph:wings"
+                            }
+                        ],
+                        "value": "wings"
+                    }
+                ],
+                "flag": "spellEffectWildMorph2",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "gte": [
+                            "item:level",
+                            6
+                        ]
+                    },
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "feat:wild-shape",
+                                    {
+                                        "not": "wild-morph:wild-claws"
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "feat:insect-shape",
+                                    {
+                                        "not": "wild-morph:wild-jaws"
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "feat:elemental-shape",
+                                    {
+                                        "not": "wild-morph:elemental-matter"
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "feat:plant-shape",
+                                    {
+                                        "not": "wild-morph:long-vines"
+                                    }
+                                ]
+                            },
+                            {
+                            
+                                "and": [
+                                    "feat:soaring-shape",
+                                    {
+                                        "not": "wild-morph:wings"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.WildMorph.Prompt2",
+                "rollOption": "wild-morph2"
+            },
+            {
+                "allowNoSelection": true,
+                "choices": [
+                    {
+                        "img": "systems/pf2e/icons/unarmed-attacks/claw.webp",
+                        "label": "PF2E.SpecificRule.WildMorph.WildClaws",
+                        "predicate": [
+                            "feat:wild-shape",
+                            {
+                                "nor": [
+                                    "wild-morph:wild-claws",
+                                    "wild-morph2:wild-claws"
+                                ]
+                            }
+                        ],
+                        "value": "wild-claws"
+                    },
+                    {
+                        "img": "systems/pf2e/icons/unarmed-attacks/jaws.webp",
+                        "label": "PF2E.SpecificRule.WildMorph.WildJaws",
+                        "predicate": [
+                            "feat:insect-shape",
+                            {
+                                "nor": [
+                                    "wild-morph:wild-jaws",
+                                    "wild-morph2:wild-jaws"
+                                ]
+                            }
+                        ],
+                        "value": "wild-jaws"
+                    },
+                    {
+                        "img": "systems/pf2e/icons/spells/summon-elemental.webp",
+                        "label": "PF2E.SpecificRule.WildMorph.ElementalMatter",
+                        "predicate": [
+                            "feat:elemental-shape",
+                            {
+                                "nor": [
+                                    "wild-morph:elemental-matter",
+                                    "wild-morph2:elemental-matter"
+                                ]
+                            }
+                        ],
+                        "value": "elemental-matter"
+                    },
+                    {
+                        "img": "systems/pf2e/icons/spells/murderous-vine.webp",
+                        "label": "PF2E.SpecificRule.WildMorph.LongVines",
+                        "predicate": [
+                            "feat:plant-shape",
+                            {
+                                "nor": [
+                                    "wild-morph:long-vines",
+                                    "wild-morph2:long-vines"
+                                ]
+                            }
+                        ],
+                        "value": "long-vines"
+                    },
+                    {
+                        "img": "systems/pf2e/icons/spells/angelic-wings.webp",
+                        "label": "PF2E.SpecificRule.WildMorph.Wings",
+                        "predicate": [
+                            "feat:soaring-shape",
+                            {
+                                "nor": [
+                                    "wild-morph:wings",
+                                    "wild-morph2:wings"
+                                ]
+                            }
+                        ],
+                        "value": "wings"
+                    }
+                ],
+                "flag": "spellEffectWildMorph3",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "gte": [
+                            "item:level",
+                            10
+                        ]
+                    },
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "feat:wild-shape",
+                                    {
+                                        "nor": [
+                                            "wild-morph:wild-claws",
+                                            "wild-morph2:wild-claws"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "feat:insect-shape",
+                                    {
+                                        "nor": [
+                                            "wild-morph:wild-jaws",
+                                            "wild-morph2:wild-jaws"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "feat:elemental-shape",
+                                    {
+                                        "nor": [
+                                            "wild-morph:elemental-matter",
+                                            "wild-morph2:elemental-matter"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "feat:plant-shape",
+                                    {
+                                        "nor": [
+                                            "wild-morph:long-vines",
+                                            "wild-morph2:long-vines"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                            
+                                "and": [
+                                    "feat:soaring-shape",
+                                    {
+                                        "nor": [
+                                            "wild-morph:wings",
+                                            "wild-morph2:wings"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.WildMorph.Prompt3",
+                "rollOption": "wild-morph3"
             },
             {
                 "baseType": "claw",
@@ -73,7 +342,13 @@
                 "key": "Strike",
                 "label": "PF2E.Weapon.Base.claw",
                 "predicate": [
-                    "wild-morph:wild-claws"
+                    {
+                        "or": [
+                            "wild-morph:wild-claws",
+                            "wild-morph2:wild-claws",
+                            "wild-morph3:wild-claws"
+                        ]
+                    }
                 ],
                 "range": null,
                 "slug": "claw",
@@ -97,7 +372,13 @@
                 "key": "Strike",
                 "label": "PF2E.Weapon.Base.jaws",
                 "predicate": [
-                    "wild-morph:wild-jaws"
+                    {
+                        "or": [
+                            "wild-morph:wild-jaws",
+                            "wild-morph2:wild-jaws",
+                            "wild-morph3:wild-jaws"
+                        ]
+                    }
                 ],
                 "range": null,
                 "slug": "jaws",
@@ -108,7 +389,13 @@
             {
                 "key": "Resistance",
                 "predicate": [
-                    "wild-morph:elemental-matter"
+                    {
+                        "or": [
+                            "wild-morph:elemental-matter",
+                            "wild-morph2:elemental-matter",
+                            "wild-morph3:elemental-matter"
+                        ]
+                    }
                 ],
                 "type": [
                     "critical-hits",
@@ -121,14 +408,27 @@
                 "mode": "upgrade",
                 "path": "system.attributes.reach.general",
                 "predicate": [
-                    "wild-morph:long-vines"
+                    {
+                        "or": [
+                            "wild-morph:long-vines",
+                            "wild-morph2:long-vines",
+                            "wild-morph3:long-vines"
+                        ]
+                    }
                 ],
                 "value": 10
             },
             {
                 "key": "BaseSpeed",
                 "predicate": [
-                    "wild-morph:wings"
+                    {
+                        "or": [
+                            "wild-morph:wings",
+                            "wild-morph2:wings",
+                            "wild-morph3:wings"
+                        ]
+                    }
+                    
                 ],
                 "selector": "fly",
                 "value": 30
