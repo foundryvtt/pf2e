@@ -10,8 +10,6 @@ import type { BaseScene, BaseUser } from "./module.d.ts";
 export default class BaseToken<TParent extends BaseScene | null = BaseScene | null> extends Document<TParent> {
     readonly actorLink: boolean;
 
-    alpha: number;
-
     displayName: TokenDisplayMode;
 
     disposition: TokenDisposition;
@@ -112,7 +110,6 @@ export interface TokenSource extends TokenLightData {
     actorId: string | null;
     actorLink: boolean;
     actorData: DeepPartial<ActorSource>;
-    alpha: number;
     mirrorX: boolean;
     mirrorY: boolean;
     height: number;

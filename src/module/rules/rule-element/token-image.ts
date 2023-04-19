@@ -33,7 +33,7 @@ export class TokenImageRuleElement extends RuleElementPF2e {
         }
 
         if (typeof data.alpha === "number") {
-            this.alpha = data.alpha
+            this.alpha = data.alpha;
         }
     }
 
