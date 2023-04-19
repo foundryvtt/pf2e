@@ -239,6 +239,13 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                 this.texture.scaleY = tokenOverrides.texture.scaleY;
                 this.flags.pf2e.autoscale = false;
             }
+            if (tokenOverrides.texture.tint) {
+                this.tint = tokenOverrides.texture.tint;
+            }
+        }
+
+        if (tokenOverrides.alpha) {
+            this.alpha = tokenOverrides.alpha;
         }
 
         if (tokenOverrides.light) {

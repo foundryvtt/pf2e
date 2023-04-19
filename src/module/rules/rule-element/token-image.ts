@@ -10,8 +10,10 @@ export class TokenImageRuleElement extends RuleElementPF2e {
     /** An image or video path */
     value: string | BracketedValue | null;
 
-    /** An optional scale adjustment */
+    /** An optional scale, tint, and alpha adjustment */
     scale?: number;
+    tint?: string;
+    alpha?: number;
 
     constructor(data: TokenImageSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
@@ -25,6 +27,10 @@ export class TokenImageRuleElement extends RuleElementPF2e {
         if (typeof data.scale === "number" && data.scale > 0) {
             this.scale = data.scale;
         }
+
+        if (typeof data.tint === "string") {
+            this.tint = data.tint
+        }
     }
 
     override afterPrepareData(): void {
@@ -33,10 +39,18 @@ export class TokenImageRuleElement extends RuleElementPF2e {
 
         if (!this.test()) return;
 
-        const texture: { src: VideoFilePath; scaleX?: number; scaleY?: number } = { src };
+        const texture: { src: VideoFilePath; scaleX?: number; scaleY?: number; tint?: string} = { src };
         if (this.scale) {
             texture.scaleX = this.scale;
             texture.scaleY = this.scale;
+        }
+
+        if (this.tint) {
+            texture.tint = this.tint
+        }
+
+        if (this.alpha) {
+            this.actor.synthetics.tokenOverrides.alpha = this.alpha
         }
 
         this.actor.synthetics.tokenOverrides.texture = texture;
@@ -52,4 +66,6 @@ export class TokenImageRuleElement extends RuleElementPF2e {
 interface TokenImageSource extends RuleElementSource {
     value?: unknown;
     scale?: unknown;
+    tint?: unknown;
+    alpha?: unknown;
 }
