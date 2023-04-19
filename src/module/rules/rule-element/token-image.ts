@@ -29,7 +29,7 @@ export class TokenImageRuleElement extends RuleElementPF2e {
         }
 
         if (typeof data.tint === "string") {
-            this.tint = data.tint
+            this.tint = data.tint;
         }
     }
 
@@ -39,18 +39,18 @@ export class TokenImageRuleElement extends RuleElementPF2e {
 
         if (!this.test()) return;
 
-        const texture: { src: VideoFilePath; scaleX?: number; scaleY?: number; tint?: string} = { src };
+        const texture: { src: VideoFilePath; scaleX?: number; scaleY?: number; tint?: string } = { src };
         if (this.scale) {
             texture.scaleX = this.scale;
             texture.scaleY = this.scale;
         }
 
         if (this.tint) {
-            texture.tint = this.tint
+            texture.tint = this.tint;
         }
 
         if (this.alpha) {
-            this.actor.synthetics.tokenOverrides.alpha = this.alpha
+            this.actor.synthetics.tokenOverrides.alpha = this.alpha;
         }
 
         this.actor.synthetics.tokenOverrides.texture = texture;
