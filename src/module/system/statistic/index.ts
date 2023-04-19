@@ -341,6 +341,7 @@ class StatisticCheck {
                     item,
                     domains,
                     statistic: this,
+                    target: game.user.targets.first(),
                     targetedDC: "armor",
                     options: new Set(),
                 });
