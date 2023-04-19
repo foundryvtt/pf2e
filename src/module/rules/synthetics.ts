@@ -40,8 +40,12 @@ interface RuleElementSynthetics {
     striking: Record<string, StrikingSynthetic[]>;
     targetMarks: Map<TokenDocumentUUID, string>;
     toggles: RollOptionToggle[];
-    tokenOverrides: DeepPartial<Pick<foundry.documents.TokenSource, "light" | "name">> & {
-        texture?: { src: VideoFilePath } | { src: VideoFilePath; scaleX: number; scaleY: number };
+    tokenOverrides: DeepPartial<Pick<foundry.documents.TokenSource, "light" | "name" | "alpha">> & {
+        texture?:
+            | { src: VideoFilePath }
+            | { src: VideoFilePath; scaleX: number; scaleY: number }
+            | { src: VideoFilePath; scaleX: number; scaleY: number; tint: `#${string}` }
+            | { src: VideoFilePath; tint: `#${string}` };
     };
     weaponPotency: Record<string, PotencySynthetic[]>;
     preparationWarnings: {
