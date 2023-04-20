@@ -57,7 +57,7 @@ abstract class PickAThingPrompt<T> extends Application {
             event.currentTarget.closest(".content")?.querySelector<HTMLElement>("tag") ?? event.currentTarget;
         const selectedIndex = valueElement.getAttribute("value");
 
-        return selectedIndex === null || selectedIndex === "" || !Number.isInteger(Number(selectedIndex))
+        return ["", null].includes(selectedIndex) || !Number.isInteger(Number(selectedIndex))
             ? null
             : this.choices.at(Number(selectedIndex)) ?? null;
     }
