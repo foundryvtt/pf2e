@@ -1,4 +1,5 @@
-import { DataModel, RawObject } from "./data.mjs";
+import type DataModel from "./data.d.ts";
+import type { RawObject } from "./data.d.ts";
 
 /**
  * An extension of the Collection.
@@ -9,7 +10,7 @@ export class EmbeddedCollection<TModel extends DataModel> extends Collection<TMo
     constructor(
         sourceArray: TModel["_source"][],
         documentClass: {
-            new (data: TModel["_source"], context?: DataModelConstructionOptions<ParentOf<TModel>>): TModel;
+            new (data: TModel["_source"], context?: DataModelConstructionOptions<TModel["parent"]>): TModel;
         }
     );
 

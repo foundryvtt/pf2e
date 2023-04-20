@@ -1,4 +1,5 @@
-import { DataModel, EmbeddedCollection } from "../abstract/module.js";
+import type DataModel from "../abstract/data.d.ts";
+import type { EmbeddedCollection } from "../abstract/embedded-collection.d.mts";
 
 /* ---------------------------------------- */
 /*  Abstract Data Field                     */
@@ -11,7 +12,7 @@ import { DataModel, EmbeddedCollection } from "../abstract/module.js";
  * @property [initial]         The initial value of a field, or a function which assigns that initial value.
  * @property [validate]        A data validation function which accepts one argument with the current value.
  * @property [choices]         An array of values or an object of values/labels which represent allowed choices for the
-                               field. A function may be provided which dynamically returns the array of choices.
+ *                             field. A function may be provided which dynamically returns the array of choices.
  * @property [label]           A localizable label displayed on forms which render this field.
  * @property [hint]            Localizable help text displayed on forms which render this field.
  * @property [validationError] A custom validation error string. When displayed will be prepended with the
@@ -37,6 +38,21 @@ export interface DataFieldOptions<
     validationError?: string;
 }
 
+/**
+ * An abstract class that defines the base pattern for a data field within a data schema.
+ *
+ * @property name             The name of this data field within the schema that contains it
+ * @property [required=false] Is this field required to be populated?
+ * @property [nullable=false] Can this field have null values?
+ * @property initial          The initial value of a field, or a function which assigns that initial value.
+ * @property validate         A data validation function which accepts one argument with the current value.
+ * @property [readonly=false] Should the prepared value of the field be read-only, preventing it from being
+ *                                        changed unless a change to the _source data is applied.
+ * @property {string} label               A localizable label displayed on forms which render this field.
+ * @property {string} hint                Localizable help text displayed on forms which render this field.
+ * @property {string} validationError     A custom validation error string. When displayed will be prepended with the
+ *                                        document name, field name, and candidate value.
+ */
 export abstract class DataField<
     TSourceProp = unknown,
     TModelProp = TSourceProp,

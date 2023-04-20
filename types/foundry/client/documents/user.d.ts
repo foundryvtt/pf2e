@@ -1,4 +1,4 @@
-import { ClientBaseUser } from "./client-base-mixes.js";
+import type { ClientBaseUser } from "./client-base-mixes.d.ts";
 
 declare global {
     /**

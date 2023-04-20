@@ -1,4 +1,4 @@
-import { ClientBaseChatMessage } from "./client-base-mixes.js";
+import type { ClientBaseChatMessage } from "./client-base-mixes.d.ts";
 
 declare global {
     /**

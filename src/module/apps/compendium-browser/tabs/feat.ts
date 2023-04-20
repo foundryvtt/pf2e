@@ -27,13 +27,16 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
         const sources: Set<string> = new Set();
         const indexFields = [
             "img",
-            "system.prerequisites.value",
             "system.actionType.value",
             "system.actions.value",
             "system.category",
+            // Migrated to `system.category` but still retrieved in case of unmigrated items
+            // Remove in system version 5?
+            "system.featType.value",
             "system.level.value",
-            "system.traits",
+            "system.prerequisites.value",
             "system.source.value",
+            "system.traits",
         ];
 
         const translatedSkills = Object.entries(CONFIG.PF2E.skillList).reduce(
@@ -58,8 +61,8 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                     featData.filters = {};
                     // Check separately for one of "system.category or "system.featType.value" to provide backward
                     // compatible support for unmigrated feats in non-system compendiums.
-                    const nonCategoryPaths = indexFields.filter((f) => f !== "system.category");
                     const categoryPaths = ["system.category", "system.featType.value"];
+                    const nonCategoryPaths = indexFields.filter((f) => !categoryPaths.includes(f));
                     const categoryPathFound = categoryPaths.some((p) => foundry.utils.hasProperty(featData, p));
 
                     if (!this.hasAllIndexFields(featData, nonCategoryPaths) || !categoryPathFound) {

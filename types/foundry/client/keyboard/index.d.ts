@@ -1,2 +1,2 @@
-import "./client-keybindings.js";
-import "./keyboard-manager.js";
+import "./client-keybindings.d.ts";
+import "./keyboard-manager.d.ts";

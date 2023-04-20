@@ -1,2 +1,2 @@
-import "./polygon-helpers.js";
-import "./source-polygon.js";
+import "./polygon-helpers.d.ts";
+import "./source-polygon.d.ts";

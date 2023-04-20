@@ -1,4 +1,4 @@
-import { ClientBaseCombatant } from "./client-base-mixes.js";
+import type { ClientBaseCombatant } from "./client-base-mixes.d.ts";
 
 declare global {
     /**

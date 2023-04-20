@@ -1,3 +1,3 @@
-import "./effects.js";
-import "./interface.js";
-import "./primary.js";
+import "./effects.d.ts";
+import "./interface.d.ts";
+import "./primary.d.ts";

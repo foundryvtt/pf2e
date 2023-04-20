@@ -1,4 +1,4 @@
-import { CanvasBaseDrawing } from "./client-base-mixes.js";
+import type { CanvasBaseDrawing } from "./client-base-mixes.d.ts";
 
 declare global {
     /**

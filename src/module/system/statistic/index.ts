@@ -332,35 +332,38 @@ class StatisticCheck {
         const item = args.item ?? null;
         const domains = this.domains;
 
+        const { origin } = args;
+        const targetToken = origin
+            ? null
+            : (args.target?.getActiveTokens() ?? Array.from(game.user.targets)).find((t) =>
+                  t.actor?.isOfType("creature")
+              ) ?? null;
+
         // This is required to determine the AC for attack dialogs
         const rollContext = await (() => {
             const isValidAttacker = actor.isOfType("creature", "hazard");
-            const isAttackItem = item?.isOfType("weapon", "melee", "spell");
-            if (isValidAttacker && isAttackItem && ["attack-roll", "spell-attack-roll"].includes(this.type)) {
-                return actor.getCheckContext({
-                    item,
-                    domains,
-                    statistic: this,
-                    targetedDC: "armor",
-                    options: new Set(),
-                });
-            }
+            const isTargetedCheck =
+                (this.type === "attack-roll" && item?.isOfType("spell")) ||
+                (["perception-check", "skill-check"].includes(this.type) &&
+                    !!args.dc?.slug &&
+                    (!item || item.isOfType("weapon")));
 
-            return null;
+            return isValidAttacker && isTargetedCheck
+                ? actor.getCheckContext({
+                      item,
+                      domains,
+                      statistic: this,
+                      target: targetToken,
+                      targetedDC: args.dc?.slug ?? "armor",
+                      options: new Set(),
+                  })
+                : null;
         })();
 
-        const { origin } = args;
-        const target = origin
-            ? null
-            : args.target ??
-              rollContext?.target?.actor ??
-              Array.from(game.user.targets)
-                  .flatMap((t) => t.actor ?? [])
-                  .find((a) => a.isOfType("creature"));
-
+        const targetActor = origin ? null : rollContext?.target?.actor ?? args.target ?? null;
         const extraModifiers = [...(args.modifiers ?? [])];
         const extraRollOptions = [...(args.extraRollOptions ?? []), ...(rollContext?.options ?? [])];
-        const options = this.createRollOptions({ ...args, origin, target, extraRollOptions });
+        const options = this.createRollOptions({ ...args, origin, target: targetActor, extraRollOptions });
         const notes = [...extractNotes(actor.synthetics.rollNotes, this.domains), ...(args.extraRollNotes ?? [])];
         const dc = args.dc ?? rollContext?.dc ?? null;
 
@@ -382,8 +385,8 @@ class StatisticCheck {
             const amount =
                 this.type === "saving-throw" && actor.level > effectLevel
                     ? DEGREE_ADJUSTMENT_AMOUNTS.INCREASE
-                    : !!target &&
-                      target.level > effectLevel &&
+                    : !!targetActor &&
+                      targetActor.level > effectLevel &&
                       ["attack-roll", "spell-attack-roll", "skill-check"].includes(this.type)
                     ? DEGREE_ADJUSTMENT_AMOUNTS.LOWER
                     : null;

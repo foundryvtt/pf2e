@@ -1,4 +1,4 @@
-import { ClientBaseFolder } from "./client-base-mixes.js";
+import type { ClientBaseFolder } from "./client-base-mixes.d.ts";
 
 declare global {
     /**
@@ -33,7 +33,7 @@ declare global {
         get displayed(): boolean;
 
         /** Return a reference to the Document type which is contained within this Folder. */
-        get documentClass(): Function;
+        get documentClass(): ConstructorOf<TDocument>;
 
         /** Return a reference to the WorldCollection instance which provides Documents to this Folder. */
         get documentCollection(): WorldCollection<TDocument>;

@@ -7,7 +7,7 @@ import { TokenDocumentPF2e } from "@scene/index.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import { LaxSchemaField, PredicateField, SlugField } from "@system/schema-data-fields.ts";
 import { isObject, tupleHasValue } from "@util";
-import type { DataModelValidationOptions } from "types/foundry/common/abstract/data.d.mts";
+import type { DataModelValidationOptions } from "types/foundry/common/abstract/data.d.ts";
 import { BracketedValue, RuleElementData, RuleElementSchema, RuleElementSource, RuleValue } from "./data.ts";
 
 const { DataModel } = foundry.abstract;
@@ -283,13 +283,15 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
         const saferEval = (formula: string): number => {
             try {
                 // If any resolvables were not provided for this formula, return the default value
-                const unresolved = /@[a-z]+/i.exec(formula) ?? [];
-                for (const resolvable of unresolved) {
-                    if (resolvable === "@target") continue; // Allow to fail with no warning
-                    this.failValidation(`This rule element requires a "${resolvable}" object, but none was provided.`);
+                const unresolveds = formula.match(/@[a-z]+/gi) ?? [];
+                // Allow failure of "@target" with no warning
+                if (unresolveds.length > 0) {
+                    if (!unresolveds.every((u) => u === "@target")) {
+                        this.failValidation(`Failed to resolve all components of formula, "${formula}"`);
+                    }
+                    return 0;
                 }
-
-                return unresolved.length === 0 ? Roll.safeEval(formula) : 0;
+                return Roll.safeEval(formula);
             } catch {
                 this.failValidation(`Error thrown while attempting to evaluate formula, "${formula}"`);
                 return 0;
