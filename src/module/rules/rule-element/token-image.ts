@@ -53,7 +53,7 @@ export class TokenImageRuleElement extends RuleElementPF2e {
             texture.tint = this.tint;
         }
 
-        if (this.alpha) {
+        if (typeof this.alpha === "number") {
             this.actor.synthetics.tokenOverrides.alpha = this.alpha;
         }
 

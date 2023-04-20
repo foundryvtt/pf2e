@@ -42,10 +42,8 @@ interface RuleElementSynthetics {
     toggles: RollOptionToggle[];
     tokenOverrides: DeepPartial<Pick<foundry.documents.TokenSource, "light" | "name" | "alpha">> & {
         texture?:
-            | { src: VideoFilePath }
-            | { src: VideoFilePath; scaleX: number; scaleY: number }
-            | { src: VideoFilePath; scaleX: number; scaleY: number; tint: `#${string}` }
-            | { src: VideoFilePath; tint: `#${string}` };
+            | { src: VideoFilePath; tint?: HexColorString }
+            | { src: VideoFilePath; tint?: HexColorString; scaleX: number; scaleY: number };
     };
     weaponPotency: Record<string, PotencySynthetic[]>;
     preparationWarnings: {
