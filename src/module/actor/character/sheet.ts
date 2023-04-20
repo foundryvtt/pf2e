@@ -849,9 +849,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             .filter((s) => !!s)
             .map((s) => s.trim());
 
-        if (checkboxesFilterCodes.includes("category-general")) checkboxesFilterCodes.push("category-skill");
-        if (checkboxesFilterCodes.includes("category-class")) checkboxesFilterCodes.push("category-archetype");
-
         const featTab = game.pf2e.compendiumBrowser.tabs.feat;
         const filter = await featTab.getFilterData();
         const level = filter.sliders.level;
