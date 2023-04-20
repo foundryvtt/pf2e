@@ -12,7 +12,7 @@ export class TokenImageRuleElement extends RuleElementPF2e {
 
     /** An optional scale, tint, and alpha adjustment */
     scale?: number;
-    tint?: string;
+    tint?: HexColorString;
     alpha?: number;
 
     constructor(data: TokenImageSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
@@ -29,7 +29,7 @@ export class TokenImageRuleElement extends RuleElementPF2e {
         }
 
         if (typeof data.tint === "string") {
-            this.tint = data.tint;
+            this.tint = new Color(data.tint).toString();
         }
 
         if (typeof data.alpha === "number") {
@@ -43,7 +43,7 @@ export class TokenImageRuleElement extends RuleElementPF2e {
 
         if (!this.test()) return;
 
-        const texture: { src: VideoFilePath; scaleX?: number; scaleY?: number; tint?: string } = { src };
+        const texture: { src: VideoFilePath; scaleX?: number; scaleY?: number; tint?: HexColorString } = { src };
         if (this.scale) {
             texture.scaleX = this.scale;
             texture.scaleY = this.scale;
