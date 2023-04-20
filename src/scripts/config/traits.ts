@@ -714,6 +714,7 @@ const hazardTraits = {
     ...magicTraditions,
     aberration: "PF2E.TraitAberration",
     alchemical: "PF2E.TraitAlchemical",
+    animal: "PF2E.TraitAnimal",
     aquatic: "PF2E.TraitAquatic",
     auditory: "PF2E.TraitAuditory",
     clockwork: "PF2E.TraitClockwork",
