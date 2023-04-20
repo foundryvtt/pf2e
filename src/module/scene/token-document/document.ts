@@ -239,7 +239,10 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                 this.texture.scaleY = tokenOverrides.texture.scaleY;
                 this.flags.pf2e.autoscale = false;
             }
+            this.texture.tint = tokenOverrides.texture.tint ?? this.texture.tint;
         }
+
+        this.alpha = tokenOverrides.alpha ?? this.alpha;
 
         if (tokenOverrides.light) {
             this.light = new foundry.data.LightData(tokenOverrides.light, {
