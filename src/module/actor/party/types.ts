@@ -3,6 +3,8 @@ import { PartyPF2e } from "./document.ts";
 import { Bulk } from "@item/physical/bulk.ts";
 import { ZeroToFour } from "@module/data.ts";
 import { ActorPF2e } from "@actor";
+import { TokenDocumentPF2e } from "@scene";
+import { ActorUpdateContext } from "@actor/base.ts";
 
 interface PartySheetData extends ActorSheetDataPF2e<PartyPF2e> {
     members: MemberBreakdown[];
@@ -38,4 +40,8 @@ interface LanguageSheetData {
     actors: ActorPF2e[];
 }
 
-export { PartySheetData, LanguageSheetData };
+interface PartyUpdateContext<TParent extends TokenDocumentPF2e | null> extends ActorUpdateContext<TParent> {
+    removedMembers?: string[];
+}
+
+export { PartySheetData, PartyUpdateContext, LanguageSheetData };
