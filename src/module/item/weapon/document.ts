@@ -7,15 +7,15 @@ import { NPCAttackDamage, NPCAttackTrait } from "@item/melee/data.ts";
 import {
     Bulk,
     CoinsPF2e,
-    getPropertySlots,
     IdentificationStatus,
     MaterialGradeData,
     MystifiedData,
     RuneValuationData,
-    WeaponPropertyRuneData,
     WEAPON_MATERIAL_VALUATION_DATA,
     WEAPON_PROPERTY_RUNES,
     WEAPON_VALUATION_DATA,
+    WeaponPropertyRuneData,
+    getPropertySlots,
 } from "@item/physical/index.ts";
 import { MAGIC_SCHOOLS, MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { OneToThree } from "@module/data.ts";
@@ -23,8 +23,8 @@ import { UserPF2e } from "@module/user/index.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { LocalizePF2e } from "@system/localize.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify } from "@util";
-import { WeaponDamage, WeaponFlags, WeaponMaterialData, WeaponSource, WeaponSystemData } from "./data.ts";
-import {
+import type { WeaponDamage, WeaponFlags, WeaponMaterialData, WeaponSource, WeaponSystemData } from "./data.ts";
+import type {
     BaseWeaponType,
     OtherWeaponTag,
     StrikingRuneType,
@@ -36,6 +36,7 @@ import {
     WeaponTrait,
 } from "./types.ts";
 import { CROSSBOW_WEAPONS, MANDATORY_RANGED_GROUPS, THROWN_RANGES } from "./values.ts";
+import { WeaponTraitToggles } from "./helpers.ts";
 
 class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     /** Given this weapon is an alternative usage, whether it is melee or thrown */
@@ -294,6 +295,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 systemData.traits.otherTags.push("crossbow");
             }
         }
+
+        // Lazy-load toggleable traits
+        systemData.traits.toggles = new WeaponTraitToggles(this);
 
         // Ensure unarmed attacks always have the unarmed trait
         if (systemData.category === "unarmed" && !traitsArray.includes("unarmed")) {
