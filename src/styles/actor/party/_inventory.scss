@@ -1,0 +1,70 @@
+.inventory-members {
+    display: flex;
+    color: var(--alt-dark);
+    flex-direction: column;
+    font-family: var(--sans-serif);
+    padding: 0;
+    margin: 0;
+    gap: 0.5rem;
+
+    .box {
+        .summary-data {
+            & > div {
+                align-items: center;
+                display: flex;
+                margin: 0.5rem 0.25rem 0.5rem 0.5rem;
+                label {
+                    flex: 1;
+                    font-weight: 600;
+                }
+            }
+        }
+
+        .actor-link {
+            align-items: center;
+            display: grid;
+            grid-template-areas:
+                "image name "
+                "image value";
+            grid-template-columns: auto 1fr;
+            padding: 0.5rem;
+            overflow: hidden;
+
+            img {
+                border: none;
+                grid-area: image;
+                width: 2rem;
+                height: 2rem;
+                margin-right: 0.4rem;
+                object-fit: contain;
+            }
+            .name {
+                grid-area: name;
+                font-weight: 700;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            .value {
+                grid-area: value;
+            }
+        }
+
+        .inventory-data {
+            display: flex;
+            gap: 0.25rem;
+            padding: 2px 3px;
+            font-size: var(--font-size-12);
+        }
+    }
+}
+
+.inventory {
+    @include scrollbar;
+    flex: 1;
+    padding: 0 4px;
+
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}

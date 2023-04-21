@@ -1,14 +1,14 @@
-import { CreatureTrait } from "@actor/creature/data";
-import { CharacterPF2e } from "@actor";
-import { Size } from "@module/data";
+import { ActorPF2e, CharacterPF2e } from "@actor";
+import { CreatureSensePF2e } from "@actor/creature/sense.ts";
+import { CreatureTrait } from "@actor/creature/types.ts";
+import { SIZE_TO_REACH } from "@actor/creature/values.ts";
+import { AbilityString } from "@actor/types.ts";
 import { ABCItemPF2e, FeatPF2e } from "@item";
-import { AncestryData } from "./data";
+import { Size } from "@module/data.ts";
 import { sluggify } from "@util";
-import { CreatureSensePF2e } from "@actor/creature/sense";
-import { SIZE_TO_REACH } from "@actor/creature/values";
-import { AbilityString } from "@actor/types";
+import { AncestrySource, AncestrySystemData } from "./data.ts";
 
-class AncestryPF2e extends ABCItemPF2e {
+class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABCItemPF2e<TParent> {
     get traits(): Set<CreatureTrait> {
         return new Set(this.system.traits.value);
     }
@@ -25,6 +25,7 @@ class AncestryPF2e extends ABCItemPF2e {
         return this.system.size;
     }
 
+    /** Returns all boosts enforced by this ancestry normally */
     get lockedBoosts(): AbilityString[] {
         return Object.values(this.system.boosts)
             .filter((boost) => boost.value.length === 1)
@@ -33,24 +34,15 @@ class AncestryPF2e extends ABCItemPF2e {
     }
 
     /** Include all ancestry features in addition to any with the expected location ID */
-    override getLinkedFeatures(): Embedded<FeatPF2e>[] {
+    override getLinkedItems(): FeatPF2e<ActorPF2e>[] {
         if (!this.actor) return [];
 
         return Array.from(
             new Set([
-                ...super.getLinkedFeatures(),
-                ...this.actor.itemTypes.feat.filter((f) => f.featType === "ancestryfeature"),
+                ...super.getLinkedItems(),
+                ...this.actor.itemTypes.feat.filter((f) => f.category === "ancestryfeature"),
             ])
         );
-    }
-
-    /** Toggle between voluntary flaws being on or off */
-    async toggleVoluntaryFlaw(): Promise<void> {
-        if (this._source.system.voluntary) {
-            await this.update({ "system.-=voluntary": null });
-        } else {
-            await this.update({ "system.voluntary": { boost: null, flaws: [] } });
-        }
     }
 
     override prepareBaseData(): void {
@@ -70,7 +62,7 @@ class AncestryPF2e extends ABCItemPF2e {
     }
 
     /** Prepare a character's data derived from their ancestry */
-    override prepareActorData(this: Embedded<AncestryPF2e>): void {
+    override prepareActorData(this: AncestryPF2e<CharacterPF2e>): void {
         const { actor } = this;
         if (!(actor instanceof CharacterPF2e)) {
             console.error("PF2e System | Only a character can have an ancestry");
@@ -86,16 +78,20 @@ class AncestryPF2e extends ABCItemPF2e {
         this.logAutoChange("system.traits.size.value", this.size);
 
         const reach = SIZE_TO_REACH[this.size];
-        actor.system.attributes.reach = { general: reach, manipulate: reach };
+        actor.system.attributes.reach = { base: reach, manipulate: reach };
 
         actor.system.attributes.speed.value = this.speed;
 
-        // Add ability boosts and flaws
         const { build } = actor.system;
-        for (const target of ["boosts", "flaws"] as const) {
-            for (const ability of Object.values(this.system[target])) {
-                if (ability.selected) {
-                    build.abilities[target].ancestry.push(ability.selected);
+        if (this.system.alternateAncestryBoosts) {
+            build.abilities.boosts.ancestry.push(...this.system.alternateAncestryBoosts);
+        } else {
+            // Add ability boosts and flaws
+            for (const target of ["boosts", "flaws"] as const) {
+                for (const ability of Object.values(this.system[target])) {
+                    if (ability.selected) {
+                        build.abilities[target].ancestry.push(ability.selected);
+                    }
                 }
             }
         }
@@ -138,8 +134,9 @@ class AncestryPF2e extends ABCItemPF2e {
     }
 }
 
-interface AncestryPF2e {
-    readonly data: AncestryData;
+interface AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABCItemPF2e<TParent> {
+    readonly _source: AncestrySource;
+    system: AncestrySystemData;
 }
 
 export { AncestryPF2e };

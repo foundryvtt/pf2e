@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "arcane"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -126,11 +121,9 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
+                    "details": "all squares in a 20-foot-radius burst that contain plants",
+                    "type": "burst",
                     "value": 20
-                },
-                "areasize": {
-                    "value": "all squares in a 20-foot-radius burst that contain plants"
                 },
                 "category": {
                     "value": "spell"
@@ -148,7 +141,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>Plants in the area entangle creatures. The area counts as difficult terrain. Each round that a creature starts its turn in the area, it must attempt a Reflex save. On a failure, it takes a -10-foot circumstance penalty to its Speeds until it leaves the area, and on a critical failure, it is also @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} for 1 round. Creatures can attempt to Escape at entangle's DC to remove these effects.</p>"
+                    "value": "<p><strong>Area</strong> all squares in a 20-foot burst that contain plants or fungi</p>\n<p>Plants and fungi in the area entangle creatures. The area counts as difficult terrain. Each round that a creature starts its turn in the area, it must attempt a Reflex save. On a failure, it takes a -10-foot circumstance penalty to its Speeds until it leaves the area, and on a critical failure, it is also @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} for 1 round. Creatures can attempt to Escape at entangle's DC to remove these effects.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -211,7 +204,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "plant"
@@ -234,13 +226,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -264,6 +250,16 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "8": {
+                            "target": {
+                                "value": "10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -326,7 +322,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "emotion",
@@ -372,7 +367,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "poison",
@@ -416,7 +410,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile"
@@ -459,7 +452,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-15"
@@ -502,7 +494,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-10"
@@ -546,7 +537,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -591,7 +581,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -630,13 +619,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 90,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "aura",
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": "frightful-presence",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -707,7 +707,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -736,7 +735,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dragon breathes a toxic cloud that deals [[/r {9d6}[poison]]]{9d6 poison damage} in a @Template[type:cone|distance:40]{40-foot cone} (@Check[type:fortitude|dc:25|basic:true] save).</p>\n<p>It can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon breathes a toxic cloud that deals [[/r 9d6[poison]]] damage in a @Template[type:cone|distance:40]{40-foot cone} (@Check[type:fortitude|dc:25|basic:true] save).</p>\n<p>It can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -747,7 +746,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -791,7 +789,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -841,7 +838,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -881,7 +877,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -913,11 +908,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -941,11 +931,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -969,11 +954,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -997,11 +977,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1025,11 +1000,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1053,11 +1023,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1081,11 +1046,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1109,11 +1069,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1137,11 +1092,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1165,11 +1115,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1211,8 +1156,19 @@
                 "temp": 0,
                 "value": 135
             },
+            "immunities": [
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 16
@@ -1268,17 +1224,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "paralyzed",
-                    "poison",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

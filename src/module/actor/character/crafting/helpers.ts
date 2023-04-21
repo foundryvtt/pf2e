@@ -1,12 +1,12 @@
-import { CoinsPF2e } from "@item/physical/helpers";
-import { DegreeOfSuccess } from "@system/degree-of-success";
+import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { DegreeOfSuccess } from "@system/degree-of-success.ts";
 import { ActorPF2e, CharacterPF2e } from "@actor";
-import { getIncomeForLevel } from "@scripts/macros/earn-income";
+import { getIncomeForLevel } from "@scripts/macros/earn-income/calculate.ts";
 import { ConsumablePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
-import { OneToTen } from "@module/data";
-import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
-import { CheckRoll } from "@system/check";
-import { ChatMessagePF2e } from "@module/chat-message";
+import { OneToTen } from "@module/data.ts";
+import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
+import { CheckRoll } from "@system/check/index.ts";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 
 /** Implementation of Crafting rules on https://2e.aonprd.com/Actions.aspx?ID=43 */
 
@@ -35,7 +35,7 @@ async function prepStrings(costs: Costs, item: PhysicalItemPF2e) {
         lostMaterials: game.i18n.format("PF2E.Actions.Craft.Details.LostMaterials", {
             cost: costs.lostMaterials.toString(),
         }),
-        itemLink: await game.pf2e.TextEditor.enrichHTML(item.link, { rollData, async: true }),
+        itemLink: await TextEditor.enrichHTML(item.link, { rollData, async: true }),
     };
 }
 
@@ -77,6 +77,7 @@ export async function craftItem(
 ): Promise<void> {
     const itemSource = item.toObject();
     itemSource.system.quantity = itemQuantity;
+    itemSource.system.size = actor.size === "tiny" ? "tiny" : "med";
     const itemTraits = item.traits;
     if (infused && itemTraits.has("alchemical") && itemTraits.has("consumable")) {
         const sourceTraits: string[] = itemSource.system.traits.value;
@@ -105,7 +106,7 @@ export async function craftSpellConsumable(
     itemQuantity: number,
     actor: ActorPF2e
 ): Promise<void> {
-    const consumableType = item.consumableType;
+    const consumableType = item.category;
     if (!(consumableType === "scroll" || consumableType === "wand")) return;
     const spellLevel = (
         consumableType === "wand" ? Math.ceil(item.level / 2) - 1 : Math.ceil(item.level / 2)
@@ -115,8 +116,8 @@ export async function craftSpellConsumable(
         .reduce((result, spell) => {
             result[spell.baseLevel] = [...(result[spell.baseLevel] || []), spell];
             return result;
-        }, <Record<number, Embedded<SpellPF2e>[]>>{});
-    const content = await renderTemplate("systems/pf2e/templates/actors/crafting-select-spell-dialog.html", {
+        }, {} as Record<number, SpellPF2e<ActorPF2e>[]>);
+    const content = await renderTemplate("systems/pf2e/templates/actors/crafting-select-spell-dialog.hbs", {
         spells: validSpells,
     });
 
@@ -160,7 +161,7 @@ export async function renderCraftingInline(
 
     const daysForZeroCost = degreeOfSuccess > 1 ? calculateDaysToNoCost(costs) : 0;
 
-    return await renderTemplate("systems/pf2e/templates/chat/crafting-result.html", {
+    return await renderTemplate("systems/pf2e/templates/chat/crafting-result.hbs", {
         daysForZeroCost: daysForZeroCost,
         strings: await prepStrings(costs, item),
         item,

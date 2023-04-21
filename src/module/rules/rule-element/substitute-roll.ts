@@ -1,7 +1,8 @@
+import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import { sluggify, tupleHasValue } from "@util";
-import { RuleElementSource } from ".";
-import { RuleElementOptions, RuleElementPF2e } from "./base";
+import { RuleElementSource } from "./index.ts";
+import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 
 /** Substitute a pre-determined result for a check's D20 roll */
 class SubstituteRollRuleElement extends RuleElementPF2e {
@@ -13,16 +14,15 @@ class SubstituteRollRuleElement extends RuleElementPF2e {
     /** The effect type of this substitution */
     effectType: "fortune" | "misfortune";
 
-    constructor(data: SubstituteRollSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: SubstituteRollSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
+        data.slug ??= item.slug ?? sluggify(item.name);
+
         super(data, item, options);
 
-        data.required ??= false;
         if (this.#isValid(data)) {
             this.selector = data.selector;
-            this.required = data.required;
+            this.required = data.required ?? false;
         }
-
-        this.slug = typeof data.slug === "string" ? data.slug : sluggify(this.item.name);
 
         this.effectType = tupleHasValue(["fortune", "misfortune"] as const, data.effectType)
             ? data.effectType
@@ -30,7 +30,7 @@ class SubstituteRollRuleElement extends RuleElementPF2e {
     }
 
     #isValid(data: SubstituteRollSource): data is SubstituteRollData {
-        return typeof data.selector === "string" && typeof data.required === "boolean";
+        return typeof data.selector === "string" && (!("required" in data) || typeof data.required === "boolean");
     }
 
     override beforePrepareData(): void {
@@ -66,7 +66,7 @@ interface SubstituteRollSource extends RuleElementSource {
 interface SubstituteRollData {
     key: "SubstituteRoll";
     selector: string;
-    required: boolean;
+    required?: boolean;
 }
 
 export { SubstituteRollRuleElement };

@@ -1,3 +1,3 @@
-import "./base";
-import "./hexagonal-grid";
-import "./square-grid";
+import "./base.d.ts";
+import "./hexagonal-grid.d.ts";
+import "./square-grid.d.ts";

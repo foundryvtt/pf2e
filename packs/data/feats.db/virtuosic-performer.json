@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Virtuosic Performer",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "skill",
         "description": {
             "value": "<p>You have exceptional talent with one type of performance. You gain a +1 circumstance bonus when making a certain type of performance. If you are a master in Performance, this bonus increases to +2. Select one of the following specialties and apply the bonus when attempting Performance checks of that type. If it's unclear whether the specialty applies, the GM decides.</p>"
-        },
-        "featType": {
-            "value": "skill"
         },
         "level": {
             "value": 1
@@ -32,31 +27,40 @@
             {
                 "choices": [
                     {
-                        "value": "Compendium.pf2e.feats-srd.Virtuosic Performer (Acting)"
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Acting",
+                        "value": "acting"
                     },
                     {
-                        "value": "Compendium.pf2e.feats-srd.Virtuosic Performer (Comedy)"
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Comedy",
+                        "value": "comedy"
                     },
                     {
-                        "value": "Compendium.pf2e.feats-srd.Virtuosic Performer (Dance)"
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Dance",
+                        "value": "dance"
                     },
                     {
-                        "value": "Compendium.pf2e.feats-srd.Virtuosic Performer (Keyboards)"
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Keyboards",
+                        "value": "keyboards"
                     },
                     {
-                        "value": "Compendium.pf2e.feats-srd.Virtuosic Performer (Oratory)"
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Oratory",
+                        "value": "oratory"
                     },
                     {
-                        "value": "Compendium.pf2e.feats-srd.Virtuosic Performer (Percussion)"
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Percussion",
+                        "value": "percussion"
                     },
                     {
-                        "value": "Compendium.pf2e.feats-srd.Virtuosic Performer (Singing)"
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Singing",
+                        "value": "singing"
                     },
                     {
-                        "value": "Compendium.pf2e.feats-srd.Virtuosic Performer (Strings)"
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Strings",
+                        "value": "strings"
                     },
                     {
-                        "value": "Compendium.pf2e.feats-srd.Virtuosic Performer (Winds)"
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Winds",
+                        "value": "winds"
                     }
                 ],
                 "flag": "performance",
@@ -64,16 +68,19 @@
                 "prompt": "PF2E.SpecificRule.VirtuosicPerformer.Prompt"
             },
             {
-                "key": "GrantItem",
-                "replaceSelf": true,
-                "uuid": "{item|flags.pf2e.rulesSelections.performance}"
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:performance:{item|flags.pf2e.rulesSelections.virtuosicPerformer}"
+                ],
+                "selector": "performance",
+                "type": "circumstance",
+                "value": "ternary(gte(@actor.system.skills.prf.rank,3),2,1)"
             }
         ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "general",

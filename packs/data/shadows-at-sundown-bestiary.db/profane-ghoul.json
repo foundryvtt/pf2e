@@ -40,7 +40,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "finesse"
@@ -89,7 +88,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -134,7 +132,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -186,7 +183,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -220,7 +216,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:29]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> [[/r {2d6}[negative]]]{2d6 negative damage} and regains half as many Hit Points from all healing (1 day)</p>\n<p><strong>Stage 3</strong> as stage 2 (1 day)</p>\n<p><strong>Stage 4</strong> [[/r {2d6}[negative]]]{2d6 negative damage} and gains no benefit from healing (1 day)</p>\n<p><strong>Stage 5</strong> as stage 4 (1 day)</p>\n<p><strong>Stage 6</strong> dead, and rises as a @UUID[Compendium.pf2e.pathfinder-bestiary.Ghoul]{Ghoul} the next midnight.</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:29]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> [[/r 2d6[negative]]] damage and regains half as many Hit Points from all healing (1 day)</p>\n<p><strong>Stage 3</strong> as stage 2 (1 day)</p>\n<p><strong>Stage 4</strong> [[/r 2d6[negative]]] damage and gains no benefit from healing (1 day)</p>\n<p><strong>Stage 5</strong> as stage 4 (1 day)</p>\n<p><strong>Stage 6</strong> dead, and rises as a @UUID[Compendium.pf2e.pathfinder-bestiary.Ghoul]{Ghoul} the next midnight.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -231,7 +227,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "disease"
@@ -273,7 +268,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "incapacitation",
@@ -303,7 +297,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The ghoul whispers profane secrets of undeath. Living creatures within @Template[type:emanation|distance:10]{10 feet} of the ghoul take [[/r {2d8}[persistent,mental]]]{2d8} @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent mental Damage}. Those with ghoul fever must also succeed at a @Check[type:will|dc:29] save or have the disease advance one step. The profane ghoul can't use Profane Whispers again for 24 hours.</p>"
+                    "value": "<p>The ghoul whispers profane secrets of undeath. Living creatures within @Template[type:emanation|distance:10]{10 feet} of the ghoul take [[/r 2d8[persistent,mental]]] damage. Those with ghoul fever must also succeed at a @Check[type:will|dc:29] save or have the disease advance one step. The profane ghoul can't use Profane Whispers again for 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -314,7 +308,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "auditory",
@@ -356,7 +349,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "move"
@@ -387,11 +379,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -415,11 +402,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -443,11 +425,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -471,11 +448,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -517,8 +489,25 @@
                 "temp": 0,
                 "value": 180
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 19
@@ -564,18 +553,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

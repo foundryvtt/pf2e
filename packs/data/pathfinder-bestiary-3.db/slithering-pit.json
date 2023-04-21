@@ -35,7 +35,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-10"
@@ -79,7 +78,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -119,7 +117,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -148,7 +145,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Ingesting an extradimensional space like that found in a <em>bag of holding</em> deals [[/r {6d8}[force]]]{6d8 force damage} to the slithering pit and its occupants. The slithering pit then immediately uses Out You Go.</p>"
+                    "value": "<p>Ingesting an extradimensional space like that found in a <em>bag of holding</em> deals [[/r 6d8[force]]] damage to the slithering pit and its occupants. The slithering pit then immediately uses Out You Go.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -159,7 +156,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -188,7 +184,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The slithering pit opens an extradimensional, 20-foot-deep pit that covers its own space and all adjacent squares unless they're walls or similar blocking terrain.</p>\n<p>Any other creature occupying or entering pit spaces must succeed at a @Check[type:reflex|dc:22] save or fall into the pit, taking damage from the fall (typically 10 bludgeoning damage). Any creature @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} by the ooze falls in and is no longer grabbed, even if it was outside the pit squares.</p>\n<p>While a dimensional pit is open, the slithering pit is @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized}, can't be forced to move, and can make pseudopod Strikes originating from the walls of the pit. A creature that starts its turn at the bottom of the pit takes [[/r {2d6}[acid]]]{2d6 acid damage}. @UUID[Compendium.pf2e.actionspf2e.Climb]{Climbing} the walls of the pit requires a @Check[type:athletics|dc:22|traits:action:climb] check.</p>\n<p>When the slithering pit dies, the dimensional pit closes and creatures inside are ejected, with the effects of Out You Go.</p>"
+                    "value": "<p>The slithering pit opens an extradimensional, 20-foot-deep pit that covers its own space and all adjacent squares unless they're walls or similar blocking terrain.</p>\n<p>Any other creature occupying or entering pit spaces must succeed at a @Check[type:reflex|dc:22] save or fall into the pit, taking damage from the fall (typically 10 bludgeoning damage). Any creature @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} by the ooze falls in and is no longer grabbed, even if it was outside the pit squares.</p>\n<p>While a dimensional pit is open, the slithering pit is @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized}, can't be forced to move, and can make pseudopod Strikes originating from the walls of the pit. A creature that starts its turn at the bottom of the pit takes [[/r 2d6[acid]]] damage. @UUID[Compendium.pf2e.actionspf2e.Climb]{Climbing} the walls of the pit requires a @Check[type:athletics|dc:22|traits:action:climb] check.</p>\n<p>When the slithering pit dies, the dimensional pit closes and creatures inside are ejected, with the effects of Out You Go.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -199,7 +195,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "conjuration",
@@ -243,7 +238,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -272,7 +266,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The slithering pit closes all pit spaces it created using Dimensional Pit, ejecting all its occupants onto the ground into random free spaces where the pit opened. Each occupant takes [[/r {4d6}[bludgeoning]]]{4d6 bludgeoning damage} (@Check[type:reflex|dc:22|basic:true] save).</p>"
+                    "value": "<p>The slithering pit closes all pit spaces it created using Dimensional Pit, ejecting all its occupants onto the ground into random free spaces where the pit opened. Each occupant takes [[/r 4d6[bludgeoning]]] damage (@Check[type:reflex|dc:22|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -283,7 +277,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -328,7 +321,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -360,11 +352,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -388,11 +375,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -434,8 +416,25 @@
                 "temp": 0,
                 "value": 220
             },
+            "immunities": [
+                {
+                    "type": "acid"
+                },
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                },
+                {
+                    "type": "visual"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 9
@@ -479,20 +478,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "acid",
-                    "critical-hits",
-                    "mental",
-                    "precision",
-                    "unconscious",
-                    "visual"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

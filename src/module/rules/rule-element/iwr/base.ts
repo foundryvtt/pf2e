@@ -1,68 +1,128 @@
-import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions } from "../";
+import { ActorPF2e } from "@actor";
+import { IWRSource, ImmunityData, ResistanceData, WeaknessData } from "@actor/data/iwr.ts";
 import { ItemPF2e } from "@item";
+import type {
+    ArrayField,
+    BooleanField,
+    ModelPropsFromSchema,
+    StringField,
+} from "types/foundry/common/data/fields.d.ts";
+import { AELikeChangeMode } from "../ae-like.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "../index.ts";
+
+const { fields } = foundry.data;
 
 /** @category RuleElement */
-abstract class IWRRuleElement extends RuleElementPF2e {
-    type: string[];
+abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElementPF2e<TSchema> {
+    constructor(data: IWRRuleElementSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
+        if (typeof data.type === "string") {
+            data.type = [data.type];
+        }
 
-    constructor(data: IWRRuleElementSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
+    }
 
-        this.type =
-            Array.isArray(data.type) && data.type.every((t): t is string => typeof t === "string")
-                ? [...data.type]
-                : typeof data.type === "string"
-                ? [data.type]
-                : [];
+    static get dictionary(): Record<string, string | undefined> {
+        return {};
+    }
 
-        if (this.type.length === 0) {
-            this.failValidation("type must be a string or array of strings");
+    static override defineSchema(): IWRRuleSchema {
+        return {
+            ...super.defineSchema(),
+            mode: new fields.StringField({ required: true, choices: ["add", "remove"], initial: "add" }),
+            type: new fields.ArrayField(new fields.StringField({ required: true, blank: false, initial: undefined })),
+            exceptions: new fields.ArrayField(
+                new fields.StringField({ required: true, blank: false, initial: undefined })
+            ),
+            override: new fields.BooleanField(),
+        };
+    }
+
+    protected override _validateModel(source: SourceFromSchema<IWRRuleSchema>): void {
+        super._validateModel(source);
+
+        if (source.type.length === 0) {
+            throw Error("must have at least one type");
+        }
+
+        if (source.mode === "remove" && source.exceptions.length > 0) {
+            throw Error('`exceptions` may not be included with a `mode` of "remove"');
         }
     }
 
-    abstract dictionary: Record<string, string | undefined>;
+    /** A reference to the pertinent property in actor system data */
+    abstract get property(): IWRSource[];
 
-    abstract get property(): unknown[];
+    #isValid(value: unknown): boolean {
+        const { dictionary } = this.constructor;
 
-    validate(value: unknown): boolean {
-        return (
-            this.type.every((t) => t in this.dictionary) &&
-            ((typeof value === "number" && Number.isInteger(value) && value > 0) || typeof value === "string") &&
-            (!this.data.except || typeof this.data.except === "string")
-        );
+        const unrecognizedTypes = this.type.filter((t) => !(t in dictionary));
+        if (unrecognizedTypes.length > 0) {
+            for (const type of unrecognizedTypes) {
+                this.failValidation(`Type "${type}" is unrecognized`);
+            }
+            return false;
+        }
+
+        if (
+            this.mode === "add" &&
+            dictionary !== CONFIG.PF2E.immunityTypes &&
+            (typeof value !== "number" || value < 0)
+        ) {
+            this.failValidation("A `value` must be a positive number");
+            return false;
+        }
+
+        return true;
     }
 
-    abstract getIWR(value?: unknown): string[] | object[];
+    abstract getIWR(value?: number): ImmunityData[] | WeaknessData[] | ResistanceData[];
 
     override beforePrepareData(): void {
         if (!this.test()) return;
 
         this.type = this.resolveInjectedProperties(this.type);
 
-        const value: unknown = this.resolveValue();
-        if (!this.validate(value)) {
+        const value = Math.floor(Number(this.resolveValue()));
+        if (!this.#isValid(value)) {
             this.ignored = true;
             return;
         }
-        this.property.push(...this.getIWR(value));
+
+        if (this.mode === "add") {
+            this.property.push(...this.getIWR(value));
+        } else {
+            for (const toRemove of this.type) {
+                this.property.findSplice((iwr) => iwr.type === toRemove);
+            }
+        }
     }
 }
 
-interface IWRRuleElement extends RuleElementPF2e {
-    data: IWRRuleElementData;
+interface IWRRuleElement<TSchema extends IWRRuleSchema>
+    extends RuleElementPF2e<TSchema>,
+        Omit<ModelPropsFromSchema<IWRRuleSchema>, "exceptions"> {
+    constructor: typeof IWRRuleElement<TSchema>;
+
+    // Typescript 5 doesn't fully resolve conditional types, so omit from `ModelPropsFromSchema` and redefine
+    exceptions: string[];
 }
 
+type IWRRuleSchema = RuleElementSchema & {
+    /** Whether to add or remove an immunity, weakness, or resistance (default is "add") */
+    mode: StringField<IWRChangeMode, IWRChangeMode, true, false, true>;
+    type: ArrayField<StringField<string, string, true, false, false>>;
+    exceptions: ArrayField<StringField<string, string, true, false, false>>;
+    override: BooleanField;
+};
+
+type IWRChangeMode = Extract<AELikeChangeMode, "add" | "remove">;
+
 interface IWRRuleElementSource extends RuleElementSource {
+    mode?: unknown;
     type?: unknown;
-    except?: unknown;
+    exceptions?: unknown;
     override?: unknown;
 }
 
-interface IWRRuleElementData extends RuleElementData {
-    /** Exceptions to the IWR */
-    except?: string;
-    /** Whether to override an existing value even if it's higher */
-    override: boolean;
-}
-
-export { IWRRuleElement };
+export { IWRRuleElement, IWRRuleSchema, IWRRuleElementSource };

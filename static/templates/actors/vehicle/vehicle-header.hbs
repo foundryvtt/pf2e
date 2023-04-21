@@ -1,0 +1,30 @@
+<header class="char-header">
+    <div class="char-details">
+        <h1 class="char-name">
+            <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF2E.CharacterNamePlaceholder"}}" />
+        </h1>
+        <div class="tags">
+            <select class="rarity rarity-select {{data.traits.rarity}}" name="system.traits.rarity" data-dtype="String">
+                {{#select data.traits.rarity}}
+                    {{#each actorRarities as |label key|}}
+                        <option value="{{key}}">{{localize label}}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+
+            <select class="size size-select" name="system.traits.size.value" data-dtype="String">
+                {{#select data.traits.size.value}}
+                    {{#each actorSizes as |label size|}}
+                        <option value="{{size}}">{{localize label}}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+        </div>
+    </div>
+    <div class="char-level">
+        <div class="level">
+            <label>{{localize "PF2E.vehicle.VehicleLevelLabel"}}</label>
+            <input name="system.details.level.value" type="number" value="{{data.details.level.value}}" placeholder="1" size="2" />
+        </div>
+    </div>
+</header>

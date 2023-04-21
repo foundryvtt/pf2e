@@ -35,7 +35,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-15"
@@ -80,7 +79,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-10"
@@ -114,10 +112,20 @@
                     "0": {
                         "damage": "3d6",
                         "damageType": "acid"
+                    },
+                    "1": {
+                        "category": "splash",
+                        "damage": "1d6",
+                        "damageType": "acid"
+                    },
+                    "2": {
+                        "category": "persistent",
+                        "damage": "1d4",
+                        "damageType": "acid"
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r 1d6 #acid splash]]{1d6 Acid Splash Damage}</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -125,7 +133,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "brutal",
@@ -171,7 +178,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -211,7 +217,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "auditory"
@@ -253,7 +258,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -282,18 +286,17 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Any creature hit by the giant slug or that moves into its mucus trail is coated in sticky, caustic mucus. It takes [[/r {1d4}[persistent,acid]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage} and takes a -5-foot status penalty to its Speeds while the damage persists.</p>"
+                    "value": "<p>Any creature hit by the giant slug or that moves into its mucus trail is coated in sticky, caustic mucus. It takes [[/r 1d4[persistent,acid]]] damage and takes a -5-foot status penalty to its Speeds while the damage persists.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "mucus",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -333,7 +336,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -378,7 +380,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -410,11 +411,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -457,11 +453,17 @@
                 "value": 165
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 14
             },
+            "resistances": [
+                {
+                    "type": "acid",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -470,7 +472,13 @@
                     }
                 ],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "salt",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -506,25 +514,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "label": "Acid",
-                    "type": "acid",
-                    "value": "10"
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Salt",
-                    "type": "salt",
-                    "value": "5"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

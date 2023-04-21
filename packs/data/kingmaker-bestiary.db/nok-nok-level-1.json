@@ -76,7 +76,6 @@
                 },
                 "speed": 25,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "goblin",
@@ -100,6 +99,7 @@
             "system": {
                 "ancestry": {
                     "name": "Goblin",
+                    "slug": "goblin",
                     "uuid": "Compendium.pf2e.ancestries.sQfjTMDaZbT9DThq"
                 },
                 "description": {
@@ -143,7 +143,6 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -169,20 +168,15 @@
             "name": "Rogue's Racket",
             "sort": 0,
             "system": {
-                "actionCategory": {
-                    "value": ""
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "classfeature",
                 "description": {
                     "value": "<p>As you started on the path of the rogue, you began to develop your own style to pursue your illicit activities. Your racket shapes your rogue techniques and the way you approach a job, while building your reputation in the criminal underworld for a certain type of work. A client with deep pockets might even hire a team of rogues for a particular heist, each specializing in a different racket, in order to cover all the bases. Choose a rogue's racket.</p>"
-                },
-                "featType": {
-                    "value": "classfeature"
                 },
                 "level": {
                     "value": 1
@@ -220,7 +214,7 @@
                         ],
                         "flag": "roguesRacket",
                         "key": "ChoiceSet",
-                        "prompt": "Select a Racket.",
+                        "prompt": "PF2E.SpecificRule.Rogue.Racket.Prompt",
                         "selection": "Compendium.pf2e.classfeatures.ZvfxtUMtfIOLYHyg"
                     },
                     {
@@ -235,7 +229,6 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "rogue"
@@ -255,20 +248,15 @@
             "name": "Sneak Attack",
             "sort": 100,
             "system": {
-                "actionCategory": {
-                    "value": ""
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "classfeature",
                 "description": {
                     "value": "<p>When your enemy can't properly defend itself, you take advantage to deal extra damage. If you Strike a creature that has the @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, a ranged weapon attack, or a ranged unarmed attack, you deal an extra 1d6 precision damage. For a ranged attack with a thrown melee weapon, that weapon must also be agile or finesse.</p>\n<p>As your rogue level increases, so does the number of damage dice for your sneak attack. Increase the number of dice by one at 5th, 11th, and 17th levels.</p>"
-                },
-                "featType": {
-                    "value": "classfeature"
                 },
                 "level": {
                     "value": 1
@@ -279,11 +267,29 @@
                 },
                 "rules": [
                     {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.sneakAttackDamage.number",
+                        "predicate": [
+                            "class:rogue"
+                        ],
+                        "value": "ternary(lt(@actor.level, 5), 1, ternary(lt(@actor.level, 11), 2, ternary(lt(@actor.level, 17), 3, 4)))"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.sneakAttackDamage.faces",
+                        "predicate": [
+                            "class:rogue"
+                        ],
+                        "value": 6
+                    },
+                    {
                         "category": "precision",
-                        "dieSize": "d6",
+                        "diceNumber": "@actor.flags.pf2e.sneakAttackDamage.number",
+                        "dieSize": "d{actor|flags.pf2e.sneakAttackDamage.faces}",
                         "key": "DamageDice",
                         "predicate": [
-                            "class:rogue",
                             "target:condition:flat-footed",
                             {
                                 "or": [
@@ -300,37 +306,7 @@
                                 ]
                             }
                         ],
-                        "selector": "strike-damage",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 4,
-                                    "value": {
-                                        "diceNumber": 1
-                                    }
-                                },
-                                {
-                                    "end": 10,
-                                    "start": 5,
-                                    "value": {
-                                        "diceNumber": 2
-                                    }
-                                },
-                                {
-                                    "end": 16,
-                                    "start": 11,
-                                    "value": {
-                                        "diceNumber": 3
-                                    }
-                                },
-                                {
-                                    "start": 17,
-                                    "value": {
-                                        "diceNumber": 4
-                                    }
-                                }
-                            ]
-                        }
+                        "selector": "strike-damage"
                     },
                     {
                         "domain": "all",
@@ -345,7 +321,6 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "rogue"
@@ -365,20 +340,15 @@
             "name": "Surprise Attack",
             "sort": 200,
             "system": {
-                "actionCategory": {
-                    "value": ""
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "classfeature",
                 "description": {
                     "value": "<p>You spring into combat faster than foes can react. On the first round of combat, if you roll Deception or Stealth for initiative, creatures that haven't acted are flat-footed to you.</p>"
-                },
-                "featType": {
-                    "value": "classfeature"
                 },
                 "level": {
                     "value": 1
@@ -387,13 +357,38 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "encounter:round:1",
+                            {
+                                "lt": [
+                                    "self:participant:initiative:rank",
+                                    "target:participant:initiative:rank"
+                                ]
+                            },
+                            {
+                                "or": [
+                                    "self:participant:initiative:stat:deception",
+                                    "self:participant:initiative:stat:stealth"
+                                ]
+                            }
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "spell-attack-roll",
+                            "strike-damage",
+                            "attack-spell-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.AJh5ex99aV6VTggg"
+                    }
+                ],
                 "slug": "surprise-attack",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "rogue"
@@ -691,7 +686,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -715,20 +709,15 @@
             "name": "Scoundrel",
             "sort": 0,
             "system": {
-                "actionCategory": {
-                    "value": ""
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "classfeature",
                 "description": {
                     "value": "<p>You use fast-talking, flattery, and a silver tongue to avoid danger and escape tricky situations. You might be a grifter or con artist, traveling from place to place with a new story or scheme. Your racket is also ideal for certain reputable professions, like barrister, diplomat, or politician.</p>\n<p>When you successfully @UUID[Compendium.pf2e.actionspf2e.Feint]{Feint}, the target is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} against melee attacks you attempt against it until the end of your next turn. On a critical success, the target is flat-footed against all melee attacks until the end of your next turn, not just yours.</p>\n<p>You're trained in Deception and Diplomacy. You can choose Charisma as your key ability score.</p>"
-                },
-                "featType": {
-                    "value": "classfeature"
                 },
                 "level": {
                     "value": 1
@@ -756,7 +745,6 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "rogue"
@@ -802,7 +790,7 @@
                 "items": {
                     "19grf": {
                         "img": "systems/pf2e/icons/features/feats/feats.webp",
-                        "level": "1",
+                        "level": 1,
                         "name": "Experienced Smuggler",
                         "uuid": "Compendium.pf2e.feats-srd.t3btih0O5RUwWynt"
                     }
@@ -819,7 +807,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -837,20 +824,15 @@
             "name": "Experienced Smuggler",
             "sort": 0,
             "system": {
-                "actionCategory": {
-                    "value": ""
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "skill",
                 "description": {
                     "value": "<p>You often smuggle things past the authorities.</p>\n<p>When the GM rolls your Stealth check to see if a passive observer notices a small item you have concealed, the GM uses the number rolled or 10 - whichever is higher - as the result of your die roll, adding it to your Stealth modifier to determine your Stealth check result.</p>\n<p>If you're a master in Stealth, the GM uses the number rolled or 15, and if you're legendary in Stealth, you automatically succeed at hiding a small concealed item from passive observers.</p>\n<p>This provides no benefits when a creature attempts a Perception check while actively searching you for hidden items.</p>\n<p>Due to your smuggling skill, you're more likely to find more lucrative smuggling jobs when using Underworld Lore to Earn Income.</p>\n<hr />\n<p><strong>PFS Note</strong> This feat allows you to Earn Income with Underworld Lore with tasks of your level -1 (instead of the normal level -2).</p>"
-                },
-                "featType": {
-                    "value": "skill"
                 },
                 "level": {
                     "value": 1
@@ -869,7 +851,6 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "general",
@@ -898,11 +879,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -962,7 +938,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1030,7 +1005,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1069,8 +1043,7 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>The blade of this foot‑long knife curves inward and lacks a cross guard at the hilt.</p>"
@@ -1100,10 +1073,10 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -1133,9 +1106,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": null
                 },
@@ -1144,7 +1114,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "agile",
@@ -1254,7 +1223,6 @@
                     "value": 10
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1278,22 +1246,11 @@
             "name": "Rations",
             "sort": 0,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 7,
                     "value": 7
                 },
@@ -1301,16 +1258,11 @@
                     "value": "other"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": ""
                 },
                 "containerId": "null",
                 "description": {
                     "value": ""
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
                 },
                 "equipped": {
                     "carryType": "worn"
@@ -1342,11 +1294,6 @@
                     }
                 },
                 "quantity": 1,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": "rations",
@@ -1354,25 +1301,12 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "L"
@@ -1442,7 +1376,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1481,8 +1414,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>This smaller bow is made of a single piece of wood and favored by skirmishers and cavalry.</p>"
@@ -1546,9 +1478,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -1557,7 +1486,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "deadly-d10"
@@ -1583,22 +1511,11 @@
             "name": "Arrows",
             "sort": 0,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 0,
                     "value": 0
                 },
@@ -1606,16 +1523,11 @@
                     "value": "ammo"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": ""
                 },
                 "containerId": null,
                 "description": {
                     "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1649,11 +1561,6 @@
                     }
                 },
                 "quantity": 20,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": "arrows",
@@ -1661,25 +1568,12 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": "arrows",
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "L"
@@ -1742,7 +1636,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1831,10 +1724,10 @@
                             }
                         },
                         "key": "Strike",
-                        "range": null,
-                        "traits": [
+                        "otherTags": [
                             "improvised"
-                        ]
+                        ],
+                        "range": null
                     },
                     {
                         "damageType": "fire",
@@ -1867,7 +1760,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1935,7 +1827,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1959,20 +1850,15 @@
             "name": "Very Sneaky",
             "sort": 0,
             "system": {
-                "actionCategory": {
-                    "value": ""
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "ancestry",
                 "description": {
                     "value": "<p>Taller folk rarely pay attention to the shadows at their feet, and you take full advantage of this. You can move 5 feet farther when you take the @UUID[Compendium.pf2e.action-macros.Sneak: Stealth]{Sneak} action, up to your Speed. In addition, as long as you continue to use Sneak actions and succeed at your Stealth check, you don't become observed if you don't have cover or greater cover and aren't concealed at the end of the Sneak action, as long as you have cover or greater cover or are concealed at the end of your turn.</p>"
-                },
-                "featType": {
-                    "value": "ancestry"
                 },
                 "level": {
                     "value": 1
@@ -1987,7 +1873,6 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "goblin"
@@ -2007,20 +1892,15 @@
             "name": "Twin Feint",
             "sort": 0,
             "system": {
-                "actionCategory": {
-                    "value": ""
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "class",
                 "description": {
                     "value": "<p><strong>Requirements</strong> You are wielding two melee weapons, each in a different hand</p>\n<hr />\n<p>You make a dazzling series of attacks with both weapons, using the first attack to throw your foe offguard against a second attack at a different angle. Make one Strike with each of your two melee weapons, both against the same target. The target is automatically flat-footed against the second attack. Apply your multiple attack penalty to the Strikes normally.</p>"
-                },
-                "featType": {
-                    "value": "class"
                 },
                 "level": {
                     "value": 1
@@ -2035,7 +1915,6 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "rogue"
@@ -2055,20 +1934,15 @@
             "name": "Pickpocket",
             "sort": 0,
             "system": {
-                "actionCategory": {
-                    "value": ""
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "skill",
                 "description": {
                     "value": "<p>You can Steal or Palm an Object that's closely guarded, such as in a pocket, without taking the -5 penalty. You can't steal objects that would be extremely noticeable or time consuming to remove (like worn shoes or armor or actively wielded objects). If you're a master in Thievery, you can attempt to Steal from a creature in combat or otherwise on guard. When doing so, Stealing requires 2 manipulate actions instead of 1, and you take a -5 penalty.</p>"
-                },
-                "featType": {
-                    "value": "skill"
                 },
                 "level": {
                     "value": 1
@@ -2087,7 +1961,6 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "general",
@@ -2169,7 +2042,7 @@
                 "value": 17
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "resolve": {
                 "max": 0,
@@ -2207,6 +2080,7 @@
             "alignment": {
                 "value": "CE"
             },
+            "alliance": "party",
             "biography": {
                 "allies": "",
                 "appearance": "",
@@ -2327,12 +2201,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

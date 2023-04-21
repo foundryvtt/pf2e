@@ -1,20 +1,15 @@
 import {
-    BasePhysicalItemData,
     BasePhysicalItemSource,
     PhysicalItemTraits,
     PhysicalSystemData,
     PhysicalSystemSource,
-} from "@item/physical/data";
-import { SpellSource } from "@item/spell/data";
-import type { ConsumablePF2e } from ".";
-import { ConsumableTrait, OtherConsumableTag } from "./types";
+} from "@item/physical/data.ts";
+import { SpellSource } from "@item/spell/data.ts";
+import type { ConsumableTrait, OtherConsumableTag } from "./types.ts";
 
 type ConsumableSource = BasePhysicalItemSource<"consumable", ConsumableSystemSource>;
 
-type ConsumableData = Omit<ConsumableSource, "system" | "effects" | "flags"> &
-    BasePhysicalItemData<ConsumablePF2e, "consumable", ConsumableSystemData, ConsumableSource>;
-
-type ConsumableType = keyof ConfigPF2e["PF2E"]["consumableTypes"];
+type ConsumableCategory = keyof ConfigPF2e["PF2E"]["consumableTypes"];
 
 interface ConsumableTraits extends PhysicalItemTraits<ConsumableTrait> {
     otherTags: OtherConsumableTag[];
@@ -24,14 +19,7 @@ interface ConsumableSystemSource extends PhysicalSystemSource {
     traits: ConsumableTraits;
 
     consumableType: {
-        value: ConsumableType;
-    };
-    uses: {
-        value: number;
-        max: number;
-        per: keyof ConfigPF2e["PF2E"]["frequencies"];
-        autoUse: boolean;
-        autoDestroy: boolean;
+        value: ConsumableCategory;
     };
     charges: {
         value: number;
@@ -39,14 +27,9 @@ interface ConsumableSystemSource extends PhysicalSystemSource {
     };
     consume: {
         value: string;
-        _deprecated: boolean;
-    };
-    autoUse: {
-        value: boolean;
     };
     autoDestroy: {
         value: boolean;
-        _deprecated: boolean;
     };
     spell: SpellSource | null;
 }
@@ -55,4 +38,4 @@ interface ConsumableSystemData
     extends Omit<ConsumableSystemSource, "identification" | "price" | "temporary" | "usage">,
         Omit<PhysicalSystemData, "traits"> {}
 
-export { ConsumableData, ConsumableSource, ConsumableTrait, ConsumableType };
+export { ConsumableCategory, ConsumableSource, ConsumableSystemData, ConsumableSystemSource, ConsumableTrait };

@@ -1,0 +1,113 @@
+<div class="form-group">
+    <label class="short">{{localize "PF2E.RuleEditor.General.Label"}}</label>
+    <div class="spaced-fields details-container-flex-row">
+        <input type="text" name="system.rules.{{index}}.label" value="{{rule.label}}" {{#unless rule.label}}placeholder="{{object.data.label}}"{{/unless}} />
+        <label>
+            {{localize "PF2E.RuleEditor.FlatModifier.HideIfDisabled"}}
+            <input type="checkbox" name="system.rules.{{index}}.hideIfDisabled" {{checked rule.hideIfDisabled}}>
+        </label>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="short">{{localize "PF2E.RuleEditor.General.Selector"}}</label>
+    <div class="attached-input">
+        <button type="button" class="attachment" data-action="toggle-selector">
+            {{#if selectorIsArray}}Multiple{{else}}Single{{/if}}
+        </button>
+        {{#if selectorIsArray}}
+            <input type="text" class="pf2e-tagify selector-list" name="system.rules.{{index}}.selector" value="{{json rule.selector}}" data-dtype="JSON"/>
+        {{else}}
+            <input type="text" name="system.rules.{{index}}.selector" value="{{rule.selector}}" />
+        {{/if}}
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="short">{{localize "PF2E.RuleEditor.General.Value"}}</label>
+    <div class="spaced-fields details-container-flex-row">
+        {{#if (eq rule.type "ability")}}
+            <select name="system.rules.{{index}}.ability">
+                {{#select rule.ability}}
+                    {{#each abilities as |label key|}}
+                        <option value="{{key}}">{{localize label}}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+        {{else if (eq value.mode "primitive")}}
+            <div class="attached-input">
+                <button type="button" class="attachment" data-action="toggle-brackets">
+                    {{localize "PF2E.RuleEditor.General.Primitive"}}
+                </button>
+                <input type="text" name="system.rules.{{index}}.value" value="{{rule.value}}"/>
+            </div>
+        {{else if (eq value.mode "brackets")}}
+            <div class="attached-input">
+                <button type="button" class="attachment" data-action="toggle-brackets">
+                    {{localize "PF2E.RuleEditor.General.Brackets"}}
+                </button>
+                <input type="text" name="system.rules.{{index}}.value.field" value="{{rule.value.field}}" placeholder="Actor Level (Default)"/>
+            </div>
+        {{/if}}
+
+        <select name="system.rules.{{index}}.type" class="type-input">
+            {{#select rule.type}}
+                <option value="">untyped</option>
+                {{#each types as |type|}}
+                    <option value="{{type}}">{{type}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+
+        {{#if (eq value.mode "brackets")}}
+            <a data-action="bracket-add"><i class="fas fa-fw fa-plus"></i></a>
+        {{/if}}
+    </div>
+</div>
+
+{{#if (eq value.mode "brackets")}}
+    <div class="brackets">
+        {{#each rule.value.brackets as |bracket idx|}}
+            <div class="bracket details-container-flex-row spaced-fields">
+                <label>{{localize "PF2E.RuleEditor.General.Range"}}</label>
+                <div class="range">
+                    <input type="number" name="system.rules.{{@root.index}}.value.brackets.{{idx}}.start" value="{{bracket.start}}">
+                    -
+                    <input type="number" name="system.rules.{{@root.index}}.value.brackets.{{idx}}.end" value="{{bracket.end}}">
+                </div>
+                <label>{{localize "PF2E.RuleEditor.General.Value"}}</label>
+                <input type="text" name="system.rules.{{@root.index}}.value.brackets.{{idx}}.value" value="{{bracket.value}}"/>
+                <a data-action="bracket-delete" data-idx="{{idx}}"><i class="fas fa-fw fa-trash"></i></a>
+            </div>
+        {{/each}}
+    </div>
+{{/if}}
+
+{{#if isDamage}}
+<div class="form-group">
+    <label class="short">{{localize "PF2E.RuleEditor.General.DamageType"}}</label>
+    <div class="spaced-fields details-container-flex-row">
+        <input type="text" class="pf2e-tagify damage-type" name="system.rules.{{index}}.damageType" value="{{rule.damageType}}"/>
+        <select name="system.rules.{{index}}.damageCategory">
+            {{#select rule.damageCategory}}
+                <option value=""></option>
+                {{#each damageCategories as |label key|}}
+                    <option value="{{key}}">{{localize label}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+        <select name="system.rules.{{index}}.critical">
+            {{#select rule.critical}}
+                <option value="">{{localize "PF2E.RuleEditor.General.CriticalBehavior.null"}}</option>
+                <option value="false">{{localize "PF2E.RuleEditor.General.CriticalBehavior.false"}}</option>
+                <option value="true">{{localize "PF2E.RuleEditor.General.CriticalBehavior.true"}}</option>
+            {{/select}}
+        </select>
+    </div>
+</div>
+{{/if}}
+
+<div class="form-group">
+    <label class="short">{{localize "PF2E.RuleEditor.General.Predicate"}}</label>
+    <input type="text" name="system.rules.{{index}}.predicate" value="{{json rule.predicate}}" />
+</div>

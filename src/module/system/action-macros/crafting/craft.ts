@@ -1,16 +1,16 @@
-import { renderCraftingInline } from "@actor/character/crafting/helpers";
+import { renderCraftingInline } from "@actor/character/crafting/helpers.ts";
 import { PhysicalItemPF2e } from "@item";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { calculateDC } from "@module/dc";
-import { CheckDC } from "@system/degree-of-success";
-import { ActionMacroHelpers } from "../helpers";
-import { SkillActionOptions } from "../types";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { calculateDC } from "@module/dc.ts";
+import { CheckDC } from "@system/degree-of-success.ts";
+import { ActionMacroHelpers } from "../helpers.ts";
+import { SkillActionOptions } from "../types.ts";
+import { SelectItemDialog } from "./select-item.ts";
 
-export async function craft(options: CraftActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "crafting");
-
+export async function craft(options: CraftActionOptions): Promise<void> {
     // resolve item
-    const item = options.item ?? (options.uuid ? await fromUuid(options.uuid) : await SelectItemDialog.getItem());
+    const item =
+        options.item ?? (options.uuid ? await fromUuid(options.uuid) : await SelectItemDialog.getItem("craft"));
 
     // ensure item is a valid crafting target
     if (!item) {
@@ -36,17 +36,15 @@ export async function craft(options: CraftActionOptions) {
     // whether the player needs to pay crafting costs
     const free = !!options.free;
 
+    const slug = options?.skill ?? "crafting";
+    const rollOptions = ["action:craft"];
+    const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph,
         title: "PF2E.Actions.Craft.Title",
-        subtitle,
-        modifiers: options.modifiers,
-        rollOptions: ["all", checkType, stat, "action:craft"],
-        extraOptions: ["action:craft"],
+        checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["downtime", "manipulate"],
-        checkType,
         event: options.event,
         difficultyClass: dc,
         extraNotes: (selector: string) => [
@@ -75,6 +73,9 @@ export async function craft(options: CraftActionOptions) {
             }
             options.callback?.(result);
         },
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }
 
@@ -84,75 +85,4 @@ interface CraftActionOptions extends SkillActionOptions {
     quantity?: number;
     uuid?: string;
     free?: boolean;
-}
-
-interface ItemDropData {
-    id?: string;
-    pack?: string;
-    type: "Item";
-}
-
-class SelectItemDialog extends Application {
-    private item: PhysicalItemPF2e | null = null;
-
-    private constructor(private resolve: (value: PhysicalItemPF2e | null) => void) {
-        super({
-            classes: ["select-craft-item-dialog"],
-            template: "systems/pf2e/templates/system/actions/craft-target-item.html",
-            title: "PF2E.Actions.Craft.SelectItemDialog.Title",
-            width: 270,
-        });
-    }
-
-    override async getData() {
-        const data: { item?: PhysicalItemPF2e | null } = await super.getData();
-        data.item = this.item;
-        return data;
-    }
-
-    override activateListeners($html: JQuery): void {
-        super.activateListeners($html);
-
-        $html.on("drop", async (event) => {
-            const json = event.originalEvent?.dataTransfer?.getData("text/plain");
-            if (!json?.startsWith("{") || !json.endsWith("}")) return;
-
-            const data: Partial<ItemDropData> = JSON.parse(json);
-            const item = await (async () => {
-                if (data.type === "Item" && data.pack && data.id) {
-                    return await fromUuid(`Compendium.${data.pack}.${data.id}`);
-                } else if (data.type === "Item" && data.id) {
-                    return await fromUuid(`Item.${data.id}`);
-                }
-                return null;
-            })();
-
-            if (item instanceof PhysicalItemPF2e) {
-                this.item = item;
-                this.render();
-            } else {
-                ui.notifications.error(game.i18n.localize("PF2E.Actions.Craft.Error.ItemReferenceMismatch"));
-            }
-        });
-
-        $html.find("[data-event-handler=craft]").on("click", () => {
-            this.close();
-        });
-
-        $html.find("[data-event-handler=cancel]").on("click", () => {
-            this.item = null;
-            this.close();
-        });
-    }
-
-    override close(options?: { force?: boolean }): Promise<void> {
-        this.resolve(this.item);
-        return super.close(options);
-    }
-
-    static async getItem(): Promise<PhysicalItemPF2e | null> {
-        return new Promise((resolve) => {
-            new SelectItemDialog(resolve).render(true);
-        });
-    }
 }

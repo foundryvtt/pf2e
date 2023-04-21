@@ -82,7 +82,7 @@ declare global {
         get canStart(): boolean;
 
         /** The current status of the Tour */
-        get status(): typeof Tour.STATUS[keyof typeof Tour.STATUS];
+        get status(): (typeof Tour.STATUS)[keyof typeof Tour.STATUS];
 
         /* -------------------------------------------- */
         /*  Tour Methods                                */
@@ -155,7 +155,7 @@ declare global {
     }
 
     /** A singleton Tour Collection class responsible for registering and activating Tours, accessible as game.tours */
-    class Tours extends foundry.utils.Collection {
+    class Tours extends Collection {
         /**
          * Register a new Tour
          * @param namespace          The namespace of the Tour

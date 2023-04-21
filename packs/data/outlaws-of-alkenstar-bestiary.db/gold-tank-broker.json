@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>This thin spear is well balanced for throwing but is not designed for melee use.</p>"
@@ -59,10 +58,10 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -92,9 +91,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -103,7 +99,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "thrown"
@@ -188,7 +183,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "evocation",
@@ -260,7 +254,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -306,7 +299,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -321,6 +313,11 @@
         },
         {
             "_id": "CVdaUlBz3vBwy6o6",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "JNt7GmLCCVz5BiEI"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Javelin",
             "sort": 500000,
@@ -349,7 +346,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "thrown-30"
@@ -393,7 +389,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -433,7 +428,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -475,7 +469,6 @@
                     "value": "Pathfinder Bestiary 3"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -520,7 +513,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -560,7 +552,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -597,7 +588,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -634,7 +624,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -676,7 +665,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -707,7 +695,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.DisarmGrappleOrAvoidDisarmed",
+                        "label": "PF2E.SkillVariant.DisarmGrappleAvoidDisarm",
                         "predicate": [
                             {
                                 "or": [
@@ -721,7 +709,7 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.DisarmGrappleOrAvoidDisarmed",
+                        "label": "PF2E.SkillVariant.DisarmGrappleAvoidDisarm",
                         "predicate": [
                             "action:disarm"
                         ],
@@ -732,11 +720,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 },
                 "variants": {
                     "0": {
@@ -784,16 +767,37 @@
                 "temp": 0,
                 "value": 16
             },
+            "immunities": [],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 8
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "adamantine",
+                        "orichalcum"
+                    ],
+                    "type": "physical",
+                    "value": 2
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "electricity",
+                    "value": 2
+                },
+                {
+                    "type": "orichalcum",
+                    "value": 2
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -826,42 +830,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except adamantine or orichalcum",
-                    "type": "physical",
-                    "value": 2
-                }
-            ],
-            "dv": [
-                {
-                    "type": "electricity",
-                    "value": 2
-                },
-                {
-                    "type": "orichalcum",
-                    "value": 2
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

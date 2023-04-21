@@ -22,37 +22,22 @@
                     "0": {
                         "damage": "2d12+10",
                         "damageType": "piercing"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "1d6",
+                        "damageType": "acid"
                     }
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.PersistentDamage.Acid1d6.success]</p>"
+                    "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Acid1d6.success",
-                        "visibility": "gm"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Acid1d6.criticalSuccess",
-                        "visibility": "gm"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-10"
@@ -95,7 +80,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -141,7 +125,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "acid",
@@ -186,7 +169,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -231,7 +213,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -265,13 +246,22 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "stench",
+                        "traits": [
+                            "aura",
+                            "olfactory"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -314,7 +304,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "manipulate"
@@ -351,12 +340,11 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "fleshgout",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "disease"
@@ -390,11 +378,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -418,11 +401,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -446,11 +424,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -492,12 +465,23 @@
                 "temp": 0,
                 "value": 175
             },
+            "immunities": [
+                {
+                    "type": "disease"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 19
             },
+            "resistances": [
+                {
+                    "type": "acid",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 35
@@ -537,20 +521,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "disease"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "acid",
-                    "value": 10
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

@@ -1,0 +1,25 @@
+{{#if classDCs.dcs}}
+    <div class="sidebar_title">
+        <h2>{{#if (gt classDCs.dcs.length 1)}}{{localize "PF2E.Actor.Character.ClassDC.Plural"}}{{else}}{{localize "PF2E.Actor.Character.ClassDC.Label"}}{{/if}}</h2>
+        {{#unless classDCs.perDCDetails}}
+            <button type="button" class="modifiers_button hover" data-tooltip-content="#{{options.id}}-{{classDCs.primary}}-modifiers"><i class="fas fa-eye"></i> {{localize "PF2E.ModifiersTitle"}}</button>
+        {{/unless}}
+    </div>
+    {{#each classDCs.dcs as |classDC|}}
+        <div class="roll-data difficulty-checks class-dc{{#unless classDC.primary}} secondary{{/unless}}">
+            <h3>
+                {{classDC.dc}}
+                {{#if ../classDCs.perDCDetails}}<span class="sidebar_label">{{classDC.label}}</span>{{/if}}
+            </h3>
+            <div class="classdc-rank">
+                <span class="pf-rank {{classDC.rankSlug}}">{{classDC.rankName}}</span>
+                {{#if ../classDCs.perDCDetails}}
+                    <button type="button" class="modifiers_button hover" data-tooltip-content="#{{../options.id}}-{{classDC.slug}}-modifiers"><i class="fas fa-eye"></i></button>
+                {{/if}}
+            </div>
+            {{#with classDC}}
+                {{> "systems/pf2e/templates/actors/character/partials/modifiers-tooltip.hbs" title="PF2E.Actor.Character.ClassDC.Label"}}
+            {{/with}}
+        </div>
+    {{/each}}
+{{/if}}

@@ -32,7 +32,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -78,7 +77,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -123,7 +121,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -169,7 +166,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divine",
@@ -206,7 +202,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The ghost stares at a creature it can see within 30 feet. The target takes [[/r {7d6}[negative]]]{7d6 negative damage} with a @Check[type:will|dc:33]{basic Will} save.</p>\n<p>A creature that fails its save is also @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 minute.</p>"
+                    "value": "<p>The ghost stares at a creature it can see within 30 feet. The target takes [[/r 7d6[negative]]] damage with a @Check[type:will|dc:33]{basic Will} save.</p>\n<p>A creature that fails its save is also @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -217,7 +213,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -262,7 +257,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -302,7 +296,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "flourish"
@@ -336,11 +329,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -364,11 +352,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -392,11 +375,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -420,11 +398,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -466,12 +439,46 @@
                 "temp": 0,
                 "value": 175
             },
+            "immunities": [
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "unconscious"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 26
             },
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "force",
+                        "ghost-touch",
+                        "positive"
+                    ],
+                    "type": "all-damage",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -516,26 +523,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "paralyzed",
-                    "unconscious",
-                    "poison",
-                    "precision",
-                    "death-effects",
-                    "disease"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except force, ghost touch, or positive; double resistance vs. non-magical",
-                    "type": "all",
-                    "value": 10
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

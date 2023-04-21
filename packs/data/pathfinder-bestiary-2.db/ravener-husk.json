@@ -36,7 +36,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -83,7 +82,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -129,7 +127,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -169,7 +166,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -198,7 +194,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The ravener husk takes any amount of bludgeoning damage</p>\n<hr />\n<p><strong>Effect</strong> The ravener's brittle bones shatter, spraying bone shards everywhere. Every creature within a @Template[type:emanation|distance:10] of the ravener husk takes [[/r {7d6}[piercing]]]{7d6 piercing damage} (@Check[type:reflex|dc:31|basic:true] save).</p>"
+                    "value": "<p><strong>Trigger</strong> The ravener husk takes any amount of bludgeoning damage</p>\n<hr />\n<p><strong>Effect</strong> The ravener's brittle bones shatter, spraying bone shards everywhere. Every creature within a @Template[type:emanation|distance:10] of the ravener husk takes [[/r 7d6[piercing]]] damage (@Check[type:reflex|dc:31|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -209,7 +205,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -248,13 +243,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 90,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "aura",
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": "frightful-presence",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -288,7 +294,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The ravener husk breathes a torrent of negative energy that deals [[/r {16d6}[negative]]]{16d6 negative damage} in a @Template[type:cone|distance:40] (@Check[type:reflex|dc:34|basic:true] save).</p>\n<p>They can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The ravener husk breathes a torrent of negative energy that deals [[/r 16d6[negative]]] damage in a @Template[type:cone|distance:40] (@Check[type:reflex|dc:34|basic:true] save).</p>\n<p>They can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -299,7 +305,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divine",
@@ -343,7 +348,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divine",
@@ -378,11 +382,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -406,11 +405,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -452,8 +446,25 @@
                 "temp": 0,
                 "value": 325
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 26
@@ -466,7 +477,13 @@
                     }
                 ],
                 "value": 60
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "good",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -502,25 +519,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "label": "Good",
-                    "type": "good",
-                    "value": "10"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

@@ -1,18 +1,18 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemSourcePF2e } from "@item/data";
-import { HomebrewElements, HomebrewTag } from "@system/settings/homebrew";
-import { LocalizePF2e } from "@system/localize";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { HomebrewTag, HOMEBREW_TRAIT_KEYS } from "@system/settings/homebrew/index.ts";
+import { LocalizePF2e } from "@system/localize.ts";
 import { sluggify } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 export class Migration674StableHomebrewTagIDs extends MigrationBase {
     static override version = 0.674;
 
-    private homebrewKeys = deepClone(HomebrewElements.SETTINGS);
+    private homebrewKeys = deepClone(HOMEBREW_TRAIT_KEYS);
 
     private homebrewTags = this.homebrewKeys.reduce(
         (settings, key) => mergeObject(settings, { [key]: game.settings.get("pf2e", `homebrew.${key}`) }),
-        {} as Record<typeof this.homebrewKeys[number], HomebrewTag[]>
+        {} as Record<(typeof this.homebrewKeys)[number], HomebrewTag[]>
     );
 
     private updateDocumentTags(documentTags: string[] = []): void {

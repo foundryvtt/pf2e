@@ -18,7 +18,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>Two crew members each perform a three-action activity on their turn to fire a line of lightning at the end of the second character's turn. This line of lightning erupts from the front of the titanic stomper at an angle of the crew members' choice and deals [[/r {5d12}[electricity]]]{5d12 Electricity Damage} to each creature in a 120-foot line (@Check[type:reflex|dc:34|basic:true|name:Avoid the blast]). The Bolt Blast stops working if the titanic stomper is @UUID[Compendium.pf2e.conditionitems.Broken]{Broken}.</p>"
+                    "value": "<p>Two crew members each perform a three-action activity on their turn to fire a line of lightning at the end of the second character's turn. This line of lightning erupts from the front of the titanic stomper at an angle of the crew members' choice and deals [[/r 5d12[electricity]]] damage to each creature in a 120-foot line (@Check[type:reflex|dc:34|basic:true|name:Avoid the blast]). The Bolt Blast stops working if the titanic stomper is @UUID[Compendium.pf2e.conditionitems.Broken]{Broken}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -29,7 +29,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -55,7 +54,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The titanic stomper is targeted by, or in the area of, an effect that deals electricity damage</p>\n<hr />\n<p><strong>Effect</strong> The pilot uses their reaction to activate the Stasian coils, which funnels the electricity into the titanic stomper's electrical engine. The next time Bolt Blast is used within the next minute, the damage it deals increases to [[/r {7d12}[electricity]]]{7d12 Electricity Damage}.</p>"
+                    "value": "<p><strong>Trigger</strong> The titanic stomper is targeted by, or in the area of, an effect that deals electricity damage</p>\n<hr />\n<p><strong>Effect</strong> The pilot uses their reaction to activate the Stasian coils, which funnels the electricity into the titanic stomper's electrical engine. The next time Bolt Blast is used within the next minute, the damage it deals increases to [[/r 7d12[electricity]]] damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -66,7 +65,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -103,7 +101,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -134,7 +131,24 @@
                 "max": 230,
                 "temp": 0,
                 "value": 230
-            }
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "resistances": [
+                {
+                    "type": "electricity",
+                    "value": 20
+                }
+            ]
         },
         "details": {
             "AC": 0,
@@ -165,22 +179,6 @@
             "value": "Pathfinder Guns & Gears"
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "critical-hits",
-                    "object-immunities",
-                    "precision"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "electricity",
-                    "value": 20
-                }
-            ],
-            "dv": [],
             "rarity": "rare",
             "size": {
                 "value": "grg"

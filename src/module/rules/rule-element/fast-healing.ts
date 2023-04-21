@@ -1,40 +1,53 @@
-import { ActorType } from "@actor/data";
+import { ActorPF2e } from "@actor";
+import { ActorType } from "@actor/data/index.ts";
 import { ItemPF2e } from "@item";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { LocalizePF2e } from "@system/localize";
-import { tupleHasValue, objectHasKey, localizeList } from "@util";
-import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions } from ".";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { DamageRoll } from "@system/damage/roll.ts";
+import { LocalizePF2e } from "@system/localize.ts";
+import { localizeList, objectHasKey, tupleHasValue } from "@util";
+import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
 
 /**
  * Rule element to implement fast healing and regeneration.
  * Creates a chat card every round of combat.
  * @category RuleElement
  */
-class FastHealingRuleElement extends RuleElementPF2e {
+class FastHealingRuleElement extends RuleElementPF2e implements FastHealingData {
     static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
 
-    constructor(data: FastHealingSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    type: "fast-healing" | "regeneration";
+
+    deactivatedBy: string[];
+
+    #details?: string;
+
+    constructor(data: FastHealingSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
+        data.type ??= "fast-healing";
+
         super(data, item, options);
 
-        this.data.deactivatedBy = data.deactivatedBy ?? [];
+        this.deactivatedBy =
+            Array.isArray(data.deactivatedBy) && data.deactivatedBy.every((db): db is string => typeof db === "string")
+                ? data.deactivatedBy
+                : [];
 
-        const type = this.resolveInjectedProperties(data.type) || "fast-healing";
-        if (!tupleHasValue(["fast-healing", "regeneration"] as const, type)) {
-            this.ignored = true;
+        if (tupleHasValue(["fast-healing", "regeneration"] as const, data.type)) {
+            this.type = data.type;
+        } else {
+            this.type = "fast-healing";
             this.failValidation("FastHealing only supports fast-healing or regeneration types");
-            return;
         }
 
-        this.data.type = type;
+        if (typeof data.details === "string") this.#details = data.details;
     }
 
-    get details() {
-        if (this.data.details) {
-            return game.i18n.localize(this.data.details);
+    get details(): string | null {
+        if (this.#details) {
+            return game.i18n.localize(this.#details);
         }
 
-        if (this.data.deactivatedBy.length) {
-            const typesArr = this.data.deactivatedBy.map((type) =>
+        if (this.deactivatedBy.length > 0) {
+            const typesArr = this.deactivatedBy.map((type) =>
                 objectHasKey(CONFIG.PF2E.weaknessTypes, type)
                     ? game.i18n.localize(CONFIG.PF2E.weaknessTypes[type])
                     : type
@@ -47,41 +60,36 @@ class FastHealingRuleElement extends RuleElementPF2e {
         return null;
     }
 
-    /** Refresh the actor's temporary hit points at the start of its turn */
+    /** Send a message with a "healing" (damage) roll at the start of its turn */
     override async onTurnStart(): Promise<void> {
         if (!this.test()) return;
 
-        const value = this.resolveValue(this.data.value);
+        const value = this.resolveValue();
         if (typeof value !== "number") {
             return this.failValidation("Healing requires a non-zero value field or a formula field");
         }
 
-        const roll = (await new Roll(`${value}`).evaluate({ async: true })).toJSON();
-        const { FastHealingLabel, RegenerationLabel } = LocalizePF2e.translations.PF2E.Encounter.Broadcast.FastHealing;
-        const preFlavor = game.i18n.localize(this.data.type === "fast-healing" ? FastHealingLabel : RegenerationLabel);
+        const roll = (await new DamageRoll(`${value}`).evaluate({ async: true })).toJSON();
+        const { ReceivedMessage } = LocalizePF2e.translations.PF2E.Encounter.Broadcast.FastHealing[this.type];
         const details = this.details;
         const postFlavor = details ? `<div data-visibility="owner">${details}</div>` : "";
-        const flavor = `${preFlavor}${postFlavor}`;
+        const flavor = `<div>${ReceivedMessage}</div>${postFlavor}`;
         const rollMode = this.actor.hasPlayerOwner ? "publicroll" : "gmroll";
         const speaker = ChatMessagePF2e.getSpeaker({ actor: this.actor, token: this.token });
-        ChatMessagePF2e.create({ flavor, speaker, type: CONST.CHAT_MESSAGE_TYPES.ROLL, roll }, { rollMode });
+        ChatMessagePF2e.create({ flavor, speaker, type: CONST.CHAT_MESSAGE_TYPES.ROLL, rolls: [roll] }, { rollMode });
     }
-}
-
-interface FastHealingRuleElement extends RuleElementPF2e {
-    data: FastHealingData;
 }
 
 interface FastHealingData extends RuleElementData {
     type: "fast-healing" | "regeneration";
-    details?: string;
+    details?: string | null;
     deactivatedBy: string[];
 }
 
 interface FastHealingSource extends RuleElementSource {
-    type?: "fast-healing" | "regeneration";
-    details?: string;
-    deactivatedBy?: string[];
+    type?: unknown;
+    details?: unknown;
+    deactivatedBy?: unknown;
 }
 
-export { FastHealingRuleElement as HealingRuleElement };
+export { FastHealingData, FastHealingRuleElement, FastHealingSource };

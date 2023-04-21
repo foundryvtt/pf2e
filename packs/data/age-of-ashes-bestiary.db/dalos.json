@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "primal"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -125,13 +120,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -195,7 +184,7 @@
                 },
                 "slug": "earthbind",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -216,7 +205,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -237,13 +225,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -267,6 +249,16 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "6": {
+                            "target": {
+                                "value": "10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 3
@@ -303,7 +295,7 @@
                 },
                 "slug": "slow",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -325,7 +317,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -347,11 +338,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
+                    "type": "burst",
                     "value": 20
-                },
-                "areasize": {
-                    "value": "20-foot burst"
                 },
                 "category": {
                     "value": "spell"
@@ -412,7 +400,7 @@
                 },
                 "slug": "stinking-cloud",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -433,7 +421,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "poison"
@@ -476,7 +463,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-15"
@@ -518,7 +504,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "range-increment-150"
@@ -562,7 +547,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -591,7 +575,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Whenever the dalos takes damage from a melee Strike, magma splashes from its open wound and sticks to nearby creatures. Each creature in a @Template[type:emanation|distance:10] must attempt a @Check[type:reflex|dc:31|traits:damaging-effect] save. On a failure, the creature takes [[/r {3d6}[persistent,fire]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} as the superheated rock sticks to them and cools. The DC to end this persistent damage decreases by 5 each turn after the first as the magma cools.</p>"
+                    "value": "<p>Whenever the dalos takes damage from a melee Strike, magma splashes from its open wound and sticks to nearby creatures. Each creature in a @Template[type:emanation|distance:10] must attempt a @Check[type:reflex|dc:31|traits:damaging-effect] save. On a failure, the creature takes [[/r 3d6[persistent,fire]]] damage as the superheated rock sticks to them and cools. The DC to end this persistent damage decreases by 5 each turn after the first as the magma cools.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -602,7 +586,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "fire"
@@ -633,18 +616,27 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>[[/r {3d6}[fire]]]{3d6 fire damage} (@Check[type:reflex|dc:29|basic:true] save).</p>"
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>[[/r 3d6[fire]]] damage (@Check[type:reflex|dc:29|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 10,
+                        "slug": "volcanic-heat",
+                        "traits": [
+                            "aura",
+                            "fire"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -687,7 +679,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -716,7 +707,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dalos uses an Interact action to pluck a rock from its body or the nearby environment, then uses its internal fires to heat a rock it's holding until the rock is red hot. A heated rock that hits a target on a ranged Strike deals an additional [[/r {4d6}[fire]]]{4d6 fire damage}.</p>\n<p>Once the dalos heats a rock, that rock retains its heat for 2 rounds before cooling.</p>"
+                    "value": "<p>The dalos uses an Interact action to pluck a rock from its body or the nearby environment, then uses its internal fires to heat a rock it's holding until the rock is red hot. A heated rock that hits a target on a ranged Strike deals an additional [[/r 4d6[fire]]] damage.</p>\n<p>Once the dalos heats a rock, that rock retains its heat for 2 rounds before cooling.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -744,7 +735,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "fire"
@@ -775,7 +765,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dalos causes a volcanic explosion to erupt from its head, lobbing a mass of molten rock up to 100 feet. This lava bomb deals [[/r {6d8}[fire]+{6d8}[bludgeoning]]]{6d8 fire damage and 6d8 bludgeoning damage} to each creature in a @Template[type:burst|distance:20]{20-foot radius} of its impact point, with a @Check[type:reflex|dc:33|basic:true] save.</p>\n<p>The dalos can't use Lava Bomb again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The dalos causes a volcanic explosion to erupt from its head, lobbing a mass of molten rock up to 100 feet. This lava bomb deals [[/r {6d8[fire],6d8[bludgeoning]}]]{6d8 fire damage and 6d8 bludgeoning damage} to each creature in a @Template[type:burst|distance:20]{20-foot radius} of its impact point, with a @Check[type:reflex|dc:33|basic:true] save.</p>\n<p>The dalos can't use Lava Bomb again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -786,7 +776,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "earth",
@@ -829,7 +818,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -861,11 +849,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -889,11 +872,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -917,11 +895,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -963,12 +936,26 @@
                 "temp": 0,
                 "value": 240
             },
+            "immunities": [
+                {
+                    "type": "fire"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 23
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "bludgeoning"
+                    ],
+                    "type": "physical",
+                    "value": 15
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -981,7 +968,17 @@
                     }
                 ],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 10
+                },
+                {
+                    "type": "cold-iron",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1019,32 +1016,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "fire"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except bludgeoning",
-                    "type": "physical",
-                    "value": 15
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Cold",
-                    "type": "cold",
-                    "value": "10"
-                },
-                {
-                    "label": "Cold Iron",
-                    "type": "coldiron",
-                    "value": "10"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

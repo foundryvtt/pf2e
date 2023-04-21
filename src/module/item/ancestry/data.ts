@@ -1,16 +1,12 @@
-import { CreatureTrait, Language } from "@actor/creature/data";
-import { AbilityString } from "@actor/types";
-import { ABCSystemData, ABCSystemSource } from "@item/abc/data";
-import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemTraits } from "@item/data/base";
-import { Size, ValuesList } from "@module/data";
-import type { AncestryPF2e } from ".";
+import { CreatureTrait, Language } from "@actor/creature/index.ts";
+import { AbilityString } from "@actor/types.ts";
+import { ABCSystemData, ABCSystemSource } from "@item/abc/index.ts";
+import { BaseItemSourcePF2e } from "@item/data/base.ts";
+import { Size, TraitsWithRarity, ValuesList } from "@module/data.ts";
 
 type AncestrySource = BaseItemSourcePF2e<"ancestry", AncestrySystemSource>;
 
-type AncestryData = Omit<AncestrySource, "system" | "effects" | "flags"> &
-    BaseItemDataPF2e<AncestryPF2e, "ancestry", AncestrySystemData, AncestrySource>;
-
-export type CreatureTraits = ItemTraits<CreatureTrait>;
+export type CreatureTraits = TraitsWithRarity<CreatureTrait>;
 
 interface AncestrySystemSource extends ABCSystemSource {
     traits: CreatureTraits;
@@ -19,10 +15,12 @@ interface AncestrySystemSource extends ABCSystemSource {
         value: string[];
         custom: string;
     };
+    /** If present, use the alternate ancestry boosts, which are two free */
+    alternateAncestryBoosts?: AbilityString[];
     boosts: Record<string, { value: AbilityString[]; selected: AbilityString | null }>;
     flaws: Record<string, { value: AbilityString[]; selected: AbilityString | null }>;
     voluntary?: {
-        boost: AbilityString | null;
+        boost?: AbilityString | null;
         flaws: AbilityString[];
     };
     hp: number;
@@ -31,8 +29,9 @@ interface AncestrySystemSource extends ABCSystemSource {
     size: Size;
     reach: number;
     vision: "normal" | "darkvision" | "lowLightVision";
+    level?: never;
 }
 
-interface AncestrySystemData extends Omit<AncestrySystemSource, "items">, Omit<ABCSystemData, "traits"> {}
+interface AncestrySystemData extends Omit<AncestrySystemSource, "items">, Omit<ABCSystemData, "level" | "traits"> {}
 
-export { AncestrySource, AncestryData, AncestrySystemData };
+export { AncestrySource, AncestrySystemData };

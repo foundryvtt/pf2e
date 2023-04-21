@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Experienced Professional",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "skill",
         "description": {
             "value": "<p>You carefully safeguard your professional endeavors to prevent disaster. When you use Lore to Earn Income, if you roll a critical failure, you instead get a failure. If you're an expert in Lore, you gain twice as much income from a failed check to Earn Income, unless it was originally a critical failure.</p>"
-        },
-        "featType": {
-            "value": "skill"
         },
         "level": {
             "value": 1
@@ -28,12 +23,32 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "action:earn-income"
+                ],
+                "selector": "skill-check",
+                "text": "When you use Lore to Earn Income, if you roll a critical failure, you instead get a failure. If you're an expert in Lore, you gain twice as much income from a failed check to Earn Income, unless it was originally a critical failure.",
+                "title": "{item|name}"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:earn-income"
+                ],
+                "selector": "lore-skill-check",
+                "type": "skill"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "general",

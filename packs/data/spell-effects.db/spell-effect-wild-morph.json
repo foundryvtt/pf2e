@@ -55,6 +55,7 @@
                         "value": "wings"
                     }
                 ],
+                "flag": "spellEffectWildMorph",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.WildMorph.Prompt",
                 "rollOption": "wild-morph"
@@ -112,15 +113,10 @@
                 "predicate": [
                     "wild-morph:elemental-matter"
                 ],
-                "type": "critical-hits",
-                "value": 5
-            },
-            {
-                "key": "Resistance",
-                "predicate": [
-                    "wild-morph:elemental-matter"
+                "type": [
+                    "critical-hits",
+                    "precision"
                 ],
-                "type": "precision",
                 "value": 5
             },
             {
@@ -153,7 +149,6 @@
             "show": true
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": []
         }

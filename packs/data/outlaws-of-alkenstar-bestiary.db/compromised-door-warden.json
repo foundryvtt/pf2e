@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
                     "value": "<p>This crossbow has an internal chamber that can be loaded with up to five bolts. An automated catch mechanism at the top of the flight groove, just in front of the latch, locks the bowstring and launches bolts with the pull of a trigger.</p>"
@@ -92,9 +91,6 @@
                 "source": {
                     "value": "Pathfinder Guns & Gears"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -103,7 +99,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "repeating"
@@ -129,22 +124,11 @@
             "name": "Repeating Crossbow Magazine",
             "sort": 200000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 5,
                     "value": 5
                 },
@@ -152,16 +136,11 @@
                     "value": "ammo"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": ""
                 },
                 "containerId": "null",
                 "description": {
                     "value": ""
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -194,11 +173,6 @@
                     }
                 },
                 "quantity": 1,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": "repeating-crossbow-magazine",
@@ -206,25 +180,12 @@
                     "value": "Pathfinder Guns & Gears"
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "L"
@@ -265,7 +226,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-10"
@@ -279,6 +239,11 @@
         },
         {
             "_id": "uQ36o4707QlcjsIo",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "EZHVkXMBikdMceCu"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Repeating Crossbow",
             "sort": 400000,
@@ -307,7 +272,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "range-increment-120",
@@ -353,7 +317,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -398,7 +361,6 @@
                     "value": "Pathfinder Bestiary 3"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -454,7 +416,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -494,7 +455,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -531,7 +491,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -568,7 +527,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -610,7 +568,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -658,11 +615,6 @@
                 "source": {
                     "value": ""
                 },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
                 "variants": {
                     "0": {
                         "label": "+12 to Disarm or Grapple",
@@ -709,17 +661,38 @@
                 "temp": 0,
                 "value": 50
             },
+            "immunities": [],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 12
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "adamantine",
+                        "orichalcum"
+                    ],
+                    "type": "physical",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "details": "see Uncertain Operations",
                 "otherSpeeds": [],
                 "value": 10
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "electricity",
+                    "value": 5
+                },
+                {
+                    "type": "orichalcum",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -752,41 +725,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except adamantine or orichalcum",
-                    "type": "physical",
-                    "value": 5
-                }
-            ],
-            "dv": [
-                {
-                    "type": "electricity",
-                    "value": 5
-                },
-                {
-                    "type": "orichalcum",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

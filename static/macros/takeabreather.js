@@ -30,7 +30,7 @@ new Dialog({
             for (let token of canvas.tokens.controlled) {
                 const { name } = token;
                 console.log(token);
-                const { resolve, sp } = token.actor.data.data.attributes;
+                const { resolve, sp } = token.actor.system.attributes;
                 console.log(resolve, sp);
                 if (resolve.value > 0) {
                     let oldSP = sp.value;

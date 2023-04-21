@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
                     "value": "<p>This projectile weapon is made from horn, wood, and sinew laminated together to increase the power of its pull and the force of its projectile. Like all longbows, its great size also increases the bow's range and power. You must use two hands to fire it, and it cannot be used while mounted. Any time an ability is specifically restricted to a longbow, such as Erastil's favored weapon, it also applies to composite longbows unless otherwise stated.</p>"
@@ -59,10 +58,10 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -92,9 +91,6 @@
                 "source": {
                     "value": ""
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -103,7 +99,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "deadly-d10",
@@ -169,7 +164,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -185,7 +179,7 @@
         {
             "_id": "R2bYvFQk64SfMRXg",
             "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "junk Mosin-Nagant rifle with attached bayonet (can't fire)",
+            "name": "Junk Mosin-Nagant rifle with attached bayonet (can't fire)",
             "sort": 300000,
             "system": {
                 "baseItem": null,
@@ -231,7 +225,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -255,22 +248,11 @@
             "name": "Explosive Ammunition (Arrow)",
             "sort": 400000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 0,
                     "value": 0
                 },
@@ -278,16 +260,11 @@
                     "value": "ammo"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": "6d6"
                 },
                 "containerId": null,
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>This piece of ammunition is coated in gritty black soot. When activated <em>explosive ammunition</em> hits a target, the missile explodes in a @Template[type:burst|distance:10], dealing [[/r 6d6]] fire damage to each creature in the area (including the target). Each creature must attempt a @Check[type:reflex|dc:25|basic:true|name:Explosive Ammunition] save.</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
                 },
                 "equipped": {
                     "carryType": "held",
@@ -320,11 +297,6 @@
                     }
                 },
                 "quantity": 20,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": "explosive-ammunition",
@@ -332,13 +304,7 @@
                     "value": ""
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "consumable",
@@ -349,13 +315,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "-"
@@ -398,7 +357,7 @@
                             "criticalSuccess"
                         ],
                         "selector": "{item|_id}-damage",
-                        "text": "On a critical hit with the bayonet, the target catches fire, taking [[/r {2d4}[persistent,fire]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} (@Check[type:reflex|dc:24|name:Gunpowder Mastery|traits:damaging-effect] negates).",
+                        "text": "On a critical hit with the bayonet, the target catches fire, taking [[/r 2d4[persistent,fire]]] damage (@Check[type:reflex|dc:24|name:Gunpowder Mastery|traits:damaging-effect] negates).",
                         "title": "Gunpowder Mastery"
                     }
                 ],
@@ -407,7 +366,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -419,6 +377,11 @@
         },
         {
             "_id": "9VtOE3zELBaMHIqX",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "oMfhJAn40jaMWd3L"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Composite Longbow",
             "sort": 600000,
@@ -451,7 +414,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "deadly-d10",
@@ -482,7 +444,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>With their rifles' firing ability ruined beyond repair, the soldiers put their gunpowder reserves to use, making explosive arrows and rigging their guns to let off sparks on each successful bayonet Strike. On a critical hit with the bayonet, the target catches fire, taking [[/r {2d4}[persistent,fire]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} (@Check[type:reflex|dc:24|traits:damaging-effect] negates).</p>"
+                    "value": "<p>With their rifles' firing ability ruined beyond repair, the soldiers put their gunpowder reserves to use, making explosive arrows and rigging their guns to let off sparks on each successful bayonet Strike. On a critical hit with the bayonet, the target catches fire, taking [[/r 2d4[persistent,fire]]] damage (@Check[type:reflex|dc:24|traits:damaging-effect] negates).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -493,7 +455,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -533,7 +494,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -565,11 +525,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -593,11 +548,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -621,11 +571,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -671,7 +616,7 @@
                 "value": 115
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 14
@@ -712,13 +657,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

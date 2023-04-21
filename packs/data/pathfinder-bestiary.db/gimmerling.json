@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>Sometimes referred to as an alley bow by rogues or ruffians, this small crossbow fires small bolts that are sometimes used to deliver poison to the target. It's small enough to be shot one-handed, but it still requires two hands to load.</p>"
@@ -92,9 +91,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -103,7 +99,6 @@
                     "value": "striking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -127,22 +122,11 @@
             "name": "Bolts",
             "sort": 200000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 0,
                     "value": 0
                 },
@@ -150,16 +134,11 @@
                     "value": "ammo"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": ""
                 },
                 "containerId": null,
                 "description": {
                     "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
                 },
                 "equipped": {
                     "carryType": "held",
@@ -193,11 +172,6 @@
                     }
                 },
                 "quantity": 10,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": "bolts",
@@ -205,25 +179,12 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": "bolts",
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "L"
@@ -264,7 +225,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -312,7 +272,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "finesse"
@@ -326,6 +285,11 @@
         },
         {
             "_id": "DRnLEIRSbgIT3V0F",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "aX7NI0MaSS3ulX3D"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Hand Crossbow",
             "sort": 500000,
@@ -359,7 +323,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "range-increment-60",
@@ -404,7 +367,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -444,7 +406,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -478,13 +439,23 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 15,
+                        "slug": "treacherous-aura",
+                        "traits": [
+                            "aura",
+                            "primal",
+                            "transmutation"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -517,7 +488,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature critically fails a melee attack to hit the gimmerling or moves into a space within the gimmerling's treacherous aura.</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature must attempt a @Check[type:reflex|dc:32|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of its next turn.</p>\n<p><strong>Failure</strong> The target takes [[/r {2d10}[bludgeoning]]]{2d10 bludgeoning damage} and is flat-footed until the start of its next turn.</p>\n<p><strong>Critical failure</strong> As failure, and the target is knocked @UUID[Compendium.pf2e.conditionitems.Prone]{Prone}.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature critically fails a melee attack to hit the gimmerling or moves into a space within the gimmerling's treacherous aura.</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature must attempt a @Check[type:reflex|dc:32|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of its next turn.</p>\n<p><strong>Failure</strong> The target takes [[/r 2d10[bludgeoning]]] damage and is flat-footed until the start of its next turn.</p>\n<p><strong>Critical failure</strong> As failure, and the target is knocked @UUID[Compendium.pf2e.conditionitems.Prone]{Prone}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -528,7 +499,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -573,7 +543,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate",
@@ -613,12 +582,11 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "disarm",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -695,7 +663,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -735,7 +702,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -767,11 +733,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -795,11 +756,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -823,11 +779,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -851,11 +802,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -879,11 +825,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -926,7 +867,7 @@
                 "value": 235
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 21
@@ -935,7 +876,13 @@
                 "details": "trickster's step",
                 "otherSpeeds": [],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold-iron",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -968,18 +915,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "coldiron",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

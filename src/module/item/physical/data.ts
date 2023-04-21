@@ -1,40 +1,24 @@
-import { ActionTrait } from "@item/action/data";
-import { ArmorTrait } from "@item/armor/types";
-import { ConsumableTrait } from "@item/consumable/data";
-import { EquipmentTrait } from "@item/equipment/data";
-import type { PhysicalItemPF2e } from "@item/physical";
-import { WeaponTrait } from "@item/weapon/types";
-import { Size, ValuesList } from "@module/data";
-import {
-    ActionCost,
-    BaseItemDataPF2e,
-    BaseItemSourcePF2e,
-    Frequency,
-    ItemLevelData,
-    ItemSystemData,
-    ItemSystemSource,
-    ItemTraits,
-} from "../data/base";
-import type { ITEM_CARRY_TYPES } from "../data/values";
-import { CoinsPF2e } from "./helpers";
-import { PhysicalItemType, PreciousMaterialGrade, PreciousMaterialType } from "./types";
-import { UsageDetails } from "./usage";
+import { ActionTrait } from "@item/action/data.ts";
+import { ArmorTrait } from "@item/armor/types.ts";
+import { ConsumableTrait } from "@item/consumable/data.ts";
+import { EquipmentTrait } from "@item/equipment/data.ts";
+import { WeaponTrait } from "@item/weapon/types.ts";
+import { Size, TraitsWithRarity, ValuesList } from "@module/data.ts";
+import { ActionCost, BaseItemSourcePF2e, Frequency, ItemSystemData, ItemSystemSource } from "../data/base.ts";
+import type { ITEM_CARRY_TYPES } from "../data/values.ts";
+import { CoinsPF2e } from "./helpers.ts";
+import { PhysicalItemType, PreciousMaterialGrade, PreciousMaterialType } from "./types.ts";
+import { UsageDetails } from "./usage.ts";
 
 type ItemCarryType = SetElement<typeof ITEM_CARRY_TYPES>;
 
 type BasePhysicalItemSource<
-    TType extends PhysicalItemType = PhysicalItemType,
+    TType extends PhysicalItemType,
     TSystemSource extends PhysicalSystemSource = PhysicalSystemSource
 > = BaseItemSourcePF2e<TType, TSystemSource>;
 
-type BasePhysicalItemData<
-    TItem extends PhysicalItemPF2e = PhysicalItemPF2e,
-    TType extends PhysicalItemType = PhysicalItemType,
-    TSystemData extends PhysicalSystemData = PhysicalSystemData,
-    TSource extends BasePhysicalItemSource<TType> = BasePhysicalItemSource<TType>
-> = Omit<BasePhysicalItemSource, "system" | "effects" | "flags"> & BaseItemDataPF2e<TItem, TType, TSystemData, TSource>;
-
-interface PhysicalSystemSource extends ItemSystemSource, ItemLevelData {
+interface PhysicalSystemSource extends ItemSystemSource {
+    level: { value: number };
     traits: PhysicalItemTraits;
     quantity: number;
     baseItem: string | null;
@@ -72,7 +56,7 @@ interface PhysicalSystemSource extends ItemSystemSource, ItemLevelData {
     temporary?: boolean;
 }
 
-interface PhysicalSystemData extends PhysicalSystemSource, ItemSystemData {
+interface PhysicalSystemData extends PhysicalSystemSource, Omit<ItemSystemData, "level"> {
     price: Price;
     bulk: BulkData;
     traits: PhysicalItemTraits;
@@ -99,38 +83,11 @@ interface BulkData {
     per: number;
 }
 
-interface ActivatedEffectData {
-    activation: {
-        type: string;
-        cost: number;
-        condition: string;
-    };
-    duration: {
-        value: unknown;
-        units: string;
-    };
-    target: {
-        value: unknown;
-        units: string;
-        type: string;
-    };
-    range: {
-        value: unknown;
-        long: unknown;
-        units: unknown;
-    };
-    uses: {
-        value: number;
-        max: number;
-        per: number;
-    };
-}
-
 type IdentificationStatus = "identified" | "unidentified";
 
 interface MystifiedData {
     name: string;
-    img: ImagePath;
+    img: ImageFilePath;
     data: {
         description: {
             value: string;
@@ -143,7 +100,7 @@ type IdentifiedData = DeepPartial<MystifiedData>;
 interface IdentificationSource {
     status: IdentificationStatus;
     unidentified: MystifiedData;
-    misidentified: {};
+    misidentified: object;
 }
 
 interface IdentificationData extends IdentificationSource {
@@ -158,7 +115,7 @@ type EquippedData = {
 };
 
 type PhysicalItemTrait = ArmorTrait | ConsumableTrait | EquipmentTrait | WeaponTrait;
-interface PhysicalItemTraits<T extends PhysicalItemTrait = PhysicalItemTrait> extends ItemTraits<T> {
+interface PhysicalItemTraits<T extends PhysicalItemTrait = PhysicalItemTrait> extends TraitsWithRarity<T> {
     otherTags: string[];
 }
 
@@ -202,8 +159,6 @@ interface Price extends PartialPrice {
 }
 
 export {
-    ActivatedEffectData,
-    BasePhysicalItemData,
     BasePhysicalItemSource,
     Coins,
     EquippedData,

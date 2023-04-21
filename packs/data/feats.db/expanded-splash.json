@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Expanded Splash",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "class",
         "description": {
             "value": "<p>You can throw bombs at just the right trajectory to create especially large and powerful explosions. When you throw an alchemical bomb and that bomb has the splash trait, you can add your Intelligence modifier to the bomb's usual splash damage, and it deals splash damage to every creature within 10 feet of the target.</p>"
-        },
-        "featType": {
-            "value": "class"
         },
         "level": {
             "value": 10
@@ -30,24 +25,20 @@
         },
         "rules": [
             {
+                "damageCategory": "splash",
                 "key": "FlatModifier",
-                "label": "Expanded Splash",
                 "predicate": [
-                    "alchemical",
-                    "splash",
-                    "bomb"
+                    "item:trait:splash"
                 ],
-                "selector": "strike-damage",
+                "selector": "alchemical-bomb-damage",
                 "value": "@actor.abilities.int.mod"
             },
             {
                 "key": "Note",
                 "predicate": [
-                    "alchemical",
-                    "bomb",
-                    "splash"
+                    "item:trait:splash"
                 ],
-                "selector": "strike-damage",
+                "selector": "alchemical-bomb-damage",
                 "text": "The bomb deals splash damage to every creature within 10 feet of the target.",
                 "title": "{item|name}"
             }
@@ -56,7 +47,6 @@
             "value": "Pathfinder Core Rulebook"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "alchemist"

@@ -16,30 +16,13 @@
             "name": "Slowed",
             "sort": 100000,
             "system": {
-                "active": true,
-                "alsoApplies": {
-                    "linked": [],
-                    "unlinked": []
-                },
-                "base": "Slowed",
                 "description": {
                     "value": "<p>You have fewer actions. Slowed always includes a value. When you regain your actions at the start of your turn, reduce the number of actions you regain by your slowed value. Because slowed has its effect at the start of your turn, you don't immediately lose actions if you become slowed during your turn.</p>"
                 },
                 "duration": {
-                    "perpetual": true,
-                    "text": "",
                     "value": 0
                 },
-                "group": "",
-                "hud": {
-                    "img": {
-                        "useStatusName": true,
-                        "value": "systems/pf2e/icons/conditions-2/slowed.webp"
-                    },
-                    "selectable": true,
-                    "statusName": "slowed"
-                },
-                "modifiers": [],
+                "group": null,
                 "overrides": [],
                 "references": {
                     "children": [],
@@ -47,25 +30,13 @@
                     "overriddenBy": [],
                     "overrides": []
                 },
-                "removable": true,
                 "rules": [],
                 "slug": "slowed",
                 "source": {
                     "value": ""
                 },
-                "sources": {
-                    "hud": true,
-                    "values": []
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
                 "value": {
-                    "immutable": false,
                     "isValued": true,
-                    "modifiers": [],
                     "value": 1
                 }
             },
@@ -104,7 +75,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -146,7 +116,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -186,7 +155,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -235,7 +203,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -264,14 +231,13 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The zombie hound's Strikes deal [[/r {1d4}[precision]]]{1d4 extra damage} to @UUID[Compendium.pf2e.conditionitems.Prone]{Prone} creatures.</p>"
+                    "value": "<p>The zombie hound's Strikes deal 1d4 extra damage to @UUID[Compendium.pf2e.conditionitems.Prone]{Prone} creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
-                        "category": "precision",
                         "diceNumber": 1,
                         "dieSize": "d4",
                         "key": "DamageDice",
@@ -286,7 +252,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -328,7 +293,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -360,11 +324,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -406,8 +365,25 @@
                 "temp": 0,
                 "value": 18
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 1
@@ -415,7 +391,17 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -448,28 +434,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "mental",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "positive",
-                    "value": 5
-                },
-                {
-                    "type": "slashing",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

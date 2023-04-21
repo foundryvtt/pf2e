@@ -1,0 +1,77 @@
+{{#if identified}}
+    {{#if item.system.traits}}
+        <div class="tags item-properties">
+            {{#if rarityLabel}}
+                <span class="tag {{item.system.traits.rarity}}">{{localize rarityLabel}}</span>
+            {{/if}}
+            {{#each chatData.traits as |trait|}}
+                <span class="tag" data-tooltip="{{trait.description}}">{{localize trait.label}}</span>
+            {{/each}}
+            {{#each chatData.properties as |property|}}
+                <span class="tag tag_secondary">{{localize property}}</span>
+            {{/each}}
+        </div>
+    {{/if}}
+
+    {{#if item.price}}
+        <section>
+            <div>{{localize "PF2E.LevelN" level=item.level}}</div>
+            <div>{{localize "PF2E.Item.Physical.PriceLabel" price=item.price.value}}</div>
+        </section>
+    {{/if}}
+{{/if}}
+
+<div class="item-description">
+    {{{description}}}
+</div>
+
+{{#if (and identified isCreature)}}
+    <div class="item-buttons">
+        {{#if chatData.save}}
+            <span>{{chatData.save.label}}</span>
+        {{/if}}
+
+        {{#unless item.hasVariants}}
+            {{#if chatData.isAttack}}
+                <span><button class="spell_attack" data-action="spellAttack">{{localize "PF2E.AttackLabel"}}</button></span>
+            {{/if}}
+            {{#if chatData.hasDamage}}
+                <span><button class="spell_damage" data-action="spellDamage">{{chatData.damageLabel}}: {{chatData.formula}}</button></span>
+            {{/if}}
+        {{/unless}}
+
+        {{#if (and (eq item.type "consumable") item.uses.max)}}
+            <span><button class="consume" data-action="consume">{{localize "PF2E.ConsumableUseLabel"}} {{item.name}}</button></span>
+        {{/if}}
+    </div>
+{{/if}}
+
+{{#if (and (eq item.type "condition") item.references)}}
+    <div class="condition-references">
+        {{#if item.parents.length}}
+            <div class="condition-parents">
+                <p>
+                    Applied From:
+                    {{#each item.parents as |parent|}}
+                        <span data-item-id="{{parent.id}}">{{{parent.enrichedText}}}</span>
+                    {{/each}}
+                </p>
+            </div>
+        {{/if}}
+        {{#if item.children.length}}
+            <div class="condition-children">
+                <p>Also Applied:{{#each item.children as |child|}} {{{child.enrichedText}}}{{/each}}</p>
+            </div>
+        {{/if}}
+        {{#if item.overrides.length}}
+            <div class="condition-overriding">
+                <p>Overriding:{{#each item.overrides as |o|}} {{{o.enrichedText}}}{{/each}}</p>
+            </div>
+        {{/if}}
+        {{#if item.overriddenBy.length}}
+            <div class="condition-overridden">
+                <p>Overridden by:{{#each item.overriddenBy as |o|}} {{{o.enrichedText}}}{{/each}}</p>
+            </div>
+        {{/if}}
+    </div>
+{{/if}}

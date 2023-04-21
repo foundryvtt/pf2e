@@ -34,7 +34,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile"
@@ -78,7 +77,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -123,7 +121,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -168,7 +165,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -220,7 +216,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -254,18 +249,29 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature that starts its turn within the visitant's aura must succeed at a @Check[type:will|dc:16] save or be overcome with a thirst for vengeance.</p>\n<p>For [[/r 1d4 #rounds]]{1d4 rounds} (1 minute on a critical failure), if the affected creature was attacked within the last round (whether or not the attack hit), the creature must use at least 1 action per round to Strike or use a hostile action toward its last attacker as long as the attacker is still alive. Failure to do so deals the affected creature [[/r {1d6}[mental]]]{1d6 mental damage}.</p>"
+                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature that starts its turn within the visitant's aura must succeed at a @Check[type:will|dc:16] save or be overcome with a thirst for vengeance.</p>\n<p>For [[/r 1d4 #rounds]]{1d4 rounds} (1 minute on a critical failure), if the affected creature was attacked within the last round (whether or not the attack hit), the creature must use at least 1 action per round to Strike or use a hostile action toward its last attacker as long as the attacker is still alive. Failure to do so deals the affected creature [[/r 1d6[mental]]] damage.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 20,
+                        "slug": "vengeful-presence",
+                        "traits": [
+                            "aura",
+                            "emotion",
+                            "enchantment",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": "visitant-vengeful-presence",
                 "source": {
                     "value": "Pathfinder #152: Legacy of the Lost God"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -296,7 +302,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A chimpanzee visitant takes [[/r {5}[slashing]]]{5} additional damage from whips.</p>"
+                    "value": "<p>A chimpanzee visitant takes [[/r 5[slashing]]]{5} additional damage from whips.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -307,7 +313,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -364,7 +369,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -399,12 +403,11 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "rabies",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "disease"
@@ -451,7 +454,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -483,11 +485,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -511,11 +508,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -557,8 +549,25 @@
                 "temp": 0,
                 "value": 55
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 9
@@ -566,7 +575,13 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -599,24 +614,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "positive",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

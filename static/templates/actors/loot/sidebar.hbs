@@ -1,0 +1,29 @@
+<section class="sheet-sidebar sidebar sidebar-loot">
+    <div class="image-container">
+        <img class="actor-image" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
+        <a class="hover-icon" data-action="show-image"><i class="fas fa-image fa-fw"></i></a>
+    </div>
+    
+    {{#if (and user.isGM isLoot)}}
+        <section class="gm-settings">
+            <section class="loot-distribution">
+                <button class= "split-coins" type="button" name="split-coins" value="1"><i class="fa fa-coins"></i> {{localize "PF2E.loot.SplitCoinsLabel"}}</button>
+                <button class= "loot-npcs" type="button" name="loot-npc"><i class="fas fa-box-open"></i> {{localize "PF2E.loot.LootNPCsLabel"}}</button>
+            </section>
+            <label class="hidden-when-empty" title="{{localize "PF2E.loot.HiddenWhenEmpty.Hint"}}">
+                <span>{{localize "PF2E.loot.HiddenWhenEmpty.Label"}}</span>
+                <input type="checkbox" name="system.hiddenWhenEmpty" data-dtype="Boolean" {{checked data.hiddenWhenEmpty}} />
+            </label>
+        </section>
+    {{/if}}
+
+    {{#if owner}}
+        {{editor enrichedContent.description target="system.details.description" button=true user=user editable=editable}}
+    {{else}}
+        <div class="description">{{{enrichedContent.description}}}</div>
+    {{/if}}
+
+    <section class="sidebar-meta">
+        <div class="bulk"><strong>{{localize "PF2E.BulkLabel"}}</strong> {{inventory.bulk.value}}</div>
+    </section>
+</section>

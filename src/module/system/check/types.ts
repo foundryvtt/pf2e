@@ -1,10 +1,11 @@
 import { ActorPF2e } from "@actor";
-import { AttackTarget } from "@actor/creature/types";
+import { RollTarget } from "@actor/types.ts";
 import { ItemPF2e } from "@item";
-import { RollSubstitution } from "@module/rules/synthetics";
-import { TokenDocumentPF2e } from "@scene/token-document";
-import { CheckDC } from "@system/degree-of-success";
-import { BaseRollContext } from "@system/rolls";
+import { ZeroToTwo } from "@module/data.ts";
+import { RollSubstitution } from "@module/rules/synthetics.ts";
+import { TokenDocumentPF2e } from "@scene/token-document/index.ts";
+import { CheckDC, DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
+import { BaseRollContext } from "@system/rolls.ts";
 
 type RollTwiceOption = "keep-higher" | "keep-lower" | false;
 
@@ -22,15 +23,16 @@ type CheckType =
 interface CheckRollContext extends BaseRollContext {
     /** The type of this roll, like 'perception-check' or 'saving-throw'. */
     type?: CheckType;
-    target?: AttackTarget | null;
+    /** Targeting data for the check, if applicable */
+    target?: RollTarget | null;
     /** Should this roll be rolled twice? If so, should it keep highest or lowest? */
     rollTwice?: RollTwiceOption;
     /** The actor which initiated this roll. */
     actor?: ActorPF2e;
     /** The token which initiated this roll. */
-    token?: TokenDocumentPF2e;
+    token?: TokenDocumentPF2e | null;
     /** The originating item of this attack, if any */
-    item?: Embedded<ItemPF2e> | null;
+    item?: ItemPF2e<ActorPF2e> | null;
     /** Optional title of the roll options dialog; defaults to the check name */
     title?: string;
     /** Optional DC data for the check */
@@ -39,10 +41,14 @@ interface CheckRollContext extends BaseRollContext {
     domains?: string[];
     /** Is the roll a reroll? */
     isReroll?: boolean;
+    /** The number of MAP increases for this roll */
+    mapIncreases?: Maybe<ZeroToTwo>;
     /** D20 results substituted for an actual roll */
     substitutions?: RollSubstitution[];
     /** Is the weapon used in this attack roll an alternative usage? */
-    altUsage?: "thrown" | "melee" | null;
+    altUsage?: Maybe<"thrown" | "melee">;
+    /** Degree of success adjustments from synthetics and hard-coded sources */
+    dosAdjustments?: DegreeOfSuccessAdjustment[];
 }
 
 export { AttackCheck, CheckType, CheckRollContext, RollTwiceOption };

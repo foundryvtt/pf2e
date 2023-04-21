@@ -1,32 +1,35 @@
-import type { ActionItemData, ActionItemSource } from "@item/action/data";
-import type { AncestryData, AncestrySource } from "@item/ancestry/data";
-import type { ArmorData, ArmorSource } from "@item/armor/data";
-import type { BackgroundData, BackgroundSource } from "@item/background/data";
-import type { BookData, BookSource } from "@item/book";
-import type { ClassData, ClassSource } from "@item/class/data";
-import type { ConditionData, ConditionSource } from "@item/condition/data";
-import type { ConsumableData, ConsumableSource } from "@item/consumable/data";
-import type { ContainerData, ContainerSource } from "@item/container/data";
-import { DeityData, DeitySource } from "@item/deity/data";
-import type { EffectData, EffectSource } from "@item/effect/data";
-import type { EquipmentData, EquipmentSource } from "@item/equipment/data";
-import type { FeatData, FeatSource } from "@item/feat/data";
-import { HeritageData } from "@item/heritage";
-import type { KitData, KitSource } from "@item/kit/data";
-import type { LoreData, LoreSource } from "@item/lore/data";
-import type { MeleeData, MeleeSource } from "@item/melee/data";
-import { PhysicalItemType } from "@item/physical/types";
-import type { SpellData, SpellSource } from "@item/spell/data";
-import type { SpellcastingEntryData, SpellcastingEntrySource } from "@item/spellcasting-entry/data";
-import type { TreasureData, TreasureSource } from "@item/treasure/data";
-import type { WeaponData, WeaponSource } from "@item/weapon/data";
-import { PROFICIENCY_RANKS } from "@module/data";
-import { PhysicalItemTraits } from "../physical/data";
+import type { ActionItemSource } from "@item/action/data.ts";
+import type { AfflictionSource } from "@item/affliction/data.ts";
+import type { AncestrySource } from "@item/ancestry/data.ts";
+import type { ArmorSource } from "@item/armor/data.ts";
+import type { BackgroundSource } from "@item/background/data.ts";
+import type { BookSource } from "@item/book/data.ts";
+import type { ClassSource } from "@item/class/data.ts";
+import type { ConditionSource } from "@item/condition/data.ts";
+import type { ConsumableSource } from "@item/consumable/data.ts";
+import type { ContainerSource } from "@item/container/data.ts";
+import type { DeitySource } from "@item/deity/data.ts";
+import type { EffectSource } from "@item/effect/data.ts";
+import type { EquipmentSource } from "@item/equipment/data.ts";
+import type { FeatSource } from "@item/feat/data.ts";
+import type { HeritageSource } from "@item/heritage/data.ts";
+import type { KitSource } from "@item/kit/data.ts";
+import type { LoreSource } from "@item/lore/data.ts";
+import type { MeleeSource } from "@item/melee/data.ts";
+import type { PhysicalItemType } from "@item/physical/types.ts";
+import type { SpellSource } from "@item/spell/data.ts";
+import type { SpellcastingEntrySource } from "@item/spellcasting-entry/data.ts";
+import type { TreasureSource } from "@item/treasure/data.ts";
+import type { WeaponSource } from "@item/weapon/data.ts";
+import { PROFICIENCY_RANKS } from "@module/data.ts";
 
-export type ProficiencyRank = typeof PROFICIENCY_RANKS[number];
+export * from "./helpers.ts";
 
-export type NonPhysicalItemType =
+type ProficiencyRank = (typeof PROFICIENCY_RANKS)[number];
+
+type NonPhysicalItemType =
     | "action"
+    | "affliction"
     | "ancestry"
     | "background"
     | "class"
@@ -41,42 +44,38 @@ export type NonPhysicalItemType =
     | "spell"
     | "spellcastingEntry";
 
-export type ItemType = NonPhysicalItemType | PhysicalItemType;
+type ItemType = NonPhysicalItemType | PhysicalItemType;
 
-/** Actual physical items which you carry (as opposed to feats, lore, proficiencies, statuses, etc). */
-export type PhysicalItemData = { system: { traits: PhysicalItemTraits } } & (
-    | ArmorData
-    | BookData
-    | ConsumableData
-    | ContainerData
-    | EquipmentData
-    | TreasureData
-    | WeaponData
-);
-export type MagicItemData = Exclude<PhysicalItemData, ConsumableData | TreasureData>;
-export type MagicItemSource = Exclude<PhysicalItemSource, ConsumableSource | TreasureSource>;
+type PhysicalItemSource =
+    | ArmorSource
+    | BookSource
+    | ConsumableSource
+    | ContainerSource
+    | EquipmentSource
+    | TreasureSource
+    | WeaponSource;
 
-export type ItemDataPF2e =
-    | PhysicalItemData
-    | ActionItemData
-    | AncestryData
-    | BackgroundData
-    | ClassData
-    | ConditionData
-    | DeityData
-    | EffectData
-    | FeatData
-    | HeritageData
-    | KitData
-    | LoreData
-    | MeleeData
-    | SpellcastingEntryData
-    | SpellData;
+type ItemSourcePF2e =
+    | PhysicalItemSource
+    | ActionItemSource
+    | AfflictionSource
+    | AncestrySource
+    | BackgroundSource
+    | ClassSource
+    | ConditionSource
+    | DeitySource
+    | EffectSource
+    | FeatSource
+    | HeritageSource
+    | KitSource
+    | LoreSource
+    | MeleeSource
+    | SpellSource
+    | SpellcastingEntrySource;
 
-export type PhysicalItemSource = PhysicalItemData["_source"];
-export type ItemSourcePF2e = ItemDataPF2e["_source"];
+type MagicItemSource = Exclude<PhysicalItemSource, ConsumableSource | TreasureSource>;
 
-export interface ItemSummaryData {
+interface ItemSummaryData {
     [key: string]: unknown;
     description?: {
         value: string;
@@ -85,35 +84,13 @@ export interface ItemSummaryData {
     properties?: (string | number | null)[];
 }
 
-export interface TraitChatData {
+interface TraitChatData {
     value: string;
     label: string;
     description?: string;
     mystified?: boolean;
     excluded?: boolean;
 }
-
-export type {
-    ActionItemData,
-    AncestryData,
-    ArmorData,
-    BackgroundData,
-    ClassData,
-    ConditionData,
-    ConsumableData,
-    ContainerData,
-    DeityData,
-    EffectData,
-    EquipmentData,
-    FeatData,
-    KitData,
-    LoreData,
-    MeleeData,
-    SpellcastingEntryData,
-    SpellData,
-    TreasureData,
-    WeaponData,
-};
 
 export {
     ActionItemSource,
@@ -129,11 +106,19 @@ export {
     EffectSource,
     EquipmentSource,
     FeatSource,
+    ItemSourcePF2e,
+    ItemSummaryData,
+    ItemType,
     KitSource,
     LoreSource,
+    MagicItemSource,
     MeleeSource,
-    SpellcastingEntrySource,
+    NonPhysicalItemType,
+    PhysicalItemSource,
+    ProficiencyRank,
     SpellSource,
+    SpellcastingEntrySource,
+    TraitChatData,
     TreasureSource,
     WeaponSource,
 };

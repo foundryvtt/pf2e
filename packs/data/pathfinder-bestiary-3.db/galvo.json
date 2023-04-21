@@ -37,7 +37,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -85,7 +84,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -130,7 +128,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -182,7 +179,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -227,7 +223,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -256,18 +251,27 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:5]{5 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>[[/r {1d12}[electricity]]]{1d12 electricity damage} (@Check[type:reflex|dc:26|basic:true])</p>"
+                    "value": "<p>@Template[type:emanation|distance:5]{5 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>[[/r 1d12[electricity]]] damage (@Check[type:reflex|dc:26|basic:true])</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 5,
+                        "slug": "electrical-field",
+                        "traits": [
+                            "aura",
+                            "electricity"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -299,7 +303,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The galvo Strides, ending its movement sharing a space with another creature, and deals [[/r {3d6}[piercing]+{2d12}[electricity]]]{3d6 piercing damage plus 2d12 electricity damage} to the creature. The creature must attempt a @Check[type:reflex|dc:28|basic:true] save.</p>"
+                    "value": "<p>The galvo Strides, ending its movement sharing a space with another creature, and deals [[/r {3d6[piercing],2d12[electricity]}]]{3d6 piercing damage plus 2d12 electricity damage} to the creature. The creature must attempt a @Check[type:reflex|dc:28|basic:true] save.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -310,7 +314,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -350,7 +353,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate"
@@ -384,11 +386,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -412,11 +409,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -440,11 +432,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -486,12 +473,38 @@
                 "temp": 0,
                 "value": 158
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 17
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 5
+                },
+                {
+                    "type": "electricity",
+                    "value": 12
+                },
+                {
+                    "type": "piercing",
+                    "value": 8
+                },
+                {
+                    "type": "slashing",
+                    "value": 8
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -500,7 +513,17 @@
                     }
                 ],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 8
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 8
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -536,46 +559,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "precision",
-                    "swarm-mind"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "bludgeoning",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "electricity",
-                    "value": 12
-                },
-                {
-                    "exceptions": "",
-                    "type": "piercing",
-                    "value": 8
-                },
-                {
-                    "exceptions": "",
-                    "type": "slashing",
-                    "value": 8
-                }
-            ],
-            "dv": [
-                {
-                    "type": "area-damage",
-                    "value": 8
-                },
-                {
-                    "type": "splash-damage",
-                    "value": 8
-                }
-            ],
             "languages": {
                 "custom": "(Can't Speak Any Language)",
                 "selected": [],

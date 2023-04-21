@@ -34,7 +34,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -79,7 +78,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -119,7 +117,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "disease"
@@ -161,7 +158,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -190,7 +186,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {2d4+7}[piercing]]]{2d4+7 piercing damage} and must attempt a @Check[type:reflex|dc:22|basic:true] save. A creature that fails its save is exposed to flea fever.</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r (2d4+7)[piercing]]] damage and must attempt a @Check[type:reflex|dc:22|basic:true] save. A creature that fails its save is exposed to flea fever.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -201,7 +197,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -233,11 +228,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -271,11 +261,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 },
                 "variants": {
                     "0": {
@@ -323,16 +308,46 @@
                 "temp": 0,
                 "value": 55
             },
+            "immunities": [
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 13
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "bludgeoning"
+                    ],
+                    "type": "physical",
+                    "value": 8
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 4
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 4
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -365,32 +380,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "disease",
-                    "precision",
-                    "swarm-mind"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except bludgeoning",
-                    "type": "physical",
-                    "value": 8
-                }
-            ],
-            "dv": [
-                {
-                    "type": "area-damage",
-                    "value": 4
-                },
-                {
-                    "type": "splash-damage",
-                    "value": 4
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

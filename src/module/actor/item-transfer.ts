@@ -1,8 +1,8 @@
-import { PhysicalItemPF2e } from "@item/index";
-import { LocalizePF2e } from "@module/system/localize";
-import { UserPF2e } from "@module/user";
+import { PhysicalItemPF2e } from "@item";
+import { LocalizePF2e } from "@system/localize.ts";
+import { UserPF2e } from "@module/user/index.ts";
 import { ErrorPF2e } from "@util";
-import { ActorPF2e } from "./index";
+import { ActorPF2e } from "./index.ts";
 
 export interface ItemTransferData {
     source: {
@@ -20,8 +20,8 @@ export interface ItemTransferData {
 
 export class ItemTransfer implements ItemTransferData {
     private templatePaths = {
-        flavor: "./systems/pf2e/templates/chat/action/flavor.html",
-        content: "./systems/pf2e/templates/chat/action/content.html",
+        flavor: "./systems/pf2e/templates/chat/action/flavor.hbs",
+        content: "./systems/pf2e/templates/chat/action/content.hbs",
     };
 
     constructor(
@@ -167,7 +167,7 @@ export class ItemTransfer implements ItemTransferData {
         }
 
         // Exhaustive pattern match to determine speaker and item-transfer parties
-        type PatternMatch = [speaker: string, subtitle: string, formatArgs: Parameters<Game["i18n"]["format"]>];
+        type PatternMatch = [speaker: string, subtitle: string, formatArgs: Parameters<Localization["format"]>];
 
         const [speaker, subtitle, formatArgs] = ((): PatternMatch => {
             const isMerchant = (actor: ActorPF2e) =>

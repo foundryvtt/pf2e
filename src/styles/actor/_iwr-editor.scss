@@ -1,0 +1,57 @@
+.iwr-editor {
+    max-height: 500px;
+
+    a.document-id-link {
+        display: none;
+    }
+
+    .entries {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
+
+        .entry {
+            padding: 0.25em 0.5em;
+
+            label {
+                flex: unset;
+                margin-right: 0.5em;
+                white-space: nowrap;
+                width: 6em;
+            }
+
+            a.form-action, i.synthetic-source {
+                flex: 0;
+                margin-left: auto;
+            }
+
+        }
+
+        .entry:not(.new):nth-child(odd) {
+            background-color: rgba(black, 0.075);
+        }
+    }
+
+    select {
+        max-width: fit-content;
+
+        &:disabled {
+            color: var(--color-text-dark-7);
+        }
+    }
+
+    tags.tagify.pf2e-tagify {
+        background: rgba(black, 0.05);
+        border: 1px solid var(--color-border-light-tertiary);
+    }
+
+    input[type=number] {
+        max-width: 5ch;
+        margin-left: 0.5em;
+    }
+}
+
+body > .choices__list--dropdown {
+    background-color: white;
+    position: fixed;
+}

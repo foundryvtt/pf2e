@@ -21,40 +21,24 @@
                     "value": 14
                 },
                 "damageRolls": {
-                    "eqpg1ftmifhxy59u4ul9": {
+                    "0": {
                         "damage": "2d8+5",
                         "damageType": "piercing"
+                    },
+                    "1": {
+                        "damage": "1d4",
+                        "damageType": "bleed"
                     }
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed1d4.success]</p>"
+                    "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Bleed1d4.success",
-                        "visibility": "gm"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Bleed1d4.criticalSuccess",
-                        "visibility": "gm"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "finesse"
@@ -99,7 +83,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "range-30"
@@ -143,7 +126,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -195,7 +177,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -224,18 +205,32 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Each creature that begins its turn within 60 feet of a gibbering mouther must attempt a @Check[type:will|dc:19] save. On a failure, they are @UUID[Compendium.pf2e.conditionitems.Confused]{Confused} for 1 round. On a success, they are temporarily immune for 1 minute.</p>"
+                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>Each creature that begins its turn within 60 feet of a gibbering mouther must attempt a @Check[type:will|dc:19] save. On a failure, they are @UUID[Compendium.pf2e.conditionitems.Confused]{Confused} for 1 round. On a success, they are temporarily immune for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "slug": "gibbering",
+                        "traits": [
+                            "auditory",
+                            "aura",
+                            "emotion",
+                            "enchantment",
+                            "incapacitation",
+                            "mental",
+                            "occult"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "auditory",
@@ -283,7 +278,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -318,12 +312,11 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "burn-eyes",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -357,7 +350,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>@Check[type:reflex|dc:22|traits:damaging-effect], [[/r {3d8}[piercing]]]{3d8 piercing}, Escape DC 22, Rupture 8</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
+                    "value": "<p>@Check[type:reflex|dc:22|traits:damaging-effect], [[/r 3d8[piercing]]], Escape DC 22, Rupture 8</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -368,7 +361,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -408,7 +400,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "occult",
@@ -456,7 +447,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -488,11 +478,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -516,11 +501,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -563,7 +543,7 @@
                 "value": 120
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 15
@@ -576,7 +556,13 @@
                     }
                 ],
                 "value": 10
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "bludgeoning",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -609,18 +595,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "bludgeoning",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

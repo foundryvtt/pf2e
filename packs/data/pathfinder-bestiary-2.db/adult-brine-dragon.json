@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "primal"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -126,11 +121,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "line",
-                    "value": "60"
-                },
-                "areasize": {
-                    "value": "60-foot line"
+                    "type": "line",
+                    "value": 60
                 },
                 "category": {
                     "value": "spell"
@@ -225,7 +217,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "water"
@@ -248,13 +239,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -353,7 +338,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack",
@@ -378,11 +362,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
+                    "type": "burst",
                     "value": 20
-                },
-                "areasize": {
-                    "value": "20-foot burst"
                 },
                 "category": {
                     "value": "spell"
@@ -463,7 +444,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "water"
@@ -506,7 +486,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "acid",
@@ -550,7 +529,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -594,7 +572,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -637,7 +614,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -682,7 +658,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -727,7 +702,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -785,7 +759,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -814,7 +787,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature the brine dragon observes within 30 feet uses a concentrate action</p>\n<hr />\n<p><strong>Effect</strong> The dragon spits a glob of caustic salt water at the creature. The creature takes [[/r {5d6}[acid]]]{5d6 acid damage} (@Check[type:reflex|dc:30|basic:true] save). On a failure, the concentrate action is disrupted.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature the brine dragon observes within 30 feet uses a concentrate action</p>\n<hr />\n<p><strong>Effect</strong> The dragon spits a glob of caustic salt water at the creature. The creature takes [[/r 5d6[acid]]] damage (@Check[type:reflex|dc:30|basic:true] save). On a failure, the concentrate action is disrupted.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -825,7 +798,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate"
@@ -866,13 +838,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 90,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "aura",
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": "frightful-presence",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -906,7 +889,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dragon breathes a spray of acidic salt water that deals [[/r {13d6}[acid]]]{13d6 acid damage} in a @Template[type:line|distance:100] (@Check[type:reflex|dc:32|basic:true] save).</p>\n<p>They can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon breathes a spray of acidic salt water that deals [[/r 13d6[acid]]] damage in a @Template[type:line|distance:100] (@Check[type:reflex|dc:32|basic:true] save).</p>\n<p>They can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -917,7 +900,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "acid",
@@ -950,7 +932,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dragon makes a jaws Strike. On a hit, the target takes [[/r {4d6}[persistent,acid]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}, and is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} from the pain of salt and brine in its wounds.</p>"
+                    "value": "<p>The dragon makes a jaws Strike. On a hit, the target takes [[/r 4d6[persistent,acid]]] damage, and is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} from the pain of salt and brine in its wounds.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -961,7 +943,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1001,7 +982,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1051,7 +1031,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1083,11 +1062,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1111,11 +1085,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1139,11 +1108,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1167,11 +1131,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1195,11 +1154,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1223,11 +1177,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1251,11 +1200,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1297,8 +1241,19 @@
                 "temp": 0,
                 "value": 222
             },
+            "immunities": [
+                {
+                    "type": "acid"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 23
@@ -1356,17 +1311,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "acid",
-                    "paralyzed",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

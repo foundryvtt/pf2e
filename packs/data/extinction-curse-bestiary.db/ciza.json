@@ -34,7 +34,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "finesse",
@@ -74,7 +73,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -114,7 +112,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -143,7 +140,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A foe critically hits the banshee, or the banshee critically fails their save against a foe's damaging effect.</p>\n<hr />\n<p><strong>Effect</strong> The banshee lashes back at their tormentor, dealing [[/r {4d10+14}[mental]]]{4d10+14 mental damage} (@Check[type:will|dc:38|basic:true] save) and applying the effects of terrifying touch based on the results of the same Will save.</p>"
+                    "value": "<p><strong>Trigger</strong> A foe critically hits the banshee, or the banshee critically fails their save against a foe's damaging effect.</p>\n<hr />\n<p><strong>Effect</strong> The banshee lashes back at their tormentor, dealing [[/r (4d10+14)[mental]]] damage (@Check[type:will|dc:38|basic:true] save) and applying the effects of terrifying touch based on the results of the same Will save.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -154,7 +151,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "evocation",
@@ -197,7 +193,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -232,12 +227,11 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "terrifying-touch",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "emotion",
@@ -282,7 +276,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "auditory",
@@ -320,11 +313,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -348,11 +336,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -376,11 +359,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -404,11 +382,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -450,12 +423,43 @@
                 "temp": 0,
                 "value": 250
             },
+            "immunities": [
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 32
             },
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "force",
+                        "ghost-touch",
+                        "positive"
+                    ],
+                    "type": "all-damage",
+                    "value": 12
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -500,25 +504,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "precision",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except force or ghost touch or positive; double resistance vs. non-magical",
-                    "type": "all",
-                    "value": 12
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

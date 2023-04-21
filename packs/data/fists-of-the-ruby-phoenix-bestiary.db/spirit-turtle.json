@@ -39,7 +39,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -89,7 +88,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -129,7 +127,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "evocation",
@@ -153,7 +150,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration",
+            "name": "Regeneration (Deactivated by Cold Iron or Evil)",
             "sort": 400000,
             "system": {
                 "actionCategory": {
@@ -177,7 +174,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -217,7 +213,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "emotion",
@@ -250,7 +245,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The spirit turtle makes a foot Strike. Whether or not the Strike hits, the stomp creates a shockwave on the ground in a @Template[type:burst|distance:15] centered on the target. All creatures in the area other than the spirit turtle take [[/r {10d10}[bludgeoning]]]{10d10 bludgeoning damage} and [[/r 4d8 #energy]]{4d8 energy damage} and are knocked @UUID[Compendium.pf2e.conditionitems.Prone]{Prone} (@Check[type:reflex|dc:41|basic:true] save). Creatures that critically succeed at their Reflex save are not knocked prone. The spirit turtle can't use Unbalancing Stomp again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The spirit turtle makes a foot Strike. Whether or not the Strike hits, the stomp creates a shockwave on the ground in a @Template[type:burst|distance:15] centered on the target. All creatures in the area other than the spirit turtle take [[/r 10d10[bludgeoning]]] damage and [[/r 4d8 #energy]]{4d8 energy damage} and are knocked @UUID[Compendium.pf2e.conditionitems.Prone]{Prone} (@Check[type:reflex|dc:41|basic:true] save). Creatures that critically succeed at their Reflex save are not knocked prone. The spirit turtle can't use Unbalancing Stomp again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -261,7 +256,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -306,7 +300,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -351,7 +344,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -383,11 +375,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -411,11 +398,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -439,11 +421,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -467,11 +444,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -495,11 +467,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -523,11 +490,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -570,11 +532,21 @@
                 "value": 320
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 35
             },
+            "resistances": [
+                {
+                    "type": "fire",
+                    "value": 20
+                },
+                {
+                    "type": "physical",
+                    "value": 15
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -583,7 +555,13 @@
                     }
                 ],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold-iron",
+                    "value": 20
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -616,28 +594,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "type": "fire",
-                    "value": 20
-                },
-                {
-                    "type": "physical",
-                    "value": 15
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Cold Iron",
-                    "type": "coldiron",
-                    "value": "20"
-                }
-            ],
             "languages": {
                 "custom": "Tongues",
                 "selected": [],

@@ -18,21 +18,17 @@
         "rules": [
             {
                 "key": "Resistance",
-                "type": "evil",
+                "type": [
+                    "evil",
+                    "fire",
+                    "poison"
+                ],
                 "value": "5 + 5*floor((@item.level -3)/2)"
             },
             {
-                "key": "Resistance",
-                "type": "fire",
-                "value": "5 + 5*floor((@item.level -3)/2)"
-            },
-            {
-                "key": "Resistance",
-                "type": "poison",
-                "value": "5 + 5*floor((@item.level -3)/2)"
-            },
-            {
-                "except": "Silver",
+                "exceptions": [
+                    "silver"
+                ],
                 "key": "Resistance",
                 "type": "physical",
                 "value": "1 + 2*floor((@item.level -3)/2)"
@@ -55,7 +51,6 @@
             "show": true
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": []
         }

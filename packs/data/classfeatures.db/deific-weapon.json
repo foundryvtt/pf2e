@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/features/classes/deific-weapon.webp",
     "name": "Deific Weapon",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "classfeature",
         "description": {
             "value": "<p>You zealously bear your deity's favored weapon. If it's uncommon, you gain access to it. If it's an unarmed attack with a d4 damage die or a simple weapon, increase the damage die by one step (d4 to d6, d6 to d8, d8 to d10, d10 to d12).</p>"
-        },
-        "featType": {
-            "value": "classfeature"
         },
         "level": {
             "value": 1
@@ -26,30 +21,12 @@
         },
         "rules": [
             {
-                "baseType": "fist",
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "bludgeoning",
-                        "dice": 1,
-                        "die": "d4"
-                    }
-                },
-                "group": "brawling",
-                "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
+                "fist": true,
                 "key": "Strike",
-                "label": "PF2E.Weapon.Base.fist",
                 "predicate": [
                     "deity:primary:favored-weapon:fist"
                 ],
-                "range": null,
-                "slug": "fist",
-                "traits": [
-                    "agile",
-                    "finesse",
-                    "nonlethal",
-                    "unarmed"
-                ]
+                "priority": 99
             },
             {
                 "key": "DamageDice",
@@ -77,7 +54,6 @@
             "value": "Pathfinder Core Rulebook"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "champion"

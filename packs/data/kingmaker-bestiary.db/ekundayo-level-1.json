@@ -70,7 +70,6 @@
                 },
                 "speed": 25,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "human",
@@ -99,20 +98,15 @@
             "name": "Hunter's Edge",
             "sort": 0,
             "system": {
-                "actionCategory": {
-                    "value": ""
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "classfeature",
                 "description": {
                     "value": "<p>You have trained for countless hours to become a skilled hunter and tracker, gaining an additional benefit when you Hunt Prey depending on the focus of your training. Choose one of the following hunter's edges:</p>\n<ul>\n<li>@UUID[Compendium.pf2e.classfeatures.Flurry]{Flurry}</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Outwit]{Outwit}</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Precision]{Precision}</li>\n</ul>"
-                },
-                "featType": {
-                    "value": "classfeature"
                 },
                 "level": {
                     "value": 1
@@ -145,7 +139,7 @@
                         ],
                         "flag": "huntersEdge",
                         "key": "ChoiceSet",
-                        "prompt": "Select a Hunter's Edge.",
+                        "prompt": "PF2E.SpecificRule.Ranger.HuntersEdge.Prompt",
                         "selection": "Compendium.pf2e.classfeatures.u6cBjqz2fiRBadBt"
                     },
                     {
@@ -158,7 +152,6 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "ranger"
@@ -185,20 +178,15 @@
             "name": "Hunt Prey",
             "sort": 100,
             "system": {
-                "actionCategory": {
-                    "value": ""
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "classfeature",
                 "description": {
                     "value": "<p>When you focus your attention on a single foe, you become unstoppable in your pursuit. You gain the @UUID[Compendium.pf2e.actionspf2e.Hunt Prey]{Hunt Prey} action.</p>"
-                },
-                "featType": {
-                    "value": "classfeature"
                 },
                 "level": {
                     "value": 1
@@ -226,7 +214,6 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "ranger"
@@ -478,7 +465,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -502,20 +488,15 @@
             "name": "Precision",
             "sort": 0,
             "system": {
-                "actionCategory": {
-                    "value": ""
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "classfeature",
                 "description": {
                     "value": "<p>You have trained to aim for your prey's weak points. The first time you hit your hunted prey in a round, you also deal 1d8 additional precision damage. (Precision damage increases the damage you already deal, using the same type, but is ineffective against creatures that lack vital organs or weak points.)</p>\n<p>At 11th level, the extra damage increases to 2d8 precision damage, and at 19th level, the extra damage increases to 3d8 precision damage.</p>"
-                },
-                "featType": {
-                    "value": "classfeature"
                 },
                 "level": {
                     "value": 1
@@ -528,41 +509,19 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "First attack on hunted prey this round",
+                        "label": "PF2E.SpecificRule.Ranger.HuntersEdge.FirstAttack",
                         "option": "first-attack",
                         "toggleable": true
                     },
                     {
-                        "damageType": "precision",
+                        "category": "precision",
+                        "diceNumber": "ternary(lt(@actor.level, 11), 1, ternary(lt(@actor.level, 19), 2, 3))",
                         "dieSize": "d8",
                         "key": "DamageDice",
                         "predicate": [
                             "first-attack"
                         ],
-                        "selector": "strike-damage",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 10,
-                                    "value": {
-                                        "diceNumber": 1
-                                    }
-                                },
-                                {
-                                    "end": 18,
-                                    "start": 11,
-                                    "value": {
-                                        "diceNumber": 2
-                                    }
-                                },
-                                {
-                                    "start": 19,
-                                    "value": {
-                                        "diceNumber": 3
-                                    }
-                                }
-                            ]
-                        }
+                        "selector": "strike-damage"
                     }
                 ],
                 "slug": "precision",
@@ -570,7 +529,6 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "ranger"
@@ -655,7 +613,6 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate",
@@ -725,7 +682,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -743,20 +699,15 @@
             "name": "Specialty Crafting (Woodworking)",
             "sort": 0,
             "system": {
-                "actionCategory": {
-                    "value": ""
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "skill",
                 "description": {
                     "value": "<p>Your training focused on Crafting one particular kind of item. Select one of the specialties listed below; you gain a +1 circumstance bonus to Crafting checks to Craft items of that type. If you are a master in Crafting, this bonus increases to +2. If it's unclear whether the specialty applies, the GM decides. Some specialties might apply only partially. For example, if you were making a morningstar and had specialty in woodworking, the GM might give you half your bonus because the item requires both blacksmithing and woodworking.</p>\n<table class=\"pf2-table\" style=\"white-space: nowrap;\">\n<thead>\n<tr>\n<th>Specialty</th>\n<th>Applicable Items</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Alchemy*</td>\n<td>Alchemical items such as elixirs</td>\n</tr>\n<tr>\n<td>Artistry</td>\n<td>Fine art, including jewelry</td>\n</tr>\n<tr>\n<td>Blacksmithing</td>\n<td>Durable metal goods, including metal armor</td>\n</tr>\n<tr>\n<td>Bookmaking</td>\n<td>Books and paper</td>\n</tr>\n<tr>\n<td>Glassmaking</td>\n<td>Glass, including glassware and windows</td>\n</tr>\n<tr>\n<td>Leatherworking</td>\n<td>Leather goods, including leather armor</td>\n</tr>\n<tr>\n<td>Pottery</td>\n<td>Ceramic goods</td>\n</tr>\n<tr>\n<td>Shipbuilding</td>\n<td>Ships and boats</td>\n</tr>\n<tr>\n<td>Stonemasonry</td>\n<td>Stone goods and structures</td>\n</tr>\n<tr>\n<td>Tailoring</td>\n<td>Clothing</td>\n</tr>\n<tr>\n<td>Weaving</td>\n<td>Textiles, baskets, and rugs</td>\n</tr>\n<tr>\n<td>Woodworking</td>\n<td>Wooden goods and structures</td>\n</tr>\n</tbody>\n</table>\n<p>* You must have the Alchemical Crafting skill feat to Craft alchemical items.</p>"
-                },
-                "featType": {
-                    "value": "skill"
                 },
                 "level": {
                     "value": 1
@@ -856,7 +807,6 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "general",
@@ -879,6 +829,7 @@
             "system": {
                 "ancestry": {
                     "name": "Human",
+                    "slug": "human",
                     "uuid": "Compendium.pf2e.ancestries.IiG7DgeLWYrSNXuX"
                 },
                 "description": {
@@ -890,7 +841,6 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -916,11 +866,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -944,11 +889,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -972,11 +912,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -999,20 +934,15 @@
             "name": "General Training",
             "sort": 0,
             "system": {
-                "actionCategory": {
-                    "value": ""
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "ancestry",
                 "description": {
                     "value": "<p>Your adaptability manifests in your mastery of a range of useful abilities. You gain a 1st-level general feat. You must meet the feat's prerequisites, but if you select this feat during character creation, you can select the feat later in the process in order to determine which prerequisites you meet.</p>\n<p><strong>Special</strong> You can select this feat multiple times, choosing a different feat each time.</p>"
-                },
-                "featType": {
-                    "value": "ancestry"
                 },
                 "level": {
                     "value": 1
@@ -1051,7 +981,6 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "human"
@@ -1077,20 +1006,15 @@
             "name": "Toughness",
             "sort": 0,
             "system": {
-                "actionCategory": {
-                    "value": ""
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "general",
                 "description": {
                     "value": "<p>You can withstand more punishment than most before succumbing. Increase your maximum Hit Points by your level. The DC of recovery checks is equal to 9 + your dying condition value.</p>"
-                },
-                "featType": {
-                    "value": "general"
                 },
                 "level": {
                     "value": 1
@@ -1117,7 +1041,6 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "general"
@@ -1137,20 +1060,15 @@
             "name": "Hunted Shot",
             "sort": 0,
             "system": {
-                "actionCategory": {
-                    "value": ""
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "class",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> You are wielding a ranged weapon with reload 0</p>\n<hr />\n<p>You take two quick shots against the one you hunt. Make two Strikes against your prey with the required weapon. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses. Apply your multiple attack penalty to each Strike normally.</p>"
-                },
-                "featType": {
-                    "value": "class"
                 },
                 "level": {
                     "value": 1
@@ -1165,7 +1083,6 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "ranger",
@@ -1201,8 +1118,7 @@
                 "damage": {
                     "damageType": "fire",
                     "dice": 1,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Alchemist's fire is a combination of volatile liquids that ignite when exposed to air. Alchemist's fire deals 1d8 fire damage, 1 persistent fire damage, and 1 fire splash damage.</p>"
@@ -1232,10 +1148,10 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -1282,9 +1198,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 1
                 },
@@ -1293,7 +1206,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "alchemical",
@@ -1373,7 +1285,6 @@
                 "stackGroup": null,
                 "stowing": true,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1441,7 +1352,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1509,7 +1419,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1533,22 +1442,11 @@
             "name": "Chalk",
             "sort": 0,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 1,
                     "value": 1
                 },
@@ -1556,16 +1454,11 @@
                     "value": "other"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": ""
                 },
                 "containerId": "5VTOTZkceOWlAUjJ",
                 "description": {
                     "value": ""
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
                 },
                 "equipped": {
                     "carryType": "worn"
@@ -1598,11 +1491,6 @@
                     }
                 },
                 "quantity": 10,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": "chalk",
@@ -1610,25 +1498,12 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "-"
@@ -1691,7 +1566,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1715,22 +1589,11 @@
             "name": "Rations",
             "sort": 0,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 7,
                     "value": 7
                 },
@@ -1738,16 +1601,11 @@
                     "value": "other"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": ""
                 },
                 "containerId": "5VTOTZkceOWlAUjJ",
                 "description": {
                     "value": ""
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1780,11 +1638,6 @@
                     }
                 },
                 "quantity": 1,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": "rations",
@@ -1792,25 +1645,12 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "L"
@@ -1894,10 +1734,10 @@
                             }
                         },
                         "key": "Strike",
-                        "range": null,
-                        "traits": [
+                        "otherTags": [
                             "improvised"
-                        ]
+                        ],
+                        "range": null
                     },
                     {
                         "damageType": "fire",
@@ -1930,7 +1770,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1998,7 +1837,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -2066,7 +1904,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -2135,7 +1972,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -2204,7 +2040,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -2310,7 +2145,6 @@
                     "value": 10
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -2349,8 +2183,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
                     "value": "<p>This 5‑foot‑tall bow, usually made of a single piece of elm, hickory, or yew, has a powerful draw and is excellent at propelling arrows with great force and at an extreme distance. You must use two hands to fire a longbow, and it can't be used while mounted.</p>"
@@ -2413,9 +2246,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -2424,7 +2254,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "deadly-d10",
@@ -2451,22 +2280,11 @@
             "name": "Arrows",
             "sort": 0,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 0,
                     "value": 0
                 },
@@ -2474,16 +2292,11 @@
                     "value": "ammo"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": ""
                 },
                 "containerId": null,
                 "description": {
                     "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -2517,11 +2330,6 @@
                     }
                 },
                 "quantity": 20,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": "arrows",
@@ -2529,25 +2337,12 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": "arrows",
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "L"
@@ -2646,7 +2441,6 @@
                     "value": 0
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "comfort"
@@ -2687,8 +2481,7 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
                     "value": "<p>Longswords can be one‑edged or two‑edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
@@ -2718,10 +2511,10 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -2751,9 +2544,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -2762,7 +2552,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "versatile-p"
@@ -2792,7 +2581,7 @@
                 "value": 21
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "resolve": {
                 "max": 0,
@@ -2951,12 +2740,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

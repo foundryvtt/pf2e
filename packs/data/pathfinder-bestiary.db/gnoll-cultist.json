@@ -151,11 +151,6 @@
                 },
                 "tradition": {
                     "value": "divine"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -175,11 +170,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
+                    "type": "burst",
                     "value": 20
-                },
-                "areasize": {
-                    "value": "20-foot burst"
                 },
                 "category": {
                     "value": "spell"
@@ -262,7 +254,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "darkness"
@@ -285,13 +276,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -387,7 +372,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "force"
@@ -410,13 +394,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -440,6 +418,16 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "5": {
+                            "target": {
+                                "value": "10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -497,7 +485,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "auditory",
@@ -522,13 +509,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -625,7 +606,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "cantrip",
@@ -651,11 +631,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
+                    "type": "emanation",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -739,7 +716,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "detection",
@@ -763,13 +739,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -793,6 +763,16 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "target": {
+                                "value": "5 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -851,7 +831,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "emotion",
@@ -876,13 +855,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "varies"
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -901,7 +874,6 @@
                             "applyMod": false,
                             "type": {
                                 "categories": [],
-                                "subtype": "",
                                 "value": "negative"
                             },
                             "value": "1d8"
@@ -909,7 +881,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"pf2-icon\">1</span> (somatic) The spell has a range of touch.</p>\n<p><span class=\"pf2-icon\">2</span> (verbal, somatic) The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><span class=\"pf2-icon\">3</span> (material, verbal, somatic) You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"pf2-icon\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"pf2-icon\">2</span> <strong>(verbal, somatic)</strong> The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><span class=\"pf2-icon\">3</span> <strong>(material, verbal, somatic)</strong> You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -932,6 +904,110 @@
                 },
                 "materials": {
                     "value": ""
+                },
+                "overlays": {
+                    "4gyp3qlsv5ywdyjq": {
+                        "_id": "4gyp3qlsv5ywdyjq",
+                        "name": "Harm (vs. Undead)",
+                        "overlayType": "override",
+                        "sort": 3,
+                        "system": {
+                            "components": {
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "value": "1d8+8"
+                                    }
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "0": "1d8+8"
+                                }
+                            },
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "save": {
+                                "basic": "",
+                                "value": ""
+                            },
+                            "spellType": {
+                                "value": "heal"
+                            },
+                            "target": {
+                                "value": "1 willing undead creature"
+                            },
+                            "time": {
+                                "value": "2"
+                            }
+                        }
+                    },
+                    "pq7cxntbz4s8g5ik": {
+                        "_id": "pq7cxntbz4s8g5ik",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "components": {
+                                "somatic": true
+                            },
+                            "range": {
+                                "value": "touch"
+                            },
+                            "time": {
+                                "value": "1"
+                            }
+                        }
+                    },
+                    "rvhoa43rqqqp8izn": {
+                        "_id": "rvhoa43rqqqp8izn",
+                        "overlayType": "override",
+                        "sort": 4,
+                        "system": {
+                            "area": {
+                                "type": "emanation",
+                                "value": 30
+                            },
+                            "components": {
+                                "material": true,
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "range": {
+                                "value": ""
+                            },
+                            "target": {
+                                "value": "all living and undead creatures"
+                            },
+                            "time": {
+                                "value": "3"
+                            }
+                        }
+                    },
+                    "z04svm1cvfcxtplb": {
+                        "_id": "z04svm1cvfcxtplb",
+                        "name": "Harm (vs. Living)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "components": {
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "target": {
+                                "value": "1 living creature"
+                            },
+                            "time": {
+                                "value": "2"
+                            }
+                        }
+                    }
                 },
                 "prepared": {
                     "value": ""
@@ -978,7 +1054,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "negative"
@@ -1001,13 +1076,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1024,7 +1093,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
+                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Light]{Spell Effect: Light}</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
                 },
                 "duration": {
                     "value": "until the next time you make your daily preparations"
@@ -1090,7 +1159,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "light",
@@ -1114,13 +1182,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1201,7 +1263,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1222,13 +1283,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1252,6 +1307,21 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "target": {
+                                "value": "10 objects"
+                            }
+                        },
+                        "6": {
+                            "target": {
+                                "value": "any number of objects"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -1311,7 +1381,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "detection",
@@ -1335,21 +1404,15 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
                 "components": {
                     "focus": false,
                     "material": false,
-                    "somatic": false,
-                    "verbal": false
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1424,7 +1487,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "cantrip"
@@ -1459,8 +1521,7 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d10",
-                    "value": ""
+                    "die": "d10"
                 },
                 "description": {
                     "value": "<p>This weapon is a heavier, two‑handed version of the curved‑bladed scimitar. It is weighted toward the blade's end, making it a powerful slashing weapon.</p>"
@@ -1490,10 +1551,10 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -1523,9 +1584,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -1534,7 +1592,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "forceful",
@@ -1642,7 +1699,6 @@
                     "value": 14
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1711,7 +1767,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1726,6 +1781,11 @@
         },
         {
             "_id": "kN3GBlB8fFVIQvRu",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "WpOcGp3NX0lgnuiS"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Falchion",
             "sort": 1600000,
@@ -1755,7 +1815,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "forceful",
@@ -1799,7 +1858,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile"
@@ -1843,7 +1901,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1899,7 +1956,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1939,7 +1995,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1971,11 +2026,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1999,11 +2049,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -2027,11 +2072,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -2055,11 +2095,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -2083,11 +2118,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -2130,7 +2160,7 @@
                 "value": 45
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 8
@@ -2176,13 +2206,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

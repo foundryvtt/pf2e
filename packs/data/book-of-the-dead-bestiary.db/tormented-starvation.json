@@ -19,38 +19,25 @@
                     "value": 28
                 },
                 "damageRolls": {
-                    "EI8cpBN8PT8IDXRJ": {
+                    "0": {
                         "damage": "4d6+14",
+                        "damageType": "mental"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "2d6",
                         "damageType": "mental"
                     }
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.PersistentDamage.Mental2d6.success]</p>"
+                    "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Mental2d6.criticalSuccess"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Mental2d6.success"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -96,7 +83,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -141,7 +127,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -193,7 +178,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -238,7 +222,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -278,7 +261,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -315,7 +297,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -346,7 +327,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Each creature in the tormented's Tortured Gaze aura takes [[/r {14d6}[mental]]]{14d6 mental damage} (@Check[type:will|dc:34|basic:true]). A creature that fails is also @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} (or @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure).</p>\n<p>The tormented can't Scream in Agony again for [[/br 1d4 #Scream in Agony Recharge]]{1d4 rounds}, but recharges the ability whenever they take damage from an attacker's critical hit or their own critical failure on a saving throw.</p>"
+                    "value": "<p>Each creature in the tormented's Tortured Gaze aura takes [[/r 14d6[mental]]] damage (@Check[type:will|dc:34|basic:true]). A creature that fails is also @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} (or @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure).</p>\n<p>The tormented can't Scream in Agony again for [[/br 1d4 #Scream in Agony Recharge]]{1d4 rounds}, but recharges the ability whenever they take damage from an attacker's critical hit or their own critical failure on a saving throw.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -357,7 +338,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "auditory",
@@ -391,11 +371,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -419,11 +394,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -447,11 +417,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -475,11 +440,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -524,8 +484,25 @@
                 "temp": 0,
                 "value": 250
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 27
@@ -539,7 +516,13 @@
                 ],
                 "special": "",
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -572,24 +555,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "cold",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d10",
-                    "value": ""
+                    "die": "d10"
                 },
                 "description": {
                     "value": "<p>This polearm has a relatively short, 5-foot shaft. The business end is a long spike with an axe blade attached.</p>"
@@ -92,9 +91,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -103,7 +99,6 @@
                     "value": null
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "evocation",
@@ -214,7 +209,6 @@
                     "value": 16
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -229,6 +223,11 @@
         },
         {
             "_id": "PhUe9NLaMWI1oIUJ",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "DrODOsMSTXjJpF5S"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Halberd",
             "sort": 300000,
@@ -260,7 +259,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-10",
@@ -303,7 +301,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile"
@@ -347,7 +344,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -399,7 +395,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -444,7 +439,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -484,7 +478,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divine",
@@ -516,18 +509,17 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The skeletal Hellknight hits a foe with a Strike.</p>\n<hr />\n<p><strong>Effect</strong> The skeletal Hellknight causes the creature struck to endure the pain of an Order of the Nail's reckoning-a rite of mortification Hellknights of that order use to focus their minds. The creature struck feels as if nails are being driven into their body, and must succeed at a @Check[type:will|dc:17|traits:damaging-effect] save or be @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1} from the pain. On a critical failure, the pain manifests as actual puncture wounds, dealing an additional [[/r {2d6}[piercing]]]{2d6 points of piercing damage} to the victim.</p>"
+                    "value": "<p><strong>Trigger</strong> The skeletal Hellknight hits a foe with a Strike.</p>\n<hr />\n<p><strong>Effect</strong> The skeletal Hellknight causes the creature struck to endure the pain of an Order of the Nail's reckoning-a rite of mortification Hellknights of that order use to focus their minds. The creature struck feels as if nails are being driven into their body, and must succeed at a @Check[type:will|dc:17|traits:damaging-effect] save or be @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1} from the pain. On a critical failure, the pain manifests as actual puncture wounds, dealing an additional [[/r 2d6[piercing]]] damage to the victim.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "invoke-reckoning",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divine",
@@ -563,11 +555,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -591,11 +578,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -637,8 +619,25 @@
                 "temp": 0,
                 "value": 25
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 7
@@ -687,19 +686,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

@@ -1,5 +1,7 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { MigrationBase } from "../base";
+import { CharacterTraitsData } from "@actor/character/data/index.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { NPCTraitsSource } from "@actor/npc/data.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Move tracking of roll-option toggles to the rules themselves */
 export class Migration743FixWeaknessStructure extends MigrationBase {
@@ -8,13 +10,20 @@ export class Migration743FixWeaknessStructure extends MigrationBase {
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         if (source.type !== "character" && source.type !== "npc") return;
 
-        if (!Array.isArray(source.system.traits.dv)) {
-            source.system.traits.dv = [];
+        const traits: WithWRTraits = source.system.traits;
+
+        if (!Array.isArray(traits.dv)) {
+            traits.dv = [];
         }
 
         // No sign of this being broken anywhere, but just to make sure
-        if (!Array.isArray(source.system.traits.dr)) {
-            source.system.traits.dr = [];
+        if (!Array.isArray(traits.dr)) {
+            traits.dr = [];
         }
     }
 }
+
+type WithWRTraits = (CharacterTraitsData | NPCTraitsSource) & {
+    dv?: never[];
+    dr?: never[];
+};

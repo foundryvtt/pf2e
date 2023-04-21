@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Battle Cry",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "skill",
         "description": {
             "value": "<p>When you roll initiative, you can yell a mighty battle cry and <span data-pf2-action=\"demoralize\" data-pf2-glyph=\"F\">Demoralize</span> an observed foe as a free action.</p>\n<p>If you're legendary in Intimidation, you can use a reaction to <span data-pf2-action=\"demoralize\" data-pf2-glyph=\"R\">Demoralize</span> your foe when you critically succeed at an attack roll.</p>"
-        },
-        "featType": {
-            "value": "skill"
         },
         "level": {
             "value": 7
@@ -37,6 +32,12 @@
             },
             {
                 "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "skill:itm:rank:4"
+                ],
                 "selector": "attack",
                 "text": "You can use a reaction to <span data-pf2-action=\"demoralize\" data-pf2-glyph=\"R\">Demoralize</span> your foe when you critically succeed at an attack roll.",
                 "title": "{item|name}"
@@ -46,7 +47,6 @@
             "value": "Pathfinder Core Rulebook"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "general",

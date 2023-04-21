@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Raging Intimidation",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "class",
         "description": {
             "value": "<p>Your fury fills your foes with fear. While you are raging, your Demoralize and Scare to Death actions (from the Intimidation skill and an Intimidation skill feat, respectively) gain the rage trait, allowing you to use them while raging. As soon as you meet the prerequisites for the skill feats Intimidating Glare and Scare to Death, you gain these feats.</p>"
-        },
-        "featType": {
-            "value": "class"
         },
         "level": {
             "value": 1
@@ -26,6 +21,7 @@
         },
         "rules": [
             {
+                "flag": "intimidatingGlare",
                 "key": "GrantItem",
                 "predicate": [
                     {
@@ -39,6 +35,7 @@
                 "uuid": "Compendium.pf2e.feats-srd.Intimidating Glare"
             },
             {
+                "flag": "scareToDeath",
                 "key": "GrantItem",
                 "predicate": [
                     "skill:itm:rank:4"
@@ -51,7 +48,6 @@
             "value": "Pathfinder Core Rulebook"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "barbarian"

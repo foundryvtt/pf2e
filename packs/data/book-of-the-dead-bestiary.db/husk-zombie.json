@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>These blades come in a variety of shapes and styles, but they are typically 2 feet long.</p>"
@@ -59,10 +58,10 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -92,9 +91,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -103,7 +99,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -134,30 +129,13 @@
             "name": "Slowed",
             "sort": 200000,
             "system": {
-                "active": true,
-                "alsoApplies": {
-                    "linked": [],
-                    "unlinked": []
-                },
-                "base": "Slowed",
                 "description": {
                     "value": "<p>You have fewer actions. Slowed always includes a value. When you regain your actions at the start of your turn, reduce the number of actions you regain by your slowed value. Because slowed has its effect at the start of your turn, you don't immediately lose actions if you become slowed during your turn.</p>"
                 },
                 "duration": {
-                    "perpetual": true,
-                    "text": "",
                     "value": 0
                 },
-                "group": "",
-                "hud": {
-                    "img": {
-                        "useStatusName": true,
-                        "value": "systems/pf2e/icons/conditions-2/slowed.webp"
-                    },
-                    "selectable": true,
-                    "statusName": "slowed"
-                },
-                "modifiers": [],
+                "group": null,
                 "overrides": [],
                 "references": {
                     "children": [],
@@ -165,25 +143,13 @@
                     "overriddenBy": [],
                     "overrides": []
                 },
-                "removable": true,
                 "rules": [],
                 "slug": "slowed",
                 "source": {
                     "value": ""
                 },
-                "sources": {
-                    "hud": true,
-                    "values": []
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
                 "value": {
-                    "immutable": false,
                     "isValued": true,
-                    "modifiers": [],
                     "value": 1
                 }
             },
@@ -191,6 +157,11 @@
         },
         {
             "_id": "y75gjuac91xio97i",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "2GfHHd29Q1qnex42"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Shortsword",
             "sort": 300000,
@@ -220,7 +191,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -264,7 +234,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile"
@@ -308,7 +277,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -360,7 +328,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -400,7 +367,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -474,7 +440,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -514,7 +479,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -543,11 +507,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -571,11 +530,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -599,11 +553,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -627,11 +576,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -673,8 +617,25 @@
                 "temp": 0,
                 "value": 55
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 5
@@ -683,7 +644,17 @@
                 "otherSpeeds": [],
                 "special": "",
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -716,30 +687,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "type": "positive",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "slashing",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

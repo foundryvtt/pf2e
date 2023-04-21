@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/default-icons/feats.webp",
     "name": "Brilliant Crafter",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "class",
         "description": {
             "value": "<p>Your skill at crafting is unparalleled. You become an expert in Crafting. At 7th level you become a master in Crafting, and at 15th level, you become legendary in Crafting and you become an expert in your inventor class DC.</p>"
-        },
-        "featType": {
-            "value": "archetype"
         },
         "level": {
             "value": 4
@@ -51,13 +46,26 @@
                         }
                     ]
                 }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.classDCs.inventor.rank",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            15
+                        ]
+                    }
+                ],
+                "value": 2
             }
         ],
         "source": {
             "value": "Pathfinder Guns & Gears"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "archetype"

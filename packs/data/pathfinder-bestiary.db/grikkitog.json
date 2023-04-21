@@ -35,7 +35,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical"
@@ -79,7 +78,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -124,7 +122,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -158,13 +155,19 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "implant-core",
+                        "toggleable": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "manipulate"
@@ -206,7 +209,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -240,13 +242,26 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "implant-core"
+                        ],
+                        "radius": 120,
+                        "slug": "infestation-aura",
+                        "traits": [
+                            "aura",
+                            "earth",
+                            "occult"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -279,18 +294,17 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Upon Striking a creature with its jaws, the grikkitog can extend its barbed teeth, @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilizing} the target unless it succeeds at a @Check[type:reflex|dc:34] save. While immobilized, the victim takes @Localize[PF2E.PersistentDamage.Bleed3d8.success] and the grikkitog feeds upon its flesh. The creature is immobilized until the grikkitog ends the effect as a free action or the target succeeds at a DC 38 check to Escape. The grikkitog can immobilize any number of creatures with these maws.</p>"
+                    "value": "<p>Upon Striking a creature with its jaws, the grikkitog can extend its barbed teeth, @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilizing} the target unless it succeeds at a @Check[type:reflex|dc:34] save. While immobilized, the victim takes [[/r 3d8[bleed]]] and the grikkitog feeds upon its flesh. The creature is immobilized until the grikkitog ends the effect as a free action or the target succeeds at a DC 38 check to Escape. The grikkitog can immobilize any number of creatures with these maws.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "barbed-maw",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -330,7 +344,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -362,11 +375,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -401,11 +409,6 @@
                 "source": {
                     "value": ""
                 },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
                 "variants": {
                     "0": {
                         "label": "+31 to imitate stone",
@@ -434,11 +437,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -481,11 +479,20 @@
                 "value": 200
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 29
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "adamantine"
+                    ],
+                    "type": "all-damage",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "details": "earth glide",
                 "otherSpeeds": [
@@ -528,19 +535,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "exceptions": "except adamantine",
-                    "type": "all",
-                    "value": 10
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

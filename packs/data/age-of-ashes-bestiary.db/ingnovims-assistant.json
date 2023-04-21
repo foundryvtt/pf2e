@@ -3,20 +3,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "iRaRqMSJzFdjZj1h",
+            "_id": "EFxhJV27viaJeJvR",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.UX71GkWBL9g41VwM"
+                    "sourceId": "Compendium.pf2e.equipment-srd.LJdbVTOZog39EEbi"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/weapons/greatsword.webp",
-            "name": "Greatsword",
+            "img": "systems/pf2e/icons/equipment/weapons/longsword.webp",
+            "name": "Longsword",
             "sort": 100000,
             "system": {
                 "MAP": {
                     "value": ""
                 },
-                "baseItem": "greatsword",
+                "baseItem": "longsword",
                 "bonus": {
                     "value": 0
                 },
@@ -28,11 +28,10 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d12",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
-                    "value": "<p>This immense two‑handed sword is nearly as tall as its wielder. Its lower blade is often somewhat dulled to allow it to be gripped for extra leverage in close‑quarter fights.</p>"
+                    "value": "<p>Longswords can be one‑edged or two‑edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -66,7 +65,7 @@
                 },
                 "price": {
                     "value": {
-                        "gp": 2
+                        "gp": 1
                     }
                 },
                 "propertyRune1": {
@@ -88,12 +87,9 @@
                 },
                 "rules": [],
                 "size": "med",
-                "slug": "greatsword",
+                "slug": "longsword",
                 "source": {
-                    "value": ""
-                },
-                "specific": {
-                    "value": false
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "splashDamage": {
                     "value": 0
@@ -103,17 +99,16 @@
                     "value": "greaterStriking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "versatile-p"
                     ]
                 },
                 "usage": {
-                    "value": "held-in-two-hands"
+                    "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": "2"
+                    "value": "1"
                 }
             },
             "type": "weapon"
@@ -210,7 +205,6 @@
                     "value": 18
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "bulwark"
@@ -227,6 +221,11 @@
         },
         {
             "_id": "PmP7kVHHTCVo9E2y",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "EFxhJV27viaJeJvR"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Longsword",
             "sort": 300000,
@@ -255,7 +254,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -294,13 +292,18 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FastHealing",
+                        "type": "fast-healing",
+                        "value": 20
+                    }
+                ],
                 "slug": "fast-healing",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -330,7 +333,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When one of Ingnovim's assistants dies, it bursts open in a foul-sounding and smelling explosion of toxic viscera and poisonous vapors. All creatures within a @Template[type:burst|distance:20] must attempt a @Check[type:fortitude|dc:38] save to resist this blast of poison.</p>/n/n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<p><strong>Failure</strong> The creature takes [[/r {7d8}[poison]]]{7d8 poison damage}.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r {14d8}[poison]]]{14d8 poison damage} and @Localize[PF2E.PersistentDamage.Poison2d8.success].</p>"
+                    "value": "<p>When one of Ingnovim's assistants dies, it bursts open in a foul-sounding and smelling explosion of toxic viscera and poisonous vapors. All creatures within a @Template[type:burst|distance:20] must attempt a @Check[type:fortitude|dc:38] save to resist this blast of poison.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<p><strong>Failure</strong> The creature takes [[/r 7d8[poison]]] damage.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r 14d8[poison]]] damage and [[/r 2d8[persistent,poison]]].</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -341,7 +344,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "alchemical",
@@ -376,11 +378,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -404,11 +401,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -450,8 +442,13 @@
                 "temp": 0,
                 "value": 330
             },
+            "immunities": [
+                {
+                    "type": "poison"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 29
@@ -492,15 +489,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "poison"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],
@@ -509,7 +497,9 @@
                 ]
             },
             "rarity": "rare",
-            "senses": [],
+            "senses": {
+                "value": ""
+            },
             "size": {
                 "value": "med"
             },

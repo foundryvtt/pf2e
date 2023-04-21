@@ -1,0 +1,88 @@
+{
+    "_id": "aJ3mYuV0rjFBPOsg",
+    "img": "systems/pf2e/icons/default-icons/equipment.svg",
+    "name": "Mantle of Amazing Health",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>This ragged cloak doesn't appear to be anything special at first glance, seemingly made from mangy black bear fur with various rings of blackened iron piercing the edge of the skin. While somewhat off-putting, the mantle grants a +2 status bonus to all Fortitude saving throws against disease and poison. When you invest the mantle, you either increase your Constitution score by 2 or increase it to 18, whichever is higher.</p>\n<p><strong>Activate</strong><span class=\"pf2-icon\">R</span> Interact</p>\n<p><strong>Frequency</strong> once per round</p>\n<p><strong>Trigger</strong> You take damage</p>\n<hr />\n<p><strong>Effect</strong> Drawing the cloak around you, you reduce the damage taken by 10.</p>\n<hr />\n<p><strong>Activate</strong><span class=\"pf2-icon\">2</span> envision, Interact</p>\n<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> If you're currently afflicted by a poison or a disease, you can hold the cloak tight to your body and immediately attempt a saving throw to end the effect. If that saving throw succeeds, you end the effect of either the poison or disease no matter the stage of the affliction. Furthermore, you gain immunity to that poison or disease for 24 hours.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 19
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 40000
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.abilities.con.value",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.abilities.con.value",
+                "value": 18
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "disease",
+                            "poison"
+                        ]
+                    }
+                ],
+                "selector": "fortitude",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "apex",
+                "invested",
+                "magical",
+                "transmutation"
+            ]
+        },
+        "usage": {
+            "value": "worncape"
+        },
+        "weight": {
+            "value": "L"
+        }
+    },
+    "type": "equipment"
+}

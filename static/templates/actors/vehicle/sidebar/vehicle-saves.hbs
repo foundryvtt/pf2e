@@ -1,0 +1,16 @@
+<div class="sidebar_title">
+    <h2>{{localize "PF2E.SavesHeader"}}</h2>
+</div>
+<ul class="sidebar-saves">
+    <li class="roll-data" data-save="fortitude">
+        <h2 class="sidebar_label">{{localize "PF2E.SavesFortitude"}}</h2>
+        <div class="save-roll">
+            {{#if options.editable}}
+                <a class="roll-icon save-name">
+                    {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
+                </a>
+            {{/if}}
+            <input class="adjustable {{ac.adjustmentClass}}" data-property="system.saves.fortitude.value" type="number" value="{{saves.fortitude.value}}" placeholder="0" />
+        </div>
+    </li>
+</ul>

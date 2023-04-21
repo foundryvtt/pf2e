@@ -2,7 +2,9 @@ export {};
 
 declare global {
     /** A Token is an implementation of PlaceableObject that represents an Actor within a viewed Scene on the game canvas. */
-    class Token<TDocument extends TokenDocument = TokenDocument> extends PlaceableObject<TDocument> {
+    class Token<
+        TDocument extends TokenDocument<Scene | null> = TokenDocument<Scene | null>
+    > extends PlaceableObject<TDocument> {
         constructor(document: TDocument);
 
         /** A reference to an animation that is currently in progress for this Token, if any */
@@ -147,20 +149,12 @@ declare global {
         get sourceId(): `Token.${string}`;
 
         /**
-         * Update the light and vision source objects associated with this Token
-         * @param [defer]         Defer refreshing the SightLayer to manually call that refresh later.
-         * @param [deleted]       Indicate that this light source has been deleted.
-         * @param [skipUpdateFog] Never update the Fog exploration progress for this update.
+         * Update the light and vision source objects associated with this Token.
+         * @param [options={}] Options which configure how perception sources are updated
+         * @param [options.defer=false] Defer refreshing the SightLayer to manually call that refresh later
+         * @param [options.deleted=false]Indicate that this light source has been deleted
          */
-        updateSource({
-            defer,
-            deleted,
-            skipUpdateFog,
-        }?: {
-            defer?: boolean;
-            deleted?: boolean;
-            skipUpdateFog?: boolean;
-        }): void;
+        updateSource(options?: { defer?: boolean; deleted?: boolean }): void;
 
         /**
          * Update an emitted light source associated with this Token.
@@ -199,7 +193,7 @@ declare global {
         /** Draw the HUD container which provides an interface for managing this Token */
         protected _drawHUD(): ObjectHUD<this>;
 
-        override destroy(options?: boolean | PIXI.IDestroyOptions): void;
+        protected override _destroy(options?: object): void;
 
         /** Apply initial sanitizations to the provided input data to ensure that a Token has valid required attributes. */
         protected _cleanData(): void;
@@ -228,6 +222,8 @@ declare global {
 
         /** Update display of the Token, pulling latest data and re-rendering the display of Token components */
         refresh(): this;
+
+        protected override _refresh(options: object): void;
 
         /** Draw the Token border, taking into consideration the grid type and border color */
         protected _refreshBorder(): void;
@@ -282,7 +278,13 @@ declare global {
         protected _drawOverlay({ src, tint }?: { src?: string; tint?: number }): Promise<void>;
 
         /** Draw a status effect icon */
-        protected _drawEffect(src: ImagePath, i: number, bg: PIXI.Container, w: number, tint: number): Promise<void>;
+        protected _drawEffect(
+            src: ImageFilePath,
+            i: number,
+            bg: PIXI.Container,
+            w: number,
+            tint: number
+        ): Promise<void>;
 
         /**
          * Helper method to determine whether a token attribute is viewable under a certain mode
@@ -402,9 +404,9 @@ declare global {
         /**
          * Add or remove the currently controlled Tokens from the active combat encounter
          * @param [combat] A specific combat encounter to which this Token should be added
-         * @return The Token which initiated the toggle
+         * @returns The Token which initiated the toggle
          */
-        toggleCombat(combat: Combat): Promise<this>;
+        toggleCombat(combat?: Combat): Promise<this>;
 
         /**
          * Toggle an active effect by its texture path.
@@ -416,12 +418,12 @@ declare global {
          * @return Was the texture applied (true) or removed (false)
          */
         toggleEffect(
-            effect: StatusEffect | ImagePath,
+            effect: StatusEffect | ImageFilePath,
             { active, overlay }?: { active?: boolean; overlay?: boolean }
         ): Promise<boolean>;
 
         /** A helper function to toggle the overlay status icon on the Token */
-        protected _toggleOverlayEffect(texture: ImagePath, { active }: { active: boolean }): Promise<this>;
+        protected _toggleOverlayEffect(texture: ImageFilePath, { active }: { active: boolean }): Promise<this>;
 
         /**
          * Toggle the visibility state of any Tokens in the currently selected set
@@ -449,27 +451,27 @@ declare global {
         /*  Event Listeners and Handlers                */
         /* -------------------------------------------- */
 
-        override _onCreate(
+        protected override _onCreate(
             data: TDocument["_source"],
-            options: DocumentModificationContext<TDocument>,
+            options: DocumentModificationContext<TDocument["parent"]>,
             userId: string
         ): void;
 
-        override _onUpdate(
+        protected override _onUpdate(
             changed: DeepPartial<TDocument["_source"]>,
-            options: DocumentModificationContext,
+            options: DocumentModificationContext<TDocument["parent"]>,
             userId: string
         ): void;
 
         /** Control updates to the appearance of the Token and its linked TokenMesh when a data update occurs. */
         protected _onUpdateAppearance(
-            data: DeepPartial<foundry.data.TokenSource>,
+            data: DeepPartial<TDocument["_source"]>,
             changed: Set<string>,
-            options: DocumentModificationContext
+            options: DocumentModificationContext<TDocument["parent"]>
         ): Promise<void>;
 
         /** Define additional steps taken when an existing placeable object of this type is deleted */
-        override _onDelete(options: DocumentModificationContext<TDocument>, userId: string): void;
+        protected override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;
 
         protected override _canControl(user: User, event?: PIXI.InteractionEvent): boolean;
 
@@ -507,7 +509,8 @@ declare global {
         protected override _onDragEnd(): void;
     }
 
-    interface Token {
+    interface Token<TDocument extends TokenDocument<Scene | null> = TokenDocument<Scene | null>>
+        extends PlaceableObject<TDocument> {
         get layer(): TokenLayer<this>;
     }
 

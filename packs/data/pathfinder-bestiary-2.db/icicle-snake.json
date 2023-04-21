@@ -21,10 +21,15 @@
                     "0": {
                         "damage": "1d6+1",
                         "damageType": "piercing"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "1d6",
+                        "damageType": "cold"
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {1d6}[persistent,cold]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Cold Damage}</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -32,7 +37,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "finesse"
@@ -76,7 +80,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -116,7 +119,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate"
@@ -150,11 +152,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -178,11 +175,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -224,8 +216,25 @@
                 "temp": 0,
                 "value": 35
             },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "cold"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 7
@@ -238,7 +247,13 @@
                     }
                 ],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -274,25 +289,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "cold",
-                    "paralyzed",
-                    "poison",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "label": "Fire",
-                    "type": "fire",
-                    "value": "5"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

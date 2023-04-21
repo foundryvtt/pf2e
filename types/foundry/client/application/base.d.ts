@@ -134,12 +134,12 @@ declare global {
         /**
          * Persist the scroll positions of containers within the app before re-rendering the content
          */
-        protected _saveScrollPositions(html: HTMLElement | JQuery, selectors: string[]): void;
+        protected _saveScrollPositions(html: HTMLElement | JQuery): void;
 
         /**
          * Restore the scroll positions of containers within the app after re-rendering the content
          */
-        protected _restoreScrollPositions(html: HTMLElement | JQuery, selectors: string[]): void;
+        protected _restoreScrollPositions(html: HTMLElement | JQuery): void;
 
         /**
          * Render the outer application wrapper
@@ -262,7 +262,7 @@ declare global {
          * Take no action for applications which are not of the pop-out variety or are already maximized
          * @return  A Promise which resolves to true once the maximization action has completed
          */
-        maximise(): Promise<boolean>;
+        maximize(): Promise<boolean>;
 
         /**
          * Set the application position and store it's new location
@@ -349,8 +349,6 @@ declare global {
     }
 
     interface RenderOptions extends Partial<ApplicationOptions> {
-        // Undocumented
-        action?: UserAction;
         /** The left positioning attribute */
         left?: number;
         /** The top positioning attribute */
@@ -367,6 +365,10 @@ declare global {
         renderContext?: string;
         /** The data change which motivated the render request */
         renderData?: Record<string, unknown>;
+        // Undocumented
+        action?: UserAction;
+        // Undocumented: applicable only to `FormApplication`s
+        editable?: boolean;
     }
 
     interface ApplicationPosition {
@@ -377,5 +379,5 @@ declare global {
         scale?: number;
     }
 
-    type ApplicationRenderState = typeof Application["RENDER_STATES"][keyof typeof Application["RENDER_STATES"]];
+    type ApplicationRenderState = (typeof Application)["RENDER_STATES"][keyof (typeof Application)["RENDER_STATES"]];
 }

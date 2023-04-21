@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "divine"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -125,13 +120,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -215,7 +204,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -255,7 +243,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical"
@@ -299,7 +286,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -344,7 +330,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -389,7 +374,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -434,7 +418,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -474,7 +457,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -503,18 +485,17 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>An esobok's Strikes affect incorporeal creatures with the effects of a @UUID[Compendium.pf2e.equipment-srd.Ghost Touch]{Ghost Touch} property rune and deal [[/r {1d6}[negative]]]{1d6 negative damage} to living creatures and [[/r {1d6}[positive]]]{1d6 positive damage} to undead.</p>"
+                    "value": "<p>An esobok's Strikes affect incorporeal creatures with the effects of a @UUID[Compendium.pf2e.equipment-srd.Ghost Touch]{Ghost Touch} property rune and deal [[/r 1d6[negative]]] damage to living creatures and [[/r 1d6[positive]]] damage to undead.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "spirit-touch",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "incorporeal"
@@ -556,19 +537,12 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack",
                         "divine",
                         "incapacitation",
-                        "necromancy",
-                        "constructs",
-                        "celestials",
-                        "fiends",
-                        "monitors",
-                        "mindless",
-                        "undead"
+                        "necromancy"
                     ]
                 },
                 "trigger": {
@@ -612,7 +586,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -644,11 +617,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -672,11 +640,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -700,11 +663,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -728,11 +686,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -756,11 +709,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -784,11 +732,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -830,12 +773,30 @@
                 "temp": 0,
                 "value": 55
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 12
             },
+            "resistances": [
+                {
+                    "type": "negative",
+                    "value": 5
+                },
+                {
+                    "type": "poison",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
@@ -880,27 +841,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease"
-                ]
-            },
-            "dr": [
-                {
-                    "label": "Negative",
-                    "type": "negative",
-                    "value": "5"
-                },
-                {
-                    "label": "Poison",
-                    "type": "poison",
-                    "value": "5"
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

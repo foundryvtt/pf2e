@@ -1,9 +1,9 @@
-import { AncestryPF2e, FeatPF2e, HeritagePF2e, ItemPF2e } from "@item";
-import { Rarity } from "@module/data";
-import { RuleElementSource } from "@module/rules";
-import { SheetOptions } from "@module/sheet/helpers";
+import { ItemPF2e } from "@item";
+import { Rarity } from "@module/data.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
+import { SheetOptions, TraitTagifyEntry } from "@module/sheet/helpers.ts";
 
-export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem> {
+interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem> {
     /** The item type label that shows at the top right (for example, "Feat" for "Feat 6") */
     itemType: string | null;
     showTraits: boolean;
@@ -15,8 +15,8 @@ export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData
     sidebarTitle: string;
     sidebarTemplate?: () => string;
     detailsTemplate?: () => string;
-    item: TItem["data"];
-    data: TItem["data"]["system"];
+    item: TItem;
+    data: TItem["system"];
     enrichedContent: Record<string, string>;
     isPhysical: boolean;
     user: { isGM: boolean };
@@ -25,8 +25,7 @@ export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData
     rarity: Rarity | null;
     rarities: ConfigPF2e["PF2E"]["rarityTraits"];
     traits: SheetOptions | null;
-    /** The slugs of the item's value sorted trait list */
-    traitSlugs: string[];
+    traitTagifyData: TraitTagifyEntry[] | null;
     rules: {
         labels: {
             label: string;
@@ -46,20 +45,4 @@ export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData
     proficiencies: ConfigPF2e["PF2E"]["proficiencyLevels"];
 }
 
-export interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
-    featTypes: ConfigPF2e["PF2E"]["featTypes"];
-    actionTypes: ConfigPF2e["PF2E"]["actionTypes"];
-    actionsNumber: ConfigPF2e["PF2E"]["actionsNumber"];
-    frequencies: ConfigPF2e["PF2E"]["frequencies"];
-    damageTypes: ConfigPF2e["PF2E"]["damageTypes"] & ConfigPF2e["PF2E"]["healingTypes"];
-    categories: ConfigPF2e["PF2E"]["actionCategories"];
-    prerequisites: string;
-    isFeat: boolean;
-    mandatoryTakeOnce: boolean;
-    hasLineageTrait: boolean;
-}
-
-export interface HeritageSheetData extends ItemSheetDataPF2e<HeritagePF2e> {
-    ancestry: AncestryPF2e | null;
-    ancestryRefBroken: boolean;
-}
+export { ItemSheetDataPF2e };

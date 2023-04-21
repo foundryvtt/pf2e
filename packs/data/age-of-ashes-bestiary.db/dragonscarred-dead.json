@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d12",
-                    "value": ""
+                    "die": "d12"
                 },
                 "description": {
                     "value": "<p>This immense two‑handed sword is nearly as tall as its wielder. Its lower blade is often somewhat dulled to allow it to be gripped for extra leverage in close‑quarter fights.</p>"
@@ -92,9 +91,6 @@
                 "source": {
                     "value": ""
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -103,7 +99,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "versatile-p"
@@ -120,6 +115,11 @@
         },
         {
             "_id": "bD1gctOA2Ni82NSM",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "keOsYquWeSxZCihV"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Breath-Seared Greatsword",
             "sort": 200000,
@@ -156,7 +156,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -201,7 +200,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -241,7 +239,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -308,7 +305,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -353,7 +349,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -387,18 +382,29 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:60] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura} @Check[type:will|dc:29] save</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura} @Check[type:will|dc:29]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "aura",
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": "frightful-presence",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -432,7 +438,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The dragonscarred dead's weapon is magically scorched by a dragon's breath. When wielded by the dragonscarred dead who carried it in life, the sword deals an extra [[/r {2d6}[negative]]]{2d6 negative damage} and [[/r {3d6}[fire]]]{3d6 fire damage}. In the hands of any other creature, it is merely a broken greatsword.</p>"
+                    "value": "<p>The dragonscarred dead's weapon is magically scorched by a dragon's breath. When wielded by the dragonscarred dead who carried it in life, the sword deals an extra [[/r 2d6[negative]]] damage and [[/r 3d6[fire]]] damage. In the hands of any other creature, it is merely a broken greatsword.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -443,7 +449,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -483,7 +488,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -520,11 +524,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -532,7 +531,7 @@
         {
             "_id": "YlxLNSbifo76lEgK",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Draconic Lore",
+            "name": "Dragon Lore",
             "sort": 1100000,
             "system": {
                 "description": {
@@ -548,11 +547,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -576,11 +570,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -622,8 +611,28 @@
                 "temp": 0,
                 "value": 210
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 24
@@ -631,7 +640,17 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 10
+                },
+                {
+                    "type": "good",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -664,31 +683,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "fire",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "label": "Cold",
-                    "type": "cold",
-                    "value": "10"
-                },
-                {
-                    "label": "Good",
-                    "type": "good",
-                    "value": "10"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

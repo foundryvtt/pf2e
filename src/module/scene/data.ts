@@ -1,23 +1,11 @@
-import { ZeroToTwo } from "@module/data";
-import type {
-    AmbientLightDocumentPF2e,
-    MeasuredTemplateDocumentPF2e,
-    ScenePF2e,
-    TileDocumentPF2e,
-    TokenDocumentPF2e,
-} from ".";
+import { ZeroToTwo } from "@module/data.ts";
 
-type SceneDataPF2e<T extends ScenePF2e> = foundry.data.SceneData<
-    T,
-    TokenDocumentPF2e,
-    AmbientLightDocumentPF2e,
-    AmbientSoundDocument,
-    DrawingDocument,
-    MeasuredTemplateDocumentPF2e,
-    NoteDocument,
-    TileDocumentPF2e,
-    WallDocument
->;
+interface SceneFlagsPF2e extends DocumentFlags {
+    pf2e: {
+        [key: string]: unknown;
+        syncDarkness: "enabled" | "disabled" | "default";
+    };
+}
 
 enum LightLevels {
     DARKNESS = 1 / 4,
@@ -26,4 +14,4 @@ enum LightLevels {
 
 type LightLevel = ZeroToTwo;
 
-export { SceneDataPF2e, LightLevel, LightLevels };
+export { LightLevel, LightLevels, SceneFlagsPF2e };

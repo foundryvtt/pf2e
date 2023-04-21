@@ -34,7 +34,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -79,7 +78,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -108,7 +106,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {1d8}[piercing]]]{1d8 piercing damage} (@Check[type:reflex|dc:20|basic:true]) and @Localize[PF2E.PersistentDamage.Bleed1d4.success].</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r 1d8[piercing]]] damage (@Check[type:reflex|dc:20|basic:true]) and [[/r 1d4[bleed]]].</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -119,7 +117,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -148,11 +145,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -188,11 +180,6 @@
                 "source": {
                     "value": ""
                 },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
                 "variants": {
                     "0": {
                         "label": "+10 in water",
@@ -221,11 +208,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -267,12 +249,34 @@
                 "temp": 0,
                 "value": 30
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 6
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 5
+                },
+                {
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 2
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -286,7 +290,17 @@
                 ],
                 "special": "",
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 5
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -319,43 +333,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "precision",
-                    "swarm-mind"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "bludgeoning",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "piercing",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "slashing",
-                    "value": 2
-                }
-            ],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "type": "area-damage",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "splash-damage",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

@@ -19,40 +19,25 @@
                     "value": 15
                 },
                 "damageRolls": {
-                    "qgwketawxa28kofv6j6o": {
+                    "0": {
                         "damage": "1d8+7",
                         "damageType": "piercing"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "1d6",
+                        "damageType": "acid"
                     }
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.PersistentDamage.Acid1d6.success]</p>"
+                    "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Acid1d6.success",
-                        "visibility": "gm"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Acid1d6.criticalSuccess",
-                        "visibility": "gm"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "deadly-d12"
@@ -80,40 +65,30 @@
                     "value": 14
                 },
                 "damageRolls": {
-                    "eidwdi2dn65rr45f1p5q": {
+                    "0": {
+                        "damage": "1d6",
+                        "damageType": "acid"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "1d6",
+                        "damageType": "acid"
+                    },
+                    "2": {
+                        "category": "splash",
                         "damage": "1d6",
                         "damageType": "acid"
                     }
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.PersistentDamage.Acid1d6.success] and [[/r {1d6}[splash,acid]]]{1d6 acid splash damage}</p>"
+                    "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "@Localize[PF2E.PersistentDamage.Acid1d6.success] [[/r {1d6}[splash,acid]]]{1d6 acid splash damage}",
-                        "visibility": "gm"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "@Localize[PF2E.PersistentDamage.Acid1d6.criticalSuccess] [[/r {1d6}[splash,acid]]]{1d6 acid splash damage}",
-                        "visibility": "gm"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "range-increment-30",
@@ -158,7 +133,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -203,7 +177,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -243,7 +216,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -283,7 +255,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -315,11 +286,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -359,11 +325,6 @@
                 "source": {
                     "value": ""
                 },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
                 "variants": {
                     "0": {
                         "label": "+16 to High Jump or Long Jump",
@@ -393,11 +354,6 @@
                 "source": {
                     "value": ""
                 },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
                 "variants": {}
             },
             "type": "lore"
@@ -421,11 +377,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -467,12 +418,23 @@
                 "temp": 0,
                 "value": 76
             },
+            "immunities": [
+                {
+                    "type": "acid"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 13
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
@@ -509,20 +471,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "acid"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "bludgeoning",
-                    "value": 5
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "(Can't Speak Any Languages)",
                 "selected": [],

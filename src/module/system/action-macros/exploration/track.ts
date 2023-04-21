@@ -1,19 +1,15 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function track(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "survival");
-
+export function track(options: SkillActionOptions): void {
+    const slug = options?.skill ?? "survival";
+    const rollOptions = ["action:track"];
+    const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph,
         title: "PF2E.Actions.Track.Title",
-        subtitle,
-        modifiers: options.modifiers,
-        rollOptions: ["all", checkType, stat, "action:track"],
-        extraOptions: ["action:track"],
+        checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["concentrate", "exploration", "move"],
-        checkType,
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,
@@ -23,5 +19,8 @@ export function track(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Track", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Track", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

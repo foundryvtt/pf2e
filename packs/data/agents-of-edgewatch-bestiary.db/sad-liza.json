@@ -23,8 +23,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d4",
-                    "value": ""
+                    "die": "d4"
                 },
                 "description": {
                     "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
@@ -54,10 +53,10 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -87,9 +86,6 @@
                 "source": {
                     "value": ""
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -98,7 +94,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -137,8 +132,7 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d4",
-                    "value": ""
+                    "die": "d4"
                 },
                 "description": {
                     "value": "<p>A war razor is an exaggerated version of the barbers' tool. It is a brittle but extremely sharp weapon that is very easy to slip into a pocket or sleeve.</p>"
@@ -168,10 +162,10 @@
                     "value": 2
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -201,9 +195,6 @@
                 "source": {
                     "value": ""
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": null
                 },
@@ -212,7 +203,6 @@
                     "value": "greaterStriking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -347,7 +337,6 @@
                     "value": 12
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -369,7 +358,7 @@
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>This string of beads appears to be a hemp string with lustrous red beads of various sizes hanging from it. When activated, it briefly appears in its true form: a golden chain with golden spheres attached by fine threads.</p>\n<p>This necklace has one [[/r {16d6}[fire]]]{16d6 fire damage}, three [[/r {14d6}[fire]]]{14d6 fire damage} and four [[/r {12d6}[fire]]]{12d6 fire damage} beads with a Reflex save DC of 36. When all the beads are gone, the necklace becomes a non-magical hemp string.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<hr />\n<p><strong>Effect</strong> You detach a sphere from the necklace, causing it to glow with orange light. After you activate a sphere, if you or anyone else hurls it (an Interact action with the ranged trait), it detonates as a fireball where it lands. Your toss can place the center of the fireballed trait), it detonates as a fireball where it lands. Your toss can place the center of the fireball anywhere within 70 feet, though at the GM's discretion you might need to make an attack roll if the throw is unusually challenging. If no one hurls the sphere by the start of your next turn, it turns into a non-magical red bead.</p>"
+                    "value": "<p>This string of beads appears to be a hemp string with lustrous red beads of various sizes hanging from it. When activated, it briefly appears in its true form: a golden chain with golden spheres attached by fine threads.</p>\n<p>This necklace has one [[/r 16d6[fire]]] damage, three [[/r 14d6[fire]]] damage and four [[/r 12d6[fire]]] damage beads with a Reflex save DC of 36. When all the beads are gone, the necklace becomes a non-magical hemp string.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<hr />\n<p><strong>Effect</strong> You detach a sphere from the necklace, causing it to glow with orange light. After you activate a sphere, if you or anyone else hurls it (an Interact action with the ranged trait), it detonates as a fireball where it lands. Your toss can place the center of the fireballed trait), it detonates as a fireball where it lands. Your toss can place the center of the fireball anywhere within 70 feet, though at the GM's discretion you might need to make an attack roll if the throw is unusually challenging. If no one hurls the sphere by the start of your next turn, it turns into a non-magical red bead.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -411,7 +400,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "evocation",
@@ -430,6 +418,11 @@
         },
         {
             "_id": "DBzG2AKUenn28L2w",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "oEHGOxor2V2wjqVL"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "War Razor",
             "sort": 500000,
@@ -445,38 +438,24 @@
                     "value": 33
                 },
                 "damageRolls": {
-                    "v0eyjyhvlm8wzi4ul3nf": {
+                    "0": {
                         "damage": "3d4+11",
                         "damageType": "slashing"
+                    },
+                    "1": {
+                        "damage": "2d10",
+                        "damageType": "bleed"
                     }
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed2d10.success]</p>"
+                    "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Bleed2d10.criticalSuccess"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Bleed2d10.success"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -493,6 +472,11 @@
         },
         {
             "_id": "pu72YVc5Xv4KyIqf",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "MMlJGTKiXBTLzx4V"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Dagger",
             "sort": 600000,
@@ -522,7 +506,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -564,7 +547,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -593,7 +575,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Whenever Sad Liza deals slashing damage, the target takes an additional @Localize[PF2E.PersistentDamage.Bleed2d10.success].</p>"
+                    "value": "<p>Whenever Sad Liza deals slashing damage, the target takes an additional [[/r 2d10[bleed]]].</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -604,7 +586,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -633,7 +614,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Sad Liza makes three ranged dagger Strikes, each against a separate target; she ignores the multiple attack penalty until after making all three Strikes. On a critical hit, the target takes @Localize[PF2E.PersistentDamage.Bleed2d10.success] and is @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>"
+                    "value": "<p>Sad Liza makes three ranged dagger Strikes, each against a separate target; she ignores the multiple attack penalty until after making all three Strikes. On a critical hit, the target takes [[/r 2d10[bleed]]] and is @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -644,7 +625,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -684,7 +664,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -724,7 +703,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -756,11 +734,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -784,11 +757,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -812,11 +780,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -840,11 +803,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -868,11 +826,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -915,7 +868,7 @@
                 "value": 240
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 32
@@ -956,13 +909,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

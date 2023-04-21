@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "primal"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -126,11 +121,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "cone",
+                    "type": "cone",
                     "value": 15
-                },
-                "areasize": {
-                    "value": "15-foot cone"
                 },
                 "category": {
                     "value": "spell"
@@ -215,7 +207,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "incapacitation",
@@ -240,11 +231,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
+                    "type": "burst",
                     "value": 10
-                },
-                "areasize": {
-                    "value": "10-foot burst"
                 },
                 "category": {
                     "value": "spell"
@@ -325,7 +313,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -347,11 +334,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
+                    "type": "burst",
                     "value": 10
-                },
-                "areasize": {
-                    "value": "10-foot burst"
                 },
                 "category": {
                     "value": "spell"
@@ -432,7 +416,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "visual"
@@ -455,13 +438,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -543,7 +520,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "light",
@@ -587,7 +563,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -630,7 +605,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -685,7 +659,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -730,7 +703,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -775,7 +747,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -820,7 +791,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -836,7 +806,7 @@
         {
             "_id": "4d37i0818MYTgBAF",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status Bonus on Saves vs. Magic",
+            "name": "+1 Status to All Saves vs. Magic",
             "sort": 1200000,
             "system": {
                 "actionCategory": {
@@ -878,7 +848,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -917,13 +886,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 90,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "aura",
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": "frightful-presence",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -984,7 +964,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "move"
@@ -1015,7 +994,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dragon breathes a flurry of piercing crystals that deal [[/r {12d6}[piercing]]]{12d6 piercing damage} in a @Template[type:cone|distance:40] (@Check[type:reflex|dc:30|basic:true] save).</p>\n<p>They can't use Breath Weapon again for [[/br 1d4 #Breath Weapon Recharge]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon breathes a flurry of piercing crystals that deal [[/r 12d6[piercing]]] damage in a @Template[type:cone|distance:40] (@Check[type:reflex|dc:30|basic:true] save).</p>\n<p>They can't use Breath Weapon again for [[/br 1d4 #Breath Weapon Recharge]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1026,7 +1005,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "evocation",
@@ -1069,7 +1047,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "primal",
@@ -1113,7 +1090,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1163,7 +1139,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1195,11 +1170,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1223,11 +1193,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1251,11 +1216,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1279,11 +1239,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1307,11 +1262,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1335,11 +1285,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1363,11 +1308,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1412,8 +1352,16 @@
                 "temp": 0,
                 "value": 185
             },
+            "immunities": [
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 20
@@ -1430,7 +1378,13 @@
                     }
                 ],
                 "value": 50
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "sonic",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1471,22 +1425,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "paralyzed",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "label": "Sonic",
-                    "type": "sonic",
-                    "value": "10"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

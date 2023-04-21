@@ -35,7 +35,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-10"
@@ -78,7 +77,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -123,7 +121,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -175,7 +172,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -209,13 +205,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "slug": "starvation-aura",
+                        "traits": [
+                            "aura",
+                            "divine",
+                            "mental",
+                            "necromancy"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -246,7 +253,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The gashadokuro breathes a spray of bone shards in a @Template[type:cone|distance:30]. Each creature in the area takes [[/r {8d12}[piercing]]]{8d12 piercing damage} (@Check[type:reflex|dc:34|basic:true]).</p>\n<p>It can't use Breath Weapon again for [[/r 1d4 #Recharge]]{1d4 rounds}.</p>"
+                    "value": "<p>The gashadokuro breathes a spray of bone shards in a @Template[type:cone|distance:30]. Each creature in the area takes [[/r 8d12[piercing]]] damage (@Check[type:reflex|dc:34|basic:true]).</p>\n<p>It can't use Breath Weapon again for [[/r 1d4 #Recharge]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -257,7 +264,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divine",
@@ -297,7 +303,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divine",
@@ -331,7 +336,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Large, [[/r {3d6+8}[bludgeoning]]]{3d6+8 bludgeoning}, Rupture 24</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                    "value": "<p>Large, [[/r (3d6+8)[bludgeoning]]], Rupture 24</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -342,7 +347,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack"
@@ -389,7 +393,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -421,11 +424,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -449,11 +447,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -495,12 +488,51 @@
                 "temp": 0,
                 "value": 230
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 24
             },
+            "resistances": [
+                {
+                    "type": "cold",
+                    "value": 10
+                },
+                {
+                    "type": "electricity",
+                    "value": 10
+                },
+                {
+                    "type": "fire",
+                    "value": 10
+                },
+                {
+                    "type": "piercing",
+                    "value": 10
+                },
+                {
+                    "type": "slashing",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "special": "",
@@ -538,45 +570,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "cold",
-                    "value": 10
-                },
-                {
-                    "exceptions": "",
-                    "type": "electricity",
-                    "value": 10
-                },
-                {
-                    "exceptions": "",
-                    "type": "fire",
-                    "value": 10
-                },
-                {
-                    "exceptions": "",
-                    "type": "piercing",
-                    "value": 10
-                },
-                {
-                    "exceptions": "",
-                    "type": "slashing",
-                    "value": 10
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "(Can't Speak Any Language)",
                 "selected": [],

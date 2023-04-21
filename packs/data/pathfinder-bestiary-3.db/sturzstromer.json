@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "primal"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -126,11 +121,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "60"
-                },
-                "areasize": {
-                    "value": "60-foot burst"
+                    "type": "burst",
+                    "value": 60
                 },
                 "category": {
                     "value": "spell"
@@ -236,7 +228,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "earth"
@@ -260,11 +251,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "60"
-                },
-                "areasize": {
-                    "value": "60-foot burst"
+                    "type": "burst",
+                    "value": 60
                 },
                 "category": {
                     "value": "spell"
@@ -374,7 +362,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "earth"
@@ -397,13 +384,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -484,7 +465,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "earth"
@@ -507,13 +487,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -594,7 +568,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -633,7 +606,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -673,7 +645,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -718,7 +689,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -747,7 +717,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The sturzstromer attempts an Athletics check and compares the result to the Fortitude DC of each creature in its space. This counts as two attacks for the sturzstromer's multiple attack penalty.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed}, takes [[/r {1d6}[bludgeoning]]]{1d6 bludgeoning damage}, and is @UUID[Compendium.pf2e.conditionitems.Restrained]{Restrained} until the end of the sturzstromer's next turn.</p>\n<p><strong>Success</strong> The creature is grabbed.</p>"
+                    "value": "<p>The sturzstromer attempts an Athletics check and compares the result to the Fortitude DC of each creature in its space. This counts as two attacks for the sturzstromer's multiple attack penalty.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed}, takes [[/r 1d6[bludgeoning]]] damage, and is @UUID[Compendium.pf2e.conditionitems.Restrained]{Restrained} until the end of the sturzstromer's next turn.</p>\n<p><strong>Success</strong> The creature is grabbed.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -758,7 +728,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack"
@@ -800,7 +769,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -829,7 +797,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each foe in the sturzstromer's space takes [[/r {4d10}[bludgeoning]]]{4d10 bludgeoning damage} (@Check[type:reflex|dc:41|basic:true] save).</p>"
+                    "value": "<p>Each foe in the sturzstromer's space takes [[/r 4d10[bludgeoning]]] damage (@Check[type:reflex|dc:41|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -840,7 +808,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -872,11 +839,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -900,11 +862,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -946,12 +903,33 @@
                 "temp": 0,
                 "value": 280
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                },
+                {
+                    "type": "visual"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 33
             },
+            "resistances": [
+                {
+                    "type": "piercing",
+                    "value": 20
+                },
+                {
+                    "type": "slashing",
+                    "value": 20
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -960,7 +938,17 @@
                     }
                 ],
                 "value": 50
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 12
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 12
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1001,37 +989,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "precision",
-                    "swarm-mind",
-                    "visual"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "piercing",
-                    "value": 20
-                },
-                {
-                    "exceptions": "",
-                    "type": "slashing",
-                    "value": 20
-                }
-            ],
-            "dv": [
-                {
-                    "type": "area-damage",
-                    "value": 12
-                },
-                {
-                    "type": "splash-damage",
-                    "value": 12
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],
@@ -1041,7 +998,7 @@
             },
             "rarity": "uncommon",
             "senses": {
-                "value": "no vision, tremorsense (precise) 120 feet, (imprecise) 240 feet"
+                "value": "no vision, tremorsense (precise) 120 feet, tremorsense (imprecise) 240 feet"
             },
             "size": {
                 "value": "huge"

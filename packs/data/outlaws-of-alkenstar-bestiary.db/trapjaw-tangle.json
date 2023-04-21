@@ -34,7 +34,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -79,7 +78,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -108,7 +106,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature leaves the trapjaw tangle's space</p>\n<hr />\n<p><strong>Effect</strong> The swarm takes [[/r 1d6]]{1d6 damage} as individual traps cling to the creature and continue chewing, dealing [[/r {2d10}[persistent,slashing]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Slashing Damage}. High winds or electricity damage reduces the DC of the flat check to end this persistent damage by 5. Any area damage dealt to the creature destroys these clinging trapjaws.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature leaves the trapjaw tangle's space</p>\n<hr />\n<p><strong>Effect</strong> The swarm takes [[/r 1d6]]{1d6 damage} as individual traps cling to the creature and continue chewing, dealing [[/r 2d10[persistent,slashing]]] damage. High winds or electricity damage reduces the DC of the flat check to end this persistent damage by 5. Any area damage dealt to the creature destroys these clinging trapjaws.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -119,7 +117,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -145,7 +142,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {2d10}[slashing]]]{2d10 slashing damage} (@Check[type:reflex|dc:22|basic:true]). Creatures that fail this save become @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} from the numerous painful wounds caused by the swarm.</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r 2d10[slashing]]] damage (@Check[type:reflex|dc:22|basic:true]). Creatures that fail this save become @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} from the numerous painful wounds caused by the swarm.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -156,7 +153,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -193,7 +189,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -222,11 +217,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -261,11 +251,6 @@
                 "source": {
                     "value": ""
                 },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
                 "variants": {
                     "0": {
                         "label": "+10 to Trip and Tangle",
@@ -294,11 +279,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -340,16 +320,55 @@
                 "temp": 0,
                 "value": 58
             },
+            "immunities": [
+                {
+                    "type": "mental"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 11
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 4
+                },
+                {
+                    "type": "piercing",
+                    "value": 8
+                },
+                {
+                    "type": "slashing",
+                    "value": 8
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 4
+                },
+                {
+                    "type": "electricity",
+                    "value": 8
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 4
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -382,58 +401,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "precision",
-                    "sickened",
-                    "swarm-mind",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "bludgeoning",
-                    "value": 4
-                },
-                {
-                    "exceptions": "",
-                    "type": "piercing",
-                    "value": 8
-                },
-                {
-                    "exceptions": "",
-                    "type": "slashing",
-                    "value": 8
-                }
-            ],
-            "dv": [
-                {
-                    "type": "area-damage",
-                    "value": 4
-                },
-                {
-                    "type": "electricity",
-                    "value": 8
-                },
-                {
-                    "type": "splash-damage",
-                    "value": 4
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

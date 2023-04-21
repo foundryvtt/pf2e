@@ -1,0 +1,84 @@
+<div class="tab" data-group="main" data-tab="appearance">
+
+    <fieldset class="appearance">
+        <legend>{{localize "TOKEN.HeaderAppearance"}}</legend>
+        <div class="form-group">
+            <label>{{localize "TOKEN.ImagePath"}}</label>
+            <div class="form-fields">
+                {{filePicker target="texture.src" type="imagevideo"}}
+                <input class="image" type="text" name="texture.src" placeholder="path/image.png" value="{{object.texture.src}}" />
+            </div>
+        </div>
+
+        {{#if randomImgEnabled}}
+            <div class="form-group">
+                <label>{{localize "TOKEN.RandomImg"}}</label>
+                <input type="checkbox" name="randomImg" {{checked object.randomImg}} />
+            </div>
+        {{else if hasAlternates}}
+            <div class="form-group">
+                <label>{{localize "TOKEN.ImageAlts"}}</label>
+                <select class="alternate-images" name="alternateImages">
+                    {{selectOptions alternateImages selected=object.texture.src blank=""}}
+                </select>
+            </div>
+        {{/if}}
+
+        <div class="form-group slim">
+            <label>{{localize "TOKEN.Mirror"}}</label>
+            <div class="form-fields">
+                <label>{{localize "TOKEN.MirrorX"}}</label>
+                <input type="checkbox" name="mirrorX" {{checked mirrorX}} />
+                <label>{{localize "TOKEN.MirrorY"}}</label>
+                <input type="checkbox" name="mirrorY" {{checked mirrorY}} />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "TOKEN.TintColor"}}</label>
+            <div class="form-fields">
+                {{colorPicker name="texture.tint" value=object.texture.tint}}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "TOKEN.Opacity"}}</label>
+            <div class="form-fields">
+                {{rangePicker name="alpha" value=object.alpha min="0" max="1" step="0.05"}}
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset class="size">
+        <legend>{{localize "PF2E.Token.Size.Label"}}</legend>
+        <div class="form-group slim">
+            <label>
+                {{localize "TOKEN.Dimensions"}} <span class="units">({{localize "GridSpaces"}})</span>
+                {{#if sizeLinkable}}
+                    <a data-action="toggle-link-to-size" title="{{localize (concat "PF2E.Token.Size.LinkToActorSize." linkToSizeTitle)}}">
+                        <i class="fa-solid fa-fw fa-lock{{#unless object.flags.pf2e.linkToActorSize}}-open{{/unless}}"></i>
+                    </a>
+                {{/if}}
+            </label>
+            <div class="form-fields">
+                <label>{{localize "Width"}}</label>
+                <input type="number" step="0.1" name="width" placeholder="units" value="{{object.width}}" {{disabled object.flags.pf2e.linkToActorSize}} />
+                <label>{{localize "Height"}}</label>
+                <input type="number" step="0.1" name="height" placeholder="units" value="{{object.height}}" {{disabled object.flags.pf2e.linkToActorSize}} />
+            </div>
+        </div>
+        <div class="form-group scale">
+            <label>
+                {{localize "Scale"}} <span class="units">({{localize "Ratio"}})</span>
+                {{#if (and sizeLinkable object.flags.pf2e.linkToActorSize)}}
+                    <a data-action="toggle-autoscale" title="{{localize (concat "PF2E.Token.Size.LinkToActorSize." autoscaleTitle)}}">
+                        <i class="fa-solid fa-fw fa-lock{{#unless object.flags.pf2e.autoscale}}-open{{/unless}}"></i>
+                    </a>
+                {{/if}}
+            </label>
+            <div class="form-fields">
+                {{rangePicker name="scale" value=scale min="0.2" max="3.0" step="0.1"}}
+            </div>
+        </div>
+    </fieldset>
+</div>

@@ -34,7 +34,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -79,7 +78,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -131,7 +129,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -165,13 +162,22 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "slug": "necrotic-runoff",
+                        "traits": [
+                            "aura",
+                            "poison"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -200,7 +206,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the seetangeist's space takes [[/r {3d6}[slashing]+{3d6}[poison]]]{3d6 slashing and 3d6 poison damage} (@Check[type:reflex|dc:32|basic:true]). A creature that fails this save also takes @Localize[PF2E.PersistentDamage.Poison1d12.success].</p>"
+                    "value": "<p>Each enemy in the seetangeist's space takes [[/r {3d6[slashing],3d6[poison]}]]{3d6 slashing and 3d6 poison damage} (@Check[type:reflex|dc:32|basic:true]). A creature that fails this save also takes [[/r 1d12[persistent,poison]]].</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -211,7 +217,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -240,11 +245,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -286,12 +286,57 @@
                 "temp": 0,
                 "value": 160
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "prone"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 19
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 5
+                },
+                {
+                    "type": "cold",
+                    "value": 10
+                },
+                {
+                    "type": "fire",
+                    "value": 10
+                },
+                {
+                    "type": "slashing",
+                    "value": 10
+                },
+                {
+                    "type": "piercing",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -301,7 +346,17 @@
                 ],
                 "special": "",
                 "value": 0
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 10
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -334,57 +389,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "mental",
-                    "paralyzed",
-                    "poison",
-                    "precision",
-                    "prone",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "bludgeoning",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "cold",
-                    "value": 10
-                },
-                {
-                    "exceptions": "",
-                    "type": "fire",
-                    "value": 10
-                },
-                {
-                    "exceptions": "",
-                    "type": "slashing",
-                    "value": 10
-                },
-                {
-                    "exceptions": "",
-                    "type": "piercing",
-                    "value": 10
-                }
-            ],
-            "dv": [
-                {
-                    "type": "area-damage",
-                    "value": 10
-                },
-                {
-                    "type": "splash-damage",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

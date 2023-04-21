@@ -150,11 +150,6 @@
                 },
                 "tradition": {
                     "value": "primal"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -259,11 +254,6 @@
                 },
                 "tradition": {
                     "value": "primal"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -282,13 +272,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -370,7 +354,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "incapacitation"
@@ -393,13 +376,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -479,7 +456,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "earth"
@@ -502,13 +478,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -524,8 +494,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "acid"
                             },
                             "value": "3d8"
@@ -533,7 +505,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus [[/r {1d6}[persistent,acid]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}. On a critical hit, double the initial damage, but not the @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Damage}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Damage} increases by 1d6.</p>"
+                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus [[/r 1d6[persistent,acid]]]. On a critical hit, double the initial damage, but not the persistent damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Damage} increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -603,7 +575,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "acid",
@@ -627,13 +598,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -715,7 +680,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -736,13 +700,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -822,7 +780,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -843,13 +800,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -871,18 +822,128 @@
                                 "subtype": "",
                                 "value": "acid"
                             },
-                            "value": "1d6+1"
+                            "value": "1d6"
+                        },
+                        "gcovwqxwitqchoin": {
+                            "applyMod": false,
+                            "type": {
+                                "categories": [],
+                                "subtype": "splash",
+                                "value": "acid"
+                            },
+                            "value": "1"
                         }
                     }
                 },
                 "description": {
-                    "value": "<p>You splash a glob of acid that splatters your target and nearby creatures. Make a spell attack. If you hit, you deal 1d6 acid damage plus 1 splash acid damage. On a critical success, the target also takes [[/r {1}[persistent,acid]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The initial damage increases to 1d6 + your spellcasting ability modifier, and the @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Damage} increases to 2.</p>\n<p><strong>Heightened (5th)</strong> The initial damage increases to 2d6 + your spellcasting ability modifier, the Persistent Damage increases to 3, and the splash damage increases to 2.</p>\n<p><strong>Heightened (7th)</strong> The initial damage increases to 3d6 + your spellcasting ability modifier, the Persistent Damage increases to 4, and the splash damage increases to 3.</p>\n<p><strong>Heightened (9th)</strong> The initial damage increases to 4d6 + your spellcasting ability modifier, the Persistent Damage increases to 5, and the splash damage increases to 4.</p>"
+                    "value": "<p>You splash a glob of acid that splatters your target and nearby creatures. Make a spell attack. If you hit, you deal 1d6 acid damage plus [[/r (1[splash])[acid]]]. On a critical success, the target also takes [[/r 1[persistent,acid]]] damage.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The initial damage increases to 1d6 + your spellcasting ability modifier, and the @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Damage} increases to [[/r 2[persistent,acid]]].</p>\n<p><strong>Heightened (5th)</strong> The initial damage increases to 2d6 + your spellcasting ability modifier, the Persistent Damage increases to [[/r 3[persistent,acid]]], and the splash damage increases to [[/r (2[splash])[acid]]].</p>\n<p><strong>Heightened (7th)</strong> The initial damage increases to 3d6 + your spellcasting ability modifier, the Persistent Damage increases to [[/r 4[persistent,acid]]], and the splash damage increases to [[/r (3[splash])[acid]]].</p>\n<p><strong>Heightened (9th)</strong> The initial damage increases to 4d6 + your spellcasting ability modifier, the Persistent Damage increases to [[/r 5[persistent,acid]]], and the splash damage increases to [[/r (4[splash])[acid]]].</p>"
                 },
                 "duration": {
                     "value": ""
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "applyMod": true,
+                                        "type": {
+                                            "categories": [],
+                                            "subtype": "",
+                                            "value": "acid"
+                                        },
+                                        "value": "1d6"
+                                    },
+                                    "gcovwqxwitqchoin": {
+                                        "applyMod": false,
+                                        "type": {
+                                            "categories": [],
+                                            "subtype": "splash",
+                                            "value": "acid"
+                                        },
+                                        "value": "1"
+                                    }
+                                }
+                            }
+                        },
+                        "5": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "applyMod": true,
+                                        "type": {
+                                            "categories": [],
+                                            "subtype": "",
+                                            "value": "acid"
+                                        },
+                                        "value": "2d6"
+                                    },
+                                    "gcovwqxwitqchoin": {
+                                        "applyMod": false,
+                                        "type": {
+                                            "categories": [],
+                                            "subtype": "splash",
+                                            "value": "acid"
+                                        },
+                                        "value": "2"
+                                    }
+                                }
+                            }
+                        },
+                        "7": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "applyMod": true,
+                                        "type": {
+                                            "categories": [],
+                                            "subtype": "",
+                                            "value": "acid"
+                                        },
+                                        "value": "3d6"
+                                    },
+                                    "gcovwqxwitqchoin": {
+                                        "applyMod": false,
+                                        "type": {
+                                            "categories": [],
+                                            "subtype": "splash",
+                                            "value": "acid"
+                                        },
+                                        "value": "3"
+                                    }
+                                }
+                            }
+                        },
+                        "9": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "applyMod": true,
+                                        "type": {
+                                            "categories": [],
+                                            "subtype": "",
+                                            "value": "acid"
+                                        },
+                                        "value": "4d6"
+                                    },
+                                    "gcovwqxwitqchoin": {
+                                        "applyMod": false,
+                                        "type": {
+                                            "categories": [],
+                                            "subtype": "splash",
+                                            "value": "acid"
+                                        },
+                                        "value": "4"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -940,7 +1001,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack",
@@ -965,13 +1025,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -988,7 +1042,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You reinforce the target's musculoskeletal system to bear more weight. The target can carry 3 more Bulk than normal before becoming @UUID[Compendium.pf2e.conditionitems.Encumbered]{Encumbered} and up to a maximum of 6 more Bulk.</p>"
+                    "value": "<p>You reinforce the target's musculoskeletal system to bear more weight. The target can carry 3 more Bulk than normal before becoming @UUID[Compendium.pf2e.conditionitems.Encumbered]{Encumbered} and up to a maximum of 6 more Bulk.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Ant Haul]{Spell Effect: Ant Haul}</p>"
                 },
                 "duration": {
                     "value": "8 hours"
@@ -1051,7 +1105,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1073,11 +1126,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
+                    "type": "emanation",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -1161,7 +1211,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "detection",
@@ -1185,13 +1234,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1272,7 +1315,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "visual"
@@ -1295,13 +1337,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1384,7 +1420,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "cantrip"
@@ -1407,13 +1442,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1439,7 +1468,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 1d4 fire damage plus your spellcasting ability modifier. On a critical success, the target takes double damage and [[/r {1d4}[persistent,fire]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Damage} on a critical hit by 1d4.</p>"
+                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 1d4 fire damage plus your spellcasting ability modifier. On a critical success, the target takes double damage and [[/r 1d4[persistent,fire]]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Damage} on a critical hit by 1d4.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1510,7 +1539,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack",
@@ -1535,13 +1563,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1565,6 +1587,21 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "target": {
+                                "value": "10 objects"
+                            }
+                        },
+                        "6": {
+                            "target": {
+                                "value": "any number of objects"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -1624,7 +1661,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "detection",
@@ -1648,13 +1684,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1679,7 +1709,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You shroud your hands in a crackling field of lightning. Make a melee spell attack roll. On a hit, the target takes 2d12 electricity damage. If the target is wearing metal armor or is made of metal, you gain a +1 circumstance bonus to your attack roll with shocking grasp, and the target also takes [[/r {1d4}[persistent,electricity]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Electricity Damage} on a hit. On a critical hit, double the initial damage, but not the @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Damage}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d12, and the persistent electricity damage increases by 1.</p>"
+                    "value": "<p>You shroud your hands in a crackling field of lightning. Make a melee spell attack roll. On a hit, the target takes 2d12 electricity damage. If the target is wearing metal armor or is made of metal, you gain a +1 circumstance bonus to your attack roll with shocking grasp, and the target also takes [[/r 1d4[persistent,electricity]]] damage on a hit. On a critical hit, double the initial damage, but not the @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Damage}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d12, and the persistent electricity damage increases by 1.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1749,7 +1779,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack",
@@ -1773,13 +1802,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1796,7 +1819,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>Whenever you speak or make any other sound vocally, you can make your vocalization seem to originate from somewhere else within 60 feet, and you can change that apparent location freely as you vocalize. Any creature that hears the sound can attempt to disbelieve your illusion.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The spell's duration increases to 1 hour, and you can also change the tone, quality, and other aspects of your voice. Before a creature can attempt to disbelieve your illusion, it must actively attempt a Perception check or otherwise use actions to interact with the sound.</p>"
+                    "value": "<p>Whenever you speak or make any other sound vocally, you can make your vocalization seem to originate from somewhere else within 60 feet, and you can change that apparent location freely as you vocalize. Any creature that hears the sound can attempt to disbelieve your illusion.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The spell's duration increases to 1 hour, and you can also change the tone, quality, and other aspects of your voice. Before a creature can attempt to disbelieve your illusion, it must actively attempt a Perception check or otherwise use actions to interact with the sound.</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -1861,7 +1884,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "auditory"
@@ -1896,8 +1918,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>A pick designed solely for combat has a sturdy wooden shaft and a heavy, pointed head to deliver devastating blows.</p>"
@@ -1960,9 +1981,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -1971,7 +1989,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "fatal-d10"
@@ -2012,8 +2029,7 @@
                 "damage": {
                     "damageType": "bludgeoning",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>Little more than a leather cup attached to a pair of straps, a sling can be used to fling smooth stones or sling bullets at a range.</p>"
@@ -2074,9 +2090,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -2085,7 +2098,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "propulsive"
@@ -2192,7 +2204,6 @@
                     "value": 14
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -2259,7 +2270,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -2283,22 +2293,11 @@
             "name": "Sling Bullets",
             "sort": 2100000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 0,
                     "value": 0
                 },
@@ -2306,16 +2305,11 @@
                     "value": "ammo"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": ""
                 },
                 "containerId": null,
                 "description": {
                     "value": "<p>These are small metal balls, typically either iron or lead, designed to be used as ammunition in slings.</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
                 },
                 "equipped": {
                     "carryType": "held",
@@ -2349,11 +2343,6 @@
                     }
                 },
                 "quantity": 10,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": "sling-bullets",
@@ -2361,25 +2350,12 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": "slingBullets",
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "L"
@@ -2398,22 +2374,11 @@
             "name": "Scroll of Nondetection (Level 3)",
             "sort": 2200000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 1,
                     "value": 1
                 },
@@ -2421,16 +2386,11 @@
                     "value": "scroll"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": ""
                 },
                 "containerId": null,
                 "description": {
                     "value": "<p><em>@UUID[Compendium.pf2e.spells-srd.Nondetection]{Nondetection}</em></p>\n<hr />\n<p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>To Cast a Spell from a scroll, the spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack roll and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical material components and costs are provided when a scroll is created, so you don't need to provide them when Casting a Spell from a scroll. You must replace any required material component for that spell with a somatic component. If the spell requires a focus, you must have that focus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
                 },
                 "equipped": {
                     "carryType": "held",
@@ -2463,11 +2423,6 @@
                     }
                 },
                 "quantity": 1,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": "scroll-of-3rd-level-spell",
@@ -2488,13 +2443,7 @@
                         "ability": {
                             "value": ""
                         },
-                        "area": {
-                            "areaType": "",
-                            "value": null
-                        },
-                        "areasize": {
-                            "value": ""
-                        },
+                        "area": null,
                         "category": {
                             "value": "spell"
                         },
@@ -2576,7 +2525,6 @@
                             ]
                         },
                         "traits": {
-                            "custom": "",
                             "rarity": "uncommon",
                             "value": []
                         }
@@ -2584,13 +2532,7 @@
                     "type": "spell"
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "consumable",
@@ -2604,13 +2546,6 @@
                 "usage": {
                     "value": "held-in-one-hand"
                 },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
-                },
                 "weight": {
                     "value": "L"
                 }
@@ -2619,6 +2554,11 @@
         },
         {
             "_id": "GNpyzaHN2uioOy3x",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "xmXGe4TxV7T4zp14"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Pick",
             "sort": 2300000,
@@ -2648,7 +2588,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "fatal-d10"
@@ -2662,6 +2601,11 @@
         },
         {
             "_id": "HQrZGDENHs9wuZxK",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "L5C6Y3z4fmhWtRcR"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Sling",
             "sort": 2400000,
@@ -2691,7 +2635,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "propulsive",
@@ -2736,7 +2679,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -2768,11 +2710,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -2796,11 +2733,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -2824,11 +2756,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -2852,11 +2779,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -2899,7 +2821,7 @@
                 "value": 63
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 14
@@ -2945,13 +2867,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

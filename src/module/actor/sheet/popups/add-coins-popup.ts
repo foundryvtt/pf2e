@@ -1,5 +1,5 @@
-import { ActorPF2e } from "@actor/base";
-import { Coins } from "@item/physical/data";
+import { ActorPF2e } from "@actor/base.ts";
+import { Coins } from "@item/physical/data.ts";
 
 interface AddCoinsFormData extends Coins {
     combineStacks: boolean;
@@ -14,7 +14,7 @@ export class AddCoinsPopup extends FormApplication<ActorPF2e> {
         options.id = "add-coins";
         options.classes = [];
         options.title = "Add Coins";
-        options.template = "systems/pf2e/templates/actors/add-coins.html";
+        options.template = "systems/pf2e/templates/actors/add-coins.hbs";
         options.width = "auto";
         return options;
     }

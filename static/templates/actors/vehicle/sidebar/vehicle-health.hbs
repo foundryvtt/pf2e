@@ -1,0 +1,27 @@
+<div class="sidebar_title">
+  <h2>
+      {{localize "PF2E.HitPointsHeader"}}
+  </h2>
+</div>
+<div class="hitpoints">
+  <div class="hp-big">
+    <div class="container temp-hp" title="{{localize "PF2E.ShieldBrokenThresholdLabel"}}">
+      <span for="data.attributes.hp.brokenThreshold" class="sidebar_label">{{localize "PF2E.vehicle.BrokenThresholdShortLabel"}}</span>
+      <div class="data-value">
+        <h2>{{data.attributes.hp.brokenThreshold}}</h2>
+      </div>
+    </div>
+    <div class="container current-hp" title="{{localize "PF2E.vehicle.CurrentHPTitle"}}">
+      <label for="{{options.id}}-vehicle-hp-temp" class="sidebar_label">{{localize "PF2E.CurrentHitPointsShortLabel"}}</label>
+      <div class="data-value">
+        <input id="{{options.id}}-vehicle-hp-temp" name="system.attributes.hp.value" type="number" value="{{data.attributes.hp.value}}" data-dtype="Number" placeholder="0" size="1"/>
+      </div>
+    </div>
+    <div class="container max-hp" title="{{localize "PF2E.vehicle.MaxHPTitle"}}">
+      <label for="{{options.id}}-vehicle-hp-max" class="sidebar_label">{{localize "PF2E.MaxHitPointsShortLabel"}}</label>
+      <div class="data-value">
+        <input id="{{options.id}}-vehicle-hp-max" data-property="system.attributes.hp.max" type="number" value="{{data.attributes.hp.max}}" placeholder="0" size="1" />
+      </div>
+    </div>
+  </div>
+</div>

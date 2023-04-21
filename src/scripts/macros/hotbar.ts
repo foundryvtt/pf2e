@@ -1,12 +1,11 @@
-import { ItemPF2e } from "@item/base";
-import { ItemSourcePF2e } from "@item/data";
-import { EffectPF2e } from "@item/effect";
-import { MacroPF2e } from "@module/macro";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { SKILL_DICTIONARY } from "@actor/values";
-import { SkillAbbreviation } from "@actor/creature/data";
-import { LocalizePF2e } from "@system/localize";
-import { StrikeData } from "@actor/data/base";
+import { SkillAbbreviation } from "@actor/creature/data.ts";
+import { StrikeData } from "@actor/data/base.ts";
+import { SKILL_DICTIONARY } from "@actor/values.ts";
+import { ItemPF2e } from "@item/base.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { EffectPF2e } from "@item/effect/index.ts";
+import { ChatMessagePF2e } from "@module/chat-message/document.ts";
+import { MacroPF2e } from "@module/macro.ts";
 
 /**
  * Create a Macro from an Item drop.
@@ -46,13 +45,13 @@ export function rollItemMacro(itemId: string): ReturnType<ItemPF2e["toChat"]> | 
     return item.toChat();
 }
 
-export async function createActionMacro(actionIndex: number, actorId: string, slot: number): Promise<void> {
-    const actor = game.actors.get(actorId, { strict: true });
-    const action = actor.isOfType("character", "npc") ? actor.system.actions[actionIndex] : null;
+export async function createActionMacro(actionIndex: number, slot: number): Promise<void> {
+    const speaker = ChatMessage.getSpeaker();
+    const actor = canvas.tokens.get(speaker.token ?? "")?.actor ?? game.actors.get(speaker.actor ?? "");
+    const action = actor?.isOfType("character", "npc") ? actor.system.actions[actionIndex] : null;
     if (!action) return;
-    const macroName = `${game.i18n.localize("PF2E.WeaponStrikeLabel")}: ${action.slug}`;
-    const actionName = JSON.stringify(action.slug);
-    const command = `game.pf2e.rollActionMacro("${actorId}", ${actionIndex}, ${actionName})`;
+    const macroName = `${game.i18n.localize("PF2E.WeaponStrikeLabel")}: ${action.label}`;
+    const command = `game.pf2e.rollActionMacro("${action.item.id}", ${actionIndex}, "${action.slug}")`;
     const actionMacro =
         game.macros.find((macro) => macro.name === macroName && macro.command === command) ??
         (await MacroPF2e.create(
@@ -68,15 +67,18 @@ export async function createActionMacro(actionIndex: number, actorId: string, sl
     game.user.assignHotbarMacro(actionMacro ?? null, slot);
 }
 
-export async function rollActionMacro(actorId: string, _actionIndex: number, actionSlug: string): Promise<void> {
-    const actor = game.actors.get(actorId);
+export async function rollActionMacro(itemId: string, _actionIndex: number, actionSlug: string): Promise<void> {
+    const speaker = ChatMessage.getSpeaker();
+    const actor = canvas.tokens.get(speaker.token ?? "")?.actor ?? game.actors.get(speaker.actor ?? "");
     if (!actor?.isOfType("character", "npc")) {
         return ui.notifications.error("PF2E.MacroActionNoActorError", { localize: true });
     }
 
     const strikes: StrikeData[] = actor.system.actions;
-    const strike = strikes.find((s) => s.slug === actionSlug);
-    if (strike?.slug !== actionSlug) {
+    const strike =
+        strikes.find((s) => s.item.id === itemId && s.slug === actionSlug) ??
+        strikes.find((s) => s.slug === actionSlug);
+    if (!strike) {
         return ui.notifications.error("PF2E.MacroActionNoActionError", { localize: true });
     }
 
@@ -84,14 +86,14 @@ export async function rollActionMacro(actorId: string, _actionIndex: number, act
         actor,
         strike,
         strikeIndex: strikes.indexOf(strike),
-        strikeDescription: await game.pf2e.TextEditor.enrichHTML(game.i18n.localize(strike.description), {
+        strikeDescription: await TextEditor.enrichHTML(game.i18n.localize(strike.description), {
             async: true,
         }),
     };
 
-    const content = await renderTemplate("systems/pf2e/templates/chat/strike-card.html", templateData);
+    const content = await renderTemplate("systems/pf2e/templates/chat/strike-card.hbs", templateData);
     const token = actor.token ?? actor.getActiveTokens(true, true).shift() ?? null;
-    const chatData: Partial<foundry.data.ChatMessageSource> = {
+    const chatData: Partial<foundry.documents.ChatMessageSource> = {
         speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
         content,
         type: CONST.CHAT_MESSAGE_TYPES.OTHER,
@@ -108,7 +110,12 @@ export async function rollActionMacro(actorId: string, _actionIndex: number, act
     ChatMessagePF2e.create(chatData);
 }
 
-export async function createSkillMacro(skill: SkillAbbreviation, skillName: string, actorId: string, slot: number) {
+export async function createSkillMacro(
+    skill: SkillAbbreviation,
+    skillName: string,
+    actorId: string,
+    slot: number
+): Promise<void> {
     const dictName = SKILL_DICTIONARY[skill] ?? skill;
     const command = `
 const a = game.actors.get("${actorId}");
@@ -134,11 +141,10 @@ if (a) {
     game.user.assignHotbarMacro(skillMacro ?? null, slot);
 }
 
-export async function createToggleEffectMacro(effect: EffectPF2e, slot: number) {
+export async function createToggleEffectMacro(effect: EffectPF2e, slot: number): Promise<void> {
     const uuid = effect.uuid.startsWith("Actor") ? effect.sourceId : effect.uuid;
     if (!uuid) {
-        const message = LocalizePF2e.translations.PF2E.ErrorMessage.CantCreateEffectMacro;
-        ui.notifications.error(game.i18n.localize(message));
+        ui.notifications.error("PF2E.ErrorMessage.CantCreateEffectMacro", { localize: true });
         return;
     }
 
@@ -146,8 +152,7 @@ export async function createToggleEffectMacro(effect: EffectPF2e, slot: number) 
 const actors = canvas.tokens.controlled.flatMap((token) => token.actor ?? []);
 if (actors.length === 0 && game.user.character) actors.push(game.user.character);
 if (actors.length === 0) {
-    const message = game.i18n.localize("PF2E.ErrorMessage.NoTokenSelected");
-    return ui.notifications.error(message);
+    return ui.notifications.error("PF2E.ErrorMessage.NoTokenSelected", { localize: true });
 }
 
 const ITEM_UUID = "${uuid}"; // ${effect.name}

@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
                     "value": "<p>Longswords can be one‑edged or two‑edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
@@ -92,9 +91,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -103,7 +99,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "versatile-p"
@@ -144,8 +139,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
                     "value": "<p>This is a long rifle that offers more range than the average firearm, though the long barrel and ferocious kickback make the weapon particularly unsteady unless a tripod or other stand is used to stabilize it. The arquebus is one of the most commonly used long guns among the soldiers of Dongun Hold and Alkenstar.</p>"
@@ -208,18 +202,14 @@
                 "source": {
                     "value": "Pathfinder Guns & Gears"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
                 "stackGroup": null,
                 "strikingRune": {
-                    "value": ""
+                    "value": null
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "concussive",
@@ -328,7 +318,6 @@
                     "value": 18
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "bulwark"
@@ -345,6 +334,11 @@
         },
         {
             "_id": "RMbB0Cy1iBEXCD5A",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "fv7QW4VtrW3K3j6F"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Keen Longsword",
             "sort": 400000,
@@ -376,7 +370,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -420,7 +413,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -435,6 +427,11 @@
         },
         {
             "_id": "s6td3HL3SlwB4GbE",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "JRICTLKriU1Sr0xs"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Keen Striking Arquebus",
             "sort": 600000,
@@ -463,13 +460,13 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concussive",
                         "fatal-d12",
                         "kickback",
-                        "magical"
+                        "magical",
+                        "range-increment-150"
                     ]
                 },
                 "weaponType": {
@@ -510,7 +507,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -549,13 +545,18 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FastHealing",
+                        "type": "fast-healing",
+                        "value": 5
+                    }
+                ],
                 "slug": "fast-healing",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -600,7 +601,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -639,13 +639,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "aura",
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": "frightful-presence",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -690,7 +701,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -730,7 +740,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -767,7 +776,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -807,7 +815,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "conjuration",
@@ -839,7 +846,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Interact</p>\n<p><strong>Frequency</strong> once (until a new clockwork skull is crafted)</p>\n<hr />\n<p><strong>Effect</strong> The headless rustler throws its clockwork skull at a target within 30 feet. The skull explodes, dealing [[/r {8d6}[fire]]]{8d6 fire damage} to creatures in a @Template[type:burst|distance:15]{15-foot radius} (@Check[type:reflex|dc:23|basic:true]).</p>"
+                    "value": "<p>Interact</p>\n<p><strong>Frequency</strong> once (until a new clockwork skull is crafted)</p>\n<hr />\n<p><strong>Effect</strong> The headless rustler throws its clockwork skull at a target within 30 feet. The skull explodes, dealing [[/r 8d6[fire]]] damage to creatures in a @Template[type:burst|distance:15]{15-foot radius} (@Check[type:reflex|dc:23|basic:true]).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -850,7 +857,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "manipulate"
@@ -881,11 +887,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -909,11 +910,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -937,11 +933,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -965,11 +956,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1011,8 +997,28 @@
                 "temp": 0,
                 "value": 95
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "fear-effects"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 14
@@ -1020,7 +1026,13 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "good",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1053,25 +1065,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "fear-effects",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "good",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

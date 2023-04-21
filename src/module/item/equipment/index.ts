@@ -1,3 +1,3 @@
-export { EquipmentPF2e } from "./document";
-export { EquipmentSheetPF2e } from "./sheet";
-export * from "./types";
+export { EquipmentPF2e } from "./document.ts";
+export { EquipmentSheetPF2e } from "./sheet.ts";
+export * from "./types.ts";

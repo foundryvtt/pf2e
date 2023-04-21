@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "arcane"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -125,13 +120,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -147,10 +136,8 @@
                 "damage": {
                     "value": {
                         "0": {
-                            "applyMod": false,
                             "type": {
                                 "categories": [],
-                                "subtype": "",
                                 "value": "cold"
                             },
                             "value": "2d6"
@@ -229,7 +216,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "cold",
@@ -254,11 +240,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "20"
-                },
-                "areasize": {
-                    "value": "20-foot burst"
+                    "type": "burst",
+                    "value": 20
                 },
                 "category": {
                     "value": "spell"
@@ -340,7 +323,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "water"
@@ -364,11 +346,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "line",
-                    "value": "60"
-                },
-                "areasize": {
-                    "value": "60-foot line"
+                    "type": "line",
+                    "value": 60
                 },
                 "category": {
                     "value": "spell"
@@ -450,7 +429,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "air"
@@ -494,7 +472,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "cold",
@@ -539,7 +516,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -584,7 +560,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -629,7 +604,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -674,7 +648,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -714,7 +687,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -759,7 +731,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -822,7 +793,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -851,18 +821,30 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:50]{50 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>After the dragon uses its Breath Weapon, a fierce blizzard of blinding snow surrounds its body for 1 round. Everything in the aura is diffcult terrain for other creatures that are on the ground, climbing, or flying. The blowing snow also makes all creatures in the area @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}. While the blizzard rages, the dragon's dragon chill extends to the full area of the blizzard.</p>"
+                    "value": "<p>@Template[type:emanation|distance:50]{50 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>After the dragon uses its Breath Weapon, a fierce blizzard of blinding snow surrounds its body for 1 round. Everything in the aura is difficult terrain for other creatures that are on the ground, climbing, or flying. The blowing snow also makes all creatures in the area @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}. While the blizzard rages, the dragon's dragon chill extends to the full area of the blizzard.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Draconic Breath Weapon Aura]{Effect: Draconic Breath Weapon Aura}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "self:effect:draconic-breath-weapon-aura"
+                        ],
+                        "radius": 50,
+                        "slug": "blizzard",
+                        "traits": [
+                            "arcane",
+                            "cold"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -895,18 +877,29 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>[[/r {3d6}[cold]]]{3d6 cold damage} (@Check[type:reflex|dc:34|basic:true] save)</p>"
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>[[/r 3d6[cold]]] damage (@Check[type:reflex|dc:34|basic:true] save)</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 10,
+                        "slug": "dragon-chill",
+                        "traits": [
+                            "arcane",
+                            "aura",
+                            "cold",
+                            "evocation"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -940,7 +933,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> An adjacent creature deals piercing or slashing damage to the dragon.</p>\n<hr />\n<p><strong>Effect</strong> The dragon's blood sprays on the creature, dealing [[/r {3d6}[cold]]]{3d6 cold damage}. A creature that takes cold damage in this way is @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for 1 round.</p>"
+                    "value": "<p><strong>Trigger</strong> An adjacent creature deals piercing or slashing damage to the dragon.</p>\n<hr />\n<p><strong>Effect</strong> The dragon's blood sprays on the creature, dealing [[/r 3d6[cold]]] damage. A creature that takes cold damage in this way is @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for 1 round.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -951,7 +944,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -993,13 +985,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 90,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "aura",
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": "frightful-presence",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -1033,7 +1036,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dragon breathes a cloud of frost that deals [[/r {16d6}[cold]]]{16d6 cold damage} in a @Template[type:cone|distance:50]{50-foot cone} (@Check[type:reflex|dc:36|basic:true] save).</p>\n<p>It can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon breathes a cloud of frost that deals [[/r 16d6[cold]]] damage in a @Template[type:cone|distance:50]{50-foot cone} (@Check[type:reflex|dc:36|basic:true] save).</p>\n<p>It can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1044,7 +1047,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -1088,7 +1090,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1138,7 +1139,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1167,7 +1167,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The dragon slams into the ground. It can do this if it's on the ground or Flying within 10 feet of the ground. Each creature on the ground within @Template[type:emanation|distance:10]{10 feet} must succeed at a @Check[type:reflex|dc:37|traits:damaging-effect] save or fall @UUID[Compendium.pf2e.conditionitems.Prone]{Prone} and take [[/r {5d6}[bludgeoning]]]{5d6 bludgeoning damage}.</p>\n<p>The dragon can then Step.</p>"
+                    "value": "<p>The dragon slams into the ground. It can do this if it's on the ground or Flying within 10 feet of the ground. Each creature on the ground within @Template[type:emanation|distance:10]{10 feet} must succeed at a @Check[type:reflex|dc:37|traits:damaging-effect] save or fall @UUID[Compendium.pf2e.conditionitems.Prone]{Prone} and take [[/r 5d6[bludgeoning]]] damage.</p>\n<p>The dragon can then Step.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1178,7 +1178,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1218,7 +1217,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1258,7 +1256,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -1294,11 +1291,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1322,11 +1314,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1350,11 +1337,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1378,11 +1360,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1406,11 +1383,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1452,8 +1424,19 @@
                 "temp": 0,
                 "value": 330
             },
+            "immunities": [
+                {
+                    "type": "cold"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 30
@@ -1471,7 +1454,13 @@
                     }
                 ],
                 "value": 40
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 15
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1509,22 +1498,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "cold",
-                    "paralyzed",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "fire",
-                    "value": 15
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

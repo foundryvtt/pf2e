@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
                     "value": "<p>This spear‑like weapon is used by a mounted creature to deal a great deal of damage.</p>"
@@ -92,9 +91,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -103,7 +99,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "deadly-d8",
@@ -146,8 +141,7 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
                     "value": "<p>Longswords can be one‑edged or two‑edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
@@ -210,9 +204,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -221,7 +212,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "versatile-p"
@@ -329,7 +319,6 @@
                     "value": 16
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "flexible",
@@ -437,7 +426,6 @@
                     "value": 0
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -452,6 +440,11 @@
         },
         {
             "_id": "uoJMsbcXlm58cnei",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "urkJDAyWOlhfr4ST"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Longsword",
             "sort": 500000,
@@ -480,7 +473,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "versatile-p"
@@ -522,7 +514,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile"
@@ -536,6 +527,11 @@
         },
         {
             "_id": "383lohD54D45DNRU",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "aB660wS9natXTx40"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Lance",
             "sort": 700000,
@@ -564,7 +560,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "deadly-d8",
@@ -610,7 +605,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -649,13 +643,18 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FastHealing",
+                        "type": "fast-healing",
+                        "value": 2
+                    }
+                ],
                 "slug": "fast-healing",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -707,7 +706,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -752,7 +750,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -797,7 +794,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -829,11 +825,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -857,11 +848,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -885,11 +871,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -931,12 +912,51 @@
                 "temp": 0,
                 "value": 25
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 8
             },
+            "resistances": [
+                {
+                    "type": "cold",
+                    "value": 5
+                },
+                {
+                    "type": "electricity",
+                    "value": 5
+                },
+                {
+                    "type": "fire",
+                    "value": 5
+                },
+                {
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -973,40 +993,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "cold",
-                    "value": 5
-                },
-                {
-                    "type": "electricity",
-                    "value": 5
-                },
-                {
-                    "type": "fire",
-                    "value": 5
-                },
-                {
-                    "type": "piercing",
-                    "value": 5
-                },
-                {
-                    "type": "slashing",
-                    "value": 5
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

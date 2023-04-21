@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Undead Slayer",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "ancestry",
         "description": {
             "value": "<p>Your knowledge of your own not-quite-living anatomy, combined with your experience in combat, helps you take down undead foes with ease. Against undead creatures, you gain a circumstance bonus to damage with weapons and unarmed attacks equal to the number of weapon damage dice for the Strike. This bonus increases to double the number of weapon damage dice if your target has the vampire trait.</p>"
-        },
-        "featType": {
-            "value": "ancestry"
         },
         "level": {
             "value": 5
@@ -36,7 +31,7 @@
                 "selector": "strike-damage",
                 "slug": "undead-slayer",
                 "type": "circumstance",
-                "value": "1+@weapon.system.runes.striking"
+                "value": "@weapon.system.damage.dice"
             },
             {
                 "key": "FlatModifier",
@@ -46,7 +41,7 @@
                 "selector": "strike-damage",
                 "slug": "undead-slayer-vampire",
                 "type": "circumstance",
-                "value": "(1+@weapon.system.runes.striking)*2"
+                "value": "@weapon.system.damage.dice*2"
             },
             {
                 "domain": "all",
@@ -67,7 +62,6 @@
             "value": "Pathfinder Advanced Player's Guide"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "dhampir"

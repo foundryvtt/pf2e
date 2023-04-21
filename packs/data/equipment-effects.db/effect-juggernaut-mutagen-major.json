@@ -19,29 +19,17 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Juggernaut Mutagen (Major)",
                 "selector": "fortitude",
                 "type": "item",
                 "value": 4
             },
             {
                 "key": "FlatModifier",
-                "label": "Juggernaut Mutagen (Major)",
-                "selector": "will",
-                "type": "untyped",
-                "value": -2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Juggernaut Mutagen (Major)",
-                "selector": "perception",
-                "type": "untyped",
-                "value": -2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Juggernaut Mutagen (Major)",
-                "selector": "initiative",
+                "selector": [
+                    "initiative",
+                    "perception",
+                    "will"
+                ],
                 "type": "untyped",
                 "value": -2
             },
@@ -51,15 +39,8 @@
             },
             {
                 "adjustment": {
+                    "criticalFailure": "one-degree-better",
                     "success": "one-degree-better"
-                },
-                "key": "AdjustDegreeOfSuccess",
-                "selector": "fortitude",
-                "type": "save"
-            },
-            {
-                "adjustment": {
-                    "criticalFailure": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
                 "selector": "fortitude",
@@ -78,7 +59,6 @@
             "show": true
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": []
         }

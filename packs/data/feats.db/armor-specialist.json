@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Armor Specialist",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "class",
         "description": {
             "value": "<p>You have trained hard to optimize your armor's protective qualities. You gain the armor specialization effects of medium and heavy armor.</p>"
-        },
-        "featType": {
-            "value": "archetype"
         },
         "level": {
             "value": 6
@@ -28,12 +23,66 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:medium",
+                    "armor:group:composite"
+                ],
+                "type": "piercing",
+                "value": "1 + @armor.system.runes.potency"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:medium",
+                    "armor:group:leather"
+                ],
+                "type": "bludgeoning",
+                "value": "1 + @armor.system.runes.potency"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:medium",
+                    "armor:group:plate"
+                ],
+                "type": "slashing",
+                "value": "1 + @armor.system.runes.potency"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:heavy",
+                    "armor:group:composite"
+                ],
+                "type": "piercing",
+                "value": "2 + @armor.system.runes.potency"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:heavy",
+                    "armor:group:leather"
+                ],
+                "type": "bludgeoning",
+                "value": "2 + @armor.system.runes.potency"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:heavy",
+                    "armor:group:plate"
+                ],
+                "type": "slashing",
+                "value": "2 + @armor.system.runes.potency"
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "archetype"

@@ -1,0 +1,32 @@
+<div class="content">
+    <h3>{{localize prompt}}</h3>
+    <div class="choices{{#if selectMenu}} select-menu{{/if}}">
+        {{#if selectMenu}}
+            <input data-tagify-select="true" spellcheck="false" />
+            {{#> dropZone}}{{/dropZone}}
+            <button type="button" value="">{{localize "PF2E.UI.RuleElements.ChoiceSet.SaveLabel"}}</button>
+        {{else}}
+            {{#each choices as |choice|}}
+                <button type="button" value="{{choice.value}}"{{#if choice.img}} class="with-image"{{/if}}>
+                    {{#if choice.img}}<img src="{{choice.img}}" />{{/if}}
+                    <span>{{choice.label}}</span>
+                </button>
+            {{/each}}
+            {{#if allowNoSelection}}
+                <button type="button" data-action="close">
+                    <span>{{localize "PF2E.UI.RuleElements.ChoiceSet.Decline"}}</span>
+                </button>
+            {{/if}}
+            {{#> dropZone}}{{/dropZone}}
+        {{/if}}
+    </div>
+</div>
+
+{{#*inline "dropZone"}}
+    {{#if @root.includeDropZone}}
+        <div class="drop-zone with-image">
+            <i class="fas fa-info-circle" title="{{localize "PF2E.UI.RuleElements.ChoiceSet.DragHomebrewItem"}}"></i>
+            <span>{{localize "PF2E.UI.RuleElements.ChoiceSet.HomebrewItem"}}</span>
+        </div>
+    {{/if}}
+{{/inline}}

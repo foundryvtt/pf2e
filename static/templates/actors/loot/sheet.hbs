@@ -1,0 +1,34 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <!-- SIDEBAR -->
+    {{> "systems/pf2e/templates/actors/loot/sidebar.hbs"}}
+
+    <section class="content">
+        <!-- HEADER -->
+        <div class="sheet-header">
+            {{#if owner}}
+                <h1 class="charname">
+                    <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF2E.loot.LootNamePlaceholder"}}" />
+                </h1>
+            {{else}}
+                <h1 class="charname">{{actor.name}}</h1>
+            {{/if}}
+            <section class="sheet-type traits-bar">
+                {{#if user.isGM}}
+                    <i class="fas fa-info-circle help" title="<p><strong>{{localize "PF2E.loot.LootLabel"}}</strong>: {{localize "PF2E.loot.LootDescription"}}</p><p><strong>{{localize "PF2E.loot.MerchantLabel"}}</strong>: {{localize "PF2E.loot.MerchantDescription"}}</p>"></i>
+                    <select name="system.lootSheetType" class="trait">
+                        {{#select data.lootSheetType}}
+                            <option value="Loot">{{localize "PF2E.loot.LootLabel"}}</option>
+                            <option value="Merchant">{{localize "PF2E.loot.MerchantLabel"}}</option>
+                        {{/select}}
+                    </select>
+                {{else}}
+                    <span class="trait">{{data.lootSheetType}}</span>
+                {{/if}}
+            </section>
+        </div>
+
+        <!-- BODY -->
+        {{> "systems/pf2e/templates/actors/loot/inventory.hbs"}}
+    </section>
+
+</form>

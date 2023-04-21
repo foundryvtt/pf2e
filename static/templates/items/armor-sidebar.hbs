@@ -1,0 +1,59 @@
+<div class="inventory-details">
+    <div class="form-group">
+        <label>{{localize "PF2E.QuantityLabel"}}</label>
+        <input type="number" name="system.quantity" value="{{data.quantity}}" />
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "PF2E.BulkLabel"}}</label>
+        <select name="system.weight.value">
+            {{#select data.weight.value}}
+                <option value="-">{{localize "PF2E.NegligibleOption"}}</option>
+                {{#each bulkTypes as |name type|}}
+                    <option value="{{type}}">{{localize name}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "PF2E.EquippedBulkLabel"}}</label>
+        <select name="system.equippedBulk.value" {{disabled bulkDisabled}}>
+            {{#select data.equippedBulk.value}}
+                <option value="">{{localize "PF2E.EquippedSameBulkValue"}}</option>
+                <option value="0">{{localize "PF2E.NegligibleOption"}}</option>
+                {{#each bulkTypes as |name type|}}
+                    <option value="{{type}}">{{localize name}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+    </div>
+    <div class="form-group">
+        <label>{{localize "PF2E.Size"}}</label>
+        <select name="system.size">
+            {{#select data.size}}
+                {{#each sizes as |name value|}}
+                    <option value="{{value}}">{{localize name}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "PF2E.PriceLabel"}}</label>
+        <input
+            type="text"
+            {{#if (eq priceAdjustment "higher")}}class="adjusted-higher"{{else if (eq priceAdjustment "lower")}}class="adjusted-lower"{{/if}}
+            data-property="system.price.value"
+            data-value-base="{{basePrice}}"
+            value="{{item.price.value}}"
+            spellcheck="false"
+        />
+    </div>
+
+    <ol class="item-tags tags">
+        {{#each traits as |trait|}}
+            <li class="tag tag_transparent">{{trait.label}}</li>
+        {{/each}}
+    </ol>
+</div>

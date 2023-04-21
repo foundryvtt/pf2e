@@ -103,11 +103,6 @@
                 },
                 "tradition": {
                     "value": "arcane"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -126,13 +121,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -212,7 +201,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "air"
@@ -235,13 +223,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -322,7 +304,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -361,7 +342,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -406,7 +386,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -451,7 +430,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -491,7 +469,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -536,7 +513,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -595,7 +571,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -640,7 +615,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -669,7 +643,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The aolaz releases a tremendous blast of sonic energy from its trunk in a @Template[type:line|distance:150], dealing [[/r {12d10}[sonic]]]{12d10 sonic damage}. The frequency of this sound is such that it is completely imperceptible to humanoids, but the damage it wreaks is all too evident. Each creature in the area must attempt a @Check[type:fortitude|dc:40|traits:damaging-effect] save.</p>\n<p>The aolaz can't use Ultrasonic Blast again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage and is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 2}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 3}.</p>"
+                    "value": "<p>The aolaz releases a tremendous blast of sonic energy from its trunk in a @Template[type:line|distance:150], dealing [[/r 12d10[sonic]]] damage. The frequency of this sound is such that it is completely imperceptible to humanoids, but the damage it wreaks is all too evident. Each creature in the area must attempt a @Check[type:fortitude|dc:40|traits:damaging-effect] save.</p>\n<p>The aolaz can't use Ultrasonic Blast again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage and is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 2}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 3}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -680,13 +654,11 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
                         "evocation",
-                        "sonic",
-                        "humanoids"
+                        "sonic"
                     ]
                 },
                 "trigger": {
@@ -730,7 +702,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -762,11 +733,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -808,12 +774,26 @@
                 "temp": 0,
                 "value": 255
             },
+            "immunities": [
+                {
+                    "type": "sonic"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 33
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "adamantine"
+                    ],
+                    "type": "physical",
+                    "value": 15
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -867,34 +847,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "sonic",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except adamantine",
-                    "type": "physical",
-                    "value": 15
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Skill Mastery (Rogue)",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "class",
         "description": {
             "value": "<p>Increase your proficiency rank in one of your skills from expert to master and in another of your skills from trained to expert. You gain a skill feat associated with one of the skills you chose.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat up to five times.</p>"
-        },
-        "featType": {
-            "value": "archetype"
         },
         "level": {
             "value": 8
@@ -294,6 +289,7 @@
                 "choices": {
                     "query": "{\"system.traits.value\":{\"$elemMatch\":\"skill\"}}"
                 },
+                "flag": "skillMasteryRogue",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.SkillFeat"
             },
@@ -306,7 +302,6 @@
             "value": "Pathfinder Core Rulebook"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "archetype"

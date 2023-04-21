@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
                     "value": "<p>Longswords can be one‑edged or two‑edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
@@ -59,10 +58,10 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -92,9 +91,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -103,7 +99,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "versatile-p"
@@ -144,8 +139,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
                     "value": "<p>Jezails are simple, efficient long guns developed in Casmaron that typically feature a custom stock and a flintlock firing mechanism. Though lacking the range and stopping power of an arquebus or the raw force of a harmona gun, the jezail is an elegant, well-balanced weapon suitable for a variety of combat situations. It's even possible to tuck it under one arm to fire a less accurate attack that uses only one hand.</p>"
@@ -208,9 +202,6 @@
                 "source": {
                     "value": "Pathfinder Guns & Gears"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -219,7 +210,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "concussive",
@@ -326,7 +316,6 @@
                     "value": 16
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -341,6 +330,11 @@
         },
         {
             "_id": "wC7XC7NHZoe9YRGQ",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "AyWY3WzqSMamF3Ku"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Longsword",
             "sort": 400000,
@@ -369,8 +363,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
-                    "rarity": "common",
                     "value": [
                         "versatile-p"
                     ]
@@ -383,6 +375,11 @@
         },
         {
             "_id": "ldstBLH2MyouK6H6",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "pghnPaIlwCMxbSHq"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jezail",
             "sort": 500000,
@@ -411,8 +408,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
-                    "rarity": "common",
                     "value": [
                         "concussive",
                         "fatal-aim-d12",
@@ -450,13 +445,10 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "jezail-attack",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            "item:group:firearm"
+                        ]
                     }
                 ],
                 "slug": null,
@@ -464,7 +456,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -519,7 +510,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -556,7 +546,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -585,11 +574,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -613,11 +597,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -641,11 +620,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -669,11 +643,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -719,7 +688,7 @@
                 "value": 120
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 18
@@ -760,12 +729,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

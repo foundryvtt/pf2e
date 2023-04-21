@@ -1,0 +1,27 @@
+<header class="char-header">
+    <section class="char-details">
+        <h1 class="char-name">
+            <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF2E.CharacterNamePlaceholder"}}" spellcheck="false" />
+        </h1>
+        <div class="dots">
+            <span class="label">{{localize "PF2E.HeroPointsLabel"}}</span>
+            <span class="adjust-stat" data-property="system.resources.heroPoints.value" value="{{data.resources.heroPoints.value}}" title="{{localize data.resources.heroPoints.hover}}">
+                {{{data.resources.heroPoints.icon}}}
+            </span>
+        </div>
+    </section>
+    <section class="char-level">
+        <div class="level">
+            <label>{{localize "PF2E.LevelLabel"}}</label>
+            <input name="system.details.level.value" type="number" value="{{data.details.level.value}}" placeholder="1" size="2" />
+        </div>
+        <div class="exp-data">
+            <div class="exp-input">
+                <input name="system.details.xp.value" type="text" value="{{data.details.xp.value}}" data-dtype="Number" data-allow-delta placeholder="0" size="4" />
+                <span class="max"> / </span>
+                <input name="system.details.xp.max" type="text" value="{{data.details.xp.max}}" data-dtype="Number" placeholder="1000" size="4" />
+            </div>
+            <progress value="{{data.details.xp.pct}}" max="100"></progress>
+        </div>
+    </section>
+</header>

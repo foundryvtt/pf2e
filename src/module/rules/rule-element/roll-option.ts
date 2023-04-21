@@ -1,20 +1,24 @@
 import { ActorPF2e } from "@actor";
-import { RollToggle } from "@actor/data/base";
 import { ItemPF2e } from "@item";
-import { PredicatePF2e } from "@system/predication";
-import { tupleHasValue } from "@util";
-import { RuleElementOptions, RuleElementPF2e } from "./base";
-import { RuleElementSource } from "./data";
+import { PredicateField } from "@system/schema-data-fields.ts";
+import { ErrorPF2e, isObject } from "@util";
+import type {
+    ArrayField,
+    BooleanField,
+    ModelPropsFromSchema,
+    SchemaField,
+    StringField,
+} from "types/foundry/common/data/fields.d.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
+import { RollOptionToggle } from "../synthetics.ts";
+
+const { fields } = foundry.data;
 
 /**
  * Set a roll option at a specificed domain
  * @category RuleElement
  */
-class RollOptionRuleElement extends RuleElementPF2e {
-    domain: string;
-
-    option: string;
-
+class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     /**
      * The value of the roll option: either a boolean or a string resolves to a boolean
      * If omitted, it defaults to `true` unless also `togglable`, in which case to `false`.
@@ -25,85 +29,121 @@ class RollOptionRuleElement extends RuleElementPF2e {
      * Whether this roll option can be toggled by the user on an actor sheet: "totm" indicates it will only be present
      * if the Theather of the Mind Toggles setting is enabled
      */
-    private toggleable: boolean | "totm";
+    toggleable: boolean | "totm";
 
-    /** An optional predicate to determine whether the toggle is interactable by the user */
-    private disabledIf?: PredicatePF2e;
-
-    /** The value of the roll option if its toggle is disabled: null indicates the pre-disabled value is preserved */
-    private disabledValue?: boolean | null;
-
-    /** Whether this roll option is countable: it will have a numeric value counting how many rules added this option */
-    private count?: boolean;
-
-    /** If the hosting item is an effect, remove or expire it after a matching roll is made */
-    private removeAfterRoll: boolean;
-
-    constructor(data: RollOptionSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(source: RollOptionSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         // This rule element behaves much like an override AE-like, so set its default priority to 50
-        data.priority ??= CONST.ACTIVE_EFFECT_MODES.OVERRIDE * 10;
-        super({ ...data, label: data.label ?? item.name }, item, options);
+        super({ priority: CONST.ACTIVE_EFFECT_MODES.OVERRIDE * 10, ...source }, item, options);
 
-        this.domain = String(data.domain).trim();
-        this.option = String(data.option).trim();
-        this.toggleable = data.toggleable === "totm" ? "totm" : !!data.toggleable;
-        this.value = typeof data.value === "string" ? data.value : !!(data.value ?? !this.toggleable);
-        if (this.toggleable && Array.isArray(data.disabledIf)) {
-            this.disabledIf = new PredicatePF2e(...data.disabledIf);
-            this.disabledValue =
-                data.disabledValue === null || typeof data.disabledValue === "boolean" ? data.disabledValue : false;
-        }
-        this.count = !!data.count;
-        this.removeAfterRoll = this.item.isOfType("effect") && !!data.removeAfterRoll;
+        this.toggleable = source.toggleable === "totm" ? "totm" : !!source.toggleable;
+        this.value = typeof source.value === "string" ? source.value : !!(source.value ?? !this.toggleable);
 
-        if (!(typeof data.domain === "string" && /^[-a-z0-9]+$/.test(data.domain) && /[a-z]/.test(data.domain))) {
-            this.failValidation(
-                'The "domain" property must be a string consisting of only lowercase letters, numbers, and hyphens.'
-            );
-        }
-
-        if ("value" in data && !["boolean", "string"].includes(typeof data.value)) {
+        if ("value" in source && !["boolean", "string"].includes(typeof source.value)) {
             this.failValidation('The "value" property must be a boolean, string, or otherwise omitted.');
         }
 
-        if ("toggleable" in data && typeof data.toggleable !== "boolean" && data.toggleable !== "totm") {
+        if ("toggleable" in source && typeof source.toggleable !== "boolean" && source.toggleable !== "totm") {
             this.failValidation('The "togglable" property must be a boolean, the string "totm", or otherwise omitted.');
         }
 
-        if ("disabledIf" in data) {
-            if (!(data.disabledIf instanceof Object)) {
-                this.failValidation('The "disabledIf" property must be a predicate.');
-            } else if (!this.toggleable) {
-                this.failValidation('The "disabledIf" property may only be included if "toggeable" is true.');
-            }
+        if (source.removeAfterRoll && !item.isOfType("effect")) {
+            this.failValidation("removeAfterRoll may only be used on rule elements from effect items");
         }
 
-        if ("disabledValue" in data) {
-            if (typeof data.disabledValue !== "boolean" && data.disabledValue !== null) {
-                this.failValidation('The "falseIfDisabled" property must be a boolean or null.');
-            } else if (!this.toggleable || !data.disabledIf) {
-                this.failValidation(
-                    'The "disabledValue" property may only be included if "toggeable" is true and',
-                    'there is an "disabledIf" predicate.'
-                );
-            }
+        // Prevent all further processing of this RE if it is a totm toggle and the setting is disabled
+        if (this.toggleable === "totm" && !game.settings.get("pf2e", "totmToggles")) {
+            this.ignored = true;
         }
 
-        if ("count" in data) {
-            if (data.toggleable) {
-                this.failValidation('The "count" property may not be included if "toggleable" is true.');
-            } else if (typeof data.count !== "boolean") {
-                this.failValidation('The "count" property must be a boolean or otherwise omitted.');
-            }
+        // If no suboption has been selected yet, set the first as selected
+        const firstSuboption = this.suboptions.at(0);
+        if (firstSuboption && this.suboptions.every((s) => !s.selected)) {
+            firstSuboption.selected = true;
         }
     }
 
-    private resolveOption(): string {
-        return this.resolveInjectedProperties(this.option)
+    static override defineSchema(): RollOptionSchema {
+        return {
+            ...super.defineSchema(),
+            scope: new fields.StringField({
+                required: false,
+                nullable: false,
+                initial: "actions-tab",
+                choices: ["actions-tab"],
+            }),
+            domain: new fields.StringField({
+                required: true,
+                nullable: false,
+                initial: "all",
+                validate: (v: unknown): boolean => typeof v === "string" && /^[-a-z0-9]+$/.test(v) && /[a-z]/.test(v),
+                validationError: "must be a string consisting of only lowercase letters, numbers, and hyphens.",
+            }),
+            option: new fields.StringField({ required: true, nullable: false, blank: false }),
+            suboptions: new fields.ArrayField(
+                new fields.SchemaField({
+                    label: new fields.StringField({
+                        required: true,
+                        nullable: false,
+                        blank: false,
+                        initial: undefined,
+                    }),
+                    value: new fields.StringField({
+                        required: true,
+                        nullable: false,
+                        blank: false,
+                        initial: undefined,
+                    }),
+                    selected: new fields.BooleanField({ required: true, nullable: false, initial: false }),
+                }),
+                {
+                    required: false,
+                    nullable: false,
+                    initial: [],
+                    validate: (v): boolean => Array.isArray(v) && v.length !== 1,
+                    validationError: "must have zero or 2+ suboptions",
+                }
+            ),
+            disabledIf: new PredicateField({ required: false, nullable: false, initial: undefined }),
+            disabledValue: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
+            count: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
+            removeAfterRoll: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
+        };
+    }
+
+    protected override _validateModel(source: SourceFromSchema<RollOptionSchema>): void {
+        super._validateModel(source);
+
+        const toggleable = "toggleable" in source ? !!source.toggleable : false;
+
+        if (source.suboptions.length > 0 && !toggleable) {
+            throw Error("Only toggleable roll options can have suboptions");
+        }
+
+        if (source.disabledIf && !toggleable) {
+            throw Error("Only toggleable roll options can have a disabledIf predicate");
+        }
+
+        if (source.count && toggleable) {
+            throw Error("Only non-toggleable roll options can be configured to count");
+        }
+
+        if (typeof source.disabledValue === "boolean" && (!toggleable || !source.disabledIf)) {
+            this.failValidation(
+                'The "disabledValue" property may only be included if "toggeable" is true and',
+                'there is a "disabledIf" predicate.'
+            );
+        }
+    }
+
+    #resolveOption(): string {
+        const baseOption = this.resolveInjectedProperties(this.option)
             .replace(/[^-:\w]/g, "")
             .replace(/:+/g, ":")
             .replace(/-+/g, "-")
             .trim();
+
+        const selectedSuboption = this.suboptions.find((o) => o.selected);
+        return selectedSuboption ? `${baseOption}:${selectedSuboption.value}` : baseOption;
     }
 
     override onApplyActiveEffects(): void {
@@ -113,7 +153,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
 
         const { rollOptions } = this.actor;
         const domainRecord = (rollOptions[this.domain] ??= {});
-        const option = this.resolveOption();
+        const option = (this.option = this.#resolveOption());
 
         if (!option) {
             this.failValidation(
@@ -138,17 +178,19 @@ class RollOptionRuleElement extends RuleElementPF2e {
                 domainRecord[`${option}:1`] = true;
             }
         } else {
-            const value = this.resolveValue(this.value);
+            const value = this.resolveValue();
             if (value) domainRecord[option] = value;
 
             const label = this.label.includes(":") ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : this.label;
 
-            if (this.toggleable === true || (this.toggleable === "totm" && game.settings.get("pf2e", "totmToggles"))) {
-                const toggle: RollToggle = {
+            if (this.toggleable) {
+                const toggle: RollOptionToggle = {
                     itemId: this.item.id,
                     label,
+                    scope: this.scope,
                     domain: this.domain,
                     option,
+                    suboptions: this.suboptions,
                     checked: value,
                     enabled: true,
                 };
@@ -160,52 +202,48 @@ class RollOptionRuleElement extends RuleElementPF2e {
                         if (!this.disabledValue) delete domainRecord[option];
                     }
                 }
-                this.actor.system.toggles.push(toggle);
+                this.actor.synthetics.toggles.push(toggle);
             }
         }
     }
 
     /** Force false totm toggleable roll options if the totmToggles setting is disabled */
-    override resolveValue(value: string | boolean): boolean {
+    override resolveValue(): boolean {
         if (this.toggleable === "totm" && !game.settings.get("pf2e", "totmToggles")) {
             return false;
         }
-        return !!super.resolveValue(value);
+        return !!super.resolveValue(this.value);
     }
 
     /**
      * Toggle the provided roll option (swapping it from true to false or vice versa).
      * @returns the new value if successful or otherwise `null`
      */
-    static async toggleOption({
-        domain,
-        option,
-        actor,
-        itemId,
-        value = !actor.rollOptions[domain]?.[option],
-    }: ToggleParameters): Promise<boolean | null> {
-        domain = domain.replace(/[^-\w]/g, "");
-        option = option.replace(/[^-:\w]/g, "");
-        if (!itemId) return null;
+    async toggle(newValue = !this.resolveValue(), newSuboption: string | null = null): Promise<boolean | null> {
+        if (!this.toggleable) throw ErrorPF2e("Attempted to toggle non-toggleable roll option");
 
         // Directly update the rule element on the item
-        const item = actor.items.get(itemId, { strict: true });
-        const rules = item.toObject().system.rules;
-        const rule = rules.find(
-            (r: RollOptionSource) =>
-                r.key === "RollOption" &&
-                tupleHasValue([true, "totm"], r.toggleable) &&
-                r.domain === domain &&
-                r.option === option &&
-                r.value !== value
-        );
-        if (rule) {
-            rule.value = value;
-            const result = await actor.updateEmbeddedDocuments("Item", [{ _id: item.id, "system.rules": rules }]);
-            return result.length === 1 ? value : null;
+        const rulesSource = this.item.toObject().system.rules;
+        const thisSource: Maybe<RollOptionSource> =
+            typeof this.sourceIndex === "number" ? rulesSource.at(this.sourceIndex) : null;
+        if (!thisSource) return null;
+        thisSource.value = newValue;
+
+        if (
+            newSuboption &&
+            Array.isArray(thisSource.suboptions) &&
+            thisSource.suboptions.every((o): o is Record<string, unknown> => isObject(o))
+        ) {
+            for (const suboption of thisSource.suboptions) {
+                suboption.selected = suboption.value === newSuboption;
+            }
         }
 
-        return null;
+        const result = await this.actor.updateEmbeddedDocuments("Item", [
+            { _id: this.item.id, "system.rules": rulesSource },
+        ]);
+
+        return result.length === 1 ? newValue : null;
     }
 
     /* -------------------------------------------- */
@@ -219,24 +257,25 @@ class RollOptionRuleElement extends RuleElementPF2e {
     override beforeRoll(domains: string[], rollOptions: Set<string>): void {
         if (!(this.test(rollOptions) && domains.includes(this.domain))) return;
 
-        this.option = this.resolveOption();
-        this.value = !!this.resolveValue(this.value);
+        this.value = this.resolveValue();
+        const option = this.#resolveOption();
         if (this.value) {
-            rollOptions.add(this.option);
+            rollOptions.add(option);
         } else {
-            rollOptions.delete(this.option);
+            rollOptions.delete(option);
         }
     }
 
     /** Remove the parent effect if configured so */
     override async afterRoll({ domains, rollOptions }: RuleElementPF2e.AfterRollParams): Promise<void> {
+        const option = this.#resolveOption();
         if (
             !this.ignored &&
             this.removeAfterRoll &&
             this.value &&
             this.actor.items.has(this.item.id) &&
             domains.includes(this.domain) &&
-            rollOptions.has(this.option)
+            rollOptions.has(option)
         ) {
             if (game.settings.get("pf2e", "automation.removeExpiredEffects")) {
                 await this.item.delete();
@@ -247,22 +286,43 @@ class RollOptionRuleElement extends RuleElementPF2e {
     }
 }
 
+interface RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema>, ModelPropsFromSchema<RollOptionSchema> {}
+
+type RollOptionSchema = RuleElementSchema & {
+    scope: StringField<string, string, false, false, true>;
+    domain: StringField<string, string, true, false, true>;
+    option: StringField<string, string, true, false, false>;
+    /** Suboptions for a toggle, appended to the option string */
+    suboptions: ArrayField<
+        SchemaField<SuboptionData, SourceFromSchema<SuboptionData>, SourceFromSchema<SuboptionData>, true, false, true>
+    >;
+
+    /** An optional predicate to determine whether the toggle is interactable by the user */
+    disabledIf: PredicateField<false, false, false>;
+    /** The value of the roll option if its toggle is disabled: null indicates the pre-disabled value is preserved */
+    disabledValue: BooleanField<boolean, boolean, false, false, false>;
+    /** Whether this roll option is countable: it will have a numeric value counting how many rules added this option */
+    count: BooleanField<boolean, boolean, false, false, false>;
+    /** If the hosting item is an effect, remove or expire it after a matching roll is made */
+    removeAfterRoll: BooleanField<boolean, boolean, false, false, false>;
+};
+
+type SuboptionData = {
+    label: StringField<string, string, true, false, false>;
+    value: StringField<string, string, true, false, false>;
+    selected: BooleanField<boolean, boolean, true, false, true>;
+};
+
 interface RollOptionSource extends RuleElementSource {
+    scope?: unknown;
     domain?: unknown;
     option?: unknown;
     toggleable?: unknown;
+    suboptions?: unknown;
     disabledIf?: unknown;
     disabledValue?: unknown;
     count?: unknown;
     removeAfterRoll?: unknown;
-}
-
-interface ToggleParameters {
-    domain: string;
-    option: string;
-    actor: ActorPF2e;
-    itemId?: string | null;
-    value?: boolean;
 }
 
 export { RollOptionRuleElement };

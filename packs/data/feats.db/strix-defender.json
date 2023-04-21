@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Strix Defender",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "ancestry",
         "description": {
             "value": "<p>Your ancestral feud with humans gives you experience dealing with vicious foes, and your vengeance knows no bounds. You gain a +1 circumstance bonus to Intimidation, Perception, and Survival checks against humans, as well as on damage rolls against humans with weapons and unarmed attacks. However, your hatred of humans is immediately obvious, giving you a -2 circumstance penalty to Diplomacy checks against them and usually starting their attitude one step worse towards you.</p>"
-        },
-        "featType": {
-            "value": "ancestry"
         },
         "level": {
             "value": 1
@@ -30,25 +25,11 @@
                 "predicate": [
                     "target:trait:human"
                 ],
-                "selector": "perception",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "target:trait:human"
+                "selector": [
+                    "intimidation",
+                    "perception",
+                    "survival"
                 ],
-                "selector": "intimidation",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "target:trait:human"
-                ],
-                "selector": "survival",
                 "type": "circumstance",
                 "value": 1
             },
@@ -81,7 +62,6 @@
             "value": "Pathfinder Lost Omens: Ancestry Guide"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "strix"

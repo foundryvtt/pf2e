@@ -1,11 +1,11 @@
-import { CreatureTrait, MovementType, SkillAbbreviation } from "@actor/creature/data";
-import { SenseAcuity, SenseType } from "@actor/creature/sense";
-import { ImmunityType, ResistanceType, WeaknessType } from "@actor/data/base";
-import { AbilityString } from "@actor/types";
-import { WeaponDamage } from "@item/weapon/data";
-import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponTrait } from "@item/weapon/types";
-import { Size } from "@module/data";
-import { BracketedValue, RuleElementSource } from "../";
+import { CreatureTrait, MovementType, SkillAbbreviation } from "@actor/creature/index.ts";
+import { SenseAcuity, SenseType } from "@actor/creature/sense.ts";
+import { AbilityString } from "@actor/types.ts";
+import { WeaponDamage } from "@item/weapon/data.ts";
+import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponTrait } from "@item/weapon/types.ts";
+import { Size } from "@module/data.ts";
+import { RuleElementSource } from "../index.ts";
+import { ImmunityRuleElement, ResistanceRuleElement, WeaknessRuleElement } from "../iwr/index.ts";
 
 interface BattleFormSource extends RuleElementSource {
     overrides?: BattleFormOverrides;
@@ -26,9 +26,9 @@ interface BattleFormOverrides {
     speeds?: { [K in MovementType]?: number };
     skills?: BattleFormSkills;
     strikes?: Record<string, BattleFormStrike>;
-    immunities?: { type: ImmunityType; except?: ImmunityType }[];
-    weaknesses?: { type: WeaknessType; except?: WeaknessType; value: number | BracketedValue<number> }[];
-    resistances?: { type: ResistanceType; except?: ResistanceType; value: number | BracketedValue<number> }[];
+    immunities?: Omit<ImmunityRuleElement["_source"], "key">[];
+    weaknesses?: Omit<WeaknessRuleElement["_source"], "key">[];
+    resistances?: Omit<ResistanceRuleElement["_source"], "key">[];
 }
 
 interface BattleFormAC {
@@ -51,7 +51,7 @@ type BattleFormSkills = { [K in SkillAbbreviation]?: BattleFormSkill };
 
 interface BattleFormStrike {
     label: string;
-    img?: ImagePath;
+    img?: ImageFilePath;
     ability: AbilityString;
     category: WeaponCategory;
     group: WeaponGroup | null;
@@ -60,6 +60,8 @@ interface BattleFormStrike {
     modifier: string | number;
     damage: WeaponDamage;
     ownIfHigher?: boolean;
+    range?: number | null;
+    maxRange?: number | null;
 }
 
 interface BattleFormStrikeQuery {

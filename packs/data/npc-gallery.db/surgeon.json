@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d4",
-                    "value": ""
+                    "die": "d4"
                 },
                 "description": {
                     "value": "<p>A war razor is an exaggerated version of the barbers' tool. It is a brittle but extremely sharp weapon that is very easy to slip into a pocket or sleeve.</p>"
@@ -59,10 +58,10 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -92,9 +91,6 @@
                 "source": {
                     "value": ""
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": null
                 },
@@ -103,7 +99,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -177,7 +172,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -192,6 +186,11 @@
         },
         {
             "_id": "JbPgkPBw6I7dZFcQ",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "Z6BNfng94z1xdzn3"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Scalpel",
             "sort": 300000,
@@ -220,7 +219,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -235,6 +233,11 @@
         },
         {
             "_id": "YgMj9CaUadOgAwPl",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "Z6BNfng94z1xdzn3"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Scalpel",
             "sort": 400000,
@@ -263,7 +266,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -322,7 +324,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -348,10 +349,10 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": null
+                    "value": 1
                 },
                 "description": {
-                    "value": "<p>The surgeon attempts a Medicine check against the Fortitude DC of one living creature they can see within 60 feet.</p>\n<p>On a success, the surgeon's melee Strikes deal an extra [[/r {1d6}[precision]]]{1d6 precision damage} against that creature ([[/r {2d6}[precision]]]{2d6 precision damage} on a critical success) until 1 minute passes or the surgeon critically hits that creature, whichever comes first.</p>\n<p>Using this action again designates a new target and ends the effect for any previous target. A surgeon can target an individual creature no more than once per day with this ability.</p>"
+                    "value": "<p>The surgeon attempts a Medicine check against the Fortitude DC of one living creature they can see within 60 feet.</p>\n<p>On a success, the surgeon's melee Strikes deal an extra 1d6 precision damage against that creature (2d6 precision damage on a critical success) until 1 minute passes or the surgeon critically hits that creature, whichever comes first.</p>\n<p>Using this action again designates a new target and ends the effect for any previous target. A surgeon can target an individual creature no more than once per day with this ability.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -366,7 +367,7 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "Medical Malpractice (Critical Success)",
+                        "label": "PF2E.NPCAbility.Surgeon.MedicalMalpracticeCriticalSuccess",
                         "option": "medical-malpractice-crit",
                         "toggleable": true
                     },
@@ -376,7 +377,10 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "medical-malpractice"
+                            "medical-malpractice",
+                            {
+                                "not": "medical-malpractice-crit"
+                            }
                         ],
                         "selector": "strike-damage"
                     },
@@ -396,7 +400,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -428,11 +431,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -456,11 +454,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -484,11 +477,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -531,7 +519,7 @@
                 "value": 30
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 14
@@ -572,13 +560,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

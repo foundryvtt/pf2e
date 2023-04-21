@@ -1,9 +1,11 @@
-import { AuraColors, AuraEffectData } from "@actor/types";
+import { AuraColors, AuraEffectData } from "@actor/types.ts";
 import { ItemPF2e } from "@item";
-import { ItemTrait } from "@item/data/base";
-import { PredicatePF2e } from "@system/predication";
+import { EffectTrait } from "@item/abstract-effect/data.ts";
+import { PredicatePF2e } from "@system/predication.ts";
 import { isObject, sluggify } from "@util";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
+import { UUIDUtils } from "@util/uuid-utils.ts";
+import { ActorPF2e } from "@actor";
 
 /** A Pathfinder 2e aura, capable of transmitting effects and with a visual representation on the canvas */
 export class AuraRuleElement extends RuleElementPF2e {
@@ -16,7 +18,7 @@ export class AuraRuleElement extends RuleElementPF2e {
     effects: AuraREEffectData[];
 
     /** Associated traits, including ones that determine transmission through walls ("visual", "auditory") */
-    traits: ItemTrait[];
+    traits: EffectTrait[];
 
     /**
      * Custom border and fill colors for the aura: if omitted, the border color will be black, and the fill color the
@@ -24,19 +26,22 @@ export class AuraRuleElement extends RuleElementPF2e {
      */
     colors: AuraColors | null;
 
-    constructor(data: AuraRuleElementSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
-        super(data, item, options);
+    constructor(source: AuraRuleElementSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
+        source.effects ??= [];
+        source.traits ??= [];
 
-        data.effects ??= [];
-        data.traits ??= [];
-        data.colors ??= null;
-        this.slug = typeof data.slug === "string" ? sluggify(data.slug) : this.item.slug ?? sluggify(this.item.name);
+        super(source, item, options);
 
-        if (this.#isValid(data)) {
-            this.radius = data.radius;
-            this.effects = deepClone(data.effects);
-            this.traits = deepClone(data.traits);
-            this.colors = data.colors;
+        this.slug ??= this.item.slug ?? sluggify(this.item.name);
+
+        if (this.#isValid(source)) {
+            this.radius = source.radius;
+            this.effects = deepClone(source.effects ?? []).map((e) => ({
+                ...e,
+                predicate: new PredicatePF2e(e.predicate ?? []),
+            }));
+            this.traits = deepClone(source.traits ?? []).filter((t) => t !== "aura");
+            this.colors = source.colors ?? null;
         } else {
             this.radius = 0;
             this.effects = [];
@@ -53,23 +58,40 @@ export class AuraRuleElement extends RuleElementPF2e {
         if (typeof Number.isInteger(radius) && radius > 0 && radius % 5 === 0) {
             const data = {
                 slug: this.slug,
+                level: this.item.system.level?.value ?? null,
                 radius,
                 effects: this.#processEffects(),
                 traits: this.traits,
                 colors: this.colors,
             };
+
+            // Late validation check of effect UUID
+            for (const effect of data.effects) {
+                const indexEntry = UUIDUtils.fromUuidSync(effect.uuid);
+                if (!(indexEntry && "type" in indexEntry && typeof indexEntry.type === "string")) {
+                    this.failValidation(`Unable to resolve effect uuid: ${effect.uuid}`);
+                    return;
+                }
+                if (!["effect", "affliction"].includes(indexEntry.type)) {
+                    this.failValidation(`effects transmitted by auras must be of type "effect" or "affliction"`);
+                }
+            }
+
             this.actor.auras.set(this.slug, data);
         }
     }
 
     #isValid(data: AuraRuleElementSource): data is AuraRuleElementData {
         const validations = {
-            predicate: PredicatePF2e.isValid(data.predicate ?? []),
+            traits:
+                Array.isArray(data.traits) &&
+                data.traits.every((t) => t in CONFIG.PF2E.spellTraits || t in CONFIG.PF2E.actionTraits),
             radius: ["number", "string"].includes(typeof data.radius),
             effects: Array.isArray(data.effects) && data.effects.every(this.#isEffectData),
-            colors: data.colors === null || this.#isAuraColors(data.colors),
+            colors: !("colors" in data) || data.colors === null || this.#isAuraColors(data.colors),
+            predicate: !("predicate" in data) || PredicatePF2e.isValid(data.predicate),
         };
-        const properties = ["predicate", "radius", "effects", "colors"] as const;
+        const properties = ["traits", "radius", "effects", "colors"] as const;
         for (const property of properties) {
             if (!validations[property]) {
                 this.failValidation(`"${property}" property is invalid.`);
@@ -94,6 +116,7 @@ export class AuraRuleElement extends RuleElementPF2e {
         effect.affects ??= "all";
         effect.removeOnExit ??= Array.isArray(effect.events) ? effect.events.includes("enter") : false;
         effect.save ??= null;
+        effect.includesSelf ??= effect.affects !== "enemies";
 
         return (
             typeof effect.uuid === "string" &&
@@ -102,13 +125,18 @@ export class AuraRuleElement extends RuleElementPF2e {
             ["allies", "enemies", "all"].includes(effect.affects) &&
             Array.isArray(effect.events) &&
             effect.events.every((e) => typeof e === "string" && ["enter", "turn-start", "turn-end"].includes(e)) &&
-            typeof effect.removeOnExit === "boolean"
+            typeof effect.removeOnExit === "boolean" &&
+            typeof effect.includesSelf === "boolean"
         );
     }
 
     /** Resolve level values on effects */
     #processEffects(): AuraEffectData[] {
-        return this.effects.map((e) => ({ ...e, level: Number(this.resolveValue(e.level)) || null }));
+        return this.effects.map((e) => ({
+            ...e,
+            uuid: this.resolveInjectedProperties(e.uuid),
+            level: Number(this.resolveValue(e.level)) || null,
+        }));
     }
 }
 
@@ -121,9 +149,9 @@ interface AuraRuleElementSource extends RuleElementSource {
 
 interface AuraRuleElementData extends RuleElementSource {
     radius: string | number;
-    effects: AuraREEffectData[];
-    traits: ItemTrait[];
-    colors: AuraColors | null;
+    effects?: AuraREEffectData[];
+    traits?: EffectTrait[];
+    colors?: AuraColors | null;
 }
 
 interface AuraREEffectData extends Omit<AuraEffectData, "level"> {

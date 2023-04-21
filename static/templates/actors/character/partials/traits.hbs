@@ -1,0 +1,88 @@
+<div class="pc pc_land-speed">
+    <span class="details-label" >{{localize "PF2E.Speed"}}</span>
+    <span>
+        <h3 title="{{data.attributes.speed.breakdown}}">{{data.attributes.speed.total}} {{localize "PF2E.TravelSpeed.FeetAcronym"}}</h3>
+    </span>
+</div>
+<div class="pc pc_size">
+    <span class="details-label">{{localize "PF2E.Size"}}</span>
+    <span>
+        <h3>{{localize (lookup actorSizes data.traits.size.value)}}</h3>
+    </span>
+</div>
+
+<div class="break-column"></div>
+
+<div class="pc pc_bonus-bulk encumbered">
+    <label class="details-label" for="{{options.id}}-bonus-encumbrance-bulk">{{localize "PF2E.BonusEncumbranceBulkLabel"}}</label>
+    <input type="number" class="details-input {{#if adjustedBonusEncumbranceBulk}}adjusted{{/if}}" id="{{options.id}}-bonus-encumbrance-bulk"
+        data-property="system.attributes.bonusEncumbranceBulk" value="{{data.attributes.bonusEncumbranceBulk}}" placeholder="0" />
+</div>
+<div class="pc pc_bonus-bulk">
+    <label class="details-label" for="{{options.id}}-bonus-limit-bulk">{{localize "PF2E.BonusLimitBulkLabel"}}</label>
+    <input type="number" class="details-input {{#if adjustedBonusLimitBulk}}adjusted{{/if}}" id="{{options.id}}-bonus-limit-bulk"
+        data-property="system.attributes.bonusLimitBulk" value="{{data.attributes.bonusLimitBulk}}" placeholder="0" />
+</div>
+<div class="character-traits">
+    <div class="pc pc_speed-types">
+        <span class="details-label">{{localize "PF2E.SpeedTypes"}}</span>
+        <ol class="tags">
+            {{#each data.attributes.speed.otherSpeeds as |speed|}}
+                <li class="tag tag_alt" data-slug="{{speed.type}}" title="{{speed.breakdown}}">{{speed.label}} ({{speed.total}})</li>
+            {{/each}}
+            {{#if @root.options.editable}}
+                <li class="tag tag_secondary edit-btn">
+                    <a class="crb-tag-selector" data-tag-selector="speed-types">
+                        {{> "systems/pf2e/templates/actors/character/icons/plus.hbs"}}
+                    </a>
+                </li>
+            {{/if}}
+        </ol>
+    </div>
+    <div class="pc pc_senses">
+        <span class="details-label">{{localize "PF2E.Senses"}}</span>
+        <ol class="tags">
+            {{#each data.traits.senses as |sense slug|}}
+                {{#if sense.label}}<li class="tag tag_alt" data-slug="{{slug}}">{{sense.label}}</li>{{/if}}
+            {{/each}}
+            {{#if @root.options.editable}}
+                <li class="tag tag_secondary edit-btn">
+                    <a class="crb-tag-selector" data-tag-selector="senses">
+                        {{> "systems/pf2e/templates/actors/character/icons/plus.hbs"}}
+                    </a>
+                </li>
+            {{/if}}
+        </ol>
+    </div>
+    <div class="pc pc_languages">
+        <span class="details-label">{{localize "PF2E.Languages"}}</span>
+        <ul class="tags">
+            {{#each languages as |language slug|}}
+                <li class="tag tag_alt" data-slug="{{slug}}">{{language.label}}</li>
+            {{/each}}
+            {{#if @root.options.editable}}
+                <li class="tag tag_secondary edit-btn">
+                    <a class="crb-tag-selector" data-tag-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="system.traits.languages">
+                        {{> "systems/pf2e/templates/actors/character/icons/plus.hbs"}}
+                    </a>
+                </li>
+            {{/if}}
+        </ul>
+    </div>
+
+    <div class="pc pc_traits">
+        <span class="details-label">{{localize "PF2E.Traits"}}</span>
+        <ul class="tags">
+            {{#each traits as |trait slug|}}
+                <li class="tag tag_alt" data-slug="{{slug}}">{{trait.label}}</li>
+            {{/each}}
+            {{#if @root.options.editable}}
+                <li class="tag tag_secondary edit-btn">
+                    <a class="crb-tag-selector" data-tag-selector="basic" data-config-types="monsterTraits" data-property="system.traits">
+                        {{> "systems/pf2e/templates/actors/character/icons/plus.hbs"}}
+                    </a>
+                </li>
+            {{/if}}
+        </ul>
+    </div>
+</div>

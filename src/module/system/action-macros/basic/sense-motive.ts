@@ -1,18 +1,16 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { SingleCheckAction } from "@actor/actions/index.ts";
 
-export function senseMotive(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "perception");
+function senseMotive(options: SkillActionOptions): void {
+    const slug = options?.skill ?? "perception";
+    const rollOptions = ["action:sense-motive"];
+    const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph ?? "A",
         title: "PF2E.Actions.SenseMotive.Title",
-        subtitle,
-        modifiers: options.modifiers,
-        rollOptions: ["all", checkType, stat, "action:sense-motive"],
-        extraOptions: ["action:sense-motive"],
+        checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["concentrate", "secret"],
-        checkType,
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,
@@ -23,5 +21,27 @@ export function senseMotive(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.SenseMotive", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.SenseMotive", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }
+
+const action = new SingleCheckAction({
+    cost: 1,
+    description: "PF2E.Actions.SenseMotive.Description",
+    difficultyClass: "skills.deception",
+    name: "PF2E.Actions.SenseMotive.Title",
+    notes: [
+        { outcome: ["criticalSuccess"], text: "PF2E.Actions.SenseMotive.Notes.criticalSuccess" },
+        { outcome: ["success"], text: "PF2E.Actions.SenseMotive.Notes.success" },
+        { outcome: ["failure"], text: "PF2E.Actions.SenseMotive.Notes.failure" },
+        { outcome: ["criticalFailure"], text: "PF2E.Actions.SenseMotive.Notes.criticalFailure" },
+    ],
+    rollOptions: ["action:sense-motive"],
+    slug: "sense-motive",
+    statistic: "perception",
+    traits: ["concentrate", "secret"],
+});
+
+export { senseMotive as legacy, action };

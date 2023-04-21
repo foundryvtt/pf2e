@@ -100,17 +100,12 @@
                 },
                 "tradition": {
                     "value": "divine"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
         },
         {
-            "_id": "LW8nlXvflnsjZTVU",
+            "_id": "rW7JQfumhcThcuHp",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.x7SPrsRxGb2Vy2nu"
@@ -124,11 +119,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "60"
-                },
-                "areasize": {
-                    "value": "60-foot burst"
+                    "type": "burst",
+                    "value": 60
                 },
                 "category": {
                     "value": "spell"
@@ -169,6 +161,7 @@
                         "10": {
                             "area": {
                                 "areaType": "burst",
+                                "type": "",
                                 "value": "1320"
                             },
                             "range": {
@@ -234,7 +227,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "earth"
@@ -244,7 +236,7 @@
             "type": "spell"
         },
         {
-            "_id": "RpVPjy7xQlOXpgBp",
+            "_id": "sD7nAemNqkKLGL8I",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.U58aQWJ47VrI36yP"
@@ -257,13 +249,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -359,7 +345,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "incapacitation",
@@ -370,7 +355,7 @@
             "type": "spell"
         },
         {
-            "_id": "A7o4syzWWzzudcAV",
+            "_id": "6gp8rGMM2ZiLUv3V",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.gPvtmKMRpg9I9D7H"
@@ -383,13 +368,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -474,7 +453,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -514,7 +492,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -561,7 +538,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "brutal",
@@ -575,7 +551,7 @@
             "type": "melee"
         },
         {
-            "_id": "hyOiA77RFp4UuinY",
+            "_id": "mOgh0bLWwjU5JzRo",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.4Ho2xMPEC05aSxzr"
@@ -606,7 +582,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -620,7 +595,7 @@
             "type": "action"
         },
         {
-            "_id": "PBHNS8ninWABGJTL",
+            "_id": "i9Y89elHLIhcIh43",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kdhbPaBMK1d1fpbA"
@@ -651,7 +626,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -669,7 +643,7 @@
             "type": "action"
         },
         {
-            "_id": "JwSZnCeb6U4mNS3l",
+            "_id": "aGULlUDAVR1BMKC7",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Smoke Vision",
             "sort": 900000,
@@ -695,7 +669,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -729,8 +702,13 @@
                 "rules": [
                     {
                         "key": "Note",
+                        "predicate": [
+                            "enchantment"
+                        ],
                         "selector": "will",
-                        "text": "Anytime a deghuun attempts a Will save against an enchantment spell, the spell's caster must attempt a @Check[type:will|dc:38] save or become @UUID[Compendium.pf2e.conditionitems.Confused]{Confused} for up to the spell's duration."
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,
@@ -738,7 +716,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -764,7 +741,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The deghuun has a creature @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} with its tentacles</p>\n<hr />\n<p><strong>Effect</strong> The creature takes [[/r {4d8+17}[piercing]]]{4d8+17 piercing damage}.</p>"
+                    "value": "<p><strong>Requirements</strong> The deghuun has a creature @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} with its tentacles</p>\n<hr />\n<p><strong>Effect</strong> The creature takes [[/r (4d8+17)[piercing]]] damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -775,7 +752,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -801,7 +777,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The deghuun vents caustic smog for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<p>Any creature that ends its turn within 30 feet of the deghuun during this time takes [[/r {6d6}[fire]]]{6d6 fire damage} and is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} (@Check[type:fortitude|dc:38]; the creature avoids the sickened condition on a critical success, or is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure).</p>\n<p>While sickened in this way, a creature takes a -2 status penalty to its saving throw against the deghuun's <em>@UUID[Compendium.pf2e.spells-srd.Hallucination]{Hallucination}</em>.</p>\n<p>Any creature that's in the smog is @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} and treats other creatures as concealed. Strong winds dissipate the smog.</p>"
+                    "value": "<p>The deghuun vents caustic smog for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<p>Any creature that ends its turn within 30 feet of the deghuun during this time takes [[/r 6d6[fire]]] damage and is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} (@Check[type:fortitude|dc:38]; the creature avoids the sickened condition on a critical success, or is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure).</p>\n<p>While sickened in this way, a creature takes a -2 status penalty to its saving throw against the deghuun's <em>@UUID[Compendium.pf2e.spells-srd.Hallucination]{Hallucination}</em>.</p>\n<p>Any creature that's in the smog is @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} and treats other creatures as concealed. Strong winds dissipate the smog.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -812,7 +788,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "fire",
@@ -852,7 +827,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -894,7 +868,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -926,11 +899,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -975,12 +943,30 @@
                 "temp": 0,
                 "value": 420
             },
+            "immunities": [
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "poison"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 30
             },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [
+                        "adamantine"
+                    ],
+                    "type": "physical",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -989,7 +975,17 @@
                     }
                 ],
                 "value": 40
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 10
+                },
+                {
+                    "type": "good",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1022,27 +1018,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "fire",
-                    "poison"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "label": "Cold",
-                    "type": "cold",
-                    "value": "10"
-                },
-                {
-                    "label": "Good",
-                    "type": "good",
-                    "value": "10"
-                }
-            ],
             "languages": {
                 "custom": "Telepathy 100 feet",
                 "selected": [],

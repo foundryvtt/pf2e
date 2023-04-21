@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "arcane"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -126,11 +121,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "20"
-                },
-                "areasize": {
-                    "value": "20-foot burst"
+                    "type": "burst",
+                    "value": 20
                 },
                 "category": {
                     "value": "spell"
@@ -212,7 +204,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "water"
@@ -235,13 +226,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -321,7 +306,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -363,7 +347,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "electricity",
@@ -408,7 +391,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -453,7 +435,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -498,7 +479,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -543,7 +523,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -588,7 +567,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -633,7 +611,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -696,7 +673,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -717,7 +693,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
+            "name": "Attack of Opportunity (Jaws Only)",
             "sort": 1200000,
             "system": {
                 "actionCategory": {
@@ -741,7 +717,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -770,18 +745,37 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} [[/r {1d12}[electricity]]]{1d12 electricity damage}</p>\n<p>The bronze dragon can turn this aura on or off using a single action, which has the concentrate trait, and it can choose to not affect allies with the aura.</p>"
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>[[/r 1d12[electricity]]] damage</p>\n<p>The bronze dragon can turn this aura on or off using a single action, which has the concentrate trait, and it can choose to not affect allies with the aura.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "electricity-aura-active"
+                        ],
+                        "radius": 10,
+                        "slug": "electricity-aura",
+                        "traits": [
+                            "aura",
+                            "electricity"
+                        ]
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "electricity-aura-active",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -823,13 +817,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 90,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "aura",
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": "frightful-presence",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -863,7 +868,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The bronze dragon breathes in one of two ways.</p>\n<p>The dragon can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>\n<ul>\n<li><strong>Lightning</strong> The dragon breathes lightning in a @Template[type:line|distance:80|traits:arcane,electricity,evocation,damaging-effect]{80-foot line} that deals [[/r {8d12}[electricity]]]{8d12 electricity damage} (@Check[type:reflex|dc:33|basic:true] save).</li>\n<li><strong>Repulsion Gas</strong> The dragon breathes a @Template[type:line|distance:80|traits:arcane,abjuration,incapacitation,mental]{80-foot line} of repulsive gas. Each creature in the area must succeed at a @Check[type:will|dc:33] save or become @UUID[Compendium.pf2e.conditionitems.Fleeing]{Fleeing} from the dragon for 1 round (or 2 rounds on a critical failure).</li>\n</ul>"
+                    "value": "<p>The bronze dragon breathes in one of two ways.</p>\n<p>The dragon can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>\n<ul>\n<li><strong>Lightning</strong> The dragon breathes lightning in a @Template[type:line|distance:80]{80-foot line} that deals [[/r 8d12[electricity]]] damage (@Check[type:reflex|dc:33|basic:true|traits:arcane,electricity,evocation|overrideTraits:true] save).</li>\n<li><strong>Repulsion Gas</strong> The dragon breathes a @Template[type:line|distance:80]{80-foot line} of repulsive gas. Each creature in the area must succeed at a @Check[type:will|dc:33|traits:arcane,abjuration,incapacitation,mental|overrideTraits:true] save or become @UUID[Compendium.pf2e.conditionitems.Fleeing]{Fleeing} from the dragon for 1 round (or 2 rounds on a critical failure).</li>\n</ul>"
                 },
                 "requirements": {
                     "value": ""
@@ -874,7 +879,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "abjuration",
@@ -921,7 +925,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -971,7 +974,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1011,7 +1013,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -1047,11 +1048,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1075,11 +1071,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1103,11 +1094,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1131,11 +1117,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1159,11 +1140,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1187,11 +1163,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1215,11 +1186,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1261,8 +1227,19 @@
                 "temp": 0,
                 "value": 260
             },
+            "immunities": [
+                {
+                    "type": "electricity"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 23
@@ -1317,17 +1294,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "electricity",
-                    "paralyzed",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "Speak With Animals",
                 "selected": [],

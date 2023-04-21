@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Twitchy",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "ancestry",
         "description": {
             "value": "<p>You are naturally suspicious and wary of danger, especially when you suspect someone might be leading you into an ambush. You gain a +1 circumstance bonus to AC and saves against hazards, and to all of your initiative rolls.</p>\n<p>If at least one of your opponents is using Deception or Diplomacy to determine their initiative, your bonus to initiative from this feat increases to +4.</p>"
-        },
-        "featType": {
-            "value": "ancestry"
         },
         "level": {
             "value": 1
@@ -30,7 +25,7 @@
                 "key": "RollOption",
                 "label": "Saving or defending against hazards",
                 "option": "hazard",
-                "toggleable": true
+                "toggleable": "totm"
             },
             {
                 "domain": "all",
@@ -41,7 +36,6 @@
             },
             {
                 "key": "FlatModifier",
-                "label": "Twitchy",
                 "selector": "initiative",
                 "type": "circumstance",
                 "value": 1
@@ -59,24 +53,12 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "hazard"
+                    "origin:type:hazard"
                 ],
-                "roll-options": [
-                    "all"
+                "selector": [
+                    "ac",
+                    "saving-throw"
                 ],
-                "selector": "ac",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "hazard"
-                ],
-                "roll-options": [
-                    "all"
-                ],
-                "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1
             }
@@ -85,7 +67,6 @@
             "value": "Pathfinder Advanced Player's Guide"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "goblin"

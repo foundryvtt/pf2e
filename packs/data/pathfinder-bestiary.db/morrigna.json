@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "divine"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -211,120 +206,6 @@
                 },
                 "tradition": {
                     "value": "divine"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "ENSJ3YzJmKPzUCB9",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Rituals",
-            "sort": 300000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "displayLevels": {},
-                "prepared": {
-                    "flexible": false,
-                    "value": "ritual"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": true
-                },
-                "showUnpreparedSpells": {
-                    "value": true
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot1": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot10": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot2": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot3": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot4": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot5": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot6": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot7": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot8": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot9": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    }
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "spelldc": {
-                    "dc": 37,
-                    "mod": 0,
-                    "value": 29
-                },
-                "tradition": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -338,17 +219,14 @@
             },
             "img": "systems/pf2e/icons/spells/field-of-life.webp",
             "name": "Field of Life",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
+                    "type": "burst",
                     "value": 20
-                },
-                "areasize": {
-                    "value": "20-foot burst"
                 },
                 "category": {
                     "value": "spell"
@@ -365,8 +243,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "healing"
                             },
                             "value": "1d8"
@@ -381,6 +261,41 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "8": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "applyMod": false,
+                                        "type": {
+                                            "categories": [],
+                                            "subtype": "",
+                                            "value": "healing"
+                                        },
+                                        "value": "1d10"
+                                    }
+                                }
+                            }
+                        },
+                        "9": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "applyMod": false,
+                                        "type": {
+                                            "categories": [],
+                                            "subtype": "",
+                                            "value": "healing"
+                                        },
+                                        "value": "1d12"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 6
@@ -438,7 +353,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "healing",
@@ -457,18 +371,12 @@
             },
             "img": "systems/pf2e/icons/spells/spiritual-blast.webp",
             "name": "Spirit Blast",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -484,8 +392,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "force"
                             },
                             "value": "16d6"
@@ -500,6 +410,13 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
                 },
                 "level": {
                     "value": 6
@@ -557,7 +474,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "force"
@@ -575,18 +491,12 @@
             },
             "img": "systems/pf2e/icons/spells/call-spirit.webp",
             "name": "Call Spirit",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "ritual"
                 },
@@ -615,7 +525,7 @@
                     "value": 5
                 },
                 "location": {
-                    "value": "ENSJ3YzJmKPzUCB9"
+                    "value": null
                 },
                 "materials": {
                     "value": ""
@@ -664,7 +574,6 @@
                     "value": []
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": []
                 }
@@ -680,18 +589,12 @@
             },
             "img": "systems/pf2e/icons/spells/death-ward.webp",
             "name": "Death Ward",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -773,7 +676,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -789,18 +691,12 @@
             },
             "img": "systems/pf2e/icons/spells/sending.webp",
             "name": "Sending",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -882,7 +778,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "mental"
@@ -900,18 +795,12 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Tongues (Constant)",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -993,7 +882,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": []
                 }
@@ -1009,18 +897,12 @@
             },
             "img": "systems/pf2e/icons/spells/freedom-of-movement.webp",
             "name": "Freedom of Movement",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1102,7 +984,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1118,18 +999,12 @@
             },
             "img": "systems/pf2e/icons/spells/read-omens.webp",
             "name": "Read Omens",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1210,7 +1085,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "prediction"
@@ -1228,18 +1102,12 @@
             },
             "img": "systems/pf2e/icons/spells/spell-immunity.webp",
             "name": "Spell Immunity",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1259,7 +1127,7 @@
                     "value": "<p>You ward a creature against the effects of a single spell. Choose a spell and name it aloud as part of the verbal component. Spell immunity attempts to counteract that spell whenever spell immunity's target is the target of the named spell or in that spell's area. Successfully counteracting a spell that targets an area or multiple targets with spell immunity negates the effects only for the target affected by spell immunity.</p>"
                 },
                 "duration": {
-                    "value": "24 hours"
+                    "value": "until the next time you make your daily preparations"
                 },
                 "hasCounteractCheck": {
                     "value": true
@@ -1321,7 +1189,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1337,18 +1204,12 @@
             },
             "img": "systems/pf2e/icons/spells/talking-corpse.webp",
             "name": "Talking Corpse",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1395,7 +1256,7 @@
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "will"
                 },
                 "school": {
                     "value": "necromancy"
@@ -1429,7 +1290,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": []
                 }
@@ -1445,18 +1305,12 @@
             },
             "img": "systems/pf2e/icons/spells/blindness.webp",
             "name": "Blindness",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1539,7 +1393,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "incapacitation"
@@ -1557,18 +1410,12 @@
             },
             "img": "systems/pf2e/icons/spells/crisis-of-faith.webp",
             "name": "Crisis of Faith",
-            "sort": 1500000,
+            "sort": 1400000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1663,7 +1510,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "mental"
@@ -1681,18 +1527,12 @@
             },
             "img": "systems/pf2e/icons/spells/dream-message.webp",
             "name": "Dream Message",
-            "sort": 1600000,
+            "sort": 1500000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1712,10 +1552,20 @@
                     "value": "<p>You send a message to your target's dream. The message is one-way, up to 1 minute of speech (roughly 150 words). If the target is asleep, they receive the message instantly. If not, they receive it the next time they sleep. As soon as they receive it, the spell ends, and you know the message was sent.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> You can target up to 10 creatures you know by name and have met in person. You must send the same message to all of them; the spell ends for each creature individually.</p>"
                 },
                 "duration": {
-                    "value": "1 day"
+                    "value": "until the next time you make your daily preparations"
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "4": {
+                            "target": {
+                                "value": "10 creatures you know by name and have met in person"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 3
@@ -1774,7 +1624,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "mental"
@@ -1792,17 +1641,14 @@
             },
             "img": "systems/pf2e/icons/spells/calm-emotions.webp",
             "name": "Calm Emotions",
-            "sort": 1700000,
+            "sort": 1600000,
             "system": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
+                    "type": "burst",
                     "value": 10
-                },
-                "areasize": {
-                    "value": "10-foot burst"
                 },
                 "category": {
                     "value": "spell"
@@ -1820,7 +1666,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You forcibly calm creatures in the area, soothing them into a nonviolent state; each creature must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> Calming urges impose a -1 status penalty to the creature's attack rolls.</p>\n<p><strong>Failure</strong> Any emotion effects that would affect the creature are suppressed and the creature can't use hostile actions. If the target is subject to hostility from any other creature, it ceases to be affected by calm emotions.</p>\n<p><strong>Critical Failure</strong> As failure, but hostility doesn't end the effect.</p>"
+                    "value": "<p>You forcibly calm creatures in the area, soothing them into a nonviolent state; each creature must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> Calming urges impose a -1 status penalty to the creature's attack rolls.</p>\n<p><strong>Failure</strong> Any emotion effects that would affect the creature are suppressed and the creature can't use hostile actions. If the target is subject to hostility from any other creature, it ceases to be affected by calm emotions.</p>\n<p><strong>Critical Failure</strong> As failure, but hostility doesn't end the effect.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Calm Emotions]{Spell Effect: Calm Emotions}</p>"
                 },
                 "duration": {
                     "value": "sustained up to 1 minute"
@@ -1884,7 +1730,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "emotion",
@@ -1904,18 +1749,12 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 1800000,
+            "sort": 1700000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1998,7 +1837,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -2014,18 +1852,12 @@
             },
             "img": "systems/pf2e/icons/spells/see-invisibility.webp",
             "name": "See Invisibility",
-            "sort": 1900000,
+            "sort": 1800000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -2042,7 +1874,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You can see @UUID[Compendium.pf2e.conditionitems.Invisible]{Invisible} creatures and objects. They appear to you as translucent shapes, and they are @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} to you.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The spell has a duration of 8 hours.</p>"
+                    "value": "<p>You can see @UUID[Compendium.pf2e.conditionitems.Invisible]{Invisible} creatures and objects. They appear to you as translucent shapes, and they are @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} to you.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The spell has a duration of 8 hours.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: See Invisibility]{Spell Effect: See Invisibility}</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -2107,7 +1939,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "revelation"
@@ -2125,18 +1956,12 @@
             },
             "img": "systems/pf2e/icons/spells/silence.webp",
             "name": "Silence",
-            "sort": 2000000,
+            "sort": 1900000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -2153,7 +1978,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>The target makes no sound, preventing creatures from noticing it using hearing or other senses alone. The target can't use sonic attacks, nor can it use actions with the auditory trait. This prevents it from casting spells that include verbal components.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell effect emanates from the touched creature, silencing all sound in or passing through a 10- foot radius and preventing any auditory and sonic effects in the affected area. While within the radius, creatures are subject to the same effects as the target. Depending upon the position of the effect, a creature might notice the lack of sound reaching it (blocking off the noise coming from a party, for example).</p>"
+                    "value": "<p>The target makes no sound, preventing creatures from noticing it using hearing alone. The target can't use sonic attacks, nor can it use actions with the auditory trait. This prevents it from casting spells that include verbal components.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Silence]{Spell Effect: Silence}</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell effect emanates from the touched creature, silencing all sound in or passing through a 10- foot radius and preventing any auditory and sonic effects in the affected area. While within the radius, creatures are subject to the same effects as the target. Depending upon the position of the effect, a creature might notice the lack of sound reaching it (blocking off the noise coming from a party, for example).</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -2217,7 +2042,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -2233,18 +2057,12 @@
             },
             "img": "systems/pf2e/icons/spells/speak-with-animals.webp",
             "name": "Speak with Animals (Constant)",
-            "sort": 2100000,
+            "sort": 2000000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -2324,7 +2142,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -2340,18 +2157,12 @@
             },
             "img": "systems/pf2e/icons/spells/spider-climb.webp",
             "name": "Spider Climb (Constant)",
-            "sort": 2200000,
+            "sort": 2100000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -2432,7 +2243,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -2448,17 +2258,14 @@
             },
             "img": "systems/pf2e/icons/spells/bane.webp",
             "name": "Bane",
-            "sort": 2300000,
+            "sort": 2200000,
             "system": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
+                    "type": "emanation",
                     "value": 5
-                },
-                "areasize": {
-                    "value": "5-foot emanation"
                 },
                 "category": {
                     "value": "spell"
@@ -2476,7 +2283,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You fill the minds of your enemies with doubt.</p>\n<p>Enemies in the area must succeed at a Will save or take a -1 status penalty to attack rolls as long as they are in the area.</p>\n<p>Once per turn, starting the turn after you cast bane, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet and force enemies in the area that weren't yet affected to attempt another saving throw.</p>\n<p>Bane can counteract bless.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Bane]{Spell Effect: Bane}</p>"
+                    "value": "<p>You fill the minds of your enemies with doubt.</p>\n<p>Enemies in the area must succeed at a Will save or take a -1 status penalty to attack rolls as long as they are in the area.</p>\n<p>Once per turn, starting the turn after you cast bane, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet and force enemies in the area that weren't yet affected to attempt another saving throw.</p>\n<p>Bane can counteract <em>@UUID[Compendium.pf2e.spells-srd.Bless]{Bless}</em>.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Bane]{Spell Effect: Bane}</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -2540,7 +2347,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "mental"
@@ -2558,17 +2364,14 @@
             },
             "img": "systems/pf2e/icons/spells/bless.webp",
             "name": "Bless",
-            "sort": 2400000,
+            "sort": 2300000,
             "system": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
+                    "type": "emanation",
                     "value": 5
-                },
-                "areasize": {
-                    "value": "5-foot emanation"
                 },
                 "category": {
                     "value": "spell"
@@ -2586,7 +2389,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>Blessings from beyond help your companions strike true. You and your allies gain a +1 status bonus to attack rolls while within the emanation. Once per turn, starting the turn after you cast bless, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet. Bless can counteract bane.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Bless]{Spell Effect: Bless}</p>"
+                    "value": "<p>Blessings from beyond help your companions strike true. You and your allies gain a +1 status bonus to attack rolls while within the emanation. Once per turn, starting the turn after you cast bless, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet.</p>\n<p>Bless can counteract <em>@UUID[Compendium.pf2e.spells-srd.Bane]{Bane}</em>.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Bless]{Spell Effect: Bless}</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -2650,7 +2453,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "mental"
@@ -2668,18 +2470,12 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Chill Touch",
-            "sort": 2500000,
+            "sort": 2400000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -2776,7 +2572,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "cantrip",
@@ -2795,17 +2590,14 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 2600000,
+            "sort": 2500000,
             "system": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
+                    "type": "emanation",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -2889,7 +2681,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "detection",
@@ -2908,18 +2699,12 @@
             },
             "img": "systems/pf2e/icons/spells/disrupt-undead.webp",
             "name": "Disrupt Undead",
-            "sort": 2700000,
+            "sort": 2600000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -2938,6 +2723,7 @@
                             "applyMod": true,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "positive"
                             },
                             "value": "1d6"
@@ -2980,7 +2766,7 @@
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
+                    "basic": "basic",
                     "value": "fortitude"
                 },
                 "school": {
@@ -3016,7 +2802,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "positive",
@@ -3035,18 +2820,12 @@
             },
             "img": "systems/pf2e/icons/spells/heal.webp",
             "name": "Heal",
-            "sort": 2800000,
+            "sort": 2700000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": "varies"
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -3062,6 +2841,7 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
                                 "value": "positive"
@@ -3071,7 +2851,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (somatic, verbal) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"pf2-icon\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"pf2-icon\">2</span> <strong>(verbal, somatic)</strong> The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8</p>\n<p><span class=\"pf2-icon\">3</span> <strong>(material, somatic, verbal)</strong> You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -3096,6 +2876,107 @@
                 "materials": {
                     "value": ""
                 },
+                "overlays": {
+                    "37gy7l19tik74o4s": {
+                        "_id": "37gy7l19tik74o4s",
+                        "name": "Heal (vs. Living)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "components": {
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "value": "1d8+8"
+                                    }
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "0": "1d8+8"
+                                }
+                            },
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "save": {
+                                "basic": "",
+                                "value": ""
+                            },
+                            "time": {
+                                "value": "2"
+                            }
+                        }
+                    },
+                    "7qdtetowq348s9oc": {
+                        "_id": "7qdtetowq348s9oc",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "components": {
+                                "somatic": true
+                            },
+                            "range": {
+                                "value": "touch"
+                            },
+                            "time": {
+                                "value": "1"
+                            }
+                        }
+                    },
+                    "7vbvdrv2cl87sqta": {
+                        "_id": "7vbvdrv2cl87sqta",
+                        "overlayType": "override",
+                        "sort": 4,
+                        "system": {
+                            "area": {
+                                "type": "emanation",
+                                "value": 30
+                            },
+                            "components": {
+                                "material": true,
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "range": {
+                                "value": ""
+                            },
+                            "target": {
+                                "value": "all living and undead creatures"
+                            },
+                            "time": {
+                                "value": "3"
+                            }
+                        }
+                    },
+                    "lfxcoz2d3f8j2zq1": {
+                        "_id": "lfxcoz2d3f8j2zq1",
+                        "name": "Heal (vs. Undead)",
+                        "overlayType": "override",
+                        "sort": 3,
+                        "system": {
+                            "components": {
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "spellType": {
+                                "value": "save"
+                            },
+                            "target": {
+                                "value": "1 undead"
+                            },
+                            "time": {
+                                "value": "2"
+                            }
+                        }
+                    }
+                },
                 "prepared": {
                     "value": ""
                 },
@@ -3107,8 +2988,8 @@
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
-                    "value": ""
+                    "basic": "basic",
+                    "value": "fortitude"
                 },
                 "school": {
                     "value": "necromancy"
@@ -3143,7 +3024,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "healing",
@@ -3162,18 +3042,12 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement",
-            "sort": 2900000,
+            "sort": 2800000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -3255,7 +3129,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack"
@@ -3273,18 +3146,12 @@
             },
             "img": "systems/pf2e/icons/spells/read-aura.webp",
             "name": "Read Aura",
-            "sort": 3000000,
+            "sort": 2900000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -3308,6 +3175,21 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "target": {
+                                "value": "10 objects"
+                            }
+                        },
+                        "6": {
+                            "target": {
+                                "value": "any number of objects"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -3367,7 +3249,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "detection",
@@ -3386,18 +3267,12 @@
             },
             "img": "systems/pf2e/icons/spells/stabelize.webp",
             "name": "Stabilize",
-            "sort": 3100000,
+            "sort": 3000000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -3459,7 +3334,7 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
-                    "value": "heal"
+                    "value": "utility"
                 },
                 "sustained": {
                     "value": false
@@ -3478,7 +3353,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "positive",
@@ -3498,7 +3372,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/bo-staff.webp",
             "name": "Bo Staff",
-            "sort": 3200000,
+            "sort": 3100000,
             "system": {
                 "MAP": {
                     "value": ""
@@ -3515,8 +3389,7 @@
                 "damage": {
                     "damageType": "bludgeoning",
                     "dice": 1,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
                     "value": "<p>This strong but slender staff is tapered at the ends and well balanced. It's designed to be an offensive and defensive weapon.</p>"
@@ -3579,9 +3452,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -3590,7 +3460,6 @@
                     "value": "striking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "monk",
@@ -3610,9 +3479,14 @@
         },
         {
             "_id": "Jf6SQTejkZnEWA2T",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "UDMJfwXSlRTQ7XYM"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Bo Staff",
-            "sort": 3300000,
+            "sort": 3200000,
             "system": {
                 "attack": {
                     "value": ""
@@ -3641,7 +3515,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -3660,7 +3533,7 @@
             "_id": "DfnmY7gUQzG365ax",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Web Wrappings",
-            "sort": 3400000,
+            "sort": 3300000,
             "system": {
                 "attack": {
                     "value": ""
@@ -3690,7 +3563,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -3712,7 +3584,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 3500000,
+            "sort": 3400000,
             "system": {
                 "actionCategory": {
                     "value": "interaction"
@@ -3735,7 +3607,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -3757,7 +3628,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Lifesense 60 feet",
-            "sort": 3600000,
+            "sort": 3500000,
             "system": {
                 "actionCategory": {
                     "value": "interaction"
@@ -3780,7 +3651,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divination",
@@ -3805,7 +3675,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Constant Spells",
-            "sort": 3700000,
+            "sort": 3600000,
             "system": {
                 "actionCategory": {
                     "value": "interaction"
@@ -3828,7 +3698,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -3850,7 +3719,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
-            "sort": 3800000,
+            "sort": 3700000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -3891,7 +3760,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -3913,7 +3781,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Regeneration 20 (Deactivated by Acid or Fire)",
-            "sort": 3900000,
+            "sort": 3800000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -3936,7 +3804,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -3958,7 +3825,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Change Shape",
-            "sort": 4000000,
+            "sort": 3900000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -3981,7 +3848,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate",
@@ -4003,7 +3869,7 @@
             "_id": "4pbTTxqHWnbnAW7T",
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Spider Minions",
-            "sort": 4100000,
+            "sort": 4000000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -4026,7 +3892,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "conjuration",
@@ -4046,7 +3911,7 @@
             "_id": "dxLrvmfMtHkddYo4",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Spirit Touch",
-            "sort": 4200000,
+            "sort": 4100000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -4058,7 +3923,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A morrigna's Strikes affect incorporeal creatures as though etched with a @UUID[Compendium.pf2e.equipment-srd.Ghost Touch]{Ghost Touch} property rune and deal [[/r {4d6}[negative]]]{4d6 negative damage} to living creatures or [[/r {4d6}[positive]]]{4d6 positive damage} to undead.</p>"
+                    "value": "<p>A morrigna's Strikes affect incorporeal creatures as though etched with a @UUID[Compendium.pf2e.equipment-srd.Ghost Touch]{Ghost Touch} property rune and deal [[/r 4d6[negative]]] damage to living creatures or [[/r 4d6[positive]]] damage to undead.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -4087,12 +3952,11 @@
                         "selector": "strike-damage"
                     }
                 ],
-                "slug": null,
+                "slug": "spirit-touch",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -4109,7 +3973,7 @@
             "_id": "qDypnfBHeFgNsDjH",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Wrappings Lash",
-            "sort": 4300000,
+            "sort": 4200000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -4132,7 +3996,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -4154,7 +4017,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 4400000,
+            "sort": 4300000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -4177,7 +4040,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -4194,7 +4056,7 @@
             "_id": "3fcxXMDYfEdzSjpw",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 4500000,
+            "sort": 4400000,
             "system": {
                 "description": {
                     "value": ""
@@ -4209,11 +4071,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -4222,7 +4079,7 @@
             "_id": "7jkFukrBwG3G4TQw",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Boneyard Lore",
-            "sort": 4600000,
+            "sort": 4500000,
             "system": {
                 "description": {
                     "value": ""
@@ -4237,11 +4094,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -4250,7 +4102,7 @@
             "_id": "kg8tLoxwpczEUMRO",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 4700000,
+            "sort": 4600000,
             "system": {
                 "description": {
                     "value": ""
@@ -4265,11 +4117,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -4278,6 +4125,29 @@
             "_id": "9UGGbAtMhyb08E2K",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
+            "sort": 4700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 29
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "OtAGfWOPUki9fVaP",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Religion",
             "sort": 4800000,
             "system": {
                 "description": {
@@ -4293,39 +4163,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "OtAGfWOPUki9fVaP",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Religion",
-            "sort": 4900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 29
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -4334,7 +4171,7 @@
             "_id": "6BEquoIA84ZJGw9H",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 5000000,
+            "sort": 4900000,
             "system": {
                 "description": {
                     "value": ""
@@ -4349,11 +4186,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -4362,7 +4194,7 @@
             "_id": "gYJKIDFVdNAbhC1D",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 5100000,
+            "sort": 5000000,
             "system": {
                 "description": {
                     "value": ""
@@ -4377,11 +4209,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -4423,12 +4250,30 @@
                 "temp": 0,
                 "value": 240
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 28
             },
+            "resistances": [
+                {
+                    "type": "negative",
+                    "value": 15
+                },
+                {
+                    "type": "poison",
+                    "value": 15
+                }
+            ],
             "speed": {
                 "details": "from spider climb spell",
                 "otherSpeeds": [
@@ -4475,26 +4320,12 @@
                 "value": 29
             }
         },
+        "spellcasting": {
+            "rituals": {
+                "dc": 37
+            }
+        },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "negative",
-                    "value": 15
-                },
-                {
-                    "type": "poison",
-                    "value": 15
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "Speak with Animals, Tongues",
                 "selected": [],

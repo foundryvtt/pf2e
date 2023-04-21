@@ -1,14 +1,13 @@
-import { JournalEntryConstructor } from "./constructors";
+import type { ClientBaseJournalEntry } from "./client-base-mixes.d.ts";
 
 declare global {
     /**
-     * The client-side JournalEntry document which extends the common BaseJournalEntry abstraction.
-     * Each JournalEntry document contains JournalEntryData which defines its data schema.
-     * @see {@link data.JournalEntryData}              The JournalEntry data schema
-     * @see {@link documents.Journal}                  The world-level collection of JournalEntry documents
-     * @see {@link applications.JournalSheet}          The JournalEntry configuration application
+     * The client-side JournalEntry document which extends the common BaseJournalEntry model.
+     *
+     * @see {@link Journal}                       The world-level collection of JournalEntry documents
+     * @see {@link JournalSheet}                  The JournalEntry configuration application
      */
-    class JournalEntry extends JournalEntryConstructor {
+    class JournalEntry extends ClientBaseJournalEntry {
         /* -------------------------------------------- */
         /*  Properties                                  */
         /* -------------------------------------------- */
@@ -51,16 +50,18 @@ declare global {
         /*  Event Handlers                              */
         /* -------------------------------------------- */
 
-        override _onUpdate(
+        protected override _onUpdate(
             changed: DeepPartial<this["_source"]>,
-            options: DocumentModificationContext,
+            options: DocumentUpdateContext<null>,
             userId: string
         ): void;
 
-        override _onDelete(options: DocumentModificationContext, userId: string): void;
+        protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
     }
 
-    interface JournalEntry {
+    interface JournalEntry extends ClientBaseJournalEntry {
+        readonly pages: foundry.abstract.EmbeddedCollection<JournalEntryPage<this>>;
+
         get sheet(): JournalSheet<this>;
     }
 }

@@ -1,20 +1,13 @@
 import {
     ActorSystemData,
     ActorSystemSource,
-    BaseActorDataPF2e,
     BaseActorSourcePF2e,
-    BaseTraitsData,
-    BaseTraitsSource,
-    GangUpCircumstance,
-} from "@actor/data/base";
-import { LootPF2e } from ".";
+    ActorAttributesSource,
+    ActorAttributes,
+} from "@actor/data/base.ts";
 
 /** The stored source data of a loot actor */
 type LootSource = BaseActorSourcePF2e<"loot", LootSystemSource>;
-
-interface LootData
-    extends Omit<LootSource, "data" | "system" | "effects" | "flags" | "items" | "prototypeToken" | "type">,
-        BaseActorDataPF2e<LootPF2e, "loot", LootSystemData, LootSource> {}
 
 /** The system-level data of loot actors. */
 interface LootSystemSource extends ActorSystemSource {
@@ -22,35 +15,32 @@ interface LootSystemSource extends ActorSystemSource {
     details: LootDetailsSource;
     lootSheetType: "Merchant" | "Loot";
     hiddenWhenEmpty: boolean;
-    traits: BaseTraitsSource<string>;
+    traits?: never;
 }
 
-interface LootSystemData extends LootSystemSource, Omit<ActorSystemData, "attributes"> {
-    attributes: LootAttributesData;
-
+interface LootSystemData extends Omit<LootSystemSource, "attributes">, ActorSystemData {
+    attributes: LootAttributes;
     details: LootDetailsData;
-
-    traits: BaseTraitsData<string>;
+    traits?: never;
 }
 
-interface LootAttributesSource {
+interface LootAttributesSource extends ActorAttributesSource {
     hp?: never;
     ac?: never;
+    perception?: never;
+    immunities?: never;
+    weaknesses?: never;
+    resistances?: never;
 }
 
-interface LootAttributesData extends LootAttributesSource {
-    flanking: {
-        canFlank: false;
-        canGangUp: GangUpCircumstance[];
-        flankable: false;
-        flatFootable: false;
-    };
+interface LootAttributes
+    extends Omit<LootAttributesSource, "immunities" | "weaknesses" | "resistances">,
+        Omit<ActorAttributes, "perception" | "hp" | "ac"> {
+    initiative?: never;
 }
 
 interface LootDetailsSource {
-    description: {
-        value: string;
-    };
+    description: string;
     level: {
         value: number;
     };
@@ -60,4 +50,4 @@ interface LootDetailsData extends LootDetailsSource {
     alliance: null;
 }
 
-export { LootData, LootSource, LootSystemData, LootSystemSource };
+export { LootSource, LootSystemData, LootSystemSource };

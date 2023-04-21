@@ -34,7 +34,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -79,7 +78,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -119,7 +117,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -148,7 +145,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {4d8}[piercing]]]{4d8 piercing damage} (@Check[type:reflex|dc:26|basic:true] save). Any creature that fails its saving throw is exposed to hellwasp venom.</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r 4d8[piercing]]] damage (@Check[type:reflex|dc:26|basic:true] save). Any creature that fails its saving throw is exposed to hellwasp venom.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -159,7 +156,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -188,7 +184,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:26]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d8}[poison]]]{1d8 poison damage} and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {2d8}[poison]]]{2d8 poison damage} and clumsy 2 (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:26]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d8[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 2d8[poison]]] damage and clumsy 2 (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -199,7 +195,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "poison"
@@ -230,7 +225,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The hellwasp swarm animates the corpse of a Small, Medium, or Large humanoid that protected by <em>@UUID[Compendium.pf2e.spells-srd.Gentle Repose]{Gentle Repose}</em> or similar magic, crawling into its mouth and other orifices.</p>\n<p>Its size changes to that of the corpse and it loses its piercing and slashing resistances, fly Speed, and Hellwasp Stings.</p>\n<p>It gains a fist melee Strike with a [[/r 1d20+18 #Fist]]{+18}/[[/r 1d20+13 #Fist]]{+13}/[[/r 1d20+8 #Fist]]{+8} attack modifier that deals [[/r {2d8}[bludgeoning]+{2d8}[piercing]]]{2d8 bludgeoning damage plus 2d8 piercing damage} and hellwasp venom. The hellwasp swarm gains [[/r 40 #Temporary Hit Points]]{40 temporary Hit Points} when it Infests a Corpse; when these temporary HP are depleted, the corpse falls apart and the swarm Abandons the Corpse automatically.</p>"
+                    "value": "<p>The hellwasp swarm animates the corpse of a Small, Medium, or Large humanoid that protected by <em>@UUID[Compendium.pf2e.spells-srd.Gentle Repose]{Gentle Repose}</em> or similar magic, crawling into its mouth and other orifices.</p>\n<p>Its size changes to that of the corpse and it loses its piercing and slashing resistances, fly Speed, and Hellwasp Stings.</p>\n<p>It gains a fist melee Strike with a [[/r 1d20+18 #Fist]]{+18}/[[/r 1d20+13 #Fist]]{+13}/[[/r 1d20+8 #Fist]]{+8} attack modifier that deals [[/r {2d8[bludgeoning],2d8[piercing]}]]{2d8 bludgeoning damage plus 2d8 piercing damage} and hellwasp venom. The hellwasp swarm gains [[/r 40 #Temporary Hit Points]]{40 temporary Hit Points} when it Infests a Corpse; when these temporary HP are depleted, the corpse falls apart and the swarm Abandons the Corpse automatically.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -241,7 +236,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "manipulate"
@@ -283,7 +277,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "auditory",
@@ -321,11 +314,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -349,11 +337,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -395,12 +378,38 @@
                 "temp": 0,
                 "value": 95
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 16
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 5
+                },
+                {
+                    "type": "fire",
+                    "value": 10
+                },
+                {
+                    "type": "piercing",
+                    "value": 10
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -409,7 +418,17 @@
                     }
                 ],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 10
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -445,46 +464,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "precision",
-                    "swarm-mind"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "bludgeoning",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "fire",
-                    "value": 10
-                },
-                {
-                    "exceptions": "",
-                    "type": "piercing",
-                    "value": 10
-                },
-                {
-                    "exceptions": "",
-                    "type": "slashing",
-                    "value": 5
-                }
-            ],
-            "dv": [
-                {
-                    "type": "area-damage",
-                    "value": 10
-                },
-                {
-                    "type": "splash-damage",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "(Can't Speak Any Language)",
                 "selected": [],

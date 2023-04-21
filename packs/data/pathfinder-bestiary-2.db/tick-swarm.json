@@ -34,7 +34,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -74,7 +73,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -103,7 +101,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature leaves the swarm's space</p>\n<hr />\n<p><strong>Effect</strong> The swarm takes [[/r {1d6}]]{1d6 damage} as ticks cling to the creature and continue biting, dealing @Localize[PF2E.PersistentDamage.Bleed3d6.success]. Immersion in water reduces the DC of the flat check to end this persistent damage to 5, and any area damage dealt to the creature destroys these clinging ticks.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature leaves the swarm's space</p>\n<hr />\n<p><strong>Effect</strong> The swarm takes [[/r {1d6}]]{1d6 damage} as ticks cling to the creature and continue biting, dealing [[/r 3d6[bleed]]]. Immersion in water reduces the DC of the flat check to end this persistent damage to 5, and any area damage dealt to the creature destroys these clinging ticks.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -114,7 +112,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -143,7 +140,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {3d6}[piercing]]]{3d6 piercing damage} (@Check[type:reflex|dc:28|basic:true] save) plus Cling and exposure to tick fever.</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r 3d6[piercing]]] damage (@Check[type:reflex|dc:28|basic:true] save) plus Cling and exposure to tick fever.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -154,7 +151,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -194,7 +190,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "disease"
@@ -228,11 +223,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -256,11 +246,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -302,12 +287,34 @@
                 "temp": 0,
                 "value": 130
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 18
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 5
+                },
+                {
+                    "type": "piercing",
+                    "value": 10
+                },
+                {
+                    "type": "slashing",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -316,7 +323,17 @@
                     }
                 ],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 10
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -352,43 +369,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "precision",
-                    "swarm-mind"
-                ]
-            },
-            "dr": [
-                {
-                    "label": "Bludgeoning",
-                    "type": "bludgeoning",
-                    "value": "5"
-                },
-                {
-                    "label": "Piercing",
-                    "type": "piercing",
-                    "value": "10"
-                },
-                {
-                    "label": "Slashing",
-                    "type": "slashing",
-                    "value": "10"
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Area Damage",
-                    "type": "area-damage",
-                    "value": "10"
-                },
-                {
-                    "label": "Splash Damage",
-                    "type": "splash-damage",
-                    "value": "10"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

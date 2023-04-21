@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
                     "value": "<p>This ranged weapon has a bow-like assembly mounted on a handled frame called a tiller. The tiller has a mechanism to lock the bowstring in place, attached to a trigger mechanism that releases the tension and launches a bolt.</p>"
@@ -59,10 +58,10 @@
                     "value": 1
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -92,9 +91,6 @@
                 "source": {
                     "value": ""
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -103,7 +99,6 @@
                     "value": "striking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -142,8 +137,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>These blades come in a variety of shapes and styles, but they are typically 2 feet long.</p>"
@@ -173,10 +167,10 @@
                     "value": 1
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -206,9 +200,6 @@
                 "source": {
                     "value": ""
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -217,7 +208,6 @@
                     "value": "striking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -326,7 +316,6 @@
                     "value": 10
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -402,7 +391,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -471,7 +459,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -498,11 +485,10 @@
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>You need thieves' tools to Pick Locks or Disable Devices (of some types) using the Thievery skill. Infiltrator thieves' tools add a +1 item bonus to checks to Pick Locks and Disable Devices.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @UUID[Compendium.pf2e.equipment-srd.Thieves' Tools (Infiltrator Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action.</p>"
+                    "value": "<p>You need thieves' tools to @UUID[Compendium.pf2e.actionspf2e.Pick a Lock]{Pick Locks} or @UUID[Compendium.pf2e.actionspf2e.Disable Device]{Disable Devices} (of some types) using the Thievery skill. Infiltrator thieves' tools add a +1 item bonus to checks to Pick Locks and Disable Devices.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @UUID[Compendium.pf2e.equipment-srd.Thieves' Tools (Infiltrator Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action. If you wear your thieves' tools, you can draw and replace them as part of the action that uses them.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -535,7 +521,6 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "Thieves' Tools (Pick Lock & Disable Devices)",
                         "predicate": [
                             {
                                 "or": [
@@ -552,16 +537,15 @@
                 "size": "med",
                 "slug": "thieves-tools-infiltrator",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "held-in-two-hands"
                 },
                 "weight": {
                     "value": "L"
@@ -580,22 +564,11 @@
             "name": "Shining Bolt",
             "sort": 700000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 1,
                     "value": 1
                 },
@@ -603,16 +576,11 @@
                     "value": "potion"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": ""
                 },
                 "containerId": null,
                 "description": {
                     "value": "<p>A piece of <em>shining ammunition</em> gives off a faint glow. When shot, this ammunition sheds bright light in a 20-foot radius (and dim light to the next 20 feet) for 10 minutes. If it hits a target, it sticks, causing the target to shed light in the same radius. A creature can remove the ammunition with an Interact action, but the ammunition itself continues to glow for the rest of the duration or until destroyed.</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -645,11 +613,6 @@
                     }
                 },
                 "quantity": 3,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": "shining-ammunition",
@@ -657,13 +620,7 @@
                     "value": ""
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "consumable",
@@ -674,13 +631,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "-"
@@ -699,22 +649,11 @@
             "name": "Explosive Bolt",
             "sort": 800000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 0,
                     "value": 0
                 },
@@ -722,16 +661,11 @@
                     "value": "ammo"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": "6d6"
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>This piece of ammunition is coated in gritty black soot. When activated <em>explosive ammunition</em> hits a target, the missile explodes in a @Template[type:burst|distance:10], dealing [[/r {6d6}[fire]]]{6d6 fire damage} to each creature in the area (including the target). Each creature must attempt a @Check[type:reflex|dc:25|basic:true] save.</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>This piece of ammunition is coated in gritty black soot. When activated <em>explosive ammunition</em> hits a target, the missile explodes in a @Template[type:burst|distance:10], dealing [[/r 6d6[fire]]] damage to each creature in the area (including the target). Each creature must attempt a @Check[type:reflex|dc:25|basic:true] save.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -764,11 +698,6 @@
                     }
                 },
                 "quantity": 2,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": "explosive-ammunition",
@@ -776,13 +705,7 @@
                     "value": ""
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "consumable",
@@ -793,13 +716,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "-"
@@ -818,22 +734,11 @@
             "name": "Darkvision Elixir (Greater)",
             "sort": 900000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 1,
                     "value": 1
                 },
@@ -841,16 +746,11 @@
                     "value": "potion"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": ""
                 },
                 "containerId": null,
                 "description": {
                     "value": "<p><strong>Activate</strong><span class=\"pf2-icon\">1</span> Interact</p>\n<p>After you drink this elixir, your sight becomes sharper in darkness. You gain darkvision for 24 hours.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Effect: Darkvision Elixir (Greater)]{Effect: Darkvision Elixir (Greater)}</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -883,11 +783,6 @@
                     }
                 },
                 "quantity": 1,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": "darkvision-elixir-greater",
@@ -895,13 +790,7 @@
                     "value": ""
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "alchemical",
@@ -911,13 +800,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "L"
@@ -936,22 +818,11 @@
             "name": "Elixir of Life (Moderate)",
             "sort": 1000000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 1,
                     "value": 1
                 },
@@ -959,16 +830,11 @@
                     "value": "potion"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": "5d6+12"
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain [[/r {5d6+12}[healing]]]{5d6+12 Hit Points} and gain +2 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Effect: Elixir of Life (Moderate)]{Effect: Elixir of Life (Moderate)}</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain [[/r (5d6+12)[healing]]]{5d6+12 Hit Points} and gain +2 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Effect: Elixir of Life (Moderate)]{Effect: Elixir of Life (Moderate)}</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1001,11 +867,6 @@
                     }
                 },
                 "quantity": 1,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": "elixir-of-life-moderate",
@@ -1013,13 +874,7 @@
                     "value": ""
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "alchemical",
@@ -1030,13 +885,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "L"
@@ -1055,22 +903,11 @@
             "name": "Blackfinger Blight",
             "sort": 1100000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 1,
                     "value": 1
                 },
@@ -1078,16 +915,11 @@
                     "value": "poison"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": ""
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p><strong>Activate</strong><span class=\"pf2-icon\">2</span>Interact</p>\n<hr />\n<p>This oily, dark purple powder gives off the distinct odor of boiled leather. When delivered, the poison acts quickly to constrict the victim's blood flow to their extremities and turn their lungs into a soft jelly. A victim of blackfinger blight is recognizable by the pores of their fingertips weeping an inky oil that coats their hands and makes it difficult to hold things. Each round, at the beginning of their turn, a creature affected by blackfinger blight must succeed at a flat DC 5 check or drop one random item they're holding.</p>\n<p><strong>Saving Throw</strong> DC 32 Fortitude</p>\n<p><strong>Onset</strong> 1 round</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {6d6}[poison]]]{6d6 poison damage} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {8d6}[poison]]]{8d6 poison damage} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {10d6}[poison]]]{10d6 poison damage} and @UUID[Compendium.pf2e.conditionitems.Confused]{Confused}(1 round)</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
+                    "value": "<p><strong>Activate</strong><span class=\"pf2-icon\">2</span>Interact</p>\n<hr />\n<p>This oily, dark purple powder gives off the distinct odor of boiled leather. When delivered, the poison acts quickly to constrict the victim's blood flow to their extremities and turn their lungs into a soft jelly. A victim of blackfinger blight is recognizable by the pores of their fingertips weeping an inky oil that coats their hands and makes it difficult to hold things. Each round, at the beginning of their turn, a creature affected by blackfinger blight must succeed at a flat DC 5 check or drop one random item they're holding.</p>\n<p><strong>Saving Throw</strong> DC 32 Fortitude</p>\n<p><strong>Onset</strong> 1 round</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 6d6[poison]]] damage (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 8d6[poison]]] damage (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 10d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Confused]{Confused}(1 round)</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1120,11 +952,6 @@
                     }
                 },
                 "quantity": 2,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": "blackfinger-blight",
@@ -1132,13 +959,7 @@
                     "value": ""
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
-                    "custom": "",
                     "rarity": "rare",
                     "value": [
                         "alchemical",
@@ -1150,13 +971,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "L"
@@ -1175,22 +989,11 @@
             "name": "Sunrod",
             "sort": 1200000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 1,
                     "value": 1
                 },
@@ -1198,16 +1001,11 @@
                     "value": "other"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": ""
                 },
                 "containerId": null,
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>This 1-foot-long, gold-tipped rod glows after it's struck on a hard surface. For the next 6 hours, it sheds bright light in a 20-foot radius (and dim light to the next 40 feet).</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1240,11 +1038,6 @@
                     }
                 },
                 "quantity": 3,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": "sunrod",
@@ -1252,13 +1045,7 @@
                     "value": ""
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "alchemical",
@@ -1268,13 +1055,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "L"
@@ -1336,7 +1116,6 @@
                 },
                 "stackGroup": "coins",
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1351,6 +1130,11 @@
         },
         {
             "_id": "ozjGo4jmzdNhJfAA",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "MAhPy7k54Vmkmez7"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Shortsword",
             "sort": 1400000,
@@ -1380,7 +1164,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -1397,6 +1180,11 @@
         },
         {
             "_id": "JUNDTV3wwrM9gFjE",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "CnynVi7OZhHOIToa"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Crossbow",
             "sort": 1500000,
@@ -1426,7 +1214,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -1477,7 +1264,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1517,7 +1303,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1546,7 +1331,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Franca quickly slashes at nearby foes, aiming to maim rather than disable. She makes up to three melee Strikes, each against a different creature within reach.</p>\n<p>These Strikes count toward Franca's multiple attack penalty, but the penalty doesn't increase until after all three Strikes are made.</p>\n<p>On a hit, the Strike deals [[/r {3}[persistent,bleed]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} instead of its normal damage.</p>\n<p>On a critical hit, the creature is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the beginning of Franca's next turn or until they spend an action to remove the condition, whichever comes first.</p>"
+                    "value": "<p>Franca quickly slashes at nearby foes, aiming to maim rather than disable. She makes up to three melee Strikes, each against a different creature within reach.</p>\n<p>These Strikes count toward Franca's multiple attack penalty, but the penalty doesn't increase until after all three Strikes are made.</p>\n<p>On a hit, the Strike deals [[/r 3[bleed]]] damage instead of its normal damage.</p>\n<p>On a critical hit, the creature is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the beginning of Franca's next turn or until they spend an action to remove the condition, whichever comes first.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1557,7 +1342,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1586,7 +1370,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Franca's last action was a melee Strike that dealt sneak attack damage to a @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} target</p>\n<hr />\n<p><strong>Effect</strong> Franca deals [[/r {6}[persistent,bleed]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} to the target creature, and the target is @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1}.</p>"
+                    "value": "<p><strong>Requirements</strong> Franca's last action was a melee Strike that dealt sneak attack damage to a @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} target</p>\n<hr />\n<p><strong>Effect</strong> Franca deals [[/r 6[bleed]]] damage to the target creature, and the target is @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1597,7 +1381,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1674,7 +1457,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1714,7 +1496,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1746,11 +1527,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1774,11 +1550,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1802,11 +1573,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1830,11 +1596,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1858,11 +1619,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1886,11 +1642,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1914,11 +1665,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1942,11 +1688,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1989,7 +1730,7 @@
                 "value": 195
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 26
@@ -2033,13 +1774,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

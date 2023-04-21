@@ -115,21 +115,17 @@ declare global {
 
         /**
          * Replace an inline roll formula with a rollable &lt;a> element or an eagerly evaluated roll result
-         * @param match   The matched string
-         * @param command An optional command
-         * @param formula The matched formula
-         * @param closing The closing brackets for the inline roll
-         * @param [label] An optional label which configures the button text
-         * @return The replaced match
+         * @param match     The regular expression match array
+         * @param rollData  Provided roll data for use in roll evaluation
+         * @param [options] Additional options to configure enrichment behaviour
+         * @returns The replaced match, returned as a Promise if async was true and the message contained an
+         *          immediate inline roll.
          */
-        protected static _createInlineRoll(
-            match: string,
-            command: string,
-            formula: string,
-            closing: string,
-            label: string,
-            ...args: RollData[]
-        ): HTMLAnchorElement | null;
+        static _createInlineRoll(
+            match: RegExpMatchArray,
+            rollData: Record<string, unknown>,
+            options?: EvaluateRollParams
+        ): HTMLAnchorElement | null | Promise<HTMLAnchorElement | null>;
 
         /* -------------------------------------------- */
         /*  Event Listeners and Handlers                */
@@ -144,16 +140,16 @@ declare global {
          * Handle left-mouse clicks on an inline roll, dispatching the formula or displaying the tooltip
          * @param event The initiating click event
          */
-        protected static _onClickInlineRoll(event: MouseEvent): Promise<foundry.data.ChatMessageData>;
+        static _onClickInlineRoll(event: MouseEvent): Promise<ChatMessage>;
 
         /**
          * Toggle playing or stopping an embedded {@link PlaylistSound} link.
          * @param doc The PlaylistSound document to play/stop.
          */
-        protected static _onPlaySound(doc: PlaylistSound): void;
+        protected static _onPlaySound(doc: PlaylistSound<Playlist>): void;
 
         /** Find all content links belonging to a given PlaylistSound. */
-        protected static _getSoundContentLinks(doc: PlaylistSound): NodeListOf<HTMLAnchorElement>;
+        protected static _getSoundContentLinks(doc: PlaylistSound<Playlist>): NodeListOf<HTMLAnchorElement>;
 
         /**
          * Begin a Drag+Drop workflow for a dynamic content link

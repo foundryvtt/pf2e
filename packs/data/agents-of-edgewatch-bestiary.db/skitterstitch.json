@@ -32,7 +32,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -78,7 +77,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "forceful",
@@ -123,7 +121,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -149,7 +146,7 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": 1
+                    "value": null
                 },
                 "description": {
                     "value": "<p>The rotting hides and molding straw stuffing of skitterstitches are ideal nesting grounds for vermin and insect swarms.</p>\n<p>Any animal swarm sharing a space with a skitterstitch gains @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Fast Healing]{Fast Healing} 3.</p>\n<p>Additionally, if a creature deals at least 10 piercing or slashing damage to the skitterstitchstitch, the swarm can use its swarming bites Strike (or similar attack) against the attacker as a reaction.</p>"
@@ -163,7 +160,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "selected": {},
                     "value": []
@@ -205,7 +201,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "selected": {},
                     "value": []
@@ -235,7 +230,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The skitterstitch makes a blade Strike against an animal or humanoid. On a success, the skitterstitch slices a long strip of flesh from the target; if the skitterstitch dealt damage, it deals an additional [[/r {1d6+4}[persistent,bleed]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.</p>"
+                    "value": "<p>The skitterstitch makes a blade Strike against an animal or humanoid. On a success, the skitterstitch slices a long strip of flesh from the target; if the skitterstitch dealt damage, it deals an additional [[/r (1d6+4)[bleed]]] damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -246,7 +241,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "selected": {},
                     "value": []
@@ -276,18 +270,17 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:23|traits:poison]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d10}[poison]]]{1d10 poison damage}, @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed}, and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {1d10}[poison]]]{1d10 poison damage}, flat-footed, and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:23|traits:poison]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d10[poison]]] damage, @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed}, and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 1d10[poison]]] damage, flat-footed, and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "skitterstitch-venom",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "selected": {},
                     "value": []
@@ -328,7 +321,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "manipulate"
@@ -362,11 +354,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -408,8 +395,9 @@
                 "temp": 0,
                 "value": 115
             },
+            "immunities": [],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 14
@@ -417,7 +405,13 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -453,33 +447,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "fire",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],
@@ -494,8 +461,7 @@
             },
             "value": [
                 "construct",
-                "mindless",
-                "uncommon"
+                "mindless"
             ]
         }
     },

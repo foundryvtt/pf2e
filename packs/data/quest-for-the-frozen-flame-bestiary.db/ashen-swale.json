@@ -135,11 +135,6 @@
                 },
                 "tradition": {
                     "value": "divine"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -244,120 +239,6 @@
                 },
                 "tradition": {
                     "value": "arcane"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "AoyzyvdNEOmpVMTm",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Ritual",
-            "sort": 300000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "displayLevels": {},
-                "prepared": {
-                    "flexible": false,
-                    "value": "ritual"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": true
-                },
-                "showUnpreparedSpells": {
-                    "value": true
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot1": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot10": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot2": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot3": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot4": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot5": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot6": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot7": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot8": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot9": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    }
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "spelldc": {
-                    "dc": 25,
-                    "mod": 0,
-                    "value": 17
-                },
-                "tradition": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -371,17 +252,14 @@
             },
             "img": "systems/pf2e/icons/spells/enervation.webp",
             "name": "Enervation",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
-                    "areaType": "line",
+                    "type": "line",
                     "value": 30
-                },
-                "areasize": {
-                    "value": "30-foot line"
                 },
                 "category": {
                     "value": "spell"
@@ -398,16 +276,18 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "persistent",
                                 "value": "negative"
                             },
-                            "value": "4d8 persistent"
+                            "value": "4d8"
                         }
                     }
                 },
                 "description": {
-                    "value": "<p>Extending a finger, you fire a beam of negative energy that weakens the life force of any creature it touches. Each living creature in the line must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r {2d8}[persistent,negative]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Negative Damage}.</p>\n<p><strong>Failure</strong> The creature takes [[/r {4d8}[persistent,negative]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Negative Damage} and becomes @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r {4d8}[persistent,negative]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Negative Damage} and becomes @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2} and @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The persistent negative damage increases by [[/r {1d8}[persistent,negative]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Negative Damage} on a success, or by [[/r {2d8}[persistent,negative]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Negative Damage} on a failure or critical failure.</p>"
+                    "value": "<p>Extending a finger, you fire a beam of negative energy that weakens the life force of any creature it touches. Each living creature in the line must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r 2d8[persistent,negative]]] damage.</p>\n<p><strong>Failure</strong> The creature takes [[/r 4d8[persistent,negative]]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r 4d8[persistent,negative]]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2} and @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The persistent negative damage increases by [[/r 1d8[persistent,negative]]] damage on a success, or by [[/r 2d8[persistent,negative]]] damage on a failure or critical failure.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -478,7 +358,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "negative"
@@ -496,18 +375,12 @@
             },
             "img": "systems/pf2e/icons/spells/bind-undead.webp",
             "name": "Bind Undead",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -588,7 +461,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -604,18 +476,12 @@
             },
             "img": "systems/pf2e/icons/spells/blindness.webp",
             "name": "Blindness",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -697,7 +563,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "incapacitation"
@@ -715,15 +580,12 @@
             },
             "img": "systems/pf2e/icons/spells/envenom-companion.webp",
             "name": "Envenom Companion",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -792,7 +654,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "poison"
@@ -810,18 +671,12 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Touch",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -917,7 +772,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "death",
@@ -936,14 +790,14 @@
             },
             "img": "systems/pf2e/icons/spells/bone-spray.webp",
             "name": "Bone Spray",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
-                    "areaType": "cone",
-                    "value": "15"
+                    "type": "cone",
+                    "value": 15
                 },
                 "category": {
                     "value": "spell"
@@ -971,7 +825,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You fire a torrent of jagged bone shards from your hands, dealing 2d10 piercing damage and [[/r {1}[persistent,bleed]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} to all creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The piercing damage increases by 1d10 and the persistent bleed damage increases by 1 ([[/r (@spell.level-1)[persistent,bleed]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]).</p>"
+                    "value": "<p>You fire a torrent of jagged bone shards from your hands, dealing 2d10 piercing damage and [[/r 1[bleed]]] damage to all creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The piercing damage increases by 1d10 and the persistent bleed damage increases by 1 ([[/r (@spell.level-1)[bleed]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]).</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1032,7 +886,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": []
                 }
@@ -1048,15 +901,12 @@
             },
             "img": "systems/pf2e/icons/spells/boneshaker.webp",
             "name": "Boneshaker",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1144,7 +994,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": []
                 }
@@ -1160,18 +1009,12 @@
             },
             "img": "systems/pf2e/icons/spells/create-undead.webp",
             "name": "Create Undead",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "ritual"
                 },
@@ -1200,7 +1043,7 @@
                     "value": 2
                 },
                 "location": {
-                    "value": "AoyzyvdNEOmpVMTm"
+                    "value": null
                 },
                 "materials": {
                     "value": ""
@@ -1249,7 +1092,6 @@
                     "value": []
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "evil"
@@ -1267,17 +1109,12 @@
             },
             "img": "systems/pf2e/icons/spells/animate-dead.webp",
             "name": "Animate Dead",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1359,7 +1196,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1375,15 +1211,12 @@
             },
             "img": "systems/pf2e/icons/spells/boost-eidolon.webp",
             "name": "Boost Eidolon",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "focus"
                 },
@@ -1448,7 +1281,6 @@
                     "value": []
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "cantrip",
@@ -1467,18 +1299,12 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Chill Touch",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1575,7 +1401,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "cantrip",
@@ -1594,18 +1419,12 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1500000,
+            "sort": 1400000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1702,7 +1521,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "cantrip",
@@ -1722,18 +1540,12 @@
             },
             "img": "systems/pf2e/icons/spells/electric-arc.webp",
             "name": "Electric Arc",
-            "sort": 1600000,
+            "sort": 1500000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1830,7 +1642,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "electricity",
@@ -1849,18 +1660,12 @@
             },
             "img": "systems/pf2e/icons/spells/forbidding-ward.webp",
             "name": "Forbidding Ward",
-            "sort": 1700000,
+            "sort": 1600000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1940,7 +1745,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "cantrip"
@@ -1958,18 +1762,12 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 1800000,
+            "sort": 1700000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -2052,7 +1850,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "light",
@@ -2071,15 +1868,12 @@
             },
             "img": "systems/pf2e/icons/spells/reinforce-eidolon.webp",
             "name": "Reinforce Eidolon",
-            "sort": 1900000,
+            "sort": 1800000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "focus"
                 },
@@ -2144,7 +1938,6 @@
                     "value": []
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "cantrip",
@@ -2163,7 +1956,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/spear.webp",
             "name": "Spear",
-            "sort": 2000000,
+            "sort": 1900000,
             "system": {
                 "MAP": {
                     "value": ""
@@ -2180,8 +1973,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>A long metal shaft ending with a metal spike, a spear can be used one‑handed as a melee weapon and can be thrown.</p>"
@@ -2244,9 +2036,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -2255,7 +2044,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "thrown-20"
@@ -2279,24 +2067,13 @@
             },
             "img": "systems/pf2e/icons/equipment/wands/magic-wands/magic-wand.webp",
             "name": "Wand of Heal (Level 3)",
-            "sort": 2100000,
+            "sort": 2000000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
                     "value": false
-                },
-                "autoUse": {
-                    "_deprecated": true,
-                    "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 1,
                     "value": 1
                 },
@@ -2304,16 +2081,11 @@
                     "value": "wand"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": ""
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Heal]</p><hr /><p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
+                    "value": "<p><em>@UUID[Compendium.pf2e.spells-srd.Heal]</em></p><hr /><p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
                 },
                 "equipped": {
                     "carryType": "worn"
@@ -2345,11 +2117,6 @@
                     }
                 },
                 "quantity": 1,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": "magic-wand-3rd-level-spell",
@@ -2370,13 +2137,7 @@
                         "ability": {
                             "value": ""
                         },
-                        "area": {
-                            "areaType": "",
-                            "value": ""
-                        },
-                        "areasize": {
-                            "value": "varies"
-                        },
+                        "area": null,
                         "category": {
                             "value": "spell"
                         },
@@ -2475,7 +2236,6 @@
                             ]
                         },
                         "traits": {
-                            "custom": "",
                             "rarity": "common",
                             "value": [
                                 "healing",
@@ -2486,13 +2246,7 @@
                     "type": "spell"
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -2504,13 +2258,6 @@
                 "usage": {
                     "value": "held-in-one-hand"
                 },
-                "uses": {
-                    "autoDestroy": false,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
-                },
                 "weight": {
                     "value": "L"
                 }
@@ -2519,9 +2266,14 @@
         },
         {
             "_id": "ej8z7o8wdsapehja",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "FKtW4MLx5LUQ5jBE"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Spear",
-            "sort": 2200000,
+            "sort": 2100000,
             "system": {
                 "attack": {
                     "value": ""
@@ -2548,7 +2300,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -2565,7 +2316,7 @@
             "_id": "pj3l76rx3200el2x",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Siphon Life",
-            "sort": 2300000,
+            "sort": 2200000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -2574,7 +2325,7 @@
                     "value": "reaction"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
                     "value": "<p><strong>Trigger</strong> A creature within 30 feet uses a spell or ability with the healing trait that restores Hit Points or is the target of a spell or ability with the healing trait that restores Hit Points</p><hr /><p><strong>Effect</strong> Ashen Swale seizes upon the healing magic, drawing a portion of it into himself instead of the intended target. The healing effect restores 10 fewer Hit Points to one of its targets and Ashen Swale is restored 10 Hit Points or the total amount of healing, whichever is less.</p>"
@@ -2588,7 +2339,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate",
@@ -2607,7 +2357,7 @@
             "_id": "wrq2ffxoouebysd4",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Corpse Puppet",
-            "sort": 2400000,
+            "sort": 2300000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -2630,7 +2380,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate",
@@ -2651,7 +2400,7 @@
             "_id": "x83x9fjrppcc90jp",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Hasten Eidolon",
-            "sort": 2500000,
+            "sort": 2400000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -2660,7 +2409,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": "1"
+                    "value": 1
                 },
                 "description": {
                     "value": "<p>Ashen Swale focuses on the link he shares with Idovik to quicken his eidolon's actions. Idovik is @UUID[Compendium.pf2e.conditionitems.Quickened]{Quickened} 1 until the beginning of Ashen Swale's next turn.</p>"
@@ -2674,7 +2423,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate"
@@ -2690,7 +2438,7 @@
             "_id": "6wpx2hvdygd0cx5k",
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Manifest Eidolon",
-            "sort": 2600000,
+            "sort": 2500000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -2699,7 +2447,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": "3"
+                    "value": 3
                 },
                 "description": {
                     "value": "<p>Ashen Swale summons Idovik in an adjacent open space. If Idovik was already manifested, Ashen Swale chooses whether to unmanifest Idovik or to teleport Idovik to an adjacent open space. If Idovik unmanifested at 0 Hit Points, this process takes 1 minute instead of 3 actions, but Idovik regains 1 Hit Point when he remanifests.</p>"
@@ -2713,7 +2461,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate",
@@ -2733,7 +2480,7 @@
             "_id": "5u5les4bbzduvczh",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Transpose",
-            "sort": 2700000,
+            "sort": 2600000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -2742,7 +2489,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": "1"
+                    "value": 1
                 },
                 "description": {
                     "value": "<p>With a flash, Ashen Swale and Idovik switch places, each teleporting to the other's position.</p>"
@@ -2756,7 +2503,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate",
@@ -2776,7 +2522,7 @@
             "_id": "v7ovvubf3bf8czpa",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2800000,
+            "sort": 2700000,
             "system": {
                 "description": {
                     "value": ""
@@ -2791,11 +2537,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -2804,7 +2545,7 @@
             "_id": "b8y623859qtq21ab",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 2900000,
+            "sort": 2800000,
             "system": {
                 "description": {
                     "value": ""
@@ -2819,11 +2560,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -2832,6 +2568,29 @@
             "_id": "r4t0v8npaof5sgqd",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
+            "sort": 2900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 17
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "tlhc3a9f0kiza1ig",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
             "sort": 3000000,
             "system": {
                 "description": {
@@ -2847,39 +2606,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "tlhc3a9f0kiza1ig",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 3100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 17
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -2888,7 +2614,7 @@
             "_id": "pje6fd9t4vlywbtr",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 3200000,
+            "sort": 3100000,
             "system": {
                 "description": {
                     "value": ""
@@ -2903,11 +2629,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -2916,7 +2637,7 @@
             "_id": "al2ktty1tphdkacz",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 3300000,
+            "sort": 3200000,
             "system": {
                 "description": {
                     "value": ""
@@ -2931,11 +2652,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -2944,7 +2660,7 @@
             "_id": "vczz2sowu1nvnyfr",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 3400000,
+            "sort": 3300000,
             "system": {
                 "description": {
                     "value": ""
@@ -2959,11 +2675,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -3006,7 +2717,7 @@
                 "value": 120
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 13
@@ -3052,14 +2763,12 @@
                 "value": 15
             }
         },
+        "spellcasting": {
+            "rituals": {
+                "dc": 25
+            }
+        },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "telepathy 100 feet (Idovik only)",
                 "selected": [],

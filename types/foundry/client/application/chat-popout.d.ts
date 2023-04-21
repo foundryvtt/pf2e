@@ -7,7 +7,7 @@ declare class ChatPopout extends Application {
     constructor(message: ChatMessage, options?: {});
 
     /** @override */
-    static get defaultOptions(): typeof Application["defaultOptions"] & {
+    static get defaultOptions(): (typeof Application)["defaultOptions"] & {
         width: number;
         height: string;
         classes: ["chat-popout"];

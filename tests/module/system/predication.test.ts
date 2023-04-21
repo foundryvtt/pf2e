@@ -1,4 +1,4 @@
-import { PredicatePF2e } from "@system/predication";
+import { PredicatePF2e } from "@system/predication.ts";
 
 describe("Predication with string atomics return correct results", () => {
     test("conjunctions of atomic statements", () => {

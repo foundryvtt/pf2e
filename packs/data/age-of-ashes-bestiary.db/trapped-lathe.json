@@ -29,7 +29,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "selected": {},
                     "value": []
@@ -76,7 +75,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "selected": {},
                     "value": []
@@ -103,18 +101,17 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The sharpened fragments deal @Localize[PF2E.PersistentDamage.Bleed1d8.success] on a critical hit.</p>"
+                    "value": "<p>The sharpened fragments deal [[/r 1d8[bleed]]] on a critical hit.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "persistent-bleed-critical",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "selected": {},
                     "value": []
@@ -144,6 +141,17 @@
                 "tempmax": 0,
                 "value": 72
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
             "stealth": {
                 "details": "<p>(expert); @Check[type:perception|dc:29|name:Notice the Line of Cord|traits:complex,mechanical,trap,hazard] to notice the line of cord running from the lathe's trigger toward the door to area <strong>A2</strong>.</p>",
                 "value": 19
@@ -179,18 +187,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "critical-hits",
-                    "object-immunities",
-                    "precision"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "common",
             "size": {
                 "value": "med"

@@ -1,0 +1,24 @@
+<div class="sidebar_title">
+    <h2>{{localize "PF2E.ArmorClassLabel"}}</h2>
+</div>
+<div class="armor-class">
+    <div class="shield ac" title="{{localize "PF2E.ArmorClassLabel"}}">
+        <div class="data-value">
+            <input id="{{options.id}}-vehicle-ac" class="adjustable {{ac.adjustmentClass}}" data-property="system.attributes.ac.value" type="number" value="{{ac.value}}" data-dtype="Number" placeholder="10" size="1"/>
+        </div>
+        <label for="{{options.id}}-vehicle-ac" class="sidebar_label">{{localize "PF2E.ArmorClassShortLabel"}}</label>
+    </div>
+    <div class="shield hardness" title="{{localize "PF2E.vehicle.HardnessLabel"}}">
+        <div class="data-value">
+            <input
+                id="{{options.id}}-vehicle-hardness"
+                type="number"
+                data-dtype="Number"
+                placeholder="0"
+                data-property="system.attributes.hardness"
+                value="{{data.attributes.hardness}}"
+            />
+        </div>
+        <label for="{{options.id}}-vehicle-hardness" class="sidebar_label">{{localize "PF2E.vehicle.HardnessShortLabel"}}</label>
+    </div>
+</div>

@@ -19,12 +19,19 @@
             {
                 "key": "BaseSpeed",
                 "selector": "fly",
-                "value": "@actor.attributes.speed.value"
+                "value": "@actor.attributes.speed.total"
             },
             {
-                "except": "force and ghost touch",
+                "doubleVs": [
+                    "non-magical",
+                    "precision"
+                ],
+                "exceptions": [
+                    "force",
+                    "ghost-touch"
+                ],
                 "key": "Resistance",
-                "type": "all",
+                "type": "all-damage",
                 "value": "10 + 5*floor((@item.level -6)/2)"
             }
         ],
@@ -40,7 +47,6 @@
             "show": true
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": []
         }

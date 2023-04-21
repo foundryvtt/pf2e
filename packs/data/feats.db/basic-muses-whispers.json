@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Basic Muse's Whispers",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "class",
         "description": {
             "value": "<p>You gain a 1st- or 2nd-level bard feat.</p>"
-        },
-        "featType": {
-            "value": "archetype"
         },
         "level": {
             "value": 4
@@ -41,6 +36,7 @@
                 "choices": {
                     "query": "{\"system.level.value\":{\"$lte\":2},\"system.traits.value\":{\"$elemMatch\":\"bard\"}}"
                 },
+                "flag": "basicMusesWhispers",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.LevelOneOrTwoClassFeat"
             },
@@ -53,7 +49,6 @@
             "value": "Pathfinder Core Rulebook"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "archetype"

@@ -34,7 +34,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -74,7 +73,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "fey"
@@ -115,13 +113,18 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FastHealing",
+                        "type": "fast-healing",
+                        "value": 15
+                    }
+                ],
                 "slug": "fast-healing",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -161,7 +164,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -201,7 +203,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -227,7 +228,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:40]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {4d6}[poison]]]{4d6 poison damage} and @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {4d6}[poison]]]{4d6 poison damage}, @UUID[Compendium.pf2e.conditionitems.Confused]{Confused}, and stupefied 1 (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {6d6}[poison]]]{6d6 poison damage}, confused, and stupefied 1 (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:40]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 4d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 4d6[poison]]] damage, @UUID[Compendium.pf2e.conditionitems.Confused]{Confused}, and stupefied 1 (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 6d6[poison]]] damage, confused, and stupefied 1 (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -238,7 +239,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "poison"
@@ -280,7 +280,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "auditory",
@@ -314,7 +313,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {7d8}[piercing]]]{7d8 piercing damage} (@Check[type:reflex|dc:40|basic:true]) and is exposed to mandragora swarm venom. A successful save negates the poison exposure.</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r 7d8[piercing]]] damage (@Check[type:reflex|dc:40|basic:true]) and is exposed to mandragora swarm venom. A successful save negates the poison exposure.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -325,7 +324,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -354,11 +352,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -382,11 +375,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -420,11 +408,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 },
                 "variants": {
                     "0": {
@@ -472,12 +455,38 @@
                 "temp": 0,
                 "value": 230
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 30
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 15
+                },
+                {
+                    "type": "electricity",
+                    "value": 15
+                },
+                {
+                    "type": "piercing",
+                    "value": 15
+                },
+                {
+                    "type": "slashing",
+                    "value": 7
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -490,7 +499,21 @@
                     }
                 ],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 15
+                },
+                {
+                    "type": "fire",
+                    "value": 15
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 15
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -526,53 +549,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "precision",
-                    "swarm-mind"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "bludgeoning",
-                    "value": 15
-                },
-                {
-                    "exceptions": "",
-                    "type": "electricity",
-                    "value": 15
-                },
-                {
-                    "exceptions": "",
-                    "type": "piercing",
-                    "value": 15
-                },
-                {
-                    "exceptions": "",
-                    "type": "slashing",
-                    "value": 7
-                }
-            ],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "type": "area-damage",
-                    "value": 15
-                },
-                {
-                    "exceptions": "",
-                    "type": "fire",
-                    "value": 15
-                },
-                {
-                    "exceptions": "",
-                    "type": "splash-damage",
-                    "value": 15
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

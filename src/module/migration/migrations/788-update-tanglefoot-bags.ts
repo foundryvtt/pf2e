@@ -1,7 +1,7 @@
-import { ItemSourcePF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules";
-import { DegreeOfSuccessString } from "@system/degree-of-success";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
+import { DegreeOfSuccessString } from "@system/degree-of-success.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Update roll notes on tanglefoot bags to have titled roll notes and no damage dice  */
 export class Migration788UpdateTanglefootBags extends MigrationBase {

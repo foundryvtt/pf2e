@@ -1,10 +1,12 @@
 import { ConsumablePF2e, SpellPF2e } from "@item";
-import { ConsumableSource } from "@item/data";
-import { MagicTradition } from "@item/spell/types";
-import { MAGIC_TRADITIONS } from "@item/spell/values";
-import { traditionSkills } from "@item/spellcasting-entry/trick";
-import { calculateDC, DCOptions } from "@module/dc";
+import { ConsumableSource } from "@item/data/index.ts";
+import { MagicTradition } from "@item/spell/types.ts";
+import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
+import { traditionSkills } from "@item/spellcasting-entry/trick.ts";
+import { calculateDC, DCOptions } from "@module/dc.ts";
 import { ErrorPF2e, setHasElement } from "@util";
+
+const cantripDeckId = "tLa4bewBhyqzi6Ow";
 
 const scrollCompendiumIds: Record<number, string | undefined> = {
     1: "RjuupS9xyXDLgyIr",
@@ -19,6 +21,14 @@ const scrollCompendiumIds: Record<number, string | undefined> = {
     10: "o1XIHJ4MJyroAHfF",
 };
 
+const SPELL_CONSUMABLE_ITEM_TYPE = new Set(["cantripDeck5", "scroll", "wand"] as const);
+type SpellConsumableItemType = SetElement<typeof SPELL_CONSUMABLE_ITEM_TYPE>;
+const SPELL_CONSUMABLE_NAME_TEMPLATES = {
+    cantripDeck5: "PF2E.Item.Physical.FromSpell.CantripDeck5",
+    scroll: "PF2E.Item.Physical.FromSpell.Scroll",
+    wand: "PF2E.Item.Physical.FromSpell.Wand",
+};
+
 const wandCompendiumIds: Record<number, string | undefined> = {
     1: "UJWiN0K3jqVjxvKk",
     2: "vJZ49cgi8szuQXAD",
@@ -31,26 +41,32 @@ const wandCompendiumIds: Record<number, string | undefined> = {
     9: "Fgv722039TVM5JTc",
 };
 
-function getIdForSpellConsumable(type: "scroll" | "wand", heightenedLevel: number): string | null {
-    return type === "scroll"
-        ? scrollCompendiumIds[heightenedLevel] ?? null
-        : wandCompendiumIds[heightenedLevel] ?? null;
-}
-
-function getNameForSpellConsumable(type: "scroll" | "wand", spellName: string, heightenedLevel: number): string {
-    if (type === "scroll") {
-        return game.i18n.format("PF2E.ScrollFromSpell", { name: spellName, level: heightenedLevel });
-    } else {
-        return game.i18n.format("PF2E.WandFromSpell", { name: spellName, level: heightenedLevel });
+function getIdForSpellConsumable(type: SpellConsumableItemType, heightenedLevel: number): string | null {
+    switch (type) {
+        case "cantripDeck5":
+            return cantripDeckId;
+        case "scroll":
+            return scrollCompendiumIds[heightenedLevel] ?? null;
+        default:
+            return wandCompendiumIds[heightenedLevel] ?? null;
     }
 }
 
+function getNameForSpellConsumable(type: SpellConsumableItemType, spellName: string, heightenedLevel: number): string {
+    const templateId = SPELL_CONSUMABLE_NAME_TEMPLATES[type] || `${type} of {name} (Level {level})`;
+    return game.i18n.format(templateId, { name: spellName, level: heightenedLevel });
+}
+
 function isSpellConsumable(itemId: string): boolean {
-    return Object.values(scrollCompendiumIds).includes(itemId) || Object.values(wandCompendiumIds).includes(itemId);
+    return (
+        itemId === cantripDeckId ||
+        Object.values(scrollCompendiumIds).includes(itemId) ||
+        Object.values(wandCompendiumIds).includes(itemId)
+    );
 }
 
 async function createConsumableFromSpell(
-    type: "scroll" | "wand",
+    type: SpellConsumableItemType,
     spell: SpellPF2e,
     heightenedLevel = spell.baseLevel
 ): Promise<ConsumableSource> {
@@ -65,9 +81,25 @@ async function createConsumableFromSpell(
     consumableSource.system.traits.value.push(...spell.traditions);
     consumableSource.name = getNameForSpellConsumable(type, spell.name, heightenedLevel);
     const description = consumableSource.system.description.value;
-    consumableSource.system.description.value =
-        (spell.sourceId ? "@" + spell.sourceId.replace(".", "[") + "]" : spell.description) + `\n<hr />${description}`;
-    consumableSource.system.spell = spell.clone({ "system.location.heightenedLevel": heightenedLevel }).toObject();
+
+    consumableSource.system.description.value = (() => {
+        const paragraphElement = document.createElement("p");
+        const linkElement = document.createElement("em");
+        linkElement.append(spell.sourceId ? "@" + spell.sourceId.replace(".", "[") + "]" : spell.description);
+        paragraphElement.append(linkElement);
+
+        const containerElement = document.createElement("div");
+        const hrElement = document.createElement("hr");
+        containerElement.append(paragraphElement, hrElement);
+        hrElement.insertAdjacentHTML("afterend", description);
+
+        return containerElement.innerHTML;
+    })();
+
+    // Cantrip deck casts at level 1
+    if (type !== "cantripDeck5") {
+        consumableSource.system.spell = spell.clone({ "system.location.heightenedLevel": heightenedLevel }).toObject();
+    }
 
     return consumableSource;
 }
@@ -93,4 +125,10 @@ function calculateTrickMagicItemCheckDC(
     return Object.fromEntries(skills);
 }
 
-export { calculateTrickMagicItemCheckDC, createConsumableFromSpell, isSpellConsumable, TrickMagicItemDifficultyData };
+export {
+    calculateTrickMagicItemCheckDC,
+    createConsumableFromSpell,
+    isSpellConsumable,
+    SpellConsumableItemType,
+    TrickMagicItemDifficultyData,
+};

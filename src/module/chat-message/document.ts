@@ -1,23 +1,22 @@
 import { ActorPF2e } from "@actor";
-import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
-import { ItemPF2e } from "@item";
-import { ChatMessageDataPF2e, ChatMessageFlagsPF2e, ChatMessageSourcePF2e, StrikeLookupData } from "./data";
-import { TokenDocumentPF2e } from "@scene";
-import { traditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
-import { UserPF2e } from "@module/user";
-import { CheckRoll } from "@system/check";
-import { ChatRollDetails } from "./chat-roll-details";
-import { StrikeData } from "@actor/data/base";
-import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
-import { htmlQuery } from "@util";
-import { DamageButtons } from "./listeners/damage-buttons";
+import { StrikeData } from "@actor/data/base.ts";
+import { ItemPF2e, ItemProxyPF2e } from "@item";
+import { traditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
+import { UserPF2e } from "@module/user/index.ts";
+import { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
+import { UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
+import { CheckRoll } from "@system/check/index.ts";
+import { DamageRoll } from "@system/damage/roll.ts";
+import { htmlQuery, htmlQueryAll, parseHTML } from "@util";
+import { ChatRollDetails } from "./chat-roll-details.ts";
+import { CriticalHitAndFumbleCards } from "./crit-fumble-cards.ts";
+import { ChatMessageFlagsPF2e, ChatMessageSourcePF2e, StrikeLookupData } from "./data.ts";
+import * as Listeners from "./listeners/index.ts";
 
-class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
+class ChatMessagePF2e extends ChatMessage {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
-    constructor(
-        data: DeepPartial<ChatMessageSourcePF2e> = {},
-        context: DocumentConstructionContext<ChatMessagePF2e> = {}
-    ) {
+    constructor(data: DeepPartial<ChatMessageSourcePF2e> = {}, context: DocumentConstructionContext<null> = {}) {
         data.flags = mergeObject(expandObject(data.flags ?? {}), { core: {}, pf2e: {} });
         super(data, context);
 
@@ -51,8 +50,10 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     }
 
     /** If this is a check or damage roll, it will have target information */
-    get target(): { actor: ActorPF2e; token: Embedded<TokenDocumentPF2e> } | null {
-        const targetUUID = this.flags.pf2e.context?.target?.token;
+    get target(): { actor: ActorPF2e; token: TokenDocumentPF2e<ScenePF2e> } | null {
+        const context = this.flags.pf2e.context;
+        if (!context) return null;
+        const targetUUID = "target" in context ? context.target?.token : null;
         if (!targetUUID) return null;
 
         const match = /^Scene\.(\w+)\.Token\.(\w+)$/.exec(targetUUID ?? "") ?? [];
@@ -80,7 +81,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** Does the message include a rerolled check? */
     get isReroll(): boolean {
         const context = this.flags.pf2e.context;
-        return !!context && context.type !== "damage-roll" && !!context.isReroll;
+        return !!context && "isReroll" in context && !!context.isReroll;
     }
 
     /** Does the message include a check that hasn't been rerolled? */
@@ -95,10 +96,10 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     }
 
     /** Get the owned item associated with this chat message */
-    get item(): Embedded<ItemPF2e> | null {
+    get item(): ItemPF2e<ActorPF2e> | null {
         // If this is a strike, we usually want the strike's item
         const strike = this._strike;
-        if (strike?.item) return strike.item as Embedded<ItemPF2e>;
+        if (strike?.item) return strike.item;
 
         const item = (() => {
             const domItem = this.getItemFromDOM();
@@ -122,7 +123,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
             const spellVariant = this.flags.pf2e.spellVariant;
             const castLevel = this.flags.pf2e.casting?.level ?? item.level;
             const modifiedSpell = item.loadVariant({ overlayIds: spellVariant?.overlayIds, castLevel });
-            return modifiedSpell ?? item.clone({ "system.location.heightenedLevel": castLevel }, { keepId: true });
+            return modifiedSpell ?? item;
         }
 
         return item;
@@ -130,8 +131,8 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     /** If this message was for a strike, return the strike. Strikes will change in a future release */
     get _strike(): StrikeData | null {
-        const actor = this.actor;
-        if (!actor?.isOfType("character", "npc")) return null;
+        const { actor } = this;
+        if (!actor?.system.actions) return null;
 
         // Get the strike index from either the flags or the DOM. In the case of roll macros, it's in the DOM
         const strikeData = ((): Pick<StrikeLookupData, "index" | "altUsage"> | null => {
@@ -154,30 +155,30 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     }
 
     /** Get stringified item source from the DOM-rendering of this chat message */
-    getItemFromDOM(): Embedded<ItemPF2e> | null {
+    getItemFromDOM(): ItemPF2e<ActorPF2e> | null {
         const $domMessage = $("ol#chat-log").children(`li[data-message-id="${this.id}"]`);
         const sourceString = $domMessage.find("div.pf2e.item-card").attr("data-embedded-item") ?? "null";
         try {
             const itemSource = JSON.parse(sourceString);
             const item = itemSource
-                ? new ItemPF2e(itemSource, {
+                ? new ItemProxyPF2e(itemSource, {
                       parent: this.actor,
                       fromConsumable: this.flags?.pf2e?.isFromConsumable,
                   })
                 : null;
-            return item as Embedded<ItemPF2e> | null;
+            return item as ItemPF2e<ActorPF2e> | null;
         } catch (_error) {
             return null;
         }
     }
 
-    async showDetails() {
+    async showDetails(): Promise<void> {
         if (!this.flags.pf2e.context) return;
         new ChatRollDetails(this).render(true);
     }
 
     /** Get the token of the speaker if possible */
-    get token(): Embedded<TokenDocumentPF2e> | null {
+    get token(): TokenDocumentPF2e<ScenePF2e> | null {
         if (!game.scenes) return null;
         const sceneId = this.speaker.scene ?? "";
         const tokenId = this.speaker.token ?? "";
@@ -200,10 +201,52 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
         const $html = await super.getHTML();
         const html = $html[0]!;
-        if (!this.flags.pf2e.suppressDamageButtons && this.isDamageRoll && this.isContentVisible) {
-            await DamageButtons.append(this, $html);
+        if (!this.flags.pf2e.suppressDamageButtons && this.isDamageRoll) {
+            // Mark each button group with the index in the message's `rolls` array
+            htmlQueryAll(html, ".damage-application").forEach((buttons, index) => {
+                buttons.dataset.rollIndex = index.toString();
+            });
         }
+
+        await Listeners.DamageTaken.listen(this, html);
         CriticalHitAndFumbleCards.appendButtons(this, $html);
+        Listeners.ChatCards.listen($html);
+        InlineRollLinks.listen(html, this);
+        Listeners.DegreeOfSuccessHighlights.listen(this, html);
+        Listeners.MessageTooltips.listen($html);
+        if (canvas.ready) Listeners.SetAsInitiative.listen($html);
+
+        // Add persistent damage recovery button and listener (if evaluating persistent)
+        const roll = this.rolls[0];
+        if (actor?.isOwner && roll instanceof DamageRoll && roll.options.evaluatePersistent) {
+            const damageType = roll.instances.find((i) => i.persistent)?.type;
+            const condition = damageType ? this.actor?.getCondition(`persistent-damage-${damageType}`) : null;
+            if (condition) {
+                const template = "systems/pf2e/templates/chat/persistent-damage-recovery.hbs";
+                const section = parseHTML(await renderTemplate(template));
+                html.querySelector(".message-content")?.append(section);
+                html.dataset.actorIsTarget = "true";
+            }
+
+            htmlQuery(html, "[data-action=recover-persistent-damage]")?.addEventListener("click", () => {
+                const { actor } = this;
+                if (!actor) return;
+
+                const damageType = roll.instances.find((i) => i.persistent)?.type;
+                if (!damageType) return;
+
+                const condition = actor.getCondition(`persistent-damage-${damageType}`);
+                if (!condition?.system.persistent) {
+                    const damageTypeLocalized = game.i18n.localize(CONFIG.PF2E.damageTypes[damageType] ?? damageType);
+                    const message = game.i18n.format("PF2E.Item.Condition.PersistentDamage.Error.DoesNotExist", {
+                        damageType: damageTypeLocalized,
+                    });
+                    return ui.notifications.warn(message);
+                }
+
+                condition.rollRecovery();
+            });
+        }
 
         html.addEventListener("mouseenter", () => this.onHoverIn());
         html.addEventListener("mouseleave", () => this.onHoverOut());
@@ -244,10 +287,10 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     }
 
     protected override _onCreate(
-        data: foundry.data.ChatMessageSource,
-        options: DocumentModificationContext,
+        data: this["_source"],
+        options: DocumentModificationContext<null>,
         userId: string
-    ) {
+    ): void {
         super._onCreate(data, options, userId);
 
         // Handle critical hit and fumble card drawing
@@ -257,20 +300,15 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     }
 }
 
-interface ChatMessagePF2e extends ChatMessage<ActorPF2e> {
-    readonly data: ChatMessageDataPF2e<this>;
-
+interface ChatMessagePF2e extends ChatMessage {
+    readonly _source: ChatMessageSourcePF2e;
     flags: ChatMessageFlagsPF2e;
-
-    blind: this["data"]["blind"];
-    type: this["data"]["type"];
-    whisper: this["data"]["whisper"];
 
     get user(): UserPF2e;
 }
 
 declare namespace ChatMessagePF2e {
-    function getSpeakerActor(speaker: foundry.data.ChatSpeakerSource | foundry.data.ChatSpeakerData): ActorPF2e | null;
+    function getSpeakerActor(speaker: foundry.documents.ChatSpeakerData): ActorPF2e | null;
 }
 
 export { ChatMessagePF2e };

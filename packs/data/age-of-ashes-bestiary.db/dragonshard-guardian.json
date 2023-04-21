@@ -101,11 +101,6 @@
                 },
                 "tradition": {
                     "value": "arcane"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -124,13 +119,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -189,7 +178,7 @@
                 },
                 "slug": "true-seeing",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -212,7 +201,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "revelation"
@@ -237,38 +225,24 @@
                     "value": 41
                 },
                 "damageRolls": {
-                    "hqc9zd9kq8vg56zveepa": {
+                    "0": {
                         "damage": "6d10+8",
                         "damageType": "piercing"
+                    },
+                    "1": {
+                        "damage": "2d10",
+                        "damageType": "bleed"
                     }
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed2d10.success]</p>"
+                    "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Bleed2d10.criticalSuccess"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Bleed2d10.success"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -311,7 +285,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -357,7 +330,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -402,7 +374,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -436,18 +407,29 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:90]{90 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}, @Check[type:will|dc:42|name:Frightening Presence] save</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>@Template[type:emanation|distance:90]{90 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura} @Check[type:will|dc:42]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 90,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "aura",
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": "frightful-presence",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -481,7 +463,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The construct breathes in one of two ways, then can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<p>- Flame (arcane, evocation, fire) A blast of flame deals [[/r {15d10}[fire]]]{15d10 fire damage} to all creatures in a @Template[type:cone|distance:60] (@Check[type:reflex|dc:45|basic:true] save). This fire damage does not harm objects or constructs.</p>\n<p>- Weakening Gas (arcane, necromancy) A cloud of gold-flecked gas forces each creature in a @Template[type:cone|distance:60] to attempt a @Check[type:fortitude|dc:45] save; the effect lasts 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 5}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 8}.</p>"
+                    "value": "<p>The construct breathes in one of two ways, then can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<p>- Flame (arcane, evocation, fire) A blast of flame deals [[/r 15d10[fire]]] damage to all creatures in a @Template[type:cone|distance:60] (@Check[type:reflex|dc:45|basic:true] save). This fire damage does not harm objects or constructs.</p>\n<p>- Weakening Gas (arcane, necromancy) A cloud of gold-flecked gas forces each creature in a @Template[type:cone|distance:60] to attempt a @Check[type:fortitude|dc:45] save; the effect lasts 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 5}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 8}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -492,7 +474,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -537,7 +518,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -572,11 +552,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -618,16 +593,41 @@
                 "temp": 0,
                 "value": 430
             },
+            "immunities": [
+                {
+                    "type": "mental"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 39
             },
+            "resistances": [
+                {
+                    "type": "fire",
+                    "value": 24
+                },
+                {
+                    "exceptions": [
+                        "bludgeoning",
+                        "adamantine"
+                    ],
+                    "type": "physical",
+                    "value": 24
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "sonic",
+                    "value": 24
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -665,44 +665,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "fire",
-                    "value": 24
-                },
-                {
-                    "exceptions": "except bludgeoning adamantine",
-                    "type": "physical",
-                    "value": 24
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Sonic",
-                    "type": "sonic",
-                    "value": "24"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

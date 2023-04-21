@@ -12,7 +12,7 @@ declare global {
         walls: boolean;
         type: DetectionType;
 
-        constructor(params: DetectionModeConstructionParams, context?: DocumentConstructionContext);
+        constructor(params: DetectionModeConstructionParams, context?: DocumentConstructionContext<null>);
 
         /** Get the detection filter pertaining to this mode. */
         static getDetectionFilter(): PIXI.Filter | undefined;
@@ -165,7 +165,7 @@ declare global {
         range: number | null;
     }
 
-    type DetectionType = typeof DetectionMode.DETECTION_TYPES[keyof typeof DetectionMode.DETECTION_TYPES];
+    type DetectionType = (typeof DetectionMode.DETECTION_TYPES)[keyof typeof DetectionMode.DETECTION_TYPES];
 }
 
 interface DetectionModeConstructionParams {

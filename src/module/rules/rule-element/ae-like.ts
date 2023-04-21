@@ -1,20 +1,61 @@
-import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
+import { ActorPF2e } from "@actor/base.ts";
+import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
 import { FeatPF2e, ItemPF2e } from "@item";
-import { isObject, objectHasKey, tupleHasValue } from "@util";
-import { RuleElementPF2e, RuleElementSource, RuleElementData, RuleElementOptions, RuleValue } from "./";
+import { isObject, objectHasKey } from "@util";
+import type { ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.d.ts";
+import {
+    RuleElementData,
+    RuleElementOptions,
+    RuleElementPF2e,
+    RuleElementSchema,
+    RuleElementSource,
+    RuleValue,
+} from "./index.ts";
+
+const { fields } = foundry.data;
 
 /**
  * Make a numeric modification to an arbitrary property in a similar way as `ActiveEffect`s
  * @category RuleElement
  */
-class AELikeRuleElement extends RuleElementPF2e {
-    mode: AELikeChangeMode;
+class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TSchema> {
+    constructor(data: AELikeSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
+        const hasExplicitPriority = typeof data.priority === "number";
+        super(data, item, options);
 
-    path: string;
+        // Set priority according to AE change mode if no priority was explicitly set
+        if (!hasExplicitPriority) {
+            this.priority = AELikeRuleElement.CHANGE_MODES[this.mode];
+        }
+    }
 
-    phase: AELikeDataPrepPhase;
+    static override defineSchema(): AELikeSchema {
+        return {
+            ...super.defineSchema(),
+            mode: new fields.StringField({
+                required: true,
+                choices: Object.keys(this.CHANGE_MODES) as AELikeChangeMode[],
+            }),
+            path: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
+            phase: new fields.StringField({
+                required: false,
+                nullable: false,
+                choices: deepClone(this.PHASES),
+                initial: "applyAEs",
+            }),
+        };
+    }
 
-    static CHANGE_MODES = ["multiply", "add", "downgrade", "upgrade", "override"] as const;
+    /** Change modes and their default priority orders */
+    static CHANGE_MODES = {
+        multiply: 10,
+        add: 20,
+        subtract: 20,
+        remove: 20,
+        downgrade: 30,
+        upgrade: 40,
+        override: 50,
+    };
 
     static PHASES = ["applyAEs", "beforeDerived", "afterDerived", "beforeRoll"] as const;
 
@@ -27,21 +68,8 @@ class AELikeRuleElement extends RuleElementPF2e {
         return new RegExp(String.raw`^system\.skills\.(${skillLongForms})\b`);
     })();
 
-    constructor(data: AELikeSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
-        data.priority ??= tupleHasValue(AELikeRuleElement.CHANGE_MODES, data.mode)
-            ? AELikeRuleElement.CHANGE_MODES.indexOf(data.mode) * 10 + 10
-            : NaN;
-        data.phase ??= "applyAEs";
-
-        super(data, item, options);
-
-        this.mode = tupleHasValue(AELikeRuleElement.CHANGE_MODES, data.mode) ? data.mode : "override";
-        this.path = typeof data.path === "string" ? data.path.replace(/^data\./, "system.") : "";
-        this.phase = tupleHasValue(AELikeRuleElement.PHASES, data.phase) ? data.phase : "applyAEs";
-    }
-
     protected validateData(): void {
-        if (!tupleHasValue(AELikeRuleElement.CHANGE_MODES, this.data.mode)) {
+        if (!objectHasKey(AELikeRuleElement.CHANGE_MODES, this.data.mode)) {
             return this.warn("mode");
         }
 
@@ -107,7 +135,11 @@ class AELikeRuleElement extends RuleElementPF2e {
         if (this.ignored) return;
 
         if (this.mode === "add" && Array.isArray(current)) {
-            current.push(newValue);
+            if (!current.includes(newValue)) {
+                current.push(newValue);
+            }
+        } else if (["subtract", "remove"].includes(this.mode) && Array.isArray(current)) {
+            current.splice(current.indexOf(newValue), 1);
         } else {
             try {
                 setProperty(actor, path, newValue);
@@ -122,6 +154,24 @@ class AELikeRuleElement extends RuleElementPF2e {
     protected getNewValue(current: string | number | undefined, change: string | number): string | number;
     protected getNewValue(current: unknown, change: unknown): unknown;
     protected getNewValue(current: unknown, change: unknown): unknown {
+        const addOrSubtract = (value: unknown): unknown => {
+            // A numeric add is valid if the change value is a number and the current value is a number or nullish
+            const isNumericAdd =
+                typeof value === "number" && (typeof current === "number" || current === undefined || current === null);
+            // An array add is valid if the current value is an array and either empty or consisting of all elements
+            // of the same type as the change value
+            const isArrayAdd = Array.isArray(current) && current.every((e) => typeof e === typeof value);
+
+            if (isNumericAdd) {
+                return (current ?? 0) + value;
+            } else if (isArrayAdd) {
+                return value;
+            }
+
+            this.warn("path");
+            return null;
+        };
+
         switch (this.mode) {
             case "multiply": {
                 if (!(typeof change === "number" && (typeof current === "number" || current === undefined))) {
@@ -131,22 +181,15 @@ class AELikeRuleElement extends RuleElementPF2e {
                 return Math.trunc((current ?? 0) * change);
             }
             case "add": {
-                // A numeric add is valid if the change value is a number and the current value is a number or nullish
-                const isNumericAdd =
-                    typeof change === "number" &&
-                    (typeof current === "number" || current === undefined || current === null);
-                // An array add is valid if the current value is an array and either empty or consisting of all elements
-                // of the same type as the change value
-                const isArrayAdd = Array.isArray(current) && current.every((e) => typeof e === typeof change);
-
-                if (isNumericAdd) {
-                    return (current ?? 0) + change;
-                } else if (isArrayAdd) {
-                    return change;
-                }
-
-                this.warn("path");
-                return null;
+                return addOrSubtract(change);
+            }
+            case "subtract":
+            case "remove": {
+                const addedChange =
+                    (typeof current === "number" || current === undefined) && typeof change === "number"
+                        ? -1 * change
+                        : change;
+                return addOrSubtract(addedChange);
             }
             case "downgrade": {
                 if (!(typeof change === "number" && (typeof current === "number" || current === undefined))) {
@@ -201,6 +244,12 @@ class AELikeRuleElement extends RuleElementPF2e {
     }
 }
 
+interface AELikeRuleElement<TSchema extends AELikeSchema>
+    extends RuleElementPF2e<TSchema>,
+        ModelPropsFromSchema<AELikeSchema> {
+    data: AELikeData;
+}
+
 interface AutoChangeEntry {
     source: string;
     level: number | null;
@@ -208,12 +257,14 @@ interface AutoChangeEntry {
     mode: AELikeChangeMode;
 }
 
-interface AELikeRuleElement extends RuleElementPF2e {
-    data: AELikeData;
-}
+type AELikeSchema = RuleElementSchema & {
+    mode: StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
+    path: StringField<string, string, true, false, false>;
+    phase: StringField<AELikeDataPrepPhase, AELikeDataPrepPhase, false, false, true>;
+};
 
-type AELikeChangeMode = "add" | "multiply" | "upgrade" | "downgrade" | "override";
-type AELikeDataPrepPhase = "applyAEs" | "beforeDerived" | "afterDerived" | "beforeRoll";
+type AELikeChangeMode = keyof (typeof AELikeRuleElement)["CHANGE_MODES"];
+type AELikeDataPrepPhase = (typeof AELikeRuleElement)["PHASES"][number];
 
 interface AELikeData extends RuleElementData {
     path: string;
@@ -229,4 +280,4 @@ interface AELikeSource extends RuleElementSource {
     phase?: unknown;
 }
 
-export { AELikeData, AELikeRuleElement, AELikeSource, AutoChangeEntry };
+export { AELikeChangeMode, AELikeData, AELikeRuleElement, AELikeSchema, AELikeSource, AutoChangeEntry };

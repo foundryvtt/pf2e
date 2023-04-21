@@ -1,0 +1,37 @@
+{{#if members}}
+    <ol class="inventory-members">
+        <li class="box summary">
+            <header>{{localize "PF2E.Actor.Party.Total"}}</header>
+            <div class="summary-data">
+                <div>
+                    <label><i class="fas fa-coins fa-fw"></i> {{localize "PF2E.Actor.Party.Coin"}}</label>
+                    <span class="value">{{numberFormat inventorySummary.totalCoins decimals=2}} gp</span>
+                </div>
+                <div>
+                    <label><i class="fas fa-scale-unbalanced fa-fw"></i> {{localize "PF2E.Actor.Party.Wealth"}}</label>
+                    <span class="value">{{numberFormat inventorySummary.totalWealth decimals=2}} gp</span>
+                </div>
+            </div>
+            <footer>
+                <i class="fas fa-weight-hanging"></i> {{localize "PF2E.BulkShortLabel"}} {{inventorySummary.totalBulk}}
+            </footer>
+        </li>
+        {{#each members as |member|}}
+            <li class="box">
+                <div class="actor-link content" data-actor-uuid="{{member.actor.uuid}}">
+                    <img src="{{member.actor.img}}" />
+                    <span class="name">{{member.actor.name}}</span>
+                    <span class="value">
+                        <i class="fas fa-scale-unbalanced"></i>
+                        {{numberFormat member.actor.inventory.totalWealth.goldValue decimals=2}} gp
+                    </span>
+                </div>
+                <footer>
+                    <i class="fas fa-weight-hanging"></i> {{localize "PF2E.BulkShortLabel"}} {{member.actor.inventory.bulk.value}}
+                </footer>
+            </li>
+        {{/each}}
+    </ol>
+{{else}}
+    {{localize "PF2E.Actor.Party.BlankSlate"}}
+{{/if}}

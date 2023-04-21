@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>Similar to the blunderbuss, a dragon-mouth pistol fires pellets from a flared barrel. Though less powerful than a blunderbuss, the dragon-mouth pistol is appreciated for its portability and one-handed design. Though the name was coined because of the destructive belch of this handheld scatter weapon, many gunsmiths craft dragon-mouth pistols with elaborate embellishments that resemble a stylized dragon's maw framing the barrel.</p>"
@@ -92,9 +91,6 @@
                 "source": {
                     "value": "Pathfinder Guns & Gears"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -103,7 +99,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "concussive",
@@ -145,8 +140,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d4",
-                    "value": ""
+                    "die": "d4"
                 },
                 "description": {
                     "value": "<p>At first glance this weapon looks like nothing more than an iron-bound club. But the top of the weapon features a latch that opens to reveal three rotating pistol muzzles concealed in the mace's head that can be fired and rotated using triggers built into the weapon's haft.</p>"
@@ -220,9 +214,6 @@
                 "source": {
                     "value": "Pathfinder Guns & Gears"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -231,7 +222,6 @@
                     "value": "striking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "capacity-3",
@@ -251,6 +241,11 @@
         },
         {
             "_id": "jhZATvhOihdOYTSW",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "DlZSuXbbGhSYWAL7"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Mace Multipistol",
             "sort": 300000,
@@ -279,7 +274,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "critical-fusion",
@@ -295,8 +289,13 @@
         },
         {
             "_id": "u1NI5X5vdoyekxeT",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "YeceoLrlWo5rDb1j"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dragon-Mouth Pistol",
+            "name": "Dragon Mouth Pistol",
             "sort": 400000,
             "system": {
                 "attack": {
@@ -323,7 +322,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concussive",
@@ -340,6 +338,11 @@
         },
         {
             "_id": "bOb3UWUd4k23bPqU",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "DlZSuXbbGhSYWAL7"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Mace Multipistol",
             "sort": 500000,
@@ -368,7 +371,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "capacity-3",
@@ -417,7 +419,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -462,7 +463,6 @@
                     "value": "Pathfinder Bestiary 3"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -502,7 +502,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -546,11 +545,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 },
                 "variants": {
                     "0": {
@@ -598,16 +592,37 @@
                 "temp": 0,
                 "value": 100
             },
+            "immunities": [],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 16
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "adamantine",
+                        "orichalcum"
+                    ],
+                    "type": "physical",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "electricity",
+                    "value": 10
+                },
+                {
+                    "type": "orichalcum",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -640,41 +655,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except adamantine or orichalcum",
-                    "type": "physical",
-                    "value": 10
-                }
-            ],
-            "dv": [
-                {
-                    "type": "electricity",
-                    "value": 10
-                },
-                {
-                    "type": "orichalcum",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

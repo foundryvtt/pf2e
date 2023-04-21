@@ -1,4 +1,4 @@
-import { ChatMessageConstructor } from "./constructors";
+import type { ClientBaseChatMessage } from "./client-base-mixes.d.ts";
 
 declare global {
     /**
@@ -7,11 +7,8 @@ declare global {
      * @see {@link data.ChatMessageData} The ChatMessage data schema
      * @see {@link documents.Messages} The world-level collection of ChatMessage documents
      */
-    class ChatMessage<TActor extends Actor = Actor> extends ChatMessageConstructor {
-        constructor(
-            data: PreCreate<foundry.data.ChatMessageSource>,
-            context?: DocumentConstructionContext<ChatMessage>
-        );
+    class ChatMessage extends ClientBaseChatMessage {
+        constructor(data: PreCreate<foundry.documents.ChatMessageSource>, context?: DocumentConstructionContext<null>);
 
         flavor: string;
 
@@ -43,7 +40,7 @@ declare global {
         override get visible(): boolean;
 
         /** The User who created the chat message. */
-        get user(): User<TActor> | undefined;
+        get user(): User | undefined;
 
         override prepareData(): void;
 
@@ -53,15 +50,7 @@ declare global {
          * @param rollMode The rollMode preference to apply to this message data
          * @returns The modified ChatMessage data with rollMode preferences applied
          */
-        static applyRollMode(
-            chatData: foundry.data.ChatMessageSource,
-            rollMode: RollMode
-        ): foundry.data.ChatMessageSource;
-        static applyRollMode(chatData: foundry.data.ChatMessageData, rollMode: RollMode): foundry.data.ChatMessageData;
-        static applyRollMode(
-            chatData: foundry.data.ChatMessageSource | foundry.data.ChatMessageData,
-            rollMode: RollMode
-        ): foundry.data.ChatMessageSource | foundry.data.ChatMessageData;
+        static applyRollMode(chatData: ChatMessage["_source"], rollMode: RollMode): ChatMessage["_source"];
 
         /**
          * Update the data of a ChatMessage instance to apply a requested rollMode
@@ -86,10 +75,10 @@ declare global {
             alias,
         }?: {
             scene?: Scene | null;
-            actor?: Actor | null;
-            token?: TokenDocument | null;
+            actor?: Actor<TokenDocument<Scene | null> | null> | null;
+            token?: TokenDocument<Scene | null> | null;
             alias?: string;
-        }): foundry.data.ChatSpeakerSource;
+        }): foundry.documents.ChatSpeakerData;
 
         /** A helper to prepare the speaker object based on a target Token */
         protected static _getSpeakerFromToken({ token, alias }: { token: Token; alias?: string }): {
@@ -108,7 +97,7 @@ declare global {
             alias,
         }: {
             scene?: Scene;
-            actor: Actor;
+            actor: Actor<TokenDocument<Scene | null> | null>;
             alias?: string;
         }): {
             scene: string | null;
@@ -137,7 +126,9 @@ declare global {
          * Obtain an Actor instance which represents the speaker of this message (if any)
          * @param speaker The speaker data object
          */
-        static getSpeakerActor(speaker: foundry.data.ChatSpeakerSource | foundry.data.ChatSpeakerData): Actor | null;
+        static getSpeakerActor(
+            speaker: DeepPartial<foundry.documents.ChatSpeakerData>
+        ): Actor<TokenDocument<Scene | null> | null> | null;
 
         /** Obtain a data object used to evaluate any dice rolls associated with this particular chat message */
         getRollData(): object;
@@ -159,35 +150,35 @@ declare global {
         protected _renderRollContent: (messageData: ChatMessageRenderData) => Promise<void>;
 
         protected override _preUpdate(
-            changed: DeepPartial<foundry.data.ChatMessageSource>,
-            options: DocumentModificationContext<this>,
+            changed: DeepPartial<this["_source"]>,
+            options: DocumentModificationContext<null>,
             user: User
         ): Promise<void>;
 
         protected override _onCreate(
-            data: foundry.data.ChatMessageSource,
-            options: DocumentModificationContext,
+            data: this["_source"],
+            options: DocumentModificationContext<null>,
             userId: string
         ): void;
 
         protected override _onUpdate(
             changed: DeepPartial<this["_source"]>,
-            options: DocumentModificationContext,
+            options: DocumentModificationContext<null>,
             userId: string
         ): void;
 
-        protected override _onDelete(options: DocumentModificationContext, userId: string): void;
+        protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
 
         /** Export the content of the chat message into a standardized log format */
         export(): string;
     }
 
     namespace ChatMessage {
-        function create<T extends ChatMessage>(
-            this: ConstructorOf<T>,
-            data: PreCreate<T["_source"]>[],
+        function create<TDocument extends ChatMessage>(
+            this: ConstructorOf<TDocument>,
+            data: PreCreate<TDocument["_source"]>[],
             context?: ChatMessageModificationContext
-        ): Promise<T[]>;
+        ): Promise<TDocument[]>;
         function create<T extends ChatMessage>(
             this: ConstructorOf<T>,
             data: PreCreate<T["_source"]>,
@@ -198,16 +189,10 @@ declare global {
             data: PreCreate<T["_source"]>[] | PreCreate<T["_source"]>,
             context?: ChatMessageModificationContext
         ): Promise<T[] | T | undefined>;
-
-        const implementation: typeof ChatMessage;
-    }
-
-    interface ChatMessageModificationContext extends DocumentModificationContext {
-        rollMode?: RollMode;
     }
 
     interface ChatMessageRenderData {
-        message: RawObject<foundry.data.ChatMessageData>;
+        message: RawObject<ChatMessage>;
         user: User;
         author: User;
         alias: string;

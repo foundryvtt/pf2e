@@ -32,7 +32,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -72,9 +71,10 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "range-increment-30"
+                    ]
                 },
                 "weaponType": {
                     "value": "ranged"
@@ -114,7 +114,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -159,7 +158,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -197,13 +195,21 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 50,
+                        "slug": "maternal-aura",
+                        "traits": [
+                            "aura"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura"
@@ -245,7 +251,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -285,7 +290,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -325,7 +329,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "mental",
@@ -361,11 +364,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -389,11 +387,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -417,11 +410,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -445,11 +433,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -483,7 +466,7 @@
                 "value": 19
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
@@ -491,12 +474,37 @@
                 "temp": 0,
                 "value": 50
             },
+            "immunities": [
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "mental"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 15
             },
+            "resistances": [
+                {
+                    "type": "cold",
+                    "value": 10
+                },
+                {
+                    "type": "electricity",
+                    "value": 10
+                },
+                {
+                    "type": "fire",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
@@ -514,7 +522,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Blog: April Fool's Besitary"
+                "value": "Pathfinder Blog: April Fool's Bestiary"
             }
         },
         "resources": {},
@@ -536,34 +544,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "disease",
-                    "excuses",
-                    "mental",
-                    "sleep"
-                ]
-            },
-            "dr": [
-                {
-                    "label": "Cold",
-                    "type": "cold",
-                    "value": "10"
-                },
-                {
-                    "label": "Electricity",
-                    "type": "electricity",
-                    "value": "10"
-                },
-                {
-                    "label": "Fire",
-                    "type": "fire",
-                    "value": "10"
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "Telepathy 100 feet (Knows What You're Thinking)",
                 "selected": [],

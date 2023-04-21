@@ -1,14 +1,20 @@
 import { ActorPF2e } from "@actor";
-import { ModifierPF2e } from "@actor/modifiers";
-import { SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values";
-import { ItemPF2e } from "@item";
-import { ItemSystemData } from "@item/data/base";
-import { extractModifierAdjustments, extractModifiers } from "@module/rules/util";
-import { UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility";
-import { objectHasKey, sluggify } from "@util";
-import { Statistic } from "./statistic";
+import { ModifierPF2e } from "@actor/modifiers.ts";
+import { ActorSheetPF2e } from "@actor/sheet/base.ts";
+import { SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
+import { ItemPF2e, ItemSheetPF2e } from "@item";
+import { ItemSystemData } from "@item/data/base.ts";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
+import { UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
+import { htmlClosest, objectHasKey, sluggify } from "@util";
+import { damageDiceIcon, looksLikeDamageFormula } from "./damage/helpers.ts";
+import { DamageRoll } from "./damage/roll.ts";
+import { Statistic } from "./statistic/index.ts";
 
 const superEnrichHTML = TextEditor.enrichHTML;
+const superCreateInlineRoll = TextEditor._createInlineRoll;
+const superOnClickInlineRoll = TextEditor._onClickInlineRoll;
 
 /** Censor enriched HTML according to metagame knowledge settings */
 class TextEditorPF2e extends TextEditor {
@@ -33,6 +39,72 @@ class TextEditorPF2e extends TextEditor {
         }
 
         return Promise.resolve().then(async () => TextEditorPF2e.processUserVisibility(await enriched, options));
+    }
+
+    /** Replace core static method to conditionally handle parsing of inline damage rolls */
+    static override async _createInlineRoll(
+        match: RegExpMatchArray,
+        rollData: Record<string, unknown>,
+        options: EvaluateRollParams = {}
+    ): Promise<HTMLAnchorElement | null> {
+        const anchor = await superCreateInlineRoll.apply(this, [match, rollData, options]);
+        const formula = anchor?.dataset.formula;
+        if (formula && looksLikeDamageFormula(formula)) {
+            const roll = ((): DamageRoll | null => {
+                try {
+                    return new DamageRoll(formula);
+                } catch {
+                    return null;
+                }
+            })();
+            if (!roll) return null;
+
+            // Replace the die icon with one representing the damage roll's first damage die
+            const icon = damageDiceIcon(roll);
+            // The fourth match group will be a label
+            const label = match[4] && match[4].length > 0 ? match[4] : roll.formula;
+
+            anchor.innerHTML = `${icon.outerHTML}${label}`;
+            anchor.dataset.tooltip = roll.formula;
+            anchor.dataset.damageRoll = "";
+
+            const isPersistent = roll.instances.length > 0 && roll.instances.every((i) => i.persistent);
+            if (isPersistent) {
+                anchor.draggable = true;
+                anchor.dataset.persistent = "";
+            }
+        }
+
+        return anchor;
+    }
+
+    /** Replace core static method to conditionally handle inline damage roll clicks */
+    static override async _onClickInlineRoll(event: MouseEvent): Promise<ChatMessage> {
+        const anchor = event.currentTarget ?? null;
+        if (!(anchor instanceof HTMLAnchorElement && anchor.dataset.formula && "damageRoll" in anchor.dataset)) {
+            return superOnClickInlineRoll.apply(this, [event]);
+        }
+
+        // Get the speaker and roll data from the clicked sheet or chat message
+        const sheetElem = htmlClosest(anchor, ".sheet");
+        const messageElem = htmlClosest(anchor, "li.chat-message");
+        const app = ui.windows[Number(sheetElem?.dataset.appid)];
+        const message = game.messages.get(messageElem?.dataset.messageId ?? "");
+        const [actor, rollData]: [ActorPF2e | null, Record<string, unknown>] =
+            app instanceof ActorSheetPF2e
+                ? [app.actor, app.actor.getRollData()]
+                : app instanceof ItemSheetPF2e
+                ? [app.item.actor, app.item.getRollData()]
+                : message?.actor
+                ? [message.actor, message.getRollData()]
+                : [null, {}];
+        const options = anchor.dataset.flavor ? { flavor: anchor.dataset.flavor } : {};
+        const roll = new DamageRoll(anchor.dataset.formula, rollData, options);
+
+        const speaker = ChatMessagePF2e.getSpeaker({ actor });
+        const rollMode = objectHasKey(CONFIG.Dice.rollModes, anchor.dataset.mode) ? anchor.dataset.mode : "roll";
+
+        return roll.toMessage({ speaker, flavor: roll.options.flavor }, { rollMode });
     }
 
     static processUserVisibility(content: string, options: EnrichHTMLOptionsPF2e): string {
@@ -158,17 +230,7 @@ class TextEditorPF2e extends TextEditor {
             return null;
         } else {
             // If no traits are entered manually use the traits from rollOptions if available
-            if (!params.traits) {
-                params.traits = "";
-
-                if (itemData?.traits) {
-                    let traits = itemData.traits.value.join(",");
-                    if (!(itemData.traits.custom === "")) {
-                        traits = traits.concat(`, ${itemData.traits.custom}`);
-                    }
-                    params.traits = traits;
-                }
-            }
+            params.traits ||= itemData?.traits?.value?.join(",") ?? "";
 
             // If no button label is entered directly create default label
             if (!label) {
@@ -229,12 +291,9 @@ class TextEditorPF2e extends TextEditor {
         const traits: string[] = [];
 
         // Set item traits
-        const itemTraits = item?.system.traits;
-        if (itemTraits && params.overrideTraits !== "true") {
-            traits.push(...itemTraits.value);
-            if (itemTraits.custom) {
-                traits.push(...itemTraits.custom.split(",").map((trait) => trait.trim()));
-            }
+        const itemTraits = item?.system.traits?.value ?? [];
+        if (params.overrideTraits !== "true") {
+            traits.push(...itemTraits);
         }
 
         // Set action slug as a roll option
@@ -274,7 +333,7 @@ class TextEditorPF2e extends TextEditor {
                 html.setAttribute("data-pf2-check", "flat");
                 break;
             case "perception":
-                html.innerHTML = inlineLabel ?? game.i18n.localize("PF2E.PerceptionCheck");
+                html.innerHTML = inlineLabel ?? game.i18n.localize("PF2E.PerceptionLabel");
                 html.setAttribute("data-pf2-check", "perception");
                 break;
             case "fortitude":
@@ -422,7 +481,7 @@ interface ConvertXMLNodeOptions {
      * Whether this piece of data belongs to the "self" actor or the target: used by UserVisibilityPF2e to
      * determine which actor's ownership to check
      */
-    whose?: "self" | "target";
+    whose?: "self" | "target" | null;
     /** Any additional classes to add to the span element */
     classes?: string[];
 }

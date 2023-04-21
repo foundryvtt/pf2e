@@ -35,7 +35,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "deadly-3d12",
@@ -82,7 +81,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -96,51 +94,6 @@
             "type": "melee"
         },
         {
-            "_id": "3LwIm0rpvdkwMEKm",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Desecration Aura",
-            "sort": 300000,
-            "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Template[type:emanation|distance:40]{40 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Desecrated guardians exude a palpable malice that nauseates all but the most wicked passersby. Non-evil creatures that enter the aura must attempt a @Check[type:will|dc:37] save. On a failure, the creature becomes @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure). In addition, any non-evil creatures that attempt to Cast a Spell within the aura must succeed at a @Check[type:flat|dc:5] check or the spell is lost.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "evil",
-                        "abjuration",
-                        "aura",
-                        "divine"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "IYKsXiDufatrLi0t",
             "flags": {
                 "core": {
@@ -149,7 +102,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Lifesense",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "actionCategory": {
                     "value": "interaction"
@@ -172,7 +125,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -194,7 +146,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity (Tail only)",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -217,9 +169,63 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3LwIm0rpvdkwMEKm",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Desecration Aura",
+            "sort": 500000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:40]{40 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Desecrated guardians exude a palpable malice that nauseates all but the most wicked passersby. Non-evil creatures that enter the aura must attempt a @Check[type:will|dc:37] save. On a failure, the creature becomes @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure). In addition, any non-evil creatures that attempt to Cast a Spell within the aura must succeed at a @Check[type:flat|dc:5] check or the spell is lost.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 40,
+                        "slug": "desecration-aura",
+                        "traits": [
+                            "abjuration",
+                            "divine",
+                            "evil"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "abjuration",
+                        "aura",
+                        "divine",
+                        "evil"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -257,7 +263,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divine",
@@ -291,7 +296,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The desecrated guardian thrashes its body about, causing the nearby terrain to crumble and crash down on creatures in a @Template[type:cone|distance:60], dealing [[/r {12d10}[bludgeoning]]]{12d10 bludgeoning damage} (@Check[type:reflex|dc:42|basic:true] save). It can't use Avalanche again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The desecrated guardian thrashes its body about, causing the nearby terrain to crumble and crash down on creatures in a @Template[type:cone|distance:60], dealing [[/r 12d10[bludgeoning]]] damage (@Check[type:reflex|dc:42|basic:true] save). It can't use Avalanche again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -302,7 +307,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -342,7 +346,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -376,7 +379,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {2d8+18}[bludgeoning]]]{2d8+18 bludgeoning damage}, @Check[type:fortitude|dc:39|basic:true] save</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r (2d8+18)[bludgeoning]]] damage, @Check[type:fortitude|dc:39|basic:true] save</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -387,7 +390,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -421,7 +423,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Huge, [[/r {3d8+20}[bludgeoning]]]{3d8+20 bludgeoning damage}, Rupture 45</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                    "value": "<p>Huge, [[/r (3d8+20)[bludgeoning]]] damage, Rupture 45</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -432,7 +434,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack"
@@ -479,7 +480,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -524,7 +524,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -556,11 +555,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -584,11 +578,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 },
                 "variants": {
                     "0": {
@@ -636,8 +625,19 @@
                 "temp": 0,
                 "value": 360
             },
+            "immunities": [
+                {
+                    "type": "cold"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "mental"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 30
@@ -683,29 +683,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "paralyzed",
-                    "sickened",
-                    "unconscious",
-                    "cold",
-                    "fire",
-                    "mental",
-                    "poison",
-                    "death-effects",
-                    "disease",
-                    "healing",
-                    "necromancy",
-                    "nonlethal-attacks"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

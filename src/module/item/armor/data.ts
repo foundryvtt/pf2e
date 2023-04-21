@@ -1,26 +1,14 @@
 import {
-    BasePhysicalItemData,
     BasePhysicalItemSource,
     Investable,
     PhysicalItemTraits,
     PhysicalSystemData,
     PhysicalSystemSource,
-} from "@item/physical";
-import { OneToFour, ZeroToThree } from "@module/data";
-import {
-    ArmorCategory,
-    ArmorGroup,
-    ArmorTrait,
-    BaseArmorType,
-    OtherArmorTag,
-    ResilientRuneType,
-    type ArmorPF2e,
-} from ".";
+} from "@item/physical/data.ts";
+import { OneToFour, ZeroToThree } from "@module/data.ts";
+import { ArmorCategory, ArmorGroup, ArmorTrait, BaseArmorType, OtherArmorTag, ResilientRuneType } from "./index.ts";
 
 type ArmorSource = BasePhysicalItemSource<"armor", ArmorSystemSource>;
-
-type ArmorData = Omit<ArmorSource, "system" | "effects" | "flags"> &
-    BasePhysicalItemData<ArmorPF2e, "armor", ArmorSystemData, ArmorSource>;
 
 interface ArmorSystemSource extends Investable<PhysicalSystemSource> {
     traits: ArmorTraits;
@@ -78,4 +66,4 @@ interface ArmorTraits extends PhysicalItemTraits<ArmorTrait> {
     otherTags: OtherArmorTag[];
 }
 
-export { ArmorData, ArmorSource, ArmorSystemData, ArmorSystemSource };
+export { ArmorSource, ArmorSystemData, ArmorSystemSource };

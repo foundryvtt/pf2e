@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/features/classes/path-to-perfection.webp",
     "name": "Path to Perfection",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "classfeature",
         "description": {
             "value": "<p>You have progressed along your own path to enlightenment. Choose your Fortitude, Reflex, or Will saving throw. Your proficiency rank for the chosen saving throw increases to master. When you roll a success on the chosen saving throw, you get a critical success instead.</p>"
-        },
-        "featType": {
-            "value": "classfeature"
         },
         "level": {
             "value": 7
@@ -40,6 +35,7 @@
                         "value": "will"
                     }
                 ],
+                "flag": "pathToPerfection",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.PathToPerfection"
             },
@@ -59,6 +55,9 @@
             },
             {
                 "key": "Note",
+                "outcome": [
+                    "success"
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.pathToPerfection}",
                 "text": "When you roll a success on a save, you get a critical success instead.",
                 "title": "{item|name}"
@@ -73,7 +72,6 @@
             "value": "Pathfinder Core Rulebook"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "monk"

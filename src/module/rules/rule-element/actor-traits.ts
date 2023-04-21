@@ -1,16 +1,17 @@
+import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { RuleElementPF2e, RuleElementSource, RuleElementOptions } from "./";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
 
 class ActorTraitsRuleElement extends RuleElementPF2e {
     add: string[] = [];
 
     remove: string[] = [];
 
-    constructor(data: ActorTraitsSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
-        super({ ...data, priority: 99 }, item, options);
-
+    constructor(data: ActorTraitsSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         data.add ??= [];
         data.remove ??= [];
+
+        super({ ...data, priority: 99 }, item, options);
 
         if (!(Array.isArray(data.add) && Array.isArray(data.remove))) {
             this.failValidation("`add` and `remove` properties must be arrays or omitted");
@@ -34,19 +35,21 @@ class ActorTraitsRuleElement extends RuleElementPF2e {
     }
 
     override beforePrepareData(): void {
-        if (this.ignored) return;
+        if (!this.test()) return;
 
-        const traits: { value: string[] } = this.actor.system.traits;
-        const newTraits = this.resolveInjectedProperties(this.add).filter((t) => !traits.value.includes(t));
-        for (const trait of newTraits) {
-            traits.value.push(trait);
-            this.actor.rollOptions.all[`self:trait:${trait}`] = true;
-        }
+        if (this.actor.system.traits) {
+            const traits: { value: string[] } = this.actor.system.traits;
+            const newTraits = this.resolveInjectedProperties(this.add).filter((t) => !traits.value.includes(t));
+            for (const trait of newTraits) {
+                traits.value.push(trait);
+                this.actor.rollOptions.all[`self:trait:${trait}`] = true;
+            }
 
-        const toRemoves = this.resolveInjectedProperties(this.remove);
-        for (const trait of toRemoves) {
-            traits.value = traits.value.filter((t) => t !== trait);
-            delete this.actor.rollOptions.all[`self:trait:${trait}`];
+            const toRemoves = this.resolveInjectedProperties(this.remove);
+            for (const trait of toRemoves) {
+                traits.value = traits.value.filter((t) => t !== trait);
+                delete this.actor.rollOptions.all[`self:trait:${trait}`];
+            }
         }
     }
 }

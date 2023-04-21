@@ -47,18 +47,34 @@
                 "predicate": [
                     "trailwarding-tattoo"
                 ],
-                "selector": "saving-throw",
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
                 "type": "status",
                 "value": 1
             },
             {
-                "key": "FlatModifier",
+                "key": "Resistance",
                 "predicate": [
                     "trailwarding-tattoo"
                 ],
-                "selector": "ac",
-                "type": "status",
-                "value": 1
+                "type": "all-damage",
+                "value": 2
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "trailwarding-tattoo",
+                    {
+                        "or": [
+                            "origin:trait:environmental",
+                            "origin:trait:terrain"
+                        ]
+                    }
+                ],
+                "type": "all-damage",
+                "value": 5
             }
         ],
         "size": "med",
@@ -67,7 +83,6 @@
         },
         "stackGroup": null,
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "abjuration",

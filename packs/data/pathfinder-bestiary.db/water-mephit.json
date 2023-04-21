@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "arcane"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -125,13 +120,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -147,8 +136,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "acid"
                             },
                             "value": "3d8"
@@ -156,7 +147,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus [[/r {1d6}[persistent,acid]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}. On a critical hit, double the initial damage, but not the @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Damage}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Damage} increases by 1d6.</p>"
+                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus [[/r 1d6[persistent,acid]]]. On a critical hit, double the initial damage, but not the persistent damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Damage} increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -227,7 +218,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "acid",
@@ -268,7 +258,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "finesse"
@@ -312,7 +301,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -351,13 +339,18 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FastHealing",
+                        "type": "fast-healing",
+                        "value": 2
+                    }
+                ],
                 "slug": "fast-healing",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -386,7 +379,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The water mephit breathes acid in a @Template[type:cone|distance:15] that deals [[/r {2d6}[acid]]]{2d6 acid damage} to each creature within the area (@Check[type:reflex|dc:17|basic:true] save).</p>\n<p>The water mephit can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                    "value": "<p>The water mephit breathes acid in a @Template[type:cone|distance:15] that deals [[/r 2d6[acid]]] damage to each creature within the area (@Check[type:reflex|dc:17|basic:true] save).</p>\n<p>The water mephit can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -397,7 +390,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "acid",
@@ -440,7 +432,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "abjuration",
@@ -476,11 +467,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -504,11 +490,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -550,12 +531,36 @@
                 "temp": 0,
                 "value": 20
             },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 3
             },
+            "resistances": [
+                {
+                    "type": "acid",
+                    "value": 3
+                },
+                {
+                    "type": "fire",
+                    "value": 3
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -606,27 +611,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "paralyzed",
-                    "poison",
-                    "sleep"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "acid",
-                    "value": 3
-                },
-                {
-                    "type": "fire",
-                    "value": 3
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

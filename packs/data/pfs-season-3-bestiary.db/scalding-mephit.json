@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "arcane"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -126,11 +121,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
+                    "type": "burst",
                     "value": 20
-                },
-                "areasize": {
-                    "value": "20-foot burst"
                 },
                 "category": {
                     "value": "spell"
@@ -211,7 +203,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "water"
@@ -250,7 +241,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -295,7 +285,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -335,7 +324,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -374,13 +362,18 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FastHealing",
+                        "type": "fast-healing",
+                        "value": 2
+                    }
+                ],
                 "slug": "fast-healing",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -409,7 +402,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The scalding mephit calls down a rain boiling water that surrounds them in a @Template[type:emanation|distance:10]. Creatures in the area take [[/r {2d8+3}[fire]]]{2d8+3 fire damage} (@Check[type:reflex|dc:18|basic:true] save), and small unattended flames (such as torches) are extinguished.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The scalding mephit calls down a rain boiling water that surrounds them in a @Template[type:emanation|distance:10]. Creatures in the area take [[/r (2d8+3)[fire]]] damage (@Check[type:reflex|dc:18|basic:true] save), and small unattended flames (such as torches) are extinguished.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -420,7 +413,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -454,7 +446,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The scalding mephit spits a cloud of steam in a @Template[type:cone|distance:15] that deals [[/r {3d6}[fire]]]{3d6 fire damage} to each creature within the area (@Check[type:reflex|dc:18|basic:true] save).</p>\n<p>The scalding mephit can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                    "value": "<p>The scalding mephit spits a cloud of steam in a @Template[type:cone|distance:15] that deals [[/r 3d6[fire]]] damage to each creature within the area (@Check[type:reflex|dc:18|basic:true] save).</p>\n<p>The scalding mephit can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -465,7 +457,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -500,11 +491,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -528,11 +514,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -574,8 +555,25 @@
                 "temp": 0,
                 "value": 28
             },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 4
@@ -592,7 +590,13 @@
                     }
                 ],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -633,24 +637,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "fire",
-                    "paralyzed",
-                    "poison",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "cold",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

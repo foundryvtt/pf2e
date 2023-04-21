@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/features/classes/fury-instinct.webp",
     "name": "Fury Instinct",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "classfeature",
         "description": {
             "value": "<p>Your rage comes from a deep and purely personal well within you. You use your rage as you choose.</p>\n<h2 class=\"title\">Anathema and Instinct Ability</h2>\n<p>You don't have an anathema or an instinct ability. Instead, you gain an additional 1st-level barbarian feat.</p>\n<h2 class=\"title\">Specialization Ability<span style=\"float: right;\">Level 7</span></h2>\n<p>Increase the additional damage from Rage from 2 to 6. If you have greater weapon specialization, instead increase the additional damage from Rage to 12.</p>\n<h2 class=\"title\">Raging Resistance<span style=\"float: right;\">Level 9</span></h2>\n<p>You resist physical weapon damage, but not physical damage from other sources (such as unarmed attacks).</p>"
-        },
-        "featType": {
-            "value": "classfeature"
         },
         "level": {
             "value": 1
@@ -26,115 +21,6 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": [
-                    "self:effect:rage",
-                    {
-                        "not": "barbarian-dedication"
-                    }
-                ],
-                "selector": "ac",
-                "value": -1
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": [
-                    "self:effect:rage",
-                    {
-                        "nor": [
-                            "agile",
-                            "ranged",
-                            "barbarian-dedication"
-                        ]
-                    }
-                ],
-                "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 6,
-                            "value": 2
-                        },
-                        {
-                            "end": 14,
-                            "start": 7,
-                            "value": 6
-                        },
-                        {
-                            "start": 15,
-                            "value": 12
-                        }
-                    ]
-                }
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": [
-                    "self:effect:rage",
-                    "agile",
-                    {
-                        "nor": [
-                            "ranged",
-                            "barbarian-dedication"
-                        ]
-                    }
-                ],
-                "selector": "strike-damage",
-                "slug": "rage-agile",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 6,
-                            "value": 1
-                        },
-                        {
-                            "end": 14,
-                            "start": 7,
-                            "value": 3
-                        },
-                        {
-                            "start": 15,
-                            "value": 6
-                        }
-                    ]
-                }
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": [
-                    "self:effect:rage",
-                    "instinct-ability",
-                    {
-                        "nor": [
-                            "agile",
-                            "ranged"
-                        ]
-                    }
-                ],
-                "selector": "strike-damage",
-                "slug": "dedication-instinct-rage",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": [
-                    "self:effect:rage",
-                    "agile",
-                    "instinct-ability",
-                    {
-                        "not": "ranged"
-                    }
-                ],
-                "selector": "strike-damage",
-                "slug": "dedication-instinct-rage-agile",
-                "value": 1
-            },
-            {
                 "adjustName": false,
                 "choices": {
                     "postFilter": [
@@ -142,8 +28,9 @@
                             "not": "item:draconic-arrogance"
                         }
                     ],
-                    "query": "{\"system.featType.value\":\"class\",\"system.level.value\":1,\"system.traits.value\":{\"$elemMatch\":\"barbarian\"}}"
+                    "query": "{\"system.category\":\"class\",\"system.level.value\":1,\"system.traits.value\":{\"$elemMatch\":\"barbarian\"}}"
                 },
+                "flag": "furyInstinct",
                 "key": "ChoiceSet",
                 "predicate": [
                     "class:barbarian"
@@ -156,13 +43,39 @@
                     "class:barbarian"
                 ],
                 "uuid": "{item|flags.pf2e.rulesSelections.furyInstinct}"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "class:barbarian",
+                    {
+                        "gte": [
+                            "self:level",
+                            7
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "rage",
+                "value": 6
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "class:barbarian",
+                    "feature:greater-weapon-specialization"
+                ],
+                "selector": "strike-damage",
+                "slug": "rage",
+                "value": 12
             }
         ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "barbarian"

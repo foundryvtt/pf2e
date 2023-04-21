@@ -1,21 +1,35 @@
-import { DamageDicePF2e, ModifierPF2e, MODIFIER_TYPE } from "@actor/modifiers";
+import { ActorPF2e } from "@actor";
+import { ModifierPF2e, MODIFIER_TYPE } from "@actor/modifiers.ts";
 import { ArmorPF2e, WeaponPF2e } from "@item";
-import { FlatModifierRuleElement } from "@module/rules/rule-element/flat-modifier";
-import { PotencySynthetic, RuleElementSynthetics, StrikingSynthetic } from "@module/rules/synthetics";
-import { PredicatePF2e } from "@system/predication";
+import { ZeroToThree } from "@module/data.ts";
+import { FlatModifierRuleElement } from "@module/rules/rule-element/flat-modifier.ts";
+import { PotencySynthetic } from "@module/rules/synthetics.ts";
+import { PredicatePF2e } from "@system/predication.ts";
+import { CharacterPF2e } from "./document.ts";
 
-export class AutomaticBonusProgression {
-    static get isEnabled(): boolean {
-        return game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
+class AutomaticBonusProgression {
+    /** Whether the ABP variant is enabled and also not selectively disabled for a particular actor */
+    static isEnabled(actor: ActorPF2e | null): boolean {
+        if (actor && !actor.flags?.pf2e) return false;
+        const settingEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
+        const abpDisabledForActor = !!actor?.flags.pf2e.disableABP;
+
+        return settingEnabled && !abpDisabledForActor;
+    }
+
+    /** Get striking damage dice according to character level */
+    static getStrikingDice(level: number): ZeroToThree {
+        return level < 4 ? 0 : level < 12 ? 1 : level < 19 ? 2 : 3;
     }
 
     /**
      * @param level The name of this collection of statistic modifiers.
      * @param synthetics All relevant modifiers for this statistic.
      */
-    static concatModifiers(level: number, synthetics: RuleElementSynthetics): void {
-        if (!this.isEnabled) return;
+    static concatModifiers(actor: CharacterPF2e): void {
+        if (!this.isEnabled(actor)) return;
 
+        const { level, synthetics } = actor;
         const values = this.abpValues(level);
         const ac = values.ac;
         const perception = values.perception;
@@ -64,28 +78,15 @@ export class AutomaticBonusProgression {
         if (setting === "ABPRulesAsWritten") {
             const values = this.abpValues(level);
             const attack = values.attack;
-            const damage = values.damage;
             if (attack > 0) {
-                const modifiers = (synthetics.statisticsModifiers["mundane-attack"] ??= []);
+                const modifiers = (synthetics.statisticsModifiers["strike-attack-roll"] ??= []);
                 modifiers.push(
                     () =>
                         new ModifierPF2e({
                             slug: "attack-potency",
                             label: "PF2E.AutomaticBonusProgression.attackPotency",
                             modifier: attack,
-                            type: MODIFIER_TYPE.POTENCY,
-                        })
-                );
-            }
-
-            if (damage > 0) {
-                synthetics.damageDice.damage.push(
-                    () =>
-                        new DamageDicePF2e({
-                            slug: "devasting-attacks",
-                            label: game.i18n.localize("PF2E.AutomaticBonusProgression.devastatingAttacks"),
-                            selector: "damage",
-                            diceNumber: damage,
+                            type: "potency",
                         })
                 );
             }
@@ -94,52 +95,34 @@ export class AutomaticBonusProgression {
         if (setting === "ABPFundamentalPotency") {
             const values = this.abpValues(level);
             const attack = values.attack;
-            const damage = values.damage;
 
-            if (damage > 0) {
-                const s: StrikingSynthetic = {
-                    label: game.i18n.localize("PF2E.AutomaticBonusProgression.devastatingAttacks"),
-                    bonus: damage,
-                    predicate: new PredicatePF2e(),
-                };
-                (synthetics.striking["strike-damage"] ??= []).push(s);
-            }
             if (attack > 0) {
                 const potency: PotencySynthetic = {
                     label: game.i18n.localize("PF2E.AutomaticBonusProgression.attackPotency"),
-                    type: MODIFIER_TYPE.POTENCY,
+                    type: "potency",
                     bonus: attack,
                     predicate: new PredicatePF2e(),
                 };
-                synthetics.weaponPotency["mundane-attack"] = (synthetics.weaponPotency["mundane-attack"] || []).concat(
-                    potency
-                );
+                const potencySynthetics = (synthetics.weaponPotency["strike-attack-roll"] ??= []);
+                potencySynthetics.push(potency);
             }
         }
     }
 
     /** Remove stored runes from specific magic weapons or otherwise set prior to enabling ABP */
     static cleanupRunes(item: ArmorPF2e | WeaponPF2e): void {
-        const setting = game.settings.get("pf2e", "automaticBonusVariant");
-        if (setting === "noABP") return;
+        if (!this.isEnabled(item.actor)) return;
 
         item.system.potencyRune.value = null;
         const otherFundamental = item.isOfType("weapon") ? item.system.strikingRune : item.system.resiliencyRune;
         otherFundamental.value = null;
 
+        const setting = game.settings.get("pf2e", "automaticBonusVariant");
         if (setting === "ABPRulesAsWritten") {
             const propertyRunes = ([1, 2, 3, 4] as const).map((n) => item.system[`propertyRune${n}` as const]);
             for (const rune of propertyRunes) {
                 rune.value = null;
             }
-        }
-    }
-
-    static applyPropertyRunes(potency: PotencySynthetic[], weapon: Embedded<WeaponPF2e>): void {
-        if (game.settings.get("pf2e", "automaticBonusVariant") !== "ABPFundamentalPotency") return;
-        const potencyBonuses = potency.filter((p) => p.type === "potency");
-        for (const bonus of potencyBonuses) {
-            bonus.property = deepClone(weapon.system.runes.property);
         }
     }
 
@@ -149,37 +132,18 @@ export class AutomaticBonusProgression {
      * @returns Whether the rule element is to be ignored
      */
     static suppressRuleElement(rule: FlatModifierRuleElement, value: number): boolean {
-        if (!(rule.actor.type === "character" && this.isEnabled)) {
-            return false;
-        }
-
-        return rule.type === "item" && value >= 0 && rule.fromEquipment;
+        return this.isEnabled(rule.actor) && rule.type === "item" && value >= 0 && rule.fromEquipment;
     }
 
-    private static abpValues(level: number) {
-        let attack: number;
-        let damage: number;
+    static getAttackPotency(level: number): ZeroToThree {
+        return level < 2 ? 0 : level < 10 ? 1 : level < 16 ? 2 : 3;
+    }
+
+    private static abpValues(level: number): AutomaticBonuses {
+        const attack = this.getAttackPotency(level);
         let ac: number;
         let perception: number;
         let save: number;
-        if (level >= 2 && level < 10) {
-            attack = 1;
-        } else if (level >= 10 && level < 16) {
-            attack = 2;
-        } else if (level >= 16) {
-            attack = 3;
-        } else {
-            attack = 0;
-        }
-        if (level >= 4 && level < 12) {
-            damage = 1;
-        } else if (level >= 12 && level < 19) {
-            damage = 2;
-        } else if (level >= 19) {
-            damage = 3;
-        } else {
-            damage = 0;
-        }
         if (level >= 5 && level < 11) {
             ac = 1;
         } else if (level >= 11 && level < 18) {
@@ -207,6 +171,15 @@ export class AutomaticBonusProgression {
         } else {
             save = 0;
         }
-        return { attack: attack, damage: damage, ac: ac, perception: perception, save: save };
+        return { attack, ac, perception, save };
     }
 }
+
+interface AutomaticBonuses {
+    attack: number;
+    ac: number;
+    perception: number;
+    save: number;
+}
+
+export { AutomaticBonusProgression };

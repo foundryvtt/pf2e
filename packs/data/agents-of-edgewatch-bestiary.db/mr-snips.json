@@ -5,7 +5,7 @@
         {
             "_id": "0vSVpFhBgh2bSdVc",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "fist",
+            "name": "Fist",
             "sort": 100000,
             "system": {
                 "attack": {
@@ -32,7 +32,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -48,7 +47,7 @@
         {
             "_id": "pjqAB7UZDOSJ8Dvg",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "scissors",
+            "name": "Scissors",
             "sort": 200000,
             "system": {
                 "attack": {
@@ -75,7 +74,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -116,7 +114,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -156,7 +153,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -196,7 +192,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -236,7 +231,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -269,7 +263,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Whenever Mr. Snips rolls a critical hit with a scissors Strike, in addition to dealing extra damage, the golem has a chance to dismember its victim. The target must roll a @Check[type:reflex|dc:39|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Success</strong> No additional effect</p>\n<p><strong>Failure</strong> The target takes @Localize[PF2E.PersistentDamage.Bleed2d10.success].</p>\n<p><strong>Critical Failure</strong> As failure, and one of the targets extremities is severed (the effects of this are up to the GM's discretion).</p>"
+                    "value": "<p>Whenever Mr. Snips rolls a critical hit with a scissors Strike, in addition to dealing extra damage, the golem has a chance to dismember its victim. The target must roll a @Check[type:reflex|dc:39|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Success</strong> No additional effect</p>\n<p><strong>Failure</strong> The target takes [[/r 2d10[bleed]]].</p>\n<p><strong>Critical Failure</strong> As failure, and one of the targets extremities is severed (the effects of this are up to the GM's discretion).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -280,7 +274,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -320,7 +313,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -360,7 +352,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "poison"
@@ -394,11 +385,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -441,12 +427,29 @@
                 "temp": 0,
                 "value": 210
             },
+            "immunities": [
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "magic"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 23
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "adamantine"
+                    ],
+                    "type": "physical",
+                    "value": 15
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 20
@@ -483,36 +486,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "fire",
-                    "healing",
-                    "magic",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except adamantine",
-                    "type": "physical",
-                    "value": 15
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

@@ -29,7 +29,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "emotion",
@@ -63,10 +62,27 @@
                 "tempmax": 0,
                 "value": 50
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
             "stealth": {
                 "details": "<p>(expert)</p>",
                 "value": 12
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 5
+                }
+            ]
         },
         "creatureType": "",
         "details": {
@@ -77,7 +93,7 @@
                 "value": 4
             },
             "reset": "<p>The haunt becomes inert at the end of any round in which there are no @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened} creatures it can see. It stays dormant for 1 hour, after which point it resets.</p>",
-            "routine": "<p>(1 action) The eye glances about, and those it can see (whether in area <strong>C4</strong> or outside of it) take [[/r {4d6}[mental]]]{4d6 mental damage} (@Check[type:will|dc:21|basic:true|traits:haunt] save) as fears of being watched impart ripples of pain.</p>\n<p>A creature that takes mental damage from this effect doesn't reduce their @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened} value at the end of their next turn.</p>"
+            "routine": "<p>(1 action) The eye glances about, and those it can see (whether in area <strong>C4</strong> or outside of it) take [[/r 4d6[mental]]] damage (@Check[type:will|dc:21|basic:true|traits:haunt] save) as fears of being watched impart ripples of pain.</p>\n<p>A creature that takes mental damage from this effect doesn't reduce their @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened} value at the end of their next turn.</p>"
         },
         "saves": {
             "fortitude": {
@@ -98,23 +114,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "critical-hits",
-                    "object-immunities",
-                    "precision"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "positive",
-                    "value": 5
-                }
-            ],
             "rarity": "common",
             "size": {
                 "value": "med"

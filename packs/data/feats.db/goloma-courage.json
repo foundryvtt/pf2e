@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/default-icons/feats.webp",
     "name": "Goloma Courage",
     "system": {
-        "actionCategory": {
-            "value": "defensive"
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "ancestry",
         "description": {
             "value": "<p>The most important thing you've learned living with fear is how to overcome it. When you roll a success on a saving throw against a fear effect, you get a critical success instead. In addition, you gain a +1 circumstance bonus to Will saves against fear effects and a +2 circumstance bonus to your Will DC against attempts to Demoralize you.</p>"
-        },
-        "featType": {
-            "value": "ancestry"
         },
         "level": {
             "value": 1
@@ -25,16 +20,6 @@
             "value": []
         },
         "rules": [
-            {
-                "key": "FlatModifier",
-                "label": "Goloma Courage",
-                "predicate": [
-                    "fear"
-                ],
-                "selector": "will",
-                "type": "status",
-                "value": 1
-            },
             {
                 "adjustment": {
                     "success": "one-degree-better"
@@ -47,20 +32,30 @@
                 "type": "save"
             },
             {
-                "key": "Note",
+                "key": "FlatModifier",
                 "predicate": [
                     "fear"
                 ],
-                "selector": "saving-throw",
-                "text": "When you roll a success on a saving throw against a fear effect, you get a critical success instead.",
-                "title": "{item|name}"
+                "selector": "will-dc",
+                "slug": "goloma-courage-fear",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:demoralize"
+                ],
+                "selector": "will-dc",
+                "slug": "goloma-courage-demoralize",
+                "type": "circumstance",
+                "value": 2
             }
         ],
         "source": {
             "value": "Pathfinder Lost Omens: The Mwangi Expanse"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "goloma"

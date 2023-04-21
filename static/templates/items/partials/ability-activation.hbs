@@ -1,0 +1,47 @@
+<div class="form-group">
+    <label>{{localize "PF2E.ActionActionsLabel"}}</label>
+    <div class="details-container-flex-row">
+        <select name="system.actionType.value" data-dtype="String">
+            {{#select data.actionType.value}}
+                {{#each actionTypes as |name type|}}
+                    <option value="{{type}}">{{localize name}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+        {{#if (eq data.actionType.value "action")}}
+            <select name="system.actions.value" data-dtype="Number">
+                {{#select data.actions.value}}
+                    {{#each actionsNumber as |name type|}}
+                        <option value="{{type}}">{{localize name}}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+        {{else}}
+            <input type="hidden" name="system.actions.value" value=""/>
+        {{/if}}
+    </div>
+</div>
+
+<div class="form-group">
+    <label>{{localize "PF2E.Frequency.Label"}}</label>
+    {{#if data.frequency}}
+        <div class="frequency">
+            <input type="number" name="system.frequency.max" value="{{data.frequency.max}}" />
+            <span>{{localize "PF2E.Frequency.per"}}</span>
+            <select name="system.frequency.per">
+                {{#select data.frequency.per}}
+                    {{#each @root.frequencies as |name type|}}
+                        <option value="{{type}}">{{localize name}}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+            <a data-action="frequency-delete"><i class="fas fa-fw fa-times"></i></a>
+        </div>
+    {{else}}
+        <span class="frequency empty">
+            {{localize "PF2E.Frequency.AtWill"}}
+            <a data-action="frequency-add">({{localize "PF2E.AddShortLabel"}})</a>
+        </span>
+    {{/if}}
+</div>
+

@@ -1,8 +1,8 @@
-import { ScenePF2e } from "@scene";
+import { ScenePF2e } from "@scene/index.ts";
 import { fontAwesomeIcon } from "@util";
-import noUiSlider, { API as Slider, PipsMode } from "nouislider";
+import noUiSlider, { PipsMode, API as Slider } from "nouislider";
 import "nouislider/dist/nouislider.min.css";
-import { WorldClock } from "./world-clock";
+import { WorldClock } from "./world-clock/index.ts";
 
 export class SceneDarknessAdjuster extends Application {
     static readonly instance = new this();
@@ -17,7 +17,7 @@ export class SceneDarknessAdjuster extends Application {
             ...super.defaultOptions,
             id: "darkness-adjuster",
             title: "CONTROLS.AdjustSceneDarkness",
-            template: "systems/pf2e/templates/system/scene-darkness-adjuster.html",
+            template: "systems/pf2e/templates/system/scene-darkness-adjuster.hbs",
             width: 400,
             height: 45,
             minimizable: false,

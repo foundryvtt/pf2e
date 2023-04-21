@@ -1,0 +1,80 @@
+<div class="tab spells" data-group="primary" data-tab="spells">
+    <ol class="entries-list">
+        {{#each spellcastingEntries as |entry eid|}}
+            <li class="spellcasting-entry item item-container" data-item-id="{{entry.id}}" {{#if entry.hasCollection}}data-container-type="spellcastingEntry" data-container-id="{{entry.id}}"{{/if}}>
+                <div class="header">
+                    {{#unless entry.isRitual}}
+                        <a class="drag-handle"><i class="fa-solid fa-fw fa-bars"></i></a>
+                    {{/unless}}
+                    {{#if entry.isPrepared}}
+                        <a class="skill-name prepared-toggle" title="{{localize "PF2E.ToggleSpellVisibilityTitle"}}"><i class="fa-solid fa-fw fa-book"></i></a>
+                    {{/if}}
+
+                    <h4 class="name">
+                        <input type="text" data-item-id="{{entry.id}}" data-item-property="name" value="{{entry.name}}"{{#if entry.isRitual}} readonly{{/if}} />
+                    </h4>
+                    {{#unless entry.isRitual}}
+                        <div class="spellDC inline-field">
+                            <label title="{{entry.statistic.dc.breakdown}}">{{localize "PF2E.NPC.Spells.DCLabel"}}</label>
+                            <input type="number"
+                                class="dc-input modifier adjustable{{#if entry.adjustedHigher.dc}} adjusted-higher{{/if}}{{#if entry.adjustedLower.dc}} adjusted-lower{{/if}}"
+                                data-display-value="{{entry.statistic.dc.value}}"
+                                data-base-property="data.items.{{eid}}.system.spelldc.dc"
+                                value="{{entry.statistic.dc.value}}"
+                                placeholder="0"
+                            />
+                        </div>
+                        <div class="spellAttack inline-field">
+                            <label class="rollable" title="{{entry.statistic.check.breakdown}}">{{localize "PF2E.NPC.Spells.AttackLabel"}}</label>
+                            <input type="number"
+                                class="attack-input modifier adjustable{{#if entry.adjustedHigher.mod}} adjusted-higher{{/if}}{{#if entry.adjustedLower.mod}} adjusted-lower{{/if}}"
+                                data-display-value="{{entry.statistic.check.mod}}"
+                                data-base-property="data.items.{{eid}}.system.spelldc.value"
+                                value="{{numberFormat entry.statistic.check.mod decimals=0}}"
+                                placeholder="0"
+                            />
+                        </div>
+                        <div class="ability-score inline-field">
+                            <select data-base-property="data.items.{{eid}}.system.ability.value">
+                                {{#select entry.ability}}
+                                    <option value="str">{{localize "PF2E.AbilityId.str"}}</option>
+                                    <option value="dex">{{localize "PF2E.AbilityId.dex"}}</option>
+                                    <option value="con">{{localize "PF2E.AbilityId.con"}}</option>
+                                    <option value="int">{{localize "PF2E.AbilityId.int"}}</option>
+                                    <option value="wis">{{localize "PF2E.AbilityId.wis"}}</option>
+                                    <option value="cha">{{localize "PF2E.AbilityId.cha"}}</option>
+                                {{/select}}
+                            </select>
+                        </div>
+                    {{/unless}}
+
+                    {{#if ../options.editable}}
+                        <div class="item-controls">
+                            {{#if (or entry.isPrepared entry.isSpontaneous entry.isInnate)}}
+                                <a class="skill-name slotless-level-toggle" title="{{localize "PF2E.ToggleSlotlessSpellLevelsTitle"}}">
+                                    <i class="{{#if entry.showSlotlessLevels}}fa-solid{{else}}fa-regular{{/if}} fa-fw fa-list-alt"></i>
+                                </a>
+                            {{/if}}
+                            {{#unless entry.isRitual}}
+                                <a class="item-control" data-action="spellcasting-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fa-solid fa-fw fa-edit"></i></a>
+                                <a class="item-control" data-action="spellcasting-remove" title="{{localize "PF2E.RemoveSpellcastingEntryTitle"}}" data-type="{{eid}}"><i class="fa-solid fa-fw fa-trash"></i></a>
+                            {{/unless}}
+                        </div>
+                    {{/if}}
+                </div>
+                {{#if entry.hasCollection}}
+                    <div class="body">
+                        {{> "systems/pf2e/templates/actors/spellcasting-spell-list.hbs" entry=entry}}
+                    </div>
+                {{/if}}
+            </li>
+
+        {{/each}}
+    </ol>
+
+    {{#if options.editable}}
+        <div class="footer">
+            <button type="button" class="spellcasting-create" data-action="spellcasting-create"><i class="fas fa-plus"></i> {{localize "PF2E.AddSpellcastingEntryTitle"}}</button>
+        </div>
+    {{/if}}
+</div>

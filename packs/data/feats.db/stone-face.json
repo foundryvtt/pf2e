@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Stone Face",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "ancestry",
         "description": {
             "value": "<p>Through conditioning or experience, you've mastered the art of composure, even in the face of fear. You gain a +1 circumstance bonus to saves against effects with the fear trait, and a +2 circumstance bonus to your Will DC against Intimidate skill actions, such as Demoralize.</p>"
-        },
-        "featType": {
-            "value": "ancestry"
         },
         "level": {
             "value": 1
@@ -26,7 +21,6 @@
         },
         "rules": [
             {
-                "hideIfDisabled": true,
                 "key": "FlatModifier",
                 "predicate": [
                     {
@@ -36,7 +30,7 @@
                         ]
                     }
                 ],
-                "selector": "will",
+                "selector": "will-dc",
                 "type": "circumstance",
                 "value": 2
             },
@@ -54,7 +48,6 @@
             "value": "Pathfinder Lost Omens: Ancestry Guide"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "hobgoblin"

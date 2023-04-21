@@ -29,7 +29,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack"
@@ -51,7 +50,9 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "value": [
+                        "no-map"
+                    ]
                 },
                 "bonus": {
                     "value": 17
@@ -63,7 +64,7 @@
                     }
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>No MAP applies to strikes made by scythe attacks</p>"
                 },
                 "rules": [
                     {
@@ -79,7 +80,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -88,6 +88,42 @@
                 }
             },
             "type": "melee"
+        },
+        {
+            "_id": "haWc7Vo7IDgvIPU9",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "No MAP",
+            "sort": 0,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The Scythe Strikes do not apply a MAP.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "no-map",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Scythe Blades (BB)",
@@ -99,6 +135,7 @@
             "ac": {
                 "value": 21
             },
+            "emitsSound": "encounter",
             "hardness": 11,
             "hp": {
                 "details": "",
@@ -106,6 +143,11 @@
                 "temp": 0,
                 "value": 44
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                }
+            ],
             "stealth": {
                 "details": "",
                 "value": 13
@@ -137,19 +179,11 @@
             }
         },
         "source": {
+            "author": "",
             "value": "Pathfinder Beginner Box"
         },
         "statusEffects": [],
         "traits": {
-            "di": {
-                "custom": "Sneak Attack",
-                "selected": {},
-                "value": [
-                    "critical-hits"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "common",
             "size": {
                 "value": "med"

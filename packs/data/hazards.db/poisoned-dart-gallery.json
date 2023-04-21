@@ -29,7 +29,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack"
@@ -77,7 +76,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -114,7 +112,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -143,18 +140,17 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:22]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d6}[poison]]]{1d6 poison damage} and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {2d6}[poison]]]{2d6 poison damage} and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {3d6}[poison]]]{3d6 poison damage} and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 3} (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:22]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 2d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 3d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 3} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "flesset-poison",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "poison"
@@ -185,6 +181,17 @@
                 "tempmax": 0,
                 "value": 56
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                }
+            ],
             "stealth": {
                 "details": "<p>(expert) or @Check[type:perception|dc:31|traits:action:seek] (master) to notice the control panel</p>",
                 "value": 16
@@ -220,18 +227,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "precision",
-                    "critical-hits",
-                    "object-immunities"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "common",
             "size": {
                 "value": "med"

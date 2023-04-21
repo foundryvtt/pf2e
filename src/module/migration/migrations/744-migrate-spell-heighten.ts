@@ -1,6 +1,6 @@
-import { ItemSourcePF2e } from "@item/data";
-import { SpellSystemData } from "@item/spell/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { SpellSystemData } from "@item/spell/data.ts";
+import { MigrationBase } from "../base.ts";
 
 export class Migration744MigrateSpellHeighten extends MigrationBase {
     static override version = 0.744;

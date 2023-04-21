@@ -42,12 +42,12 @@ import {
     UniformGroup,
     utils,
 } from "pixi.js";
-import "./core";
-import "./groups";
-import "./layers/effects/visibility";
-import "./perception";
-import "./webgl";
-import "./layers/controls/ruler";
+import "./core/index.d.ts";
+import "./groups/index.d.ts";
+import "./layers/effects/visibility.d.ts";
+import "./perception/index.d.ts";
+import "./webgl/index.d.ts";
+import "./layers/controls/ruler.d.ts";
 
 declare global {
     module PIXI {

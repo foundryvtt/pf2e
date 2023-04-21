@@ -1,12 +1,10 @@
-export { BasicConstructorOptions, TagSelectorBasic } from "./basic";
-export { ResistanceSelector } from "./resistances";
-export { SenseSelector } from "./senses";
-export { SpeedSelector } from "./speeds";
-export { WeaknessSelector } from "./weaknesses";
-export { TagSelectorOptions } from "./base";
+export { type BasicConstructorOptions, TagSelectorBasic } from "./basic.ts";
+export { SenseSelector } from "./senses.ts";
+export { SpeedSelector } from "./speeds.ts";
+export type { TagSelectorOptions } from "./base.ts";
 
-const TAG_SELECTOR_TYPES = ["basic", "resistances", "senses", "speed-types", "weaknesses"] as const;
-type TagSelectorType = typeof TAG_SELECTOR_TYPES[number];
+const TAG_SELECTOR_TYPES = ["basic", "senses", "speed-types"] as const;
+type TagSelectorType = (typeof TAG_SELECTOR_TYPES)[number];
 
 // CONFIG properties that can be used in a tag selector
 const SELECTABLE_TAG_FIELDS = [
@@ -26,7 +24,6 @@ const SELECTABLE_TAG_FIELDS = [
     "armorPropertyRunes",
     "armorResiliencyRunes",
     "armorTraits",
-    "armorTypes",
     "attackEffects",
     "attributes",
     "baseWeaponTypes",
@@ -43,16 +40,13 @@ const SELECTABLE_TAG_FIELDS = [
     "dcAdjustments",
     "equipmentTraits",
     "featTraits",
-    "featTypes",
     "hazardTraits",
     "healingTypes",
-    "immunityTypes",
     "itemBonuses",
     "languages",
     "levels",
     "magicTraditions",
-    "magicTraditions",
-    "martialSkills",
+    "materialDamageEffects",
     "monsterTraits",
     "npcAttackTraits",
     "otherArmorTags",
@@ -64,7 +58,6 @@ const SELECTABLE_TAG_FIELDS = [
     "prerequisitePlaceholders",
     "proficiencyLevels",
     "rarityTraits",
-    "resistanceTypes",
     "saves",
     "senses",
     "skillList",
@@ -76,20 +69,16 @@ const SELECTABLE_TAG_FIELDS = [
     "spellTypes",
     "traitsDescriptions",
     "vehicleTraits",
-    "weaknessTypes",
     "weaponCategories",
     "weaponDamage",
     "weaponDescriptions",
     "weaponGroups",
     "weaponHands",
     "weaponMAP",
-    "weaponPotencyRunes",
-    "weaponPropertyRunes",
     "weaponReload",
-    "weaponStrikingRunes",
     "weaponTraits",
 ] as const;
 
-type SelectableTagField = typeof SELECTABLE_TAG_FIELDS[number];
+type SelectableTagField = (typeof SELECTABLE_TAG_FIELDS)[number];
 
 export { SELECTABLE_TAG_FIELDS, SelectableTagField, TAG_SELECTOR_TYPES, TagSelectorType };

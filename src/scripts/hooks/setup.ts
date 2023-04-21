@@ -1,7 +1,7 @@
-import { LocalizePF2e } from "@system/localize";
-import { registerSheets } from "../register-sheets";
-import { HomebrewElements } from "@system/settings/homebrew";
-import { SetGamePF2e } from "@scripts/set-game-pf2e";
+import { LocalizePF2e } from "@system/localize.ts";
+import { registerSheets } from "../register-sheets.ts";
+import { HomebrewElements } from "@system/settings/homebrew/menu.ts";
+import { SetGamePF2e } from "@scripts/set-game-pf2e.ts";
 
 /** This runs after game data has been requested and loaded from the servers, so entities exist */
 export const Setup = {
@@ -17,9 +17,7 @@ export const Setup = {
 
             // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
             const homebrew = new HomebrewElements();
-
-            homebrew.refreshTags();
-            homebrew.registerModuleTags();
+            homebrew.onSetup();
 
             // Some of game.pf2e must wait until the setup phase
             SetGamePF2e.onSetup();

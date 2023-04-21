@@ -1,74 +1,58 @@
-import { ActorSheetPF2e } from "../sheet/base";
-import { VehiclePF2e } from "@actor/vehicle";
-import { ItemDataPF2e } from "@item/data";
-import { tupleHasValue } from "@util";
-import { VehicleSheetData } from "./data";
+import { ActorSheetPF2e } from "../sheet/base.ts";
+import { VehiclePF2e } from "@actor/vehicle/index.ts";
+import { ErrorPF2e, getActionIcon, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
+import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
+import { ActionItemPF2e } from "@item";
 
 export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
     static override get defaultOptions(): ActorSheetOptions {
+        const options = super.defaultOptions;
         return {
-            ...super.defaultOptions,
-            classes: ["default", "sheet", "actor", "vehicle"],
+            ...options,
+            classes: [...options.classes, "vehicle"],
             width: 670,
             height: 480,
             tabs: [{ navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "details" }],
+            template: "systems/pf2e/templates/actors/vehicle/sheet.hbs",
         };
-    }
-
-    override get template(): string {
-        return "systems/pf2e/templates/actors/vehicle/vehicle-sheet.html";
     }
 
     override async getData(): Promise<VehicleSheetData> {
-        const sheetData = (await super.getData()) as VehicleSheetData;
+        const sheetData = await super.getData();
 
-        sheetData.actorSizes = CONFIG.PF2E.actorSizes;
-        sheetData.actorSize = sheetData.actorSizes[sheetData.data.traits.size.value];
-
-        sheetData.actorRarities = CONFIG.PF2E.rarityTraits;
-        sheetData.actorRarity = sheetData.actorRarities[sheetData.data.traits.rarity];
-
-        await this.prepareItems(sheetData);
-
-        return sheetData;
+        return {
+            ...sheetData,
+            actorSizes: CONFIG.PF2E.actorSizes,
+            actorSize: CONFIG.PF2E.actorSizes[this.actor.size],
+            actorRarities: CONFIG.PF2E.rarityTraits,
+            actorRarity: CONFIG.PF2E.rarityTraits[this.actor.system.traits.rarity],
+            ac: getAdjustment(this.actor.attributes.ac.value, this.actor._source.system.attributes.ac.value),
+            saves: {
+                fortitude: getAdjustment(
+                    this.actor.saves.fortitude.mod,
+                    this.actor._source.system.saves.fortitude.value
+                ),
+            },
+        };
     }
 
-    protected async prepareItems(sheetData: VehicleSheetData): Promise<void> {
+    override async prepareItems(sheetData: VehicleSheetData): Promise<void> {
         const actorData = sheetData.actor;
 
         // Actions
-        const actions: Record<"action" | "reaction" | "free", { label: string; actions: ItemDataPF2e[] }> = {
-            action: { label: game.i18n.localize("PF2E.ActionsActionsHeader"), actions: [] },
-            reaction: { label: game.i18n.localize("PF2E.ActionsReactionsHeader"), actions: [] },
-            free: { label: game.i18n.localize("PF2E.ActionsFreeActionsHeader"), actions: [] },
-        };
+        const actions: Record<"action" | "reaction" | "free", { label: string; actions: RawObject<ActionItemPF2e>[] }> =
+            {
+                action: { label: game.i18n.localize("PF2E.ActionsActionsHeader"), actions: [] },
+                reaction: { label: game.i18n.localize("PF2E.ActionsReactionsHeader"), actions: [] },
+                free: { label: game.i18n.localize("PF2E.ActionsFreeActionsHeader"), actions: [] },
+            };
 
-        for (const itemData of actorData.items) {
-            const item = this.actor.items.get(itemData._id, { strict: true });
-            if (item.isOfType("physical")) {
-                const systemData = item.system;
-                itemData.showEdit = sheetData.user.isGM || systemData.identification.status === "identified";
-                itemData.isInvestable = false;
-                itemData.isIdentified = systemData.identification.status === "identified";
-                itemData.assetValue = item.assetValue;
-                itemData.showEdit = true;
-            }
-
-            // Actions
-            if (itemData.type === "action") {
-                const actionTypes = ["free", "reaction", "passive"] as const;
-                const fromItem: string = itemData.system.actionType.value;
-                const actionType = tupleHasValue(actionTypes, fromItem) ? fromItem : "action";
-                itemData.img = VehiclePF2e.getActionGraphics(
-                    actionType,
-                    parseInt((itemData.system.actions || {}).value, 10) || 1
-                ).imageUrl;
-                if (actionType === "passive") {
-                    actions.free.actions.push(itemData);
-                } else {
-                    actions[actionType].actions.push(itemData);
-                }
-            }
+        // Actions
+        for (const item of this.actor.itemTypes.action.sort((a, b) => a.sort - b.sort)) {
+            const itemData = item.toObject(false);
+            const img = getActionIcon(item.actionCost);
+            const actionType = item.actionCost?.type ?? "free";
+            actions[actionType].actions.push({ ...itemData, img });
         }
 
         actorData.actions = actions;
@@ -76,28 +60,49 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-        {
-            // ensure correct tab name is displayed after actor update
-            const title = $(".sheet-navigation .active").attr("title");
-            if (title) {
-                $html.find(".navigation-title").text(title);
-            }
-        }
-        $html.find(".sheet-navigation").on("mouseover", ".item", (event) => {
-            const title = event.currentTarget.title;
-            if (title) {
-                $(event.currentTarget).parents(".sheet-navigation").find(".navigation-title").text(title);
-            }
-        });
-        $html.find(".sheet-navigation").on("mouseout", ".item", (event) => {
-            const parent = $(event.currentTarget).parents(".sheet-navigation");
-            const title = parent.find(".item.active").attr("title");
-            if (title) {
-                parent.find(".navigation-title").text(title);
-            }
-        });
+        const html = $html[0];
 
-        // get buttons
-        $html.find(".crb-tag-selector").on("click", (event) => this.onTraitSelector(event));
+        // Ensure correct tab name is displayed after actor update
+        const titleElem = htmlQuery(html, ".navigation-title");
+        if (!titleElem) throw ErrorPF2e("Unexpected missing DOM element");
+
+        const initialTitle = htmlQuery(html, ".sheet-navigation .active")?.title;
+        if (initialTitle) titleElem.title = initialTitle;
+
+        for (const element of htmlQueryAll(html, ".sheet-navigation .item")) {
+            element.addEventListener("mouseover", () => {
+                titleElem.textContent = element.title;
+            });
+
+            element.addEventListener("mouseout", () => {
+                const parent = htmlClosest(element, ".sheet-navigation");
+                const title = htmlQuery(parent, ".item.active")?.title;
+                if (title) titleElem.textContent = title;
+            });
+        }
+
+        // Add tag selector listeners
+        for (const element of htmlQueryAll(html, ".crb-tag-selector")) {
+            element.addEventListener("click", (event) => this.openTagSelector(event));
+        }
     }
+}
+
+function getAdjustment(value: number, reference: number): AdjustedValue {
+    const adjustmentClass = value > reference ? "adjusted-higher" : value < reference ? "adjusted-lower" : null;
+    return { value, adjustmentClass };
+}
+
+interface AdjustedValue {
+    value: number;
+    adjustmentClass: "adjusted-higher" | "adjusted-lower" | null;
+}
+
+interface VehicleSheetData extends ActorSheetDataPF2e<VehiclePF2e> {
+    actorRarities: typeof CONFIG.PF2E.rarityTraits;
+    actorRarity: string;
+    actorSizes: typeof CONFIG.PF2E.actorSizes;
+    actorSize: string;
+    ac: AdjustedValue;
+    saves: { fortitude: AdjustedValue };
 }

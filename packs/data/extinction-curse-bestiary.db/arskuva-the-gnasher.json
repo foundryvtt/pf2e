@@ -3,7 +3,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "uaaG12pu60ISNsjL",
+            "_id": "SnC7t8ZXBipTfwbi",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.mVxA9E2ernBL6fM6"
@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "bludgeoning",
                     "dice": 1,
-                    "die": "d10",
-                    "value": ""
+                    "die": "d10"
                 },
                 "description": {
                     "value": "<p>This large flail has a long shaft connected to a shorter piece of stout wood or metal that's sometimes inlaid with spikes.</p>"
@@ -92,9 +91,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -103,12 +99,9 @@
                     "value": "greaterStriking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "disarm",
-                        "evocation",
-                        "magical",
                         "sweep",
                         "trip"
                     ]
@@ -123,7 +116,7 @@
             "type": "weapon"
         },
         {
-            "_id": "a3tpnhwtz3xNm2K9",
+            "_id": "7DDOzaZCk9lXkhHN",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.GAu6v14pCSgLJh2D"
@@ -214,7 +207,6 @@
                     "value": 10
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "rare",
                     "value": [
                         "comfort",
@@ -233,6 +225,11 @@
         },
         {
             "_id": "z7ONYn1k9pLAkFgo",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "SnC7t8ZXBipTfwbi"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "War Flail",
             "sort": 300000,
@@ -265,7 +262,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "disarm",
@@ -310,7 +306,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -350,7 +345,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile"
@@ -363,7 +357,7 @@
             "type": "melee"
         },
         {
-            "_id": "YipuNZHZBcVwsMOX",
+            "_id": "P85ToDPnYlaZWUq4",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
@@ -394,7 +388,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -408,7 +401,7 @@
             "type": "action"
         },
         {
-            "_id": "iS4LzcMaMI840LrK",
+            "_id": "M07XMDmE5qHjyRuU",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Minion",
             "sort": 700000,
@@ -434,14 +427,10 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
                 "trigger": {
-                    "value": ""
-                },
-                "weapon": {
                     "value": ""
                 }
             },
@@ -466,11 +455,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -494,11 +478,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -540,8 +519,25 @@
                 "temp": 0,
                 "value": 270
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 22
@@ -549,7 +545,13 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 15
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -582,25 +584,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "label": "Positive",
-                    "type": "positive",
-                    "value": "15"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

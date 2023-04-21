@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Barbarian Dedication",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "class",
         "description": {
             "value": "<p>You become trained in Athletics; if you were already trained in Athletics, you instead become trained in a skill of your choice. You become trained in barbarian class DC. You can use the @UUID[Compendium.pf2e.actionspf2e.Rage]{Rage} action. Choose an @UUID[Compendium.pf2e.classfeatures.Instinct]{Instinct} as you would if you were a barbarian. You have that instinct for all purposes and become bound by its anathema, but you don't gain any of the other abilities it grants.</p>\n<hr />\n<p><strong>Special</strong> You cannot select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.vx5FGEG34AxI2dow.JournalEntryPage.uYCTmos3yZtbD9qs]{Barbarian} archetype.</p>"
-        },
-        "featType": {
-            "value": "archetype"
         },
         "level": {
             "value": 2
@@ -35,57 +30,7 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
-                "path": "system.custom.modifiers.barbarian-dedication-count",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": [
-                    "self:effect:rage"
-                ],
-                "selector": "ac",
-                "slug": "dedication-rage",
-                "value": -1
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": [
-                    "self:effect:rage",
-                    {
-                        "nor": [
-                            "agile",
-                            "ranged",
-                            "instinct-ability"
-                        ]
-                    }
-                ],
-                "selector": "strike-damage",
-                "slug": "dedication-rage",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": [
-                    "self:effect:rage",
-                    "agile",
-                    {
-                        "nor": [
-                            "ranged",
-                            "instinct-ability"
-                        ]
-                    }
-                ],
-                "selector": "strike-damage",
-                "slug": "dedication-rage-agile",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "flags.pf2e.rollOptions.all.barbarian-dedication",
+                "path": "flags.pf2e.barbarian.archetypeFeatCount",
                 "value": 1
             },
             {
@@ -94,14 +39,24 @@
             },
             {
                 "key": "GrantItem",
-                "uuid": "Compendium.pf2e.actionspf2e.Rage"
+                "uuid": "Compendium.pf2e.classfeatures.Rage"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.classDCs.barbarian",
+                "priority": 39,
+                "value": {
+                    "ability": "str",
+                    "label": "PF2E.TraitBarbarian",
+                    "rank": 1
+                }
             }
         ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "archetype",

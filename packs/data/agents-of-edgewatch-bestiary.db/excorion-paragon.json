@@ -36,7 +36,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -99,7 +98,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "range-increment-30"
@@ -143,7 +141,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -195,7 +192,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -216,7 +212,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
+            "name": "Attack of Opportunity (Trip Only)",
             "sort": 500000,
             "system": {
                 "actionCategory": {
@@ -240,7 +236,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -280,7 +275,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -309,7 +303,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The excorion paragon projects a mist of burning blood in a @Template[type:cone|distance:10].</p>\n<p>Creatures in the area take [[/r {10d8}[acid]]]{10d8 acid damage} and [[/r {5d8}[bludgeoning]]]{5d8 bludgeoning damage} (@Check[type:reflex|dc:37|basic:true] save).</p>\n<p>On a failed save, an affected creature is also @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded} for 1 round (or 2 rounds on a critical failure).</p>\n<p>The excorion can't use Blinding Bile again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The excorion paragon projects a mist of burning blood in a @Template[type:cone|distance:10].</p>\n<p>Creatures in the area take [[/r 10d8[acid]]] damage and [[/r 5d8[bludgeoning]]] damage (@Check[type:reflex|dc:37|basic:true] save).</p>\n<p>On a failed save, an affected creature is also @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded} for 1 round (or 2 rounds on a critical failure).</p>\n<p>The excorion can't use Blinding Bile again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -320,7 +314,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "acid",
@@ -363,7 +356,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -403,7 +395,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -448,7 +439,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -480,11 +470,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -508,11 +493,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -536,11 +516,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -582,8 +557,28 @@
                 "temp": 0,
                 "value": 300
             },
+            "immunities": [
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "unconscious"
+                },
+                {
+                    "type": "mental"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 30
@@ -591,7 +586,17 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 40
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 15
+                },
+                {
+                    "type": "slashing",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -625,31 +630,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "paralyzed",
-                    "unconscious",
-                    "mental",
-                    "poison",
-                    "death-effects",
-                    "disease"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "label": "Positive",
-                    "type": "positive",
-                    "value": "15"
-                },
-                {
-                    "label": "Slashing",
-                    "type": "slashing",
-                    "value": "10"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

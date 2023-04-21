@@ -19,7 +19,7 @@ declare global {
         constructor();
 
         /** A mapping of light sources which are active within the rendered Scene */
-        sources: foundry.utils.Collection<LightSource<TAmbientLight | Token>>;
+        sources: Collection<LightSource<TAmbientLight | Token>>;
 
         /**
          * Increment this whenever lighting channels are re-configured.
@@ -45,7 +45,7 @@ declare global {
         /** A mapping of different light level channels */
         channels: LightChannels;
 
-        static override get layerOptions(): typeof PlaceablesLayer["layerOptions"] & {
+        static override get layerOptions(): (typeof PlaceablesLayer)["layerOptions"] & {
             name: "lighting";
             rotatableObjects: true;
             zIndex: 300;

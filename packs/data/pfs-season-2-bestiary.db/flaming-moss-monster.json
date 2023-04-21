@@ -22,10 +22,15 @@
                     "0": {
                         "damage": "1d8+5",
                         "damageType": "bludgeoning"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "2d4",
+                        "damageType": "fire"
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {2d4}[persistent,fire]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -33,7 +38,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -67,10 +71,15 @@
                     "1": {
                         "damage": "1d6",
                         "damageType": "fire"
+                    },
+                    "2": {
+                        "category": "persistent",
+                        "damage": "2d4",
+                        "damageType": "fire"
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {2d4}[persistent,fire]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -78,7 +87,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reload-1"
@@ -111,13 +119,22 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 5,
+                        "slug": "smoldering-stench",
+                        "traits": [
+                            "aura",
+                            "olfactory"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -152,11 +169,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -198,8 +210,13 @@
                 "temp": 0,
                 "value": 80
             },
+            "immunities": [
+                {
+                    "type": "fire"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 12
@@ -240,15 +257,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "fire"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

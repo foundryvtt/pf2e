@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>This smaller bow is made of a single piece of wood and favored by skirmishers and cavalry.</p>"
@@ -92,9 +91,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -103,7 +99,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "deadly-d10"
@@ -151,7 +146,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "finesse",
@@ -166,6 +160,11 @@
         },
         {
             "_id": "8dn13bwe1ei77nhq",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "DzKCI3ALLE9qQq79"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Shortbow",
             "sort": 300000,
@@ -195,7 +194,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "deadly-d10",
@@ -241,7 +239,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -293,7 +290,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -350,7 +346,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -387,7 +382,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "illusion",
@@ -417,7 +411,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The little man in the woods has a creature @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} or @UUID[Compendium.pf2e.conditionitems.Restrained]{Restrained}</p>\n<hr />\n<p><strong>Effect</strong> The little man in the woods tightens his grip around the creature's neck, extending the Grab, dealing [[/r {2d6+3}[bludgeoning]]]{2d6+3 bludgeoning damage} with a @Check[type:fortitude|dc:24|basic:true], and strangling the creature for as long as it remains grabbed or restrained. A strangled creature can't speak, which prevents it from casting spells with a verbal component or activating items with a command component. The strangled creature must hold its breath or start suffocating.</p>"
+                    "value": "<p><strong>Requirements</strong> The little man in the woods has a creature @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} or @UUID[Compendium.pf2e.conditionitems.Restrained]{Restrained}</p>\n<hr />\n<p><strong>Effect</strong> The little man in the woods tightens his grip around the creature's neck, extending the Grab, dealing [[/r (2d6+3)[bludgeoning]]] damage with a @Check[type:fortitude|dc:24|basic:true], and strangling the creature for as long as it remains grabbed or restrained. A strangled creature can't speak, which prevents it from casting spells with a verbal component or activating items with a command component. The strangled creature must hold its breath or start suffocating.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -428,7 +422,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -470,7 +463,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -502,11 +494,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -541,11 +528,6 @@
                 "source": {
                     "value": ""
                 },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
                 "variants": {
                     "0": {
                         "label": "+16 to Grapple",
@@ -574,11 +556,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -602,11 +579,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -648,8 +620,25 @@
                 "temp": 0,
                 "value": 95
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 12
@@ -691,19 +680,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "One Additional Language",
                 "selected": [],

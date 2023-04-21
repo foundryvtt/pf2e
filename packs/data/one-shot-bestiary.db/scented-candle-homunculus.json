@@ -18,40 +18,25 @@
                     "value": 7
                 },
                 "damageRolls": {
-                    "p5rf03lgnotlfql0jezf": {
+                    "0": {
                         "damage": "1d4",
                         "damageType": "piercing"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "1d4",
+                        "damageType": "fire"
                     }
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.PersistentDamage.Fire1d4.success]</p>"
+                    "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Fire1d4.success",
-                        "visibility": "gm"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Fire1d4.criticalSuccess",
-                        "visibility": "gm"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "finesse",
@@ -79,36 +64,22 @@
                 "bonus": {
                     "value": 8
                 },
-                "damageRolls": {},
-                "description": {
-                    "value": "<p>[[/r {1d4}[persistent,fire]]]@UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Fire1d4.success",
-                        "visibility": "gm"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Fire1d4.criticalSuccess",
-                        "visibility": "gm"
+                "damageRolls": {
+                    "0": {
+                        "category": "persistent",
+                        "damage": "1d4",
+                        "damageType": "fire"
                     }
-                ],
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -153,7 +124,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -183,7 +153,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>A homunculus can't speak, but it is telepathically linked to its creator. It can share information back and forth, including its master's knowledge and everything the homunculus hears. The range of this link is 1,500 feet. The homunculus adopts the same alignment as its creator and is utterly faithful. If the homunculus is destroyed, the master takes [[/r {2d10}[mental]]]{2d10 mental damage}. If the master is slain, the homunculus becomes mindless, claims its current location as its lair, and instinctively attacks anyone who comes near.</p>"
+                    "value": "<p>A homunculus can't speak, but it is telepathically linked to its creator. It can share information back and forth, including its master's knowledge and everything the homunculus hears. The range of this link is 1,500 feet. The homunculus adopts the same alignment as its creator and is utterly faithful. If the homunculus is destroyed, the master takes [[/r 2d10[mental]]] damage. If the master is slain, the homunculus becomes mindless, claims its current location as its lair, and instinctively attacks anyone who comes near.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -194,7 +164,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -232,13 +201,23 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 5,
+                        "slug": "perfume-aura",
+                        "traits": [
+                            "aura",
+                            "olfactory",
+                            "poison"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -268,7 +247,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>A scented candle homunculus who is adjacent to the large wax cauldron can dunk itself in wax, [[/r {2d6}[healing]]]{healing 2d6 damage}.</p>"
+                    "value": "<p>A scented candle homunculus who is adjacent to the large wax cauldron can dunk itself in wax, [[/r 2d6[healing]]] damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -279,7 +258,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "move"
@@ -310,11 +288,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -338,11 +311,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -384,8 +352,9 @@
                 "temp": 0,
                 "value": 17
             },
+            "immunities": [],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 3
@@ -431,26 +400,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "Can't Speak Any Language; Master Link",
                 "selected": [],

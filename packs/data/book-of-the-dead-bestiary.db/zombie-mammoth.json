@@ -16,30 +16,13 @@
             "name": "Slowed",
             "sort": 100000,
             "system": {
-                "active": true,
-                "alsoApplies": {
-                    "linked": [],
-                    "unlinked": []
-                },
-                "base": "Slowed",
                 "description": {
                     "value": "<p>You have fewer actions. Slowed always includes a value. When you regain your actions at the start of your turn, reduce the number of actions you regain by your slowed value. Because slowed has its effect at the start of your turn, you don't immediately lose actions if you become slowed during your turn.</p>"
                 },
                 "duration": {
-                    "perpetual": true,
-                    "text": "",
                     "value": 0
                 },
-                "group": "",
-                "hud": {
-                    "img": {
-                        "useStatusName": true,
-                        "value": "systems/pf2e/icons/conditions-2/slowed.webp"
-                    },
-                    "selectable": true,
-                    "statusName": "slowed"
-                },
-                "modifiers": [],
+                "group": null,
                 "overrides": [],
                 "references": {
                     "children": [],
@@ -47,25 +30,13 @@
                     "overriddenBy": [],
                     "overrides": []
                 },
-                "removable": true,
                 "rules": [],
                 "slug": "slowed",
                 "source": {
                     "value": ""
                 },
-                "sources": {
-                    "hud": true,
-                    "values": []
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
                 "value": {
-                    "immutable": false,
                     "isValued": true,
-                    "modifiers": [],
                     "value": 1
                 }
             },
@@ -102,7 +73,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-15"
@@ -147,7 +117,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-15"
@@ -190,7 +159,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-10"
@@ -234,7 +202,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -286,7 +253,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -326,7 +292,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -363,7 +328,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -394,7 +358,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {2d10+7}[bludgeoning]]]{2d10+7 bludgeoning}, @Check[type:fortitude|dc:30|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
+                    "value": "<p>[[/r (2d10+7)[bludgeoning]]], @Check[type:fortitude|dc:30|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -405,7 +369,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -450,7 +413,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -495,7 +457,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -527,11 +488,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -573,8 +529,25 @@
                 "temp": 0,
                 "value": 290
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 17
@@ -583,7 +556,17 @@
                 "otherSpeeds": [],
                 "special": "",
                 "value": 45
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 10
+                },
+                {
+                    "type": "slashing",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -616,31 +599,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "mental",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "type": "positive",
-                    "value": 10
-                },
-                {
-                    "exceptions": "",
-                    "type": "slashing",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

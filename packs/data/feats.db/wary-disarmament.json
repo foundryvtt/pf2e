@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Wary Disarmament",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "skill",
         "description": {
             "value": "<p>If you trigger a device or set off a trap while disarming it, you gain a +2 circumstance bonus to your AC or saving throw against the device or trap. This applies only to attacks or effects triggered by your failed attempt, not to any later ones, such as additional attacks from a complex trap.</p>"
-        },
-        "featType": {
-            "value": "skill"
         },
         "level": {
             "value": 2
@@ -35,17 +30,10 @@
                 "predicate": [
                     "trap"
                 ],
-                "selector": "ac",
-                "type": "circumstance",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Wary Disarmament (vs. traps)",
-                "predicate": [
-                    "trap"
+                "selector": [
+                    "ac",
+                    "saving-throw"
                 ],
-                "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 2
             }
@@ -54,7 +42,6 @@
             "value": "Pathfinder Core Rulebook"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "general",

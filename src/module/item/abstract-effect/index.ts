@@ -1,2 +1,2 @@
-export { AbstractEffectPF2e } from "./document";
-export { EffectBadge } from "./data";
+export { AbstractEffectPF2e } from "./document.ts";
+export * from "./data.ts";

@@ -32,7 +32,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -77,7 +76,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -117,7 +115,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -157,7 +154,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -186,7 +182,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The golem takes electricity damage and a creature is adjacent to it.</p>\n<hr />\n<p><strong>Effect</strong> The golem lashes out and tries to grab a nearby creature. The golem attempts an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Grapple]{Grapple} an adjacent creature. The creature also takes [[/r {3d6}[electricity]]]{3d6 electricity damage} on a success, or [[/r {6d6}[electricity]]]{6d6 electricity damage} on a critical success.</p>"
+                    "value": "<p><strong>Trigger</strong> The golem takes electricity damage and a creature is adjacent to it.</p>\n<hr />\n<p><strong>Effect</strong> The golem lashes out and tries to grab a nearby creature. The golem attempts an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Grapple]{Grapple} an adjacent creature. The creature also takes [[/r 3d6[electricity]]] damage on a success, or [[/r 6d6[electricity]]] damage on a critical success.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -197,7 +193,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -226,7 +221,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>harmed by fire ([[/r 5d8]], [[/r 3d4]] from areas or persistent damage); healed by electricity (area [[/r {2d4}[healing]]]{2d4 Hit Points}); slowed by cold</p>\n<hr />\n<p>A golem is immune to spells and magical abilities other than its own, but each type of golem is affected by a few types of magic in special ways. If an entry lists multiple types (such as \"cold and water\"), either type of spell can affect the golem.</p>\n<p><strong>Harmed By</strong> Any magic of this type that targets the golem causes it to take the listed amount of damage (this damage has no type) instead of the usual effect. If the golem starts its turn in an area of magic of this type or is affected by a persistent effect of the appropriate type, it takes the damage listed in the parenthetical.</p>\n<p><strong>Healed By</strong> Any magic of this type that targets the golem makes the golem lose the slowed condition and gain HP equal to half the damage the spell would have dealt. If the golem starts its turn in an area of this type of magic, it gains the HP listed in the parenthetical.</p>\n<p><strong>Slowed By</strong> Any magic of this type that targets the golem causes it to be @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for [[/br 2d6 #rounds]]{2d6 rounds} instead of the usual effect. If the golem starts its turn in an area of this type of magic, it's @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for that round.</p>\n<p><strong>Vulnerable To</strong> Each golem is vulnerable to one or more specific spells, with the effects described in its stat block.</p>"
+                    "value": "<p>harmed by fire ([[/r 5d8]], [[/r 3d4]] from areas or persistent damage); healed by electricity (area [[/r 2d4[healing]]]{2d4 Hit Points}); slowed by cold</p>\n<hr />\n<p>A golem is immune to spells and magical abilities other than its own, but each type of golem is affected by a few types of magic in special ways. If an entry lists multiple types (such as \"cold and water\"), either type of spell can affect the golem.</p>\n<p><strong>Harmed By</strong> Any magic of this type that targets the golem causes it to take the listed amount of damage (this damage has no type) instead of the usual effect. If the golem starts its turn in an area of magic of this type or is affected by a persistent effect of the appropriate type, it takes the damage listed in the parenthetical.</p>\n<p><strong>Healed By</strong> Any magic of this type that targets the golem makes the golem lose the slowed condition and gain HP equal to half the damage the spell would have dealt. If the golem starts its turn in an area of this type of magic, it gains the HP listed in the parenthetical.</p>\n<p><strong>Slowed By</strong> Any magic of this type that targets the golem causes it to be @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for [[/br 2d6 #rounds]]{2d6 rounds} instead of the usual effect. If the golem starts its turn in an area of this type of magic, it's @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for that round.</p>\n<p><strong>Vulnerable To</strong> Each golem is vulnerable to one or more specific spells, with the effects described in its stat block.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -237,7 +232,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -277,7 +271,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -342,7 +335,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -374,11 +366,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -420,12 +407,29 @@
                 "temp": 0,
                 "value": 140
             },
+            "immunities": [
+                {
+                    "type": "electricity"
+                },
+                {
+                    "type": "magic"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 14
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "adamantine"
+                    ],
+                    "type": "physical",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -465,36 +469,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "disease",
-                    "death-effects",
-                    "electricity",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "magic",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except adamantine",
-                    "type": "physical",
-                    "value": 5
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

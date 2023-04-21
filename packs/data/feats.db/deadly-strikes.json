@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Deadly Strikes",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "class",
         "description": {
             "value": "<p>You have honed your body to attack with lethal focus. Your unarmed attacks gain the deadly d10 trait, or you increase their deadly trait to d10 if the unarmed attack is already deadly with a smaller die size.</p>"
-        },
-        "featType": {
-            "value": "class"
         },
         "level": {
             "value": 20
@@ -24,12 +19,21 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "definition": [
+                    "item:category:unarmed"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "deadly-d10"
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "monk"

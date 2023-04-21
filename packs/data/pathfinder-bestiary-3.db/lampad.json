@@ -100,11 +100,6 @@
                 },
                 "tradition": {
                     "value": "primal"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -123,13 +118,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -210,7 +199,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "earth"
@@ -233,13 +221,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -320,7 +302,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "earth",
@@ -345,11 +326,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
+                    "type": "burst",
                     "value": 10
-                },
-                "areasize": {
-                    "value": "10-foot burst"
                 },
                 "category": {
                     "value": "spell"
@@ -432,7 +410,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "light"
@@ -455,13 +432,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -543,7 +514,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "light",
@@ -567,13 +537,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "varies"
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -592,7 +556,6 @@
                             "applyMod": false,
                             "type": {
                                 "categories": [],
-                                "subtype": "",
                                 "value": "positive"
                             },
                             "value": "1d8"
@@ -632,10 +595,6 @@
                         "overlayType": "override",
                         "sort": 2,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true,
                                 "verbal": true
@@ -647,7 +606,6 @@
                                     }
                                 }
                             },
-                            "heightenedLevel": {},
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -670,14 +628,9 @@
                         "overlayType": "override",
                         "sort": 1,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": "touch"
                             },
@@ -691,12 +644,15 @@
                         "overlayType": "override",
                         "sort": 4,
                         "system": {
+                            "area": {
+                                "type": "emanation",
+                                "value": 30
+                            },
                             "components": {
                                 "material": true,
                                 "somatic": true,
                                 "verbal": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": ""
                             },
@@ -714,15 +670,10 @@
                         "overlayType": "override",
                         "sort": 3,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true,
                                 "verbal": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": "30 feet"
                             },
@@ -785,7 +736,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "healing",
@@ -810,11 +760,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "cone",
-                    "value": "15"
-                },
-                "areasize": {
-                    "value": "15-foot cone"
+                    "type": "cone",
+                    "value": 15
                 },
                 "category": {
                     "value": "spell"
@@ -842,7 +789,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>A spray of heavy rocks flies through the air in front of you. The rubble deals [[/r {2d4}[bludgeoning]]]{2d4 bludgeoning damage} to each creature in the area. Each creature must attempt a Reflex save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is pushed 5 feet away from you.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is pushed 10 feet away from you.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 2d4.</p>"
+                    "value": "<p>A spray of heavy rocks flies through the air in front of you. The rubble deals [[/r 2d4[bludgeoning]]] damage to each creature in the area. Each creature must attempt a Reflex save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is pushed 5 feet away from you.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is pushed 10 feet away from you.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 2d4.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -913,7 +860,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "earth"
@@ -953,7 +899,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -1005,7 +950,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -1050,7 +994,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1095,7 +1038,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1135,7 +1077,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1175,7 +1116,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "auditory",
@@ -1213,11 +1153,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1241,11 +1176,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1269,11 +1199,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1297,11 +1222,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1325,11 +1245,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1353,11 +1268,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1381,11 +1291,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1409,11 +1314,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1456,7 +1356,7 @@
                 "value": 85
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 12
@@ -1470,7 +1370,13 @@
                     }
                 ],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold-iron",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1511,19 +1417,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "type": "coldiron",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

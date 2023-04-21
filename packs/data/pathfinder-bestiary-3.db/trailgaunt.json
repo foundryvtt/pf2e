@@ -35,7 +35,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -77,7 +76,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -122,7 +120,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -174,52 +171,8 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5XfUKnzADDIB9IN0",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Create Spawn",
-            "sort": 500000,
-            "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Any humanoid creature killed by a trailgaunt and left unburied out of sight of a well-maintained road rises as a free-willed trailgaunt at the next sunset.</p>\n<p><strong>Dromophobia</strong> The trailgaunt can't willingly walk on or across a well-maintained road, though it can Burrow under one. If forced onto the surface of such a road, the trailgaunt is fleeing until it's no longer on the road.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "necromancy"
-                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -234,7 +187,7 @@
             "_id": "Wc4yL4hHzoo1254s",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Pained Muttering",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -251,13 +204,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 10,
+                        "slug": "pained-muttering",
+                        "traits": [
+                            "auditory",
+                            "aura",
+                            "emotion",
+                            "fear"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "auditory",
@@ -276,13 +240,13 @@
             "type": "action"
         },
         {
-            "_id": "5FqnH65aSIz1yYu4",
+            "_id": "5XfUKnzADDIB9IN0",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Share Pain",
-            "sort": 700000,
+            "name": "Create Spawn",
+            "sort": 600000,
             "system": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -291,7 +255,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A living creature hit by a trailgaunt's jaws Strike must succeed at a @Check[type:fortitude|dc:20] save or suffer intense pain in its legs and feet, taking a -10-foot status penalty to its Speeds, or a -20-foot status penalty on a critical failure.</p>"
+                    "value": "<p>Any humanoid creature killed by a trailgaunt and left unburied out of sight of a well-maintained road rises as a free-willed trailgaunt at the next sunset.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -302,7 +266,84 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "78eiTtsU1ddUvLm1",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Dromophobia",
+            "sort": 700000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The trailgaunt can't willingly walk on or across a well-maintained road, though it can Burrow under one. If forced onto the surface of such a road, the trailgaunt is @UUID[Compendium.pf2e.conditionitems.Fleeing]{Fleeing} until it's no longer on the road.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5FqnH65aSIz1yYu4",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Share Pain",
+            "sort": 800000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A living creature hit by a trailgaunt's jaws Strike must succeed at a @Check[type:fortitude|dc:20] save or suffer intense pain in its legs and feet, taking a -10-foot status penalty to its Speeds, or a -20-foot status penalty on a critical failure.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Share Pain]{Effect: Share Pain}</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "share-pain",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
                     "rarity": "common",
                     "value": []
                 },
@@ -319,10 +360,10 @@
             "_id": "5d0jyVv6vjBbVxdc",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sure Stride",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -331,7 +372,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A trailgaunt ignores the effects of difficult terrain and greater difficultterrain.</p>"
+                    "value": "<p>A trailgaunt ignores the effects of difficult terrain and greater difficult terrain.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -342,7 +383,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -359,7 +399,7 @@
             "_id": "jvISMHejSpaJ5VGU",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "description": {
                     "value": ""
@@ -374,11 +414,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -387,7 +422,7 @@
             "_id": "jt1kbvWEreCDpMXT",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "description": {
                     "value": ""
@@ -402,11 +437,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -415,7 +445,7 @@
             "_id": "CBXMIOrugmRCcTzw",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "description": {
                     "value": ""
@@ -430,11 +460,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -468,7 +493,7 @@
                 "value": 19
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "negative healing",
@@ -476,8 +501,25 @@
                 "temp": 0,
                 "value": 45
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 10
@@ -526,19 +568,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

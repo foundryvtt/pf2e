@@ -34,7 +34,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -74,7 +73,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -114,7 +112,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "disease"
@@ -145,7 +142,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {1d6}[piercing]]]{1d6 piercing damage} (@Check[type:reflex|dc:20|basic:true] save) and is exposed to pyrexic malaria. Creatures that fail the saving throw also take @Localize[PF2E.PersistentDamage.Bleed1d4.success].</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r 1d6[piercing]]] damage (@Check[type:reflex|dc:20|basic:true] save) and is exposed to pyrexic malaria. Creatures that fail the saving throw also take [[/r 1d4[bleed]]].</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -156,7 +153,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -188,11 +184,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -216,11 +207,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -262,12 +248,34 @@
                 "temp": 0,
                 "value": 25
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 8
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 2
+                },
+                {
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -276,7 +284,17 @@
                     }
                 ],
                 "value": 5
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 5
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -312,43 +330,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "precision",
-                    "swarm-mind"
-                ]
-            },
-            "dr": [
-                {
-                    "label": "Bludgeoning",
-                    "type": "bludgeoning",
-                    "value": "2"
-                },
-                {
-                    "label": "Piercing",
-                    "type": "piercing",
-                    "value": "5"
-                },
-                {
-                    "label": "Slashing",
-                    "type": "slashing",
-                    "value": "5"
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Area Damage",
-                    "type": "area-damage",
-                    "value": "5"
-                },
-                {
-                    "label": "Splash Damage",
-                    "type": "splash-damage",
-                    "value": "5"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

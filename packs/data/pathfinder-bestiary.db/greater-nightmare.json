@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "divine"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -125,13 +120,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -155,6 +144,19 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "9": {
+                            "range": {
+                                "value": "touch"
+                            },
+                            "target": {
+                                "value": "self and rider"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 7
@@ -212,7 +214,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "teleportation"
@@ -235,13 +236,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -324,7 +319,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "teleportation"
@@ -368,7 +362,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "evil",
@@ -420,7 +413,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -467,7 +459,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -487,7 +478,7 @@
             "sort": 700000,
             "system": {
                 "actionCategory": {
-                    "value": "interaction"
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -501,13 +492,19 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 20,
+                        "slug": "smoke",
+                        "traits": []
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura"
@@ -538,7 +535,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The greater nightmare Strides or Flies up to triple its Speed. Its hooves burst with intense flame, dealing [[/r {6d6}[fire]]]{6d6 fire damage} (@Check[type:reflex|dc:30|basic:true] save) once to each creature other than the greater nightmare's rider that the greater nightmare moves adjacent to during its gallop.</p>"
+                    "value": "<p>The greater nightmare Strides or Flies up to triple its Speed. Its hooves burst with intense flame, dealing [[/r 6d6[fire]]] damage (@Check[type:reflex|dc:30|basic:true] save) once to each creature other than the greater nightmare's rider that the greater nightmare moves adjacent to during its gallop.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -549,7 +546,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "fire"
@@ -596,7 +592,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -628,11 +623,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -656,11 +646,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -684,11 +669,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -712,11 +692,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -759,11 +734,17 @@
                 "value": 200
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 22
             },
+            "resistances": [
+                {
+                    "type": "fire",
+                    "value": 15
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -810,18 +791,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "type": "fire",
-                    "value": 15
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

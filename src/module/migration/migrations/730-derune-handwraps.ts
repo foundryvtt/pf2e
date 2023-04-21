@@ -1,5 +1,5 @@
-import { ItemSourcePF2e } from "@item/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Remove Potency and Striking rule elements from handwraps of mighty blows */
 export class Migration730DeruneHandwraps extends MigrationBase {

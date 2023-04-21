@@ -5,7 +5,7 @@
     "system": {
         "badge": null,
         "description": {
-            "value": "<p>For the next strike, the ammunition fired from the affixed weapon to transforms into electricity, dealing electricity damage instead of its usual damage as well as [[/r {1d6}[persistent,electricity]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Electricity Damage} on a critical hit.</p>"
+            "value": "<p>For the next strike, the ammunition fired from the affixed weapon to transforms into electricity, dealing electricity damage instead of its usual damage as well as [[/r 1d6[persistent,electricity]]] damage on a critical hit.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -25,13 +25,13 @@
                 "selector": "strike-damage"
             },
             {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "selector": "strike-damage",
-                "text": "The weapon deals [[/r {1d6}[persistent,electricity]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Electricity Damage} on a critical hit.",
-                "title": "Energized Cartridge"
+                "critical": true,
+                "category": "persistent",
+                "damageType": "electricity",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "strike-damage"
             }
         ],
         "source": {
@@ -46,7 +46,6 @@
             "show": true
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": []
         }

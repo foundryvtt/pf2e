@@ -1,10 +1,10 @@
-import { ItemSourcePF2e } from "@item/data";
-import { WeaponSystemSource } from "@item/weapon/data";
-import { WeaponCategory, WeaponGroup, WeaponRangeIncrement } from "@item/weapon/types";
-import { MANDATORY_RANGED_GROUPS } from "@item/weapon/values";
-import { RuleElementSource } from "@module/rules";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { WeaponSystemSource } from "@item/weapon/data.ts";
+import { WeaponCategory, WeaponGroup, WeaponRangeIncrement } from "@item/weapon/types.ts";
+import { MANDATORY_RANGED_GROUPS } from "@item/weapon/values.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
 import { isObject, setHasElement } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Normalize weapon range to numeric or null, remove ability property, and let's do category and group too! */
 export class Migration691WeaponRangeAbilityCategoryGroup extends MigrationBase {

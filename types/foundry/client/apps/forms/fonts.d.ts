@@ -40,7 +40,7 @@ declare global {
          */
         protected _onClickControl(event: MouseEvent): void;
 
-        protected _onChangeInput(event: Event): void;
+        protected override _onChangeInput(event: Event): Promise<void>;
 
         /** Update available font fields based on the font type selected. */
         protected _updateFontFields(): void;

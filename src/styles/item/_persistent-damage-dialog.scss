@@ -1,0 +1,74 @@
+.persistent-damage-dialog {
+    /** Work around Font Awesome styling bug present as of version 6.2 */
+    i.fa-fw {
+        min-width: 1em;
+    }
+
+    h3 {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        a {
+            float: right;
+            font-size: 0.8em;
+            &:hover i {
+                animation: rotation 2s infinite linear;
+            }
+        }
+    }
+
+    .entries {
+        display: flex;
+        flex-direction: column;
+        gap: 0.125rem;
+
+        &:not(.new) {
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    .persistent-entry {
+        display: flex;
+        align-items: baseline;
+        gap: 0.25rem;
+
+        &.inactive .input-fields {
+            input, select, label:not(:focus-within) {
+                span, i, &:not(:focus) {
+                    opacity: 0.7;
+                    text-decoration: line-through;
+                }
+            }
+        }
+
+        a {
+            padding: 0.25em;
+        }
+    }
+
+    .persistent-entry .input-fields {
+        display: flex;
+        gap: 0.25rem;
+        align-items: baseline;
+
+        select: {
+            height: var(--form-field-height);
+        }
+
+        label {
+            display: flex;
+            align-items: baseline;
+            gap: 0.19rem;
+            height: 100%;
+        }
+
+        .dc {
+            width: 2.5rem;
+        }
+
+        .invalid {
+            box-shadow: 0 0 5px 0px red;
+            border-color: red;
+        }
+    }
+}

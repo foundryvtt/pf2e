@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>This small axe can be used in close combat or thrown.</p>"
@@ -92,9 +91,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -103,7 +99,6 @@
                     "value": "striking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -215,7 +210,6 @@
                     "value": 14
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "abjuration",
@@ -238,22 +232,11 @@
             "name": "Rock",
             "sort": 300000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 0,
                     "value": 0
                 },
@@ -261,16 +244,11 @@
                     "value": "ammo"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": ""
                 },
                 "containerId": "hDb6GUcEYpMQ9C9I",
                 "description": {
                     "value": ""
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -301,11 +279,6 @@
                     "value": {}
                 },
                 "quantity": 5,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": null,
@@ -313,25 +286,12 @@
                     "value": ""
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "-"
@@ -400,7 +360,6 @@
                 "stackGroup": "sacks",
                 "stowing": false,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -415,6 +374,11 @@
         },
         {
             "_id": "eqCGFR9UmHOuUpMI",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "5juLpMpruoLCJ9JZ"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Hatchet",
             "sort": 500000,
@@ -444,7 +408,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -491,7 +454,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "brutal",
@@ -536,7 +498,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -575,13 +536,18 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FastHealing",
+                        "type": "fast-healing",
+                        "value": 20
+                    }
+                ],
                 "slug": "fast-healing",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -626,7 +592,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -671,7 +636,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -713,7 +677,7 @@
                             "criticalSuccess"
                         ],
                         "selector": "fortitude",
-                        "text": "When you roll a success on a Fortitude save, you get a critical success instead.",
+                        "text": "PF2E.SpecificRule.SaveSuccessToCriticalSuccess.Fortitude",
                         "title": "{item|name}"
                     },
                     {
@@ -730,7 +694,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -756,7 +719,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The frost giant breathes out a @Template[type:cone|distance:15|damaging:yes]{15-foot cone} of freezing moisture that quickly condenses into ice, dealing [[/r {9d6}[cold]]]{9d6 cold damage}. Each creature in the cone must attempt a @Check[type:reflex|dc:41|basic:true] save.</p>\n<p>A creature that fails its save is also @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} and takes [[/r {2d6}[cold]]]{2d6 cold damage} at the end of each of its turns until it gets free (Escape DC 41).</p>\n<p>The giant can't use Chill Breath again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The frost giant breathes out a @Template[type:cone|distance:15|damaging:yes]{15-foot cone} of freezing moisture that quickly condenses into ice, dealing [[/r 9d6[cold]]] damage. Each creature in the cone must attempt a @Check[type:reflex|dc:41|basic:true] save.</p>\n<p>A creature that fails its save is also @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} and takes [[/r 2d6[cold]]] damage at the end of each of its turns until it gets free (Escape DC 41).</p>\n<p>The giant can't use Chill Breath again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -767,7 +730,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "cold",
@@ -811,7 +773,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -848,7 +809,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -919,7 +879,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -961,7 +920,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1001,7 +959,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1033,11 +990,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1061,11 +1013,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1089,11 +1036,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1127,11 +1069,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 },
                 "variants": {
                     "0": {
@@ -1179,8 +1116,13 @@
                 "temp": 0,
                 "value": 360
             },
+            "immunities": [
+                {
+                    "type": "cold"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 33
@@ -1189,7 +1131,13 @@
                 "details": "ice stride",
                 "otherSpeeds": [],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 20
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1222,21 +1170,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "cold"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "type": "fire",
-                    "value": 20
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

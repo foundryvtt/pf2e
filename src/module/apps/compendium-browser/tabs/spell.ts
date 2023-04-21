@@ -1,11 +1,14 @@
 import { getActionIcon, sluggify } from "@util";
-import { CompendiumBrowser } from "..";
-import { CompendiumBrowserTab } from "./base";
-import { CompendiumBrowserIndexData, SpellFilters } from "./data";
+import { CompendiumBrowser } from "../index.ts";
+import { ContentTabName } from "../data.ts";
+import { CompendiumBrowserTab } from "./base.ts";
+import { CompendiumBrowserIndexData, SpellFilters } from "./data.ts";
 
 export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
-    override filterData!: SpellFilters;
-    override templatePath = "systems/pf2e/templates/compendium-browser/partials/spell.html";
+    tabName: ContentTabName = "spell";
+    filterData: SpellFilters;
+    templatePath = "systems/pf2e/templates/compendium-browser/partials/spell.hbs";
+
     /* MiniSearch */
     override searchFields = ["name"];
     override storeFields = [
@@ -24,13 +27,13 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
     ];
 
     constructor(browser: CompendiumBrowser) {
-        super(browser, "spell");
+        super(browser);
 
         // Set the filterData object of this tab
-        this.prepareFilterData();
+        this.filterData = this.prepareFilterData();
     }
 
-    protected override async loadData() {
+    protected override async loadData(): Promise<void> {
         console.debug("PF2e System | Compendium Browser | Started loading spells");
 
         const spells: CompendiumBrowserIndexData[] = [];
@@ -81,9 +84,9 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                     } else {
                         spellData.system.time.img = getActionIcon(spellData.system.time.value);
                     }
-                    // replace mystery man with one action icon
-                    if (spellData.system.time.img === "systems/pf2e/icons/default-icons/mystery-man.svg") {
-                        spellData.system.time.img = "systems/pf2e/icons/actions/OneAction.webp";
+
+                    if (spellData.system.time.img === "systems/pf2e/icons/actions/Empty.webp") {
+                        spellData.system.time.img = "systems/pf2e/icons/actions/LongerAction.webp";
                     }
 
                     // Prepare source
@@ -127,10 +130,9 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                 selected: false,
             };
         }
-        this.filterData.checkboxes.classes.options = this.generateCheckboxOptions(CONFIG.PF2E.classTraits);
         this.filterData.checkboxes.school.options = this.generateCheckboxOptions(CONFIG.PF2E.magicSchools);
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, false);
-        this.filterData.checkboxes.traits.options = this.generateCheckboxOptions(CONFIG.PF2E.spellTraits);
+        this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.spellTraits);
         this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(sources);
 
         this.filterData.selects.timefilter.options = [...times].sort().reduce(
@@ -145,7 +147,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
     }
 
     protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
-        const { checkboxes, selects } = this.filterData;
+        const { checkboxes, multiselects, selects } = this.filterData;
 
         // Level
         if (checkboxes.level.selected.length) {
@@ -164,11 +166,9 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         if (checkboxes.traditions.selected.length) {
             if (!this.arrayIncludes(checkboxes.traditions.selected, entry.traditions)) return false;
         }
-        // Traits and Class
-        if (checkboxes.classes.selected.length || checkboxes.traits.selected.length) {
-            const combined = [...checkboxes.classes.selected, ...checkboxes.traits.selected];
-            if (!this.arrayIncludes(combined, entry.traits)) return false;
-        }
+        // Traits
+        if (!this.filterTraits(entry.traits, multiselects.traits.selected, multiselects.traits.conjunction))
+            return false;
         // School
         if (checkboxes.school.selected.length) {
             if (!checkboxes.school.selected.includes(entry.school)) return false;
@@ -184,8 +184,8 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         return true;
     }
 
-    protected override prepareFilterData(): void {
-        this.filterData = {
+    protected override prepareFilterData(): SpellFilters {
+        return {
             checkboxes: {
                 category: {
                     isExpanded: true,
@@ -205,12 +205,6 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                     options: {},
                     selected: [],
                 },
-                classes: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterClass",
-                    options: {},
-                    selected: [],
-                },
                 school: {
                     isExpanded: false,
                     label: "PF2E.BrowserFilterSchools",
@@ -223,16 +217,18 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                     options: {},
                     selected: [],
                 },
-                traits: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterTraits",
-                    options: {},
-                    selected: [],
-                },
                 source: {
                     isExpanded: false,
                     label: "PF2E.BrowserFilterSource",
                     options: {},
+                    selected: [],
+                },
+            },
+            multiselects: {
+                traits: {
+                    conjunction: "and",
+                    label: "PF2E.BrowserFilterTraits",
+                    options: [],
                     selected: [],
                 },
             },

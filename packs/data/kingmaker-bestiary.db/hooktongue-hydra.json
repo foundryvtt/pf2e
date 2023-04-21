@@ -3,7 +3,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "UNKL6y0xQcbsDrvG",
+            "_id": "Qhzq8upEjphFKYoP",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-effects.uZJOdounIHaFDC1t"
@@ -31,13 +31,18 @@
                 },
                 "rules": [
                     {
-                        "diceNumber": "{item|system.badge.value}",
+                        "diceNumber": "@item.system.badge.value - 1",
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
                             "focused-assault"
                         ],
-                        "selector": "damage"
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": "@item.system.badge.value * 3"
                     }
                 ],
                 "slug": "effect-hydra-heads",
@@ -46,17 +51,17 @@
                 },
                 "start": {
                     "initiative": null,
-                    "value": 102
+                    "value": 36
                 },
                 "target": null,
                 "tokenIcon": {
-                    "show": true
+                    "show": false
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
-                }
+                },
+                "unidentified": false
             },
             "type": "effect"
         },
@@ -91,7 +96,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-10"
@@ -135,7 +139,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -180,7 +183,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -232,7 +234,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -261,7 +262,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The hydra has @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Regeneration]{Regeneration} equal to 15. If a hydra's body is missing any heads and the remaining stumps have not been cauterized, the hydra attempts a @Check[type:fortitude|dc:35] save after it regains Hit Points from regeneration. On a success, one uncauterized stump regrows two heads; on a critical success, two uncauterized stumps regrow into two heads each. The hydra can never grow more than double the number of heads it ordinarily has. The hydra's regeneration only fully deactivates if all its heads are severed and all stumps are cauterized, at which point it dies.</p>"
+                    "value": "<p>The hydra has @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Regeneration]{Regeneration} equal to 3 x the number of heads it has. If a hydra's body is missing any heads and the remaining stumps have not been cauterized, the hydra attempts a @Check[type:fortitude|immutable:true|dc:35] save after it regains Hit Points from regeneration. On a success, one uncauterized stump regrows two heads; on a critical success, two uncauterized stumps regrow into two heads each. The hydra can never grow more than double the number of heads it ordinarily has. The hydra's regeneration only fully deactivates if all its heads are severed and all stumps are cauterized, at which point it dies.</p>\n<hr />\n<p><em><strong>Note:</strong> The source specifies hydra regeneration 15, but this conflicts with standard hydra regeneration.</em></p>"
                 },
                 "requirements": {
                     "value": ""
@@ -272,7 +273,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -317,7 +317,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -357,7 +356,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -397,7 +395,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -426,7 +423,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The hydra attacks a single target with its heads, overwhelming its foe with multiple attacks and leaving almost nowhere to dodge. The hydra Strikes with its fangs. On a successful attack, the hydra deals damage from its fangs Strike to the target, plus an additional [[/r {1d6}]]{1d6 damage} for every head it has beyond the first. Even on a failed attack, the hydra deals the damage from one fangs Strike to the target creature, though it still misses completely on a critical failure. This counts toward the hydra's multiple attack penalty as a number of attacks equal to the number of heads the hydra has.</p>"
+                    "value": "<p>The hydra attacks a single target with its heads, overwhelming its foe with multiple attacks and leaving almost nowhere to dodge. The hydra Strikes with its fangs. On a successful attack, the hydra deals damage from its fangs Strike to the target, plus an additional [[/r 1d6]] damage for every head it has beyond the first. Even on a failed attack, the hydra deals the damage from one fangs Strike to the target creature, though it still misses completely on a critical failure. This counts toward the hydra's multiple attack penalty as a number of attacks equal to the number of heads the hydra has.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -445,7 +442,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -485,7 +481,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -517,11 +512,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -555,11 +545,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 },
                 "variants": {
                     "0": {
@@ -602,13 +587,13 @@
                 "value": ""
             },
             "hp": {
-                "details": "hydra regeneration 15",
+                "details": "hydra regeneration",
                 "max": 240,
                 "temp": 0,
                 "value": 240
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 26
@@ -654,13 +639,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

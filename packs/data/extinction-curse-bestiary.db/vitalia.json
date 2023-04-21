@@ -100,17 +100,12 @@
                 },
                 "tradition": {
                     "value": "occult"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
         },
         {
-            "_id": "qo02kBbCRfUoSrjY",
+            "_id": "kHcz4oeseenSbD73",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.fd31tAHSSGXyOxW6"
@@ -124,11 +119,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "cone",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot cone"
+                    "type": "cone",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -145,8 +137,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "negative"
                             },
                             "value": "12d6"
@@ -226,7 +220,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "death",
@@ -237,7 +230,7 @@
             "type": "spell"
         },
         {
-            "_id": "VIrnhCa9yWnaX24F",
+            "_id": "K4Wl20UYqGkRc7jL",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.N1Z1oLPdBxaSgrEE"
@@ -250,13 +243,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -272,8 +259,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "negative"
                             },
                             "value": "6d6"
@@ -353,7 +342,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "death",
@@ -364,7 +352,7 @@
             "type": "spell"
         },
         {
-            "_id": "GYiPe3ECi5SLXoPJ",
+            "_id": "fIVKEuRBev6cm8EW",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.HTou8cG05yuSkesj"
@@ -377,13 +365,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -416,9 +398,6 @@
                             },
                             "target": {
                                 "value": "10 willing living creatures"
-                            },
-                            "time": {
-                                "value": "2"
                             }
                         }
                     },
@@ -481,11 +460,9 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
-                        "detection",
-                        "occult"
+                        "detection"
                     ]
                 }
             },
@@ -524,10 +501,9 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
-                        "mental",
+                        "magical",
                         "reach-15"
                     ]
                 },
@@ -571,11 +547,10 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "acid",
-                        "mental",
+                        "magical",
                         "range-increment-40"
                     ]
                 },
@@ -586,7 +561,7 @@
             "type": "melee"
         },
         {
-            "_id": "OvKxfriPecrxv8JD",
+            "_id": "I3SJEMtzxGoUPoc7",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
@@ -617,7 +592,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -657,7 +631,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -697,7 +670,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -711,7 +683,7 @@
             "type": "action"
         },
         {
-            "_id": "Ol1Ekm25XUB7eDEV",
+            "_id": "m0wrjjZLBjDz3Ona",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
@@ -742,7 +714,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -781,13 +752,18 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FastHealing",
+                        "type": "fast-healing",
+                        "value": 20
+                    }
+                ],
                 "slug": "fast-healing",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -827,7 +803,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -861,7 +836,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {4d8+10}[bludgeoning]]]{4d8+10 bludgeoning damage}, @Check[type:fortitude|dc:37|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r (4d8+10)[bludgeoning]]] damage, @Check[type:fortitude|dc:37|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -872,7 +847,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -912,7 +886,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -941,7 +914,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The vitalia pumps copious amounts of blood into the air, creating a cascading rain of vital fluids in a @Template[type:emanation|distance:15].</p>\n<p>All creatures in the area are concealed from one another. A creature that benefits from consuming blood (such as bloodseekers or vampires) gains @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Fast Healing]{Fast Healing 10} while in the area. While in the area, a creature taking @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} cannot end that condition, even if it spends actions to attempt a flat check to do so.</p>\n<p>The rain lasts for 1 minute.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The vitalia pumps copious amounts of blood into the air, creating a cascading rain of vital fluids in a @Template[type:emanation|distance:15].</p>\n<p>All creatures in the area are @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} from one another. A creature that benefits from consuming blood (such as bloodseekers or vampires) gains @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Fast Healing]{Fast Healing 10} while in the area. While in the area, a creature taking @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} cannot end that condition, even if it spends actions to attempt a flat check to do so.</p>\n<p>The rain lasts for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -952,7 +925,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "necromancy",
@@ -969,7 +941,7 @@
             "type": "action"
         },
         {
-            "_id": "ZQObJsRlGf8dKPlo",
+            "_id": "Kke4izO3OxCZuJm6",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
@@ -1000,7 +972,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1032,11 +1003,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1078,8 +1044,22 @@
                 "temp": 0,
                 "value": 425
             },
+            "immunities": [
+                {
+                    "type": "unconscious"
+                },
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "sleep"
+                },
+                {
+                    "type": "visual"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 30
@@ -1092,7 +1072,13 @@
                     }
                 ],
                 "value": 15
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "piercing",
+                    "value": 15
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1130,19 +1116,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "unconscious",
-                    "bleed",
-                    "mental",
-                    "sleep",
-                    "visual"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

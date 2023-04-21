@@ -1,13 +1,20 @@
-import { SIZE_TO_REACH } from "@actor/creature/values";
-import { ItemPF2e } from "@item/base";
-import { ItemSummaryData } from "@item/data";
-import { WeaponDamage } from "@item/weapon/data";
-import { WeaponRangeIncrement } from "@item/weapon/types";
-import { combineTerms } from "@scripts/dice";
-import { WeaponDamagePF2e } from "@system/damage";
-import { MeleeData, MeleeSystemData, NPCAttackTrait } from "./data";
+import { SIZE_TO_REACH } from "@actor/creature/values.ts";
+import { ActorPF2e } from "@actor";
+import { ItemSummaryData } from "@item/data/index.ts";
+import { ItemPF2e, WeaponPF2e } from "@item";
+import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponRangeIncrement } from "@item/weapon/types.ts";
+import { combineTerms } from "@scripts/dice.ts";
+import { DamageCategorization } from "@system/damage/helpers.ts";
+import { ConvertedNPCDamage, WeaponDamagePF2e } from "@system/damage/weapon.ts";
+import { tupleHasValue } from "@util";
+import { MeleeFlags, MeleeSource, MeleeSystemData, NPCAttackTrait } from "./data.ts";
 
-class MeleePF2e extends ItemPF2e {
+class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
+    /** Set during data preparation if a linked weapon is found */
+    declare category: WeaponCategory | null;
+    declare group: WeaponGroup | null;
+    declare baseType: BaseWeaponType | null;
+
     get traits(): Set<NPCAttackTrait> {
         return new Set(this.system.traits.value);
     }
@@ -63,7 +70,7 @@ class MeleePF2e extends ItemPF2e {
     }
 
     /** The first of this attack's damage instances */
-    get baseDamage(): WeaponDamage {
+    get baseDamage(): ConvertedNPCDamage {
         const instance = Object.values(this.system.damageRolls).shift();
         if (!instance) {
             return {
@@ -71,6 +78,8 @@ class MeleePF2e extends ItemPF2e {
                 die: null,
                 modifier: 0,
                 damageType: "untyped",
+                persistent: null,
+                category: null,
             };
         }
 
@@ -87,11 +96,38 @@ class MeleePF2e extends ItemPF2e {
         return this.system.attackEffects.value;
     }
 
+    /** The linked inventory weapon, if this melee item was spawned from one */
+    get linkedWeapon(): WeaponPF2e<ActorPF2e> | null {
+        const item = this.actor?.items.get(this.flags.pf2e.linkedWeapon ?? "");
+        return item?.isOfType("weapon") ? item : null;
+    }
+
+    protected override _initialize(): void {
+        this.category = this.group = this.baseType = null;
+        super._initialize();
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
 
         // Set precious material (currently unused)
         this.system.material = { precious: null };
+
+        for (const attackDamage of Object.values(this.system.damageRolls)) {
+            attackDamage.category ||= null;
+            if (attackDamage.damageType === "bleed") {
+                attackDamage.category = "persistent";
+            }
+        }
+    }
+
+    /** Set weapon category, group, and base if that information is available */
+    override prepareSiblingData(): void {
+        const { linkedWeapon } = this;
+        const isUnarmed = this.traits.has("unarmed");
+        this.category = isUnarmed ? "unarmed" : linkedWeapon?.category ?? null;
+        this.group = isUnarmed ? "brawling" : this.linkedWeapon?.group ?? null;
+        this.baseType = tupleHasValue(["claw", "fist", "jaws"] as const, this.slug) ? this.slug : null;
     }
 
     override prepareActorData(): void {
@@ -101,7 +137,7 @@ class MeleePF2e extends ItemPF2e {
         const damageInstances = Object.values(this.system.damageRolls);
         for (const instance of Object.values(this.system.damageRolls)) {
             try {
-                instance.damage = new Roll(instance.damage).formula;
+                instance.damage = new Roll(instance.damage)._formula;
             } catch {
                 const message = `Unable to parse damage formula on NPC attack ${this.name}`;
                 console.warn(`PF2e System | ${message}`);
@@ -136,32 +172,39 @@ class MeleePF2e extends ItemPF2e {
                     const operator = new OperatorTerm({ operator: adjustedBase >= 0 ? "+" : "-" });
                     terms.push(operator, modifier);
                 }
-                instance.damage = combineTerms(Roll.fromTerms(terms).formula).formula;
+                instance.damage = combineTerms(Roll.fromTerms(terms)._formula);
             } else {
-                instance.damage = roll.formula;
+                instance.damage = roll._formula;
             }
         }
     }
 
-    /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = this.type): string[] {
         const baseOptions = super.getRollOptions(prefix);
-        const delimitedPrefix = prefix ? `${prefix}:` : "";
+
+        const { damageType } = this.baseDamage;
+        const damageCategory = DamageCategorization.fromDamageType(damageType);
+
         const otherOptions = Object.entries({
             equipped: true,
             melee: this.isMelee,
             ranged: this.isRanged,
             thrown: this.isThrown,
+            [`category:${this.category}`]: !!this.category,
+            [`group:${this.group}`]: !!this.group,
+            [`base:${this.baseType}`]: !!this.baseType,
             [`range-increment:${this.rangeIncrement}`]: !!this.rangeIncrement,
+            [`damage:type:${damageType}`]: true,
+            [`damage:category:${damageCategory}`]: !!damageCategory,
         })
-            .filter(([_key, isTrue]) => isTrue)
-            .map(([key]) => `${delimitedPrefix}${key}`);
+            .filter(([, isTrue]) => isTrue)
+            .map(([key]) => `${prefix}:${key}`);
 
         return [baseOptions, otherOptions].flat().sort();
     }
 
     override async getChatData(
-        this: Embedded<MeleePF2e>,
+        this: MeleePF2e<ActorPF2e>,
         htmlOptions: EnrichHTMLOptions = {}
     ): Promise<ItemSummaryData & { map2: string; map3: string } & Omit<MeleeSystemData, "traits">> {
         const systemData = this.system;
@@ -175,8 +218,10 @@ class MeleePF2e extends ItemPF2e {
     }
 }
 
-interface MeleePF2e {
-    readonly data: MeleeData;
+interface MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
+    flags: MeleeFlags;
+    readonly _source: MeleeSource;
+    system: MeleeSystemData;
 }
 
 export { MeleePF2e };

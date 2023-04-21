@@ -1,5 +1,5 @@
-import { ItemSourcePF2e, SpellSource } from "@item/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e, SpellSource } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 const validComponents = ["material", "somatic", "verbal"] as const;
 

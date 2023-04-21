@@ -1,0 +1,82 @@
+<section class="effect-panel">
+    {{#each afflictions as |affliction|}}
+        {{> effect effect=affliction descriptions=../descriptions.afflictions}}
+    {{/each}}
+
+    {{#if (and afflictions.length conditions.length)}}<hr />{{/if}}
+
+    {{#each conditions as |condition|}}
+        {{> effect effect=condition descriptions=../descriptions.conditions}}
+    {{/each}}
+
+    {{#if (and conditions.length effects.length)}}<hr />{{/if}}
+
+    {{#each effects as |effect|}}
+        {{> effect effect=effect descriptions=../descriptions.effects}}
+    {{/each}}
+</section>
+
+{{#*inline "effect"}}
+{{#if (or effect.isIdentified @root.user.isGM)}}
+<div class="effect-item" data-item-id="{{effect.id}}" data-badge-type="{{effect.badge.type}}">
+    <div class="effect-info">
+        <h1>
+            {{effect.name}}
+            <a data-action="send-to-chat" title="{{localize "PF2E.NPC.SendToChat"}}"><i class="fa-solid fa-comment-alt" ></i></a>
+        </h1>
+        {{#if (or (eq effect.type "effect") effect.breakdown)}}
+            <div class="tags">
+                {{#if (and effect.system.duration.sustained (not effect.system.expired))}}
+                    <div class="tag tag_secondary">{{localize "PF2E.EffectPanel.Sustained"}}</div>
+                {{/if}}
+                {{#unless effect.isIdentified}}
+                    <div class="tag tag_secondary">{{localize "PF2E.EffectPanel.Unidentified"}}</div>
+                {{/unless}}
+                {{#if effect.breakdown}}
+                    <div class="tag tag_secondary">{{effect.breakdown}}</div>
+                {{/if}}
+                {{#if effect.system.remaining}}
+                    <div class="tag tag_secondary">{{effect.system.remaining}}</div>
+                {{/if}}
+            </div>
+        {{/if}}
+        {{#if (eq effect.slug "persistent-damage")}}
+            <a data-action="recover-persistent-damage">
+                {{localize "PF2E.Item.Condition.PersistentDamage.AssistedRecovery"}}
+            </a>
+        {{/if}}
+        <div class="instructions">
+            {{#if (not effect.isLocked)}}
+                {{#if (eq effect.badge.type "formula")}}
+                    <p>{{localize "PF2E.EffectPanel.RollDamageToolTip"}}</p>
+                {{/if}}
+
+                {{#if (eq effect.badge.type "counter")}}
+                    <p>{{localize "PF2E.EffectPanel.IncrementToolTip"}}</p>
+                    <p>{{localize "PF2E.EffectPanel.DecrementToolTip"}}</p>
+                {{else}}
+                    <p>{{localize "PF2E.EffectPanel.RemoveToolTip"}}</p>
+                {{/if}}
+            {{/if}}
+        </div>
+
+        <div class="description">
+            {{{lookup descriptions @index}}}
+        </div>
+    </div>
+    <div class="icon{{#if effect.isAura}} aura{{/if}}{{#unless effect.isIdentified}} unidentified{{/unless}}" data-locked="{{#if effect.isLocked}}true{{/if}}" style="background-image: url({{effect.img}})">
+        {{#if effect.isLocked}}
+            <div class="linked"><i class="fa-solid fa-link"></i></div>
+        {{/if}}
+        {{#if effect.system.expired}}
+            <span class="expired">{{localize "PF2E.EffectPanel.Expired"}}</span>
+        {{else if effect.badge}}
+            <div class="value-wrapper">
+                <div class="value"><strong>{{coalesce effect.badge.label effect.badge.value}}</strong></div>
+            </div>
+
+        {{/if}}
+    </div>
+</div>
+{{/if}}
+{{/inline}}

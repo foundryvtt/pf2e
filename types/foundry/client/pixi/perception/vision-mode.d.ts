@@ -37,8 +37,8 @@ declare global {
                 postProcessingModes: string[];
                 uniforms: object;
             };
-            levels: { [K in keyof typeof VisionMode.LIGHTING_LEVELS]?: typeof VisionMode.LIGHTING_LEVELS[K] };
-            multipliers: { [K in keyof typeof VisionMode.LIGHTING_LEVELS]?: typeof VisionMode.LIGHTING_LEVELS[K] };
+            levels: { [K in keyof typeof VisionMode.LIGHTING_LEVELS]?: (typeof VisionMode.LIGHTING_LEVELS)[K] };
+            multipliers: { [K in keyof typeof VisionMode.LIGHTING_LEVELS]?: (typeof VisionMode.LIGHTING_LEVELS)[K] };
         };
 
         vision: {
@@ -49,7 +49,10 @@ declare global {
                 adaptive: boolean;
             };
             defaults: Partial<
-                Pick<TokenDocument["sight"], "attenuation" | "brightness" | "saturation" | "contrast" | "range">
+                Pick<
+                    TokenDocument<Scene | null>["sight"],
+                    "attenuation" | "brightness" | "saturation" | "contrast" | "range"
+                >
             >;
         };
 
@@ -97,5 +100,5 @@ declare global {
         deactivate(source: VisionSource<Token>): void;
     }
 
-    type LightingVisibility = typeof VisionMode.LIGHTING_VISIBILITY[keyof typeof VisionMode.LIGHTING_VISIBILITY];
+    type LightingVisibility = (typeof VisionMode.LIGHTING_VISIBILITY)[keyof typeof VisionMode.LIGHTING_VISIBILITY];
 }

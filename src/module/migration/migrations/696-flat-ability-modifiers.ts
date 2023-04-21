@@ -1,9 +1,9 @@
-import { AbilityString } from "@actor/types";
-import { ABILITY_ABBREVIATIONS } from "@actor/values";
-import { ItemSourcePF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules";
+import { AbilityString } from "@actor/types.ts";
+import { ABILITY_ABBREVIATIONS } from "@actor/values.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
 import { setHasElement, sluggify } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Set the "ability" property on ability FlatModifier REs */
 export class Migration696FlatAbilityModifiers extends MigrationBase {

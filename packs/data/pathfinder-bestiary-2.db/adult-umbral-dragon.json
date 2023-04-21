@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "primal"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -126,11 +121,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
+                    "type": "burst",
                     "value": 20
-                },
-                "areasize": {
-                    "value": "20-foot burst"
                 },
                 "category": {
                     "value": "spell"
@@ -213,7 +205,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "darkness"
@@ -236,13 +227,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -322,7 +307,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "shadow",
@@ -347,11 +331,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "cone",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot cone"
+                    "type": "cone",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -448,7 +429,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "death",
@@ -473,11 +453,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
+                    "type": "emanation",
                     "value": 30
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
                 },
                 "category": {
                     "value": "spell"
@@ -561,7 +538,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "detection",
@@ -608,7 +584,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "negative",
@@ -654,7 +629,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -701,7 +675,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -747,7 +720,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -793,7 +765,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -838,7 +809,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -883,7 +853,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -941,7 +910,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -980,13 +948,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 90,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "aura",
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": "frightful-presence",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -1012,7 +991,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
+            "name": "Attack of Opportunity (Jaws Only)",
             "sort": 1500000,
             "system": {
                 "actionCategory": {
@@ -1036,7 +1015,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1065,7 +1043,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The umbral dragon breathes in one of two ways. They can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<ul>\n<li><strong>Negative</strong> The dragon breathes a blast of darkness in a @Template[type:cone|distance:40] that deals [[/r {16d6}[negative]]]{16d6 negative damage} (@Check[type:reflex|dc:36|basic:true] save). Undead creatures take [[/r {19d6}[force]]]{19d6 force damage} instead of the negative damage.</li>\n<li><strong>Shadows</strong> The dragon breathes a blast of shadows in a @Template[type:cone|distance:40]. Each creature within the cone must attempt a @Check[type:fortitude|dc:36] save.\n<ul>\n<li><strong>Critical Success</strong> The creature is unaffected. </li>\n<li><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2} for 1 round. </li>\n<li><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2} for 1 minute. </li>\n<li><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2} for 1 minute and @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded} for 1 round.</li>\n</ul>\n</li>\n</ul>"
+                    "value": "<p>The umbral dragon breathes in one of two ways. They can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<ul>\n<li><strong>Negative</strong> The dragon breathes a blast of darkness in a @Template[type:cone|distance:40] that deals [[/r 16d6[negative]]] damage (@Check[type:reflex|dc:36|basic:true] save). Undead creatures take [[/r 19d6[force]]] damage instead of the negative damage.</li>\n<li><strong>Shadows</strong> The dragon breathes a blast of shadows in a @Template[type:cone|distance:40]. Each creature within the cone must attempt a @Check[type:fortitude|dc:36] save.\n<ul>\n<li><strong>Critical Success</strong> The creature is unaffected. </li>\n<li><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2} for 1 round. </li>\n<li><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2} for 1 minute. </li>\n<li><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2} for 1 minute and @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded} for 1 round.</li>\n</ul>\n</li>\n</ul>"
                 },
                 "requirements": {
                     "value": ""
@@ -1076,7 +1054,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "necromancy",
@@ -1121,7 +1098,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1171,7 +1147,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1200,22 +1175,20 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>An umbral dragon's Strikes affect incorporeal creatures with the effects of a @UUID[Compendium.pf2e.equipment-srd.Ghost Touch]{Ghost Touch} property rune, and an umbral dragon's jaws deal an additional [[/r {6d6}[force]]]{6d6 force damage} to undead.</p>"
+                    "value": "<p>An umbral dragon's Strikes affect incorporeal creatures with the effects of a @UUID[Compendium.pf2e.equipment-srd.Ghost Touch]{Ghost Touch} property rune, and an umbral dragon's jaws deal an additional [[/r 6d6[force]]] damage to undead.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "ghost-bane",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
-                        "incorporeal",
-                        "undead"
+                        "incorporeal"
                     ]
                 },
                 "trigger": {
@@ -1246,11 +1219,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1274,11 +1242,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1302,11 +1265,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1330,11 +1288,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1358,11 +1311,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1386,11 +1334,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1414,11 +1357,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1460,8 +1398,19 @@
                 "temp": 0,
                 "value": 275
             },
+            "immunities": [
+                {
+                    "type": "negative"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 29
@@ -1515,17 +1464,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "negative",
-                    "paralyzed",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

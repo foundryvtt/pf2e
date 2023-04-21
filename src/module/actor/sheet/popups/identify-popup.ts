@@ -1,7 +1,7 @@
-import { SkillAbbreviation } from "@actor/creature/data";
-import { identifyItem, IdentifyAlchemyDCs, IdentifyMagicDCs, GenericIdentifyDCs } from "@item/identification";
-import { PhysicalItemPF2e } from "@item/physical";
-import { ChatMessagePF2e } from "@module/chat-message";
+import { SkillAbbreviation } from "@actor/creature/data.ts";
+import { identifyItem, IdentifyAlchemyDCs, IdentifyMagicDCs, GenericIdentifyDCs } from "@item/identification.ts";
+import { PhysicalItemPF2e } from "@item/physical/index.ts";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { objectHasKey } from "@util";
 
 export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
@@ -10,7 +10,7 @@ export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
             ...super.defaultOptions,
             id: "identify-item",
             title: game.i18n.localize("PF2E.identification.Identify"),
-            template: "systems/pf2e/templates/actors/identify-item.html",
+            template: "systems/pf2e/templates/actors/identify-item.hbs",
             width: "auto",
             classes: ["identify-popup"],
         };
@@ -59,7 +59,7 @@ export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
                     return { shortForm, name, dc };
                 });
 
-            const content = await renderTemplate("systems/pf2e/templates/actors/identify-item-chat-skill-checks.html", {
+            const content = await renderTemplate("systems/pf2e/templates/actors/identify-item-chat-skill-checks.hbs", {
                 itemImg,
                 itemName,
                 identifiedName,

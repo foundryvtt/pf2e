@@ -34,7 +34,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -79,7 +78,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -119,7 +117,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -148,7 +145,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The crows' angry pecking deals [[/r {2d8}[piercing]]]{2d8 piercing damage} to each enemy in the swarm's space (@Check[type:reflex|dc:28|basic:true]). A creature that critically fails its save is @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded} for [[/br 1d6 #Rounds]]{1d6 rounds} as the crows focus their attacks on the target's vulnerable face.</p>"
+                    "value": "<p>The crows' angry pecking deals [[/r 2d8[piercing]]] damage to each enemy in the swarm's space (@Check[type:reflex|dc:28|basic:true]). A creature that critically fails its save is @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded} for [[/br 1d6 #Rounds]]{1d6 rounds} as the crows focus their attacks on the target's vulnerable face.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -159,7 +156,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -191,11 +187,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -219,11 +210,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -265,12 +251,34 @@
                 "temp": 0,
                 "value": 150
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 19
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 5
+                },
+                {
+                    "type": "piercing",
+                    "value": 10
+                },
+                {
+                    "type": "slashing",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -279,7 +287,17 @@
                     }
                 ],
                 "value": 10
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 10
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -315,43 +333,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "precision",
-                    "swarm-mind"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "bludgeoning",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "piercing",
-                    "value": 10
-                },
-                {
-                    "exceptions": "",
-                    "type": "slashing",
-                    "value": 10
-                }
-            ],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "type": "area-damage",
-                    "value": 10
-                },
-                {
-                    "exceptions": "",
-                    "type": "splash-damage",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

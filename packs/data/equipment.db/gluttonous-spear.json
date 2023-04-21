@@ -18,8 +18,7 @@
         "damage": {
             "damageType": "piercing",
             "dice": 1,
-            "die": "d6",
-            "value": ""
+            "die": "d6"
         },
         "description": {
             "value": "<p>The head of this +1 striking @UUID[Compendium.pf2e.equipment-srd.Returning]{Returning} spear is wrapped in greasy hide, and its head resembles a thick, clawed finger.</p>\n<p>On a critical hit, the target is @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 minute, and you gain [[/r 1d8]] temporary Hit Points that last for 1 minute.</p>"
@@ -71,7 +70,17 @@
         "reload": {
             "value": "-"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "{item|_id}-damage",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}"
+            }
+        ],
         "size": "med",
         "source": {
             "value": "Pathfinder Adventure: The Slithering"
@@ -92,7 +101,6 @@
             "value": "striking"
         },
         "traits": {
-            "custom": "",
             "rarity": "uncommon",
             "value": [
                 "magical",

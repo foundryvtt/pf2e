@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d12",
-                    "value": ""
+                    "die": "d12"
                 },
                 "description": {
                     "value": "<p>This large battle axe is too heavy to wield with only one hand. Many greataxes incorporate two blades, and they are often \"bearded\", having a hook at the bottom to increase the strength of their chopping power.</p>"
@@ -92,9 +91,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -103,7 +99,6 @@
                     "value": "striking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "sweep"
@@ -210,7 +205,6 @@
                     "value": 16
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -226,7 +220,7 @@
         {
             "_id": "gp86sm7vn9dkppsw",
             "img": "icons/svg/mystery-man.svg",
-            "name": "sack with 10 firebombs (see Throw Bomb)",
+            "name": "Sack with 10 Firebombs (see Throw Bomb)",
             "sort": 300000,
             "system": {
                 "baseItem": null,
@@ -236,6 +230,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -271,7 +266,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -279,13 +273,18 @@
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "-"
                 }
             },
             "type": "equipment"
         },
         {
             "_id": "94dpbywmyg45nasd",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "6D6m4KrECDEg1jJg"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Greataxe",
             "sort": 400000,
@@ -315,7 +314,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -360,7 +358,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-10"
@@ -385,7 +382,7 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
                     "value": "<p>A frost giant isn't impeded by difficult terrain caused by snow or ice, nor do they need to attempt Acrobatics checks to keep from falling on slippery ice.</p>"
@@ -399,7 +396,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -422,7 +418,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": "2"
+                    "value": 2
                 },
                 "description": {
                     "value": "<p>The Graylok artillerist combines gelatin and other substances over their greataxe to ignite it. For 1 minute, the greataxe gains the fire trait, and creatures hit by it take 4 persistent fire damage.</p>"
@@ -436,7 +432,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -462,7 +457,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The Graylok artillerist has two free hands</p><hr />\n<p><strong>Effect</strong> The Graylok artillerist Interacts with a firebomb and then throws it at a point within 100 feet. The bomb erupts in a 10-foot burst, and works as moderate alchemist fire, except it inflicts [[/r {4d6}[fire]]]{4d6 fire damage} with a @Check[type:reflex|dc:23|basic:true]. Creatures that fail or critically fail this save also take [[/r {4}[persistent,fire]]]{4} @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent fire Damage}.</p>"
+                    "value": "<p><strong>Requirements</strong> The Graylok artillerist has two free hands</p>\n<hr />\n<p><strong>Effect</strong> The Graylok artillerist Interacts with a firebomb and then throws it at a point within 100 feet. The bomb erupts in a @Template[type:burst|distance:10], and works as @UUID[Compendium.pf2e.equipment-srd.Alchemist's Fire (Moderate)]{moderate alchemist fire}, except it inflicts [[/r 4d6[fire]]] damage with a @Check[type:reflex|dc:23|basic:true] save. Creatures that fail or critically fail this save also take [[/r 4[persistent,fire]]] damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -473,7 +468,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "alchemical",
@@ -499,7 +493,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": "1"
+                    "value": 1
                 },
                 "description": {
                     "value": "<p>The frost giant makes a single greataxe Strike and compares the attack roll result to the ACs of up to two foes within their reach. This counts as two attacks for the frost giant's multiple attack penalty.</p>"
@@ -513,7 +507,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -542,11 +535,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -570,11 +558,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -598,11 +581,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -644,8 +622,13 @@
                 "temp": 0,
                 "value": 100
             },
+            "immunities": [
+                {
+                    "type": "cold"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 16
@@ -661,7 +644,13 @@
                 "details": "ice stride",
                 "otherSpeeds": [],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -694,20 +683,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "cold"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "fire",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

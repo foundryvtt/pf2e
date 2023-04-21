@@ -1,23 +1,25 @@
-import { EffectBadge } from "@item/abstract-effect/data";
+import { EffectBadge } from "@item/abstract-effect/data.ts";
 
 interface FlattenedCondition {
     id: string;
     active: boolean;
     name: string;
+    type: "condition";
+    slug: string;
     badge: EffectBadge | null;
     value: number | null;
     description: string;
     enrichedDescription?: string;
-    img: ImagePath;
-    unidentified: boolean;
-    locked: boolean;
+    img: ImageFilePath;
+    isIdentified: boolean;
+    isLocked: boolean;
     references: boolean;
     breakdown?: string;
+    temporary: boolean;
     parents: ConditionReference[];
     children: ConditionReference[];
     overrides: ConditionReference[];
     overriddenBy: ConditionReference[];
-    immunityFrom: ConditionReference[];
 }
 
 interface ConditionReference {

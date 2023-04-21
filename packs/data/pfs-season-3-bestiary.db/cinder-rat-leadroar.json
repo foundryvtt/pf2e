@@ -19,40 +19,25 @@
                     "value": 10
                 },
                 "damageRolls": {
-                    "c6j3gyocqa5vc60wrc5e": {
+                    "0": {
                         "damage": "1d8+4",
+                        "damageType": "fire"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "1d4",
                         "damageType": "fire"
                     }
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.PersistentDamage.Fire1d4.success]</p>"
+                    "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Fire1d4.success",
-                        "visibility": "gm"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Fire1d4.criticalSuccess",
-                        "visibility": "gm"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "finesse"
@@ -96,7 +81,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -136,7 +120,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -165,7 +148,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The cinder rat breathes fire in a @Template[type:cone|distance:15]{15-foot cone} that deals [[/r {4d6}[fire]]]{4d6 fire damage} (@Check[type:reflex|dc:19|basic:true] save). The cinder rat can't use Breath Weapon again for [[/br {1d4} #Breath Weapon Cooldown]]{1d4 rounds}.</p>"
+                    "value": "<p>The cinder rat breathes fire in a @Template[type:cone|distance:15]{15-foot cone} that deals [[/r 4d6[fire]]] damage (@Check[type:reflex|dc:19|basic:true] save). The cinder rat can't use Breath Weapon again for [[/br {1d4} #Breath Weapon Cooldown]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -176,7 +159,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "evocation",
@@ -209,11 +191,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -237,11 +214,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -265,11 +237,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -314,8 +281,25 @@
                 "temp": 0,
                 "value": 45
             },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 9
@@ -323,7 +307,13 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 40
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -359,24 +349,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "fire",
-                    "paralyzed",
-                    "poison",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "cold",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

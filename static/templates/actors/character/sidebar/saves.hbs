@@ -1,0 +1,29 @@
+<div class="sidebar_title">
+    <h2>{{localize "PF2E.SavesHeader"}}</h2>
+</div>
+<ul class="sidebar-saves">
+    {{#each data.saves as |save sid|}}
+        <li class="roll-data" data-save="{{sid}}">
+            <h2 class="sidebar_label">{{localize save.label}}</h2>
+
+            <div class="save-prof button-group skill-container">
+                <select class="save-proficiency pf-rank adjust-stat-select{{#if rank.immutable}} readonly{{/if}}" data-property="system.saves.{{sid}}.rank" data-rank="{{save.rank}}" data-dtype="Number">
+                    {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=save.rank}}
+                </select>
+            </div>
+
+            <div class="save-roll">
+                <a class="roll-icon save-name">
+                    {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
+                </a>
+                <h3>{{numberFormat save.totalModifier decimals=0 sign=true}}</h3>
+            </div>
+            <button type="button" class="modifiers_button hover" data-tooltip-content="#{{@root.options.id}}-{{save.slug}}-modifiers">
+                {{localize "PF2E.ModifiersTitle"}}
+            </button>
+            {{#with save}}
+                {{> "systems/pf2e/templates/actors/character/partials/modifiers-tooltip.hbs" title=label}}
+            {{/with}}
+        </li>
+    {{/each}}
+</ul>

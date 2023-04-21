@@ -33,7 +33,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -81,7 +80,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "range-increment-30"
@@ -125,7 +123,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -170,20 +167,34 @@
                         "predicate": [
                             {
                                 "or": [
-                                    "inflicts:persistent-damage:bleed",
-                                    "death-effects",
+                                    "death",
                                     "disease",
                                     "inflicts:doomed",
                                     "inflicts:fatigued",
                                     "inflicts:paralyzed",
-                                    "poison",
-                                    "inflicts:sickened"
+                                    "inflicts:persistent-damage:bleed",
+                                    "inflicts:sickened",
+                                    "poison"
                                 ]
                             }
                         ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 2
+                    },
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": [
+                            "bleed",
+                            "death-effects",
+                            "disease",
+                            "doomed",
+                            "fatigued",
+                            "paralyzed",
+                            "poison",
+                            "sickened"
+                        ]
                     }
                 ],
                 "slug": "1-status-to-all-saves-vs-magic",
@@ -191,7 +202,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -231,7 +241,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -276,7 +285,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -310,13 +318,20 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": [
+                            "healing"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -345,7 +360,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>The dreshkan braces itself on all four limbs and sprays needles at as many creatures as it would like in a @Template[type:cone|distance:30], dealing [[/r {2d4}[piercing]+{2d8}[electricity]]]{2d4 piercing damage plus 2d8 electricity damage}. Each targeted creature in the area must attempt a basic Reflex save.</p>\n<p><em>Note: Paizo did not provide a listed DC for this ability. The suggested DC to use per the GMG is @Check[type:reflex|dc:19|basic:true]</em></p>"
+                    "value": "<p>The dreshkan braces itself on all four limbs and sprays needles at as many creatures as it would like in a @Template[type:cone|distance:30], dealing [[/r {2d4[piercing],2d8[electricity]}]]{2d4 piercing damage plus 2d8 electricity damage}. Each targeted creature in the area must attempt a @Check[type:reflex|dc:21|basic:true].</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -356,7 +371,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -412,7 +426,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -444,11 +457,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -483,11 +491,6 @@
                 "source": {
                     "value": ""
                 },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
                 "variants": {
                     "0": {
                         "label": "+14 to Climb",
@@ -516,11 +519,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -544,11 +542,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -590,8 +583,13 @@
                 "temp": 0,
                 "value": 72
             },
+            "immunities": [
+                {
+                    "type": "electricity"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 11
@@ -637,15 +635,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "electricity"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

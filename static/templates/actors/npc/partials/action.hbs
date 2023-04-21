@@ -1,0 +1,14 @@
+<li class="item action flexrow" data-action="{{action._id}}" data-item-name="{{action.name}}" data-item-id="{{action._id}}">
+    <div class="action-header">
+        <div class="action-name rollable">
+            <h4><a>{{action.name}} <span class="activity-icon">{{action.glyph}}</span>{{#if action.system.deathNote}} <i class="fas fa-fw fa-skull"></i>{{/if}}{{#if action.hasAura}} <i class="fa-regular fa-circle-dot"></i>{{/if}}</a></h4>
+        </div>
+        <div class="action-controls controls">
+            <a class="item-chat chat" title="{{localize "PF2E.NPC.SendToChat"}}"><i class="fas fa-fw fa-comment-alt"></i></a>
+            {{#if isEditable}}
+                <a class="item-edit edit" title="{{localize "PF2E.NPC.Edit"}}"><i class="fas fa-fw fa-edit"></i></a>
+                <a class="item-delete delete" title="{{localize "PF2E.NPC.Remove"}}"><i class="fas fa-fw fa-trash"></i></a>
+            {{/if}}
+        </div>
+    </div>
+</li>

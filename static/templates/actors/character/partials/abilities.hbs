@@ -1,0 +1,21 @@
+<ol class="ability-scores">
+    {{#each data.abilities as |ability key|}}
+        <li class="ability {{#if (eq ../data.details.keyability.value key)}}key{{/if}}" data-ability="{{key}}">
+            <label for="{{@root.options.id}}-{{key}}-ability-score" class="details-label ability-name">{{localize ability.label}}</label>
+            <h2 class="ability-id" title="{{localize "PF2E.AbilityTitle"}}">
+                {{localize (concat "PF2E.AbilityId." key)}}
+                {{#if (eq ../data.details.keyability.value key)}}<i class="fas fa-key"></i>{{/if}}
+            </h2>
+            <h3 class="ability-mod" title="{{localize "PF2E.ModifierTitle"}}">
+                {{numberFormat ability.mod decimals=0 sign=true}}
+            </h3>
+            <div class="ability-score" title="{{localize "PF2E.ScoreTitle"}}">
+                {{#if ../data.build.abilities.manual}}
+                    <input class="details-input" data-property="system.abilities.{{key}}.value" type="number" value="{{ability.value}}" placeholder="10" />
+                {{else}}
+                    <div>{{ability.value}}</div>
+                {{/if}}
+            </div>
+        </li>
+    {{/each}}
+</ol>

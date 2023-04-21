@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "arcane"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -125,13 +120,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -212,7 +201,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "polymorph"
@@ -251,7 +239,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -293,7 +280,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -338,7 +324,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -377,13 +362,18 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FastHealing",
+                        "type": "fast-healing",
+                        "value": 2
+                    }
+                ],
                 "slug": "fast-healing",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -412,7 +402,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The scorched earth mephit breathes rocks in a @Template[type:cone|distance:15] that deals [[/r {2d4}[fire]]]{2d4 fire damage} and [[/r {1d4}[persistent,fire]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} to each creature within the area (@Check[type:reflex|dc:17|basic:true] save).</p>\n<p>The scorched earth mephit can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The scorched earth mephit breathes rocks in a @Template[type:cone|distance:15] that deals [[/r 2d4[fire]]] damage and [[/r 1d4[persistent,fire]]] damage to each creature within the area (@Check[type:reflex|dc:17|basic:true] save).</p>\n<p>The scorched earth mephit can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -423,7 +413,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -466,7 +455,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -495,11 +483,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -523,11 +506,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -572,8 +550,25 @@
                 "temp": 0,
                 "value": 17
             },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 3
@@ -591,7 +586,13 @@
                     }
                 ],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 3
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -605,7 +606,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society Scenario #2-19: Enter the Pallid Peaki"
+                "value": "Pathfinder Society Scenario #2-19: Enter the Pallid Peak"
             }
         },
         "resources": {
@@ -629,25 +630,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "fire",
-                    "paralyzed",
-                    "poison",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "label": "Cold",
-                    "type": "cold",
-                    "value": "3"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

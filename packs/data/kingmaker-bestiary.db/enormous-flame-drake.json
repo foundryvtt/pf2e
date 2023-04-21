@@ -37,7 +37,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -78,7 +77,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-10"
@@ -122,7 +120,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -167,7 +164,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -207,7 +203,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -228,7 +223,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
+            "name": "Attack of Opportunity (Fangs Only)",
             "sort": 600000,
             "system": {
                 "actionCategory": {
@@ -252,7 +247,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -292,7 +286,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -321,7 +314,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The flame drake expels a ball of flame to a range of 180 feet that explodes in a @Template[type:burst|distance:20] . Creatures in the burst take [[/r {9d6}[fire]]]{9d6 fire damage} (@Check[type:reflex|dc:26|basic:true] save).</p>\n<p>The flame drake can't use Fireball Breath again for [[/br 1d6 #Recharge Fireball Breath]]{1d6 rounds}.</p>"
+                    "value": "<p>The flame drake expels a ball of flame to a range of 180 feet that explodes in a @Template[type:burst|distance:20] . Creatures in the burst take [[/r 9d6[fire]]] damage (@Check[type:reflex|dc:26|basic:true] save).</p>\n<p>The flame drake can't use Fireball Breath again for [[/br 1d6 #Recharge Fireball Breath]]{1d6 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -332,7 +325,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -376,7 +368,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "move"
@@ -410,11 +401,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -438,11 +424,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -466,11 +447,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -494,11 +470,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -540,8 +511,19 @@
                 "temp": 0,
                 "value": 140
             },
+            "immunities": [
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 16
@@ -554,7 +536,13 @@
                     }
                 ],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -587,22 +575,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "fire",
-                    "paralyzed",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "cold",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

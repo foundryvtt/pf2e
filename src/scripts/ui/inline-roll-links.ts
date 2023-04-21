@@ -1,13 +1,13 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { SKILL_DICTIONARY } from "@actor/values";
-import { GhostTemplate } from "@module/canvas/ghost-measured-template";
-import { Statistic } from "@system/statistic";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { calculateDC } from "@module/dc";
-import { eventToRollParams } from "@scripts/sheet-util";
-import { htmlQueryAll, objectHasKey, sluggify } from "@util";
-import { getSelectedOrOwnActors } from "@util/token-actor-utils";
-import { MeasuredTemplateDocumentPF2e } from "@scene";
+import { SKILL_DICTIONARY } from "@actor/values.ts";
+import { Statistic } from "@system/statistic/index.ts";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { calculateDC } from "@module/dc.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { htmlClosest, htmlQueryAll, objectHasKey, sluggify } from "@util";
+import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
+import { MeasuredTemplateDocumentPF2e } from "@scene/index.ts";
+import { MeasuredTemplatePF2e } from "@module/canvas/index.ts";
 
 const inlineSelector = ["action", "check", "effect-area", "repost"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
 
@@ -45,7 +45,11 @@ export const InlineRollLinks = {
         InlineRollLinks.injectRepostElement(links, foundryDoc);
         const $repostLinks = $html.find("i.fas.fa-comment-alt").filter(inlineSelector);
 
-        const documentFromDOM = (html: HTMLElement): ActorPF2e | JournalEntry | JournalEntryPage | null => {
+        InlineRollLinks.flavorDamageRolls(html, foundryDoc instanceof ActorPF2e ? foundryDoc : null);
+
+        const documentFromDOM = (
+            html: HTMLElement
+        ): ActorPF2e | JournalEntry | JournalEntryPage<JournalEntry> | null => {
             if (foundryDoc instanceof ChatMessagePF2e) return foundryDoc.actor ?? foundryDoc.journalEntry ?? null;
             if (
                 foundryDoc instanceof ActorPF2e ||
@@ -74,7 +78,7 @@ export const InlineRollLinks = {
         const $links = $(links);
         $links.filter("[data-pf2-action]").on("click", (event) => {
             const $target = $(event.currentTarget);
-            const { pf2Action, pf2Glyph, pf2Variant, pf2Dc, pf2ShowDc } = $target[0]?.dataset ?? {};
+            const { pf2Action, pf2Glyph, pf2Variant, pf2Dc, pf2ShowDc, pf2Skill } = $target[0]?.dataset ?? {};
             const action = game.pf2e.actions[pf2Action ? sluggify(pf2Action, { camel: "dromedary" }) : ""];
             const visibility = pf2ShowDc ?? "all";
             if (pf2Action && action) {
@@ -83,6 +87,7 @@ export const InlineRollLinks = {
                     glyph: pf2Glyph,
                     variant: pf2Variant,
                     difficultyClass: pf2Dc ? { scope: "check", value: Number(pf2Dc) || 0, visibility } : undefined,
+                    skill: pf2Skill,
                 });
             } else {
                 console.warn(`PF2e System | Skip executing unknown action '${pf2Action}'`);
@@ -115,7 +120,7 @@ export const InlineRollLinks = {
                             if (parsedTraits) {
                                 options.push(...parsedTraits);
                             }
-                            perceptionCheck.roll({ event, options, dc });
+                            perceptionCheck.roll?.({ event, options, dc });
                         } else {
                             console.warn(`PF2e System | Skip rolling perception for '${actor}'`);
                         }
@@ -129,7 +134,7 @@ export const InlineRollLinks = {
                             slug: "flat-check",
                             modifiers: [],
                             check: { type: "flat-check" },
-                            domains: ["all", "flat-check"],
+                            domains: ["flat-check"],
                         });
                         if (flatCheck) {
                             const dc = Number.isInteger(Number(pf2Dc))
@@ -149,8 +154,11 @@ export const InlineRollLinks = {
                 case "will":
                 case "fortitude":
                 case "reflex": {
+                    // Get the origin actor if any
+                    const document = documentFromDOM(html);
+
                     for (const actor of actors) {
-                        const savingThrow = actor.saves?.[pf2Check ?? ""];
+                        const savingThrow = actor.saves?.[pf2Check];
                         if (pf2Check && savingThrow) {
                             const dc = Number.isInteger(Number(pf2Dc))
                                 ? { label: pf2Label, value: Number(pf2Dc) }
@@ -158,6 +166,7 @@ export const InlineRollLinks = {
                             savingThrow.check.roll({
                                 ...eventRollParams,
                                 extraRollOptions: parsedTraits,
+                                origin: document instanceof ActorPF2e ? document : null,
                                 dc,
                             });
                         } else {
@@ -190,7 +199,9 @@ export const InlineRollLinks = {
                                 dc,
                             });
                         } else {
-                            console.warn(`PF2e System | Skip rolling unknown skill check or untrained lore '${skill}'`);
+                            console.warn(
+                                `PF2e System | Skip rolling unknown skill check or untrained lore '${skillName}'`
+                            );
                         }
                     }
                 }
@@ -208,7 +219,7 @@ export const InlineRollLinks = {
             } as const;
 
             if (typeof pf2EffectArea === "string") {
-                const templateData: DeepPartial<foundry.data.MeasuredTemplateSource> = JSON.parse(
+                const templateData: DeepPartial<foundry.documents.MeasuredTemplateSource> = JSON.parse(
                     pf2TemplateData ?? "{}"
                 );
                 templateData.distance ||= Number(pf2Distance);
@@ -233,15 +244,17 @@ export const InlineRollLinks = {
                 }
 
                 const templateDoc = new MeasuredTemplateDocumentPF2e(templateData, { parent: canvas.scene });
-                const ghostTemplate = new GhostTemplate(templateDoc);
-                await ghostTemplate.drawPreview();
+                await new MeasuredTemplatePF2e(templateDoc).drawPreview();
             } else {
                 console.warn(`PF2e System | Could not create template'`);
             }
         });
     },
 
-    repostAction: (target: HTMLElement, document: ActorPF2e | JournalEntry | JournalEntryPage | null = null): void => {
+    repostAction: (
+        target: HTMLElement,
+        document: ActorPF2e | JournalEntry | JournalEntryPage<JournalEntry> | null = null
+    ): void => {
         if (!["pf2Action", "pf2Check", "pf2EffectArea"].some((d) => d in target.dataset)) {
             return;
         }
@@ -265,5 +278,14 @@ export const InlineRollLinks = {
             content: `<span data-visibility="${showDC}">${flavor}</span> ${target.outerHTML}`.trim(),
             flags,
         });
+    },
+
+    /** Give inline damage-roll links from items flavor text of the item name */
+    flavorDamageRolls(html: HTMLElement, actor: ActorPF2e | null = null): void {
+        for (const rollLink of htmlQueryAll(html, "a.inline-roll[data-damage-roll]")) {
+            const itemId = htmlClosest(rollLink, "[data-item-id]")?.dataset.itemId;
+            const item = actor?.items.get(itemId ?? "");
+            if (item) rollLink.dataset.flavor ||= item.name;
+        }
     },
 };

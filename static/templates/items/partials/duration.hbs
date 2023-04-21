@@ -1,0 +1,14 @@
+<div class="form-fields">
+    {{#if (or (eq duration.unit "unlimited") (eq duration.unit "encounter"))}}
+        <input type="hidden" name="{{base}}.value" value="-1" data-dtype="Number" />
+    {{else}}
+        <input type="number" name="{{base}}.value" class="left-of-select" value="{{duration.value}}" />
+    {{/if}}
+    <select name="{{base}}.unit">
+        {{#select duration.unit}}
+            {{#each units as |label key|}}
+                <option value="{{key}}">{{localize label}}</option>
+            {{/each}}
+        {{/select}}
+    </select>
+</div>

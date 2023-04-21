@@ -34,7 +34,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "range-increment-20"
@@ -78,7 +77,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -130,7 +128,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -159,18 +156,17 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>If the hellcrown hits with a nail Strike, the target must attempt a @Check[type:fortitude|dc:16] save. On a failure, the nail is embedded in the creature, making it @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 minute and giving it [[/r {1}[persistent,bleed]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} (@UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2} and @Localize[PF2E.PersistentDamage.Bleed1d4.success] on a critical failure). Each additional embedded nail increases the enfeebled value by 1 (to a maximum of enfeebled 4) and the bleed damage by 1. A creature can remove a nail with an Interact action to reduce the enfeeblement and amount of bleed damage. Pulling out the last nail removes both conditions.</p>"
+                    "value": "<p>If the hellcrown hits with a nail Strike, the target must attempt a @Check[type:fortitude|dc:16] save. On a failure, the nail is embedded in the creature, making it @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 minute and giving it [[/r 1[bleed]]] damage (@UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2} and [[/r 1d4[bleed]]] on a critical failure). Each additional embedded nail increases the enfeebled value by 1 (to a maximum of enfeebled 4) and the bleed damage by 1. A creature can remove a nail with an Interact action to reduce the enfeeblement and amount of bleed damage. Pulling out the last nail removes both conditions.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "bleeding-nail",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -210,7 +206,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "fear",
@@ -246,11 +241,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -274,11 +264,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -320,8 +305,25 @@
                 "temp": 0,
                 "value": 20
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 10
@@ -370,19 +372,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

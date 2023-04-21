@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>This one-handed curved blade is sharp on one side.</p>"
@@ -92,9 +91,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -103,7 +99,6 @@
                     "value": "striking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "forceful",
@@ -121,6 +116,11 @@
         },
         {
             "_id": "aw4mQp7zF8OI2tW1",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "LSNnCs1NBMiembJE"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Scimitar",
             "sort": 200000,
@@ -149,8 +149,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
-                    "rarity": "common",
                     "value": [
                         "forceful",
                         "magical",
@@ -193,7 +191,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concussive",
@@ -241,7 +238,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -286,7 +282,6 @@
                     "value": "Pathfinder Bestiary 3"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -322,6 +317,12 @@
                 },
                 "rules": [
                     {
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            "item:group:firearm"
+                        ]
+                    },
+                    {
                         "key": "Note",
                         "outcome": [
                             "criticalSuccess"
@@ -336,7 +337,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -373,7 +373,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "mental"
@@ -412,7 +411,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -486,7 +484,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -515,7 +512,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The clockwork buccaneer has a full water tank</p>\n<hr />\n<p><strong>Effect</strong> The clockwork buccaneer fires a narrow but highly pressurized blast of water in a @Template[type:line|distance:60], dealing [[/r {10d6}[bludgeoning]]]{10d6 bludgeoning damage} to creatures and unattended objects in the area (@Check[type:fortitude|dc:28|basic:true]; unattended objects automatically fail). Creatures and objects that fail the save are also knocked back 5 feet (10 feet on a critical failure). This empties the buccaneer's water tank.</p>"
+                    "value": "<p><strong>Requirements</strong> The clockwork buccaneer has a full water tank</p>\n<hr />\n<p><strong>Effect</strong> The clockwork buccaneer fires a narrow but highly pressurized blast of water in a @Template[type:line|distance:60], dealing [[/r 10d6[bludgeoning]]] damage to creatures and unattended objects in the area (@Check[type:fortitude|dc:28|basic:true]; unattended objects automatically fail). Creatures and objects that fail the save are also knocked back 5 feet (10 feet on a critical failure). This empties the buccaneer's water tank.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -526,7 +523,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -563,7 +559,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -592,11 +587,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -631,11 +621,6 @@
                 "source": {
                     "value": ""
                 },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
                 "variants": {
                     "0": {
                         "label": "+20 to Feint",
@@ -664,11 +649,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -710,16 +690,37 @@
                 "temp": 0,
                 "value": 140
             },
+            "immunities": [],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 18
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "adamantine",
+                        "orichalcum"
+                    ],
+                    "type": "physical",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "electricity",
+                    "value": 10
+                },
+                {
+                    "type": "orichalcum",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -752,41 +753,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except adamantine or orichalcum",
-                    "type": "physical",
-                    "value": 10
-                }
-            ],
-            "dv": [
-                {
-                    "type": "electricity",
-                    "value": 10
-                },
-                {
-                    "type": "orichalcum",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

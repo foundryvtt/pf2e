@@ -33,7 +33,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-15"
@@ -76,7 +75,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -120,7 +118,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-20"
@@ -163,7 +160,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -208,7 +204,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -266,7 +261,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -296,7 +290,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>A clockwork dragon must use this reaction unless specifically programmed otherwise by its creator.</p>\n<p><strong>Trigger</strong> The clockwork dragon is reduced to 0 Hit Points.</p>\n<hr />\n<p><strong>Effect</strong> The dragon screeches to a stop and emits a steady, loud ticking sound. At the beginning of what would have been its next turn, the dragon explodes, dealing [[/r {12d10}[piercing]]]{12d10 piercing damage} in a @Template[type:emanation|distance:40] (@Check[type:reflex|dc:37|basic:true] save).</p>\n<p>An adjacent creature can cancel the self-destruct sequence by succeeding at a @Check[type:thievery|dc:37|traits:action:disable-device] check to @UUID[Compendium.pf2e.actionspf2e.Disable Device]{Disable a Device}.</p>"
+                    "value": "<p>A clockwork dragon must use this reaction unless specifically programmed otherwise by its creator.</p>\n<p><strong>Trigger</strong> The clockwork dragon is reduced to 0 Hit Points.</p>\n<hr />\n<p><strong>Effect</strong> The dragon screeches to a stop and emits a steady, loud ticking sound. At the beginning of what would have been its next turn, the dragon explodes, dealing [[/r 12d10[piercing]]] damage in a @Template[type:emanation|distance:40] (@Check[type:reflex|dc:37|basic:true] save).</p>\n<p>An adjacent creature can cancel the self-destruct sequence by succeeding at a @Check[type:thievery|dc:37|traits:action:disable-device] check to @UUID[Compendium.pf2e.actionspf2e.Disable Device]{Disable a Device}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -307,7 +301,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -336,7 +329,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The clockwork dragon breathes a spray of flaming oil that deals [[/r {16d6}[fire]]]{16d6 fire damage} in a @Template[type:cone|distance:40] (@Check[type:reflex|dc:37|basic:true] save).</p>\n<p>Creatures that fail their saves are covered in burning oil and take @Localize[PF2E.PersistentDamage.Fire2d6.success].</p>\n<p>The clockwork dragon can't use Breath Weapon again for 2 rounds.</p>"
+                    "value": "<p>The clockwork dragon breathes a spray of flaming oil that deals [[/r 16d6[fire]]] damage in a @Template[type:cone|distance:40] (@Check[type:reflex|dc:37|basic:true] save).</p>\n<p>Creatures that fail their saves are covered in burning oil and take [[/r 2d6[persistent,fire]]].</p>\n<p>The clockwork dragon can't use Breath Weapon again for 2 rounds.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -347,7 +340,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -391,7 +383,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -420,7 +411,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The clockwork dragon attacks with the sharp point of its tail.</p>\n<p>It makes a tail Strike against each creature in a @Template[type:line|distance:20], rolling the attack roll once and applying the result to each target. Any creature hit takes @Localize[PF2E.PersistentDamage.Bleed4d6.success] (@Localize[PF2E.PersistentDamage.Bleed4d6.criticalSuccess] on a critical hit). This counts as two attacks for the dragon's multiple attack penalty.</p>"
+                    "value": "<p>The clockwork dragon attacks with the sharp point of its tail.</p>\n<p>It makes a tail Strike against each creature in a @Template[type:line|distance:20], rolling the attack roll once and applying the result to each target. Any creature hit takes [[/r 4d6[bleed]]] ([[/r (2*4d6)[persistent,bleed]]] on a critical hit). This counts as two attacks for the dragon's multiple attack penalty.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -431,7 +422,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -463,11 +453,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -491,11 +476,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -537,12 +517,23 @@
                 "temp": 0,
                 "value": 265
             },
+            "immunities": [],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 28
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "adamantine",
+                        "orichalcum"
+                    ],
+                    "type": "physical",
+                    "value": 15
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -551,7 +542,17 @@
                     }
                 ],
                 "value": 40
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "electricity",
+                    "value": 15
+                },
+                {
+                    "type": "orichalcum",
+                    "value": 15
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -587,42 +588,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except adamantine or orichalcum",
-                    "type": "physical",
-                    "value": 15
-                }
-            ],
-            "dv": [
-                {
-                    "type": "electricity",
-                    "value": 15
-                },
-                {
-                    "type": "orichalcum",
-                    "value": 15
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

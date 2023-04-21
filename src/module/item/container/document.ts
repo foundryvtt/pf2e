@@ -1,14 +1,15 @@
-import { InventoryBulk } from "@actor/inventory";
-import { ItemSummaryData } from "@item/data";
-import { EquipmentTrait } from "@item/equipment/data";
-import { PhysicalItemPF2e } from "@item/physical";
-import { Bulk, weightToBulk } from "@item/physical/bulk";
-import { ContainerData } from "./data";
-import { hasExtraDimensionalParent } from "./helpers";
+import { ActorPF2e } from "@actor";
+import { InventoryBulk } from "@actor/inventory/index.ts";
+import { ItemSummaryData } from "@item/data/index.ts";
+import { EquipmentTrait } from "@item/equipment/data.ts";
+import { PhysicalItemPF2e } from "@item/physical/index.ts";
+import { Bulk, weightToBulk } from "@item/physical/bulk.ts";
+import { ContainerSource, ContainerSystemData } from "./data.ts";
+import { hasExtraDimensionalParent } from "./helpers.ts";
 
-class ContainerPF2e extends PhysicalItemPF2e {
+class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     /** This container's contents, reloaded every data preparation cycle */
-    contents: Collection<Embedded<PhysicalItemPF2e>> = new Collection();
+    contents: Collection<PhysicalItemPF2e<NonNullable<TParent>>> = new Collection();
 
     /** Is this an actual stowing container or merely one of the old pouches/quivers/etc.? */
     get stowsItems(): boolean {
@@ -38,9 +39,9 @@ class ContainerPF2e extends PhysicalItemPF2e {
     }
 
     /** Reload this container's contents following Actor embedded-document preparation */
-    override prepareSiblingData(this: Embedded<ContainerPF2e>): void {
+    override prepareSiblingData(this: ContainerPF2e<ActorPF2e>): void {
         this.contents = new Collection(
-            this.actor.inventory.filter((item) => item.container?.id === this.id).map((item) => [item.id, item])
+            this.actor.inventory.filter((i) => i.container?.id === this.id).map((item) => [item.id, item])
         );
     }
 
@@ -53,18 +54,19 @@ class ContainerPF2e extends PhysicalItemPF2e {
     }
 
     override async getChatData(
-        this: Embedded<ContainerPF2e>,
+        this: ContainerPF2e<TParent>,
         htmlOptions: EnrichHTMLOptions = {}
     ): Promise<ItemSummaryData> {
-        const systemData = this.system;
-        const traits = this.traitChatData(CONFIG.PF2E.equipmentTraits);
-
-        return this.processChatData(htmlOptions, { ...systemData, traits });
+        return this.processChatData(htmlOptions, {
+            ...(await super.getChatData()),
+            traits: this.traitChatData(CONFIG.PF2E.equipmentTraits),
+        });
     }
 }
 
-interface ContainerPF2e {
-    readonly data: ContainerData;
+interface ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
+    readonly _source: ContainerSource;
+    system: ContainerSystemData;
 
     get traits(): Set<EquipmentTrait>;
 }

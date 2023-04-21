@@ -1,0 +1,28 @@
+<form class="{{cssClass}} crb-style" autocomplete="off" spellcheck="off">
+    <aside>
+        <div class="sidebar" data-group="dashboard" data-tab="sidebar">
+            {{> "systems/pf2e/templates/actors/vehicle/sidebar/vehicle-health.hbs"}}
+            {{> "systems/pf2e/templates/actors/vehicle/sidebar/vehicle-armorclass.hbs"}}
+            {{> "systems/pf2e/templates/actors/vehicle/sidebar/vehicle-saves.hbs"}}
+            {{> "systems/pf2e/templates/actors/vehicle/sidebar/iwr.hbs"}}
+        </div>
+    </aside>
+    {{> "systems/pf2e/templates/actors/vehicle/vehicle-header.hbs"}}
+    <nav class="sheet-navigation" data-group="primary">
+        <span class="navigation-title">{{localize "PF2E.TabDetailsLabel"}}</span>
+        <a class="item" data-tab="details" title="{{localize "PF2E.TabDetailsLabel"}}"><i class="fas fa-dharmachakra"></i></a>
+        <a class="item" data-tab="actions" title="{{localize "PF2E.TabActionsLabel"}}"><i class="fas fa-bullseye"></i></a>
+        <a class="item" data-tab="inventory" title="{{localize "PF2E.TabInventoryLabel"}}"><i class="fas fa-box-open"></i></a>
+        <a class="item" data-tab="description" title="{{localize "PF2E.TabDescriptionLabel"}}"><i class="fas fa-book-reader"></i></a>
+        <a class="item" data-tab="effects" title="{{localize "PF2E.TabEffectsLabel"}}"><i class="fas fa-star"></i></a>
+    </nav>
+    <section class="sheet-body">
+        <section class="sheet-content">
+            {{> "systems/pf2e/templates/actors/vehicle/tabs/vehicle-details.hbs"}}
+            {{> "systems/pf2e/templates/actors/vehicle/tabs/vehicle-actions.hbs"}}
+            {{> "systems/pf2e/templates/actors/vehicle/tabs/vehicle-inventory.hbs"}}
+            {{> "systems/pf2e/templates/actors/vehicle/tabs/vehicle-description.hbs"}}
+            {{> "systems/pf2e/templates/actors/vehicle/tabs/vehicle-effects.hbs"}}
+        </section>
+    </section>
+</form>

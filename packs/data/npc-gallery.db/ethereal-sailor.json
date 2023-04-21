@@ -34,7 +34,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -74,7 +73,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -103,11 +101,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -115,7 +108,7 @@
         {
             "_id": "3YP4WRM7J9c4OkFT",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Sailing",
+            "name": "Sailing Lore",
             "sort": 400000,
             "system": {
                 "description": {
@@ -131,11 +124,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -177,12 +165,42 @@
                 "temp": 0,
                 "value": 60
             },
+            "immunities": [
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "non-magical"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 14
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "force",
+                        "ghost-touch"
+                    ],
+                    "type": "all-damage",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -224,27 +242,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "disease",
-                    "mental",
-                    "nonmagical-attacks",
-                    "paralyzed",
-                    "poison",
-                    "precision",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except force or ghost touch",
-                    "type": "all",
-                    "value": 10
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "Understands Commands",
                 "selected": [],

@@ -103,11 +103,6 @@
                 },
                 "tradition": {
                     "value": "primal"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -126,13 +121,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -215,7 +204,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "primal",
@@ -255,7 +243,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "deadly-2d10",
@@ -301,7 +288,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -347,7 +333,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -390,7 +375,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -423,35 +407,22 @@
                     "0": {
                         "damage": "8d6",
                         "damageType": "fire"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "2d6",
+                        "damageType": "fire"
                     }
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.PersistentDamage.Fire2d6.success]</p>"
+                    "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Fire2d6.success"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Fire2d6.criticalSuccess"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "fire",
@@ -497,7 +468,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -542,7 +512,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -582,7 +551,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -627,7 +595,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -648,7 +615,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 25 (deactivated by vorpal weapons)",
+            "name": "Regeneration 25 (deactivated by Vorpal Weapons)",
             "sort": 1200000,
             "system": {
                 "actionCategory": {
@@ -672,7 +639,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -712,7 +678,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "manipulate",
@@ -755,13 +720,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 100,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "aura",
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": "frightful-presence",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -806,7 +782,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -835,7 +810,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The jabberwock creates a blast of strange noises and shouted nonsense in the various languages it knows (and invariably some languages it doesn't know), creating one of two effects.</p>\n<p>The jabberwock can't Burble again for [[/br 1d4 #Burble Recharge]]{1d4 rounds}.</p>\n<ul>\n<li><strong>Confusion</strong> @Template[type:emanation|distance:60]. Each creature in the emanation must succeed at a @Check[type:will|dc:44] save or become @UUID[Compendium.pf2e.conditionitems.Confused]{Confused} for [[/br 1d4 #Confused Duration]]{1d4 rounds}.</li>\n<li><strong>Sonic Beam</strong> The jabberwock focuses its Burbling into a @Template[type:line|distance:60] of sonic energy that deals [[/r {22d6}[sonic]]]{22d6 sonic damage} to creatures in the area (@Check[type:reflex|dc:44|basic:true] save).</li>\n</ul>"
+                    "value": "<p>The jabberwock creates a blast of strange noises and shouted nonsense in the various languages it knows (and invariably some languages it doesn't know), creating one of two effects.</p>\n<p>The jabberwock can't Burble again for [[/br 1d4 #Burble Recharge]]{1d4 rounds}.</p>\n<ul>\n<li><strong>Confusion</strong> @Template[type:emanation|distance:60]. Each creature in the emanation must succeed at a @Check[type:will|dc:44] save or become @UUID[Compendium.pf2e.conditionitems.Confused]{Confused} for [[/br 1d4 #Confused Duration]]{1d4 rounds}.</li>\n<li><strong>Sonic Beam</strong> The jabberwock focuses its Burbling into a @Template[type:line|distance:60] of sonic energy that deals [[/r 22d6[sonic]]] damage to creatures in the area (@Check[type:reflex|dc:44|basic:true] save).</li>\n</ul>"
                 },
                 "requirements": {
                     "value": ""
@@ -846,7 +821,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -894,7 +868,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -934,7 +907,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura"
@@ -981,7 +953,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1026,7 +997,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1058,11 +1028,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1086,11 +1051,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1114,11 +1074,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1142,11 +1097,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1170,11 +1120,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1216,12 +1161,26 @@
                 "temp": 0,
                 "value": 430
             },
+            "immunities": [
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 36
             },
+            "resistances": [
+                {
+                    "type": "fire",
+                    "value": 20
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1230,7 +1189,13 @@
                     }
                 ],
                 "value": 35
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "vorpal",
+                    "value": 20
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1271,28 +1236,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "paralyzed",
-                    "sleep"
-                ]
-            },
-            "dr": [
-                {
-                    "label": "Fire",
-                    "type": "fire",
-                    "value": "20"
-                }
-            ],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "type": "vorpal",
-                    "value": 20
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

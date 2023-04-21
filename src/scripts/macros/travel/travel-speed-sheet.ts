@@ -9,9 +9,9 @@ import {
     Terrain,
     TravelDuration,
     Trip,
-} from "./travel-speed";
+} from "./travel-speed.ts";
 import { Fraction, zip } from "@util";
-import { CharacterPF2e } from "@actor/character";
+import { CharacterPF2e } from "@actor/character/document.ts";
 
 type DetectionModeData = "none" | "everything" | "before";
 type SpeedUnitData = "feet" | "miles";
@@ -114,7 +114,7 @@ class TravelSpeedSheet extends FormApplication<{}, TravelSpeedSheetOptions> {
         options.id = "travel-duration";
         options.classes = ["travel-duration"];
         options.title = game.i18n.localize("PF2E.TravelSpeed.Title");
-        options.template = "systems/pf2e/templates/gm/travel/travel-speed-sheet.html";
+        options.template = "systems/pf2e/templates/gm/travel/travel-speed-sheet.hbs";
         options.width = "auto";
         options.submitOnChange = true;
         options.closeOnSubmit = false;

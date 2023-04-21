@@ -16,7 +16,7 @@ declare abstract class DocumentCollection<TDocument extends foundry.abstract.Doc
     get name(): string;
 
     /** A reference to the Document class definition which is contained within this DocumentCollection. */
-    get documentClass(): ConstructorOf<TDocument>;
+    get documentClass(): DocumentConstructorOf<TDocument>;
 
     /** A reference to the named Document class which is contained within this DocumentCollection. */
     abstract get documentName(): string | null;
@@ -45,7 +45,7 @@ declare abstract class DocumentCollection<TDocument extends foundry.abstract.Doc
     updateAll(
         transformation: DocumentUpdateData<TDocument> | ((document: TDocument) => DocumentUpdateData<TDocument>),
         condition?: ((document: TDocument) => boolean) | null,
-        options?: DocumentModificationContext
+        options?: DocumentModificationContext<null>
     ): Promise<TDocument[]>;
 
     /**
@@ -56,7 +56,7 @@ declare abstract class DocumentCollection<TDocument extends foundry.abstract.Doc
      */
     protected _preCreateDocuments(
         result: TDocument["_source"][],
-        options: DocumentModificationContext,
+        options: DocumentModificationContext<null>,
         userId: string
     ): void;
 
@@ -70,7 +70,7 @@ declare abstract class DocumentCollection<TDocument extends foundry.abstract.Doc
     protected _onCreateDocuments(
         documents: TDocument[],
         result: TDocument["_source"][],
-        options: DocumentModificationContext,
+        options: DocumentModificationContext<null>,
         userId: string
     ): void;
 
@@ -82,7 +82,7 @@ declare abstract class DocumentCollection<TDocument extends foundry.abstract.Doc
      */
     protected _preUpdateDocuments(
         result: TDocument["_source"][],
-        options: DocumentModificationContext,
+        options: DocumentModificationContext<null>,
         userId: string
     ): void;
 
@@ -96,7 +96,7 @@ declare abstract class DocumentCollection<TDocument extends foundry.abstract.Doc
     protected _onUpdateDocuments(
         documents: TDocument[],
         result: TDocument["_source"][],
-        options: DocumentModificationContext,
+        options: DocumentModificationContext<null>,
         userId: string
     ): void;
 
@@ -108,7 +108,7 @@ declare abstract class DocumentCollection<TDocument extends foundry.abstract.Doc
      */
     protected _preDeleteDocuments(
         result: TDocument["_source"][],
-        options: DocumentModificationContext,
+        options: DocumentModificationContext<null>,
         userId: string
     ): void;
 
@@ -121,8 +121,8 @@ declare abstract class DocumentCollection<TDocument extends foundry.abstract.Doc
      */
     protected _onDeleteDocuments(
         documents: TDocument[],
-        result: TDocument["_source"][],
-        options: DocumentModificationContext,
+        result: string[],
+        options: DocumentModificationContext<null>,
         userId: string
     ): void;
 }

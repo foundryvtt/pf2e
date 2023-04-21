@@ -14,7 +14,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Grab"
+                        "grab"
                     ]
                 },
                 "bonus": {
@@ -35,7 +35,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical"
@@ -78,7 +77,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "cold",
@@ -124,7 +122,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -185,7 +182,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -211,7 +207,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The imperfect automaton utters a mournful cry in a @Template[type:cone|distance:30]{30-foot cone}. The cry deals [[/r {4d6}[mental]]]{4d6 mental damage} to all creatures in the area (@Check[type:will|dc:22] save). The imperfect automaton can't use its Empty Wail again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1} for [[/br 1d4+1 #rounds]]{1d4+1 rounds}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is stupefied 1 for 1d4+1 rounds and @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}.</p>"
+                    "value": "<p>The imperfect automaton utters a mournful cry in a @Template[type:cone|distance:30]{30-foot cone}. The cry deals [[/r 4d6[mental]]] damage to all creatures in the area (@Check[type:will|dc:22] save). The imperfect automaton can't use its Empty Wail again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1} for [[/br 1d4+1 #rounds]]{1d4+1 rounds}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is stupefied 1 for 1d4+1 rounds and @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -222,7 +218,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "auditory",
@@ -281,7 +276,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -318,7 +312,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "emotion"
@@ -362,7 +355,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -394,11 +386,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -422,11 +409,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -450,11 +432,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -478,11 +455,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -506,11 +478,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -534,11 +501,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -580,12 +542,22 @@
                 "temp": 0,
                 "value": 85
             },
+            "immunities": [],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 12
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "adamantine"
+                    ],
+                    "type": "physical",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "special": "",
@@ -623,33 +595,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except adamantine",
-                    "type": "physical",
-                    "value": 5
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "one language depending on its mortal life; telepathy 30 feet",
                 "selected": [],

@@ -1,9 +1,12 @@
-import { SpellPF2e } from "@item/spell";
-import { ItemSheetPF2e } from "../sheet/base";
-import { ItemSheetDataPF2e } from "../sheet/data-types";
-import { SpellDamage, SpellHeighteningInterval, SpellSystemData } from "./data";
-import { ErrorPF2e, fontAwesomeIcon, getActionGlyph, objectHasKey, tagify, tupleHasValue } from "@util";
-import { OneToTen } from "@module/data";
+import { SpellPF2e } from "@item/spell/index.ts";
+import { ItemSheetPF2e } from "../sheet/base.ts";
+import { ItemSheetDataPF2e } from "../sheet/data-types.ts";
+import { SpellDamage, SpellHeighteningInterval, SpellSystemData } from "./data.ts";
+import { ErrorPF2e, fontAwesomeIcon, getActionGlyph, objectHasKey, pick, tagify, tupleHasValue } from "@util";
+import { OneToTen } from "@module/data.ts";
+import { DamageCategoryUnique } from "@system/damage/types.ts";
+import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
+import { ActorPF2e } from "@actor";
 
 /** Set of properties that are legal for the purposes of spell overrides */
 const spellOverridable: Partial<Record<keyof SpellSystemData, string>> = {
@@ -22,6 +25,15 @@ const DEFAULT_INTERVAL_SCALING: SpellHeighteningInterval = {
 };
 
 export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
+    override get id(): string {
+        const baseId = super.id;
+        const appliedOverlays = this.item.appliedOverlays;
+        if (this.item.isVariant && appliedOverlays) {
+            return `${baseId}-${[...appliedOverlays.keys()].join("-")}`;
+        }
+        return baseId;
+    }
+
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<SpellSheetData> {
         const sheetData = await super.getData(options);
         const { isCantrip, isFocusSpell, isRitual } = this.item;
@@ -65,7 +77,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             magicSchools: CONFIG.PF2E.magicSchools,
             spellLevels: CONFIG.PF2E.spellLevels,
             damageTypes,
-            damageSubtypes: CONFIG.PF2E.damageSubtypes,
+            damageSubtypes: pick(CONFIG.PF2E.damageCategories, DAMAGE_CATEGORIES_UNIQUE),
             damageCategories: CONFIG.PF2E.damageCategories,
             spellComponents: this.formatSpellComponents(sheetData.data),
             areaSizes: CONFIG.PF2E.areaSizes,
@@ -87,12 +99,6 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         return this.item.isVariant
             ? game.i18n.format("PF2E.Item.Spell.Variants.SheetTitle", { originalName: this.item.original!.name })
             : super.title;
-    }
-
-    override get validTraits() {
-        const traits = deepClone(CONFIG.PF2E.spellTraits);
-        delete traits[this.item.school];
-        return traits;
     }
 
     /* -------------------------------------------- */
@@ -124,7 +130,8 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
         $html.find("[data-action=damage-create]").on("click", (event) => {
             event.preventDefault();
-            const baseKey = this.getOverlayFromEvent(event) ?? "data";
+            const overlayData = this.getOverlayFromEvent(event);
+            const baseKey = overlayData?.base ?? "system";
             const emptyDamage: SpellDamage = { value: "", type: { value: "bludgeoning", categories: [] } };
             this.item.update({ [`${baseKey}.damage.value.${randomID()}`]: emptyDamage });
         });
@@ -132,7 +139,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         $html.find("[data-action=damage-delete]").on("click", (event) => {
             event.preventDefault();
             const overlayData = this.getOverlayFromEvent(event);
-            const baseKey = overlayData?.base ?? "data";
+            const baseKey = overlayData?.base ?? "system";
             const id = $(event.target).closest("[data-action=damage-delete]").attr("data-id");
             if (id) {
                 const values = { [`${baseKey}.damage.value.-=${id}`]: null };
@@ -145,7 +152,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
         $html.find("[data-action=heightening-interval-create]").on("click", (event) => {
             event.preventDefault();
-            const baseKey = this.getOverlayFromEvent(event)?.base ?? "data";
+            const baseKey = this.getOverlayFromEvent(event)?.base ?? "system";
             this.item.update({ [`${baseKey}.heightening`]: DEFAULT_INTERVAL_SCALING });
         });
 
@@ -283,11 +290,21 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        // Set defaults for area properties or otherwise null out
+        if (formData["system.area.value"]) {
+            formData["system.area.type"] ||= "burst";
+        } else {
+            delete formData["system.area.value"];
+            delete formData["system.area.type"];
+            formData["system.area"] = null;
+        }
+
         // Handle closing of override spell variant sheets
         if (this.item.original && this.item.appliedOverlays!.has("override") && !this.rendered) {
-            await this.item.original.overlays.updateOverride(this.item as Embedded<SpellPF2e>, formData);
+            await this.item.original.overlays.updateOverride(this.item as SpellPF2e<ActorPF2e>, formData);
             return;
         }
+
         super._updateObject(event, formData);
     }
 
@@ -422,7 +439,7 @@ interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
     saves: ConfigPF2e["PF2E"]["saves"];
     damageCategories: ConfigPF2e["PF2E"]["damageCategories"];
     damageTypes: Record<string, string>;
-    damageSubtypes: ConfigPF2e["PF2E"]["damageSubtypes"];
+    damageSubtypes: Pick<ConfigPF2e["PF2E"]["damageCategories"], DamageCategoryUnique>;
     spellComponents: string[];
     areaSizes: ConfigPF2e["PF2E"]["areaSizes"];
     areaTypes: ConfigPF2e["PF2E"]["areaTypes"];

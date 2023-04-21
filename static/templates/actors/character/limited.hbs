@@ -1,0 +1,95 @@
+<form class="{{cssClass}} crb-style limited" autocomplete="off">
+    <aside>
+        <img class="logo" src="systems/pf2e/assets/pathfinder_logo.webp" alt="Pathfinder Second Edition"/>
+
+        <div class="sidebar">
+            <img class="profile-img" src="{{actor.img}}" title="{{actor.name}}" alt="{{actor.name}}"/>
+            <h4 class="plaque">{{localize "PF2E.SidebarAppearanceLabel"}}</h4>
+            <ul class="stats">
+                {{#if data.details.ethnicity.value}}<li>{{data.details.ethnicity.value}}</li>{{/if}}
+                {{#if data.details.height.value}}<li>{{data.details.height.value}}</li>{{/if}}
+                {{#if data.details.weight.value}}<li>{{data.details.weight.value}}</li>{{/if}}
+            </ul>
+        </div>
+    </aside>
+
+    <header class="char-header">
+        <div class="char-details">
+            <h1 class="char-name">
+                <span class="non-editable name">{{actor.name}}</span>
+                <span class="non-editable gender">{{#if data.details.gender.value}}({{data.details.gender.value}}){{/if}}
+            </h1>
+            {{#if (and ancestry class)}}<h2 class="non-editable ancestry-class">{{localize "PF2E.Actor.Character.AncestryClass" ancestry=ancestry.name class=class.name}}</h2>{{/if}}
+        </div>
+    </header>
+
+    <nav class="sheet-navigation" data-group="primary">
+        <span class="navigation-title">{{localize "PF2E.Biography"}}</span>
+        <a class="item" data-tab="character" title="{{localize "PF2E.Biography"}}">
+            <i class="fas fa-book-reader"></i>
+        </a>
+        <a class="item" data-tab="effects" title="{{localize "PF2E.TabEffectsLabel"}}">
+            <i class="fas fa-star"></i>
+        </a>
+    </nav>
+
+    <section class="sheet-body">
+        <section class="sheet-content">
+            <!-- Character -->
+            <div class="tab character" data-group="primary" data-tab="character">
+                <div class="character-bio">
+                    <div class="bio">{{{enrichedContent.appearance}}}</div>
+                </div>
+            </div>
+
+            <!-- Effects -->
+            <div class="tab actions actions-pane" data-group="primary" data-tab="effects">
+                <ol class="actions-list directory-list strikes-list">
+                    <li class="item action-header stroke-header">
+                        {{> "systems/pf2e/templates/actors/partials/images/header_stroke.hbs"}}
+                        <h3 class="item-name">{{localize "PF2E.ConditionsLabel"}}</h3>
+                    </li>
+                    {{#each data.effects.conditions as |item ii|}}
+                    <li class="item expandable" data-item-id="{{item.id}}" data-action-index="{{ii}}">
+                        <div class="item-name rollable">
+                            <div class="item-image action-strike" style="background-image: url({{item.img}})">
+                                <i class="fas fa-dice-d20"></i>
+                            </div>
+                            <h4 class="action-name">{{item.name}}{{#unless item.active}} <span>(Inactive)</span>{{/unless}}</h4>
+                        </div>
+                        <div class="item-summary">
+                            <div class="item-description">
+                                <p>{{{item.enrichedDescription}}}</p>
+                            </div>
+                            {{#if item.references}}
+                            <div class="condition-references">
+                                {{#if item.parents.length}}
+                                <div class="condition-parents">
+                                    <p>Applied From:{{#each item.parents as |parent|}} <span data-item-id="{{parent.id}}">{{{parent.enrichedText}}}</span>{{/each}}</p>
+                                </div>
+                                {{/if}}
+                                {{#if item.children.length}}
+                                <div class="condition-children">
+                                    <p>Also Applied:{{#each item.children as |child|}} {{{child.enrichedText}}}{{/each}}</p>
+                                </div>
+                                {{/if}}
+                                {{#if item.overrides.length}}
+                                <div class="condition-overriding">
+                                    <p>Overriding:{{#each item.overrides as |o|}} {{{o.enrichedText}}}{{/each}}</p>
+                                </div>
+                                {{/if}}
+                                {{#if item.overriddenBy.length}}
+                                <div class="condition-overridden">
+                                    <p>Overridden by:{{#each item.overriddenBy as |o|}} {{{o.enrichedText}}}{{/each}}</p>
+                                </div>
+                                {{/if}}
+                            </div>
+                            {{/if}}
+                        </div>
+                    </li>
+                    {{/each}}
+                </ol>
+            </div>
+        </section>
+    </section>
+</form>

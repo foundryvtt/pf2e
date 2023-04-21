@@ -1,8 +1,8 @@
-import { ItemSystemSource } from "@item/data/base";
+import { ItemSystemSource } from "@item/data/base.ts";
 
 interface ABCFeatureEntryData {
     uuid: string;
-    img: ImagePath;
+    img: ImageFilePath;
     name: string;
     level: number;
 }

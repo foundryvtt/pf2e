@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "divine"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -125,13 +120,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -213,7 +202,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "polymorph"
@@ -236,13 +224,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -323,7 +305,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -345,11 +326,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "line",
+                    "type": "line",
                     "value": 60
-                },
-                "areasize": {
-                    "value": "60-foot line"
                 },
                 "category": {
                     "value": "spell"
@@ -431,7 +409,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "air"
@@ -488,7 +465,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -534,7 +510,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -581,7 +556,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -626,7 +600,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -671,7 +644,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -711,7 +683,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -774,7 +745,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -814,7 +784,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -854,7 +823,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "abjuration",
@@ -896,13 +864,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 90,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "aura",
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": "frightful-presence",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -936,7 +915,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dragon shoots a ball of electricity that deals [[/r {9d12}[electricity]+{2d12}[sonic]]]{9d12 electricity damage and 2d12 sonic damage} in a @Template[type:burst|distance:30] within 60 feet (@Check[type:reflex|dc:40|basic:true] save).</p>\n<p>They can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>\n<hr />\n<p>See divine lightning.</p>\n<p>[[/r {9d12}[good]+{2d12}[sonic]]]{9d12 good damage and 2d12 sonic damage} (@Check[type:reflex|dc:40|basic:true|traits:divine,good,evocation|overrideTraits:true] save) against fiends.</p>\n<p>[[/r {9d12}[positive]+{2d12}[sonic]]]{9d12 positive damage and 2d12 sonic damage} (@Check[type:reflex|dc:40|basic:true|traits:divine,good,evocation|overrideTraits:true] save) against undead.</p>"
+                    "value": "<p>The dragon shoots a ball of electricity that deals [[/r {9d12[electricity],2d12[sonic]}]]{9d12 electricity damage and 2d12 sonic damage} in a @Template[type:burst|distance:30] within 60 feet (@Check[type:reflex|dc:40|basic:true] save).</p>\n<p>They can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>\n<hr />\n<p>See divine lightning.</p>\n<p>[[/r {9d12[good],2d12[sonic]}]]{9d12 good damage and 2d12 sonic damage} (@Check[type:reflex|dc:40|basic:true|traits:divine,good,evocation|overrideTraits:true] save) against fiends.</p>\n<p>[[/r {9d12[positive],2d12[sonic]}]]{9d12 positive damage and 2d12 sonic damage} (@Check[type:reflex|dc:40|basic:true|traits:divine,positive,evocation|overrideTraits:true] save) against undead.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -947,7 +926,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divine",
@@ -991,7 +969,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1084,7 +1061,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divine"
@@ -1136,7 +1112,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1170,7 +1145,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {3d10+11}[bludgeoning]]]{3d10+11 bludgeoning}, @Check[type:fortitude|dc:40|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
+                    "value": "<p>[[/r (3d10+11)[bludgeoning]]], @Check[type:fortitude|dc:40|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1181,7 +1156,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1221,7 +1195,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1250,7 +1223,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dragon rapidly coils, then unleashes crackling lightning that deals [[/r {5d12}[electricity]]]{5d12 electricity damage} in a @Template[type:emanation|distance:60]. Each creature in the area must attempt a @Check[type:fortitude|dc:40|traits:damaging-effect] save; regardless of the outcome, the creature then becomes temporarily immune for 10 minutes.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> Half damage, and the creature is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> Full damage, and the creature is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned} for 1 round and can't fly for 4 rounds.</p>\n<p><strong>Critical Failure</strong> Double damage, and the creature is stunned for 2 rounds and can't fly for 1 minute.</p>\n<hr />\n<p>See divine lightning.</p>\n<p>[[/r {5d12}[good]]]{5d12 good damage} (@Check[type:reflex|dc:40|basic:true|traits:divine,good,evocation,incapacitation,damaging-effect|overrideTraits:true] save) against fiends.</p>\n<p>[[/r {5d12}[positive]]]{5d12 positive damage} (@Check[type:reflex|dc:40|basic:true|traits:divine,positive,evocation,incapacitation,damaging-effect|overrideTraits:true] save) against undead.</p>"
+                    "value": "<p>The dragon rapidly coils, then unleashes crackling lightning that deals [[/r 5d12[electricity]]] damage in a @Template[type:emanation|distance:60]. Each creature in the area must attempt a @Check[type:fortitude|dc:40|traits:damaging-effect] save; regardless of the outcome, the creature then becomes temporarily immune for 10 minutes.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> Half damage, and the creature is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> Full damage, and the creature is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned} for 1 round and can't fly for 4 rounds.</p>\n<p><strong>Critical Failure</strong> Double damage, and the creature is stunned for 2 rounds and can't fly for 1 minute.</p>\n<hr />\n<p>See divine lightning.</p>\n<p>[[/r 5d12[good]]] damage (@Check[type:reflex|dc:40|basic:true|traits:divine,good,evocation,incapacitation,damaging-effect|overrideTraits:true] save) against fiends.</p>\n<p>[[/r 5d12[positive]]] damage (@Check[type:reflex|dc:40|basic:true|traits:divine,positive,evocation,incapacitation,damaging-effect|overrideTraits:true] save) against undead.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1261,7 +1234,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divine",
@@ -1311,7 +1283,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1343,11 +1314,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1371,11 +1337,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1399,11 +1360,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1427,11 +1383,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1455,11 +1406,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1483,11 +1429,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1511,11 +1452,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1539,11 +1475,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1585,8 +1516,19 @@
                 "temp": 0,
                 "value": 335
             },
+            "immunities": [
+                {
+                    "type": "electricity"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 32
@@ -1637,17 +1579,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "electricity",
-                    "paralyzed",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

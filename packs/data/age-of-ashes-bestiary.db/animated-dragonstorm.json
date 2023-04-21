@@ -33,7 +33,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "deadly-3d12",
@@ -74,7 +73,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -103,7 +101,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The animated dragonstorm directs a @Template[type:cone|distance:30] of dragonstorm energy. This deals [[/r {3d8}[acid] + {3d8}[cold] +{3d8}[electricity] +{3d8}[fire] +{3d8}[poison]]]{3d8 acid, 3d8 cold, 3d8 electricity, 3d8 fire, and 3d8 poison damage} to creatures in the cone (@Check[type:reflex|dc:40|basic:true] save). The animated dragonstorm can't use Channel Dragonstorm again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The animated dragonstorm directs a @Template[type:cone|distance:30] of dragonstorm energy. This deals [[/r {3d8[acid],3d8[cold],3d8[electricity],3d8[fire],3d8[poison]}]]{3d8 acid, 3d8 cold, 3d8 electricity, 3d8 fire, and 3d8 poison damage} to creatures in the cone (@Check[type:reflex|dc:40|basic:true] save). The animated dragonstorm can't use Channel Dragonstorm again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -114,7 +112,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divine"
@@ -156,7 +153,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -185,19 +181,51 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>On a critical hit, the animated dragonstorm's fist bursts with dragonstorm energy. The target takes [[/r {1d6}[acid] + {1d6}[cold] +{1d6}[electricity] +{1d6}[fire] +{1d6}[poison]]]{1d6 acid, 1d6 cold, 1d6 electricity, 1d6 fire, and 1d6 poison damage}.</p>"
+                    "value": "<p>On a critical hit, the animated dragonstorm's fist bursts with dragonstorm energy. The target takes [[/r {1d6[acid],1d6[cold],1d6[electricity],1d6[fire],1d6[poison]}]]{1d6 acid, 1d6 cold, 1d6 electricity, 1d6 fire, and 1d6 poison damage}.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "fist-damage",
-                        "text": "On a critical hit, the animated dragonstorm's fist bursts with dragonstorm energy. The target takes [[/r {1d6}[acid] + {1d6}[cold] +{1d6}[electricity] +{1d6}[fire] +{1d6}[poison]]]{5d6 damage}."
+                        "critical": true,
+                        "damageType": "acid",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "fist-damage"
+                    },
+                    {
+                        "critical": true,
+                        "damageType": "cold",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "fist-damage"
+                    },
+                    {
+                        "critical": true,
+                        "damageType": "electricity",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "fist-damage"
+                    },
+                    {
+                        "critical": true,
+                        "damageType": "fire",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "fist-damage"
+                    },
+                    {
+                        "critical": true,
+                        "damageType": "poison",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "fist-damage"
                     }
                 ],
                 "slug": null,
@@ -205,7 +233,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -237,11 +264,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -283,16 +305,45 @@
                 "temp": 0,
                 "value": 255
             },
+            "immunities": [],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 30
             },
+            "resistances": [
+                {
+                    "type": "acid",
+                    "value": 15
+                },
+                {
+                    "type": "cold",
+                    "value": 15
+                },
+                {
+                    "type": "electricity",
+                    "value": 15
+                },
+                {
+                    "type": "fire",
+                    "value": 15
+                },
+                {
+                    "type": "physical",
+                    "value": 15
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "good",
+                    "value": 20
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -325,60 +376,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "label": "Acid",
-                    "type": "acid",
-                    "value": "15"
-                },
-                {
-                    "label": "Cold",
-                    "type": "cold",
-                    "value": "15"
-                },
-                {
-                    "label": "Electricity",
-                    "type": "electricity",
-                    "value": "15"
-                },
-                {
-                    "label": "Fire",
-                    "type": "fire",
-                    "value": "15"
-                },
-                {
-                    "label": "Physical",
-                    "type": "physical",
-                    "value": "15"
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Good",
-                    "type": "good",
-                    "value": "20"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

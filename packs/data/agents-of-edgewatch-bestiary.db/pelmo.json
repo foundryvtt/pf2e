@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "bludgeoning",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>This is a piece of stout wood shaped or repurposed to bludgeon an enemy. Clubs can be intricately carved pieces of martial art or as simple as a tree branch or piece of wood.</p>"
@@ -59,10 +58,10 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {}
@@ -90,9 +89,6 @@
                 "source": {
                     "value": ""
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -101,7 +97,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "thrown-10"
@@ -142,11 +137,10 @@
                 "damage": {
                     "damageType": "fire",
                     "dice": 1,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Alchemist's fire is a combination of volatile liquids that ignite when exposed to air. Alchemist's fire deals 1d8 fire damage, [[/r {1}[persistent,fire]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}, and 1 fire splash damage.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Alchemist's fire is a combination of volatile liquids that ignite when exposed to air. Alchemist's fire deals 1d8 fire damage, [[/r 1[persistent,fire]]] damage, and 1 fire splash damage.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -173,10 +167,10 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -206,9 +200,6 @@
                 "source": {
                     "value": ""
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 1
                 },
@@ -217,7 +208,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "alchemical",
@@ -328,7 +318,6 @@
                     "value": 10
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -343,6 +332,11 @@
         },
         {
             "_id": "xpaIY6o97hpi3r6c",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "OoUH7OmiEY82enBA"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Club",
             "sort": 400000,
@@ -371,7 +365,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "thrown-10"
@@ -385,6 +378,11 @@
         },
         {
             "_id": "SGuyP6Rc9SZRoRYv",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "rcbgrGgDNJ56oPrA"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Lesser Alchemist's Fire",
             "sort": 500000,
@@ -399,13 +397,23 @@
                     "value": 8
                 },
                 "damageRolls": {
-                    "xnt9nsh1mhw4yqck09u1": {
+                    "0": {
                         "damage": "1d8",
+                        "damageType": "fire"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "1",
+                        "damageType": "fire"
+                    },
+                    "2": {
+                        "category": "splash",
+                        "damage": "1",
                         "damageType": "fire"
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {1}[persistent,fire]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>\n<p>[[/r {1}[splash,fire]]]{1 fire splash damage}</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -413,14 +421,14 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "alchemical",
                         "bomb",
                         "consumable",
                         "fire",
-                        "splash"
+                        "splash",
+                        "thrown-20"
                     ]
                 },
                 "weaponType": {
@@ -461,7 +469,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -506,7 +513,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -538,11 +544,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -566,11 +567,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -594,11 +590,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -622,11 +613,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -669,7 +655,7 @@
                 "value": 6
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 2
@@ -713,13 +699,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

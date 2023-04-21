@@ -1,0 +1,54 @@
+{
+    "_id": "BV9k3nmVrWDLv8z6",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Emphatic Emissary",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> You roll initiative.</p>\n<hr />\n<p>You can tell when diplomacy has failed and a meeting is close to unraveling or falling to blows. You gain a +2 circumstance bonus on your initiative roll. During your first turn in combat, you can use your Disarming Smile, targeting every hostile intelligent humanoid creature that can see you but has yet to act. If you choose to sustain your Disarming Smile, you sustain the effect for only one creature, as normal.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Disarming Smile"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "empathic-emissary",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "empathic-emissary"
+                ],
+                "selector": "initiative",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #189: Dreamers of the Nameless Spires"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -35,7 +35,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "finesse",
@@ -78,7 +77,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "deadly-d10",
@@ -124,7 +122,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -169,7 +166,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -203,13 +199,22 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "slug": "chittering",
+                        "traits": [
+                            "aura",
+                            "auditory"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -241,7 +246,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy within the squirrelwind's chittering aura takes [[/r {1d8}[slashing]]]{1d8 slashing damage}.</p>"
+                    "value": "<p>Each enemy within the squirrelwind's chittering aura takes [[/r 1d8[slashing]]] damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -252,7 +257,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "flourish"
@@ -294,7 +298,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -339,7 +342,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -371,11 +373,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -399,11 +396,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -445,12 +437,38 @@
                 "temp": 0,
                 "value": 130
             },
+            "immunities": [
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "sickened"
+                },
+                {
+                    "type": "sleep"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 19
             },
+            "resistances": [
+                {
+                    "type": "physical",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "details": "swiftness",
                 "otherSpeeds": [
@@ -474,7 +492,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Blog: April Fool's Besitary"
+                "value": "Pathfinder Blog: April Fool's Bestiary"
             }
         },
         "resources": {},
@@ -496,26 +514,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "paralyzed",
-                    "poison",
-                    "precision",
-                    "sickened",
-                    "sleep",
-                    "swarm mind"
-                ]
-            },
-            "dr": [
-                {
-                    "label": "Physical",
-                    "type": "physical",
-                    "value": "10"
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

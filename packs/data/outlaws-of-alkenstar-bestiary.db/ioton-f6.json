@@ -110,11 +110,6 @@
                 },
                 "tradition": {
                     "value": "divine"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -133,13 +128,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -236,7 +225,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "cantrip",
@@ -262,11 +250,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
+                    "type": "emanation",
                     "value": 30
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
                 },
                 "category": {
                     "value": "spell"
@@ -350,7 +335,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "detection",
@@ -378,9 +362,15 @@
                 "bonus": {
                     "value": 6
                 },
-                "damageRolls": {},
+                "damageRolls": {
+                    "0": {
+                        "category": "persistent",
+                        "damage": "1d4",
+                        "damageType": "mental"
+                    }
+                },
                 "description": {
-                    "value": "<p>@Localize[PF2E.PersistentDamage.Mental1d4.success]</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -388,7 +378,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -429,7 +418,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divination",
@@ -473,7 +461,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -502,7 +489,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>While a creature is taking persistent mental damage from the ioton, the ioton takes the shape of a creature familiar to the target, such as an acquaintance, pet, or common animal, though the appearance is imperfect and grants no benefit to Impersonate an individual.</p>\n<p>While transformed, the ioton loses its incorporeal trait, immunities, and resistances, but it gains an unarmed melee Strike with a +6 attack modifier that deals [[/r {1d8+2}[bludgeoning]]]{1d8+2 bludgeoning damage}. The ioton immediately returns to its original form once no creature is taking persistent mental damage from it.</p>"
+                    "value": "<p>While a creature is taking persistent mental damage from the ioton, the ioton takes the shape of a creature familiar to the target, such as an acquaintance, pet, or common animal, though the appearance is imperfect and grants no benefit to Impersonate an individual.</p>\n<p>While transformed, the ioton loses its incorporeal trait, immunities, and resistances, but it gains an unarmed melee Strike with a +6 attack modifier that deals [[/r (1d8+2)[bludgeoning]]] damage. The ioton immediately returns to its original form once no creature is taking persistent mental damage from it.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -513,7 +500,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "healing",
@@ -575,7 +561,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -604,11 +589,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -632,11 +612,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -682,12 +657,37 @@
                 "temp": 0,
                 "value": 24
             },
+            "immunities": [
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 3
             },
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "force",
+                        "ghost-touch",
+                        "mental"
+                    ],
+                    "type": "all-damage",
+                    "value": 2
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -696,7 +696,13 @@
                     }
                 ],
                 "value": 0
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "mental",
+                    "value": 3
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -710,7 +716,7 @@
             "privateNotes": "",
             "publicNotes": "<p>The Astral Plane is a planar nexus, connecting the planes of the Inner Sphere to those of the Outer Sphere, a realm of timeless silver substance charged with mental essence drawn from throughout the Great Beyond. Most creatures on the Astral Plane are visitors-predators seeking to poach from the River of Souls, psychopomps guarding against such incursions, and aeons monitoring the flow of raw quintessence through the Antipode. Yet, this plane has spawned creatures native to its strange currents and eddies, foremost of which is the family of thought-spawned creatures known as ennosites.</p>\n<p>An ennosite's form physically embodies of its thought and purpose. As some ideals and goals are shared, so are certain forms.</p>\n<hr />\n<p>Periodically, stray thoughts colliding on the Astral Plane become entangled, forming a knot of rudimentary intellect. Known as iotons, these beings lack the willpower to manifest physical bodies, much less the self-awareness and vision to know what form these physical bodies might take. Instead, they manifest as ghostly, cloudlike wisps, each intermittently forming ephemeral features like alien eyes, unspeaking mouths, and shimmering symbols as iotons instinctively process their surroundings. Left alone, they might drift for ages amidst the Silver Sea.</p>\n<p>Gregariously parasitic, iotons sense and congregate around thinking beings, eagerly tearing off stray thoughts and using the harvested psychic energy to think clearly and form physical bodies. An ioton might understand that this process inflicts painful headaches in its victims, but it typically doesn't care. Not only do most of these ennosites become drunk on their newfound mental power and cling to their captured thoughts, but returning what they stole also robs an ioton of the mental bandwidth necessary to parse right from wrong. This sometimes causes a painful cycle where it repeatedly steals thoughts, apologetically surrenders them, and then blithely steals the thoughts anew.</p>\n<p>Iotons that gradually accumulate and consolidate enough mental potential form a permanent body, transforming into another type of ennosite.</p>",
             "source": {
-                "value": "Pathfinder Bestiary 3"
+                "value": "Pathfinder #178: Punks in a Powder Keg"
             }
         },
         "resources": {
@@ -737,36 +743,10 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "disease",
-                    "poison",
-                    "precision"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except force, ghost touch, or mental; double resistance vs. non-magical",
-                    "type": "all",
-                    "value": 2
-                }
-            ],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "label": "Mental",
-                    "type": "mental",
-                    "value": 3
-                }
-            ],
             "languages": {
-                "custom": "",
+                "custom": "Absorbed Language",
                 "selected": [],
-                "value": [
-                    "absorbed language"
-                ]
+                "value": []
             },
             "rarity": "common",
             "senses": {

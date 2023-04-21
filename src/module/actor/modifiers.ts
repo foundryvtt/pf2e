@@ -1,14 +1,12 @@
-import { CharacterPF2e, NPCPF2e } from "@actor";
-import { AbilityString } from "@actor/types";
-import { RollNotePF2e } from "@module/notes";
-import { extractModifierAdjustments } from "@module/rules/util";
-import { DamageDieSize, DamageType } from "@system/damage/types";
-import { DamageCategorization } from "@system/damage/helpers";
-import { DAMAGE_TYPES } from "@system/damage/values";
-import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
-import { PredicatePF2e, RawPredicate } from "@system/predication";
-import { ErrorPF2e, setHasElement, sluggify } from "@util";
-import { ZeroToFour } from "@module/data";
+import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
+import { AbilityString } from "@actor/types.ts";
+import { RollNotePF2e } from "@module/notes.ts";
+import { extractModifierAdjustments } from "@module/rules/helpers.ts";
+import { DamageCategoryUnique, DamageDieSize, DamageType } from "@system/damage/types.ts";
+import { DAMAGE_TYPES } from "@system/damage/values.ts";
+import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
+import { ErrorPF2e, setHasElement, signedInteger, sluggify, tupleHasValue } from "@util";
+import { ZeroToFour } from "@module/data.ts";
 
 const PROFICIENCY_RANK_OPTION = [
     "proficiency:untrained",
@@ -72,9 +70,9 @@ interface BaseRawModifier {
     /** If true, this modifier is a custom player-provided modifier. */
     custom?: boolean;
     /** The damage type that this modifier does, if it modifies a damage roll. */
-    damageType?: string | null;
+    damageType?: DamageType | null;
     /** The damage category */
-    damageCategory?: string | null;
+    damageCategory?: DamageCategoryUnique | null;
     /** A predicate which determines when this modifier is active. */
     predicate?: RawPredicate;
     /** If true, this modifier is only active on a critical hit. */
@@ -113,6 +111,7 @@ interface DeferredValueParams {
     test?: string[] | Set<string>;
 }
 type DeferredValue<T> = (options?: DeferredValueParams) => T | null;
+type DeferredPromise<T> = (options?: DeferredValueParams) => Promise<T | null>;
 
 /** Represents a discrete modifier, bonus, or penalty, to a statistic or check. */
 class ModifierPF2e implements RawModifier {
@@ -133,12 +132,18 @@ class ModifierPF2e implements RawModifier {
     source: string | null;
     custom: boolean;
     damageType: DamageType | null;
-    damageCategory: string | null;
+    damageCategory: DamageCategoryUnique | null;
     predicate: PredicatePF2e;
     critical: boolean | null;
     traits: string[];
     notes: string;
     hideIfDisabled: boolean;
+
+    /**
+     * The "category" of modifier (a misnomer since bonuses and penalties aren't modifiers):
+     * Recorded before adjustments in case of adjustment to zero
+     */
+    kind: "bonus" | "penalty" | "modifier";
 
     /**
      * Create a new modifier.
@@ -190,13 +195,37 @@ class ModifierPF2e implements RawModifier {
         this.modifier = params.modifier;
 
         this.damageType = setHasElement(DAMAGE_TYPES, params.damageType) ? params.damageType : null;
-        this.damageCategory = params.damageCategory ?? null;
+        this.damageCategory = this.damageType === "bleed" ? "persistent" : params.damageCategory ?? null;
         // Force splash damage into being critical-only or not doubling on critical hits
         this.critical = this.damageCategory === "splash" ? !!params.critical : params.critical ?? null;
+
+        this.kind = ((): "bonus" | "penalty" | "modifier" => {
+            if (this.modifier >= 0 && !["ability", "untyped"].includes(this.type)) {
+                return "bonus";
+            }
+            if (this.modifier < 0 && this.type !== "ability") {
+                return "penalty";
+            }
+            return "modifier";
+        })();
 
         if (this.force && this.type === "untyped") {
             throw ErrorPF2e("A forced modifier must have a type");
         }
+    }
+
+    get category(): this["damageCategory"] {
+        return this.damageCategory;
+    }
+
+    get value(): number {
+        return this.kind === "penalty" && this.modifier === 0 ? -this.modifier : this.modifier;
+    }
+
+    get signedValue(): string {
+        return this.modifier === 0 && this.kind === "penalty"
+            ? signedInteger(-this.modifier, { emptyStringZero: false })
+            : signedInteger(this.modifier, { emptyStringZero: false });
     }
 
     /** Return a copy of this ModifierPF2e instance */
@@ -215,12 +244,7 @@ class ModifierPF2e implements RawModifier {
      * bonuses and penalties.
      */
     getRollOptions(): Set<string> {
-        const isBonus =
-            (this.modifier > 0 || this.type === "proficiency") && !["ability", "untyped"].includes(this.type);
-        const isPenalty = this.modifier < 0 && !["ability", "proficiency"].includes(this.type);
-        const prefix = isBonus ? "bonus" : isPenalty ? "penalty" : "modifier";
-
-        const options = [`${prefix}:type:${this.type}`];
+        const options = (["slug", "type", "value"] as const).map((p) => `${this.kind}:${p}:${this[p]}`);
         if (this.type === "ability" && this.ability) {
             options.push(`modifier:ability:${this.ability}`);
         }
@@ -237,7 +261,7 @@ class ModifierPF2e implements RawModifier {
         return duplicate(this);
     }
 
-    toString() {
+    toString(): string {
         return this.label;
     }
 }
@@ -265,7 +289,7 @@ function createAbilityModifier({ actor, ability, domains }: CreateAbilityModifie
 
     return new ModifierPF2e({
         slug: ability,
-        label: `PF2E.Ability${sluggify(ability, { camel: "bactrian" })}`,
+        label: CONFIG.PF2E.abilities[ability],
         modifier: Math.floor((actor.abilities[ability].value - 10) / 2),
         type: "ability",
         ability,
@@ -279,33 +303,43 @@ interface CreateAbilityModifierParams {
     domains: string[];
 }
 
-const ProficiencyModifier = {
-    /**
-     * Create a modifier for a given proficiency level of some ability.
-     * @param level The level of the character which this modifier is being applied to.
-     * @param rank 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
-     * @returns The modifier for the given proficiency rank and character level.
-     */
-    fromLevelAndRank: (level: number, rank: ZeroToFour, { addLevel = rank > 0 } = {}): ModifierPF2e => {
-        rank = Math.clamped(rank, 0, 4) as ZeroToFour;
-        const pwolVariant = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
+/**
+ * Create a modifier for a given proficiency level of some ability.
+ * @returns The modifier for the given proficiency rank and character level.
+ */
+function createProficiencyModifier({ actor, rank, domains, addLevel }: CreateProficiencyModifierParams): ModifierPF2e {
+    rank = Math.clamped(rank, 0, 4) as ZeroToFour;
+    addLevel ??= rank > 0;
+    const pwolVariant = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
 
-        const baseBonuses: [number, number, number, number, number] = pwolVariant
-            ? [
-                  game.settings.get("pf2e", "proficiencyUntrainedModifier"),
-                  game.settings.get("pf2e", "proficiencyTrainedModifier"),
-                  game.settings.get("pf2e", "proficiencyExpertModifier"),
-                  game.settings.get("pf2e", "proficiencyMasterModifier"),
-                  game.settings.get("pf2e", "proficiencyLegendaryModifier"),
-              ]
-            : [0, 2, 4, 6, 8];
+    const baseBonuses: [number, number, number, number, number] = pwolVariant
+        ? [
+              game.settings.get("pf2e", "proficiencyUntrainedModifier"),
+              game.settings.get("pf2e", "proficiencyTrainedModifier"),
+              game.settings.get("pf2e", "proficiencyExpertModifier"),
+              game.settings.get("pf2e", "proficiencyMasterModifier"),
+              game.settings.get("pf2e", "proficiencyLegendaryModifier"),
+          ]
+        : [0, 2, 4, 6, 8];
 
-        const addedLevel = addLevel && !pwolVariant ? level : 0;
-        const bonus = baseBonuses[rank] + addedLevel;
+    const addedLevel = addLevel && !pwolVariant ? actor.level : 0;
+    const bonus = baseBonuses[rank] + addedLevel;
 
-        return new ModifierPF2e({ label: `PF2E.ProficiencyLevel${rank}`, modifier: bonus, type: "proficiency" });
-    },
-};
+    return new ModifierPF2e({
+        slug: "proficiency",
+        label: `PF2E.ProficiencyLevel${rank}`,
+        modifier: bonus,
+        type: "proficiency",
+        adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, domains, "proficiency"),
+    });
+}
+
+interface CreateProficiencyModifierParams {
+    actor: ActorPF2e;
+    rank: ZeroToFour;
+    domains: string[];
+    addLevel?: boolean;
+}
 
 /** A comparison which rates the first modifier as better than the second if it's modifier is at least as large. */
 const HIGHER_BONUS = (a: ModifierPF2e, b: ModifierPF2e) => a.modifier >= b.modifier;
@@ -402,17 +436,15 @@ class StatisticModifier {
     /** The slug of this collection of modifiers for a statistic. */
     slug: string;
     /** The display label of this statistic */
-    label?: string;
+    declare label?: string;
     /** The list of modifiers which affect the statistic. */
     protected _modifiers: ModifierPF2e[];
     /** The total modifier for the statistic, after applying stacking rules. */
-    totalModifier!: number;
+    declare totalModifier: number;
     /** A textual breakdown of the modifiers factoring into this statistic */
     breakdown = "";
     /** Optional notes, which are often added to statistic modifiers */
     notes?: RollNotePF2e[];
-
-    adjustments?: DegreeOfSuccessAdjustment[];
 
     /**
      * @param slug The name of this collection of statistic modifiers.
@@ -427,7 +459,7 @@ class StatisticModifier {
         const seen: ModifierPF2e[] = [];
         for (const modifier of modifiers) {
             const found = seen.some((m) => m.slug === modifier.slug);
-            if (!found || modifier.type === "ability") seen.push(modifier);
+            if (!found) seen.push(modifier);
         }
         this._modifiers = seen;
 
@@ -507,7 +539,7 @@ class StatisticModifier {
 }
 
 function adjustModifiers(modifiers: ModifierPF2e[], rollOptions: Set<string>): void {
-    for (const modifier of modifiers) {
+    for (const modifier of [...modifiers].sort((a, b) => Math.abs(b.value) - Math.abs(a.value))) {
         const adjustments = modifier.adjustments.filter((a) =>
             a.predicate.test([...rollOptions, ...modifier.getRollOptions()])
         );
@@ -597,8 +629,8 @@ class DiceModifierPF2e implements BaseRawModifier {
      */
     critical: boolean | null;
     /** The damage category of these dice. */
-    category: string | null;
-    damageType: string | null;
+    category: "persistent" | "precision" | "splash" | null;
+    damageType: DamageType | null;
     /** If true, these dice overide the base damage dice of the weapon. */
     override: DamageDiceOverride | null;
     ignored: boolean;
@@ -606,28 +638,30 @@ class DiceModifierPF2e implements BaseRawModifier {
     custom: boolean;
     predicate: PredicatePF2e;
 
-    constructor(param: Partial<Omit<DiceModifierPF2e, "predicate">> & { slug?: string; predicate?: RawPredicate }) {
-        this.label = game.i18n.localize(param.label ?? "");
-        this.slug = sluggify(param.slug ?? this.label);
+    constructor(params: Partial<Omit<DiceModifierPF2e, "predicate">> & { slug?: string; predicate?: RawPredicate }) {
+        this.label = game.i18n.localize(params.label ?? "");
+        this.slug = sluggify(params.slug ?? this.label);
         if (!this.slug) {
             throw ErrorPF2e("A DiceModifier must have a slug");
         }
 
-        this.diceNumber = param.diceNumber ?? 0;
-        this.dieSize = param.dieSize ?? null;
-        this.critical = param.critical ?? null;
-        this.damageType = param.damageType ?? null;
-        this.category = param.category ?? null;
-        this.override = param.override ?? null;
-        this.custom = param.custom ?? false;
+        this.diceNumber = params.diceNumber ?? 0;
+        this.dieSize = params.dieSize ?? null;
+        this.critical = params.critical ?? null;
+        this.damageType = params.damageType ?? null;
+        this.category = params.category ?? null;
+        this.override = params.override ?? null;
+        this.custom = params.custom ?? false;
 
-        if (this.damageType) {
-            this.category ??= DamageCategorization.fromDamageType(this.damageType);
-        }
+        this.category = tupleHasValue(["persistent", "precision", "splash"] as const, params.category)
+            ? params.category
+            : this.damageType === "bleed"
+            ? "persistent"
+            : null;
 
-        this.predicate = new PredicatePF2e(param.predicate ?? []);
-        this.enabled = this.predicate.test([]);
-        this.ignored = !this.enabled;
+        this.predicate = new PredicatePF2e(params.predicate ?? []);
+        this.enabled = params.enabled ?? this.predicate.test([]);
+        this.ignored = params.ignored ?? !this.enabled;
     }
 }
 
@@ -662,6 +696,8 @@ export {
     CheckModifier,
     DamageDiceOverride,
     DamageDicePF2e,
+    DamageDiceParameters,
+    DeferredPromise,
     DeferredValue,
     DeferredValueParams,
     DiceModifierPF2e,
@@ -671,11 +707,11 @@ export {
     ModifierPF2e,
     ModifierType,
     PROFICIENCY_RANK_OPTION,
-    ProficiencyModifier,
     RawModifier,
     StatisticModifier,
     adjustModifiers,
     applyStackingRules,
     createAbilityModifier,
+    createProficiencyModifier,
     ensureProficiencyOption,
 };

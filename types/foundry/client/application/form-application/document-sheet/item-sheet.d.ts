@@ -1,8 +1,3 @@
-declare interface ItemSheetData<I extends Item> extends DocumentSheetData<I> {
-    item: object;
-    data: object;
-}
-
 /**
  * The default Item Sheet
  *
@@ -14,12 +9,14 @@ declare interface ItemSheetData<I extends Item> extends DocumentSheetData<I> {
  * @param item      The Item instance being displayed within the sheet.
  * @param [options] Additional options which modify the rendering of the item.
  */
-declare class ItemSheet<TItem extends Item = Item> extends DocumentSheet<TItem> {
+declare class ItemSheet<
+    TItem extends Item<Actor<TokenDocument<Scene | null> | null> | null>
+> extends DocumentSheet<TItem> {
     constructor(item: TItem, options?: Partial<DocumentSheetOptions>);
 
     static override get defaultOptions(): DocumentSheetOptions;
 
-    override get id(): `item-${string}` | `actor-${string}-item-{string}`;
+    override get id(): string;
 
     /**
      * A convenience reference to the Item entity
@@ -36,4 +33,10 @@ declare class ItemSheet<TItem extends Item = Item> extends DocumentSheet<TItem> 
      * @param html The HTML object returned by template rendering
      */
     override activateListeners(html: JQuery): void;
+}
+
+declare interface ItemSheetData<TItem extends Item<Actor<TokenDocument<Scene | null> | null> | null>>
+    extends DocumentSheetData<TItem> {
+    item: TItem;
+    data: object;
 }

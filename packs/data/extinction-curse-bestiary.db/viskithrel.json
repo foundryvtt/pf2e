@@ -39,7 +39,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-15"
@@ -81,7 +80,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -110,38 +108,24 @@
                     "value": 30
                 },
                 "damageRolls": {
-                    "7vgc3zu8s4xgtsz3xj74": {
+                    "0": {
                         "damage": "1d10+14",
                         "damageType": "slashing"
+                    },
+                    "1": {
+                        "damage": "2d10",
+                        "damageType": "bleed"
                     }
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed2d10.success]</p>"
+                    "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Bleed2d10.criticalSuccess"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Bleed2d10.success"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-20"
@@ -185,7 +169,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -230,7 +213,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -288,7 +270,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -325,7 +306,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -368,7 +348,7 @@
                             }
                         ],
                         "selector": "saving-throw",
-                        "text": "A viskithrel's many-chambered snout allows it to partition and ignore scents. The creature can choose to critically succeed at any saving throw against an inhaled threat (such as inhaled poison) or olfactory effects, regardless of its roll.",
+                        "text": "{item|system.description.value}",
                         "title": "{item|name}"
                     }
                 ],
@@ -377,7 +357,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -408,7 +387,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Large, [[/r {3d10}[bludgeoning]+{2d10}[acid]]]{3d10 bludgeoning plus 2d10 acid}, Rupture 25</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                    "value": "<p>Large, [[/r {3d10[bludgeoning],2d10[acid]}]]{3d10 bludgeoning plus 2d10 acid}, Rupture 25</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -419,7 +398,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack"
@@ -466,7 +444,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -498,11 +475,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -526,11 +498,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -554,11 +521,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -600,8 +562,13 @@
                 "temp": 0,
                 "value": 275
             },
+            "immunities": [
+                {
+                    "type": "sickened"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 27
@@ -647,15 +614,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "sickened"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "(Can't Speak Any Languages)",
                 "selected": [],

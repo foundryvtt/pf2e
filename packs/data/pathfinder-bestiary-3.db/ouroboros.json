@@ -35,7 +35,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -79,7 +78,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -127,7 +125,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -172,7 +169,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -217,7 +213,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -280,7 +275,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -326,7 +320,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -347,7 +340,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Attack of Opportunity",
+            "name": "Attack of Opportunity (Special)",
             "sort": 800000,
             "system": {
                 "actionCategory": {
@@ -371,7 +364,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -400,7 +392,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the ouroboros takes slashing or piercing damage, or when Devour Tail ends, blood gushes from the wound in a @Template[type:cone|distance:15]. Each creature in the area takes [[/r {5d6}[acid]]]{5d6 acid damage} (@Check[type:reflex|dc:41|basic:true] save). A creature that takes any damage is exposed to the ouroboros's regenerative blood.</p>\n<p>Where the blood falls upon ground, it coagulates into magical snakes that bite at anyone who passes. This is hazardous terrain deals [[/r {17}[piercing]+{5}[poison]]]{17 piercing damage and 5 poison damage} to any non-ouroboros creature that moves through the square or ends its turn there. A creature that avoids all the piercing damage doesn't take the poison damage. After 1 hour, a blood patch permanently becomes a living snake, typically an @UUID[Compendium.pf2e.pathfinder-bestiary-2.Emperor Cobra]{Emperor Cobra}.</p>"
+                    "value": "<p>When the ouroboros takes slashing or piercing damage, or when Devour Tail ends, blood gushes from the wound in a @Template[type:cone|distance:15]. Each creature in the area takes [[/r 5d6[acid]]] damage (@Check[type:reflex|dc:41|basic:true] save). A creature that takes any damage is exposed to the ouroboros's regenerative blood.</p>\n<p>Where the blood falls upon ground, it coagulates into magical snakes that bite at anyone who passes. This is hazardous terrain deals [[/r {17[piercing],5[poison]}]]{17 piercing damage and 5 poison damage} to any non-ouroboros creature that moves through the square or ends its turn there. A creature that avoids all the piercing damage doesn't take the poison damage. After 1 hour, a blood patch permanently becomes a living snake, typically an @UUID[Compendium.pf2e.pathfinder-bestiary-2.Emperor Cobra]{Emperor Cobra}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -411,7 +403,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -445,13 +436,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 100,
+                        "slug": "unfathomable-infinity",
+                        "traits": [
+                            "aura",
+                            "incapacitation",
+                            "mental",
+                            "visual"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -517,7 +519,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -557,7 +558,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -602,7 +602,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -642,7 +641,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "contact",
@@ -684,7 +682,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Huge, [[/r {4d10+9}[acid]]]{4d10+9 acid}, Rupture 50</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                    "value": "<p>Huge, [[/r (4d10+9)[acid]]], Rupture 50</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -695,7 +693,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack"
@@ -742,7 +739,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -774,11 +770,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -802,11 +793,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -848,8 +834,28 @@
                 "temp": 0,
                 "value": 500
             },
+            "immunities": [
+                {
+                    "type": "acid"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "negative"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 33
@@ -862,7 +868,17 @@
                     }
                 ],
                 "value": 100
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "piercing",
+                    "value": 15
+                },
+                {
+                    "type": "slashing",
+                    "value": 15
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -898,31 +914,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "acid",
-                    "death-effects",
-                    "disease",
-                    "negative",
-                    "poison",
-                    "precision"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "type": "piercing",
-                    "value": 15
-                },
-                {
-                    "exceptions": "",
-                    "type": "slashing",
-                    "value": 15
-                }
-            ],
             "languages": {
                 "custom": "(Can't Speak Any Language)",
                 "selected": [],

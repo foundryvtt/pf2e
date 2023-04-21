@@ -75,14 +75,8 @@ $light-text: #f5efe0;
 
         .image-container {
             border: 1px solid var(--color-border-dark);
-            position: relative;
-            img {
+            img.actor-image {
                 border: none;
-            }
-            [data-action=show-image] {
-                position: absolute;
-                bottom: 0;
-                right: 0;
             }
         }
 
@@ -319,7 +313,7 @@ $light-text: #f5efe0;
         }
     }
 
-    input.adjustable,
+    input.adjustable:not(:focus),
     span.adjustable {
         display: inline;
         text-align: right;
@@ -427,6 +421,11 @@ $light-text: #f5efe0;
                     padding: 0;
                 }
             }
+
+            select {
+                background: none;
+                text-transform: none;
+            }
         }
     }
 
@@ -475,14 +474,10 @@ $light-text: #f5efe0;
             }
 
             .item-summary {
-                grid-column: 1/-1;
+                flex: 0 1 auto;
                 margin-top: 0.5em;
             }
         }
-    }
-
-    .expandable {
-        display: none;
     }
 
     .labelled-field {
@@ -708,12 +703,12 @@ $light-text: #f5efe0;
                 }
 
                 .sub-section {
-                    display: flex;
-                    flex: auto;
-                    flex-direction: row;
-                    justify-content: flex-start;
                     align-items: flex-start;
+                    display: flex;
+                    flex-direction: row;
                     flex-wrap: wrap;
+                    flex: auto;
+                    justify-content: flex-start;
 
                     h4 {
                         margin-left: 12px;
@@ -722,20 +717,21 @@ $light-text: #f5efe0;
                 }
 
                 button {
-                    width: auto !important;
-                    cursor: pointer;
-                    margin: 0;
-                    padding: 0 8px;
-                    font-size: var(--font-size-10);
-                    height: 18px;
-                    line-height: 18px;
-                    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
                     background: $attack-button-color;
-                    color: $light-text;
-                    text-align: center;
-                    white-space: nowrap;
                     border-radius: 3px;
                     border: none;
+                    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+                    color: $light-text;
+                    cursor: pointer;
+                    font-size: var(--font-size-11);
+                    font-weight: 500;
+                    height: 18px;
+                    line-height: 18px;
+                    margin: 0;
+                    padding: 0 8px;
+                    text-align: center;
+                    white-space: nowrap;
+                    width: auto !important;
 
                     &:first-child {
                         margin-left: 0px;
@@ -778,36 +774,6 @@ $light-text: #f5efe0;
         option {
             color: var(--text-light);
             background-color: var(--alt);
-        }
-    }
-
-    .alignment-select {
-        background: #566193;
-        border: 2px solid #d8c384;
-        color: white;
-    }
-
-    .size-select {
-        background: #3a7a58;
-        border: 2px solid #d8c384;
-        color: white;
-    }
-
-    .rarity-select {
-        border: 2px solid #d8c384;
-        color: white;
-
-        &.common {
-            background: $rarity-common;
-        }
-        &.uncommon {
-            background: $rarity-uncommon;
-        }
-        &.rare {
-            background: $rarity-rare;
-        }
-        &.unique {
-            background: $rarity-unique;
         }
     }
 

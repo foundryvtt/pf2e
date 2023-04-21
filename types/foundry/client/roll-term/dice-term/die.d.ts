@@ -9,7 +9,7 @@ declare global {
      * let die = new Die({faces: 6, number: 4}).evaluate();
      */
     class Die<TData extends DieData = DieData> extends DiceTerm<TData> {
-        constructor(termData?: Partial<TData>);
+        constructor(termData?: Partial<DieData>);
 
         static override DENOMINATION: string;
 
@@ -191,6 +191,7 @@ declare global {
     }
 
     interface DieData extends DiceTermData {
+        number: number;
         faces: number;
         marginSuccess?: boolean;
         marginFailure?: boolean;

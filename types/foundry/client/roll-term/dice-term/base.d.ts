@@ -105,16 +105,7 @@ declare global {
          * Render the tooltip HTML for a Roll instance
          * @return The data object used to render the default tooltip template for this DiceTerm
          */
-        getTooltipData(): {
-            formula: string;
-            total: number;
-            faces: number;
-            flavor: string;
-            rolls: {
-                result: string;
-                classes: string;
-            };
-        };
+        getTooltipData(): DiceTermTooltipData;
 
         /* -------------------------------------------- */
         /*  Modifier Methods                            */
@@ -225,4 +216,15 @@ declare global {
     }
 
     type ComparisonOperator = "=" | "<" | "<=" | ">" | ">=";
+
+    interface DiceTermTooltipData {
+        formula: string;
+        total: number;
+        faces: number;
+        flavor: string;
+        rolls: {
+            result: string;
+            classes: string;
+        };
+    }
 }

@@ -168,11 +168,6 @@
                 },
                 "tradition": {
                     "value": "arcane"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -192,11 +187,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "20"
-                },
-                "areasize": {
-                    "value": "20-foot burst"
+                    "type": "burst",
+                    "value": 20
                 },
                 "category": {
                     "value": "spell"
@@ -294,7 +286,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "death",
@@ -319,11 +310,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "line",
+                    "type": "line",
                     "value": 30
-                },
-                "areasize": {
-                    "value": "30-foot line"
                 },
                 "category": {
                     "value": "spell"
@@ -340,16 +328,18 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "persistent",
                                 "value": "negative"
                             },
-                            "value": "4d8 persistent"
+                            "value": "4d8"
                         }
                     }
                 },
                 "description": {
-                    "value": "<p>Extending a finger, you fire a beam of negative energy that weakens the life force of any creature it touches. Each living creature in the line must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r {2d8}[persistent,negative]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Negative Damage}.</p>\n<p><strong>Failure</strong> The creature takes [[/r {4d8}[persistent,negative]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Negative Damage} and becomes @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r {4d8}[persistent,negative]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Negative Damage} and becomes @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2} and @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The persistent negative damage increases by [[/r {1d8}[persistent,negative]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Negative Damage} on a success, or by [[/r {2d8}[persistent,negative]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Negative Damage} on a failure or critical failure.</p>"
+                    "value": "<p>Extending a finger, you fire a beam of negative energy that weakens the life force of any creature it touches. Each living creature in the line must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r 2d8[persistent,negative]]] damage.</p>\n<p><strong>Failure</strong> The creature takes [[/r 4d8[persistent,negative]]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r 4d8[persistent,negative]]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2} and @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The persistent negative damage increases by [[/r 1d8[persistent,negative]]] damage on a success, or by [[/r 2d8[persistent,negative]]] damage on a failure or critical failure.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -420,7 +410,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "negative"
@@ -443,13 +432,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -530,7 +513,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -551,12 +533,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -637,7 +614,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "curse",
@@ -661,12 +637,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -682,16 +653,27 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "piercing"
                             },
-                            "value": "4d4 + 4d4"
+                            "value": "4d4"
+                        },
+                        "1": {
+                            "applyMod": false,
+                            "type": {
+                                "categories": [],
+                                "subtype": "",
+                                "value": "negative"
+                            },
+                            "value": "4d4"
                         }
                     }
                 },
                 "description": {
-                    "value": "<p>A ghostly iron maiden snaps shut on the target and drains its vitality for your gain. This deals [[/r {4d4}[piercing]]]{4d4 piercing damage} and [[/r {4d4}[negative]]]{4d4 negative damage}, and the target must attempt a Fortitude save. You gain temporary HP equal to the negative damage the target takes (after applying resistances, weaknesses, and the like). You lose any remaining temporary HP after 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage.</p>\n<p><strong>Failure</strong> The target is briefly trapped within the vampiric maiden. The target takes full damage and is @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} by the iron maiden for 1 round or until it uses an @UUID[Compendium.pf2e.actionspf2e.Interact]{Interact} action to extricate itself, whichever comes first.</p>\n<p><strong>Critical Failure</strong> The target takes double damage and is Immobilized by the vampiric maiden for 1 round or until it @UUID[Compendium.pf2e.actionspf2e.Escape]{Escapes}(the DC is your spell DC), whichever comes first.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The piercing and negative damage increase by [[/r 1d4]] each.</p>"
+                    "value": "<p>A ghostly iron maiden snaps shut on the target and drains its vitality for your gain. This deals [[/r 4d4[piercing]]] damage and [[/r 4d4[negative]]] damage, and the target must attempt a Fortitude save. You gain temporary HP equal to the negative damage the target takes (after applying resistances, weaknesses, and the like). You lose any remaining temporary HP after 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage.</p>\n<p><strong>Failure</strong> The target is briefly trapped within the vampiric maiden. The target takes full damage and is @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} by the iron maiden for 1 round or until it uses an @UUID[Compendium.pf2e.actionspf2e.Interact]{Interact} action to extricate itself, whichever comes first.</p>\n<p><strong>Critical Failure</strong> The target takes double damage and is Immobilized by the vampiric maiden for 1 round or until it @UUID[Compendium.pf2e.actionspf2e.Escape]{Escapes}(the DC is your spell DC), whichever comes first.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The piercing and negative damage increase by [[/r 1d4]] each.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -701,7 +683,8 @@
                 },
                 "heightening": {
                     "damage": {
-                        "0": "1d4+1d4"
+                        "0": "1d4",
+                        "1": "1d4"
                     },
                     "interval": 1,
                     "type": "interval"
@@ -762,7 +745,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "negative"
@@ -785,13 +767,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -872,7 +848,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -893,13 +868,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -995,7 +964,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "death",
@@ -1019,13 +987,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1105,7 +1067,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1126,13 +1087,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1212,7 +1167,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "visual"
@@ -1235,13 +1189,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1321,7 +1269,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -1342,13 +1289,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1384,7 +1325,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You splash a glob of acid that splatters your target and nearby creatures. Make a spell attack. If you hit, you deal 1d6 acid damage plus [[/r {1}[splash,acid]]]{1 splash acid damage}. On a critical success, the target also takes [[/r {1}[persistent,acid]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The initial damage increases to 1d6 + your spellcasting ability modifier, and the @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Damage} increases to [[/r {2}[persistent,acid]]].</p>\n<p><strong>Heightened (5th)</strong> The initial damage increases to 2d6 + your spellcasting ability modifier, the Persistent Damage increases to [[/r {3}[persistent,acid]]], and the splash damage increases to [[/r {2}[splash,acid]]].</p>\n<p><strong>Heightened (7th)</strong> The initial damage increases to 3d6 + your spellcasting ability modifier, the Persistent Damage increases to [[/r {4}[persistent,acid]]], and the splash damage increases to [[/r {3}[splash,acid]]].</p>\n<p><strong>Heightened (9th)</strong> The initial damage increases to 4d6 + your spellcasting ability modifier, the Persistent Damage increases to [[/r {5}[persistent,acid]]], and the splash damage increases to [[/r {4}[splash,acid]]].</p>"
+                    "value": "<p>You splash a glob of acid that splatters your target and nearby creatures. Make a spell attack. If you hit, you deal 1d6 acid damage plus [[/r (1[splash])[acid]]]{1 splash acid damage}. On a critical success, the target also takes [[/r 1[persistent,acid]]] damage.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The initial damage increases to 1d6 + your spellcasting ability modifier, and the @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Damage} increases to [[/r 2[persistent,acid]]].</p>\n<p><strong>Heightened (5th)</strong> The initial damage increases to 2d6 + your spellcasting ability modifier, the Persistent Damage increases to [[/r 3[persistent,acid]]], and the splash damage increases to [[/r (2[splash])[acid]]].</p>\n<p><strong>Heightened (7th)</strong> The initial damage increases to 3d6 + your spellcasting ability modifier, the Persistent Damage increases to [[/r 4[persistent,acid]]], and the splash damage increases to [[/r (3[splash])[acid]]].</p>\n<p><strong>Heightened (9th)</strong> The initial damage increases to 4d6 + your spellcasting ability modifier, the Persistent Damage increases to [[/r 5[persistent,acid]]], and the splash damage increases to [[/r (4[splash])[acid]]].</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1549,7 +1490,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack",
@@ -1574,13 +1514,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1677,7 +1611,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "cantrip",
@@ -1702,11 +1635,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
+                    "type": "emanation",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -1790,7 +1720,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "detection",
@@ -1815,11 +1744,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "line",
+                    "type": "line",
                     "value": 30
-                },
-                "areasize": {
-                    "value": "30-foot line"
                 },
                 "category": {
                     "value": "spell"
@@ -1845,7 +1771,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Tendrils of darkness curl out from your fingertips and race through the air. You deal 2d4 negative damage and [[/r {1}[persistent,bleed]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} to living creatures in the line. Each living creature in the line must attempt a Fortitude save.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature takes half the negative damage and no persistent bleed damage.</p>\n<p><strong>Failure</strong> The creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double negative damage and double persistent bleed damage.</p>\n<hr /><strong>Heightened (+1)</strong> The negative damage increases by 2d4, and the persistent bleed damage increases by 1."
+                    "value": "<p>Tendrils of darkness curl out from your fingertips and race through the air. You deal 2d4 negative damage and [[/r 1[bleed]]] damage to living creatures in the line. Each living creature in the line must attempt a Fortitude save.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature takes half the negative damage and no persistent bleed damage.</p>\n<p><strong>Failure</strong> The creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double negative damage and double persistent bleed damage.</p>\n<hr /><strong>Heightened (+1)</strong> The negative damage increases by 2d4, and the persistent bleed damage increases by 1."
                 },
                 "duration": {
                     "value": ""
@@ -1915,7 +1841,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "negative"
@@ -1938,13 +1863,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -2035,7 +1954,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "auditory",
@@ -2061,13 +1979,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -2164,7 +2076,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack",
@@ -2189,13 +2100,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -2275,7 +2180,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -2308,8 +2212,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>Also known as a harmonica gun, this weapon is essentially a stock, trigger, and firing mechanism attached to a sliding brace of barrels that can each hold a round of ammunition.</p>"
@@ -2372,9 +2275,6 @@
                 "source": {
                     "value": "Pathfinder Guns & Gears"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -2383,7 +2283,6 @@
                     "value": "striking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "capacity-5",
@@ -2455,7 +2354,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "divination",
@@ -2486,7 +2384,7 @@
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p><strong>Ammunition</strong> round</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">1</span> Interact</p>\n<hr />\n<p>This bullet is crafted entirely from obsidian and engraved with hair-thin runes. When an activated corpsecaller round hits a target, the struck creature is called to the grave. It takes [[/r {4d10}[negative]]]{4d10 negative damage} with a @Check[type:fortitude|dc:25] saving throw.</p>\n<hr />\n<p><strong>Critical Success</strong> The foe is unaffected.</p>\n<p><strong>Success</strong> The foe takes half damage.</p>\n<p><strong>Failure</strong> The foe takes full damage and is @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed 1}. If the foe dies within the next 24 hours, its corpse is tethered to the Negative Energy Plane, making it easier to raise as an undead. Creatures using the create undead ritual on the foe's corpse receive a +2 circumstance bonus to their primary and secondary skill checks for the ritual.</p>\n<p><strong>Critical Failure</strong> As failure, except the foe takes double damage and is @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed 2}.</p>"
+                    "value": "<p><strong>Ammunition</strong> round</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">1</span> Interact</p>\n<hr />\n<p>This bullet is crafted entirely from obsidian and engraved with hair-thin runes. When an activated corpsecaller round hits a target, the struck creature is called to the grave. It takes [[/r 4d10[negative]]] damage with a @Check[type:fortitude|dc:25] saving throw.</p>\n<hr />\n<p><strong>Critical Success</strong> The foe is unaffected.</p>\n<p><strong>Success</strong> The foe takes half damage.</p>\n<p><strong>Failure</strong> The foe takes full damage and is @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed 1}. If the foe dies within the next 24 hours, its corpse is tethered to the Negative Energy Plane, making it easier to raise as an undead. Creatures using the create undead ritual on the foe's corpse receive a +2 circumstance bonus to their primary and secondary skill checks for the ritual.</p>\n<p><strong>Critical Failure</strong> As failure, except the foe takes double damage and is @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed 2}.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -2525,7 +2423,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -2587,7 +2484,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -2630,7 +2526,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile"
@@ -2672,7 +2567,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -2684,6 +2578,11 @@
         },
         {
             "_id": "E9ebbfREOCNybGbT",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "Yjv1si3v1ZA5C5nS"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Slide Pistol",
             "sort": 2500000,
@@ -2712,7 +2611,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "capacity-5",
@@ -2776,7 +2674,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -2828,7 +2725,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -2868,7 +2764,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "evil",
@@ -2898,7 +2793,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Parsus pushes their necromechanical innovation beyond its normal limits, dealing [[/r {10d6}[negative]]]{10d6 negative damage} in a @Template[type:emanation|distance:10] (@Check[type:reflex|dc:31|basic:true]). Parsus can choose to include themself in this effect.</p>"
+                    "value": "<p>Parsus pushes their necromechanical innovation beyond its normal limits, dealing [[/r 10d6[negative]]] damage in a @Template[type:emanation|distance:10] (@Check[type:reflex|dc:31|basic:true]). Parsus can choose to include themself in this effect.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2909,7 +2804,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "manipulate",
@@ -2950,7 +2844,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "manipulate",
@@ -2990,7 +2883,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -3019,11 +2911,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -3047,11 +2934,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -3075,11 +2957,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -3103,11 +2980,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -3131,11 +3003,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -3159,11 +3026,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -3187,11 +3049,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -3234,7 +3091,7 @@
                 "value": 160
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 20
@@ -3275,12 +3132,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

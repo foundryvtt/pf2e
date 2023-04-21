@@ -34,7 +34,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -74,7 +73,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -103,7 +101,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes @Localize[PF2E.PersistentDamage.Bleed2d6.success] and is exposed to brood leech swarm venom.</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r 2d6[bleed]]] and is exposed to brood leech swarm venom.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -114,7 +112,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -154,7 +151,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "poison"
@@ -188,11 +184,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -216,11 +207,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -262,12 +248,34 @@
                 "temp": 0,
                 "value": 40
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 9
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 2
+                },
+                {
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -276,7 +284,21 @@
                     }
                 ],
                 "value": 5
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 5
+                },
+                {
+                    "type": "salt",
+                    "value": 5
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -312,48 +334,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "precision",
-                    "swarm-mind"
-                ]
-            },
-            "dr": [
-                {
-                    "label": "Bludgeoning",
-                    "type": "bludgeoning",
-                    "value": "2"
-                },
-                {
-                    "label": "Piercing",
-                    "type": "piercing",
-                    "value": "5"
-                },
-                {
-                    "label": "Slashing",
-                    "type": "slashing",
-                    "value": "5"
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Area Damage",
-                    "type": "area-damage",
-                    "value": "5"
-                },
-                {
-                    "label": "Salt",
-                    "type": "salt",
-                    "value": "5"
-                },
-                {
-                    "label": "Splash Damage",
-                    "type": "splash-damage",
-                    "value": "5"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

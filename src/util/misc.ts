@@ -1,5 +1,4 @@
-import { ActionCost } from "@item/data/base";
-import { LocalizePF2e } from "@system/localize";
+import { ActionCost } from "@item/data/base.ts";
 
 /**
  * Given an array and a key function, create a map where the key is the value that
@@ -23,6 +22,15 @@ function groupBy<T, R>(array: T[], criterion: (value: T) => R): Map<R, T[]> {
     return result;
 }
 
+/** Creates a sorting comparator that sorts by the numerical result of a mapping function */
+function sortBy<T, J>(mapping: (value: T) => J) {
+    return (a: T, b: T): number => {
+        const value1 = mapping(a);
+        const value2 = mapping(b);
+        return value1 < value2 ? -1 : value1 === value2 ? 0 : 1;
+    };
+}
+
 /**
  * Given an array, adds a certain amount of elements to it
  * until the desired length is being reached
@@ -35,6 +43,17 @@ function padArray<T>(array: T[], requiredLength: number, padWith: T): T[] {
     return result;
 }
 
+/** Given an object, returns a new object with the same keys, but with each value converted by a function. */
+function mapValues<K extends string | number | symbol, V, R>(
+    object: Record<K, V>,
+    mapping: (value: V, key: K) => R
+): Record<K, R> {
+    return Object.entries<V>(object).reduce((result, [key, value]) => {
+        result[key as K] = mapping(value, key as K);
+        return result;
+    }, {} as Record<K, R>);
+}
+
 type Optional<T> = T | null | undefined;
 
 /**
@@ -44,17 +63,13 @@ function isBlank(text: Optional<string>): text is null | undefined | "" {
     return text === null || text === undefined || text.trim() === "";
 }
 
-/**
- * Adds a + if positive, nothing if 0 or - if negative
- */
+/** Returns a formatted number string with a preceding + if non-negative */
 function addSign(number: number): string {
     if (number < 0) {
         return `${number}`;
     }
-    if (number > 0) {
-        return `+${number}`;
-    }
-    return "0";
+
+    return `+${number}`;
 }
 
 /**
@@ -119,13 +134,39 @@ function setHasElement<T extends Set<unknown>>(set: T, value: unknown): value is
 }
 
 /** Returns a subset of an object with explicitly defined keys */
-function pick<T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
-    return keys.reduce((result, key) => {
+function pick<T extends object, K extends keyof T>(obj: T, keys: Iterable<K>): Pick<T, K> {
+    return [...keys].reduce((result, key) => {
         if (key in obj) {
             result[key] = obj[key];
         }
         return result;
     }, {} as Pick<T, K>);
+}
+
+/** Returns a subset of an object with explicitly excluded keys */
+function omit<T extends object, K extends keyof T>(obj: T, keys: Iterable<K>): Omit<T, K> {
+    const clone = deepClone(obj);
+    for (const key of keys) {
+        delete clone[key];
+    }
+
+    return clone;
+}
+
+let intlNumberFormat: Intl.NumberFormat;
+/**
+ * Return an integer string of a number, always with sign (+/-)
+ * @param value The number to convert to a string
+ * @param [emptyStringZero] If the value is zero, return an empty string
+ */
+function signedInteger(value: number, { emptyStringZero = true } = {}): string {
+    if (value === 0 && emptyStringZero) return "";
+
+    const nf = (intlNumberFormat ??= new Intl.NumberFormat(game.i18n.lang, {
+        maximumFractionDigits: 0,
+        signDisplay: "always",
+    }));
+    return nf.format(value);
 }
 
 const wordCharacter = String.raw`[\p{Alphabetic}\p{Mark}\p{Decimal_Number}\p{Join_Control}]`;
@@ -146,12 +187,15 @@ const upperOrWordBoundariedLowerRE = new RegExp(`${upperCaseLetter}|(?:${wordBou
  * @param text The text to sluggify
  * @param [options.camel=null] The sluggification style to use
  */
-function sluggify(text: string, { camel = null }: { camel?: "dromedary" | "bactrian" | null } = {}): string {
+function sluggify(text: string, { camel = null }: { camel?: SlugCamel } = {}): string {
     // Sanity check
     if (typeof text !== "string") {
         console.warn("Non-string argument passed to `sluggify`");
         return "";
     }
+
+    // A hyphen by its lonesome would be wiped: return it as-is
+    if (text === "-") return text;
 
     switch (camel) {
         case null:
@@ -179,6 +223,8 @@ function sluggify(text: string, { camel = null }: { camel?: "dromedary" | "bactr
     }
 }
 
+type SlugCamel = "dromedary" | "bactrian" | null;
+
 /** Parse a string containing html */
 function parseHTML(unparsed: string): HTMLElement {
     const fragment = document.createElement("template");
@@ -189,25 +235,42 @@ function parseHTML(unparsed: string): HTMLElement {
     return element;
 }
 
-const actionImgMap: Record<string, ImagePath> = {
+function getActionTypeLabel(
+    type: Maybe<"action" | "free" | "reaction" | "passive">,
+    cost: Maybe<number>
+): string | null {
+    switch (type) {
+        case "action":
+            return cost === 1 ? "PF2E.Action.Type.Single" : "PF2E.Action.Type.Activity";
+        case "free":
+            return "PF2E.Action.Type.Free";
+        case "reaction":
+            return "PF2E.Action.Type.Reaction";
+        default:
+            return null;
+    }
+}
+
+const actionImgMap: Record<string, ImageFilePath> = {
+    0: "systems/pf2e/icons/actions/FreeAction.webp",
+    free: "systems/pf2e/icons/actions/FreeAction.webp",
     1: "systems/pf2e/icons/actions/OneAction.webp",
     2: "systems/pf2e/icons/actions/TwoActions.webp",
     3: "systems/pf2e/icons/actions/ThreeActions.webp",
     "1 or 2": "systems/pf2e/icons/actions/OneTwoActions.webp",
     "1 to 3": "systems/pf2e/icons/actions/OneThreeActions.webp",
     "2 or 3": "systems/pf2e/icons/actions/TwoThreeActions.webp",
-    free: "systems/pf2e/icons/actions/FreeAction.webp",
     reaction: "systems/pf2e/icons/actions/Reaction.webp",
     passive: "systems/pf2e/icons/actions/Passive.webp",
 };
 
-function getActionIcon(actionType: string | ActionCost | null, fallback: ImagePath): ImagePath;
-function getActionIcon(actionType: string | ActionCost | null, fallback: ImagePath | null): ImagePath | null;
-function getActionIcon(actionType: string | ActionCost | null): ImagePath;
+function getActionIcon(actionType: string | ActionCost | null, fallback: ImageFilePath): ImageFilePath;
+function getActionIcon(actionType: string | ActionCost | null, fallback: ImageFilePath | null): ImageFilePath | null;
+function getActionIcon(actionType: string | ActionCost | null): ImageFilePath;
 function getActionIcon(
     action: string | ActionCost | null,
-    fallback: ImagePath | null = "systems/pf2e/icons/default-icons/mystery-man.svg"
-): ImagePath | null {
+    fallback: ImageFilePath | null = "systems/pf2e/icons/actions/Empty.webp"
+): ImageFilePath | null {
     if (action === null) return actionImgMap["passive"];
     const value = typeof action !== "object" ? action : action.type === "action" ? action.value : action.type;
     const sanitized = String(value ?? "")
@@ -232,7 +295,7 @@ const actionGlyphMap: Record<string, string> = {
  * Returns a character that can be used with the Pathfinder action font
  * to display an icon. If null it returns empty string.
  */
-function getActionGlyph(action: string | number | null | { type: string; value: string | number | null }) {
+function getActionGlyph(action: string | number | null | { type: string; value: string | number | null }): string {
     if (!action && action !== 0) return "";
 
     const value = typeof action !== "object" ? action : action.type === "action" ? action.value : action.type;
@@ -248,30 +311,30 @@ function ErrorPF2e(message: string): Error {
 }
 
 /** Returns the number in an ordinal format, like 1st, 2nd, 3rd, 4th, etc */
-function ordinal(value: number) {
-    const suffixes = LocalizePF2e.translations.PF2E.OrdinalSuffixes;
+function ordinal(value: number): string {
     const pluralRules = new Intl.PluralRules(game.i18n.lang, { type: "ordinal" });
-    const suffix = suffixes[pluralRules.select(value)];
+    const suffix = game.i18n.localize(`PF2E.OrdinalSuffixes.${pluralRules.select(value)}`);
     return game.i18n.format("PF2E.OrdinalNumber", { value, suffix });
 }
 
-/** Localizes a list of strings into a comma delimited list for the current language */
-function localizeList(items: string[]) {
-    const parts = LocalizePF2e.translations.PF2E.ListPartsOr;
+/** Localizes a list of strings into a (possibly comma-delimited) list for the current language */
+function localizeList(items: string[], { conjunction = "or" }: { conjunction?: "and" | "or" } = {}): string {
+    items = [...items].sort((a, b) => a.localeCompare(b, game.i18n.lang));
+    const parts = conjunction === "or" ? "PF2E.ListPartsOr" : "PF2E.ListPartsAnd";
 
     if (items.length === 0) return "";
     if (items.length === 1) return items[0];
     if (items.length === 2) {
-        return game.i18n.format(parts.two, { first: items[0], second: items[1] });
+        return game.i18n.format(`${parts}.two`, { first: items[0], second: items[1] });
     }
 
-    let result = game.i18n.format(parts.start, { first: items[0], second: "{second}" });
+    let result = game.i18n.format(`${parts}.start`, { first: items[0], second: "{second}" });
     for (let i = 1; i <= items.length - 2; i++) {
         if (i === items.length - 2) {
-            const end = game.i18n.format(parts.end, { first: items[i], second: items[items.length - 1] });
+            const end = game.i18n.format(`${parts}.end`, { first: items[i], second: items[items.length - 1] });
             result = result.replace("{second}", end);
         } else {
-            const newSegment = game.i18n.format(parts.middle, { first: items[i], second: "{second}" });
+            const newSegment = game.i18n.format(`${parts}.middle`, { first: items[i], second: "{second}" });
             result = result.replace("{second}", newSegment);
         }
     }
@@ -280,9 +343,11 @@ function localizeList(items: string[]) {
 }
 
 /** Generate and return an HTML element for a FontAwesome icon */
+type FontAwesomeStyle = "solid" | "regular" | "duotone";
+
 function fontAwesomeIcon(
     glyph: string,
-    { style = "solid", fixedWidth = false }: { style?: "solid" | "regular"; fixedWidth?: boolean } = {}
+    { style = "solid", fixedWidth = false }: { style?: FontAwesomeStyle; fixedWidth?: boolean } = {}
 ): HTMLElement {
     const styleClass = `fa-${style}`;
     const glyphClass = glyph.startsWith("fa-") ? glyph : `fa-${glyph}`;
@@ -307,10 +372,17 @@ function sortLabeledRecord<T extends Record<string, { label: string }>>(record: 
         .reduce((copy, [key, value]) => mergeObject(copy, { [key]: value }), {} as T);
 }
 
-function sortStringRecord<T extends Record<string, string>>(record: T): T {
-    return Object.entries(record)
-        .sort((a, b) => a[1].localeCompare(b[1], game.i18n.lang))
-        .reduce((copy, [key, value]) => mergeObject(copy, { [key]: value }), {} as T);
+/** Localize the values of a `Record<string, string>` and sort by those values */
+function sortStringRecord<T extends Record<string, string>>(record: T): T;
+function sortStringRecord(record: Record<string, string>): Record<string, string> {
+    return Object.fromEntries(
+        Object.entries(record)
+            .map((entry) => {
+                entry[1] = game.i18n.localize(entry[1]);
+                return entry;
+            })
+            .sort((a, b) => a[1].localeCompare(b[1], game.i18n.lang))
+    );
 }
 
 /** JSON.stringify with recursive key sorting */
@@ -353,27 +425,57 @@ function recursiveReplaceString(source: unknown, replace: (s: string) => string)
     return clone;
 }
 
+/** Create a localization function with a prefixed localization object path */
+function localizer(prefix: string): (...args: Parameters<Localization["format"]>) => string {
+    return (...[suffix, formatArgs]: Parameters<Localization["format"]>) =>
+        formatArgs ? game.i18n.format(`${prefix}.${suffix}`, formatArgs) : game.i18n.localize(`${prefix}.${suffix}`);
+}
+
+/** Does the parameter look like an image file path? */
+function isImageFilePath(path: unknown): path is ImageFilePath {
+    return typeof path === "string" && Object.keys(CONST.IMAGE_FILE_EXTENSIONS).some((e) => path.endsWith(`.${e}`));
+}
+
+/** Does the parameter look like a video file path? */
+function isVideoFilePath(path: unknown): path is ImageFilePath {
+    return typeof path === "string" && Object.keys(CONST.VIDEO_FILE_EXTENSIONS).some((e) => path.endsWith(`.${e}`));
+}
+
+function isImageOrVideoPath(path: unknown): path is ImageFilePath | VideoFilePath {
+    return isImageFilePath(path) || isVideoFilePath(path);
+}
+
 export {
     ErrorPF2e,
     Fraction,
     Optional,
+    SlugCamel,
     addSign,
     applyNTimes,
     fontAwesomeIcon,
     getActionGlyph,
     getActionIcon,
+    getActionTypeLabel,
     groupBy,
     isBlank,
+    isImageFilePath,
+    isImageOrVideoPath,
     isObject,
+    isVideoFilePath,
     localizeList,
+    localizer,
+    mapValues,
     objectHasKey,
+    omit,
     ordinal,
     padArray,
     parseHTML,
     pick,
     recursiveReplaceString,
     setHasElement,
+    signedInteger,
     sluggify,
+    sortBy,
     sortLabeledRecord,
     sortObjByKey,
     sortStringRecord,

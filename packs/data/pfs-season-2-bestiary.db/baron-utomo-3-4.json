@@ -23,8 +23,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
                     "value": "<p>This spear‑like weapon is used by a mounted creature to deal a great deal of damage.</p>"
@@ -54,10 +53,10 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -87,9 +86,6 @@
                 "source": {
                     "value": ""
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -98,7 +94,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "deadly-d8",
@@ -136,8 +131,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>A long metal shaft ending with a metal spike, a spear can be used one‑handed as a melee weapon and can be thrown.</p>"
@@ -167,10 +161,10 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -200,9 +194,6 @@
                 "source": {
                     "value": ""
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -211,7 +202,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "thrown-20"
@@ -228,6 +218,11 @@
         },
         {
             "_id": "bTP4AzQW9xeDelPP",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "i6GAmamndfHnlAUB"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Lance",
             "sort": 300000,
@@ -257,7 +252,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "deadly-d8",
@@ -302,7 +296,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile"
@@ -345,7 +338,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -357,6 +349,11 @@
         },
         {
             "_id": "Qq8sGzjCyQLB32wP",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "Mx93Dq1HHVLyRBX7"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Spear",
             "sort": 600000,
@@ -386,7 +383,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "thrown-20"
@@ -430,7 +426,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -470,7 +465,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "Telepathy",
                     "rarity": "common",
                     "value": [
                         "mental"
@@ -517,7 +511,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -609,7 +602,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "rage"
@@ -640,32 +632,47 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the sea devil deals piercing or slashing damage, it also deals @Localize[PF2E.PersistentDamage.Bleed1d4.success] if the target was @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} or if the attack was a critical hit.</p>"
+                    "value": "<p>When the sea devil deals piercing or slashing damage, it also deals [[/r 1d4[bleed]]] if the target was @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} or if the attack was a critical hit.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
-                        "key": "Note",
+                        "critical": false,
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed"
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "item:damage:type:piercing",
+                                    "item:damage:type:slashing"
+                                ]
+                            }
                         ],
-                        "selector": "attack",
-                        "text": "<div data-visibility='gm'><p><strong>{item|name}</strong></p>{item|system.description.value}</div>"
+                        "selector": "damage"
                     },
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
+                        "critical": true,
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
                         "predicate": [
                             {
                                 "not": "target:condition:flat-footed"
+                            },
+                            {
+                                "or": [
+                                    "item:damage:type:piercing",
+                                    "item:damage:type:slashing"
+                                ]
                             }
                         ],
-                        "selector": "attack",
-                        "text": "<div data-visibility='gm'><p><strong>{item|name}</strong></p>{item|system.description.value}</div>"
+                        "selector": "damage"
                     }
                 ],
                 "slug": null,
@@ -673,7 +680,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -716,11 +722,6 @@
                 "source": {
                     "value": ""
                 },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
                 "variants": {
                     "0": {
                         "label": "+15 to Swim",
@@ -749,11 +750,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -777,11 +773,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -805,11 +796,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -855,7 +841,7 @@
                 "value": 60
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 10
@@ -904,13 +890,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "Shark Commune 150 feet",
                 "selected": [],
@@ -929,7 +908,7 @@
                 "amphibious",
                 "humanoid",
                 "mutant",
-                "sea devil"
+                "sea-devil"
             ]
         }
     },

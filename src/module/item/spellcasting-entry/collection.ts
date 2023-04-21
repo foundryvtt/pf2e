@@ -1,20 +1,28 @@
-import { SpellPF2e } from "@item";
-import { OneToTen, ZeroToTen } from "@module/data";
+import { ActorPF2e } from "@actor";
+import { ItemPF2e, SpellPF2e, SpellcastingEntryPF2e } from "@item";
+import { OneToTen, ValueAndMax, ZeroToTen } from "@module/data.ts";
 import { ErrorPF2e, groupBy, ordinal } from "@util";
-import { SpellcastingEntryPF2e } from ".";
-import { ActiveSpell, SlotKey, SpellcastingSlotLevel, SpellPrepEntry } from "./data";
+import { SlotKey } from "./data.ts";
+import { RitualSpellcasting } from "./rituals.ts";
+import { ActiveSpell, BaseSpellcastingEntry, SpellcastingSlotLevel, SpellPrepEntry } from "./types.ts";
 
-export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
-    constructor(public entry: Embedded<SpellcastingEntryPF2e>) {
+class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingEntry<TActor | null>> extends Collection<
+    SpellPF2e<TActor>
+> {
+    readonly entry: TEntry;
+
+    readonly actor: TActor;
+
+    constructor(entry: TEntry) {
+        if (!entry.actor) throw ErrorPF2e("a spell collection must have an associated actor");
         super();
+
+        this.entry = entry;
+        this.actor = entry.actor;
     }
 
-    get id() {
+    get id(): string {
         return this.entry.id;
-    }
-
-    get actor() {
-        return this.entry.actor;
     }
 
     get highestLevel(): number {
@@ -23,12 +31,20 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
         return Math.min(10, Math.max(highestSpell, actorSpellLevel));
     }
 
+    #assertEntryIsDocument(
+        entry: BaseSpellcastingEntry<TActor | null>
+    ): asserts entry is SpellcastingEntryPF2e<TActor> {
+        if (!(entry instanceof ItemPF2e)) {
+            throw ErrorPF2e("`this#entry` is not a `SpellcastingEntryPF2e`");
+        }
+    }
+
     /**
      * Adds a spell to this spellcasting entry, either moving it from another one if its the same actor,
      * or creating a new spell if its not. If given a level, it will heighten to that level if it can be.
      */
-    async addSpell(spell: SpellPF2e, options: { slotLevel?: number } = {}): Promise<SpellPF2e | null> {
-        const actor = this.actor;
+    async addSpell(spell: SpellPF2e, options: { slotLevel?: number } = {}): Promise<SpellPF2e<TActor> | null> {
+        const { actor } = this;
         if (!actor.isOfType("creature")) {
             throw ErrorPF2e("Spellcasting entries can only exist on creatures");
         }
@@ -41,6 +57,17 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
 
         const spellcastingEntryId = spell.system.location.value;
         if (spellcastingEntryId === this.id && spell.level === heightenLevel) {
+            return null;
+        }
+
+        // Don't allow focus spells in non-focus casting entries
+        if (spell.isFocusSpell && !this.entry.isFocusPool) {
+            const focusTypeLabel = game.i18n.format("PF2E.SpellFocusLabel");
+            ui.notifications.warn(
+                game.i18n.format("PF2E.Item.Spell.Warning.WrongSpellType", {
+                    spellType: focusTypeLabel,
+                })
+            );
             return null;
         }
 
@@ -61,7 +88,10 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
             canHeighten && heightenLevel >= spell.baseLevel ? { "system.location.heightenedLevel": heightenLevel } : {};
 
         if (spell.actor === actor) {
-            return spell.update({ "system.location.value": this.id, ...heightenedUpdate });
+            return spell.update({
+                "system.location.value": this.id,
+                ...heightenedUpdate,
+            }) as Promise<SpellPF2e<TActor> | null>;
         } else {
             const source = spell.clone({ "system.location.value": this.id, ...heightenedUpdate }).toObject();
             const created = (await actor.createEmbeddedDocuments("Item", [source])).shift();
@@ -71,7 +101,9 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
     }
 
     /** Saves the prepared spell slot data to the spellcasting entry  */
-    async prepareSpell(spell: SpellPF2e, slotLevel: number, spellSlot: number): Promise<SpellcastingEntryPF2e> {
+    async prepareSpell(spell: SpellPF2e, slotLevel: number, spellSlot: number): Promise<TEntry> {
+        this.#assertEntryIsDocument(this.entry);
+
         if (spell.baseLevel > slotLevel && !(slotLevel === 0 && spell.isCantrip)) {
             const targetLevelLabel = game.i18n.format("PF2E.SpellLevel", { level: ordinal(slotLevel) });
             const baseLabel = game.i18n.format("PF2E.SpellLevel", { level: ordinal(spell.baseLevel) });
@@ -109,7 +141,9 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
     }
 
     /** Removes the spell slot and updates the spellcasting entry */
-    unprepareSpell(slotLevel: number, spellSlot: number): Promise<SpellcastingEntryPF2e> {
+    unprepareSpell(slotLevel: number, spellSlot: number): Promise<TEntry> {
+        this.#assertEntryIsDocument(this.entry);
+
         if (CONFIG.debug.hooks === true) {
             console.debug(
                 `PF2e System | Updating spellcasting entry ${this.id} to remove spellslot ${spellSlot} for spell level ${slotLevel}`
@@ -128,16 +162,25 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
     }
 
     /** Sets the expended state of a spell slot and updates the spellcasting entry */
-    setSlotExpendedState(slotLevel: number, spellSlot: number, isExpended: boolean): Promise<SpellcastingEntryPF2e> {
+    setSlotExpendedState(slotLevel: number, spellSlot: number, isExpended: boolean): Promise<TEntry> {
+        this.#assertEntryIsDocument(this.entry);
+
         const key = `system.slots.slot${slotLevel}.prepared.${spellSlot}.expended`;
         return this.entry.update({ [key]: isExpended });
     }
 
-    async getSpellData() {
-        const { actor } = this.entry;
+    async getSpellData(): Promise<SpellCollectionData> {
+        const { actor } = this;
         if (!actor.isOfType("character", "npc")) {
             throw ErrorPF2e("Spellcasting entries can only exist on characters and npcs");
         }
+
+        if (this.entry instanceof RitualSpellcasting) {
+            return this.#getRitualData();
+        }
+
+        // Anything past this point must be a `SpellcastingEntryPF2e`
+        this.#assertEntryIsDocument(this.entry);
 
         const results: SpellcastingSlotLevel[] = [];
         const spells = this.contents.sort((s1, s2) => (s1.sort || 0) - (s2.sort || 0));
@@ -145,7 +188,7 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
 
         const isFlexible = this.entry.isFlexible;
 
-        if (this.entry.isPrepared) {
+        if (this.entry.isPrepared && this.entry instanceof SpellcastingEntryPF2e) {
             // Prepared Spells. Active spells are what's been prepped.
             for (let level = 0; level <= this.highestLevel; level++) {
                 const data = this.entry.system.slots[`slot${level}` as SlotKey];
@@ -160,8 +203,8 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
                         const spell = value.id ? this.get(value.id) : null;
                         if (spell) {
                             active[Number(key)] = {
+                                castLevel: spell.computeCastLevel(level),
                                 spell,
-                                chatData: await spell.getChatData({}, { slotLevel: level }),
                                 expended: !!value.expended,
                             };
                         }
@@ -185,9 +228,7 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
             const leveled = spells.filter((spell) => !spell.isCantrip);
 
             if (cantrips.length) {
-                const active = await Promise.all(
-                    cantrips.map(async (spell) => ({ spell, chatData: await spell.getChatData() }))
-                );
+                const active = await Promise.all(cantrips.map(async (spell) => ({ spell })));
                 results.push({
                     label: "PF2E.Actor.Creature.Spellcasting.Cantrips",
                     level: 0,
@@ -197,11 +238,9 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
             }
 
             if (leveled.length) {
-                const active = await Promise.all(
-                    leveled.map(async (spell) => ({ spell, chatData: await spell.getChatData() }))
-                );
+                const active = await Promise.all(leveled.map(async (spell) => ({ spell })));
                 results.push({
-                    label: actor.isOfType("character") ? "PF2E.Focus.Spells" : "PF2E.Focus.Pool",
+                    label: actor.type === "character" ? "PF2E.Focus.Spells" : "PF2E.Focus.Pool",
                     level: Math.max(1, Math.ceil(actor.level / 2)) as OneToTen,
                     isCantrip: false,
                     uses: actor.system.resources.focus ?? { value: 0, max: 0 },
@@ -221,7 +260,6 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
                     const active = await Promise.all(
                         spells.map(async (spell) => ({
                             spell,
-                            chatData: await spell.getChatData(),
                             expended: this.entry.isInnate && !spell.system.location.uses?.value,
                             uses: this.entry.isInnate && !spell.unlimited ? spell.system.location.uses : undefined,
                         }))
@@ -254,16 +292,24 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
                     if (existing) {
                         existing.signature = true;
                     } else {
-                        const chatData = await spell.getChatData({}, { slotLevel: result.level });
-                        result.active.push({ spell, chatData, signature: true, virtual: true });
+                        result.active.push({ spell, signature: true, virtual: true });
+                    }
+                }
+            }
+
+            // If all spontaneous or flexible slots are spent for a given level, mark them as expended
+            for (const result of results) {
+                if (result.level > 0 && result.uses?.value === 0 && result.uses.max > 0) {
+                    for (const slot of result.active) {
+                        if (slot) slot.expended = true;
                     }
                 }
             }
         }
 
         // If flexible, the limit is the number of slots, we need to notify the user
-        const flexibleAvailable = (() => {
-            if (!isFlexible) return undefined;
+        const flexibleAvailable = ((): ValueAndMax | null => {
+            if (!isFlexible) return null;
             const totalSlots = results
                 .filter((result) => !result.isCantrip)
                 .map((level) => level.uses?.max || 0)
@@ -278,7 +324,23 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
         };
     }
 
-    private getSpellPrepList(spells: Embedded<SpellPF2e>[]) {
+    async #getRitualData(): Promise<SpellCollectionData> {
+        const groupedByLevel = groupBy(Array.from(this.values()), (s) => s.level);
+        const levels = await Promise.all(
+            Array.from(groupedByLevel.entries()).map(
+                async ([level, spells]): Promise<SpellcastingSlotLevel> => ({
+                    label: CONFIG.PF2E.spellLevels[level as OneToTen],
+                    level: level as ZeroToTen,
+                    isCantrip: false,
+                    active: await Promise.all(spells.map(async (spell) => ({ spell }))),
+                })
+            )
+        );
+
+        return { levels, spellPrepList: null };
+    }
+
+    protected getSpellPrepList(spells: SpellPF2e<TActor>[]): Record<number, SpellPrepEntry[]> | null {
         if (!this.entry.isPrepared) return {};
 
         const spellPrepList: Record<number, SpellPrepEntry[]> = {};
@@ -295,3 +357,11 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
         return Object.values(spellPrepList).some((s) => !!s.length) ? spellPrepList : null;
     }
 }
+
+interface SpellCollectionData {
+    levels: SpellcastingSlotLevel[];
+    flexibleAvailable?: { value: number; max: number } | null;
+    spellPrepList: Record<number, SpellPrepEntry[]> | null;
+}
+
+export { SpellCollection };

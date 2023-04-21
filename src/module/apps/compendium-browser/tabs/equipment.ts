@@ -1,13 +1,16 @@
-import { CoinsPF2e } from "@item/physical/helpers";
-import { LocalizePF2e } from "@system/localize";
+import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { LocalizePF2e } from "@system/localize.ts";
 import { sluggify } from "@util";
-import { CompendiumBrowser } from "..";
-import { CompendiumBrowserTab } from "./base";
-import { CompendiumBrowserIndexData, EquipmentFilters, RangesData } from "./data";
+import { CompendiumBrowser } from "../index.ts";
+import { ContentTabName } from "../data.ts";
+import { CompendiumBrowserTab } from "./base.ts";
+import { CompendiumBrowserIndexData, EquipmentFilters, RangesData } from "./data.ts";
 
 export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
-    override filterData!: EquipmentFilters;
-    override templatePath = "systems/pf2e/templates/compendium-browser/partials/equipment.html";
+    tabName: ContentTabName = "equipment";
+    filterData: EquipmentFilters;
+    templatePath = "systems/pf2e/templates/compendium-browser/partials/equipment.hbs";
+
     /* MiniSearch */
     override searchFields = ["name"];
     override storeFields = [
@@ -26,13 +29,13 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     ];
 
     constructor(browser: CompendiumBrowser) {
-        super(browser, "equipment");
+        super(browser);
 
         // Set the filterData object of this tab
-        this.prepareFilterData();
+        this.filterData = this.prepareFilterData();
     }
 
-    protected override async loadData() {
+    protected override async loadData(): Promise<void> {
         console.debug("PF2e System | Compendium Browser | Started loading inventory items");
 
         const inventoryItems: CompendiumBrowserIndexData[] = [];
@@ -40,10 +43,11 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         // Define index fields for different types of equipment
         const kitFields = ["img", "system.price", "system.traits"];
         const baseFields = [...kitFields, "system.stackGroup", "system.level.value", "system.source.value"];
-        const armorAndWeaponFields = [...baseFields, "system.category", "system.group"];
+        const armorFields = [...baseFields, "system.category", "system.group", "system.potencyRune.value"];
+        const weaponFields = [...armorFields, "system.strikingRune.value", "system.potencyRune.value"];
         const consumableFields = [...baseFields, "system.consumableType.value"];
         const indexFields = [
-            ...new Set([...armorAndWeaponFields, ...consumableFields]),
+            ...new Set([...armorFields, ...weaponFields, ...consumableFields]),
             "system.denomination.value",
             "system.value.value",
         ];
@@ -58,16 +62,20 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
             for (const itemData of index) {
                 if (itemData.type === "treasure" && itemData.system.stackGroup === "coins") continue;
                 if (itemTypes.includes(itemData.type)) {
-                    let skip = false;
-                    if (itemData.type === "weapon" || itemData.type === "armor") {
-                        if (!this.hasAllIndexFields(itemData, armorAndWeaponFields)) skip = true;
-                    } else if (itemData.type === "kit") {
-                        if (!this.hasAllIndexFields(itemData, kitFields)) skip = true;
-                    } else if (itemData.type === "consumable") {
-                        if (!this.hasAllIndexFields(itemData, consumableFields)) skip = true;
-                    } else {
-                        if (!this.hasAllIndexFields(itemData, baseFields)) skip = true;
-                    }
+                    const skip = (() => {
+                        switch (itemData.type) {
+                            case "armor":
+                                return !this.hasAllIndexFields(itemData, armorFields);
+                            case "weapon":
+                                return !this.hasAllIndexFields(itemData, weaponFields);
+                            case "kit":
+                                return !this.hasAllIndexFields(itemData, kitFields);
+                            case "consumable":
+                                return !this.hasAllIndexFields(itemData, consumableFields);
+                            default:
+                                return !this.hasAllIndexFields(itemData, baseFields);
+                        }
+                    })();
                     if (skip) {
                         console.warn(
                             `Item '${itemData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`
@@ -93,6 +101,16 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         itemData.system.source.value = sluggify(source);
                     }
 
+                    // Infer magical trait from runes
+                    const traits = itemData.system.traits.value ?? [];
+                    if (
+                        (itemData.type === "armor" && itemData.system.potencyRune.value) ||
+                        (itemData.type === "weapon" &&
+                            (itemData.system.strikingRune.value || itemData.system.potencyRune.value))
+                    ) {
+                        traits.push("magical");
+                    }
+
                     inventoryItems.push({
                         type: itemData.type,
                         name: itemData.name,
@@ -115,7 +133,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         this.indexData = inventoryItems;
 
         // Filters
-        this.filterData.checkboxes.armorTypes.options = this.generateCheckboxOptions(CONFIG.PF2E.armorTypes);
+        this.filterData.checkboxes.armorTypes.options = this.generateCheckboxOptions(CONFIG.PF2E.armorCategories);
         mergeObject(
             this.filterData.checkboxes.armorTypes.options,
             this.generateCheckboxOptions(CONFIG.PF2E.armorGroups)
@@ -167,7 +185,6 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         ) {
             return false;
         }
-
         // Weapon categories
         if (
             checkboxes.weaponTypes.selected.length > 0 &&
@@ -175,13 +192,9 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         ) {
             return false;
         }
-
         // Traits
-        const selectedTraits = multiselects.traits.selected.map((s) => s.value);
-        if (selectedTraits.length > 0 && !selectedTraits.some((t) => entry.traits.includes(t))) {
+        if (!this.filterTraits(entry.traits, multiselects.traits.selected, multiselects.traits.conjunction))
             return false;
-        }
-
         // Source
         if (checkboxes.source.selected.length > 0 && !checkboxes.source.selected.includes(entry.source)) {
             return false;
@@ -211,9 +224,9 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         return super.parseRangeFilterInput(name, lower, upper);
     }
 
-    protected override prepareFilterData(): void {
+    protected override prepareFilterData(): EquipmentFilters {
         const coins = LocalizePF2e.translations.PF2E.CurrencyAbbreviations;
-        this.filterData = {
+        return {
             checkboxes: {
                 itemtypes: {
                     isExpanded: true,
@@ -248,6 +261,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
             },
             multiselects: {
                 traits: {
+                    conjunction: "and",
                     label: "PF2E.BrowserFilterTraits",
                     options: [],
                     selected: [],

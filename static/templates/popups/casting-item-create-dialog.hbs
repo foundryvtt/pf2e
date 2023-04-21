@@ -1,0 +1,26 @@
+<form autocomplete="off" onsubmit="event.preventDefault();">
+    <label>{{localize "PF2E.CastingItemCreateDialog.label"}}</label>
+    {{#if (ne itemType "cantripDeck5")}}
+        <div class="form-group">
+            <p><label>{{localize "PF2E.CastingItemCreateDialog.spellLevelLabel"}}</label>
+            <select name="level" data-dtype="Number">
+                {{#select level}}
+                    {{#each validLevels as |key|}}
+                        <option value="{{key}}">{{key}}</option>
+                    {{/each}}
+                {{/select}}
+            </select></p>
+        </div>
+    {{/if}}
+    <div class="form-group">
+        <p><label>{{localize "PF2E.CastingItemCreateDialog.itemTypeLabel"}}</label>
+        <select name="itemType" data-dtype="String">
+            {{#select itemType}}
+                {{#each itemTypeOptions}}
+                    <option value="{{@key}}">{{localize this}}</option>
+                {{/each}}
+            {{/select}}
+        </select></p>
+    </div>
+    <button type="submit"><i class="far fa-save"></i>{{localize "PF2E.CastingItemCreateDialog.submit"}}</button>
+</form>

@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/default-icons/feats.webp",
     "name": "Butterfly's Sting",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "class",
         "description": {
             "value": "<p>You gain the @UUID[Compendium.pf2e.classfeatures.Sneak Attack]{Sneak Attack} class feature. You don't increase the number of dice as you gain levels.</p>"
-        },
-        "featType": {
-            "value": "archetype"
         },
         "level": {
             "value": 6
@@ -30,21 +25,16 @@
         },
         "rules": [
             {
-                "category": "precision",
-                "diceNumber": 1,
-                "dieSize": "d6",
-                "key": "DamageDice",
-                "predicate": [
-                    "target:condition:flat-footed",
-                    {
-                        "or": [
-                            "finesse",
-                            "agile",
-                            "ranged"
-                        ]
-                    }
-                ],
-                "selector": "strike-damage"
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.sneakAttackDamage.number",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.sneakAttackDamage.faces",
+                "value": 6
             },
             {
                 "key": "GrantItem",
@@ -62,7 +52,6 @@
             "value": "Pathfinder #166: Despair on Danger Island"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "archetype"

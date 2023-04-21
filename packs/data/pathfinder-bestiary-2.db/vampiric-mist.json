@@ -21,38 +21,24 @@
                     "value": 10
                 },
                 "damageRolls": {
-                    "r2dpl3ri4ug5azg1930h": {
+                    "0": {
                         "damage": "2d6",
                         "damageType": "slashing"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "bleed"
                     }
                 },
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "misty-tendril-damage",
-                        "text": "PF2E.PersistentDamage.Bleed1d6.success"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "misty-tendril-damage",
-                        "text": "PF2E.PersistentDamage.Bleed1d6.criticalSuccess"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -97,7 +83,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -137,7 +122,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -177,7 +161,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -211,29 +194,12 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "critical-blood-siphon",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "critical-blood-siphon"
-                        ],
-                        "selector": "ac",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
+                "rules": [],
+                "slug": "blood-siphon",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -265,11 +231,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -293,11 +254,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -339,12 +295,23 @@
                 "temp": 0,
                 "value": 35
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 9
             },
+            "resistances": [
+                {
+                    "type": "physical",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -353,7 +320,13 @@
                     }
                 ],
                 "value": 0
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -389,25 +362,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "precision"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "physical",
-                    "value": 5
-                }
-            ],
-            "dv": [
-                {
-                    "type": "fire",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

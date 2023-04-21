@@ -34,7 +34,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -79,7 +78,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -124,7 +122,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -164,7 +161,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "disease"
@@ -195,7 +191,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {1d6}[piercing]]]{1d6 piercing damage} and must attempt a @Check[type:reflex|dc:17|basic:true] save. A creature that fails its save is exposed to filth fever.</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r 1d6[piercing]]] damage and must attempt a @Check[type:reflex|dc:17|basic:true] save. A creature that fails its save is exposed to filth fever.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -206,7 +202,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -238,11 +233,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -282,11 +272,6 @@
                 "source": {
                     "value": ""
                 },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
                 "variants": {
                     "0": {
                         "label": "+6 to Climb or Swim",
@@ -315,11 +300,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -361,12 +341,29 @@
                 "temp": 0,
                 "value": 14
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 5
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "bludgeoning"
+                    ],
+                    "type": "physical",
+                    "value": 6
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -375,7 +372,17 @@
                     }
                 ],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 3
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 3
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -408,31 +415,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "precision",
-                    "swarm-mind"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except bludgeoning",
-                    "type": "physical",
-                    "value": 6
-                }
-            ],
-            "dv": [
-                {
-                    "type": "area-damage",
-                    "value": 3
-                },
-                {
-                    "type": "splash-damage",
-                    "value": 3
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

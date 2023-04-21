@@ -1,21 +1,23 @@
-import { CharacterDetails } from "@actor/character/data";
-import { CreatureTrait } from "@actor/creature/data";
-import { ActorSourcePF2e } from "@actor/data";
-import { FeatSource, ItemSourcePF2e } from "@item/data";
-import { FeatSystemSource } from "@item/feat/data";
-import { HeritageSource, HeritageSystemSource } from "@item/heritage/data";
-import { Rarity } from "@module/data";
-import { creatureTraits } from "@scripts/config/traits";
-import { MigrationBase } from "../base";
+import { CharacterDetails } from "@actor/character/data/index.ts";
+import { CreatureTrait } from "@actor/creature/types.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { FeatSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { FeatSystemSource } from "@item/feat/data.ts";
+import { HeritageSource, HeritageSystemSource } from "@item/heritage/data.ts";
+import { Rarity } from "@module/data.ts";
+import { creatureTraits } from "@scripts/config/traits.ts";
+import { MigrationBase } from "../base.ts";
+
+const toDelete = ["featType", "actionCategory", "actions", "actionType", "level", "location"] as const;
 
 export class Migration711HeritageItems extends MigrationBase {
     static override version = 0.711;
 
-    private isHeritageFeature(feature: ItemSourcePF2e): feature is FeatSource {
-        return feature.type === "feat" && (feature as MaybeWithHeritageFeatType).system.featType.value === "heritage";
+    #isHeritageFeature(feature: MaybeWithHeritageFeatType): feature is MaybeWithHeritageFeatType<FeatSource> {
+        return feature.type === "feat" && feature.system.featType?.value === "heritage";
     }
 
-    private officialAncestries: Record<string, { name: string; uuid: ItemUUID } | undefined> = {
+    #officialAncestries: Record<string, { name: string; uuid: ItemUUID } | undefined> = {
         tengu: {
             name: "Tengu",
             uuid: "Compendium.pf2e.ancestries.18xDKYPDBLEv2myX",
@@ -138,7 +140,7 @@ export class Migration711HeritageItems extends MigrationBase {
         },
     };
 
-    private heritagesWithoutAncestryInName: Record<string, string | undefined> = {
+    #heritagesWithoutAncestryInName: Record<string, string | undefined> = {
         "half-elf": "human",
         "half-orc": "human",
         "skilled-heritage": "human",
@@ -162,13 +164,14 @@ export class Migration711HeritageItems extends MigrationBase {
         "rite-of-reinforcement": "conrasu",
     };
 
-    private ancestrySlugs = Object.keys(this.officialAncestries);
+    #ancestrySlugs = Object.keys(this.#officialAncestries);
 
-    private heritageFromFeat(feature: FeatSource): HeritageSource {
+    #heritageFromFeat(feature: FeatSource): HeritageSourceWithNoAncestrySlug {
         const featureSlug = feature.system.slug ?? "";
         const ancestrySlug =
-            this.heritagesWithoutAncestryInName[featureSlug] ?? this.ancestrySlugs.find((s) => featureSlug.includes(s));
-        const ancestryReference = this.officialAncestries[ancestrySlug ?? ""] ?? null;
+            this.#heritagesWithoutAncestryInName[featureSlug] ??
+            this.#ancestrySlugs.find((s) => featureSlug.includes(s));
+        const ancestryReference = this.#officialAncestries[ancestrySlug ?? ""] ?? null;
         const traits: { rarity: Rarity; value: string[] } = feature.system.traits;
         const { flags } = feature;
 
@@ -195,10 +198,9 @@ export class Migration711HeritageItems extends MigrationBase {
                 traits: {
                     value: traits.value.filter(
                         (t): t is CreatureTrait =>
-                            (t in creatureTraits || t.startsWith("hb_")) && !(t in this.officialAncestries)
+                            (t in creatureTraits || t.startsWith("hb_")) && !(t in this.#officialAncestries)
                     ),
                     rarity: traits.rarity,
-                    custom: "",
                 },
                 source: feature.system.source,
             },
@@ -206,11 +208,11 @@ export class Migration711HeritageItems extends MigrationBase {
     }
 
     override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
-        const heritageFeatures = actorSource.items.filter((i): i is FeatSource => this.isHeritageFeature(i));
+        const heritageFeatures = actorSource.items.filter((i): i is FeatSource => this.#isHeritageFeature(i));
         const firstHeritageFeature = heritageFeatures[0];
         const hasRealHeritage = actorSource.items.some((i) => i.type === "heritage");
         if (!hasRealHeritage && firstHeritageFeature && actorSource.type === "character") {
-            const heritageSource = this.heritageFromFeat(firstHeritageFeature);
+            const heritageSource = this.#heritageFromFeat(firstHeritageFeature);
             const items: object[] = actorSource.items;
             items.push(heritageSource);
 
@@ -227,15 +229,15 @@ export class Migration711HeritageItems extends MigrationBase {
     }
 
     override async updateItem(itemSource: ItemSourcePF2e, actorSource?: ActorSourcePF2e): Promise<void> {
-        if (actorSource || !this.isHeritageFeature(itemSource)) return;
+        if (actorSource || !this.#isHeritageFeature(itemSource)) return;
 
-        const newSource: { type: string; img: ImagePath; system: object } = itemSource;
+        const newSource: { type: string; img: ImageFilePath; system: object } = itemSource;
         newSource.type = "heritage";
         if (itemSource.img === "systems/pf2e/icons/default-icons/feat.svg") {
             itemSource.img = "systems/pf2e/icons/default-icons/heritage.svg";
         }
-        const newSystemData: HeritageSystemSource & FeatPropertyDeletions = this.heritageFromFeat(itemSource).system;
-        const toDelete = ["featType", "actionCategory", "actions", "actionType", "level", "location"] as const;
+        type WithPropertyDeletions = HeritageSystemSourceWithNoAncestrySlug & FeatPropertyDeletions;
+        const newSystemData: WithPropertyDeletions = this.#heritageFromFeat(itemSource).system;
         const deletionProperties = toDelete.map((k) => `-=${k}` as const);
         for (const property of deletionProperties) {
             newSystemData[property] = null;
@@ -249,17 +251,26 @@ export class Migration711HeritageItems extends MigrationBase {
     }
 }
 
-type DeletionKeys = `-=${keyof FeatSystemSource}`;
+type FeatKeys = (typeof toDelete)[number];
+type DeletionKeys = `-=${FeatKeys}`;
 type FeatPropertyDeletions = DeepPartial<Omit<FeatSystemSource, "traits">> & {
-    [K in DeletionKeys]?: null;
+    [K in DeletionKeys | FeatKeys]?: unknown;
 };
 
-type MaybeWithHeritageFeatType = ItemSourcePF2e & {
+type MaybeWithHeritageFeatType<TSource extends ItemSourcePF2e = ItemSourcePF2e> = TSource & {
     system: {
-        featType: {
+        featType?: {
             value: string;
         };
     };
 };
+
+interface HeritageSourceWithNoAncestrySlug extends Omit<HeritageSource, "system"> {
+    system: HeritageSystemSourceWithNoAncestrySlug;
+}
+
+interface HeritageSystemSourceWithNoAncestrySlug extends Omit<HeritageSystemSource, "ancestry"> {
+    ancestry: { uuid: ItemUUID; name: string } | null;
+}
 
 type MaybeWithStoredHeritage = Omit<CharacterDetails, "heritage"> & { heritage?: unknown; "-=heritage"?: null };

@@ -24,7 +24,7 @@ class TimeOfDay {
 
     /**
      * Returns positive or negative number of seconds to add to current
-     * game time advance function https://foundryvtt.com/api/GameTime.html#advance
+     * game time advance function https://foundryvtt.com/api/GameTime.hbs#advance
      * @param worldTime the current time as luxon DateTime
      * @param mode whether to go back to that point in time or to advance
      */

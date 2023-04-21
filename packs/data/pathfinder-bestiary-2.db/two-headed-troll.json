@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "bludgeoning",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>This is a piece of stout wood shaped or repurposed to bludgeon an enemy. Clubs can be intricately carved pieces of martial art or as simple as a tree branch or piece of wood.</p>"
@@ -59,10 +58,10 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {}
@@ -90,9 +89,6 @@
                 "source": {
                     "value": ""
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -101,7 +97,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "thrown-10"
@@ -146,7 +141,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-10"
@@ -188,7 +182,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -203,6 +196,11 @@
         },
         {
             "_id": "AoPor6Ll5rYacPzT",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "6Bd2x6FFN1j5sTZ1"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Club",
             "sort": 400000,
@@ -231,7 +229,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-10"
@@ -245,6 +242,11 @@
         },
         {
             "_id": "zTHlNe6zIRCEQ1Gh",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "6Bd2x6FFN1j5sTZ1"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Club",
             "sort": 500000,
@@ -273,7 +275,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "thrown-10"
@@ -317,7 +318,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -357,7 +357,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -378,7 +377,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 25 (deactivated by acid or fire)",
+            "name": "Regeneration 25 (Deactivated by Acid or Fire)",
             "sort": 800000,
             "system": {
                 "actionCategory": {
@@ -402,7 +401,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -447,7 +445,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -487,7 +484,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -513,7 +509,7 @@
                     "value": "reaction"
                 },
                 "actions": {
-                    "value": 1
+                    "value": null
                 },
                 "description": {
                     "value": "<p><strong>Trigger</strong> On one head's initiative, the troll hits the same enemy with two consecutive claw Strikes in the same round</p>\n<hr />\n<p><strong>Effect</strong> While the prey is distracted with unrelenting claw attacks, the head that's not taking its turn makes a jaws Strike against the enemy.</p>"
@@ -527,7 +523,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -559,11 +554,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -587,11 +577,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -634,7 +619,7 @@
                 "value": 190
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 18
@@ -642,7 +627,13 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -678,19 +669,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "label": "Fire",
-                    "type": "fire",
-                    "value": "10"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

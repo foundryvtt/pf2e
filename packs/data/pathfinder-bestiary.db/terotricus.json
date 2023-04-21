@@ -44,7 +44,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "chaotic",
@@ -101,7 +100,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "chaotic",
@@ -148,7 +146,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -193,7 +190,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -256,7 +252,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -301,7 +296,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -335,13 +329,22 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "spore-cloud",
+                        "traits": [
+                            "aura",
+                            "disease"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -373,7 +376,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> The terotricus is in a swamp or forested area.</p>\n<hr />\n<p><strong>Effect</strong> The terotricus drains nutrients from nearby trees and undergrowth while simultaneously infesting them with fungal growth. All non-magical plant life (though not plant creatures) within a @Template[type:emanation|distance:60] withers and sprouts foul mold and slimy mushrooms, removing any cover and concealment provided by trees and undergrowth. The terotricus is healed [[/r {200}[healing]]]{200 Hit Points}.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> The terotricus is in a swamp or forested area.</p>\n<hr />\n<p><strong>Effect</strong> The terotricus drains nutrients from nearby trees and undergrowth while simultaneously infesting them with fungal growth. All non-magical plant life (though not plant creatures) within a @Template[type:emanation|distance:60] withers and sprouts foul mold and slimy mushrooms, removing any cover and concealment provided by trees and undergrowth. The terotricus is healed [[/r 200[healing]]]{200 Hit Points}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -384,7 +387,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "healing",
@@ -423,12 +425,11 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "spore-blight",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "disease"
@@ -465,12 +466,11 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "sticky-spores",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -515,7 +515,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -560,7 +559,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -592,11 +590,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -620,11 +613,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -648,11 +636,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -676,11 +659,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -704,11 +682,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -750,12 +723,32 @@
                 "temp": 0,
                 "value": 370
             },
+            "immunities": [
+                {
+                    "type": "controlled"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 31
             },
+            "resistances": [
+                {
+                    "type": "fire",
+                    "value": 15
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -772,7 +765,25 @@
                     }
                 ],
                 "value": 35
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 15
+                },
+                {
+                    "type": "cold-iron",
+                    "value": 15
+                },
+                {
+                    "type": "good",
+                    "value": 15
+                },
+                {
+                    "type": "slashing",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -805,40 +816,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "controlled",
-                    "disease",
-                    "paralyzed",
-                    "sleep"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "fire",
-                    "value": 15
-                }
-            ],
-            "dv": [
-                {
-                    "type": "cold",
-                    "value": 15
-                },
-                {
-                    "type": "coldiron",
-                    "value": 15
-                },
-                {
-                    "type": "good",
-                    "value": 15
-                },
-                {
-                    "type": "slashing",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

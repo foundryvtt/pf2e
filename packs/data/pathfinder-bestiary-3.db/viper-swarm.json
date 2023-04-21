@@ -34,7 +34,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -79,7 +78,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -124,7 +122,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -164,7 +161,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -204,7 +200,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -233,7 +228,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:21]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d4}[poison]]]{1d4 poison damage} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {1d6}[poison]]]{1d6 poison damage} and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {2d4}[poison]]]{2d4 poison damage}, @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2}, and @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:21]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d4[poison]]] damage (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 1d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 2d4[poison]]] damage, @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2}, and @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -244,7 +239,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "poison"
@@ -278,11 +272,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -306,11 +295,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -352,12 +336,34 @@
                 "temp": 0,
                 "value": 50
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 12
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 5
+                },
+                {
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 3
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -370,7 +376,17 @@
                     }
                 ],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 5
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -406,43 +422,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "precision",
-                    "swarm-mind"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "bludgeoning",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "piercing",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "slashing",
-                    "value": 3
-                }
-            ],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "type": "area-damage",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "splash-damage",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

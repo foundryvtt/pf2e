@@ -34,7 +34,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -73,13 +72,18 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FastHealing",
+                        "type": "fast-healing",
+                        "value": 2
+                    }
+                ],
                 "slug": "fast-healing",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -108,7 +112,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The mephit swarm breathes energy in a @Template[type:cone|distance:15] that deals [[/r {1d6}[acid] + {1d6}[cold] +{1d6}[electric] +{1d6}[fire]]]{1d6 acid, 1d6 cold, 1d6 electric, and 1d6 fire damage} to each creature within the area (@Check[type:reflex|dc:20|basic:true] save).</p>\n<p>The mephit swarm can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The mephit swarm breathes energy in a @Template[type:cone|distance:15] that deals [[/r {1d6[acid],1d6[cold],1d6[electric],1d6[fire]}]]{1d6 acid, 1d6 cold, 1d6 electric, and 1d6 fire damage} to each creature within the area (@Check[type:reflex|dc:20|basic:true] save).</p>\n<p>The mephit swarm can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -119,7 +123,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "acid",
@@ -156,7 +159,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {2d8}[piercing]]]{2d8 piercing damage} (@Check[type:reflex|dc:20|basic:true] save).</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r 2d8[piercing]]] damage (@Check[type:reflex|dc:20|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -167,7 +170,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -199,11 +201,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -227,11 +224,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -255,11 +247,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -304,12 +291,38 @@
                 "temp": 0,
                 "value": 30
             },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "sleep"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 8
             },
+            "resistances": [
+                {
+                    "type": "physical",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -318,7 +331,17 @@
                     }
                 ],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 5
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -351,36 +374,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "paralyzed",
-                    "poison",
-                    "precision",
-                    "sleep",
-                    "swarm-mind"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "physical",
-                    "value": 5
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Area Damage",
-                    "type": "area-damage",
-                    "value": "5"
-                },
-                {
-                    "label": "Splash Damage",
-                    "type": "splash-damage",
-                    "value": "5"
-                }
-            ],
             "languages": {
                 "custom": "(Varies by Mephit)",
                 "selected": [],

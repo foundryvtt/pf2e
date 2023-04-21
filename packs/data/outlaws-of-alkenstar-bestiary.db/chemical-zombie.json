@@ -16,30 +16,13 @@
             "name": "Slowed",
             "sort": 100000,
             "system": {
-                "active": true,
-                "alsoApplies": {
-                    "linked": [],
-                    "unlinked": []
-                },
-                "base": "Slowed",
                 "description": {
                     "value": "<p>You have fewer actions. Slowed always includes a value. When you regain your actions at the start of your turn, reduce the number of actions you regain by your slowed value. Because slowed has its effect at the start of your turn, you don't immediately lose actions if you become slowed during your turn.</p>"
                 },
                 "duration": {
-                    "perpetual": true,
-                    "text": "",
                     "value": 0
                 },
-                "group": "",
-                "hud": {
-                    "img": {
-                        "useStatusName": true,
-                        "value": "systems/pf2e/icons/conditions-2/slowed.webp"
-                    },
-                    "selectable": true,
-                    "statusName": "slowed"
-                },
-                "modifiers": [],
+                "group": null,
                 "overrides": [],
                 "references": {
                     "children": [],
@@ -47,25 +30,13 @@
                     "overriddenBy": [],
                     "overrides": []
                 },
-                "removable": true,
                 "rules": [],
                 "slug": "slowed",
                 "source": {
                     "value": ""
                 },
-                "sources": {
-                    "hud": true,
-                    "values": []
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
                 "value": {
-                    "immutable": false,
                     "isValued": true,
-                    "modifiers": [],
                     "value": 1
                 }
             },
@@ -93,10 +64,15 @@
                     "0": {
                         "damage": "2d6+5",
                         "damageType": "bludgeoning"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "1d6",
+                        "damageType": "fire"
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {1d6}[persistent,fire]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -104,7 +80,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -146,7 +121,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -176,7 +150,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When a chemical zombie dies, its body explodes in a @Template[type:burst|distance:30] of fire and debris that deals [[/r {2d10}[bludgeoning]+{2d10}[fire]]]{2d10 bludgeoning and 2d10 fire damage} to each creature in the area (@Check[type:reflex|dc:21|basic:true]). If the chemical zombie is soaked with water before it dies (such as by dousing it with a bucket of water or hitting it with a water spell like <em>@UUID[Compendium.pf2e.spells-srd.Hydraulic Push]{Hydraulic Push}</em>), the chemicals are neutralized and this ability doesn't trigger.</p>"
+                    "value": "<p>When a chemical zombie dies, its body explodes in a @Template[type:burst|distance:30] of fire and debris that deals [[/r {2d10[bludgeoning],2d10[fire]}]]{2d10 bludgeoning and 2d10 fire damage} to each creature in the area (@Check[type:reflex|dc:21|basic:true]). If the chemical zombie is soaked with water before it dies (such as by dousing it with a bucket of water or hitting it with a water spell like <em>@UUID[Compendium.pf2e.spells-srd.Hydraulic Push]{Hydraulic Push}</em>), the chemicals are neutralized and this ability doesn't trigger.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -187,7 +161,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -239,7 +212,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -279,7 +251,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -319,7 +290,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "incapacitation"
@@ -353,11 +323,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -381,11 +346,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -427,8 +387,28 @@
                 "temp": 0,
                 "value": 125
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 12
@@ -436,7 +416,17 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -472,34 +462,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "fire",
-                    "mental",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "label": "Positive",
-                    "type": "positive",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "label": "Slashing",
-                    "type": "slashing",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

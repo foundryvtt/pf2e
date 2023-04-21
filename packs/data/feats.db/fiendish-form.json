@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Fiendish Form",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "class",
         "description": {
             "value": "<p>Your features reshape into those of a type of fiend who serves your deity; for example, as a demon you might have putrid scales, twisted horns, and red eyes.</p>\n<p>You gain a fly Speed equal to your Speed. You gain @UUID[Compendium.pf2e.ancestryfeatures.Darkvision]{Darkvision} if you don't already have it, and you gain the fiend trait and the trait appropriate to the type of servitor you've become (such as daemon, demon, or devil).</p>"
-        },
-        "featType": {
-            "value": "class"
         },
         "level": {
             "value": 18
@@ -32,11 +27,10 @@
             {
                 "key": "BaseSpeed",
                 "selector": "fly",
-                "value": "@actor.attributes.speed.value"
+                "value": "@actor.attributes.speed.total"
             },
             {
                 "key": "Sense",
-                "label": "PF2E.SensesDarkvision",
                 "selector": "darkvision"
             }
         ],
@@ -44,7 +38,6 @@
             "value": "Pathfinder Advanced Player's Guide"
         },
         "traits": {
-            "custom": "",
             "rarity": "uncommon",
             "value": [
                 "champion"

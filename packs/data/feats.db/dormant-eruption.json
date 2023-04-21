@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Dormant Eruption",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "class",
         "description": {
-            "value": "<p>A sweltering heat and sparks of flame that take the form of tiny copies of you surround your body. You're hot to the touch, gaining resistance 5 to cold and fire. Whenever an adjacent creature Strikes you with a melee attack or touches you, it takes [[/r {1d6}[persistent,fire]]]{1d6} @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent fire Damage}. You gain the @UUID[Compendium.pf2e.actionspf2e.Thermal Eruption]{Thermal Eruption} action.</p>"
-        },
-        "featType": {
-            "value": "class"
+            "value": "<p>A sweltering heat and sparks of flame that take the form of tiny copies of you surround your body. You're hot to the touch, gaining resistance 5 to cold and fire. Whenever an adjacent creature Strikes you with a melee attack or touches you, it takes [[/r 1d6[persistent,fire]]] damage. You gain the @UUID[Compendium.pf2e.actionspf2e.Thermal Eruption]{Thermal Eruption} action.</p>"
         },
         "level": {
             "value": 14
@@ -36,17 +31,10 @@
                         "not": "thermal-eruption"
                     }
                 ],
-                "type": "fire",
-                "value": 5
-            },
-            {
-                "key": "Resistance",
-                "predicate": [
-                    {
-                        "not": "thermal-eruption"
-                    }
+                "type": [
+                    "cold",
+                    "fire"
                 ],
-                "type": "cold",
                 "value": 5
             },
             {
@@ -65,7 +53,6 @@
             "value": "Pathfinder Dark Archive"
         },
         "traits": {
-            "custom": "",
             "rarity": "rare",
             "value": [
                 "aftermath",

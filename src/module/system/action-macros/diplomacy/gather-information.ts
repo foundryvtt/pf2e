@@ -1,25 +1,26 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function gatherInformation(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "diplomacy");
+const PREFIX = "PF2E.Actions.GatherInformation";
+
+export function gatherInformation(options: SkillActionOptions): void {
+    const slug = options?.skill ?? "diplomacy";
+    const rollOptions = ["action:gather-information"];
+    const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph,
-        title: "PF2E.Actions.GatherInformation.Title",
-        subtitle,
-        modifiers: options.modifiers,
-        rollOptions: ["all", checkType, stat, "action:gather-information"],
-        extraOptions: ["action:gather-information"],
+        title: `${PREFIX}.Title`,
+        checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["exploration", "secret"],
-        checkType,
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
-            ActionMacroHelpers.note(selector, "PF2E.Actions.GatherInformation", "criticalSuccess"),
-            ActionMacroHelpers.note(selector, "PF2E.Actions.GatherInformation", "success"),
-            ActionMacroHelpers.note(selector, "PF2E.Actions.GatherInformation", "criticalFailure"),
+            ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.success`, ["success", "criticalSuccess"]),
+            ActionMacroHelpers.note(selector, PREFIX, "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

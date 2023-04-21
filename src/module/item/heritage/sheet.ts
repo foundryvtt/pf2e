@@ -1,7 +1,7 @@
 import { AncestryPF2e, HeritagePF2e, ItemPF2e } from "@item";
-import { ItemSheetPF2e } from "@item/sheet/base";
-import { HeritageSheetData } from "@item/sheet/data-types";
-import { ErrorPF2e } from "@util";
+import { ItemSheetPF2e } from "@item/sheet/base.ts";
+import { ItemSheetDataPF2e } from "@item/sheet/data-types.ts";
+import { ErrorPF2e, sluggify } from "@util";
 
 export class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
     static override get defaultOptions(): DocumentSheetOptions {
@@ -24,7 +24,7 @@ export class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
             ancestryRefBroken: !!sheetData.data.ancestry && ancestry === null,
             hasSidebar: true,
             hasDetails: false,
-            sidebarTemplate: () => "systems/pf2e/templates/items/heritage-sidebar.html",
+            sidebarTemplate: () => "systems/pf2e/templates/items/heritage-sidebar.hbs",
         };
     }
 
@@ -50,7 +50,18 @@ export class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
         if (!(item instanceof AncestryPF2e)) {
             throw ErrorPF2e("Invalid item drop on heritage sheet");
         }
-        const ancestryReference = { name: item.name, uuid: item.uuid };
+
+        const ancestryReference = {
+            name: item.name,
+            slug: item.slug ?? sluggify(item.name),
+            uuid: item.uuid,
+        };
+
         await this.item.update({ "system.ancestry": ancestryReference });
     }
+}
+
+interface HeritageSheetData extends ItemSheetDataPF2e<HeritagePF2e> {
+    ancestry: AncestryPF2e | null;
+    ancestryRefBroken: boolean;
 }

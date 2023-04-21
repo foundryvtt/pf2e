@@ -101,7 +101,7 @@ declare global {
         private _setStyle(position: TooltipStylePosition): void;
     }
 
-    type TooltipDirection = keyof typeof TooltipManager["TOOLTIP_DIRECTIONS"];
+    type TooltipDirection = keyof (typeof TooltipManager)["TOOLTIP_DIRECTIONS"];
 
     interface TooltipActivationOptions {
         text?: string;

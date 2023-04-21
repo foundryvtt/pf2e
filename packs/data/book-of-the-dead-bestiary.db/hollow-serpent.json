@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "divine"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -126,11 +121,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "cone",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot cone"
+                    "type": "cone",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -230,7 +222,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "death",
@@ -254,13 +245,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -347,7 +332,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -387,7 +371,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-10"
@@ -432,7 +415,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -477,7 +459,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -522,7 +503,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -567,7 +547,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -612,7 +591,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -664,7 +642,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -693,18 +670,28 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30-feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A cloud of choking, acrid dust swirls about the hollow serpent, draining moisture from any enemy within. A creature entering the aura or starting its turn in the aura must succeed at a @Check[type:fortitude|dc:34] save or become @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2} and @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for [[/r 1d4 #rounds]]{1d4 rounds} ([[/r 2d4 #rounds]]{2d4 rounds} on a critical failure). A creature that succeeds is temporarily immune for 24 hours.</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A cloud of choking, acrid dust swirls about the hollow serpent, draining moisture from any enemy within. A creature entering the aura or starting its turn in the aura must succeed at a @Check[type:fortitude|dc:34] save or become @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2} and @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for [[/r 1d4 #rounds]]{1d4 rounds} ([[/r 2d4 #rounds]]{2d4 rounds} on a critical failure). A creature that succeeds is temporarily immune for 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "desiccation-aura",
+                        "traits": [
+                            "aura",
+                            "divine",
+                            "necromancy"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -745,7 +732,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -776,7 +762,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {1d10+7}[bludgeoning]]]{1d10+7 bludgeoning} plus @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1}, @Check[type:fortitude|dc:36|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r (1d10+7)[bludgeoning]]] plus @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1}, @Check[type:fortitude|dc:36|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -787,7 +773,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -827,7 +812,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -858,7 +842,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Medium, [[/r {4d6}[negative]]]{4d6 negative} plus @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1}, Rupture 32</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                    "value": "<p>Medium, [[/r 4d6[negative]]] plus @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1}, Rupture 32</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -869,7 +853,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack"
@@ -916,7 +899,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -948,11 +930,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -976,11 +953,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1004,11 +976,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1050,8 +1017,25 @@
                 "temp": 0,
                 "value": 280
             },
+            "immunities": [
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "polymorph"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 27
@@ -1099,19 +1083,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "polymorph",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

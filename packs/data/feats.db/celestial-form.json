@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Celestial Form",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "class",
         "description": {
             "value": "<p>You take on a celestial countenance, appearing like a type of celestial who serves your deity; for example, as an angel, you would gain a halo and feathery wings.</p>\n<p>You gain a fly Speed equal to your Speed. You gain @UUID[Compendium.pf2e.ancestryfeatures.Darkvision]{Darkvision} if you don't already have it, and you gain the celestial trait and the trait appropriate to the type of servitor you've become (archon, angel, or azata, for example).</p>"
-        },
-        "featType": {
-            "value": "class"
         },
         "level": {
             "value": 18
@@ -32,11 +27,10 @@
             {
                 "key": "BaseSpeed",
                 "selector": "fly",
-                "value": "@actor.attributes.speed.value"
+                "value": "@actor.attributes.speed.total"
             },
             {
                 "key": "Sense",
-                "label": "PF2E.SensesDarkvision",
                 "selector": "darkvision"
             }
         ],
@@ -44,7 +38,6 @@
             "value": "Pathfinder Core Rulebook"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "champion"

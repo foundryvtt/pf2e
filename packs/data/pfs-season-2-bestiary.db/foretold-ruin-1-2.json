@@ -15,7 +15,7 @@
                     "value": "reaction"
                 },
                 "actions": {
-                    "value": 1
+                    "value": null
                 },
                 "description": {
                     "value": "<p><strong>Trigger</strong> A non-evil creature enters the room.</p>\n<hr />\n<p><strong>Effect</strong> The trap casts <em>@UUID[Compendium.pf2e.spells-srd.Phantom Pain]{Phantom Pain}</em> on the creature, and then rolls initiative.</p>\n<p>@Check[type:will|dc:17|name:Phantom Pain|traits:mental,nonlethal] save</p>"
@@ -29,7 +29,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -60,6 +59,17 @@
                 "temp": 0,
                 "value": 24
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                }
+            ],
             "stealth": {
                 "details": "<p>(trained)</p>",
                 "value": 10
@@ -95,18 +105,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "precision",
-                    "critical-hits",
-                    "object-immunities"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "common",
             "size": {
                 "value": "med"

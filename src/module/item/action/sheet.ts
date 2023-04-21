@@ -1,7 +1,7 @@
-import { ActionItemPF2e } from "@item/action";
-import { ItemSheetDataPF2e } from "@item/sheet/data-types";
-import { getActionIcon } from "@util";
-import { ItemSheetPF2e } from "../sheet/base";
+import { ActionItemPF2e } from "@item/action/document.ts";
+import { ItemSheetDataPF2e } from "@item/sheet/data-types.ts";
+import { getActionIcon } from "@util/misc.ts";
+import { ItemSheetPF2e } from "../sheet/base.ts";
 
 export class ActionSheetPF2e extends ItemSheetPF2e<ActionItemPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<ActionSheetData> {

@@ -36,7 +36,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "shove"
@@ -82,7 +81,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile"
@@ -126,7 +124,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -178,7 +175,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -218,7 +214,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "poison"
@@ -249,7 +244,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>High amounts of lead can cause headache, difficulty concentrating, and joint pain. Necromantic magic has augmented the lead that infuses this skeleton, causing it to take effect far more quickly than is typical for lead poisoning.</p>\n<hr />\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:20]</p>\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d6}[poison]]]{1d6 poison damage},@UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {2d6}[poison]]]{2d6 poison damage}, stupefied 1, and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {2d6}[poison]]]{2d6 poison damage}, @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 2}, and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2} (2 rounds)</p>"
+                    "value": "<p>High amounts of lead can cause headache, difficulty concentrating, and joint pain. Necromantic magic has augmented the lead that infuses this skeleton, causing it to take effect far more quickly than is typical for lead poisoning.</p>\n<hr />\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:20]</p>\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d6[poison]]] damage,@UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 2d6[poison]]] damage, stupefied 1, and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 2d6[poison]]] damage, @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 2}, and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2} (2 rounds)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -260,10 +255,8 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
-                        "affliction",
                         "poison",
                         "necromancy"
                     ]
@@ -296,11 +289,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -324,11 +312,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -370,12 +353,51 @@
                 "temp": 0,
                 "value": 75
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 15
             },
+            "resistances": [
+                {
+                    "type": "cold",
+                    "value": 5
+                },
+                {
+                    "type": "electricity",
+                    "value": 5
+                },
+                {
+                    "type": "fire",
+                    "value": 5
+                },
+                {
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 15
@@ -412,46 +434,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "mental",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "label": "Cold",
-                    "type": "cold",
-                    "value": "5"
-                },
-                {
-                    "label": "Electricity",
-                    "type": "electricity",
-                    "value": "5"
-                },
-                {
-                    "label": "Fire",
-                    "type": "fire",
-                    "value": "5"
-                },
-                {
-                    "label": "Piercing",
-                    "type": "piercing",
-                    "value": "5"
-                },
-                {
-                    "label": "Slashing",
-                    "type": "slashing",
-                    "value": "5"
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

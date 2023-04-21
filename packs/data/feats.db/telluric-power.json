@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Telluric Power",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "ancestry",
         "description": {
             "value": "<p>You channel strength from the earth beneath your feet to pummel your enemies. When making a melee Strike against a target who is standing on the same earth or stone surface as you are, you gain a circumstance bonus to the damage roll equal to the number of weapon damage dice.</p>"
-        },
-        "featType": {
-            "value": "ancestry"
         },
         "level": {
             "value": 13
@@ -33,7 +28,7 @@
                 ],
                 "selector": "strike-damage",
                 "type": "circumstance",
-                "value": "1+@weapon.system.runes.striking"
+                "value": "@weapon.system.damage.dice"
             },
             {
                 "domain": "all",
@@ -46,7 +41,6 @@
             "value": "Pathfinder Advanced Player's Guide"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "dwarf"

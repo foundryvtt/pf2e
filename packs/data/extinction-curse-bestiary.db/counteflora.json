@@ -32,7 +32,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile"
@@ -76,7 +75,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -116,7 +114,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -210,7 +207,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -250,7 +246,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -279,7 +274,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:30|traits:inhaled,poison] (@Check[type:fortitude|dc:32|name:Counteflora Toxin (Plant or Fungi)|traits:contact,poison] for plants and fungi)</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {4d6}[poison]]]{4d6 poison damage} and @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {6d6}[poison]]]{6d6 poison damage}, enfeebled 1, and @UUID[Compendium.pf2e.conditionitems.Fascinated]{Fascinated} (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:30|traits:inhaled,poison] (@Check[type:fortitude|dc:32|name:Counteflora Toxin (Plant or Fungi)|traits:contact,poison] for plants and fungi)</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 4d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 6d6[poison]]] damage, enfeebled 1, and @UUID[Compendium.pf2e.conditionitems.Fascinated]{Fascinated} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -290,7 +285,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "poison"
@@ -332,7 +326,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack"
@@ -366,11 +359,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -409,11 +397,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 },
                 "variants": {
                     "0": {
@@ -461,8 +444,13 @@
                 "temp": 0,
                 "value": 220
             },
+            "immunities": [
+                {
+                    "type": "poison"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 18
@@ -470,7 +458,17 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 10
+                },
+                {
+                    "type": "fire",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -503,26 +501,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "poison"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "label": "Cold",
-                    "type": "cold",
-                    "value": "10"
-                },
-                {
-                    "label": "Fire",
-                    "type": "fire",
-                    "value": "10"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

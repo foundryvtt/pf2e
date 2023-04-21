@@ -21,8 +21,8 @@ declare global {
      * // Share the image with other connected players
      * ip.share();
      */
-    class ImagePopout<TDocument extends ClientDocument = ClientDocument> extends FormApplication<
-        ClientDocument,
+    class ImagePopout<TDocument extends foundry.abstract.Document> extends FormApplication<
+        TDocument,
         ImagePopoutOptions
     > {
         constructor(src: string, options?: Partial<ImagePopoutOptions>);

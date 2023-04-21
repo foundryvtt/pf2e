@@ -1,9 +1,14 @@
+import { CharacterPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, NPCPF2e, PartyPF2e, VehiclePF2e } from "@actor";
+import { SenseAcuity, SenseType } from "@actor/creature/sense.ts";
+import { Alignment } from "@actor/creature/types.ts";
+import { ActorType } from "@actor/data/index.ts";
 import {
     ActionItemPF2e,
+    AfflictionPF2e,
     AncestryPF2e,
+    ArmorPF2e,
     BackgroundPF2e,
     BookPF2e,
-    ArmorPF2e,
     ClassPF2e,
     ConditionPF2e,
     ConsumablePF2e,
@@ -16,22 +21,30 @@ import {
     KitPF2e,
     LorePF2e,
     MeleePF2e,
-    SpellPF2e,
     SpellcastingEntryPF2e,
+    SpellPF2e,
     TreasurePF2e,
     WeaponPF2e,
 } from "@item";
-import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from "@actor";
-import { ConditionSlug } from "@item/condition/data";
-import { WEAPON_PROPERTY_RUNES } from "@item/physical/runes";
-import { PreciousMaterialGrade } from "@item/physical/types";
-import { DamageCategory, DamageType } from "@system/damage/types";
-import { ImmunityType, ResistanceType, WeaknessType } from "@actor/data/base";
-import { RANGE_TRAITS } from "@item/data/values";
-import { ActorType } from "@actor/data";
-import { BaseWeaponType, MeleeWeaponGroup, WeaponGroup, WeaponPropertyRuneType } from "@item/weapon/types";
+import { ConditionSlug } from "@item/condition/types.ts";
+import { RANGE_TRAITS } from "@item/data/values.ts";
+import { DeityDomain } from "@item/deity/types.ts";
+import { FeatCategory } from "@item/feat/index.ts";
+import { WEAPON_PROPERTY_RUNES } from "@item/physical/runes.ts";
+import { PreciousMaterialGrade } from "@item/physical/types.ts";
+import {
+    BaseWeaponType,
+    MeleeWeaponGroup,
+    WeaponGroup,
+    WeaponPropertyRuneType,
+    WeaponReloadTime,
+} from "@item/weapon/types.ts";
+import { Size } from "@module/data.ts";
+import { JournalSheetPF2e } from "@module/journal-entry/sheet.ts";
+import { sluggify } from "@util";
 import enJSON from "../../../static/lang/en.json";
-import { SenseAcuity, SenseType } from "@actor/creature/sense";
+import { damageCategories, damageRollFlavors, damageTypes, materialDamageEffects } from "./damage.ts";
+import { immunityTypes, resistanceTypes, weaknessTypes } from "./iwr.ts";
 import {
     actionTraits,
     alignmentTraits,
@@ -42,8 +55,6 @@ import {
     consumableTraits,
     creatureTraits,
     damageTraits,
-    elementalTraits,
-    energyDamageTypes,
     equipmentTraits,
     featTraits,
     hazardTraits,
@@ -58,14 +69,8 @@ import {
     spellTraits,
     vehicleTraits,
     weaponTraits,
-} from "./traits";
-import { JournalSheetPF2e } from "@module/journal-entry/sheet";
-import { Size } from "@module/data";
-import { FeatType } from "@item/feat/data";
-import { DeityDomain } from "@item/deity/types";
-import { sluggify } from "@util";
-import { Alignment } from "@actor/creature/types";
-import { WeaponReloadTime } from "@item/weapon/types";
+} from "./traits.ts";
+import { BaseArmorType } from "@item/armor/types.ts";
 
 export type StatusEffectIconTheme = "default" | "blackWhite";
 
@@ -75,6 +80,7 @@ const actorTypes: Record<ActorType, string> = {
     hazard: "ACTOR.TypeHazard",
     loot: "ACTOR.TypeLoot",
     npc: "ACTOR.TypeNpc",
+    party: "Actor.TypeParty",
     vehicle: "ACTOR.TypeVehicle",
 };
 
@@ -104,42 +110,6 @@ const weaponPropertyRunes = {
     ...Object.entries(WEAPON_PROPERTY_RUNES).reduce((accumulated, [slug, rune]) => {
         return { ...accumulated, [slug]: rune.name };
     }, {} as Record<WeaponPropertyRuneType, string>),
-};
-
-const damageCategories: Record<DamageCategory, string> = {
-    alignment: "PF2E.Alignment",
-    adamantine: "PF2E.PreciousMaterialAdamantine",
-    coldiron: "PF2E.PreciousMaterialColdIron",
-    darkwood: "PF2E.PreciousMaterialDarkwood",
-    energy: "PF2E.TraitEnergy",
-    ghostTouch: weaponPropertyRunes.ghostTouch,
-    mithral: "PF2E.PreciousMaterialMithral",
-    orichalcum: "PF2E.PreciousMaterialOrichalcum",
-    physical: "PF2E.TraitPhysical",
-    precision: "PF2E.TraitPrecision",
-    salt: "PF2E.TraitSalt",
-    "salt-water": "PF2E.TraitSaltWater",
-    silver: "PF2E.PreciousMaterialSilver",
-    "sisterstone-dusk": "PF2E.PreciousMaterialSisterstoneDusk",
-    "sisterstone-scarlet": "PF2E.PreciousMaterialSisterstoneScarlet",
-    warpglass: "PF2E.PreciousMaterialWarpglass",
-};
-
-const physicalDamageTypes = {
-    bleed: "PF2E.TraitBleed",
-    bludgeoning: "PF2E.TraitBludgeoning",
-    piercing: "PF2E.TraitPiercing",
-    slashing: "PF2E.TraitSlashing",
-};
-
-const damageTypes: Record<DamageType, string> = {
-    ...alignmentTraits,
-    ...elementalTraits,
-    ...energyDamageTypes,
-    ...physicalDamageTypes,
-    mental: "PF2E.TraitMental",
-    poison: "PF2E.TraitPoison",
-    untyped: "PF2E.TraitUntyped",
 };
 
 /** Non-detection- and attitude- related conditions added to the Token HUD */
@@ -192,85 +162,20 @@ const conditionTypes: Record<ConditionSlug, string> = {
     unnoticed: "PF2E.ConditionTypeUnnoticed",
 };
 
-const immunityTypes: Record<ImmunityType, string> = {
-    ...conditionTypes,
-    ...damageCategories,
-    ...damageTraits,
-    ...damageTypes,
-    ...magicSchools,
-    "area-damage": "PF2E.TraitAreaDamage",
-    auditory: "PF2E.TraitAuditory",
-    confusion: "PF2E.TraitConfusion",
-    "critical-hits": "PF2E.TraitCriticalHits",
-    curse: "PF2E.TraitCurse",
-    detection: "PF2E.TraitDetection",
-    "death-effects": "PF2E.TraitDeathEffects",
-    disease: "PF2E.TraitDisease",
-    emotion: "PF2E.TraitEmotion",
-    "fear-effects": "PF2E.TraitFearEffects",
-    ghostTouch: weaponPropertyRunes.ghostTouch,
-    healing: "PF2E.TraitHealing",
-    inhaled: "PF2E.TraitInhaled",
-    light: "PF2E.TraitLight",
-    magic: "PF2E.TraitMagic",
-    magical: "PF2E.TraitMagical",
-    "nonlethal-attacks": "PF2E.TraitNonlethalAttacks",
-    "nonmagical-attacks": "PF2E.TraitNonmagicalAttacks",
-    "object-immunities": "PF2E.TraitObjectImmunities",
-    olfactory: "PF2E.TraitOlfactory",
-    polymorph: "PF2E.TraitPolymorph",
-    possession: "PF2E.TraitPossession",
-    scrying: "PF2E.TraitScrying",
-    sleep: "PF2E.TraitSleep",
-    spellDeflection: "PF2E.TraitSpellDeflection",
-    "swarm-attacks": "PF2E.TraitSwarmAttacks",
-    "swarm-mind": "PF2E.TraitSwarmMind",
-    trip: "PF2E.TraitTrip",
-    unarmed: "PF2E.TraitUnarmed",
-    visual: "PF2E.TraitVisual",
-};
-
-const weaknessTypes: Record<WeaknessType, string> = {
-    ...damageCategories,
-    ...damageTraits,
-    ...damageTypes,
-    "area-damage": "PF2E.TraitAreaDamage",
-    axe: "PF2E.TraitAxeVulnerability",
-    "critical-hits": "PF2E.TraitCriticalHits",
-    emotion: "PF2E.TraitEmotion",
-    "nonlethal-attacks": "PF2E.TraitNonlethalAttacks",
-    "persistent-damage": "PF2E.ConditionTypePersistent",
-    "salt-water": "PF2E.TraitSaltWater",
-    "splash-damage": "PF2E.TraitSplashDamage",
-    "vampire-weaknesses": "PF2E.TraitVampireWeaknesses",
-    vorpal: weaponPropertyRunes.vorpal,
-    "vorpal-fear": "PF2E.TraitVorpalFear",
-    "vulnerable-to-sunlight": "PF2E.TraitVulnerableToSunlight",
-    unarmed: "PF2E.TraitUnarmed",
-    weapons: "PF2E.TraitWeapons",
-};
-
-const resistanceTypes: Record<ResistanceType, string> = {
-    ...damageCategories,
-    ...damageTraits,
-    ...damageTypes,
-    all: "PF2E.TraitAll",
-    "area-damage": "PF2E.TraitAreaDamage",
-    "critical-hits": "PF2E.TraitCriticalHits",
-    "nonlethal-attacks": "PF2E.TraitNonlethalAttacks",
-    "persistent-damage": "PF2E.ConditionTypePersistent",
-    "protean anatomy": "PF2E.TraitProteanAnatomy",
-    unarmed: "PF2E.TraitUnarmed",
-    vorpal: weaponPropertyRunes.vorpal,
-    weapons: "PF2E.TraitWeapons",
-};
-
 const weaponCategories = {
     simple: "PF2E.WeaponTypeSimple",
     martial: "PF2E.WeaponTypeMartial",
     advanced: "PF2E.WeaponTypeAdvanced",
     unarmed: "PF2E.WeaponTypeUnarmed",
 };
+
+const baseArmorTypes = Object.keys(enJSON.PF2E.Item.Armor.Base).reduce(
+    (map, slug) => ({
+        ...map,
+        [slug]: `PF2E.Weapon.Base.${slug}`,
+    }),
+    {} as Record<BaseArmorType, string>
+);
 
 const baseWeaponTypes = Object.keys(enJSON.PF2E.Weapon.Base).reduce(
     (map, slug) => ({
@@ -290,13 +195,13 @@ const equivalentWeapons = {
 
 const rangeDescriptions = RANGE_TRAITS.reduce(
     (descriptions, trait) => mergeObject(descriptions, { [trait]: "PF2E.TraitDescriptionRange" }),
-    {} as Record<typeof RANGE_TRAITS[number], string>
+    {} as Record<(typeof RANGE_TRAITS)[number], string>
 );
 
 const preciousMaterialDescriptions = {
     abysium: "PF2E.PreciousMaterialAbysiumDescription",
     adamantine: "PF2E.PreciousMaterialAdamantineDescription",
-    coldIron: "PF2E.PreciousMaterialColdIronDescription",
+    "cold-iron": "PF2E.PreciousMaterialColdIronDescription",
     darkwood: "PF2E.PreciousMaterialDarkwoodDescription",
     djezet: "PF2E.PreciousMaterialDjezetDescription",
     dragonhide: "PF2E.PreciousMaterialDragonhideDescription",
@@ -309,7 +214,7 @@ const preciousMaterialDescriptions = {
     silver: "PF2E.PreciousMaterialSilverDescription",
     "sisterstone-dusk": "PF2E.PreciousMaterialSisterstoneDescription",
     "sisterstone-scarlet": "PF2E.PreciousMaterialSisterstoneDescription",
-    sovereignSteel: "PF2E.PreciousMaterialSovereignSteelDescription",
+    "sovereign-steel": "PF2E.PreciousMaterialSovereignSteelDescription",
     warpglass: "PF2E.PreciousMaterialWarpglassDescription",
 };
 
@@ -318,9 +223,11 @@ const traitsDescriptions = {
     aberration: "PF2E.TraitDescriptionAberration",
     abjuration: "PF2E.TraitDescriptionAbjuration",
     acid: "PF2E.TraitDescriptionAcid",
+    additive0: "PF2E.TraitDescriptionAdditive",
     additive1: "PF2E.TraitDescriptionAdditive",
     additive2: "PF2E.TraitDescriptionAdditive",
     additive3: "PF2E.TraitDescriptionAdditive",
+    adjusted: "PF2E.TraitDescriptionAdjusted",
     adjustment: "PF2E.TraitDescriptionAdjustment",
     aeon: "PF2E.TraitDescriptionAeon",
     aesir: "PF2E.TraitDescriptionAesir",
@@ -335,6 +242,7 @@ const traitsDescriptions = {
     android: "PF2E.TraitDescriptionAndroid",
     apex: "PF2E.TraitDescriptionApex",
     aphorite: "PF2E.TraitDescriptionAphorite",
+    aquadynamic: "PF2E.TraitDescriptionAquadynamic",
     arcane: "PF2E.TraitDescriptionArcane",
     archetype: "PF2E.TraitDescriptionArchetype",
     artifact: "PF2E.TraitDescriptionArtifact",
@@ -352,9 +260,11 @@ const traitsDescriptions = {
     bard: "PF2E.TraitDescriptionBard",
     beastkin: "PF2E.TraitDescriptionBeastkin",
     bomb: "PF2E.TraitDescriptionBomb",
+    brace: "PF2E.TraitDescriptionBrace",
     brutal: "PF2E.TraitDescriptionBrutal",
     bulwark: "PF2E.TraitDescriptionBulwark",
     cantrip: "PF2E.TraitDescriptionCantrip",
+    "capacity-2": "PF2E.TraitDescriptionCapacity",
     "capacity-3": "PF2E.TraitDescriptionCapacity",
     "capacity-4": "PF2E.TraitDescriptionCapacity",
     "capacity-5": "PF2E.TraitDescriptionCapacity",
@@ -363,12 +273,12 @@ const traitsDescriptions = {
     champion: "PF2E.TraitDescriptionChampion",
     changeling: "PF2E.TraitDescriptionChangeling",
     chaotic: "PF2E.TraitDescriptionChaotic",
-    charm: "PF2E.TraitDescriptionCharm",
     class: "PF2E.TraitDescriptionClass",
     cleric: "PF2E.TraitDescriptionCleric",
     climbing: "PF2E.TraitDescriptionClimbing",
     clockwork: "PF2E.TraitDescriptionClockwork",
     cobbled: "PF2E.TraitDescriptionCobbled",
+    coda: "PF2E.TraitDescriptionCoda",
     cold: "PF2E.TraitDescriptionCold",
     combination: "PF2E.TraitDescriptionCombination",
     comfort: "PF2E.TraitDescriptionComfort",
@@ -405,7 +315,11 @@ const traitsDescriptions = {
     "deadly-d12": "PF2E.TraitDescriptionDeadly",
     "deadly-d6": "PF2E.TraitDescriptionDeadly",
     "deadly-d8": "PF2E.TraitDescriptionDeadly",
+    "deadly-d4": "PF2E.TraitDescriptionDeadly",
     death: "PF2E.TraitDescriptionDeath",
+    "deflecting-bludgeoning": "PF2E.TraitDescriptionDeflecting",
+    "deflecting-physical-ranged": "PF2E.TraitDescriptionDeflecting",
+    "deflecting-slashing": "PF2E.TraitDescriptionDeflecting",
     dedication: "PF2E.TraitDescriptionDedication",
     detection: "PF2E.TraitDescriptionDetection",
     deviant: "PF2E.TraitDescriptionDeviant",
@@ -427,10 +341,14 @@ const traitsDescriptions = {
     elixir: "PF2E.TraitDescriptionElixir",
     emotion: "PF2E.TraitDescriptionEmotion",
     enchantment: "PF2E.TraitDescriptionEnchantment",
+    "entrench-melee": "PF2E.TraitDescriptionEntrenchMelee",
+    "entrench-ranged": "PF2E.TraitDescriptionEntrenchRanged",
     environment: "PF2E.TraitDescriptionEnvironment",
     esoterica: "PF2E.TraitDescriptionEsoterica",
     evil: "PF2E.TraitDescriptionEvil",
     evocation: "PF2E.TraitDescriptionEvocation",
+    evolution: "PF2E.TraitDescriptionEvolution",
+    expandable: "PF2E.TraitDescriptionExpandable",
     exploration: "PF2E.TraitDescriptionExploration",
     extradimensional: "PF2E.TraitDescriptionExtradimensional",
     "fatal-aim-d10": "PF2E.TraitDescriptionFatalAim",
@@ -449,6 +367,7 @@ const traitsDescriptions = {
     flexible: "PF2E.TraitDescriptionFlexible",
     flourish: "PF2E.TraitDescriptionFlourish",
     focused: "PF2E.TraitDescriptionFocused",
+    foldaway: "PF2E.TraitDescriptionFoldaway",
     force: "PF2E.TraitDescriptionForce",
     forceful: "PF2E.TraitDescriptionForceful",
     fortune: "PF2E.TraitDescriptionFortune",
@@ -474,11 +393,14 @@ const traitsDescriptions = {
     halfling: "PF2E.TraitDescriptionHalfling",
     "half-elf": "PF2E.TraitDescriptionHalfElf",
     "half-orc": "PF2E.TraitDescriptionHalfOrc",
-    "jousting-d6": "PF2E.TraitDescriptionJoustingD6",
+    "jousting-d6": "PF2E.TraitDescriptionJousting",
     hampering: "PF2E.TraitDescriptionHampering",
+    harnessed: "PF2E.TraitDescriptionHarnessed",
     haunt: "PF2E.TraitDescriptionHaunt",
     healing: "PF2E.TraitDescriptionHealing",
+    "hefty-14": "PF2E.TraitDescriptionHefty",
     hex: "PF2E.TraitDescriptionHex",
+    hindering: "PF2E.TraitDescriptionHindering",
     hobgoblin: "PF2E.TraitDescriptionHobgoblin",
     human: "PF2E.TraitDescriptionHuman",
     humanoid: "PF2E.TraitDescriptionHumanoid",
@@ -492,20 +414,28 @@ const traitsDescriptions = {
     inhaled: "PF2E.TraitDescriptionInhaled",
     injection: "PF2E.TraitDescriptionInjection",
     injury: "PF2E.TraitDescriptionInjury",
+    inscribed: "PF2E.TraitDescriptionInscribed",
+    "integrated-1d6-b": "PF2E.TraitDescriptionIntegrated",
+    "integrated-1d6-p": "PF2E.TraitDescriptionIntegrated",
+    "integrated-1d6-s": "PF2E.TraitDescriptionIntegrated",
+    "integrated-1d6-s-versatile-p": "PF2E.TraitDescriptionIntegrated",
     intelligent: "PF2E.TraitDescriptionIntelligent",
     inventor: "PF2E.TraitDescriptionInventor",
     invested: "PF2E.TraitDescriptionInvested",
     investigator: "PF2E.TraitDescriptionInvestigator",
     kashrishi: "PF2E.TraitDescriptionKashrishi",
     kickback: "PF2E.TraitDescriptionKickback",
-    kitsune: "TraitDescriptionKitsune",
-    kobold: "TraitDescriptionKobold",
+    kitsune: "PF2E.TraitDescriptionKitsune",
+    kobold: "PF2E.TraitDescriptionKobold",
+    laminar: "PF2E.TraitDescriptionLaminar",
+    "launching-dart": "PF2E.TraitDescriptionLaunching",
     lawful: "PF2E.TraitDescriptionLawful",
     leshy: "PF2E.TraitDescriptionLeshy",
     light: "PF2E.TraitDescriptionLight",
     linguistic: "PF2E.TraitDescriptionLinguistic",
     litany: "PF2E.TraitDescriptionLitany",
     lizardfolk: "PF2E.TraitDescriptionLizardfolk",
+    lozenge: "PF2E.TraitDescriptionLozenge",
     magical: "PF2E.TraitDescriptionMagical",
     magus: "PF2E.TraitDescriptionMagus",
     manipulate: "PF2E.TraitDescriptionManipulate",
@@ -514,8 +444,10 @@ const traitsDescriptions = {
     metal: "PF2E.TraitDescriptionMetal",
     metamagic: "PF2E.TraitDescriptionMetamagic",
     mindless: "PF2E.TraitDescriptionMindless",
+    mindshift: "PF2E.TraitDescriptionMindshift",
     minion: "PF2E.TraitDescriptionMinion",
     misfortune: "PF2E.TraitDescriptionMisfortune",
+    missive: "PF2E.TraitDescriptionMissive",
     modification: "PF2E.TraitDescriptionModification",
     modular: "PF2E.TraitDescriptionModular",
     monk: "PF2E.TraitDescriptionMonk",
@@ -542,6 +474,7 @@ const traitsDescriptions = {
     plant: "PF2E.TraitDescriptionPlant",
     poison: "PF2E.TraitDescriptionPoison",
     polymorph: "PF2E.TraitDescriptionPolymorph",
+    ponderous: "PF2E.TraitDescriptionPonderous",
     poppet: "PF2E.TraitDescriptionPoppet",
     portable: "PF2E.TraitDescriptionPortable",
     positive: "PF2E.TraitDescriptionPositive",
@@ -560,6 +493,7 @@ const traitsDescriptions = {
     "ranged-trip": "PF2E.TraitDescriptionRangedTrip",
     rare: "PF2E.TraitDescriptionRare",
     ratfolk: "PF2E.TraitDescriptionRatfolk",
+    razing: "PF2E.TraitDescriptionRazing",
     reach: "PF2E.TraitDescriptionReach",
     "reach-0": "PF2E.TraitDescriptionReach",
     "reach-10": "PF2E.TraitDescriptionReach",
@@ -572,6 +506,7 @@ const traitsDescriptions = {
     "reach-40": "PF2E.TraitDescriptionReach",
     "reach-50": "PF2E.TraitDescriptionReach",
     "reach-60": "PF2E.TraitDescriptionReach",
+    recovery: "PF2E.TraitDescriptionRecovery",
     reflection: "PF2E.TraitDescriptionReflection",
     reload: "PF2E.TraitDescriptionReload",
     "reload-0": "PF2E.TraitDescriptionReload",
@@ -590,6 +525,8 @@ const traitsDescriptions = {
     scrying: "PF2E.TraitDescriptionScrying",
     secret: "PF2E.TraitDescriptionSecret",
     shadow: "PF2E.TraitDescriptionShadow",
+    "shield-throw-20": "PF2E.TraitDescriptionShieldThrow",
+    "shield-throw-30": "PF2E.TraitDescriptionShieldThrow",
     shisk: "PF2E.TraitDescriptionShisk",
     shoony: "PF2E.TraitDescriptionShoony",
     shove: "PF2E.TraitDescriptionShove",
@@ -600,6 +537,7 @@ const traitsDescriptions = {
     social: "PF2E.TraitDescriptionSocial",
     sonic: "PF2E.TraitDescriptionSonic",
     sorcerer: "PF2E.TraitDescriptionSorcerer",
+    spellgun: "PF2E.TraitDescriptionSpellgun",
     spellheart: "PF2E.TraitDescriptionSpellheart",
     spellshot: "PF2E.TraitNoDescription",
     splash: "PF2E.TraitDescriptionSplash",
@@ -618,6 +556,7 @@ const traitsDescriptions = {
     sweep: "PF2E.TraitDescriptionSweep",
     sylph: "PF2E.TraitDescriptionSylph",
     talisman: "PF2E.TraitDescriptionTalisman",
+    tandem: "PF2E.TraitDescriptionTandem",
     tattoo: "PF2E.TraitDescriptionTattoo",
     tech: "PF2E.TraitDescriptionTech",
     telepathy: "PF2E.TraitDescriptionTelepathy",
@@ -630,6 +569,7 @@ const traitsDescriptions = {
     "thrown-100": "PF2E.TraitDescriptionThrown",
     "thrown-15": "PF2E.TraitDescriptionThrown",
     "thrown-20": "PF2E.TraitDescriptionThrown",
+    "thrown-200": "PF2E.TraitDescriptionThrown",
     "thrown-25": "PF2E.TraitDescriptionThrown",
     "thrown-30": "PF2E.TraitDescriptionThrown",
     "thrown-40": "PF2E.TraitDescriptionThrown",
@@ -638,6 +578,7 @@ const traitsDescriptions = {
     "thrown-80": "PF2E.TraitDescriptionThrown",
     tiefling: "PF2E.TraitDescriptionTiefling",
     time: "PF2E.TraitDescriptionTime",
+    training: "PF2E.TraitDescriptionTraining",
     transmutation: "PF2E.TraitDescriptionTransmutation",
     trap: "PF2E.TraitDescriptionTrap",
     trip: "PF2E.TraitDescriptionTrip",
@@ -654,6 +595,7 @@ const traitsDescriptions = {
     unstable: "PF2E.TraitDescriptionUnstable",
     vanara: "PF2E.TraitDescriptionVanara",
     vishkanya: "PF2E.TraitDescriptionVishkanya",
+    vehicular: "PF2E.TraitDescriptionVehicular",
     "versatile-acid": "PF2E.TraitDescriptionVersatile",
     "versatile-b": "PF2E.TraitDescriptionVersatile",
     "versatile-chaotic": "PF2E.TraitDescriptionVersatile",
@@ -720,14 +662,13 @@ const sizeTypes: Record<Size, string> = {
     grg: "PF2E.ActorSizeGargantuan",
 };
 
-const featTypes: Record<FeatType, string> = {
+const featCategories: Record<FeatCategory, string> = {
     ancestry: "PF2E.FeatTypeAncestry",
     ancestryfeature: "PF2E.FeatTypeAncestryfeature",
     class: "PF2E.FeatTypeClass",
     classfeature: "PF2E.FeatTypeClassfeature",
     skill: "PF2E.FeatTypeSkill",
     general: "PF2E.FeatTypeGeneral",
-    archetype: "PF2E.FeatTypeArchetype",
     bonus: "PF2E.FeatTypeBonus",
     pfsboon: "PF2E.FeatPFSBoonHeader",
     deityboon: "PF2E.FeatDeityBoonHeader",
@@ -764,7 +705,7 @@ const weaponReload: Record<WeaponReloadTime, string> = {
     1: "1",
     2: "2",
     3: "3",
-    10: "PF2E.Item.Weapon.ReloadOneMinute",
+    10: "PF2E.Item.Weapon.Reload.OneMinute",
 };
 
 export const PF2ECONFIG = {
@@ -815,13 +756,13 @@ export const PF2ECONFIG = {
     },
 
     dcAdjustments: {
-        "incredibly easy": "PF2E.DCAdjustmentIncrediblyEasy",
-        "very easy": "PF2E.DCAdjustmentVeryEasy",
+        "incredibly-easy": "PF2E.DCAdjustmentIncrediblyEasy",
+        "very-easy": "PF2E.DCAdjustmentVeryEasy",
         easy: "PF2E.DCAdjustmentEasy",
         normal: "PF2E.DCAdjustmentNormal",
         hard: "PF2E.DCAdjustmentHard",
-        "very hard": "PF2E.DCAdjustmentVeryHard",
-        "incredibly hard": "PF2E.DCAdjustmentIncrediblyHard",
+        "very-hard": "PF2E.DCAdjustmentVeryHard",
+        "incredibly-hard": "PF2E.DCAdjustmentIncrediblyHard",
     },
 
     skills: {
@@ -841,17 +782,6 @@ export const PF2ECONFIG = {
         ste: "PF2E.SkillSte",
         sur: "PF2E.SkillSur",
         thi: "PF2E.SkillThi",
-    },
-
-    martialSkills: {
-        unarmored: "PF2E.MartialUnarmored",
-        light: "PF2E.MartialLight",
-        medium: "PF2E.MartialMedium",
-        heavy: "PF2E.MartialHeavy",
-        simple: "PF2E.MartialSimple",
-        martial: "PF2E.MartialMartial",
-        advanced: "PF2E.MartialAdvanced",
-        unarmed: "PF2E.MartialUnarmed",
     },
 
     saves: {
@@ -955,26 +885,24 @@ export const PF2ECONFIG = {
     weaponPropertyRunes,
     damageTraits,
     damageTypes,
-    damageSubtypes: {
-        persistent: "PF2E.ConditionTypePersistentShort",
-        splash: "PF2E.TraitSplash",
-    },
-
+    damageRollFlavors,
     damageCategories,
+    materialDamageEffects,
     resistanceTypes,
 
     stackGroups: {
         arrows: "PF2E.StackGroupArrows",
-        bolts: "PF2E.StackGroupBolts",
-        slingBullets: "PF2E.StackGroupSlingBullets",
         blowgunDarts: "PF2E.StackGroupBlowgunDarts",
-        woodenTaws: "PF2E.StackGroupWoodenTaws",
+        bolts: "PF2E.StackGroupBolts",
+        coins: "PF2E.StackGroupCoins",
+        gems: "PF2E.StackGroupGems",
         rounds5: "PF2E.StackGroupRounds5",
         rounds10: "PF2E.StackGroupRounds10",
         rations: "PF2E.StackGroupRations",
-        coins: "PF2E.StackGroupCoins",
-        gems: "PF2E.StackGroupGems",
         sacks: "PF2E.StackGroupSacks",
+        slingBullets: "PF2E.StackGroupSlingBullets",
+        sprayPellets: "PF2E.StackGroupSprayPellets",
+        woodenTaws: "PF2E.StackGroupWoodenTaws",
     },
 
     weaknessTypes,
@@ -995,6 +923,7 @@ export const PF2ECONFIG = {
     weaponGroups,
     meleeWeaponGroups,
 
+    baseArmorTypes,
     baseWeaponTypes,
     equivalentWeapons,
 
@@ -1017,26 +946,47 @@ export const PF2ECONFIG = {
     },
 
     usageTraits: {
+        "affixed-to-a-creature": "PF2E.TraitAffixedToCreature",
+        "affixed-to-a-magical-staff": "PF2E.TraitAffixedToMagicalStaff",
         "affixed-to-a-ranged-weapon": "PF2E.TraitAffixedToARangedWeapon",
         "affixed-to-a-shield": "PF2E.TraitAffixedToAShield",
-        "affixed-to-a-two-handed-firearm-or-crossbow": "PF2E.TraitAffixededToATwoHandedFirearmOrCrossbow",
+        "affixed-to-a-thrown-weapon": "PF2E.TraitAffixedToThrownWeapon",
+        "affixed-to-a-two-handed-firearm-or-crossbow": "PF2E.TraitAffixedToATwoHandedFirearmOrCrossbow",
+        "affixed-to-an-innovation": "PF2E.TraitAffixedToInnovation",
+        "affixed-to-an-object-or-structure": "PF2E.TraitAffixedToObjectOrStructure",
         "affixed-to-armor": "PF2E.TraitAffixedToArmor",
         "affixed-to-medium-heavy-armor": "PF2E.TraitAffixedToMediumHeavyArmor",
         "affixed-to-armor-or-a-weapon": "PF2E.TraitAffixedToArmorOrAWeapon",
         "affixed-to-armor-or-travelers-clothing": "PF2E.TraitAffixedToArmorOrTravelersClothing",
-        "affixed-to-crossbow-or-firearm": "PF2E.TraitAffixededToCrossbowOrFirearm",
-        "affixed-to-firearm": "PF2E.TraitAffixededToFirearm",
-        "affixed-to-firearm-with-a-reload-of-1": "PF2E.TraitAffixededToFirearmWithAReloadOf1",
-        "affixed-to-firearm-with-the-kickback-trait": "PF2E.TraitAffixededToFirearmWithTheKickbackTrait",
+        "affixed-to-crossbow-or-firearm": "PF2E.TraitAffixedToCrossbowOrFirearm",
+        "affixed-to-firearm": "PF2E.TraitAffixedToFirearm",
+        "affixed-to-firearm-with-a-reload-of-1": "PF2E.TraitAffixedToFirearmWithAReloadOf1",
+        "affixed-to-firearm-with-the-kickback-trait": "PF2E.TraitAffixedToFirearmWithTheKickbackTrait",
+        "affixed-to-ground-in-10-foot-radius": "PF2E.TraitAffixedToGroundIn10FtRadius",
+        "affixed-to-ground-in-20-foot-radius": "PF2E.TraitAffixedToGroundIn20FtRadius",
+        "affixed-to-harness": "PF2E.TraitAffixedToHarness",
         "affixed-to-headgear": "PF2E.TraitAffixedToHeadgear",
+        "affixed-to-instrument": "PF2E.TraitAffixedToInstrument",
+        "affixed-to-load-bearing-wall-or-pillar": "PF2E.TraitAffixedToLoadBearingWallOrPillar",
+        "affixed-to-object-structure-or-creature": "PF2E.TraitAffixedToStructureObjectOrCreature",
+        "affixed-to-the-ground": "PF2E.TraitAffixedToGround",
+        "affixed-to-unarmored-defense-item": "PF2E.TraitAffixedToUnarmoredItem",
         "affixed-to-weapon": "PF2E.TraitAffixedToWeapon",
+        "applied-to-a-basket-bag-or-other-container": "PF2E.TraitAppliedToBasketBagOrContainer",
+        "applied-to-a-weapon": "PF2E.TraitAppliedToAWeapon",
         "applied-to-a-wind-powered-vehicle": "PF2E.TraitAppliedToAWindPoweredVehicle",
+        "applied-to-a-non-injection-melee-weapon-piercing-damage":
+            "PF2E.TraitAppliedToANoninjectionMeleePiercingWeapon",
         "applied-to-any-item-of-light-or-negligible-bulk": "PF2E.TraitAppliedToAnyItemOfLightOrNegligibleBulk",
         "applied-to-any-visible-article-of-clothing": "PF2E.TraitAppliedToAnyVisibleArticleOfClothing",
+        "applied-to-armor": "PF2E.TraitAppliedToArmor",
+        "applied-to-armor-or-unarmored-defense-clothing": "PF2E.TraitAppliedToArmorOrUnarmored",
         "applied-to-belt-cape-cloak-or-scarf": "PF2E.TraitAppliedToBeltCapeCloakOrScarf",
         "applied-to-boots-cape-cloak-or-umbrella": "PF2E.TraitAppliedToBootsCapeCloakOrUmbrella",
-        "applied-to-dueling-cape-or-shield": "PF2E.TraitAppliedToDuelingCapeOrShield",
         "applied-to-buckler-shield": "PF2E.TraitAppliedToBucklerShield",
+        "applied-to-dueling-cape-or-shield": "PF2E.TraitAppliedToDuelingCapeOrShield",
+        "applied-to-footwear": "PF2E.TraitAppliedToFootwear",
+        "applied-to-medium-heavy-armor": "PF2E.TraitAppliedToMediumHeavyArmor",
         "applied-to-shield": "PF2E.TraitAppliedToShield",
         "attached-to-a-thrown-weapon": "PF2E.TraitAttachedToAThrownWeapon",
         "attached-to-crossbow-or-firearm": "PF2E.TraitAttachedToCrossbowOrFirearm",
@@ -1045,20 +995,33 @@ export const PF2ECONFIG = {
         "attached-to-firearm": "PF2E.TraitAttachedToFirearm",
         "attached-to-firearm-scope": "PF2E.TraitAttachedToFirearmScope",
         bonded: "PF2E.TraitBonded",
+        carried: "PF2E.TraitCarried",
         "each-rune-applied-to-a-separate-item-that-has-pockets":
             "PF2E.TraitEachRuneAppliedToASeparateItemThatHasPockets",
         "etched-onto-a-weapon": "PF2E.TraitEtchedOntoAWeapon",
         "etched-onto-armor": "PF2E.TraitEtchedOntoArmor",
+        "etched-onto-heavy-armor": "PF2E.TraitEtchedOntoHeavyArmor",
+        "etched-onto-light-armor": "PF2E.TraitEtchedOntoLightArmor",
+        "etched-onto-metal-armor": "PF2E.TraitEtchedOntoMetalArmor",
         "etched-onto-clan-dagger": "PF2E.TraitEtchedOntoAClanDagger",
         "etched-onto-lm-nonmetal-armor": "PF2E.TraitEtchedOntoLightMedNMArmor",
         "etched-onto-med-heavy-armor": "PF2E.TraitEtchedOntoMedHeavyArmor",
         "etched-onto-melee-weapon": "PF2E.TraitEtchedOntoAMeleeWeapon",
+        "etched-onto-slashing-melee-weapon": "PF2E.TraitEtchedOntoASlashingMeleeWeapon",
+        "etched-onto-piercing-or-slashing-melee-weapon": "PF2E.TraitEtchedOntoAPiercingOrSlashingMeleeWeapon",
+        "etched-onto-weapon-wo-anarchic-rune": "PF2E.TraitEtchedOntoAWeaponWOAxiomaticRune",
+        "etched-onto-weapon-wo-axiomatic-rune": "PF2E.TraitEtchedOntoAWeaponWOAnarchicRune",
+        "etched-onto-weapon-wo-unholy-rune": "PF2E.TraitEtchedOntoAWeaponWOHolyRune",
+        "etched-onto-weapon-wo-holy-rune": "PF2E.TraitEtchedOntoAWeaponWOUnholyRune",
+        "etched-onto-melee-weapon-monk": "PF2E.TraitEtchedOntoAMeleeWeaponMonk",
         "etched-onto-thrown-weapon": "PF2E.TraitEtchedOntoAThrownWeapon",
         "held-in-one-hand": "PF2E.TraitHeldOneHand",
+        "held-in-one-hand-or-free-standing": "PF2E.TraitHeldOneHandFreeStanding",
         "held-in-two-hands": "PF2E.TraitHeldTwoHands",
         other: "Other",
         "sewn-into-clothing": "PF2E.TraitSewnIntoClothing",
         "tattooed-on-the-body": "PF2E.TraitTattooedOnTheBody",
+        touched: "PF2E.TraitTouched",
         worn: "PF2E.TraitWorn",
         wornamulet: "PF2E.TraitWornAmulet",
         wornanklets: "PF2E.TraitWornAnklets",
@@ -1067,15 +1030,20 @@ export const PF2ECONFIG = {
         wornbarding: "PF2E.TraitWornBarding",
         wornbelt: "PF2E.TraitWornBelt",
         wornbeltpouch: "PF2E.TraitWornBeltPouch",
+        wornboots: "PF2E.TraitWornBoots",
         wornbracelet: "PF2E.TraitWornBracelet",
         wornbracers: "PF2E.TraitWornBracers",
+        worncap: "PF2E.TraitWornCap",
+        worncape: "PF2E.TraitWornCape",
         worncirclet: "PF2E.TraitWornCirclet",
         worncloak: "PF2E.TraitWornCloak",
         wornclothing: "PF2E.TraitWornClothing",
         worncollar: "PF2E.TraitWornCollar",
         worncrown: "PF2E.TraitWornCrown",
         wornepaulet: "PF2E.TraitWornEpaulet",
+        worneyeglasses: "PF2E.TraitWornEyeglasses",
         worneyepiece: "PF2E.TraitWornEyepiece",
+        wornfootwear: "PF2E.TraitWornFootwear",
         worngarment: "PF2E.TraitWornGarment",
         worngloves: "PF2E.TraitWornGloves",
         wornheadwear: "PF2E.TraitWornHeadwear",
@@ -1086,6 +1054,7 @@ export const PF2ECONFIG = {
         wornoronehand: "PF2E.TraitWornOrOneHand",
         wornring: "PF2E.TraitWornRing",
         wornsaddle: "PF2E.TraitWornSaddle",
+        wornsandles: "PF2E.TraitWornSandles",
         wornshoes: "PF2E.TraitWornShoes",
         wornwrist: "PF2E.TraitWornOnWrists",
         "worn-and-attached-to-two-weapons": "PF2E.TraitWornAndAttachedToTwoWeapons",
@@ -1170,12 +1139,14 @@ export const PF2ECONFIG = {
 
     weaponReload,
 
-    armorTypes: {
+    armorCategories: {
         unarmored: "PF2E.ArmorTypeUnarmored",
         light: "PF2E.ArmorTypeLight",
         medium: "PF2E.ArmorTypeMedium",
         heavy: "PF2E.ArmorTypeHeavy",
         shield: "PF2E.ArmorTypeShield",
+        "light-barding": "PF2E.Item.Armor.Category.light-barding",
+        "heavy-barding": "PF2E.Item.Armor.Category.heavy-barding",
     },
 
     armorGroups: {
@@ -1184,6 +1155,8 @@ export const PF2ECONFIG = {
         cloth: "PF2E.ArmorGroupCloth",
         leather: "PF2E.ArmorGroupLeather",
         plate: "PF2E.ArmorGroupPlate",
+        skeletal: "PF2E.ArmorGroupSkeletal",
+        wood: "PF2E.ArmorGroupWood",
     },
 
     consumableTypes: {
@@ -1234,6 +1207,7 @@ export const PF2ECONFIG = {
         45: "PF2E.AreaSize45",
         50: "PF2E.AreaSize50",
         60: "PF2E.AreaSize60",
+        65: "PF2E.AreaSize65",
         75: "PF2E.AreaSize75",
         80: "PF2E.AreaSize80",
         90: "PF2E.AreaSize90",
@@ -1310,7 +1284,7 @@ export const PF2ECONFIG = {
         10: "PF2E.SpellLevel10",
     }, // TODO: Compute levels!
 
-    featTypes,
+    featCategories,
 
     actionTypes: {
         action: "PF2E.ActionTypeAction",
@@ -1338,6 +1312,15 @@ export const PF2ECONFIG = {
         PT24H: "PF2E.Duration.PT24H",
         day: "PF2E.Duration.day",
         P1W: "PF2E.Duration.P1W",
+    },
+
+    timeUnits: {
+        rounds: "PF2E.Time.Unit.Rounds",
+        minutes: "PF2E.Time.Unit.Minutes",
+        hours: "PF2E.Time.Unit.Hours",
+        days: "PF2E.Time.Unit.Days",
+        unlimited: "PF2E.Time.Unit.Unlimited",
+        encounter: "PF2E.Time.Unit.UntilEncounterEnds",
     },
 
     // Proficiency Multipliers
@@ -1483,6 +1466,7 @@ export const PF2ECONFIG = {
         drooni: "PF2E.LanguageDrooni",
         dziriak: "PF2E.LanguageDziriak",
         ekujae: "PF2E.LanguageEkujae",
+        "elder-thing": "PF2E.LanguageElderThing",
         erutaki: "PF2E.LanguageErutaki",
         formian: "PF2E.LanguageFormian",
         garundi: "PF2E.LanguageGarundi",
@@ -1495,6 +1479,7 @@ export const PF2ECONFIG = {
         iblydan: "PF2E.LanguageIblydan",
         ignan: "PF2E.LanguageIgnan",
         ikeshti: "PF2E.LanguageIkeshti",
+        immolis: "PF2E.LanguageImmolis",
         infernal: "PF2E.LanguageInfernal",
         iruxi: "PF2E.LanguageIruxi",
         jistkan: "PF2E.LanguageJistkan",
@@ -1583,262 +1568,15 @@ export const PF2ECONFIG = {
         },
     },
 
-    monsterAbilities: () => {
-        return {
-            "All-Around Vision": {
-                actionType: "passive",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 342</i></a><br>This monster can see in all directions simultaneously, and therefore can\'t be flanked.',
-            },
-            "Aquatic Ambush": {
-                actionType: "action",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 342</i></a><br><b>Requirements</b> The monster is hiding in water and a creature that hasn\'t detected it is within the listed number of feet. <b>Effect</b> The monster moves up to its swim Speed + 10 feet toward the triggering creature, traveling on water and on land. Once the creature is in reach, the monster makes a Strike against it. The creature is <a style="text-decoration:underline" href="https://2e.aonprd.com/Conditions.aspx?ID=16">flat-footed</a> against this Strike.',
-            },
-            "Attack of Opportunity": {
-                actionType: "reaction",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 342</i></a><br><b>Trigger</b> A creature within the monster\'s reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it\'s using. <b>Effect</b> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn\'t count toward the monster\'s multiple attack penalty, and its multiple attack penalty doesn\'t apply to this Strike.',
-            },
-            "At-Will Spells": {
-                actionType: "passive",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 342</i></a><br>The monster can cast its at-will spells any number of times without using up spell slots.',
-            },
-            Aura: {
-                actionType: "passive",
-                actionCost: 1,
-                description:
-                    "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 342</i></a><br>A monster's aura automatically affects everything within a specified emanation around that monster. The monster doesn't need to spend actions on the aura; rather, the aura's effects are applied at specific times, such as when a creature ends its turn in the aura or when creatures enter the aura.<br><br> If an aura does nothing but deal damage, its entry lists only the radius, damage, and saving throw. Such auras deal this damage to a creature when the creature enters the aura and when a creature starts its turn in the aura. A creature can take damage from the aura only once per round.<br><br> The GM might determine that a monster's aura doesn't affect its own allies. For example, a creature might be immune to a monster's frightful presence if they have been around each other for a long time.",
-            },
-            Buck: {
-                actionType: "reaction",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 342</i></a><br>Most monsters that serve as mounts can attempt to\nbuck off unwanted or annoying riders, but most mounts\nwill not use this reaction against a trusted creature unless\nthe mounts are spooked or mistreated. <b>Trigger</b> A creature\nMounts or uses the Command an Animal action while riding\nthe monster. <b>Effect</b> The triggering creature must succeed\nat a Reflex saving throw against the listed DC or fall off the\ncreature and land prone. If the save is a critical failure, the\ntriggering creature also takes 1d6 bludgeoning damage in\naddition to the normal damage for the fall.',
-            },
-            "Catch Rock": {
-                actionType: "reaction",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 342</i></a><br><b>Requirements</b> The monster must have a free hand but can Release anything it\'s holding as part of this reaction. <b>Trigger</b> The monster is targeted with a thrown rock Strike or a rock would fall on the monster. <b>Effect</b> The monster gains a +4 circumstance bonus to its AC against the triggering attack or to any defense against the falling rock. If the attack misses or the monster successfully defends against the falling rock, the monster catches the rock, takes no damage, and is now holding the rock.',
-            },
-            "Change Shape": {
-                actionType: "action",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 342</i></a><br>(<a style="text-decoration:underline" href="https://2e.aonprd.com/Traits.aspx?ID=32">concentrate</a>, [magical tradition], <a style="text-decoration:underline" href="https://2e.aonprd.com/Traits.aspx?ID=127">polymorph</a>, <a style="text-decoration:underline" href="https://2e.aonprd.com/Traits.aspx?ID=157">transmutation</a>) The monster changes its shape indefinitely. It can use this action again to return to its natural shape or adopt a new shape. Unless otherwise noted, a monster cannot use Change Shape to appear as a specific individual. Using Change Shape counts as creating a disguise for the Impersonate use of Deception. The monster\'s transformation automatically defeats Perception DCs to determine whether the creature is a member of the ancestry or creature type into which it transformed, and it gains a +4 status bonus to its Deception DC to prevent others from seeing through its disguise. Change Shape abilities specify what shapes the monster can adopt. The monster doesn\'t gain any special abilities of the new shape, only its physical form. For example, in each shape, it replaces its normal Speeds and Strikes, and might potentially change its senses or size. Any changes are listed in its stat block.',
-            },
-            "Constant Spells": {
-                actionType: "passive",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 342</i></a><br>A constant spell affects the monster without the monster needing to cast it, and its duration is unlimited. If a constant spell gets counteracted, the monster can reactivate it by spending the normal spellcasting actions the spell\u001crequires.',
-            },
-            Constrict: {
-                actionType: "action",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 342</i></a><br>The monster deals the listed amount of damage to any number of creatures grabbed or restrained by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.',
-            },
-            Coven: {
-                actionType: "passive",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 342</i></a><br>(<a style="text-decoration:underline" href="https://2e.aonprd.com/Traits.aspx?ID=47">divination</a>, <a style="text-decoration:underline" href="https://2e.aonprd.com/Traits.aspx?ID=106">mental</a>, <a style="text-decoration:underline" href="https://2e.aonprd.com/Traits.aspx?ID=120">occult</a>) This monster can form a coven with two or more other creatures who also have the coven ability. This involves performing an 8-hour ceremony with all prospective coven members. After the coven is formed, each of its members gains elite adjustments (page 6), adjusting their levels accordingly. Coven members can sense other members\' locations and conditions by spending a single action, which has the concentrate trait, and can sense what another coven member is sensing as a two-action activity, which has the concentrate trait as well.<br><br> Covens also grant spells and rituals to their members, but these can be cast only in cooperation between three coven members who are all within 30 feet of one another. A coven member can contribute to a coven spell with a single-action spellcasting activity that has a single verbal component. If two coven members have contributed these actions within the last round, a third member can cast a coven spell on her turn by spending the normal spellcasting actions. A coven can cast its coven spells an unlimited number of times but can cast only one coven spell each round. All covens grant the 8th-level <i><a style="text-decoration:underline" href="https://2e.aonprd.com/Spells.aspx?ID=17">baleful polymorph</a></i> spell and all the following spells, which the coven can cast at any level up to 5th: <i><a style="text-decoration:underline" href="https://2e.aonprd.com/Spells.aspx?ID=15">augury</a></i>, <i><a style="text-decoration:underline" href="https://2e.aonprd.com/Spells.aspx?ID=34">charm</a></i>, <i><a style="text-decoration:underline" href="https://2e.aonprd.com/Spells.aspx?ID=39">clairaudience</a></i>, <i><a style="text-decoration:underline" href="https://2e.aonprd.com/Spells.aspx?ID=40">clairvoyance</a></i>, <i><a style="text-decoration:underline" href="https://2e.aonprd.com/Spells.aspx?ID=90">dream message</a></i>, <i><a style="text-decoration:underline" href="https://2e.aonprd.com/Spells.aspx?ID=159">illusory disguise</a></i>, <i><a style="text-decoration:underline" href="https://2e.aonprd.com/Spells.aspx?ID=161">illusory scene</a></i>, <i><a style="text-decoration:underline" href="https://2e.aonprd.com/Spells.aspx?ID=239">prying eye</a></i>, and <i><a style="text-decoration:underline" href="https://2e.aonprd.com/Spells.aspx?ID=329">talking corpse</a></i>. Individual creatures with the coven ability also grant additional spells to any coven they join. A coven can also cast the <i><a style="text-decoration:underline" href="https://2e.aonprd.com/Rituals.aspx?ID=9">control weather</a></i> ritual, with a DC of 23 instead of the standard DC.<br><br> If a coven member leaving the coven or the death of a coven member brings the coven below three members, the remaining members keep their elite adjustments for 24 hours, but without enough members to contribute the necessary actions, they can\'t cast coven spells.',
-            },
-            Darkvision: {
-                actionType: "passive",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 343</i></a><br>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level <i><a style="text-decoration:underline" href="https://2e.aonprd.com/Spells.aspx?ID=59">darkness</a></i> spell, block normal darkvision. A monster with greater darkvision, however, can see through even these forms of magical darkness.',
-            },
-            Disease: {
-                actionType: "passive",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 343</i></a><br>When a creature is exposed to a monster\'s disease, it attempts a Fortitude save or succumbs to the disease. The level of a disease is the level of the monster in\u001f icting the disease. The disease follows the <a style="text-decoration:underline" href="https://2e.aonprd.com/Rules.aspx?ID=361">rules for afflictions</a>.',
-            },
-            Engulf: {
-                actionType: "action",
-                actionCost: 2,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 343</i></a><br>The monster Strides up to double its Speed and can move through the spaces of any creatures in its path. Any creature of the monster\'s size or smaller whose space the monster moves through can attempt a Reflex save with the listed DC to avoid being engulfed. A creature unable to act automatically critically fails this save. If a creature succeeds at its save, it can choose to be either pushed aside (out of the monster\'s path) or pushed in front of the monster to the end of the monster\'s movement. The monster can attempt to Engulf the same creature only once in a single use of Engulf. The monster can contain as many creatures as can fit in its space.<br><br> A creature that fails its save is pulled into the monster\'s body. It is grabbed, is <a style="text-decoration:underline" href="https://2e.aonprd.com/Conditions.aspx?ID=35">slowed 1</a>, and has to hold its breath or start suffocating. The creature takes the listed amount of damage when first engulfed and at the end of each of its turns while it\'s engulfed. An engulfed creature can get free by Escaping against the listed escape DC. An engulfed creature can attack the monster engulfing it, but only with unarmed attacks or with weapons of light Bulk or less. The engulfing creature is <a style="text-decoration:underline" href="https://2e.aonprd.com/Conditions.aspx?ID=16">flat-footed</a> against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the engulfed creature cuts itself free. A creature that gets free by either method can immediately breathe and exits the swallowing monster\'s space.<br><br> If the monster dies, all creatures it has engulfed are automatically released as the monster\'s form loses cohesion.',
-            },
-            "Fast Healing": {
-                actionType: "passive",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 343</i></a><br>A monster with this ability regains the given number of Hit Points each round at the beginning of its turn.',
-            },
-            Ferocity: {
-                actionType: "reaction",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 343</i></a><br><b>Trigger</b> The monster is reduced to 0 HP. <b>Effect</b> The monster avoids being knocked out and remains at 1 HP, but its <a style="text-decoration:underline" href="https://2e.aonprd.com/Conditions.aspx?ID=42">wounded</a> value increases by 1. When it is <a style="text-decoration:underline" href="https://2e.aonprd.com/Conditions.aspx?ID=42">wounded 3</a>, it can no longer use this ability.',
-            },
-            "Frightful Presence": {
-                actionType: "passive",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 343</i></a><br>(<a style="text-decoration:underline" href="https://2e.aonprd.com/Traits.aspx?ID=206">aura</a>, <a style="text-decoration:underline" href="https://2e.aonprd.com/Traits.aspx?ID=60">emotion</a>, <a style="text-decoration:underline" href="https://2e.aonprd.com/Traits.aspx?ID=68">fear</a>, <a style="text-decoration:underline" href="https://2e.aonprd.com/Traits.aspx?ID=106">mental</a>) A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster\'s Frightful Presence for 1 minute.<br><br> <b>Critical Success</b> The creature is unaffected by the presence.<br> <b>Success</b> The creature is <a style="text-decoration:underline" href="https://2e.aonprd.com/Conditions.aspx?ID=19">frightened 1</a>.<br> <b>Failure</b> The creature is <a style="text-decoration:underline" href="https://2e.aonprd.com/Conditions.aspx?ID=19">frightened 2</a>.<br> <b>Critical Failure</b> The creature is <a style="text-decoration:underline" href="https://2e.aonprd.com/Conditions.aspx?ID=19">frightened 4</a>.',
-            },
-            Grab: {
-                actionType: "action",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 343</i></a><br><b>Requirements</b> The monster\'s last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action. <b>Effect</b> The monster automatically Grabs the target until the end of the monster\'s next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can\'t be used to Strike creatures until the grab is ended.<br><br> Using Grab extends the duration of the monster\'s Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the <a style="text-decoration:underline" href="https://2e.aonprd.com/Actions.aspx?ID=79">Escape</a> action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.',
-            },
-            "Greater Constrict": {
-                actionType: "action",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 343</i></a><br>The monster deals the listed amount of damage to any number of creatures grabbed or restrained by it. Each of those creatures can attempt a basic Fortitude save with the listed DC. A creature that fails this save falls <a style="text-decoration:underline" href="https://2e.aonprd.com/Conditions.aspx?ID=38">unconscious</a>, and a creature that succeeds is then temporarily immune to falling <a style="text-decoration:underline" href="https://2e.aonprd.com/Conditions.aspx?ID=38">unconscious</a> from Greater Constrict for 1 minute.',
-            },
-            "Improved Grab": {
-                actionType: "free",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 343</i></a><br>The monster can use Grab as a free action triggered by a hit with its initial attack. A monster with Improved Grab still needs to spend an action to extend the duration for creatures it already has grabbed.',
-            },
-            "Improved Knockdown": {
-                actionType: "free",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 343</i></a><br>The monster can use Knockdown as a free action triggered by a hit with its initial attack.',
-            },
-            "Improved Push": {
-                actionType: "free",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 343</i></a><br>The monster can use Push as a free action triggered by a hit with its initial attack.',
-            },
-            Knockdown: {
-                actionType: "action",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 343</i></a><br><b>Requirements</b> The monster\'s last action was a success with a Strike that lists Knockdown in its damage entry. <b>Effect</b> The monster knocks the target prone.',
-            },
-            Lifesense: {
-                actionType: "passive",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 343</i></a><br>Lifesense allows a monster to sense the vital essence of living and undead creatures within the listed range. The sense can distinguish between the positive energy animating living creatures and the negative energy animating undead creatures, much as sight distinguishes colors.',
-            },
-            "Light Blindness": {
-                actionType: "passive",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 343</i></a><br>When first exposed to bright light, the monster is <a style="text-decoration:underline" href="https://2e.aonprd.com/Conditions.aspx?ID=1">blinded</a> until the end of its next turn. After this exposure, light doesn\'t blind the monster again until after it spends 1 hour in darkness. However, as long as the monster is in an area of bright light, it\'s <a style="text-decoration:underline" href="https://2e.aonprd.com/Conditions.aspx?ID=7">dazzled</a>.',
-            },
-            "Low-Light Vision": {
-                actionType: "passive",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 343</i></a><br>The monster can see in dim light as though it were bright light, so it ignores the <a style="text-decoration:underline" href="https://2e.aonprd.com/Conditions.aspx?ID=4">concealed</a> condition due to dim light.',
-            },
-            Poison: {
-                actionType: "passive",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 343</i></a><br>When a creature is exposed to a monster\'s poison, it attempts a Fortitude save to avoid becoming poisoned. The level of a poison is the level of the monster inflicting the poison. The poison follows the <a style="text-decoration:underline" href="https://2e.aonprd.com/Rules.aspx?ID=361">rules for afflictions</a>.',
-            },
-            Push: {
-                actionType: "action",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 343</i></a><br><b>Requirements</b> The monster\'s last action was a success with a Strike that lists Push in its damage entry. <b>Effect</b> The monster automatically knocks the target away from the monster. Unless otherwise noted in the ability description, the creature is pushed 5 feet. If the attack was a critical hit, this distance is doubled.',
-            },
-            Regeneration: {
-                actionType: "passive",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 343</i></a><br>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its <a style="text-decoration:underline" href="https://2e.aonprd.com/Conditions.aspx?ID=11">dying</a> condition never increases beyond <a style="text-decoration:underline" href="https://2e.aonprd.com/Conditions.aspx?ID=11">dying 3</a> as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to <a style="text-decoration:underline" href="https://2e.aonprd.com/Conditions.aspx?ID=11">dying 4</a>.',
-            },
-            Rend: {
-                actionType: "action",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 344</i></a><br>A Rend entry lists a Strike the monster has. <b>Requirements</b> The monster hit the same enemy with two consecutive Strikes of the listed type in the same round. <b>Effect</b> The monster automatically deals that Strike\'s damage again to the enemy.',
-            },
-            "Retributive Strike": {
-                actionType: "reaction",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 344</i></a><br><b>Trigger</b> An enemy damages the monster\'s ally, and both are within 15 feet of the monster. <b>Effect</b> The ally gains resistance to all damage against the triggering damage equal to 2 + the monster\'s level. If the foe is within reach, the monster makes a melee Strike against it.',
-            },
-            Scent: {
-                actionType: "passive",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 344</i></a><br>Scent involves sensing creatures or objects by smell, and is usually a vague sense. The range is listed in the ability, and it functions only if the creature or object being detected emits an aroma (for instance, incorporeal creatures usually do not exude an aroma).<br><br> If a creature emits a heavy aroma or is upwind, the GM can double or even triple the range of scent abilities used to detect that creature, and the GM can reduce the range if a creature is downwind.',
-            },
-            "Shield Block": {
-                actionType: "reaction",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 344</i></a><br><b>Trigger</b> The monster has its shield raised and takes damage from a physical attack. <b>Effect</b> The monster snaps its shield into place to deflect a blow. The shield prevents the monster from taking an amount of damage up to the shield\'s Hardness. The monster and the shield each take any remaining damage, possibly breaking or destroying the shield.',
-            },
-            "Sneak Attack": {
-                actionType: "passive",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 344</i></a><br>When the monster Strikes a creature that has the <a style="text-decoration:underline" href="https://2e.aonprd.com/Conditions.aspx?ID=16">flat-footed</a> condition with an <a style="text-decoration:underline" href="https://2e.aonprd.com/Traits.aspx?ID=170">agile</a> or <a style="text-decoration:underline" href="https://2e.aonprd.com/Traits.aspx?ID=179">finesse</a> melee weapon, an <a style="text-decoration:underline" href="https://2e.aonprd.com/Traits.aspx?ID=170">agile</a> or <a style="text-decoration:underline" href="https://2e.aonprd.com/Traits.aspx?ID=179">finesse</a> unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an <a style="text-decoration:underline" href="https://2e.aonprd.com/Traits.aspx?ID=170">agile</a> or <a style="text-decoration:underline" href="https://2e.aonprd.com/Traits.aspx?ID=179">finesse</a> weapon.',
-            },
-            "Swallow Whole": {
-                actionType: "action",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 344</i></a><br>(<a style="text-decoration:underline" href="https://2e.aonprd.com/Traits.aspx?ID=15">attack</a>) The monster attempts to swallow a creature of the listed size or smaller that it has grabbed in its jaws or mouth. If a swallowed creature is of the maximum size listed, the monster can\'t use Swallow Whole again. If the creature is smaller than the maximum, the monster can usually swallow more creatures; the GM determines the maximum. The monster attempts an <a style="text-decoration:underline" href="https://2e.aonprd.com/Skills.aspx?ID=3">Athletics</a> check opposed by the grabbed creature\'s Reflex DC. If it succeeds, it swallows the creature. The monster\'s mouth or jaws no longer grab a creature it has swallowed, so the monster is free to use them to Strike or Grab once again. The monster can\'t attack creatures it has swallowed.<br><br> A swallowed creature is <a style="text-decoration:underline" href="https://2e.aonprd.com/Conditions.aspx?ID=20">grabbed</a>, is <a style="text-decoration:underline" href="https://2e.aonprd.com/Conditions.aspx?ID=35">slowed 1</a>, and has to hold its breath or start suffocating. The swallowed creature takes the listed amount of damage when first swallowed and at the end of each of its turns while it\'s swallowed. If the victim Escapes this ability\'s grabbed condition, it exits through the monster\'s mouth. This frees any other creature grabbed in the monster\'s mouth or jaws. A swallowed creature can attack the monster that has swallowed it, but only with unarmed attacks or with weapons of light Bulk or less. The engulfing creature is flat-footed against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the engulfed creature cuts itself free. A creature that gets free by either Escaping or cutting itself free can immediately breathe and exits the swallowing monster\'s space.<br><br> If the monster dies, a swallowed creature can be freed by creatures adjacent to the corpse if they spend a combined total of 3 actions cutting the monster open with a weapon or unarmed attack that deals piercing or slashing damage.',
-            },
-            "Swarm Mind": {
-                actionType: "passive",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 344</i></a><br>This monster doesn\'t have a single mind (typically because it\'s a swarm of smaller creatures), and is immune to mental effects that target only a specific number of creatures. It is still subject to mental effects that affect all creatures in an area.',
-            },
-            Telepathy: {
-                actionType: "passive",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 344</i></a><br>(<a style="text-decoration:underline" href="https://2e.aonprd.com/Traits.aspx?ID=206">aura</a>, <a style="text-decoration:underline" href="https://2e.aonprd.com/Traits.aspx?ID=47">divination</a>, <a style="text-decoration:underline" href="https://2e.aonprd.com/Traits.aspx?ID=103">magical</a>) A monster with telepathy can communicate mentally with any creatures within the listed radius, as long as they share a language. This doesn\'t give any special access to their thoughts, and communicates no more information than normal speech would.',
-            },
-            "Throw Rock": {
-                actionType: "action",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 344</i></a><br>The monster picks up a rock within reach or retrieves a stowed rock and throws it, making a ranged Strike.',
-            },
-            Trample: {
-                actionType: "action",
-                actionCost: 3,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 344</i></a><br>The monster Strides up to double its Speed and can move through the spaces of creatures of the listed size, Trampling each creature whose space it enters. The monster can attempt to Trample the same creature only once in a single use of Trample. The monster deals the damage of the listed Strike, but trampled creatures can attempt a basic Reflex save at the listed DC (no damage on a critical success, half damage on a success, double damage on a critical failure).',
-            },
-            Tremorsense: {
-                actionType: "passive",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 344</i></a><br>Tremorsense allows a monster to feel the vibrations through a solid surface caused by movement. It is an imprecise sense with a limited range (listed in the ability). Tremorsense functions only if the monster is on the same surface as the subject, and only if the subject is moving along (or burrowing through) the surface.',
-            },
-            Wavesense: {
-                actionType: "passive",
-                actionCost: 1,
-                description:
-                    '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 344</i></a><br>This sense allows a monster to feel vibrations caused by movement through a liquid. It\'s an imprecise sense with a limited range (listed in the ability). Wavesense functions only if monster and the subject are in the same body of liquid, and only if the subject is moving through the liquid.',
-            },
-        };
-    },
-
     SETTINGS: {
         automation: {
             rulesBasedVision: {
                 name: "PF2E.SETTINGS.Automation.RulesBasedVision.Name",
                 hint: "PF2E.SETTINGS.Automation.RulesBasedVision.Hint",
+            },
+            iwr: {
+                name: "PF2E.SETTINGS.Automation.IWR.Name",
+                hint: "PF2E.SETTINGS.Automation.IWR.Hint",
             },
             effectExpiration: {
                 name: "PF2E.SETTINGS.Automation.EffectExpiration.Name",
@@ -1961,6 +1699,7 @@ export const PF2ECONFIG = {
             hazard: HazardPF2e,
             loot: LootPF2e,
             familiar: FamiliarPF2e,
+            party: PartyPF2e,
             vehicle: VehiclePF2e,
         },
     },
@@ -1968,6 +1707,7 @@ export const PF2ECONFIG = {
     Item: {
         documentClasses: {
             action: ActionItemPF2e,
+            affliction: AfflictionPF2e,
             ancestry: AncestryPF2e,
             armor: ArmorPF2e,
             background: BackgroundPF2e,
@@ -1991,6 +1731,7 @@ export const PF2ECONFIG = {
         },
         traits: {
             action: actionTraits,
+            affliction: actionTraits,
             armor: armorTraits,
             ancestry: creatureTraits,
             backpack: equipmentTraits,
@@ -2011,7 +1752,7 @@ export const PF2ECONFIG = {
     Canvas: {
         darkness: {
             default: CONFIG.Canvas.darknessColor,
-            gmVision: 0x76739e,
+            gmVision: 0x908cb9,
         },
     },
 };

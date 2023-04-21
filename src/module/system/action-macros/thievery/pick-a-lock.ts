@@ -1,18 +1,16 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { SingleCheckAction } from "@actor/actions/index.ts";
 
-export function pickALock(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "thievery");
+function pickALock(options: SkillActionOptions): void {
+    const slug = options?.skill ?? "thievery";
+    const rollOptions = ["action:pick-a-lock"];
+    const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph ?? "D",
         title: "PF2E.Actions.PickALock.Title",
-        subtitle,
-        modifiers: options.modifiers,
-        rollOptions: ["all", checkType, stat, "action:pick-a-lock"],
-        extraOptions: ["action:pick-a-lock"],
+        checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["manipulate"],
-        checkType,
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,
@@ -21,5 +19,25 @@ export function pickALock(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.PickALock", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.PickALock", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }
+
+const action = new SingleCheckAction({
+    cost: 2,
+    description: "PF2E.Actions.PickALock.Description",
+    name: "PF2E.Actions.PickALock.Title",
+    notes: [
+        { outcome: ["criticalSuccess"], text: "PF2E.Actions.PickALock.Notes.criticalSuccess" },
+        { outcome: ["success"], text: "PF2E.Actions.PickALock.Notes.success" },
+        { outcome: ["criticalFailure"], text: "PF2E.Actions.PickALock.Notes.criticalFailure" },
+    ],
+    rollOptions: ["action:pick-a-lock"],
+    slug: "pick-a-lock",
+    statistic: "thievery",
+    traits: ["manipulate"],
+});
+
+export { pickALock as legacy, action };

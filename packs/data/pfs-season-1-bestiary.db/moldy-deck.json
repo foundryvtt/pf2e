@@ -29,7 +29,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -58,7 +57,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Any clumsy condition from the gray mold persists after the poison's duration ends.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:15]</p>\n<p><strong>Maximum Duration</strong> 3 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d4}[poison]]]{1d4 poison damage} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {1d4}[poison]]]{1d4 poison damage} and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {1d4}[poison]]]{1d4 poison damage} and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round)</p>"
+                    "value": "<p>Any clumsy condition from the gray mold persists after the poison's duration ends.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:15]</p>\n<p><strong>Maximum Duration</strong> 3 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d4[poison]]] damage (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 1d4[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 1d4[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -69,7 +68,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "inhaled",
@@ -100,6 +98,17 @@
                 "temp": 0,
                 "value": 16
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
             "stealth": {
                 "details": "",
                 "value": 6
@@ -135,18 +144,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "critical-hits",
-                    "object-immunities",
-                    "precision"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "common",
             "size": {
                 "value": "med"

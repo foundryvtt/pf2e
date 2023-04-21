@@ -29,7 +29,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "selected": {},
                     "value": []
@@ -59,7 +58,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The vision of Dahak unleashes a blast of fire from its burning maw, creating a @Template[type:cone|distance:60] that deals [[/r {6d6}[fire]]]{6d6 fire damage} to all creatures within (@Check[type:reflex|dc:26|basic:true|traits:magical,trap,hazard] save).</p>"
+                    "value": "<p>The vision of Dahak unleashes a blast of fire from its burning maw, creating a @Template[type:cone|distance:60] that deals [[/r 6d6[fire]]] damage to all creatures within (@Check[type:reflex|dc:26|basic:true|traits:magical,trap,hazard] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -70,7 +69,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divine",
@@ -103,10 +101,30 @@
                 "tempmax": 0,
                 "value": 130
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
             "stealth": {
                 "details": "<p>(expert)</p>",
                 "value": 16
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 10
+                }
+            ]
         },
         "creatureType": "",
         "customModifiers": {},
@@ -139,24 +157,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "critical-hits",
-                    "fire",
-                    "object-immunities",
-                    "precision"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "cold",
-                    "value": 10
-                }
-            ],
             "rarity": "rare",
             "size": {
                 "value": "med"

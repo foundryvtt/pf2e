@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
-import { CharacterSkill } from "@actor/character/types";
+import { CharacterSkill } from "@actor/character/types.ts";
 import { ErrorPF2e, fontAwesomeIcon } from "@util";
-import { askSkillPopupTemplate, runEarnIncome } from "./helpers";
+import { askSkillPopupTemplate, runEarnIncome } from "./helpers.ts";
 
 function showEarnIncomePopup(actor: ActorPF2e | undefined): void {
     if (!actor?.isOfType("character")) {
@@ -23,7 +23,7 @@ function showEarnIncomePopup(actor: ActorPF2e | undefined): void {
                 label: "Earn Income",
                 callback: ($html, event?: JQuery.TriggeredEvent) => {
                     const html = $html[0]!;
-                    const level = Number(html.querySelector<HTMLSelectElement>("[name=level]")?.value) || 1;
+                    const level = Number(html.querySelector<HTMLSelectElement>("[name=level]")?.value) || 0;
                     const days = Number(html.querySelector<HTMLInputElement>("[name=days]")?.value) || 1;
                     const skillAcronym = html.querySelector<HTMLSelectElement>("[name=skillAcronym]")?.value ?? "soc";
                     const skill = skills.find((s) => s.slug === skillAcronym);

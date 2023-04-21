@@ -39,7 +39,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -84,7 +83,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -124,7 +122,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -161,7 +158,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -192,13 +188,40 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "twilight-aura",
+                        "traits": [
+                            "aura",
+                            "illusion",
+                            "occult",
+                            "shadow"
+                        ]
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            "terrain:lighting:dim-light"
+                        ],
+                        "selector": "fly",
+                        "value": 30
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SkillVariant.DimLight",
+                        "option": "terrain:lighting:dim-light",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -240,7 +263,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "necromancy",
@@ -286,7 +308,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -318,11 +339,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -364,17 +380,37 @@
                 "temp": 0,
                 "value": 170
             },
+            "immunities": [],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 18
             },
+            "resistances": [
+                {
+                    "type": "cold",
+                    "value": 10
+                },
+                {
+                    "exceptions": [
+                        "adamantine"
+                    ],
+                    "type": "physical",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "details": "fly 30 feet in dim light",
                 "otherSpeeds": [],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "slashing",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -407,42 +443,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "mental",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "cold",
-                    "value": 10
-                },
-                {
-                    "exceptions": "except adamantine",
-                    "type": "physical",
-                    "value": 10
-                }
-            ],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "type": "slashing",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

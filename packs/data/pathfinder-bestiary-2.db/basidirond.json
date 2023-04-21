@@ -34,7 +34,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -71,7 +70,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -100,18 +98,17 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:22]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d8}[poison]]]{1d8 poison damage} and @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {1d10}[poison]]]{1d10 poison damage} and @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {1d12}[poison]]]{1d12 poison damage} and @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:22]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d8[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 1d10[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 1d12[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "basidirond-spores",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "disease"
@@ -153,7 +150,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "incapacitation",
@@ -189,11 +185,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -217,11 +208,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -263,8 +249,13 @@
                 "temp": 0,
                 "value": 80
             },
+            "immunities": [
+                {
+                    "type": "cold"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 8
@@ -272,7 +263,13 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -308,22 +305,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "cold",
-                    "mental"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "label": "Slashing",
-                    "type": "slashing",
-                    "value": "5"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

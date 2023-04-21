@@ -1,0 +1,109 @@
+<form>
+    <header class="sheet-header">
+        <h1>
+            {{entry.name}}
+            {{#with entry.flexibleAvailable}}
+                <div class="item-controls flexible-available">
+                    {{localize "PF2E.SpellFlexibleAvailable" value=value max=max}}
+                </div>
+            {{/with}}
+        </h1>
+        <p class="hint">
+            {{#if entry.isFlexible}}
+                {{localize "PF2E.Actor.Creature.SpellPreparation.HintFlexible"}}
+            {{else}}
+                {{localize "PF2E.Actor.Creature.SpellPreparation.Hint"}}
+            {{/if}}
+        </p>
+
+    </header>
+    <section class="sheet-content">
+        <ol class="directory-list item-list spell-list">
+            {{#unless entry.spellPrepList}}
+                {{#if @root.options.editable}}
+                    <li class="spellbook-header spellbook-empty">
+                        <h4>{{localize "PF2E.SpellSlotEmpty"}}</h4>
+                        <a class="item-control spell-create" title="{{localize "PF2E.CreateSpellTitle"}}" data-type="spell" data-location="{{entry.id}}">
+                            <i class="fas fa-plus fa-fw"></i>{{localize "PF2E.AddSpellTitle"}}
+                        </a>
+                        <a class="item-control spell-browse" title="{{localize "PF2E.OpenSpellBrowserTitle"}}" data-type="spell" data-location="{{entry.id}}">
+                            <i class="fas fa-search fa-fw"></i>{{localize "PF2E.OpenSpellBrowserTitle"}}
+                        </a>
+                    </li>
+                {{/if}}
+            {{/unless}}
+            {{#each entry.spellPrepList as |spells level|}}
+                {{#if spells}}
+                    <li class="spell-level-header">
+                        <div class="item-name flexrow">
+                            <h3>
+                                {{#if (gt level 0)}}
+                                    {{localize "PF2E.SpellLevel" level=(ordinal level)}}
+                                {{else}}
+                                    {{localize "PF2E.SpellCantripLabel"}}
+                                {{/if}}
+                            </h3>
+                        </div>
+
+                        <div class="spell-range">{{localize "PF2E.SpellRangeLabel"}}</div>
+                        <div class="spell-components">{{localize "PF2E.SpellComponentsLabel"}}</div>
+                        {{#if @root.options.editable}}
+                            <div class="item-controls">
+                                <a class="item-control spell-create" title="{{localize "PF2E.CreateSpellTitle"}}" data-type="spell"
+                                    data-level="{{level}}" data-location="{{entry.id}}"><i class="fas fa-plus fa-fw"></i></a>
+                                <a class="item-control spell-browse" title="{{localize "PF2E.OpenSpellBrowserTitle"}}" data-type="spell"
+                                    data-level="{{level}}" data-location="{{entry.id}}"><i class="fas fa-search fa-fw"></i></a>
+                            </div>
+                        {{/if}}
+                    </li>
+                    <!-- Unprepared Spells -->
+                    {{#each spells as |item i|}}
+                        <li class="item spell spellbook-item" data-item-id="{{item.spell.id}}" data-item-type="spell" draggable="true">
+                            <div class="item-name rollable">
+                                <div class="item-image">
+                                    <img class="item-icon" src="{{spell.img}}" alt="{{spell.name}}">
+                                </div>
+                                <h4>{{spell.name}}{{{actionGlyph spell.system.time.value}}}</h4>
+                            </div>
+
+                            <div class="spell-range">{{spell.system.range.value}}</div>
+
+                            <div class="spell-components tags">
+                                {{#if spell.system.components.focus}}
+                                    <span class="tag tag_transparent">{{localize "PF2E.SpellComponentShortF"}}</span>
+                                {{/if}}
+                                {{#if spell.system.components.material}}
+                                    <span class="tag tag_transparent">{{localize "PF2E.SpellComponentShortM"}}</span>
+                                {{/if}}
+                                {{#if spell.system.components.somatic}}
+                                    <span class="tag tag_transparent">{{localize "PF2E.SpellComponentShortS"}}</span>
+                                {{/if}}
+                                {{#if spell.system.components.verbal}}
+                                    <span class="tag tag_transparent">{{localize "PF2E.SpellComponentShortV"}}</span>
+                                {{/if}}
+                            </div>
+                            {{#unless spell.isCantrip}}
+                                {{#if @root.entry.isFlexible}}
+                                    <div class="spell-cast">
+                                        <input
+                                            type="checkbox"
+                                            class="toggle-signature-spell"
+                                            {{checked signature}}
+                                            title="{{#if signature}}{{localize "PF2E.SpellCollectionRemove"}}{{else}}{{localize "PF2E.SpellCollectionAdd"}}{{/if}}"
+                                        />
+                                    </div>
+                                {{/if}}
+                            {{/unless}}
+                            {{#if @root.editable}}
+                                <div class="item-controls">
+                                    <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit fa-fw"></i></a>
+                                    <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash fa-fw"></i></a>
+                                </div>
+                            {{/if}}
+                        </li>
+                    {{/each}}
+                {{/if}}
+            {{/each}}
+        </ol>
+    </section>
+</form>

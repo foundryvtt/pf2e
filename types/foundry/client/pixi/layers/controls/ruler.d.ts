@@ -218,5 +218,5 @@ declare global {
         waypoints: PIXI.Point[];
     }
 
-    type RulerState = typeof Ruler.STATES[keyof typeof Ruler.STATES];
+    type RulerState = (typeof Ruler.STATES)[keyof typeof Ruler.STATES];
 }

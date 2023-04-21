@@ -1,6 +1,12 @@
-import { MystifiedTraits } from "@item/data/values";
-import { ActorDirectoryPF2e, ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/ui";
-import { HotbarPF2e } from "@module/apps/ui/hotbar";
+import { MystifiedTraits } from "@item/data/values.ts";
+import { HotbarPF2e } from "@module/apps/hotbar.ts";
+import {
+    ActorDirectoryPF2e,
+    ItemDirectoryPF2e,
+    ChatLogPF2e,
+    CompendiumDirectoryPF2e,
+    EncounterTrackerPF2e,
+} from "@module/apps/sidebar/index.ts";
 import {
     AmbientLightPF2e,
     EffectsCanvasGroupPF2e,
@@ -9,17 +15,15 @@ import {
     TemplateLayerPF2e,
     TokenLayerPF2e,
     TokenPF2e,
-} from "@module/canvas";
-import { setPerceptionModes } from "@module/canvas/perception/modes";
-import { PF2ECONFIG } from "@scripts/config";
-import { registerHandlebarsHelpers } from "@scripts/handlebars";
-import { registerFonts } from "@scripts/register-fonts";
-import { registerKeybindings } from "@scripts/register-keybindings";
-import { registerTemplates } from "@scripts/register-templates";
-import { SetGamePF2e } from "@scripts/set-game-pf2e";
-import { CheckRoll, StrikeAttackRoll } from "@system/check";
-import { DamageRoll } from "@system/damage/roll";
-import { registerSettings } from "@system/settings";
+} from "@module/canvas/index.ts";
+import { setPerceptionModes } from "@module/canvas/perception/modes.ts";
+import { PF2ECONFIG } from "@scripts/config/index.ts";
+import { registerHandlebarsHelpers } from "@scripts/handlebars.ts";
+import { registerFonts } from "@scripts/register-fonts.ts";
+import { registerKeybindings } from "@scripts/register-keybindings.ts";
+import { registerTemplates } from "@scripts/register-templates.ts";
+import { SetGamePF2e } from "@scripts/set-game-pf2e.ts";
+import { registerSettings } from "@system/settings/index.ts";
 import { htmlQueryAll } from "@util";
 
 export const Init = {
@@ -29,8 +33,6 @@ export const Init = {
 
             CONFIG.PF2E = PF2ECONFIG;
             CONFIG.debug.ruleElement ??= false;
-
-            CONFIG.Dice.rolls.push(CheckRoll, StrikeAttackRoll, DamageRoll);
 
             // Assign canvas layer and placeable classes
             CONFIG.AmbientLight.layerClass = LightingLayerPF2e;
@@ -58,6 +60,7 @@ export const Init = {
 
             // Assign the PF2e Sidebar subclasses
             CONFIG.ui.actors = ActorDirectoryPF2e;
+            CONFIG.ui.items = ItemDirectoryPF2e;
             CONFIG.ui.combat = EncounterTrackerPF2e;
             CONFIG.ui.chat = ChatLogPF2e;
             CONFIG.ui.compendium = CompendiumDirectoryPF2e;

@@ -1,0 +1,30 @@
+@import "../../mixins/effects-list";
+
+&.effects {
+    @include configure($alt-color:$alt-color);
+
+    .effects-list {
+        @include effects-list;
+        padding-bottom: 1em;
+
+        .item {
+            border-top: 1px solid lighten($-alt-color, 40);
+            $border-color: lighten($-alt-color, 40);
+            border: solid transparent;
+            border-width: 0 0 1px;
+            border-image: linear-gradient(90deg, #f1edea, $border-color) 1 repeat;
+        }
+
+        .item-image {
+            border-radius: 2px;
+        }
+
+        .item:last-child {
+            border-bottom: none;
+        }
+
+        .item-name h4 {
+            font-family: var(--serif);
+        }
+    }
+}

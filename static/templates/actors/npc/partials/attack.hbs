@@ -1,0 +1,44 @@
+<li class="item attack flexrow" data-action-index="{{index}}" data-item-type="melee" data-item-id="{{action.sourceId}}">
+    <div class="attack-header">
+        <h4 class="attack-name tags">
+            <span>
+                <strong>{{localize action.attackRollType}}</strong>
+                <span class="activity-icon">{{action.glyph}}</span>
+                {{action.label}}
+            </span>
+            {{#each action.traits as |trait|}}
+                <div class="tag tag_transparent" title="{{localize trait.description}}">{{localize trait.label}}</div>
+            {{/each}}
+            {{#each action.additionalEffects as |effect|}}
+                <div class="tag tag_transparent" data-tag="{{effect.tag}}">{{localize effect.label}}</div>
+            {{/each}}
+        </h4>
+        <div class="attack-controls controls">
+            <a class="item-chat chat" title="{{localize "PF2E.NPC.SendToChat"}}"><i class="fas fa-fw fa-comment-alt"></i></a>
+            {{#if isEditable}}
+                <a class="item-edit edit" title="{{localize "PF2E.NPC.Edit"}}"><i class="fas fa-fw fa-edit"></i></a>
+                <a class="item-delete delete" title="{{localize "PF2E.NPC.Remove"}}"><i class="fas fa-fw fa-trash"></i></a>
+            {{/if}}
+        </div>
+    </div>
+    <div class="attack-body">
+        <div class="flexrow">
+            <div class="attacks sub-section">
+                {{#each action.variants as |variant index|}}
+                    <button type="button" class="btn attack-button" {{#if (eq index 0)}}title="{{action.breakdown}}"{{/if}} data-action="strike-attack" data-variant-index="{{index}}">{{variant.label}}</button>
+                {{/each}}
+            </div>
+            {{#if action.item.dealsDamage}}
+                <div class="damage sub-section">
+                    <button type="button" class="damage-button" data-action="strike-damage">{{action.damageFormula}}</button>
+                    <button type="button" class="critical-button" data-action="strike-critical">{{localize "PF2E.CriticalDamageLabel"}}</button>
+                </div>
+            {{/if}}
+        </div>
+        <div class="attack-detail sub-section expandable expanded">
+            <div class="attack-description">
+                {{{action.description}}}
+            </div>
+        </div>
+    </div>
+</li>

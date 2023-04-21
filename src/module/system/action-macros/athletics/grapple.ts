@@ -1,18 +1,30 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActorPF2e } from "@actor";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { WeaponPF2e } from "@item";
 
-export function grapple(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "athletics");
-    ActionMacroHelpers.simpleRollActionCheck({
+export function grapple(options: SkillActionOptions): void {
+    const slug = options?.skill ?? "athletics";
+    const rollOptions = ["action:grapple"];
+    ActionMacroHelpers.simpleRollActionCheck<WeaponPF2e<ActorPF2e>>({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph ?? "A",
         title: "PF2E.Actions.Grapple.Title",
-        subtitle,
-        modifiers: options.modifiers,
-        rollOptions: ["all", checkType, stat, "action:grapple"],
-        extraOptions: ["action:grapple"],
+        checkContext: (opts) => {
+            // weapon
+            const item = (ActionMacroHelpers.getApplicableEquippedWeapons(opts.actor, "grapple") ?? []).shift();
+
+            // modifier
+            const modifiers = options.modifiers?.length ? [...options.modifiers] : [];
+            if (item && item.traits.has("grapple")) {
+                const modifier = ActionMacroHelpers.getWeaponPotencyModifier(item, slug);
+                if (modifier) {
+                    modifiers.push(modifier);
+                }
+            }
+
+            return ActionMacroHelpers.defaultCheckContext(opts, { item, modifiers, rollOptions, slug });
+        },
         traits: ["attack"],
-        checkType,
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,
@@ -23,6 +35,8 @@ export function grapple(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Grapple", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Grapple", "criticalFailure"),
         ],
-        weaponTrait: "grapple",
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

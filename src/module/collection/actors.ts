@@ -1,10 +1,10 @@
 import { ActorPF2e } from "@actor";
-import { ActorUpdateContext } from "@actor/base";
+import { ActorUpdateContext } from "@actor/base.ts";
 
-export class ActorsPF2e<TActor extends ActorPF2e = ActorPF2e> extends Actors<TActor> {
+export class ActorsPF2e<TActor extends ActorPF2e<null>> extends Actors<TActor> {
     /** Work around a bug as of Foundry V9.242 in which token default settings are ignored for compendium imports */
-    override fromCompendium(actor: TActor | TActor["_source"], options?: FromCompendiumOptions) {
-        const defaultToken = game.settings.get("core", "defaultToken");
+    override fromCompendium(actor: TActor | TActor["_source"], options?: FromCompendiumOptions): TActor["_source"] {
+        const defaultToken = deepClone(game.settings.get("core", "defaultToken"));
         delete defaultToken.disposition;
 
         if (actor instanceof ActorPF2e) {
@@ -19,12 +19,12 @@ export class ActorsPF2e<TActor extends ActorPF2e = ActorPF2e> extends Actors<TAc
         pack: CompendiumCollection<TActor>,
         actorId: string,
         updateData?: DocumentUpdateData<TActor>,
-        options?: ActorUpdateContext<TActor>
+        options?: ActorUpdateContext<null>
     ): Promise<TActor | null> {
         const actor = await super.importFromCompendium(pack, actorId, updateData, options);
         if (!actor) return actor;
 
-        const defaultToken = game.settings.get("core", "defaultToken");
+        const defaultToken = deepClone(game.settings.get("core", "defaultToken"));
         delete defaultToken.disposition;
 
         return actor.clone({ prototypeToken: defaultToken }, { keepId: true });

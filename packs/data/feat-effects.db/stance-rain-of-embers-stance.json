@@ -26,8 +26,9 @@
                     }
                 },
                 "group": "brawling",
+                "img": "systems/pf2e/icons/features/feats/rain-of-embers-stance.webp",
                 "key": "Strike",
-                "label": "Fire Talon",
+                "label": "PF2E.SpecificRule.Stance.Attack.FireTalon",
                 "range": null,
                 "replaceAll": true,
                 "traits": [
@@ -43,6 +44,11 @@
                 "selector": "ac",
                 "type": "status",
                 "value": 1
+            },
+            {
+                "key": "Resistance",
+                "type": "fire",
+                "value": "max(1,floor(@actor.level/2))"
             }
         ],
         "source": {
@@ -57,7 +63,6 @@
             "show": true
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": []
         }

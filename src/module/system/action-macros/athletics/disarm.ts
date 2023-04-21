@@ -1,18 +1,30 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActorPF2e } from "@actor";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { WeaponPF2e } from "@item";
 
-export function disarm(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "athletics");
-    ActionMacroHelpers.simpleRollActionCheck({
+export function disarm(options: SkillActionOptions): void {
+    const slug = options?.skill ?? "athletics";
+    const rollOptions = ["action:disarm"];
+    ActionMacroHelpers.simpleRollActionCheck<WeaponPF2e<ActorPF2e>>({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph ?? "A",
         title: "PF2E.Actions.Disarm.Title",
-        subtitle,
-        modifiers: options.modifiers,
-        rollOptions: ["all", checkType, stat, "action:disarm"],
-        extraOptions: ["action:disarm"],
+        checkContext: (opts) => {
+            // weapon
+            const item = (ActionMacroHelpers.getApplicableEquippedWeapons(opts.actor, "disarm") ?? []).shift();
+
+            // modifiers
+            const modifiers = options.modifiers?.length ? [...options.modifiers] : [];
+            if (item && item.slug !== "basic-unarmed") {
+                const modifier = ActionMacroHelpers.getWeaponPotencyModifier(item, slug);
+                if (modifier) {
+                    modifiers.push(modifier);
+                }
+            }
+
+            return ActionMacroHelpers.defaultCheckContext(opts, { item, modifiers, rollOptions, slug });
+        },
         traits: ["attack"],
-        checkType,
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,
@@ -22,6 +34,8 @@ export function disarm(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Disarm", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Disarm", "criticalFailure"),
         ],
-        weaponTrait: "disarm",
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

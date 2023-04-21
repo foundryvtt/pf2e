@@ -23,8 +23,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d4",
-                    "value": ""
+                    "die": "d4"
                 },
                 "description": {
                     "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
@@ -54,10 +53,10 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -87,9 +86,6 @@
                 "source": {
                     "value": ""
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -98,7 +94,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -137,8 +132,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>These blades come in a variety of shapes and styles, but they are typically 2 feet long.</p>"
@@ -168,10 +162,10 @@
                     "value": 1
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -201,9 +195,6 @@
                 "source": {
                     "value": ""
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -212,7 +203,6 @@
                     "value": "striking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -346,7 +336,6 @@
                     "value": 10
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -360,7 +349,12 @@
             "type": "armor"
         },
         {
-            "_id": "aclZJJURYegxwbjg",
+            "_id": "pU8YWHlXjmg8vha0",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.6nrCxNQFycUVFOV2"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/thieves-tools.webp",
             "name": "Thieves' Tools (Infiltrator)",
             "sort": 400000,
@@ -368,11 +362,10 @@
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>You need thieves' tools to Pick Locks or Disable Devices (of some types) using the Thievery skill. Infiltrator thieves' tools add a +1 item bonus to checks to Pick Locks and Disable Devices. If your thieves' tools are broken, you can repair them by replacing the lock picks with replacement picks appropriate to your tools; this doesn't require using the Repair action.</p>"
+                    "value": "<p>You need thieves' tools to @UUID[Compendium.pf2e.actionspf2e.Pick a Lock]{Pick Locks} or @UUID[Compendium.pf2e.actionspf2e.Disable Device]{Disable Devices} (of some types) using the Thievery skill. Infiltrator thieves' tools add a +1 item bonus to checks to Pick Locks and Disable Devices.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @UUID[Compendium.pf2e.equipment-srd.Thieves' Tools (Infiltrator Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action. If you wear your thieves' tools, you can draw and replace them as part of the action that uses them.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -402,20 +395,34 @@
                     }
                 },
                 "quantity": 1,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:disable-device",
+                                    "action:pick-a-lock"
+                                ]
+                            }
+                        ],
+                        "selector": "thievery",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
                 "size": "med",
-                "slug": null,
+                "slug": "thieves-tools-infiltrator",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "held-in-two-hands"
                 },
                 "weight": {
                     "value": "L"
@@ -472,7 +479,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -491,22 +497,11 @@
             "name": "Bloodseeker Beak",
             "sort": 600000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": "1",
                     "value": "1"
                 },
@@ -514,16 +509,11 @@
                     "value": "talisman"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": ""
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This long, hollow proboscis is harvested from the notorious bloodseeker beast and drips a trickle of blood.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">F</span> Envision</p>\n<p><strong>Trigger</strong> You hit a flat-footed creature with the affixed weapon</p>\n<p>When you activate the beak, you deal an extra 1d4 precision damage on your damage roll. If you deal sneak attack damage to the creature, you also deal @Localize[PF2E.PersistentDamage.Bleed1d4.success].</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
+                    "value": "<p>This long, hollow proboscis is harvested from the notorious bloodseeker beast and drips a trickle of blood.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">F</span> Envision</p>\n<p><strong>Trigger</strong> You hit a flat-footed creature with the affixed weapon</p>\n<p>When you activate the beak, you deal an extra 1d4 precision damage on your damage roll. If you deal sneak attack damage to the creature, you also deal [[/r 1d4[bleed]]].</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -556,11 +546,6 @@
                     }
                 },
                 "quantity": 1,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": null,
@@ -568,13 +553,7 @@
                     "value": ""
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "consumable",
@@ -586,13 +565,6 @@
                 "usage": {
                     "value": "held-in-one-hand"
                 },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
-                },
                 "weight": {
                     "value": "-"
                 }
@@ -601,8 +573,13 @@
         },
         {
             "_id": "6PRImWQWZEOuSAeI",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "7xSO51uGeEAz0scp"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "dagger",
+            "name": "Dagger",
             "sort": 700000,
             "system": {
                 "attack": {
@@ -630,7 +607,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -646,8 +622,13 @@
         },
         {
             "_id": "MZuAw11uvBDLHKj7",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "PTHHSvW8TM9Qoy4r"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "shortsword",
+            "name": "Shortsword",
             "sort": 800000,
             "system": {
                 "attack": {
@@ -675,7 +656,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -692,8 +672,13 @@
         },
         {
             "_id": "zdKpdDk0vI7szcPH",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "7xSO51uGeEAz0scp"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "dagger",
+            "name": "Dagger",
             "sort": 900000,
             "system": {
                 "attack": {
@@ -721,7 +706,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -770,7 +754,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -810,7 +793,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -839,7 +821,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Cost</strong> 1 batch of infused reagents</p>\n<hr />\n<p><strong>Effect</strong> The poisoner dribbles a few experimental chemicals over a melee weapon. Until the start of their next turn, Strikes with the weapon deal an additional [[/r {2d8}[poison]]]{2d8 poison damage}, and targets hit by Strikes with the weapon must succeed at a @Check[type:fortitude|dc:27|traits:damaging-effect] save or become enfeebled 1 or clumsy 1 (the poisoner's choice) for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p><strong>Cost</strong> 1 batch of infused reagents</p>\n<hr />\n<p><strong>Effect</strong> The poisoner dribbles a few experimental chemicals over a melee weapon. Until the start of their next turn, Strikes with the weapon deal an additional [[/r 2d8[poison]]] damage, and targets hit by Strikes with the weapon must succeed at a @Check[type:fortitude|dc:27|traits:damaging-effect] save or become enfeebled 1 or clumsy 1 (the poisoner's choice) for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -850,11 +832,10 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "alchemical",
-                        "interact",
+                        "manipulate",
                         "poison"
                     ]
                 },
@@ -894,7 +875,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -934,7 +914,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -966,11 +945,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -994,11 +968,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1022,11 +991,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1050,11 +1014,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1078,11 +1037,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1106,11 +1060,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1134,11 +1083,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1162,11 +1106,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1209,7 +1148,7 @@
                 "value": 195
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 22
@@ -1250,13 +1189,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

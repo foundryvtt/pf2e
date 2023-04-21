@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "divine"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -125,13 +120,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -220,7 +209,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "force"
@@ -244,11 +232,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "cone",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot cone"
+                    "type": "cone",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -346,7 +331,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "death",
@@ -370,13 +354,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": "varies"
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -472,7 +450,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "shadow"
@@ -496,11 +473,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "line",
+                    "type": "line",
                     "value": 30
-                },
-                "areasize": {
-                    "value": "30-foot line"
                 },
                 "category": {
                     "value": "spell"
@@ -517,16 +491,18 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "persistent",
                                 "value": "negative"
                             },
-                            "value": "4d8 persistent"
+                            "value": "4d8"
                         }
                     }
                 },
                 "description": {
-                    "value": "<p>Extending a finger, you fire a beam of negative energy that weakens the life force of any creature it touches. Each living creature in the line must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r {2d8}[persistent,negative]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Negative Damage}.</p>\n<p><strong>Failure</strong> The creature takes [[/r {4d8}[persistent,negative]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Negative Damage} and becomes @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r {4d8}[persistent,negative]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Negative Damage} and becomes @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2} and @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The persistent negative damage increases by [[/r {1d8}[persistent,negative]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Negative Damage} on a success, or by [[/r {2d8}[persistent,negative]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Negative Damage} on a failure or critical failure.</p>"
+                    "value": "<p>Extending a finger, you fire a beam of negative energy that weakens the life force of any creature it touches. Each living creature in the line must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r 2d8[persistent,negative]]] damage.</p>\n<p><strong>Failure</strong> The creature takes [[/r 4d8[persistent,negative]]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r 4d8[persistent,negative]]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2} and @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The persistent negative damage increases by [[/r 1d8[persistent,negative]]] damage on a success, or by [[/r 2d8[persistent,negative]]] damage on a failure or critical failure.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -598,7 +574,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "negative"
@@ -621,12 +596,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "value": "60-foot emanation"
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -643,7 +613,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>This spell compels local spirits to reenact a violent event of the recent past that you're aware of and name as you @UUID[Compendium.pf2e.actionspf2e.Cast a Spell]{Cast the Spell}. You take the role of the primary victim. The reenactment plays out the final 9 minutes leading up to the death or injury of the victim and the minute after their death or injury. The spirits don't change form, so this doesn't help determine perpetrators by their look. Spiritual forms of missing creatures necessary for the event manifest as needed, and missing items appear as shadowy outlines.</p>\n<p>Once the scene ends, you take [[/r {2d6}[negative]]]{2d6 negative damage} for each ghostly apparition that participated in the scene (typically equal to the number of creatures involved other than the victim). Any creature that observed the ghostly recreation, including you, can attempt checks to investigate the event to discover new clues and information.</p>"
+                    "value": "<p>This spell compels local spirits to reenact a violent event of the recent past that you're aware of and name as you @UUID[Compendium.pf2e.actionspf2e.Cast a Spell]{Cast the Spell}. You take the role of the primary victim. The reenactment plays out the final 9 minutes leading up to the death or injury of the victim and the minute after their death or injury. The spirits don't change form, so this doesn't help determine perpetrators by their look. Spiritual forms of missing creatures necessary for the event manifest as needed, and missing items appear as shadowy outlines.</p>\n<p>Once the scene ends, you take [[/r 2d6[negative]]] damage for each ghostly apparition that participated in the scene (typically equal to the number of creatures involved other than the victim). Any creature that observed the ghostly recreation, including you, can attempt checks to investigate the event to discover new clues and information.</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -711,7 +681,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": []
                 }
@@ -732,13 +701,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -820,7 +783,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -841,13 +803,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -934,7 +890,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "emotion",
@@ -959,13 +914,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "varies"
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -984,7 +933,6 @@
                             "applyMod": false,
                             "type": {
                                 "categories": [],
-                                "subtype": "",
                                 "value": "negative"
                             },
                             "value": "1d8"
@@ -992,7 +940,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"pf2-icon\">1</span> (somatic) The spell has a range of touch.</p>\n<p><span class=\"pf2-icon\">2</span> (verbal, somatic) The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8. [[/r (@item.level)d8[negative]+@item.level*8[healing]]]{2-Action Negative Healing}</p>\n<p><span class=\"pf2-icon\">3</span> (material, verbal, somatic) You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"pf2-icon\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"pf2-icon\">2</span> <strong>(verbal, somatic)</strong> The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><span class=\"pf2-icon\">3</span> <strong>(material, verbal, somatic)</strong> You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1020,6 +968,110 @@
                 },
                 "materials": {
                     "value": ""
+                },
+                "overlays": {
+                    "4gyp3qlsv5ywdyjq": {
+                        "_id": "4gyp3qlsv5ywdyjq",
+                        "name": "Harm (vs. Undead)",
+                        "overlayType": "override",
+                        "sort": 3,
+                        "system": {
+                            "components": {
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "value": "1d8+8"
+                                    }
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "0": "1d8+8"
+                                }
+                            },
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "save": {
+                                "basic": "",
+                                "value": ""
+                            },
+                            "spellType": {
+                                "value": "heal"
+                            },
+                            "target": {
+                                "value": "1 willing undead creature"
+                            },
+                            "time": {
+                                "value": "2"
+                            }
+                        }
+                    },
+                    "pq7cxntbz4s8g5ik": {
+                        "_id": "pq7cxntbz4s8g5ik",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "components": {
+                                "somatic": true
+                            },
+                            "range": {
+                                "value": "touch"
+                            },
+                            "time": {
+                                "value": "1"
+                            }
+                        }
+                    },
+                    "rvhoa43rqqqp8izn": {
+                        "_id": "rvhoa43rqqqp8izn",
+                        "overlayType": "override",
+                        "sort": 4,
+                        "system": {
+                            "area": {
+                                "type": "emanation",
+                                "value": 30
+                            },
+                            "components": {
+                                "material": true,
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "range": {
+                                "value": ""
+                            },
+                            "target": {
+                                "value": "all living and undead creatures"
+                            },
+                            "time": {
+                                "value": "3"
+                            }
+                        }
+                    },
+                    "z04svm1cvfcxtplb": {
+                        "_id": "z04svm1cvfcxtplb",
+                        "name": "Harm (vs. Living)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "components": {
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "target": {
+                                "value": "1 living creature"
+                            },
+                            "time": {
+                                "value": "2"
+                            }
+                        }
+                    }
                 },
                 "prepared": {
                     "value": ""
@@ -1066,7 +1118,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "negative"
@@ -1101,8 +1152,7 @@
                 "damage": {
                     "damageType": "bludgeoning",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>With a stout haft and a heavy metal head, a mace is sturdy and allows its wielder to deliver powerful blows and dent armor.</p>"
@@ -1165,9 +1215,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -1176,7 +1223,6 @@
                     "value": "striking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "shove"
@@ -1224,7 +1270,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile"
@@ -1238,6 +1283,11 @@
         },
         {
             "_id": "isudkibiz4ctaaai",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "dWDxhvABpzr9Iubs"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Mace",
             "sort": 1200000,
@@ -1267,7 +1317,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -1312,7 +1361,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1357,7 +1405,6 @@
                     "value": "Pathfinder Book of the Dead"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1393,13 +1440,18 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FastHealing",
+                        "type": "fast-healing",
+                        "value": 10
+                    }
+                ],
                 "slug": "fast-healing",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1451,7 +1503,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1496,7 +1547,6 @@
                     "value": "Pathfinder Book of the Dead"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1539,7 +1589,6 @@
                     "value": "Pathfinder Book of the Dead"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divine",
@@ -1585,7 +1634,6 @@
                     "value": "Pathfinder Book of the Dead"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1627,7 +1675,6 @@
                     "value": "Pathfinder Book of the Dead"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divine",
@@ -1672,7 +1719,6 @@
                     "value": "Pathfinder Book of the Dead"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1714,7 +1760,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1746,11 +1791,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1774,11 +1814,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1802,11 +1837,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1830,11 +1860,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1876,12 +1901,41 @@
                 "temp": 0,
                 "value": 130
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "prone"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 22
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "darkwood"
+                    ],
+                    "type": "physical",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "details": "rigor mortis",
                 "otherSpeeds": [],
@@ -1920,26 +1974,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "prone",
-                    "sleep"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except darkwood",
-                    "type": "physical",
-                    "value": 10
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

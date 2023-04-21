@@ -35,7 +35,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -81,7 +80,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -126,7 +124,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -170,7 +167,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divination",
@@ -227,7 +223,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate",
@@ -269,7 +264,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -301,12 +295,11 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "involuntary-reaction",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -332,7 +325,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>The raw nerve releases a burst of mental energy in a @Template[type:cone|distance:30], dealing [[/r {4d12}[mental]]]{4d12 mental damage} to each creature in the cone (@Check[type:will|dc:23] save).</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 2}</p>"
+                    "value": "<p>The raw nerve releases a burst of mental energy in a @Template[type:cone|distance:30], dealing [[/r 4d12[mental]]] damage to each creature in the cone (@Check[type:will|dc:23] save).</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 2}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -343,7 +336,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "enchantment",
@@ -377,11 +369,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -405,11 +392,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -433,11 +415,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -461,11 +438,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -489,11 +461,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -535,8 +502,31 @@
                 "temp": 0,
                 "value": 150
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "electricity"
+                },
+                {
+                    "type": "mental"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 17
@@ -546,7 +536,13 @@
                 "otherSpeeds": [],
                 "special": "",
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -579,27 +575,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "electricity",
-                    "mental",
-                    "poison",
-                    "paralyzed",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "type": "slashing",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "(Can't Speak Any Language), Telepathy 100 feet",
                 "selected": [],

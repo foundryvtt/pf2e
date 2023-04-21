@@ -35,7 +35,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "forceful"
@@ -78,7 +77,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -124,7 +122,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -169,7 +166,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -199,7 +195,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When the shanrigol mound dies, its flesh rots away and sublimates into a foul-smelling gas that fills a @Template[type:emanation|distance:5] around the body. This gas deals [[/r {4d6}[negative]]]{4d6 negative damage} to creatures in this area as their flesh curdles and rots as well (@Check[type:fortitude|dc:22|basic:true] save).</p>"
+                    "value": "<p>When the shanrigol mound dies, its flesh rots away and sublimates into a foul-smelling gas that fills a @Template[type:emanation|distance:5] around the body. This gas deals [[/r 4d6[negative]]] damage to creatures in this area as their flesh curdles and rots as well (@Check[type:fortitude|dc:22|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -210,7 +206,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divine",
@@ -263,7 +258,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -315,7 +309,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -344,7 +337,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The shanrigol has a creature grabbed</p>\n<hr />\n<p><strong>Effect</strong> The shanrigol squeezes the life essence from its target, dealing [[/r {1d6+8}[bludgeoning]]]{1d6+8 bludgeoning} and @Localize[PF2E.PersistentDamage.Bleed1d4.success] (@Check[type:fortitude|dc:21|basic:true] save).</p>\n<p>The shanrigol regains temporary Hit Points equal to half the amount of bludgeoning damage a single target takes; these temporary Hit Points last for 1 minute.</p>"
+                    "value": "<p><strong>Requirements</strong> The shanrigol has a creature grabbed</p>\n<hr />\n<p><strong>Effect</strong> The shanrigol squeezes the life essence from its target, dealing [[/r (1d6+8)[bludgeoning]]] and [[/r 1d4[bleed]]] (@Check[type:fortitude|dc:21|basic:true] save).</p>\n<p>The shanrigol regains temporary Hit Points equal to half the amount of bludgeoning damage a single target takes; these temporary Hit Points last for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -355,7 +348,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -384,7 +376,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A shanrigol rips flesh away from targets in great chunks. Creatures critically hit by the shanrigol's fleshy slap Strike take an additional @Localize[PF2E.PersistentDamage.Bleed1d6.success] and are @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} for as long as they are bleeding.</p>"
+                    "value": "<p>A shanrigol rips flesh away from targets in great chunks. Creatures critically hit by the shanrigol's fleshy slap Strike take an additional [[/r 1d6[bleed]]] and are @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} for as long as they are bleeding.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -398,6 +390,14 @@
                         "selector": "fleshy-slap-damage",
                         "text": "{item|system.description.value}",
                         "title": "{item|name}"
+                    },
+                    {
+                        "critical": true,
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "fleshy-slap-damage"
                     }
                 ],
                 "slug": null,
@@ -405,7 +405,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -445,7 +444,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -490,7 +488,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -522,11 +519,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -550,11 +542,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -596,12 +583,39 @@
                 "temp": 0,
                 "value": 85
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 12
             },
+            "resistances": [
+                {
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -614,7 +628,13 @@
                     }
                 ],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -647,33 +667,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "piercing",
-                    "value": 5
-                },
-                {
-                    "type": "slashing",
-                    "value": 5
-                }
-            ],
-            "dv": [
-                {
-                    "type": "positive",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

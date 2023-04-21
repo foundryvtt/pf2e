@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/features/classes/field-discovery-chirurgeon.webp",
     "name": "Field Discovery (Chirurgeon)",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "classfeature",
         "description": {
-            "value": "<p>You learn a special discovery depending on your field.</p>\n<p>When using @UUID[Compendium.pf2e.classfeatures.Advanced Alchemy]{Advanced Alchemy} to make elixirs of life during your daily preparations, you can create three elixirs with each batch of @UUID[Compendium.pf2e.classfeatures.Infused Reagents]{reagents} instead of two.</p>"
-        },
-        "featType": {
-            "value": "classfeature"
+            "value": "<p>You learn a special discovery depending on your field.</p>\n<p>When using @UUID[Compendium.pf2e.classfeatures.Advanced Alchemy]{Advanced Alchemy} to make elixirs with the healing trait during your daily preparations, you can create three elixirs with each batch of @UUID[Compendium.pf2e.classfeatures.Infused Reagents]{reagents} instead of two.</p>"
         },
         "level": {
             "value": 5
@@ -30,14 +25,16 @@
                 "mode": "override",
                 "path": "system.crafting.entries.alchemist.fieldDiscovery",
                 "phase": "beforeDerived",
-                "value": "elixir"
+                "value": [
+                    "item:trait:elixir",
+                    "item:trait:healing"
+                ]
             }
         ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "alchemist"

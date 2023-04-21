@@ -6,9 +6,16 @@
 $header-height: 89px;   /* Adjust height of the header */
 
 @import "character/ability-builder";
+@import "iwr-editor";
 
 .actor.sheet {
     .image-container {
+        position: relative;
+
+        .actor-image {
+            cursor: pointer;
+        }
+
         .hover-icon {
             display: none;
             font-size: var(--font-size-16);
@@ -17,10 +24,47 @@ $header-height: 89px;   /* Adjust height of the header */
         &:hover .hover-icon {
             display: block;
         }
+
+        [data-action=show-image] {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
     }
 
     @import "../reset";
+    @import "item-summary";
     @import "inventory";
+
+    .alignment-select {
+        background-color: #566193;
+        border: 2px solid #d8c384;
+        color: white;
+    }
+
+    .size-select {
+        background-color: #3a7a58;
+        border: 2px solid #d8c384;
+        color: white;
+    }
+
+    .rarity-select {
+        border: 2px solid #d8c384;
+        color: white;
+
+        &.common {
+            background-color: $rarity-common;
+        }
+        &.uncommon {
+            background-color: $rarity-uncommon;
+        }
+        &.rare {
+            background-color: $rarity-rare;
+        }
+        &.unique {
+            background-color: $rarity-unique;
+        }
+    }
 
     &.character .crb-style {
         @import "character";
@@ -40,7 +84,7 @@ $header-height: 89px;   /* Adjust height of the header */
 
         font-family: var(--body-serif);
 
-        background: url("../assets/sheet/header.webp"), url("../assets/sheet/background.webp");
+        background: url("/assets/sheet/header.webp"), url("/assets/sheet/background.webp");
         background-repeat: repeat-x, no-repeat;
         background-size: auto $header-height, cover;
         background-attachment: local;
@@ -169,6 +213,10 @@ $header-height: 89px;   /* Adjust height of the header */
                                 color: white;
                                 max-width: 100%;
                                 font-weight: 500;
+
+                                &:read-only {
+                                    pointer-events: none;
+                                }
                             }
                         }
                     }
@@ -242,6 +290,8 @@ $header-height: 89px;   /* Adjust height of the header */
 }
 
 @import "loot";
+
+@import "party";
 
 /* Mystification data revealed to GMs */
 .gm-mystified-data {

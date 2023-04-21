@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/default-icons/feats.webp",
     "name": "Soaring Dynamo",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "class",
         "description": {
             "value": "<p>You've built clockwork wings or jets into your dynamo, allowing you to use your prosthesis to fly. You gain a fly Speed equal to your Speed. Each minute of flight reduces the operational time of your sterling dynamo by 1 hour, measured from the first time you use the Fly action in a given minute.</p>"
-        },
-        "featType": {
-            "value": "archetype"
         },
         "level": {
             "value": 18
@@ -32,14 +27,13 @@
             {
                 "key": "BaseSpeed",
                 "selector": "fly",
-                "value": "@actor.attributes.speed.value"
+                "value": "@actor.attributes.speed.total"
             }
         ],
         "source": {
             "value": "Pathfinder Guns & Gears"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "archetype"

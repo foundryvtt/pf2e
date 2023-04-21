@@ -1,19 +1,16 @@
-import { ActorSheetPF2e } from "@actor/sheet/base";
-import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
-import { SAVE_TYPES } from "@actor/values";
-import { MeleePF2e } from "@item";
-import { ItemDataPF2e } from "@item/data";
-import { DicePF2e } from "@scripts/dice";
-import { htmlClosest, tagify } from "@util";
-import { HazardPF2e } from ".";
-import { HazardSystemData } from "./data";
-import { HazardActionSheetData, HazardSaveSheetData, HazardSheetData } from "./types";
+import { StrikeData } from "@actor/data/base.ts";
+import { ActorSheetPF2e } from "@actor/sheet/base.ts";
+import { SAVE_TYPES } from "@actor/values.ts";
+import { tagify, traitSlugToObject } from "@util";
+import { HazardPF2e } from "./document.ts";
+import { HazardSystemData } from "./data.ts";
+import { HazardActionSheetData, HazardSaveSheetData, HazardSheetData } from "./types.ts";
 
 export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
-    static override get defaultOptions() {
+    static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         mergeObject(options, {
-            classes: ["default", "sheet", "hazard", "actor"],
+            classes: [...options.classes, "hazard"],
             scrollY: [".container > section"],
             width: 700,
             height: 680,
@@ -22,10 +19,10 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     }
 
     override get template(): string {
-        return "systems/pf2e/templates/actors/hazard/sheet.html";
+        return "systems/pf2e/templates/actors/hazard/sheet.hbs";
     }
 
-    override get title() {
+    override get title(): string {
         if (this.editing) {
             return game.i18n.format("PF2E.Actor.Hazard.TitleEdit", { name: super.title });
         }
@@ -33,7 +30,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         return super.title;
     }
 
-    get editing() {
+    get editing(): boolean {
         return this.options.editable && !!this.actor.getFlag("pf2e", "editHazard.value");
     }
 
@@ -45,9 +42,9 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         const actor = this.actor;
 
         const hasDefenses = !!actor.hitPoints?.max || !!actor.attributes.ac.value;
-        const hasImmunities = systemData.traits.di.value.length > 0;
-        const hasResistances = systemData.traits.dr.length > 0;
-        const hasWeaknesses = systemData.traits.dv.length > 0;
+        const hasImmunities = systemData.attributes.immunities.length > 0;
+        const hasResistances = systemData.attributes.resistances.length > 0;
+        const hasWeaknesses = systemData.attributes.weaknesses.length > 0;
         const hasIWR = hasDefenses || hasImmunities || hasResistances || hasWeaknesses;
         const stealthMod = actor.system.attributes.stealth.value;
         const stealthDC = typeof stealthMod === "number" ? stealthMod + 10 : null;
@@ -67,16 +64,29 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             reset: await enrich(systemData.details.reset),
         });
 
+        const strikesWithDescriptions: (StrikeData & { damageFormula?: string })[] = systemData.actions;
+        const actorRollData = actor.getRollData();
+        for (const attack of strikesWithDescriptions) {
+            const itemRollData = attack.item.getRollData();
+            if (attack.description.length > 0) {
+                attack.description = await TextEditor.enrichHTML(attack.description, {
+                    rollData: { ...actorRollData, ...itemRollData },
+                    async: true,
+                });
+            }
+            attack.damageFormula = String(await attack.damage?.({ getFormula: true }));
+        }
+
         return {
             ...sheetData,
-            actions: this.prepareActions(),
+            actions: this.#prepareActions(),
             editing: this.editing,
-            actorTraits: systemData.traits.value,
+            actorTraits: systemData.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.hazardTraits)),
             rarity: CONFIG.PF2E.rarityTraits,
             rarityLabel: CONFIG.PF2E.rarityTraits[this.actor.rarity],
             brokenThreshold: systemData.attributes.hp.brokenThreshold,
             stealthDC,
-            saves: this.prepareSaves(),
+            saves: this.#prepareSaves(),
 
             // Hazard visibility, in order of appearance on the sheet
             hasDefenses,
@@ -92,7 +102,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         };
     }
 
-    private prepareActions(): HazardActionSheetData {
+    #prepareActions(): HazardActionSheetData {
         const actions = this.actor.itemTypes.action.sort((a, b) => a.sort - b.sort);
         return {
             reaction: actions.filter((a) => a.actionCost?.type === "reaction"),
@@ -100,7 +110,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         };
     }
 
-    private prepareSaves(): HazardSaveSheetData[] {
+    #prepareSaves(): HazardSaveSheetData[] {
         if (!this.actor.saves) return [];
 
         const results: HazardSaveSheetData[] = [];
@@ -116,48 +126,6 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         }
 
         return results;
-    }
-
-    override async prepareItems(sheetData: ActorSheetDataPF2e<HazardPF2e>): Promise<void> {
-        const actorData = sheetData.actor;
-        // Actions
-        const attacks: ItemDataPF2e[] = [];
-
-        // Iterate through items, allocating to containers
-        const weaponTraits: Record<string, string> = CONFIG.PF2E.npcAttackTraits;
-        const traitsDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
-        for (const itemData of actorData.items) {
-            itemData.img = itemData.img || CONST.DEFAULT_TOKEN;
-
-            // NPC Generic Attacks
-            if (itemData.type === "melee") {
-                const weaponType: "melee" | "ranged" = itemData.system.weaponType.value || "melee";
-                const traits: string[] = itemData.system.traits.value;
-                const isAgile = traits.includes("agile");
-                itemData.attackRollType = weaponType === "melee" ? "PF2E.NPCAttackMelee" : "PF2E.NPCAttackRanged";
-                itemData.system.bonus.total = Number(itemData.system.bonus.value) || 0;
-                itemData.system.isAgile = isAgile;
-
-                // get formated traits for read-only npc sheet
-                itemData.traits = traits.map((trait) => ({
-                    label: weaponTraits[trait] ?? trait.charAt(0).toUpperCase() + trait.slice(1),
-                    description: traitsDescriptions[trait] ?? "",
-                }));
-
-                // Enrich description
-                const item = this.actor.items.get(itemData._id);
-                const rollData = { ...this.actor.getRollData(), ...item?.getRollData() };
-                itemData.system.description.value = await TextEditor.enrichHTML(itemData.system.description.value, {
-                    rollData,
-                    async: true,
-                });
-
-                attacks.push(itemData);
-            }
-        }
-
-        // Assign
-        actorData.attacks = attacks;
     }
 
     /* -------------------------------------------- */
@@ -212,33 +180,6 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             }
         });
 
-        // NPC Weapon Rolling
-        $html.find("button").on("click", (event) => {
-            event.preventDefault();
-            event.stopPropagation();
-
-            const itemId = htmlClosest(event.currentTarget, ".item")?.dataset.itemId;
-            const item = this.actor.items.get(itemId ?? "", { strict: true });
-            if (!item.isOfType("melee")) return;
-
-            // which function gets called depends on the type of button stored in the dataset attribute action
-            switch (event.target.dataset.action) {
-                case "attack": {
-                    const attackNumber = Number(event.currentTarget.dataset.attackNumber);
-                    this.rollAttack(event, item, attackNumber);
-                    break;
-                }
-                case "damage":
-                    this.rollDamage(event, item);
-                    break;
-                case "damageCritical":
-                    this.rollDamage(event, item, true);
-                    break;
-                default:
-                    throw new Error("Unknown action type");
-            }
-        });
-
         const $hint = $html.find(".emits-sound i.hint");
         $hint.tooltipster({
             maxWidth: 275,
@@ -253,81 +194,6 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             this.actor.setFlag("pf2e", "editHazard", { value: event.target.checked });
         });
     }
-
-    /** Temporary method to roll an attack from the hazard */
-    async rollAttack(event: JQuery.ClickEvent, item: Embedded<MeleePF2e>, attackNumber = 1): Promise<void> {
-        // Prepare roll data
-        const itemData = await item.getChatData();
-        const parts = ["@itemBonus"];
-        const title = `${item.name} - Attack Roll${attackNumber > 1 ? ` (MAP ${attackNumber})` : ""}`;
-
-        const rollData = item.getRollData();
-        rollData.itemBonus = Number(itemData.bonus.value) || 0;
-
-        if (attackNumber === 2) parts.push(itemData.map2);
-        else if (attackNumber === 3) parts.push(itemData.map3);
-
-        // Call the roll helper utility
-        DicePF2e.d20Roll({
-            event,
-            parts,
-            actor: this.actor,
-            data: rollData,
-            rollType: "attack-roll",
-            title,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            dialogOptions: {
-                width: 400,
-                top: event ? event.clientY - 80 : 400,
-                left: window.innerWidth - 710,
-            },
-        });
-    }
-
-    /** Temporary method to roll damage from the hazard */
-    rollDamage(event: JQuery.ClickEvent, item: Embedded<MeleePF2e>, critical = false): void {
-        // Get item and actor data and format it for the damage roll
-        const systemData = item.system;
-        let parts: (string | number)[] = [];
-        const partsType: string[] = [];
-
-        // If the NPC is using the updated NPC Attack data object
-        if (systemData.damageRolls && typeof systemData.damageRolls === "object") {
-            Object.keys(systemData.damageRolls).forEach((key) => {
-                if (systemData.damageRolls[key].damage) parts.push(systemData.damageRolls[key].damage);
-                partsType.push(`${systemData.damageRolls[key].damage} ${systemData.damageRolls[key].damageType}`);
-            });
-        }
-
-        // Set the title of the roll
-        const title = `${item.name}: ${partsType.join(", ")}`;
-
-        // do nothing if no parts are provided in the damage roll
-        if (parts.length === 0) {
-            console.warn("PF2e System | No damage parts provided in damage roll");
-            parts = ["0"];
-        }
-
-        // Call the roll helper utility
-        DicePF2e.damageRoll({
-            event,
-            parts,
-            critical,
-            actor: this.actor,
-            data: item.getRollData(),
-            title,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            dialogOptions: {
-                width: 400,
-                top: event.clientY - 80,
-                left: window.innerWidth - 710,
-            },
-        });
-    }
-
-    /* -------------------------------------------- */
-    /*  Event Handlers                              */
-    /* -------------------------------------------- */
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // Change emitsSound values of "true" and "false" to booleans

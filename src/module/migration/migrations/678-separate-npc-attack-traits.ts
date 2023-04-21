@@ -1,7 +1,7 @@
-import { ItemSourcePF2e } from "@item/data";
-import { RARITIES } from "@module/data";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { RARITIES } from "@module/data.ts";
 import { isObject, tupleHasValue } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Remove exclusive NPC attack traits from weapons */
 export class Migration678SeparateNPCAttackTraits extends MigrationBase {
@@ -23,7 +23,7 @@ export class Migration678SeparateNPCAttackTraits extends MigrationBase {
 
         // While we're at it ...
         if (!itemSource.system.traits) return;
-        const itemTraits: string[] = itemSource.system.traits.value;
+        const itemTraits: string[] = itemSource.system.traits.value ?? [];
         for (const trait of itemTraits) {
             if (tupleHasValue(RARITIES, trait)) {
                 itemTraits.splice(itemTraits.indexOf(trait), 1);

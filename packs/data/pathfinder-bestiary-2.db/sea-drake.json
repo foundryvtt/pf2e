@@ -35,7 +35,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -75,7 +74,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -120,7 +118,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -165,7 +162,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -194,7 +190,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> An adjacent creature deals piercing or slashing damage to the sea drake</p>\n<hr />\n<p><strong>Effect</strong> An arc of electricity courses through the sea drake's blood. The triggering creature takes [[/r {1d6}[electricity]]]{1d6 electricity damage}.</p>"
+                    "value": "<p><strong>Trigger</strong> An adjacent creature deals piercing or slashing damage to the sea drake</p>\n<hr />\n<p><strong>Effect</strong> An arc of electricity courses through the sea drake's blood. The triggering creature takes [[/r 1d6[electricity]]] damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -205,7 +201,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "electricity"
@@ -236,7 +231,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The sea drake spews a ball of electricity that strikes a primary target within 100 feet, dealing [[/r {7d6}[electricity]]]{7d6 electricity damage} (@Check[type:reflex|dc:24|basic:true] save). The lightning then arcs to up to three secondary targets within 30 feet of the primary target, striking the closest available targets first. The secondary bolts each strike one secondary target and deal the same rolled damage value as the primary bolt (@Check[type:reflex|dc:22|basic:true] save).</p>\n<p>The sea drake can't use Ball Lightning Breath again for [[/br 1d6 #rounds]]{1d6 rounds}.</p>"
+                    "value": "<p>The sea drake spews a ball of electricity that strikes a primary target within 100 feet, dealing [[/r 7d6[electricity]]] damage (@Check[type:reflex|dc:24|basic:true] save). The lightning then arcs to up to three secondary targets within 30 feet of the primary target, striking the closest available targets first. The secondary bolts each strike one secondary target and deal the same rolled damage value as the primary bolt (@Check[type:reflex|dc:22|basic:true] save).</p>\n<p>The sea drake can't use Ball Lightning Breath again for [[/br 1d6 #rounds]]{1d6 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -247,7 +242,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -286,12 +280,11 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "briny-wound",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -331,7 +324,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack"
@@ -373,7 +365,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -413,7 +404,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -445,11 +435,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -473,11 +458,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -501,11 +481,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -547,8 +522,19 @@
                 "temp": 0,
                 "value": 95
             },
+            "immunities": [
+                {
+                    "type": "electricity"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 14
@@ -601,17 +587,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "electricity",
-                    "paralyzed",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

@@ -1,8 +1,8 @@
-import { WorldClock } from "@module/apps/world-clock";
+import { WorldClock } from "@module/apps/world-clock/app.ts";
 import { ErrorPF2e } from "@util";
-import { ScenePF2e } from ".";
+import { ScenePF2e } from "./index.ts";
 
-export class SceneConfigPF2e<TScene extends ScenePF2e> extends SceneConfig<TScene> {
+export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TDocument> {
     /** Hide Unrestricted Vision Range settings when rules-based vision is enabled */
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);

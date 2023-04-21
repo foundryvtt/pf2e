@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d4",
-                    "value": ""
+                    "die": "d4"
                 },
                 "description": {
                     "value": "<p>Though less accurate and powerful than a flintlock musket, the flintlock pistol is a preferred weapon of privateers thanks to its more compact size and affordability. Pirate captains often wear a brace of such pistols in a bandolier so they can draw and fire without stopping to reload.</p>"
@@ -92,9 +91,6 @@
                 "source": {
                     "value": "Pathfinder Guns & Gears"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -103,7 +99,6 @@
                     "value": "striking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "concussive",
@@ -150,7 +145,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical"
@@ -193,7 +187,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -209,6 +202,11 @@
         },
         {
             "_id": "3j8u75qe0rn2330n",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "uUZ8FSW9h8LqYa6l"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Flintlock Pistol",
             "sort": 400000,
@@ -240,7 +238,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concussive",
@@ -286,7 +283,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -338,7 +334,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -378,7 +373,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "emotion",
@@ -419,7 +413,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "detection",
@@ -477,7 +470,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "emotion",
@@ -507,18 +499,59 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Shots from a pale stranger's firearms deal an additional [[/r {1d6}[precision]]]{1d6 precision damage}, or [[/r {2d6}[precision]]]{2d6 precision damage} against the one who murdered them. A creature who has never killed a living being doesn't take this precision damage. When a pale stranger critically succeeds at a ranged Strike with a pistol, the target must succeed at a @Check[type:fortitude|dc:29] save or be @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}.</p>"
+                    "value": "<p>Shots from a pale stranger's firearms deal an additional 1d6 precision damage, or 2d6 precision damage against the one who murdered them. A creature who has never killed a living being doesn't take this precision damage. When a pale stranger critically succeeds at a ranged Strike with a pistol, the target must succeed at a @Check[type:fortitude|dc:29] save or be @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:flintlock-pistol",
+                            {
+                                "not": "target-never-killed"
+                            },
+                            {
+                                "not": "target-murdered-pale-stranger"
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:flintlock-pistol",
+                            "target-murdered-pale-stranger"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.PaleStranger.TargetNeverKilled",
+                        "option": "target-never-killed",
+                        "toggleable": true
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.PaleStranger.TargetMurderedPaleStranger",
+                        "option": "target-murdered-pale-stranger",
+                        "toggleable": true
+                    }
+                ],
+                "slug": "bullets-of-vengeance",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "necromancy",
@@ -558,7 +591,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -595,7 +627,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "conjuration",
@@ -627,11 +658,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -655,11 +681,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -683,11 +704,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -729,12 +745,38 @@
                 "temp": 0,
                 "value": 155
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 19
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "slashing"
+                    ],
+                    "type": "physical",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "special": "",
@@ -772,31 +814,10 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "sleep"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except slashing",
-                    "type": "physical",
-                    "value": 10
-                }
-            ],
-            "dv": [],
             "languages": {
-                "custom": "",
+                "custom": "Any one language spoken in life by their murderer (typically Common)",
                 "selected": [],
-                "value": [
-                    "any one language spoken in life by their murderer (typically common)"
-                ]
+                "value": []
             },
             "rarity": "rare",
             "senses": {

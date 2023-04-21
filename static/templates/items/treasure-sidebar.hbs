@@ -1,0 +1,46 @@
+<div class="inventory-details">
+    <div class="form-group">
+        <label>{{localize "PF2E.QuantityLabel"}}</label>
+        <input type="number" name="system.quantity" value="{{data.quantity}}" />
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "PF2E.BulkLabel"}}</label>
+        <select name="system.weight.value" {{disabled bulkDisabled}}>
+            {{#select data.weight.value}}
+                <option value="-">{{localize "PF2E.NegligibleOption"}}</option>
+                {{#each bulkTypes as |name type|}}
+                    <option value="{{type}}">{{localize name}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "PF2E.StackGroupLabel"}}</label>
+        <select name="system.stackGroup">
+            {{#select data.stackGroup}}
+                <option value="">{{localize "PF2E.NoStackGroup"}}</option>
+                {{#each stackGroups as |name type|}}
+                    <option value="{{type}}">{{localize name}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "PF2E.Size"}}</label>
+        <select name="system.size">
+            {{#select data.size}}
+                {{#each sizes as |name value|}}
+                    <option value="{{value}}">{{localize name}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "PF2E.PriceLabel"}}</label>
+        <input type="text" name="system.price.value" value="{{item.price.value}}" spellcheck="false" />
+    </div>
+</div>

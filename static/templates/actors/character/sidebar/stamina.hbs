@@ -1,0 +1,39 @@
+<div class="sidebar_title">
+    <h2>{{localize "PF2E.StaminaPointsHeader"}}</h2>
+</div>
+<ol class="stamina">
+    <li class="sp">
+        <label for="{{options.id}}-pc-stamina" class="sidebar_label">{{localize "PF2E.StaminaPointsShortLabel"}}</label>
+        <span class="hp-current stamina-group" title="{{localize "PF2E.CurrentStaminaTitle"}}">
+            <input
+                id="{{options.id}}-pc-stamina"
+                class="left"
+                type="number"
+                inputmode="numeric"
+                min="0"
+                max="{{data.attributes.sp.max}}"
+                name="system.attributes.sp.value"
+                value="{{data.attributes.sp.value}}"
+            />
+            <span class="divider">&sol;</span>
+            <input class="right" type="number" value="{{data.attributes.sp.max}}" disabled="disabled" />
+        </span>
+    </li>
+    <li class="resolve">
+        <label for="{{options.id}}-pc-resolve" class="sidebar_label">{{localize "PF2E.ResolvePointsShortLabel"}}</label>
+        <span class="hp-max stamina-group" title="{{localize "PF2E.ResolveTitle"}}">
+            <input
+                id="{{options.id}}-pc-resolve"
+                class="left"
+                type="number"
+                inputmode="numeric"
+                min="0"
+                max="{{data.attributes.resolve.max}}"
+                name="system.attributes.resolve.value"
+                value="{{data.attributes.resolve.value}}"
+            />
+            <span class="divider">&sol;</span>
+            <input class="right" type="number" value="{{data.attributes.resolve.max}}" disabled="disabled" />
+        </span>
+    </li>
+</ol>

@@ -1,0 +1,40 @@
+<div class="tab actions actions-pane" data-group="primary" data-tab="actions">
+    <div class="actions-container">
+        <div class="actions-tabs-wrapper">
+            <div class="actions-panels">
+                <ol class="actions-list item-list directory-list strikes-list">
+                    {{#each actor.actions as |section sid|}}
+                        <li class="action-header stroke-header">
+                            {{> "systems/pf2e/templates/actors/partials/images/header_stroke.hbs"}}
+                            <h3>{{section.label}}</h3>
+                            {{#if @root.editable}}
+                                <div class="item-controls" style="display: flex">
+                                    <a class="item-control item-create" title="{{localize "PF2E.CreateActionTitle"}}" data-type="action" data-action-type="{{sid}}"><i class="fas fa-fw fa-plus"></i></a>
+                                    <a class="item-control action-browse" title="{{localize "PF2E.OpenActionBrowserTitle"}}" data-type="feat"><i class="fas fa-fw fa-search"></i></a>
+                                </div>
+                            {{/if}}
+                        </li>
+                        {{#each section.actions as |action aid|}}
+                            <li class="action item" data-item-id="{{action._id}}">
+                                <div class="item-name rollable">
+                                    <div class="item-image" style="background-image: url({{action.img}})">
+                                        <i class="fas fa-fw fa-comment-alt"></i>
+                                    </div>
+                                    <h4>{{action.name}}</h4>
+                                </div>
+                                {{#if @root.editable}}
+                                    <div class="item-controls">
+                                        <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-fw fa-edit"></i></a>
+                                        {{#unless action.feat}}
+                                            <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-fw fa-trash"></i></a>
+                                        {{/unless}}
+                                    </div>
+                                {{/if}}
+                            </li>
+                        {{/each}}
+                    {{/each}}
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>

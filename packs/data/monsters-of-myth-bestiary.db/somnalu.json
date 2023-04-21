@@ -114,11 +114,6 @@
                 },
                 "tradition": {
                     "value": "divine"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -137,10 +132,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -209,7 +201,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "rare",
                     "value": [
                         "emotion",
@@ -236,11 +227,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "10"
-                },
-                "areasize": {
-                    "value": "10-foot burst"
+                    "type": "burst",
+                    "value": 10
                 },
                 "category": {
                     "value": "spell"
@@ -326,7 +314,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "incapacitation",
@@ -350,12 +337,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "value": ""
-                },
-                "areasize": {
-                    "value": "4 cubes, each 10 feet on a side"
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -439,7 +421,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -461,11 +442,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "20"
-                },
-                "areasize": {
-                    "value": "20-foot burst"
+                    "type": "burst",
+                    "value": 20
                 },
                 "category": {
                     "value": "spell"
@@ -549,7 +527,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "darkness"
@@ -572,13 +549,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -664,7 +635,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -686,11 +656,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "5"
-                },
-                "areasize": {
-                    "value": "5-foot burst"
+                    "type": "burst",
+                    "value": 5
                 },
                 "category": {
                     "value": "spell"
@@ -772,7 +739,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "incapacitation",
@@ -816,7 +782,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-10"
@@ -859,7 +824,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -904,7 +868,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -944,7 +907,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -970,7 +932,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The acid that coats the skin of Somnalu eats away at a weapon that Strikes it. As long as Digestive Secretions is active on Somnalu, whenever a creature hits Somnalu with a metal or wooden weapon, the creature must succeed at a @Check[type:reflex|dc:33|traits:damaging-effect] save or else the weapon takes [[/r {2d8}[acid]]]{2d8 acid damage} (after dealing damage to Somnalu as normal). Thrown weapons and ammunition take this damage automatically with no saving throw.</p>"
+                    "value": "<p>The acid that coats the skin of Somnalu eats away at a weapon that Strikes it. As long as Digestive Secretions is active on Somnalu, whenever a creature hits Somnalu with a metal or wooden weapon, the creature must succeed at a @Check[type:reflex|dc:33|traits:damaging-effect] save or else the weapon takes [[/r 2d8[acid]]] damage (after dealing damage to Somnalu as normal). Thrown weapons and ammunition take this damage automatically with no saving throw.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -981,7 +943,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1012,13 +973,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "aura",
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -1060,7 +1032,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1086,7 +1057,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Somnalu jets acid from its skin, dousing all creatures in a @Template[type:line|distance:60|width:15]{15-foot-wide, 60-foot-long line}. Each creature in this area takes [[/r {10d8}[acid]]]{10d8 acid damage} (@Check[type:reflex|dc:33|basic:true] save). It can't use this ability again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>Somnalu jets acid from its skin, dousing all creatures in a @Template[type:line|distance:60|width:15]{15-foot-wide, 60-foot-long line}. Each creature in this area takes [[/r 10d8[acid]]] damage (@Check[type:reflex|dc:33|basic:true] save). It can't use this ability again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1097,7 +1068,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1123,7 +1093,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>Somnalu Burrows three times. It digs a trench along its path, filling the trench with acid pumped from its skin. The trench is hazardous terrain, and any creature that moves into it takes [[/r {4d6}[persistent,acid]]]{4d6} @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent acid Damage}. While Burrowing, if Somnalu would move through a space occupied by another creature, that creature must attempt a @Check[type:reflex|dc:36] save to avoid falling into the trench and taking the acid damage. The acid remains for 1 minute.</p>"
+                    "value": "<p>Somnalu Burrows three times. It digs a trench along its path, filling the trench with acid pumped from its skin. The trench is hazardous terrain, and any creature that moves into it takes [[/r 4d6[persistent,acid]]] damage. While Burrowing, if Somnalu would move through a space occupied by another creature, that creature must attempt a @Check[type:reflex|dc:36] save to avoid falling into the trench and taking the acid damage. The acid remains for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1134,7 +1104,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1160,27 +1129,29 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Somnalu secretes acid for 1 round. Whenever it makes a melee Strike, it deals an additional [[/r {2d8}[splash,acid]]]{2d8 acid splash damage}. Like most splash damage, this damage applies to the target and adjacent creatures and applies even on a failure, though not on a critical failure.</p>"
+                    "value": "<p>Somnalu secretes acid for 1 round. Whenever it makes a melee Strike, it deals an additional [[/r (2d8[splash])[acid]]]{2d8 acid splash damage}. Like most splash damage, this damage applies to the target and adjacent creatures and applies even on a failure, though not on a critical failure.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
-                        "domain": "attack-roll",
+                        "domain": "all",
                         "key": "RollOption",
                         "option": "digestive-secretions",
                         "toggleable": true
                     },
                     {
-                        "key": "Note",
+                        "category": "splash",
+                        "damageType": "acid",
+                        "diceNumber": 2,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
                         "predicate": [
-                            "digestive-secretions"
+                            "digestive-secretions",
+                            "melee"
                         ],
-                        "selector": "attack",
-                        "text": "it deals an additional [[/r {2d8}[splash,acid]]]{2d8 acid splash damage}. Like most splash damage, this damage applies to the target and adjacent creatures and applies even on a failure, though not on a critical failure.",
-                        "title": "{item|name}",
-                        "visibility": "gm"
+                        "selector": "strike-damage"
                     }
                 ],
                 "slug": null,
@@ -1188,7 +1159,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1225,7 +1195,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1251,7 +1220,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>Somnalu blasts poison gas in a @Template[type:burst|distance:30]{30-foot radius}. The gas lingers for 1 round, and all creatures that begin their turn in the gas or enter the gas take [[/r {4d8}[poison]]]{4d8 poison damage} (@Check[type:fortitude|dc:36|basic:true] save). Any creature in the gas is @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}, and other creatures are concealed to all creatures in the gas. However, Somnalu can see through this concealment.</p>"
+                    "value": "<p>Somnalu blasts poison gas in a @Template[type:burst|distance:30]{30-foot radius}. The gas lingers for 1 round, and all creatures that begin their turn in the gas or enter the gas take [[/r 4d8[poison]]] damage (@Check[type:fortitude|dc:36|basic:true] save). Any creature in the gas is @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}, and other creatures are concealed to all creatures in the gas. However, Somnalu can see through this concealment.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1262,7 +1231,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1304,7 +1272,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1336,11 +1303,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1364,11 +1326,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1392,11 +1349,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1420,11 +1372,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1448,11 +1395,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1494,12 +1436,27 @@
                 "temp": 0,
                 "value": 290
             },
+            "immunities": [
+                {
+                    "type": "acid"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 29
             },
+            "resistances": [
+                {
+                    "type": "mental",
+                    "value": 10
+                },
+                {
+                    "type": "poison",
+                    "value": 15
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1513,7 +1470,13 @@
                 ],
                 "special": "",
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 15
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1546,29 +1509,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "acid"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "mental",
-                    "value": 10
-                },
-                {
-                    "type": "poison",
-                    "value": 15
-                }
-            ],
-            "dv": [
-                {
-                    "type": "cold",
-                    "value": 15
-                }
-            ],
             "languages": {
                 "custom": "Can't Speak Any Language; Telepathy 60 feet",
                 "selected": [],

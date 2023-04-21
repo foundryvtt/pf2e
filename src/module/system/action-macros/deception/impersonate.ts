@@ -1,27 +1,28 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function impersonate(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "deception");
+const PREFIX = "PF2E.Actions.Impersonate";
+
+export function impersonate(options: SkillActionOptions): void {
+    const slug = options?.skill ?? "deception";
+    const rollOptions = ["action:impersonate"];
+    const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph,
-        title: "PF2E.Actions.Impersonate.Title",
-        subtitle,
-        modifiers: options.modifiers,
-        rollOptions: ["all", checkType, stat, "action:impersonate"],
-        extraOptions: ["action:impersonate"],
+        title: `${PREFIX}.Title`,
+        checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["concentrate", "exploration", "manipulate", "secret"],
-        checkType,
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.perception,
         extraNotes: (selector: string) => [
-            ActionMacroHelpers.note(selector, "PF2E.Actions.Impersonate", "criticalSuccess"),
-            ActionMacroHelpers.note(selector, "PF2E.Actions.Impersonate", "success"),
-            ActionMacroHelpers.note(selector, "PF2E.Actions.Impersonate", "failure"),
-            ActionMacroHelpers.note(selector, "PF2E.Actions.Impersonate", "criticalFailure"),
+            ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.success`, ["success", "criticalSuccess"]),
+            ActionMacroHelpers.note(selector, PREFIX, "failure"),
+            ActionMacroHelpers.note(selector, PREFIX, "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

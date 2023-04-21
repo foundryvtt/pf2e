@@ -1,33 +1,25 @@
 import {
-    BaseCreatureData,
     BaseCreatureSource,
     CreatureAttributes,
     CreatureSystemData,
     CreatureSystemSource,
     CreatureTraitsData,
     SkillAbbreviation,
-} from "@actor/creature/data";
-import { CreatureSensePF2e } from "@actor/creature/sense";
-import { Rollable } from "@actor/data/base";
-import { StatisticModifier } from "@actor/modifiers";
-import { AbilityString } from "@actor/types";
-import type { FamiliarPF2e } from ".";
+} from "@actor/creature/data.ts";
+import { CreatureSensePF2e } from "@actor/creature/sense.ts";
+import { Rollable } from "@actor/data/base.ts";
+import { StatisticModifier } from "@actor/modifiers.ts";
+import { AbilityString } from "@actor/types.ts";
 
 type FamiliarSource = BaseCreatureSource<"familiar", FamiliarSystemSource>;
 
-interface FamiliarData
-    extends Omit<FamiliarSource, "data" | "system" | "effects" | "flags" | "items" | "prototypeToken" | "type">,
-        BaseCreatureData<FamiliarPF2e, "familiar", FamiliarSystemData, FamiliarSource> {}
-
-interface FamiliarSystemSource extends Pick<CreatureSystemSource, "schema" | "traits"> {
+interface FamiliarSystemSource extends Pick<CreatureSystemSource, "schema"> {
     details: {
         creature: {
             value: string;
         };
     };
-    attributes: {
-        hp: { value: number };
-    };
+    attributes: FamiliarAttributesSource;
     master: {
         id: string | null;
         ability: AbilityString | null;
@@ -36,10 +28,14 @@ interface FamiliarSystemSource extends Pick<CreatureSystemSource, "schema" | "tr
     customModifiers?: never;
 
     resources?: never;
+
+    traits?: never;
 }
 
 /** The raw information contained within the actor data object for familiar actors. */
-interface FamiliarSystemData extends Omit<FamiliarSystemSource, "toggles" | "customModifiers">, CreatureSystemData {
+interface FamiliarSystemData
+    extends Omit<FamiliarSystemSource, "attributes" | "customModifiers" | "toggles" | "resources" | "traits">,
+        CreatureSystemData {
     details: CreatureSystemData["details"] & {
         creature: {
             value: string;
@@ -56,9 +52,18 @@ interface FamiliarSystemData extends Omit<FamiliarSystemSource, "toggles" | "cus
     traits: FamiliarTraitsData;
 }
 
+interface FamiliarAttributesSource {
+    hp: { value: number };
+    initiative?: never;
+    immunities?: never;
+    weaknesses?: never;
+    resistances?: never;
+}
+
 interface FamiliarAttributes extends CreatureAttributes {
     ac: { value: number; breakdown: string; check?: number };
     perception: FamiliarPerception;
+    initiative?: never;
 }
 
 type FamiliarPerception = { value: number } & StatisticModifier & Rollable;
@@ -69,4 +74,4 @@ interface FamiliarTraitsData extends CreatureTraitsData {
     senses: CreatureSensePF2e[];
 }
 
-export { FamiliarData, FamiliarSource, FamiliarSystemData, FamiliarSystemSource };
+export { FamiliarSource, FamiliarSystemData, FamiliarSystemSource };

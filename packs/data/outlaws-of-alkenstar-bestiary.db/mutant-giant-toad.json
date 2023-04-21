@@ -35,7 +35,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -73,7 +72,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-10"
@@ -117,7 +115,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -162,7 +159,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -202,7 +198,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -239,7 +234,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "poison"
@@ -267,7 +261,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The mutant giant toad squirts a @Template[type:line|distance:60] of acid from the pustules on its back. Creatures in the area take [[/r {3d6}[acid]]]{3d6 acid damage} (@Check[type:reflex|dc:20|basic:true]). The mutant giant toad can't Squirt Acid for [[/br 1d4 #Squirt Acid Recharge]]{1d4 rounds}.</p>"
+                    "value": "<p>The mutant giant toad squirts a @Template[type:line|distance:60] of acid from the pustules on its back. Creatures in the area take [[/r 3d6[acid]]] damage (@Check[type:reflex|dc:20|basic:true]). The mutant giant toad can't Squirt Acid for [[/br 1d4 #Squirt Acid Recharge]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -278,7 +272,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "acid",
@@ -313,7 +306,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Medium, [[/r {1d8+3}[bludgeoning]]]{1d8+3 bludgeoning damage}, Rupture 8</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                    "value": "<p>Medium, [[/r (1d8+3)[bludgeoning]]] damage, Rupture 8</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -324,7 +317,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack"
@@ -355,7 +347,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature hit by the giant toad's tongue becomes @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} by the giant toad. The creature isn't @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized}, but it can't move beyond the reach of the toad's tongue. A creature can sever the tongue with a successful Strike against AC 15 that deals at least [[/r {6}[slashing]]]{6 slashing Damage}.</p>\n<p>This deals no damage to the toad but prevents it from using its tongue Strike until it regrows its tongue, which takes a week.</p>"
+                    "value": "<p>A creature hit by the giant toad's tongue becomes @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} by the giant toad. The creature isn't @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized}, but it can't move beyond the reach of the toad's tongue. A creature can sever the tongue with a successful Strike against AC 15 that deals at least [[/r 6[slashing]]] damage.</p>\n<p>This deals no damage to the toad but prevents it from using its tongue Strike until it regrows its tongue, which takes a week.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -366,7 +358,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -408,7 +399,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -456,11 +446,6 @@
                 "source": {
                     "value": ""
                 },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
                 "variants": {
                     "0": {
                         "label": "+12 to High Jump or Long Jump",
@@ -489,11 +474,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -536,11 +516,17 @@
                 "value": 44
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 9
             },
+            "resistances": [
+                {
+                    "type": "acid",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -577,18 +563,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "acid",
-                    "value": 5
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

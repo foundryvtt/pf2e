@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "primal"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -126,11 +121,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
+                    "type": "burst",
                     "value": 20
-                },
-                "areasize": {
-                    "value": "20-foot burst"
                 },
                 "category": {
                     "value": "spell"
@@ -212,7 +204,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "water"
@@ -235,13 +226,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -322,7 +307,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack",
@@ -366,7 +350,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile"
@@ -409,7 +392,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "backswing",
@@ -453,7 +435,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -495,7 +476,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -540,7 +520,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -579,13 +558,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "aura",
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": "frightful-presence",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -616,7 +606,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": "2"
+                    "value": 2
                 },
                 "description": {
                     "value": "<p>The Krampus celebrant Strides up to its Speed and attempts a birch bundle Strike against one creature within its reach at any point during that movement.</p>"
@@ -630,7 +620,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -656,7 +645,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The Krampus celebrant hits a frightened creature with its birch bundle Strike</p>\n<hr />\n<p><strong>Effect</strong> The target must attempt a @Check[type:will|dc:26|name:Relentless torment] save to resist the effects of the fearful assault.</p>\n<hr />\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The creature takes [[/r {1d8}[mental]]]{1d8 mental damage}. At the end of the creature's next turn, its frightened condition doesn't decrease by 1.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r {2d8}[mental]]]{2d8 mental damage}, and its frightened condition increases by 1 (maximum 4). At the end of its next turn, its frightened condition doesn't decrease by 1.</p>"
+                    "value": "<p><strong>Trigger</strong> The Krampus celebrant hits a frightened creature with its birch bundle Strike</p>\n<hr />\n<p><strong>Effect</strong> The target must attempt a @Check[type:will|dc:26|name:Relentless torment] save to resist the effects of the fearful assault.</p>\n<hr />\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The creature takes [[/r 1d8[mental]]] damage. At the end of the creature's next turn, its frightened condition doesn't decrease by 1.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r 2d8[mental]]] damage, and its frightened condition increases by 1 (maximum 4). At the end of its next turn, its frightened condition doesn't decrease by 1.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -667,7 +656,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -704,7 +692,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -727,7 +714,7 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
                     "value": "<p>Whenever the Krampus celebrant deals damage to an object, it ignores the first 10 points of the object's Hardness.</p>"
@@ -741,7 +728,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -783,7 +769,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -815,11 +800,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -843,11 +823,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -871,11 +846,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -899,11 +869,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -946,17 +911,33 @@
                 "value": 125
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 19
             },
+            "resistances": [
+                {
+                    "type": "cold",
+                    "value": 10
+                },
+                {
+                    "type": "physical",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "details": "snowstride",
                 "otherSpeeds": [],
                 "special": "",
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "good",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -989,27 +970,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "type": "cold",
-                    "value": 10
-                },
-                {
-                    "type": "physical",
-                    "value": 5
-                }
-            ],
-            "dv": [
-                {
-                    "type": "good",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

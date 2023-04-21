@@ -1,0 +1,50 @@
+<div class="sidebar_title">
+    <h2>{{localize "PF2E.HitPointsHeader"}}</h2>
+    <button type="button" class="modifiers_button hover" data-tooltip-content="#{{options.id}}-hp-modifiers">
+        <i class="fas fa-eye"></i> {{localize "PF2E.ModifiersTitle"}}
+    </button>
+</div>
+<div class="hitpoints">
+    <div class="hp-big">
+        <div class="container temp-hp">
+            <label for="{{options.id}}-pc-hp-temp" class="sidebar_label">{{localize "PF2E.TempHitPointsShortLabel"}}</label>
+            <div class="data-value" title="{{localize "PF2E.TempHPTitle"}}">
+                <input name="system.attributes.hp.temp" id="{{options.id}}-pc-hp-temp" type="number" value="{{data.attributes.hp.temp}}" placeholder="0" />
+            </div>
+        </div>
+        <div class="container current-hp">
+            <label for="{{options.id}}-pc-hp" class="sidebar_label">{{localize "PF2E.CurrentHitPointsShortLabel"}}</label>
+            <div class="data-value" title="{{localize "PF2E.CurrentHPTitle"}}">
+                <input name="system.attributes.hp.value" id="{{options.id}}-pc-hp" type="number" value="{{data.attributes.hp.value}}" placeholder="10" />
+            </div>
+        </div>
+        <div class="container max-hp">
+            <span class="sidebar_label">{{localize "PF2E.MaxHitPointsShortLabel"}}</span>
+            <div class="data-value">
+                <h2>{{data.attributes.hp.max}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="hp-small">
+        <a class="rollable roll-icon{{#if (not data.attributes.dying.value)}} disabled{{/if}}" data-action="recovery-check" title="{{localize "PF2E.Check.Specific.Recovery"}}">
+            {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
+        </a>
+        <a class="dots dying" title="{{localize "PF2E.condition.dying.summary"}}">
+            <span class="sidebar_label">{{localize "PF2E.condition.dying.name"}}</span>
+            {{> "systems/pf2e/templates/actors/partials/dying-pips.hbs"}}
+        </a>
+        <a class="dots wounded" title="{{localize "PF2E.condition.wounded.summary"}}">
+            <span class="sidebar_label">{{localize "PF2E.condition.wounded.name"}}</span>
+            <span class="pips">
+                {{#times data.attributes.wounded.value}}<i class="fas fa-dot-circle"></i>{{/times}}
+                {{#times dying.remainingWounded}}<i class="far fa-circle"></i>{{/times}}
+            </span>
+        </a>
+        <a class="roll-icon rest" data-action="rest" title="{{localize "PF2E.Actor.Character.Rest.Label"}}">
+            <i class="fas fa-bed"></i>
+        </a>
+    </div>
+</div>
+{{#with data.attributes.hp}}
+    {{> "systems/pf2e/templates/actors/character/partials/modifiers-tooltip.hbs" title="PF2E.HitPointsHeader"}}
+{{/with}}

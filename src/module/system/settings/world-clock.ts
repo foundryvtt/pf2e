@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import { LocalizePF2e } from "@system/localize";
+import { LocalizePF2e } from "@system/localize.ts";
 
 type SettingsKey =
     | "dateTheme"
@@ -35,7 +35,7 @@ export class WorldClockSettings extends FormApplication {
         return mergeObject(super.defaultOptions, {
             title: CONFIG.PF2E.SETTINGS.worldClock.name,
             id: "world-clock-settings",
-            template: "systems/pf2e/templates/system/settings/world-clock/index.html",
+            template: "systems/pf2e/templates/system/settings/world-clock/index.hbs",
             width: 550,
             height: "auto",
             closeOnSubmit: true,
@@ -109,7 +109,7 @@ export class WorldClockSettings extends FormApplication {
         const title = translations.ResetWorldTime.Name;
         $html.find("button.reset-world-time").on("click", async () => {
             const template = await renderTemplate(
-                "systems/pf2e/templates/system/settings/world-clock/confirm-reset.html"
+                "systems/pf2e/templates/system/settings/world-clock/confirm-reset.hbs"
             );
             Dialog.confirm({
                 title: title,
@@ -221,7 +221,7 @@ export class WorldClockSettings extends FormApplication {
                 hint: CONFIG.PF2E.SETTINGS.worldClock.worldCreatedOn.hint,
                 scope: "world",
                 config: false,
-                default: DateTime.utc().toISO(),
+                default: DateTime.utc().toISO()!,
                 type: String,
             },
         };

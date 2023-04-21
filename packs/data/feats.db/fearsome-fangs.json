@@ -1,0 +1,55 @@
+{
+    "_id": "CtC7DM1poHDwwu52",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Fearsome Fangs",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your claws and jaws are brutally powerful and efficient, even by ursine standards. The base damage of your jaws unarmed attack from Ursine Avenger Form increases to [[/r 1d12]]. The base damage of your claws unarmed attack from Ursine Avenger Form increases to [[/r 1d8]].</p>"
+        },
+        "level": {
+            "value": 16
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d12"
+                },
+                "predicate": [
+                    "self:effect:ursine-avenger-form"
+                ],
+                "selector": "jaws-damage"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d8"
+                },
+                "predicate": [
+                    "self:effect:ursine-avenger-form"
+                ],
+                "selector": "claw-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

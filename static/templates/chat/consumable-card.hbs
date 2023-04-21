@@ -1,0 +1,41 @@
+<div class="pf2e chat-card weapon-card" data-actor-id="{{actor.id}}" data-item-id="{{item.id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+    <header class="card-header flexrow">
+        <img src="{{item.img}}" title="{{item.name}}" width="36" height="36" />
+        <h3>{{item.name}}</h3>
+    </header>
+
+    <div class="tags">
+        {{#if item.isIdentified}}
+            <span class="tag {{data.rarity.name}}" data-trait="{{data.rarity.name}}" data-description="{{data.rarity.description}}"">{{localize data.rarity.label}}</span>
+        {{/if}}
+        {{#each data.traits as |trait|}}
+            {{#unless trait.mystified}}
+                <span class="tag" data-trait="{{this.name}}" data-description="{{this.description}}">{{localize trait.label}}</span>
+            {{/unless}}
+        {{/each}}
+        {{#each data.properties as |property|}}
+            <span class="tag tag_alt">{{localize property}}</span>
+        {{/each}}
+    </div>
+
+    <div class="card-content">
+        {{{item.description}}}
+    </div>
+
+    <div class="card-buttons">
+        {{#if (and data.usesCharges data.isUsable)}}
+            {{#if data.hasCharges}}
+                <button type="button" data-action="consume">{{localize "PF2E.ConsumableUseLabel"}} {{item.consumableType}}</button>
+            {{else}}
+                <button type="button" disabled="disabled">{{localize "PF2E.ConsumableNoChargesLabel"}}</button>
+            {{/if}}
+        {{/if}}
+    </div>
+
+    <footer class="card-footer">
+        {{#if item.isIdentified}}
+            <span>{{localize "PF2E.Item.Physical.LevelLabel" level=item.level}}</span>
+            <span>{{localize "PF2E.Item.Physical.PriceLabel" price=(coinLabel item.price)}}</span>
+        {{/if}}
+    </footer>
+</div>

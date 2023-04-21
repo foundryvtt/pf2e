@@ -35,7 +35,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile"
@@ -79,7 +78,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -124,7 +122,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -164,7 +161,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -204,7 +200,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "auditory"
@@ -246,7 +241,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "inhaled"
@@ -277,7 +271,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Salt water acts as an extremely strong acid to an akata. Full immersion in salt water deals [[/r {4d6}[acid]]]{4d6 acid damage} per round.</p>"
+                    "value": "<p>Salt water acts as an extremely strong acid to an akata. Full immersion in salt water deals [[/r 4d6[acid]]] damage per round.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -288,7 +282,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -323,12 +316,11 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "void-death",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "disease"
@@ -362,11 +354,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -390,11 +377,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -418,11 +400,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -464,12 +441,27 @@
                 "temp": 0,
                 "value": 15
             },
+            "immunities": [
+                {
+                    "type": "disease"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 6
             },
+            "resistances": [
+                {
+                    "type": "fire",
+                    "value": 5
+                },
+                {
+                    "type": "poison",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -478,7 +470,13 @@
                     }
                 ],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "salt-water",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -514,32 +512,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "disease"
-                ]
-            },
-            "dr": [
-                {
-                    "label": "Fire",
-                    "type": "fire",
-                    "value": "5"
-                },
-                {
-                    "label": "Poison",
-                    "type": "poison",
-                    "value": "5"
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Salt Water",
-                    "type": "salt water",
-                    "value": "5"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

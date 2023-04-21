@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "divine"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -126,11 +121,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "60"
-                },
-                "areasize": {
-                    "value": "60-foot burst"
+                    "type": "burst",
+                    "value": 60
                 },
                 "category": {
                     "value": "spell"
@@ -244,7 +236,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "cold",
@@ -269,13 +260,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -358,7 +343,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "teleportation"
@@ -381,13 +365,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -470,7 +448,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "revelation"
@@ -494,11 +471,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
+                    "type": "emanation",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -582,7 +556,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "detection",
@@ -606,13 +579,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "varies"
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -631,7 +598,6 @@
                             "applyMod": false,
                             "type": {
                                 "categories": [],
-                                "subtype": "",
                                 "value": "negative"
                             },
                             "value": "1d8"
@@ -639,7 +605,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"pf2-icon\">1</span> (somatic) The spell has a range of touch.</p>\n<p><span class=\"pf2-icon\">2</span> (verbal, somatic) The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8. [[/r (@item.level)d8[negative]+@item.level*8[healing]]]{2-Action Negative Healing}</p>\n<p><span class=\"pf2-icon\">3</span> (material, verbal, somatic) You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"pf2-icon\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"pf2-icon\">2</span> <strong>(verbal, somatic)</strong> The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><span class=\"pf2-icon\">3</span> <strong>(material, verbal, somatic)</strong> You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -667,6 +633,110 @@
                 },
                 "materials": {
                     "value": ""
+                },
+                "overlays": {
+                    "4gyp3qlsv5ywdyjq": {
+                        "_id": "4gyp3qlsv5ywdyjq",
+                        "name": "Harm (vs. Undead)",
+                        "overlayType": "override",
+                        "sort": 3,
+                        "system": {
+                            "components": {
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "value": "1d8+8"
+                                    }
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "0": "1d8+8"
+                                }
+                            },
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "save": {
+                                "basic": "",
+                                "value": ""
+                            },
+                            "spellType": {
+                                "value": "heal"
+                            },
+                            "target": {
+                                "value": "1 willing undead creature"
+                            },
+                            "time": {
+                                "value": "2"
+                            }
+                        }
+                    },
+                    "pq7cxntbz4s8g5ik": {
+                        "_id": "pq7cxntbz4s8g5ik",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "components": {
+                                "somatic": true
+                            },
+                            "range": {
+                                "value": "touch"
+                            },
+                            "time": {
+                                "value": "1"
+                            }
+                        }
+                    },
+                    "rvhoa43rqqqp8izn": {
+                        "_id": "rvhoa43rqqqp8izn",
+                        "overlayType": "override",
+                        "sort": 4,
+                        "system": {
+                            "area": {
+                                "type": "emanation",
+                                "value": 30
+                            },
+                            "components": {
+                                "material": true,
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "range": {
+                                "value": ""
+                            },
+                            "target": {
+                                "value": "all living and undead creatures"
+                            },
+                            "time": {
+                                "value": "3"
+                            }
+                        }
+                    },
+                    "z04svm1cvfcxtplb": {
+                        "_id": "z04svm1cvfcxtplb",
+                        "name": "Harm (vs. Living)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "components": {
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "target": {
+                                "value": "1 living creature"
+                            },
+                            "time": {
+                                "value": "2"
+                            }
+                        }
+                    }
                 },
                 "prepared": {
                     "value": ""
@@ -713,7 +783,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "negative"
@@ -759,7 +828,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -807,7 +875,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -853,7 +920,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -898,7 +964,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -950,7 +1015,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -979,18 +1043,41 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A nasurgeth's entropy grows even stronger underwater. All water within the aura is completely dark (as 4th-level <em>@UUID[Compendium.pf2e.spells-srd.Darkness]{Darkness}</em>). Magical light with a counteract level of 4th level or lower, along with magical light cantrips, are suppressed. A living creature entering or starting its turn in the aura takes [[/r {4d6}[negative]]]{4d6 negative damage}, and the creature also takes an additional [[/r {2d10}[cold]]]{2d10 cold damage} if it's in water (@Check[type:fortitude|dc:39|basic:true]). If it fails, it's also @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 minute and pulled 10 feet toward the nasurgeth.</p>"
+                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A nasurgeth's entropy grows even stronger underwater. All water within the aura is completely dark (as 4th-level <em>@UUID[Compendium.pf2e.spells-srd.Darkness]{Darkness}</em>). Magical light with a counteract level of 4th level or lower, along with magical light cantrips, are suppressed. A living creature entering or starting its turn in the aura takes [[/r 4d6[negative]]] damage, and the creature also takes an additional [[/r 2d10[cold]]] damage if it's in water (@Check[type:fortitude|dc:39|basic:true]). If it fails, it's also @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 minute and pulled 10 feet toward the nasurgeth.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "terrain:underwater"
+                        ],
+                        "radius": 60,
+                        "slug": "midnight-depths",
+                        "traits": [
+                            "aura",
+                            "cold",
+                            "darkness",
+                            "divine",
+                            "necromancy",
+                            "negative"
+                        ]
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SkillVariant.Underwater",
+                        "option": "terrain:underwater",
+                        "toggleable": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -1023,7 +1110,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The nasurgeth takes slashing or piercing damage from a critical hit, or a swallowed creature cuts itself free</p>\n<hr />\n<p><strong>Effect</strong> Darkness and negative energy spill out from the nasurgeth's wound, dealing [[/r {8d8}[negative]]]{8d8 negative damage} to creatures within 20 feet (@Check[type:fortitude|dc:40|basic:true]).</p>"
+                    "value": "<p><strong>Trigger</strong> The nasurgeth takes slashing or piercing damage from a critical hit, or a swallowed creature cuts itself free</p>\n<hr />\n<p><strong>Effect</strong> Darkness and negative energy spill out from the nasurgeth's wound, dealing [[/r 8d8[negative]]] damage to creatures within 20 feet (@Check[type:fortitude|dc:40|basic:true]).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1034,7 +1121,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1071,7 +1157,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1097,7 +1182,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> A creature is @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} or @UUID[Compendium.pf2e.conditionitems.Restrained]{Restrained} in the nasurgeth's jaws</p>\n<hr />\n<p><strong>Effect</strong> The nasurgeth breaks a tooth off in the target, who takes @Localize[PF2E.PersistentDamage.Bleed3d10.success] and is no longer grabbed or restrained. If the target is adjacent to a surface, the tooth also pins it in place, making it @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} (@UUID[Compendium.pf2e.actionspf2e.Escape]{Escape} DC 45).</p>"
+                    "value": "<p><strong>Requirements</strong> A creature is @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} or @UUID[Compendium.pf2e.conditionitems.Restrained]{Restrained} in the nasurgeth's jaws</p>\n<hr />\n<p><strong>Effect</strong> The nasurgeth breaks a tooth off in the target, who takes [[/r 3d10[bleed]]] and is no longer grabbed or restrained. If the target is adjacent to a surface, the tooth also pins it in place, making it @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} (@UUID[Compendium.pf2e.actionspf2e.Escape]{Escape} DC 45).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1108,7 +1193,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1145,7 +1229,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1176,7 +1259,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Huge, [[/r {2d10+9}[bludgeoning]]]{2d10+9 bludgeoning}, Rupture 40</p>\n<p>A living creature that ends its turn swallowed whole by a nasurgeth becomes @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} or increases its drained condition by 1, and the nasurgeth gains 20 temporary Hit Points. A creature whose drained condition increases to 5 in this way dies.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                    "value": "<p>Huge, [[/r (2d10+9)[bludgeoning]]], Rupture 40</p>\n<p>A living creature that ends its turn swallowed whole by a nasurgeth becomes @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} or increases its drained condition by 1, and the nasurgeth gains 20 temporary Hit Points. A creature whose drained condition increases to 5 in this way dies.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1187,7 +1270,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack"
@@ -1234,7 +1316,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1266,11 +1347,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1294,11 +1370,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1322,11 +1393,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1350,11 +1416,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1378,11 +1439,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1406,11 +1462,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1452,8 +1503,28 @@
                 "temp": 0,
                 "value": 510
             },
+            "immunities": [
+                {
+                    "type": "cold"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 36
@@ -1471,7 +1542,17 @@
                 ],
                 "special": "",
                 "value": 0
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "good",
+                    "value": 15
+                },
+                {
+                    "type": "silver",
+                    "value": 15
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1504,39 +1585,14 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "cold",
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "type": "good",
-                    "value": 15
-                },
-                {
-                    "exceptions": "",
-                    "type": "silver",
-                    "value": 15
-                }
-            ],
             "languages": {
-                "custom": "",
+                "custom": "Telepathy 100 feet",
                 "selected": [],
                 "value": [
                     "abyssal",
                     "common",
                     "infernal",
-                    "necril; telepathy 100 feet"
+                    "necril"
                 ]
             },
             "rarity": "common",

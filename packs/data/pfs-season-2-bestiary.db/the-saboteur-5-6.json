@@ -23,8 +23,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d4",
-                    "value": ""
+                    "die": "d4"
                 },
                 "description": {
                     "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
@@ -87,9 +86,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -98,7 +94,6 @@
                     "value": "striking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -146,7 +141,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -158,6 +152,11 @@
         },
         {
             "_id": "aVXDwK4mNVHOKuJd",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "SI3JMojfD5PRH3ne"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Scalpel",
             "sort": 300000,
@@ -186,7 +185,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -231,7 +229,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -271,7 +268,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -311,11 +307,9 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
-                        "mental",
-                        "telepathy"
+                        "mental"
                     ]
                 },
                 "trigger": {
@@ -359,7 +353,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -417,7 +410,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -509,7 +501,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "rage"
@@ -540,32 +531,47 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the sea devil deals piercing or slashing damage, it also deals @Localize[PF2E.PersistentDamage.Bleed1d4.success] if the target was @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} or if the attack was a critical hit.</p>"
+                    "value": "<p>When the sea devil deals piercing or slashing damage, it also deals [[/r 1d4[bleed]]] if the target was @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} or if the attack was a critical hit.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
-                        "key": "Note",
+                        "critical": false,
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed"
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "item:damage:type:piercing",
+                                    "item:damage:type:slashing"
+                                ]
+                            }
                         ],
-                        "selector": "attack",
-                        "text": "<div data-visibility='gm'><p><strong>{item|name}</strong></p>{item|system.description.value}</div>"
+                        "selector": "damage"
                     },
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
+                        "critical": true,
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
                         "predicate": [
                             {
                                 "not": "target:condition:flat-footed"
+                            },
+                            {
+                                "or": [
+                                    "item:damage:type:piercing",
+                                    "item:damage:type:slashing"
+                                ]
                             }
                         ],
-                        "selector": "attack",
-                        "text": "<div data-visibility='gm'><p><strong>{item|name}</strong></p>{item|system.description.value}</div>"
+                        "selector": "damage"
                     }
                 ],
                 "slug": null,
@@ -573,7 +579,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -613,7 +618,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -676,7 +680,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -716,7 +719,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -745,11 +747,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -773,11 +770,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -801,11 +793,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -829,11 +816,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -857,11 +839,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -885,11 +862,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -935,7 +907,7 @@
                 "value": 75
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 12
@@ -981,13 +953,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "Shark Commune 150 feet",
                 "selected": [],
@@ -1006,7 +971,7 @@
             "value": [
                 "amphibious",
                 "humanoid",
-                "sea devil"
+                "sea-devil"
             ]
         }
     },

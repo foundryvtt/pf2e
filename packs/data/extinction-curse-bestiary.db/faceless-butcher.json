@@ -23,8 +23,7 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d12",
-                    "value": ""
+                    "die": "d12"
                 },
                 "description": {
                     "value": ""
@@ -85,9 +84,6 @@
                 "source": {
                     "value": ""
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -96,7 +92,6 @@
                     "value": null
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "deadly-d12",
@@ -160,7 +155,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -175,6 +169,11 @@
         },
         {
             "_id": "bOKG9bGFFIf6vSxZ",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "GkBHOD9XctIvvbNf"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Cleaver",
             "sort": 300000,
@@ -203,9 +202,11 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "forceful",
+                        "sweep"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -243,9 +244,11 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "agile",
+                        "nonlethal"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -254,7 +257,12 @@
             "type": "melee"
         },
         {
-            "_id": "nAe3ufJ5JFUqRhmb",
+            "_id": "xAhm4AbqiD9yy2Or",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "GkBHOD9XctIvvbNf"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Cleaver",
             "sort": 500000,
@@ -269,7 +277,7 @@
                     "value": 22
                 },
                 "damageRolls": {
-                    "ey1e5deode4j45pr9tmt": {
+                    "45YHp6L9a5Ms2qxk": {
                         "damage": "2d12+7",
                         "damageType": "slashing"
                     }
@@ -283,20 +291,26 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "thrown-10"
+                    ]
                 },
                 "weaponType": {
-                    "value": "melee"
+                    "value": "ranged"
                 }
             },
             "type": "melee"
         },
         {
-            "_id": "hrq73xXhTyT182d2",
+            "_id": "9JJx0yI602CpXiOj",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Suppressed Alignment",
+            "name": "Darkvision",
             "sort": 600000,
             "system": {
                 "actionCategory": {
@@ -309,18 +323,17 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When using their Change Shape ability, the faceless butcher loses their alignment aura and thus cannot be detected by spells such as detect alignment.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "darkvision",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -334,10 +347,54 @@
             "type": "action"
         },
         {
-            "_id": "blVcI3Lr2mIrILnJ",
+            "_id": "hrq73xXhTyT182d2",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Suppressed Alignment",
+            "sort": 700000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>When using their Change Shape ability, the faceless butcher loses their alignment aura and thus cannot be detected by spells such as <em>@UUID[Compendium.pf2e.spells-srd.Detect Alignment]{Detect Alignment}</em>.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bB3qQlo5VdUbfeQh",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -349,18 +406,17 @@
                     "value": null
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "attack-of-opportunity",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -382,7 +438,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -399,13 +455,29 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            {
+                                "not": "change-shape"
+                            }
+                        ],
+                        "radius": 10,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "aura",
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": "frightful-presence",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -427,7 +499,7 @@
             "_id": "FMub7YCrl8phAqPa",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Change Shape",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -444,13 +516,19 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "change-shape",
+                        "toggleable": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate",
@@ -472,7 +550,7 @@
             "_id": "yMe7KsfLbsSFSdYK",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Remove Face",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -484,7 +562,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The faceless butcher is within reach of a dying, immobilized, or unconscious creature</p>\n<hr />\n<p><strong>Effect</strong> The faceless butcher attempts a cleaver Strike or an Athletics check against the creature's Fortitude DC. On a success, the faceless butcher deals damage as if they had made a successful cleaver Strike against the creature and removes the creature's face. On a critical success, the damage doubles and the creature takes @Localize[PF2E.PersistentDamage.Bleed4d6.success]. Once its face is removed, the creature takes a permanent -4 status penalty to Charisma checks and Charisma-based skill checks. This penalty can be removed only if the victim recovers its face from the faceless butcher and has a restoration spell cast on it.</p>"
+                    "value": "<p><strong>Requirements</strong> The faceless butcher is within reach of a @UUID[Compendium.pf2e.conditionitems.Dying]{Dying}, @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized}, or @UUID[Compendium.pf2e.conditionitems.Unconscious]{Unconscious} creature</p>\n<hr />\n<p><strong>Effect</strong> The faceless butcher attempts a cleaver Strike or an Athletics check against the creature's Fortitude DC. On a success, the faceless butcher deals damage as if they had made a successful cleaver Strike against the creature and removes the creature's face. On a critical success, the damage doubles and the creature takes [[/r 4d6[bleed]]]. Once its face is removed, the creature takes a permanent -4 status penalty to Charisma checks and Charisma-based skill checks. This penalty can be removed only if the victim recovers its face from the faceless butcher and has a <em>@UUID[Compendium.pf2e.spells-srd.Restoration]{Restoration}</em> spell cast on it.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Remove Face]{Effect: Remove Face}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -495,7 +573,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack"
@@ -514,7 +591,7 @@
             "_id": "ws10H9jL2IqUsARn",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Sudden Slices",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -537,7 +614,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -554,7 +630,7 @@
             "_id": "pRCj5EL9UbKDUnww",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "description": {
                     "value": ""
@@ -569,11 +645,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -582,34 +653,6 @@
             "_id": "tOCSLjI4AW6KSc4b",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 24
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "tH7Kv7BOg8qZbgaB",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
             "sort": 1400000,
             "system": {
                 "description": {
@@ -625,48 +668,15 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
         },
         {
-            "_id": "V0Neeb8cb2BuJdre",
+            "_id": "tH7Kv7BOg8qZbgaB",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
+            "name": "Deception",
             "sort": 1500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 22
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "2VU1dJ5FTPRzsNAm",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1600000,
             "system": {
                 "description": {
                     "value": ""
@@ -681,11 +691,52 @@
                 "slug": null,
                 "source": {
                     "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "V0Neeb8cb2BuJdre",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 1600000,
+            "system": {
+                "description": {
+                    "value": ""
                 },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
+                "mod": {
+                    "value": 22
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "2VU1dJ5FTPRzsNAm",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 1700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 24
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
                 }
             },
             "type": "lore"
@@ -728,11 +779,17 @@
                 "value": 175
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 21
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 8
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -748,7 +805,7 @@
                 "value": 11
             },
             "privateNotes": "",
-            "publicNotes": "",
+            "publicNotes": "<p>The deformed flesh on this humanoid horror's head bears grim holes where their eyes, nose, mouth, and ears should be, and little else. Stories of faceless butchers always center on the monstrous murderer's preferred weapon: a wicked and bloodstained meat cleaver, which the butcher uses to carve flesh from skull to add to their collection of stolen faces. Once they've taken a victim's face, the faceless butcher can wear it, transform into an exact replica of the deceased, and begin stalking their next victim.</p>",
             "source": {
                 "value": "Pathfinder #154: Siege of the Dinosaurs"
             }
@@ -769,21 +826,8 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "label": "Bludgeoning",
-                    "type": "bludgeoning",
-                    "value": "8"
-                }
-            ],
-            "dv": [],
             "languages": {
-                "custom": "One Regional Language",
+                "custom": "One Regional Language, Can't Speak Any Language",
                 "selected": [],
                 "value": [
                     "common"

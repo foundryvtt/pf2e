@@ -5,7 +5,7 @@ declare global {
      * A specialized subclass of the PointSource abstraction which is used to control the rendering of light sources.
      * @param object The light-emitting object that generates this light source
      */
-    class LightSource<TObject extends AmbientLight | Token | undefined> extends PointSource<TObject> {
+    class LightSource<TObject extends Maybe<AmbientLight | Token>> extends PointSource<TObject> {
         constructor(object: TObject);
 
         /** The light or darkness container for this source */
@@ -23,18 +23,7 @@ declare global {
         static BLUR_STRENGTH: number;
 
         /** Keys in the LightSourceData structure which, when modified, change the appearance of the light */
-        protected static _appearanceKeys: [
-            "dim",
-            "bright",
-            "gradual",
-            "alpha",
-            "coloration",
-            "color",
-            "contrast",
-            "saturation",
-            "shadows",
-            "luminosity"
-        ];
+        protected static _appearanceKeys: string[];
 
         /* -------------------------------------------- */
         /*  Light Source Attributes                     */
@@ -83,6 +72,15 @@ declare global {
          * @return A reference to the initialized source
          */
         initialize(data?: Partial<LightSourceData>): this;
+
+        protected _getPolygonConfiguration(): {
+            type: "light" | "universal";
+            angle: number;
+            density: number;
+            radius: number;
+            rotation: number;
+            source: LightSource<TObject>;
+        };
 
         /**
          * Initialize the PointSource with new input data

@@ -78,10 +78,10 @@ declare interface Array<T> {
     /**
      * Partition an original array into two children array based on a logical test
      * Elements which test as false go into the first result while elements testing as true appear in the second
-     * @param {Function}
-     * @return An Array of length two whose elements are the partitioned pieces of the original
+     * @param rule {Function}
+     * @returns An Array of length two whose elements are the partitioned pieces of the original
      */
-    partition(rule: Function): [T, T];
+    partition(rule: (value: T) => number): [T, T];
 
     /**
      * Join an Array using a string separator, first filtering out any parts which return a false-y value
@@ -101,4 +101,12 @@ declare interface Array<T> {
 
 declare interface RegExpConstructor {
     escape(string: string): string;
+}
+
+declare interface Set<T> {
+    /**
+     * Return the first value from the set.
+     * @returns The first element in the set, or undefined
+     */
+    first(): T | undefined;
 }

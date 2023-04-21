@@ -32,7 +32,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -69,7 +68,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -113,6 +111,16 @@
                             "color": "#cd4242",
                             "luminosity": 0.2
                         }
+                    },
+                    {
+                        "key": "Aura",
+                        "radius": 5,
+                        "slug": "bedazzling",
+                        "traits": [
+                            "aura",
+                            "light",
+                            "visual"
+                        ]
                     }
                 ],
                 "slug": null,
@@ -120,7 +128,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -153,7 +160,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Whenever the luminous ooze's electricity immunity prevents it from taking damage, it gains 8 temporary HP. Until the end of its next turn, the luminous ooze's pseudopod Strike deals an additional [[/r {1d6}[electricity]]]{1d6 points of electricity damage}.</p>"
+                    "value": "<p>Whenever the luminous ooze's electricity immunity prevents it from taking damage, it gains 8 temporary HP. Until the end of its next turn, the luminous ooze's pseudopod Strike deals an additional [[/r 1d6[electricity]]] damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -184,7 +191,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -224,7 +230,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "light",
@@ -259,11 +264,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -305,8 +305,25 @@
                 "temp": 0,
                 "value": 80
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "electricity"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                },
+                {
+                    "type": "visual"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 6
@@ -352,20 +369,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "critical-hits",
-                    "electricity",
-                    "mental",
-                    "precision",
-                    "unconscious",
-                    "visual"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

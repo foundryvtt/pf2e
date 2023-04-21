@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "primal"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -125,13 +120,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": "5-foot-wide, 10-foot-tall, 10-foot-deep section of wooden, plaster, or stone wall"
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -212,7 +201,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "earth"
@@ -235,13 +223,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -322,7 +304,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -343,13 +324,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -429,7 +404,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -462,8 +436,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d4",
-                    "value": ""
+                    "die": "d4"
                 },
                 "description": {
                     "value": "<p>This steel <em>+1 dagger</em> is chipped and worn but no less deadly for its much-used appearance. When you critically succeed at an attack roll with <em>Little Love</em>, you can activate the dagger to spring away from your foes.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">f</span> Interact</p>\n<p><strong>Frequency</strong> once per 10 minutes</p>\n<p><strong>Trigger</strong> You critically hit a creature with <em>Little Love</em></p>\n<hr />\n<p><strong>Effect</strong> You @UUID[Compendium.pf2e.actionspf2e.Leap]{Leap} (or Vault, if you're Spring-Heeled Jack).</p>"
@@ -552,7 +525,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "rare",
                     "value": [
                         "agile",
@@ -627,7 +599,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "rare",
                     "value": [
                         "illusion",
@@ -646,6 +617,11 @@
         },
         {
             "_id": "whyr1s5y9sy8683e",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "XTm0Vjw9CJ19gZEq"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Little Love",
             "sort": 700000,
@@ -675,7 +651,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -691,6 +666,11 @@
         },
         {
             "_id": "p2bi38bko79wqvho",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "XTm0Vjw9CJ19gZEq"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Little Love",
             "sort": 800000,
@@ -720,7 +700,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -766,7 +745,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -811,7 +789,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -856,7 +833,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -901,7 +877,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -940,13 +915,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 15,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "aura",
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": "frightful-presence",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -980,7 +966,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Spring-Heeled Jack exhales a gout of bright blue fire that deals [[/r {4d6}[fire]]]{4d6 fire damage} in a @Template[type:cone|distance:15] (@Check[type:reflex|dc:20|basic:true] save).</p>\n<p>He can't use Breath Weapon again for [[/br 1d4 #Breath Weapon Cooldown]]{1d4 rounds}.</p>"
+                    "value": "<p>Spring-Heeled Jack exhales a gout of bright blue fire that deals [[/r 4d6[fire]]] damage in a @Template[type:cone|distance:15] (@Check[type:reflex|dc:20|basic:true] save).</p>\n<p>He can't use Breath Weapon again for [[/br 1d4 #Breath Weapon Cooldown]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -991,7 +977,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "evocation",
@@ -1055,7 +1040,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1078,7 +1062,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": "1"
+                    "value": 1
                 },
                 "description": {
                     "value": "<p>Spring-Heeled Jack jumps up to 20 feet in any direction, including vertically. This movement doesn't trigger reactions based on movement.</p>"
@@ -1092,7 +1076,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "move"
@@ -1123,11 +1106,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1167,11 +1145,6 @@
                 "source": {
                     "value": ""
                 },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
                 "variants": {
                     "0": {
                         "label": "+14 to High Jump or Long Jump",
@@ -1200,11 +1173,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1228,11 +1196,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1256,11 +1219,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1284,11 +1242,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1334,7 +1287,7 @@
                 "value": 45
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 10
@@ -1376,13 +1329,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

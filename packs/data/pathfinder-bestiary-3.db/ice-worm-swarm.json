@@ -34,7 +34,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -79,7 +78,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -108,7 +106,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {3d6}[cold]]]{3d6 cold damage} (@Check[type:reflex|dc:22|basic:true] save).</p>\n<p>Creatures that fail this save become @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} from the swarm's painful bites.</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r 3d6[cold]]] damage (@Check[type:reflex|dc:22|basic:true] save).</p>\n<p>Creatures that fail this save become @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} from the swarm's painful bites.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -119,7 +117,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -151,11 +148,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -179,11 +171,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -225,12 +212,37 @@
                 "temp": 0,
                 "value": 60
             },
+            "immunities": [
+                {
+                    "type": "cold"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 12
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 4
+                },
+                {
+                    "type": "piercing",
+                    "value": 8
+                },
+                {
+                    "type": "slashing",
+                    "value": 8
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -239,7 +251,21 @@
                     }
                 ],
                 "value": 15
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 4
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 4
+                },
+                {
+                    "type": "water",
+                    "value": 8
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -275,49 +301,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "cold",
-                    "precision",
-                    "swarm-mind"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "label": "Bludgeoning",
-                    "type": "bludgeoning",
-                    "value": 4
-                },
-                {
-                    "exceptions": "",
-                    "label": "Piercing",
-                    "type": "piercing",
-                    "value": 8
-                },
-                {
-                    "exceptions": "",
-                    "label": "Slashing",
-                    "type": "slashing",
-                    "value": 8
-                }
-            ],
-            "dv": [
-                {
-                    "type": "area-damage",
-                    "value": 4
-                },
-                {
-                    "type": "splash-damage",
-                    "value": 4
-                },
-                {
-                    "type": "water",
-                    "value": 8
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

@@ -47,18 +47,29 @@
                 "predicate": [
                     "fiendwarding-tattoo"
                 ],
-                "selector": "saving-throw",
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
                 "type": "status",
                 "value": 1
             },
             {
-                "key": "FlatModifier",
+                "key": "Resistance",
                 "predicate": [
                     "fiendwarding-tattoo"
                 ],
-                "selector": "ac",
-                "type": "status",
-                "value": 1
+                "type": "all-damage",
+                "value": 2
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "fiendwarding-tattoo",
+                    "origin:trait:fiend"
+                ],
+                "type": "all-damage",
+                "value": 5
             }
         ],
         "size": "med",
@@ -67,7 +78,6 @@
         },
         "stackGroup": null,
         "traits": {
-            "custom": "",
             "rarity": "uncommon",
             "value": [
                 "abjuration",

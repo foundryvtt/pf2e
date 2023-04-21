@@ -33,7 +33,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile"
@@ -76,7 +75,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "range-increment-60"
@@ -120,7 +118,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -154,13 +151,22 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 40,
+                        "slug": "high-winds",
+                        "traits": [
+                            "air",
+                            "aura"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "air",
@@ -192,7 +198,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The uthul unleashes a powerful bolt of lightning and a stunning thunderclap. The bolt deals [[/r {6d12}[electricity]]]{6d12 electricity damage} to all creatures in a @Template[type:line|distance:30], with a @Check[type:reflex|dc:34|basic:true] save, and every creature in a @Template[type:emanation|distance:20] must attempt a @Check[type:fortitude|dc:34] save.</p>\n<p>The uthul can't use Lightning Crash again for [[/br 1d4 #Recharge Lightning Crash]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is stunned for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The uthul unleashes a powerful bolt of lightning and a stunning thunderclap. The bolt deals [[/r 6d12[electricity]]] damage to all creatures in a @Template[type:line|distance:30], with a @Check[type:reflex|dc:34|basic:true] save, and every creature in a @Template[type:emanation|distance:20] must attempt a @Check[type:fortitude|dc:34] save.</p>\n<p>The uthul can't use Lightning Crash again for [[/br 1d4 #Recharge Lightning Crash]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is stunned for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -203,7 +209,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "electricity",
@@ -247,7 +252,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -276,7 +280,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The uthul transforms itself into a swirling vortex of storm and fury 10 feet wide and up to 40 feet tall. It stays in this form for 3 rounds or until it Dismisses the effect. While in this form, the uthul gains resistance 10 to physical damage and can move through other creatures.</p>\n<p>Its aura remains active, but it can't make debris Strikes nor use Lightning Crash. Instead, any creature the uthul moves through takes [[/r {4d6}[bludgeoning]]]{4d6 bludgeoning damage} and [[/r {2d12}[electricity]]]{2d12 electricity damage}. A creature can take this damage only once per round. A Large or smaller creature must also succeed at a @Check[type:reflex|dc:32] save or be picked up and held suspended within the vortex. Suspended creatures move with the uthul. A creature can attempt to escape by spending an action to attempt a @Check[type:reflex|dc:32] save (or a <span data-pf2-action=\"maneuverInFlight\" data-pf2-dc=\"32\" data-pf2-label=\"Whirlwind Form DC\" data-pf2-glyph=\"A\" data-pf2-show-dc=\"gm\">Acrobatics</span> check to maneuver in flight if it has a fly Speed). Upon escaping, or when the uthul transforms back into its storm cloud form, a suspended creature is hurled [[/br 1d4*10]]{1d4 x 10 feet} in a random direction, then falls unless it can fly or otherwise remain aloft.</p>\n<p>After returning to its normal form, the uthul must wait 1 minute before it can use Whirlwind Form again.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Whirlwind Form]{Effect: Whirlwind Form}</p>"
+                    "value": "<p>The uthul transforms itself into a swirling vortex of storm and fury 10 feet wide and up to 40 feet tall. It stays in this form for 3 rounds or until it Dismisses the effect. While in this form, the uthul gains resistance 10 to physical damage and can move through other creatures.</p>\n<p>Its aura remains active, but it can't make debris Strikes nor use Lightning Crash. Instead, any creature the uthul moves through takes [[/r 4d6[bludgeoning]]] damage and [[/r 2d12[electricity]]] damage. A creature can take this damage only once per round. A Large or smaller creature must also succeed at a @Check[type:reflex|dc:32] save or be picked up and held suspended within the vortex. Suspended creatures move with the uthul. A creature can attempt to escape by spending an action to attempt a @Check[type:reflex|dc:32] save (or a <span data-pf2-action=\"maneuverInFlight\" data-pf2-dc=\"32\" data-pf2-label=\"Whirlwind Form DC\" data-pf2-glyph=\"A\" data-pf2-show-dc=\"gm\">Acrobatics</span> check to maneuver in flight if it has a fly Speed). Upon escaping, or when the uthul transforms back into its storm cloud form, a suspended creature is hurled [[/br 1d4*10]]{1d4 x 10 feet} in a random direction, then falls unless it can fly or otherwise remain aloft.</p>\n<p>After returning to its normal form, the uthul must wait 1 minute before it can use Whirlwind Form again.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Whirlwind Form]{Effect: Whirlwind Form}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -287,7 +291,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate"
@@ -321,11 +324,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -349,11 +347,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -377,11 +370,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -405,11 +393,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -451,8 +434,22 @@
                 "temp": 0,
                 "value": 250
             },
+            "immunities": [
+                {
+                    "type": "electricity"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 20
@@ -499,18 +496,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "electricity",
-                    "paralyzed",
-                    "poison",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

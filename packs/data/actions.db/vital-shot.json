@@ -18,12 +18,40 @@
         "requirements": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "vital-shot",
+                "toggleable": true
+            },
+            {
+                "diceNumber": 1,
+                "key": "DamageDice",
+                "predicate": [
+                    "vital-shot",
+                    "item:ranged",
+                    "target:condition:flat-footed"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "damageType": "bleed",
+                "diceNumber": "ternary(gte(@actor.level,15),3,ternary(gte(@actor.level,9),2,1))",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "vital-shot",
+                    "item:ranged",
+                    "target:condition:flat-footed"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
         "source": {
             "value": "Pathfinder Guns & Gears"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "gunslinger"

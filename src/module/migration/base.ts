@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemSourcePF2e } from "@item/data";
-import { ScenePF2e } from "@module/scene";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ScenePF2e } from "@scene/index.ts";
 
 /**
  * This is the base class for a migration.
@@ -33,43 +33,49 @@ abstract class MigrationBase {
 interface MigrationBase {
     /**
      * Update the actor to the latest schema version.
-     * @param actor This should be effectively a `ActorSourcePF2e` from the previous version.
+     * @param source This should be effectively a `ActorSourcePF2e` from the previous version.
      */
-    updateActor?(_actor: ActorSourcePF2e): Promise<void>;
+    updateActor?(source: ActorSourcePF2e): Promise<void>;
 
     /**
      * Update the item to the latest schema version, handling changes that must happen before any other migration in a
      * given list.
-     * @param item Item to update. This should be an `ItemData` from the previous version.
-     * @param actor If the item is part of an actor, this is set to the actor. For instance
+     * @param source Item to update. This should be an `ItemData` from the previous version
+     * @param actorSource If the item is part of an actor, this is set to the actor source
      */
-    preUpdateItem?(item: ItemSourcePF2e, actor?: ActorSourcePF2e): Promise<void>;
+    preUpdateItem?(source: ItemSourcePF2e, actorSource?: ActorSourcePF2e): Promise<void>;
 
     /**
      * Update the item to the latest schema version.
-     * @param item Item to update. This should be an `ItemData` from the previous version.
-     * @param actor If the item is part of an actor, this is set to the actor. For instance
+     * @param source Item to update. This should be an `ItemData` from the previous version.
+     * @param actorSource If the item is part of an actor, this is set to the actor. For instance
      */
-    updateItem?(item: ItemSourcePF2e, actor?: ActorSourcePF2e): Promise<void>;
+    updateItem?(source: ItemSourcePF2e, actorSource?: ActorSourcePF2e): Promise<void>;
 
     /**
      * Update the macro to the latest schema version.
-     * @param macroData Macro data to update. This should be a `MacroData` from the previous version.
+     * @param source Macro data to update. This should be a `MacroData` from the previous version.
      */
-    updateMacro?(macroData: foundry.data.MacroSource): Promise<void>;
+    updateJournalEntry?(source: foundry.documents.JournalEntrySource): Promise<void>;
+
+    /**
+     * Update the macro to the latest schema version.
+     * @param source Macro data to update. This should be a `MacroData` from the previous version.
+     */
+    updateMacro?(source: foundry.documents.MacroSource): Promise<void>;
 
     /**
      * Update the rollable table to the latest schema version.
-     * @param tableData Rolltable data to update. This should be a `RollTableData` from the previous version.
+     * @param source Rolltable data to update. This should be a `RollTableData` from the previous version.
      */
-    updateTable?(tableData: foundry.data.RollTableSource): Promise<void>;
+    updateTable?(source: foundry.documents.RollTableSource): Promise<void>;
 
     /**
      * Update the token to the latest schema version.
      * @param tokenData Token data to update. This should be a `TokenData` from the previous version.
      */
     updateToken?(
-        tokenData: foundry.data.TokenSource,
+        tokenData: foundry.documents.TokenSource,
         actor: Readonly<ActorPF2e | null>,
         scene: Readonly<ScenePF2e | null>
     ): Promise<void>;
@@ -78,7 +84,7 @@ interface MigrationBase {
      * Update the user to the latest schema version.
      * @param userData User's data to update. This should be a `UserData` from the previous version.
      */
-    updateUser?(userData: foundry.data.UserSource): Promise<void>;
+    updateUser?(userData: foundry.documents.UserSource): Promise<void>;
 
     /**
      * Run migrations for this schema version.

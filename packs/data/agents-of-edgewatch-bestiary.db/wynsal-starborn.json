@@ -23,8 +23,7 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
                     "value": "<p>Longswords can be one-edged or two-edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
@@ -54,10 +53,10 @@
                     "value": 2
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -87,9 +86,6 @@
                 "source": {
                     "value": ""
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -98,7 +94,6 @@
                     "value": "greaterStriking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "versatile-p"
@@ -230,7 +225,6 @@
                     "value": 18
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "bulwark"
@@ -296,7 +290,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "conjuration",
@@ -319,22 +312,11 @@
             "name": "Whisper Briolette",
             "sort": 400000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": "1",
                     "value": "1"
                 },
@@ -342,16 +324,11 @@
                     "value": "talisman"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": null
                 },
                 "containerId": null,
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> Envision</p>\n<p><strong>Requirements</strong> You are an expert in Stealth</p>\n<hr />\n<p>This teardrop-shaped gemstone has triangular facets and looks suitable for fancy attire, although close inspection shows that it's hollow. When it's activated, you can instantly impart up to 1 minute of speech (roughly 150 words) telepathically to any creatures you choose within 100 feet. You can impart this instantaneous telepathic message to creatures that you perceive and creatures @UUID[Compendium.pf2e.conditionitems.Hidden]{Hidden} to you, but you can't do so to @UUID[Compendium.pf2e.conditionitems.Undetected]{Undetected} creatures. Once used, the whisper briolette becomes unusable and subtly vanishes within the next few minutes, rather than crumbling to dust.</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
                 },
                 "equipped": {
                     "carryType": "worn"
@@ -383,11 +360,6 @@
                     }
                 },
                 "quantity": 1,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": null,
@@ -395,13 +367,7 @@
                     "value": ""
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "consumable",
@@ -414,13 +380,6 @@
                 "usage": {
                     "value": "affixed-to-armor"
                 },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
-                },
                 "weight": {
                     "value": "-"
                 }
@@ -429,8 +388,13 @@
         },
         {
             "_id": "IfCbrxEtWCoJCOgv",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "ycb3x5FbTCDnmeGO"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "longsword",
+            "name": "Longsword",
             "sort": 500000,
             "system": {
                 "attack": {
@@ -460,7 +424,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -500,7 +463,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -529,18 +491,26 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>60 feet. Allies of lower level than Wynsal in the aura gain the Attack of Opportunity reaction. Allies who already have the Attack of Opportunity reaction can use it when a creature within their reach uses a concentrate action, in addition to normal triggers, and they disrupt a triggering concentrate action on a critical hit.</p>"
+                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Allies of lower level than Wynsal in the aura gain the @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Attack of Opportunity]{Attack of Opportunity} reaction. Allies who already have the Attack of Opportunity reaction can use it when a creature within their reach uses a concentrate action, in addition to normal triggers, and they disrupt a triggering concentrate action on a critical hit.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "slug": "tactical-aura",
+                        "traits": [
+                            "aura"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura"
@@ -582,7 +552,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "auditory",
@@ -625,7 +594,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate"
@@ -667,7 +635,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -702,12 +669,11 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "hampering-strike",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -739,11 +705,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -767,11 +728,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -795,11 +751,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -823,11 +774,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -851,11 +797,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -879,11 +820,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -907,11 +843,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -953,12 +884,23 @@
                 "temp": 0,
                 "value": 340
             },
+            "immunities": [
+                {
+                    "type": "fear-effects"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 32
             },
+            "resistances": [
+                {
+                    "type": "mental",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -995,20 +937,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "fear effects"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "mental",
-                    "value": 10
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

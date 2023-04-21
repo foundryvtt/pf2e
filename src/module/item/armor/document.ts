@@ -1,13 +1,14 @@
-import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
-import { ItemSummaryData } from "@item/data";
-import { getResiliencyBonus, PhysicalItemHitPoints, PhysicalItemPF2e } from "@item/physical";
-import { MAGIC_TRADITIONS } from "@item/spell/values";
-import { LocalizePF2e } from "@module/system/localize";
-import { addSign, ErrorPF2e, setHasElement } from "@util";
-import { ArmorCategory, ArmorData, ArmorGroup, BaseArmorType } from ".";
+import { ActorPF2e } from "@actor";
+import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
+import { ItemSummaryData } from "@item/data/index.ts";
+import { getResilientBonus, PhysicalItemHitPoints, PhysicalItemPF2e } from "@item/physical/index.ts";
+import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
+import { LocalizePF2e } from "@system/localize.ts";
+import { addSign, ErrorPF2e, setHasElement, sluggify } from "@util";
+import { ArmorCategory, ArmorGroup, ArmorSource, ArmorSystemData, BaseArmorType } from "./index.ts";
 
-class ArmorPF2e extends PhysicalItemPF2e {
-    override isStackableWith(item: PhysicalItemPF2e): boolean {
+class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
+    override isStackableWith(item: PhysicalItemPF2e<TParent>): boolean {
         if (this.isEquipped || item.isEquipped) return false;
         return super.isStackableWith(item);
     }
@@ -18,6 +19,10 @@ class ArmorPF2e extends PhysicalItemPF2e {
 
     get isArmor(): boolean {
         return !this.isShield;
+    }
+
+    get isBarding(): boolean {
+        return ["light-barding", "heavy-barding"].includes(this.category);
     }
 
     get baseType(): BaseArmorType | null {
@@ -78,7 +83,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
             return false;
         }
 
-        return this.actor.heldShield === this && this.actor.attributes.shield.raised;
+        return this.id === this.actor.attributes.shield.itemId && this.actor.attributes.shield.raised;
     }
 
     /** Generate a list of strings for use in predication */
@@ -89,11 +94,8 @@ class ArmorPF2e extends PhysicalItemPF2e {
                 [`group:${this.group}`]: !!this.group,
                 [`base:${this.baseType}`]: !!this.baseType,
             })
-                .filter(([_key, isTrue]) => isTrue)
-                .map(([key]) => {
-                    const delimitedPrefix = prefix ? `${prefix}:` : "";
-                    return `${delimitedPrefix}${key}`;
-                })
+                .filter(([, isTrue]) => isTrue)
+                .map(([key]) => `${prefix}:${key}`)
         );
     }
 
@@ -102,8 +104,8 @@ class ArmorPF2e extends PhysicalItemPF2e {
 
         this.system.potencyRune.value ||= null;
         this.system.resiliencyRune.value ||= null;
-        // Strip out fundamental runes if ABP is enabled
-        AutomaticBonusProgression.cleanupRunes(this);
+        // Strip out fundamental runes if ABP is enabled: requires this item and its actor (if any) to be initialized
+        ABP.cleanupRunes(this);
 
         // Add traits from potency rune
         const baseTraits = this.system.traits.value;
@@ -123,7 +125,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
         const { potencyRune, resiliencyRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } = systemData;
         this.system.runes = {
             potency: potencyRune.value ?? 0,
-            resilient: getResiliencyBonus({ resiliencyRune }),
+            resilient: getResilientBonus({ resiliencyRune }),
             property: [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value].filter(
                 (rune): rune is string => !!rune
             ),
@@ -136,7 +138,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
         }
     }
 
-    override prepareActorData(): void {
+    override prepareActorData(this: ArmorPF2e<ActorPF2e>): void {
         const { actor } = this;
         if (!actor) throw ErrorPF2e("This method may only be called from embedded items");
 
@@ -144,8 +146,30 @@ class ArmorPF2e extends PhysicalItemPF2e {
         const shieldIsAssigned = ownerIsPCOrNPC && actor.attributes.shield.itemId !== null;
 
         if (this.isArmor && this.isEquipped) {
-            // Set the armor item's ID as a roll option
+            // Set some roll options for this armor
             actor.rollOptions.all[`armor:id:${this.id}`] = true;
+            actor.rollOptions.all[`armor:category:${this.category}`] = true;
+            if (this.group) {
+                actor.rollOptions.all[`armor:group:${this.group}`] = true;
+            }
+
+            if (this.baseType) {
+                actor.rollOptions.all[`armor:base:${this.baseType}`] = true;
+            }
+
+            if (this.system.runes.potency > 0) {
+                actor.rollOptions.all[`armor:rune:potency:${this.system.runes.potency}`] = true;
+            }
+
+            if (this.system.runes.resilient > 0) {
+                actor.rollOptions.all[`armor:rune:resilient:${this.system.runes.resilient}`] = true;
+            }
+
+            for (const rune of this.system.runes.property) {
+                const slug = sluggify(rune);
+                actor.rollOptions.all[`armor:rune:property:${slug}`] = true;
+            }
+
             // Set roll options for certain armor traits
             const traits = this.traits;
             for (const [trait, domain] of [
@@ -155,6 +179,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
             ] as const) {
                 if (traits.has(trait)) {
                     const checkOptions = (actor.rollOptions[domain] ??= {});
+                    checkOptions[`armor:trait:${trait}`] = true;
                     checkOptions[`self:armor:trait:${trait}`] = true;
                 }
             }
@@ -183,13 +208,13 @@ class ArmorPF2e extends PhysicalItemPF2e {
     }
 
     override async getChatData(
-        this: Embedded<ArmorPF2e>,
+        this: ArmorPF2e<ActorPF2e>,
         htmlOptions: EnrichHTMLOptions = {}
     ): Promise<ItemSummaryData> {
         const systemData = this.system;
         const translations = LocalizePF2e.translations.PF2E;
         const properties = [
-            this.isArmor ? CONFIG.PF2E.armorTypes[this.category] : CONFIG.PF2E.weaponCategories.martial,
+            this.isArmor ? CONFIG.PF2E.armorCategories[this.category] : CONFIG.PF2E.weaponCategories.martial,
             `${addSign(this.acBonus)} ${translations.ArmorArmorLabel}`,
             this.isArmor ? `${systemData.dex.value || 0} ${translations.ArmorDexLabel}` : null,
             this.isArmor ? `${systemData.check.value || 0} ${translations.ArmorCheckLabel}` : null,
@@ -197,7 +222,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
         ];
 
         return this.processChatData(htmlOptions, {
-            ...super.getChatData(),
+            ...(await super.getChatData()),
             traits: this.traitChatData(CONFIG.PF2E.armorTraits),
             properties,
         });
@@ -218,8 +243,9 @@ class ArmorPF2e extends PhysicalItemPF2e {
     }
 }
 
-interface ArmorPF2e {
-    readonly data: ArmorData;
+interface ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
+    readonly _source: ArmorSource;
+    system: ArmorSystemData;
 }
 
 export { ArmorPF2e };

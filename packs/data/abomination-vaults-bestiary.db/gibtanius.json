@@ -18,40 +18,25 @@
                     "value": 20
                 },
                 "damageRolls": {
-                    "pwy9yn3gyzm1vz7qixvl": {
+                    "0": {
                         "damage": "2d10+10",
                         "damageType": "piercing"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "1d4",
+                        "damageType": "acid"
                     }
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.PersistentDamage.Acid1d4.success]</p>"
+                    "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Acid1d4.success",
-                        "visibility": "gm"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Acid1d4.criticalSuccess",
-                        "visibility": "gm"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "deadly-d12",
@@ -80,40 +65,30 @@
                     "value": 17
                 },
                 "damageRolls": {
-                    "qqhtuknkmf71nv72ksqb": {
+                    "0": {
                         "damage": "2d6",
+                        "damageType": "acid"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "1d6",
+                        "damageType": "acid"
+                    },
+                    "2": {
+                        "category": "splash",
+                        "damage": "1d6",
                         "damageType": "acid"
                     }
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.PersistentDamage.Acid1d6.success] and [[/r {1d6}[splash,acid]]]{1d6 acid splash damage}</p>"
+                    "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Acid1d6.success",
-                        "visibility": "gm"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Acid1d6.criticalSuccess",
-                        "visibility": "gm"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "range-increment-30",
@@ -158,7 +133,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -203,7 +177,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -237,13 +210,22 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 20,
+                        "slug": "powerful-stench",
+                        "traits": [
+                            "aura",
+                            "olfactory"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -275,7 +257,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The gibtanius Leaps and can end this Leap occupying the same space as other creatures.</p>\n<p>It deals [[/r {5d6}[bludgeoning]]]{5d6 bludgeoning damage} to each creature in the space it Leaps to (@Check[type:reflex|dc:26|basic:true] save), then @UUID[Compendium.pf2e.actionspf2e.Shove]{Shoves} each of those creatures. If it fails to Shove any creature out of its space, it bounces to the closest available space of its choosing that does not contain any creatures.</p>\n<p>Bouncing Crush counts as one attack when determining the gibtanius's multiple attack penalty.</p>"
+                    "value": "<p>The gibtanius Leaps and can end this Leap occupying the same space as other creatures.</p>\n<p>It deals [[/r 5d6[bludgeoning]]] damage to each creature in the space it Leaps to (@Check[type:reflex|dc:26|basic:true] save), then @UUID[Compendium.pf2e.actionspf2e.Shove]{Shoves} each of those creatures. If it fails to Shove any creature out of its space, it bounces to the closest available space of its choosing that does not contain any creatures.</p>\n<p>Bouncing Crush counts as one attack when determining the gibtanius's multiple attack penalty.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -286,7 +268,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -315,7 +296,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The gibtanius vomits a stream of acid that deals [[/r {9d6}[acid]]]{9d6 acid damage} to all creatures in a @Template[type:line|distance:60] (@Check[type:reflex|dc:26|basic:true] save).</p>\n<p>It can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                    "value": "<p>The gibtanius vomits a stream of acid that deals [[/r 9d6[acid]]] damage to all creatures in a @Template[type:line|distance:60] (@Check[type:reflex|dc:26|basic:true] save).</p>\n<p>It can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -326,7 +307,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "acid",
@@ -378,11 +358,6 @@
                 "source": {
                     "value": ""
                 },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
                 "variants": {
                     "0": {
                         "label": "+22 to High Jump or Long Jump",
@@ -411,11 +386,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -439,11 +409,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -485,12 +450,23 @@
                 "temp": 0,
                 "value": 140
             },
+            "immunities": [
+                {
+                    "type": "acid"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 16
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
@@ -527,20 +503,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "acid"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "bludgeoning",
-                    "value": 10
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "(Can't Speak Any Language)",
                 "selected": [],

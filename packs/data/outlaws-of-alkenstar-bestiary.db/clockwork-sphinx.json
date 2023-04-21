@@ -32,7 +32,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -74,7 +73,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -119,7 +117,6 @@
                     "value": "Pathfinder Bestiary 3"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -149,7 +146,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When a clockwork sphinx is reduced to 0 Hit Points, it collapses and emits a steady ticking sound. At the beginning of what would've been its next turn, the sphinx explodes into a @Template[type:emanation|distance:20] of shrapnel, dealing [[/r {6d10}[piercing]]]{6d10 piercing damage} (@Check[type:reflex|dc:26|basic:true]). An adjacent creature can cancel the self-destruct sequence by succeeding at a @Check[type:thievery|dc:26|traits:action:disable-a-device] check to @UUID[Compendium.pf2e.actionspf2e.Disable Device]{Disable Device} at any point before the sphinx explodes, but on a critical failure, it explodes immediately.</p>"
+                    "value": "<p>When a clockwork sphinx is reduced to 0 Hit Points, it collapses and emits a steady ticking sound. At the beginning of what would've been its next turn, the sphinx explodes into a @Template[type:emanation|distance:20] of shrapnel, dealing [[/r 6d10[piercing]]] damage (@Check[type:reflex|dc:26|basic:true]). An adjacent creature can cancel the self-destruct sequence by succeeding at a @Check[type:thievery|dc:26|traits:action:disable-a-device] check to @UUID[Compendium.pf2e.actionspf2e.Disable Device]{Disable Device} at any point before the sphinx explodes, but on a critical failure, it explodes immediately.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -160,7 +157,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -201,7 +197,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -248,12 +243,23 @@
                 "temp": 0,
                 "value": 130
             },
+            "immunities": [],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 19
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "adamantine",
+                        "orichalcum"
+                    ],
+                    "type": "physical",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -262,7 +268,17 @@
                     }
                 ],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "electricity",
+                    "value": 10
+                },
+                {
+                    "type": "orichalcum",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -295,41 +311,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except adamantine or orichalcum",
-                    "type": "physical",
-                    "value": 10
-                }
-            ],
-            "dv": [
-                {
-                    "type": "electricity",
-                    "value": 10
-                },
-                {
-                    "type": "orichalcum",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

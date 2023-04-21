@@ -34,7 +34,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -79,7 +78,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -108,7 +106,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {1d8}[piercing]]]{1d8 piercing damage} (@Check[type:reflex|dc:20|basic:true] save) and [[/r {1}[persistent,bleed]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}. The young bloodseeker swarm gains temporary Hit Points equal to the damage dealt. A creature that takes damage from the bloodseeker swarm is drained 1 until it receives healing (of any kind or amount).</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r 1d8[piercing]]] damage (@Check[type:reflex|dc:20|basic:true] save) and [[/r 1[bleed]]] damage. The young bloodseeker swarm gains temporary Hit Points equal to the damage dealt. A creature that takes damage from the bloodseeker swarm is drained 1 until it receives healing (of any kind or amount).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -119,7 +117,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "selected": {},
                     "value": []
@@ -152,11 +149,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -180,11 +172,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -226,12 +213,34 @@
                 "temp": 0,
                 "value": 30
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 9
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 5
+                },
+                {
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 2
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -240,7 +249,17 @@
                     }
                 ],
                 "value": 10
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 5
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -273,43 +292,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "precision",
-                    "swarm-mind"
-                ]
-            },
-            "dr": [
-                {
-                    "label": "Bludgeoning",
-                    "type": "bludgeoning",
-                    "value": "5"
-                },
-                {
-                    "label": "Piercing",
-                    "type": "piercing",
-                    "value": "5"
-                },
-                {
-                    "label": "Slashing",
-                    "type": "slashing",
-                    "value": "2"
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Area Damage",
-                    "type": "area-damage",
-                    "value": "5"
-                },
-                {
-                    "label": "Splash Damage",
-                    "type": "splash-damage",
-                    "value": "5"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

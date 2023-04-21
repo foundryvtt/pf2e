@@ -103,11 +103,6 @@
                 },
                 "tradition": {
                     "value": "occult"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -126,13 +121,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -213,7 +202,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "detection"
@@ -236,13 +224,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -323,7 +305,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -344,13 +325,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -431,7 +406,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -452,13 +426,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -539,7 +507,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -560,13 +527,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -646,7 +607,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -683,7 +643,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -723,7 +682,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile"
@@ -767,7 +725,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -796,7 +753,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Whenever a creature targets the hound with a mental effect, that creature takes [[/r {4d6}[mental]]]{4d6 mental damage} (@Check[type:will|dc:25|basic:true] save). On a critical failure, it also becomes @UUID[Compendium.pf2e.conditionitems.Confused]{Confused} for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>Whenever a creature targets the hound with a mental effect, that creature takes [[/r 4d6[mental]]] damage (@Check[type:will|dc:25|basic:true] save). On a critical failure, it also becomes @UUID[Compendium.pf2e.conditionitems.Confused]{Confused} for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -807,7 +764,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "mental"
@@ -838,18 +794,29 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>30 feet.</p>\n<p>The hound of Tindalos's eyes glow balefully, causing painful but bloodless wounds to rip open in the body of a creature that meets its awful gaze. When a creature ends its turn in the aura's emanation, it takes [[/r {4d6}[slashing]]]{4d6 slashing damage} (@Check[type:fortitude|dc:25|basic:true] save).</p>\n<p>A creature that critically succeeds at its save is temporarily immune for 24 hours.</p>"
+                    "value": "<p>@Template[type:emanation|distance:30] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>The hound of Tindalos's eyes glow balefully, causing painful but bloodless wounds to rip open in the body of a creature that meets its awful gaze. When a creature ends its turn in the aura's emanation, it takes [[/r 4d6[slashing]]] damage (@Check[type:fortitude|dc:25|basic:true] save).</p>\n<p>A creature that critically succeeds at its save is temporarily immune for 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "ripping-gaze",
+                        "traits": [
+                            "aura",
+                            "evocation",
+                            "occult",
+                            "visual"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -883,18 +850,28 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a hound of Tindalos is not adjacent to a structural angle of 90º (or more acute), its resistance to physical damage is suppressed and it becomes @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}. It can't recover from this sickened condition, but the condition ends automatically once the hound is again adjacent to a suitable angle.</p>"
+                    "value": "<p>When a hound of Tindalos is not adjacent to a structural angle of 90º (or more acute), its resistance to physical damage is suppressed and it becomes @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}. It can't recover from this sickened condition, but the condition ends automatically once the hound is again adjacent to a suitable angle.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Vulnerable to Curved Space]{Effect: Vulnerable to Curved Space}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            {
+                                "not": "self:effect:vulnerable-to-curved-space"
+                            }
+                        ],
+                        "type": "physical",
+                        "value": 10
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -934,7 +911,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -966,11 +942,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -994,11 +965,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1022,11 +988,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1050,11 +1011,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1087,11 +1043,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 },
                 "variants": {
                     "0": {
@@ -1139,12 +1090,30 @@
                 "temp": 0,
                 "value": 90
             },
+            "immunities": [
+                {
+                    "type": "controlled"
+                },
+                {
+                    "type": "emotion"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 17
             },
+            "resistances": [
+                {
+                    "type": "mental",
+                    "value": 10
+                },
+                {
+                    "type": "poison",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1194,32 +1163,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "controlled",
-                    "emotion"
-                ]
-            },
-            "dr": [
-                {
-                    "label": "Mental",
-                    "type": "mental",
-                    "value": "10"
-                },
-                {
-                    "label": "Poison",
-                    "type": "poison",
-                    "value": "10"
-                },
-                {
-                    "label": "Physical",
-                    "type": "physical",
-                    "value": "10"
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

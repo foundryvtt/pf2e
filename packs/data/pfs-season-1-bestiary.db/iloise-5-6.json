@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "electricity",
                     "dice": 2,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Bottled lightning is packed with volatile reagents that create a blast of electricity when they are exposed to air. Bottled lightning deals 2d6 electricity damage and 2 electricity splash damage. On a hit, the target becomes @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of your next turn. You gain a +1 item bonus to attack rolls.</p>"
@@ -59,10 +58,10 @@
                     "value": 0
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -98,9 +97,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 2
                 },
@@ -109,7 +105,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "alchemical",
@@ -155,8 +150,7 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>This medium-length sword has a wide blade and long grip. Though it is typically used to hack through heavy foliage, the machete can also be used as a deadly weapon.</p>"
@@ -219,9 +213,6 @@
                 "source": {
                     "value": "Pathfinder Lost Omens: Gods & Magic"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -230,7 +221,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "deadly-d8",
@@ -339,7 +329,6 @@
                     "value": 12
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -426,7 +415,7 @@
                         ],
                         "flag": "ringOfEnergyResistance",
                         "key": "ChoiceSet",
-                        "prompt": "Choose an energy type"
+                        "prompt": "PF2E.SpecificRule.Prompt.EnergyType"
                     },
                     {
                         "key": "Resistance",
@@ -441,7 +430,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "abjuration",
@@ -460,6 +448,11 @@
         },
         {
             "_id": "LViDdFcQvrvtZrJV",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "zKVrWkddjaAAETM8"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Meat Cleaver",
             "sort": 500000,
@@ -488,7 +481,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "deadly-d8",
@@ -503,6 +495,11 @@
         },
         {
             "_id": "iScZPMPa6dLQysYq",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "hMnXr3Xfh3AW5L1Z"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Bomb",
             "sort": 600000,
@@ -530,7 +527,7 @@
                     {
                         "key": "Note",
                         "selector": "{item|_id}-attack",
-                        "text": "This strike does [[/r {5}[splash,electricity]]]{5 splash electricity damage}, [[/r {10}[splash,electricity]]]{10 splash electricity damage} on a critical hit.",
+                        "text": "This strike does [[/r (5[splash])[electricity]]]{5 splash electricity damage}, [[/r (10[splash])[electricity]]]{10 splash electricity damage} on a critical hit.",
                         "title": "Splash Damage"
                     }
                 ],
@@ -539,7 +536,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "splash",
@@ -584,7 +580,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -624,7 +619,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -676,7 +670,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -716,7 +709,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -756,7 +748,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "selected": {},
                     "value": []
@@ -786,7 +777,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature hits Iloise with a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> A surge of energy lashes out at the attacker and propels Iloise away from danger. The triggering creature takes [[/r {2d6}[electricity]]]{2d6 electricity damage} (@Check[type:reflex|dc:19|basic:true] save). If a reach weapon was used to make the attack, the result of the Reflex save is one degree of success better. Iloise then Steps 10 feet away from the attacker</p>"
+                    "value": "<p><strong>Trigger</strong> A creature hits Iloise with a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> A surge of energy lashes out at the attacker and propels Iloise away from danger. The triggering creature takes [[/r 2d6[electricity]]] damage (@Check[type:reflex|dc:19|basic:true] save). If a reach weapon was used to make the attack, the result of the Reflex save is one degree of success better. Iloise then Steps 10 feet away from the attacker</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -797,7 +788,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "electricity",
@@ -841,7 +831,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "selected": {},
                     "value": []
@@ -882,7 +871,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -914,11 +902,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -942,11 +925,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -982,11 +960,6 @@
                 "source": {
                     "value": ""
                 },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
                 "variants": {
                     "0": {
                         "label": "+12 with Tesla Coil",
@@ -1015,11 +988,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1065,11 +1033,17 @@
                 "value": 65
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 9
             },
+            "resistances": [
+                {
+                    "type": "electricity",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 20
@@ -1106,18 +1080,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "type": "electricity",
-                    "value": 5
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

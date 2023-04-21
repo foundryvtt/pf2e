@@ -1,11 +1,19 @@
-import { ActorPF2e } from "@actor/base";
+import { ActorPF2e } from "@actor";
 import { AbstractEffectPF2e, EffectPF2e } from "@item";
-import { FlattenedCondition } from "../system/conditions";
-import { EffectExpiryType } from "@item/effect/data";
+import { AfflictionPF2e } from "@item/affliction/document.ts";
+import { EffectExpiryType } from "@item/effect/data.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
+import { htmlQuery, htmlQueryAll } from "@util";
+import { FlattenedCondition } from "../system/conditions/index.ts";
 
 export class EffectsPanel extends Application {
+    private get token(): TokenDocumentPF2e | null {
+        return canvas.tokens.controlled.at(0)?.document ?? null;
+    }
+
     private get actor(): ActorPF2e | null {
-        return canvas.tokens.controlled[0]?.actor ?? game.user?.character ?? null;
+        return this.token?.actor ?? game.user?.character ?? null;
     }
 
     /**
@@ -14,18 +22,26 @@ export class EffectsPanel extends Application {
      */
     refresh = foundry.utils.debounce(this.render, 100);
 
-    static override get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+    static override get defaultOptions(): ApplicationOptions {
+        return {
+            ...super.defaultOptions,
             id: "pf2e-effects-panel",
             popOut: false,
-            template: "systems/pf2e/templates/system/effects-panel.html",
-        });
+            template: "systems/pf2e/templates/system/effects-panel.hbs",
+        };
     }
 
     override async getData(options?: ApplicationOptions): Promise<EffectsPanelData> {
         const { actor } = this;
         if (!actor || !game.user.settings.showEffectPanel) {
-            return { conditions: [], effects: [], actor: null, user: { isGM: false } };
+            return {
+                afflictions: [],
+                conditions: [],
+                effects: [],
+                descriptions: { afflictions: [], conditions: [], effects: [] },
+                actor: null,
+                user: { isGM: false },
+            };
         }
 
         const effects =
@@ -38,15 +54,13 @@ export class EffectsPanel extends Application {
                             ? game.i18n.localize("PF2E.EffectPanel.Expired")
                             : game.i18n.localize("PF2E.EffectPanel.UntilEncounterEnds");
                     } else {
-                        system.expired = false;
                         system.remaining = game.i18n.localize("PF2E.EffectPanel.UnlimitedDuration");
                     }
                 } else {
                     const duration = effect.remainingDuration;
-                    system.expired = duration.expired;
                     system.remaining = system.expired
                         ? game.i18n.localize("PF2E.EffectPanel.Expired")
-                        : EffectsPanel.getRemainingDurationLabel(
+                        : this.#getRemainingDurationLabel(
                               duration.remaining,
                               system.start.initiative ?? 0,
                               system.duration.expiry
@@ -55,56 +69,102 @@ export class EffectsPanel extends Application {
                 return effect;
             }) ?? [];
 
-        const conditions = game.pf2e.ConditionManager.getFlattenedConditions(actor.itemTypes.condition);
+        const conditions = game.pf2e.ConditionManager.getFlattenedConditions(actor);
+
+        const afflictions = actor.itemTypes.affliction;
+
+        const descriptions = {
+            afflictions: await this.#getEnrichedDescriptions(afflictions),
+            conditions: await this.#getEnrichedDescriptions(conditions),
+            effects: await this.#getEnrichedDescriptions(effects),
+        };
 
         return {
             ...(await super.getData(options)),
-            actor,
-            effects,
+            afflictions,
             conditions,
-            user: {
-                isGM: game.user.isGM,
-            },
+            descriptions,
+            effects,
+            actor,
+            user: { isGM: game.user.isGM },
         };
     }
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
+        const html = $html[0]!;
 
-        const $icons = $html.find("div[data-item-id]");
+        // For inline roll links in descriptions
+        InlineRollLinks.listen(html, this.actor || undefined);
 
-        // Remove an effect on right-click
-        $icons.on("contextmenu", async (event) => {
-            const $target = $(event.currentTarget);
-            if ($target.attr("data-locked")) return;
+        for (const effectEl of htmlQueryAll(html, ".effect-item[data-item-id]")) {
+            const itemId = effectEl.dataset.itemId;
+            if (!itemId) continue;
 
-            const actor = this.actor;
-            const effect = actor?.items.get($target.attr("data-item-id") ?? "");
-            if (effect instanceof AbstractEffectPF2e) {
-                await effect.decrease();
-            } else {
-                // Failover in case of a stale effect
-                this.refresh();
+            const iconElem = effectEl.querySelector(".icon");
+            // Increase or render persistent-damage dialog on left click
+            iconElem?.addEventListener("click", async () => {
+                const { actor } = this;
+                const effect = actor?.items.get(itemId);
+                if (actor && effect?.isOfType("condition") && effect.slug === "persistent-damage") {
+                    await effect.onEndTurn({ token: this.token });
+                } else if (effect instanceof AbstractEffectPF2e) {
+                    await effect.increase();
+                }
+            });
+
+            // Remove effect or decrease its badge value on right-click
+            iconElem?.addEventListener("contextmenu", async () => {
+                const { actor } = this;
+                const effect = actor?.items.get(itemId);
+                if (effect instanceof AbstractEffectPF2e) {
+                    await effect.decrease();
+                } else {
+                    // Failover in case of a stale effect
+                    this.refresh();
+                }
+            });
+
+            effectEl.querySelector("[data-action=recover-persistent-damage]")?.addEventListener("click", () => {
+                const item = this.actor?.items.get(itemId);
+                if (item?.isOfType("condition")) {
+                    item.rollRecovery();
+                }
+            });
+
+            // Send effect to chat
+            effectEl.querySelector("[data-action=send-to-chat]")?.addEventListener("click", () => {
+                const { actor } = this;
+                const effect = actor?.conditions.get(itemId) ?? actor?.items.get(itemId);
+                effect?.toMessage();
+            });
+
+            // Uses a scale transform to fit the text within the box
+            // Note that the value container cannot have padding or measuring will fail.
+            // They cannot be inline elements pre-computation, but must be post-computation (for ellipses)
+            const valueContainer = htmlQuery(iconElem, ".value");
+            const textElement = htmlQuery(valueContainer, "strong");
+            if (valueContainer && textElement) {
+                const minScale = 0.75;
+                const parentWidth = valueContainer.clientWidth;
+                const scale = textElement.clientWidth
+                    ? Math.clamped(parentWidth / textElement.clientWidth, minScale, 1)
+                    : 1;
+                if (scale < 1) {
+                    valueContainer.style.transformOrigin = "left";
+                    valueContainer.style.transform = `scaleX(${scale})`;
+
+                    // Unfortunately, width is pre scaling, so we need to scale it back up
+                    // +1 prevents certain scenarios where ellipses will show even above min scale.
+                    valueContainer.style.width = `${(1 / scale) * 100 + 1}%`;
+                }
+
+                textElement.style.display = "inline";
             }
-        });
-
-        $icons.on("click", async (event) => {
-            const $target = $(event.currentTarget);
-            if ($target.attr("data-locked")) return;
-
-            const actor = this.actor;
-            const effect = actor?.items.get($target.attr("data-item-id") ?? "");
-            if (effect instanceof AbstractEffectPF2e) {
-                await effect.increase();
-            }
-        });
+        }
     }
 
-    private static getRemainingDurationLabel(
-        remaining: number,
-        initiative: number,
-        expiry: EffectExpiryType | null
-    ): string {
+    #getRemainingDurationLabel(remaining: number, initiative: number, expiry: EffectExpiryType | null): string {
         if (remaining >= 63_072_000) {
             // two years
             return game.i18n.format("PF2E.EffectPanel.RemainingDuration.MultipleYears", {
@@ -159,13 +219,25 @@ export class EffectsPanel extends Application {
             return game.i18n.format(key, { initiative });
         }
     }
+
+    async #getEnrichedDescriptions(effects: AfflictionPF2e[] | EffectPF2e[] | FlattenedCondition[]): Promise<String[]> {
+        return await Promise.all(
+            effects.map(async (effect) => await TextEditor.enrichHTML(effect.description, { async: true }))
+        );
+    }
+}
+
+interface EffectsDescriptionData {
+    afflictions: String[];
+    conditions: String[];
+    effects: String[];
 }
 
 interface EffectsPanelData {
+    afflictions: AfflictionPF2e[];
     conditions: FlattenedCondition[];
+    descriptions: EffectsDescriptionData;
     effects: EffectPF2e[];
     actor: ActorPF2e | null;
-    user: {
-        isGM: boolean;
-    };
+    user: { isGM: boolean };
 }

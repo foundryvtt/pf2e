@@ -101,11 +101,6 @@
                 },
                 "tradition": {
                     "value": "divine"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -124,13 +119,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -222,7 +211,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "mental"
@@ -246,11 +234,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
+                    "type": "emanation",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -332,7 +317,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "detection"
@@ -373,7 +357,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -418,7 +401,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -462,7 +444,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -507,7 +488,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -562,7 +542,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -602,7 +581,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -643,7 +621,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divine",
@@ -675,7 +652,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The lion makes a terrifying roar that deals [[/r {2d8}[sonic]]]{2d8 sonic damage} (@Check[type:fortitude|dc:23|basic:true] save) to each creature in a @Template[type:cone|distance:20]. Creatures that fail this save become @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}.</p>"
+                    "value": "<p>The lion makes a terrifying roar that deals [[/r 2d8[sonic]]] damage (@Check[type:fortitude|dc:23|basic:true] save) to each creature in a @Template[type:cone|distance:20]. Creatures that fail this save become @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -686,7 +663,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "auditory",
@@ -721,7 +697,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The lion touches and melds with its bonded vessel, bringing the statue to life. It can cease Inhabiting its Vessel by spending a single action, which has the concentrate trait. While Inhabiting the Vessel, it loses its fly Speed and gains</p>\n<p><strong>Immunities</strong> healing, nonlethal</p>\n<p><strong>Resistances</strong> physical 5 (except bludgeoning),</p>\n<p><strong>Speed</strong> 30 feet, and it gains the following Strikes:</p>\n<ul>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">A</span> Jaws [[/r 1d20+14 #Jaws]]{+14}/[[/r 1d20+10 #Jaws]]{+10}/[[/r 1d20+6 #Jaws]]{+6} (agile), <strong>Damage</strong> [[/r {2d6+7}[bludgeoning]]]{2d6+7 bludgeoning damage} plus @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Grab]{Grab}.</li>\n<li><strong>Ranged</strong> <span class=\"pf2-icon\">A</span> Stone Ball [[/r 1d20+13 #Stone Ball]]{+13}/[[/r 1d20+8 #Stone Ball]]{+8}/[[/r 1d20+3 #Stone Ball]]{+3} (range increment 30 feet), <strong>Damage</strong> [[/r {2d4+7}[bludgeoning]]]{2d4+7 bludgeoning damage}.</li>\n</ul>"
+                    "value": "<p>The lion touches and melds with its bonded vessel, bringing the statue to life. It can cease Inhabiting its Vessel by spending a single action, which has the concentrate trait. While Inhabiting the Vessel, it loses its fly Speed and gains</p>\n<p><strong>Immunities</strong> healing, nonlethal</p>\n<p><strong>Resistances</strong> physical 5 (except bludgeoning),</p>\n<p><strong>Speed</strong> 30 feet, and it gains the following Strikes:</p>\n<ul>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">A</span> Jaws [[/r 1d20+14 #Jaws]]{+14}/[[/r 1d20+10 #Jaws]]{+10}/[[/r 1d20+6 #Jaws]]{+6} (agile), <strong>Damage</strong> [[/r (2d6+7)[bludgeoning]]] damage plus @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Grab]{Grab}.</li>\n<li><strong>Ranged</strong> <span class=\"pf2-icon\">A</span> Stone Ball [[/r 1d20+13 #Stone Ball]]{+13}/[[/r 1d20+8 #Stone Ball]]{+8}/[[/r 1d20+3 #Stone Ball]]{+3} (range increment 30 feet), <strong>Damage</strong> [[/r (2d4+7)[bludgeoning]]] damage.</li>\n</ul>"
                 },
                 "requirements": {
                     "value": ""
@@ -758,17 +734,15 @@
                         "predicate": [
                             "inhabit-vessel"
                         ],
-                        "type": "healing"
+                        "type": [
+                            "healing",
+                            "nonlethal"
+                        ]
                     },
                     {
-                        "key": "Immunity",
-                        "predicate": [
-                            "inhabit-vessel"
+                        "exceptions": [
+                            "bludgeoning"
                         ],
-                        "type": "nonlethal"
-                    },
-                    {
-                        "except": "PF2E.ResistanceException.Bludgeoning",
                         "key": "Resistance",
                         "predicate": [
                             "inhabit-vessel"
@@ -782,7 +756,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "manipulate"
@@ -820,14 +793,17 @@
                 },
                 "rules": [
                     {
-                        "except": "PF2E.ResistanceException.ForceGhostTouchDoubleNonMagical",
+                        "exceptions": [
+                            "force",
+                            "ghost-touch"
+                        ],
                         "key": "Resistance",
                         "predicate": [
                             {
                                 "not": "inhabit-vessel"
                             }
                         ],
-                        "type": "all",
+                        "type": "all-damage",
                         "value": 5
                     }
                 ],
@@ -836,7 +812,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -868,11 +843,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -896,11 +866,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -924,11 +889,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -952,11 +912,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -998,8 +953,22 @@
                 "temp": 0,
                 "value": 50
             },
+            "immunities": [
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "petrified"
+                },
+                {
+                    "type": "poison"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 13
@@ -1048,18 +1017,6 @@
             "attitude": {
                 "value": "indifferent"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "disease",
-                    "paralyzed",
-                    "petrified",
-                    "poison"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "Telepathy 60 feet",
                 "selected": [],

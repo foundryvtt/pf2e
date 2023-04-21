@@ -33,7 +33,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "electricity",
@@ -78,7 +77,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -116,7 +114,9 @@
                     {
                         "key": "TokenLight",
                         "predicate": [
-                            "glowing"
+                            {
+                                "not": "go-dark"
+                            }
                         ],
                         "value": {
                             "animation": {
@@ -127,13 +127,6 @@
                             "bright": 20,
                             "color": "#fff9a3"
                         }
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "glowing",
-                        "toggleable": true,
-                        "value": true
                     }
                 ],
                 "slug": null,
@@ -141,7 +134,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -184,7 +176,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -229,7 +220,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -258,7 +248,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirement</strong> An enemy is under a fear effect or @UUID[Compendium.pf2e.conditionitems.Dying]{Dying} within 15 feet of the will-o'-wisp.</p>\n<hr />\n<p><strong>Effect</strong> The will-o'wisp feeds on the creature's terror. It regains [[/r {2d4}[healing]]]{2d4 Hit Points}, and if it has Gone Dark, its glow reignites.</p>\n<p>A will-o'-wisp can take this action only once per round.</p>"
+                    "value": "<p><strong>Requirement</strong> An enemy is under a fear effect or @UUID[Compendium.pf2e.conditionitems.Dying]{Dying} within 15 feet of the will-o'-wisp.</p>\n<hr />\n<p><strong>Effect</strong> The will-o'wisp feeds on the creature's terror. It regains [[/r 2d4[healing]]]{2d4 Hit Points}, and if it has Gone Dark, its glow reignites.</p>\n<p>A will-o'-wisp can take this action only once per round.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -269,7 +259,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate"
@@ -305,13 +294,19 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "go-dark",
+                        "toggleable": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate"
@@ -345,11 +340,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -373,11 +363,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -401,11 +386,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -429,11 +409,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -475,8 +450,13 @@
                 "temp": 0,
                 "value": 50
             },
+            "immunities": [
+                {
+                    "type": "magic"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 16
@@ -529,15 +509,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "magic"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

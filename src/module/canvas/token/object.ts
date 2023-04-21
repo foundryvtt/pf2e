@@ -1,15 +1,22 @@
+import { ANIMAL_COMPANION_SOURCE_ID } from "@actor/values.ts";
 import { EffectPF2e } from "@item";
-import { TokenDocumentPF2e } from "@module/scene";
+import { TokenDocumentPF2e } from "@scene/index.ts";
 import { pick } from "@util";
-import { CanvasPF2e, measureDistanceRect, TokenLayerPF2e } from "..";
-import { AuraRenderers } from "./aura";
+import { CanvasPF2e, TokenLayerPF2e, measureDistanceCuboid } from "../index.ts";
+import { HearingSource } from "../perception/hearing-source.ts";
+import { AuraRenderers } from "./aura/index.ts";
 
-class TokenPF2e extends Token<TokenDocumentPF2e> {
+class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends Token<TDocument> {
     /** Visual representation and proximity-detection facilities for auras */
     readonly auras: AuraRenderers;
 
-    constructor(document: TokenDocumentPF2e) {
+    /** The token's line hearing source */
+    hearing: HearingSource<this>;
+
+    constructor(document: TDocument) {
         super(document);
+
+        this.hearing = new HearingSource(this);
         this.auras = new AuraRenderers(this);
         Object.defineProperty(this, "auras", { configurable: false, writable: false }); // It's ours, Kim!
     }
@@ -107,7 +114,6 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         if (gangingUp) return true;
 
         // The Side By Side feat with tie-in to the PF2e Animal Companion Compendia module
-        const ANIMAL_COMPANION_SOURCE_ID = "Compendium.pf2e-animal-companions.AC-Ancestries-and-Class.h6Ybhv5URar01WPk";
         const sideBySide =
             this.isAdjacentTo(flankee) &&
             flanking.canGangUp.includes("animal-companion") &&
@@ -115,7 +121,6 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
                 (b) =>
                     b.actor?.isOfType("character") &&
                     b.actor.class?.sourceId === ANIMAL_COMPANION_SOURCE_ID &&
-                    game.modules.get("pf2e-animal-companions")?.active &&
                     b.isAdjacentTo(flankee)
             );
         if (sideBySide) return true;
@@ -129,13 +134,12 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         if (!canvas.dimensions) return;
 
         const actor = this.document.actor;
-        const isHealth = data.attribute === "attributes.hp" && actor?.attributes.hp;
 
-        if (!isHealth) {
+        if (!(data.attribute === "attributes.hp" && actor?.attributes.hp)) {
             return super._drawBar(number, bar, data);
         }
 
-        const { value, max, temp } = actor.attributes.hp;
+        const { value, max, temp } = actor.attributes.hp ?? {};
         const healthPercent = Math.clamped(value, 0, max) / max;
 
         // Compute the color based on health percentage, this formula is the one core foundry uses
@@ -186,11 +190,11 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         this.auras.draw();
     }
 
-    emitHoverIn() {
+    emitHoverIn(): void {
         this.emit("mouseover", { data: { object: this } });
     }
 
-    emitHoverOut() {
+    emitHoverOut(): void {
         this.emit("mouseout", { data: { object: this } });
     }
 
@@ -255,7 +259,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
                 const [change, details] = Object.entries(params)[0];
                 const isAdded = change === "create";
                 const sign = isAdded ? "+ " : "- ";
-                const appendedNumber = details.value ? ` ${details.value}` : "";
+                const appendedNumber = !/ \d+$/.test(details.name) && details.value ? ` ${details.value}` : "";
                 const content = `${sign}${details.name}${appendedNumber}`;
                 const anchorDirection = isAdded ? CONST.TEXT_ANCHOR_POINTS.TOP : CONST.TEXT_ANCHOR_POINTS.BOTTOM;
                 const textStyle = pick(this._getTextStyle(), ["fill", "fontSize", "stroke", "strokeThickness"]);
@@ -292,63 +296,36 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
             return canvas.grid.measureDistance(this.position, target.position);
         }
 
-        const distance = {
-            xy: measureDistanceRect(this.bounds, target.bounds, { reach }),
-            xz: 0,
-            yz: 0,
-        };
-
         const selfElevation = this.document.elevation;
         const targetElevation = target.document.elevation;
-        if (selfElevation === targetElevation || !this.actor || !target.actor) return distance.xy;
+        if (selfElevation === targetElevation || !this.actor || !target.actor) {
+            return measureDistanceCuboid(this.bounds, target.bounds, { reach });
+        }
 
-        const [selfDimensions, targetDimensions] = [this.actor.dimensions, target.actor.dimensions];
-        if (!(selfDimensions && targetDimensions)) return distance.xy;
-
-        const gridSize = canvas.dimensions.size;
-        const gridDistance = canvas.dimensions.distance;
-
-        const xzPlane = {
-            self: new PIXI.Rectangle(
-                this.bounds.x,
-                Math.floor((selfElevation / gridDistance) * gridSize),
-                this.bounds.width,
-                Math.floor((selfDimensions.height / gridDistance) * gridSize)
-            ),
-            target: new PIXI.Rectangle(
-                target.bounds.x,
-                Math.floor((targetElevation / gridDistance) * gridSize),
-                target.bounds.width,
-                Math.floor((targetDimensions.height / gridDistance) * gridSize)
-            ),
-        };
-        distance.xz = measureDistanceRect(xzPlane.self, xzPlane.target, { reach });
-
-        const yzPlane = {
-            self: new PIXI.Rectangle(
-                this.bounds.y,
-                Math.floor((selfElevation / gridDistance) * gridSize),
-                this.bounds.height,
-                Math.floor((selfDimensions.height / gridDistance) * gridSize)
-            ),
-            target: new PIXI.Rectangle(
-                target.bounds.y,
-                Math.floor((targetElevation / gridDistance) * gridSize),
-                target.bounds.height,
-                Math.floor((targetDimensions.height / gridDistance) * gridSize)
-            ),
-        };
-        distance.yz = measureDistanceRect(yzPlane.self, yzPlane.target, { reach });
-
-        const hypotenuse = Math.sqrt(Math.pow(distance.xy, 2) + Math.pow(Math.max(distance.xz, distance.yz), 2));
-
-        return Math.floor(hypotenuse / gridDistance) * gridDistance;
+        return measureDistanceCuboid(this.bounds, target.bounds, {
+            reach,
+            token: this,
+            target,
+        });
     }
 
     /** Add a callback for when a movement animation finishes */
     override async animate(updateData: Record<string, unknown>, options?: TokenAnimationOptions<this>): Promise<void> {
         await super.animate(updateData, options);
         if (!this._animation) this.onFinishAnimation();
+    }
+
+    /** Hearing should be updated whenever vision is */
+    override updateVisionSource({ defer = false, deleted = false } = {}): void {
+        super.updateVisionSource({ defer, deleted });
+        if (this._isVisionSource() && !deleted) {
+            this.hearing.initialize();
+        }
+    }
+
+    protected override _destroy(): void {
+        super._destroy();
+        this.hearing.destroy();
     }
 
     /* -------------------------------------------- */
@@ -408,7 +385,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 
     /** Destroy auras before removing this token from the canvas */
-    override _onDelete(options: DocumentModificationContext<TokenDocumentPF2e>, userId: string): void {
+    override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void {
         super._onDelete(options, userId);
         this.auras.clear();
     }
@@ -430,14 +407,14 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 }
 
-interface TokenPF2e extends Token<TokenDocumentPF2e> {
+interface TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends Token<TDocument> {
     get layer(): TokenLayerPF2e<this>;
 
     icon?: TokenImage;
 }
 
 interface TokenImage extends PIXI.Sprite {
-    src?: VideoPath;
+    src?: VideoFilePath;
 }
 
 type NumericFloatyEffect = { name: string; value?: number | null };
@@ -447,4 +424,4 @@ type ShowFloatyEffectParams =
     | { update: NumericFloatyEffect }
     | { delete: NumericFloatyEffect };
 
-export { TokenPF2e };
+export { ShowFloatyEffectParams, TokenPF2e };

@@ -1,4 +1,4 @@
-import { MeasuredTemplatePF2e } from "..";
+import { MeasuredTemplatePF2e } from "../index.ts";
 
 export class TemplateLayerPF2e<
     TTemplate extends MeasuredTemplatePF2e = MeasuredTemplatePF2e
@@ -58,7 +58,7 @@ export class TemplateLayerPF2e<
 
         // Determine the incremental angle of rotation from event data
         const increment = event.shiftKey ? 15 : 5;
-        const coneMultiplier = Number(template.type === "cone") * (canvas.scene.hasHexGrid ? 2 : 3);
+        const coneMultiplier = template.type === "cone" ? (canvas.scene.hasHexGrid ? 2 : 3) : 1;
         const snap = increment * coneMultiplier;
         const delta = snap * Math.sign(event.deltaY);
 

@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "arcane"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -125,13 +120,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -229,7 +218,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "electricity"
@@ -252,13 +240,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -341,7 +323,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "revelation"
@@ -364,13 +345,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -452,7 +427,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -485,8 +459,7 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
                     "value": "<p>Longswords can be one‑edged or two‑edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
@@ -549,9 +522,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -560,7 +530,6 @@
                     "value": "striking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "versatile-p"
@@ -577,6 +546,11 @@
         },
         {
             "_id": "IH1oaRD65ApAyt5k",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "iFLHtzCCLkMeOw2v"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Longsword",
             "sort": 600000,
@@ -606,7 +580,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -651,7 +624,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -697,7 +669,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -762,14 +733,10 @@
                         "predicate": [
                             "suspended-animation-enter"
                         ],
-                        "type": "disease"
-                    },
-                    {
-                        "key": "Immunity",
-                        "predicate": [
-                            "suspended-animation-enter"
-                        ],
-                        "type": "poison"
+                        "type": [
+                            "disease",
+                            "poison"
+                        ]
                     },
                     {
                         "key": "FlatModifier",
@@ -786,7 +753,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate"
@@ -833,7 +799,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -878,7 +843,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -941,7 +905,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -981,7 +944,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "abjuration",
@@ -1013,7 +975,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day.</p>\n<hr />\n<p><strong>Effect</strong> The calikang breathes a blast of energy that deals 13d6 energy damage to creatures in a @Template[type:line|distance:60] (DC 28 basic Reflex save). The calikang can choose the damage type each time: acid, cold, electricity, fire, or sonic.</p>\n<p>Increase the die size to d8 if the calikang chooses electricity.</p>\n<hr />\n<ul>\n<li>[[/r {13d6}[acid]]]{13d6 acid damage} (@Check[type:reflex|dc:28|traits:acid|basic:true] save)</li>\n<li>[[/r {13d6}[cold]]]{13d6 cold damage} (@Check[type:reflex|dc:28|traits:cold|basic:true] save)</li>\n<li>[[/r {13d8}[electricity]]]{13d8 electricity damage} (@Check[type:reflex|dc:28|traits:electricity|basic:true] save)</li>\n<li>[[/r {13d6}[fire]]]{13d6 fire damage} (@Check[type:reflex|dc:28|traits:fire|basic:true] save)</li>\n<li>[[/r {13d6}[sonic]]]{13d6 sonic damage} (@Check[type:reflex|dc:28|traits:sonic|basic:true] save)</li>\n</ul>"
+                    "value": "<p><strong>Frequency</strong> once per day.</p>\n<hr />\n<p><strong>Effect</strong> The calikang breathes a blast of energy that deals 13d6 energy damage to creatures in a @Template[type:line|distance:60] (DC 28 basic Reflex save). The calikang can choose the damage type each time: acid, cold, electricity, fire, or sonic.</p>\n<p>Increase the die size to d8 if the calikang chooses electricity.</p>\n<hr />\n<ul>\n<li>[[/r 13d6[acid]]] damage (@Check[type:reflex|dc:28|traits:acid|basic:true] save)</li>\n<li>[[/r 13d6[cold]]] damage (@Check[type:reflex|dc:28|traits:cold|basic:true] save)</li>\n<li>[[/r 13d8[electricity]]] damage (@Check[type:reflex|dc:28|traits:electricity|basic:true] save)</li>\n<li>[[/r 13d6[fire]]] damage (@Check[type:reflex|dc:28|traits:fire|basic:true] save)</li>\n<li>[[/r 13d6[sonic]]] damage (@Check[type:reflex|dc:28|traits:sonic|basic:true] save)</li>\n</ul>"
                 },
                 "requirements": {
                     "value": ""
@@ -1024,7 +986,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -1067,7 +1028,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1099,11 +1059,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1127,11 +1082,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1173,8 +1123,13 @@
                 "temp": 0,
                 "value": 235
             },
+            "immunities": [
+                {
+                    "type": "electricity"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 22
@@ -1223,15 +1178,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "electricity"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

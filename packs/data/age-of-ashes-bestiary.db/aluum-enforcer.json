@@ -34,7 +34,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical"
@@ -78,7 +77,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -118,7 +116,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "selected": {},
                     "value": []
@@ -159,7 +156,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -192,7 +188,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The aluum enforcer emits a keening wail in a @Template[type:cone|distance:15] that deals [[/r {9d6}[sonic]]]{9d6 sonic damage} (@Check[type:fortitude|dc:27|basic:true] save). A creature that fails its save is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}, or @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 3} on a critical failure.</p>\n<p>The aluum can't use Soul Shriek again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The aluum enforcer emits a keening wail in a @Template[type:cone|distance:15] that deals [[/r 9d6[sonic]]] damage (@Check[type:fortitude|dc:27|basic:true] save). A creature that fails its save is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}, or @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 3} on a critical failure.</p>\n<p>The aluum can't use Soul Shriek again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -203,7 +199,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -241,11 +236,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -287,12 +277,26 @@
                 "temp": 0,
                 "value": 145
             },
+            "immunities": [
+                {
+                    "type": "magic"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 17
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "adamantine"
+                    ],
+                    "type": "physical",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -329,33 +333,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "disease",
-                    "death-effects",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "magic",
-                    "mental",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except adamantine",
-                    "type": "physical",
-                    "value": 10
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

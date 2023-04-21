@@ -41,7 +41,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -81,7 +80,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -107,40 +105,24 @@
                     "value": 20
                 },
                 "damageRolls": {
-                    "if2AKvqBKuX3a3Sx": {
+                    "0": {
                         "damage": "2d10+7",
                         "damageType": "negative"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "bleed"
                     }
                 },
                 "description": {
-                    "value": "<p>Plus @Localize[PF2E.PersistentDamage.Bleed1d6.success]</p>"
+                    "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Bleed1d6.success",
-                        "title": "{item|name}"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Bleed1d6.criticalSuccess",
-                        "title": "{item|name}"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -165,10 +147,38 @@
                 "temp": 0,
                 "value": 66
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "force",
+                        "ghost-touch",
+                        "positive"
+                    ],
+                    "type": "all-damage",
+                    "value": 10
+                }
+            ],
             "stealth": {
                 "details": "<p>(expert)</p>",
                 "value": 18
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 10
+                }
+            ]
         },
         "creatureType": "",
         "details": {
@@ -179,10 +189,7 @@
                 "value": 8
             },
             "reset": "<p>The haunt resets after 24 hours; it can be permanently destroyed if it is either disabled or destroyed after the Beast itself has been slain.</p>",
-            "routine": "<p>(3 actions; emotion, fear, mental) The spectral violence churns and flashes through the room, targeting three separate creatures with ghostly claws, beaks, swords, and arrows. At the end of the haunt's turn, it takes its Spectral Uprising reaction.</p>",
-            "source": {
-                "value": "Pathfinder Kingmaker"
-            }
+            "routine": "<p>(3 actions; emotion, fear, mental) The spectral violence churns and flashes through the room, targeting three separate creatures with ghostly claws, beaks, swords, and arrows. At the end of the haunt's turn, it takes its Spectral Uprising reaction.</p>"
         },
         "saves": {
             "fortitude": {
@@ -204,28 +211,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "critical-hits",
-                    "precision"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except force, ghost touch, or positive; double resistance vs. non-magical",
-                    "type": "all",
-                    "value": 10
-                }
-            ],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "type": "positive",
-                    "value": 10
-                }
-            ],
             "rarity": "unique",
             "size": {
                 "value": "med"

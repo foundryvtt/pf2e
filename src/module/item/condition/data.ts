@@ -1,16 +1,12 @@
-import { CONDITION_SLUGS } from "@actor/values";
-import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "@item/data/base";
-import { ConditionPF2e } from ".";
+import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "@item/data/base.ts";
+import { DamageType } from "@system/damage/index.ts";
+import { DamageRoll } from "@system/damage/roll.ts";
+import { ConditionSlug } from "./types.ts";
 
 type ConditionSource = BaseItemSourcePF2e<"condition", ConditionSystemSource>;
 
-type ConditionData = Omit<ConditionSource, "system" | "effects" | "flags"> &
-    BaseItemDataPF2e<ConditionPF2e, "condition", ConditionSystemData, ConditionSource>;
-
 interface ConditionSystemSource extends ItemSystemSource {
     slug: ConditionSlug;
-    active: boolean;
-    removable: boolean;
     references: {
         parent?: {
             id: string;
@@ -19,72 +15,32 @@ interface ConditionSystemSource extends ItemSystemSource {
         children: { id: string; type: "condition" }[];
         overriddenBy: { id: string; type: "condition" }[];
         overrides: { id: string; type: "condition" }[];
-
-        /**
-         * This status is immune, and thereby inactive, from the following list.
-         */
-        immunityFrom: {
-            id: string;
-            type: string;
-        }[];
     };
-    hud: {
-        statusName: string;
-        img: {
-            useStatusName: boolean;
-            value: ImagePath;
-        };
-        selectable: boolean;
-    };
-    duration: {
-        perpetual: boolean;
-        value: number;
-        text: string;
-    };
-    modifiers: {
-        type: string;
-        name: string;
-        group: string;
-        value?: number;
-    }[];
-    base: ConditionSlug;
-    group: string;
+    duration: { value: number };
+    persistent?: PersistentSourceData;
+    group: string | null;
     value: ConditionValueData;
-    sources: { hud: boolean };
-    alsoApplies: {
-        linked: { condition: ConditionSlug; value?: number }[];
-        unlinked: { condition: ConditionSlug; value?: number }[];
-    };
     overrides: string[];
+    context?: never;
+    level?: never;
     traits?: never;
 }
 
-type ConditionSystemData = ItemSystemData & ConditionSystemSource;
+interface ConditionSystemData extends ConditionSystemSource, Omit<ItemSystemData, "level" | "slug" | "traits"> {
+    persistent?: PersistentDamageData;
+}
 
-type ConditionValueData =
-    | {
-          isValued: true;
-          immutable: boolean;
-          value: number;
-          modifiers: [
-              {
-                  value: number;
-                  source: string;
-              }
-          ];
-      }
-    | {
-          isValued: false;
-          immutable: boolean;
-          value: null;
-          modifiers: [
-              {
-                  value: number;
-                  source: string;
-              }
-          ];
-      };
+interface PersistentDamageData extends PersistentSourceData {
+    damage: DamageRoll;
+    expectedValue: number;
+}
 
-type ConditionSlug = SetElement<typeof CONDITION_SLUGS>;
+type ConditionValueData = { isValued: true; value: number } | { isValued: false; value: null };
 
-export { ConditionData, ConditionSource, ConditionSlug };
+interface PersistentSourceData {
+    formula: string;
+    damageType: DamageType;
+    dc: number;
+}
+
+export { ConditionSource, ConditionSystemData, ConditionSystemSource, PersistentDamageData, PersistentSourceData };

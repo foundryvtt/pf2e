@@ -3,7 +3,7 @@
  * Walls are used to restrict Token movement or visibility as well as to define the areas of effect for ambient lights
  * and sounds.
  */
-declare class Wall<TDocument extends WallDocument = WallDocument> extends PlaceableObject<TDocument> {
+declare class Wall<TDocument extends WallDocument<Scene | null>> extends PlaceableObject<TDocument> {
     constructor(document?: TDocument);
 
     /** An reference the Door Control icon associated with this Wall, if any */
@@ -58,6 +58,8 @@ declare class Wall<TDocument extends WallDocument = WallDocument> extends Placea
 
     refresh(): this;
 
+    protected override _refresh(options: object): void;
+
     /**
      * Compute an approximate Polygon which encloses the line segment providing a specific hitArea for the line
      * @param coords The original wall coordinates
@@ -96,7 +98,7 @@ declare class Wall<TDocument extends WallDocument = WallDocument> extends Placea
      */
     getLinkedSegments(): {
         ids: string[];
-        walls: Wall[];
+        walls: Wall<TDocument>[];
         endpoints: number[];
     };
 
@@ -104,19 +106,19 @@ declare class Wall<TDocument extends WallDocument = WallDocument> extends Placea
     /*  Socket Listeners and Handlers               */
     /* -------------------------------------------- */
 
-    override _onCreate(
-        data: foundry.data.WallSource,
-        options: DocumentModificationContext<TDocument>,
+    protected override _onCreate(
+        data: TDocument["_source"],
+        options: DocumentModificationContext<TDocument["parent"]>,
         userId: string
     ): void;
 
-    override _onUpdate(
-        changed: DocumentUpdateData,
-        options: DocumentModificationContext<TDocument>,
+    protected override _onUpdate(
+        changed: DeepPartial<TDocument["_source"]>,
+        options: DocumentModificationContext<TDocument["parent"]>,
         userId: string
     ): void;
 
-    override _onDelete(options: DocumentModificationContext<TDocument>, userId: string): void;
+    protected override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;
 
     /**
      * Callback actions when a wall that contains a door is moved or its state is changed
@@ -150,6 +152,6 @@ declare class Wall<TDocument extends WallDocument = WallDocument> extends Placea
     protected _onDragLeftDrop(event: PIXI.InteractionEvent): Promise<TDocument[]>;
 }
 
-declare interface Wall {
+declare interface Wall<TDocument extends WallDocument<Scene | null>> extends PlaceableObject<TDocument> {
     get layer(): WallsLayer<this>;
 }

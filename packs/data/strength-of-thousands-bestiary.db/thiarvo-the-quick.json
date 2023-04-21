@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "fire",
                     "dice": 2,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Alchemist's fire is a combination of volatile liquids that ignite when exposed to air. Alchemist's fire deals 2d8 fire damage, 2 persistent fire damage, and 2 fire splash damage. You gain a +1 item bonus to attack rolls.</p>"
@@ -59,10 +58,10 @@
                     "value": 0
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -109,9 +108,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 2
                 },
@@ -120,7 +116,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "alchemical",
@@ -165,8 +160,7 @@
                 "damage": {
                     "damageType": "bludgeoning",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>This hard but flexible longsword-length piece of wood looks more like a pole than a weapon, but can be deadly in the right hands. While generally not used for combat outside of Song'o culture, some halflings have become so proficient as to make it just as effective as a blade in a fight. Many halflings will even sing to maintain a certain tempo and rhythm during combat. It deals 1d6 bludgeoning damage. A fighting stick is a martial one-handed melee weapon in the club weapon group.</p>\n<hr />\n<p>@UUID[Compendium.pf2e.equipment-srd.Rod of Wonder]{Rod of Wonder}</p>"
@@ -229,9 +223,6 @@
                 "source": {
                     "value": "Pathfinder Lost Omens: The Mwangi Expanse"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -240,7 +231,6 @@
                     "value": "striking"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "rare",
                     "value": [
                         "backswing",
@@ -350,7 +340,6 @@
                     "value": 12
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -377,11 +366,10 @@
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>You need thieves' tools to Pick Locks or Disable Devices (of some types) using the Thievery skill. Infiltrator thieves' tools add a +1 item bonus to checks to Pick Locks and Disable Devices.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @UUID[Compendium.pf2e.equipment-srd.Thieves' Tools (Infiltrator Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action.</p>"
+                    "value": "<p>You need thieves' tools to @UUID[Compendium.pf2e.actionspf2e.Pick a Lock]{Pick Locks} or @UUID[Compendium.pf2e.actionspf2e.Disable Device]{Disable Devices} (of some types) using the Thievery skill. Infiltrator thieves' tools add a +1 item bonus to checks to Pick Locks and Disable Devices.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @UUID[Compendium.pf2e.equipment-srd.Thieves' Tools (Infiltrator Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action. If you wear your thieves' tools, you can draw and replace them as part of the action that uses them.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -414,7 +402,6 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "Thieves' Tools (Pick Lock & Disable Devices)",
                         "predicate": [
                             {
                                 "or": [
@@ -435,12 +422,11 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "held-in-two-hands"
                 },
                 "weight": {
                     "value": "L"
@@ -459,22 +445,11 @@
             "name": "Healing Potion (Moderate)",
             "sort": 500000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 1,
                     "value": 1
                 },
@@ -482,16 +457,11 @@
                     "value": "potion"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": "3d8+10"
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain [[/r {3d8+10}[healing]]]{3d8+10 Hit Points}.</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
+                    "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain [[/r (3d8+10)[healing]]]{3d8+10 Hit Points}.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -524,11 +494,6 @@
                     }
                 },
                 "quantity": 1,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": "healing-potion-moderate",
@@ -536,13 +501,7 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "consumable",
@@ -556,13 +515,6 @@
                 "usage": {
                     "value": "held-in-one-hand"
                 },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
-                },
                 "weight": {
                     "value": "L"
                 }
@@ -571,6 +523,11 @@
         },
         {
             "_id": "n2sfzcq8aqbc4voc",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "TIqD08V1AHKYTTcS"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Rod",
             "sort": 600000,
@@ -600,7 +557,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "backswing",
@@ -642,7 +598,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "fortune"
@@ -681,7 +636,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -707,7 +661,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Thiarvo can make lethal attacks using weapons with the nonlethal trait without taking the usual -2 penalty. His attacks with weapons with the nonlethal trait deal an additional [[/r {2d8}[precision]]]{2d8 precision damage}, whether he's making nonlethal attacks or lethal attacks with them. This damage is included in his melee entry.</p>"
+                    "value": "<p>Thiarvo can make lethal attacks using weapons with the nonlethal trait without taking the usual -2 penalty. His attacks with weapons with the nonlethal trait deal an additional 2d8 precision damage, whether he's making nonlethal attacks or lethal attacks with them. This damage is included in his melee entry.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -729,7 +683,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -766,7 +719,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -795,11 +747,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -823,11 +770,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -851,11 +793,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -879,11 +816,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -907,11 +839,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -935,11 +862,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -963,11 +885,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1016,7 +933,7 @@
                 "value": 150
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 20
@@ -1057,13 +974,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

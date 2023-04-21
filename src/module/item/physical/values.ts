@@ -11,7 +11,7 @@ const PHYSICAL_ITEM_TYPES = new Set([
 const PRECIOUS_MATERIAL_TYPES = new Set([
     "abysium",
     "adamantine",
-    "coldIron",
+    "cold-iron",
     "darkwood",
     "djezet",
     "dragonhide",
@@ -25,7 +25,7 @@ const PRECIOUS_MATERIAL_TYPES = new Set([
     "silver",
     "sisterstone-dusk",
     "sisterstone-scarlet",
-    "sovereignSteel",
+    "sovereign-steel",
     "warpglass",
 ] as const);
 

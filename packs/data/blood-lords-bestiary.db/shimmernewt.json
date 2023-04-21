@@ -35,7 +35,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -46,7 +45,7 @@
             "type": "melee"
         },
         {
-            "_id": "7Tq3XQl39qYxxDTM",
+            "_id": "Noeu26HdBIOYmgvw",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Tail",
             "sort": 200000,
@@ -64,7 +63,7 @@
                     "value": 17
                 },
                 "damageRolls": {
-                    "dKVQXVKqfz7xZR4F": {
+                    "nAmFikCwAKsAvbEW": {
                         "damage": "2d8+8",
                         "damageType": "bludgeoning"
                     }
@@ -78,14 +77,12 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
-                    "rarity": "common",
                     "value": [
                         "reach-10"
                     ]
                 },
                 "weaponType": {
-                    "value": "ranged"
+                    "value": "melee"
                 }
             },
             "type": "melee"
@@ -122,7 +119,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -151,7 +147,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The shimmernewt chews on a creature that it has @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} or @UUID[Compendium.pf2e.conditionitems.Restrained]{Restrained}. The target creature must attempt a @Check[type:fortitude|dc:24] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes [[/r {1d10}[piercing]]]{1d10 piercing damage}.</p>\n<p><strong>Failure</strong> The creature takes [[/r {2d10}[piercing]]]{2d10 piercing damage} and [[/r {1d6}[persistent,bleed]]]{1d6} @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent bleed Damage}.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r {4d10}[piercing]]]{4d10 piercing damage}, [[/r {1d6}[persistent,bleed]]]{1d6} @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent bleed Damage}, and is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} by the pain of the chomp.</p>"
+                    "value": "<p>The shimmernewt chews on a creature that it has @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} or @UUID[Compendium.pf2e.conditionitems.Restrained]{Restrained}. The target creature must attempt a @Check[type:fortitude|dc:24] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes [[/r 1d10[piercing]]] damage.</p>\n<p><strong>Failure</strong> The creature takes [[/r 2d10[piercing]]] damage and [[/r 1d6[bleed]]] damage.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r 4d10[piercing]]] damage, [[/r 1d6[bleed]]] damage, and is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} by the pain of the chomp.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -162,7 +158,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -199,7 +194,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "conjuration",
@@ -214,6 +208,53 @@
             "type": "action"
         },
         {
+            "_id": "BLauoJ2WIWrsFGfv",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.actionspf2e.ge56Lu1xXVFYUnLP"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Trip",
+            "sort": 600000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p><strong>Requirements</strong> You have at least one hand free. Your target can't be more than one size larger than you</p>\n<hr />\n<p>You try to knock a creature to the ground. Attempt an <span data-pf2-action=\"trip\" data-pf2-glyph=\"A\">Athletics</span> check against the target's Reflex DC.</p>\n<hr />\n<p><strong>Critical Success</strong> The target falls and lands @UUID[Compendium.pf2e.conditionitems.Prone]{Prone} and takes [[/r 1d6[bludgeoning]]] damage.</p>\n<p><strong>Success</strong> The target falls and lands prone.</p>\n<p><strong>Critical Failure</strong> You lose your balance and fall and land prone.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "trip",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack",
+                        "skill"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "sB2hBiB5XcfKAEev",
             "flags": {
                 "core": {
@@ -222,7 +263,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -245,7 +286,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -262,7 +302,7 @@
             "_id": "yNhLYmtIrQ368TLV",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
@@ -277,11 +317,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -290,7 +325,7 @@
             "_id": "0R24rh6EvRVdfl05",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "description": {
                     "value": ""
@@ -305,11 +340,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -352,7 +382,7 @@
                 "value": 120
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 14
@@ -398,12 +428,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

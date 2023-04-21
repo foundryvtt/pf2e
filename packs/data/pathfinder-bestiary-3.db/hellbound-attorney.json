@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "divine"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -126,11 +121,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "cone",
+                    "type": "cone",
                     "value": 15
-                },
-                "areasize": {
-                    "value": ""
                 },
                 "category": {
                     "value": "spell"
@@ -227,7 +219,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "fire"
@@ -262,8 +253,7 @@
                 "damage": {
                     "damageType": "bludgeoning",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>With a stout haft and a heavy metal head, a mace is sturdy and allows its wielder to deliver powerful blows and dent armor.</p>"
@@ -326,9 +316,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -337,7 +324,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "shove"
@@ -401,7 +387,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -416,6 +401,11 @@
         },
         {
             "_id": "oRzzljhsCixNqf5j",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "OflSSMFtOIlEpn58"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Elegant Cane",
             "sort": 500000,
@@ -445,7 +435,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -491,7 +480,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -531,7 +519,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -560,18 +547,54 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The Hellbound attorney's turn begins.</p>\n<hr />\n<p><strong>Effect</strong> The attorney enumerates the alleged crimes of a creature they can see and attempts a Legal Lore check against that creature's Will DC.</p>\n<p>On a success, the attorney's Strikes deal an additional [[/r {2d6}[precision]]]{2d6 precision damage} ([[/r {4d6}[precision]]]{4d6 precision damage} on a critical success) to the creature until the end of the attorney's turn.</p>"
+                    "value": "<p><strong>Trigger</strong> The Hellbound attorney's turn begins.</p>\n<hr />\n<p><strong>Effect</strong> The attorney enumerates the alleged crimes of a creature they can see and attempts a Legal Lore check against that creature's Will DC.</p>\n<p>On a success, the attorney's Strikes deal an additional 2d6 precision damage (4d6 precision damage on a critical success) to the creature until the end of the attorney's turn.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "opening-statement",
+                            {
+                                "not": "opening-statement-crit"
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 4,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "opening-statement-crit"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "opening-statement",
+                        "toggleable": true
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.HellboundAttorney.OpeningStatementCriticalSuccess",
+                        "option": "opening-statement-crit",
+                        "toggleable": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "auditory",
@@ -606,11 +629,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -634,11 +652,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -673,11 +686,6 @@
                 "source": {
                     "value": ""
                 },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
                 "variants": {
                     "0": {
                         "label": "+13 to Make an Impression",
@@ -706,11 +714,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -734,11 +737,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -762,11 +760,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -809,15 +802,27 @@
                 "value": 60
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 11
             },
+            "resistances": [
+                {
+                    "type": "fire",
+                    "value": 4
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "good",
+                    "value": 2
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -858,24 +863,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "fire",
-                    "value": 4
-                }
-            ],
-            "dv": [
-                {
-                    "type": "good",
-                    "value": 2
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

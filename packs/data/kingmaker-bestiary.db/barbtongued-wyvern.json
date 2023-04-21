@@ -19,40 +19,24 @@
                     "value": 35
                 },
                 "damageRolls": {
-                    "7erb2kw38fpwxhwon5hv": {
-                        "damage": "3d12 + 17",
+                    "0": {
+                        "damage": "3d12+17",
                         "damageType": "piercing"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "bleed"
                     }
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed1d6.success]</p>"
+                    "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Bleed1d6.criticalSuccess",
-                        "visibility": "gm"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Bleed1d6.success",
-                        "visibility": "gm"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-10"
@@ -84,7 +68,7 @@
                 },
                 "damageRolls": {
                     "lcwldz6jeqddoylsq1zx": {
-                        "damage": "3d6 + 17",
+                        "damage": "3d6+17",
                         "damageType": "slashing"
                     }
                 },
@@ -97,7 +81,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-30"
@@ -129,7 +112,7 @@
                 },
                 "damageRolls": {
                     "crn2lrrh68exgyi0ieuv": {
-                        "damage": "3d10 + 17",
+                        "damage": "3d10+17",
                         "damageType": "piercing"
                     }
                 },
@@ -142,7 +125,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -187,7 +169,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -232,7 +213,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -277,7 +257,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -317,7 +296,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -346,7 +324,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:40]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {5d12}[poison]]]{5d12 poison damage} and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {6d12}[poison]]]{6d12 poison damage} and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {7d12}[poison]]]{7d12 poison damage} and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 3} (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:40]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 5d12[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 6d12[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 7d12[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 3} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -357,7 +335,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "poison"
@@ -388,7 +365,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>With incredible force, the barbtongued wyvern whips its tongue and flings barbs from its length. Up to two creatures within 200 feet of the wyvern can be targeted; each creature must attempt a @Check[type:reflex|dc:40] save. The barbtongued wyvern can't use Pin to the Sky again until its next turn.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes [[/r {2d12 + 3}[piercing]]]{2d12 + 3 piercing damage}.</p>\n<p><strong>Failure</strong> The target takes [[/r {5d12}[piercing]]]{5d12 piercing damage} and is pinned in place, fastened to the underlying magical nature of Thousandbreaths by the barbs (even if not adjacent to a solid surface). It is @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} until it Escapes. If the creature is under the effects of a spell that would prevent it from being immobilized, Thousandbreaths first attempts a Counteract check against the spell (+27).</p>\n<p><strong>Critical Failure</strong> As failure, but the target takes [[/r {10d12}[piercing]]]{10d12 piercing damage} and is @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} until it escapes.</p>"
+                    "value": "<p>With incredible force, the barbtongued wyvern whips its tongue and flings barbs from its length. Up to two creatures within 200 feet of the wyvern can be targeted; each creature must attempt a @Check[type:reflex|dc:40] save. The barbtongued wyvern can't use Pin to the Sky again until its next turn.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes [[/r (2d12+3)[piercing]]] damage.</p>\n<p><strong>Failure</strong> The target takes [[/r 5d12[piercing]]] damage and is pinned in place, fastened to the underlying magical nature of Thousandbreaths by the barbs (even if not adjacent to a solid surface). It is @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} until it Escapes. If the creature is under the effects of a spell that would prevent it from being immobilized, Thousandbreaths first attempts a Counteract check against the spell (+27).</p>\n<p><strong>Critical Failure</strong> As failure, but the target takes [[/r 10d12[piercing]]] damage and is @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} until it escapes.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -399,7 +376,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -436,7 +412,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -462,7 +437,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The wyvern's last action was a success with a barbed tongue Strike, or it has a creature @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} using this action.</p>\n<hr />\n<p><strong>Effect</strong> If the target was @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} by Pin to the Sky, the wyvern first painfully rips it free of the effect, dealing [[/r {4d12}[piercing]]]{4d12 piercing damage}. Regardless of whether or not the target was previously immobilized, the wyvern Grabs the target until the end of the monster's next turn. The wyvern can't use its tongue to Strike creatures until the Grab ends. Using Ripping Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @UUID[Compendium.pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creature if the barbtongued wyvern moves away from it.</p>"
+                    "value": "<p><strong>Requirements</strong> The wyvern's last action was a success with a barbed tongue Strike, or it has a creature @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} using this action.</p>\n<hr />\n<p><strong>Effect</strong> If the target was @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} by Pin to the Sky, the wyvern first painfully rips it free of the effect, dealing [[/r 4d12[piercing]]] damage. Regardless of whether or not the target was previously immobilized, the wyvern Grabs the target until the end of the monster's next turn. The wyvern can't use its tongue to Strike creatures until the Grab ends. Using Ripping Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @UUID[Compendium.pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creature if the barbtongued wyvern moves away from it.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -473,7 +448,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -502,11 +476,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -530,11 +499,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -558,11 +522,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -604,8 +563,16 @@
                 "temp": 0,
                 "value": 330
             },
+            "immunities": [
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 29
@@ -651,16 +618,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "paralyzed",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

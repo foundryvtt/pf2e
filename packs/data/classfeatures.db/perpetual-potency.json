@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
     "name": "Perpetual Potency",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "classfeature",
         "description": {
             "value": "<p>Your perpetual infusions improve, allowing you to use @UUID[Compendium.pf2e.classfeatures.Quick Alchemy]{Quick Alchemy} to create more powerful items with no cost. The items you can select depend on your research field and must be in your formula book.</p>"
-        },
-        "featType": {
-            "value": "classfeature"
         },
         "level": {
             "value": 11
@@ -27,38 +22,13 @@
         "rules": [
             {
                 "key": "GrantItem",
-                "predicate": [
-                    "feature:bomber"
-                ],
-                "uuid": "Compendium.pf2e.classfeatures.Perpetual Potency (Bomber)"
-            },
-            {
-                "key": "GrantItem",
-                "predicate": [
-                    "feature:chirurgeon"
-                ],
-                "uuid": "Compendium.pf2e.classfeatures.Perpetual Potency (Chirurgeon)"
-            },
-            {
-                "key": "GrantItem",
-                "predicate": [
-                    "feature:mutagenist"
-                ],
-                "uuid": "Compendium.pf2e.classfeatures.Perpetual Potency (Mutagenist)"
-            },
-            {
-                "key": "GrantItem",
-                "predicate": [
-                    "feature:toxicologist"
-                ],
-                "uuid": "Compendium.pf2e.classfeatures.Perpetual Potency (Toxicologist)"
+                "uuid": "{actor|flags.pf2e.alchemist.perpetualPotency}"
             }
         ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "alchemist"

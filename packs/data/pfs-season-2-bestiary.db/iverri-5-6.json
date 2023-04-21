@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "primal"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -125,13 +120,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -215,7 +204,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "plant",
@@ -239,13 +227,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -325,7 +307,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "plant"
@@ -348,13 +329,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -449,7 +424,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "incapacitation",
@@ -474,13 +448,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -575,7 +543,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "plant"
@@ -599,11 +566,9 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "20"
-                },
-                "areasize": {
-                    "value": "all squares in a 20-foot-radius burst that contain plants"
+                    "details": "all squares in a 20-foot-radius burst that contain plants",
+                    "type": "burst",
+                    "value": 20
                 },
                 "category": {
                     "value": "spell"
@@ -684,7 +649,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "plant"
@@ -708,11 +672,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "cone",
-                    "value": "15"
-                },
-                "areasize": {
-                    "value": "15-foot cone"
+                    "type": "cone",
+                    "value": 15
                 },
                 "category": {
                     "value": "spell"
@@ -732,15 +693,15 @@
                             "applyMod": false,
                             "type": {
                                 "categories": [],
-                                "subtype": "",
+                                "subtype": "persistent",
                                 "value": "poison"
                             },
-                            "value": "2d6 persistent"
+                            "value": "2d6"
                         }
                     }
                 },
                 "description": {
-                    "value": "<p>Toxic spores swarm over creatures in the area, causing them to erupt in grotesque fungal growths. These noxious growths deal @Localize[PF2E.PersistentDamage.Poison2d6.success], and each creature must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The target takes half the persistent poison damage.</p>\n<p><strong>Failure</strong> The target takes the full persistent poison damage. While it is taking this persistent poison damage, it has weakness 1 to fire and weakness 1 to slashing.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Fungal Infestation (Failure)]{Spell Effect: Fungal Infestation (Failure)}</p>\n<p><strong>Critical Failure</strong> As failure, but double the persistent poison damage. While it is taking this persistent poison damage, it has weakness 2 to fire and weakness 2 to slashing.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Fungal Infestation (Critical Failure)]{Spell Effect: Fungal Infestation (Critical Failure)}</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The persistent damage increases by 2d6, and the weakness increases by 1, or by 2 on a critical failure.</p>"
+                    "value": "<p>Toxic spores swarm over creatures in the area, causing them to erupt in grotesque fungal growths. These noxious growths deal [[/r 2d6[persistent,poison]]], and each creature must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The target takes half the persistent poison damage.</p>\n<p><strong>Failure</strong> The target takes the full persistent poison damage. While it is taking this persistent poison damage, it has weakness 1 to fire and weakness 1 to slashing.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Fungal Infestation (Failure)]{Spell Effect: Fungal Infestation (Failure)}</p>\n<p><strong>Critical Failure</strong> As failure, but double the persistent poison damage. While it is taking this persistent poison damage, it has weakness 2 to fire and weakness 2 to slashing.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Fungal Infestation (Critical Failure)]{Spell Effect: Fungal Infestation (Critical Failure)}</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The persistent damage increases by 2d6, and the weakness increases by 1, or by 2 on a critical failure.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -810,7 +771,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -832,11 +792,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
+                    "type": "burst",
                     "value": 20
-                },
-                "areasize": {
-                    "value": "20-foot burst"
                 },
                 "category": {
                     "value": "spell"
@@ -862,7 +819,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You accelerate the processes of decay in the area. Each living creature in the area takes [[/r {2d10}[negative]]]{2d10 negative damage} (basic Fortitude save). A creature afflicted by a disease takes a -2 circumstance penalty to this save.You can also direct the blight to rot all Small and Tiny non-creature plants in the area, eliminating non-magical undergrowth and any resulting difficult terrain, cover, and concealment. <em>Sudden blight</em> attempts to counteract any magical effect on the plants before withering them.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10.</p>"
+                    "value": "<p>You accelerate the processes of decay in the area. Each living creature in the area takes [[/r 2d10[negative]]] damage (basic Fortitude save). A creature afflicted by a disease takes a -2 circumstance penalty to this save.You can also direct the blight to rot all Small and Tiny non-creature plants in the area, eliminating non-magical undergrowth and any resulting difficult terrain, cover, and concealment. <em>Sudden blight</em> attempts to counteract any magical effect on the plants before withering them.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -933,7 +890,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "negative"
@@ -956,13 +912,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1042,7 +992,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "plant",
@@ -1066,13 +1015,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1153,7 +1096,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack",
@@ -1194,7 +1136,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "finesse",
@@ -1241,7 +1182,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical"
@@ -1285,7 +1225,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1330,7 +1269,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1375,7 +1313,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1438,7 +1375,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1478,7 +1414,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1518,7 +1453,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "curse",
@@ -1553,11 +1487,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1581,11 +1510,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1609,11 +1533,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1637,11 +1556,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1665,11 +1579,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1693,11 +1602,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1721,11 +1625,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1771,7 +1670,7 @@
                 "value": 116
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 15
@@ -1779,7 +1678,17 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "good",
+                    "value": 8
+                },
+                {
+                    "type": "cold-iron",
+                    "value": 8
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1820,24 +1729,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "label": "Good",
-                    "type": "good",
-                    "value": "8"
-                },
-                {
-                    "label": "Cold Iron",
-                    "type": "coldiron",
-                    "value": "8"
-                }
-            ],
             "languages": {
                 "custom": "Speak With Plants",
                 "selected": [],

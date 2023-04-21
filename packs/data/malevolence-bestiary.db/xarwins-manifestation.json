@@ -46,7 +46,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "finesse"
@@ -90,7 +89,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -130,7 +128,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "necromancy",
@@ -178,7 +175,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -218,7 +214,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -268,7 +263,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -320,7 +314,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -349,7 +342,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>If a character forcefully presents Fulvia's ring to Xarwin's manifestation as an action with the manipulate trait, he must attempt a @Check[type:will|dc:26|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> Xarwin's manifestation is unaffected.</p>\n<p><strong>Success</strong> Xarwin's manifestation takes [[/r {4d6}[mental]]]{4d6 mental damage} and is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> Xarwin' manifestation takes [[/r {8d6}[mental]]]{8d6 mental damage}, is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2}, and @UUID[Compendium.pf2e.conditionitems.Fleeing]{Flees} as long as he remains frightened.</p>\n<p><strong>Critical Failure</strong> Xarwin's manifestation is destroyed.</p>"
+                    "value": "<p>If a character forcefully presents Fulvia's ring to Xarwin's manifestation as an action with the manipulate trait, he must attempt a @Check[type:will|dc:26|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> Xarwin's manifestation is unaffected.</p>\n<p><strong>Success</strong> Xarwin's manifestation takes [[/r 4d6[mental]]] damage and is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> Xarwin' manifestation takes [[/r 8d6[mental]]] damage, is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2}, and @UUID[Compendium.pf2e.conditionitems.Fleeing]{Flees} as long as he remains frightened.</p>\n<p><strong>Critical Failure</strong> Xarwin's manifestation is destroyed.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -360,7 +353,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -400,7 +392,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -432,11 +423,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -460,11 +446,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -488,11 +469,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -534,12 +510,45 @@
                 "temp": 0,
                 "value": 90
             },
+            "immunities": [
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "unconscious"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 14
             },
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "ghost-touch",
+                        "positive"
+                    ],
+                    "type": "all-damage",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -581,26 +590,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "paralyzed",
-                    "unconscious",
-                    "poison",
-                    "precision",
-                    "death-effects",
-                    "disease"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except ghost touch, or positive; double resistance against non-magical",
-                    "type": "all",
-                    "value": 5
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

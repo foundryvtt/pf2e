@@ -32,7 +32,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -74,7 +73,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile"
@@ -118,7 +116,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -170,7 +167,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -199,7 +195,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Salt water acts as an extremely strong acid on the larval akata inside the void zombie. Full immersion in salt water deals [[/r {4d6}[acid]]]{4d6 acid damage} per round. On any round in which the void zombie takes damage due to its salt water weakness, the larval akata retreats to the depths of the void zombie's body, causing the void zombie to become @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} until the end of its next turn.</p>"
+                    "value": "<p>Salt water acts as an extremely strong acid on the larval akata inside the void zombie. Full immersion in salt water deals [[/r 4d6[acid]]] damage per round. On any round in which the void zombie takes damage due to its salt water weakness, the larval akata retreats to the depths of the void zombie's body, causing the void zombie to become @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} until the end of its next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -210,7 +206,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -245,12 +240,11 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "feed-on-blood",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -282,11 +276,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -328,8 +317,22 @@
                 "temp": 0,
                 "value": 26
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 3
@@ -337,7 +340,17 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "salt-water",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 2
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -373,27 +386,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "salt-water",
-                    "value": 5
-                },
-                {
-                    "type": "slashing",
-                    "value": 2
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

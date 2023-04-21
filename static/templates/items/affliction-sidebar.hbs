@@ -1,0 +1,38 @@
+<div class="inventory-details">
+    <div class="form-group">
+        <label>{{localize "PF2E.Item.Affliction.OnsetLabel"}}</label>
+        {{#if data.onset}}
+            {{> systems/pf2e/templates/items/partials/duration.hbs base="system.onset" duration=data.onset units=onsetUnits}}
+            <div class="item-controls">
+                <a data-action="onset-delete"><i class="fas fa-fw fa-times"></i></a>
+            </div>
+        {{else}}
+            <div class="form-fields">
+                <button type="button" data-action="onset-add"><i class="fas fa-plus"></i>Add Onset</button>
+            </div>
+        {{/if}}
+    </div>
+    <div class="form-group">
+        <label>{{localize "PF2E.Time.Duration"}}</label>
+        {{> systems/pf2e/templates/items/partials/duration.hbs base="system.duration" duration=data.duration units=durationUnits}}
+    </div>
+
+    {{#if user.isGM}}
+        <div class="form-group">
+            <label for="data.unidentified">{{localize "PF2E.Item.Effect.Unidentified"}}</label>
+            <div class="form-fields">
+                <input type="checkbox" name="system.unidentified" {{checked data.unidentified}} />
+            </div>
+        </div>
+    {{/if}}
+
+    <hr/>
+
+    <div class="form-group">
+        <label>{{localize "PF2E.Item.Affliction.StageLabel"}}</label>
+        <div class="form-fields">
+            <input type="number" name="system.stage" value="{{data.stage}}"/>
+        </div>
+    </div>
+
+</div>

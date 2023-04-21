@@ -5,6 +5,7 @@
         font-size: var(--font-size-12);
         height: 1.36rem;
         width: auto;
+
         span {
             padding: 0;
         }
@@ -12,19 +13,30 @@
 
     .nerd-details {
         margin-bottom: 10px;
+
         .form-group {
             margin: 0;
         }
+
         label {
+            align-items: center;
+            display: flex;
             flex: 0 0 70px;
-            margin-right: 4px;
             line-height: 1.5em;
+            margin-right: 4px;
+            min-width: 8em;
+
+            i.fa-info-circle {
+                margin-left: auto;
+                margin-right: 0.5em;
+            }
         }
     }
 
     .rules {
         padding-top: 7px;
         padding-right: 7px;
+
         .rule-element-header {
             display: flex;
             justify-content: space-between;
@@ -171,10 +183,21 @@
             margin-left: 9.5em;
         }
 
-        &[data-key="Note"] {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
+        &[data-key="FastHealing"] {
+            .details, tags {
+                flex: 3;
+            }
+
+            .value {
+                flex: 1;
+                min-width: 80px;
+            }
+        }
+
+        &[data-key="FlatModifier"] {
+            .type-input {
+                flex: 0;
+            }
         }
 
         &[data-key="GrantItem"] {
@@ -191,10 +214,10 @@
             }
         }
 
-        &[data-key="FlatModifier"] {
-            .type-input {
-                flex: 0;
-            }
+        &[data-key="Note"] {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
         }
     }
 }

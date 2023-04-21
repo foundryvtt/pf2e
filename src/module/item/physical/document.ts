@@ -1,21 +1,31 @@
-import { type ContainerPF2e, ItemPF2e } from "@item";
-import { ItemSummaryData, PhysicalItemData, TraitChatData } from "@item/data";
-import { MystifiedTraits } from "@item/data/values";
-import { CoinsPF2e } from "@item/physical/helpers";
-import { Rarity, Size } from "@module/data";
-import { LocalizePF2e } from "@module/system/localize";
-import { UserPF2e } from "@module/user";
-import { isObject, sluggify } from "@util";
-import { getUnidentifiedPlaceholderImage } from "../identification";
-import { Bulk, stackDefinitions, weightToBulk } from "./bulk";
-import { IdentificationStatus, ItemCarryType, MystifiedData, PhysicalItemTrait, Price } from "./data";
-import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
-import { getUsageDetails, isEquipped } from "./usage";
-import { DENOMINATIONS } from "./values";
+import { ActorPF2e } from "@actor";
+import { ItemPF2e, type ContainerPF2e } from "@item";
+import { isCycle } from "@item/container/helpers.ts";
+import { ItemSummaryData, PhysicalItemSource, TraitChatData } from "@item/data/index.ts";
+import { MystifiedTraits } from "@item/data/values.ts";
+import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { Rarity, Size } from "@module/data.ts";
+import { UserPF2e } from "@module/user/document.ts";
+import { LocalizePF2e } from "@system/localize.ts";
+import { ErrorPF2e, isObject, sluggify, sortBy } from "@util";
+import { getUnidentifiedPlaceholderImage } from "../identification.ts";
+import { Bulk, stackDefinitions, weightToBulk } from "./bulk.ts";
+import {
+    IdentificationStatus,
+    ItemActivation,
+    ItemCarryType,
+    MystifiedData,
+    PhysicalItemTrait,
+    PhysicalSystemData,
+    Price,
+} from "./data.ts";
+import { PreciousMaterialGrade, PreciousMaterialType } from "./types.ts";
+import { getUsageDetails, isEquipped } from "./usage.ts";
+import { DENOMINATIONS } from "./values.ts";
 
-abstract class PhysicalItemPF2e extends ItemPF2e {
+abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     // The cached container of this item, if in a container, or null
-    private _container: Embedded<ContainerPF2e> | null = null;
+    private declare _container: ContainerPF2e<ActorPF2e> | null;
 
     get level(): number {
         return this.system.level.value;
@@ -77,7 +87,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
     get isMagical(): boolean {
         const traits: Set<string> = this.traits;
         const magicTraits = ["magical", "arcane", "primal", "divine", "occult"] as const;
-        return magicTraits.some((trait) => traits.has(trait));
+        return magicTraits.some((t) => traits.has(t));
     }
 
     get isInvested(): boolean | null {
@@ -90,7 +100,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
         return this.traits.has("cursed");
     }
 
-    get isTemporary(): boolean {
+    override get isTemporary(): boolean {
         return this.system.temporary;
     }
 
@@ -123,13 +133,10 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     /** Get this item's container, returning null if it is not in a container */
-    get container(): Embedded<ContainerPF2e> | null {
+    get container(): ContainerPF2e<ActorPF2e> | null {
         if (this.system.containerId === null) return (this._container = null);
-
-        const container = this._container ?? this.actor?.items.get(this.system.containerId ?? "");
-        if (container?.isOfType("backpack")) this._container = container;
-
-        return this._container;
+        return (this._container ??=
+            this.actor?.itemTypes.backpack.find((c) => c.id === this.system.containerId) ?? null);
     }
 
     /** Returns the bulk of this item and all sub-containers */
@@ -141,7 +148,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
             .times(bulkRelevantQuantity);
     }
 
-    get activations() {
+    get activations(): (ItemActivation & { componentsLabel: string })[] {
         return Object.values(this.system.activations ?? {}).map((action) => {
             const components: string[] = [];
             if (action.components.cast) components.push(game.i18n.localize("PF2E.Item.Activation.Cast"));
@@ -159,7 +166,6 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
     /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = this.type): string[] {
         const baseOptions = super.getRollOptions(prefix);
-        const delimitedPrefix = prefix ? `${prefix}:` : "";
         const physicalItemOptions = Object.entries({
             equipped: this.isEquipped,
             magical: this.isMagical,
@@ -167,10 +173,15 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
             [`material:${this.material.precious?.type}`]: !!this.material.precious,
         })
             .filter(([_key, isTrue]) => isTrue)
-            .map(([key]) => `${delimitedPrefix}${key}`)
-            .concat(this.system.traits.otherTags.map((t) => `${delimitedPrefix}tag:${t}`));
+            .map(([key]) => `${prefix}:${key}`)
+            .concat(this.system.traits.otherTags.map((t) => `${prefix}:tag:${t}`));
 
         return [baseOptions, physicalItemOptions].flat();
+    }
+
+    protected override _initialize(): void {
+        this._container = null;
+        super._initialize();
     }
 
     override prepareBaseData(): void {
@@ -238,8 +249,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
-        const systemData = this.system;
-        systemData.identification.identified ??= {
+        this.system.identification.identified ??= {
             name: this.name,
             img: this.img,
             data: {
@@ -253,13 +263,17 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
             const basePrice = this.price.value;
             const modifiedIsHigher = adjustedPrice.copperValue > basePrice.copperValue;
             const highestPrice = modifiedIsHigher ? adjustedPrice : basePrice;
-            systemData.price.value = highestPrice;
+            this.system.price.value = highestPrice;
         }
+
         if (this.isShoddy) {
-            systemData.price.value = systemData.price.value.scale(0.5);
-            systemData.hp.max = Math.floor(systemData.hp.max / 2);
-            systemData.hp.brokenThreshold = Math.floor(systemData.hp.brokenThreshold / 2);
+            this.system.price.value = this.system.price.value.scale(0.5);
+            this.system.hp.max = Math.floor(this.system.hp.max / 2);
+            this.system.hp.value = Math.min(this.system.hp.value, this.system.hp.max);
+            this.system.hp.brokenThreshold = Math.floor(this.system.hp.brokenThreshold / 2);
         }
+
+        this.system.price.value = this.adjustPriceForSize();
 
         // Update properties according to identification status
         const mystifiedData = this.getMystifiedData(this.identificationStatus);
@@ -268,10 +282,17 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
         this.system.description.value = mystifiedData.data.description.value;
 
         // Fill gaps in unidentified data with defaults
-        systemData.identification.unidentified = this.getMystifiedData("unidentified");
+        this.system.identification.unidentified = this.getMystifiedData("unidentified");
     }
 
-    override prepareSiblingData(this: Embedded<PhysicalItemPF2e>): void {
+    /** Increase the price if it is larger than medium and not magical. */
+    protected adjustPriceForSize(): CoinsPF2e {
+        return this.isMagical ? this.price.value : this.price.value.adjustForSize(this.size);
+    }
+
+    override prepareSiblingData(): void {
+        if (!this.actor) return;
+
         if (this.isStowed) {
             this.system.equipped.carryType = "stowed";
             delete this.system.equipped.inSlot;
@@ -302,6 +323,88 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
         thisData.identification = otherData.identification;
 
         return JSON.stringify(thisData) === JSON.stringify(otherData);
+    }
+
+    /** Combine this item with a target item if possible */
+    async stackWith(targetItem: PhysicalItemPF2e): Promise<void> {
+        if (this.isStackableWith(targetItem)) {
+            const stackQuantity = this.quantity + targetItem.quantity;
+            if (await this.delete({ render: false })) {
+                await targetItem.update({ "system.quantity": stackQuantity });
+            }
+        }
+    }
+
+    /**
+     * Move this item somewhere else in the inventory, possibly before or after another item or in or out of a container.
+     * If this item and the target item are stackable they will be stacked automatically
+     * @param options Options to control where this item is moved to
+     * @param options.relativeTo An optional target item to sort this item relative to
+     * @param options.sortBefore Should this item be sorted before or after the target item?
+     * @param options.toContainer An optional container to move this item into. If the target item is in a container this can be omitted
+     * @param options.render Render the update? Overridden by moving the item in or out of a container. Defaults to true
+     * @returns
+     */
+    async move({
+        relativeTo,
+        sortBefore,
+        toContainer,
+        toStack,
+        render = true,
+    }: {
+        relativeTo?: PhysicalItemPF2e;
+        sortBefore?: boolean;
+        toContainer?: ContainerPF2e<ActorPF2e> | null;
+        toStack?: PhysicalItemPF2e;
+        render?: boolean;
+    }): Promise<void> {
+        if (!this.actor) {
+            throw ErrorPF2e(`Tried to move an unonwned item!`);
+        }
+        if (toStack) {
+            return this.stackWith(toStack);
+        }
+        const containerResolved = toContainer ?? relativeTo?.container;
+        const mainContainerUpdate = (() => {
+            // Move into a container
+            if (containerResolved && !isCycle(this, containerResolved)) {
+                const carryType = containerResolved.stowsItems ? "stowed" : "worn";
+                const equipped = { carryType, handsHeld: 0, inSlot: false };
+                return { system: { containerId: containerResolved?.id, equipped } };
+            }
+            // Move out of a container
+            if (!containerResolved && this.isInContainer) {
+                const equipped = { carryType: "worn", handsHeld: 0, inSlot: false };
+                return { system: { containerId: null, equipped } };
+            }
+            // Move without changing container state
+            return null;
+        })();
+        const inventory = this.actor.inventory;
+        const siblings = (containerResolved?.contents.contents ?? inventory.contents).sort(sortBy((i) => i.sort));
+
+        // If there is nothing to sort, perform the normal update and end here
+        if (!sortBefore && !siblings.length && !!mainContainerUpdate) {
+            await this.update(mainContainerUpdate);
+            return;
+        }
+
+        const sorting = SortingHelpers.performIntegerSort(this, {
+            target: relativeTo,
+            siblings,
+            sortBefore,
+        });
+        const updates = sorting.map((s) => {
+            const baseUpdate = { _id: s.target.id, ...s.update };
+            if (mainContainerUpdate && s.target.id === this.id) {
+                return mergeObject(baseUpdate, mainContainerUpdate);
+            }
+            return baseUpdate;
+        });
+
+        // Always render if moved in or out of a container
+        const stowedOrUnstowed = (!this.container && !!containerResolved) || (this.container && !containerResolved);
+        await this.actor.updateEmbeddedDocuments("Item", updates, { render: stowedOrUnstowed || render });
     }
 
     /* Retrieve subtitution data for an unidentified or misidentified item, generating defaults as necessary */
@@ -363,7 +466,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
         });
     }
 
-    generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
+    generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = {}): string {
         const itemType = game.i18n.localize(`ITEM.Type${this.type.capitalize()}`);
         if (typeOnly) return itemType;
 
@@ -397,7 +500,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
     /** Set to unequipped upon acquiring */
     protected override async _preCreate(
         data: PreDocumentId<this["_source"]>,
-        options: DocumentModificationContext<this>,
+        options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<void> {
         await super._preCreate(data, options, user);
@@ -419,7 +522,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<this>,
+        options: DocumentUpdateContext<TParent>,
         user: UserPF2e
     ): Promise<void> {
         // Clamp hit points to between zero and max
@@ -429,9 +532,11 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
 
         if (!changed.system) return super._preUpdate(changed, options, user);
 
-        // Ensure an empty-string `stackGroup` property is null
-        if (typeof changed.system?.stackGroup === "string") {
-            changed.system.stackGroup ||= null;
+        // Avoid setting a `baseItem` or `stackGroup` to an empty string
+        for (const key of ["baseItem", "stackGroup"] as const) {
+            if (typeof changed.system?.[key] === "string") {
+                changed.system[key] = String(changed.system[key]).trim() || null;
+            }
         }
 
         // Remove equipped.handsHeld and equipped.inSlot if the item is held or worn anywhere
@@ -470,8 +575,9 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 }
 
-interface PhysicalItemPF2e {
-    readonly data: PhysicalItemData;
+interface PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
+    readonly _source: PhysicalItemSource;
+    system: PhysicalSystemData;
 
     computeAdjustedPrice?(): CoinsPF2e | null;
 }

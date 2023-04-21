@@ -101,11 +101,6 @@
                 },
                 "tradition": {
                     "value": "occult"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -124,13 +119,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -227,7 +216,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "cantrip",
@@ -253,11 +241,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
+                    "type": "emanation",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -341,7 +326,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "detection",
@@ -369,36 +353,22 @@
                 "bonus": {
                     "value": 6
                 },
-                "damageRolls": {},
-                "description": {
-                    "value": "<p>@Localize[PF2E.PersistentDamage.Mental1d4.success]</p>"
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Mental1d4.success",
-                        "visibility": "gm"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Mental1d4.criticalSuccess",
-                        "visibility": "gm"
+                "damageRolls": {
+                    "0": {
+                        "category": "persistent",
+                        "damage": "1d4",
+                        "damageType": "mental"
                     }
-                ],
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -439,7 +409,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -484,7 +453,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "divination",
@@ -517,18 +485,17 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>While a creature is taking @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Mental Damage} from the ioton, the ioton takes the shape of a creature familiar to the target, such as an acquaintance, pet, or common animal, though the appearance is imperfect and grants no benefit to Impersonate an individual.</p>\n<p>While transformed, the ioton loses its incorporeal trait, immunities, and resistances, but it gains an unarmed melee Strike with a +6 attack modifier ([[/r 1d20+6 #Unarmed Strike]]{+6}/[[/r 1d20+1 #Unarmed Strike]]{+1}/[[/r 1d20-4 #Unarmed Strike]]{-4}) that deals [[/r {1d8+2}[bludgeoning]]]{1d8+2 bludgeoning damage}. The ioton immediately returns to its original form once no creature is taking persistent mental damage from it.</p>"
+                    "value": "<p>While a creature is taking @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Mental Damage} from the ioton, the ioton takes the shape of a creature familiar to the target, such as an acquaintance, pet, or common animal, though the appearance is imperfect and grants no benefit to Impersonate an individual.</p>\n<p>While transformed, the ioton loses its incorporeal trait, immunities, and resistances, but it gains an unarmed melee Strike with a +6 attack modifier ([[/r 1d20+6 #Unarmed Strike]]{+6}/[[/r 1d20+1 #Unarmed Strike]]{+1}/[[/r 1d20-4 #Unarmed Strike]]{-4}) that deals [[/r (1d8+2)[bludgeoning]]] damage. The ioton immediately returns to its original form once no creature is taking persistent mental damage from it.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "leech-thought",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "healing",
@@ -565,11 +532,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -593,11 +555,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -639,12 +596,37 @@
                 "temp": 0,
                 "value": 14
             },
+            "immunities": [
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 3
             },
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "force",
+                        "ghost-touch",
+                        "mental"
+                    ],
+                    "type": "all-damage",
+                    "value": 2
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -653,7 +635,13 @@
                     }
                 ],
                 "value": 0
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "mental",
+                    "value": 3
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -694,28 +682,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "disease",
-                    "poison",
-                    "precision"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except force, ghost touch, or mental; double resistance vs. non-magical",
-                    "type": "all",
-                    "value": 2
-                }
-            ],
-            "dv": [
-                {
-                    "type": "mental",
-                    "value": 3
-                }
-            ],
             "languages": {
                 "custom": "Absorbed Language",
                 "selected": [],

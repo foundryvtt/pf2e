@@ -16,30 +16,13 @@
             "name": "Slowed",
             "sort": 100000,
             "system": {
-                "active": true,
-                "alsoApplies": {
-                    "linked": [],
-                    "unlinked": []
-                },
-                "base": "Slowed",
                 "description": {
                     "value": "<p>You have fewer actions. Slowed always includes a value. When you regain your actions at the start of your turn, reduce the number of actions you regain by your slowed value. Because slowed has its effect at the start of your turn, you don't immediately lose actions if you become slowed during your turn.</p>"
                 },
                 "duration": {
-                    "perpetual": true,
-                    "text": "",
                     "value": 0
                 },
-                "group": "",
-                "hud": {
-                    "img": {
-                        "useStatusName": true,
-                        "value": "systems/pf2e/icons/conditions-2/slowed.webp"
-                    },
-                    "selectable": true,
-                    "statusName": "slowed"
-                },
-                "modifiers": [],
+                "group": null,
                 "overrides": [],
                 "references": {
                     "children": [],
@@ -47,25 +30,13 @@
                     "overriddenBy": [],
                     "overrides": []
                 },
-                "removable": true,
                 "rules": [],
                 "slug": "slowed",
                 "source": {
                     "value": ""
                 },
-                "sources": {
-                    "hud": true,
-                    "values": []
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
                 "value": {
-                    "immutable": false,
                     "isValued": true,
-                    "modifiers": [],
                     "value": 1
                 }
             },
@@ -104,7 +75,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-10"
@@ -148,7 +118,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -193,7 +162,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -233,7 +201,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -282,7 +249,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -316,7 +282,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {1d12+7}[bludgeoning]]]{1d12+7 bludgeoning damage}, @Check[type:fortitude|dc:25|basic:true] (@UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} by claw only)</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r (1d12+7)[bludgeoning]]] damage, @Check[type:fortitude|dc:25|basic:true] (@UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} by claw only)</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -327,7 +293,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -356,7 +321,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> A creature is @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} and @UUID[Compendium.pf2e.conditionitems.Paralyzed]{Paralyzed} by the zombie chuul's tentacles</p>\n<hr />\n<p><strong>Effect</strong> The creature takes [[/r {3d6}[piercing]]]{3d6 piercing damage}.</p>"
+                    "value": "<p><strong>Requirements</strong> A creature is @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} and @UUID[Compendium.pf2e.conditionitems.Paralyzed]{Paralyzed} by the zombie chuul's tentacles</p>\n<hr />\n<p><strong>Effect</strong> The creature takes [[/r 3d6[piercing]]] damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -367,7 +332,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -404,7 +368,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "incapacitation",
@@ -444,7 +407,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -486,7 +448,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -518,11 +479,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -546,11 +502,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -592,8 +543,25 @@
                 "temp": 0,
                 "value": 200
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 0
@@ -606,7 +574,17 @@
                     }
                 ],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 15
+                },
+                {
+                    "type": "slashing",
+                    "value": 15
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -639,28 +617,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "mental",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "positive",
-                    "value": 15
-                },
-                {
-                    "type": "slashing",
-                    "value": 15
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

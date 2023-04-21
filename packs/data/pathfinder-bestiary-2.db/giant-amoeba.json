@@ -34,7 +34,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -71,7 +70,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -105,7 +103,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {1d4}[bludgeoning]]]{1d4 bludgeoning damage} plus [[/r {1d4}[acid]]]{1d4 acid damage}, @Check[type:fortitude|dc:17|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r 1d4[bludgeoning]]] damage plus [[/r 1d4[acid]]] damage, @Check[type:fortitude|dc:17|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -116,7 +114,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -145,7 +142,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The giant amoeba begins its turn with a target its size or smaller @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed}</p>\n<hr />\n<p><strong>Effect</strong> The giant amoeba maintains the @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Grab]{Grab} and extends pseudopods to surround the creature and pull it inside the amoeba's body. This thereafter has the same effect as if the amoeba had @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Engulf]{Engulfed} the creature (DC 17, [[/r {1d6}[acid]]]{1d6 acid damage}, Escape DC 17, Rupture 3).</p>"
+                    "value": "<p><strong>Requirements</strong> The giant amoeba begins its turn with a target its size or smaller @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed}</p>\n<hr />\n<p><strong>Effect</strong> The giant amoeba maintains the @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Grab]{Grab} and extends pseudopods to surround the creature and pull it inside the amoeba's body. This thereafter has the same effect as if the amoeba had @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Engulf]{Engulfed} the creature (DC 17, [[/r 1d6[acid]]] damage, Escape DC 17, Rupture 3).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -156,7 +153,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -196,7 +192,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -241,7 +236,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -273,11 +267,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -301,11 +290,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -347,8 +331,25 @@
                 "temp": 0,
                 "value": 45
             },
+            "immunities": [
+                {
+                    "type": "acid"
+                },
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                },
+                {
+                    "type": "visual"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 4
@@ -365,7 +366,13 @@
                     }
                 ],
                 "value": 10
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -401,26 +408,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "acid",
-                    "critical-hits",
-                    "mental",
-                    "precision",
-                    "unconscious",
-                    "visual"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "label": "Slashing",
-                    "type": "slashing",
-                    "value": "5"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

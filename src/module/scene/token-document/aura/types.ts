@@ -1,6 +1,6 @@
-import { ItemTrait } from "@item/data/base";
-import { TokenPF2e } from "@module/canvas";
-import { TokenDocumentPF2e } from "..";
+import { ItemTrait } from "@item/data/base.ts";
+import { TokenPF2e } from "@module/canvas/index.ts";
+import { TokenDocumentPF2e } from "../index.ts";
 
 interface TokenAuraData {
     /** The radius of the aura, measured in feet from the boundary of a token's space */

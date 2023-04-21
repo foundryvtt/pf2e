@@ -100,7 +100,7 @@
     .item-controls,
     .item-sell-value {
         @include flex-center;
-        flex: 0 0 64px;
+        flex: 0 0 68px;
     }
 
     .item-sell-value {
@@ -228,6 +228,15 @@
                 }
             }
         }
+
+        &.drag-preview {
+            box-shadow: 0 0 6px inset var(--color-shadow-highlight);
+        }
+
+        // The gap left by an item being dragged to a new position
+        &.drag-gap {
+            visibility: hidden;
+        }
     }
 
     .container-metadata {
@@ -244,7 +253,7 @@
                 border-radius: 0 2px 2px 0;
                 box-shadow: inset 0 0 0 1px rgba(black, 0.5),
                     inset 0 0 0 2px rgba(white, 0.1);
-                padding: 6px 0;
+                padding: 8px 0;
             }
             .container-capacity-label {
                 position: absolute;
@@ -311,23 +320,14 @@
         border-bottom: 1px solid var(--alt);
         background: var(--bg);
 
-        .item-buttons {
-            button {
-                @include button;
-                @include p-reset;
-                background: var(--primary);
-                border: none;
-                border-radius: 2px;
-                color: white;
-                cursor: pointer;
-                margin-top: 8px;
-                padding: 0 8px;
-                &:hover {
-                    box-shadow: none;
-                    text-shadow: 0 0 2px white;
-                }
-            }
+        // Normalize styling of visible-to-all tag elements
+        span[data-visibility=all] {
+            display: inline-block;
+            line-height: 1em;
+            padding: 2px 1px 1px;
+        }
 
+        .item-buttons {
             .weapon {
                 &_attack {
                     background: var(--primary);

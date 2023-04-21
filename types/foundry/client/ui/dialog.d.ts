@@ -1,6 +1,6 @@
 interface DialogData {
     title?: string;
-    content?: string | HTMLElement;
+    content?: string | HTMLElement | (() => string | HTMLElement);
     close?: (html: HTMLElement | JQuery) => void;
     buttons?: Record<string, DialogButton>;
     default?: string;
@@ -11,7 +11,7 @@ interface DialogButton {
     icon?: string;
     label?: string;
     condition?: boolean;
-    callback?: (html: JQuery) => void;
+    callback?: (html: JQuery) => void | Promise<void>;
 }
 
 interface ConfirmDialogParameters<Y = true, N = false> {

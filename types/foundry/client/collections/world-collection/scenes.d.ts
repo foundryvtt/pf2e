@@ -55,6 +55,6 @@ declare global {
         /* -------------------------------------------- */
 
         /** @override */
-        fromCompendium(document: TScene): foundry.data.SceneSource;
+        fromCompendium(document: TScene): foundry.documents.SceneSource;
     }
 }

@@ -18,38 +18,25 @@
                     "value": 25
                 },
                 "damageRolls": {
-                    "t6rrxictgwh6t0jwwwvh": {
+                    "0": {
                         "damage": "3d8+10",
                         "damageType": "piercing"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "2d6",
+                        "damageType": "cold"
                     }
                 },
                 "description": {
-                    "value": "<p>Plus [[/r {2d6}[persistent,cold]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Cold Damage}</p>"
+                    "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Cold2d6.success"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Cold2d6.criticalSuccess"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -76,7 +63,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When a frost worm dies, it explodes in a @Template[type:burst|distance:100] of searing cold blood. All creatures and objects in range take [[/r {10d8}[cold]]]{10d8 cold damage} (@Check[type:reflex|dc:29|basic:true] save).</p>"
+                    "value": "<p>When a frost worm dies, it explodes in a @Template[type:burst|distance:100] of searing cold blood. All creatures and objects in range take [[/r 10d8[cold]]] damage (@Check[type:reflex|dc:29|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -87,7 +74,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "cold",
@@ -114,7 +100,7 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
                     "value": "<p>Pakano's allies are unaffected by his worm chill aura and Worm Trill, and his Freezing Blood affects random enemies instead of random creatures. His Death Throes, however, still affect all creatures and objects in a 100-foot burst.</p>"
@@ -128,7 +114,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -154,18 +139,29 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:5] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A creature that enters or begins its turn in the emanation takes [[/r {3d6}[cold]]]{3d6 cold damage} (@Check[type:reflex|dc:29|basic:true]).</p>"
+                    "value": "<p>@Template[type:emanation|distance:5]{5 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A creature that enters or begins its turn in the emanation takes [[/r 3d6[cold]]] damage (@Check[type:reflex|dc:29|basic:true]).</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 5,
+                        "slug": "worm-chill",
+                        "traits": [
+                            "aura",
+                            "cold",
+                            "evocation",
+                            "primal"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -207,7 +203,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "auditory",
@@ -239,7 +234,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The frost worm exhales a blast of frost, dealing [[/r {13d6}[cold]]]{13d6 cold damage} to creatures in a @Template[type:cone|distance:50] (@Check[type:reflex|dc:32|basic:true] save).</p>\n<p>It can't use Breath Weapon again for [[/r 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The frost worm exhales a blast of frost, dealing [[/r 13d6[cold]]] damage to creatures in a @Template[type:cone|distance:50] (@Check[type:reflex|dc:32|basic:true] save).</p>\n<p>It can't use Breath Weapon again for [[/r 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -250,7 +245,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "cold",
@@ -280,7 +274,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The frost worm takes piercing or slashing damage</p>\n<hr />\n<p><strong>Effect</strong> The frost worm's freezing blood sprays out on a random creature within 10 feet of the frost worm. That creature takes [[/r {7d6}[cold]]]{7d6 cold damage} (@Check[type:reflex|dc:29|basic:true] save).</p>"
+                    "value": "<p><strong>Trigger</strong> The frost worm takes piercing or slashing damage</p>\n<hr />\n<p><strong>Effect</strong> The frost worm's freezing blood sprays out on a random creature within 10 feet of the frost worm. That creature takes [[/r 7d6[cold]]] damage (@Check[type:reflex|dc:29|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -291,7 +285,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "cold"
@@ -322,11 +315,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -350,11 +338,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -378,11 +361,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -421,11 +399,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 },
                 "variants": {
                     "0": {
@@ -476,8 +449,13 @@
                 "temp": 0,
                 "value": 225
             },
+            "immunities": [
+                {
+                    "type": "cold"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 22
@@ -493,7 +471,13 @@
                 "otherSpeeds": [],
                 "special": "",
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 15
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -526,20 +510,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "cold"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "fire",
-                    "value": 15
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

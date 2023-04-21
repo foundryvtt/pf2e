@@ -1,32 +1,32 @@
-import { CharacterPF2e, NPCPF2e } from "@actor";
-import { DamageDiceOverride, DamageDicePF2e, DeferredValueParams } from "@actor/modifiers";
+import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
+import { DamageDiceOverride, DamageDicePF2e, DeferredValueParams } from "@actor/modifiers.ts";
 import { ItemPF2e } from "@item";
-import { DamageDieSize } from "@system/damage/types";
-import { DAMAGE_DIE_FACES, DAMAGE_TYPES } from "@system/damage/values";
-import { isObject, setHasElement, sluggify } from "@util";
-import { RuleElementData, RuleElementPF2e } from "./";
-import { BracketedValue, RuleElementSource } from "./data";
+import { CriticalInclusion, DamageDieSize } from "@system/damage/types.ts";
+import { DAMAGE_DIE_FACES } from "@system/damage/values.ts";
+import { isObject, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
+import { RuleElementData, RuleElementPF2e } from "./index.ts";
+import { BracketedValue, RuleElementSource } from "./data.ts";
 
 class DamageDiceRuleElement extends RuleElementPF2e {
     override slug: string;
 
     selector: string;
 
-    diceNumber: number | string;
+    diceNumber: number | string = 0;
 
-    dieSize: DamageDieSize | null;
+    dieSize: string | null = null;
 
-    damageType: string | null;
+    damageType: string | null = null;
 
-    critical: boolean | null;
+    critical: CriticalInclusion;
 
-    precision: boolean;
+    category: "persistent" | "precision" | "splash" | null;
 
     brackets: BracketedValue | null;
 
     override: DamageDiceOverride | null;
 
-    constructor(data: DamageDiceSource, item: Embedded<ItemPF2e>) {
+    constructor(data: DamageDiceSource, item: ItemPF2e<ActorPF2e>) {
         super(data, item);
 
         if (typeof data.selector === "string" && data.selector.length > 0) {
@@ -38,21 +38,19 @@ class DamageDiceRuleElement extends RuleElementPF2e {
 
         this.slug = sluggify(typeof data.slug === "string" && data.slug.length > 0 ? data.slug : this.item.name);
 
-        // Number of dice
+        // Dice number
         if (typeof data.diceNumber === "string" || typeof data.diceNumber === "number") {
             this.diceNumber = data.diceNumber;
         } else if ("diceNumber" in data) {
             this.failValidation("diceNumber must be a string, number, or omitted");
         }
-        this.diceNumber ??= 0;
 
         // Die faces
-        if (setHasElement(DAMAGE_DIE_FACES, data.dieSize)) {
+        if (typeof data.dieSize === "string" || data.dieSize === null) {
             this.dieSize = data.dieSize;
         } else if ("dieSize" in data) {
-            this.failValidation("dieSize must be a string or omitted");
+            this.failValidation("dieSize must be a string, null, or omitted");
         }
-        this.dieSize ??= null;
 
         // Damage type
         if (typeof data.damageType === "string") {
@@ -60,16 +58,17 @@ class DamageDiceRuleElement extends RuleElementPF2e {
         } else if ("damageType" in data) {
             this.failValidation("damageType must be a string or omitted");
         }
-        this.damageType ??= null;
 
         // Critical-only (or non-critical-only)
         this.critical = typeof data.critical === "boolean" ? data.critical : null;
 
         // Add precision damage
-        const category = data.category ?? data.damageCategory;
-        this.precision = category === "precision";
-        if (category && category !== "precision") {
-            this.failValidation('category must be "precision" or omitted');
+        const category = data.category ?? data.damageCategory ?? null;
+        if (tupleHasValue(["persistent", "precision", "splash", null] as const, category)) {
+            this.category = category;
+        } else {
+            this.failValidation('category must be "persistent", "precision", "splash", or omitted');
+            this.category = null;
         }
 
         // Bracketed dieSize and diceNumber
@@ -92,36 +91,41 @@ class DamageDiceRuleElement extends RuleElementPF2e {
         const selector = this.resolveInjectedProperties(this.selector);
 
         const deferredDice = (params: DeferredValueParams = {}): DamageDicePF2e | null => {
-            if (!this.test(params.test ?? this.actor.getRollOptions(["damage"]))) return null;
-
             // In English (and in other languages when the same general form is used), labels patterned as
             // "Title: Subtitle (Parenthetical)" will be reduced to "Subtitle"
             // e.g., "Spell Effect: Ooze Form (Gelatinous Cube)" will become "Ooze Form"
             const label = this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
 
-            const diceNumber =
-                typeof this.diceNumber === "string" ? Number(this.resolveValue(this.diceNumber)) || 0 : this.diceNumber;
+            const diceNumber = Number(this.resolveValue(this.diceNumber, 0, { resolvables: params.resolvables })) || 0;
 
-            const resolvedBrackets = this.resolveValue(this.brackets, {});
+            const resolvedBrackets = this.resolveValue(this.brackets, {}, { resolvables: params.resolvables });
             if (!this.#resolvedBracketsIsValid(resolvedBrackets)) {
                 this.failValidation("Brackets failed to validate");
                 return null;
             }
 
             const damageType = this.resolveInjectedProperties(this.damageType);
+            if (damageType !== null && !objectHasKey(CONFIG.PF2E.damageTypes, damageType)) {
+                this.failValidation(`Unrecognized damage type: ${damageType}`);
+                return null;
+            }
 
             if (this.override) {
                 this.override.damageType &&= this.resolveInjectedProperties(this.override.damageType);
-                if ("damageType" in this.override && !setHasElement(DAMAGE_TYPES, this.override.damageType)) {
+                if ("damageType" in this.override && !objectHasKey(CONFIG.PF2E.damageTypes, this.override.damageType)) {
                     this.failValidation("Unrecognized damage type in override");
-                    return null;
                 }
 
                 this.override.dieSize &&= this.resolveInjectedProperties(this.override.dieSize);
                 if ("dieSize" in this.override && !setHasElement(DAMAGE_DIE_FACES, this.override.dieSize)) {
                     this.failValidation("Unrecognized die size in override");
-                    return null;
                 }
+            }
+
+            const dieSize = this.resolveInjectedProperties(this.dieSize);
+            if (dieSize !== null && !setHasElement(DAMAGE_DIE_FACES, dieSize)) {
+                this.failValidation(`Die size must be a recognized damage die size, null, or omitted`);
+                return null;
             }
 
             // If this failed validation partway through (such as in resolveInjectedProperties), return null
@@ -131,13 +135,14 @@ class DamageDiceRuleElement extends RuleElementPF2e {
                 selector,
                 slug: this.slug,
                 label,
-                dieSize: this.dieSize,
                 diceNumber,
+                dieSize,
                 critical: this.critical,
-                category: this.precision ? "precision" : null,
+                category: this.category,
                 damageType,
                 predicate: this.predicate ?? {},
                 override: deepClone(this.override),
+                enabled: this.test(params.test ?? this.actor.getRollOptions(["damage"])),
                 ...resolvedBrackets,
             });
         };

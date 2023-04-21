@@ -34,7 +34,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -74,7 +73,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -119,7 +117,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -148,7 +145,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the silverfish swarm's space takes [[/r {1d4}[piercing]]]{1d4 piercing damage} (@Check[type:fortitude|dc:14|basic:true|traits:swarm] save). A creature that fails its save is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}.</p>"
+                    "value": "<p>Each enemy in the silverfish swarm's space takes [[/r 1d4[piercing]]] damage (@Check[type:fortitude|dc:14|basic:true|traits:swarm] save). A creature that fails its save is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -159,7 +156,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -191,11 +187,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -219,11 +210,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -265,12 +251,26 @@
                 "temp": 0,
                 "value": 9
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 5
             },
+            "resistances": [
+                {
+                    "type": "physical",
+                    "value": 2
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -279,7 +279,17 @@
                     }
                 ],
                 "value": 40
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 2
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 2
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -312,32 +322,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "precision",
-                    "swarm-mind"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "physical",
-                    "value": 2
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Area Damage",
-                    "type": "area-damage",
-                    "value": "2"
-                },
-                {
-                    "label": "Splash Damage",
-                    "type": "splash-damage",
-                    "value": "2"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

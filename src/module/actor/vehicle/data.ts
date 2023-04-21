@@ -1,59 +1,35 @@
 import {
     ActorSystemData,
-    BaseActorAttributes,
-    BaseActorDataPF2e,
+    ActorAttributes,
     BaseActorSourcePF2e,
-    BaseHitPointsData,
-    BaseTraitsData,
-} from "@actor/data/base";
-import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
-import { ActorSizePF2e } from "@actor/data/size";
-import { StatisticTraceData } from "@system/statistic";
-import { VehiclePF2e } from ".";
-import { VehicleTrait } from "./types";
+    BaseHitPointsSource,
+    ActorTraitsData,
+    ActorSystemSource,
+    ActorDetailsSource,
+    ActorHitPoints,
+} from "@actor/data/base.ts";
+import { ActorSizePF2e } from "@actor/data/size.ts";
+import { StatisticTraceData } from "@system/statistic/index.ts";
+import { VehicleTrait } from "./types.ts";
 
 /** The stored source data of a vehicle actor */
-type VehicleSource = BaseActorSourcePF2e<"vehicle", VehicleSystemData>;
+type VehicleSource = BaseActorSourcePF2e<"vehicle", VehicleSystemSource>;
 
-type VehicleData = Omit<VehicleSource, "effects" | "flags" | "items" | "prototypeToken"> &
-    BaseActorDataPF2e<VehiclePF2e, "vehicle", VehicleSystemData, VehicleSource>;
-
-interface VehicleHitPointsData extends Required<BaseHitPointsData> {
+interface VehicleHitPointsData extends Required<BaseHitPointsSource> {
     brokenThreshold: number;
     negativeHealing: false;
 }
 
-interface VehicleAttributes extends BaseActorAttributes {
-    ac: {
-        value: number;
-        check: number;
-        details: string;
-    };
+interface VehicleAttributesSource extends ActorAttributes {
+    ac: { value: number };
     hardness: number;
     hp: VehicleHitPointsData;
+    initiative?: never;
 }
 
-/** The system-level data of vehicle actors. */
-interface VehicleSystemData extends ActorSystemData {
-    attributes: VehicleAttributes;
-    details: {
-        description: string;
-        level: {
-            value: number;
-        };
-        alliance: null;
-        price: number;
-        space: {
-            long: number;
-            wide: number;
-            high: number;
-        };
-        crew: string;
-        passengers: string;
-        pilotingCheck: string;
-        AC: number;
-        speed: number;
-    };
+interface VehicleSystemSource extends ActorSystemSource {
+    attributes: VehicleAttributesSource;
+    details: VehicleDetailsSource;
     saves: {
         fortitude: VehicleFortitudeSaveData;
     };
@@ -61,11 +37,47 @@ interface VehicleSystemData extends ActorSystemData {
     traits: VehicleTraitsData;
 }
 
+interface VehicleDetailsSource extends ActorDetailsSource {
+    description: string;
+    level: {
+        value: number;
+    };
+    alliance: null;
+    price: number;
+    space: {
+        long: number;
+        wide: number;
+        high: number;
+    };
+    crew: string;
+    passengers: string;
+    pilotingCheck: string;
+    AC: number;
+    speed: number;
+}
+
+/** The system-level data of vehicle actors. */
+interface VehicleSystemData extends VehicleSystemSource, Omit<ActorSystemData, "details" | "traits"> {
+    attributes: VehicleAttributes;
+}
+
+interface VehicleAttributes extends VehicleAttributesSource, ActorAttributes {
+    ac: StatisticTraceData;
+    hp: VehicleHitPoints;
+    initiative?: never;
+    shield?: never;
+}
+
+interface VehicleHitPoints extends ActorHitPoints {
+    negativeHealing: false;
+    brokenThreshold: number;
+}
+
 interface VehicleFortitudeSaveData extends StatisticTraceData {
     saveDetail: string;
 }
 
-interface VehicleTraitsData extends BaseTraitsData<VehicleTrait> {
+interface VehicleTraitsData extends ActorTraitsData<VehicleTrait> {
     rarity: keyof ConfigPF2e["PF2E"]["rarityTraits"];
     size: ActorSizePF2e;
 }
@@ -75,14 +87,4 @@ interface TokenDimensions {
     height: number;
 }
 
-interface VehicleSheetData extends ActorSheetDataPF2e<VehiclePF2e> {
-    actorRarities: typeof CONFIG.PF2E.rarityTraits;
-    actorRarity: string;
-    actorSizes: typeof CONFIG.PF2E.actorSizes;
-    actorSize: string;
-    data: {
-        traits: VehicleTraitsData;
-    };
-}
-
-export { VehicleData, VehicleSheetData, VehicleSource, VehicleTrait, TokenDimensions };
+export { VehicleSource, VehicleSystemData, VehicleTrait, TokenDimensions };

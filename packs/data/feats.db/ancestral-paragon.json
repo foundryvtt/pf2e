@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Ancestral Paragon",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "general",
         "description": {
             "value": "<p>Whether through instinct, study, or magic, you feel a deeper connection to your ancestry. You gain a 1st-level ancestry feat.</p>"
-        },
-        "featType": {
-            "value": "general"
         },
         "level": {
             "value": 3
@@ -30,13 +25,14 @@
                 "allowedDrops": {
                     "label": "PF2E.SpecificRule.AncestralParagon.AllowedDrops",
                     "predicate": [
-                        "item:feat-type:ancestry",
+                        "item:category:ancestry",
                         "item:level:1"
                     ]
                 },
                 "choices": {
-                    "query": "{\"system.featType.value\":\"ancestry\",\"system.level.value\":1,\"$or\":[{\"system.traits.value\":{\"$elemMatch\":\"{actor|system.details.ancestry.trait}\"}},{\"system.traits.value\":{\"$elemMatch\":\"{actor|system.details.heritage.trait}\"}}],\"$not\":{\"system.traits.value\":{\"$elemMatch\":\"lineage\"}}}"
+                    "query": "{\"system.category\":\"ancestry\",\"system.level.value\":1,\"$or\":[{\"system.traits.value\":{\"$elemMatch\":\"{actor|system.details.ancestry.trait}\"}},{\"system.traits.value\":{\"$elemMatch\":\"{actor|system.details.heritage.trait}\"}}],\"$not\":{\"system.traits.value\":{\"$elemMatch\":\"lineage\"}}}"
                 },
+                "flag": "ancestralParagon",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.AncestralParagon.Prompt"
             },
@@ -49,7 +45,6 @@
             "value": "Pathfinder Core Rulebook"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "general"

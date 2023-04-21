@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Timeless Body",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "class",
         "description": {
             "value": "<p>You cease aging. In addition, you gain a +2 status bonus to saving throws against poisons and diseases, and you gain resistance to poison damage equal to half your level.</p>"
-        },
-        "featType": {
-            "value": "class"
         },
         "level": {
             "value": 14
@@ -38,13 +33,17 @@
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 2
+            },
+            {
+                "key": "Resistance",
+                "type": "poison",
+                "value": "floor(@actor.level/2)"
             }
         ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "monk"

@@ -25,7 +25,7 @@ const WEAPON_GROUPS = new Set([...MELEE_WEAPON_GROUPS, ...MANDATORY_RANGED_GROUP
 const WEAPON_MATERIAL_EFFECTS = new Set([
     "abysium",
     "adamantine",
-    "coldIron",
+    "cold-iron",
     "djezet",
     "silver",
     "mithral",
@@ -34,7 +34,7 @@ const WEAPON_MATERIAL_EFFECTS = new Set([
     "silver",
     "sisterstone-dusk",
     "sisterstone-scarlet",
-    "sovereignSteel",
+    "sovereign-steel",
 ] as const);
 
 const WEAPON_PROPERTY_RUNE_TYPES = new Set([
@@ -51,6 +51,7 @@ const WEAPON_PROPERTY_RUNE_TYPES = new Set([
     "crushing",
     "cunning",
     "dancing",
+    "demolishing",
     "disrupting",
     "energizing",
     "extending",
@@ -96,7 +97,7 @@ const WEAPON_PROPERTY_RUNE_TYPES = new Set([
 ] as const);
 
 const THROWN_RANGES = new Set([10, 15, 20, 30, 40, 60, 80, 100] as const);
-const WEAPON_RANGES = new Set([...THROWN_RANGES, 50, 70, 90, 120, 140, 150, 180, 240, 300] as const);
+const WEAPON_RANGES = new Set([...THROWN_RANGES, 50, 70, 90, 120, 140, 150, 180, 200, 240, 300] as const);
 
 // Crossbow isn't a weapon group, so we need to assign it when one of these is a base weapon
 const CROSSBOW_WEAPONS = new Set([

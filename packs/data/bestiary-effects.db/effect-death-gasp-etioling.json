@@ -26,27 +26,14 @@
             },
             {
                 "key": "Immunity",
-                "type": "bleed"
-            },
-            {
-                "key": "Immunity",
-                "type": "death-effects"
-            },
-            {
-                "key": "Immunity",
-                "type": "disease"
-            },
-            {
-                "key": "Immunity",
-                "type": "paralyzed"
-            },
-            {
-                "key": "Immunity",
-                "type": "poison"
-            },
-            {
-                "key": "Immunity",
-                "type": "sleep"
+                "type": [
+                    "bleed",
+                    "death-effects",
+                    "disease",
+                    "paralyzed",
+                    "poison",
+                    "sleep"
+                ]
             },
             {
                 "key": "BaseSpeed",
@@ -54,9 +41,13 @@
                 "value": 25
             },
             {
-                "except": "PF2E.ResistanceException.ForceGhostTouchPositiveDoubleNonMagical",
+                "exceptions": [
+                    "force",
+                    "ghost-touch",
+                    "positive"
+                ],
                 "key": "Resistance",
-                "type": "all",
+                "type": "all-damage",
                 "value": 10
             }
         ],
@@ -72,7 +63,6 @@
             "show": true
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": []
         },

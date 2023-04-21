@@ -1,41 +1,40 @@
-import { CompendiumBrowser } from "..";
-import { BaseFilterData, CheckboxOptions, CompendiumBrowserIndexData, RangesData } from "./data";
 import { ErrorPF2e, sluggify } from "@util";
-import { TabName } from "../data";
 import MiniSearch from "minisearch";
+import { BrowserTabs, ContentTabName } from "../data.ts";
+import { CompendiumBrowser } from "../index.ts";
+import { BrowserFilter, CheckboxOptions, CompendiumBrowserIndexData, MultiselectData, RangesData } from "./data.ts";
 
 export abstract class CompendiumBrowserTab {
     /** A reference to the parent CompendiumBrowser */
     protected browser: CompendiumBrowser;
+    /** The filter schema for this tab; The tabs filters are rendered based on this.*/
+    abstract filterData: BrowserFilter;
     /** An unmodified copy of this.filterData */
-    defaultFilterData!: BaseFilterData;
+    declare defaultFilterData: this["filterData"];
     /** The full CompendiumIndex of this tab */
     protected indexData: CompendiumBrowserIndexData[] = [];
     /** Is this tab initialized? */
     isInitialized = false;
-    /** The filter schema for this tab; The tabs filters are rendered based on this.*/
-    filterData!: BaseFilterData;
     /** The total count of items in the currently filtered index */
     totalItemCount = 0;
     /** The initial display limit for this tab; Scrolling is currently hardcoded to +100 */
     scrollLimit = 100;
     /** The name of this tab */
-    tabName: Exclude<TabName, "settings">;
+    abstract tabName: ContentTabName;
     /** A DOMParser instance */
     #domParser = new DOMParser();
     /** The path to the result list template of this tab */
     abstract templatePath: string;
     /** Minisearch */
-    searchEngine!: MiniSearch;
+    declare searchEngine: MiniSearch;
     /** Names of the document fields to be indexed. */
     searchFields: string[] = [];
     /** Names of fields to store, so that search results would include them.
      *  By default none, so resuts would only contain the id field. */
     storeFields: string[] = [];
 
-    constructor(browser: CompendiumBrowser, tabName: Exclude<TabName, "settings">) {
+    constructor(browser: CompendiumBrowser) {
         this.browser = browser;
-        this.tabName = tabName;
     }
 
     /** Initialize this this tab */
@@ -56,6 +55,19 @@ export abstract class CompendiumBrowserTab {
         this.isInitialized = true;
     }
 
+    /** Open this tab
+     * @param filter An optional initial filter for this tab
+     */
+    async open(filter?: BrowserFilter): Promise<void> {
+        if (filter) {
+            if (!this.isInitialized) {
+                throw ErrorPF2e(`Tried to pass an initial filter to uninitialized tab "${this.tabName}"`);
+            }
+            this.filterData = filter;
+        }
+        await this.browser.loadTab(this.tabName);
+    }
+
     /** Filter indexData and return slice based on current scrollLimit */
     getIndexData(start: number): CompendiumBrowserIndexData[] {
         if (!this.isInitialized) {
@@ -74,19 +86,53 @@ export abstract class CompendiumBrowserTab {
         return currentIndex.slice(start, this.scrollLimit);
     }
 
+    /** Returns a clean copy of the filterData for this tab. Initializes the tab if necessary. */
+    async getFilterData(): Promise<this["filterData"]> {
+        if (!this.isInitialized) {
+            await this.init();
+        }
+        return deepClone(this.defaultFilterData);
+    }
+
     /** Reset all filters */
     resetFilters(): void {
         this.filterData = deepClone(this.defaultFilterData);
     }
 
+    /** Check this tabs type */
+    isOfType<T extends ContentTabName>(...types: T[]): this is BrowserTabs[T];
+    isOfType(...types: string[]): boolean {
+        return types.some((t) => this.tabName === t);
+    }
+
     /** Load and prepare the compendium index and set filter options */
-    protected async loadData(): Promise<void> {}
+    protected abstract loadData(): Promise<void>;
 
     /** Prepare the the filterData object of this tab */
-    protected prepareFilterData(): void {}
+    protected abstract prepareFilterData(): this["filterData"];
 
     /** Filter indexData */
     protected filterIndexData(_entry: CompendiumBrowserIndexData): boolean {
+        return true;
+    }
+
+    protected filterTraits(
+        traits: string[],
+        selected: MultiselectData["selected"],
+        condition: MultiselectData["conjunction"]
+    ): boolean {
+        const selectedTraits = selected.filter((s) => !s.not).map((s) => s.value);
+        const notTraits = selected.filter((t) => t.not).map((s) => s.value);
+        if (selectedTraits.length || notTraits.length) {
+            if (notTraits.some((t) => traits.includes(t))) {
+                return false;
+            }
+            const fullfilled =
+                condition === "and"
+                    ? selectedTraits.every((t) => traits.includes(t))
+                    : selectedTraits.some((t) => traits.includes(t));
+            if (!fullfilled) return false;
+        }
         return true;
     }
 
@@ -198,7 +244,7 @@ export abstract class CompendiumBrowserTab {
     }
 
     /** Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits) */
-    protected sortedConfig(obj: Record<string, string>) {
+    protected sortedConfig(obj: Record<string, string>): Record<string, string> {
         return Object.fromEntries(
             [...Object.entries(obj)].sort((entryA, entryB) => entryA[1].localeCompare(entryB[1], game.i18n.lang))
         );

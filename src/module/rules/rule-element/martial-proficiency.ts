@@ -1,12 +1,12 @@
-import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions } from ".";
-import { CharacterPF2e } from "@actor";
-import { MartialProficiency } from "@actor/character/data";
-import { ActorType } from "@actor/data";
+import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions } from "./index.ts";
+import { ActorPF2e, CharacterPF2e } from "@actor";
+import { MartialProficiency } from "@actor/character/data/index.ts";
+import { ActorType } from "@actor/data/index.ts";
 import { ItemPF2e } from "@item";
-import { ProficiencyRank } from "@item/data";
-import { WeaponCategory } from "@item/weapon/types";
-import { PROFICIENCY_RANKS, ZeroToFour } from "@module/data";
-import { PredicatePF2e, RawPredicate } from "@system/predication";
+import { ProficiencyRank } from "@item/data/index.ts";
+import { WeaponCategory } from "@item/weapon/types.ts";
+import { PROFICIENCY_RANKS, ZeroToFour } from "@module/data.ts";
+import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
 
 class MartialProficiencyRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character"];
@@ -14,7 +14,7 @@ class MartialProficiencyRuleElement extends RuleElementPF2e {
     /** Predication test for whether a weapon matches this proficiency */
     definition: PredicatePF2e;
 
-    constructor(data: MartialProficiencySource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: MartialProficiencySource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         data.priority = 9;
         data.immutable = Boolean(data.immutable ?? true);
         data.value ??= 1;
@@ -82,7 +82,7 @@ interface MartialProficiencyRuleElement extends RuleElementPF2e {
 
 interface MartialProficiencyData extends RuleElementData {
     key: "MartialProficiency";
-    /** The key to be used for this proficiency in `CharacterPF2e#data#data#martial` */
+    /** The key to be used for this proficiency in `CharacterPF2e#system#martial` */
     slug: string;
     /** The criteria for matching qualifying weapons and other attacks */
     definition: RawPredicate;

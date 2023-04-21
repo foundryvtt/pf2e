@@ -1,0 +1,22 @@
+<form class="npc-sheet" autocomplete="off">
+    <div class="side-bar">
+        {{> "systems/pf2e/templates/actors/npc/partials/sidebar.hbs"}}
+    </div>
+    <div class="npc-body">
+        {{> "systems/pf2e/templates/actors/npc/partials/header.hbs"}}
+        <nav class="sheet-tabs tabs" data-group="primary">
+            <a class="item" data-tab="main">{{localize "PF2E.NPC.MainTab"}}</a>
+            <a class="item {{disabled (not document.inventory.size)}}" data-tab="inventory">{{localize "PF2E.NPC.InventoryTab"}}</a>
+            <a class="item {{disabled (not document.isSpellcaster)}}" data-tab="spells">{{localize "PF2E.NPC.SpellsTab"}}</a>
+            <a class="item {{disabled (nor conditions.length effectItems.length)}}" data-tab="effects">{{localize "PF2E.NPC.EffectsTab"}}</a>
+            <a class="item {{disabled (nor data.details.publicNotes data.details.privateNotes)}}" data-tab="notes">{{localize "PF2E.NPC.NotesTab"}}</a>
+        </nav>
+        <section class="sheet-body">
+            {{> "systems/pf2e/templates/actors/npc/tabs/main.hbs"}}
+            {{> "systems/pf2e/templates/actors/npc/tabs/inventory.hbs"}}
+            {{> "systems/pf2e/templates/actors/npc/tabs/spells.hbs"}}
+            {{> "systems/pf2e/templates/actors/npc/tabs/effects.hbs"}}
+            {{> "systems/pf2e/templates/actors/npc/tabs/notes.hbs"}}
+        </section>
+    </div>
+</form>

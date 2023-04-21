@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "arcane"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -125,13 +120,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -211,7 +200,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 }
@@ -235,44 +223,29 @@
                     "value": 32
                 },
                 "damageRolls": {
-                    "nxch9z5279ehobhk8dt2": {
+                    "0": {
                         "damage": "3d10+15",
                         "damageType": "piercing"
                     },
-                    "tz0vn4z936btepjua6tb": {
+                    "1": {
                         "damage": "3d6",
+                        "damageType": "fire"
+                    },
+                    "2": {
+                        "category": "persistent",
+                        "damage": "2d6",
                         "damageType": "fire"
                     }
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.PersistentDamage.Fire2d6.success]</p>"
+                    "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Fire2d6.success",
-                        "visibility": "gm"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Fire2d6.criticalSuccess",
-                        "visibility": "gm"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "fire",
@@ -317,7 +290,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -362,7 +334,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical",
@@ -407,7 +378,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -452,7 +422,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -497,7 +466,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -542,7 +510,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -558,7 +525,7 @@
         {
             "_id": "hRXUEhTtGJCD8X7J",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status Bonus on Saves vs. Magic",
+            "name": "+1 Status to All Saves vs. Magic",
             "sort": 1000000,
             "system": {
                 "actionCategory": {
@@ -600,7 +567,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -639,13 +605,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 90,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "aura",
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": "frightful-presence",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -706,7 +683,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -735,7 +711,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The brass dragon breathes in one of two ways.</p>\n<p>The dragon can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>\n<ul>\n<li><strong>Flame</strong> The dragon breathes fire in a @Template[type:line|distance:100|traits:arcane,evocation,fire,damaging-effect]{100-foot line} that deals [[/r {16d6}[fire]]]{16d6 fire damage} (@Check[type:reflex|dc:39|basic:true] save).</li>\n<li><strong>Sleep Gas</strong> The dragon breathes a @Template[type:cone|distance:80|traits:arcane,enchantment,incapacitation,sleep]{80-foot cone} of sleep gas. Each creature in the area must succeed at a @Check[type:fortitude|dc:39] save or fall @UUID[Compendium.pf2e.conditionitems.Unconscious]{Unconscious} for [[/br 1d6 #Duration Sleep Gas]]{1d6 rounds}, or 1 minute on a critical failure.</li>\n</ul>"
+                    "value": "<p>The brass dragon breathes in one of two ways.</p>\n<p>The dragon can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>\n<ul>\n<li><strong>Flame</strong> The dragon breathes fire in a @Template[type:line|distance:100|traits:arcane,evocation,fire,damaging-effect]{100-foot line} that deals [[/r 16d6[fire]]] damage (@Check[type:reflex|dc:39|basic:true] save).</li>\n<li><strong>Sleep Gas</strong> The dragon breathes a @Template[type:cone|distance:80|traits:arcane,enchantment,incapacitation,sleep]{80-foot cone} of sleep gas. Each creature in the area must succeed at a @Check[type:fortitude|dc:39] save or fall @UUID[Compendium.pf2e.conditionitems.Unconscious]{Unconscious} for [[/br 1d6 #Duration Sleep Gas]]{1d6 rounds}, or 1 minute on a critical failure.</li>\n</ul>"
                 },
                 "requirements": {
                     "value": ""
@@ -746,7 +722,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -793,7 +768,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "air",
@@ -838,7 +812,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -888,7 +861,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -920,11 +892,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -948,11 +915,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -976,11 +938,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1004,11 +961,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1032,11 +984,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1078,8 +1025,19 @@
                 "temp": 0,
                 "value": 325
             },
+            "immunities": [
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 30
@@ -1137,17 +1095,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "fire",
-                    "paralyzed",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "Speak With Animals",
                 "selected": [],

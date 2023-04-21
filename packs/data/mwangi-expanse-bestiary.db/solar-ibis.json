@@ -32,7 +32,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -75,7 +74,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile"
@@ -119,7 +117,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -164,7 +161,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -198,13 +194,48 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "halo"
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 1,
+                                "speed": 3,
+                                "type": "pulse"
+                            },
+                            "bright": 30,
+                            "color": "#fff9a3"
+                        }
+                    },
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "halo"
+                        ],
+                        "radius": 30,
+                        "slug": "blinding-halo",
+                        "traits": [
+                            "arcane",
+                            "aura",
+                            "light"
+                        ]
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "halo",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -263,7 +294,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -303,7 +333,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -332,7 +361,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The solar ibis detonates its halo, sending shards of burning light in all directions that deal [[/r {6d8}[fire]]]{6d8 fire damage} to all creatures in a @Template[type:emanation|distance:20] (@Check[type:reflex|dc:22|basic:true] save). The shards deal an extra [[/r {6d8}[good]]]{6d8 good damage} against fiends and undead.</p>\n<p>The solar ibis cant use Light Shatter again for [[/br 1d4 #rounds]]] rounds, and its Blinding Halo is extinguished during this time. The halo is restored automatically once the [[/br 1d4 #rounds]]{1d4 rounds} have passed.</p>"
+                    "value": "<p>The solar ibis detonates its halo, sending shards of burning light in all directions that deal [[/r 6d8[fire]]] damage to all creatures in a @Template[type:emanation|distance:20] (@Check[type:reflex|dc:22|basic:true] save). The shards deal an extra [[/r 6d8[good]]] damage against fiends and undead.</p>\n<p>The solar ibis cant use Light Shatter again for [[/br 1d4 #rounds]]] rounds, and its Blinding Halo is extinguished during this time. The halo is restored automatically once the [[/br 1d4 #rounds]]{1d4 rounds} have passed.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -343,7 +372,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "fire",
@@ -394,7 +422,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -426,11 +453,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -454,11 +476,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -501,7 +518,7 @@
                 "value": 45
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 17
@@ -547,13 +564,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "(Can't Speak Any Language)",
                 "selected": [],

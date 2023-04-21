@@ -1,12 +1,13 @@
-import { PartialSettingsData, SettingsMenuPF2e } from "./menu";
+import { PartialSettingsData, SettingsMenuPF2e } from "./menu.ts";
 
-type ConfigPF2eListName = typeof AutomationSettings.SETTINGS[number];
+type ConfigPF2eListName = (typeof AutomationSettings.SETTINGS)[number];
 
 export class AutomationSettings extends SettingsMenuPF2e {
     static override readonly namespace = "automation";
 
     static override readonly SETTINGS = [
         "rulesBasedVision",
+        "iwr",
         "effectExpiration",
         "removeExpiredEffects",
         "flankingDetection",
@@ -20,9 +21,13 @@ export class AutomationSettings extends SettingsMenuPF2e {
                 hint: CONFIG.PF2E.SETTINGS.automation.rulesBasedVision.hint,
                 default: true,
                 type: Boolean,
-                onChange: () => {
-                    window.location.reload();
-                },
+                requiresReload: true,
+            },
+            iwr: {
+                name: CONFIG.PF2E.SETTINGS.automation.iwr.name,
+                hint: CONFIG.PF2E.SETTINGS.automation.iwr.hint,
+                default: BUILD_MODE === "development",
+                type: Boolean,
             },
             effectExpiration: {
                 name: CONFIG.PF2E.SETTINGS.automation.effectExpiration.name,
@@ -54,7 +59,7 @@ export class AutomationSettings extends SettingsMenuPF2e {
             lootableNPCs: {
                 name: CONFIG.PF2E.SETTINGS.automation.lootableNPCs.name,
                 hint: CONFIG.PF2E.SETTINGS.automation.lootableNPCs.hint,
-                default: false,
+                default: true,
                 type: Boolean,
             },
         };

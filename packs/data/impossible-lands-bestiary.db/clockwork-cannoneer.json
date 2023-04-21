@@ -32,7 +32,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "backswing",
@@ -75,7 +74,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "range-increment-100"
@@ -119,7 +117,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -164,7 +161,6 @@
                     "value": "Pathfinder Bestiary 3"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -193,7 +189,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The clockwork cannoneer launches an explosive shot up to a range of 200 feet that explodes in a @Template[type:burst|distance:20]. Creatures within the burst take [[/r {5d10}[bludgeoning]]]{5d10 bludgeoning damage} (@Check[type:reflex|dc:36|basic:true]).</p>"
+                    "value": "<p>The clockwork cannoneer launches an explosive shot up to a range of 200 feet that explodes in a @Template[type:burst|distance:20]. Creatures within the burst take [[/r 5d10[bludgeoning]]] damage (@Check[type:reflex|dc:36|basic:true]).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -204,7 +200,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "fire"
@@ -261,7 +256,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -287,7 +281,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The clockwork cannoneer spews flames from one of its cannons, dealing [[/r {8d6}[fire]]]{8d6 fire damage} in a @Template[type:cone|distance:30] (@Check[type:reflex|dc:36|basic:true]). Those that fail the save also take [[/r {2d6}[persistent,fire]]]{2d6} @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent fire Damage}.</p>"
+                    "value": "<p>The clockwork cannoneer spews flames from one of its cannons, dealing [[/r 8d6[fire]]] damage in a @Template[type:cone|distance:30] (@Check[type:reflex|dc:36|basic:true]). Those that fail the save also take [[/r 2d6[persistent,fire]]] damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -298,7 +292,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "fire"
@@ -329,11 +322,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -375,16 +363,37 @@
                 "temp": 0,
                 "value": 250
             },
+            "immunities": [],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 25
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "adamantine",
+                        "orichalcum"
+                    ],
+                    "type": "physical",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "electricity",
+                    "value": 15
+                },
+                {
+                    "type": "orichalcum",
+                    "value": 15
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -417,43 +426,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except adamantine or orichalcum",
-                    "type": "physical",
-                    "value": 10
-                }
-            ],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "type": "electricity",
-                    "value": 15
-                },
-                {
-                    "exceptions": "",
-                    "type": "orichalcum",
-                    "value": 15
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

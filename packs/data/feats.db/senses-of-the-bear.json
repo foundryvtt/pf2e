@@ -1,0 +1,59 @@
+{
+    "_id": "bj5QmGyrt7OYORjo",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Senses of the Bear",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>While in ursine form, you gain low-light vision and scent (imprecise) 30 feet. If you already had low-light vision, you instead gain darkvision.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": [
+                    "self:effect:ursine-avenger-form"
+                ],
+                "range": 30,
+                "selector": "scent"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "self:effect:ursine-avenger-form"
+                ],
+                "selector": "lowLightVision"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "self:low-light-vision:from-ancestry",
+                    "self:effect:ursine-avenger-form"
+                ],
+                "selector": "darkvision"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

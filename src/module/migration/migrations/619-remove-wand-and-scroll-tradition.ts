@@ -1,18 +1,18 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemSourcePF2e } from "@item/data";
-import { SpellcastingEntrySource } from "@item/spellcasting-entry/data";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { SpellcastingEntrySource } from "@item/spellcasting-entry/data.ts";
 import { tupleHasValue } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 const LEGIT_TRADITIONS = ["arcane", "divine", "occult", "primal", "focus", "ritual", "halcyon", ""] as const;
 
 interface HighestTradition {
-    name: typeof LEGIT_TRADITIONS[number];
+    name: (typeof LEGIT_TRADITIONS)[number];
     value: number;
 }
 
 interface Tradition {
-    value: typeof LEGIT_TRADITIONS[number];
+    value: (typeof LEGIT_TRADITIONS)[number];
 }
 
 /**
@@ -31,7 +31,7 @@ function makeLowercase<T extends string>(value: T): Lowercase<T> {
 export class Migration619TraditionLowercaseAndRemoveWandScroll extends MigrationBase {
     static override version = 0.619;
 
-    override async updateItem(item: ItemSourcePF2e, actorData?: ActorSourcePF2e) {
+    override async updateItem(item: ItemSourcePF2e, actorData?: ActorSourcePF2e): Promise<void> {
         if (!actorData || item.type !== "spellcastingEntry") {
             return;
         }

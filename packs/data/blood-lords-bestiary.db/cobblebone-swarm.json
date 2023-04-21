@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "occult"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -125,13 +120,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -226,7 +215,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "auditory",
@@ -263,7 +251,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -300,7 +287,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -342,7 +328,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -394,7 +379,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -423,7 +407,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each foe in the cobblebone swarm's space takes [[/r {1d6}[bludgeoning]+{1d6}[negative]]]{1d6 bludgeoning damage and 1d6 negative damage} (@Check[type:reflex|dc:17|basic:true]).</p>"
+                    "value": "<p>Each foe in the cobblebone swarm's space takes [[/r {1d6[bludgeoning],1d6[negative]}]]{1d6 bludgeoning damage and 1d6 negative damage} (@Check[type:reflex|dc:17|basic:true]).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -434,7 +418,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -471,7 +454,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -500,11 +482,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -528,11 +505,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -556,11 +528,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -602,12 +569,45 @@
                 "temp": 0,
                 "value": 30
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 9
             },
+            "resistances": [
+                {
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -616,7 +616,21 @@
                     }
                 ],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 3
+                },
+                {
+                    "type": "positive",
+                    "value": 5
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 3
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -649,44 +663,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "precision",
-                    "swarm-mind",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "piercing",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "slashing",
-                    "value": 5
-                }
-            ],
-            "dv": [
-                {
-                    "type": "area-damage",
-                    "value": 3
-                },
-                {
-                    "type": "positive",
-                    "value": 5
-                },
-                {
-                    "type": "splash-damage",
-                    "value": 3
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

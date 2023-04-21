@@ -103,17 +103,17 @@
                 },
                 "tradition": {
                     "value": "divine"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
         },
         {
             "_id": "KyynowAzMYe7FJw3",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.8kJbiBEjMWG4VUjs"
+                }
+            },
             "img": "systems/pf2e/icons/spells/warp-mind.webp",
             "name": "Warp Mind",
             "sort": 200000,
@@ -121,13 +121,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -188,7 +182,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "warp-mind",
                 "source": {
                     "value": ""
                 },
@@ -211,7 +205,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "emotion",
@@ -224,6 +217,11 @@
         },
         {
             "_id": "UeMQ10mABQZgRQWs",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.IihxWhRfpsBgQ5jS"
+                }
+            },
             "img": "systems/pf2e/icons/spells/enthrall.webp",
             "name": "Enthrall (At Will)",
             "sort": 300000,
@@ -231,13 +229,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -294,7 +286,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "enthrall",
                 "source": {
                     "value": ""
                 },
@@ -317,7 +309,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "auditory",
@@ -330,7 +321,7 @@
         {
             "_id": "g407ooIFn82B2iXk",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "claw",
+            "name": "Claw",
             "sort": 400000,
             "system": {
                 "attack": {
@@ -360,7 +351,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -389,18 +379,30 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>30 feet. When a creature ends its turn in the aura, it is overwhelmed by the sorrow that suffuses the obrousian's being. The creature must succeed at a @Check[type:will|dc:33] save or become paralyzed for 1 round.</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>When a creature ends its turn in the aura, it is overwhelmed by the sorrow that suffuses the obrousian's being. The creature must succeed at a @Check[type:will|dc:33] save or become @UUID[Compendium.pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "waves-of-sorrow",
+                        "traits": [
+                            "aura",
+                            "divine",
+                            "enchantment",
+                            "incapacitation",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -446,7 +448,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate",
@@ -491,7 +492,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -523,11 +523,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -551,11 +546,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -579,11 +569,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -607,11 +592,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -635,11 +615,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -681,8 +656,25 @@
                 "temp": 0,
                 "value": 250
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 26
@@ -733,19 +725,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

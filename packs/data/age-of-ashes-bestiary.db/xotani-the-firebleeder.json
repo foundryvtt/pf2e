@@ -18,13 +18,18 @@
                     "value": 38
                 },
                 "damageRolls": {
-                    "ieomx2httujpa0pjpi3k": {
+                    "0": {
                         "damage": "5d10+8",
                         "damageType": "piercing"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "2d10",
+                        "damageType": "fire"
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {2d8}[persistent,fire]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -32,7 +37,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-20"
@@ -60,13 +64,18 @@
                     "value": 38
                 },
                 "damageRolls": {
-                    "jgct7htx73m5pprlm0kn": {
+                    "0": {
                         "damage": "5d8+8",
                         "damageType": "slashing"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "2d8",
+                        "damageType": "fire"
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {2d8}[persistent,fire]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -74,7 +83,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -103,13 +111,18 @@
                     "value": 38
                 },
                 "damageRolls": {
-                    "a1tyl27i8kdtz0q05j63": {
+                    "0": {
                         "damage": "2d10+8",
                         "damageType": "bludgeoning"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "2d10",
+                        "damageType": "fire"
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {2d10}[persistent,fire]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -117,7 +130,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "range-increment-80"
@@ -161,7 +173,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -201,7 +212,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -246,7 +256,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -291,7 +300,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -320,7 +328,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Xotani is damaged</p>\n<hr />\n<p><strong>Effect</strong> Xotani's wound erupts with magma in a @Template[type:cone|distance:30], dealing [[/r {6d8}[fire]]]{6d8 fire damage} and [[/r {6d8}[persistent,fire]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} (@Check[type:reflex|dc:42|basic:true] save).</p>"
+                    "value": "<p><strong>Trigger</strong> Xotani is damaged</p>\n<hr />\n<p><strong>Effect</strong> Xotani's wound erupts with magma in a @Template[type:cone|distance:30], dealing [[/r 6d8[fire]]] damage and [[/r 6d8[persistent,fire]]] damage (@Check[type:reflex|dc:42|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -331,7 +339,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "fire"
@@ -367,18 +374,29 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:300]{300 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura} @Check[type:will|dc:39] save</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>@Template[type:emanation|distance:300]{300 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura} @Check[type:will|dc:39]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 300,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "aura",
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": "frightful-presence",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -423,7 +441,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -463,7 +480,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -503,7 +519,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -532,7 +547,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Xotani breathes a blast of flame that deals [[/r {18d6}[fire]]]{18d6 fire damage} plus [[/r {4d6}[persistent,fire]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} to all creatures in a @Template[type:cone|distance:70] (@Check[type:reflex|dc:42|basic:true] save).</p>\n<p>It can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>Xotani breathes a blast of flame that deals [[/r 18d6[fire]]] damage plus [[/r 4d6[persistent,fire]]] damage to all creatures in a @Template[type:cone|distance:70] (@Check[type:reflex|dc:42|basic:true] save).</p>\n<p>It can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -543,7 +558,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -581,7 +595,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Huge, [[/r {8d6+8}[bludgeoning]]]{8d6+8 bludgeoning} plus [[/r {12d6}[fire]]]{12d6 fire}, Rupture 35</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                    "value": "<p>Huge, [[/r {(8d6+8)[bludgeoning],12d6[fire]}]], Rupture 35</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -592,7 +606,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack"
@@ -639,7 +652,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -671,11 +683,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -720,12 +727,61 @@
                 "temp": 0,
                 "value": 385
             },
+            "immunities": [
+                {
+                    "type": "clumsy"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "drained"
+                },
+                {
+                    "type": "enfeebled"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "mental"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "petrified"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "polymorph"
+                },
+                {
+                    "type": "stupefied"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 39
             },
+            "resistances": [
+                {
+                    "type": "electricity",
+                    "value": 22
+                },
+                {
+                    "type": "physical",
+                    "value": 22
+                },
+                {
+                    "type": "sonic",
+                    "value": 22
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -738,7 +794,13 @@
                     }
                 ],
                 "value": 60
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 22
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -771,47 +833,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "clumsy",
-                    "disease",
-                    "drained",
-                    "enfeebled",
-                    "fire",
-                    "mental",
-                    "paralyzed",
-                    "petrified",
-                    "poison",
-                    "polymorph",
-                    "stupefied"
-                ]
-            },
-            "dr": [
-                {
-                    "label": "Electricity",
-                    "type": "electricity",
-                    "value": "22"
-                },
-                {
-                    "label": "Physical",
-                    "type": "physical",
-                    "value": "22"
-                },
-                {
-                    "label": "Sonic",
-                    "type": "sonic",
-                    "value": "22"
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Cold",
-                    "type": "cold",
-                    "value": "22"
-                }
-            ],
             "languages": {
                 "custom": "Can't Speak Any Language",
                 "selected": [],

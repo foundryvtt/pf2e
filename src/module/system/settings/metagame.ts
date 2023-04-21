@@ -1,4 +1,4 @@
-import { SettingsMenuPF2e } from "./menu";
+import { SettingsMenuPF2e } from "./menu.ts";
 
 const MetagameSettingsConfig = {
     showDC: {
@@ -46,7 +46,9 @@ const MetagameSettingsConfig = {
         default: false,
         type: Boolean,
         onChange: () => {
-            window.location.reload();
+            if (canvas.ready && canvas.scene) {
+                canvas.perception.update({ initializeVision: true, refreshLighting: true }, true);
+            }
         },
     },
 };
@@ -62,7 +64,7 @@ class MetagameSettings extends SettingsMenuPF2e {
         return Object.keys(this.settings);
     }
 
-    static override get prefix() {
+    static override get prefix(): string {
         return `${this.namespace}_`;
     }
 }

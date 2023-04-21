@@ -1,0 +1,49 @@
+{
+    "_id": "QQP0mu0cyWIwNUh9",
+    "img": "systems/pf2e/icons/features/classes/shield-ally.webp",
+    "name": "Shield Ally",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>A spirit of protection dwells within your shield. In your hands, the shield's Hardness increases by 2 and its HP and BT increase by half.</p>"
+        },
+        "level": {
+            "value": 0
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.attributes.shield.hardness",
+                "predicate": [
+                    "self:shield:equipped"
+                ],
+                "value": 2
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "divine-ally:shield"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -29,7 +29,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -69,7 +68,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -114,7 +112,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -154,7 +151,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "attack"
@@ -185,7 +181,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each foe in the cobbleswarm's space takes [[/r {2d4}[bludgeoning]]]{2d4 bludgeoning damage} (@Check[type:reflex|dc:17|basic:true] save).</p>"
+                    "value": "<p>Each foe in the cobbleswarm's space takes [[/r 2d4[bludgeoning]]] damage (@Check[type:reflex|dc:17|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -196,7 +192,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -228,11 +223,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -256,11 +246,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -305,12 +290,30 @@
                 "temp": 0,
                 "value": 20
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 9
             },
+            "resistances": [
+                {
+                    "type": "piercing",
+                    "value": 6
+                },
+                {
+                    "type": "slashing",
+                    "value": 6
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -319,7 +322,17 @@
                     }
                 ],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 3
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 3
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -355,34 +368,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "precision",
-                    "swarm-mind"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "piercing",
-                    "value": 6
-                },
-                {
-                    "type": "slashing",
-                    "value": 6
-                }
-            ],
-            "dv": [
-                {
-                    "type": "area-damage",
-                    "value": 3
-                },
-                {
-                    "type": "splash-damage",
-                    "value": 3
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

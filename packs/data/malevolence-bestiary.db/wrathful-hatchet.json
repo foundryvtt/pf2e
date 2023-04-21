@@ -29,7 +29,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "mental",
@@ -64,44 +63,28 @@
                     "value": 18
                 },
                 "damageRolls": {
-                    "39ic1hricto4k9i9id4r": {
+                    "0": {
                         "damage": "1d6+6",
                         "damageType": "slashing"
                     },
-                    "4slbwegep7yn2zg7c71c": {
+                    "1": {
                         "damage": "2d6",
                         "damageType": "mental"
+                    },
+                    "2": {
+                        "damage": "1d6",
+                        "damageType": "bleed"
                     }
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed1d6.success]</p>"
+                    "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Bleed1d6.success",
-                        "visibility": "gm"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Bleed1d6.criticalSuccess",
-                        "visibility": "gm"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -126,10 +109,27 @@
                 "temp": 0,
                 "value": 60
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                }
+            ],
             "stealth": {
                 "details": "<p>(Expert) Darkvision</p>",
                 "value": 17
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 7
+                }
+            ]
         },
         "creatureType": "",
         "details": {
@@ -161,24 +161,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "precision",
-                    "critical-hits",
-                    "object-immunities"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "label": "Positive",
-                    "type": "positive",
-                    "value": "7"
-                }
-            ],
             "rarity": "common",
             "size": {
                 "value": "med"

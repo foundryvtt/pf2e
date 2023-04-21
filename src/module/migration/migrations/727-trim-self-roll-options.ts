@@ -1,7 +1,7 @@
-import { ItemSourcePF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
 import { isObject } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Trim roll options with "self:" prefixes but are unnecessary for targeting */
 export class Migration727TrimSelfRollOptions extends MigrationBase {

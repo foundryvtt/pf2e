@@ -102,11 +102,6 @@
                 },
                 "tradition": {
                     "value": "primal"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -126,11 +121,9 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "20"
-                },
-                "areasize": {
-                    "value": "a horizontal earthen or sandy surface within a 20-foot burst"
+                    "details": "a horizontal earthen or sandy surface within a 20-foot burst",
+                    "type": "burst",
+                    "value": 20
                 },
                 "category": {
                     "value": "spell"
@@ -235,7 +228,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "earth"
@@ -258,12 +250,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "value": "10-foot emanation"
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -288,7 +275,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You emit a cloud of toxic smoke that temporarily obscures you from sight. Each creature except you in the area when you @UUID[Compendium.pf2e.actionspf2e.Cast a Spell]{Cast the Spell} takes [[/r {1d6}[poison]]]{1d6 poison damage} (basic Fortitude save). A creature that critically fails the saving throw also becomes @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}. All creatures in the area become @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the smoke become Concealed to creatures within it. This smoke can be dispersed by a strong wind.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by [[/r {1d6}[poison]]]{1d6 poison}.</p>"
+                    "value": "<p>You emit a cloud of toxic smoke that temporarily obscures you from sight. Each creature except you in the area when you @UUID[Compendium.pf2e.actionspf2e.Cast a Spell]{Cast the Spell} takes [[/r 1d6[poison]]] damage (basic Fortitude save). A creature that critically fails the saving throw also becomes @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}. All creatures in the area become @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the smoke become Concealed to creatures within it. This smoke can be dispersed by a strong wind.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by [[/r 1d6[poison]]].</p>"
                 },
                 "duration": {
                     "value": "1 round"
@@ -359,7 +346,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "poison"
@@ -383,11 +369,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "cone",
-                    "value": "15"
-                },
-                "areasize": {
-                    "value": "15-foot cone"
+                    "type": "cone",
+                    "value": 15
                 },
                 "category": {
                     "value": "spell"
@@ -470,7 +453,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "earth"
@@ -493,7 +475,7 @@
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>The creator of the original <em>thunder helm</em> tried and failed time and again to craft a reliable, helmet-mounted firearm that enabled hands-free gunplay, but even after resorting to magical enhancements, they were never quite able to realize their vision. The allure of the <em>thunder helm</em> continues to compel certain mindsets in the Mana Wastes, and these items continue to be crafted to this day.</p>\n<p>A <em>thunder helm</em> appears as a cylindrical iron helmet adorned with a crown-like display of gun barrels extending out in all directions. A slit in the front allows for limited visibility, while sound is muffled by the inner lining. As long as a creature wears a <em>thunder helm</em>, it takes a -1 circumstance penalty to auditory and visual Perception checks but also gain a +1 circumstance bonus to saving throws against auditory and visual effects.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">1</span> envision, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The helm's gun barrels swivel and aim randomly, then conjure enough gunpowder and bullets to fire in all directions around you. Every creature within a @Template[type:emanation|distance:20] takes [[/r {4d6}[piercing]]]{4d6 piercing damage} (@Check[type:reflex|dc:19|basic:true]). When determining a creature's resistance or immunity to this damage, use the weaker of the target's resistance or immunity to piercing or bludgeoning.</p>"
+                    "value": "<p>The creator of the original <em>thunder helm</em> tried and failed time and again to craft a reliable, helmet-mounted firearm that enabled hands-free gunplay, but even after resorting to magical enhancements, they were never quite able to realize their vision. The allure of the <em>thunder helm</em> continues to compel certain mindsets in the Mana Wastes, and these items continue to be crafted to this day.</p>\n<p>A <em>thunder helm</em> appears as a cylindrical iron helmet adorned with a crown-like display of gun barrels extending out in all directions. A slit in the front allows for limited visibility, while sound is muffled by the inner lining. As long as a creature wears a <em>thunder helm</em>, it takes a -1 circumstance penalty to auditory and visual Perception checks but also gain a +1 circumstance bonus to saving throws against auditory and visual effects.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">1</span> envision, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The helm's gun barrels swivel and aim randomly, then conjure enough gunpowder and bullets to fire in all directions around you. Every creature within a @Template[type:emanation|distance:20] takes [[/r 4d6[piercing]]] damage (@Check[type:reflex|dc:19|basic:true]). When determining a creature's resistance or immunity to this damage, use the weaker of the target's resistance or immunity to piercing or bludgeoning.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -565,7 +547,6 @@
                 },
                 "stackGroup": null,
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "conjuration",
@@ -615,7 +596,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -661,7 +641,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -703,7 +682,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -748,7 +726,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -793,7 +770,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura",
@@ -842,7 +818,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -876,7 +851,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {1d8+8}[bludgeoning]]]{1d8+8 Bludgeoning } @Check[type:fortitude|dc:22|basic:true]</p>\n<hr />\n<p><em>Note: A DC was not provided for this ability by Paizo. The DC present here is a moderate DC for the creature level according to the Gamemastery Guide creature building Tables.</em></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r (1d8+8)[bludgeoning]]]{1d8+8 Bludgeoning } @Check[type:fortitude|dc:22|basic:true]</p>\n<hr />\n<p><em>Note: A DC was not provided for this ability by Paizo. The DC present here is a moderate DC for the creature level according to the Gamemastery Guide creature building Tables.</em></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -887,7 +862,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -916,7 +890,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:25]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {2d6}[poison]]]{2d6 poison damage} and @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {2d6}[poison]]]{2d6 poison damage}, enfeebled 1, and @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {2d6}[poison]]]{2d6 poison damage}, @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2}, and flat‑footed (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:25]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 2d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 2d6[poison]]] damage, enfeebled 1, and @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 2d6[poison]]] damage, @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2}, and flat‑footed (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -927,7 +901,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "poison"
@@ -966,7 +939,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1008,7 +980,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -1040,11 +1011,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1068,11 +1034,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1096,11 +1057,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1124,11 +1080,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1152,11 +1103,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -1199,11 +1145,17 @@
                 "value": 110
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 19
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1245,18 +1197,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "bludgeoning",
-                    "value": 10
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "Can't Speak Any Language; Telepathy 100 feet",
                 "selected": [],

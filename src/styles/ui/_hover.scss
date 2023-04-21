@@ -156,8 +156,8 @@
                     .item {
                         display: grid;
                         grid:
-                            'data label close' min-content
-                            'data type close' min-content
+                            "data label close" min-content
+                            "data type close" min-content
                             / 30px 1fr;
                         margin: 8px 0;
                         align-items: center;
@@ -174,12 +174,14 @@
                         }
 
                         .tag-legacy {
-                            grid-area: type;
                             @include micro;
                             @include flex-center;
-                            letter-spacing: 0.5px;
                             color: var(--tertiary);
+                            grid-area: type;
+                            letter-spacing: 0.5px;
+                            white-space: nowrap;
                             width: min-content;
+
                             .remove-modifier {
                                 white-space: nowrap;
                             }
@@ -199,9 +201,9 @@
                         }
 
                         .remove-modifier {
-                          grid-area: close;
-                          font-size: 0.8rem;
-                          cursor: pointer;
+                            grid-area: close;
+                            font-size: 0.8rem;
+                            cursor: pointer;
                         }
 
                         &.add-modifier {

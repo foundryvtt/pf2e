@@ -1,8 +1,8 @@
-import { ActorSourcePF2e } from "@actor/data";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { FeatPF2e } from "@item";
-import { EffectSource, ItemSourcePF2e } from "@item/data";
-import { fromUUIDs } from "@util/from-uuids";
-import { MigrationBase } from "../base";
+import { EffectSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { UUIDUtils } from "@util/uuid-utils.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Update feats, items, and rule elements to accurately process cumulative item bonuses */
 export class Migration723CumulativeItemBonuses extends MigrationBase {
@@ -10,7 +10,7 @@ export class Migration723CumulativeItemBonuses extends MigrationBase {
 
     /** Feat items: Animal Skin, Mountance Stance, Mountance Quake, and Mountance Stronghold */
     private stanceFeats = (async (): Promise<Record<string, FeatPF2e | undefined>> => {
-        const documents: ClientDocument[] = await fromUUIDs([
+        const documents: ClientDocument[] = await UUIDUtils.fromUUIDs([
             "Compendium.pf2e.feats-srd.ZPclfDmiHzEqblry", // Animal Skin
             "Compendium.pf2e.feats-srd.ZL5UU9quCTvcWzfY", // Mountain Stance
             "Compendium.pf2e.feats-srd.n2hawNmzW7DBn1Lm", // Mountain Stronghold
@@ -70,7 +70,7 @@ export class Migration723CumulativeItemBonuses extends MigrationBase {
     }
 
     /** Replace the retired toggle macro with a simple hotbar-drop effect macro */
-    override async updateMacro(source: foundry.data.MacroSource): Promise<void> {
+    override async updateMacro(source: foundry.documents.MacroSource): Promise<void> {
         if (source.type === "script" && source.command.includes("Stance: Mountain Stance")) {
             source.command = String.raw`const actors = canvas.tokens.controlled.flatMap((token) => token.actor ?? []);
 if (actors.length === 0 && game.user.character) actors.push(game.user.character);

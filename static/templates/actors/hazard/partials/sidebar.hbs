@@ -1,0 +1,121 @@
+<aside class="sidebar">
+    <section>
+        <div class="sidebar-title">
+            <h2>{{localize "PF2E.DefensesLabel"}}</h2>
+        </div>
+        {{#if (or editing hasDefenses)}}
+            <div class="health-line">
+                <div class="health valued-icon">
+                    <i class="fas fa-heart"></i>
+                    <input name="system.attributes.hp.value" class="current" type="number" value="{{data.attributes.hp.value}}" placeholder="0" />
+                    /
+                    <input name="system.attributes.hp.max" class="max" type="number" value="{{data.attributes.hp.max}}" placeholder="0" />
+                </div>
+                <div class="armor-class valued-icon">
+                    <input name="system.attributes.hardness" type="number" value="{{data.attributes.hardness}}" placeholder="0" />
+                    H
+                </div>
+                <div class="armor-class valued-icon">
+                    <input name="system.attributes.ac.value" type="number" value="{{data.attributes.ac.value}}" placeholder="0" />
+                    AC
+                </div>
+            </div>
+            <input class="hp-details" name="system.attributes.hp.details" type="text" value="{{data.attributes.hp.details}}" placeholder="{{localize "PF2E.NPC.HPExtraInfoLabelPlaceholder"}}"/>
+        {{else}}
+            {{localize "PF2E.NoneOption"}}
+        {{/if}}
+    </section>
+
+    {{#if document.isComplex}}
+        <section>
+            <div class="sidebar-title">
+                <h2>{{localize "PF2E.InitiativeLabel"}}</h2>
+            </div>
+            <div>
+                <div class="initiative">
+                    <div class="valued-icon">
+                        <input type="text" value="{{numberFormat data.attributes.stealth.value decimals=0 sign=true}}" data-property="system.attributes.stealth.value" data-dtype="Number" placeholder="N/A" />
+                    </div>
+                    <h4 class="attribute-name">{{localize "PF2E.StealthLabel"}}</h4>
+                </div>
+            </div>
+        </section>
+    {{/if}}
+
+    {{#if (or hasSaves editing)}}
+        <section>
+            <div class="sidebar-title">
+                <h2>{{localize "PF2E.SavesHeader"}}</h2>
+            </div>
+            <div class="sidebar-saves">
+                {{#each saves as |save|}}
+                    <div class="save">
+                        <h2 {{#if save.mod includeZero=true}}class="save-name rollable" data-save="{{save.type}}"{{/if}}>
+                            {{#if save.mod includeZero=true}}
+                                <i class="fas fa-dice-d20"></i>
+                            {{/if}}
+                            {{localize save.label}}
+                        </h2>
+                        <span class="valued-icon">
+                            <input type="text" value="{{#if save.mod includeZero=true}}{{numberFormat save.mod decimals=0 sign=true}}{{/if}}" data-property="system.saves.{{save.type}}.value" data-dtype="Number" placeholder="N/A" />
+                        </span>
+                    </div>
+                {{/each}}
+            </div>
+        </section>
+    {{/if}}
+
+    <section class="emits-sound">
+        <div class="sidebar-title">
+            <h2>
+                <span>{{localize "PF2E.Actor.Hazard.EmitsSound.Title"}}</span>
+                <i class="fas fa-info-circle hint"></i>
+            </h2>
+        </div>
+        <select name="system.attributes.emitsSound">
+            {{#select data.attributes.emitsSound}}
+                <option value="true">{{localize "PF2E.Actor.Hazard.EmitsSound.True"}}</option>
+                <option value="false">{{localize "PF2E.Actor.Hazard.EmitsSound.False"}}</option>
+                <option value="encounter">{{localize "PF2E.Actor.Hazard.EmitsSound.Encounter"}}</option>
+            {{/select}}
+        </select>
+    </section>
+
+    {{#if (or editing hasIWR)}}
+        <section>
+            <div class="sidebar-title">
+                <h2>{{localize "PF2E.ImmunitiesLabel"}}</h2>
+                <a data-action="edit-immunities" title="{{localize "PF2E.NPC.EditImmunities"}}"><i class="fa-solid fa-edit"></i></a>
+            </div>
+            <div class="tags">
+                {{#each data.attributes.immunities as |immunity|}}
+                    <span class="tag" data-immunity="{{immunity.type}}">{{immunity.label}}</span>
+                {{/each}}
+            </div>
+        </section>
+
+        <section>
+            <div class="sidebar-title">
+                <h2>{{localize "PF2E.WeaknessesLabel"}}</h2>
+                <a data-action="edit-weaknesses" title="{{localize "PF2E.NPC.EditWeaknesses"}}"><i class="fa-solid fa-edit"></i></a>
+            </div>
+            <div class="tags">
+                {{#each data.attributes.weaknesses as |weakness|}}
+                    <span class="tag" data-weakness="{{weakness.type}}">{{weakness.label}}</span>
+                {{/each}}
+            </div>
+        </section>
+
+        <section>
+            <div class="sidebar-title">
+                <h2>{{localize "PF2E.ResistancesLabel"}}</h2>
+                <a data-action="edit-resistances" title="{{localize "PF2E.NPC.EditResistances"}}"><i class="fa-solid fa-edit"></i></a>
+            </div>
+            <div class="tags">
+                {{#each data.attributes.resistances as |resistance|}}
+                    <span class="tag" data-resistance="{{resistance.type}}">{{resistance.label}}</span>
+                {{/each}}
+            </div>
+        </section>
+    {{/if}}
+</aside>

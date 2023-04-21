@@ -39,7 +39,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-15"
@@ -83,7 +82,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -135,7 +133,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -165,7 +162,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When killed, an empress necral worm violently expels the young it carries. These young erupt as a @UUID[Compendium.pf2e.pathfinder-bestiary-3.Necral Worm Swarm]{Necral Worm Swarm} in the empress necral worm's space.</p>\n<p>In addition, every creature within @Template[type:emanation|distance:20]{20 feet} takes [[/r {5d10}[negative]]]{5d10 negative damage} (@Check[type:reflex|dc:25|basic:true] save) from the splatter of undead viscera.</p>"
+                    "value": "<p>When killed, an empress necral worm violently expels the young it carries. These young erupt as a @UUID[Compendium.pf2e.pathfinder-bestiary-3.Necral Worm Swarm]{Necral Worm Swarm} in the empress necral worm's space.</p>\n<p>In addition, every creature within @Template[type:emanation|distance:20]{20 feet} takes [[/r 5d10[negative]]] damage (@Check[type:reflex|dc:25|basic:true] save) from the splatter of undead viscera.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -176,7 +173,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -216,7 +212,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -251,12 +246,11 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "painful-bite",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -285,7 +279,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The empress necral worm Strides, leaving behind dribbles of negative energy in every square that it passes through.</p>\n<p>A creature that enters or begins its turn in such a square takes [[/r {3d6}[negative]]]{3d6 negative damage} (@Check[type:fortitude|dc:22|basic:true] save). The negative energy becomes inert after 1 minute.</p>"
+                    "value": "<p>The empress necral worm Strides, leaving behind dribbles of negative energy in every square that it passes through.</p>\n<p>A creature that enters or begins its turn in such a square takes [[/r 3d6[negative]]] damage (@Check[type:fortitude|dc:22|basic:true] save). The negative energy becomes inert after 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -296,7 +290,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -328,11 +321,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -356,11 +344,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -402,8 +385,13 @@
                 "temp": 0,
                 "value": 140
             },
+            "immunities": [
+                {
+                    "type": "acid"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 13
@@ -416,7 +404,13 @@
                     }
                 ],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -452,20 +446,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "acid"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "positive",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

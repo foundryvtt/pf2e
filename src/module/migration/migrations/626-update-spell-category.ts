@@ -1,7 +1,6 @@
-import type { ItemSourcePF2e } from "@item/data";
-import { SpellSystemSource } from "@item/spell/data";
-import { ValuesList } from "@module/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { SpellSystemSource } from "@item/spell/data.ts";
+import { MigrationBase } from "../base.ts";
 
 /**
  * Makes spells use the category for focus/ritual spells instead
@@ -10,18 +9,18 @@ import { MigrationBase } from "../base";
 export class Migration626UpdateSpellCategory extends MigrationBase {
     static override version = 0.626;
 
-    override async updateItem(source: ItemSourcePF2e) {
+    override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (source.type !== "spell") return;
 
-        interface MaybeCategorie extends Partial<SpellSystemSource> {
-            traditions: ValuesList<keyof ConfigPF2e["PF2E"]["magicTraditions"]>;
+        interface MaybeCategorie extends Omit<Partial<SpellSystemSource>, "traditions"> {
+            traditions: { value: string[] };
             spellCategorie?: { value: "spell" | "focus" | "ritual" | "" };
             spellCategory?: { value: "spell" | "focus" | "ritual" | "" };
             "-=spellCategorie"?: unknown;
             "-=spellCategory"?: unknown;
         }
         const systemData: MaybeCategorie = source.system;
-        const traditions: ValuesList = systemData.traditions;
+        const traditions = systemData.traditions;
         const isFocus = traditions.value.includes("focus");
         const isRitual = traditions.value.includes("ritual");
 

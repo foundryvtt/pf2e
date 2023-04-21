@@ -1,10 +1,14 @@
-import { VariantRulesSettings } from "./variant-rules";
-import { WorldClockSettings } from "./world-clock";
-import { HomebrewElements } from "./homebrew";
-import { StatusEffects } from "@module/canvas/status-effects";
-import { MigrationRunner } from "@module/migration/runner";
-import { AutomationSettings } from "./automation";
-import { MetagameSettings } from "./metagame";
+import { resetActors } from "@actor/helpers.ts";
+import { ActorSheetPF2e } from "@actor/sheet/base.ts";
+import { ItemPF2e, ItemSheetPF2e } from "@item";
+import { StatusEffects } from "@module/canvas/status-effects.ts";
+import { MigrationRunner } from "@module/migration/runner/index.ts";
+import { isImageOrVideoPath } from "@util";
+import { AutomationSettings } from "./automation.ts";
+import { HomebrewElements } from "./homebrew/menu.ts";
+import { MetagameSettings } from "./metagame.ts";
+import { VariantRulesSettings } from "./variant-rules.ts";
+import { WorldClockSettings } from "./world-clock.ts";
 
 export function registerSettings(): void {
     if (BUILD_MODE === "development") {
@@ -46,6 +50,11 @@ export function registerSettings(): void {
             doubledamage: "PF2E.SETTINGS.CritRule.Choices.Doubledamage",
             doubledice: "PF2E.SETTINGS.CritRule.Choices.Doubledice",
         },
+        onChange: () => {
+            for (const sheet of Object.values(ui.windows).filter((w) => w instanceof ActorSheetPF2e)) {
+                sheet.render();
+            }
+        },
     });
 
     game.settings.register("pf2e", "compendiumBrowserPacks", {
@@ -66,6 +75,14 @@ export function registerSettings(): void {
         config: true,
         default: false,
         type: Boolean,
+        onChange: () => {
+            const itemSheets = Object.values(ui.windows).filter(
+                (w): w is ItemSheetPF2e<ItemPF2e> => w instanceof ItemSheetPF2e
+            );
+            for (const sheet of itemSheets) {
+                sheet.render();
+            }
+        },
     });
 
     game.settings.register("pf2e", "critFumbleButtons", {
@@ -75,9 +92,7 @@ export function registerSettings(): void {
         config: true,
         default: false,
         type: Boolean,
-        onChange: () => {
-            window.location.reload();
-        },
+        requiresReload: true,
     });
 
     game.settings.register("pf2e", "drawCritFumble", {
@@ -87,9 +102,7 @@ export function registerSettings(): void {
         config: true,
         default: false,
         type: Boolean,
-        onChange: () => {
-            window.location.reload();
-        },
+        requiresReload: true,
     });
 
     const iconChoices = {
@@ -112,20 +125,12 @@ export function registerSettings(): void {
     game.settings.register("pf2e", "totmToggles", {
         name: "PF2E.SETTINGS.TOTMToggles.Name",
         hint: "PF2E.SETTINGS.TOTMToggles.Hint",
+        scope: "world",
         config: true,
         default: false,
         type: Boolean,
         onChange: () => {
-            for (const actor of game.actors) {
-                actor.reset();
-                ui.windows[actor.sheet.appId]?.render();
-            }
-            for (const token of game.scenes.contents.flatMap((s) => s.tokens.contents)) {
-                if (!token.actorLink && token.actor) {
-                    token.actor.reset();
-                    ui.windows[token.actor.sheet.appId]?.render();
-                }
-            }
+            resetActors();
         },
     });
 
@@ -137,7 +142,7 @@ export function registerSettings(): void {
         default: "icons/svg/skull.svg",
         type: String,
         onChange: (choice?: string) => {
-            if (choice) CONFIG.controlIcons.defeated = choice;
+            if (isImageOrVideoPath(choice)) CONFIG.controlIcons.defeated = choice;
         },
     });
 

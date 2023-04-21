@@ -1,8 +1,8 @@
-import { ItemSourcePF2e } from "@item/data";
-import { SpellSystemData } from "@item/spell/data";
-import { DamageType } from "@system/damage";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { SpellSystemData } from "@item/spell/data.ts";
+import { DamageType } from "@system/damage/index.ts";
 import { sluggify } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 function createBasicDamage(value: string, applyMod: boolean, damageType: DamageType) {
     return {
@@ -22,7 +22,7 @@ function createBasicScaling(interval: number, scaling: string) {
 export class Migration663FixSpellDamage extends MigrationBase {
     static override version = 0.663;
 
-    override async updateItem(itemData: ItemSourcePF2e) {
+    override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         if (itemData.type !== "spell") return;
         if (Object.keys(itemData.system.damage?.value ?? {}).length > 0) return;
 

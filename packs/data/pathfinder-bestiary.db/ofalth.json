@@ -35,7 +35,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-10"
@@ -80,7 +79,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "range-increment-30"
@@ -124,7 +122,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -180,7 +177,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -220,7 +216,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -254,13 +249,21 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "putrid-stench",
+                        "traits": [
+                            "aura"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "aura"
@@ -291,18 +294,17 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:26]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> @Localize[PF2E.PersistentDamage.Bleed2d8.success] every hour and @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 day)</p>\n<p><strong>Stage 3</strong> @Localize[PF2E.PersistentDamage.Bleed2d8.success] every hour and @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 day)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:26]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> [[/r 2d8[bleed]]] every hour and @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 day)</p>\n<p><strong>Stage 3</strong> [[/r 2d8[bleed]]] every hour and @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 day)</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "wretched-weeps",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "disease"
@@ -336,11 +338,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -379,11 +376,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 },
                 "variants": {
                     "0": {
@@ -431,8 +423,16 @@
                 "temp": 0,
                 "value": 170
             },
+            "immunities": [
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "poison"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 18
@@ -473,16 +473,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "disease",
-                    "poison"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "(Can't Speak Any Language)",
                 "selected": [],

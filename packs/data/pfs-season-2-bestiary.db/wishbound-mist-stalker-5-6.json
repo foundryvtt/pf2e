@@ -36,7 +36,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "finesse",
@@ -82,54 +81,8 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fkq1TSG0x7hYCInK",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Mist Cloud",
-            "sort": 300000,
-            "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Template[type:emanation|distance:15]{15 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>The mist stalker is surrounded by mist. Creatures in the aura are @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}. If wind disperses the aura, it returns automatically at the start of the mist stalker's turn. This cloud is suppressed in water.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "conjuration",
-                        "primal",
-                        "water"
-                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -144,7 +97,7 @@
             "_id": "u2BPccJD36z0bYRj",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Mist Vision",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "actionCategory": {
                     "value": "interaction"
@@ -167,9 +120,73 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fkq1TSG0x7hYCInK",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Mist Cloud",
+            "sort": 400000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:15]{15 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>The mist stalker is surrounded by mist. Creatures in the aura are @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}. If wind disperses the aura, it returns automatically at the start of the mist stalker's turn. This cloud is suppressed in water.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "mist-cloud-active"
+                        ],
+                        "radius": 15,
+                        "slug": "mist-cloud",
+                        "traits": [
+                            "conjuration",
+                            "primal",
+                            "water"
+                        ]
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "mist-cloud-active",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "conjuration",
+                        "primal",
+                        "water"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -201,7 +218,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {1d8+2}[bludgeoning]]]{1d8+2 bludgeoning damage} @Check[type:fortitude|dc:19|basic:true], Escape DC 19</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r (1d8+2)[bludgeoning]]] damage @Check[type:fortitude|dc:19|basic:true], Escape DC 19</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -212,7 +229,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -252,7 +268,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "primal",
@@ -301,7 +316,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -333,11 +347,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -361,11 +370,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -410,8 +414,22 @@
                 "temp": 0,
                 "value": "43"
             },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 11
@@ -461,18 +479,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "paralyzed",
-                    "poison",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

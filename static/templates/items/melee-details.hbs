@@ -1,0 +1,59 @@
+<div class="form-group attack-modifier">
+    <label>{{localize "PF2E.NPCWeaponAttackLabel"}}</label>
+    <input type="number" name="system.bonus.value" value="{{data.bonus.value}}" />
+</div>
+
+<ol class="form-list">
+    {{#each data.damageRolls as |damageRoll key|}}
+        <li class="damage-partial" data-key="{{key}}">
+            <div class="form-group">
+                <label>{{localize "PF2E.DamageLabel"}}</label>
+                <input type="text" name="system.damageRolls.{{key}}.damage" value="{{lookup this "damage"}}" />
+            </div>
+            <div class="form-group type">
+                <label>{{localize "PF2E.Roll.Type"}}</label>
+                <select name="system.damageRolls.{{key}}.damageType">
+                    {{#select (lookup damageRoll "damageType")}}
+                        {{#each @root.damageTypes as |label type|}}
+                            <option value="{{type}}">{{localize label}}</option>
+                        {{/each}}
+                    {{/select}}
+                </select>
+            </div>
+            <div class="form-group category">
+                <label>{{localize "PF2E.Category"}}</label>
+                <select name="system.damageRolls.{{key}}.category">
+                    {{#select (lookup damageRoll "category")}}
+                        <option value=""></option>
+                        {{#each @root.damageCategories as |label category|}}
+                            <option value="{{category}}">{{localize label}}</option>
+                        {{/each}}
+                    {{/select}}
+                </select>
+            </div>
+            <a class="damage-control remove-partial" data-action="remove-partial"><i class="fas fa-minus"></i></a>
+        </li>
+    {{/each}}
+    <li class="damage-partial add">
+        <div class="form-group">
+            <label>
+                <a class="damage-control" data-action="add-partial">{{localize "PF2E.NPCWeaponAddDamage"}} <i class="fas fa-plus"></i></a>
+            </label>
+        </div>
+    </li>
+</ol>
+
+<div class="form-group-stacked">
+    <label>
+        {{localize "PF2E.NPCWeaponAttackEffect"}}
+        <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.NPCWeaponAttackEffect" data-config-types="attackEffects" data-property="system.attackEffects"><i class="fas fa-edit"></i></a>
+    </label>
+
+    <ul class="traits-list tags">
+        {{#each attackEffects as |attackEffect|}}
+            {{#if attackEffect.selected}}
+                <li class="tag tag_alt" data-attack-effect="{{attackEffect.value}}">{{localize attackEffect.label}}</li>
+            {{/if}}
+        {{/each}}
+    </ul>
+</div>

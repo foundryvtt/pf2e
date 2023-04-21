@@ -1,23 +1,9 @@
-import { EffectBadge } from "@item/abstract-effect";
-import {
-    BaseItemDataPF2e,
-    BaseItemSourcePF2e,
-    ItemFlagsPF2e,
-    ItemLevelData,
-    ItemSystemData,
-    ItemSystemSource,
-} from "@item/data/base";
-import { CheckRoll } from "@system/check";
-import { EffectPF2e } from ".";
+import { EffectAuraData, EffectBadge, EffectContextData, EffectTraits, TimeUnit } from "@item/abstract-effect/index.ts";
+import { BaseItemSourcePF2e, ItemFlagsPF2e, ItemSystemData, ItemSystemSource } from "@item/data/base.ts";
 
 type EffectSource = BaseItemSourcePF2e<"effect", EffectSystemSource> & {
     flags: DeepPartial<EffectFlags>;
 };
-
-type EffectData = Omit<EffectSource, "system" | "effects" | "flags"> &
-    BaseItemDataPF2e<EffectPF2e, "effect", EffectSystemData, EffectSource> & {
-        flags: EffectFlags;
-    };
 
 type EffectFlags = ItemFlagsPF2e & {
     pf2e: {
@@ -25,14 +11,16 @@ type EffectFlags = ItemFlagsPF2e & {
     };
 };
 
-interface EffectSystemSource extends ItemSystemSource, ItemLevelData {
+interface EffectSystemSource extends ItemSystemSource {
+    level: { value: number };
+    traits: EffectTraits;
     start: {
         value: number;
         initiative: number | null;
     };
     duration: {
         value: number;
-        unit: "rounds" | "minutes" | "hours" | "days" | "encounter" | "unlimited";
+        unit: TimeUnit | "unlimited" | "encounter";
         sustained: boolean;
         expiry: EffectExpiryType | null;
     };
@@ -48,29 +36,11 @@ interface EffectSystemSource extends ItemSystemSource, ItemLevelData {
     context: EffectContextData | null;
 }
 
-interface EffectSystemData extends EffectSystemSource, ItemSystemData {
+interface EffectSystemData extends EffectSystemSource, Omit<ItemSystemData, "level" | "traits"> {
     expired: boolean;
     remaining: string;
 }
 
 type EffectExpiryType = "turn-start" | "turn-end";
 
-interface EffectAuraData {
-    slug: string;
-    origin: ActorUUID | TokenDocumentUUID;
-    removeOnExit: boolean;
-}
-
-interface EffectContextData {
-    origin: {
-        actor: ActorUUID | TokenDocumentUUID;
-        token: TokenDocumentUUID | null;
-    };
-    target: {
-        actor: ActorUUID | TokenDocumentUUID;
-        token: TokenDocumentUUID | null;
-    } | null;
-    roll: Pick<CheckRoll, "total" | "degreeOfSuccess"> | null;
-}
-
-export { EffectData, EffectExpiryType, EffectFlags, EffectContextData, EffectSource, EffectSystemData };
+export { EffectExpiryType, EffectFlags, EffectSource, EffectSystemData };

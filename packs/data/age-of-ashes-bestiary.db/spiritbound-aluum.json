@@ -24,7 +24,7 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
                     "value": true
@@ -103,11 +103,6 @@
                 },
                 "tradition": {
                     "value": "arcane"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "spellcastingEntry"
@@ -126,13 +121,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -195,7 +184,7 @@
                 },
                 "slug": "bind-soul",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -216,7 +205,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "evil"
@@ -239,13 +227,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -270,10 +252,21 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "5": {
+                            "target": {
+                                "value": "1 specific object or type of object, or a specific creature or ancestry"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
-                    "value": 5
+                    "value": 3
                 },
                 "location": {
+                    "heightenedLevel": 5,
                     "value": "LePEQxJOrm3uEIPP"
                 },
                 "materials": {
@@ -304,7 +297,7 @@
                 },
                 "slug": "locate",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -326,7 +319,6 @@
                     ]
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "uncommon",
                     "value": [
                         "detection"
@@ -368,7 +360,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "magical"
@@ -412,7 +403,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -452,7 +442,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "selected": {},
                     "value": []
@@ -482,7 +471,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The spiritbound aluum has bound a soul using its <em>@UUID[Compendium.pf2e.spells-srd.Bind Soul]{Bind Soul}</em> innate spell</p>\n<hr />\n<p><strong>Effect</strong> The spiritbound aluum transforms the captured soul's essence into raw magical energy, channeling the spirit into a beam that deals [[/r {20d6}[force]]]{20d6 force damage} in a @Template[type:line|distance:30] (@Check[type:reflex|dc:38|basic:true] save). The remaining fragments of the captured soul are released to the Great Beyond.</p>\n<p>The spiritbound aluum can't use Obliteration Beam again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p><strong>Requirements</strong> The spiritbound aluum has bound a soul using its <em>@UUID[Compendium.pf2e.spells-srd.Bind Soul]{Bind Soul}</em> innate spell</p>\n<hr />\n<p><strong>Effect</strong> The spiritbound aluum transforms the captured soul's essence into raw magical energy, channeling the spirit into a beam that deals [[/r 20d6[force]]] damage in a @Template[type:line|distance:30] (@Check[type:reflex|dc:38|basic:true] save). The remaining fragments of the captured soul are released to the Great Beyond.</p>\n<p>The spiritbound aluum can't use Obliteration Beam again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -493,7 +482,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -532,12 +520,11 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "paralyzing-force",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -581,7 +568,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "selected": {},
                     "value": []
@@ -611,7 +597,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The aluum enforcer emits a keening wail in a @Template[type:cone|distance:15] that deals [[/r {16d6}[sonic]]]{16d6 sonic damage} (@Check[type:fortitude|dc:27|basic:true] save). A creature that fails its save is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}, or @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 3} on a critical failure.</p>\n<p>The aluum can't use Soul Shriek again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The aluum enforcer emits a keening wail in a @Template[type:cone|distance:15] that deals [[/r 16d6[sonic]]] damage (@Check[type:fortitude|dc:27|basic:true] save). A creature that fails its save is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}, or @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 3} on a critical failure.</p>\n<p>The aluum can't use Soul Shriek again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -622,7 +608,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "arcane",
@@ -678,12 +663,26 @@
                 "temp": 0,
                 "value": 255
             },
+            "immunities": [
+                {
+                    "type": "magic"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 28
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "adamantine"
+                    ],
+                    "type": "physical",
+                    "value": 15
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -730,33 +729,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "magic",
-                    "mental",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except Adamantine",
-                    "type": "physical",
-                    "value": 15
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

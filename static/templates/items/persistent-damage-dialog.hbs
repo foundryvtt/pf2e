@@ -1,0 +1,55 @@
+<form>
+    <h3>
+        {{localize "PF2E.ConditionTypePersistent"}}
+        {{#if existing}}
+            <a data-action="roll-persistent">
+                <i class="fas fa-dice-d20"></i> {{localize "PF2E.Item.Condition.PersistentDamage.RollDamage"}}
+            </a>
+        {{/if}}
+    </h3>
+
+    <section class="entries new">
+        <section class="persistent-entry">
+            <div class="input-fields">
+                <i class="fa-solid fa-dice-d6 fa-fw"></i>
+                <input type="text" class="formula" placeholder="1d6" />
+                {{> damageTypeSelect}}
+                <label>
+                    <span>DC</span>
+                    <input type="number" class="dc" placeholder="15" />
+                </label>
+            </div>
+            <a data-action="add" title="{{localize "PF2E.Item.Condition.PersistentDamage.Dialog.Add"}}"><i class="fa-solid fa-floppy-disk fa-fw"></i></a>
+        </section>
+    </section>
+
+    {{#if existing}}
+        <hr />
+        <section class="entries">
+            {{#each existing as |condition|}}
+                <section class="persistent-entry {{#unless condition.active}}inactive{{/unless}}" data-id="{{condition.id}}">
+                    <div class="input-fields">
+                        {{{condition.bullet}}}
+                        <input type="text" class="formula" value="{{condition.formula}}" />
+                        {{> damageTypeSelect selected=condition.damageType}}
+                        <label>
+                            <span>DC</span>
+                            <input type="number" class="dc" placeholder="15" value="{{condition.dc}}" />
+                        </label>
+                    </div>
+                    <a data-action="delete" title="{{localize "PF2E.Item.Condition.PersistentDamage.Dialog.Remove"}}"><i class="fa-solid fa-times fa-fw"></i></a>
+                </section>
+            {{/each}}
+        </section>
+    {{/if}}
+</form>
+
+{{~#*inline "damageTypeSelect"~}}
+    <select class="damageType">
+        {{#select selected}}
+            {{#each @root.damageTypes}}
+                <option value="{{type}}">{{label}}</option>
+            {{/each}}
+        {{/select}}
+    </select>
+{{~/inline~}}

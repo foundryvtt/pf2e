@@ -3,20 +3,15 @@
     "img": "systems/pf2e/icons/features/classes/gymnast-style.webp",
     "name": "Gymnast",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
         "actions": {
             "value": null
         },
+        "category": "classfeature",
         "description": {
             "value": "<p>You reposition, maneuver, and bewilder your foes with daring feats of physical prowess.</p>\n<p>You are trained in Athletics. You gain @UUID[Compendium.pf2e.classfeatures.Panache]{Panache} during an encounter whenever you successfully @UUID[Compendium.pf2e.actionspf2e.Grapple]{Grapple}, @UUID[Compendium.pf2e.actionspf2e.Shove]{Shove}, or @UUID[Compendium.pf2e.actionspf2e.Trip]{Trip} a foe.</p>"
-        },
-        "featType": {
-            "value": "classfeature"
         },
         "level": {
             "value": 1
@@ -49,13 +44,34 @@
                     "class:swashbuckler"
                 ],
                 "value": 1
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "or": [
+                            "action:grapple",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    },
+                    {
+                        "not": "self:effect:panache"
+                    }
+                ],
+                "selector": "athletics",
+                "text": "PF2E.SpecificRule.Swashbuckler.Panache",
+                "title": "{item|name}"
             }
         ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },
         "traits": {
-            "custom": "",
             "rarity": "common",
             "value": [
                 "swashbuckler"

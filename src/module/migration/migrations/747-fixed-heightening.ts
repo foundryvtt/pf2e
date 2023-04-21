@@ -1,8 +1,8 @@
 import { SpellPF2e } from "@item";
-import { ItemSourcePF2e, SpellSource } from "@item/data";
+import { ItemSourcePF2e, SpellSource } from "@item/data/index.ts";
 import { sluggify } from "@util";
-import { fromUUIDs } from "@util/from-uuids";
-import { MigrationBase } from "../base";
+import { UUIDUtils } from "@util/uuid-utils.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Handle spells gaining fixed level heightening */
 export class Migration747FixedHeightening extends MigrationBase {
@@ -25,7 +25,7 @@ export class Migration747FixedHeightening extends MigrationBase {
         }
     }
 
-    protected overwriteDamage(spell: SpellSource, newSpell: SpellPF2e) {
+    protected overwriteDamage(spell: SpellSource, newSpell: SpellPF2e): void {
         const newDamage = newSpell.system.damage;
         const newKeys = new Set(Object.keys(newDamage.value));
         const diff = Object.keys(spell.system.damage.value).filter((key) => !newKeys.has(key));
@@ -39,12 +39,12 @@ export class Migration747FixedHeightening extends MigrationBase {
     #loadedSpells?: Record<string, SpellPF2e | undefined>;
 
     // Ensure compendium is only hit if the migration runs, and only once
-    protected async loadSpells() {
+    protected async loadSpells(): Promise<Record<string, SpellPF2e | undefined>> {
         if (this.#loadedSpells) {
             return this.#loadedSpells;
         }
 
-        const spells = await fromUUIDs([...this.fixedHeightenSpells]);
+        const spells = await UUIDUtils.fromUUIDs([...this.fixedHeightenSpells]);
         this.#loadedSpells = spells.reduce((record, spell) => ({ ...record, [spell.uuid]: spell }), {});
         return this.#loadedSpells;
     }

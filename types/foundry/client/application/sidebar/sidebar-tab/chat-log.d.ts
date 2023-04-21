@@ -122,7 +122,21 @@ declare class ChatLog<TChatMessage extends ChatMessage = ChatMessage> extends Si
      * @param message The original string of the message content
      * @return A Promise resolving to the prepared chat data object
      */
-    protected processMessage(message: string): Promise<foundry.data.ChatMessageData>;
+    protected processMessage(message: string): Promise<foundry.documents.ChatMessageSource>;
+
+    /**
+     * Process messages which are posted using a dice-roll command
+     * @param command       The chat command type
+     * @param matches       Multi-line matched roll expressions
+     * @param chatData      The initial chat data
+     * @param createOptions Options used to create the message
+     */
+    protected _processDiceCommand(
+        command: string,
+        matches: RegExpMatchArray[],
+        chatData: DeepPartial<foundry.documents.ChatMessageSource>,
+        createOptions: ChatMessageModificationContext
+    ): Promise<void>;
 
     /**
      * Get the ChatLog entry context options

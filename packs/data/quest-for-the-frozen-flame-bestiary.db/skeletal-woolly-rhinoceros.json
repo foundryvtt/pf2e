@@ -27,25 +27,12 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "diceNumber": 1,
-                        "key": "DamageDice",
-                        "override": {
-                            "dieSize": "d12"
-                        },
-                        "selector": "{item|_id}-damage",
-                        "traits": [
-                            "rhinoceros-charge"
-                        ]
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "reach-10"
@@ -88,7 +75,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -130,7 +116,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -182,7 +167,6 @@
                     "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -211,7 +195,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The rhino Strides twice, then makes a horn Strike. As long as the rhino moved at least 20 feet, the Strike's damage increases to 3d12+5. A Medium or smaller creature struck by this attack must succeed at a @Check[type:reflex|dc:22] save or be automatically Shoved back 5 feet and knocked @UUID[Compendium.pf2e.conditionitems.Prone]{Prone} by the force of the blow.</p>"
+                    "value": "<p>The rhino Strides twice, then makes a horn Strike. As long as the rhino moved at least 20 feet, the Strike's damage increases to [[/r (3d12+5)[piercing]]]. A Medium or smaller creature struck by this attack must succeed at a @Check[type:reflex|dc:22] save or be automatically Shoved back 5 feet and knocked @UUID[Compendium.pf2e.conditionitems.Prone]{Prone} by the force of the blow.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -220,8 +204,19 @@
                     {
                         "domain": "damage-roll",
                         "key": "RollOption",
-                        "option": "rino-charge",
+                        "option": "rhinoceros-charge",
                         "toggleable": true
+                    },
+                    {
+                        "diceNumber": 1,
+                        "key": "DamageDice",
+                        "override": {
+                            "dieSize": "d12"
+                        },
+                        "predicate": [
+                            "rhinoceros-charge"
+                        ],
+                        "selector": "horn-damage"
                     }
                 ],
                 "slug": null,
@@ -229,7 +224,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -271,7 +265,6 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "",
                     "rarity": "common",
                     "value": []
                 },
@@ -303,11 +296,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -358,12 +346,51 @@
                 "temp": 0,
                 "value": 75
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 9
             },
+            "resistances": [
+                {
+                    "type": "cold",
+                    "value": 5
+                },
+                {
+                    "type": "electricity",
+                    "value": 5
+                },
+                {
+                    "type": "fire",
+                    "value": 5
+                },
+                {
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "special": "",
@@ -401,41 +428,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "mental",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "cold",
-                    "value": 5
-                },
-                {
-                    "type": "electricity",
-                    "value": 5
-                },
-                {
-                    "type": "fire",
-                    "value": 5
-                },
-                {
-                    "type": "piercing",
-                    "value": 5
-                },
-                {
-                    "type": "slashing",
-                    "value": 5
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

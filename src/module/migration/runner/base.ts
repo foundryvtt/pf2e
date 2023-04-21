@@ -1,11 +1,12 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemSourcePF2e } from "@item/data";
-import { DocumentSchemaRecord } from "@module/data";
-import { MigrationBase } from "@module/migration/base";
-import { TokenDocumentPF2e } from "@module/scene/token-document";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { DocumentSchemaRecord } from "@module/data.ts";
+import { MigrationBase } from "@module/migration/base.ts";
+import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
+import { ScenePF2e } from "@scene/document.ts";
 import { DateTime } from "luxon";
 
-interface CollectionDiff<T extends foundry.data.ActiveEffectSource | ItemSourcePF2e> {
+interface CollectionDiff<T extends foundry.documents.ActiveEffectSource | ItemSourcePF2e> {
     inserted: T[];
     deleted: string[];
     updated: T[];
@@ -14,7 +15,7 @@ interface CollectionDiff<T extends foundry.data.ActiveEffectSource | ItemSourceP
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.8;
+    static LATEST_SCHEMA_VERSION = 0.836;
 
     static MINIMUM_SAFE_VERSION = 0.618;
 
@@ -28,13 +29,13 @@ export class MigrationRunnerBase {
         return currentVersion < (this.constructor as typeof MigrationRunnerBase).LATEST_SCHEMA_VERSION;
     }
 
-    diffCollection<T extends foundry.data.ActiveEffectSource>(orig: T[], updated: T[]): CollectionDiff<T>;
+    diffCollection<T extends foundry.documents.ActiveEffectSource>(orig: T[], updated: T[]): CollectionDiff<T>;
     diffCollection<T extends ItemSourcePF2e>(orig: T[], updated: T[]): CollectionDiff<T>;
-    diffCollection<T extends foundry.data.ActiveEffectSource | ItemSourcePF2e>(
+    diffCollection<T extends foundry.documents.ActiveEffectSource | ItemSourcePF2e>(
         orig: T[],
         updated: T[]
     ): CollectionDiff<T>;
-    diffCollection<TSource extends foundry.data.ActiveEffectSource | ItemSourcePF2e>(
+    diffCollection<TSource extends foundry.documents.ActiveEffectSource | ItemSourcePF2e>(
         orig: TSource[],
         updated: TSource[]
     ): CollectionDiff<TSource> {
@@ -132,42 +133,10 @@ export class MigrationRunnerBase {
         return current;
     }
 
-    private updateSchemaRecord(schema: DocumentSchemaRecord, latestMigration: MigrationBase): void {
-        if (!("game" in globalThis && latestMigration)) return;
-
-        const fromVersion = typeof schema.version === "number" ? schema.version : null;
-        schema.version = latestMigration.version;
-        schema.lastMigration = {
-            datetime: DateTime.now().toISO(),
-            version: {
-                schema: fromVersion,
-                foundry: "game" in globalThis ? game.version : undefined,
-                system: "game" in globalThis ? game.system.version : undefined,
-            },
-        };
-    }
-
-    async getUpdatedMacro(
-        macroSource: foundry.data.MacroSource,
-        migrations: MigrationBase[]
-    ): Promise<foundry.data.MacroSource> {
-        const current = deepClone(macroSource);
-
-        for (const migration of migrations) {
-            try {
-                await migration.updateMacro?.(current);
-            } catch (err) {
-                console.error(err);
-            }
-        }
-
-        return current;
-    }
-
     async getUpdatedTable(
-        tableSource: foundry.data.RollTableSource,
+        tableSource: foundry.documents.RollTableSource,
         migrations: MigrationBase[]
-    ): Promise<foundry.data.RollTableSource> {
+    ): Promise<foundry.documents.RollTableSource> {
         const current = deepClone(tableSource);
 
         for (const migration of migrations) {
@@ -181,7 +150,44 @@ export class MigrationRunnerBase {
         return current;
     }
 
-    async getUpdatedToken(token: TokenDocumentPF2e, migrations: MigrationBase[]): Promise<foundry.data.TokenSource> {
+    async getUpdatedMacro(
+        macroSource: foundry.documents.MacroSource,
+        migrations: MigrationBase[]
+    ): Promise<foundry.documents.MacroSource> {
+        const current = deepClone(macroSource);
+
+        for (const migration of migrations) {
+            try {
+                await migration.updateMacro?.(current);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        return current;
+    }
+
+    async getUpdatedJournalEntry(
+        source: foundry.documents.JournalEntrySource,
+        migrations: MigrationBase[]
+    ): Promise<foundry.documents.JournalEntrySource> {
+        const clone = deepClone(source);
+
+        for (const migration of migrations) {
+            try {
+                await migration.updateJournalEntry?.(clone);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        return clone;
+    }
+
+    async getUpdatedToken(
+        token: TokenDocumentPF2e<ScenePF2e>,
+        migrations: MigrationBase[]
+    ): Promise<foundry.documents.TokenSource> {
         const current = token.toObject();
         for (const migration of migrations) {
             await migration.updateToken?.(current, token.actor, token.scene);
@@ -191,9 +197,9 @@ export class MigrationRunnerBase {
     }
 
     async getUpdatedUser(
-        userData: foundry.data.UserSource,
+        userData: foundry.documents.UserSource,
         migrations: MigrationBase[]
-    ): Promise<foundry.data.UserSource> {
+    ): Promise<foundry.documents.UserSource> {
         const current = deepClone(userData);
         for (const migration of migrations) {
             try {
@@ -204,5 +210,20 @@ export class MigrationRunnerBase {
         }
 
         return current;
+    }
+
+    private updateSchemaRecord(schema: DocumentSchemaRecord, latestMigration: MigrationBase): void {
+        if (!("game" in globalThis && latestMigration)) return;
+
+        const fromVersion = typeof schema.version === "number" ? schema.version : null;
+        schema.version = latestMigration.version;
+        schema.lastMigration = {
+            datetime: DateTime.now().toISO(),
+            version: {
+                schema: fromVersion,
+                foundry: "game" in globalThis ? game.version : undefined,
+                system: "game" in globalThis ? game.system.version : undefined,
+            },
+        };
     }
 }
