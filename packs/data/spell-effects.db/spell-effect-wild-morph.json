@@ -123,7 +123,7 @@
                         "value": "wings"
                     }
                 ],
-                "flag": "spellEffectWildMorph2",
+                "flag": "spellEffectWildMorphTwo",
                 "key": "ChoiceSet",
                 "predicate": [
                     {
@@ -178,8 +178,8 @@
                         ]
                     }
                 ],
-                "prompt": "PF2E.SpecificRule.WildMorph.Prompt2",
-                "rollOption": "wild-morph2"
+                "prompt": "PF2E.SpecificRule.WildMorph.PromptTwo",
+                "rollOption": "wild-morph"
             },
             {
                 "allowNoSelection": true,
@@ -190,10 +190,7 @@
                         "predicate": [
                             "feat:wild-shape",
                             {
-                                "nor": [
-                                    "wild-morph:wild-claws",
-                                    "wild-morph2:wild-claws"
-                                ]
+                                "not": "wild-morph:wild-claws"
                             }
                         ],
                         "value": "wild-claws"
@@ -204,10 +201,7 @@
                         "predicate": [
                             "feat:insect-shape",
                             {
-                                "nor": [
-                                    "wild-morph:wild-jaws",
-                                    "wild-morph2:wild-jaws"
-                                ]
+                                "not": "wild-morph:wild-jaws"
                             }
                         ],
                         "value": "wild-jaws"
@@ -218,10 +212,7 @@
                         "predicate": [
                             "feat:elemental-shape",
                             {
-                                "nor": [
-                                    "wild-morph:elemental-matter",
-                                    "wild-morph2:elemental-matter"
-                                ]
+                                "not": "wild-morph:elemental-matter"
                             }
                         ],
                         "value": "elemental-matter"
@@ -232,10 +223,7 @@
                         "predicate": [
                             "feat:plant-shape",
                             {
-                                "nor": [
-                                    "wild-morph:long-vines",
-                                    "wild-morph2:long-vines"
-                                ]
+                                "not": "wild-morph:long-vines"
                             }
                         ],
                         "value": "long-vines"
@@ -246,16 +234,13 @@
                         "predicate": [
                             "feat:soaring-shape",
                             {
-                                "nor": [
-                                    "wild-morph:wings",
-                                    "wild-morph2:wings"
-                                ]
+                                "not": "wild-morph:wings"
                             }
                         ],
                         "value": "wings"
                     }
                 ],
-                "flag": "spellEffectWildMorph3",
+                "flag": "spellEffectWildMorphThree",
                 "key": "ChoiceSet",
                 "predicate": [
                     {
@@ -270,10 +255,7 @@
                                 "and": [
                                     "feat:wild-shape",
                                     {
-                                        "nor": [
-                                            "wild-morph:wild-claws",
-                                            "wild-morph2:wild-claws"
-                                        ]
+                                        "not": "wild-morph:wild-claws"
                                     }
                                 ]
                             },
@@ -281,10 +263,7 @@
                                 "and": [
                                     "feat:insect-shape",
                                     {
-                                        "nor": [
-                                            "wild-morph:wild-jaws",
-                                            "wild-morph2:wild-jaws"
-                                        ]
+                                        "not": "wild-morph:wild-jaws"
                                     }
                                 ]
                             },
@@ -292,10 +271,7 @@
                                 "and": [
                                     "feat:elemental-shape",
                                     {
-                                        "nor": [
-                                            "wild-morph:elemental-matter",
-                                            "wild-morph2:elemental-matter"
-                                        ]
+                                        "not": "wild-morph:elemental-matter"
                                     }
                                 ]
                             },
@@ -303,10 +279,7 @@
                                 "and": [
                                     "feat:plant-shape",
                                     {
-                                        "nor": [
-                                            "wild-morph:long-vines",
-                                            "wild-morph2:long-vines"
-                                        ]
+                                        "not": "wild-morph:long-vines"
                                     }
                                 ]
                             },
@@ -315,18 +288,15 @@
                                 "and": [
                                     "feat:soaring-shape",
                                     {
-                                        "nor": [
-                                            "wild-morph:wings",
-                                            "wild-morph2:wings"
-                                        ]
+                                        "not": "wild-morph:wings"
                                     }
                                 ]
                             }
                         ]
                     }
                 ],
-                "prompt": "PF2E.SpecificRule.WildMorph.Prompt3",
-                "rollOption": "wild-morph3"
+                "prompt": "PF2E.SpecificRule.WildMorph.PromptThree",
+                "rollOption": "wild-morph"
             },
             {
                 "baseType": "claw",
@@ -342,13 +312,7 @@
                 "key": "Strike",
                 "label": "PF2E.Weapon.Base.claw",
                 "predicate": [
-                    {
-                        "or": [
-                            "wild-morph:wild-claws",
-                            "wild-morph2:wild-claws",
-                            "wild-morph3:wild-claws"
-                        ]
-                    }
+                    "wild-morph:wild-claws"
                 ],
                 "range": null,
                 "slug": "claw",
@@ -372,13 +336,7 @@
                 "key": "Strike",
                 "label": "PF2E.Weapon.Base.jaws",
                 "predicate": [
-                    {
-                        "or": [
-                            "wild-morph:wild-jaws",
-                            "wild-morph2:wild-jaws",
-                            "wild-morph3:wild-jaws"
-                        ]
-                    }
+                    "wild-morph:wild-jaws"
                 ],
                 "range": null,
                 "slug": "jaws",
@@ -389,13 +347,7 @@
             {
                 "key": "Resistance",
                 "predicate": [
-                    {
-                        "or": [
-                            "wild-morph:elemental-matter",
-                            "wild-morph2:elemental-matter",
-                            "wild-morph3:elemental-matter"
-                        ]
-                    }
+                    "wild-morph:elemental-matter"
                 ],
                 "type": [
                     "critical-hits",
@@ -408,27 +360,14 @@
                 "mode": "upgrade",
                 "path": "system.attributes.reach.general",
                 "predicate": [
-                    {
-                        "or": [
-                            "wild-morph:long-vines",
-                            "wild-morph2:long-vines",
-                            "wild-morph3:long-vines"
-                        ]
-                    }
+                    "wild-morph:long-vines"
                 ],
                 "value": 10
             },
             {
                 "key": "BaseSpeed",
                 "predicate": [
-                    {
-                        "or": [
-                            "wild-morph:wings",
-                            "wild-morph2:wings",
-                            "wild-morph3:wings"
-                        ]
-                    }
-                    
+                    "wild-morph:wings"
                 ],
                 "selector": "fly",
                 "value": 30
