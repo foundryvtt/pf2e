@@ -2,7 +2,6 @@ import { ModifierPF2e, MODIFIER_TYPES, StatisticModifier } from "@actor/modifier
 import { RollSubstitution } from "@module/rules/synthetics.ts";
 import { ErrorPF2e, htmlQuery, htmlQueryAll, setHasElement, tupleHasValue } from "@util";
 import { CheckRollContext } from "./types.ts";
-import { LocalizePF2e } from "../localize.ts";
 import { RollTwiceOption } from "../rolls.ts";
 
 /**
@@ -176,9 +175,8 @@ export class CheckModifiersDialog extends Application {
 
     protected override _getHeaderButtons(): ApplicationHeaderButton[] {
         const buttons = super._getHeaderButtons();
-        const label = LocalizePF2e.translations.PF2E.SETTINGS.Settings;
         const settingsButton: ApplicationHeaderButton = {
-            label,
+            label: game.i18n.localize("PF2E.SETTINGS.Settings"),
             class: `settings`,
             icon: "fas fa-cog",
             onclick: () => null,

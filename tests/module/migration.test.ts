@@ -17,7 +17,6 @@ import armorJSON from "../../packs/data/equipment.db/scale-mail.json";
 import { ArmorSource, ItemSourcePF2e } from "@item/data/index.ts";
 import { FoundryUtils } from "tests/utils.ts";
 import { MockActors, MockCollection, MockItems, MockWorldCollection } from "tests/mocks/collection.ts";
-import { LocalizePF2e } from "@system/localize.ts";
 import { MockJournalEntry } from "tests/mocks/journal-entry.ts";
 
 const characterData = FoundryUtils.duplicate(characterJSON) as unknown as CharacterSource;
@@ -31,8 +30,6 @@ for (const item of characterData.items) {
 const armorData = FoundryUtils.duplicate(armorJSON) as unknown as ArmorSource;
 armorData.effects = [];
 armorData.system.schema = { version: 0, lastMigration: null };
-
-LocalizePF2e.ready = true;
 
 describe("test migration runner", () => {
     populateFoundryUtilFunctions();

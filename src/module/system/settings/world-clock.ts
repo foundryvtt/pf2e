@@ -1,5 +1,5 @@
+import { localizer } from "@util";
 import { DateTime } from "luxon";
-import { LocalizePF2e } from "@system/localize.ts";
 
 type SettingsKey =
     | "dateTheme"
@@ -105,8 +105,8 @@ export class WorldClockSettings extends FormApplication {
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
-        const translations = LocalizePF2e.translations.PF2E.SETTINGS.WorldClock;
-        const title = translations.ResetWorldTime.Name;
+        const localize = localizer("PF2E.SETTINGS.WorldClock");
+        const title = localize("ResetWorldTime.Name");
         $html.find("button.reset-world-time").on("click", async () => {
             const template = await renderTemplate(
                 "systems/pf2e/templates/system/settings/world-clock/confirm-reset.hbs"
@@ -124,10 +124,10 @@ export class WorldClockSettings extends FormApplication {
 
         $html.find<HTMLInputElement>('input[name="syncDarkness"]').on("change", (event) => {
             const worldDefault = $(event.currentTarget)[0].checked
-                ? translations.SyncDarknessScene.Enabled
-                : translations.SyncDarknessScene.Disabled;
+                ? localize("SyncDarknessScene.Enabled")
+                : localize("SyncDarknessScene.Disabled");
             const optionSelector = 'select[name="syncDarknessScene"] > option[value="default"]';
-            $html.find(optionSelector).text(game.i18n.format(translations.SyncDarknessScene.Default, { worldDefault }));
+            $html.find(optionSelector).text(localize("SyncDarknessScene.Default", { worldDefault }));
         });
     }
 

@@ -1,7 +1,6 @@
 import { ItemSheetPF2e } from "@item/sheet/base.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunner } from "@module/migration/runner/index.ts";
-import { LocalizePF2e } from "@system/localize.ts";
 import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr.ts";
 import { DamageType } from "@system/damage/types.ts";
 import {
@@ -11,7 +10,17 @@ import {
     ENERGY_DAMAGE_TYPES,
     PHYSICAL_DAMAGE_TYPES,
 } from "@system/damage/values.ts";
-import { htmlClosest, htmlQuery, htmlQueryAll, isObject, objectHasKey, pick, sluggify, tupleHasValue } from "@util";
+import {
+    htmlClosest,
+    htmlQuery,
+    htmlQueryAll,
+    isObject,
+    localizer,
+    objectHasKey,
+    pick,
+    sluggify,
+    tupleHasValue,
+} from "@util";
 import Tagify from "@yaireo/tagify";
 import { PartialSettingsData, SettingsMenuPF2e, settingsToSheetData } from "../menu.ts";
 import {
@@ -83,11 +92,11 @@ class HomebrewElements extends SettingsMenuPF2e {
                 editTags: 1,
                 hooks: {
                     beforeRemoveTag: (tags): Promise<void> => {
-                        const translations = LocalizePF2e.translations.PF2E.SETTINGS.Homebrew.ConfirmDelete;
+                        const localize = localizer("PF2E.SETTINGS.Homebrew.ConfirmDelete");
                         const response: Promise<unknown> = (async () => {
-                            const content = game.i18n.format(translations.Message, { element: tags[0].data.value });
+                            const content = localize("Message", { element: tags[0].data.value });
                             return await Dialog.confirm({
-                                title: translations.Title,
+                                title: localize("Title"),
                                 content: `<p>${content}</p>`,
                             });
                         })();
@@ -185,9 +194,8 @@ class HomebrewElements extends SettingsMenuPF2e {
         const newIDList = newTagList.map((tag) => tag.id);
         const deletions: string[] = oldTagList.flatMap((oldTag) => (newIDList.includes(oldTag.id) ? [] : oldTag.id));
 
-        // The base-weapons map only exists in the localization file
         const coreElements: Record<string, string> =
-            listKey === "baseWeapons" ? LocalizePF2e.translations.PF2E.Weapon.Base : CONFIG.PF2E[listKey];
+            listKey === "baseWeapons" ? CONFIG.PF2E.baseWeaponTypes : CONFIG.PF2E[listKey];
         for (const id of deletions) {
             delete coreElements[id];
             if (objectHasKey(SECONDARY_TRAIT_RECORDS, listKey)) {
