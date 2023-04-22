@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, groupBy, sortBy, sum } from "@util";
 
 /**
  * @category Other
@@ -200,23 +200,52 @@ function combineTerms(formula: string): string {
 
     const fixedFormula = formula.replace(/^\s*-\s+/, "-").replace(/\s*\+\s*-\s*/g, " - ");
     const roll = new Roll(fixedFormula);
-    if (!roll.terms.every((t) => t.expression === " + " || t instanceof Die || t instanceof NumericTerm)) {
+    if (
+        !roll.terms.every((t) => [" - ", " + "].includes(t.expression) || t instanceof Die || t instanceof NumericTerm)
+    ) {
         // This isn't a simple summing of dice: return the roll without further changes
         return fixedFormula;
     }
 
-    const dice = roll.terms.filter((term): term is Die => term instanceof Die);
-    const diceByFaces = dice.reduce((counts: Record<number, number>, die) => {
-        counts[die.faces] = (counts[die.faces] ?? 0) + die.number;
-        return counts;
-    }, {});
-    const stringTerms = [4, 6, 8, 10, 12, 20].reduce((terms: string[], faces) => {
-        return typeof diceByFaces[faces] === "number" ? [...terms, `${diceByFaces[faces]}d${faces}`] : terms;
-    }, []);
-    const numericTerms = roll.terms.filter((term): term is NumericTerm => term instanceof NumericTerm);
-    const constant = numericTerms.reduce((runningTotal, term) => runningTotal + term.number, 0);
+    // Parse from right to left so that when we hit an operator, we already have the term.
+    const convertedTerms = roll.terms.reduceRight((result, term) => {
+        // Ignore + terms, we assume + by default
+        if (term.expression === " + ") return result;
 
-    return new Roll([...stringTerms, constant].filter((term) => term !== 0).join("+")).formula;
+        // - terms modify the last term we parsed
+        if (term.expression === " - ") {
+            const termToModify = result[0];
+            if (termToModify) {
+                if (termToModify.modifier) termToModify.modifier *= -1;
+                if (termToModify.diceNumber) termToModify.diceNumber *= -1;
+            }
+            return result;
+        }
+
+        result.unshift({
+            modifier: term instanceof NumericTerm ? term.number : 0,
+            diceFaces: term instanceof Die ? term.faces : 0,
+            diceNumber: term instanceof Die ? term.number : 0,
+        });
+
+        return result;
+    }, <ParsedTerm[]>[]);
+
+    const diceTerms = convertedTerms.filter((t) => t.diceNumber !== 0).sort(sortBy((t) => -t.diceFaces));
+    const byFace = [...groupBy(diceTerms, (t) => t.diceFaces).values()];
+    const diceCombined = byFace.map((dice) => ({ ...dice[0], diceNumber: sum(dice.map((d) => d.diceNumber)) }));
+    const diceStringTerms = diceCombined.filter((t) => t.diceNumber > 0).map((t) => `${t.diceNumber}d${t.diceFaces}`);
+
+    const diceFormula = diceStringTerms.join(" + ");
+    const constant = sum(convertedTerms.map((t) => t.modifier));
+    const operator = constant < 0 ? " - " : " + ";
+    return [diceFormula, Math.abs(constant)].filter((part) => part !== "" && part !== 0).join(operator);
+}
+
+interface ParsedTerm {
+    modifier: number;
+    diceNumber: number;
+    diceFaces: number;
 }
 
 export { DicePF2e, combineTerms };
