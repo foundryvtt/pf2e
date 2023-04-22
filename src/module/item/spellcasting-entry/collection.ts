@@ -327,14 +327,16 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
     async #getRitualData(): Promise<SpellCollectionData> {
         const groupedByLevel = groupBy(Array.from(this.values()), (s) => s.level);
         const levels = await Promise.all(
-            Array.from(groupedByLevel.entries()).map(
-                async ([level, spells]): Promise<SpellcastingSlotLevel> => ({
-                    label: CONFIG.PF2E.spellLevels[level as OneToTen],
-                    level: level as ZeroToTen,
-                    isCantrip: false,
-                    active: await Promise.all(spells.map(async (spell) => ({ spell }))),
-                })
-            )
+            Array.from(groupedByLevel.entries())
+                .sort(([a], [b]) => a - b)
+                .map(
+                    async ([level, spells]): Promise<SpellcastingSlotLevel> => ({
+                        label: CONFIG.PF2E.spellLevels[level as OneToTen],
+                        level: level as ZeroToTen,
+                        isCantrip: false,
+                        active: await Promise.all(spells.map(async (spell) => ({ spell }))),
+                    })
+                )
         );
 
         return { levels, spellPrepList: null };
