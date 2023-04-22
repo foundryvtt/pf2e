@@ -581,7 +581,7 @@ interface DamageRollDataPF2e extends RollDataPF2e, AbstractDamageRollData {
     /** Data used to construct the damage formula and options */
     damage?: DamageTemplate;
     result?: DamageRollFlag;
-    degreeOfSuccess?: DegreeOfSuccessIndex;
+    degreeOfSuccess?: DegreeOfSuccessIndex | null;
     /** If the total was increased to 1, the original total */
     increasedFrom?: number;
     /** Whether this roll is the splash damage from another roll */
