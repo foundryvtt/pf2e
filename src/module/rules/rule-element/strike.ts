@@ -172,7 +172,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             this.fist = true;
             this.replaceAll = false;
             this.replaceBasicUnarmed = false;
-            this.predicate = new PredicatePF2e([...this.predicate, { gt: ["hands-free", 0] }]);
+            this.predicate = new PredicatePF2e([...(this._source.predicate ?? []), { gt: ["hands-free", 0] }]);
         } else {
             super._initialize(options);
         }
