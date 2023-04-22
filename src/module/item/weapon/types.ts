@@ -1,5 +1,4 @@
 import { PreciousMaterialType } from "@item/physical/types.ts";
-import { LocalizePF2e } from "@system/localize.ts";
 import {
     MELEE_WEAPON_GROUPS,
     WEAPON_CATEGORIES,
@@ -14,7 +13,7 @@ type WeaponCategory = SetElement<typeof WEAPON_CATEGORIES>;
 type MeleeWeaponGroup = SetElement<typeof MELEE_WEAPON_GROUPS>;
 
 type WeaponGroup = SetElement<typeof WEAPON_GROUPS>;
-type BaseWeaponType = keyof typeof LocalizePF2e.translations.PF2E.Weapon.Base;
+type BaseWeaponType = keyof ConfigPF2e["PF2E"]["baseWeaponTypes"];
 
 type WeaponTrait = keyof ConfigPF2e["PF2E"]["weaponTraits"];
 type OtherWeaponTag = "crossbow" | "improvised" | "shoddy";

@@ -1,4 +1,3 @@
-import { LocalizePF2e } from "@system/localize.ts";
 import { registerSheets } from "../register-sheets.ts";
 import { HomebrewElements } from "@system/settings/homebrew/menu.ts";
 import { SetGamePF2e } from "@scripts/set-game-pf2e.ts";
@@ -7,8 +6,6 @@ import { SetGamePF2e } from "@scripts/set-game-pf2e.ts";
 export const Setup = {
     listen: (): void => {
         Hooks.once("setup", () => {
-            LocalizePF2e.ready = true;
-
             // Register actor and item sheets
             registerSheets();
 

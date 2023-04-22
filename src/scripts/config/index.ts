@@ -32,17 +32,12 @@ import { DeityDomain } from "@item/deity/types.ts";
 import { FeatCategory } from "@item/feat/index.ts";
 import { WEAPON_PROPERTY_RUNES } from "@item/physical/runes.ts";
 import { PreciousMaterialGrade } from "@item/physical/types.ts";
-import {
-    BaseWeaponType,
-    MeleeWeaponGroup,
-    WeaponGroup,
-    WeaponPropertyRuneType,
-    WeaponReloadTime,
-} from "@item/weapon/types.ts";
+import { MeleeWeaponGroup, WeaponGroup, WeaponPropertyRuneType, WeaponReloadTime } from "@item/weapon/types.ts";
 import { Size } from "@module/data.ts";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet.ts";
 import { configFromLocalization, sluggify } from "@util";
-import enJSON from "../../../static/lang/en.json";
+import enJSON from "static/lang/en.json";
+import reEnJSON from "static/lang/re-en.json";
 import { damageCategories, damageRollFlavors, damageTypes, materialDamageEffects } from "./damage.ts";
 import { immunityTypes, resistanceTypes, weaknessTypes } from "./iwr.ts";
 import {
@@ -70,7 +65,6 @@ import {
     vehicleTraits,
     weaponTraits,
 } from "./traits.ts";
-import { BaseArmorType } from "@item/armor/types.ts";
 
 export type StatusEffectIconTheme = "default" | "blackWhite";
 
@@ -174,7 +168,7 @@ const baseArmorTypes = Object.keys(enJSON.PF2E.Item.Armor.Base).reduce(
         ...map,
         [slug]: `PF2E.Weapon.Base.${slug}`,
     }),
-    {} as Record<BaseArmorType, string>
+    {} as Record<keyof typeof enJSON.PF2E.Item.Armor.Base, string>
 );
 
 const baseWeaponTypes = Object.keys(enJSON.PF2E.Weapon.Base).reduce(
@@ -182,7 +176,7 @@ const baseWeaponTypes = Object.keys(enJSON.PF2E.Weapon.Base).reduce(
         ...map,
         [slug]: `PF2E.Weapon.Base.${slug}`,
     }),
-    {} as Record<BaseWeaponType, string>
+    {} as Record<keyof typeof enJSON.PF2E.Weapon.Base, string>
 );
 
 /** Base weapon types that are considered equivalent for all rules purposes */
@@ -765,6 +759,8 @@ export const PF2ECONFIG = {
         "incredibly-hard": "PF2E.DCAdjustmentIncrediblyHard",
     },
 
+    checkDCs: configFromLocalization(enJSON.PF2E.Check.DC, "PF2E.Check.DC"),
+
     skills: {
         acr: "PF2E.SkillAcr",
         arc: "PF2E.SkillArc",
@@ -1177,6 +1173,15 @@ export const PF2ECONFIG = {
         tool: "PF2E.ConsumableTypeTool",
         wand: "PF2E.ConsumableTypeWand",
     },
+
+    identification: configFromLocalization(enJSON.PF2E.identification, "PF2E.identification"),
+
+    weaponGeneratedNames: configFromLocalization(
+        enJSON.PF2E.Item.Weapon.GeneratedName,
+        "PF2E.Item.Weapon.GeneratedName"
+    ),
+
+    ruleElement: configFromLocalization(reEnJSON.PF2E.RuleElement, "PF2E.RuleElement"),
 
     preparationType: {
         prepared: "PF2E.PreparationTypePrepared",

@@ -3,7 +3,6 @@ import { ActorType } from "@actor/data/index.ts";
 import { ItemPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import { LocalizePF2e } from "@system/localize.ts";
 import { localizeList, objectHasKey, tupleHasValue } from "@util";
 import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
 
@@ -70,10 +69,10 @@ class FastHealingRuleElement extends RuleElementPF2e implements FastHealingData 
         }
 
         const roll = (await new DamageRoll(`${value}`).evaluate({ async: true })).toJSON();
-        const { ReceivedMessage } = LocalizePF2e.translations.PF2E.Encounter.Broadcast.FastHealing[this.type];
+        const receivedMessage = game.i18n.localize(`PF2E.Encounter.Broadcast.FastHealing.${this.type}.ReceivedMessage`);
         const details = this.details;
         const postFlavor = details ? `<div data-visibility="owner">${details}</div>` : "";
-        const flavor = `<div>${ReceivedMessage}</div>${postFlavor}`;
+        const flavor = `<div>${receivedMessage}</div>${postFlavor}`;
         const rollMode = this.actor.hasPlayerOwner ? "publicroll" : "gmroll";
         const speaker = ChatMessagePF2e.getSpeaker({ actor: this.actor, token: this.token });
         ChatMessagePF2e.create({ flavor, speaker, type: CONST.CHAT_MESSAGE_TYPES.ROLL, rolls: [roll] }, { rollMode });

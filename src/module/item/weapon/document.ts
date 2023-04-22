@@ -21,7 +21,6 @@ import { MAGIC_SCHOOLS, MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { OneToThree } from "@module/data.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
-import { LocalizePF2e } from "@system/localize.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify } from "@util";
 import type { WeaponDamage, WeaponFlags, WeaponMaterialData, WeaponSource, WeaponSystemData } from "./data.ts";
 import type {
@@ -480,7 +479,6 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     /** Generate a weapon name base on precious-material composition and runes */
     generateMagicName(): string {
-        const translations = LocalizePF2e.translations.PF2E;
         const baseWeapons = CONFIG.PF2E.baseWeaponTypes;
 
         const storedName = this._source.name;
@@ -506,7 +504,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             property3: runes.property[2] && game.i18n.localize(CONFIG.PF2E.weaponPropertyRunes[runes.property[2]]),
             property4: runes.property[3] && game.i18n.localize(CONFIG.PF2E.weaponPropertyRunes[runes.property[3]]),
         };
-        const formatStrings = translations.Item.Weapon.GeneratedName;
+        const formatStrings = CONFIG.PF2E.weaponGeneratedNames;
         // Construct a localization key from the weapon material and runes
         const formatString = (() => {
             const potency = params.potency && "Potency";
@@ -524,7 +522,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             const key = ([potency, striking, properties, material]
                 .filter((keyPart): keyPart is string => !!keyPart)
                 .join("") || null) as keyof typeof formatStrings | null;
-            return key && formatStrings[key];
+            return key && game.i18n.localize(formatStrings[key]);
         })();
 
         return formatString ? game.i18n.format(formatString, params) : this.name;
@@ -537,16 +535,14 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     }
 
     override generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
-        const translations = LocalizePF2e.translations.PF2E;
-        const base = this.baseType ? translations.Weapon.Base[this.baseType] : null;
+        const base = this.baseType ? CONFIG.PF2E.baseWeaponTypes[this.baseType] : null;
         const group = this.group ? CONFIG.PF2E.weaponGroups[this.group] : null;
         const fallback = "ITEM.TypeWeapon";
         const itemType = game.i18n.localize(base ?? group ?? fallback);
 
         if (typeOnly) return itemType;
 
-        const formatString = LocalizePF2e.translations.PF2E.identification.UnidentifiedItem;
-        return game.i18n.format(formatString, { item: itemType });
+        return game.i18n.format("PF2E.identification.UnidentifiedItem", { item: itemType });
     }
 
     /**

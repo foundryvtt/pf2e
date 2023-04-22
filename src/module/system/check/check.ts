@@ -17,7 +17,6 @@ import {
     DegreeOfSuccess,
     DegreeOfSuccessString,
 } from "../degree-of-success.ts";
-import { LocalizePF2e } from "../localize.ts";
 import { TextEditorPF2e } from "../text-editor.ts";
 import { CheckModifiersDialog } from "./dialog.ts";
 import { CheckRoll, CheckRollDataPF2e } from "./roll.ts";
@@ -528,15 +527,15 @@ class CheckPF2e {
             };
         })();
 
-        const translations = LocalizePF2e.translations.PF2E.Check;
+        const { checkDCs } = CONFIG.PF2E;
 
         // DC, circumstance adjustments, and the target's name
         const dcData = ((): ResultFlavorTemplateData["dc"] => {
             const dcType = game.i18n.localize(
                 dc.label?.trim() ||
-                    (objectHasKey(translations.DC.Specific, dc.slug)
-                        ? translations.DC.Specific[dc.slug]
-                        : translations.DC.Unspecific)
+                    game.i18n.localize(
+                        objectHasKey(checkDCs.Specific, dc.slug) ? checkDCs.Specific[dc.slug] : checkDCs.Unspecific
+                    )
             );
 
             // Get any circumstance penalties or bonuses to the target's DC
@@ -552,9 +551,9 @@ class CheckPF2e {
             const visible = targetActor?.hasPlayerOwner || dc.visible || game.settings.get("pf2e", "metagame_showDC");
 
             if (typeof preadjustedDC !== "number" || circumstances.length === 0) {
-                const labelKey = targetData
-                    ? translations.DC.Label.WithTarget
-                    : customLabel ?? translations.DC.Label.NoTarget;
+                const labelKey = game.i18n.localize(
+                    targetData ? checkDCs.Label.WithTarget : customLabel ?? checkDCs.Label.NoTarget
+                );
                 const markup = game.i18n.format(labelKey, { dcType, dc: dc.value, target: targetData?.name ?? null });
 
                 return { markup, visible };
@@ -569,9 +568,7 @@ class CheckPF2e {
 
             // If the adjustment direction is "no-change", the bonuses and penalties summed to zero
             const translation =
-                adjustment.direction === "no-change"
-                    ? translations.DC.Label.NoChangeTarget
-                    : translations.DC.Label.AdjustedTarget;
+                adjustment.direction === "no-change" ? checkDCs.Label.NoChangeTarget : checkDCs.Label.AdjustedTarget;
 
             const markup = game.i18n.format(translation, {
                 target: targetData?.name ?? game.user.name,
