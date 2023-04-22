@@ -11,10 +11,11 @@
         "hot": "vite serve",
         "link": "esno ./build/link-foundry.ts",
         "extractPacks": "esno ./build/extract-packs.ts",
-        "pretest": "eslint ./ --ext .ts && eslint ./static --ext .json",
         "test": "jest",
         "migrate": "esno ./build/run-migration.ts",
-        "lint": "eslint ./src ./tests ./types --ext .ts && eslint ./static --ext .json",
+        "lint": "npm run lint:ts && npm run lint:json",
+        "lint:ts": "eslint ./src ./tests ./types --ext .ts",
+        "lint:json": "eslint ./static --ext .json --no-eslintrc --plugin json --rule 'json/*: error'",
         "lint:fix": "eslint ./src ./tests ./types --ext .ts --fix"
     },
     "author": "The PF2e System Developers",
