@@ -1,6 +1,5 @@
 import { CoinsPF2e } from "@item/physical/helpers.ts";
-import { LocalizePF2e } from "@system/localize.ts";
-import { sluggify } from "@util";
+import { localizer, sluggify } from "@util";
 import { CompendiumBrowser } from "../index.ts";
 import { ContentTabName } from "../data.ts";
 import { CompendiumBrowserTab } from "./base.ts";
@@ -27,6 +26,8 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         "rarity",
         "source",
     ];
+
+    #localizeCoins = localizer("PF2E.CurrencyAbbreviations");
 
     constructor(browser: CompendiumBrowser) {
         super(browser);
@@ -208,7 +209,12 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
 
     override parseRangeFilterInput(name: string, lower: string, upper: string): RangesData["values"] {
         if (name === "price") {
-            const coins = LocalizePF2e.translations.PF2E.CurrencyAbbreviations;
+            const coins = {
+                cp: this.#localizeCoins("cp"),
+                sp: this.#localizeCoins("sp"),
+                gp: this.#localizeCoins("gp"),
+                pp: this.#localizeCoins("pp"),
+            };
             for (const [english, translated] of Object.entries(coins)) {
                 lower = lower.replaceAll(translated, english);
                 upper = upper.replaceAll(translated, english);
@@ -225,7 +231,6 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     }
 
     protected override prepareFilterData(): EquipmentFilters {
-        const coins = LocalizePF2e.translations.PF2E.CurrencyAbbreviations;
         return {
             checkboxes: {
                 itemtypes: {
@@ -284,8 +289,8 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     values: {
                         min: 0,
                         max: 20_000_000,
-                        inputMin: `0${coins.cp}`,
-                        inputMax: `200,000${coins.gp}`,
+                        inputMin: `0${this.#localizeCoins("cp")}`,
+                        inputMax: `200,000${this.#localizeCoins("gp")}`,
                     },
                 },
             },
