@@ -278,7 +278,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const context: DamageRollContext = {
             type: "damage-roll",
             sourceType: this.isAttack ? "attack" : "save",
-            outcome: this.isAttack ? "success" : "failure", // we'll need to support other outcomes later
+            outcome: this.isAttack ? "success" : null, // we'll need to support other outcomes later
             domains,
             options,
             self: {
