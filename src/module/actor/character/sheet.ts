@@ -10,7 +10,6 @@ import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { PROFICIENCY_RANKS } from "@module/data.ts";
 import { craft } from "@system/action-macros/crafting/craft.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
-import { LocalizePF2e } from "@system/localize.ts";
 import {
     ErrorPF2e,
     fontAwesomeIcon,
@@ -91,7 +90,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 }
                 if (Array.isArray(baseWeaponMatch)) {
                     const baseWeapon = baseWeaponMatch[1] as BaseWeaponType;
-                    return LocalizePF2e.translations.PF2E.Weapon.Base[baseWeapon];
+                    return CONFIG.PF2E.baseWeaponTypes[baseWeapon];
                 }
                 return proficiency.label ?? key;
             })();

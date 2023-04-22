@@ -11,7 +11,6 @@ import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { createSheetTags, maintainTagifyFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
-import { LocalizePF2e } from "@system/localize.ts";
 import {
     BasicConstructorOptions,
     SelectableTagField,
@@ -531,7 +530,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 }
 
                 const content = document.createElement("p");
-                content.innerText = game.i18n.format(LocalizePF2e.translations.PF2E.SellItemQuestion, {
+                content.innerText = game.i18n.format("PF2E.SellItemQuestion", {
                     item: item.name,
                 });
                 new Dialog({
@@ -1074,8 +1073,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             }
 
             if (!actor.canUserModify(game.user, "update")) {
-                const translations = LocalizePF2e.translations.PF2E;
-                ui.notifications.error(translations.ErrorMessage.NoUpdatePermission);
+                ui.notifications.error("PF2E.ErrorMessage.NoUpdatePermission", { localize: true });
                 return [];
             } else {
                 const updated = await actor.increaseCondition(itemSource.system.slug, { value });
