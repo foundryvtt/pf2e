@@ -642,7 +642,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         // Item chat cards
         for (const element of htmlQueryAll(html, ".item[data-item-id] .item-image, .item[data-item-id] .item-chat")) {
-            element.addEventListener("click", async () => {
+            element.addEventListener("click", async (event) => {
                 const itemId = htmlClosest(element, "[data-item-id]")?.dataset.itemId ?? "";
                 const [item, fromFormula] = (() => {
                     // Handle formula UUIDs
@@ -659,7 +659,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 })();
 
                 if (!item.isOfType("physical") || item.isIdentified) {
-                    await item.toMessage(undefined, { create: true, data: { fromFormula } });
+                    await item.toMessage(event, { create: true, data: { fromFormula } });
                 }
             });
         }

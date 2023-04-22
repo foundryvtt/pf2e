@@ -292,7 +292,8 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
                     if (existing) {
                         existing.signature = true;
                     } else {
-                        result.active.push({ spell, signature: true, virtual: true });
+                        const castLevel = result.level;
+                        result.active.push({ spell, castLevel, signature: true, virtual: true });
                     }
                 }
             }
