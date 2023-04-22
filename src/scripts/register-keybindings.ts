@@ -7,7 +7,7 @@ export function registerKeybindings(): void {
     });
 
     // Defer to the Perfect Vision module if enabled
-    if (!game.modules.get("perfect-vision")?.active) {
+    if (!game.modules.get("gm-vision")?.active && !game.modules.get("perfect-vision")?.active) {
         game.keybindings.register("pf2e", "gm-vision", {
             name: "PF2E.Keybinding.GMVision.Label",
             hint: "PF2E.Keybinding.GMVision.Hint",

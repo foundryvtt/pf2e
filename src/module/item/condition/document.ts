@@ -1,20 +1,21 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { RuleElementOptions, RuleElementPF2e } from "@module/rules";
-import { UserPF2e } from "@module/user";
-import { TokenDocumentPF2e } from "@scene";
-import { DamageCategorization } from "@system/damage/helpers";
-import { DamageRoll } from "@system/damage/roll";
-import { PERSISTENT_DAMAGE_IMAGES } from "@system/damage/values";
-import { DegreeOfSuccess } from "@system/degree-of-success";
-import { Statistic } from "@system/statistic";
+import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect/index.ts";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";
+import { UserPF2e } from "@module/user/index.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { DamageCategorization } from "@system/damage/helpers.ts";
+import { DamageRoll } from "@system/damage/roll.ts";
+import { PERSISTENT_DAMAGE_IMAGES } from "@system/damage/values.ts";
+import { DegreeOfSuccess } from "@system/degree-of-success.ts";
+import { Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e } from "@util";
-import { ConditionData, ConditionKey, ConditionSlug, ConditionSystemData, PersistentDamageData } from "./data";
+import { ConditionSource, ConditionSystemData, PersistentDamageData } from "./data.ts";
+import { ConditionKey, ConditionSlug } from "./types.ts";
 
-class ConditionPF2e extends AbstractEffectPF2e {
-    active!: boolean;
+class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
+    declare active: boolean;
 
     override get badge(): EffectBadge | null {
         if (this.system.persistent) {
@@ -35,7 +36,7 @@ class ConditionPF2e extends AbstractEffectPF2e {
         return this.system.persistent ? `persistent-damage-${this.system.persistent.damageType}` : this.slug;
     }
 
-    get appliedBy(): ItemPF2e | null {
+    get appliedBy(): ItemPF2e<ActorPF2e> | null {
         return this.actor?.items.get(this.system.references.parent?.id ?? this.flags.pf2e.grantedBy?.id ?? "") ?? null;
     }
 
@@ -44,8 +45,8 @@ class ConditionPF2e extends AbstractEffectPF2e {
     }
 
     /** Is this condition locked in place by another? */
-    get isLocked(): boolean {
-        if (this.system.references.parent?.id) return true;
+    override get isLocked(): boolean {
+        if (this.system.references.parent?.id || super.isLocked) return true;
 
         const granter = this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "");
         const grants = Object.values(granter?.flags.pf2e.itemGrants ?? {});
@@ -70,12 +71,12 @@ class ConditionPF2e extends AbstractEffectPF2e {
         return options;
     }
 
-    override async increase(): Promise<void> {
-        await this.actor?.increaseCondition(this as Embedded<ConditionPF2e>);
+    override async increase(this: ConditionPF2e<ActorPF2e>): Promise<void> {
+        await this.actor?.increaseCondition(this);
     }
 
-    override async decrease(): Promise<void> {
-        await this.actor?.decreaseCondition(this as Embedded<ConditionPF2e>);
+    override async decrease(this: ConditionPF2e<ActorPF2e>): Promise<void> {
+        await this.actor?.decreaseCondition(this);
     }
 
     async onEndTurn(options: { token?: TokenDocumentPF2e | null } = {}): Promise<void> {
@@ -125,6 +126,10 @@ class ConditionPF2e extends AbstractEffectPF2e {
         const systemData = this.system;
         systemData.value.value = systemData.value.isValued ? Number(systemData.value.value) || 1 : null;
 
+        // Append numeric badge value to condition name, set item image according to configured style
+        if (typeof this.badge?.value === "number") {
+            this.name = `${this.name} ${this.badge.value}`;
+        }
         const folder = CONFIG.PF2E.statusEffects.iconDir;
         this.img = `${folder}${this.slug}.webp`;
 
@@ -156,7 +161,7 @@ class ConditionPF2e extends AbstractEffectPF2e {
         // Inactive conditions shouldn't deactivate others
         if (!this.active) return;
 
-        const deactivate = (condition: ConditionPF2e): void => {
+        const deactivate = (condition: ConditionPF2e<ActorPF2e>): void => {
             condition.active = false;
             condition.system.references.overriddenBy.push({ id: this.id, type: "condition" as const });
         };
@@ -179,25 +184,25 @@ class ConditionPF2e extends AbstractEffectPF2e {
                 if (thisValue >= otherValue) {
                     deactivate(condition);
                 }
-            } else if (this.value && condition.value && this.value >= condition.value) {
+            } else if (this.value === condition.value && (!this.isLocked || condition.isLocked)) {
+                // Deactivate other equal valued conditions if this condition isn't locked or both are locked
+                deactivate(condition);
+            } else if (this.value && condition.value && this.value > condition.value) {
                 // Deactivate other conditions with a lower or equal value
-                deactivate(condition);
-            } else if (!this.isLocked) {
-                // Deactivate other conditions if this condition isn't locked
-                deactivate(condition);
-            } else if (this.isLocked && ofSameType.every((c) => c.isLocked)) {
-                // Deactivate other conditions if all conditions of this type are locked
                 deactivate(condition);
             }
         }
     }
 
     /** Log self in parent's conditions map */
-    override prepareActorData(): void {
+    override prepareActorData(this: ConditionPF2e<ActorPF2e>): void {
         super.prepareActorData();
 
-        if (this.active) {
-            this.actor?.conditions.set(this.slug, this);
+        this.actor.conditions.set(this.id, this);
+
+        if (this.active && this.system.persistent) {
+            const { damageType } = this.system.persistent;
+            this.actor.rollOptions.all[`self:condition:persistent-damage:${damageType}`] = true;
         }
     }
 
@@ -212,39 +217,16 @@ class ConditionPF2e extends AbstractEffectPF2e {
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: ConditionModificationContext<this>,
+        options: ConditionModificationContext<TParent>,
         user: UserPF2e
     ): Promise<void> {
         options.conditionValue = this.value;
         return super._preUpdate(changed, options, user);
     }
 
-    protected override _onCreate(
-        data: this["_source"],
-        options: DocumentModificationContext<this>,
-        userId: string
-    ): void {
-        super._onCreate(data, options, userId);
-
-        if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame_secretCondition")) {
-            return;
-        }
-
-        /* Suppress floaty text on "linked" conditions */
-        if (this.system.references.parent?.type !== "condition") {
-            this.actor?.getActiveTokens().shift()?.showFloatyText({ create: this });
-        }
-
-        for (const token of this.actor?.getActiveTokens() ?? []) {
-            token._onApplyStatusEffect(this.rollOptionSlug, true);
-        }
-
-        game.pf2e.StatusEffects.refresh();
-    }
-
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: ConditionModificationContext<this>,
+        options: ConditionModificationContext<TParent>,
         userId: string
     ): void {
         super._onUpdate(changed, options, userId);
@@ -255,47 +237,29 @@ class ConditionPF2e extends AbstractEffectPF2e {
 
         const [priorValue, newValue] = [options.conditionValue, this.value];
         const valueChanged = !!priorValue && !!newValue && priorValue !== newValue;
-        // Suppress floaty text on "linked" conditions
-        if (valueChanged && this.system.references.parent?.type !== "condition") {
+
+        /* Show floaty text only for unlinked conditions */
+        if (valueChanged && !this.system.references.parent?.id) {
             const change = newValue > priorValue ? { create: this } : { delete: this };
             this.actor?.getActiveTokens().shift()?.showFloatyText(change);
         }
 
         game.pf2e.StatusEffects.refresh();
     }
-
-    protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void {
-        super._onDelete(options, userId);
-
-        if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame_secretCondition")) {
-            return;
-        }
-
-        /* Suppress floaty text on "linked" conditions */
-        if (this.system.references.parent?.type !== "condition") {
-            const change = { delete: { name: this._source.name } };
-            this.actor?.getActiveTokens().shift()?.showFloatyText(change);
-        }
-
-        for (const token of this.actor?.getActiveTokens() ?? []) {
-            token._onApplyStatusEffect(this.rollOptionSlug, false);
-        }
-
-        game.pf2e.StatusEffects.refresh();
-    }
 }
 
-interface ConditionPF2e extends AbstractEffectPF2e {
-    readonly data: ConditionData;
+interface ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
+    readonly _source: ConditionSource;
+    system: ConditionSystemData;
 
     get slug(): ConditionSlug;
 }
 
-interface PersistentDamagePF2e extends ConditionPF2e {
+interface PersistentDamagePF2e<TParent extends ActorPF2e | null> extends ConditionPF2e<TParent> {
     system: Omit<ConditionSystemData, "persistent"> & { persistent: PersistentDamageData };
 }
 
-interface ConditionModificationContext<T extends ConditionPF2e> extends DocumentModificationContext<T> {
+interface ConditionModificationContext<TParent extends ActorPF2e | null> extends DocumentModificationContext<TParent> {
     conditionValue?: number | null;
 }
 

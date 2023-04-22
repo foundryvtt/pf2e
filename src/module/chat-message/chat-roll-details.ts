@@ -1,6 +1,7 @@
-import { BaseRawModifier, DamageDicePF2e } from "@actor/modifiers";
+import { BaseRawModifier, DamageDicePF2e } from "@actor/modifiers.ts";
 import { addSign } from "@util";
-import { ChatMessagePF2e } from ".";
+import { ChatContextFlag, ChatMessagePF2e } from "./index.ts";
+import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
 
 class ChatRollDetails extends Application {
     static override get defaultOptions(): ApplicationOptions {
@@ -18,7 +19,7 @@ class ChatRollDetails extends Application {
         super(options);
     }
 
-    override getData() {
+    override getData(): ChatRollDetailsData {
         const { context, modifiers } = this.message.flags.pf2e;
         const allOptions = context?.options ?? [];
         const topLevelOptions = allOptions.filter((option) => !option.includes(":"));
@@ -29,7 +30,7 @@ class ChatRollDetails extends Application {
         return { context, domains, modifiers: preparedModifiers, rollOptions, hasModifiers: !!modifiers };
     }
 
-    protected prepareModifiers(modifiers: (BaseRawModifier | DamageDicePF2e)[]) {
+    protected prepareModifiers(modifiers: (BaseRawModifier | DamageDicePF2e)[]): PreparedModifier[] {
         return modifiers.map((mod) => {
             const value = "dieSize" in mod ? `+${mod.diceNumber}${mod.dieSize}` : addSign(mod.modifier ?? 0);
 
@@ -43,6 +44,19 @@ class ChatRollDetails extends Application {
             };
         });
     }
+}
+
+interface ChatRollDetailsData {
+    context?: ChatContextFlag;
+    domains?: string[];
+    modifiers: PreparedModifier[];
+    rollOptions: string[];
+    hasModifiers: boolean;
+}
+
+interface PreparedModifier extends Omit<Partial<DamageDicePF2e>, "critical" | "predicate"> {
+    critical: string | null;
+    predicate?: RawPredicate | PredicatePF2e;
 }
 
 export { ChatRollDetails };

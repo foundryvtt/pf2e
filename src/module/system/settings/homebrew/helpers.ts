@@ -1,10 +1,10 @@
-import { BaseWeaponProficiencyKey, WeaponGroupProficiencyKey } from "@actor/character/data";
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemSourcePF2e, MeleeSource, WeaponSource } from "@item/data";
-import { MigrationBase } from "@module/migration/base";
-import { MigrationRunnerBase } from "@module/migration/runner/base";
+import { BaseWeaponProficiencyKey, WeaponGroupProficiencyKey } from "@actor/character/data/index.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ItemSourcePF2e, MeleeSource, WeaponSource } from "@item/data/index.ts";
+import { MigrationBase } from "@module/migration/base.ts";
+import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import { isObject, objectHasKey } from "@util";
-import { CustomDamageData, HomebrewTraitKey } from "./data";
+import { CustomDamageData, HomebrewTraitKey } from "./data.ts";
 
 /** User-defined type guard for checking that an object is a well-formed flag category of module-provided homebrew elements */
 export function isHomebrewFlagCategory(

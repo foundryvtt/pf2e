@@ -4,14 +4,14 @@
  * @param [options] Application options.
  */
 declare class JournalPageSheet<
-    TJournalEntryPage extends JournalEntryPage<JournalEntry | null>
-> extends DocumentSheet<TJournalEntryPage> {
-    constructor(object: TJournalEntryPage, options?: DocumentSheetOptions);
+    TDocument extends JournalEntryPage<JournalEntry | null>
+> extends DocumentSheet<TDocument> {
+    constructor(object: TDocument, options?: DocumentSheetOptions);
 }
 
 declare class JournalTextPageSheet<
-    TJournalEntryPage extends JournalEntryPage<JournalEntry | null>
-> extends JournalPageSheet<TJournalEntryPage> {
+    TDocument extends JournalEntryPage<JournalEntry | null>
+> extends JournalPageSheet<TDocument> {
     /* Declare the format that we edit text content in for this sheet so we can perform conversions as necessary. */
     static get format(): number;
 
@@ -19,4 +19,6 @@ declare class JournalTextPageSheet<
     isEditorDirty(): boolean;
 }
 
-declare class JournalTextTinyMCESheet extends JournalPageSheet<JournalEntryPage<JournalEntry | null>> {}
+declare class JournalTextTinyMCESheet<
+    TDocument extends JournalEntryPage<JournalEntry | null>
+> extends JournalPageSheet<TDocument> {}

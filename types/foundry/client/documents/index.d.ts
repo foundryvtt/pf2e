@@ -1,40 +1,40 @@
-import "./active-effect";
-import "./actor";
-import "./ambient-light-document";
-import "./ambient-sound-document";
-import "./cards";
-import "./chat-message";
-import "./combat";
-import "./combatant";
-import "./drawing-document";
-import "./fog-exploration";
-import "./folder";
-import "./item";
-import "./journal-entry";
-import "./journal-entry-page";
-import "./macro";
-import "./measured-template-document";
-import "./mixins";
-import "./note-document";
-import "./playlist";
-import "./playlist-sound";
-import "./table-result";
-import "./roll-table";
-import "./scene";
-import "./table-result";
-import "./tile-document";
-import "./token-document";
-import "./user";
-import "./wall-document";
+import "./active-effect.d.ts";
+import "./actor.d.ts";
+import "./ambient-light-document.d.ts";
+import "./ambient-sound-document.d.ts";
+import "./cards.d.ts";
+import "./chat-message.d.ts";
+import "./client-base-mixes.d.ts";
+import "./client-document.d.ts";
+import "./combat.d.ts";
+import "./combatant.d.ts";
+import "./drawing-document.d.ts";
+import "./fog-exploration.d.ts";
+import "./folder.d.ts";
+import "./item.d.ts";
+import "./journal-entry.d.ts";
+import "./journal-entry-page.d.ts";
+import "./macro.d.ts";
+import "./measured-template-document.d.ts";
+import "./note-document.d.ts";
+import "./playlist.d.ts";
+import "./playlist-sound.d.ts";
+import "./roll-table.d.ts";
+import "./scene.d.ts";
+import "./table-result.d.ts";
+import "./tile-document.d.ts";
+import "./token-document.d.ts";
+import "./user.d.ts";
+import "./wall-document.d.ts";
 
 declare global {
     type WorldDocument =
-        | Actor
+        | Actor<null>
         | Cards
         | ChatMessage
         | Combat
         | Folder
-        | Item
+        | Item<null>
         | JournalEntry
         | Macro
         | Playlist

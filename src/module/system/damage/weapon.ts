@@ -1,32 +1,33 @@
+import { TraitViewData } from "@actor/data/base.ts";
 import { ActorPF2e, CharacterPF2e, HazardPF2e, NPCPF2e } from "@actor";
-import { TraitViewData } from "@actor/data/base";
 import {
     DamageDiceOverride,
     DamageDicePF2e,
     DiceModifierPF2e,
-    ModifierPF2e,
     MODIFIER_TYPE,
+    ModifierPF2e,
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
-} from "@actor/modifiers";
-import { AbilityString } from "@actor/types";
+} from "@actor/modifiers.ts";
+import { AbilityString } from "@actor/types.ts";
 import { MeleePF2e, WeaponPF2e } from "@item";
-import { NPCAttackDamage } from "@item/melee/data";
-import { getPropertyRuneAdjustments, getPropertyRuneDice } from "@item/physical/runes";
-import { WeaponDamage } from "@item/weapon/data";
-import { RollNotePF2e } from "@module/notes";
-import { CritSpecEffect, PotencySynthetic, StrikingSynthetic } from "@module/rules/synthetics";
+import { NPCAttackDamage } from "@item/melee/data.ts";
+import { getPropertyRuneAdjustments, getPropertyRuneDice } from "@item/physical/runes.ts";
+import { WeaponDamage } from "@item/weapon/data.ts";
+import { RollNotePF2e } from "@module/notes.ts";
 import {
     extractDamageDice,
     extractDamageModifiers,
     extractModifierAdjustments,
     extractModifiers,
     extractNotes,
-} from "@module/rules/helpers";
-import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS } from "@system/degree-of-success";
+} from "@module/rules/helpers.ts";
+import { CritSpecEffect, PotencySynthetic, StrikingSynthetic } from "@module/rules/synthetics.ts";
+import { DEGREE_OF_SUCCESS, DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
 import { mapValues, objectHasKey, sluggify } from "@util";
-import { createDamageFormula, AssembledFormula } from "./formula";
-import { nextDamageDieSize } from "./helpers";
+import { AssembledFormula, createDamageFormula } from "./formula.ts";
+import { nextDamageDieSize } from "./helpers.ts";
+import { DamageModifierDialog } from "./modifier-dialog.ts";
 import {
     DamageCategoryUnique,
     DamageDieSize,
@@ -34,8 +35,7 @@ import {
     DamageRollContext,
     MaterialDamageEffect,
     WeaponDamageTemplate,
-} from "./types";
-import { DamageModifierDialog } from "./modifier-dialog";
+} from "./types.ts";
 
 class WeaponDamagePF2e {
     static async fromNPCAttack({
@@ -359,8 +359,10 @@ class WeaponDamagePF2e {
         if (weaponTraits.some((t) => t === "backstabber") && options.has("target:condition:flat-footed")) {
             const modifier = new ModifierPF2e({
                 label: CONFIG.PF2E.weaponTraits.backstabber,
+                slug: "backstabber",
                 modifier: potency > 2 ? 2 : 1,
                 damageCategory: "precision",
+                adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, selectors, "backstabber"),
             });
             modifiers.push(modifier);
         }
@@ -602,6 +604,9 @@ class WeaponDamagePF2e {
                 base.dieSize = override.override?.dieSize ?? base.dieSize;
                 base.damageType = override.override?.damageType ?? base.damageType;
                 base.diceNumber = override.override?.diceNumber ?? base.diceNumber;
+                for (const die of damage.dice.filter((d) => d.slug.startsWith("deadly-"))) {
+                    die.damageType = override.override?.damageType ?? die.damageType;
+                }
             }
         }
 

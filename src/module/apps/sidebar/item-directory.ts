@@ -1,10 +1,11 @@
-import { htmlQueryAll } from "@util";
+import { ItemPF2e } from "@item";
+import { fontAwesomeIcon, htmlQuery, htmlQueryAll } from "@util";
 
 /** Extend ItemDirectory to show more information */
-export class ItemDirectoryPF2e<TItem extends Item> extends ItemDirectory<TItem> {
+export class ItemDirectoryPF2e<TItem extends ItemPF2e<null>> extends ItemDirectory<TItem> {
     static override get defaultOptions(): SidebarDirectoryOptions {
         const options = super.defaultOptions;
-        options.renderUpdateKeys.push("system.details.level.value");
+        options.renderUpdateKeys.push("system.level.value");
         return options;
     }
 
@@ -25,6 +26,8 @@ export class ItemDirectoryPF2e<TItem extends Item> extends ItemDirectory<TItem> 
                 element.querySelector("span.item-level")?.remove();
             }
         }
+
+        this.#appendBrowseButton(html);
     }
 
     /** Include flattened update data so parent method can read nested update keys */
@@ -37,5 +40,20 @@ export class ItemDirectoryPF2e<TItem extends Item> extends ItemDirectory<TItem> 
         }
 
         return super._render(force, context);
+    }
+
+    /** Append a button to open the compendium browser */
+    #appendBrowseButton(html: HTMLElement): void {
+        const browseButton = document.createElement("button");
+        browseButton.type = "button";
+        browseButton.append(
+            fontAwesomeIcon("search", { fixedWidth: true }),
+            " ",
+            game.i18n.localize("PF2E.CompendiumBrowser.Title")
+        );
+        browseButton.addEventListener("click", () => {
+            game.pf2e.compendiumBrowser.render(true, { focus: true });
+        });
+        htmlQuery(html, "footer.directory-footer")?.append(browseButton);
     }
 }

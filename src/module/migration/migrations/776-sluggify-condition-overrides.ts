@@ -1,6 +1,6 @@
-import { ItemSourcePF2e } from "@item/data";
+import { ItemSourcePF2e } from "@item/data/index.ts";
 import { sluggify } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Sluggify values in condition `overrides` arrays */
 export class Migration776SlugifyConditionOverrides extends MigrationBase {

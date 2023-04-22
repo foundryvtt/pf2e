@@ -1,11 +1,11 @@
-import { AlignmentTrait } from "@actor/creature/types";
-import { OtherArmorTag } from "@item/armor/types";
-import { ClassTrait } from "@item/class/data";
-import { OtherConsumableTag } from "@item/consumable/types";
-import { RANGE_TRAITS } from "@item/data/values";
-import { PreciousMaterialType } from "@item/physical/types";
-import { MagicSchool, MagicTradition } from "@item/spell/types";
-import { OtherWeaponTag } from "@item/weapon/types";
+import { AlignmentTrait } from "@actor/creature/types.ts";
+import { OtherArmorTag } from "@item/armor/types.ts";
+import { ClassTrait } from "@item/class/data.ts";
+import { OtherConsumableTag } from "@item/consumable/types.ts";
+import { RANGE_TRAITS } from "@item/data/values.ts";
+import { PreciousMaterialType } from "@item/physical/types.ts";
+import { MagicSchool, MagicTradition } from "@item/spell/types.ts";
+import { OtherWeaponTag } from "@item/weapon/types.ts";
 import { sluggify } from "@util";
 
 // Ancestry and heritage traits
@@ -172,6 +172,7 @@ const creatureTraits = {
     kami: "PF2E.TraitKami",
     kovintus: "PF2E.TraitKovintus",
     light: "PF2E.TraitLight",
+    lilu: "PF2E.TraitLilu",
     locathah: "PF2E.TraitLocathah",
     mental: "PF2E.TraitMental",
     merfolk: "PF2E.TraitMerfolk",
@@ -184,6 +185,7 @@ const creatureTraits = {
     munavri: "PF2E.TraitMunavri",
     mutant: "PF2E.TraitMutant",
     nagaji: "PF2E.TraitNagaji",
+    necromancy: "PF2E.TraitNecromancy",
     nymph: "PF2E.TraitNymph",
     oni: "PF2E.TraitOni",
     ooze: "PF2E.TraitOoze",
@@ -397,6 +399,7 @@ const weaponTraits = {
     consumable: "PF2E.TraitConsumable",
     "critical-fusion": "PF2E.TraitCriticalFusion",
     cursed: "PF2E.TraitCursed",
+    "deadly-d4": "PF2E.TraitDeadlyD4",
     "deadly-d6": "PF2E.TraitDeadlyD6",
     "deadly-d8": "PF2E.TraitDeadlyD8",
     "deadly-2d8": "PF2E.TraitDeadly2D8",
@@ -551,6 +554,7 @@ const npcAttackTraits = {
     ...preciousMaterials,
     ...rangeTraits,
     curse: "PF2E.TraitCurse",
+    incorporeal: "PF2E.TraitIncorporeal",
     "reach-0": "PF2E.TraitReach0",
     "reach-10": "PF2E.TraitReach10",
     "reach-15": "PF2E.TraitReach15",
@@ -710,6 +714,7 @@ const hazardTraits = {
     ...magicTraditions,
     aberration: "PF2E.TraitAberration",
     alchemical: "PF2E.TraitAlchemical",
+    animal: "PF2E.TraitAnimal",
     aquatic: "PF2E.TraitAquatic",
     auditory: "PF2E.TraitAuditory",
     clockwork: "PF2E.TraitClockwork",
@@ -777,6 +782,7 @@ const equipmentTraits = {
     fulu: "PF2E.TraitFulu",
     gadget: "PF2E.TraitGadget",
     grimoire: "PF2E.TraitGrimoire",
+    "harrow-court": "PF2E.TraitHarrowCourt",
     healing: "PF2E.TraitHealing",
     incapacitation: "PF2E.TraitIncapacitation",
     incorporeal: "PF2E.TraitIncorporeal",
@@ -814,10 +820,10 @@ const equipmentTraits = {
 };
 
 const shieldTraits = {
-    "deflecting-bludgeoning": "PF2E.DeflectingBludgeoning",
-    "deflecting-piercing": "PF2E.DeflectingBludgeoning",
-    "deflecting-physical-ranged": "PF2E.DeflectingPhysicalRanged",
-    "deflecting-slashing": "PF2E.DeflectingSlashing",
+    "deflecting-bludgeoning": "PF2E.TraitDeflectingBludgeoning",
+    "deflecting-physical-ranged": "PF2E.TraitDeflectingPhysicalRanged",
+    "deflecting-piercing": "PF2E.TraitDeflectingPiercing",
+    "deflecting-slashing": "PF2E.TraitDeflectingSlashing",
     foldaway: "PF2E.TraitFoldaway",
     harnessed: "PF2E.TraitHarnessed",
     "hefty-14": "PF2E.TraitHefty14",
@@ -848,6 +854,7 @@ const armorTraits = {
     bulwark: "PF2E.TraitBulwark",
     clockwork: "PF2E.TraitClockwork",
     comfort: "PF2E.TraitComfort",
+    companion: "PF2E.TraitCompanion",
     cursed: "PF2E.TraitCursed",
     "entrench-melee": "PF2E.TraitEntrenchMelee",
     "entrench-ranged": "PF2E.TraitEntrenchRanged",

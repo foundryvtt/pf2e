@@ -1,6 +1,6 @@
-import { ActionMacroHelpers, SkillActionOptions } from "../..";
+import { ActionMacroHelpers, SkillActionOptions } from "../../index.ts";
 
-export function tamper(options: SkillActionOptions) {
+export function tamper(options: SkillActionOptions): void {
     const slug = options?.skill ?? "crafting";
     const rollOptions = ["action:tamper"];
     const modifiers = options?.modifiers;
@@ -19,5 +19,8 @@ export function tamper(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Tamper", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Tamper", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

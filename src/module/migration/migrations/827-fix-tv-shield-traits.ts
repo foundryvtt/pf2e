@@ -1,5 +1,5 @@
-import { ItemSourcePF2e } from "@item/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Fix unannotated shield traits added from Lost Omens: Treasure Vault */
 export class Migration827FixTVShieldTraits extends MigrationBase {

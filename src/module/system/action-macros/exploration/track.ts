@@ -1,6 +1,6 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function track(options: SkillActionOptions) {
+export function track(options: SkillActionOptions): void {
     const slug = options?.skill ?? "survival";
     const rollOptions = ["action:track"];
     const modifiers = options?.modifiers;
@@ -19,5 +19,8 @@ export function track(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Track", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Track", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

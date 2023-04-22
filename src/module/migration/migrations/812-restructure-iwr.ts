@@ -1,11 +1,11 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ActorTraitsSource } from "@actor/data/base";
-import { ImmunitySource, ResistanceSource, WeaknessSource } from "@actor/data/iwr";
-import { ImmunityType, ResistanceType, WeaknessType } from "@actor/types";
-import { IMMUNITY_TYPES, RESISTANCE_TYPES, WEAKNESS_TYPES } from "@actor/values";
-import { ItemSourcePF2e } from "@item/data";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ActorTraitsSource } from "@actor/data/base.ts";
+import { ImmunitySource, ResistanceSource, WeaknessSource } from "@actor/data/iwr.ts";
+import { ImmunityType, ResistanceType, WeaknessType } from "@actor/types.ts";
+import { IMMUNITY_TYPES, RESISTANCE_TYPES, WEAKNESS_TYPES } from "@actor/values.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
 import { isObject, pick, setHasElement, sluggify } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Move IWR data to `actor.system.attributes` */
 export class Migration812RestructureIWR extends MigrationBase {

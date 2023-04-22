@@ -1,27 +1,29 @@
-import { CharacterPF2e, NPCPF2e } from "@actor";
-import { AbilityString } from "@actor/types";
+import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
+import { AbilityString } from "@actor/types.ts";
 import { ItemPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
-import { MagicTradition } from "@item/spell/types";
-import { MAGIC_TRADITIONS } from "@item/spell/values";
-import { goesToEleven, OneToFour, OneToTen, ZeroToFour } from "@module/data";
-import { UserPF2e } from "@module/user";
-import { Statistic } from "@system/statistic";
+import { MagicTradition } from "@item/spell/types.ts";
+import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
+import { goesToEleven, OneToFour, OneToTen, ZeroToFour } from "@module/data.ts";
+import { UserPF2e } from "@module/user/index.ts";
+import { Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e, setHasElement, sluggify } from "@util";
-import { SpellCollection } from "./collection";
+import { SpellCollection } from "./collection.ts";
+import { SpellcastingEntrySource, SpellcastingEntrySystemData } from "./data.ts";
 import {
-    SpellcastingAbilityData,
     SpellcastingCategory,
     SpellcastingEntry,
-    SpellcastingEntryData,
-    SpellcastingEntryListData,
     SpellcastingEntryPF2eCastOptions,
-} from "./data";
+    SpellcastingSheetData,
+} from "./types.ts";
 
-class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
-    spells!: SpellCollection | null;
+class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
+    extends ItemPF2e<TParent>
+    implements SpellcastingEntry<TParent>
+{
+    declare spells: SpellCollection<NonNullable<TParent>, this> | null;
 
     /** Spellcasting attack and dc data created during actor preparation */
-    statistic!: Statistic;
+    declare statistic: Statistic;
 
     get ability(): AbilityString {
         return this.system.ability.value || "int";
@@ -66,12 +68,17 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         return this.system.prepared.value === "focus";
     }
 
-    get isRitual(): boolean {
-        return this.system.prepared.value === "ritual";
+    /** Ritual spellcasting is handled separately */
+    get isRitual(): false {
+        return false;
     }
 
     get highestLevel(): number {
         return this.spells?.highestLevel ?? 0;
+    }
+
+    get showSlotlessLevels(): boolean {
+        return this.system.showSlotlessLevels.value;
     }
 
     override prepareBaseData(): void {
@@ -93,11 +100,11 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         }
     }
 
-    override prepareSiblingData(): void {
+    override prepareSiblingData(this: SpellcastingEntryPF2e<ActorPF2e>): void {
         if (!this.actor || this.system.prepared.value === "items") {
             this.spells = null;
         } else {
-            this.spells = new SpellCollection(this as Embedded<SpellcastingEntryPF2e>);
+            this.spells = new SpellCollection(this);
             const spells = this.actor.itemTypes.spell.filter((i) => i.system.location.value === this.id);
             for (const spell of spells) {
                 this.spells.set(spell.id, spell);
@@ -107,7 +114,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         }
     }
 
-    override prepareActorData(this: Embedded<SpellcastingEntryPF2e>): void {
+    override prepareActorData(this: SpellcastingEntryPF2e<ActorPF2e>): void {
         const actor = this.actor;
 
         // Upgrade the actor proficiency using the internal ones
@@ -122,15 +129,14 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     }
 
     /** All spells associated with this spellcasting entry on the actor that should also be deleted */
-    override getLinkedItems(): Embedded<SpellPF2e>[] {
+    override getLinkedItems(): SpellPF2e<ActorPF2e>[] {
         return this.actor?.itemTypes.spell.filter((i) => i.system.location.value === this.id) ?? [];
     }
 
     /** Returns if the spell is valid to cast by this spellcasting entry */
-    canCastSpell(spell: SpellPF2e, options: { origin?: PhysicalItemPF2e } = {}): boolean {
+    canCast(spell: SpellPF2e, { origin }: { origin?: PhysicalItemPF2e } = {}): boolean {
         // For certain collection-less modes, the spell must come from an item
         if (this.system.prepared.value === "items") {
-            const { origin } = options;
             if (!origin) return false;
 
             // Eventually this will use predicates, but right now its just a simple match
@@ -140,7 +146,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         // Only prepared/spontaneous casting count as a "spellcasting class feature"
         // for the purpose of using the "Cast a Spell" activation component
         const isSpellcastingFeature = this.isPrepared || this.isSpontaneous;
-        if (options.origin && !isSpellcastingFeature) {
+        if (origin && !isSpellcastingFeature) {
             return false;
         }
 
@@ -153,7 +159,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     }
 
     /** Casts the given spell as if it was part of this spellcasting entry */
-    async cast(spell: Embedded<SpellPF2e>, options: SpellcastingEntryPF2eCastOptions = {}): Promise<void> {
+    async cast(spell: SpellPF2e<ActorPF2e>, options: SpellcastingEntryPF2eCastOptions = {}): Promise<void> {
         const consume = options.consume ?? true;
         const message = options.message ?? true;
         const slotLevel = options.level ?? spell.level;
@@ -164,7 +170,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         }
     }
 
-    async consume(spell: SpellPF2e, level: number, slot?: number): Promise<boolean> {
+    async consume(spell: SpellPF2e<ActorPF2e>, level: number, slot?: number): Promise<boolean> {
         const actor = this.actor;
         if (!(actor instanceof CharacterPF2e || actor instanceof NPCPF2e)) {
             throw ErrorPF2e("Spellcasting entries require an actor");
@@ -241,43 +247,44 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
      * Adds a spell to this spellcasting entry, either moving it from another one if its the same actor,
      * or creating a new spell if its not.
      */
-    async addSpell(spell: SpellPF2e, options?: { slotLevel?: number }): Promise<SpellPF2e | null> {
+    async addSpell(
+        spell: SpellPF2e<TParent | null>,
+        options?: { slotLevel?: number }
+    ): Promise<SpellPF2e<NonNullable<TParent>> | null> {
         return this.spells?.addSpell(spell, options) ?? null;
     }
 
     /** Saves the prepared spell slot data to the spellcasting entry  */
-    async prepareSpell(spell: SpellPF2e, slotLevel: number, spellSlot: number): Promise<SpellcastingEntryPF2e | null> {
+    async prepareSpell(spell: SpellPF2e, slotLevel: number, spellSlot: number): Promise<this | null> {
         return this.spells?.prepareSpell(spell, slotLevel, spellSlot) ?? null;
     }
 
     /** Removes the spell slot and updates the spellcasting entry */
-    async unprepareSpell(spellLevel: number, slotLevel: number): Promise<SpellcastingEntryPF2e | null> {
+    async unprepareSpell(spellLevel: number, slotLevel: number): Promise<this | null> {
         return this.spells?.unprepareSpell(spellLevel, slotLevel) ?? null;
     }
 
     /** Sets the expended state of a spell slot and updates the spellcasting entry */
-    async setSlotExpendedState(
-        slotLevel: number,
-        spellSlot: number,
-        isExpended: boolean
-    ): Promise<SpellcastingEntryPF2e | null> {
+    async setSlotExpendedState(slotLevel: number, spellSlot: number, isExpended: boolean): Promise<this | null> {
         return this.spells?.setSlotExpendedState(slotLevel, spellSlot, isExpended) ?? null;
     }
 
     /** Returns rendering data to display the spellcasting entry in the sheet */
-    async getSpellData(): Promise<SpellcastingAbilityData | SpellcastingEntryListData> {
+    async getSheetData(): Promise<SpellcastingSheetData> {
         if (!this.actor?.isOfType("character", "npc")) {
             throw ErrorPF2e("Spellcasting entries can only exist on characters and npcs");
         }
 
-        const spellCollectionData = await this.spells?.getSpellData();
+        const spellCollectionData = (await this.spells?.getSpellData()) ?? { levels: [], spellPrepList: null };
 
         return {
             id: this.id,
             name: this.name,
+            sort: this.sort,
+            ability: this.ability,
             statistic: this.statistic.getChatData(),
             tradition: this.tradition,
-            castingType: this.system.prepared.value,
+            category: this.system.prepared.value,
             isPrepared: this.isPrepared,
             isSpontaneous: this.isSpontaneous,
             isFlexible: this.isFlexible,
@@ -285,7 +292,8 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
             isFocusPool: this.isFocusPool,
             isRitual: this.isRitual,
             hasCollection: !!this.spells,
-            ...(spellCollectionData ?? { levels: [] }),
+            showSlotlessLevels: this.showSlotlessLevels,
+            ...spellCollectionData,
         };
     }
 
@@ -299,7 +307,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<this>,
+        options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<void> {
         // Clamp slot updates
@@ -321,10 +329,23 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
 
         await super._preUpdate(changed, options, user);
     }
+
+    /* -------------------------------------------- */
+    /*  Deprecations and Compatibility              */
+    /* -------------------------------------------- */
+
+    /**
+     * To prevent (or delay) console spam, will send out a deprecation notice in a later release
+     * @deprecated
+     */
+    getSpellData(): Promise<SpellcastingSheetData> {
+        return this.getSheetData();
+    }
 }
 
-interface SpellcastingEntryPF2e extends ItemPF2e {
-    readonly data: SpellcastingEntryData;
+interface SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
+    readonly _source: SpellcastingEntrySource;
+    system: SpellcastingEntrySystemData;
 }
 
 export { SpellcastingEntryPF2e };

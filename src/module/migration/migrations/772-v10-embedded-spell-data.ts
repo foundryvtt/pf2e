@@ -1,6 +1,6 @@
-import { ItemSourcePF2e, SpellSource } from "@item/data";
-import { SpellSystemSource } from "@item/spell/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e, SpellSource } from "@item/data/index.ts";
+import { SpellSystemSource } from "@item/spell/data.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Push back embedded spell property one object-nesting level */
 export class Migration772V10EmbeddedSpellData extends MigrationBase {

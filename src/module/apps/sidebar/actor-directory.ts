@@ -1,8 +1,8 @@
-import { ActorPF2e } from "@actor/base";
-import { htmlQueryAll } from "@util";
+import { ActorPF2e } from "@actor/base.ts";
+import { fontAwesomeIcon, htmlQuery, htmlQueryAll } from "@util";
 
 /** Extend ActorDirectory to show more information */
-export class ActorDirectoryPF2e<TDocument extends ActorPF2e> extends ActorDirectory<TDocument> {
+export class ActorDirectoryPF2e<TDocument extends ActorPF2e<null>> extends ActorDirectory<TDocument> {
     static override get defaultOptions(): SidebarDirectoryOptions {
         const options = super.defaultOptions;
         options.renderUpdateKeys.push("system.details.level.value", "system.attributes.adjustment");
@@ -26,6 +26,8 @@ export class ActorDirectoryPF2e<TDocument extends ActorPF2e> extends ActorDirect
                 element.querySelector("span.actor-level")?.remove();
             }
         }
+
+        this.#appendBrowseButton(html);
     }
 
     /** Include flattened update data so parent method can read nested update keys */
@@ -38,5 +40,22 @@ export class ActorDirectoryPF2e<TDocument extends ActorPF2e> extends ActorDirect
         }
 
         return super._render(force, context);
+    }
+
+    /** Append a button to open the bestiary browser for GMs */
+    #appendBrowseButton(html: HTMLElement): void {
+        if (!game.user.isGM) return;
+
+        const browseButton = document.createElement("button");
+        browseButton.type = "button";
+        browseButton.append(
+            fontAwesomeIcon("search", { fixedWidth: true }),
+            " ",
+            game.i18n.localize("PF2E.CompendiumBrowser.BestiaryBrowser")
+        );
+        browseButton.addEventListener("click", () => {
+            game.pf2e.compendiumBrowser.openTab("bestiary");
+        });
+        htmlQuery(html, "footer.directory-footer")?.append(browseButton);
     }
 }

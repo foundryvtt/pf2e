@@ -1,7 +1,7 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ALIGNMENT_TRAITS } from "@actor/creature/values";
-import { AncestrySource } from "@item/data";
-import { MigrationBase } from "../base";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ALIGNMENT_TRAITS } from "@actor/creature/values.ts";
+import { AncestrySource } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
 import { isObject } from "@util";
 
 /** Remove alignment traits from PCs and NPCs, ancestry traits from PCs  */

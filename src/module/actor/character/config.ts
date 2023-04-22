@@ -1,5 +1,5 @@
-import { CreatureConfig, CreatureConfigData } from "@actor/creature/config";
-import { CharacterPF2e } from ".";
+import { CreatureConfig, CreatureConfigData } from "@actor/creature/config.ts";
+import { CharacterPF2e } from "./document.ts";
 
 export class CharacterConfig extends CreatureConfig<CharacterPF2e> {
     override async getData(options: Partial<DocumentSheetOptions> = {}): Promise<PCConfigData> {

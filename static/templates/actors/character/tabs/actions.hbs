@@ -1,5 +1,5 @@
 <div class="tab actions actions-pane" data-group="primary" data-tab="actions">
-    <nav class="actions-nav" data-group="actions-tabs">
+    <nav class="actions-nav sub-nav" data-group="actions-tabs">
         <a class="tab" data-tab="encounter" data-group="actions-tabs">{{localize "PF2E.TabActionsEncounterLabel"}}</a>
         <a class="tab" data-tab="exploration" data-group="actions-tabs">{{localize "PF2E.TabActionsExplorationLabel"}}</a>
         <a class="tab" data-tab="downtime" data-group="actions-tabs">{{localize "PF2E.TabActionsDowntimeLabel"}}</a>
@@ -8,15 +8,24 @@
         <div class="actions-tabs-wrapper">
             <section class="actions-panels">
                 <div class="actions-panel" data-tab="encounter" data-group="actions-tabs">
-                    {{#if data.toggles}}
+                    {{#if toggles}}
                         <div class="actions-options item-list">
-                            {{#each data.toggles as |toggle idx|}}
-                                <div class="actions-option item"{{#if toggle.itemId}} data-item-id="{{toggle.itemId}}"{{/if}} >
-                                    <label>
-                                        <input type="checkbox" data-action="toggle-roll-option"{{#if toggle.itemId}} data-item-id="{{toggle.itemId}}"{{/if}} data-domain="{{toggle.domain}}" data-option="{{toggle.option}}" {{disabled (not toggle.enabled)}} {{checked toggle.checked}} />
-                                        <span{{#if (not (or toggle.checked toggle.enabled))}} class="unchecked-disabled"{{/if}}>{{localize toggle.label}}</span>
-                                    </label>
-                                </div>
+                            {{#each toggles as |toggle idx|}}
+                                {{#if (or (not toggle.scope) (eq toggle.scope "actions-tab"))}}
+                                    <div class="actions-option item" data-item-id="{{toggle.itemId}}" data-domain="{{toggle.domain}}" data-option="{{toggle.option}}" data-scope="{{toggle.scope}}">
+                                        <label>
+                                            <input type="checkbox" data-action="toggle-roll-option" {{disabled (not toggle.enabled)}} {{checked toggle.checked}} />
+                                            <span{{#if (not (or toggle.checked toggle.enabled))}} class="unchecked-disabled"{{/if}}>{{localize toggle.label}}</span>
+                                            {{#if toggle.suboptions}}
+                                                <select data-action="set-suboption">
+                                                    {{#each toggle.suboptions as |suboption|}}
+                                                        <option value="{{suboption.value}}"{{#if suboption.selected}} selected{{/if}}>{{localize suboption.label}}</option>
+                                                    {{/each}}
+                                                </select>
+                                            {{/if}}
+                                        </label>
+                                    </div>
+                                {{/if}}
                             {{/each}}
                         </div>
                     {{/if}}
@@ -94,10 +103,13 @@
                                         {{#each action.weaponTraits as |trait|}}
                                             <span class="tag tag_alt {{trait.cssClass}}"{{#if trait.description}} data-description="{{trait.description}}"{{/if}}>{{trait.label}}</span>
                                         {{/each}}
+                                        {{#if action.item.system.reload.label}}
+                                            <span class="tag tag_secondary">{{action.item.system.reload.label}}</span>
+                                        {{/if}}
                                         {{#if action.item.system.maxRange}}
-                                            <span class="tag tag_secondary {{trait.cssClass}}">{{localize (concat "PF2E.TraitRange" action.item.system.maxRange)}}</span>
+                                            <span class="tag tag_secondary">{{localize (concat "PF2E.TraitRange" action.item.system.maxRange)}}</span>
                                         {{else if action.item.system.range}}
-                                            <span class="tag tag_secondary {{trait.cssClass}}">{{localize (concat "PF2E.TraitRangeIncrement" action.item.system.range)}}</span>
+                                            <span class="tag tag_secondary">{{localize (concat "PF2E.TraitRangeIncrement" action.item.system.range)}}</span>
                                         {{/if}}
                                     </div>
                                 </div>
@@ -113,7 +125,7 @@
                                     <button type="button" class="item-control item-create" data-type="action" data-action-type="{{sid}}">
                                         <i class="fas fa-fw fa-plus"></i>{{localize "PF2E.CreateActionTitle"}}
                                     </button>
-                                    <button type="button" class="item-control action-browse" data-type="feat">
+                                    <button type="button" class="item-control action-browse" data-type="action" data-action-type="{{sid}}">
                                         <i class="fas fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}
                                     </button>
                                 </div>
@@ -164,7 +176,7 @@
                                 <button type="button" class="item-control item-create" data-type="action" data-action-type="free">
                                     <i class="fas fa-fw fa-plus"></i>{{localize "PF2E.CreateActionTitle"}}
                                 </button>
-                                <button type="button" class="item-control action-browse" data-type="feat">
+                                <button type="button" class="item-control action-browse" data-type="action" data-action-type="passive" data-action-trait="exploration">
                                     <i class="fas fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}
                                 </button>
                             </div>
@@ -203,7 +215,7 @@
                                 <button type="button" class="item-control item-create" data-type="action" data-action-type="free">
                                     <i class="fas fa-fw fa-plus"></i>{{localize "PF2E.CreateActionTitle"}}
                                 </button>
-                                <button type="button" class="item-control action-browse" data-type="feat">
+                                <button type="button" class="item-control action-browse" data-type="action" data-action-type="passive" data-action-trait="downtime">
                                     <i class="fas fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}
                                 </button>
                             </div>

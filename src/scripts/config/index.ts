@@ -1,9 +1,10 @@
 import { CharacterPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, NPCPF2e, PartyPF2e, VehiclePF2e } from "@actor";
-import { SenseAcuity, SenseType } from "@actor/creature/sense";
-import { Alignment } from "@actor/creature/types";
-import { ActorType } from "@actor/data";
+import { SenseAcuity, SenseType } from "@actor/creature/sense.ts";
+import { Alignment } from "@actor/creature/types.ts";
+import { ActorType } from "@actor/data/index.ts";
 import {
     ActionItemPF2e,
+    AfflictionPF2e,
     AncestryPF2e,
     ArmorPF2e,
     BackgroundPF2e,
@@ -25,26 +26,25 @@ import {
     TreasurePF2e,
     WeaponPF2e,
 } from "@item";
-import { AfflictionPF2e } from "@item/affliction/document";
-import { ConditionSlug } from "@item/condition/data";
-import { RANGE_TRAITS } from "@item/data/values";
-import { DeityDomain } from "@item/deity/types";
-import { FeatType } from "@item/feat/data";
-import { WEAPON_PROPERTY_RUNES } from "@item/physical/runes";
-import { PreciousMaterialGrade } from "@item/physical/types";
+import { ConditionSlug } from "@item/condition/types.ts";
+import { RANGE_TRAITS } from "@item/data/values.ts";
+import { DeityDomain } from "@item/deity/types.ts";
+import { FeatCategory } from "@item/feat/index.ts";
+import { WEAPON_PROPERTY_RUNES } from "@item/physical/runes.ts";
+import { PreciousMaterialGrade } from "@item/physical/types.ts";
 import {
     BaseWeaponType,
     MeleeWeaponGroup,
     WeaponGroup,
     WeaponPropertyRuneType,
     WeaponReloadTime,
-} from "@item/weapon/types";
-import { Size } from "@module/data";
-import { JournalSheetPF2e } from "@module/journal-entry/sheet";
+} from "@item/weapon/types.ts";
+import { Size } from "@module/data.ts";
+import { JournalSheetPF2e } from "@module/journal-entry/sheet.ts";
 import { sluggify } from "@util";
 import enJSON from "../../../static/lang/en.json";
-import { damageCategories, damageRollFlavors, damageTypes, materialDamageEffects } from "./damage";
-import { immunityTypes, resistanceTypes, weaknessTypes } from "./iwr";
+import { damageCategories, damageRollFlavors, damageTypes, materialDamageEffects } from "./damage.ts";
+import { immunityTypes, resistanceTypes, weaknessTypes } from "./iwr.ts";
 import {
     actionTraits,
     alignmentTraits,
@@ -69,7 +69,8 @@ import {
     spellTraits,
     vehicleTraits,
     weaponTraits,
-} from "./traits";
+} from "./traits.ts";
+import { BaseArmorType } from "@item/armor/types.ts";
 
 export type StatusEffectIconTheme = "default" | "blackWhite";
 
@@ -167,6 +168,14 @@ const weaponCategories = {
     advanced: "PF2E.WeaponTypeAdvanced",
     unarmed: "PF2E.WeaponTypeUnarmed",
 };
+
+const baseArmorTypes = Object.keys(enJSON.PF2E.Item.Armor.Base).reduce(
+    (map, slug) => ({
+        ...map,
+        [slug]: `PF2E.Weapon.Base.${slug}`,
+    }),
+    {} as Record<BaseArmorType, string>
+);
 
 const baseWeaponTypes = Object.keys(enJSON.PF2E.Weapon.Base).reduce(
     (map, slug) => ({
@@ -306,6 +315,7 @@ const traitsDescriptions = {
     "deadly-d12": "PF2E.TraitDescriptionDeadly",
     "deadly-d6": "PF2E.TraitDescriptionDeadly",
     "deadly-d8": "PF2E.TraitDescriptionDeadly",
+    "deadly-d4": "PF2E.TraitDescriptionDeadly",
     death: "PF2E.TraitDescriptionDeath",
     "deflecting-bludgeoning": "PF2E.TraitDescriptionDeflecting",
     "deflecting-physical-ranged": "PF2E.TraitDescriptionDeflecting",
@@ -337,6 +347,7 @@ const traitsDescriptions = {
     esoterica: "PF2E.TraitDescriptionEsoterica",
     evil: "PF2E.TraitDescriptionEvil",
     evocation: "PF2E.TraitDescriptionEvocation",
+    evolution: "PF2E.TraitDescriptionEvolution",
     expandable: "PF2E.TraitDescriptionExpandable",
     exploration: "PF2E.TraitDescriptionExploration",
     extradimensional: "PF2E.TraitDescriptionExtradimensional",
@@ -433,6 +444,7 @@ const traitsDescriptions = {
     metal: "PF2E.TraitDescriptionMetal",
     metamagic: "PF2E.TraitDescriptionMetamagic",
     mindless: "PF2E.TraitDescriptionMindless",
+    mindshift: "PF2E.TraitDescriptionMindshift",
     minion: "PF2E.TraitDescriptionMinion",
     misfortune: "PF2E.TraitDescriptionMisfortune",
     missive: "PF2E.TraitDescriptionMissive",
@@ -544,6 +556,7 @@ const traitsDescriptions = {
     sweep: "PF2E.TraitDescriptionSweep",
     sylph: "PF2E.TraitDescriptionSylph",
     talisman: "PF2E.TraitDescriptionTalisman",
+    tandem: "PF2E.TraitDescriptionTandem",
     tattoo: "PF2E.TraitDescriptionTattoo",
     tech: "PF2E.TraitDescriptionTech",
     telepathy: "PF2E.TraitDescriptionTelepathy",
@@ -649,14 +662,13 @@ const sizeTypes: Record<Size, string> = {
     grg: "PF2E.ActorSizeGargantuan",
 };
 
-const featTypes: Record<FeatType, string> = {
+const featCategories: Record<FeatCategory, string> = {
     ancestry: "PF2E.FeatTypeAncestry",
     ancestryfeature: "PF2E.FeatTypeAncestryfeature",
     class: "PF2E.FeatTypeClass",
     classfeature: "PF2E.FeatTypeClassfeature",
     skill: "PF2E.FeatTypeSkill",
     general: "PF2E.FeatTypeGeneral",
-    archetype: "PF2E.FeatTypeArchetype",
     bonus: "PF2E.FeatTypeBonus",
     pfsboon: "PF2E.FeatPFSBoonHeader",
     deityboon: "PF2E.FeatDeityBoonHeader",
@@ -693,7 +705,7 @@ const weaponReload: Record<WeaponReloadTime, string> = {
     1: "1",
     2: "2",
     3: "3",
-    10: "PF2E.Item.Weapon.ReloadOneMinute",
+    10: "PF2E.Item.Weapon.Reload.OneMinute",
 };
 
 export const PF2ECONFIG = {
@@ -744,13 +756,13 @@ export const PF2ECONFIG = {
     },
 
     dcAdjustments: {
-        "incredibly easy": "PF2E.DCAdjustmentIncrediblyEasy",
-        "very easy": "PF2E.DCAdjustmentVeryEasy",
+        "incredibly-easy": "PF2E.DCAdjustmentIncrediblyEasy",
+        "very-easy": "PF2E.DCAdjustmentVeryEasy",
         easy: "PF2E.DCAdjustmentEasy",
         normal: "PF2E.DCAdjustmentNormal",
         hard: "PF2E.DCAdjustmentHard",
-        "very hard": "PF2E.DCAdjustmentVeryHard",
-        "incredibly hard": "PF2E.DCAdjustmentIncrediblyHard",
+        "very-hard": "PF2E.DCAdjustmentVeryHard",
+        "incredibly-hard": "PF2E.DCAdjustmentIncrediblyHard",
     },
 
     skills: {
@@ -770,17 +782,6 @@ export const PF2ECONFIG = {
         ste: "PF2E.SkillSte",
         sur: "PF2E.SkillSur",
         thi: "PF2E.SkillThi",
-    },
-
-    martialSkills: {
-        unarmored: "PF2E.MartialUnarmored",
-        light: "PF2E.MartialLight",
-        medium: "PF2E.MartialMedium",
-        heavy: "PF2E.MartialHeavy",
-        simple: "PF2E.MartialSimple",
-        martial: "PF2E.MartialMartial",
-        advanced: "PF2E.MartialAdvanced",
-        unarmed: "PF2E.MartialUnarmed",
     },
 
     saves: {
@@ -922,6 +923,7 @@ export const PF2ECONFIG = {
     weaponGroups,
     meleeWeaponGroups,
 
+    baseArmorTypes,
     baseWeaponTypes,
     equivalentWeapons,
 
@@ -971,6 +973,7 @@ export const PF2ECONFIG = {
         "affixed-to-unarmored-defense-item": "PF2E.TraitAffixedToUnarmoredItem",
         "affixed-to-weapon": "PF2E.TraitAffixedToWeapon",
         "applied-to-a-basket-bag-or-other-container": "PF2E.TraitAppliedToBasketBagOrContainer",
+        "applied-to-a-weapon": "PF2E.TraitAppliedToAWeapon",
         "applied-to-a-wind-powered-vehicle": "PF2E.TraitAppliedToAWindPoweredVehicle",
         "applied-to-a-non-injection-melee-weapon-piercing-damage":
             "PF2E.TraitAppliedToANoninjectionMeleePiercingWeapon",
@@ -992,6 +995,7 @@ export const PF2ECONFIG = {
         "attached-to-firearm": "PF2E.TraitAttachedToFirearm",
         "attached-to-firearm-scope": "PF2E.TraitAttachedToFirearmScope",
         bonded: "PF2E.TraitBonded",
+        carried: "PF2E.TraitCarried",
         "each-rune-applied-to-a-separate-item-that-has-pockets":
             "PF2E.TraitEachRuneAppliedToASeparateItemThatHasPockets",
         "etched-onto-a-weapon": "PF2E.TraitEtchedOntoAWeapon",
@@ -1135,12 +1139,14 @@ export const PF2ECONFIG = {
 
     weaponReload,
 
-    armorTypes: {
+    armorCategories: {
         unarmored: "PF2E.ArmorTypeUnarmored",
         light: "PF2E.ArmorTypeLight",
         medium: "PF2E.ArmorTypeMedium",
         heavy: "PF2E.ArmorTypeHeavy",
         shield: "PF2E.ArmorTypeShield",
+        "light-barding": "PF2E.Item.Armor.Category.light-barding",
+        "heavy-barding": "PF2E.Item.Armor.Category.heavy-barding",
     },
 
     armorGroups: {
@@ -1278,7 +1284,7 @@ export const PF2ECONFIG = {
         10: "PF2E.SpellLevel10",
     }, // TODO: Compute levels!
 
-    featTypes,
+    featCategories,
 
     actionTypes: {
         action: "PF2E.ActionTypeAction",
@@ -1460,6 +1466,7 @@ export const PF2ECONFIG = {
         drooni: "PF2E.LanguageDrooni",
         dziriak: "PF2E.LanguageDziriak",
         ekujae: "PF2E.LanguageEkujae",
+        "elder-thing": "PF2E.LanguageElderThing",
         erutaki: "PF2E.LanguageErutaki",
         formian: "PF2E.LanguageFormian",
         garundi: "PF2E.LanguageGarundi",

@@ -1,5 +1,4 @@
-import { ActorPF2e } from "@actor";
-import { ItemPF2e } from "@item";
+import { ActorPF2e, ItemPF2e } from "@module/documents.ts";
 
 /** The size property of creatures and equipment */
 const SIZES = ["tiny", "sm", "med", "lg", "huge", "grg"] as const;
@@ -74,7 +73,7 @@ interface NewDocumentSchemaRecord {
 interface MigratedDocumentSchemaRecord {
     version: number;
     lastMigration: {
-        datetime: string;
+        datetime: string | null;
         version: {
             schema: number | null;
             system?: string;
@@ -132,7 +131,10 @@ export const MATH_FUNCTION_NAMES: Set<MathFunctionName> = new Set([
     "trunc",
 ] as const);
 
-type EnfolderableDocumentPF2e = ActorPF2e | ItemPF2e | Exclude<EnfolderableDocument, Actor | Item>;
+type EnfolderableDocumentPF2e =
+    | ActorPF2e<null>
+    | ItemPF2e<null>
+    | Exclude<EnfolderableDocument, Actor<null> | Item<null>>;
 
 export {
     DocumentSchemaRecord,

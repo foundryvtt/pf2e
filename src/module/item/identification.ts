@@ -1,9 +1,9 @@
-import { adjustDCByRarity, calculateDC, DCOptions } from "../dc";
-import { PhysicalItemPF2e } from "./physical";
-import { MagicTradition } from "./spell/types";
-import { MAGIC_TRADITIONS } from "./spell/values";
+import { adjustDCByRarity, calculateDC, DCOptions } from "../dc.ts";
+import { PhysicalItemPF2e } from "./physical/index.ts";
+import { MagicTradition } from "./spell/types.ts";
+import { MAGIC_TRADITIONS } from "./spell/values.ts";
 import { setHasElement } from "@util";
-import { Rarity } from "@module/data";
+import { Rarity } from "@module/data.ts";
 
 /**
  * Implementation of Identify Magic and Identify Alchemy Rules for items

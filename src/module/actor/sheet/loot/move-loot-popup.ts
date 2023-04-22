@@ -1,4 +1,4 @@
-import { ActorPF2e } from "@actor/base";
+import { ActorPF2e } from "@actor/base.ts";
 
 class MoveLootPopup extends FormApplication<{}, MoveLootOptions> {
     onSubmitCallback: MoveLootCallback;
@@ -9,7 +9,7 @@ class MoveLootPopup extends FormApplication<{}, MoveLootOptions> {
         this.onSubmitCallback = callback;
     }
 
-    override async getData() {
+    override async getData(): Promise<PopupData> {
         const [prompt, buttonLabel] = this.options.isPurchase
             ? ["PF2E.loot.PurchaseLootMessage", "PF2E.loot.PurchaseLoot"]
             : ["PF2E.loot.MoveLootMessage", "PF2E.loot.MoveLoot"];
@@ -57,6 +57,14 @@ interface MoveLootOptions extends FormApplicationOptions {
 interface MoveLootFormData extends FormData {
     quantity: number;
     newStack: boolean;
+}
+
+interface PopupData extends FormApplicationData {
+    maxQuantity: number;
+    newStack: boolean;
+    lockStack: boolean;
+    prompt: string;
+    buttonLabel: string;
 }
 
 type MoveLootCallback = (quantity: number, newStack: boolean) => void;

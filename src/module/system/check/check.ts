@@ -1,27 +1,28 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
-import { AttackTarget } from "@actor/types";
-import { StrikeData, TraitViewData } from "@actor/data/base";
+import { StrikeData, TraitViewData } from "@actor/data/base.ts";
+import { CheckModifier, StatisticModifier } from "@actor/modifiers.ts";
+import { RollTarget } from "@actor/types.ts";
 import { WeaponPF2e } from "@item";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { ChatMessageSourcePF2e, CheckRollContextFlag, TargetFlag } from "@module/chat-message/data";
-import { RollNotePF2e } from "@module/notes";
-import { TokenDocumentPF2e } from "@scene";
-import { eventToRollParams } from "@scripts/sheet-util";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { ChatMessageSourcePF2e, CheckRollContextFlag, TargetFlag } from "@module/chat-message/data.ts";
+import { isCheckContextFlag } from "@module/chat-message/helpers.ts";
+import { RollNotePF2e } from "@module/notes.ts";
+import { ScenePF2e, TokenDocumentPF2e } from "@scene";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { StatisticDifficultyClass } from "@system/statistic/index.ts";
 import { ErrorPF2e, fontAwesomeIcon, objectHasKey, parseHTML, signedInteger, sluggify, traitSlugToObject } from "@util";
-import { CheckModifier, StatisticModifier } from "@actor/modifiers";
-import { CheckModifiersDialog } from "../check-modifiers-dialog";
-import { CheckRoll, CheckRollDataPF2e } from "./roll";
 import {
+    DEGREE_OF_SUCCESS_STRINGS,
     DegreeAdjustmentsRecord,
     DegreeOfSuccess,
     DegreeOfSuccessString,
-    DEGREE_OF_SUCCESS_STRINGS,
-} from "../degree-of-success";
-import { LocalizePF2e } from "../localize";
-import { TextEditorPF2e } from "../text-editor";
-import { CheckRollContext } from "./types";
-import { StrikeAttackRoll } from "./strike/attack-roll";
-import { isCheckContextFlag } from "@module/chat-message/helpers";
+} from "../degree-of-success.ts";
+import { LocalizePF2e } from "../localize.ts";
+import { TextEditorPF2e } from "../text-editor.ts";
+import { CheckModifiersDialog } from "./dialog.ts";
+import { CheckRoll, CheckRollDataPF2e } from "./roll.ts";
+import { StrikeAttackRoll } from "./strike/attack-roll.ts";
+import { CheckRollContext } from "./types.ts";
 
 interface RerollOptions {
     heroPoint?: boolean;
@@ -40,7 +41,7 @@ class CheckPF2e {
     static async roll(
         check: CheckModifier,
         context: CheckRollContext = {},
-        event: JQuery.TriggeredEvent | null = null,
+        event: JQuery.TriggeredEvent | Event | null = null,
         callback?: CheckRollCallback
     ): Promise<Rolled<CheckRoll> | null> {
         // If event is supplied, merge into context
@@ -183,13 +184,9 @@ class CheckPF2e {
                     if (!context.dc || note.outcome.length === 0) {
                         // Always show the note if the check has no DC or no outcome is specified.
                         return true;
-                    } else if (context.outcome && context.unadjustedOutcome) {
-                        if ([context.outcome, context.unadjustedOutcome].some((o) => note.outcome.includes(o))) {
-                            // Show the note if the specified outcome was achieved.
-                            return true;
-                        }
                     }
-                    return false;
+                    const outcome = context.outcome ?? context.unadjustedOutcome;
+                    return !!(outcome && note.outcome.includes(outcome));
                 })
                 .map((n) => n.text)
                 .join("\n") ?? "";
@@ -259,7 +256,8 @@ class CheckPF2e {
 
         if (callback) {
             const msg = message instanceof ChatMessagePF2e ? message : new ChatMessagePF2e(message);
-            await callback(roll, context.outcome, msg, event?.originalEvent ?? null);
+            const evt = !!event && event instanceof Event ? event : event?.originalEvent ?? null;
+            await callback(roll, context.outcome, msg, evt);
         }
 
         // Consume one unit of the weapon if it has the consumable trait
@@ -362,7 +360,10 @@ class CheckPF2e {
     }
 
     /** Reroll a rolled check given a chat message. */
-    static async rerollFromMessage(message: ChatMessagePF2e, { heroPoint = false, keep = "new" }: RerollOptions = {}) {
+    static async rerollFromMessage(
+        message: ChatMessagePF2e,
+        { heroPoint = false, keep = "new" }: RerollOptions = {}
+    ): Promise<void> {
         if (!(message.isAuthor || game.user.isGM)) {
             ui.notifications.error(game.i18n.localize("PF2E.RerollMenu.ErrorCantDelete"));
             return;
@@ -514,7 +515,7 @@ class CheckPF2e {
                 if (targetActor?.token) return targetActor.token;
 
                 // This is from a context flag: get the actor via UUID
-                return fromUuid(target.token);
+                return fromUuid(target.token) as Promise<TokenDocumentPF2e<ScenePF2e> | null>;
             })();
 
             const canSeeTokenName = (token ?? new TokenDocumentPF2e(targetActor?.prototypeToken.toObject() ?? {}))
@@ -539,15 +540,14 @@ class CheckPF2e {
             );
 
             // Get any circumstance penalties or bonuses to the target's DC
-            const targetAC = targetActor?.attributes.ac;
             const circumstances =
-                dc.slug === "ac" && targetAC instanceof StatisticModifier
-                    ? targetAC.modifiers.filter((m) => m.enabled && m.type === "circumstance")
+                dc.statistic instanceof StatisticModifier || dc.statistic instanceof StatisticDifficultyClass
+                    ? dc.statistic.modifiers.filter((m) => m.enabled && m.type === "circumstance")
                     : [];
             const preadjustedDC =
-                circumstances.length > 0 && targetAC
-                    ? targetAC.value - circumstances.reduce((total, c) => total + c.modifier, 0)
-                    : targetAC?.value ?? null;
+                circumstances.length > 0 && dc.statistic
+                    ? dc.value - circumstances.reduce((total, c) => total + c.modifier, 0)
+                    : dc.value ?? null;
 
             const visible = targetActor?.hasPlayerOwner || dc.visible || game.settings.get("pf2e", "metagame_showDC");
 
@@ -555,8 +555,7 @@ class CheckPF2e {
                 const labelKey = targetData
                     ? translations.DC.Label.WithTarget
                     : customLabel ?? translations.DC.Label.NoTarget;
-                const dcValue = dc.slug === "ac" && targetAC ? targetAC.value : dc.value;
-                const markup = game.i18n.format(labelKey, { dcType, dc: dcValue, target: targetData?.name ?? null });
+                const markup = game.i18n.format(labelKey, { dcType, dc: dc.value, target: targetData?.name ?? null });
 
                 return { markup, visible };
             }
@@ -670,7 +669,7 @@ class CheckPF2e {
 
 interface CreateResultFlavorParams {
     degree: DegreeOfSuccess | null;
-    target?: AttackTarget | TargetFlag | null;
+    target?: RollTarget | TargetFlag | null;
 }
 
 interface ResultFlavorTemplateData {

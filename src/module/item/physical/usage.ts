@@ -1,4 +1,4 @@
-import { EquippedData } from "./data";
+import { EquippedData } from "./data.ts";
 
 interface HeldUsage {
     value: string;
@@ -59,6 +59,7 @@ export function getUsageDetails(usage: string): UsageDetails {
         case "worncrown":
         case "wornepaulet":
         case "worneyepiece":
+        case "wornfootwear":
         case "worngarment":
         case "worngloves":
         case "wornheadwear":

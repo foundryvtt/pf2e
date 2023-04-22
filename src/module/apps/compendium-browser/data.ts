@@ -1,14 +1,36 @@
-import * as browserTabs from "./tabs";
+import * as browserTabs from "./tabs/index.ts";
 
-export interface PackInfo {
+interface PackInfo {
     load: boolean;
     name: string;
 }
-export type TabName = "action" | "bestiary" | "equipment" | "feat" | "hazard" | "spell" | "settings";
-export type BrowserTab = InstanceType<(typeof browserTabs)[keyof typeof browserTabs]>;
-export type TabData<T> = Record<TabName, T | null>;
 
-export type CommonSortByOption = "name" | "level";
+interface BrowserTabs {
+    action: browserTabs.Actions;
+    bestiary: browserTabs.Bestiary;
+    equipment: browserTabs.Equipment;
+    feat: browserTabs.Feats;
+    hazard: browserTabs.Hazards;
+    spell: browserTabs.Spells;
+}
 
-export type SortByOption = CommonSortByOption | "price";
-export type SortDirection = "asc" | "desc";
+type TabName = "action" | "bestiary" | "equipment" | "feat" | "hazard" | "spell" | "settings";
+type ContentTabName = Exclude<TabName, "settings">;
+type BrowserTab = InstanceType<(typeof browserTabs)[keyof typeof browserTabs]>;
+type TabData<T> = Record<TabName, T | null>;
+
+type CommonSortByOption = "name" | "level";
+type SortByOption = CommonSortByOption | "price";
+type SortDirection = "asc" | "desc";
+
+export {
+    BrowserTab,
+    BrowserTabs,
+    CommonSortByOption,
+    ContentTabName,
+    PackInfo,
+    SortByOption,
+    SortDirection,
+    TabData,
+    TabName,
+};

@@ -1,9 +1,10 @@
-import { ActorType } from "@actor/data";
+import { ActorPF2e } from "@actor";
+import { ActorType } from "@actor/data/index.ts";
 import { ItemPF2e } from "@item";
-import { ChatMessagePF2e } from "@module/chat-message";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { isObject } from "@util";
-import { RuleElementPF2e, RuleElementData, RuleElementSource } from "./";
-import { RuleElementOptions } from "./base";
+import { RuleElementData, RuleElementPF2e, RuleElementSource } from "./index.ts";
+import { RuleElementOptions } from "./base.ts";
 
 /**
  * @category RuleElement
@@ -11,7 +12,7 @@ import { RuleElementOptions } from "./base";
 class TempHPRuleElement extends RuleElementPF2e {
     static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
 
-    constructor(data: TempHPSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: TempHPSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
         /** Whether the temporary hit points are immediately applied */

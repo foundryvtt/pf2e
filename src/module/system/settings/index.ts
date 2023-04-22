@@ -1,14 +1,14 @@
-import { resetActors } from "@actor/helpers";
-import { ActorSheetPF2e } from "@actor/sheet/base";
+import { resetActors } from "@actor/helpers.ts";
+import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
-import { StatusEffects } from "@module/canvas/status-effects";
-import { MigrationRunner } from "@module/migration/runner";
+import { StatusEffects } from "@module/canvas/status-effects.ts";
+import { MigrationRunner } from "@module/migration/runner/index.ts";
 import { isImageOrVideoPath } from "@util";
-import { AutomationSettings } from "./automation";
-import { HomebrewElements } from "./homebrew";
-import { MetagameSettings } from "./metagame";
-import { VariantRulesSettings } from "./variant-rules";
-import { WorldClockSettings } from "./world-clock";
+import { AutomationSettings } from "./automation.ts";
+import { HomebrewElements } from "./homebrew/menu.ts";
+import { MetagameSettings } from "./metagame.ts";
+import { VariantRulesSettings } from "./variant-rules.ts";
+import { WorldClockSettings } from "./world-clock.ts";
 
 export function registerSettings(): void {
     if (BUILD_MODE === "development") {

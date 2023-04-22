@@ -1,8 +1,8 @@
 import { CharacterPF2e } from "@actor";
-import { CreatureSheetData } from "@actor/creature/types";
-import { FamiliarPF2e } from ".";
+import { CreatureSheetData } from "@actor/creature/types.ts";
+import { FamiliarPF2e } from "./document.ts";
 
-interface FamiliarSheetData extends CreatureSheetData<FamiliarPF2e> {
+interface FamiliarSheetData<TActor extends FamiliarPF2e> extends CreatureSheetData<TActor> {
     master: CharacterPF2e | null;
     masters: CharacterPF2e[];
     abilities: ConfigPF2e["PF2E"]["abilities"];

@@ -1,11 +1,14 @@
 import { getActionIcon, sluggify } from "@util";
-import { CompendiumBrowser } from "..";
-import { CompendiumBrowserTab } from "./base";
-import { ActionFilters, CompendiumBrowserIndexData } from "./data";
+import { CompendiumBrowser } from "../index.ts";
+import { ContentTabName } from "../data.ts";
+import { CompendiumBrowserTab } from "./base.ts";
+import { ActionFilters, CompendiumBrowserIndexData } from "./data.ts";
 
 export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
-    override filterData!: ActionFilters;
-    override templatePath = "systems/pf2e/templates/compendium-browser/partials/action.hbs";
+    tabName: ContentTabName = "action";
+    filterData: ActionFilters;
+    templatePath = "systems/pf2e/templates/compendium-browser/partials/action.hbs";
+
     /* MiniSearch */
     override searchFields = ["name"];
     override storeFields = ["type", "name", "img", "uuid", "traits", "source"];
@@ -13,17 +16,23 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
     protected index = ["img", "system.actionType.value", "system.traits.value", "system.source.value"];
 
     constructor(browser: CompendiumBrowser) {
-        super(browser, "action");
+        super(browser);
 
         // Set the filterData object of this tab
-        this.prepareFilterData();
+        this.filterData = this.prepareFilterData();
     }
 
-    protected override async loadData() {
+    protected override async loadData(): Promise<void> {
         console.debug("PF2e System | Compendium Browser | Started loading actions");
 
         const actions: CompendiumBrowserIndexData[] = [];
-        const indexFields = ["img", "system.actionType.value", "system.traits.value", "system.source.value"];
+        const indexFields = [
+            "img",
+            "system.actionType.value",
+            "system.traits.value",
+            "system.actionType.value",
+            "system.source.value",
+        ];
         const sources: Set<string> = new Set();
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
@@ -55,6 +64,7 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
                         img: actionData.img,
                         uuid: `Compendium.${pack.collection}.${actionData._id}`,
                         traits: actionData.system.traits.value,
+                        actionType: actionData.system.actionType.value,
                         source: actionData.system.source.value,
                     });
                 }
@@ -66,6 +76,7 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
 
         // Set Filters
         this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.actionTraits);
+        this.filterData.checkboxes.types.options = this.generateCheckboxOptions(CONFIG.PF2E.actionTypes);
         this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(sources);
 
         console.debug("PF2e System | Compendium Browser | Finished loading actions");
@@ -74,6 +85,10 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
     protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
         const { checkboxes, multiselects } = this.filterData;
 
+        // Types
+        if (checkboxes.types.selected.length) {
+            if (!checkboxes.types.selected.includes(entry.actionType)) return false;
+        }
         // Traits
         if (!this.filterTraits(entry.traits, multiselects.traits.selected, multiselects.traits.conjunction))
             return false;
@@ -84,9 +99,15 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
         return true;
     }
 
-    protected override prepareFilterData(): void {
-        this.filterData = {
+    protected override prepareFilterData(): ActionFilters {
+        return {
             checkboxes: {
+                types: {
+                    isExpanded: true,
+                    label: "PF2E.ActionActionTypeLabel",
+                    options: {},
+                    selected: [],
+                },
                 source: {
                     isExpanded: false,
                     label: "PF2E.BrowserFilterSource",

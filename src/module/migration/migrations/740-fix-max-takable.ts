@@ -1,6 +1,6 @@
-import { ItemSourcePF2e } from "@item/data";
-import { FeatSystemSource } from "@item/feat/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { FeatSystemSource } from "@item/feat/data.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Remove maxTaken property from feats leftover from development */
 export class Migration740MaxTakable extends MigrationBase {

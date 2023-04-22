@@ -3,7 +3,6 @@
     "img": "systems/pf2e/icons/spells/elemental-zone.webp",
     "name": "Effect: Resonance",
     "system": {
-        "badge": null,
         "description": {
             "value": "<p>The creature gains a +1 status bonus to attack and damage rolls for effects with the selected trait; a creature with the elemental and selected traits gains this bonus to all attack and damage rolls.</p>"
         },
@@ -36,13 +35,13 @@
                         "value": "water"
                     }
                 ],
-                "flag": "resonance-choice",
+                "flag": "element",
                 "key": "ChoiceSet"
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "{item|flags.pf2e.rulesSelections.resonance-choice}"
+                    "{item|flags.pf2e.rulesSelections.element}"
                 ],
                 "selector": [
                     "attack",
@@ -55,10 +54,10 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "self:trait:{item|flags.pf2e.rulesSelections.resonance-choice}",
+                    "self:trait:{item|flags.pf2e.rulesSelections.element}",
                     "self:trait:elemental",
                     {
-                        "not": "{item|flags.pf2e.rulesSelections.resonance-choice}"
+                        "not": "{item|flags.pf2e.rulesSelections.element}"
                     }
                 ],
                 "selector": [
@@ -84,8 +83,7 @@
         "traits": {
             "rarity": "common",
             "value": []
-        },
-        "unidentified": false
+        }
     },
     "type": "effect"
 }

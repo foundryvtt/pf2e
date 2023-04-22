@@ -1,12 +1,12 @@
-import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success";
+import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
 import { tagify } from "@util";
-import { RuleElementForm } from "./base";
+import { RuleElementForm } from "./base.ts";
 
 /** Form handler for the RollNote rule element */
 class RollNoteForm extends RuleElementForm {
     private html: HTMLElement | null = null;
     override template = "systems/pf2e/templates/items/rules/note.hbs";
-    override activateListeners(html: HTMLElement) {
+    override activateListeners(html: HTMLElement): void {
         this.html = html;
         const optionsEl = html.querySelector<HTMLInputElement>(".outcomes");
         if (optionsEl) {

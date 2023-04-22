@@ -1,8 +1,8 @@
-import { ItemSourcePF2e } from "@item/data";
-import { isPhysicalData } from "@item/data/helpers";
-import { TreasureSystemSource } from "@item/treasure/data";
-import { CoinsPF2e } from "@item/physical/helpers";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { isPhysicalData } from "@item/data/helpers.ts";
+import { TreasureSystemSource } from "@item/treasure/data.ts";
+import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { MigrationBase } from "../base.ts";
 import { isObject } from "@util";
 
 export class Migration746StandardizePricing extends MigrationBase {
@@ -12,7 +12,7 @@ export class Migration746StandardizePricing extends MigrationBase {
         if (!isPhysicalData(item) && item.type !== "kit") return;
 
         if (!isObject(item.system.price)) {
-            item.system.price = { value: CoinsPF2e.fromString(String(item.system.price)).strip() };
+            item.system.price = { value: CoinsPF2e.fromString(String(item.system.price)).toObject() };
         }
 
         if (item.type === "treasure") {
@@ -28,7 +28,7 @@ export class Migration746StandardizePricing extends MigrationBase {
                 delete systemData.value;
             }
         } else if (!isObject(item.system.price.value)) {
-            item.system.price.value = CoinsPF2e.fromString(String(item.system.price.value)).strip();
+            item.system.price.value = CoinsPF2e.fromString(String(item.system.price.value)).toObject();
         }
     }
 }

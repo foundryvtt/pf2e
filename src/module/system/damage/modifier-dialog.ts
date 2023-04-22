@@ -1,4 +1,4 @@
-import { ModifierPF2e, MODIFIER_TYPES, DamageDicePF2e, applyStackingRules } from "@actor/modifiers";
+import { ModifierPF2e, MODIFIER_TYPES, DamageDicePF2e, applyStackingRules } from "@actor/modifiers.ts";
 import {
     ErrorPF2e,
     htmlQuery,
@@ -9,8 +9,8 @@ import {
     sortStringRecord,
     tupleHasValue,
 } from "@util";
-import { DamageCategoryUnique, DamageDieSize, DamageRollContext, DamageType } from "./types";
-import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_TYPE_ICONS } from "./values";
+import { DamageCategoryUnique, DamageDieSize, DamageRollContext, DamageType } from "./types.ts";
+import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_TYPE_ICONS } from "./values.ts";
 
 /**
  * Dialog for excluding certain modifiers before rolling damage.

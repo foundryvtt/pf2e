@@ -1,0 +1,56 @@
+{
+    "_id": "XE2YhBMl7wc6nQAZ",
+    "img": "systems/pf2e/icons/spells/breath-of-life.webp",
+    "name": "Effect: Replenishment of War",
+    "system": {
+        "description": {
+            "value": "<p>When Endlo damages a creature with a greatsword Strike, he gains 6 temporary Hit Points until the start of his next turn. If the Strike was a critical hit, he instead gains 12 temporary Hit Points.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Attack.success",
+                        "value": 6
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Attack.criticalSuccess",
+                        "value": 12
+                    }
+                ],
+                "flag": "outcome",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+            },
+            {
+                "key": "TempHP",
+                "value": "@item.flags.pf2e.rulesSelections.outcome"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #190: The Choosing"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

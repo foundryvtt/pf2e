@@ -1,7 +1,7 @@
-import { SkillAbbreviation } from "@actor/creature/data";
-import { identifyItem, IdentifyAlchemyDCs, IdentifyMagicDCs, GenericIdentifyDCs } from "@item/identification";
-import { PhysicalItemPF2e } from "@item/physical";
-import { ChatMessagePF2e } from "@module/chat-message";
+import { SkillAbbreviation } from "@actor/creature/data.ts";
+import { identifyItem, IdentifyAlchemyDCs, IdentifyMagicDCs, GenericIdentifyDCs } from "@item/identification.ts";
+import { PhysicalItemPF2e } from "@item/physical/index.ts";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { objectHasKey } from "@util";
 
 export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {

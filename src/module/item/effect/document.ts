@@ -1,12 +1,13 @@
-import { AbstractEffectPF2e } from "@item/abstract-effect";
-import { EffectBadge } from "@item/abstract-effect/data";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { RuleElementOptions, RuleElementPF2e } from "@module/rules";
-import { UserPF2e } from "@module/user";
+import { ActorPF2e } from "@actor";
+import { AbstractEffectPF2e } from "@item/abstract-effect/index.ts";
+import { EffectBadge } from "@item/abstract-effect/data.ts";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";
+import { UserPF2e } from "@module/user/index.ts";
 import { isObject, objectHasKey, sluggify } from "@util";
-import { EffectData } from "./data";
+import { EffectFlags, EffectSource, EffectSystemData } from "./data.ts";
 
-class EffectPF2e extends AbstractEffectPF2e {
+class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
     static DURATION_UNITS: Readonly<Record<string, number>> = {
         rounds: 6,
         minutes: 60,
@@ -64,8 +65,13 @@ class EffectPF2e extends AbstractEffectPF2e {
         }
     }
 
-    override get unidentified(): boolean {
-        return this.system.unidentified ?? false;
+    /** Whether this effect emits an aura */
+    get isAura(): boolean {
+        return this.rules.some((r) => r.key === "Aura");
+    }
+
+    override get isIdentified(): boolean {
+        return !this.system.unidentified;
     }
 
     /** Does this effect originate from an aura? */
@@ -88,9 +94,7 @@ class EffectPF2e extends AbstractEffectPF2e {
         if (badge?.type === "counter") {
             const max = badge.labels?.length ?? Infinity;
             badge.value = Math.clamped(badge.value, 1, max);
-            if (badge.labels) {
-                badge.label = badge.labels.at(badge.value - 1);
-            }
+            badge.label = badge.labels?.at(badge.value - 1)?.trim() || null;
         }
     }
 
@@ -147,7 +151,7 @@ class EffectPF2e extends AbstractEffectPF2e {
     /** Set the start time and initiative roll of a newly created effect */
     protected override async _preCreate(
         data: PreDocumentId<this["_source"]>,
-        options: DocumentModificationContext<this>,
+        options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<void> {
         if (this.isOwned) {
@@ -177,7 +181,7 @@ class EffectPF2e extends AbstractEffectPF2e {
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<this>,
+        options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<void> {
         const duration = changed.system?.duration;
@@ -197,34 +201,18 @@ class EffectPF2e extends AbstractEffectPF2e {
         return super._preUpdate(changed, options, user);
     }
 
-    /** Show floaty text when this effect is created on an actor */
-    protected override _onCreate(
-        data: this["_source"],
-        options: DocumentModificationContext<this>,
-        userId: string
-    ): void {
-        super._onCreate(data, options, userId);
-
-        if (!this.flags.pf2e.aura || game.combat?.started) {
-            this.actor?.getActiveTokens().shift()?.showFloatyText({ create: this });
-        }
-    }
-
-    /** Show floaty text when this effect is deleted from an actor */
-    protected override _onDelete(options: DocumentModificationContext, userId: string): void {
+    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
         if (this.actor) {
-            game.pf2e.effectTracker.unregister(this as Embedded<EffectPF2e>);
+            game.pf2e.effectTracker.unregister(this as EffectPF2e<ActorPF2e>);
         }
         super._onDelete(options, userId);
-
-        if (!this.flags.pf2e.aura || game.combat?.started) {
-            this.actor?.getActiveTokens().shift()?.showFloatyText({ delete: this });
-        }
     }
 }
 
-interface EffectPF2e extends AbstractEffectPF2e {
-    readonly data: EffectData;
+interface EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
+    flags: EffectFlags;
+    readonly _source: EffectSource;
+    system: EffectSystemData;
 }
 
 export { EffectPF2e };

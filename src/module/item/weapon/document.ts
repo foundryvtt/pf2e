@@ -1,29 +1,30 @@
-import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression";
-import { ActorSizePF2e } from "@actor/data/size";
+import { ActorPF2e } from "@actor";
+import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
+import { ActorSizePF2e } from "@actor/data/size.ts";
 import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e } from "@item";
-import { ItemSummaryData, MeleeSource } from "@item/data";
-import { NPCAttackDamage, NPCAttackTrait } from "@item/melee/data";
+import { ItemSummaryData, MeleeSource } from "@item/data/index.ts";
+import { NPCAttackDamage, NPCAttackTrait } from "@item/melee/data.ts";
 import {
     Bulk,
     CoinsPF2e,
-    getPropertySlots,
     IdentificationStatus,
     MaterialGradeData,
     MystifiedData,
     RuneValuationData,
-    WeaponPropertyRuneData,
     WEAPON_MATERIAL_VALUATION_DATA,
     WEAPON_PROPERTY_RUNES,
     WEAPON_VALUATION_DATA,
-} from "@item/physical";
-import { MAGIC_SCHOOLS, MAGIC_TRADITIONS } from "@item/spell/values";
-import { OneToThree } from "@module/data";
-import { UserPF2e } from "@module/user";
-import { DamageCategorization } from "@system/damage/helpers";
-import { LocalizePF2e } from "@system/localize";
+    WeaponPropertyRuneData,
+    getPropertySlots,
+} from "@item/physical/index.ts";
+import { MAGIC_SCHOOLS, MAGIC_TRADITIONS } from "@item/spell/values.ts";
+import { OneToThree } from "@module/data.ts";
+import { UserPF2e } from "@module/user/index.ts";
+import { DamageCategorization } from "@system/damage/helpers.ts";
+import { LocalizePF2e } from "@system/localize.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify } from "@util";
-import { WeaponDamage, WeaponData, WeaponMaterialData, WeaponSource } from "./data";
-import {
+import type { WeaponDamage, WeaponFlags, WeaponMaterialData, WeaponSource, WeaponSystemData } from "./data.ts";
+import type {
     BaseWeaponType,
     OtherWeaponTag,
     StrikingRuneType,
@@ -33,10 +34,11 @@ import {
     WeaponRangeIncrement,
     WeaponReloadTime,
     WeaponTrait,
-} from "./types";
-import { CROSSBOW_WEAPONS, MANDATORY_RANGED_GROUPS, THROWN_RANGES } from "./values";
+} from "./types.ts";
+import { CROSSBOW_WEAPONS, MANDATORY_RANGED_GROUPS, THROWN_RANGES } from "./values.ts";
+import { WeaponTraitToggles } from "./helpers.ts";
 
-class WeaponPF2e extends PhysicalItemPF2e {
+class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     /** Given this weapon is an alternative usage, whether it is melee or thrown */
     altUsageType: "melee" | "thrown" | null = null;
 
@@ -51,7 +53,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
         return super.isEquipped || (this.handsHeld === 1 && traits.value.some((t) => /^jousting-d\d{1,2}$/.test(t)));
     }
 
-    override isStackableWith(item: PhysicalItemPF2e): boolean {
+    override isStackableWith(item: PhysicalItemPF2e<TParent>): boolean {
         if (this.category === "unarmed" || !item.isOfType("weapon") || item.category === "unarmed") {
             return false;
         }
@@ -114,6 +116,13 @@ class WeaponPF2e extends PhysicalItemPF2e {
         return this.isRanged && this.reload === "-";
     }
 
+    get isOversized(): boolean {
+        return (
+            this.category !== "unarmed" &&
+            !!this.parent?.system.traits?.size.isSmallerThan(this.size, { smallIsMedium: true })
+        );
+    }
+
     /** This weapon's damage before modification by creature abilities, effects, etc. */
     get baseDamage(): WeaponDamage {
         return deepClone(this.system.damage);
@@ -134,7 +143,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
         return this.isRanged && ![null, "-"].includes(this.reload);
     }
 
-    get ammo(): Embedded<ConsumablePF2e> | null {
+    get ammo(): ConsumablePF2e<NonNullable<TParent>> | null {
         const ammo = this.actor?.items.get(this.system.selectedAmmoId ?? "");
         return ammo instanceof ConsumablePF2e && ammo.quantity > 0 ? ammo : null;
     }
@@ -154,8 +163,6 @@ class WeaponPF2e extends PhysicalItemPF2e {
             },
         };
         const { actor } = this;
-        const actorSize = actor?.system.traits?.size;
-        const oversized = this.category !== "unarmed" && !!actorSize?.isSmallerThan(this.size, { smallIsMedium: true });
         const isDeityFavored = !!(
             this.baseType &&
             actor?.isOfType("character") &&
@@ -173,6 +180,30 @@ class WeaponPF2e extends PhysicalItemPF2e {
             .map((p) => `rune:property:${sluggify(p)}`)
             .reduce((statements, s) => ({ ...statements, [s]: true }), {} as Record<string, boolean>);
 
+        // Ammunition
+        const ammunitionRollOptions = ((ammunition: ConsumablePF2e | null) => {
+            const rollOptions: Record<string, boolean> = {};
+            if (ammunition) {
+                rollOptions[`ammo:id:${ammunition.id}`] = true;
+                rollOptions[`ammo:slug:${ammunition.slug}`] = true;
+                rollOptions[`ammo:level:${ammunition.level}`] = true;
+                if (ammunition.material.precious) {
+                    rollOptions[`ammo:material:type:${ammunition.material.precious.type}`] = true;
+                    rollOptions[`ammo:material:grade:${ammunition.material.precious.grade}`] = true;
+                }
+                for (const trait of ammunition.traits) {
+                    rollOptions[`ammo:trait:${trait}`] = true;
+                }
+            }
+            return rollOptions;
+        })(this.ammo);
+
+        // Get the bulk of a single unit of this weapon
+        const bulk = ((): string => {
+            const unitBulk = this.bulk.times(1 / this.quantity);
+            return unitBulk.isNegligible ? "negligible" : unitBulk.isLight ? "light" : unitBulk.toString();
+        })();
+
         return [
             super.getRollOptions(prefix),
             Object.entries({
@@ -180,6 +211,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 [`group:${this.group}`]: !!this.group,
                 ...baseTypeRollOptions,
                 [`base:${this.baseType}`]: !!this.baseType,
+                [`bulk:${bulk}`]: true,
                 [`hands-held:${this.handsHeld}`]: this.isEquipped && this.handsHeld > 0,
                 [`usage:hands:${this.hands}`]: this.hands !== "0",
                 [`range-increment:${this.rangeIncrement}`]: !!this.rangeIncrement,
@@ -191,12 +223,13 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 [`damage-dice:${damage.dice.number}`]: !!damage.dice.faces,
                 [`damage:persistent:${persistent?.type}`]: !!persistent,
                 "deity-favored": isDeityFavored,
-                oversized,
+                oversized: this.isOversized,
                 melee: this.isMelee,
                 ranged: this.isRanged,
                 thrown: this.isThrown,
                 "thrown-melee": thrownMelee,
                 ...propertyRunes,
+                ...ammunitionRollOptions,
             })
                 .filter(([, isTrue]) => isTrue)
                 .map(([key]) => `${prefix}:${key}`),
@@ -220,7 +253,14 @@ class WeaponPF2e extends PhysicalItemPF2e {
         systemData.propertyRune2.value ||= null;
         systemData.propertyRune3.value ||= null;
         systemData.propertyRune4.value ||= null;
-        systemData.reload.value ||= null;
+
+        const reloadValue = (systemData.reload.value ||= null);
+        systemData.reload.label = reloadValue
+            ? game.i18n.format("PF2E.Item.Weapon.Reload.LabelN", {
+                  value: CONFIG.PF2E.weaponReload[reloadValue],
+              })
+            : null;
+
         systemData.selectedAmmoId ||= null;
         systemData.damage.die ||= null;
         systemData.damage.modifier ??= 0;
@@ -230,9 +270,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             systemData.damage.modifier ||= systemData.damage.dice;
         }
 
-        // This method checks data on the actor that may not yet be initialized:
-        // use the item's initialization status as a proxy check
-        if (this.initialized) ABP.cleanupRunes(this);
+        ABP.cleanupRunes(this);
 
         const traitsArray = systemData.traits.value;
         // Thrown weapons always have a reload of "-"
@@ -257,6 +295,9 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 systemData.traits.otherTags.push("crossbow");
             }
         }
+
+        // Lazy-load toggleable traits
+        systemData.traits.toggles = new WeaponTraitToggles(this);
 
         // Ensure unarmed attacks always have the unarmed trait
         if (systemData.category === "unarmed" && !traitsArray.includes("unarmed")) {
@@ -369,6 +410,14 @@ class WeaponPF2e extends PhysicalItemPF2e {
             .reduce((highest, rarity) => (rarityOrder[rarity] > rarityOrder[highest] ? rarity : highest), baseRarity);
     }
 
+    /** Add the rule elements of this weapon's linked ammunition to its own list */
+    override prepareSiblingData(): void {
+        super.prepareSiblingData();
+        // Set the default label to the ammunition item's name
+        const ammoRules = (this.ammo?.system.rules ?? []).map((r) => ({ label: this.ammo?.name, ...deepClone(r) }));
+        this.system.rules.push(...ammoRules);
+    }
+
     override computeAdjustedPrice(): CoinsPF2e | null {
         const materialData = this.getMaterialValuationData();
         if (!(this.isMagical || materialData) || this.isSpecific) return null;
@@ -404,7 +453,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     override async getChatData(
-        this: Embedded<WeaponPF2e>,
+        this: WeaponPF2e<ActorPF2e>,
         htmlOptions: EnrichHTMLOptions = {}
     ): Promise<ItemSummaryData> {
         const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
@@ -420,17 +469,22 @@ class WeaponPF2e extends PhysicalItemPF2e {
         return this.processChatData(htmlOptions, {
             ...chatData,
             traits,
-            properties: [CONFIG.PF2E.weaponCategories[this.category], rangeIncrement, maxRange].filter((p) => !!p),
+            properties: [
+                CONFIG.PF2E.weaponCategories[this.category],
+                this.system.reload.label,
+                rangeIncrement,
+                maxRange,
+            ].filter((p) => !!p),
         });
     }
 
     /** Generate a weapon name base on precious-material composition and runes */
     generateMagicName(): string {
         const translations = LocalizePF2e.translations.PF2E;
-        const baseWeapons = translations.Weapon.Base;
+        const baseWeapons = CONFIG.PF2E.baseWeaponTypes;
 
         const storedName = this._source.name;
-        if (this.isSpecific || !this.baseType || storedName !== baseWeapons[this.baseType]) {
+        if (this.isSpecific || !this.baseType || storedName !== game.i18n.localize(baseWeapons[this.baseType])) {
             return this.name;
         }
 
@@ -443,7 +497,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
         })();
 
         const params = {
-            base: this.baseType ? baseWeapons[this.baseType] : this.name,
+            base: this.baseType ? game.i18n.localize(baseWeapons[this.baseType]) : this.name,
             material: material.precious && game.i18n.localize(CONFIG.PF2E.preciousMaterials[material.precious.type]),
             potency: potencyRune,
             striking: strikingRune && game.i18n.localize(CONFIG.PF2E.weaponStrikingRunes[strikingRune]),
@@ -501,7 +555,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
      * @param [options.recurse=true] Whether to get the alternative usages of alternative usages
      */
     getAltUsages(options?: { recurse?: boolean }): this[];
-    getAltUsages({ recurse = true } = {}): WeaponPF2e[] {
+    getAltUsages({ recurse = true } = {}): WeaponPF2e<TParent>[] {
         const meleeUsage = this.toMeleeUsage();
 
         return [
@@ -512,15 +566,15 @@ class WeaponPF2e extends PhysicalItemPF2e {
         ].flat();
     }
 
-    override clone<T extends this>(
+    override clone(
         data: DocumentUpdateData<this> | undefined,
         options: Omit<WeaponCloneOptions, "save"> & { save: true }
-    ): Promise<T>;
-    override clone<T extends this>(
+    ): Promise<this>;
+    override clone(
         data?: DocumentUpdateData<this>,
         options?: Omit<WeaponCloneOptions, "save"> & { save?: false }
-    ): T;
-    override clone<T extends this>(data?: DocumentUpdateData<this>, options?: WeaponCloneOptions): T | Promise<T>;
+    ): this;
+    override clone(data?: DocumentUpdateData<this>, options?: WeaponCloneOptions): this | Promise<this>;
     override clone(data?: DocumentUpdateData<this>, options?: WeaponCloneOptions): this | Promise<this> {
         const clone = super.clone(data, options);
         if (options?.altUsage && clone instanceof WeaponPF2e) {
@@ -573,7 +627,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     /** Generate a melee item from this weapon for use by NPCs */
-    toNPCAttacks(this: Embedded<WeaponPF2e>): Embedded<MeleePF2e>[] {
+    toNPCAttacks(this: WeaponPF2e<ActorPF2e>): MeleePF2e<ActorPF2e>[] {
         const { actor } = this;
         if (!actor.isOfType("npc")) throw ErrorPF2e("Melee items can only be generated for NPCs");
 
@@ -713,7 +767,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             flags: { pf2e: { linkedWeapon: this.id } },
         };
 
-        const attack = new MeleePF2e(source, { parent: this.actor }) as Embedded<MeleePF2e>;
+        const attack = new MeleePF2e(source, { parent: this.actor });
         // Melee items retrieve these during `prepareSiblingData`, but if the attack is from a Strike rule element,
         // there will be no inventory weapon from which to pull the data.
         attack.category = this.category;
@@ -729,7 +783,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
     protected override _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<this>,
+        options: DocumentUpdateContext<TParent>,
         user: UserPF2e
     ): Promise<void> {
         const traits = changed.system?.traits ?? {};
@@ -741,7 +795,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     /** Remove links to this weapon from NPC attacks */
-    protected override _onDelete(options: DocumentModificationContext, userId: string): void {
+    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
         super._onDelete(options, userId);
 
         if (game.user.id === userId) {
@@ -754,15 +808,15 @@ class WeaponPF2e extends PhysicalItemPF2e {
     }
 }
 
-interface WeaponPF2e extends PhysicalItemPF2e {
-    readonly data: WeaponData;
+interface WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
+    flags: WeaponFlags;
+    readonly _source: WeaponSource;
+    system: WeaponSystemData;
 
     get traits(): Set<WeaponTrait>;
 }
 
-interface WeaponCloneOptions {
-    save?: boolean;
-    keepId?: boolean;
+interface WeaponCloneOptions extends DocumentCloneOptions {
     /** If this clone is an alternative usage, the type */
     altUsage?: "melee" | "thrown";
 }

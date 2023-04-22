@@ -1,5 +1,5 @@
 form > header {
-    background: url("../assets/sheet/header-bw.webp"), url("../assets/sheet/background.webp");
+    background: url("/assets/sheet/header-bw.webp"), url("/assets/sheet/background.webp");
     background-repeat: repeat-x, no-repeat;
     background-size: cover;
     background-color: #238580;
@@ -26,19 +26,23 @@ form > header {
         margin: 16px 0;
 
         .frame {
-            position: relative;
             width: 60px;
             height: 60px;
         }
 
-        .player-image {
+        .image-container {
+            [data-action=show-image] {
+                color: var(--color-text-dark-primary);
+            }
+        }
+
+        .actor-image {
             object-fit: cover;
             object-position: top;
             border: none;
             border-radius: 0;
             max-height: 178px;
             width: 100%;
-            cursor: pointer;
             @include brown-border;
         }
 

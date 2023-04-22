@@ -1,31 +1,26 @@
-import { ActorType } from "@actor/data";
-import { ItemPF2e, ItemProxyPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data";
-import { ItemGrantDeleteAction } from "@item/data/base";
-import { PHYSICAL_ITEM_TYPES } from "@item/physical/values";
-import { MigrationList, MigrationRunner } from "@module/migration";
+import { ActorPF2e } from "@actor";
+import { ActorType } from "@actor/data/index.ts";
+import { ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e } from "@item";
+import { ItemGrantDeleteAction } from "@item/data/base.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
+import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
+import { SlugField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, isObject, pick, setHasElement, sluggify, tupleHasValue } from "@util";
-import { UUIDUtils } from "@util/uuid-utils";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "..";
-import { ChoiceSetSource } from "../choice-set/data";
-import { ChoiceSetRuleElement } from "../choice-set/rule-element";
-import { WithItemAlterations } from "../mixins";
+import type { ModelPropsFromSchema } from "types/foundry/common/data/fields.d.ts";
+import { ItemAlterationField, applyAlterations } from "../alter-item/index.ts";
+import { ChoiceSetSource } from "../choice-set/data.ts";
+import { ChoiceSetRuleElement } from "../choice-set/rule-element.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "../index.ts";
+import { GrantItemSchema } from "./schema.ts";
 
-class GrantItemRuleElement extends RuleElementPF2e {
+const { fields } = foundry.data;
+
+class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
     static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
 
-    /** The UUID of the item to grant: must be a compendium or world item */
-    uuid: string;
-    /** Whether the granted item should replace the granting item */
-    protected replaceSelf: boolean;
-    /** Permit this grant to be applied during an actor update--if it isn't already granted and the predicate passes */
-    protected reevaluateOnUpdate: boolean;
-    /** Allow multiple of the same item (as determined by source ID) to be granted */
-    protected allowDuplicate: boolean;
     /** The id of the granted item */
     grantedId: string | null;
-    /** A flag for referencing the granted item ID in other rule elements */
-    flag: string | null;
 
     /**
      * If the granted item has a `ChoiceSet`, its selection may be predetermined. The key of the record must be the
@@ -36,13 +31,14 @@ class GrantItemRuleElement extends RuleElementPF2e {
     /** Actions taken when either the parent or child item are deleted */
     onDeleteActions: Partial<OnDeleteActions> | null;
 
-    constructor(data: GrantItemSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: GrantItemSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
-        this.uuid = String(data.uuid);
-        this.reevaluateOnUpdate = !!data.reevaluateOnUpdate;
-        this.replaceSelf = this.reevaluateOnUpdate ? false : !!data.replaceSelf;
-        this.allowDuplicate = this.reevaluateOnUpdate ? false : !!(data.allowDuplicate ?? true);
+        if (this.reevaluateOnUpdate) {
+            this.replaceSelf = false;
+            this.allowDuplicate = false;
+        }
+
         this.onDeleteActions = this.#getOnDeleteActions(data);
 
         const isValidPreselect = (p: Record<string, unknown>): p is Record<string, string | number> =>
@@ -52,15 +48,44 @@ class GrantItemRuleElement extends RuleElementPF2e {
                 ? deepClone(data.preselectChoices)
                 : {};
 
-        this.flag =
-            typeof data.flag === "string" && data.flag.length > 0 ? sluggify(data.flag, { camel: "dromedary" }) : null;
-
         this.grantedId = this.item.flags.pf2e.itemGrants[this.flag ?? ""]?.id ?? null;
 
-        this.alterations = data.alterations && this.isValidItemAlteration(data.alterations) ? data.alterations : [];
+        if (this.track) {
+            const grantedItem = this.actor.inventory.get(this.grantedId ?? "") ?? null;
+            this.#trackItem(grantedItem);
+        }
+
+        if (item.isOfType("physical")) {
+            this.failValidation("parent item must not be physical");
+        }
+    }
+
+    static override defineSchema(): GrantItemSchema {
+        return {
+            ...super.defineSchema(),
+            uuid: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
+            flag: new SlugField({ required: true, nullable: true, initial: null, camel: "dromedary" }),
+            reevaluateOnUpdate: new fields.BooleanField({ required: false, nullable: false, initial: false }),
+            replaceSelf: new fields.BooleanField({ required: false, nullable: false, initial: false }),
+            allowDuplicate: new fields.BooleanField({ required: false, nullable: false, initial: true }),
+            alterations: new fields.ArrayField(new ItemAlterationField(), {
+                required: false,
+                nullable: false,
+                initial: [],
+            }),
+            track: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
+        };
     }
 
     static ON_DELETE_ACTIONS = ["cascade", "detach", "restrict"] as const;
+
+    override _validateModel(data: SourceFromSchema<GrantItemSchema>): void {
+        super._validateModel(data);
+
+        if (data.track && !data.flag) {
+            throw Error("must have explicit flag set if granted item is tracked");
+        }
+    }
 
     override async preCreate(args: RuleElementPF2e.PreCreateParams): Promise<void> {
         const { itemSource, pendingItems, context } = args;
@@ -74,14 +99,14 @@ class GrantItemRuleElement extends RuleElementPF2e {
         const uuid = this.resolveInjectedProperties(this.uuid);
         const grantedItem: ClientDocument | null = await (async () => {
             try {
-                return (await UUIDUtils.fromUuid(uuid))?.clone() ?? null;
+                return (await fromUuid(uuid))?.clone() ?? null;
             } catch (error) {
                 console.error(error);
                 return null;
             }
         })();
         if (!(grantedItem instanceof ItemPF2e)) return;
-        ruleSource.flag ??=
+        ruleSource.flag =
             typeof ruleSource.flag === "string" && ruleSource.flag.length > 0
                 ? sluggify(ruleSource.flag, { camel: "dromedary" })
                 : ((): string => {
@@ -132,14 +157,21 @@ class GrantItemRuleElement extends RuleElementPF2e {
         grantedSource.flags = mergeObject(grantedSource.flags, { core: { sourceId: uuid } });
 
         // Create a temporary owned item and run its actor-data preparation and early-stage rule-element callbacks
-        const tempGranted = new ItemProxyPF2e(deepClone(grantedSource), { parent: this.actor }) as Embedded<ItemPF2e>;
+        const tempGranted = new ItemProxyPF2e(deepClone(grantedSource), { parent: this.actor });
         tempGranted.prepareActorData?.();
         for (const rule of tempGranted.prepareRuleElements({ suppressWarnings: true })) {
             rule.onApplyActiveEffects?.();
         }
 
         this.#applyChoiceSelections(tempGranted);
-        this.applyAlterations(grantedSource);
+
+        const alterations = this.alterations.map((a) => ({ ...a, value: this.resolveValue(a.value) }));
+        try {
+            applyAlterations(grantedSource, alterations);
+        } catch (error) {
+            if (error instanceof Error) this.failValidation(error.message);
+            return;
+        }
 
         if (this.ignored) return;
 
@@ -159,9 +191,11 @@ class GrantItemRuleElement extends RuleElementPF2e {
             return;
         }
 
+        this.grantedId = grantedSource._id;
         context.keepId = true;
 
         this.#setGrantFlags(itemSource, grantedSource);
+        this.#trackItem(tempGranted);
 
         // Run the granted item's preCreate callbacks unless this is a pre-actor-update reevaluation
         if (!args.reevaluation) {
@@ -213,7 +247,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
         return null;
     }
 
-    #applyChoiceSelections(grantedItem: Embedded<ItemPF2e>): void {
+    #applyChoiceSelections(grantedItem: ItemPF2e<ActorPF2e>): void {
         const source = grantedItem._source;
         for (const [flag, selection] of Object.entries(this.preselectChoices ?? {})) {
             const rule = grantedItem.rules.find(
@@ -228,7 +262,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
     }
 
     /** Set flags on granting and grantee items to indicate relationship between the two */
-    #setGrantFlags(granter: PreCreate<ItemSourcePF2e>, grantee: ItemSourcePF2e | ItemPF2e): void {
+    #setGrantFlags(granter: PreCreate<ItemSourcePF2e>, grantee: ItemSourcePF2e | ItemPF2e<ActorPF2e>): void {
         const flags = mergeObject(granter.flags ?? {}, { pf2e: { itemGrants: {} } });
         if (!this.flag) throw ErrorPF2e("Unexpected failure looking up RE flag key");
         flags.pf2e.itemGrants[this.flag] = {
@@ -261,9 +295,9 @@ class GrantItemRuleElement extends RuleElementPF2e {
     /** Run the preCreate callbacks of REs from the granted item */
     async #runGrantedItemPreCreates(
         originalArgs: Omit<RuleElementPF2e.PreCreateParams, "ruleSource">,
-        grantedItem: Embedded<ItemPF2e>,
+        grantedItem: ItemPF2e<ActorPF2e>,
         grantedSource: ItemSourcePF2e,
-        context: DocumentModificationContext<ItemPF2e>
+        context: DocumentModificationContext<ActorPF2e | null>
     ): Promise<void> {
         // Create a temporary embedded version of the item to run its pre-create REs
         for (const rule of grantedItem.rules) {
@@ -276,12 +310,23 @@ class GrantItemRuleElement extends RuleElementPF2e {
             });
         }
     }
+
+    /** If this item is being tracked, set an actor flag and add its item roll options to the `all` domain */
+    #trackItem(grantedItem: ItemPF2e<ActorPF2e> | null): void {
+        if (!(this.track && this.flag && this.grantedId && grantedItem instanceof PhysicalItemPF2e)) {
+            return;
+        }
+
+        this.actor.flags.pf2e.trackedItems[this.flag] = this.grantedId;
+        const slug = sluggify(this.flag);
+        const rollOptionsAll = this.actor.rollOptions.all;
+        for (const statement of grantedItem.getRollOptions(slug)) {
+            rollOptionsAll[statement] = true;
+        }
+    }
 }
 
-interface GrantItemRuleElement extends RuleElementPF2e, WithItemAlterations<RuleElementSchema> {}
-
-// Apply mixin
-WithItemAlterations.apply(GrantItemRuleElement);
+interface GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema>, ModelPropsFromSchema<GrantItemSchema> {}
 
 interface GrantItemSource extends RuleElementSource {
     uuid?: unknown;

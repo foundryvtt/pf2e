@@ -1,13 +1,14 @@
-import { StrikeData } from "@actor/data/base";
+import { ActorPF2e } from "@actor";
+import { StrikeData } from "@actor/data/base.ts";
 import { FeatPF2e, ItemPF2e } from "@item";
-import { ItemType } from "@item/data";
-import { PickableThing } from "@module/apps/pick-a-thing-prompt";
-import { PredicatePF2e } from "@system/predication";
-import { PredicateField } from "@system/schema-data-fields";
+import { ItemType } from "@item/data/index.ts";
+import { PickableThing } from "@module/apps/pick-a-thing-prompt.ts";
+import { PredicatePF2e } from "@system/predication.ts";
+import { PredicateField } from "@system/schema-data-fields.ts";
 import { isObject, objectHasKey, sluggify } from "@util";
-import { UUIDUtils } from "@util/uuid-utils";
-import { ModelPropsFromSchema } from "types/foundry/common/data/fields.mjs";
-import { RuleElementOptions, RuleElementPF2e } from "../";
+import { UUIDUtils } from "@util/uuid-utils.ts";
+import type { ModelPropsFromSchema } from "types/foundry/common/data/fields.d.ts";
+import { RuleElementOptions, RuleElementPF2e } from "../index.ts";
 import {
     ChoiceSetData,
     ChoiceSetOwnedItems,
@@ -15,8 +16,8 @@ import {
     ChoiceSetSchema,
     ChoiceSetSource,
     UninflatedChoiceSet,
-} from "./data";
-import { ChoiceSetPrompt } from "./prompt";
+} from "./data.ts";
+import { ChoiceSetPrompt } from "./prompt.ts";
 
 const { fields } = foundry.data;
 
@@ -34,12 +35,10 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
     /** The user's selection from among the options in `choices`, or otherwise `null` */
     selection: string | number | object | null;
 
-    constructor(data: ChoiceSetSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: ChoiceSetSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
         this.flag = this.#setDefaultFlag(this.data);
-        this.rollOption ??= null;
-        this.allowNoSelection ??= false;
         this.choices = this.data.choices;
         this.selection =
             typeof data.selection === "string" || typeof data.selection === "number" || isObject(data.selection)
@@ -83,8 +82,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                 { required: false, nullable: true, initial: null }
             ),
             flag: new fields.StringField({ required: false, blank: false, nullable: false, initial: undefined }),
-            rollOption: new fields.StringField({ required: false, blank: false, nullable: true, initial: undefined }),
-            allowNoSelection: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
+            rollOption: new fields.StringField({ required: false, blank: false, nullable: true, initial: null }),
+            allowNoSelection: new fields.BooleanField({ required: false, nullable: false, initial: false }),
         };
     }
 
@@ -245,8 +244,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
     }
 
     private choicesFromOwnedItems(options: ChoiceSetOwnedItems): PickableThing<string>[] {
-        const predicate = options.predicate ?? new PredicatePF2e();
-        const { includeHandwraps, types } = options;
+        const { includeHandwraps, predicate, types } = options;
 
         const choices = this.actor.items
             .filter((i) => i.isOfType(...types) && predicate.test(i.getRollOptions("item")))
@@ -262,7 +260,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         if (includeHandwraps) {
             choices.push(
                 ...this.actor.itemTypes.weapon
-                    .filter((i) => i.slug === "handwraps-of-mighty-blows")
+                    .filter((i) => i.slug === "handwraps-of-mighty-blows" && predicate.test(i.getRollOptions("item")))
                     .map((h) => ({ img: h.img, label: h.name, value: "unarmed" }))
             );
         }
@@ -318,7 +316,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                 type: itemType,
             };
             const items = (await pack?.getDocuments(query)) ?? [];
-            if (!items.every((i): i is ItemPF2e => i instanceof ItemPF2e)) {
+            if (!items.every((i): i is ItemPF2e<null> => i instanceof ItemPF2e)) {
                 return [];
             }
 
@@ -367,8 +365,6 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
 interface ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema>, ModelPropsFromSchema<ChoiceSetSchema> {
     data: ChoiceSetData;
     flag: string;
-    rollOption: string | null;
-    allowNoSelection: boolean;
 }
 
 export { ChoiceSetRuleElement };

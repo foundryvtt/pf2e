@@ -1,8 +1,7 @@
-import { PhysicalItemPF2e } from "@item/index";
-import { LocalizePF2e } from "@module/system/localize";
-import { UserPF2e } from "@module/user";
-import { ErrorPF2e } from "@util";
-import { ActorPF2e } from "./index";
+import { PhysicalItemPF2e } from "@item";
+import { UserPF2e } from "@module/user/index.ts";
+import { ErrorPF2e, localizer } from "@util";
+import { ActorPF2e } from "./index.ts";
 
 export interface ItemTransferData {
     source: {
@@ -39,9 +38,8 @@ export class ItemTransfer implements ItemTransferData {
             const loot = [source, target].find((a) => a?.isLootableBy(game.user) && !a.isOwner);
 
             if (!(loot instanceof ActorPF2e)) throw ErrorPF2e("Unexpected missing actor");
-            const translations = LocalizePF2e.translations.PF2E.loot;
             ui.notifications.error(
-                game.i18n.format(translations.GMSupervisionError, { loot: ItemTransfer.tokenName(loot) })
+                game.i18n.format("PF2E.loot.GMSupervisionError", { loot: ItemTransfer.tokenName(loot) })
             );
             return;
         }
@@ -138,12 +136,12 @@ export class ItemTransfer implements ItemTransferData {
         targetActor: ActorPF2e,
         item: PhysicalItemPF2e | null
     ): Promise<void> {
-        const translations = LocalizePF2e.translations.PF2E.loot;
+        const localize = localizer("PF2E.loot");
 
         if (!item) {
             const sourceIsMerchant = sourceActor.isOfType("loot") && sourceActor.system.lootSheetType === "Merchant";
             if (sourceIsMerchant) {
-                const message = translations.InsufficientFundsMessage;
+                const message = localize("InsufficientFundsMessage");
                 // The buyer didn't have enough funds! No transaction.
 
                 const content = await renderTemplate(this.templatePaths.content, {
@@ -151,7 +149,7 @@ export class ItemTransfer implements ItemTransferData {
                     message: game.i18n.format(message, { buyer: targetActor.name }),
                 });
 
-                const flavor = await this.messageFlavor(sourceActor, targetActor, translations.BuySubtitle);
+                const flavor = await this.messageFlavor(sourceActor, targetActor, localize("BuySubtitle"));
 
                 await ChatMessage.create({
                     user: requester.id,
@@ -192,9 +190,9 @@ export class ItemTransfer implements ItemTransferData {
                 // Character deposits item in loot container
                 return [
                     ItemTransfer.tokenName(sourceActor),
-                    translations.DepositSubtitle,
+                    localize("DepositSubtitle"),
                     [
-                        translations.DepositMessage,
+                        localize("DepositMessage"),
                         {
                             depositor: ItemTransfer.tokenName(sourceActor),
                             container: ItemTransfer.tokenName(targetActor),
@@ -205,9 +203,9 @@ export class ItemTransfer implements ItemTransferData {
                 // Character gives item to merchant
                 return [
                     ItemTransfer.tokenName(sourceActor),
-                    translations.GiveSubtitle,
+                    localize("GiveSubtitle"),
                     [
-                        translations.GiveMessage,
+                        localize("GiveMessage"),
                         { giver: ItemTransfer.tokenName(sourceActor), recipient: ItemTransfer.tokenName(targetActor) },
                     ],
                 ];
@@ -215,9 +213,9 @@ export class ItemTransfer implements ItemTransferData {
                 // Character drops item on dead NPC
                 return [
                     ItemTransfer.tokenName(sourceActor),
-                    translations.PlantSubtitle,
+                    localize("PlantSubtitle"),
                     [
-                        translations.PlantMessage,
+                        localize("PlantMessage"),
                         { planter: ItemTransfer.tokenName(sourceActor), corpse: ItemTransfer.tokenName(targetActor) },
                     ],
                 ];
@@ -225,9 +223,9 @@ export class ItemTransfer implements ItemTransferData {
                 // Character takes item from loot container
                 return [
                     ItemTransfer.tokenName(targetActor),
-                    translations.TakeSubtitle,
+                    localize("TakeSubtitle"),
                     [
-                        translations.TakeMessage,
+                        localize("TakeMessage"),
                         { taker: ItemTransfer.tokenName(targetActor), container: ItemTransfer.tokenName(sourceActor) },
                     ],
                 ];
@@ -235,9 +233,9 @@ export class ItemTransfer implements ItemTransferData {
                 // Character takes item from loot container
                 return [
                     ItemTransfer.tokenName(targetActor),
-                    translations.LootSubtitle,
+                    localize("LootSubtitle"),
                     [
-                        translations.LootMessage,
+                        localize("LootMessage"),
                         { looter: ItemTransfer.tokenName(targetActor), corpse: ItemTransfer.tokenName(sourceActor) },
                     ],
                 ];
@@ -245,9 +243,9 @@ export class ItemTransfer implements ItemTransferData {
                 return [
                     // Character transfers item between two loot containers
                     requester.character?.name ?? requester.name,
-                    translations.TransferSubtitle,
+                    localize("TransferSubtitle"),
                     [
-                        translations.TransferMessage,
+                        localize("TransferMessage"),
                         {
                             transferrer: requester.character?.name ?? requester.name,
                             fromContainer: ItemTransfer.tokenName(sourceActor),
@@ -259,9 +257,9 @@ export class ItemTransfer implements ItemTransferData {
                 // Character gives item to merchant directly from loot container
                 return [
                     requester.character?.name ?? requester.name,
-                    translations.GiveSubtitle,
+                    localize("GiveSubtitle"),
                     [
-                        translations.GiveMessage,
+                        localize("GiveMessage"),
                         {
                             seller: requester.character?.name ?? requester.name,
                             buyer: ItemTransfer.tokenName(targetActor),
@@ -272,9 +270,9 @@ export class ItemTransfer implements ItemTransferData {
                 // Merchant sells item to character
                 return [
                     ItemTransfer.tokenName(sourceActor),
-                    translations.SellSubtitle,
+                    localize("SellSubtitle"),
                     [
-                        translations.SellMessage,
+                        localize("SellMessage"),
                         { seller: ItemTransfer.tokenName(sourceActor), buyer: ItemTransfer.tokenName(targetActor) },
                     ],
                 ];
@@ -282,9 +280,9 @@ export class ItemTransfer implements ItemTransferData {
                 // Merchant sells item to character, who stows it directly in loot container
                 return [
                     requester.character?.name ?? requester.name,
-                    translations.SellSubtitle,
+                    localize("SellSubtitle"),
                     [
-                        translations.SellMessage,
+                        localize("SellMessage"),
                         {
                             seller: ItemTransfer.tokenName(sourceActor),
                             buyer: requester.character?.name ?? requester.name,

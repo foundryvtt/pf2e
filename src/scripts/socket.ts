@@ -1,4 +1,4 @@
-import { ItemTransfer, ItemTransferData } from "@actor/item-transfer";
+import { ItemTransfer, ItemTransferData } from "@actor/item-transfer.ts";
 import { ErrorPF2e } from "@util";
 
 interface TransferCallbackMessage {
@@ -16,7 +16,7 @@ export type SocketEventCallback = [
     userId: string
 ];
 
-export function activateSocketListener() {
+export function activateSocketListener(): void {
     game.socket.on("system.pf2e", async (...[message, userId]: SocketEventCallback) => {
         const sender = game.users.get(userId, { strict: true });
         switch (message.request) {

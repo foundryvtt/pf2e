@@ -1,6 +1,6 @@
 import type * as TinyMCE from "tinymce";
 
-class JournalSheetPF2e<TJournalEntry extends JournalEntry = JournalEntry> extends JournalSheet<TJournalEntry> {
+class JournalSheetPF2e<TJournalEntry extends JournalEntry> extends JournalSheet<TJournalEntry> {
     static get theme(): string | null {
         return null;
     }
@@ -16,7 +16,9 @@ class JournalSheetPF2e<TJournalEntry extends JournalEntry = JournalEntry> extend
     }
 }
 
-class JournalTextTinyMCESheetPF2e extends JournalTextTinyMCESheet {
+class JournalTextTinyMCESheetPF2e<
+    TDocument extends JournalEntryPage<JournalEntry | null>
+> extends JournalTextTinyMCESheet<TDocument> {
     override async activateEditor(
         name: string,
         options: Partial<TinyMCE.EditorOptions> = {},

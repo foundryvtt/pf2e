@@ -1,8 +1,7 @@
 import { AncestryPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data";
+import { ItemSourcePF2e } from "@item/data/index.ts";
 import { sluggify } from "@util";
-import { UUIDUtils } from "@util/uuid-utils";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Set a slug in heritages' ancestry data */
 export class Migration823HeritageAncestrySlug extends MigrationBase {
@@ -13,7 +12,7 @@ export class Migration823HeritageAncestrySlug extends MigrationBase {
             return;
         }
 
-        const ancestry = await UUIDUtils.fromUuid(source.system.ancestry.uuid);
+        const ancestry = await fromUuid(source.system.ancestry.uuid);
         source.system.ancestry.slug =
             ancestry instanceof AncestryPF2e
                 ? ancestry.slug ?? sluggify(ancestry.name)

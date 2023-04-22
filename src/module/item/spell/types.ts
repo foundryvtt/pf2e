@@ -1,4 +1,4 @@
-import { MAGIC_SCHOOLS, MAGIC_TRADITIONS, SPELL_COMPONENTS } from "./values";
+import { MAGIC_SCHOOLS, MAGIC_TRADITIONS, SPELL_COMPONENTS } from "./values.ts";
 
 type MagicSchool = SetElement<typeof MAGIC_SCHOOLS>;
 type MagicTradition = SetElement<typeof MAGIC_TRADITIONS>;

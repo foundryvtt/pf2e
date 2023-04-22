@@ -3,7 +3,6 @@
     "img": "systems/pf2e/icons/spells/blade-barrier.webp",
     "name": "Effect: Sixfold Flurry",
     "system": {
-        "badge": null,
         "description": {
             "value": "<p>The creature gains a circumstance bonus to AC based on the Strikes it chose not to take.</p>"
         },
@@ -36,7 +35,7 @@
                         "value": 4
                     }
                 ],
-                "flag": "sixfold-flurry-choice",
+                "flag": "bonusValue",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.NPCAbility.Calikang.SixfoldFlurry"
             },
@@ -44,7 +43,7 @@
                 "key": "FlatModifier",
                 "selector": "ac",
                 "type": "circumstance",
-                "value": "{item|flags.pf2e.rulesSelections.sixfold-flurry-choice}"
+                "value": "@item.flags.pf2e.rulesSelections.bonusValue"
             }
         ],
         "source": {

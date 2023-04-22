@@ -540,40 +540,24 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>While the charau-ka butcher is raging, its melee Strikes deal @Localize[PF2E.PersistentDamage.Bleed1d4.success].</p>"
+                    "value": "<p>While the charau-ka butcher is raging, its melee Strikes deal [[/r 1d4[bleed]]].</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
                         "predicate": [
                             "self:effect:rage",
                             {
                                 "not": "range"
                             }
                         ],
-                        "selector": "strike-damage",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": [
-                            "self:effect:rage",
-                            {
-                                "not": "range"
-                            }
-                        ],
-                        "selector": "strike-damage",
-                        "text": "<p class='compact-text'><strong>{item|name}</strong></p><p>While the charau-ka butcher is raging, its melee Strikes deal @Localize[PF2E.PersistentDamage.Bleed1d4.criticalSuccess].</p>"
+                        "selector": "strike-damage"
                     }
                 ],
                 "slug": null,
@@ -774,10 +758,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -801,10 +781,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -828,10 +804,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -855,10 +827,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -882,10 +850,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -928,7 +892,7 @@
                 "value": 95
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 11

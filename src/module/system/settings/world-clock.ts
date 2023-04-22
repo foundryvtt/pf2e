@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import { LocalizePF2e } from "@system/localize";
+import { LocalizePF2e } from "@system/localize.ts";
 
 type SettingsKey =
     | "dateTheme"
@@ -221,7 +221,7 @@ export class WorldClockSettings extends FormApplication {
                 hint: CONFIG.PF2E.SETTINGS.worldClock.worldCreatedOn.hint,
                 scope: "world",
                 config: false,
-                default: DateTime.utc().toISO(),
+                default: DateTime.utc().toISO()!,
                 type: String,
             },
         };

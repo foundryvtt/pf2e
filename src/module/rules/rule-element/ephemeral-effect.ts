@@ -1,18 +1,15 @@
-import { DeferredValueParams } from "@actor/modifiers";
+import { DeferredValueParams } from "@actor/modifiers.ts";
 import { ItemPF2e } from "@item";
-import { ConditionSource, EffectSource } from "@item/data";
-import { UUIDUtils } from "@util/uuid-utils";
-import {
+import { ConditionSource, EffectSource } from "@item/data/index.ts";
+import { UUIDUtils } from "@util/uuid-utils.ts";
+import type {
     ArrayField,
     BooleanField,
     ModelPropsFromSchema,
-    SchemaField,
     StringField,
-} from "types/foundry/common/data/fields.mjs";
-import { AELikeChangeMode } from "./ae-like";
-import { RuleElementPF2e } from "./base";
-import { RuleElementSchema } from "./data";
-import { WithItemAlterations } from "./mixins";
+} from "types/foundry/common/data/fields.d.ts";
+import { ItemAlterationField, applyAlterations } from "./alter-item/index.ts";
+import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
 
 const { fields } = foundry.data;
 
@@ -27,11 +24,17 @@ class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> 
             ),
             uuid: new fields.StringField({ required: true, blank: false, nullable: false, initial: undefined }),
             adjustName: new fields.BooleanField({ required: true, nullable: false, initial: true }),
-            alterations: new fields.ArrayField(new fields.SchemaField({})),
+            alterations: new fields.ArrayField(new ItemAlterationField(), {
+                required: false,
+                nullable: false,
+                initial: [],
+            }),
         };
     }
 
     protected override _validateModel(data: SourceFromSchema<EphemeralEffectSchema>): void {
+        super._validateModel(data);
+
         if (data.selectors.length === 0) {
             throw Error("must have at least one selector");
         }
@@ -56,7 +59,7 @@ class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> 
                 this.failValidation(`"${uuid}" does not look like a UUID`);
                 return null;
             }
-            const effect = game.pf2e.ConditionManager.conditions.get(uuid) ?? (await UUIDUtils.fromUuid(uuid));
+            const effect = game.pf2e.ConditionManager.conditions.get(uuid) ?? (await fromUuid(uuid));
             if (!(effect instanceof ItemPF2e && effect.isOfType("condition", "effect"))) {
                 this.failValidation(`unable to find effect or condition item with uuid "${uuid}"`);
                 return null;
@@ -80,13 +83,11 @@ class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> 
                 source.name = `${source.name} (${label})`;
             }
 
-            const resolvables = params.resolvables ?? {};
-            for (const alteration of this.alterations) {
-                const value = this.resolveValue(alteration.value, { resolvables });
-                if (!this.itemCanBeAltered(source, value)) {
-                    return null;
-                }
-                this.applyAlterations(source);
+            try {
+                applyAlterations(source, this.alterations);
+            } catch (error) {
+                if (error instanceof Error) this.failValidation(error.message);
+                return null;
             }
 
             return source;
@@ -96,27 +97,14 @@ class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> 
 
 interface EphemeralEffectRuleElement
     extends RuleElementPF2e<EphemeralEffectSchema>,
-        ModelPropsFromSchema<EphemeralEffectSchema>,
-        WithItemAlterations<EphemeralEffectSchema> {
-    alterations: SourceFromSchema<ItemAlterationData>[];
-}
-
-// Apply mixin
-WithItemAlterations.apply(EphemeralEffectRuleElement);
+        ModelPropsFromSchema<EphemeralEffectSchema> {}
 
 type EphemeralEffectSchema = RuleElementSchema & {
     affects: StringField<"target" | "origin", "target" | "origin", true, false, true>;
     selectors: ArrayField<StringField<string, string, true, false, false>>;
     uuid: StringField<string, string, true, false, false>;
     adjustName: BooleanField<boolean, boolean, true, false, true>;
-    alterations: ArrayField<SchemaField<ItemAlterationData>>;
-};
-
-type AddOverrideUpgrade = Extract<AELikeChangeMode, "add" | "override" | "upgrade">;
-type ItemAlterationData = {
-    mode: StringField<AddOverrideUpgrade, AddOverrideUpgrade, true, false, false>;
-    property: StringField<"badge-value", "badge-value", true, false, false>;
-    value: StringField<string, string, true, true, false>;
+    alterations: ArrayField<ItemAlterationField>;
 };
 
 export { EphemeralEffectRuleElement };

@@ -1,15 +1,16 @@
-import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
+import { ActorPF2e } from "@actor/base.ts";
+import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
 import { FeatPF2e, ItemPF2e } from "@item";
 import { isObject, objectHasKey } from "@util";
-import { ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
+import type { ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.d.ts";
 import {
-    RuleElementPF2e,
-    RuleElementSource,
     RuleElementData,
     RuleElementOptions,
-    RuleValue,
+    RuleElementPF2e,
     RuleElementSchema,
-} from "./";
+    RuleElementSource,
+    RuleValue,
+} from "./index.ts";
 
 const { fields } = foundry.data;
 
@@ -18,12 +19,9 @@ const { fields } = foundry.data;
  * @category RuleElement
  */
 class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TSchema> {
-    constructor(data: AELikeSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: AELikeSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         const hasExplicitPriority = typeof data.priority === "number";
         super(data, item, options);
-
-        // Legacy accommodation for pre-V10 paths
-        this.path = this.path.replace(/^data\./, "system.");
 
         // Set priority according to AE change mode if no priority was explicitly set
         if (!hasExplicitPriority) {
@@ -38,9 +36,10 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
                 required: true,
                 choices: Object.keys(this.CHANGE_MODES) as AELikeChangeMode[],
             }),
-            path: new fields.StringField({ required: true, blank: false }),
+            path: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
             phase: new fields.StringField({
-                required: true,
+                required: false,
+                nullable: false,
                 choices: deepClone(this.PHASES),
                 initial: "applyAEs",
             }),
@@ -260,8 +259,8 @@ interface AutoChangeEntry {
 
 type AELikeSchema = RuleElementSchema & {
     mode: StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
-    path: StringField<string, string, true>;
-    phase: StringField<AELikeDataPrepPhase, AELikeDataPrepPhase, true, false, true>;
+    path: StringField<string, string, true, false, false>;
+    phase: StringField<AELikeDataPrepPhase, AELikeDataPrepPhase, false, false, true>;
 };
 
 type AELikeChangeMode = keyof (typeof AELikeRuleElement)["CHANGE_MODES"];

@@ -1,11 +1,11 @@
+import { ActorPF2e } from "@actor/base.ts";
 import {
     Abilities,
-    BaseCreatureData,
     BaseCreatureSource,
     CreatureAttributes,
     CreatureDetails,
     CreatureHitPoints,
-    CreatureInitiative,
+    CreatureInitiativeSource,
     CreatureResources,
     CreatureResourcesSource,
     CreatureSpeeds,
@@ -16,26 +16,24 @@ import {
     HeldShieldData,
     LabeledSpeed,
     SaveData,
-    SkillAbbreviation,
     SkillData,
-} from "@actor/creature/data";
-import { ActorAttributesSource, ActorFlagsPF2e, ArmorClassData, PerceptionData, StrikeData } from "@actor/data/base";
-import { ActorSizePF2e } from "@actor/data/size";
-import { ModifierPF2e, StatisticModifier } from "@actor/modifiers";
-import { AbilityString, ActorAlliance, SaveType } from "@actor/types";
+} from "@actor/creature/data.ts";
+import {
+    ActorAttributesSource,
+    ActorFlagsPF2e,
+    ArmorClassData,
+    InitiativeData,
+    PerceptionData,
+    StrikeData,
+} from "@actor/data/base.ts";
+import { ActorSizePF2e } from "@actor/data/size.ts";
+import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { AbilityString, ActorAlliance, SaveType } from "@actor/types.ts";
 import { MeleePF2e } from "@item";
-import { Rarity, Size } from "@module/data";
-import { IdentifyCreatureData } from "@module/recall-knowledge";
-import type { NPCPF2e } from ".";
+import { Rarity, Size } from "@module/data.ts";
 
 interface NPCSource extends BaseCreatureSource<"npc", NPCSystemSource> {
     flags: DeepPartial<NPCFlags>;
-}
-
-interface NPCData
-    extends Omit<NPCSource, "system" | "effects" | "items" | "prototypeToken" | "type">,
-        BaseCreatureData<NPCPF2e, "npc", NPCSource> {
-    flags: NPCFlags;
 }
 
 type NPCFlags = ActorFlagsPF2e & {
@@ -43,6 +41,8 @@ type NPCFlags = ActorFlagsPF2e & {
 };
 
 interface NPCSystemSource extends CreatureSystemSource {
+    traits: NPCTraitsSource;
+
     /** The six primary ability scores. */
     abilities: Abilities;
 
@@ -55,7 +55,12 @@ interface NPCSystemSource extends CreatureSystemSource {
     /** The three saves for NPCs. NPC saves have a 'base' score which is the score before applying custom modifiers. */
     saves: NPCSavesSource;
 
-    traits: NPCTraitsSource;
+    /** Spellcasting data: currently only used for rituals */
+    spellcasting?: {
+        rituals?: {
+            dc: number;
+        };
+    };
 
     resources: CreatureResourcesSource;
 }
@@ -72,9 +77,7 @@ interface NPCAttributesSource extends Required<ActorAttributesSource> {
         temp: number;
         details: string;
     };
-    initiative: {
-        ability: SkillAbbreviation | "perception";
-    };
+    initiative: CreatureInitiativeSource;
     perception: {
         value: number;
     };
@@ -142,6 +145,10 @@ interface NPCSystemData extends Omit<NPCSystemSource, "attributes">, CreatureSys
 
     resources: CreatureResources;
 
+    spellcasting: {
+        rituals: { dc: number };
+    };
+
     customModifiers: Record<string, ModifierPF2e[]>;
 }
 
@@ -157,9 +164,7 @@ interface NPCAttributes
     adjustment: "elite" | "weak" | null;
     hp: NPCHitPoints;
     perception: NPCPerception;
-
-    initiative: CreatureInitiative;
-
+    initiative: InitiativeData;
     speed: NPCSpeeds;
     /**
      * Data related to the currently equipped shield. This is copied from the shield data itself, and exists to
@@ -184,13 +189,11 @@ interface NPCDetails extends NPCDetailsSource {
     };
 
     alliance: ActorAlliance;
-
-    identification: IdentifyCreatureData;
 }
 
 /** The full data for a NPC action (used primarily for strikes.) */
 interface NPCStrike extends StrikeData {
-    item: Embedded<MeleePF2e>;
+    item: MeleePF2e<ActorPF2e>;
     /** The type of attack as a localization string */
     attackRollType?: string;
     /** The id of the item this strike is generated from */
@@ -249,7 +252,6 @@ export {
     NPCArmorClass,
     NPCAttributes,
     NPCAttributesSource,
-    NPCData,
     NPCFlags,
     NPCHitPoints,
     NPCPerception,

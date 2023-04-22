@@ -1,6 +1,6 @@
-import { BaseWeaponType } from "@item/weapon/types";
-import { ItemSourcePF2e } from "@item/data";
-import { MigrationBase } from "../base";
+import { BaseWeaponType } from "@item/weapon/types.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Update from khakkara to khakkhara; wind and fire wheel to feng huo lun */
 export class Migration825KhakkharaFengHuoLun extends MigrationBase {

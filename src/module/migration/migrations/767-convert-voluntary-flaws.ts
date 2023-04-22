@@ -1,7 +1,7 @@
-import { AbilityString } from "@actor/types";
-import { AncestrySystemData } from "@item/ancestry/data";
-import { ItemSourcePF2e } from "@item/data";
-import { MigrationBase } from "../base";
+import { AbilityString } from "@actor/types.ts";
+import { AncestrySystemData } from "@item/ancestry/data.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 export class Migration767ConvertVoluntaryFlaws extends MigrationBase {
     static override version = 0.767;

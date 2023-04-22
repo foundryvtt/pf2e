@@ -1,6 +1,6 @@
-import { ItemSourcePF2e } from "@item/data";
+import { ItemSourcePF2e } from "@item/data/index.ts";
 import { recursiveReplaceString } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Convert object paths of weapon and spell resolvables with <V10 `data` properties to use `system` */
 export class Migration787ResolvablesToSystem extends MigrationBase {

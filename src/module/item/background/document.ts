@@ -1,14 +1,15 @@
-import { ABCItemPF2e, FeatPF2e, ItemPF2e } from "@item";
-import { OneToFour } from "@module/data";
-import { BackgroundData } from "./data";
+import { ActorPF2e, CharacterPF2e } from "@actor";
+import { ABCItemPF2e, FeatPF2e } from "@item";
+import { OneToFour } from "@module/data.ts";
+import { BackgroundSource, BackgroundSystemData } from "./data.ts";
 
-class BackgroundPF2e extends ABCItemPF2e {
+class BackgroundPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABCItemPF2e<TParent> {
     /** Set a skill feat granted by a GrantItem RE as one of this background's configured items */
-    override prepareSiblingData(this: Embedded<BackgroundPF2e>): void {
+    override prepareSiblingData(this: BackgroundPF2e<ActorPF2e>): void {
         if (Object.keys(this.system.items).length > 0) return;
         const grantedSkillFeat = Object.values(this.flags.pf2e.itemGrants)
             .flatMap((g) => this.actor.items.get(g.id) ?? [])
-            .find((i: Embedded<ItemPF2e> & { featType?: unknown }): i is Embedded<FeatPF2e> => i.featType === "skill");
+            .find((i): i is FeatPF2e<ActorPF2e> => i.isOfType("feat") && i.category === "skill");
 
         if (grantedSkillFeat) {
             this.system.items["GRANT"] = {
@@ -21,7 +22,7 @@ class BackgroundPF2e extends ABCItemPF2e {
         }
     }
 
-    override prepareActorData(this: Embedded<BackgroundPF2e>): void {
+    override prepareActorData(this: BackgroundPF2e<CharacterPF2e>): void {
         if (!this.actor.isOfType("character")) {
             console.error("Only a character can have a background");
             return;
@@ -47,8 +48,9 @@ class BackgroundPF2e extends ABCItemPF2e {
     }
 }
 
-interface BackgroundPF2e extends ABCItemPF2e {
-    readonly data: BackgroundData;
+interface BackgroundPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABCItemPF2e<TParent> {
+    readonly _source: BackgroundSource;
+    system: BackgroundSystemData;
 }
 
 export { BackgroundPF2e };

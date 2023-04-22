@@ -1,6 +1,6 @@
-import { TokenPF2e } from "@module/canvas";
-import { TokenDocumentPF2e } from "@scene";
-import { PredicatePF2e } from "@system/predication";
+import { TokenPF2e } from "@module/canvas/index.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { PredicatePF2e } from "@system/predication.ts";
 
 /** Prompt the user to target a token */
 class MarkTargetPrompt {
@@ -8,16 +8,16 @@ class MarkTargetPrompt {
 
     requirements: TargetRequirements | null;
 
-    #target?: TokenDocumentPF2e | null;
+    #target?: Maybe<TokenDocumentPF2e>;
 
-    #resolve?: (value: TokenDocumentPF2e | null) => void;
+    #resolve?: (value: Maybe<TokenDocumentPF2e>) => void;
 
     constructor(params: PromptParameters) {
         this.prompt = params.prompt ?? "PF2E.UI.RuleElements.MarkTarget.TargetToken";
         this.requirements = params.requirements;
     }
 
-    async resolveTarget(): Promise<TokenDocumentPF2e | null> {
+    async resolveTarget(): Promise<Maybe<TokenDocumentPF2e | null>> {
         game.user.targets.clear();
         this.activateListeners();
         ui.notifications.info(this.prompt, { localize: true });

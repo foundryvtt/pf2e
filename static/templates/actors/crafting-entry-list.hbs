@@ -8,7 +8,7 @@
         </div>
         <ol class="directory-list item-list formula-list">
             {{#each entry.formulas}}
-                <li class="item formula-item" data-item-id="{{this.uuid}}" data-item-type="formula" data-expended-state="{{this.expended}}" data-item-index={{@key}}>
+                <li class="item formula-item" data-item-id="{{this.uuid}}" data-is-formula="true" data-item-type="formula" data-expended-state="{{this.expended}}" data-item-index={{@key}} data-entry-selector="{{entry.selector}}">
                     <div class="item-name rollable">
                         {{#if this}}
                             <div class="item-image">

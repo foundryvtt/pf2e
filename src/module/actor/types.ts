@@ -1,13 +1,17 @@
-import { ActorPF2e } from "@actor";
-import { MeleePF2e, SpellPF2e, WeaponPF2e } from "@item";
-import { EffectTrait } from "@item/abstract-effect";
-import { TokenDocumentPF2e } from "@scene";
-import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr";
-import { DamageRoll } from "@system/damage/roll";
-import { CheckDC } from "@system/degree-of-success";
-import { PredicatePF2e } from "@system/predication";
-import { TraitViewData } from "./data/base";
-import { ModifierPF2e } from "./modifiers";
+import * as ActorInstance from "@actor";
+import { ActorPF2e } from "@actor/base.ts";
+import * as ItemInstance from "@item";
+import { EffectTrait } from "@item/abstract-effect/index.ts";
+import { ItemInstances } from "@item/types.ts";
+import { TokenPF2e } from "@module/canvas/index.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr.ts";
+import { DamageRoll } from "@system/damage/roll.ts";
+import { CheckDC } from "@system/degree-of-success.ts";
+import { PredicatePF2e } from "@system/predication.ts";
+import { StatisticCheck } from "@system/statistic/index.ts";
+import { StrikeData, TraitViewData } from "./data/base.ts";
+import { ModifierPF2e } from "./modifiers.ts";
 import {
     ABILITY_ABBREVIATIONS,
     DC_SLUGS,
@@ -15,8 +19,23 @@ import {
     SKILL_ABBREVIATIONS,
     SKILL_LONG_FORMS,
     UNAFFECTED_TYPES,
-} from "./values";
+} from "./values.ts";
 
+/** Used exclusively to resolve `ActorPF2e#isOfType` */
+interface ActorInstances<TParent extends TokenDocumentPF2e | null> {
+    character: ActorInstance.CharacterPF2e<TParent>;
+    creature: ActorInstance.CreaturePF2e<TParent>;
+    familiar: ActorInstance.FamiliarPF2e<TParent>;
+    hazard: ActorInstance.HazardPF2e<TParent>;
+    loot: ActorInstance.LootPF2e<TParent>;
+    party: ActorInstance.PartyPF2e<TParent>;
+    npc: ActorInstance.NPCPF2e<TParent>;
+    vehicle: ActorInstance.VehiclePF2e<TParent>;
+}
+
+type EmbeddedItemInstances<TParent extends ActorPF2e> = {
+    [K in keyof ItemInstances<TParent>]: ItemInstances<TParent>[K][];
+};
 type AbilityString = SetElement<typeof ABILITY_ABBREVIATIONS>;
 
 interface ActorDimensions {
@@ -36,6 +55,7 @@ type SaveType = (typeof SAVE_TYPES)[number];
 
 interface AuraData {
     slug: string;
+    level: number | null;
     radius: number;
     effects: AuraEffectData[];
     colors: AuraColors | null;
@@ -65,18 +85,27 @@ interface AuraColors {
 /*  Attack Rolls                                */
 /* -------------------------------------------- */
 
-type AttackItem = WeaponPF2e | MeleePF2e | SpellPF2e;
+type AttackItem =
+    | ItemInstance.WeaponPF2e<ActorPF2e>
+    | ItemInstance.MeleePF2e<ActorPF2e>
+    | ItemInstance.SpellPF2e<ActorPF2e>;
 
-interface StrikeSelf<A extends ActorPF2e = ActorPF2e, I extends AttackItem = AttackItem> {
-    actor: A;
+interface StrikeSelf<
+    TActor extends ActorPF2e = ActorPF2e,
+    TStatistic extends StatisticCheck | StrikeData | null = StatisticCheck | StrikeData | null,
+    TItem extends AttackItem | null = AttackItem | null
+> {
+    actor: TActor;
     token: TokenDocumentPF2e | null;
+    /** The Strike statistic in use */
+    statistic: TStatistic;
     /** The item used for the strike */
-    item: I;
+    item: TItem;
     /** Bonuses and penalties added at the time of a strike */
     modifiers: ModifierPF2e[];
 }
 
-interface AttackTarget {
+interface RollTarget {
     actor: ActorPF2e;
     token: TokenDocumentPF2e;
     distance: number;
@@ -84,17 +113,28 @@ interface AttackTarget {
 }
 
 /** Context for the attack or damage roll of a strike */
-interface StrikeRollContext<A extends ActorPF2e, I extends AttackItem> {
+interface RollContext<
+    TActor extends ActorPF2e,
+    TStatistic extends StatisticCheck | StrikeData | null = StatisticCheck | StrikeData | null,
+    TItem extends AttackItem | null = AttackItem | null
+> {
     /** Roll options */
     options: Set<string>;
-    self: StrikeSelf<A, I>;
-    target: AttackTarget | null;
+    self: StrikeSelf<TActor, TStatistic, TItem>;
+    target: RollTarget | null;
     traits: TraitViewData[];
 }
 
-interface StrikeRollContextParams<T extends AttackItem> {
+interface RollContextParams<
+    TStatistic extends StatisticCheck | StrikeData | null = StatisticCheck | StrikeData | null,
+    TItem extends AttackItem | null = AttackItem | null
+> {
+    /** The statistic used for the roll */
+    statistic: TStatistic;
+    /** A targeted token: may not be applicable if the action isn't targeted */
+    target?: { actor?: ActorPF2e | null; token?: TokenPF2e | null } | null;
     /** The item being used in the attack or damage roll */
-    item: T;
+    item?: TItem;
     /** Domains from which to draw roll options */
     domains: string[];
     /** Initial roll options for the strike */
@@ -103,7 +143,18 @@ interface StrikeRollContextParams<T extends AttackItem> {
     viewOnly?: boolean;
 }
 
-interface AttackRollContext<A extends ActorPF2e, I extends AttackItem> extends StrikeRollContext<A, I> {
+interface CheckContextParams<
+    TStatistic extends StatisticCheck | StrikeData = StatisticCheck | StrikeData,
+    TItem extends AttackItem | null = AttackItem | null
+> extends RollContextParams<TStatistic, TItem> {
+    targetedDC: DCSlug;
+}
+
+interface CheckContext<
+    TActor extends ActorPF2e,
+    TStatistic extends StatisticCheck | StrikeData = StatisticCheck | StrikeData,
+    TItem extends AttackItem | null = AttackItem | null
+> extends RollContext<TActor, TStatistic, TItem> {
     dc: CheckDC | null;
 }
 
@@ -127,22 +178,25 @@ export {
     AbilityString,
     ActorAlliance,
     ActorDimensions,
+    ActorInstances,
     ApplyDamageParams,
     AttackItem,
-    AttackRollContext,
-    AttackTarget,
     AuraColors,
     AuraData,
     AuraEffectData,
+    CheckContext,
+    CheckContextParams,
     DCSlug,
+    EmbeddedItemInstances,
     IWRType,
     ImmunityType,
     ResistanceType,
+    RollContext,
+    RollContextParams,
+    RollTarget,
     SaveType,
     SkillAbbreviation,
     SkillLongForm,
-    StrikeRollContext,
-    StrikeRollContextParams,
     StrikeSelf,
     UnaffectedType,
     WeaknessType,

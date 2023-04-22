@@ -3,7 +3,6 @@
     "img": "systems/pf2e/icons/spells/inspire-heroics.webp",
     "name": "Effect: Inspire Envoy",
     "system": {
-        "badge": null,
         "description": {
             "value": "<p>The creature gains a status bonus to attack rolls, AC, or all of the following: Perception, Will saves, and Charisma-based skill checks. The value of the bonus depends on the specific creature granting this effect.</p>"
         },
@@ -21,14 +20,14 @@
                 "choices": [
                     {
                         "label": "PF2E.NPCAbility.SovereignDragon.InspireEnvoyDragonAdult",
-                        "value": "1"
+                        "value": 1
                     },
                     {
                         "label": "PF2E.NPCAbility.SovereignDragon.InspireEnvoyDragonAncient",
-                        "value": "2"
+                        "value": 2
                     }
                 ],
-                "flag": "dragon-choice",
+                "flag": "bonusValue",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.NPCAbility.SovereignDragon.InspireEnvoyDragonChoice"
             },
@@ -47,7 +46,7 @@
                         "value": "perc-will-cha"
                     }
                 ],
-                "flag": "effect-choice",
+                "flag": "statistic",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.NPCAbility.SovereignDragon.InspireEnvoyEffectChoice",
                 "rollOption": "inspire-envoy"
@@ -59,7 +58,7 @@
                 ],
                 "selector": "attack",
                 "type": "status",
-                "value": "{item|flags.pf2e.rulesSelections.dragon-choice}"
+                "value": "@item.flags.pf2e.rulesSelections.bonusValue"
             },
             {
                 "key": "FlatModifier",
@@ -68,7 +67,7 @@
                 ],
                 "selector": "ac",
                 "type": "status",
-                "value": "{item|flags.pf2e.rulesSelections.dragon-choice}"
+                "value": "@item.flags.pf2e.rulesSelections.bonusValue"
             },
             {
                 "key": "FlatModifier",
@@ -81,7 +80,7 @@
                     "will"
                 ],
                 "type": "status",
-                "value": "{item|flags.pf2e.rulesSelections.dragon-choice}"
+                "value": "@item.flags.pf2e.rulesSelections.bonusValue"
             }
         ],
         "source": {

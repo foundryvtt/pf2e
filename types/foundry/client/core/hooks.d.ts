@@ -19,7 +19,11 @@ declare global {
     type HookParamsLightingRefresh = HookParameters<"lightingRefresh", [LightingLayer]>;
     type HookParamsPreCreateItem = HookParameters<
         "preCreateItem",
-        [PreCreate<foundry.data.ItemSource>, DocumentModificationContext, string]
+        [
+            PreCreate<foundry.documents.ItemSource>,
+            DocumentModificationContext<Actor<TokenDocument<Scene | null> | null> | null>,
+            string
+        ]
     >;
     type HooksParamsPreUpdateCombat = HookParameters<
         "preUpdateCombat",
@@ -29,8 +33,8 @@ declare global {
         "preUpdateToken",
         [
             Scene,
-            foundry.data.TokenData,
-            Partial<foundry.data.TokenData>,
+            foundry.documents.TokenSource,
+            DeepPartial<foundry.documents.TokenSource>,
             { diff: boolean; [key: string]: unknown },
             string
         ]
@@ -41,12 +45,12 @@ declare global {
     >;
     type HookParamsRenderChatMessage = HookParameters<
         "renderChatMessage",
-        [ChatMessage, JQuery, foundry.data.ChatMessageSource]
+        [ChatMessage, JQuery, foundry.documents.ChatMessageSource]
     >;
-    type HookParamsTargetToken = HookParameters<"targetToken", [User, Token, boolean]>;
-    type HookParamsUpdate<T extends ClientDocument, N extends string> = HookParameters<
+    type HookParamsTargetToken = HookParameters<"targetToken", [User, Token<TokenDocument<Scene>>, boolean]>;
+    type HookParamsUpdate<T extends foundry.abstract.Document, N extends string> = HookParameters<
         `update${N}`,
-        [T, DocumentUpdateData<T>, DocumentModificationContext]
+        [T, DocumentUpdateData<T>, DocumentModificationContext<T["parent"]>]
     >;
     type HookParamsUpdateWorldTime = HookParameters<"updateWorldTime", [number, number]>;
 
@@ -77,8 +81,8 @@ declare global {
         static on(...args: HookParamsRender<CombatTrackerConfig, "CombatTrackerConfig">): number;
         static on(...args: HookParamsRender<CompendiumDirectory, "CompendiumDirectory">): number;
         static on(...args: HookParamsRender<Dialog, "Dialog">): number;
-        static on(...args: HookParamsRender<ActorDirectory<Actor>, "ActorDirectory">): number;
-        static on(...args: HookParamsRender<ItemDirectory<Item>, "ItemDirectory">): number;
+        static on(...args: HookParamsRender<ActorDirectory<Actor<null>>, "ActorDirectory">): number;
+        static on(...args: HookParamsRender<ItemDirectory<Item<null>>, "ItemDirectory">): number;
         static on(...args: HookParamsRender<SceneControls, "SceneControls">): number;
         static on(...args: HookParamsRender<Settings, "Settings">): number;
         static on(...args: HookParamsRender<TokenHUD, "TokenHUD">): number;
@@ -118,13 +122,13 @@ declare global {
         static once(...args: HookParamsPreCreateItem): number;
         static once(...args: HookParamsPreUpdateToken): number;
         static once(...args: HookParamsRenderChatMessage): number;
-        static once(...args: HookParamsRender<ActorDirectory<Actor>, "ActorDirectory">): number;
+        static once(...args: HookParamsRender<ActorDirectory<Actor<null>>, "ActorDirectory">): number;
         static once(...args: HookParamsRender<ChatLog, "ChatLog">): number;
         static once(...args: HookParamsRender<ChatPopout, "ChatPopout">): number;
         static once(...args: HookParamsRender<CombatTrackerConfig, "CombatTrackerConfig">): number;
         static once(...args: HookParamsRender<CompendiumDirectory, "CompendiumDirectory">): number;
         static once(...args: HookParamsRender<Dialog, "Dialog">): number;
-        static once(...args: HookParamsRender<ItemDirectory<Item>, "ItemDirectory">): number;
+        static once(...args: HookParamsRender<ItemDirectory<Item<null>>, "ItemDirectory">): number;
         static once(
             ...args: HookParamsRender<JournalPageSheet<JournalEntryPage<JournalEntry | null>>, "JournalPageSheet">
         ): number;
@@ -176,7 +180,7 @@ declare global {
     interface DropCanvasData<T extends string = string, D extends object = object> {
         type?: T;
         data?: D extends foundry.abstract.Document ? D["_source"] : D;
-        uuid?: string;
+        uuid?: DocumentUUID;
         id?: string;
         pack?: string;
         x: number;

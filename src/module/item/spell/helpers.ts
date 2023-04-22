@@ -1,6 +1,6 @@
-import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers";
-import { combineTerms } from "@scripts/dice";
-import { DamageType } from "@system/damage";
+import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
+import { combineTerms } from "@scripts/dice.ts";
+import { DamageType } from "@system/damage/index.ts";
 
 /** Contains the formula and all modifiers that apply to the instance */
 interface DamageInstancePartial {

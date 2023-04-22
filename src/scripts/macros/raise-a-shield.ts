@@ -1,10 +1,8 @@
-import { CharacterPF2e, NPCPF2e } from "@actor";
+import { ActorPF2e } from "@actor";
 import { EffectPF2e } from "@item";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { ActionDefaultOptions } from "@system/action-macros";
-import { LocalizePF2e } from "@system/localize";
-import { ErrorPF2e } from "@util";
-import { UUIDUtils } from "@util/uuid-utils";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { ActionDefaultOptions } from "@system/action-macros/index.ts";
+import { ErrorPF2e, localizer } from "@util";
 
 /** Effect: Raise a Shield */
 const ITEM_UUID = "Compendium.pf2e.equipment-effects.2YgXoHvJfrDHucMr";
@@ -16,39 +14,38 @@ const TEMPLATES = {
 
 /** A macro for the Raise a Shield action */
 export async function raiseAShield(options: ActionDefaultOptions): Promise<void> {
-    const translations = LocalizePF2e.translations.PF2E.Actions.RaiseAShield;
+    const localize = localizer("PF2E.Actions.RaiseAShield");
 
     const actors = Array.isArray(options.actors) ? options.actors : [options.actors];
     const actor = actors[0];
-    if (actors.length > 1 || !(actor instanceof CharacterPF2e || actor instanceof NPCPF2e)) {
-        ui.notifications.error(translations.BadArgs);
+    if (actors.length > 1 || !(actor && ["character", "npc"].includes(actor.type))) {
+        ui.notifications.error(localize("BadArgs"));
         return;
     }
 
     const shield = actor.heldShield;
-    const speaker = ChatMessagePF2e.getSpeaker({ actor: actor });
+    const speaker = ChatMessagePF2e.getSpeaker({ actor });
 
     const isSuccess = await (async (): Promise<boolean> => {
-        const existingEffect = actor.itemTypes.effect.find((e) => e.flags.core?.sourceId === ITEM_UUID);
+        const effects: EffectPF2e<ActorPF2e>[] = actor.itemTypes.effect;
+        const existingEffect = effects.find((e) => e.flags.core?.sourceId === ITEM_UUID);
         if (existingEffect) {
             await existingEffect.delete();
             return false;
         }
 
         if (shield?.isBroken === false) {
-            const effect = await UUIDUtils.fromUuid(ITEM_UUID);
+            const effect = await fromUuid(ITEM_UUID);
             if (!(effect instanceof EffectPF2e)) {
                 throw ErrorPF2e("Raise a Shield effect not found");
             }
             await actor.createEmbeddedDocuments("Item", [effect.toObject()]);
             return true;
         } else if (shield?.isBroken) {
-            ui.notifications.warn(
-                game.i18n.format(translations.ShieldIsBroken, { actor: speaker.alias, shield: shield.name })
-            );
+            ui.notifications.warn(localize("ShieldIsBroken", { actor: speaker.alias, shield: shield.name }));
             return false;
         } else {
-            ui.notifications.warn(game.i18n.format(translations.NoShieldEquipped, { actor: speaker.alias }));
+            ui.notifications.warn(localize("NoShieldEquipped", { actor: speaker.alias }));
             return false;
         }
     })();
@@ -58,14 +55,12 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
         const [actionType, glyph] =
             combatActor && combatActor !== actor ? (["Reaction", "R"] as const) : (["SingleAction", "1"] as const);
 
-        const title = translations[`${actionType}Title` as const];
-
         const content = await renderTemplate(TEMPLATES.content, {
             imgPath: shield!.img,
-            message: game.i18n.format(translations.Content, { actor: speaker.alias }),
+            message: localize("Content", { actor: speaker.alias }),
         });
         const flavor = await renderTemplate(TEMPLATES.flavor, {
-            action: { title, typeNumber: glyph },
+            action: { title: localize(`${actionType}Title`), typeNumber: glyph },
         });
 
         await ChatMessagePF2e.create({

@@ -1,9 +1,10 @@
+import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { TokenDocumentPF2e } from "@scene";
+import { TokenDocumentPF2e } from "@scene/index.ts";
 import { ErrorPF2e, sluggify } from "@util";
-import { UUIDUtils } from "@util/uuid-utils";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "..";
-import { MarkTargetPrompt } from "./prompt";
+import { UUIDUtils } from "@util/uuid-utils.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "../index.ts";
+import { MarkTargetPrompt } from "./prompt.ts";
 
 /** Remember a token for later referencing */
 class MarkTokenRuleElement extends RuleElementPF2e {
@@ -13,7 +14,7 @@ class MarkTokenRuleElement extends RuleElementPF2e {
     /** The uuid of the token */
     tokenUUID: string | null;
 
-    constructor(data: MarkTokenSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: MarkTokenSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
         if (typeof data.slug === "string" && data.slug.length > 0) {

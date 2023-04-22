@@ -1,11 +1,11 @@
-import { CreaturePF2e } from "@actor";
-import { MovementType } from "@actor/creature/data";
-import { ActorType } from "@actor/data";
-import { MOVEMENT_TYPES } from "@actor/values";
+import { ActorPF2e, CreaturePF2e } from "@actor";
+import { MovementType } from "@actor/creature/data.ts";
+import { ActorType } from "@actor/data/index.ts";
+import { MOVEMENT_TYPES } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
 import { tupleHasValue } from "@util";
-import { BracketedValue, RuleElementOptions, RuleElementPF2e, RuleElementSource } from ".";
-import { BaseSpeedSynthetic, DeferredMovementType } from "../synthetics";
+import { BracketedValue, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
+import { BaseSpeedSynthetic, DeferredMovementType } from "../synthetics.ts";
 
 /**
  * @category RuleElement
@@ -17,7 +17,7 @@ class BaseSpeedRuleElement extends RuleElementPF2e {
 
     private value: number | string | BracketedValue = 0;
 
-    constructor(data: BaseSpeedSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: BaseSpeedSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
         this.selector = String(data.selector)

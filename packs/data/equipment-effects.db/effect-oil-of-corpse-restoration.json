@@ -1,0 +1,46 @@
+{
+    "_id": "xiG3kmPJBpX2KA7l",
+    "img": "systems/pf2e/icons/equipment/consumables/oils/shielding-salve.webp",
+    "name": "Effect: Oil of Corpse Restoration",
+    "system": {
+        "description": {
+            "value": "<p>The dead creature gains a +2 circumstance bonus on Deception checks to look like a living creature.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 8
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:disguise",
+                    "disguise-as-living"
+                ],
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #189: Dreamers of the Nameless Spires"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

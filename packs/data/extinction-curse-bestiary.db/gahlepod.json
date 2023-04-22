@@ -145,44 +145,27 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The gahlepod becomes adjacent to at least one other gahlepod</p>\n<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The gahlepod is spurred into a frenzy by the others. For the rest of the round, their jaws Strike deals @Localize[PF2E.PersistentDamage.Bleed1d6.success] in addition to the listed damage.</p>"
+                    "value": "<p><strong>Trigger</strong> The gahlepod becomes adjacent to at least one other gahlepod</p>\n<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The gahlepod is spurred into a frenzy by the others. For the rest of the round, their jaws Strike deals 1d6 persistent bleed damage in addition to the listed damage.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": [
-                            "item:slug:jaws",
-                            "churning-frenzy"
-                        ],
-                        "selector": "strike-damage",
-                        "text": "PF2E.PersistentDamage.Bleed1d6.criticalSuccess",
-                        "title": "{item|name}"
-                    },
-                    {
                         "domain": "damage",
                         "key": "RollOption",
                         "option": "churning-frenzy",
-                        "toggleable": true,
-                        "value": false
+                        "toggleable": true
                     },
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
                         "predicate": [
-                            "item:slug:jaws",
                             "churning-frenzy"
                         ],
-                        "selector": "strike-damage",
-                        "text": "PF2E.PersistentDamage.Bleed1d6.success",
-                        "title": "{item|name}"
+                        "selector": "jaws-damage"
                     }
                 ],
                 "slug": null,
@@ -221,10 +204,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -248,10 +227,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -294,7 +269,7 @@
                 "value": 140
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 13

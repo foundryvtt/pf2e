@@ -1,11 +1,11 @@
-import { CharacterPF2e } from "@actor";
-import { CreatureTrait } from "@actor/creature";
+import { ActorPF2e, CharacterPF2e } from "@actor";
+import { CreatureTrait } from "@actor/creature/index.ts";
 import { ItemPF2e } from "@item";
-import { Rarity } from "@module/data";
-import { sluggify } from "@util";
-import { HeritageData } from "./data";
+import { Rarity } from "@module/data.ts";
+import { ErrorPF2e, sluggify } from "@util";
+import { HeritageSource, HeritageSystemData } from "./data.ts";
 
-class HeritagePF2e extends ItemPF2e {
+class HeritagePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     get traits(): Set<CreatureTrait> {
         return new Set(this.system.traits.value);
     }
@@ -15,11 +15,12 @@ class HeritagePF2e extends ItemPF2e {
     }
 
     /** Prepare a character's data derived from their heritage */
-    override prepareActorData(this: Embedded<HeritagePF2e>): void {
+    override prepareActorData(this: HeritagePF2e<ActorPF2e>): void {
+        if (!this.actor.isOfType("character")) throw ErrorPF2e("heritage embedded on non-character");
         // Some abilities allow for a second heritage. If the PC has more than one, set this heritage as the actor's
         // main one only if it wasn't granted by another item.
         if (this.actor.itemTypes.heritage.length === 1 || !this.grantedBy) {
-            this.actor.heritage = this;
+            this.actor.heritage = this as HeritagePF2e<CharacterPF2e>;
         }
 
         // Add and remove traits as specified
@@ -44,10 +45,9 @@ class HeritagePF2e extends ItemPF2e {
     }
 }
 
-interface HeritagePF2e extends ItemPF2e {
-    readonly parent: CharacterPF2e | null;
-
-    readonly data: HeritageData;
+interface HeritagePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
+    readonly _source: HeritageSource;
+    system: HeritageSystemData;
 }
 
 export { HeritagePF2e };

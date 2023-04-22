@@ -1,11 +1,14 @@
 import { getActionIcon, sluggify } from "@util";
-import { CompendiumBrowser } from "..";
-import { CompendiumBrowserTab } from "./base";
-import { CompendiumBrowserIndexData, SpellFilters } from "./data";
+import { CompendiumBrowser } from "../index.ts";
+import { ContentTabName } from "../data.ts";
+import { CompendiumBrowserTab } from "./base.ts";
+import { CompendiumBrowserIndexData, SpellFilters } from "./data.ts";
 
 export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
-    override filterData!: SpellFilters;
-    override templatePath = "systems/pf2e/templates/compendium-browser/partials/spell.hbs";
+    tabName: ContentTabName = "spell";
+    filterData: SpellFilters;
+    templatePath = "systems/pf2e/templates/compendium-browser/partials/spell.hbs";
+
     /* MiniSearch */
     override searchFields = ["name"];
     override storeFields = [
@@ -24,13 +27,13 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
     ];
 
     constructor(browser: CompendiumBrowser) {
-        super(browser, "spell");
+        super(browser);
 
         // Set the filterData object of this tab
-        this.prepareFilterData();
+        this.filterData = this.prepareFilterData();
     }
 
-    protected override async loadData() {
+    protected override async loadData(): Promise<void> {
         console.debug("PF2e System | Compendium Browser | Started loading spells");
 
         const spells: CompendiumBrowserIndexData[] = [];
@@ -181,8 +184,8 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         return true;
     }
 
-    protected override prepareFilterData(): void {
-        this.filterData = {
+    protected override prepareFilterData(): SpellFilters {
+        return {
             checkboxes: {
                 category: {
                     isExpanded: true,

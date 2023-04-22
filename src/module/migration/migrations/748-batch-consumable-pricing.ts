@@ -1,12 +1,12 @@
-import { ItemSourcePF2e } from "@item/data";
-import { isPhysicalData } from "@item/data/helpers";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { isPhysicalData } from "@item/data/helpers.ts";
 import { sluggify } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 export class Migration748BatchConsumablePricing extends MigrationBase {
     static override version = 0.748;
 
-    override async updateItem(item: ItemSourcePF2e) {
+    override async updateItem(item: ItemSourcePF2e): Promise<void> {
         if (!isPhysicalData(item)) return;
 
         const slug = item.system.slug ?? sluggify(item.name);

@@ -1,5 +1,5 @@
-import { Rarity } from "@module/data";
-import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
+import { Rarity } from "@module/data.ts";
+import { PreciousMaterialGrade, PreciousMaterialType } from "./types.ts";
 
 interface MaterialGradeData {
     level: number;

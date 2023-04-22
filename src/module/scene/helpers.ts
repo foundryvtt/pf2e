@@ -1,5 +1,5 @@
-import { ScenePF2e } from "./document";
-import { TokenDocumentPF2e } from "./token-document";
+import { ScenePF2e } from "./document.ts";
+import { TokenDocumentPF2e } from "./token-document/index.ts";
 
 // Prevent concurrent executions of this method in case of network latency
 let auraCheckLock = Promise.resolve();
@@ -17,7 +17,7 @@ const checkAuras = foundry.utils.debounce(async function (this: ScenePF2e): Prom
     });
 
     // Get all tokens in the scene, excluding additional tokens linked to a common actor
-    const tokens = this.tokens.reduce((list: Embedded<TokenDocumentPF2e>[], token) => {
+    const tokens = this.tokens.reduce((list: TokenDocumentPF2e<ScenePF2e>[], token) => {
         if (token.isLinked && list.some((t) => t.actor === token.actor)) {
             return list;
         }

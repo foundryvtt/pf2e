@@ -1,11 +1,11 @@
 import { CharacterPF2e } from "@actor";
-import { CoinsPF2e } from "@item/physical/helpers";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { OneToFour } from "@module/data";
-import { calculateDC } from "@module/dc";
-import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS_STRINGS, RollBrief } from "@system/degree-of-success";
-import { Statistic } from "@system/statistic";
-import { earnIncome, EarnIncomeResult } from "./calculate";
+import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { OneToFour } from "@module/data.ts";
+import { calculateDC } from "@module/dc.ts";
+import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS_STRINGS, RollBrief } from "@system/degree-of-success.ts";
+import { Statistic } from "@system/statistic/index.ts";
+import { earnIncome, EarnIncomeResult } from "./calculate.ts";
 
 function escapeHtml(text: string): string {
     const p = document.createElement("p");
@@ -118,7 +118,6 @@ function askSkillPopupTemplate(skills: Statistic[]): string {
     const level = Number(localStorage.getItem("earnIncomeLevel")) || 0;
     const days = Number(localStorage.getItem("earnIncomeDays")) || 1;
     const skillAcronym = localStorage.getItem("earnIncomeSkillAcronym");
-    const assurance = localStorage.getItem("earnIncomeAssurance") === "true";
     const skillOptions = skills
         .map((skill): string => {
             const skillName = escapeHtml(skill.label);
@@ -139,10 +138,6 @@ function askSkillPopupTemplate(skills: Statistic[]): string {
         <select name="skillAcronym">
             ${skillOptions}
         </select>
-    </div>
-    <div class="form-group">
-        <label>Use Assurance</label>
-        <input name="assurance" type="checkbox" ${assurance ? "checked" : ""}>
     </div>
     <div class="form-group">
         <label>Level</label>

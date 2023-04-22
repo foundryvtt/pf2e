@@ -1,28 +1,37 @@
-import { Abilities, AbilityData } from "@actor/creature/data";
-import { CreatureSheetPF2e } from "@actor/creature/sheet";
-import { CreatureSheetData } from "@actor/creature/types";
-import { ALIGNMENT_TRAITS } from "@actor/creature/values";
-import { NPCPF2e } from "@actor/index";
-import { NPCSkillsEditor } from "@actor/npc/skills-editor";
-import { AbilityString } from "@actor/types";
-import { ABILITY_ABBREVIATIONS, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/values";
-import { EffectData } from "@item/data";
-import { Size } from "@module/data";
-import { createTagifyTraits } from "@module/sheet/helpers";
-import { DicePF2e } from "@scripts/dice";
-import { eventToRollParams } from "@scripts/sheet-util";
-import { getActionGlyph, getActionIcon, objectHasKey, setHasElement, tagify } from "@util";
-import { RecallKnowledgePopup } from "../sheet/popups/recall-knowledge-popup";
-import { NPCConfig } from "./config";
-import { NPCSkillData } from "./data";
+import { NPCPF2e } from "@actor";
+import { Abilities, AbilityData, SkillAbbreviation } from "@actor/creature/data.ts";
+import { CreatureSheetPF2e } from "@actor/creature/sheet.ts";
+import { CreatureSheetData } from "@actor/creature/types.ts";
+import { ALIGNMENT_TRAITS } from "@actor/creature/values.ts";
+import { NPCSkillsEditor } from "@actor/npc/skills-editor.ts";
+import { RecallKnowledgePopup } from "@actor/sheet/popups/recall-knowledge-popup.ts";
+import { AbilityString } from "@actor/types.ts";
+import { ABILITY_ABBREVIATIONS, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/values.ts";
+import { createTagifyTraits } from "@module/sheet/helpers.ts";
+import { DicePF2e } from "@scripts/dice.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
+import {
+    ErrorPF2e,
+    getActionGlyph,
+    getActionIcon,
+    htmlQuery,
+    htmlQueryAll,
+    localizeList,
+    objectHasKey,
+    setHasElement,
+    tagify,
+} from "@util";
+import { NPCConfig } from "./config.ts";
+import { NPCSkillData } from "./data.ts";
 import {
     NPCActionSheetData,
+    NPCIdentificationSheetData,
     NPCSheetData,
-    NPCSheetItemData,
+    NPCSkillSheetData,
     NPCSpellcastingSheetData,
     NPCStrikeSheetData,
     NPCSystemSheetData,
-} from "./types";
+} from "./types.ts";
 
 class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
     protected readonly actorConfigClass = NPCConfig;
@@ -73,14 +82,11 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
      */
     override async prepareItems(sheetData: NPCSheetData<TActor>): Promise<void> {
         this.#prepareAbilities(sheetData.data.abilities);
-        this.#prepareSize(sheetData.data);
         this.#prepareAlignment(sheetData.data);
         this.#prepareSkills(sheetData.data);
         this.#prepareSaves(sheetData.data);
         await this.#prepareActions(sheetData);
-        sheetData.effectItems = sheetData.items.filter(
-            (data): data is NPCSheetItemData<EffectData> => data.type === "effect"
-        );
+        sheetData.effectItems = this.actor.itemTypes.effect;
         sheetData.spellcastingEntries = await this.prepareSpellcasting();
     }
 
@@ -97,25 +103,29 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
         const actorTraits = sheetData.data.traits;
         actorTraits.value = actorTraits.value.filter((t: string) => !alignmentTraits.has(t));
 
-        // recall knowledge DCs
-        const identifyCreatureData = (sheetData.identifyCreatureData = sheetData.data.details.identification);
-        sheetData.identifySkillDC = identifyCreatureData.skill.dc;
-        sheetData.identifySkillAdjustment = CONFIG.PF2E.dcAdjustments[identifyCreatureData.skill.start];
-        sheetData.identifySkillProgression = identifyCreatureData.skill.progression.join("/");
-        sheetData.identificationSkills = Array.from(sheetData.identifyCreatureData.skills)
-            .sort()
-            .map((skill) => CONFIG.PF2E.skillList[skill]);
-
-        sheetData.specificLoreDC = identifyCreatureData.specificLoreDC.dc;
-        sheetData.specificLoreAdjustment = CONFIG.PF2E.dcAdjustments[identifyCreatureData.specificLoreDC.start];
-        sheetData.specificLoreProgression = identifyCreatureData.specificLoreDC.progression.join("/");
-
-        sheetData.unspecificLoreDC = identifyCreatureData.unspecificLoreDC.dc;
-        sheetData.unspecificLoreAdjustment = CONFIG.PF2E.dcAdjustments[identifyCreatureData.unspecificLoreDC.start];
-        sheetData.unspecificLoreProgression = identifyCreatureData.unspecificLoreDC.progression.join("/");
-
-        sheetData.isNotCommon = sheetData.data.traits.rarity !== "common";
-        sheetData.actorSize = CONFIG.PF2E.actorSizes[sheetData.data.traits.size.value as Size];
+        // Identification DCs
+        sheetData.identificationDCs = ((): NPCIdentificationSheetData => {
+            const data = this.actor.identificationDCs;
+            const skills =
+                data.skills.length > 0
+                    ? localizeList(data.skills.map((s) => game.i18n.localize(CONFIG.PF2E.skillList[s])))
+                    : null;
+            return {
+                standard: skills
+                    ? game.i18n.format("PF2E.Actor.NPC.Identification.Skills.Label", {
+                          skills,
+                          dc: data.standard.dc,
+                          adjustment: game.i18n.localize(CONFIG.PF2E.dcAdjustments[data.standard.start]),
+                      })
+                    : null,
+                lore: game.i18n.format("PF2E.Actor.NPC.Identification.Lore.Label", {
+                    dc1: data.lore[0].dc,
+                    adjustment1: game.i18n.localize(CONFIG.PF2E.dcAdjustments[data.lore[0].start]),
+                    dc2: data.lore[1].dc,
+                    adjustment2: game.i18n.localize(CONFIG.PF2E.dcAdjustments[data.lore[1].start]),
+                }),
+            };
+        })();
 
         // Shield
         const { heldShield } = this.actor;
@@ -196,6 +206,18 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
             tagify(traitsEl, { whitelist: CONFIG.PF2E.monsterTraits });
         }
 
+        const mainPanel = htmlQuery(html, ".tab[data-tab=main]");
+        if (!mainPanel) throw ErrorPF2e("Unexpected failure while renderin NPC sheet");
+
+        // Creature identification
+        for (const identificationDC of htmlQueryAll(mainPanel, ".recall-knowledge .identification-skills")) {
+            $(identificationDC).tooltipster({ position: "bottom", maxWidth: 350, theme: "crb-hover" });
+        }
+
+        htmlQuery(mainPanel, ".recall-knowledge button.breakdown")?.addEventListener("click", () => {
+            new RecallKnowledgePopup({}, this.actor.identificationDCs).render(true);
+        });
+
         // Subscribe to roll events
         const rollables = ["a.rollable", ".rollable a", ".item-icon.rollable"].join(", ");
         $html.find(rollables).on("click", (event) => this.#onClickRollable(event));
@@ -203,8 +225,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
         // Don't subscribe to edit buttons it the sheet is NOT editable
         if (!this.options.editable) return;
 
-        $html.find(".trait-edit").on("click", (event) => this.openTagSelector(event));
-        $html.find(".skills-edit").on("click", () => {
+        htmlQuery(mainPanel, ".skills-edit")?.addEventListener("click", () => {
             new NPCSkillsEditor(this.actor).render(true);
         });
 
@@ -222,14 +243,6 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
             .find(".spellcasting-entry")
             .find<HTMLInputElement | HTMLSelectElement>(".attack-input, .dc-input, .ability-score select")
             .on("change", (event) => this.#onChangeSpellcastingEntry(event));
-
-        $html.find(".effects-list > .effect > .item-image").on("contextmenu", (event) => this.onClickDeleteItem(event));
-
-        $html.find(".recall-knowledge button.breakdown").on("click", (event) => {
-            event.preventDefault();
-            const identifyCreatureData = this.actor.system.details.identification;
-            new RecallKnowledgePopup({}, identifyCreatureData).render(true);
-        });
 
         $html.find(".item-control[data-action=generate-attack]").on("click", async (event) => {
             const { actor } = this;
@@ -276,14 +289,6 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
         }
     }
 
-    #prepareSize(sheetSystemData: NPCSystemSheetData): void {
-        const size = sheetSystemData.traits.size.value;
-        const localizationKey = this.#getSizeLocalizedKey(size);
-        const localizedName = game.i18n.localize(localizationKey);
-
-        sheetSystemData.traits.size.localizedName = localizedName;
-    }
-
     #prepareAlignment(sheetSystemData: NPCSystemSheetData): void {
         const alignmentCode = sheetSystemData.details.alignment.value;
         const localizedName = game.i18n.localize(`PF2E.Alignment${alignmentCode}`);
@@ -294,11 +299,11 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
     #prepareSkills(sheetSystemData: NPCSystemSheetData): void {
         // Prepare a list of skill IDs sorted by their localized name
         // This will help in displaying the skills in alphabetical order in the sheet
-        const sortedSkillsIds = Object.keys(sheetSystemData.skills);
+        const sortedSkillsIds = Object.keys(sheetSystemData.skills) as SkillAbbreviation[];
 
         const skills = sheetSystemData.skills;
-        for (const skillId of sortedSkillsIds) {
-            const skill = skills[skillId];
+        for (const shortForm of sortedSkillsIds) {
+            const skill = skills[shortForm as SkillAbbreviation];
             skill.label = objectHasKey(CONFIG.PF2E.skillList, skill.expanded)
                 ? game.i18n.localize(CONFIG.PF2E.skillList[skill.expanded])
                 : skill.label ?? skill.slug;
@@ -306,7 +311,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
             skill.adjustedLower = skill.value < Number(skill.base);
         }
 
-        sortedSkillsIds.sort((a: string, b: string) => {
+        sortedSkillsIds.sort((a: SkillAbbreviation, b: SkillAbbreviation) => {
             const skillA = skills[a];
             const skillB = skills[b];
 
@@ -322,7 +327,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
             sortedSkills[skillId] = skills[skillId];
         }
 
-        sheetSystemData.sortedSkills = sortedSkills;
+        sheetSystemData.sortedSkills = sortedSkills as Record<SkillAbbreviation, NPCSkillSheetData>;
     }
 
     #prepareSaves(systemData: NPCSystemSheetData): void {
@@ -339,14 +344,18 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
         for (const entry of entries) {
             const entryItem = this.actor.items.get(entry.id);
             if (!entryItem?.isOfType("spellcastingEntry")) continue;
-            entry.adjustedHigher = {
-                dc: entry.statistic.dc.value > entryItem._source.system.spelldc.dc,
-                mod: entry.statistic.check.mod > entryItem._source.system.spelldc.value,
-            };
-            entry.adjustedLower = {
-                dc: entry.statistic.dc.value < entryItem._source.system.spelldc.dc,
-                mod: entry.statistic.check.mod < entryItem._source.system.spelldc.value,
-            };
+            entry.adjustedHigher = entry.statistic
+                ? {
+                      dc: entry.statistic.dc.value > entryItem._source.system.spelldc.dc,
+                      mod: entry.statistic.check.mod > entryItem._source.system.spelldc.value,
+                  }
+                : { dc: false, mod: false };
+            entry.adjustedLower = entry.statistic
+                ? {
+                      dc: entry.statistic.dc.value < entryItem._source.system.spelldc.dc,
+                      mod: entry.statistic.check.mod < entryItem._source.system.spelldc.value,
+                  }
+                : { dc: false, mod: false };
         }
 
         return entries;
@@ -402,11 +411,6 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
         }
 
         sheetData.actions = actions;
-    }
-
-    #getSizeLocalizedKey(size: string): string {
-        const actorSizes = CONFIG.PF2E.actorSizes;
-        return objectHasKey(actorSizes, size) ? actorSizes[size] : "";
     }
 
     // ROLLS

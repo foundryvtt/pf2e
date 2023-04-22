@@ -1,9 +1,9 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemSourcePF2e } from "@item/data";
-import { HomebrewTag, HOMEBREW_TRAIT_KEYS } from "@system/settings/homebrew";
-import { LocalizePF2e } from "@system/localize";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { HomebrewTag, HOMEBREW_TRAIT_KEYS } from "@system/settings/homebrew/index.ts";
+import { LocalizePF2e } from "@system/localize.ts";
 import { sluggify } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 export class Migration674StableHomebrewTagIDs extends MigrationBase {
     static override version = 0.674;

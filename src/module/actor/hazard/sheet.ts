@@ -1,13 +1,13 @@
-import { StrikeData } from "@actor/data/base";
-import { ActorSheetPF2e } from "@actor/sheet/base";
-import { SAVE_TYPES } from "@actor/values";
+import { StrikeData } from "@actor/data/base.ts";
+import { ActorSheetPF2e } from "@actor/sheet/base.ts";
+import { SAVE_TYPES } from "@actor/values.ts";
 import { tagify, traitSlugToObject } from "@util";
-import { HazardPF2e } from ".";
-import { HazardSystemData } from "./data";
-import { HazardActionSheetData, HazardSaveSheetData, HazardSheetData } from "./types";
+import { HazardPF2e } from "./document.ts";
+import { HazardSystemData } from "./data.ts";
+import { HazardActionSheetData, HazardSaveSheetData, HazardSheetData } from "./types.ts";
 
 export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
-    static override get defaultOptions() {
+    static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         mergeObject(options, {
             classes: [...options.classes, "hazard"],
@@ -22,7 +22,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         return "systems/pf2e/templates/actors/hazard/sheet.hbs";
     }
 
-    override get title() {
+    override get title(): string {
         if (this.editing) {
             return game.i18n.format("PF2E.Actor.Hazard.TitleEdit", { name: super.title });
         }
@@ -30,7 +30,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         return super.title;
     }
 
-    get editing() {
+    get editing(): boolean {
         return this.options.editable && !!this.actor.getFlag("pf2e", "editHazard.value");
     }
 

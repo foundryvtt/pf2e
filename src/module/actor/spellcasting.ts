@@ -1,32 +1,45 @@
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { ConsumablePF2e, SpellcastingEntryPF2e } from "@item";
-import { SpellcastingEntrySource, SpellCollection } from "@item/spellcasting-entry";
+import { SpellcastingEntrySource } from "@item/spellcasting-entry/index.ts";
+import { SpellCollection } from "@item/spellcasting-entry/collection.ts";
+import { RitualSpellcasting } from "@item/spellcasting-entry/rituals.ts";
+import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types.ts";
 import { ErrorPF2e } from "@util";
 
-export class ActorSpellcasting extends Collection<SpellcastingEntryPF2e> {
+export class ActorSpellcasting<TActor extends ActorPF2e> extends Collection<BaseSpellcastingEntry<TActor>> {
     /** All available spell lists on this actor */
-    collections = new Collection<SpellCollection>();
+    collections = new Collection<SpellCollection<TActor, BaseSpellcastingEntry<TActor>>>();
 
-    constructor(public readonly actor: ActorPF2e, entries?: SpellcastingEntryPF2e[]) {
-        super(entries?.map((entry) => [entry.id, entry]));
+    constructor(public readonly actor: TActor, entries: BaseSpellcastingEntry<TActor>[]) {
+        super(entries.map((entry) => [entry.id, entry]));
+
+        for (const entry of entries) {
+            if (entry.spells) this.collections.set(entry.spells.id, entry.spells);
+        }
     }
 
     /** Returns a list of entries pre-filtered to SpellcastingEntryPF2e */
-    get regular(): SpellcastingEntryPF2e[] {
-        return this.filter((entry): entry is SpellcastingEntryPF2e => entry instanceof SpellcastingEntryPF2e);
+    get regular(): SpellcastingEntryPF2e<TActor>[] {
+        return this.filter((e): e is SpellcastingEntryPF2e<TActor> => e instanceof SpellcastingEntryPF2e);
+    }
+
+    /** Get this actor's ritual casting ability */
+    get ritual(): RitualSpellcasting<TActor> | null {
+        const ritualCasting = this.collections.get("rituals")?.entry;
+        return ritualCasting instanceof RitualSpellcasting ? ritualCasting : null;
     }
 
     /**
      * All spellcasting entries that count as prepared/spontaneous, which qualify as a
      * full fledged spellcasting feature for wands and scrolls.
      */
-    get spellcastingFeatures(): SpellcastingEntryPF2e[] {
-        return this.regular.filter((entry) => entry.isPrepared || entry.isSpontaneous);
+    get spellcastingFeatures(): SpellcastingEntryPF2e<TActor>[] {
+        return this.regular.filter((e) => e.isPrepared || e.isSpontaneous);
     }
 
     canCastConsumable(item: ConsumablePF2e): boolean {
         const spell = item.embeddedSpell;
-        return !!spell && this.some((entry) => entry.canCastSpell(spell, { origin: item }));
+        return !!spell && this.some((e) => e.canCast(spell, { origin: item }));
     }
 
     refocus(options: { all?: boolean } = {}): { "system.resources.focus.value": number } | null {

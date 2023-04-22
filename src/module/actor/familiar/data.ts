@@ -1,23 +1,17 @@
 import {
-    BaseCreatureData,
     BaseCreatureSource,
     CreatureAttributes,
     CreatureSystemData,
     CreatureSystemSource,
     CreatureTraitsData,
     SkillAbbreviation,
-} from "@actor/creature/data";
-import { CreatureSensePF2e } from "@actor/creature/sense";
-import { Rollable } from "@actor/data/base";
-import { StatisticModifier } from "@actor/modifiers";
-import { AbilityString } from "@actor/types";
-import type { FamiliarPF2e } from ".";
+} from "@actor/creature/data.ts";
+import { CreatureSensePF2e } from "@actor/creature/sense.ts";
+import { Rollable } from "@actor/data/base.ts";
+import { StatisticModifier } from "@actor/modifiers.ts";
+import { AbilityString } from "@actor/types.ts";
 
 type FamiliarSource = BaseCreatureSource<"familiar", FamiliarSystemSource>;
-
-interface FamiliarData
-    extends Omit<FamiliarSource, "system" | "effects" | "flags" | "items" | "prototypeToken" | "type">,
-        BaseCreatureData<FamiliarPF2e, "familiar", FamiliarSource> {}
 
 interface FamiliarSystemSource extends Pick<CreatureSystemSource, "schema"> {
     details: {
@@ -25,13 +19,7 @@ interface FamiliarSystemSource extends Pick<CreatureSystemSource, "schema"> {
             value: string;
         };
     };
-    attributes: {
-        hp: { value: number };
-        initiative?: never;
-        immunities?: never;
-        weaknesses?: never;
-        resistances?: never;
-    };
+    attributes: FamiliarAttributesSource;
     master: {
         id: string | null;
         ability: AbilityString | null;
@@ -64,6 +52,14 @@ interface FamiliarSystemData
     traits: FamiliarTraitsData;
 }
 
+interface FamiliarAttributesSource {
+    hp: { value: number };
+    initiative?: never;
+    immunities?: never;
+    weaknesses?: never;
+    resistances?: never;
+}
+
 interface FamiliarAttributes extends CreatureAttributes {
     ac: { value: number; breakdown: string; check?: number };
     perception: FamiliarPerception;
@@ -78,4 +74,4 @@ interface FamiliarTraitsData extends CreatureTraitsData {
     senses: CreatureSensePF2e[];
 }
 
-export { FamiliarData, FamiliarSource, FamiliarSystemData, FamiliarSystemSource };
+export { FamiliarSource, FamiliarSystemData, FamiliarSystemSource };

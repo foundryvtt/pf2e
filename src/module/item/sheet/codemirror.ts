@@ -1,22 +1,23 @@
-import { EditorView, basicSetup } from "codemirror";
-import { autocompletion, CompletionContext, CompletionResult } from "@codemirror/autocomplete";
-import { keymap } from "@codemirror/view";
+import { CompletionContext, CompletionResult, autocompletion } from "@codemirror/autocomplete";
 import { indentWithTab } from "@codemirror/commands";
-import { linter } from "@codemirror/lint";
-import { syntaxTree } from "@codemirror/language";
 import { json, jsonParseLinter } from "@codemirror/lang-json";
-import { RuleElements } from "@module/rules";
-import { DataSchema } from "types/foundry/common/data/fields.mjs";
+import { syntaxTree } from "@codemirror/language";
+import { linter } from "@codemirror/lint";
+import { Extension } from "@codemirror/state";
+import { keymap } from "@codemirror/view";
+import { RuleElements } from "@module/rules/index.ts";
+import { EditorView, basicSetup } from "codemirror";
+import type { DataSchema } from "types/foundry/common/data/fields.d.ts";
 
 export const CodeMirror = {
     EditorView,
     basicSetup,
     json,
-    jsonLinter: () => linter(jsonParseLinter()),
+    jsonLinter: (): Extension => linter(jsonParseLinter()),
     keybindings: keymap.of([indentWithTab]),
 
     /** All language and autocomplete extensions for rule element editing */
-    ruleElementExtensions: (options: RuleElementOptions) => [
+    ruleElementExtensions: (options: RuleElementOptions): Extension[] => [
         json(),
         CodeMirror.jsonLinter(),
         autocompletion({

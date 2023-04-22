@@ -1,8 +1,9 @@
-import { EffectBadge } from "@item/abstract-effect";
-import { ItemSheetDataPF2e } from "@item/sheet/data-types";
-import { htmlQuery, htmlQueryAll } from "@util";
-import { EffectPF2e, EffectSource } from ".";
-import { ItemSheetPF2e } from "../sheet/base";
+import { EffectBadge } from "@item/abstract-effect/index.ts";
+import { ItemSheetDataPF2e } from "@item/sheet/data-types.ts";
+import { htmlQuery, htmlQueryAll } from "@util/dom.ts";
+import { ItemSheetPF2e } from "../sheet/base.ts";
+import { EffectSource } from "./data.ts";
+import { EffectPF2e } from "./document.ts";
 
 export class EffectSheetPF2e extends ItemSheetPF2e<EffectPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<EffectSheetData> {

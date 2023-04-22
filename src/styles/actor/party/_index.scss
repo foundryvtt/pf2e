@@ -1,0 +1,174 @@
+.sheet.party {
+    form {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+
+        background: url("/assets/sheet/background.webp");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: local;
+    }
+
+    form > header {
+        background: url("/assets/sheet/header-bw.webp"), url("/assets/sheet/background.webp");
+        background-repeat: repeat-x, no-repeat;
+        background-size: cover;
+        background-color: #2f9d50;
+        background-blend-mode: multiply;
+        color: white;
+
+        width: 100%;
+        font-family: var(--sans-serif);
+        text-transform: uppercase;
+        font-weight: 600;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 0.75rem;
+        gap: 8px;
+
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+
+        .frame-container {
+            flex: 0 0 60px;
+            padding: 4px; // frames use shadows to create the border, so we need to offset it
+            margin: 0.75rem 0;
+
+            .frame {
+                position: relative;
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+
+            .player-image {
+                object-fit: cover;
+                object-position: top;
+                border: none;
+                border-radius: 0;
+                width: 100%;
+                cursor: pointer;
+                @include brown-border;
+            }
+        }
+
+        .details {
+            margin: 4px 0;
+            flex: 1;
+        }
+
+        input[type="text"], input[type="number"] {
+            color: white;
+            border: none;
+            border-bottom: 1px solid transparent;
+            &:hover, &:focus {
+                border: none;
+                border-bottom: 1px solid var(--text-light);
+                box-shadow: none;
+            }
+        }
+
+        .title {
+            display: flex;
+            flex-direction: row;
+            align-items: baseline;
+            gap: 4px;
+
+            font-size: var(--font-size-28);
+            font-family: var(--serif-condensed);
+            font-weight: 700;
+
+            .name {
+                flex: 1;
+                font-size: var(--font-size-32);
+            }
+        }
+    }
+
+    @import "../nav";
+
+    .actor-link {
+        cursor: pointer;
+    }
+
+    .container {
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .content {
+        @include scrollbar;
+        flex: 1;
+    }
+
+    .tab.active {
+        display: flex;
+        height: 100%;
+    }
+
+    [data-tab="inventory"] {
+        @import "inventory";
+    }
+
+    [data-tab="overview"] {
+        @import "overview";
+    }
+
+    .sidebar {
+        @include scrollbar;
+        border-right: 1px solid #888;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        height: 100%;
+        padding: 0.5rem;
+        width: 13.5rem;
+
+        .box {
+            border: 1px solid rgba(0, 0, 0, 0.28);
+            filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.18));
+            font-family: var(--sans-serif);
+            border-radius: 3px;
+            font-size: var(--font-size-12);
+
+            header, footer {
+                margin: -1px;
+                padding: 0.25rem;
+            }
+
+            header {
+                background-color: var(--sub);
+                border-radius: 3px 3px 0 0;
+                color: white;
+                font-weight: 700;
+            }
+
+            footer {
+                background-color: var(--bg-dark);
+                border-radius: 0 0 3px 3px;
+                color: var(--sub);
+                border: 1px solid rgba(0, 0, 0, 0.28);
+                border-top: none;
+            }
+        }
+    }
+
+    .tag-light {
+        --tag-color: #{$rank-untrained};
+        border: 1px solid var(--tag-color);
+        border-radius: 2px;
+        color: var(--tag-color);
+        padding: 0 4px 0.1em 4px;
+        height: 1.25rem;
+        white-space: nowrap;
+        font-size: var(--font-size-13);
+        font-variant: all-small-caps;
+        font-weight: 500;
+
+        display: flex;
+        align-items: center;
+    }
+}
+

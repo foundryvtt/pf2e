@@ -1,8 +1,34 @@
-import { Optional } from "./misc";
+import { Optional } from "./misc.ts";
 
 /**  DOM helper functions that return HTMLElement(s) (or `null`) */
 
 type MaybeHTML = Optional<Document | Element | EventTarget>;
+
+/** Create an `HTMLElement` with classes, dataset, and children */
+function createHTMLElement(
+    nodeName: keyof HTMLElementTagNameMap,
+    { classes = [], dataset = {}, children = [] }: CreateHTMLElementOptions = {}
+): HTMLElement {
+    const element = document.createElement(nodeName);
+    element.classList.add(...classes);
+
+    for (const [key, value] of Object.entries(dataset)) {
+        element.dataset[key] = String(value);
+    }
+
+    for (const child of children) {
+        const childElement = child instanceof HTMLElement ? child : new Text(child);
+        element.appendChild(childElement);
+    }
+
+    return element;
+}
+
+interface CreateHTMLElementOptions {
+    classes?: string[];
+    dataset?: Record<string, string | number>;
+    children?: (HTMLElement | string)[];
+}
 
 function htmlQuery<K extends keyof HTMLElementTagNameMap>(
     parent: MaybeHTML,
@@ -37,4 +63,4 @@ function htmlClosest(child: MaybeHTML, selectors: string): HTMLElement | null {
     return child.closest<HTMLElement>(selectors);
 }
 
-export { htmlClosest, htmlQuery, htmlQueryAll };
+export { createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll };

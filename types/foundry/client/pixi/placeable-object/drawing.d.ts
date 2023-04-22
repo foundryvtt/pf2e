@@ -2,7 +2,9 @@
  * The Drawing object is an implementation of the PlaceableObject container.
  * Each Drawing is a placeable object in the DrawingsLayer.
  */
-declare class Drawing<TDocument extends DrawingDocument = DrawingDocument> extends PlaceableObject<TDocument> {
+declare class Drawing<
+    TDocument extends DrawingDocument<Scene | null> = DrawingDocument<Scene | null>
+> extends PlaceableObject<TDocument> {
     constructor(document: TDocument);
 
     /** The inner drawing container */
@@ -57,6 +59,8 @@ declare class Drawing<TDocument extends DrawingDocument = DrawingDocument> exten
 
     override refresh(): this;
 
+    protected override _refresh(options: object): void;
+
     /** Draw rectangular shapes */
     protected _drawRectangle(): void;
 
@@ -97,12 +101,13 @@ declare class Drawing<TDocument extends DrawingDocument = DrawingDocument> exten
 
     protected override _onRelease(options?: object): void;
 
-    override _onDelete(options: DocumentModificationContext<TDocument>, userId: string): void;
+    override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;
 
     /** Handle text entry in an active text tool */
     protected _onDrawingTextKeydown(event: KeyboardEvent): void;
 }
 
-declare interface Drawing {
+declare interface Drawing<TDocument extends DrawingDocument<Scene | null> = DrawingDocument<Scene | null>>
+    extends PlaceableObject<TDocument> {
     get layer(): DrawingsLayer<this>;
 }

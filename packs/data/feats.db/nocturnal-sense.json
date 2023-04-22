@@ -9,11 +9,9 @@
         "actions": {
             "value": null
         },
+        "category": "class",
         "description": {
             "value": "<p>Your senses gain even greater clarity. While raging, you gain @UUID[Compendium.pf2e.ancestryfeatures.Darkvision]{Darkvision} if you don't already have it, and the range of your imprecise scent increases to 60 feet.</p>"
-        },
-        "featType": {
-            "value": "class"
         },
         "level": {
             "value": 6
@@ -21,11 +19,31 @@
         "prerequisites": {
             "value": [
                 {
-                    "value": "Acute Scent, or precise or imprecise scent and low-light vision"
+                    "value": "Acute Scent, or precise or imprecise scent"
+                },
+                {
+                    "value": "low-light vision"
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "range": 60,
+                "selector": "scent"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "selector": "darkvision"
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },

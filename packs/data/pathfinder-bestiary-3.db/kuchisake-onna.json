@@ -285,17 +285,17 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The kuchisake-onna's silver scissors Strikes are manifestations of the toxic malice that created them and vanish when the kuchisake-onna is destroyed.</p>\n<p>When the kuchisake-onna has less than half their maximum Hit Points remaining, this concentrated enmity begins to leak out and make their attacks more vicious. Their silver scissors Strikes deal @Localize[PF2E.PersistentDamage.Bleed6d6.success].</p>\n<hr />\n<p><em>Note: Due to a later published errata this persistent damage is doubled on a critical hit. Due to the high damage potential for this creature's level that interaction may not be intended.</em></p>"
+                    "value": "<p>The kuchisake-onna's silver scissors Strikes are manifestations of the toxic malice that created them and vanish when the kuchisake-onna is destroyed.</p>\n<p>When the kuchisake-onna has less than half their maximum Hit Points remaining, this concentrated enmity begins to leak out and make their attacks more vicious. Their silver scissors Strikes deal 6d6 persistent bleed damage.</p>\n<hr />\n<p><em>Note: Due to a later published errata this persistent damage is doubled on a critical hit. Due to the high damage potential for this creature's level that interaction may not be intended.</em></p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
+                        "damageType": "bleed",
+                        "diceNumber": 6,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
                         "predicate": [
                             {
                                 "lt": [
@@ -304,28 +304,7 @@
                                 ]
                             }
                         ],
-                        "selector": "silver-scissors-damage",
-                        "text": "PF2E.PersistentDamage.Bleed6d6.success",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": [
-                            {
-                                "lt": [
-                                    "hp-percent",
-                                    50
-                                ]
-                            }
-                        ],
-                        "selector": "silver-scissors-damage",
-                        "text": "PF2E.PersistentDamage.Bleed6d6.criticalSuccess",
-                        "title": "{item|name}",
-                        "visibility": "owner"
+                        "selector": "silver-scissors-damage"
                     }
                 ],
                 "slug": null,
@@ -408,10 +387,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -435,10 +410,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -462,10 +433,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -489,10 +456,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -538,7 +501,7 @@
                 "value": 252
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 28

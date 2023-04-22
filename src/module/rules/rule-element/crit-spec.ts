@@ -1,11 +1,11 @@
-import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression";
-import { ActorType } from "@actor/data";
-import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers";
+import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
+import { ActorType } from "@actor/data/index.ts";
+import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
 import { MeleePF2e, WeaponPF2e } from "@item";
-import { RollNotePF2e } from "@module/notes";
-import { BooleanField, ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
-import { RuleElementPF2e, RuleElementSchema } from ".";
-import { CritSpecEffect } from "../synthetics";
+import { RollNotePF2e } from "@module/notes.ts";
+import type { BooleanField, ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.d.ts";
+import { CritSpecEffect } from "../synthetics.ts";
+import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
 
 const { fields } = foundry.data;
 

@@ -1,6 +1,6 @@
-import { ItemSourcePF2e } from "@item/data";
-import { FeatSystemSource } from "@item/feat/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { FeatSystemSource } from "@item/feat/data.ts";
+import { MigrationBase } from "../base.ts";
 
 export class Migration802StripFeatActionCategory extends MigrationBase {
     static override version = 0.802;

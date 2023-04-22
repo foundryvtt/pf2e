@@ -44,13 +44,13 @@ class DicePF2e {
         rollType = "",
     }: {
         event: JQuery.Event;
-        item?: Embedded<ItemPF2e> | null;
+        item?: ItemPF2e<ActorPF2e> | null;
         parts: (string | number)[];
         actor?: ActorPF2e;
         data: Record<string, unknown>;
         template?: string;
         title: string;
-        speaker: foundry.data.ChatSpeakerSource;
+        speaker: foundry.documents.ChatSpeakerData;
         flavor?: Function;
         onClose?: Function;
         dialogOptions?: Partial<ApplicationOptions>;
@@ -67,7 +67,7 @@ class DicePF2e {
             let flav = flavor instanceof Function ? flavor(rollParts, data) : title;
             if (adv === 1) {
                 rollParts[0] = ["2d20kh"];
-                flav = game.i18n.format("PF2E.Roll.MisfortuneTitle", { title: title });
+                flav = game.i18n.format("PF2E.Roll.FortuneTitle", { title: title });
             } else if (adv === -1) {
                 rollParts[0] = ["2d20kl"];
                 flav = game.i18n.format("PF2E.Roll.MisfortuneTitle", { title: title });

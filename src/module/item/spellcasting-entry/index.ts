@@ -1,3 +1,3 @@
-export * from "./collection";
-export * from "./data";
-export { SpellcastingEntryPF2e } from "./document";
+export * from "./data.ts";
+export { SpellcastingEntryPF2e } from "./document.ts";
+export * from "./types.ts";

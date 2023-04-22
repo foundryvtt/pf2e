@@ -1,0 +1,45 @@
+{
+    "_id": "N2CSGvtPXloOEPrK",
+    "img": "systems/pf2e/icons/spells/divine-vessel.webp",
+    "name": "Effect: Giant's Lunge",
+    "system": {
+        "description": {
+            "value": "<p>Until your rage ends, all your melee weapons and unarmed attacks gain reach 10.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:melee"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "reach"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

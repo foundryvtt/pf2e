@@ -1,18 +1,15 @@
-import { ActorSourcePF2e } from "@actor/data";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data";
+import { ItemSourcePF2e } from "@item/data/index.ts";
 import { ErrorPF2e } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Normalize weapon range to numeric or null, remove ability property, and let's do category and group too! */
 export class Migration692CraftingEntryFeatReplacement extends MigrationBase {
     static override version = 0.692;
     override requiresFlush = true;
 
-    private slugToPromise = new Map<
-        string,
-        Promise<ClientDocument<foundry.abstract.Document> | ClientDocument2 | null>
-    >([
+    private slugToPromise = new Map<string, Promise<ClientDocument | null>>([
         ["advanced-alchemy", fromUuid("Compendium.pf2e.classfeatures.Pe0zmIqyTBc2Td0I")],
         ["field-discovery-bomber", fromUuid("Compendium.pf2e.classfeatures.8QAFgy9U8PxEa7Dw")],
         ["field-discovery-chirurgeon", fromUuid("Compendium.pf2e.classfeatures.qC0Iz6SlG2i9gv6g")],
@@ -71,5 +68,5 @@ export class Migration692CraftingEntryFeatReplacement extends MigrationBase {
 interface ReplaceItemArgs {
     items: ItemSourcePF2e[];
     current: ItemSourcePF2e;
-    replacement: ClientDocument | ClientDocument2 | null;
+    replacement: ClientDocument | null;
 }

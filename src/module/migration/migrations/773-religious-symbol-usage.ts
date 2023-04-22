@@ -1,5 +1,5 @@
-import { ItemSourcePF2e } from "@item/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Change `usage` of religious symbols to "held-in-one-hand" */
 export class Migration773ReligiousSymbolUsage extends MigrationBase {

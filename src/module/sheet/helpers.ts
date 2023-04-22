@@ -28,21 +28,26 @@ function createSheetTags(options: Record<string, string>, selections: SheetSelec
     return createSheetOptions(options, selections, { selected: true });
 }
 
-function createTagifyTraits(traits: Iterable<string>, { sourceTraits, record }: TagifyTraitOptions) {
+function createTagifyTraits(
+    traits: Iterable<string>,
+    { sourceTraits, record }: TagifyTraitOptions
+): { id: string; value: string; readonly: boolean }[] {
     const sourceSet = new Set(sourceTraits);
     const traitSlugs = [...traits];
     const readonlyTraits = traitSlugs.filter((t) => !sourceSet.has(t));
-    return traitSlugs.map((slug) => {
-        const label = game.i18n.localize(record?.[slug] ?? slug);
-        return { id: slug, value: label, readonly: readonlyTraits.includes(slug) };
-    });
+    return traitSlugs
+        .map((slug) => {
+            const label = game.i18n.localize(record?.[slug] ?? slug);
+            return { id: slug, value: label, readonly: readonlyTraits.includes(slug) };
+        })
+        .sort((t1, t2) => t1.value.localeCompare(t2.value));
 }
 
 /**
  * Process tagify elements in a form, converting their data into something the pf2e system can handle.
  * This method is meant to be called in _getSubmitData().
  */
-function processTagifyInSubmitData(form: HTMLFormElement, data: Record<string, unknown>) {
+function processTagifyInSubmitData(form: HTMLFormElement, data: Record<string, unknown>): void {
     // Tagify has a convention (used in their codebase as well) where it prepends the input element
     const tagifyInputElements = form.querySelectorAll<HTMLInputElement>("tags.tagify ~ input");
     for (const inputEl of tagifyInputElements.values()) {
@@ -58,7 +63,7 @@ function processTagifyInSubmitData(form: HTMLFormElement, data: Record<string, u
 }
 
 /** Override to refocus tagify elements in _render() to workaround handlebars full re-render */
-async function maintainTagifyFocusInRender(sheet: DocumentSheet, renderLogic: () => Promise<void>) {
+async function maintainTagifyFocusInRender(sheet: DocumentSheet, renderLogic: () => Promise<void>): Promise<void> {
     const element = sheet.element[0];
     const active = document.activeElement;
     const activeWasHere = element?.contains(active);

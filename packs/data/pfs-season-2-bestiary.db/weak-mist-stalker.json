@@ -92,54 +92,10 @@
             "type": "action"
         },
         {
-            "_id": "2PLVvoyanKPQQdYK",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Mist Cloud",
-            "sort": 300000,
-            "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Template[type:emanation|distance:15]{15 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>The mist stalker is surrounded by mist. Creatures in the aura are @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}. If wind disperses the aura, it returns automatically at the start of the mist stalker's turn. This cloud is suppressed in water.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "conjuration",
-                        "primal",
-                        "water"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "sc9sTDDxNEMsTklK",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Mist Vision",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "actionCategory": {
                     "value": "interaction"
@@ -164,6 +120,71 @@
                 "traits": {
                     "rarity": "common",
                     "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2PLVvoyanKPQQdYK",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Mist Cloud",
+            "sort": 400000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:15]{15 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>The mist stalker is surrounded by mist. Creatures in the aura are @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}. If wind disperses the aura, it returns automatically at the start of the mist stalker's turn. This cloud is suppressed in water.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "mist-cloud-active"
+                        ],
+                        "radius": 15,
+                        "slug": "mist-cloud",
+                        "traits": [
+                            "conjuration",
+                            "primal",
+                            "water"
+                        ]
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "mist-cloud-active",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "conjuration",
+                        "primal",
+                        "water"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -324,10 +345,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -351,10 +368,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -414,7 +427,7 @@
                 }
             ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 13

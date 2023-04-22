@@ -1,19 +1,19 @@
-import { ANIMAL_COMPANION_SOURCE_ID } from "@actor/values";
+import { ANIMAL_COMPANION_SOURCE_ID } from "@actor/values.ts";
 import { EffectPF2e } from "@item";
-import { TokenDocumentPF2e } from "@module/scene";
+import { TokenDocumentPF2e } from "@scene/index.ts";
 import { pick } from "@util";
-import { CanvasPF2e, measureDistanceCuboid, TokenLayerPF2e } from "..";
-import { HearingSource } from "../perception/hearing-source";
-import { AuraRenderers } from "./aura";
+import { CanvasPF2e, TokenLayerPF2e, measureDistanceCuboid } from "../index.ts";
+import { HearingSource } from "../perception/hearing-source.ts";
+import { AuraRenderers } from "./aura/index.ts";
 
-class TokenPF2e extends Token<TokenDocumentPF2e> {
+class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends Token<TDocument> {
     /** Visual representation and proximity-detection facilities for auras */
     readonly auras: AuraRenderers;
 
     /** The token's line hearing source */
     hearing: HearingSource<this>;
 
-    constructor(document: TokenDocumentPF2e) {
+    constructor(document: TDocument) {
         super(document);
 
         this.hearing = new HearingSource(this);
@@ -190,11 +190,11 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         this.auras.draw();
     }
 
-    emitHoverIn() {
+    emitHoverIn(): void {
         this.emit("mouseover", { data: { object: this } });
     }
 
-    emitHoverOut() {
+    emitHoverOut(): void {
         this.emit("mouseout", { data: { object: this } });
     }
 
@@ -259,7 +259,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
                 const [change, details] = Object.entries(params)[0];
                 const isAdded = change === "create";
                 const sign = isAdded ? "+ " : "- ";
-                const appendedNumber = details.value ? ` ${details.value}` : "";
+                const appendedNumber = !/ \d+$/.test(details.name) && details.value ? ` ${details.value}` : "";
                 const content = `${sign}${details.name}${appendedNumber}`;
                 const anchorDirection = isAdded ? CONST.TEXT_ANCHOR_POINTS.TOP : CONST.TEXT_ANCHOR_POINTS.BOTTOM;
                 const textStyle = pick(this._getTextStyle(), ["fill", "fontSize", "stroke", "strokeThickness"]);
@@ -385,7 +385,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 
     /** Destroy auras before removing this token from the canvas */
-    override _onDelete(options: DocumentModificationContext<TokenDocumentPF2e>, userId: string): void {
+    override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void {
         super._onDelete(options, userId);
         this.auras.clear();
     }
@@ -407,7 +407,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 }
 
-interface TokenPF2e extends Token<TokenDocumentPF2e> {
+interface TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends Token<TDocument> {
     get layer(): TokenLayerPF2e<this>;
 
     icon?: TokenImage;
@@ -424,4 +424,4 @@ type ShowFloatyEffectParams =
     | { update: NumericFloatyEffect }
     | { delete: NumericFloatyEffect };
 
-export { TokenPF2e };
+export { ShowFloatyEffectParams, TokenPF2e };

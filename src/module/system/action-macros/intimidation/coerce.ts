@@ -1,6 +1,7 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { SingleCheckAction } from "@actor/actions/index.ts";
 
-export function coerce(options: SkillActionOptions) {
+function coerce(options: SkillActionOptions): void {
     const slug = options?.skill ?? "intimidation";
     const rollOptions = ["action:coerce"];
     const modifiers = options?.modifiers;
@@ -20,5 +21,26 @@ export function coerce(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Coerce", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Coerce", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }
+
+const action = new SingleCheckAction({
+    description: "PF2E.Actions.Coerce.Description",
+    difficultyClass: "saves.will",
+    name: "PF2E.Actions.Coerce.Title",
+    notes: [
+        { outcome: ["criticalSuccess"], text: "PF2E.Actions.Coerce.Notes.criticalSuccess" },
+        { outcome: ["success"], text: "PF2E.Actions.Coerce.Notes.success" },
+        { outcome: ["failure"], text: "PF2E.Actions.Coerce.Notes.failure" },
+        { outcome: ["criticalFailure"], text: "PF2E.Actions.Coerce.Notes.criticalFailure" },
+    ],
+    rollOptions: ["action:coerce"],
+    slug: "coerce",
+    statistic: "intimidation",
+    traits: ["auditory", "concentrate", "emotion", "exploration", "linguistic", "mental"],
+});
+
+export { coerce as legacy, action };

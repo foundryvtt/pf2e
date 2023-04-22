@@ -1,12 +1,12 @@
 import { ActorProxyPF2e } from "@actor";
-import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
+import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
 import { ItemProxyPF2e } from "@item";
-import { ActiveEffectPF2e } from "@module/active-effect";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { ActorsPF2e } from "@module/collection/actors";
-import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
-import { MacroPF2e } from "@module/macro";
-import { UserPF2e } from "@module/user";
+import { ActiveEffectPF2e } from "@module/active-effect.ts";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { ActorsPF2e } from "@module/collection/actors.ts";
+import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
+import { MacroPF2e } from "@module/macro.ts";
+import { UserPF2e } from "@module/user/index.ts";
 import {
     AmbientLightDocumentPF2e,
     MeasuredTemplateDocumentPF2e,
@@ -14,11 +14,11 @@ import {
     TileDocumentPF2e,
     TokenConfigPF2e,
     TokenDocumentPF2e,
-} from "@scene";
-import { monkeyPatchFoundry } from "@scripts/🐵🩹";
-import { CheckRoll, StrikeAttackRoll } from "@system/check";
-import { DamageInstance, DamageRoll } from "@system/damage/roll";
-import { ArithmeticExpression, Grouping, InstancePool, IntermediateDie } from "@system/damage/terms";
+} from "@scene/index.ts";
+import { monkeyPatchFoundry } from "@scripts/🐵🩹.ts";
+import { CheckRoll, StrikeAttackRoll } from "@system/check/index.ts";
+import { DamageInstance, DamageRoll } from "@system/damage/roll.ts";
+import { ArithmeticExpression, Grouping, InstancePool, IntermediateDie } from "@system/damage/terms.ts";
 
 /** Not an actual hook listener but rather things to run on initial load */
 export const Load = {
@@ -74,5 +74,16 @@ export const Load = {
                 element.blur();
             }
         });
+
+        // HMR for template files
+        if (import.meta.hot) {
+            import.meta.hot.on("template-update", async ({ path }: { path: string }): Promise<void> => {
+                delete _templateCache[path];
+                await getTemplate(path);
+                for (const app of Object.values(ui.windows)) {
+                    app.render();
+                }
+            });
+        }
     },
 };

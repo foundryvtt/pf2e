@@ -1,8 +1,9 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { SingleCheckAction } from "@actor/actions/index.ts";
 
 const PREFIX = "PF2E.Actions.ConcealAnObject";
 
-export function concealAnObject(options: SkillActionOptions) {
+function concealAnObject(options: SkillActionOptions): Promise<void> {
     const slug = options?.skill ?? "stealth";
     const rollOptions = ["action:conceal-an-object"];
     const modifiers = options?.modifiers;
@@ -20,5 +21,25 @@ export function concealAnObject(options: SkillActionOptions) {
             ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.success`, ["success", "criticalSuccess"]),
             ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.failure`, ["failure", "criticalFailure"]),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }
+
+const action = new SingleCheckAction({
+    cost: 1,
+    description: `${PREFIX}.Description`,
+    difficultyClass: "perception",
+    name: `${PREFIX}.Title`,
+    notes: [
+        { outcome: ["success", "criticalSuccess"], text: `${PREFIX}.Notes.success` },
+        { outcome: ["failure", "criticalFailure"], text: `${PREFIX}.Notes.failure` },
+    ],
+    rollOptions: ["action:conceal-an-object"],
+    slug: "conceal-an-object",
+    statistic: "stealth",
+    traits: ["manipulate", "secret"],
+});
+
+export { concealAnObject as legacy, action };

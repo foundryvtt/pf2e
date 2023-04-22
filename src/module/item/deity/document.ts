@@ -1,11 +1,12 @@
-import { Alignment } from "@actor/creature/types";
-import { ALIGNMENTS } from "@actor/creature/values";
+import { ActorPF2e, CharacterPF2e } from "@actor";
+import { Alignment } from "@actor/creature/types.ts";
+import { ALIGNMENTS } from "@actor/creature/values.ts";
 import { ItemPF2e } from "@item";
-import { BaseWeaponType } from "@item/weapon/types";
+import { BaseWeaponType } from "@item/weapon/types.ts";
 import { sluggify } from "@util";
-import { DeityData } from "./data";
+import { DeitySource, DeitySystemData } from "./data.ts";
 
-class DeityPF2e extends ItemPF2e {
+class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     get category(): "deity" | "pantheon" | "philosophy" {
         return this.system.category;
     }
@@ -30,14 +31,14 @@ class DeityPF2e extends ItemPF2e {
         }
     }
 
-    override prepareActorData(this: Embedded<DeityPF2e>): void {
+    override prepareActorData(this: DeityPF2e<ActorPF2e>): void {
         if (!this.actor.isOfType("character")) {
             // This should never happen, but ...
             this.delete({ render: false });
             return;
         }
 
-        this.actor.deity = this;
+        this.actor.deity = this as DeityPF2e<CharacterPF2e>;
 
         const { deities } = this.actor.system.details;
         const systemData = this.system;
@@ -80,7 +81,7 @@ class DeityPF2e extends ItemPF2e {
     }
 
     /** If applicable, set a trained proficiency with this deity's favored weapon */
-    setFavoredWeaponRank(this: Embedded<DeityPF2e>): void {
+    setFavoredWeaponRank(this: DeityPF2e<ActorPF2e>): void {
         if (!this.actor.isOfType("character")) return;
 
         const favoredWeaponRank = this.actor.flags.pf2e.favoredWeaponRank;
@@ -103,8 +104,9 @@ class DeityPF2e extends ItemPF2e {
     }
 }
 
-interface DeityPF2e extends ItemPF2e {
-    readonly data: DeityData;
+interface DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
+    readonly _source: DeitySource;
+    system: DeitySystemData;
 }
 
 export { DeityPF2e };

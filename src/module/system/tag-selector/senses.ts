@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
-import { BaseTagSelector } from "./base";
-import { SelectableTagField } from ".";
+import { BaseTagSelector } from "./base.ts";
+import { SelectableTagField } from "./index.ts";
 import { ErrorPF2e } from "@util";
 
 export class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {

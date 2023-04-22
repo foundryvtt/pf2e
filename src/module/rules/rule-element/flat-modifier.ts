@@ -1,18 +1,19 @@
-import { DeferredValueParams, ModifierPF2e, ModifierType, MODIFIER_TYPES } from "@actor/modifiers";
-import { AbilityString } from "@actor/types";
-import { ABILITY_ABBREVIATIONS } from "@actor/values";
+import { ActorPF2e } from "@actor";
+import { DeferredValueParams, MODIFIER_TYPES, ModifierPF2e, ModifierType } from "@actor/modifiers.ts";
+import { AbilityString } from "@actor/types.ts";
+import { ABILITY_ABBREVIATIONS } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
-import { DamageCategoryUnique } from "@system/damage/types";
-import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values";
-import { objectHasKey, setHasElement, sluggify } from "@util";
-import {
+import { DamageCategoryUnique } from "@system/damage/types.ts";
+import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
+import { objectHasKey, sluggify } from "@util";
+import type {
     ArrayField,
     BooleanField,
     ModelPropsFromSchema,
     NumberField,
     StringField,
-} from "types/foundry/common/data/fields.mjs";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./";
+} from "types/foundry/common/data/fields.d.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 
 const { fields } = foundry.data;
 
@@ -21,7 +22,7 @@ const { fields } = foundry.data;
  * @category RuleElement
  */
 class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
-    constructor(source: FlatModifierSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(source: FlatModifierSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         if (!item.isOfType("physical") && source.type !== "item") {
             source.fromEquipment = false;
         }
@@ -29,9 +30,11 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
         super(source, item, options);
 
         if (this.type === "ability") {
-            if (setHasElement(ABILITY_ABBREVIATIONS, source.ability)) {
-                this.label = typeof source.label === "string" ? source.label : CONFIG.PF2E.abilities[this.ability];
-                this.data.value ??= `@actor.abilities.${this.ability}.mod`;
+            if (this.ability) {
+                this.slug = this.ability;
+                this.label = CONFIG.PF2E.abilities[this.ability];
+                // As a resolvable since ability modifiers aren't yet set for PCs
+                this.data.value = `@actor.abilities.${this.ability}.mod`;
             } else {
                 this.failValidation(
                     'A flat modifier of type "ability" must also have an "ability" property with an ability abbreviation'
@@ -90,12 +93,15 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
 
         // Strip out the title ("Effect:", etc.) of the effect name
         const label = this.label.includes(":") ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : this.label;
-        const slug = this.slug ?? (this.type === "ability" && this.ability ? this.ability : sluggify(label));
+        const slug = this.slug ?? sluggify(label);
 
         const selectors = this.selectors.map((s) => this.resolveInjectedProperties(s)).filter((s) => !!s);
-        if (selectors.length === 0 || !this.data.value) {
-            this.failValidation("Flat modifier requires selector and value properties");
-            return;
+        if (selectors.length === 0) {
+            return this.failValidation("must have at least one selector");
+        }
+
+        if (!this.data.value) {
+            return this.failValidation("must have a value");
         }
 
         for (const selector of selectors) {
@@ -151,7 +157,7 @@ type FlatModifierSchema = RuleElementSchema & {
     /** The modifier (or bonus/penalty) type */
     type: StringField<ModifierType, ModifierType, true, false, true>;
     /** If this is an ability modifier, the ability score it modifies */
-    ability: StringField<AbilityString>;
+    ability: StringField<AbilityString, AbilityString, false, false, false>;
     /** Hide this modifier from breakdown tooltips if it is disabled */
     min: NumberField<number, number, false, false, false>;
     max: NumberField<number, number, false, false, false>;
@@ -163,7 +169,7 @@ type FlatModifierSchema = RuleElementSchema & {
     /** If a damage modifier, a damage type */
     damageType: StringField<string, string, false, true, false>;
     /** If a damage modifier, a special category */
-    damageCategory: StringField<DamageCategoryUnique>;
+    damageCategory: StringField<DamageCategoryUnique, DamageCategoryUnique, false, false, false>;
     /** If a damage modifier, whether it applies given the presence or absence of a critically successful attack roll */
     critical: BooleanField<boolean, boolean, false, true, false>;
 };

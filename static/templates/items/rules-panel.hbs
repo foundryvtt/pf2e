@@ -14,20 +14,20 @@
                     <span>{{localize "PF2E.UUID.Label"}}</span>
                     <i class="fas fa-info-circle small" title="{{localize "PF2E.Item.Rules.Hint.UUID"}}"></i>
                 </label>
-                <input id="{{options.id}}-uuid" disabled value="{{document.uuid}}" />
+                <input id="{{options.id}}-uuid" disabled value="{{item.uuid}}" />
                 <div class="item-controls">
-                    <a data-clipboard="{{document.uuid}}"><i class="fas fa-clipboard"></i></a>
+                    <a data-clipboard="{{item.uuid}}"><i class="fas fa-clipboard"></i></a>
                 </div>
             </div>
-            {{#if document.sourceId}}
+            {{#if item.sourceId}}
                 <div class="form-group">
                     <label for="{{options.id}}-source-id">
                         <span>{{localize "PF2E.UUID.SourceId"}}</span>
                         <i class="fas fa-info-circle small" title="{{localize "PF2E.Item.Rules.Hint.SourceId"}}"></i>
                     </label>
-                    <input id="{{options.id}}-source-id" disabled value="{{document.sourceId}}" />
+                    <input id="{{options.id}}-source-id" disabled value="{{item.sourceId}}" />
                     <div class="item-controls">
-                        <a data-clipboard="{{document.sourceId}}"><i class="fas fa-clipboard"></i></a>
+                        <a data-clipboard="{{item.sourceId}}"><i class="fas fa-clipboard"></i></a>
                     </div>
                 </div>
             {{/if}}

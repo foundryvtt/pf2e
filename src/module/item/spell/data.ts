@@ -1,67 +1,14 @@
-import { SaveType } from "@actor/types";
-import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemLevelData, ItemSystemData, ItemSystemSource } from "@item/data/base";
-import { OneToTen, TraitsWithRarity, ValueAndMax } from "@module/data";
-import { MaterialDamageEffect, DamageCategoryUnique, DamageType } from "@system/damage";
-import type { SpellPF2e } from "./document";
-import { EffectAreaSize, EffectAreaType, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
+import { SaveType } from "@actor/types.ts";
+import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "@item/data/base.ts";
+import { OneToTen, TraitsWithRarity, ValueAndMax } from "@module/data.ts";
+import { MaterialDamageEffect, DamageCategoryUnique, DamageType } from "@system/damage/index.ts";
+import { EffectAreaSize, EffectAreaType, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types.ts";
 
 type SpellSource = BaseItemSourcePF2e<"spell", SpellSystemSource>;
 
-type SpellData = Omit<SpellSource, "system" | "effects" | "flags"> &
-    BaseItemDataPF2e<SpellPF2e, "spell", SpellSystemData, SpellSource>;
-
-export type SpellTraits = TraitsWithRarity<SpellTrait>;
-
-export interface SpellDamageType {
-    value: DamageType;
-    subtype?: DamageCategoryUnique;
-    categories: MaterialDamageEffect[];
-}
-
-export interface SpellDamage {
-    value: string;
-    applyMod?: boolean;
-    type: SpellDamageType;
-}
-
-export interface SpellHeighteningInterval {
-    type: "interval";
-    interval: number;
-    damage: Record<string, string>;
-}
-
-export interface SpellHeighteningFixed {
-    type: "fixed";
-    levels: Record<OneToTen, Partial<SpellSystemSource>>;
-}
-
-export interface SpellHeightenLayer {
-    level: number;
-    system: Partial<SpellSystemData>;
-}
-
-interface SpellOverlayOverride {
-    _id: string;
-    system: Partial<SpellSystemSource>;
-    name?: string;
-    overlayType: "override";
-    sort: number;
-}
-
-/** Not implemented */
-interface SpellOverlayDamage {
-    overlayType: "damage";
-    choices: DamageType[];
-}
-
-type SpellOverlay = SpellOverlayOverride | SpellOverlayDamage;
-type SpellOverlayType = SpellOverlay["overlayType"];
-
-interface SpellSystemSource extends ItemSystemSource, ItemLevelData {
+interface SpellSystemSource extends ItemSystemSource {
     traits: SpellTraits;
-    level: {
-        value: OneToTen;
-    };
+    level: { value: OneToTen };
     spellType: {
         value: keyof ConfigPF2e["PF2E"]["spellTypes"];
     };
@@ -128,16 +75,53 @@ interface SpellSystemSource extends ItemSystemSource, ItemLevelData {
     };
 }
 
-interface SpellSystemData extends SpellSystemSource, ItemSystemData {
-    traits: SpellTraits;
+interface SpellSystemData extends SpellSystemSource, Omit<ItemSystemData, "level" | "traits"> {}
+
+export type SpellTraits = TraitsWithRarity<SpellTrait>;
+
+export interface SpellDamageType {
+    value: DamageType;
+    subtype?: DamageCategoryUnique;
+    categories: MaterialDamageEffect[];
 }
 
-export {
-    SpellData,
-    SpellSource,
-    SpellSystemData,
-    SpellSystemSource,
-    SpellOverlay,
-    SpellOverlayOverride,
-    SpellOverlayType,
-};
+export interface SpellDamage {
+    value: string;
+    applyMod?: boolean;
+    type: SpellDamageType;
+}
+
+export interface SpellHeighteningInterval {
+    type: "interval";
+    interval: number;
+    damage: Record<string, string>;
+}
+
+export interface SpellHeighteningFixed {
+    type: "fixed";
+    levels: Record<OneToTen, Partial<SpellSystemSource>>;
+}
+
+export interface SpellHeightenLayer {
+    level: number;
+    system: Partial<SpellSystemData>;
+}
+
+interface SpellOverlayOverride {
+    _id: string;
+    system: DeepPartial<SpellSystemSource>;
+    name?: string;
+    overlayType: "override";
+    sort: number;
+}
+
+/** Not implemented */
+interface SpellOverlayDamage {
+    overlayType: "damage";
+    choices: DamageType[];
+}
+
+type SpellOverlay = SpellOverlayOverride | SpellOverlayDamage;
+type SpellOverlayType = SpellOverlay["overlayType"];
+
+export { SpellSource, SpellSystemData, SpellSystemSource, SpellOverlay, SpellOverlayOverride, SpellOverlayType };

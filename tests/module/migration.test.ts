@@ -1,24 +1,24 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 
-import { populateFoundryUtilFunctions } from "../fixtures/foundryshim";
-import { ActorSourcePF2e, CharacterSource } from "@actor/data";
-import { MigrationRunner } from "@module/migration/runner";
-import { MigrationBase } from "@module/migration/base";
-import { FakeActor } from "tests/fakes/fake-actor";
-import { FakeItem } from "tests/fakes/fake-item";
-import { FakeMacro } from "tests/fakes/fake-macro";
-import { FakeRollTable } from "tests/fakes/fake-roll-table";
-import { FakeUser } from "tests/fakes/fake-user";
-import { FakeScene } from "tests/fakes/scene";
-import { FakeChatMessage } from "tests/fakes/fake-chat-message";
-
+import { populateFoundryUtilFunctions } from "../fixtures/foundryshim.ts";
+import { ActorSourcePF2e, CharacterSource } from "@actor/data/index.ts";
+import { MigrationRunner } from "@module/migration/runner/index.ts";
+import { MigrationBase } from "@module/migration/base.ts";
+import { MockActor } from "tests/mocks/actor.ts";
+import { MockItem } from "tests/mocks/item.ts";
+import { MockMacro } from "tests/mocks/macro.ts";
+import { MockRollTable } from "tests/mocks/roll-table.ts";
+import { MockUser } from "tests/mocks/user.ts";
+import { MockScene } from "tests/mocks/scene.ts";
+import { MockChatMessage } from "tests/mocks/chat-message.ts";
 import characterJSON from "../../packs/data/iconics.db/amiri-level-1.json";
 import armorJSON from "../../packs/data/equipment.db/scale-mail.json";
-import { ArmorSource } from "@item/data";
-import { FoundryUtils } from "tests/utils";
-import { FakeActors, FakeCollection, FakeItems, FakeWorldCollection } from "tests/fakes/fake-collection";
-import { LocalizePF2e } from "@module/system/localize";
-import { FakeJournalEntry } from "tests/fakes/journal-entry";
+import { ArmorSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { FoundryUtils } from "tests/utils.ts";
+import { MockActors, MockCollection, MockItems, MockWorldCollection } from "tests/mocks/collection.ts";
+import { LocalizePF2e } from "@system/localize.ts";
+import { MockJournalEntry } from "tests/mocks/journal-entry.ts";
 
 const characterData = FoundryUtils.duplicate(characterJSON) as unknown as CharacterSource;
 characterData.effects = [];
@@ -41,6 +41,7 @@ describe("test migration runner", () => {
         worldSchemaVersion: 10,
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (global as any).game = {
         data: {
             version: "3.2.1",
@@ -59,25 +60,28 @@ describe("test migration runner", () => {
                 schema: 5,
             },
         },
-        actors: new FakeActors(),
+        actors: new MockActors(),
         i18n: { format: (stringId: string, data: object): string => {} },
-        items: new FakeItems(),
-        journal: new FakeWorldCollection<FakeJournalEntry>(),
-        macros: new FakeWorldCollection<FakeMacro>(),
-        messages: new FakeWorldCollection<FakeChatMessage>(),
-        tables: new FakeWorldCollection<FakeRollTable>(),
-        users: new FakeWorldCollection<FakeUser>(),
-        packs: new FakeCollection(),
-        scenes: new FakeWorldCollection<FakeScene>(),
+        items: new MockItems(),
+        journal: new MockWorldCollection<MockJournalEntry>(),
+        macros: new MockWorldCollection<MockMacro>(),
+        messages: new MockWorldCollection<MockChatMessage>(),
+        tables: new MockWorldCollection<MockRollTable>(),
+        users: new MockWorldCollection<MockUser>(),
+        packs: new MockCollection(),
+        scenes: new MockWorldCollection<MockScene>(),
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (global as any).CONFIG = {
-        Actor: { documentClass: FakeActor },
-        Item: { documentClass: FakeItem },
+        Actor: { documentClass: MockActor },
+        Item: { documentClass: MockItem },
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (global as any).ui = {
         notifications: {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             info(_msg: string, _other?: any) {},
         },
     };
@@ -99,20 +103,21 @@ describe("test migration runner", () => {
 
     class ChangeAlignmentMigration extends MigrationBase {
         static version = 12;
-        async updateActor(actor: CharacterSource) {
-            actor.system.details.alignment.value = "CG";
+        async updateActor(source: CharacterSource) {
+            source.system.details.alignment.value = "CG";
         }
     }
 
     class UpdateItemName extends MigrationBase {
         static version = 13;
-        async updateItem(item: any) {
-            item.name = "updated";
+        async updateItem(source: ItemSourcePF2e): Promise<void> {
+            source.name = "updated";
         }
     }
 
     class RemoveItemProperty extends MigrationBase {
         static version = 14;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         async updateItem(item: any) {
             item.system["-=someFakeProperty"] = null;
         }
@@ -139,14 +144,14 @@ describe("test migration runner", () => {
     test("expect previous version migrations don't run", async () => {
         settings.worldSchemaVersion = 20;
 
-        game.actors.set(characterData._id, new FakeActor(characterData));
+        game.actors.set(characterData._id, new MockActor(characterData));
         const migrationRunner = new MigrationRunner([new ChangeNameMigration()]);
         await migrationRunner.runMigration();
-        expect(game.actors.contents[0]._data.name).not.toEqual("updated");
+        expect(game.actors.contents[0].name).not.toEqual("updated");
     });
 
     test("expect update causes version to be updated", async () => {
-        game.actors.set(characterData._id, new FakeActor(characterData));
+        game.actors.set(characterData._id, new MockActor(characterData));
         MigrationRunner.LATEST_SCHEMA_VERSION = 12;
 
         const migrationRunner = new MigrationRunner([new ChangeNameMigration()]);
@@ -155,25 +160,25 @@ describe("test migration runner", () => {
     });
 
     test("expect updated actor name in world", async () => {
-        game.actors.set(characterData._id, new FakeActor(characterData));
+        game.actors.set(characterData._id, new MockActor(characterData));
 
         const migrationRunner = new MigrationRunner([new ChangeNameMigration()]);
         await migrationRunner.runMigration();
-        expect(game.actors.contents[0]._data.name).toEqual("updated");
+        expect(game.actors.contents[0].name).toEqual("updated");
     });
 
     test("expect update actor deep property", async () => {
-        game.actors.set(characterData._id, new FakeActor(characterData));
+        game.actors.set(characterData._id, new MockActor(characterData));
 
         const migrationRunner = new MigrationRunner([new ChangeAlignmentMigration()]);
         await migrationRunner.runMigration();
-        expect(game.actors.contents[0]._data.system.details.alignment.value).toEqual("CG");
+        expect(game.actors.contents[0].system.details.alignment.value).toEqual("CG");
     });
 
     test.skip("expect unlinked actor in scene gets migrated", async () => {
         characterData._id = "actor1";
-        game.actors.set(characterData._id, new FakeActor(characterData));
-        const scene = new FakeScene({});
+        game.actors.set(characterData._id, new MockActor(characterData));
+        const scene = new MockScene({});
         scene.addToken({
             _id: "token1",
             actorId: "actor1",
@@ -184,37 +189,38 @@ describe("test migration runner", () => {
 
         const migrationRunner = new MigrationRunner([new ChangeNameMigration()]);
         await migrationRunner.runMigration();
-        expect(game.scenes.contents[0].data.tokens[0].actorData.name).toEqual("updated");
+        expect(game.scenes.contents[0].tokens[0].actorData.name).toEqual("updated");
     });
 
     test("update world actor item", async () => {
-        game.actors.set(characterData._id, new FakeActor(characterData));
+        game.actors.set(characterData._id, new MockActor(characterData));
 
         const migrationRunner = new MigrationRunner([new UpdateItemName()]);
         await migrationRunner.runMigration();
-        expect(game.actors.contents[0]._data.items[0].name).toEqual("updated");
+        expect(game.actors.contents[0].items.contents[0].name).toEqual("updated");
     });
 
     test("update world item", async () => {
-        game.items.set(armorData._id, new FakeItem(armorData));
+        game.items.set(armorData._id, new MockItem(armorData));
 
         const migrationRunner = new MigrationRunner([new UpdateItemName()]);
         await migrationRunner.runMigration();
-        expect(game.items.contents[0]._data.name).toEqual("updated");
+        expect(game.items.contents[0].name).toEqual("updated");
     });
 
     test("properties can be removed", async () => {
-        game.items.set(armorData._id, new FakeItem(armorData));
-        game.items.contents[0]._data.system.someFakeProperty = 123123;
+        game.items.set(armorData._id, new MockItem(armorData));
+        game.items.contents[0].system.someFakeProperty = 123123;
 
         const migrationRunner = new MigrationRunner([new RemoveItemProperty()]);
         await migrationRunner.runMigration();
-        expect("someFakeProperty" in game.items.contents[0]._data.system).toEqual(false);
+        expect("someFakeProperty" in game.items.contents[0].system).toEqual(false);
     });
 
     test("migrations run in sequence", async () => {
         class ChangeItemProp extends MigrationBase {
             static version = 13;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             async updateItem(item: any) {
                 item.system.prop = 456;
             }
@@ -222,29 +228,30 @@ describe("test migration runner", () => {
 
         class UpdateItemNameWithProp extends MigrationBase {
             static version = 14;
-            async updateItem(item: any) {
+            async updateItem(item: ItemSourcePF2e) {
                 item.name = `${item.system.prop}`;
             }
         }
 
-        game.items.set(armorData._id, new FakeItem(armorData));
-        game.items.contents[0]._data.system.prop = 123;
+        game.items.set(armorData._id, new MockItem(armorData));
+        game.items.contents[0].system.prop = 123;
 
         const migrationRunner = new MigrationRunner([new ChangeItemProp(), new UpdateItemNameWithProp()]);
         await migrationRunner.runMigration();
-        expect(game.items.contents[0]._data.system.prop).toEqual(456);
-        expect(game.items.contents[0]._data.name).toEqual("456");
+        expect(game.items.contents[0].system.prop).toEqual(456);
+        expect(game.items.contents[0].name).toEqual("456");
     });
 
     test("migrations can remove items from actors", async () => {
         class RemoveItemsFromActor extends MigrationBase {
             static version = 13;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             async updateActor(actor: any) {
                 actor.items = [];
             }
         }
 
-        game.actors.set(characterData._id, new FakeActor(characterData));
+        game.actors.set(characterData._id, new MockActor(characterData));
         expect(game.actors.contents[0].items.size).toBeGreaterThan(0);
 
         const migrationRunner = new MigrationRunner([new RemoveItemsFromActor()]);
@@ -257,6 +264,7 @@ describe("test migration runner", () => {
 
         requiresFlush = true;
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         async updateActor(actor: { items: any[] }) {
             actor.items.push({
                 name: "sample item",
@@ -274,7 +282,7 @@ describe("test migration runner", () => {
 
     test("migrations can add items to actors", async () => {
         characterData.items = [];
-        const actor = new FakeActor(characterData);
+        const actor = new MockActor(characterData);
         game.actors.set(actor.id, actor);
 
         const migrationRunner = new MigrationRunner([new AddItemToActor()]);
@@ -286,26 +294,28 @@ describe("test migration runner", () => {
 
     class SetActorPropertyToAddedItem extends MigrationBase {
         static version = 14;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         async updateActor(actor: { items: any[] }) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             actor.system.sampleItemId = actor.items.find((x: any) => x.name === "sample item")._id;
         }
     }
 
     test("migrations can reference previously added items", async () => {
-        game.actors.set(characterData._id, new FakeActor(characterData));
+        game.actors.set(characterData._id, new MockActor(characterData));
 
         const migrationRunner = new MigrationRunner([new AddItemToActor(), new SetActorPropertyToAddedItem()]);
         await migrationRunner.runMigration();
-        expect(game.actors.contents[0]._data.system.sampleItemId).toEqual("item1");
+        expect(game.actors.contents[0].system.sampleItemId).toEqual("item1");
     });
 
     test.skip("migrations can reference previously added items on tokens", async () => {
         characterData._id = "actor1";
         game.actors.clear();
-        game.actors.set(characterData._id, new FakeActor(characterData));
-        game.actors.contents[0]._data.items = [];
+        game.actors.set(characterData._id, new MockActor(characterData));
+        game.actors.contents[0]._source.items = [];
 
-        const scene = new FakeScene({});
+        const scene = new MockScene({});
         scene.addToken({
             _id: "token1",
             actorId: "actor1",
@@ -316,7 +326,7 @@ describe("test migration runner", () => {
 
         const migrationRunner = new MigrationRunner([new AddItemToActor(), new SetActorPropertyToAddedItem()]);
         await migrationRunner.runMigration();
-        expect(game.actors.contents[0]._data.system.sampleItemId).toEqual("item2");
+        expect(game.actors.contents[0].system.sampleItemId).toEqual("item2");
     });
 
     test("expect free migration function gets called", async () => {

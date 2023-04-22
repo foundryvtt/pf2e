@@ -1,4 +1,4 @@
-import { ChatMessagePF2e } from ".";
+import { ChatMessagePF2e } from "./index.ts";
 
 export class CriticalHitAndFumbleCards {
     private static rollTypes = ["attack-roll", "spell-attack-roll"];
@@ -38,7 +38,7 @@ export class CriticalHitAndFumbleCards {
             .getDocument(tableId)
             .then((rollTable) => {
                 rollTable!.draw({ displayChat: false }).then((draw) => {
-                    const data: { roll: Roll; messageData: Partial<foundry.data.ChatMessageSource> } = {
+                    const data: { roll: Roll; messageData: Partial<foundry.documents.ChatMessageSource> } = {
                         roll: draw.roll,
                         messageData: {},
                     };

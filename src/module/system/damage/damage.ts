@@ -1,11 +1,12 @@
-import { StrikeData } from "@actor/data/base";
+import { StrikeData } from "@actor/data/base.ts";
 import { ItemPF2e } from "@item";
-import { ItemType } from "@item/data";
-import { ChatMessagePF2e, DamageRollContextFlag } from "@module/chat-message";
-import { ZeroToThree } from "@module/data";
-import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success";
-import { DamageRoll, DamageRollDataPF2e } from "./roll";
-import { DamageRollContext, DamageTemplate } from "./types";
+import { ItemType } from "@item/data/index.ts";
+import { ChatMessagePF2e, DamageRollContextFlag } from "@module/chat-message/index.ts";
+import { ZeroToThree } from "@module/data.ts";
+import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
+import { DamageRoll, DamageRollDataPF2e } from "./roll.ts";
+import { DamageRollContext, DamageTemplate } from "./types.ts";
+import { ActorPF2e } from "@actor";
 
 /** Create a chat message containing a damage roll */
 export class DamagePF2e {
@@ -27,6 +28,9 @@ export class DamagePF2e {
         let flavor = `<strong>${data.name}</strong>`;
         if (context.sourceType === "attack") {
             const outcomeLabel = game.i18n.localize(`PF2E.Check.Result.Degree.Attack.${outcome}`);
+            flavor += ` (${outcomeLabel})`;
+        } else if (context.sourceType === "check") {
+            const outcomeLabel = game.i18n.localize(`PF2E.Check.Result.Degree.Check.${outcome}`);
             flavor += ` (${outcomeLabel})`;
         }
 
@@ -165,7 +169,8 @@ export class DamagePF2e {
             if (isStrike && item && self?.actor?.isOfType("character", "npc")) {
                 const strikes: StrikeData[] = self.actor.system.actions;
                 const strike = strikes.find(
-                    (a): a is StrikeData & { item: ItemPF2e } => a.item?.id === item.id && a.item.slug === item.slug
+                    (a): a is StrikeData & { item: ItemPF2e<ActorPF2e> } =>
+                        a.item?.id === item.id && a.item.slug === item.slug
                 );
 
                 if (strike) {
@@ -181,9 +186,6 @@ export class DamagePF2e {
 
             return null;
         })();
-
-        // Create the damage roll, roll it, and pull the result
-        const rollData = roll.options.result;
 
         const rollMode = context.rollMode ?? "roll";
         const contextFlag: DamageRollContextFlag = {
@@ -212,7 +214,6 @@ export class DamagePF2e {
                     core: { canPopout: true },
                     pf2e: {
                         context: contextFlag,
-                        damageRoll: rollData,
                         target: targetFlag,
                         modifiers: data.modifiers,
                         origin,
@@ -245,8 +246,8 @@ export class DamagePF2e {
             await ChatMessagePF2e.create(messageData, { rollMode });
         }
 
-        Hooks.callAll(`pf2e.damageRoll`, rollData);
-        if (callback) callback(rollData);
+        Hooks.callAll(`pf2e.damageRoll`, roll);
+        if (callback) callback(roll);
 
         return roll;
     }

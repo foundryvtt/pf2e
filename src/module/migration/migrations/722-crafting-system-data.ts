@@ -1,6 +1,6 @@
-import { ActorSourcePF2e } from "@actor/data";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { isObject } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Ensure `crafting` property in character system data has the correct structure */
 export class Migration722CraftingSystemData extends MigrationBase {

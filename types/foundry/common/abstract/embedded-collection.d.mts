@@ -1,16 +1,16 @@
-import { Collection } from "../utils/collection.mjs";
-import { DataModel, RawObject } from "./data.mjs";
+import type DataModel from "./data.d.ts";
+import type { RawObject } from "./data.d.ts";
 
 /**
  * An extension of the Collection.
  * Used for the specific task of containing embedded Document instances within a parent Document.
  * @param sourceArray The source data array for the collection in the parent Document data
  */
-export class EmbeddedCollection<TModel extends DataModel<any, any>> extends Collection<TModel> {
+export class EmbeddedCollection<TModel extends DataModel> extends Collection<TModel> {
     constructor(
         sourceArray: TModel["_source"][],
         documentClass: {
-            new (data: TModel["_source"], context?: DataModelConstructionOptions<ParentOf<TModel>>): TModel;
+            new (data: TModel["_source"], context?: DataModelConstructionOptions<TModel["parent"]>): TModel;
         }
     );
 

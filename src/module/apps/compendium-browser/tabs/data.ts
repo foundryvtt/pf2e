@@ -1,10 +1,10 @@
-import { FeatTrait } from "@item/feat/data";
-import { PhysicalItemTrait } from "@item/physical/data";
-import { CommonSortByOption, SortByOption, SortDirection } from "../data";
-import type { SearchResult } from "minisearch";
-import { CreatureTrait } from "@actor/creature";
-import { HazardTrait } from "@actor/hazard";
-import { ActionTrait } from "@item/action";
+import { CreatureTrait } from "@actor/creature/types.ts";
+import { HazardTrait } from "@actor/hazard/types.ts";
+import { ActionTrait } from "@item/action/index.ts";
+import { FeatTrait } from "@item/feat/types.ts";
+import { PhysicalItemTrait } from "@item/physical/data.ts";
+import { SearchResult } from "minisearch";
+import { SortDirection } from "../data.ts";
 
 type CheckboxOptions = Record<string, { label: string; selected: boolean }>;
 interface CheckboxData {
@@ -59,52 +59,98 @@ interface SliderData {
 }
 
 interface BaseFilterData {
-    checkboxes?: Record<string, CheckboxData>;
-    selects?: Record<string, SelectData>;
-    multiselects?: Record<string, MultiselectData>;
     order: OrderData;
-    ranges?: Record<string, RangesData>;
     search: {
         text: string;
     };
-    sliders?: Record<string, SliderData>;
 }
 
 interface ActionFilters extends BaseFilterData {
-    checkboxes: Record<"source", CheckboxData>;
-    multiselects: Record<"traits", MultiselectData<ActionTrait>>;
+    checkboxes: {
+        types: CheckboxData;
+        source: CheckboxData;
+    };
+    multiselects: {
+        traits: MultiselectData<ActionTrait>;
+    };
 }
 
 interface BestiaryFilters extends BaseFilterData {
-    checkboxes: Record<"alignments" | "rarity" | "sizes" | "source", CheckboxData>;
-    multiselects: Record<"traits", MultiselectData<CreatureTrait>>;
-    sliders: Record<"level", SliderData>;
+    checkboxes: {
+        alignments: CheckboxData;
+        rarity: CheckboxData;
+        sizes: CheckboxData;
+        source: CheckboxData;
+    };
+    multiselects: {
+        traits: MultiselectData<CreatureTrait>;
+    };
+    sliders: {
+        level: SliderData;
+    };
 }
 
 interface EquipmentFilters extends BaseFilterData {
-    checkboxes: Record<"armorTypes" | "weaponTypes" | "itemtypes" | "rarity" | "source", CheckboxData>;
-    multiselects: Record<"traits", MultiselectData<PhysicalItemTrait>>;
-    ranges: Record<"price", RangesData>;
-    sliders: Record<"level", SliderData>;
+    checkboxes: {
+        armorTypes: CheckboxData;
+        itemtypes: CheckboxData;
+        rarity: CheckboxData;
+        source: CheckboxData;
+        weaponTypes: CheckboxData;
+    };
+    multiselects: {
+        traits: MultiselectData<PhysicalItemTrait>;
+    };
+    ranges: {
+        price: RangesData;
+    };
+    sliders: {
+        level: SliderData;
+    };
 }
 
 interface FeatFilters extends BaseFilterData {
-    checkboxes: Record<"feattype" | "skills" | "rarity" | "source", CheckboxData>;
-    multiselects: Record<"traits", MultiselectData<FeatTrait>>;
-    sliders: Record<"level", SliderData>;
+    checkboxes: Record<"category" | "skills" | "rarity" | "source", CheckboxData>;
+    multiselects: {
+        traits: MultiselectData<FeatTrait>;
+    };
+    sliders: {
+        level: SliderData;
+    };
 }
 
 interface HazardFilters extends BaseFilterData {
-    checkboxes: Record<"complexity" | "rarity" | "source", CheckboxData>;
-    multiselects: Record<"traits", MultiselectData<HazardTrait>>;
-    sliders: Record<"level", SliderData>;
+    checkboxes: {
+        complexity: CheckboxData;
+        rarity: CheckboxData;
+        source: CheckboxData;
+    };
+    multiselects: {
+        traits: MultiselectData<HazardTrait>;
+    };
+    sliders: {
+        level: SliderData;
+    };
 }
 
 interface SpellFilters extends BaseFilterData {
-    checkboxes: Record<"category" | "level" | "rarity" | "school" | "source" | "traditions", CheckboxData>;
-    multiselects: Record<"traits", MultiselectData<string>>;
-    selects: Record<"timefilter", SelectData>;
+    checkboxes: {
+        category: CheckboxData;
+        level: CheckboxData;
+        rarity: CheckboxData;
+        school: CheckboxData;
+        source: CheckboxData;
+        traditions: CheckboxData;
+    };
+    multiselects: {
+        traits: MultiselectData<string>;
+    };
+    selects: {
+        timefilter: SelectData;
+    };
 }
+
+type BrowserFilter = ActionFilters | BestiaryFilters | EquipmentFilters | FeatFilters | HazardFilters | SpellFilters;
 
 type CompendiumBrowserIndexData = Omit<CompendiumIndexData, "_id"> & Partial<SearchResult>;
 
@@ -114,84 +160,11 @@ interface RenderResultListOptions {
     replace?: boolean;
 }
 
-// Models used for initializing filters
-interface BaseInitialFilters {
-    searchText?: string;
-    traits?: {
-        values: string[];
-        conjunction?: MultiselectData["conjunction"];
-    };
-    orderBy?: SortByOption;
-    orderDirection?: SortDirection;
-}
-
-interface InitialActionFilters extends BaseInitialFilters {
-    source?: string[];
-    orderBy?: CommonSortByOption;
-}
-
-interface InitialBestiaryFilters extends BaseInitialFilters {
-    alignments?: string[];
-    rarity?: string[];
-    sizes?: string[];
-    source?: string[];
-    orderBy?: CommonSortByOption;
-}
-
-interface InitialEquipmentFilters extends BaseInitialFilters {
-    armorTypes?: string[];
-    weaponTypes?: string[];
-    itemtypes?: string[];
-    rarity?: string[];
-    source?: string[];
-    priceRange?: { min?: number | string; max?: number | string };
-    levelRange?: { min?: number; max?: number };
-    orderBy?: CommonSortByOption | "price";
-}
-
-interface InitialFeatFilters extends BaseInitialFilters {
-    ancestry?: string[];
-    classes?: string[];
-    feattype?: string[];
-    skills?: string[];
-    rarity?: string[];
-    source?: string[];
-    level?: { min?: number; max?: number };
-    orderBy?: CommonSortByOption;
-}
-
-interface InitialHazardFilters extends BaseInitialFilters {
-    complexity?: string[];
-    rarity?: string[];
-    source?: string[];
-    levelRange?: { min?: number; max?: number };
-    orderBy?: CommonSortByOption;
-}
-
-interface InitialSpellFilters extends BaseInitialFilters {
-    timefilter?: string;
-    category?: string[];
-    classes?: string[];
-    level?: number[];
-    rarity?: string[];
-    school?: string[];
-    source?: string[];
-    traditions?: string[];
-    orderBy?: CommonSortByOption;
-}
-
-type InitialFilters =
-    | InitialActionFilters
-    | InitialBestiaryFilters
-    | InitialEquipmentFilters
-    | InitialFeatFilters
-    | InitialHazardFilters
-    | InitialSpellFilters;
-
 export {
     ActionFilters,
     BaseFilterData,
     BestiaryFilters,
+    BrowserFilter,
     CheckboxData,
     CheckboxOptions,
     CompendiumBrowserIndexData,
@@ -201,12 +174,6 @@ export {
     MultiselectData,
     RangesData,
     RenderResultListOptions,
+    SliderData,
     SpellFilters,
-    InitialFilters,
-    InitialActionFilters,
-    InitialBestiaryFilters,
-    InitialEquipmentFilters,
-    InitialFeatFilters,
-    InitialHazardFilters,
-    InitialSpellFilters,
 };

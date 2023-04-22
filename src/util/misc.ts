@@ -1,5 +1,4 @@
-import { ActionCost } from "@item/data/base";
-import { LocalizePF2e } from "@system/localize";
+import { ActionCost } from "@item/data/base.ts";
 
 /**
  * Given an array and a key function, create a map where the key is the value that
@@ -23,15 +22,13 @@ function groupBy<T, R>(array: T[], criterion: (value: T) => R): Map<R, T[]> {
     return result;
 }
 
-/** Sorts an array given the natural sorting behavior of the result of a mapping function */
-function sortBy<T, J>(array: T[], mapping: (value: T) => J) {
-    const compareFn = (a: T, b: T): number => {
+/** Creates a sorting comparator that sorts by the numerical result of a mapping function */
+function sortBy<T, J>(mapping: (value: T) => J) {
+    return (a: T, b: T): number => {
         const value1 = mapping(a);
         const value2 = mapping(b);
         return value1 < value2 ? -1 : value1 === value2 ? 0 : 1;
     };
-
-    return array.sort(compareFn);
 }
 
 /**
@@ -190,12 +187,15 @@ const upperOrWordBoundariedLowerRE = new RegExp(`${upperCaseLetter}|(?:${wordBou
  * @param text The text to sluggify
  * @param [options.camel=null] The sluggification style to use
  */
-function sluggify(text: string, { camel = null }: { camel?: "dromedary" | "bactrian" | null } = {}): string {
+function sluggify(text: string, { camel = null }: { camel?: SlugCamel } = {}): string {
     // Sanity check
     if (typeof text !== "string") {
         console.warn("Non-string argument passed to `sluggify`");
         return "";
     }
+
+    // A hyphen by its lonesome would be wiped: return it as-is
+    if (text === "-") return text;
 
     switch (camel) {
         case null:
@@ -223,6 +223,8 @@ function sluggify(text: string, { camel = null }: { camel?: "dromedary" | "bactr
     }
 }
 
+type SlugCamel = "dromedary" | "bactrian" | null;
+
 /** Parse a string containing html */
 function parseHTML(unparsed: string): HTMLElement {
     const fragment = document.createElement("template");
@@ -231,6 +233,22 @@ function parseHTML(unparsed: string): HTMLElement {
     if (!(element instanceof HTMLElement)) throw ErrorPF2e("Unexpected error parsing HTML");
 
     return element;
+}
+
+function getActionTypeLabel(
+    type: Maybe<"action" | "free" | "reaction" | "passive">,
+    cost: Maybe<number>
+): string | null {
+    switch (type) {
+        case "action":
+            return cost === 1 ? "PF2E.Action.Type.Single" : "PF2E.Action.Type.Activity";
+        case "free":
+            return "PF2E.Action.Type.Free";
+        case "reaction":
+            return "PF2E.Action.Type.Reaction";
+        default:
+            return null;
+    }
 }
 
 const actionImgMap: Record<string, ImageFilePath> = {
@@ -277,7 +295,7 @@ const actionGlyphMap: Record<string, string> = {
  * Returns a character that can be used with the Pathfinder action font
  * to display an icon. If null it returns empty string.
  */
-function getActionGlyph(action: string | number | null | { type: string; value: string | number | null }) {
+function getActionGlyph(action: string | number | null | { type: string; value: string | number | null }): string {
     if (!action && action !== 0) return "";
 
     const value = typeof action !== "object" ? action : action.type === "action" ? action.value : action.type;
@@ -293,30 +311,30 @@ function ErrorPF2e(message: string): Error {
 }
 
 /** Returns the number in an ordinal format, like 1st, 2nd, 3rd, 4th, etc */
-function ordinal(value: number) {
-    const suffixes = LocalizePF2e.translations.PF2E.OrdinalSuffixes;
+function ordinal(value: number): string {
     const pluralRules = new Intl.PluralRules(game.i18n.lang, { type: "ordinal" });
-    const suffix = suffixes[pluralRules.select(value)];
+    const suffix = game.i18n.localize(`PF2E.OrdinalSuffixes.${pluralRules.select(value)}`);
     return game.i18n.format("PF2E.OrdinalNumber", { value, suffix });
 }
 
-/** Localizes a list of strings into a comma delimited list for the current language */
-function localizeList(items: string[]) {
-    const parts = LocalizePF2e.translations.PF2E.ListPartsOr;
+/** Localizes a list of strings into a (possibly comma-delimited) list for the current language */
+function localizeList(items: string[], { conjunction = "or" }: { conjunction?: "and" | "or" } = {}): string {
+    items = [...items].sort((a, b) => a.localeCompare(b, game.i18n.lang));
+    const parts = conjunction === "or" ? "PF2E.ListPartsOr" : "PF2E.ListPartsAnd";
 
     if (items.length === 0) return "";
     if (items.length === 1) return items[0];
     if (items.length === 2) {
-        return game.i18n.format(parts.two, { first: items[0], second: items[1] });
+        return game.i18n.format(`${parts}.two`, { first: items[0], second: items[1] });
     }
 
-    let result = game.i18n.format(parts.start, { first: items[0], second: "{second}" });
+    let result = game.i18n.format(`${parts}.start`, { first: items[0], second: "{second}" });
     for (let i = 1; i <= items.length - 2; i++) {
         if (i === items.length - 2) {
-            const end = game.i18n.format(parts.end, { first: items[i], second: items[items.length - 1] });
+            const end = game.i18n.format(`${parts}.end`, { first: items[i], second: items[items.length - 1] });
             result = result.replace("{second}", end);
         } else {
-            const newSegment = game.i18n.format(parts.middle, { first: items[i], second: "{second}" });
+            const newSegment = game.i18n.format(`${parts}.middle`, { first: items[i], second: "{second}" });
             result = result.replace("{second}", newSegment);
         }
     }
@@ -407,6 +425,12 @@ function recursiveReplaceString(source: unknown, replace: (s: string) => string)
     return clone;
 }
 
+/** Create a localization function with a prefixed localization object path */
+function localizer(prefix: string): (...args: Parameters<Localization["format"]>) => string {
+    return (...[suffix, formatArgs]: Parameters<Localization["format"]>) =>
+        formatArgs ? game.i18n.format(`${prefix}.${suffix}`, formatArgs) : game.i18n.localize(`${prefix}.${suffix}`);
+}
+
 /** Does the parameter look like an image file path? */
 function isImageFilePath(path: unknown): path is ImageFilePath {
     return typeof path === "string" && Object.keys(CONST.IMAGE_FILE_EXTENSIONS).some((e) => path.endsWith(`.${e}`));
@@ -425,11 +449,13 @@ export {
     ErrorPF2e,
     Fraction,
     Optional,
+    SlugCamel,
     addSign,
     applyNTimes,
     fontAwesomeIcon,
     getActionGlyph,
     getActionIcon,
+    getActionTypeLabel,
     groupBy,
     isBlank,
     isImageFilePath,
@@ -437,6 +463,7 @@ export {
     isObject,
     isVideoFilePath,
     localizeList,
+    localizer,
     mapValues,
     objectHasKey,
     omit,

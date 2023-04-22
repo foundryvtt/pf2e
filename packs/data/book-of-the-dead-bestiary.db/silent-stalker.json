@@ -229,18 +229,26 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A silent stalker makes no sound, preventing creatures from noticing them using hearing or a similar sense alone. This silence stops all sound within it or passing through. The silent stalker and all creatures in the aura can't use sonic attacks or actions that have the auditory trait; this prevents creatures from casting spells with verbal components or activating items with command components.</p>"
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A silent stalker makes no sound, preventing creatures from noticing them using hearing or a similar sense alone. This silence stops all sound within it or passing through. The silent stalker and all creatures in the aura can't use sonic attacks or actions that have the auditory trait; this prevents creatures from casting spells with verbal components or activating items with command components.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Silent Aura]{Effect: Silent Aura}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
+                        "effects": [
+                            {
+                                "affects": "all",
+                                "events": [
+                                    "enter"
+                                ],
+                                "uuid": "Compendium.pf2e.bestiary-effects.YKCsmlMgI0aS7joO"
+                            }
+                        ],
                         "key": "Aura",
                         "radius": 10,
                         "slug": "silent-aura",
                         "traits": [
-                            "aura",
                             "illusion",
                             "occult"
                         ]
@@ -460,10 +468,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -471,7 +475,7 @@
         {
             "_id": "jo5rshfmwlsffp8o",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidate",
+            "name": "Intimidation",
             "sort": 1200000,
             "system": {
                 "description": {
@@ -487,10 +491,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -514,10 +514,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
@@ -577,7 +573,7 @@
                 }
             ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 24

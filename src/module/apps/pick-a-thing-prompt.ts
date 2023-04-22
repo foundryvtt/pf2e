@@ -1,12 +1,12 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { PredicatePF2e } from "@system/predication";
+import { PredicatePF2e } from "@system/predication.ts";
 import { ErrorPF2e, sluggify } from "@util";
 import Tagify from "@yaireo/tagify";
 
 /** Prompt the user to pick from a number of options */
 abstract class PickAThingPrompt<T> extends Application {
-    protected item: Embedded<ItemPF2e>;
+    protected item: ItemPF2e<ActorPF2e>;
 
     private resolve?: (value: PickableThing<T> | null) => void;
 
@@ -57,7 +57,7 @@ abstract class PickAThingPrompt<T> extends Application {
             event.currentTarget.closest(".content")?.querySelector<HTMLElement>("tag") ?? event.currentTarget;
         const selectedIndex = valueElement.getAttribute("value");
 
-        return selectedIndex === "" || !Number.isInteger(Number(selectedIndex))
+        return ["", null].includes(selectedIndex) || !Number.isInteger(Number(selectedIndex))
             ? null
             : this.choices.at(Number(selectedIndex)) ?? null;
     }
@@ -141,7 +141,7 @@ interface PickAThingConstructorArgs<T> {
     title?: string;
     prompt?: string;
     choices?: PickableThing<T>[];
-    item: Embedded<ItemPF2e>;
+    item: ItemPF2e<ActorPF2e>;
     predicate?: PredicatePF2e;
     allowNoSelection?: boolean;
 }

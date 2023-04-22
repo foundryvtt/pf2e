@@ -1,9 +1,9 @@
-import { ItemSourcePF2e } from "@item/data";
-import { isPhysicalData } from "@item/data/helpers";
-import { MigrationBase } from "../base";
-import { ActorSourcePF2e } from "@actor/data";
-import { EquippedData } from "@item/physical/data";
-import { getUsageDetails } from "@item/physical/usage";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { isPhysicalData } from "@item/data/helpers.ts";
+import { MigrationBase } from "../base.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { EquippedData } from "@item/physical/data.ts";
+import { getUsageDetails } from "@item/physical/usage.ts";
 
 /** Update physical item usage and equipped to reflect carry types (held, worn, stowed) */
 export class Migration718CarryType extends MigrationBase {

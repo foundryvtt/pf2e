@@ -1,16 +1,17 @@
 import { CharacterPF2e, CreaturePF2e } from "@actor";
-import { CreatureSaves, LabeledSpeed } from "@actor/creature/data";
-import { ActorSizePF2e } from "@actor/data/size";
-import { applyStackingRules, CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
-import { SaveType } from "@actor/types";
-import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values";
-import { extractDegreeOfSuccessAdjustments, extractModifiers, extractRollTwice } from "@module/rules/helpers";
-import { CheckPF2e, CheckRoll } from "@system/check";
-import { RollParameters } from "@system/rolls";
-import { Statistic } from "@system/statistic";
-import { FamiliarData, FamiliarSystemData } from "./data";
+import { CreatureSaves, LabeledSpeed } from "@actor/creature/data.ts";
+import { ActorSizePF2e } from "@actor/data/size.ts";
+import { CheckModifier, MODIFIER_TYPE, ModifierPF2e, StatisticModifier, applyStackingRules } from "@actor/modifiers.ts";
+import { SaveType } from "@actor/types.ts";
+import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
+import { extractDegreeOfSuccessAdjustments, extractModifiers, extractRollTwice } from "@module/rules/helpers.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { CheckPF2e, CheckRoll } from "@system/check/index.ts";
+import { RollParameters } from "@system/rolls.ts";
+import { Statistic } from "@system/statistic/index.ts";
+import { FamiliarSource, FamiliarSystemData } from "./data.ts";
 
-class FamiliarPF2e extends CreaturePF2e {
+class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends CreaturePF2e<TParent> {
     /** The familiar's master, if selected */
     get master(): CharacterPF2e | null {
         // The Actors world collection needs to be initialized for data preparation
@@ -352,15 +353,17 @@ class FamiliarPF2e extends CreaturePF2e {
     /* -------------------------------------------- */
 
     /** Remove the master's reference to this familiar */
-    protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void {
+    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
         if (this.master) this.master.familiar = null;
         super._onDelete(options, userId);
     }
 }
 
-interface FamiliarPF2e extends CreaturePF2e {
-    readonly data: FamiliarData;
-    readonly system: FamiliarSystemData;
+interface FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null>
+    extends CreaturePF2e<TParent> {
+    readonly _source: FamiliarSource;
+    readonly abilities?: never;
+    system: FamiliarSystemData;
 }
 
 export { FamiliarPF2e };

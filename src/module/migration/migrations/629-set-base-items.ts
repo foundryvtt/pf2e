@@ -1,14 +1,14 @@
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 import { sluggify } from "@util";
-import { BaseArmorType } from "@item/armor/types";
-import { isPhysicalData } from "@item/data/helpers";
-import { ItemSourcePF2e } from "@item/data";
+import { BaseArmorType } from "@item/armor/types.ts";
+import { isPhysicalData } from "@item/data/helpers.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
 
 /** Set the `baseItem` property of base armor and weapons for the benefit of better unidentified names */
 export class Migration629SetBaseItems extends MigrationBase {
     static override version = 0.629;
 
-    private BASE_ARMORS = [
+    #BASE_ARMORS = [
         "explorers-clothing",
         "padded-armor",
         "leather-armor",
@@ -24,7 +24,7 @@ export class Migration629SetBaseItems extends MigrationBase {
         "hellknight-plate",
     ];
 
-    private MAGIC_ARMOR_TO_BASE: Record<string, BaseArmorType> = {
+    #MAGIC_ARMOR_TO_BASE: Record<string, BaseArmorType> = {
         "breastplate-of-command-greater": "breastplate",
         "breastplate-of-command": "breastplate",
         "celestial-armor": "chain-mail",
@@ -46,7 +46,7 @@ export class Migration629SetBaseItems extends MigrationBase {
         "victory-plate": "full-plate",
     };
 
-    private BASE_WEAPONS = [
+    #BASE_WEAPONS = [
         "adze",
         "aklys",
         "alchemical-bomb",
@@ -192,7 +192,7 @@ export class Migration629SetBaseItems extends MigrationBase {
         "wooden-taws",
     ];
 
-    override async updateItem(itemData: ItemSourcePF2e) {
+    override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         if (!isPhysicalData(itemData)) return;
 
         const systemData: { slug: string | null; baseItem: string | null } = itemData.system;
@@ -204,13 +204,13 @@ export class Migration629SetBaseItems extends MigrationBase {
                 systemData.slug = "hide-armor";
             }
 
-            if (this.BASE_ARMORS.includes(systemData.slug ?? "")) {
+            if (this.#BASE_ARMORS.includes(systemData.slug ?? "")) {
                 systemData.baseItem = systemData.slug;
-            } else if (systemData.slug in this.MAGIC_ARMOR_TO_BASE) {
-                systemData.baseItem = this.MAGIC_ARMOR_TO_BASE[systemData.slug];
+            } else if (systemData.slug in this.#MAGIC_ARMOR_TO_BASE) {
+                systemData.baseItem = this.#MAGIC_ARMOR_TO_BASE[systemData.slug];
             }
         } else if (itemData.type === "weapon") {
-            if (this.BASE_WEAPONS.includes(systemData.slug)) {
+            if (this.#BASE_WEAPONS.includes(systemData.slug)) {
                 systemData.baseItem = systemData.slug;
             }
 

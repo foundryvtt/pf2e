@@ -1,12 +1,12 @@
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
-import { AbilityString } from "@actor/types";
-import { RollNotePF2e } from "@module/notes";
-import { extractModifierAdjustments } from "@module/rules/helpers";
-import { DamageCategoryUnique, DamageDieSize, DamageType } from "@system/damage/types";
-import { DAMAGE_TYPES } from "@system/damage/values";
-import { PredicatePF2e, RawPredicate } from "@system/predication";
+import { AbilityString } from "@actor/types.ts";
+import { RollNotePF2e } from "@module/notes.ts";
+import { extractModifierAdjustments } from "@module/rules/helpers.ts";
+import { DamageCategoryUnique, DamageDieSize, DamageType } from "@system/damage/types.ts";
+import { DAMAGE_TYPES } from "@system/damage/values.ts";
+import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
 import { ErrorPF2e, setHasElement, signedInteger, sluggify, tupleHasValue } from "@util";
-import { ZeroToFour } from "@module/data";
+import { ZeroToFour } from "@module/data.ts";
 
 const PROFICIENCY_RANK_OPTION = [
     "proficiency:untrained",
@@ -261,7 +261,7 @@ class ModifierPF2e implements RawModifier {
         return duplicate(this);
     }
 
-    toString() {
+    toString(): string {
         return this.label;
     }
 }
@@ -436,11 +436,11 @@ class StatisticModifier {
     /** The slug of this collection of modifiers for a statistic. */
     slug: string;
     /** The display label of this statistic */
-    label?: string;
+    declare label?: string;
     /** The list of modifiers which affect the statistic. */
     protected _modifiers: ModifierPF2e[];
     /** The total modifier for the statistic, after applying stacking rules. */
-    totalModifier!: number;
+    declare totalModifier: number;
     /** A textual breakdown of the modifiers factoring into this statistic */
     breakdown = "";
     /** Optional notes, which are often added to statistic modifiers */
@@ -459,7 +459,7 @@ class StatisticModifier {
         const seen: ModifierPF2e[] = [];
         for (const modifier of modifiers) {
             const found = seen.some((m) => m.slug === modifier.slug);
-            if (!found || modifier.type === "ability") seen.push(modifier);
+            if (!found) seen.push(modifier);
         }
         this._modifiers = seen;
 

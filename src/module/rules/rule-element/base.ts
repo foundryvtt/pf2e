@@ -1,13 +1,14 @@
 import { ActorPF2e } from "@actor";
-import { ActorType } from "@actor/data";
-import { DiceModifierPF2e, ModifierPF2e } from "@actor/modifiers";
+import { ActorType } from "@actor/data/index.ts";
+import { DiceModifierPF2e, ModifierPF2e } from "@actor/modifiers.ts";
 import { ItemPF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data";
-import { LaxSchemaField, PredicateField, SlugField } from "@system/schema-data-fields";
-import { TokenDocumentPF2e } from "@scene";
-import { CheckRoll } from "@system/check";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { CheckRoll } from "@system/check/index.ts";
+import { LaxSchemaField, PredicateField, SlugField } from "@system/schema-data-fields.ts";
 import { isObject, tupleHasValue } from "@util";
-import { BracketedValue, RuleElementData, RuleElementSchema, RuleElementSource, RuleValue } from "./data";
+import type { DataModelValidationOptions } from "types/foundry/common/abstract/data.d.ts";
+import { BracketedValue, RuleElementData, RuleElementSchema, RuleElementSource, RuleValue } from "./data.ts";
 
 const { DataModel } = foundry.abstract;
 const { fields } = foundry.data;
@@ -32,10 +33,12 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
      * @param source unserialized JSON data from the actual rule input
      * @param item where the rule is persisted on
      */
-    constructor(source: RuleElementSource, public item: Embedded<ItemPF2e>, options: RuleElementOptions = {}) {
+    constructor(source: RuleElementSource, public item: ItemPF2e<ActorPF2e>, options: RuleElementOptions = {}) {
+        source.label ??= item.name;
         super(source, { strict: false });
 
-        this.suppressWarnings = options.suppressWarnings ?? false;
+        // Always suppress warnings if the actor has no ID (and is therefore a temporary clone)
+        this.suppressWarnings = options.suppressWarnings ?? !this.actor.id;
         this.sourceIndex = options.sourceIndex ?? null;
 
         const validActorType = tupleHasValue(this.constructor.validActorTypes, item.actor.type);
@@ -79,11 +82,11 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
 
     static override defineSchema(): RuleElementSchema {
         return {
-            key: new fields.StringField({ required: true, blank: false }),
-            slug: new SlugField({ required: true }),
-            label: new fields.StringField({ required: false, initial: undefined }),
+            key: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
+            slug: new SlugField({ required: true, nullable: true }),
+            label: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
             priority: new fields.NumberField({ required: false, nullable: false, integer: true, initial: 100 }),
-            ignored: new fields.BooleanField(),
+            ignored: new fields.BooleanField({ required: false, nullable: false, initial: false }),
             predicate: new PredicateField(),
             requiresEquipped: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
             requiresInvestment: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
@@ -115,8 +118,14 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
         return controlled?.document ?? tokens.shift()?.document ?? null;
     }
 
+    /** Disallow invalid data fallbacks */
+    override validate(options: DataModelValidationOptions = {}): boolean {
+        options.fallback = false;
+        return super.validate(options);
+    }
+
     /** Test this rule element's predicate, if present */
-    test(rollOptions?: string[] | Set<string>): boolean {
+    protected test(rollOptions?: string[] | Set<string>): boolean {
         if (this.ignored) return false;
         if (this.predicate.length === 0) return true;
 
@@ -127,7 +136,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
     }
 
     /** Send a deferred warning to the console indicating that a rule element's validation failed */
-    failValidation(...message: string[]): void {
+    protected failValidation(...message: string[]): void {
         const fullMessage = message.join(" ");
         const { name, uuid } = this.item;
         if (!this.suppressWarnings) {
@@ -274,13 +283,15 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
         const saferEval = (formula: string): number => {
             try {
                 // If any resolvables were not provided for this formula, return the default value
-                const unresolved = /@[a-z]+/i.exec(formula) ?? [];
-                for (const resolvable of unresolved) {
-                    if (resolvable === "@target") continue; // Allow to fail with no warning
-                    this.failValidation(`This rule element requires a "${resolvable}" object, but none was provided.`);
+                const unresolveds = formula.match(/@[a-z]+/gi) ?? [];
+                // Allow failure of "@target" with no warning
+                if (unresolveds.length > 0) {
+                    if (!unresolveds.every((u) => u === "@target")) {
+                        this.failValidation(`Failed to resolve all components of formula, "${formula}"`);
+                    }
+                    return 0;
                 }
-
-                return unresolved.length === 0 ? Roll.safeEval(formula) : 0;
+                return Roll.safeEval(formula);
             } catch {
                 this.failValidation(`Error thrown while attempting to evaluate formula, "${formula}"`);
                 return 0;
@@ -408,16 +419,16 @@ namespace RuleElementPF2e {
         /** All items pending creation in a `ItemPF2e.createDocuments` call */
         pendingItems: PreCreate<ItemSourcePF2e>[];
         /** The context object from the `ItemPF2e.createDocuments` call */
-        context: DocumentModificationContext<ItemPF2e>;
+        context: DocumentModificationContext<ActorPF2e | null>;
         /** Whether this preCreate run is from a pre-update reevaluation */
         reevaluation?: boolean;
     }
 
     export interface PreDeleteParams {
         /** All items pending deletion in a `ItemPF2e.deleteDocuments` call */
-        pendingItems: Embedded<ItemPF2e>[];
+        pendingItems: ItemPF2e<ActorPF2e>[];
         /** The context object from the `ItemPF2e.deleteDocuments` call */
-        context: DocumentModificationContext<ItemPF2e>;
+        context: DocumentModificationContext<ActorPF2e | null>;
     }
 
     export interface AfterRollParams {

@@ -1,39 +1,47 @@
-import { CreaturePF2e } from "@actor";
-import { Abilities } from "@actor/creature/data";
-import { SIZE_TO_REACH } from "@actor/creature/values";
-import { strikeFromMeleeItem } from "@actor/helpers";
-import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
-import { SaveType } from "@actor/types";
-import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
+import { ActorPF2e, CreaturePF2e } from "@actor";
+import { Abilities } from "@actor/creature/data.ts";
+import { SIZE_TO_REACH } from "@actor/creature/values.ts";
+import { strikeFromMeleeItem } from "@actor/helpers.ts";
+import { ActorInitiative } from "@actor/initiative.ts";
+import { CheckModifier, MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { SaveType } from "@actor/types.ts";
+import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
 import { ItemPF2e, MeleePF2e } from "@item";
-import { ItemType } from "@item/data";
-import { calculateDC } from "@module/dc";
-import { RollNotePF2e } from "@module/notes";
-import { identifyCreature } from "@module/recall-knowledge";
+import { ItemType } from "@item/data/index.ts";
+import { calculateDC } from "@module/dc.ts";
+import { RollNotePF2e } from "@module/notes.ts";
+import { CreatureIdentificationData, creatureIdentificationDCs } from "@module/recall-knowledge.ts";
 import {
     extractDegreeOfSuccessAdjustments,
     extractModifierAdjustments,
     extractModifiers,
     extractNotes,
     extractRollTwice,
-} from "@module/rules/helpers";
-import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check";
-import { LocalizePF2e } from "@system/localize";
-import { PredicatePF2e } from "@system/predication";
-import { RollParameters } from "@system/rolls";
-import { Statistic } from "@system/statistic";
-import { objectHasKey, sluggify } from "@util";
-import { NPCData, NPCFlags, NPCSource, NPCSystemData } from "./data";
-import { NPCSheetPF2e } from "./sheet";
-import { VariantCloneParams } from "./types";
+} from "@module/rules/helpers.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check/index.ts";
+import { PredicatePF2e } from "@system/predication.ts";
+import { RollParameters } from "@system/rolls.ts";
+import { Statistic } from "@system/statistic/index.ts";
+import { createHTMLElement, objectHasKey, sluggify } from "@util";
+import { NPCFlags, NPCSource, NPCSystemData } from "./data.ts";
+import { NPCSheetPF2e } from "./sheet.ts";
+import { VariantCloneParams } from "./types.ts";
 
-class NPCPF2e extends CreaturePF2e {
+class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends CreaturePF2e<TParent> {
+    declare initiative: ActorInitiative;
+
     override get allowedItemTypes(): (ItemType | "physical")[] {
         return [...super.allowedItemTypes, "physical", "spellcastingEntry", "spell", "action", "melee", "lore"];
     }
 
+    /** The level of this creature without elite/weak adjustments */
+    get baseLevel(): number {
+        return this._source.system.details.level.value;
+    }
+
     /** This NPC's ability scores */
-    get abilities(): Abilities {
+    override get abilities(): Abilities {
         return deepClone(this.system.abilities);
     }
 
@@ -49,6 +57,11 @@ class NPCPF2e extends CreaturePF2e {
     /** Does this NPC have the Weak adjustment? */
     get isWeak(): boolean {
         return this.attributes.adjustment === "weak";
+    }
+
+    get identificationDCs(): CreatureIdentificationData {
+        const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
+        return creatureIdentificationDCs(this, { proficiencyWithoutLevel });
     }
 
     /** Users with limited permission can loot a dead NPC */
@@ -84,7 +97,7 @@ class NPCPF2e extends CreaturePF2e {
         user: User,
         permission: DocumentOwnershipString | DocumentOwnershipLevel,
         options?: { exact?: boolean }
-    ) {
+    ): boolean {
         // Temporary measure until a lootable view of the legacy sheet is ready
         if (game.user.isGM || !this.isLootable) {
             return super.testUserPermission(user, permission, options);
@@ -118,9 +131,6 @@ class NPCPF2e extends CreaturePF2e {
             details.alliance = this.hasPlayerOwner ? "party" : "opposition";
         }
 
-        const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
-        details.identification = identifyCreature(this, { proficiencyWithoutLevel });
-
         // Ensure undead have negative healing
         attributes.hp.negativeHealing = systemData.traits.value.includes("undead");
 
@@ -134,10 +144,15 @@ class NPCPF2e extends CreaturePF2e {
         this.rollOptions.all[`self:level:${level.value}`] = true;
 
         attributes.classDC = ((): { value: number } => {
+            const proficiencyWithoutLevel =
+                game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
             const levelBasedDC = calculateDC(level.base, { proficiencyWithoutLevel, rarity: this.rarity });
             const adjusted = this.isElite ? levelBasedDC + 2 : this.isWeak ? levelBasedDC - 2 : levelBasedDC;
             return { value: adjusted };
         })();
+
+        // Set default ritual attack and DC values if none are stored */
+        this.system.spellcasting = mergeObject({ rituals: { dc: 0 } }, this.system.spellcasting ?? {});
     }
 
     override prepareDerivedData(): void {
@@ -390,7 +405,7 @@ class NPCPF2e extends CreaturePF2e {
 
         // process OwnedItem instances, which for NPCs include skills, attacks, equipment, special abilities etc.
         const generatedMelee = Array.from(strikes.values()).flatMap((w) => w.toNPCAttacks());
-        const items = this.items.contents.concat(generatedMelee);
+        const items: ItemPF2e<ActorPF2e>[] = [...this.items.contents, ...generatedMelee];
         for (const item of items) {
             if (item.isOfType("lore")) {
                 // override untrained skills if defined in the NPC data
@@ -536,7 +551,7 @@ class NPCPF2e extends CreaturePF2e {
         this.prepareInitiative();
     }
 
-    prepareSaves(): void {
+    private prepareSaves(): void {
         const systemData = this.system;
         const { modifierAdjustments } = this.synthetics;
 
@@ -585,13 +600,19 @@ class NPCPF2e extends CreaturePF2e {
                 })
             );
         }
-        const formatItemName = (item: ItemPF2e): string => {
+        const formatItemName = (item: ItemPF2e<this | null>): string => {
             if (item.isOfType("consumable")) {
-                return `${item.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${item.quantity}) <button type="button" style="width: auto; line-height: 14px;" data-action="consume" data-item="${item.id}">${LocalizePF2e.translations.PF2E.ConsumableUseLabel}</button>`;
+                const button = createHTMLElement("button", { dataset: { action: "consume", item: item.id } });
+                button.style.width = "auto";
+                button.style.lineHeight = "14px";
+                button.innerHTML = game.i18n.localize("PF2E.ConsumableUseLabel");
+                return `${item.name} - ${game.i18n.localize("ITEM.TypeConsumable")} (${item.quantity}) ${
+                    button.outerHTML
+                }`;
             }
             return item.name;
         };
-        const formatNoteText = (item: ItemPF2e): Promise<string> => {
+        const formatNoteText = (item: ItemPF2e<this | null>): Promise<string> => {
             // Call enrichHTML with the correct item context
             const rollData = item.getRollData();
             return TextEditor.enrichHTML(item.description, { rollData, async: true });
@@ -629,7 +650,7 @@ class NPCPF2e extends CreaturePF2e {
         return notes;
     }
 
-    protected getHpAdjustment(level: number, adjustment: "elite" | "weak" | null): number {
+    private getHpAdjustment(level: number, adjustment: "elite" | "weak" | null): number {
         if (adjustment === "elite") {
             // Elite adjustment: Increase/decrease the creature's Hit Points based on its starting level (20+ 30HP, 5~19 20HP, 2~4 15HP, 1 or lower 10HP).
             if (level >= 20) {
@@ -669,14 +690,14 @@ class NPCPF2e extends CreaturePF2e {
 
         const currentHPAdjustment = (() => {
             if (isElite) {
-                return this.getHpAdjustment(this.getBaseLevel(), "elite");
+                return this.getHpAdjustment(this.baseLevel, "elite");
             } else if (isWeak) {
-                return this.getHpAdjustment(this.getBaseLevel(), "weak");
+                return this.getHpAdjustment(this.baseLevel, "weak");
             } else {
                 return 0;
             }
         })();
-        const newHPAdjustment = this.getHpAdjustment(this.getBaseLevel(), adjustment);
+        const newHPAdjustment = this.getHpAdjustment(this.baseLevel, adjustment);
         const currentHP = this.system.attributes.hp.value;
         const maxHP = this.system.attributes.hp.max;
         const newHP = (() => {
@@ -711,17 +732,6 @@ class NPCPF2e extends CreaturePF2e {
         });
     }
 
-    /** Returns the base level of a creature, as this gets modified on elite and weak adjustments */
-    getBaseLevel(): number {
-        if (this.isElite) {
-            return this.level - 1;
-        } else if (this.isWeak) {
-            return this.level + 1;
-        } else {
-            return this.level;
-        }
-    }
-
     /** Create a variant clone of this NPC, adjusting any of name, description, and images */
     variantClone(params: VariantCloneParams & { save?: false }): this;
     variantClone(params: VariantCloneParams & { save: true }): Promise<this>;
@@ -745,13 +755,10 @@ class NPCPF2e extends CreaturePF2e {
     }
 }
 
-interface NPCPF2e extends CreaturePF2e {
-    readonly data: NPCData;
-    readonly system: NPCSystemData;
-
+interface NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends CreaturePF2e<TParent> {
     flags: NPCFlags;
-
-    _sheet: NPCSheetPF2e<this> | null;
+    readonly _source: NPCSource;
+    system: NPCSystemData;
 
     get sheet(): NPCSheetPF2e<this>;
 }

@@ -1,5 +1,5 @@
-import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
-import { CheckRoll } from "@system/check";
+import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
+import { CheckRoll } from "@system/check/index.ts";
 import { htmlClosest } from "@util";
 
 /**
