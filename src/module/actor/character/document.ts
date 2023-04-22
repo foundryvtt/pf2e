@@ -905,6 +905,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     type: "item",
                     slug,
                     modifier: wornArmor.acBonus,
+                    item: wornArmor,
                     adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, ["all", "ac"], slug),
                 })
             );
