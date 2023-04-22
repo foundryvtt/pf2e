@@ -6,7 +6,6 @@ import { InitiativeRollResult } from "@actor/initiative.ts";
 import { SkillLongForm } from "@actor/types.ts";
 import { SKILL_DICTIONARY, SKILL_LONG_FORMS } from "@actor/values.ts";
 import { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
-import { LocalizePF2e } from "@system/localize.ts";
 import { setHasElement } from "@util";
 import { CombatantFlags, CombatantPF2e, RolledCombatant } from "./combatant.ts";
 
@@ -55,7 +54,6 @@ class EncounterPF2e extends Combat {
 
             const actorTraits = actor.traits;
             if (actor.type === "loot" || ["minion", "eidolon"].some((t) => actorTraits.has(t))) {
-                const translation = LocalizePF2e.translations.PF2E.Encounter.ExcludingFromInitiative;
                 const actorTypes: Record<string, string> = CONFIG.PF2E.actorTypes;
                 const type = game.i18n.localize(
                     actorTraits.has("minion")
@@ -64,7 +62,9 @@ class EncounterPF2e extends Combat {
                         ? CONFIG.PF2E.creatureTraits.eidolon
                         : actorTypes[actor.type]
                 );
-                ui.notifications.info(game.i18n.format(translation, { type, actor: actor.name }));
+                ui.notifications.info(
+                    game.i18n.format("PF2E.Encounter.ExcludingFromInitiative", { type, actor: actor.name })
+                );
                 return false;
             }
             return true;

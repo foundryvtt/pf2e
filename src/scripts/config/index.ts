@@ -41,7 +41,7 @@ import {
 } from "@item/weapon/types.ts";
 import { Size } from "@module/data.ts";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet.ts";
-import { sluggify } from "@util";
+import { configFromLocalization, sluggify } from "@util";
 import enJSON from "../../../static/lang/en.json";
 import { damageCategories, damageRollFlavors, damageTypes, materialDamageEffects } from "./damage.ts";
 import { immunityTypes, resistanceTypes, weaknessTypes } from "./iwr.ts";
@@ -1555,12 +1555,12 @@ export const PF2ECONFIG = {
     },
 
     // Year offsets relative to the current actual year
-    worldClock: {
+    worldClock: mergeObject(configFromLocalization(enJSON.PF2E.WorldClock, "PF2E.WorldClock"), {
         AR: { yearOffset: 2700 },
         IC: { yearOffset: 5200 },
         AD: { yearOffset: -95 },
         CE: { yearOffset: 0 },
-    },
+    }),
 
     runes: {
         weapon: {

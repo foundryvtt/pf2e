@@ -1,5 +1,4 @@
 import { MigrationRunner } from "@module/migration/index.ts";
-import { LocalizePF2e } from "@system/localize.ts";
 
 /** A summary window that opens after a system migration completes */
 export class MigrationSummary extends Application<MigrationSummaryOptions> {
@@ -49,7 +48,7 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
             this.options.troubleshoot || actors.successful < actors.total || items.successful < items.total;
 
         const helpResourcesText = await TextEditor.enrichHTML(
-            LocalizePF2e.translations.PF2E.Migrations.Summary.HelpResources,
+            game.i18n.localize("PF2E.Migrations.Summary.HelpResources"),
             { async: true }
         );
 

@@ -431,6 +431,20 @@ function localizer(prefix: string): (...args: Parameters<Localization["format"]>
         formatArgs ? game.i18n.format(`${prefix}.${suffix}`, formatArgs) : game.i18n.localize(`${prefix}.${suffix}`);
 }
 
+/** Walk a localization object and recursively map the keys as localization strings starting with a given prefix */
+function configFromLocalization<T extends Record<string, TranslationDictionaryValue>>(
+    localization: T,
+    prefix: string
+): T {
+    return Object.entries(localization).reduce(
+        (map, [key, value]) => ({
+            ...map,
+            [key]: typeof value === "string" ? `${prefix}.${key}` : configFromLocalization(value, `${prefix}.${key}`),
+        }),
+        {} as T
+    );
+}
+
 /** Does the parameter look like an image file path? */
 function isImageFilePath(path: unknown): path is ImageFilePath {
     return typeof path === "string" && Object.keys(CONST.IMAGE_FILE_EXTENSIONS).some((e) => path.endsWith(`.${e}`));
@@ -446,6 +460,7 @@ function isImageOrVideoPath(path: unknown): path is ImageFilePath | VideoFilePat
 }
 
 export {
+    configFromLocalization,
     ErrorPF2e,
     Fraction,
     Optional,

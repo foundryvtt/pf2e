@@ -2,8 +2,7 @@ import { KitPF2e, PhysicalItemPF2e } from "@item";
 import { ActionTrait } from "@item/action/index.ts";
 import { ActionType } from "@item/data/base.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/index.ts";
-import { LocalizePF2e } from "@system/localize.ts";
-import { ErrorPF2e, htmlQueryAll, isObject, objectHasKey } from "@util";
+import { ErrorPF2e, htmlQueryAll, isObject, localizer, objectHasKey } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
 import { UserPF2e } from "@module/user/document.ts";
 import Tagify from "@yaireo/tagify";
@@ -37,21 +36,21 @@ class PackLoader {
         indexFields: string[]
     ): AsyncGenerator<{ pack: CompendiumCollection<CompendiumDocument>; index: CompendiumIndex }, void, unknown> {
         this.loadedPacks[documentType] ??= {};
-        const translations = LocalizePF2e.translations.PF2E.CompendiumBrowser.ProgressBar;
+        const localize = localizer("PF2E.CompendiumBrowser.ProgressBar");
 
         const progress = new Progress({ steps: packs.length });
         for (const packId of packs) {
             let data = this.loadedPacks[documentType][packId];
             if (data) {
                 const { pack } = data;
-                progress.advance(game.i18n.format(translations.LoadingPack, { pack: pack?.metadata.label ?? "" }));
+                progress.advance(localize("LoadingPack", { pack: pack?.metadata.label ?? "" }));
             } else {
                 const pack = game.packs.get(packId);
                 if (!pack) {
                     progress.advance("");
                     continue;
                 }
-                progress.advance(game.i18n.format(translations.LoadingPack, { pack: pack.metadata.label }));
+                progress.advance(localize("LoadingPack", { pack: pack.metadata.label }));
                 if (pack.documentName === documentType) {
                     const index = await pack.getIndex({ fields: indexFields });
                     const firstResult: Partial<CompendiumIndexData> = index.contents.at(0) ?? {};
@@ -73,7 +72,7 @@ class PackLoader {
 
             yield data;
         }
-        progress.close(translations.LoadingComplete);
+        progress.close(localize("LoadingComplete"));
     }
 
     /** Set art provided by a module if any is available */
