@@ -222,12 +222,6 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     override prepareData(): void {
         // If embedded, don't prepare data if the parent's data model hasn't initialized all its properties
         if (this.parent && !this.parent.flags?.pf2e) return;
-        // Also don't prepare data if this item is in a parent's data collection, the parent is initialized, but data
-        // preparation wasn't requested by the parent
-        // Related to https://github.com/foundryvtt/foundryvtt/issues/7987
-        if (this.parent?.items?.get(this.id) === this && !this.parent.preparingEmbeds) {
-            return;
-        }
 
         super.prepareData();
 
