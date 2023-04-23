@@ -91,9 +91,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /** Has this actor completed construction? */
     private constructed = true;
 
-    /** Is this actor preparing its embedded documents? Used to prevent premature data preparation of embedded items */
-    preparingEmbeds = false;
-
     /** Handles rolling initiative for the current actor */
     declare initiative?: ActorInitiative;
 
@@ -677,9 +674,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Prepare the physical-item collection on this actor, item-sibling data, and rule elements */
     override prepareEmbeddedDocuments(): void {
-        this.preparingEmbeds = true;
-        super.prepareEmbeddedDocuments();
-        this.preparingEmbeds = false;
+        // Perform full reset instead of upstream's double data preparation
+        // See https://github.com/foundryvtt/foundryvtt/issues/7987
+        for (const item of this.items) {
+            item.reset();
+        }
 
         const physicalItems = this.items.filter((i): i is PhysicalItemPF2e<this> => i.isOfType("physical"));
         this.inventory = new ActorInventory(this, physicalItems);
