@@ -77,8 +77,8 @@ interface AuraEffectData {
 }
 
 interface AuraColors {
-    border: `#${string}`;
-    fill: `#${string}`;
+    border: `#${string}` | null;
+    fill: `#${string}` | null;
 }
 
 /* -------------------------------------------- */

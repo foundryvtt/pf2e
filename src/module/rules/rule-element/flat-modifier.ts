@@ -129,6 +129,7 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
                     type: this.type,
                     ability: this.type === "ability" ? this.ability : null,
                     predicate: this.resolveInjectedProperties(this.predicate),
+                    item: this.item,
                     force: this.force,
                     damageType,
                     damageCategory: this.damageCategory,

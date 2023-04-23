@@ -3,7 +3,6 @@ import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bon
 import { ItemSummaryData } from "@item/data/index.ts";
 import { getResilientBonus, PhysicalItemHitPoints, PhysicalItemPF2e } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
-import { LocalizePF2e } from "@system/localize.ts";
 import { addSign, ErrorPF2e, setHasElement, sluggify } from "@util";
 import { ArmorCategory, ArmorGroup, ArmorSource, ArmorSystemData, BaseArmorType } from "./index.ts";
 
@@ -212,13 +211,12 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         htmlOptions: EnrichHTMLOptions = {}
     ): Promise<ItemSummaryData> {
         const systemData = this.system;
-        const translations = LocalizePF2e.translations.PF2E;
         const properties = [
             this.isArmor ? CONFIG.PF2E.armorCategories[this.category] : CONFIG.PF2E.weaponCategories.martial,
-            `${addSign(this.acBonus)} ${translations.ArmorArmorLabel}`,
-            this.isArmor ? `${systemData.dex.value || 0} ${translations.ArmorDexLabel}` : null,
-            this.isArmor ? `${systemData.check.value || 0} ${translations.ArmorCheckLabel}` : null,
-            this.speedPenalty ? `${systemData.speed.value || 0} ${translations.ArmorSpeedLabel}` : null,
+            `${addSign(this.acBonus)} ${game.i18n.localize("PF2E.ArmorArmorLabel")}`,
+            this.isArmor ? `${systemData.dex.value || 0} ${game.i18n.localize("PF2E.ArmorDexLabel")}` : null,
+            this.isArmor ? `${systemData.check.value || 0} ${game.i18n.localize("PF2E.ArmorCheckLabel")}` : null,
+            this.speedPenalty ? `${systemData.speed.value || 0} ${game.i18n.localize("PF2E.ArmorSpeedLabel")}` : null,
         ];
 
         return this.processChatData(htmlOptions, {
@@ -229,8 +227,7 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
     }
 
     override generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
-        const translations = LocalizePF2e.translations.PF2E;
-        const base = this.baseType ? translations.Item.Armor.Base[this.baseType] : null;
+        const base = this.baseType ? CONFIG.PF2E.baseArmorTypes[this.baseType] : null;
         const group = this.group ? CONFIG.PF2E.armorGroups[this.group] : null;
         const fallback = this.isShield ? "PF2E.ArmorTypeShield" : "ITEM.TypeArmor";
 
@@ -238,8 +235,7 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
 
         if (typeOnly) return itemType;
 
-        const formatString = LocalizePF2e.translations.PF2E.identification.UnidentifiedItem;
-        return game.i18n.format(formatString, { item: itemType });
+        return game.i18n.format("PF2E.identification.UnidentifiedItem", { item: itemType });
     }
 }
 

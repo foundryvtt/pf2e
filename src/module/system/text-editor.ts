@@ -8,7 +8,7 @@ import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import { UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
 import { htmlClosest, objectHasKey, sluggify } from "@util";
-import { damageDiceIcon, looksLikeDamageFormula } from "./damage/helpers.ts";
+import { damageDiceIcon, looksLikeDamageRoll } from "./damage/helpers.ts";
 import { DamageRoll } from "./damage/roll.ts";
 import { Statistic } from "./statistic/index.ts";
 
@@ -49,7 +49,7 @@ class TextEditorPF2e extends TextEditor {
     ): Promise<HTMLAnchorElement | null> {
         const anchor = await superCreateInlineRoll.apply(this, [match, rollData, options]);
         const formula = anchor?.dataset.formula;
-        if (formula && looksLikeDamageFormula(formula)) {
+        if (formula) {
             const roll = ((): DamageRoll | null => {
                 try {
                     return new DamageRoll(formula);
@@ -57,7 +57,10 @@ class TextEditorPF2e extends TextEditor {
                     return null;
                 }
             })();
-            if (!roll) return null;
+            // Consider any roll formula with d20s or coins to definitely not be a damage roll
+            if (!roll || !looksLikeDamageRoll(roll)) {
+                return anchor;
+            }
 
             // Replace the die icon with one representing the damage roll's first damage die
             const icon = damageDiceIcon(roll);

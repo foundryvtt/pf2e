@@ -1,5 +1,4 @@
 import { DamageRoll } from "@system/damage/roll.ts";
-import { LocalizePF2e } from "@system/localize.ts";
 import { ErrorPF2e, htmlQuery, tupleHasValue } from "@util";
 import { ChatContextFlag, CheckRollContextFlag } from "./data.ts";
 import { ChatMessagePF2e } from "./document.ts";
@@ -24,8 +23,7 @@ async function applyDamageFromMessage({
             ? [message.token]
             : canvas.tokens.controlled.filter((t) => !!t.actor).map((t) => t.document);
     if (tokens.length === 0) {
-        const errorMsg = LocalizePF2e.translations.PF2E.UI.errorTargetToken;
-        return ui.notifications.error(errorMsg);
+        return ui.notifications.error("PF2E.UI.errorTargetToken", { localize: true });
     }
 
     const shieldBlockRequest = CONFIG.PF2E.chatDamageButtonShieldToggle;

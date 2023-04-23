@@ -15,7 +15,7 @@ export class DamagePF2e {
         context: DamageRollContext,
         callback?: Function
     ): Promise<Rolled<DamageRoll> | null> {
-        const outcome = context.outcome ?? "success";
+        const outcome = context.outcome ?? null;
 
         context.rollMode ??= (context.secret ? "blindroll" : undefined) ?? game.settings.get("core", "rollMode");
         context.createMessage ??= true;
@@ -116,7 +116,8 @@ export class DamagePF2e {
         }
 
         // Add breakdown to flavor
-        const breakdown = "breakdownTags" in data.damage ? data.damage.breakdownTags : data.damage.breakdown[outcome];
+        const breakdown =
+            "breakdownTags" in data.damage ? data.damage.breakdownTags : data.damage.breakdown[outcome ?? "success"];
         const breakdownTags = breakdown.map((b) => `<span class="tag tag_transparent">${b}</span>`);
         flavor += `<div class="tags">${breakdownTags.join("")}</div>`;
 
@@ -127,14 +128,14 @@ export class DamagePF2e {
                 return damage.roll.evaluate({ async: true });
             }
 
-            const formula = deepClone(damage.formula[outcome]);
+            const formula = deepClone(damage.formula[outcome ?? "success"]);
             if (!formula) {
                 ui.notifications.error(game.i18n.format("PF2E.UI.noDamageInfoForOutcome", { outcome }));
                 return null;
             }
 
             const rollerId = game.userId;
-            const degreeOfSuccess = DEGREE_OF_SUCCESS_STRINGS.indexOf(outcome) as ZeroToThree;
+            const degreeOfSuccess = outcome ? (DEGREE_OF_SUCCESS_STRINGS.indexOf(outcome) as ZeroToThree) : null;
             const critRule = game.settings.get("pf2e", "critRule") === "doubledamage" ? "double-damage" : "double-dice";
 
             const options: DamageRollDataPF2e = {
@@ -152,7 +153,7 @@ export class DamagePF2e {
         const noteRollData = context.self?.item?.getRollData();
         const damageNotes = await Promise.all(
             data.notes
-                .filter((n) => n.outcome.length === 0 || n.outcome.includes(outcome))
+                .filter((n) => n.outcome.length === 0 || (outcome && n.outcome.includes(outcome)))
                 .map(async (note) => await TextEditor.enrichHTML(note.text, { rollData: noteRollData, async: true }))
         );
         const notes = damageNotes.join("<br />");

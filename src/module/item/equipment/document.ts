@@ -1,7 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { ItemSummaryData } from "@item/data/index.ts";
 import { PhysicalItemPF2e } from "@item/physical/index.ts";
-import { LocalizePF2e } from "@system/localize.ts";
 import { objectHasKey, sluggify } from "@util";
 import { EquipmentSource, EquipmentSystemData, EquipmentTrait } from "./data.ts";
 import { OtherEquipmentTag } from "./types.ts";
@@ -38,21 +37,20 @@ class EquipmentPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     }
 
     override generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
-        const translations = LocalizePF2e.translations.PF2E.identification;
+        const identificationConfig = CONFIG.PF2E.identification;
         const slotType = /book\b/.test(this.slug ?? "")
             ? "Book"
             : /\bring\b/.test(this.slug ?? "")
             ? "Ring"
             : this.system.usage.value?.replace(/^worn/, "").capitalize() ?? "";
 
-        const itemType = objectHasKey(translations.UnidentifiedType, slotType)
-            ? translations.UnidentifiedType[slotType]
-            : translations.UnidentifiedType.Object;
+        const itemType = objectHasKey(identificationConfig.UnidentifiedType, slotType)
+            ? game.i18n.localize(identificationConfig.UnidentifiedType[slotType])
+            : game.i18n.localize(identificationConfig.UnidentifiedType.Object);
 
         if (typeOnly) return itemType;
 
-        const formatString = translations.UnidentifiedItem;
-        return game.i18n.format(formatString, { item: itemType });
+        return game.i18n.format(identificationConfig.UnidentifiedItem, { item: itemType });
     }
 }
 

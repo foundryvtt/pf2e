@@ -4,7 +4,6 @@ import { ABCFeatureEntryData } from "@item/abc/data.ts";
 import { FeatCategory } from "@item/feat/types.ts";
 import { FEAT_CATEGORIES } from "@item/feat/values.ts";
 import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/sheet/index.ts";
-import { LocalizePF2e } from "@system/localize.ts";
 import { htmlClosest, setHasElement } from "@util";
 
 abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<TItem> {
@@ -59,7 +58,7 @@ abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<TItem> 
         const goodCategories = validCategories.map((c) => game.i18n.localize(CONFIG.PF2E.featCategories[c]));
         if (goodCategories.length === 1) {
             const badCategory = game.i18n.localize(CONFIG.PF2E.featCategories[feat.category]);
-            const warning = game.i18n.format(LocalizePF2e.translations.PF2E.Item.ABC.InvalidDrop, {
+            const warning = game.i18n.format("PF2E.Item.ABC.InvalidDrop", {
                 badType: badCategory,
                 goodType: goodCategories[0],
             });

@@ -18,6 +18,8 @@ export default class BaseToken<TParent extends BaseScene | null = BaseScene | nu
 
     height: number;
 
+    alpha: number;
+
     texture: {
         src: VideoFilePath;
         scaleX: number;
@@ -118,6 +120,7 @@ export interface TokenSource extends TokenLightData {
     lockRotation: boolean;
     effects: VideoFilePath[];
     overlayEffect: string | null;
+    alpha: number;
     vision: boolean;
     dimSight: number;
     brightSight: number;

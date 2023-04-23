@@ -3,9 +3,10 @@ import { TokenDocumentPF2e } from "@scene/index.ts";
 import { MemberData, PartySource, PartySystemData } from "./data.ts";
 import { ItemType } from "@item/data/index.ts";
 import { tupleHasValue } from "@util";
-import { ActorUpdateContext } from "@actor/base.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { PartySheetRenderOptions } from "./sheet.ts";
+import { UserPF2e } from "@module/documents.ts";
+import { PartyUpdateContext } from "./types.ts";
 
 class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     declare members: CreaturePF2e[];
@@ -69,20 +70,31 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         this.sheet.render(false, { actor: true } as PartySheetRenderOptions);
     }, 500);
 
-    /** Override to inform creatures when they were booted from a party */
-    protected override _onUpdate(
+    protected override async _preUpdate(
         changed: DeepPartial<PartySource>,
-        options: ActorUpdateContext<TParent>,
-        userId: string
-    ): void {
-        super._onUpdate(changed, options, userId);
-
+        options: PartyUpdateContext<TParent>,
+        user: UserPF2e
+    ): Promise<void> {
+        await super._preUpdate(changed, options, user);
         const members = this.members;
         const newMemberUUIDs = changed?.system?.details?.members?.map((m) => m?.uuid);
         if (newMemberUUIDs) {
             const deletedMembers = members.filter((m) => m?.uuid && !newMemberUUIDs.includes(m.uuid));
-            for (const deleted of deletedMembers) {
-                deleted?.parties.delete(this);
+            options.removedMembers = deletedMembers.map((m) => m.uuid);
+        }
+    }
+
+    /** Override to inform creatures when they were booted from a party */
+    protected override _onUpdate(
+        changed: DeepPartial<PartySource>,
+        options: PartyUpdateContext<TParent>,
+        userId: string
+    ): void {
+        super._onUpdate(changed, options, userId);
+        for (const removed of options.removedMembers ?? []) {
+            const actor = fromUuidSync(removed);
+            if (actor instanceof ActorPF2e && actor.isOfType("creature")) {
+                actor.parties.delete(this);
             }
         }
     }

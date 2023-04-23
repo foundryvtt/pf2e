@@ -11,7 +11,6 @@ import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { createSheetTags, maintainTagifyFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
-import { LocalizePF2e } from "@system/localize.ts";
 import {
     BasicConstructorOptions,
     SelectableTagField,
@@ -225,6 +224,86 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             const title = actor.token?.name ?? actor.prototypeToken?.name ?? actor.name;
             new ImagePopout(actor.img, { title, uuid: actor.uuid }).render(true);
         });
+
+        // Inventory drag drop
+        const inventoryList = htmlQuery(html, "section.inventory-list, ol[data-container-type=actorInventory]");
+        if (inventoryList) {
+            const sortableOptions: Sortable.Options = {
+                animation: 200,
+                direction: "vertical",
+                dragClass: "drag-preview",
+                dragoverBubble: true,
+                filter: "div.item-summary",
+                preventOnFilter: false,
+                easing: "cubic-bezier(1, 0, 0, 1)",
+                ghostClass: "drag-gap",
+                scroll: inventoryList,
+                scrollSensitivity: 30,
+                scrollSpeed: 15,
+                setData: (dataTransfer, dragEl) => {
+                    const item = this.actor.inventory.get(htmlQuery(dragEl, "div[data-item-id]")?.dataset.itemId, {
+                        strict: true,
+                    });
+                    dataTransfer.setData("text/plain", JSON.stringify({ ...item.toDragData(), fromInventory: true }));
+                },
+                onStart: () => {
+                    // Reset move data
+                    this.#sortableOnMoveData = {};
+                },
+                onClone: (event) => {
+                    // Cloning sets draggable to false for some reason
+                    for (const link of htmlQueryAll(htmlQuery(event.item, "div.item-summary"), "a.content-link")) {
+                        link.draggable = true;
+                    }
+                },
+                onMove: (event, originalEvent) => this.#sortableOnMove(event, originalEvent),
+                onEnd: (event) => this.#sortableOnEnd(event),
+            };
+
+            for (const list of htmlQueryAll(inventoryList, "ol.inventory-items, ol.item-list")) {
+                const itemType = list.dataset.itemType;
+                // Ignore nested container lists that have the same selector. They will be handled by the backpack section
+                if (list.dataset.containerId || !itemType) continue;
+
+                // Containers
+                if (itemType === "backpack") {
+                    Sortable.create(list, {
+                        ...sortableOptions,
+                        group: {
+                            name: "container",
+                            put: (_to, _from, dragEl) => dragEl.dataset.itemType === "backpack",
+                        },
+                        swapThreshold: 0.2,
+                    });
+                    // Nested items inside containers
+                    for (const subList of htmlQueryAll(list, "ol.container-held-items")) {
+                        Sortable.create(subList, {
+                            ...sortableOptions,
+                            group: {
+                                name: "nested-item",
+                                put: true,
+                            },
+                            swapThreshold: 0.2,
+                        });
+                    }
+                    continue;
+                }
+
+                // Everything else
+                Sortable.create(list, {
+                    ...sortableOptions,
+                    group: {
+                        name: itemType,
+                        put: (to, from, dragEl) => {
+                            // Return early if both lists are the same
+                            if (from === to) return true;
+                            // Allow dragging by item type
+                            return dragEl.dataset.itemType === to.el.dataset.itemType;
+                        },
+                    },
+                });
+            }
+        }
 
         // Everything below here is only needed if the sheet is editable
         if (!this.options.editable) return;
@@ -451,7 +530,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 }
 
                 const content = document.createElement("p");
-                content.innerText = game.i18n.format(LocalizePF2e.translations.PF2E.SellItemQuestion, {
+                content.innerText = game.i18n.format("PF2E.SellItemQuestion", {
                     item: item.name,
                 });
                 new Dialog({
@@ -563,7 +642,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         // Item chat cards
         for (const element of htmlQueryAll(html, ".item[data-item-id] .item-image, .item[data-item-id] .item-chat")) {
-            element.addEventListener("click", async () => {
+            element.addEventListener("click", async (event) => {
                 const itemId = htmlClosest(element, "[data-item-id]")?.dataset.itemId ?? "";
                 const [item, fromFormula] = (() => {
                     // Handle formula UUIDs
@@ -580,7 +659,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 })();
 
                 if (!item.isOfType("physical") || item.isIdentified) {
-                    await item.toMessage(undefined, { create: true, data: { fromFormula } });
+                    await item.toMessage(event, { create: true, data: { fromFormula } });
                 }
             });
         }
@@ -597,86 +676,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 },
             ]);
         });
-
-        // Inventory sorting
-        const inventoryList = htmlQuery(html, "section.inventory-list, ol[data-container-type=actorInventory]");
-        if (inventoryList) {
-            const sortableOptions: Sortable.Options = {
-                animation: 200,
-                direction: "vertical",
-                dragClass: "drag-preview",
-                dragoverBubble: true,
-                filter: "div.item-summary",
-                preventOnFilter: false,
-                easing: "cubic-bezier(1, 0, 0, 1)",
-                ghostClass: "drag-gap",
-                scroll: inventoryList,
-                scrollSensitivity: 30,
-                scrollSpeed: 15,
-                setData: (dataTransfer, dragEl) => {
-                    const item = this.actor.inventory.get(htmlQuery(dragEl, "div[data-item-id]")?.dataset.itemId, {
-                        strict: true,
-                    });
-                    dataTransfer.setData("text/plain", JSON.stringify({ ...item.toDragData(), fromInventory: true }));
-                },
-                onStart: () => {
-                    // Reset move data
-                    this.#sortableOnMoveData = {};
-                },
-                onClone: (event) => {
-                    // Cloning sets draggable to false for some reason
-                    for (const link of htmlQueryAll(htmlQuery(event.item, "div.item-summary"), "a.content-link")) {
-                        link.draggable = true;
-                    }
-                },
-                onMove: (event, originalEvent) => this.#sortableOnMove(event, originalEvent),
-                onEnd: (event) => this.#sortableOnEnd(event),
-            };
-
-            for (const list of htmlQueryAll(inventoryList, "ol.inventory-items, ol.item-list")) {
-                const itemType = list.dataset.itemType;
-                // Ignore nested container lists that have the same selector. They will be handled by the backpack section
-                if (list.dataset.containerId || !itemType) continue;
-
-                // Containers
-                if (itemType === "backpack") {
-                    Sortable.create(list, {
-                        ...sortableOptions,
-                        group: {
-                            name: "container",
-                            put: (_to, _from, dragEl) => dragEl.dataset.itemType === "backpack",
-                        },
-                        swapThreshold: 0.2,
-                    });
-                    // Nested items inside containers
-                    for (const subList of htmlQueryAll(list, "ol.container-held-items")) {
-                        Sortable.create(subList, {
-                            ...sortableOptions,
-                            group: {
-                                name: "nested-item",
-                                put: true,
-                            },
-                            swapThreshold: 0.2,
-                        });
-                    }
-                    continue;
-                }
-
-                // Everything else
-                Sortable.create(list, {
-                    ...sortableOptions,
-                    group: {
-                        name: itemType,
-                        put: (to, from, dragEl) => {
-                            // Return early if both lists are the same
-                            if (from === to) return true;
-                            // Allow dragging by item type
-                            return dragEl.dataset.itemType === to.el.dataset.itemType;
-                        },
-                    },
-                });
-            }
-        }
 
         // Select all text in an input field on focus
         for (const inputElem of htmlQueryAll<HTMLInputElement>(html, "input[type=text], input[type=number]")) {
@@ -697,6 +696,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     /** Handle dragging of items in the inventory */
     #sortableOnMove(event: Sortable.MoveEvent, originalEvent: Event): boolean | void | 1 | -1 {
+        // Prevent sorting if editing is disabled
+        if (!this.options.editable) return false;
+
         // This data is not available in the onEnd event. Store it here.
         this.#sortableOnMoveData = {
             related: event.related,
@@ -733,9 +735,14 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         // Item dragged out of the inventory to some other element like the item sidebar
         if (!targetItem && !event.from.contains(targetElement) && !event.to.contains(targetElement)) {
             // Render the sheet to reset positional changes caused by dragging the item around
-            this.render();
+            if (event.newIndex !== event.oldIndex) {
+                this.render();
+            }
             return;
         }
+
+        // Return early if the sheet is not editable
+        if (!this.options.editable) return;
 
         // Drop target is container item
         if (targetItem?.isOfType("backpack")) {
@@ -762,7 +769,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             return sourceItem.move({
                 relativeTo: relativeItem,
                 sortBefore: !willInsertAfter,
-                render: false,
             });
         }
     }
@@ -1067,8 +1073,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             }
 
             if (!actor.canUserModify(game.user, "update")) {
-                const translations = LocalizePF2e.translations.PF2E;
-                ui.notifications.error(translations.ErrorMessage.NoUpdatePermission);
+                ui.notifications.error("PF2E.ErrorMessage.NoUpdatePermission", { localize: true });
                 return [];
             } else {
                 const updated = await actor.increaseCondition(itemSource.system.slug, { value });

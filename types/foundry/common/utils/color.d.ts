@@ -41,7 +41,7 @@ export default class Color extends Number {
     /*  Color Manipulation Methods                */
     /* ------------------------------------------ */
 
-    override toString(radix?: number): string;
+    override toString(radix?: number): HexColorString;
 
     /**
      * Test whether this color equals some other color

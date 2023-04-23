@@ -10,6 +10,7 @@ import {
 } from "@item/physical/index.ts";
 import { OneToFour, ZeroToFour, ZeroToThree } from "@module/data.ts";
 import { DamageDieSize, DamageType } from "@system/damage/index.ts";
+import { WeaponTraitToggles } from "./helpers.ts";
 import {
     BaseWeaponType,
     MeleeWeaponGroup,
@@ -36,8 +37,12 @@ type WeaponFlags = ItemFlagsPF2e & {
     };
 };
 
-interface WeaponTraits extends PhysicalItemTraits<WeaponTrait> {
+interface WeaponTraitsSource extends PhysicalItemTraits<WeaponTrait> {
     otherTags: OtherWeaponTag[];
+    toggles?: {
+        modular?: { selection: DamageType | null };
+        versatile?: { selection: DamageType | null };
+    };
 }
 
 interface WeaponDamage {
@@ -86,7 +91,7 @@ interface WeaponPropertyRuneSlot {
 }
 
 interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
-    traits: WeaponTraits;
+    traits: WeaponTraitsSource;
     category: WeaponCategory;
     group: WeaponGroup | null;
     baseItem: BaseWeaponType | null;
@@ -145,7 +150,8 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
 
 interface WeaponSystemData
     extends Omit<WeaponSystemSource, "identification" | "price" | "temporary">,
-        Omit<Investable<PhysicalSystemData>, "traits"> {
+        Investable<PhysicalSystemData> {
+    traits: WeaponTraits;
     baseItem: BaseWeaponType | null;
     maxRange: number | null;
     reload: {
@@ -163,6 +169,11 @@ interface WeaponSystemData
     };
     material: WeaponMaterialData;
     usage: UsageDetails & WeaponSystemSource["usage"];
+}
+
+interface WeaponTraits extends WeaponTraitsSource {
+    otherTags: OtherWeaponTag[];
+    toggles: WeaponTraitToggles;
 }
 
 interface WeaponMaterialData {
