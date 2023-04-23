@@ -132,10 +132,10 @@ const DEGREE_ADJUSTMENT_AMOUNTS = {
     LOWER: -1,
     INCREASE: 1,
     INCREASE_BY_TWO: 2,
-    SET_TO_CRITICAL_FAILURE: "criticalFailure",
-    SET_TO_FAILURE: "failure",
-    SET_TO_SUCCESS: "success",
-    SET_TO_CRITICAL_SUCCESS: "criticalSuccess",
+    TO_CRITICAL_FAILURE: "criticalFailure",
+    TO_FAILURE: "failure",
+    TO_SUCCESS: "success",
+    TO_CRITICAL_SUCCESS: "criticalSuccess",
 } as const;
 
 type DegreeAdjustmentAmount = (typeof DEGREE_ADJUSTMENT_AMOUNTS)[keyof typeof DEGREE_ADJUSTMENT_AMOUNTS];

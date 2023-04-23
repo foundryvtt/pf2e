@@ -48,10 +48,10 @@ class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
             "one-degree-better": DEGREE_ADJUSTMENT_AMOUNTS.INCREASE,
             "one-degree-worse": DEGREE_ADJUSTMENT_AMOUNTS.LOWER,
             "two-degrees-worse": DEGREE_ADJUSTMENT_AMOUNTS.LOWER_BY_TWO,
-            "to-critical-failure": DEGREE_ADJUSTMENT_AMOUNTS.SET_TO_CRITICAL_FAILURE,
-            "to-failure": DEGREE_ADJUSTMENT_AMOUNTS.SET_TO_FAILURE,
-            "to-success": DEGREE_ADJUSTMENT_AMOUNTS.SET_TO_SUCCESS,
-            "to-critical-success": DEGREE_ADJUSTMENT_AMOUNTS.SET_TO_CRITICAL_SUCCESS,
+            "to-critical-failure": DEGREE_ADJUSTMENT_AMOUNTS.TO_CRITICAL_FAILURE,
+            "to-failure": DEGREE_ADJUSTMENT_AMOUNTS.TO_FAILURE,
+            "to-success": DEGREE_ADJUSTMENT_AMOUNTS.TO_SUCCESS,
+            "to-critical-success": DEGREE_ADJUSTMENT_AMOUNTS.TO_CRITICAL_SUCCESS,
         } as const;
 
         const record = (["all", ...DEGREE_OF_SUCCESS_STRINGS] as const).reduce((accumulated, outcome) => {
