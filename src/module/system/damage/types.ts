@@ -91,7 +91,7 @@ interface WeaponDamageTemplate extends BaseDamageTemplate {
 interface SpellDamageTemplate extends BaseDamageTemplate {
     damage: {
         roll: DamageRoll;
-        breakdownTags: string[];
+        breakdown: string[];
     };
 }
 
