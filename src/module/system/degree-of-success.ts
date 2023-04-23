@@ -84,13 +84,13 @@ class DegreeOfSuccess {
     ): DegreeOfSuccessIndex {
         switch (amount) {
             case "criticalFailure":
-                return 0 as DegreeOfSuccessIndex;
+                return 0;
             case "failure":
-                return 1 as DegreeOfSuccessIndex;
+                return 1;
             case "success":
-                return 2 as DegreeOfSuccessIndex;
+                return 2;
             case "criticalSuccess":
-                return 3 as DegreeOfSuccessIndex;
+                return 3;
             default:
                 return Math.clamped(degreeOfSuccess + amount, 0, 3) as DegreeOfSuccessIndex;
         }

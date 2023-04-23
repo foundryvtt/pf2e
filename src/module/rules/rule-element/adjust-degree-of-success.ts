@@ -48,10 +48,10 @@ class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
             "one-degree-better": DEGREE_ADJUSTMENT_AMOUNTS.INCREASE,
             "one-degree-worse": DEGREE_ADJUSTMENT_AMOUNTS.LOWER,
             "two-degrees-worse": DEGREE_ADJUSTMENT_AMOUNTS.LOWER_BY_TWO,
-            "set-to-critical-failure": DEGREE_ADJUSTMENT_AMOUNTS.SET_TO_CRITICAL_FAILURE,
-            "set-to-failure": DEGREE_ADJUSTMENT_AMOUNTS.SET_TO_FAILURE,
-            "set-to-success": DEGREE_ADJUSTMENT_AMOUNTS.SET_TO_SUCCESS,
-            "set-to-critical-success": DEGREE_ADJUSTMENT_AMOUNTS.SET_TO_CRITICAL_SUCCESS,
+            "to-critical-failure": DEGREE_ADJUSTMENT_AMOUNTS.SET_TO_CRITICAL_FAILURE,
+            "to-failure": DEGREE_ADJUSTMENT_AMOUNTS.SET_TO_FAILURE,
+            "to-success": DEGREE_ADJUSTMENT_AMOUNTS.SET_TO_SUCCESS,
+            "to-critical-success": DEGREE_ADJUSTMENT_AMOUNTS.SET_TO_CRITICAL_SUCCESS,
         } as const;
 
         const record = (["all", ...DEGREE_OF_SUCCESS_STRINGS] as const).reduce((accumulated, outcome) => {
@@ -88,10 +88,10 @@ const degreeAdjustmentAmountString = [
     "one-degree-worse",
     "two-degrees-better",
     "two-degrees-worse",
-    "set-to-critical-failure",
-    "set-to-failure",
-    "set-to-success",
-    "set-to-critical-success",
+    "to-critical-failure",
+    "to-failure",
+    "to-success",
+    "to-critical-success",
 ] as const;
 type DegreeAdjustmentAmountString = (typeof degreeAdjustmentAmountString)[number];
 
