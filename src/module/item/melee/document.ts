@@ -144,37 +144,12 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 instance.damage = "1d4";
             }
 
-            const roll = new Roll(instance.damage);
-            const { terms } = roll;
             const { isElite, isWeak } = this.actor;
             if ((isElite || isWeak) && damageInstances.indexOf(instance) === 0) {
-                // Add weak or elite adjustment: Foundry's `Roll` class makes all negative `NumericTerms` positive with
-                // a preceding negative `OperatorTerm`: change operator if adjustment would change the value's sign
-                const modifier =
-                    [...terms].reverse().find((t): t is NumericTerm => t instanceof NumericTerm) ??
-                    new NumericTerm({ number: 0 });
-                const previousTerm = terms[terms.indexOf(modifier) - 1];
-                const signFlip = previousTerm instanceof OperatorTerm && previousTerm.operator === "-" ? -1 : 1;
-                const baseValue = modifier.number * signFlip;
-                const adjustedBase = baseValue + (isElite ? 2 : -2);
-                modifier.number = Math.abs(adjustedBase);
-
-                if (previousTerm instanceof OperatorTerm) {
-                    if (baseValue < 0 && adjustedBase >= 0 && previousTerm.operator === "-") {
-                        previousTerm.operator = "+";
-                    }
-                    if (baseValue >= 0 && adjustedBase < 0 && previousTerm.operator === "+") {
-                        previousTerm.operator = "-";
-                    }
-                }
-
-                if (!terms.includes(modifier)) {
-                    const operator = new OperatorTerm({ operator: adjustedBase >= 0 ? "+" : "-" });
-                    terms.push(operator, modifier);
-                }
-                instance.damage = combineTerms(Roll.fromTerms(terms)._formula);
+                const adjustment = isElite ? 2 : -2;
+                instance.damage = combineTerms(`${instance.damage} + ${adjustment}`);
             } else {
-                instance.damage = roll._formula;
+                instance.damage = new Roll(instance.damage)._formula;
             }
         }
     }

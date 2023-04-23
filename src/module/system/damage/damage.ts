@@ -116,8 +116,9 @@ export class DamagePF2e {
         }
 
         // Add breakdown to flavor
-        const breakdown =
-            "breakdownTags" in data.damage ? data.damage.breakdownTags : data.damage.breakdown[outcome ?? "success"];
+        const breakdown = Array.isArray(data.damage.breakdown)
+            ? data.damage.breakdown
+            : data.damage.breakdown[outcome ?? "success"];
         const breakdownTags = breakdown.map((b) => `<span class="tag tag_transparent">${b}</span>`);
         flavor += `<div class="tags">${breakdownTags.join("")}</div>`;
 
