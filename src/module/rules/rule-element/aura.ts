@@ -24,6 +24,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
         this.slug ??= this.item.slug ?? sluggify(this.item.name);
         for (const effect of this.effects) {
             effect.includesSelf ??= effect.affects !== "enemies";
+            effect.removeOnExit ??= Array.isArray(effect.events) ? effect.events.includes("enter") : false;
         }
     }
 
@@ -70,7 +71,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                 { required: true, nullable: true, initial: null }
             ),
             predicate: new PredicateField({ required: false, nullable: false }),
-            removeOnExit: new fields.BooleanField({ required: true, nullable: false, initial: false }),
+            removeOnExit: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
             includesSelf: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
         });
 
@@ -197,12 +198,13 @@ type AuraEffectSchema = {
         true
     >;
     predicate: PredicateField<false, false, true>;
-    removeOnExit: BooleanField<boolean, boolean, true, false, true>;
+    removeOnExit: BooleanField<boolean, boolean, false, false, false>;
     includesSelf: BooleanField<boolean, boolean, false, false, false>;
 };
 
-interface AuraEffectREData extends Omit<ModelPropsFromSchema<AuraEffectSchema>, "includesSelf"> {
+interface AuraEffectREData extends ModelPropsFromSchema<AuraEffectSchema> {
     includesSelf: boolean;
+    removeOnExit: boolean;
 }
 
 interface AuraRuleElementSource extends RuleElementSource {

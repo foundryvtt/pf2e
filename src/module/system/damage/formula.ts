@@ -45,9 +45,14 @@ function createDamageFormula(
     // Group dice by damage type
     const typeMap: DamageTypeMap = new Map();
     if ((base.diceNumber && base.dieSize) || base.modifier) {
-        const diceSection = base.diceNumber ? `${base.diceNumber}${base.dieSize}` : null;
-        const modifier = base.modifier ? base.modifier : null;
-        const label = [diceSection, modifier].filter((p) => p !== null).join(" + ");
+        const label = (() => {
+            const diceSection = base.diceNumber ? `${base.diceNumber}${base.dieSize}` : null;
+            if (!diceSection) return String(base.modifier);
+
+            const modifier = base.modifier ? Math.abs(base.modifier) : null;
+            const operator = base.modifier < 0 ? " - " : " + ";
+            return [diceSection, modifier].filter((p) => p !== null).join(operator);
+        })();
 
         typeMap.set(base.damageType, [
             {
