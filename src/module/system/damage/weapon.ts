@@ -25,7 +25,7 @@ import {
 import { CritSpecEffect, PotencySynthetic, StrikingSynthetic } from "@module/rules/synthetics.ts";
 import { DEGREE_OF_SUCCESS, DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
 import { mapValues, objectHasKey, sluggify } from "@util";
-import { AssembledFormula, createDamageFormula } from "./formula.ts";
+import { AssembledFormula, createDamageFormula, parseTermsFromSimpleFormula } from "./formula.ts";
 import { nextDamageDieSize } from "./helpers.ts";
 import { DamageModifierDialog } from "./modifier-dialog.ts";
 import {
@@ -683,30 +683,15 @@ class WeaponDamagePF2e {
 
     /** Parse damage formulas from melee items and construct `WeaponDamage` objects out of them */
     static npcDamageToWeaponDamage(instance: NPCAttackDamage): ConvertedNPCDamage {
-        const roll = new Roll(instance.damage);
-        const die = roll.dice.at(0);
-        const operator = ((): ArithmeticOperator => {
-            const operators = roll.terms.filter((t): t is OperatorTerm => t instanceof OperatorTerm);
-            if (operators.length === 1) {
-                // Simplest case: a single operator
-                return operators.at(0)?.operator ?? "+";
-            } else if (operators.length === 2) {
-                // A plus and minus?
-                const [first, second] = operators;
-                if (first.operator !== second.operator && operators.every((o) => ["+", "-"].includes(o.operator))) {
-                    return "-";
-                }
-            }
-
-            // Don't handle cases other than the above
-            return "+";
-        })();
-        const modifier = roll.terms.find((t): t is NumericTerm => t instanceof NumericTerm)?.number ?? 0;
+        // Despite it being a string formula, melee items only support a single dice and modifier term
+        const terms = parseTermsFromSimpleFormula(instance.damage);
+        const die = terms.find((t) => t.dice)?.dice;
+        const modifier = terms.find((t) => t.modifier)?.modifier ?? 0;
 
         return {
             dice: die?.number ?? 0,
             die: die?.faces ? (`d${die.faces}` as DamageDieSize) : null,
-            modifier: operator === "+" ? modifier : -1 * modifier,
+            modifier,
             damageType: instance.damageType,
             persistent: null,
             category: instance.category,
