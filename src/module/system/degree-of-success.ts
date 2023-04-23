@@ -82,7 +82,18 @@ class DegreeOfSuccess {
         amount: DegreeAdjustmentAmount,
         degreeOfSuccess: DegreeOfSuccessIndex
     ): DegreeOfSuccessIndex {
-        return Math.clamped(degreeOfSuccess + amount, 0, 3) as DegreeOfSuccessIndex;
+        switch (amount) {
+            case "criticalFailure":
+                return 0 as DegreeOfSuccessIndex;
+            case "failure":
+                return 1 as DegreeOfSuccessIndex;
+            case "success":
+                return 2 as DegreeOfSuccessIndex;
+            case "criticalSuccess":
+                return 3 as DegreeOfSuccessIndex;
+            default:
+                return Math.clamped(degreeOfSuccess + amount, 0, 3) as DegreeOfSuccessIndex;
+        }
     }
 
     /**
@@ -121,6 +132,10 @@ const DEGREE_ADJUSTMENT_AMOUNTS = {
     LOWER: -1,
     INCREASE: 1,
     INCREASE_BY_TWO: 2,
+    SET_TO_CRITICAL_FAILURE: "criticalFailure",
+    SET_TO_FAILURE: "failure",
+    SET_TO_SUCCESS: "success",
+    SET_TO_CRITICAL_SUCCESS: "criticalSuccess",
 } as const;
 
 type DegreeAdjustmentAmount = (typeof DEGREE_ADJUSTMENT_AMOUNTS)[keyof typeof DEGREE_ADJUSTMENT_AMOUNTS];
