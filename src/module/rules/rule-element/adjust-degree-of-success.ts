@@ -66,8 +66,9 @@ class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
 
     #isAdjustmentData(adjustment: DegreeAdjustmentsRuleRecord): boolean {
         const outcomes = ["all", ...DEGREE_OF_SUCCESS_STRINGS];
-        const amounts = ["one-degree-better", "one-degree-worse"];
-        return Object.entries(adjustment).every(([key, value]) => outcomes.includes(key) && amounts.includes(value));
+        return Object.entries(adjustment).every(
+            ([key, value]) => outcomes.includes(key) && degreeAdjustmentAmountString.includes(value)
+        );
     }
 }
 
@@ -77,11 +78,13 @@ interface AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
     get actor(): CharacterPF2e | NPCPF2e;
 }
 
-type DegreeAdjustmentAmountString =
-    | "one-degree-better"
-    | "one-degree-worse"
-    | "two-degrees-better"
-    | "two-degrees-worse";
+const degreeAdjustmentAmountString = [
+    "one-degree-better",
+    "one-degree-worse",
+    "two-degrees-better",
+    "two-degrees-worse",
+] as const;
+type DegreeAdjustmentAmountString = (typeof degreeAdjustmentAmountString)[number];
 
 type DegreeAdjustmentsRuleRecord = {
     [key in "all" | DegreeOfSuccessString]?: DegreeAdjustmentAmountString;
