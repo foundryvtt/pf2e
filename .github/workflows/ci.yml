@@ -36,21 +36,9 @@ jobs:
         run: |
           npm ci
 
-      - name: Cache Packs
-        id: cache-packs
-        uses: actions/cache@v3
-        with:
-          path: packs/
-          key: packs-${{ hashFiles('packs/**/*') }}
-
-      - name: Build Packs
-        if: ${{ steps.cache-packs.outputs.cache-hit != 'true' }}
+      - name: Build
         run: |
-          npm run build:packs
-
-      - name: Vite
-        run: |
-          node_modules/.bin/vite build
+          npm run build
 
       - name: Test
         run: |
