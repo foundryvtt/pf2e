@@ -3676,13 +3676,9 @@
                     "value": 24
                 },
                 "damageRolls": {
-                    "thl45xvk1gtuyjxi6qyz": {
+                    "0": {
                         "damage": "2d4+10",
                         "damageType": "piercing"
-                    },
-                    "ylhgcn0bwtf9owrfdv1m": {
-                        "damage": "2d6",
-                        "damageType": "poison"
                     }
                 },
                 "description": {
@@ -3736,7 +3732,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r 2d6[poison]]] damage and @UUID[Compendium.pf2e.equipment-srd.Shadow Essence]{Shadow Essence} on the first 3 arrows</p>"
+                    "value": "<p>@UUID[Compendium.pf2e.equipment-srd.Shadow Essence]{Shadow Essence} on the first 3 arrows</p>"
                 },
                 "rules": [],
                 "slug": null,
@@ -3818,7 +3814,15 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "poison",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
