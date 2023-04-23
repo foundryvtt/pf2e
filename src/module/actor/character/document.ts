@@ -730,7 +730,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             entry.system.ability.value = baseStat.ability ?? entry.system.ability.value;
             entry.system.proficiency.value = Math.max(entry.rank, baseStat.rank ?? 0) as ZeroToFour;
             entry.statistic = baseStat.extend({
-                slug: entry.slug ?? sluggify(entry.name),
+                slug: entry.slug ?? sluggify(`${entry.name}-spellcasting`),
                 ability: entry.ability,
                 rank: entry.rank,
                 rollOptions: entry.getRollOptions("spellcasting"),

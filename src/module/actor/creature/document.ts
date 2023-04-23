@@ -281,7 +281,10 @@ abstract class CreaturePF2e<
     override getStatistic(slug: SaveType | SkillLongForm | "perception"): Statistic;
     override getStatistic(slug: string): Statistic | null;
     override getStatistic(slug: string): Statistic | null {
-        return slug === "perception" ? this.perception : super.getStatistic(slug);
+        return slug === "perception"
+            ? this.perception
+            : this.spellcasting.contents.flatMap((sc) => sc.statistic ?? []).find((s) => s.slug === slug) ??
+                  super.getStatistic(slug);
     }
 
     protected override _initialize(): void {
