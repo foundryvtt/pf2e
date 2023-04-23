@@ -441,10 +441,6 @@
                     "0": {
                         "damage": "3d4+11",
                         "damageType": "slashing"
-                    },
-                    "1": {
-                        "damage": "2d10",
-                        "damageType": "bleed"
                     }
                 },
                 "description": {
@@ -536,7 +532,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Twisted Jack Strides three times. Once per Stride, he can attempt a war razor Strike against a creature in his reach at any point during the Stride; he must make each Strike against a different creature, but he doesn't apply his multiple attack penalty until after making all his Strikes. If any of the Strikes are a critical failure, Bloody Mayhem immediately ends.</p>"
+                    "value": "<p>Sad Liza Strides three times. Once per Stride, she can attempt a war razor Strike against a creature in her reach at any point during the Stride; she must make each Strike against a different creature, but she doesn't apply her multiple attack penalty until after making all her Strikes. If any of the Strikes are a critical failure, Bloody Mayhem immediately ends.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -575,12 +571,23 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Whenever Sad Liza deals slashing damage, the target takes an additional [[/r 2d10[bleed]]].</p>"
+                    "value": "<p>Whenever Sad Liza deals slashing damage, the target takes an additional 2d10 persistent bleed damage.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 2,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:damage:type:slashing"
+                        ],
+                        "selector": "damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -614,7 +621,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Sad Liza makes three ranged dagger Strikes, each against a separate target; she ignores the multiple attack penalty until after making all three Strikes. On a critical hit, the target takes [[/r 2d10[bleed]]] and is @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>"
+                    "value": "<p>Sad Liza makes three ranged dagger Strikes, each against a separate target; she ignores the multiple attack penalty until after making all three Strikes. On a critical hit, the target takes [[/r 2d10[bleed]]] damage and is @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -653,7 +660,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Twisted Jack's ranged dagger Strikes have a range increment of 20 feet instead of 10 feet.</p>"
+                    "value": "<p>Sad Liza's ranged dagger Strikes have a range increment of 20 feet instead of 10 feet.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -692,12 +699,44 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Twisted Jack deals an additional [[/r 3d6]] precision damage to flat-footed targets.</p>"
+                    "value": "<p>Sad Liza deals an additional 3d6 precision damage to flat-footed targets.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
+                                    {
+                                        "and": [
+                                            "item:ranged",
+                                            {
+                                                "not": "item:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
