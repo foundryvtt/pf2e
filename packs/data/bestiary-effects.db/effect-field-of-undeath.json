@@ -1,0 +1,45 @@
+{
+    "_id": "RTVBJGyuF32IUXBT",
+    "img": "systems/pf2e/icons/spells/touch-of-undeath.webp",
+    "name": "Effect: Field of Undeath",
+    "system": {
+        "badge": {
+            "type": "counter",
+            "value": 1
+        },
+        "description": {
+            "value": "<p>Allies within the aura who have negative healing gain fast healing.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FastHealing",
+                "type": "fast-healing",
+                "value": "@item.badge.value"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

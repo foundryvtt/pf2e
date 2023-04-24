@@ -11,6 +11,7 @@ import type {
     BooleanField,
     ColorField,
     ModelPropsFromSchema,
+    NumberField,
     SchemaField,
     StringField,
 } from "types/foundry/common/data/fields.d.ts";
@@ -73,6 +74,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
             predicate: new PredicateField({ required: false, nullable: false }),
             removeOnExit: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
             includesSelf: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
+            badgeValue: new fields.NumberField({ required: false, nullable: false, initial: undefined }),
         });
 
         return {
@@ -200,9 +202,11 @@ type AuraEffectSchema = {
     predicate: PredicateField<false, false, true>;
     removeOnExit: BooleanField<boolean, boolean, false, false, false>;
     includesSelf: BooleanField<boolean, boolean, false, false, false>;
+    badgeValue: NumberField<number, number, false, false, false>;
 };
 
 interface AuraEffectREData extends ModelPropsFromSchema<AuraEffectSchema> {
+    badgeValue: number;
     includesSelf: boolean;
     removeOnExit: boolean;
 }

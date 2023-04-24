@@ -430,6 +430,14 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                     source.system.traits.value.push(...aura.traits);
                 }
 
+                if (
+                    source.type === "effect" &&
+                    source.system.badge?.type === "counter" &&
+                    typeof data.badgeValue === "number"
+                ) {
+                    source.system.badge!.value = data.badgeValue;
+                }
+
                 source.system.context = {
                     target: null,
                     origin: {

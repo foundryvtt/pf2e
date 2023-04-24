@@ -74,6 +74,7 @@ interface AuraEffectData {
     predicate: PredicatePF2e;
     removeOnExit: boolean;
     includesSelf: boolean;
+    badgeValue: number;
 }
 
 interface AuraColors {
