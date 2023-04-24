@@ -465,7 +465,7 @@ class WeaponDamagePF2e {
             adjustment.adjustDamageRoll?.(weapon, { materials });
         }
 
-        for (const option of Array.from(materials).map((m) => `weapon:material:${m}`)) {
+        for (const option of Array.from(materials).map((m) => `item:material:${m}`)) {
             options.add(option);
         }
 
