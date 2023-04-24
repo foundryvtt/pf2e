@@ -27,7 +27,7 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
 
         const hazardActors: CompendiumBrowserIndexData[] = [];
         const sources: Set<string> = new Set();
-        const indexFields = [...this.index, "system.details.alignment.value", "system.details.source.value"];
+        const indexFields = [...this.index, "system.details.alignment.value", "system.source.value"];
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
             "Actor",
@@ -44,12 +44,12 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
                         continue;
                     }
                     // Prepare source
-                    const source = actorData.system.details.source?.value;
+                    const source = actorData.system.source?.value;
                     if (source) {
                         sources.add(source);
-                        actorData.system.details.source.value = sluggify(source);
+                        actorData.system.source.value = sluggify(source);
                     } else {
-                        actorData.system.details.source = { value: "" };
+                        actorData.system.source = { value: "" };
                     }
 
                     hazardActors.push({
@@ -61,7 +61,7 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
                         complexity: actorData.system.details.isComplex ? "complex" : "simple",
                         traits: actorData.system.traits.value,
                         rarity: actorData.system.traits.rarity,
-                        source: actorData.system.details.source.value,
+                        source: actorData.system.source.value,
                     });
                 }
             }
