@@ -240,7 +240,7 @@ class CheckPF2e {
                     context: contextFlag,
                     unsafe: flavor,
                     modifierName: check.slug,
-                    modifiers: check.modifiers,
+                    modifiers: check.modifiers.map((m) => m.toObject()),
                     origin,
                     strike,
                 },
