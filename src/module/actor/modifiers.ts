@@ -275,7 +275,7 @@ class ModifierPF2e implements RawModifier {
     }
 
     toObject(): Required<RawModifier> {
-        return duplicate(this);
+        return duplicate({ ...this, item: undefined });
     }
 
     toString(): string {
@@ -707,7 +707,16 @@ class DamageDicePF2e extends DiceModifierPF2e {
     clone(): DamageDicePF2e {
         return new DamageDicePF2e(this);
     }
+
+    toObject(): RawDamageDice {
+        return {
+            ...this,
+            predicate: deepClone([...this.predicate]),
+        };
+    }
 }
+
+type RawDamageDice = Required<DamageDiceParameters>;
 
 export {
     BaseRawModifier,
