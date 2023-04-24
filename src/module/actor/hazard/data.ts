@@ -96,6 +96,11 @@ interface HazardDetailsSource {
     description?: string;
     reset?: string;
     routine?: string;
+    /** Book source, along with author */
+    source: {
+        value: string;
+        author: string;
+    };
 }
 
 interface HazardDetails extends HazardDetailsSource {
