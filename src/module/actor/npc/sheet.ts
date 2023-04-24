@@ -62,7 +62,10 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
     /** Use the token name as the title if showing a lootable NPC sheet */
     override get title(): string {
         if (this.isLootSheet || this.actor.limited) {
-            const actorName = this.token?.name ?? this.actor.name;
+            const tokenSetsNameVisibility = game.settings.get("pf2e", "metagame_tokenSetsNameVisibility");
+            const canSeeName = tokenSetsNameVisibility && !this.token?.playersCanSeeName;
+            const actorName = canSeeName ? "" : this.token?.name ?? this.actor.name;
+
             if (this.actor.isDead) {
                 return `${actorName} [${game.i18n.localize("PF2E.NPC.Dead")}]`;
             } else {
