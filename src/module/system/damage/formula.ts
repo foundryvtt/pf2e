@@ -1,6 +1,6 @@
 import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
 import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
-import { groupBy } from "@util";
+import { groupBy, sum, sortBy } from "@util";
 import {
     CriticalInclusion,
     DamageCategoryUnique,
@@ -200,44 +200,76 @@ function createPartialFormulas(
     const categories = [null, "persistent", "precision", "splash"] as const;
     return categories.flatMap((category) => {
         const requestedPartials = (partials.get(category) ?? []).filter((p) => criticalInclusion.includes(p.critical));
-
-        // If dice doubling is requested, immediately double the constant
-        const constant = requestedPartials.reduce((total, p) => total + p.modifier, 0);
-
-        // Group dice by number of faces and combine into dice-expression strings
-        const dice = requestedPartials.filter(
-            (p): p is DamagePartial & { dice: NonNullable<DamagePartial["dice"]> } => !!p.dice && p.dice.number > 0
-        );
-
-        const combinedDice = Array.from(groupBy(dice, (p) => p.dice.faces).entries())
-            .sort(([a], [b]) => b - a)
-            .reduce((expressions: string[], [faces, partials]) => {
-                const number = partials.reduce(
-                    (total, p) => total + (doubleDice ? 2 * p.dice.number : p.dice.number),
-                    0
-                );
-
-                // If dice doubling is requested, mark the dice with flavor text
-                expressions.push(doubleDice ? `(${number}d${faces}[doubled])` : `${number}d${faces}`);
-
-                return expressions;
-            }, [])
-            .join(" + ");
-
         const term = ((): string => {
-            const expression = [combinedDice, Math.abs(constant)]
-                .filter((e) => !!e)
-                .map((e) => (typeof e === "number" && doubleDice ? `2 * ${e}` : e))
-                .join(constant > 0 ? " + " : " - ");
+            const expression = combinePartialTerms(requestedPartials, { doubleDice });
             return ["precision", "splash"].includes(category ?? "") && hasOperators(expression)
                 ? `(${expression})`
                 : expression;
         })();
-
         const flavored = term && category && category !== "persistent" ? `${term}[${category}]` : term;
 
         return flavored || [];
     });
+}
+
+/** Combines damage dice and modifiers into a single formula, ignoring the damage type and category. */
+function combinePartialTerms(terms: DamagePartialTerm[], { doubleDice }: { doubleDice?: boolean } = {}): string {
+    const constant = terms.reduce((total, p) => total + p.modifier, 0);
+
+    // Group dice by number of faces
+    const dice = terms
+        .filter((p): p is DamagePartial & { dice: NonNullable<DamagePartial["dice"]> } => !!p.dice && p.dice.number > 0)
+        .sort(sortBy((t) => -t.dice.faces));
+
+    // Combine dice into dice-expression strings
+    const byFace = [...groupBy(dice, (t) => t.dice.faces).values()];
+    const combinedDice = byFace.map((terms) => ({
+        ...terms[0],
+        dice: { ...terms[0].dice, number: sum(terms.map((d) => d.dice.number)) },
+    }));
+    const positiveDice = combinedDice.filter((t) => t.dice.number > 0);
+    const diceTerms = positiveDice.map((term) => {
+        const number = doubleDice ? term.dice.number * 2 : term.dice.number;
+        const faces = term.dice.faces;
+        return doubleDice ? `(${number}d${faces}[doubled])` : `${number}d${faces}`;
+    });
+
+    // Create the final term. Double the modifier here if dice doubling is enabled
+    return [diceTerms.join(" + "), Math.abs(constant)]
+        .filter((e) => !!e)
+        .map((e) => (typeof e === "number" && doubleDice ? `2 * ${e}` : e))
+        .join(constant > 0 ? " + " : " - ");
+}
+
+/**
+ * Given a simple flavor-less formula with only +/- operators, returns a list of damage partial terms.
+ * All subtracted terms become negative terms.
+ */
+function parseTermsFromSimpleFormula(formula: string | Roll): DamagePartialTerm[] {
+    const roll = formula instanceof Roll ? formula : new Roll(formula);
+
+    // Parse from right to left so that when we hit an operator, we already have the term.
+    return roll.terms.reduceRight((result, term) => {
+        // Ignore + terms, we assume + by default
+        if (term.expression === " + ") return result;
+
+        // - terms modify the last term we parsed
+        if (term.expression === " - ") {
+            const termToModify = result[0];
+            if (termToModify) {
+                if (termToModify.modifier) termToModify.modifier *= -1;
+                if (termToModify.dice) termToModify.dice.number *= -1;
+            }
+            return result;
+        }
+
+        result.unshift({
+            modifier: term instanceof NumericTerm ? term.number : 0,
+            dice: term instanceof Die ? { faces: term.faces, number: term.number } : null,
+        });
+
+        return result;
+    }, <DamagePartialTerm[]>[]);
 }
 
 interface PartialFormulaParams {
@@ -272,16 +304,19 @@ function ensureValidFormulaHead(formula: string | null): string | null {
 /** A pool of damage dice & modifiers, grouped by damage type. */
 type DamageTypeMap = Map<DamageType, DamagePartial[]>;
 
-interface DamagePartial {
-    /** Used to create the corresponding breakdown tag */
-    label: string;
+interface DamagePartialTerm {
     /** The static amount of damage of the current damage type and category. */
     modifier: number;
     /** Maps the die face ("d4", "d6", "d8", "d10", "d12") to the number of dice of that type. */
     dice: { number: number; faces: number } | null;
+}
+
+interface DamagePartial extends DamagePartialTerm {
+    /** Used to create the corresponding breakdown tag */
+    label: string;
     category: DamageCategoryUnique | null;
     critical: boolean | null;
     materials?: MaterialDamageEffect[];
 }
 
-export { AssembledFormula, createDamageFormula };
+export { AssembledFormula, DamagePartialTerm, combinePartialTerms, createDamageFormula, parseTermsFromSimpleFormula };
