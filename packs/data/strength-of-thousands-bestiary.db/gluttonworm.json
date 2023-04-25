@@ -281,8 +281,27 @@
                 },
                 "rules": [
                     {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SkillVariant.Sand",
+                        "option": "terrain:sand",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FastHealing",
+                        "predicate": [
+                            "terrain:sand"
+                        ],
+                        "value": 10
+                    },
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "congealed-blood",
+                        "toggleable": true
+                    },
+                    {
                         "key": "FlatModifier",
-                        "label": "Congealed Blood Armor",
                         "predicate": [
                             "congealed-blood"
                         ],
@@ -566,7 +585,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "",
+                "details": "sand armor",
                 "max": 445,
                 "temp": 0,
                 "value": 445
