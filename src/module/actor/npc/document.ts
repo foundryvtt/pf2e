@@ -20,11 +20,10 @@ import {
 } from "@module/rules/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check/index.ts";
-import { LocalizePF2e } from "@system/localize.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { RollParameters } from "@system/rolls.ts";
 import { Statistic } from "@system/statistic/index.ts";
-import { objectHasKey, sluggify } from "@util";
+import { createHTMLElement, objectHasKey, sluggify } from "@util";
 import { NPCFlags, NPCSource, NPCSystemData } from "./data.ts";
 import { NPCSheetPF2e } from "./sheet.ts";
 import { VariantCloneParams } from "./types.ts";
@@ -526,7 +525,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
             // Assign statistic data to the spellcasting entry
             entry.statistic = new Statistic(this, {
-                slug: sluggify(entry.name),
+                slug: sluggify(`${entry.name}-spellcasting`),
                 label: CONFIG.PF2E.magicTraditions[tradition ?? "arcane"],
                 domains: baseSelectors,
                 rollOptions: entry.getRollOptions("spellcasting"),
@@ -603,7 +602,13 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         }
         const formatItemName = (item: ItemPF2e<this | null>): string => {
             if (item.isOfType("consumable")) {
-                return `${item.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${item.quantity}) <button type="button" style="width: auto; line-height: 14px;" data-action="consume" data-item="${item.id}">${LocalizePF2e.translations.PF2E.ConsumableUseLabel}</button>`;
+                const button = createHTMLElement("button", { dataset: { action: "consume", item: item.id } });
+                button.style.width = "auto";
+                button.style.lineHeight = "14px";
+                button.innerHTML = game.i18n.localize("PF2E.ConsumableUseLabel");
+                return `${item.name} - ${game.i18n.localize("ITEM.TypeConsumable")} (${item.quantity}) ${
+                    button.outerHTML
+                }`;
             }
             return item.name;
         };

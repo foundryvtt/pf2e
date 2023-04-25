@@ -6,7 +6,6 @@ import { MystifiedTraits } from "@item/data/values.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { Rarity, Size } from "@module/data.ts";
 import { UserPF2e } from "@module/user/document.ts";
-import { LocalizePF2e } from "@system/localize.ts";
 import { ErrorPF2e, isObject, sluggify, sortBy } from "@util";
 import { getUnidentifiedPlaceholderImage } from "../identification.ts";
 import { Bulk, stackDefinitions, weightToBulk } from "./bulk.ts";
@@ -419,11 +418,10 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             (() => {
                 if (status === "identified") return this.description;
 
-                const formatString = LocalizePF2e.translations.PF2E.identification.UnidentifiedDescription;
                 const itemType = this.generateUnidentifiedName({ typeOnly: true });
                 const caseCorrect = (noun: string) =>
                     game.i18n.lang.toLowerCase() === "de" ? noun : noun.toLowerCase();
-                return game.i18n.format(formatString, { item: caseCorrect(itemType) });
+                return game.i18n.format("PF2E.identification.UnidentifiedDescription", { item: caseCorrect(itemType) });
             })();
 
         return {
@@ -470,8 +468,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         const itemType = game.i18n.localize(`ITEM.Type${this.type.capitalize()}`);
         if (typeOnly) return itemType;
 
-        const formatString = LocalizePF2e.translations.PF2E.identification.UnidentifiedItem;
-        return game.i18n.format(formatString, { item: itemType });
+        return game.i18n.format("PF2E.identification.UnidentifiedItem", { item: itemType });
     }
 
     /** Include mystification-related rendering instructions for views that will display this data. */
@@ -483,7 +480,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             if (trait.excluded) {
                 delete trait.description;
             } else if (trait.mystified) {
-                const gmNote = LocalizePF2e.translations.PF2E.identification.TraitGMNote;
+                const gmNote = game.i18n.localize("PF2E.identification.TraitGMNote");
                 trait.description = trait.description
                     ? `${gmNote}\n\n${game.i18n.localize(trait.description)}`
                     : gmNote;

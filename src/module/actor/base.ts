@@ -36,7 +36,6 @@ import { RuleElementSynthetics } from "@module/rules/index.ts";
 import { RuleElementPF2e } from "@module/rules/rule-element/base.ts";
 import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option.ts";
 import { RollOptionToggle } from "@module/rules/synthetics.ts";
-import { LocalizePF2e } from "@module/system/localize.ts";
 import { DicePF2e } from "@scripts/dice.ts";
 import { IWRApplicationData, applyIWR } from "@system/damage/iwr.ts";
 import { DamageType } from "@system/damage/types.ts";
@@ -48,6 +47,7 @@ import {
     getActionGlyph,
     getActionIcon,
     isObject,
+    localizer,
     objectHasKey,
     setHasElement,
     traitSlugToObject,
@@ -90,9 +90,6 @@ import { CREATURE_ACTOR_TYPES, SAVE_TYPES, SKILL_LONG_FORMS, UNAFFECTED_TYPES } 
 class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends Actor<TParent> {
     /** Has this actor completed construction? */
     private constructed = true;
-
-    /** Is this actor preparing its embedded documents? Used to prevent premature data preparation of embedded items */
-    preparingEmbeds = false;
 
     /** Handles rolling initiative for the current actor */
     declare initiative?: ActorInitiative;
@@ -677,9 +674,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Prepare the physical-item collection on this actor, item-sibling data, and rule elements */
     override prepareEmbeddedDocuments(): void {
-        this.preparingEmbeds = true;
-        super.prepareEmbeddedDocuments();
-        this.preparingEmbeds = false;
+        // Perform full reset instead of upstream's double data preparation
+        // See https://github.com/foundryvtt/foundryvtt/issues/7987
+        for (const item of this.items) {
+            item.reset();
+        }
 
         const physicalItems = this.items.filter((i): i is PhysicalItemPF2e<this> => i.isOfType("physical"));
         this.inventory = new ActorInventory(this, physicalItems);
@@ -1123,27 +1122,29 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const { finalDamage } = result;
 
         // Calculate damage to hit points and shield
-        const translations = LocalizePF2e.translations.PF2E.Actor.ApplyDamage;
+        const localize = localizer("PF2E.Actor.ApplyDamage");
         const actorShield = this.isOfType("character", "npc") ? this.attributes.shield : null;
         const shieldBlock =
             actorShield && shieldBlockRequest
                 ? ((): boolean => {
-                      const warnings = LocalizePF2e.translations.PF2E.Actions.RaiseAShield;
                       if (actorShield.broken) {
                           ui.notifications.warn(
-                              game.i18n.format(warnings.ShieldIsBroken, { actor: token.name, shield: actorShield.name })
+                              game.i18n.format("PF2E.Actions.RaiseAShield.ShieldIsBroken", {
+                                  actor: token.name,
+                                  shield: actorShield.name,
+                              })
                           );
                           return false;
                       } else if (actorShield.destroyed) {
                           ui.notifications.warn(
-                              game.i18n.format(warnings.ShieldIsDestroyed, {
+                              game.i18n.format("PF2E.Actions.RaiseAShield.ShieldIsDestroyed", {
                                   actor: token.name,
                                   shield: actorShield.name,
                               })
                           );
                           return false;
                       } else if (!actorShield.raised) {
-                          ui.notifications.warn(game.i18n.format(translations.ShieldNotRaised, { actor: token.name }));
+                          ui.notifications.warn(localize("ShieldNotRaised", { actor: token.name }));
                           return false;
                       } else {
                           return true;
@@ -1190,25 +1191,25 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         // Send chat message
         const hpStatement = ((): string => {
             // This would be a nested ternary, except prettier thoroughly mangles it
-            if (finalDamage === 0) return translations.TakesNoDamage;
+            if (finalDamage === 0) return localize("TakesNoDamage");
             if (finalDamage > 0) {
                 return absorbedDamage > 0
                     ? hpDamage > 0
-                        ? translations.DamagedForNShield
-                        : translations.ShieldAbsorbsAll
-                    : translations.DamagedForN;
+                        ? localize("DamagedForNShield")
+                        : localize("ShieldAbsorbsAll")
+                    : localize("DamagedForN");
             }
-            return hpDamage < 0 ? translations.HealedForN : translations.AtFullHealth;
+            return hpDamage < 0 ? localize("HealedForN") : localize("AtFullHealth");
         })();
 
         const updatedShield = this.isOfType("character", "npc") ? this.attributes.shield : null;
         const shieldStatement =
             updatedShield && shieldDamage > 0
                 ? updatedShield.broken
-                    ? translations.ShieldDamagedForNBroken
+                    ? localize("ShieldDamagedForNBroken")
                     : updatedShield.destroyed
-                    ? translations.ShieldDamagedForNDestroyed
-                    : translations.ShieldDamagedForN
+                    ? localize("ShieldDamagedForNDestroyed")
+                    : localize("ShieldDamagedForN")
                 : null;
 
         const statements = ((): string => {

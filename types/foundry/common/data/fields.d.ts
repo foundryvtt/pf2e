@@ -209,7 +209,7 @@ export type DataSchema = Record<string, DataField<unknown, unknown, boolean>>;
 export class SchemaField<
     TDataSchema extends DataSchema,
     TSourceProp extends SourceFromSchema<TDataSchema> = SourceFromSchema<TDataSchema>,
-    TModelProp = TSourceProp,
+    TModelProp = ModelPropsFromSchema<TDataSchema>,
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true
@@ -382,10 +382,10 @@ interface StringFieldOptions<
 /** A subclass of `DataField` which deals with string-typed data. */
 export class StringField<
         TSourceProp extends string,
-        TModelProp,
-        TRequired extends boolean,
-        TNullable extends boolean,
-        THasInitial extends boolean
+        TModelProp = TSourceProp,
+        TRequired extends boolean = boolean,
+        TNullable extends boolean = boolean,
+        THasInitial extends boolean = boolean
     >
     extends DataField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial>
     implements StringFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>
@@ -455,7 +455,7 @@ type ArrayFieldOptions<
 export class ArrayField<
         TElementField extends DataField,
         TSourceProp extends SourcePropFromDataField<TElementField>[] = SourcePropFromDataField<TElementField>[],
-        TModelProp extends object = TSourceProp,
+        TModelProp extends object = ModelPropFromDataField<TElementField>[],
         TRequired extends boolean = false,
         TNullable extends boolean = false,
         THasInitial extends boolean = true
@@ -517,7 +517,7 @@ export class ArrayField<
 export interface ArrayField<
     TElementField extends DataField,
     TSourceProp extends SourcePropFromDataField<TElementField>[] = SourcePropFromDataField<TElementField>[],
-    TModelProp extends object = TSourceProp,
+    TModelProp extends object = ModelPropFromDataField<TElementField>[],
     TRequired extends boolean = false,
     TNullable extends boolean = false,
     THasInitial extends boolean = true

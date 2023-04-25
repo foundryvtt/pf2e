@@ -6,7 +6,6 @@ import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { onRepairChatCardEvent } from "@system/action-macros/crafting/repair.ts";
-import { LocalizePF2e } from "@system/localize.ts";
 import { ErrorPF2e, sluggify, tupleHasValue } from "@util";
 import { ChatMessagePF2e } from "../index.ts";
 
@@ -107,15 +106,16 @@ export const ChatCards = {
                         const consumable = actor.items.get($button.attr("data-item") ?? "");
                         if (consumable?.isOfType("consumable")) {
                             const oldQuant = consumable.quantity;
-                            const toReplace = `${consumable.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${oldQuant})`;
+                            const consumableString = game.i18n.localize("ITEM.TypeConsumable");
+                            const toReplace = `${consumable.name} - ${consumableString} (${oldQuant})`;
                             await consumable.consume();
                             const currentQuant = oldQuant === 1 ? 0 : consumable.quantity;
                             let flavor = message.flavor.replace(
                                 toReplace,
-                                `${consumable.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${currentQuant})`
+                                `${consumable.name} - ${consumableString} (${currentQuant})`
                             );
                             if (currentQuant === 0) {
-                                const buttonStr = `>${LocalizePF2e.translations.PF2E.ConsumableUseLabel}</button>`;
+                                const buttonStr = `>${game.i18n.localize("PF2E.ConsumableUseLabel")}</button>`;
                                 flavor = flavor?.replace(buttonStr, " disabled" + buttonStr);
                             }
                             await message.update({ flavor });

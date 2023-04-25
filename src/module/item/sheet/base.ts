@@ -8,7 +8,6 @@ import {
     processTagifyInSubmitData,
 } from "@module/sheet/helpers.ts";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
-import { LocalizePF2e } from "@system/localize.ts";
 import {
     BasicConstructorOptions,
     SELECTABLE_TAG_FIELDS,
@@ -147,10 +146,12 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             ruleEditing: !!this.editingRuleElement,
             rules: {
                 labels: rules.map((ruleData: RuleElementSource) => {
-                    const translations: Record<string, string> = LocalizePF2e.translations.PF2E.RuleElement;
+                    const localization = CONFIG.PF2E.ruleElement;
                     const key = String(ruleData.key).replace(/^PF2E\.RuleElement\./, "");
-                    const label = translations[key] ?? translations.Unrecognized;
-                    const recognized = label !== translations.Unrecognized;
+                    const label = game.i18n.localize(
+                        localization[key as keyof typeof localization] ?? localization.Unrecognized
+                    );
+                    const recognized = label !== game.i18n.localize(localization.Unrecognized);
                     return { label, recognized };
                 }),
                 selection: {

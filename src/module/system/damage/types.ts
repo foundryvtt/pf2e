@@ -43,7 +43,7 @@ interface DamageRollRenderData {
 interface DamageRollContext extends BaseRollContext {
     type: "damage-roll";
     sourceType: "attack" | "check" | "save";
-    outcome?: DegreeOfSuccessString;
+    outcome?: DegreeOfSuccessString | null;
     self?: StrikeSelf | null;
     target?: RollTarget | null;
     options: Set<string>;
@@ -91,7 +91,7 @@ interface WeaponDamageTemplate extends BaseDamageTemplate {
 interface SpellDamageTemplate extends BaseDamageTemplate {
     damage: {
         roll: DamageRoll;
-        breakdownTags: string[];
+        breakdown: string[];
     };
 }
 

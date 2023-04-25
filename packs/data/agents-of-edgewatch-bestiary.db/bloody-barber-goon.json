@@ -569,7 +569,12 @@
             "type": "action"
         },
         {
-            "_id": "f3cXxnZGDx1KqvCZ",
+            "_id": "llp6T68rrWMMol0X",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
             "sort": 900000,
@@ -584,15 +589,47 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The goon deals an additional [[/r 2d6]] precision damage to flat-footed creatures.</p>"
+                    "value": "<p>The goon deals an additional 2d6 precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
+                                    {
+                                        "and": [
+                                            "item:ranged",
+                                            {
+                                                "not": "item:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "rarity": "common",

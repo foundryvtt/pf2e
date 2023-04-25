@@ -22,10 +22,9 @@ import { CheckPF2e, CheckRoll } from "@system/check/index.ts";
 import { DamageType } from "@system/damage/types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
-import { LocalizePF2e } from "@system/localize.ts";
 import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
 import { Statistic } from "@system/statistic/index.ts";
-import { ErrorPF2e, isObject, objectHasKey, setHasElement } from "@util";
+import { ErrorPF2e, isObject, localizer, objectHasKey, setHasElement } from "@util";
 import {
     CreatureSkills,
     CreatureSpeeds,
@@ -282,7 +281,10 @@ abstract class CreaturePF2e<
     override getStatistic(slug: SaveType | SkillLongForm | "perception"): Statistic;
     override getStatistic(slug: string): Statistic | null;
     override getStatistic(slug: string): Statistic | null {
-        return slug === "perception" ? this.perception : super.getStatistic(slug);
+        return slug === "perception"
+            ? this.perception
+            : this.spellcasting.contents.flatMap((sc) => sc.statistic ?? []).find((s) => s.slug === slug) ??
+                  super.getStatistic(slug);
     }
 
     protected override _initialize(): void {
@@ -592,14 +594,13 @@ abstract class CreaturePF2e<
 
         if (!dying?.value) return null;
 
-        const translations = LocalizePF2e.translations.PF2E;
-        const { Recovery } = translations;
+        const localize = localizer("PF2E.Recovery");
 
         // const wounded = this.system.attributes.wounded.value; // not needed currently as the result is currently not automated
         const recoveryDC = dying.recoveryDC;
 
         const dc: CheckDC = {
-            label: game.i18n.format(translations.Recovery.rollingDescription, {
+            label: localize("rollingDescription", {
                 dying: dying.value,
                 dc: "{dc}", // Replace variable with variable, which will be replaced with the actual value in CheckModifiersDialog.Roll()
             }),
@@ -610,27 +611,27 @@ abstract class CreaturePF2e<
         const notes = [
             new RollNotePF2e({
                 selector: "all",
-                text: game.i18n.localize(Recovery.critSuccess),
+                text: localize("critSuccess"),
                 outcome: ["criticalSuccess"],
             }),
             new RollNotePF2e({
                 selector: "all",
-                text: game.i18n.localize(Recovery.success),
+                text: localize("success"),
                 outcome: ["success"],
             }),
             new RollNotePF2e({
                 selector: "all",
-                text: game.i18n.localize(Recovery.failure),
+                text: localize("failure"),
                 outcome: ["failure"],
             }),
             new RollNotePF2e({
                 selector: "all",
-                text: game.i18n.localize(Recovery.critFailure),
+                text: localize("critFailure"),
                 outcome: ["criticalFailure"],
             }),
         ];
 
-        const modifier = new StatisticModifier(game.i18n.localize(translations.Check.Specific.Recovery), []);
+        const modifier = new StatisticModifier(game.i18n.localize("PF2E.Check.Specific.Recovery"), []);
         const token = this.getActiveTokens(false, true).shift();
 
         return CheckPF2e.roll(modifier, { actor: this, token, dc, notes }, event);

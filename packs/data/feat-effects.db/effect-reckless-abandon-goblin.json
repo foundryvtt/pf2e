@@ -3,7 +3,6 @@
     "img": "systems/pf2e/icons/features/ancestry/treedweller-goblin.webp",
     "name": "Effect: Reckless Abandon (Goblin)",
     "system": {
-        "badge": null,
         "description": {
             "value": "<p>For the remainder of your turn, if you roll a failure or critical failure on a saving throw against a harmful effect, you get a success instead.</p>"
         },
@@ -25,15 +24,8 @@
             },
             {
                 "adjustment": {
-                    "failure": "one-degree-better"
-                },
-                "key": "AdjustDegreeOfSuccess",
-                "selector": "saving-throw",
-                "type": "save"
-            },
-            {
-                "adjustment": {
-                    "criticalFailure": "two-degrees-better"
+                    "failure": "to-success",
+                    "criticalFailure": "to-success"
                 },
                 "key": "AdjustDegreeOfSuccess",
                 "selector": "saving-throw",

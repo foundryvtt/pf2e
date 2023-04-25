@@ -247,7 +247,13 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 }
             }
 
-            if (!parts.length) parts.push("0");
+            // Increase or decrease damage by 4 if elite or weak
+            if (parts.length > 0 && this.actor.isOfType("npc") && this.actor.attributes.adjustment) {
+                const adjustment = this.actor.isElite ? 4 : -4;
+                parts.push(adjustment.toString());
+            }
+
+            if (parts.length === 0) parts.push("0");
 
             const baseFormula = Roll.replaceFormulaData(parts.join(" + "), rollData);
             const formula = combineTerms(baseFormula);
@@ -278,7 +284,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const context: DamageRollContext = {
             type: "damage-roll",
             sourceType: this.isAttack ? "attack" : "save",
-            outcome: this.isAttack ? "success" : "failure", // we'll need to support other outcomes later
+            outcome: this.isAttack ? "success" : null, // we'll need to support other outcomes later
             domains,
             options,
             self: {
@@ -377,7 +383,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         // Combine damage partials into new instances by damage type (except persistent)
         const notPersistent = allPartials.filter((p) => p.damageCategory !== "persistent");
-        const breakdownTags: string[] = [];
+        const breakdown: string[] = [];
         const combinedInstanceData: { formula: string; flavor: string }[] = [];
         for (const [damageType, group] of groupBy(notPersistent, (f) => f.damageType).entries()) {
             const subFormulas: string[] = [];
@@ -387,7 +393,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 const damageTypeLabel = game.i18n.localize(CONFIG.PF2E.damageTypes[damageType] ?? damageType);
                 const result = createFormulaAndTagsForPartial(mainGroup, damageTypeLabel);
                 subFormulas.push(result.formula);
-                breakdownTags.push(...result.breakdownTags);
+                breakdown.push(...result.breakdownTags);
             }
 
             for (const subInstance of group.filter((g) => !!g.damageCategory)) {
@@ -395,7 +401,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 const isSingle = !!result.formula.match(/^[0-9d]*$/);
                 const formattedFormula = isSingle ? result.formula : `(${result.formula})`;
                 subFormulas.push(`${formattedFormula}[${subInstance.damageCategory}]`);
-                breakdownTags.push(...result.breakdownTags);
+                breakdown.push(...result.breakdownTags);
             }
 
             const tags = new Set(group.flatMap((g) => [...g.tags]));
@@ -410,7 +416,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             const flavorLabel = game.i18n.format("PF2E.Damage.PersistentTooltip", { damageType: typeLabel });
             const result = createFormulaAndTagsForPartial(partial, flavorLabel);
             combinedInstanceData.push({ formula: result.formula, flavor: `[persistent,${damageType}]` });
-            breakdownTags.push(...result.breakdownTags);
+            breakdown.push(...result.breakdownTags);
         }
 
         try {
@@ -433,7 +439,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
                 const damage: SpellDamageTemplate = {
                     name: this.name,
-                    damage: { roll, breakdownTags },
+                    damage: { roll, breakdown },
                     notes: [],
                     materials: roll.materials,
                     traits: this.castingTraits,
@@ -639,12 +645,12 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             }
         }
 
+        const isAreaEffect = !!this.system.area?.value;
+        if (isAreaEffect) options.add("area-effect");
+
         if (damageValues.length > 0 && this.system.spellType.value !== "heal") {
             options.add("damaging-effect");
-
-            if (this.system.area?.value) {
-                options.add("area-damage");
-            }
+            if (isAreaEffect) options.add("area-damage");
         }
 
         for (const trait of this.traits) {
@@ -655,15 +661,15 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     override async toMessage(
-        event?: JQuery.TriggeredEvent,
+        event?: MouseEvent | JQuery.TriggeredEvent,
         { create = true, data, rollMode }: SpellToMessageOptions = {}
     ): Promise<ChatMessagePF2e | undefined> {
         // NOTE: The parent toMessage() pulls "contextual data" from the DOM dataset.
         // If nothing except spells need it, consider removing that handling and pass castLevel directly
-        const nearestItem = event ? event.currentTarget.closest(".item") : {};
-        data = data && Object.keys(data).length > 0 ? data : nearestItem.dataset || {};
+        const domData = htmlClosest(event?.currentTarget, ".item")?.dataset;
+        const castData = mergeObject(data ?? {}, domData ?? {});
 
-        const message = await super.toMessage(event, { create: false, data, rollMode });
+        const message = await super.toMessage(event, { create: false, data: castData, rollMode });
         if (!message) return undefined;
 
         const messageSource = message.toObject();
@@ -675,7 +681,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             const tradition = Array.from(this.traditions).at(0);
             flags.casting = {
                 id: entry.id,
-                level: Number(data?.castLevel) || this.level,
+                level: Number(castData.castLevel) || this.level,
                 tradition: entry.tradition ?? tradition ?? "arcane",
             };
 
