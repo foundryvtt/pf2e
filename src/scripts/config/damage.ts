@@ -13,6 +13,7 @@ const materialDamageEffects = pick(preciousMaterials, [
     "abysium",
     "adamantine",
     "cold-iron",
+    "darkwood",
     "djezet",
     "mithral",
     "noqual",
