@@ -90,7 +90,9 @@ export class MigrationRunner extends MigrationRunnerBase {
             try {
                 return this.getUpdatedItem(baseItem, migrations);
             } catch (error) {
-                console.error(error);
+                if (error instanceof Error) {
+                    console.error(`Error thrown while migrating ${item.uuid}: ${error.message}`);
+                }
                 return null;
             }
         })();
@@ -126,7 +128,9 @@ export class MigrationRunner extends MigrationRunnerBase {
                 return this.getUpdatedActor(baseActor, migrations);
             } catch (error) {
                 // Output the error, since this means a migration threw it
-                console.error(error);
+                if (error instanceof Error) {
+                    console.error(`Error thrown while migrating ${actor.uuid}: ${error.message}`);
+                }
                 return null;
             }
         })();
