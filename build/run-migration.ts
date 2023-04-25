@@ -7,16 +7,6 @@ import { JSDOM } from "jsdom";
 import { sluggify } from "@util";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
-import { Migration807RMActivatedEffectFields } from "@module/migration/migrations/807-rm-activated-effect-fields.ts";
-import { Migration808CountDamageDice } from "@module/migration/migrations/808-count-damage-dice.ts";
-import { Migration809AutomatonEnhancements } from "@module/migration/migrations/809-automaton-enhancements.ts";
-import { Migration811InlineDamageRollsPersistent } from "@module/migration/migrations/811-inline-damage-rolls-persistent.ts";
-import { Migration812RestructureIWR } from "@module/migration/migrations/812-restructure-iwr.ts";
-import { Migration813NormalizeColdIron } from "@module/migration/migrations/813-normalize-cold-iron.ts";
-import { Migration814CalculatedExpandedSplash } from "@module/migration/migrations/814-calculated-expanded-splash.ts";
-import { Migration815ConsumableDataCleanup } from "@module/migration/migrations/815-consumable-data-cleanup.ts";
-import { Migration816AlchemistResearchFields } from "@module/migration/migrations/816-alchemist-research-fields.ts";
-import { Migration817FieldDiscoveryPredicates } from "@module/migration/migrations/817-field-discovery-predicates.ts";
 import { Migration819SpinTaleAdventureSpecific } from "@module/migration/migrations/819-spin-tale-adventure-specific.ts";
 import { Migration820RemoveUnusedTraitsData } from "@module/migration/migrations/820-remove-unused-traits-data.ts";
 import { Migration821InlineDamageRolls } from "@module/migration/migrations/821-inline-damage-rolls.ts";
@@ -34,6 +24,7 @@ import { Migration833AddRogueToysFixPrecision } from "@module/migration/migratio
 import { Migration834FeatCategories } from "@module/migration/migrations/834-feat-categories.ts";
 import { Migration835InitiativeLongform } from "@module/migration/migrations/835-initiative-longform.ts";
 import { Migration836EnergizingConsolidation } from "@module/migration/migrations/836-energizing-consolidation.ts";
+import { Migration837MoveHazardBookSources } from "@module/migration/migrations/837-move-hazard-book-source.ts";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -44,16 +35,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration807RMActivatedEffectFields(),
-    new Migration808CountDamageDice(),
-    new Migration809AutomatonEnhancements(),
-    new Migration811InlineDamageRollsPersistent(),
-    new Migration812RestructureIWR(),
-    new Migration813NormalizeColdIron(),
-    new Migration814CalculatedExpandedSplash(),
-    new Migration815ConsumableDataCleanup(),
-    new Migration816AlchemistResearchFields(),
-    new Migration817FieldDiscoveryPredicates(),
     new Migration819SpinTaleAdventureSpecific(),
     new Migration820RemoveUnusedTraitsData(),
     new Migration821InlineDamageRolls(),
@@ -71,6 +52,7 @@ const migrations: MigrationBase[] = [
     new Migration834FeatCategories(),
     new Migration835InitiativeLongform(),
     new Migration836EnergizingConsolidation(),
+    new Migration837MoveHazardBookSources(),
 ];
 
 global.deepClone = <T>(original: T): T => {

@@ -55,10 +55,14 @@ interface DamageRollContext extends BaseRollContext {
 }
 
 interface DamageFormulaData {
-    base: BasicDamageData;
+    base: BaseDamageData | BaseDamageData[];
     dice: DamageDicePF2e[];
     modifiers: ModifierPF2e[];
     ignoredResistances: { type: ResistanceType; max: number | null }[];
+}
+
+interface WeaponDamageFormulaData extends Omit<DamageFormulaData, "base"> {
+    base: WeaponBaseDamageData;
 }
 
 interface ResolvedDamageFormulaData extends DamageFormulaData {
@@ -66,7 +70,14 @@ interface ResolvedDamageFormulaData extends DamageFormulaData {
     breakdown: Record<DegreeOfSuccessString, string[]>;
 }
 
-interface BasicDamageData {
+interface DamagePartialTerm {
+    /** The static amount of damage of the current damage type and category. */
+    modifier: number;
+    /** Maps the die face ("d4", "d6", "d8", "d10", "d12") to the number of dice of that type. */
+    dice: { number: number; faces: number } | null;
+}
+
+interface WeaponBaseDamageData {
     damageType: DamageType;
     diceNumber: number;
     dieSize: DamageDieSize | null;
@@ -74,6 +85,15 @@ interface BasicDamageData {
     category: DamageCategoryUnique | null;
     materials?: MaterialDamageEffect[];
 }
+
+interface DynamicBaseDamageData {
+    terms: DamagePartialTerm[];
+    damageType: DamageType;
+    category: DamageCategoryUnique | null;
+    materials?: MaterialDamageEffect[];
+}
+
+type BaseDamageData = WeaponBaseDamageData | DynamicBaseDamageData;
 
 interface BaseDamageTemplate {
     name: string;
@@ -98,18 +118,22 @@ interface SpellDamageTemplate extends BaseDamageTemplate {
 type DamageTemplate = WeaponDamageTemplate | SpellDamageTemplate;
 
 export {
+    BaseDamageData,
     CriticalInclusion,
     DamageCategory,
     DamageCategoryRenderData,
     DamageCategoryUnique,
     DamageDieSize,
     DamageFormulaData,
+    DamagePartialTerm,
     DamageRollContext,
     DamageRollRenderData,
     DamageTemplate,
     DamageType,
     DamageTypeRenderData,
+    DynamicBaseDamageData,
     MaterialDamageEffect,
     SpellDamageTemplate,
+    WeaponDamageFormulaData,
     WeaponDamageTemplate,
 };

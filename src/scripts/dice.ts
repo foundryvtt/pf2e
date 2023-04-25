@@ -1,6 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { ErrorPF2e, groupBy, sortBy, sum } from "@util";
+import { createSimpleFormula, parseTermsFromSimpleFormula } from "@system/damage/formula.ts";
+import { ErrorPF2e } from "@util";
 
 /**
  * @category Other
@@ -195,7 +196,7 @@ class DicePF2e {
  * Combines dice and flat values together in a condensed expression. Also repairs any + - and "- 3" errors.
  * For example, 3d4 + 2d4 + 3d6 + 5 + 2 is combined into 5d4 + 3d6 + 7. - 4 is corrected to -4.
  */
-function combineTerms(formula: string): string {
+function simplifyFormula(formula: string): string {
     if (formula === "0") return formula;
 
     const fixedFormula = formula.replace(/^\s*-\s+/, "-").replace(/\s*\+\s*-\s*/g, " - ");
@@ -207,45 +208,8 @@ function combineTerms(formula: string): string {
         return fixedFormula;
     }
 
-    // Parse from right to left so that when we hit an operator, we already have the term.
-    const convertedTerms = roll.terms.reduceRight((result, term) => {
-        // Ignore + terms, we assume + by default
-        if (term.expression === " + ") return result;
-
-        // - terms modify the last term we parsed
-        if (term.expression === " - ") {
-            const termToModify = result[0];
-            if (termToModify) {
-                if (termToModify.modifier) termToModify.modifier *= -1;
-                if (termToModify.diceNumber) termToModify.diceNumber *= -1;
-            }
-            return result;
-        }
-
-        result.unshift({
-            modifier: term instanceof NumericTerm ? term.number : 0,
-            diceFaces: term instanceof Die ? term.faces : 0,
-            diceNumber: term instanceof Die ? term.number : 0,
-        });
-
-        return result;
-    }, <ParsedTerm[]>[]);
-
-    const diceTerms = convertedTerms.filter((t) => t.diceNumber !== 0).sort(sortBy((t) => -t.diceFaces));
-    const byFace = [...groupBy(diceTerms, (t) => t.diceFaces).values()];
-    const diceCombined = byFace.map((dice) => ({ ...dice[0], diceNumber: sum(dice.map((d) => d.diceNumber)) }));
-    const diceStringTerms = diceCombined.filter((t) => t.diceNumber > 0).map((t) => `${t.diceNumber}d${t.diceFaces}`);
-
-    const diceFormula = diceStringTerms.join(" + ");
-    const constant = sum(convertedTerms.map((t) => t.modifier));
-    const operator = constant < 0 ? " - " : " + ";
-    return [diceFormula, Math.abs(constant)].filter((part) => part !== "" && part !== 0).join(operator);
+    const terms = parseTermsFromSimpleFormula(roll);
+    return createSimpleFormula(terms);
 }
 
-interface ParsedTerm {
-    modifier: number;
-    diceNumber: number;
-    diceFaces: number;
-}
-
-export { DicePF2e, combineTerms };
+export { DicePF2e, simplifyFormula };

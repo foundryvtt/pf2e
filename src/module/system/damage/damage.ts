@@ -217,7 +217,7 @@ export class DamagePF2e {
                     pf2e: {
                         context: contextFlag,
                         target: targetFlag,
-                        modifiers: data.modifiers,
+                        modifiers: data.modifiers?.map((m) => m.toObject()) ?? [],
                         origin,
                         strike,
                         preformatted: "both",
