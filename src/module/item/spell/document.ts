@@ -19,22 +19,21 @@ import { OneToTen, ZeroToTwo } from "@module/data.ts";
 import { extractDamageDice, extractDamageModifiers } from "@module/rules/helpers.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { MeasuredTemplateDocumentPF2e } from "@scene/index.ts";
-import { combineTerms } from "@scripts/dice.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckPF2e, CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { DamageModifierDialog } from "@system/damage/modifier-dialog.ts";
-import { DamageInstance, DamageRoll } from "@system/damage/roll.ts";
-import { InstancePool } from "@system/damage/terms.ts";
-import { DamageRollContext, DamageType, SpellDamageTemplate } from "@system/damage/types.ts";
+import { DamageRoll } from "@system/damage/roll.ts";
+import { DamageRollContext, DynamicBaseDamageData, SpellDamageTemplate } from "@system/damage/types.ts";
 import { StatisticRollParameters } from "@system/statistic/index.ts";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor.ts";
-import { ErrorPF2e, getActionIcon, groupBy, htmlClosest, ordinal, sortBy, traitSlugToObject } from "@util";
+import { ErrorPF2e, getActionIcon, htmlClosest, ordinal, traitSlugToObject } from "@util";
 import { SpellHeightenLayer, SpellOverlayType, SpellSource, SpellSystemData, SpellSystemSource } from "./data.ts";
-import { applyDamageDiceOverrides, createFormulaAndTagsForPartial, DamageInstancePartial } from "./helpers.ts";
 import { SpellOverlayCollection } from "./overlay.ts";
 import { EffectAreaSize, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types.ts";
+import { combinePartialTerms, createDamageFormula, parseTermsFromSimpleFormula } from "@system/damage/formula.ts";
+import { applyDamageDiceOverrides } from "./helpers.ts";
 
 interface SpellConstructionContext<TParent extends ActorPF2e | null> extends DocumentConstructionContext<TParent> {
     fromConsumable?: boolean;
@@ -203,67 +202,33 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const castLevel = this.level;
         const rollData = this.getRollData({ castLevel });
 
-        // Set up the damage instances we're adding to, and a function to either fetch or create a new one
-        type DamageTypeCategory = `${DamageType}-${string}`;
-        const formulas: Record<DamageTypeCategory, DamageInstancePartial> = {};
-        function getInstance(options: { formula?: string; damageType: DamageType; damageCategory?: string | null }) {
-            const { formula, damageType, damageCategory } = options;
-            const key: DamageTypeCategory = `${damageType}-${damageCategory || "normal"}`;
-            const existing = formulas[key];
-            if (existing) {
-                if (formula) {
-                    existing.formula += `+ ${formula}`;
-                }
-                return existing;
-            } else {
-                const newInstance = {
-                    formula: formula ?? "0",
-                    damageType,
-                    damageCategory: damageCategory || null,
-                    modifiers: [],
-                    dice: [],
-                    tags: new Set<string>(),
-                };
-                formulas[key] = newInstance;
-                return newInstance;
-            }
-        }
-
         // Loop over the user defined damage fields
+        const base: DynamicBaseDamageData[] = [];
         for (const [id, damage] of Object.entries(this.system.damage.value ?? {})) {
-            const parts: (string | number)[] = [];
-            if (damage.value && damage.value !== "0") parts.push(damage.value);
+            const terms = parseTermsFromSimpleFormula(damage.value, { rollData });
 
             // Check for and apply interval spell scaling
             const heightening = this.system.heightening;
             if (heightening?.type === "interval" && heightening.interval) {
                 const scalingFormula = heightening.damage[id];
-                if (scalingFormula && scalingFormula !== "0" && heightening.interval) {
-                    const partCount = Math.floor((castLevel - this.baseLevel) / heightening.interval);
-                    if (partCount > 0) {
-                        const scalingParts = Array(partCount).fill(scalingFormula);
-                        parts.push(scalingParts.join("+"));
+                const partCount = Math.floor((castLevel - this.baseLevel) / heightening.interval);
+                if (scalingFormula && partCount > 0) {
+                    const scalingTerms = parseTermsFromSimpleFormula(scalingFormula, { rollData });
+                    for (let i = 0; i < partCount; i++) {
+                        terms.push(...deepClone(scalingTerms));
                     }
                 }
             }
 
-            // Increase or decrease damage by 4 if elite or weak
-            if (parts.length > 0 && this.actor.isOfType("npc") && this.actor.attributes.adjustment) {
-                const adjustment = this.actor.isElite ? 4 : -4;
-                parts.push(adjustment.toString());
+            // Increase or decrease the first instance of damage by 4 if elite or weak
+            if (terms.length > 0 && !base.length && this.actor.isOfType("npc") && this.actor.attributes.adjustment) {
+                terms.push({ dice: null, modifier: this.actor.isElite ? 4 : -4 });
             }
 
-            if (parts.length === 0) parts.push("0");
-
-            const baseFormula = Roll.replaceFormulaData(parts.join(" + "), rollData);
-            const formula = combineTerms(baseFormula);
-
-            // Add damage. Merge if the type and category matches
             const damageType = damage.type.value;
-            const instance = getInstance({ formula, damageType, damageCategory: damage.type.subtype });
-            for (const tag of damage.type.categories ?? []) {
-                instance.tags.add(tag);
-            }
+            const category = damage.type.subtype || null;
+            const materials = damage.type.categories;
+            base.push({ terms: combinePartialTerms(terms), damageType, category, materials });
         }
 
         const { actor, ability } = this;
@@ -313,7 +278,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                             type: "untyped",
                             modifier: abilities[ability].mod,
                             damageType: d.type.value,
-                            damageCategory: d.type.subtype ?? null,
+                            damageCategory: d.type.subtype || null,
                         })
                 );
             modifiers.push(...abilityModifiers);
@@ -335,6 +300,19 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 })
             );
 
+            // Apply tweaks from base to damage dice labels. A similar thing is done in WeaponDamagePF2e#calculate().
+            // Eventually we need to consolidate the two.
+            for (const dice of damageDice) {
+                const matchingBase = base.find((t) => t.damageType === dice.damageType) || base.at(0);
+                const matchingFaces = matchingBase?.terms.find((t) => !!t.dice)?.dice?.faces;
+                const dieSize = dice.dieSize || (matchingFaces ? `d${matchingFaces}` : null);
+                if (dice.diceNumber > 0 && dieSize) {
+                    dice.label += ` +${dice.diceNumber}${dieSize}`;
+                } else if (dieSize) {
+                    dice.label += ` ${dice.dieSize}`;
+                }
+            }
+
             if (BUILD_MODE === "development" && !damageOptions.skipDialog) {
                 const baseDamageType = Object.values(this.system.damage.value)[0]?.type.value;
                 const rolled = await new DamageModifierDialog({
@@ -347,95 +325,18 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             }
 
             // Apply any damage dice upgrades (such as harmful font)
-            applyDamageDiceOverrides(Object.values(formulas), damageDice);
-
-            // Add modifiers to instances
-            for (const modifier of testedModifiers) {
-                // Skip modifiers that were ignored in the dialog
-                if (modifier.ignored) continue;
-
-                const firstInstance = Object.values(formulas)[0];
-                const damageCategory = modifier.damageCategory;
-                const damageType = modifier.damageType ?? (damageCategory ? firstInstance.damageType : null);
-                const instance = !damageType ? firstInstance : getInstance({ damageType, damageCategory });
-                instance.modifiers.push(modifier);
-            }
-
-            // Add damage dice to instances
-            for (const dice of damageDice) {
-                if (dice.override || dice.ignored) continue;
-                const firstInstance = Object.values(formulas)[0];
-                const damageCategory = dice.category;
-                const damageType = dice.damageType ?? (damageCategory ? firstInstance.damageType : null);
-                const instance = !damageType ? firstInstance : getInstance({ damageType, damageCategory });
-                instance.dice.push(dice);
-            }
-        }
-
-        // Get a list of all flattened damage partial values, sorted by category
-        const order = [null, "precision", "splash"];
-        const allPartials = Object.values(formulas).sort(
-            sortBy((f) => {
-                const idx = order.indexOf(f.damageCategory);
-                return idx >= 0 ? idx : order.length;
-            })
-        );
-
-        // Combine damage partials into new instances by damage type (except persistent)
-        const notPersistent = allPartials.filter((p) => p.damageCategory !== "persistent");
-        const breakdown: string[] = [];
-        const combinedInstanceData: { formula: string; flavor: string }[] = [];
-        for (const [damageType, group] of groupBy(notPersistent, (f) => f.damageType).entries()) {
-            const subFormulas: string[] = [];
-
-            const mainGroup = group.find((g) => !g.damageCategory);
-            if (mainGroup) {
-                const damageTypeLabel = game.i18n.localize(CONFIG.PF2E.damageTypes[damageType] ?? damageType);
-                const result = createFormulaAndTagsForPartial(mainGroup, damageTypeLabel);
-                subFormulas.push(result.formula);
-                breakdown.push(...result.breakdownTags);
-            }
-
-            for (const subInstance of group.filter((g) => !!g.damageCategory)) {
-                const result = createFormulaAndTagsForPartial(subInstance, subInstance.damageCategory);
-                const isSingle = !!result.formula.match(/^[0-9d]*$/);
-                const formattedFormula = isSingle ? result.formula : `(${result.formula})`;
-                subFormulas.push(`${formattedFormula}[${subInstance.damageCategory}]`);
-                breakdown.push(...result.breakdownTags);
-            }
-
-            const tags = new Set(group.flatMap((g) => [...g.tags]));
-            const flavor = [...tags, damageType].join(",");
-            combinedInstanceData.push({ formula: subFormulas.join(" + "), flavor });
-        }
-
-        // Persistent is handled afterwards as new damage instances
-        for (const partial of allPartials.filter((p) => p.damageCategory === "persistent")) {
-            const { damageType } = partial;
-            const typeLabel = game.i18n.localize(CONFIG.PF2E.damageTypes[damageType] ?? damageType);
-            const flavorLabel = game.i18n.format("PF2E.Damage.PersistentTooltip", { damageType: typeLabel });
-            const result = createFormulaAndTagsForPartial(partial, flavorLabel);
-            combinedInstanceData.push({ formula: result.formula, flavor: `[persistent,${damageType}]` });
-            breakdown.push(...result.breakdownTags);
+            applyDamageDiceOverrides(base, damageDice);
         }
 
         try {
-            if (combinedInstanceData.length) {
-                // Validate if the formulas are valid first
-                const invalid = combinedInstanceData
-                    .map((d) => d.formula)
-                    .filter((formula) => !DamageRoll.validate(formula));
-                if (invalid.length) {
-                    throw ErrorPF2e(`Invalid damage formulas on ${this.name}: ${invalid.join(", ")}`);
-                }
-
-                // Create the damage roll
-                const critRule =
-                    game.settings.get("pf2e", "critRule") === "doubledamage" ? "double-damage" : "double-dice";
-                const instances = combinedInstanceData.map(
-                    ({ formula, flavor }) => new DamageInstance(formula, {}, { flavor, critRule })
-                );
-                const roll = DamageRoll.fromTerms([InstancePool.fromRolls(instances)], { critRule });
+            if (base.length) {
+                const { formula, breakdown } = createDamageFormula({
+                    base,
+                    modifiers,
+                    dice: damageDice,
+                    ignoredResistances: [],
+                });
+                const roll = new DamageRoll(formula);
 
                 const damage: SpellDamageTemplate = {
                     name: this.name,

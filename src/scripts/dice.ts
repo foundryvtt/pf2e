@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { combinePartialTerms, parseTermsFromSimpleFormula } from "@system/damage/formula.ts";
+import { createSimpleFormula, parseTermsFromSimpleFormula } from "@system/damage/formula.ts";
 import { ErrorPF2e } from "@util";
 
 /**
@@ -196,7 +196,7 @@ class DicePF2e {
  * Combines dice and flat values together in a condensed expression. Also repairs any + - and "- 3" errors.
  * For example, 3d4 + 2d4 + 3d6 + 5 + 2 is combined into 5d4 + 3d6 + 7. - 4 is corrected to -4.
  */
-function combineTerms(formula: string): string {
+function simplifyFormula(formula: string): string {
     if (formula === "0") return formula;
 
     const fixedFormula = formula.replace(/^\s*-\s+/, "-").replace(/\s*\+\s*-\s*/g, " - ");
@@ -209,7 +209,7 @@ function combineTerms(formula: string): string {
     }
 
     const terms = parseTermsFromSimpleFormula(roll);
-    return combinePartialTerms(terms);
+    return createSimpleFormula(terms);
 }
 
-export { DicePF2e, combineTerms };
+export { DicePF2e, simplifyFormula };

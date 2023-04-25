@@ -3,7 +3,7 @@ import { ActorPF2e } from "@actor";
 import { ItemSummaryData } from "@item/data/index.ts";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponRangeIncrement } from "@item/weapon/types.ts";
-import { combineTerms } from "@scripts/dice.ts";
+import { simplifyFormula } from "@scripts/dice.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { ConvertedNPCDamage, WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { tupleHasValue } from "@util";
@@ -147,7 +147,7 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             const { isElite, isWeak } = this.actor;
             if ((isElite || isWeak) && damageInstances.indexOf(instance) === 0) {
                 const adjustment = isElite ? 2 : -2;
-                instance.damage = combineTerms(`${instance.damage} + ${adjustment}`);
+                instance.damage = simplifyFormula(`${instance.damage} + ${adjustment}`);
             } else {
                 instance.damage = new Roll(instance.damage)._formula;
             }

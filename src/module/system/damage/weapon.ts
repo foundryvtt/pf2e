@@ -31,9 +31,9 @@ import { DamageModifierDialog } from "./modifier-dialog.ts";
 import {
     DamageCategoryUnique,
     DamageDieSize,
-    DamageFormulaData,
     DamageRollContext,
     MaterialDamageEffect,
+    WeaponDamageFormulaData,
     WeaponDamageTemplate,
 } from "./types.ts";
 
@@ -492,7 +492,7 @@ class WeaponDamagePF2e {
             })
         );
 
-        const damage: DamageFormulaData = {
+        const damage: WeaponDamageFormulaData = {
             base: {
                 diceNumber: baseDamage.die ? baseDamage.dice : 0,
                 dieSize: baseDamage.die,
@@ -571,12 +571,12 @@ class WeaponDamagePF2e {
 
     /** Apply damage dice overrides and create a damage formula */
     static #finalizeDamage(
-        damage: DamageFormulaData,
+        damage: WeaponDamageFormulaData,
         degree: (typeof DEGREE_OF_SUCCESS)["SUCCESS" | "CRITICAL_SUCCESS"]
     ): AssembledFormula;
-    static #finalizeDamage(damage: DamageFormulaData, degree: typeof DEGREE_OF_SUCCESS.CRITICAL_FAILURE): null;
-    static #finalizeDamage(damage: DamageFormulaData, degree?: DegreeOfSuccessIndex): AssembledFormula | null;
-    static #finalizeDamage(damage: DamageFormulaData, degree: DegreeOfSuccessIndex): AssembledFormula | null {
+    static #finalizeDamage(damage: WeaponDamageFormulaData, degree: typeof DEGREE_OF_SUCCESS.CRITICAL_FAILURE): null;
+    static #finalizeDamage(damage: WeaponDamageFormulaData, degree?: DegreeOfSuccessIndex): AssembledFormula | null;
+    static #finalizeDamage(damage: WeaponDamageFormulaData, degree: DegreeOfSuccessIndex): AssembledFormula | null {
         damage = deepClone(damage);
         const { base } = damage;
         const critical = degree === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
