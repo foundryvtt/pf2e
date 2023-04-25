@@ -56,17 +56,17 @@
                     }
                 ],
                 "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
-                "rollOption": "oracular-curse:stage"
+                "rollOption": "self:oracular-curse:stage"
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
                     {
                         "or": [
-                            "oracular-curse:stage:minor",
-                            "oracular-curse:stage:moderate",
-                            "oracular-curse:stage:major",
-                            "oracular-curse:stage:extreme"
+                            "self:oracular-curse:stage:minor",
+                            "self:oracular-curse:stage:moderate",
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
                         ]
                     }
                 ],
@@ -74,13 +74,22 @@
                 "value": -1
             },
             {
+                "effects": [
+                    {
+                        "affects": "all",
+                        "events": [
+                            "enter"
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Effect: Creeping Ashes"
+                    }
+                ],
                 "key": "Aura",
                 "predicate": [
                     {
                         "or": [
-                            "oracular-curse:stage:moderate",
-                            "oracular-curse:stage:major",
-                            "oracular-curse:stage:extreme"
+                            "self:oracular-curse:stage:moderate",
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
                         ]
                     }
                 ],
@@ -91,27 +100,14 @@
                 ]
             },
             {
-                "key": "Weakness",
-                "predicate": [
-                    {
-                        "or": [
-                            "oracular-curse:stage:major",
-                            "oracular-curse:stage:extreme"
-                        ]
-                    }
-                ],
-                "type": "fire",
-                "value": "floor(@actor.level/2)"
-            },
-            {
                 "key": "FlatModifier",
                 "predicate": [
                     {
                         "or": [
-                            "oracular-curse:stage:minor",
-                            "oracular-curse:stage:moderate",
-                            "oracular-curse:stage:major",
-                            "oracular-curse:stage:extreme"
+                            "self:oracular-curse:stage:minor",
+                            "self:oracular-curse:stage:moderate",
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
                         ]
                     }
                 ],
@@ -126,29 +122,13 @@
                 "predicate": [
                     {
                         "or": [
-                            "oracular-curse:stage:moderate",
-                            "oracular-curse:stage:major",
-                            "oracular-curse:stage:extreme"
+                            "self:oracular-curse:stage:moderate",
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
                         ]
                     }
                 ],
                 "uuid": "Compendium.pf2e.conditionitems.Dazzled"
-            },
-            {
-                "key": "GrantItem",
-                "onDeleteActions": {
-                    "grantee": "restrict"
-                },
-                "predicate": [
-                    {
-                        "or": [
-                            "oracular-curse:stage:moderate",
-                            "oracular-curse:stage:major",
-                            "oracular-curse:stage:extreme"
-                        ]
-                    }
-                ],
-                "uuid": "Compendium.pf2e.conditionitems.Concealed"
             }
         ],
         "source": {
