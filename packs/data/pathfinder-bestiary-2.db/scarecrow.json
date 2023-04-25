@@ -166,12 +166,36 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The scarecrow's head bursts into ghostly, heatless flame that sheds bright light in a @Template[type:emanation|distance:20] and dim light to the next 20 feet). If the scarecrow uses this ability on the first round of combat, any creature that has not acted yet is startled and becomes @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} against the scarecrow for 1 round. It can suppress the light by using this action again.</p>"
+                    "value": "<p>The scarecrow's head bursts into ghostly, heatless flame that sheds bright light in a @Template[type:emanation|distance:20] (and dim light to the next 20 feet). If the scarecrow uses this ability on the first round of combat, any creature that has not acted yet is startled and becomes @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} against the scarecrow for 1 round. It can suppress the light by using this action again.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "baleful-glow"
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "bright": 20,
+                            "color": "#9b7337",
+                            "dim": 40,
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "baleful-glow",
+                        "toggleable": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
