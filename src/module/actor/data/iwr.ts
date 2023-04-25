@@ -118,11 +118,23 @@ abstract class IWRData<TType extends IWRType> {
                 }
 
                 if (objectHasKey(CONFIG.PF2E.materialDamageEffects, iwrType)) {
-                    return iwrType === "silver"
-                        ? [{ or: ["damage:material:silver", "damage:material:mithral"] }]
-                        : iwrType === "cold-iron"
-                        ? [{ or: ["damage:material:cold-iron", "damage:material:sovereign-steel"] }]
-                        : [`damage:material:${iwrType}`];
+                    switch (iwrType) {
+                        case "cold-iron":
+                            return [{ or: ["damage:material:cold-iron", "damage:material:sovereign-steel"] }];
+                        case "darkwood":
+                            return [
+                                {
+                                    or: [
+                                        "damage:material:darkwood",
+                                        { and: ["self:mode:undead", "damage:material:peachwood"] },
+                                    ],
+                                },
+                            ];
+                        case "silver":
+                            return [{ or: ["damage:material:silver", "damage:material:mithral"] }];
+                        default:
+                            return [`damage:material:${iwrType}`];
+                    }
                 }
 
                 if (setHasElement(MAGIC_SCHOOLS, iwrType)) {
