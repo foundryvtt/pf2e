@@ -1,9 +1,8 @@
 import { ImmunityType, IWRType, ResistanceType, WeaknessType } from "@actor/types.ts";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
 import { MAGIC_SCHOOLS } from "@item/spell/values.ts";
-import { WEAPON_MATERIAL_EFFECTS } from "@item/weapon/values.ts";
 import { PredicatePF2e, PredicateStatement } from "@system/predication.ts";
-import { setHasElement } from "@util";
+import { objectHasKey, setHasElement } from "@util";
 
 abstract class IWRData<TType extends IWRType> {
     readonly type: TType;
@@ -118,7 +117,7 @@ abstract class IWRData<TType extends IWRType> {
                     return [`damage:type:${iwrType}`];
                 }
 
-                if (setHasElement(WEAPON_MATERIAL_EFFECTS, iwrType)) {
+                if (objectHasKey(CONFIG.PF2E.materialDamageEffects, iwrType)) {
                     return iwrType === "silver"
                         ? [{ or: ["damage:material:silver", "damage:material:mithral"] }]
                         : iwrType === "cold-iron"
