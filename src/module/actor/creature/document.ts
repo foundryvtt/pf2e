@@ -37,7 +37,7 @@ import {
     VisionLevels,
 } from "./data.ts";
 import { setImmunitiesFromTraits } from "./helpers.ts";
-import { ActorInitiative } from "../initiative.ts";
+import { ActorInitiative, InitiativeRollResult } from "../initiative.ts";
 import { CreatureSensePF2e } from "./sense.ts";
 import {
     Alignment,
@@ -48,6 +48,7 @@ import {
     IsFlatFootedParams,
 } from "./types.ts";
 import { SIZE_TO_REACH } from "./values.ts";
+import { RollParameters } from "@system/rolls.ts";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 abstract class CreaturePF2e<
@@ -453,6 +454,18 @@ abstract class CreaturePF2e<
 
         this.initiative = new ActorInitiative(this, statistic);
         systemData.attributes.initiative = mergeObject(systemData.attributes.initiative, statistic.getTraceData());
+        systemData.attributes.initiative.roll = async (args: RollParameters): Promise<InitiativeRollResult | null> => {
+            console.warn(
+                `Rolling initiative via actor.attributes.initiative.roll() is deprecated: use actor.initiative.roll() instead.`
+            );
+
+            const result = await this.initiative?.roll({
+                extraRollOptions: args.options ? [...args.options] : [],
+                ...args,
+            });
+
+            return result ?? null;
+        };
     }
 
     protected override prepareSynthetics(): void {

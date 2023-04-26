@@ -1,7 +1,7 @@
 import { InitiativeData } from "@actor/data/base.ts";
 import { strikeFromMeleeItem } from "@actor/helpers.ts";
 import { ActorPF2e } from "@actor";
-import { ActorInitiative } from "@actor/initiative.ts";
+import { ActorInitiative, InitiativeRollResult } from "@actor/initiative.ts";
 import { MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
@@ -14,6 +14,7 @@ import { DamageType } from "@system/damage/index.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { isObject, objectHasKey } from "@util";
 import { HazardSource, HazardSystemData } from "./data.ts";
+import { RollParameters } from "@system/rolls.ts";
 
 class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     override get allowedItemTypes(): (ItemType | "physical")[] {
@@ -163,6 +164,18 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
 
         this.initiative = new ActorInitiative(this, statistic);
         attributes.initiative = mergeObject(attributes.initiative, statistic.getTraceData());
+        attributes.initiative.roll = async (args: RollParameters): Promise<InitiativeRollResult | null> => {
+            console.warn(
+                `Rolling initiative via actor.attributes.initiative.roll() is deprecated: use actor.initiative.roll() instead.`
+            );
+
+            const result = await this.initiative?.roll({
+                extraRollOptions: args.options ? [...args.options] : [],
+                ...args,
+            });
+
+            return result ?? null;
+        };
     }
 }
 
