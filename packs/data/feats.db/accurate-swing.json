@@ -29,7 +29,30 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "harsh-judgement",
+                    "item:trait:sweep",
+                    "target:condition:frightened",
+                    {
+                        "or": [
+                            "item:category:unarmed",
+                            {
+                                "and": [
+                                    "item:type:weapon",
+                                    "item:melee"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": "@weapon.system.damage.dice"
+            }
+        ],
         "source": {
             "value": "Pathfinder Adventure: Night of the Gray Death"
         },
