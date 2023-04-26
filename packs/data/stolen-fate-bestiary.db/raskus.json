@@ -317,7 +317,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.3qn56dTO5TYJHjbF"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/weapon.svg",
+            "img": "systems/pf2e/icons/equipment/weapons/harmona-gun.webp",
             "name": "Spike Launcher",
             "sort": 400000,
             "system": {
@@ -1095,11 +1095,20 @@
                             {
                                 "or": [
                                     "target:condition:blinded",
-                                    "target:condition:immobilized"
+                                    "target:condition:immobilized",
+                                    "opportunistic-attack"
                                 ]
                             }
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "Target has reduction to Speed",
+                        "option": "opportunistic-attack",
+                        "toggleable": true,
+                        "value": false
                     }
                 ],
                 "slug": null,
