@@ -1,5 +1,59 @@
 {
     "PF2E": {
+        "AmmunitionNotes": {
+            "AntlerArrow": {
+                "CriticalText": "The DC of the Athletics check to pull the missile free increases to @Check[type:athletics|dc:15|name:Pull the Missile Free|showDC:all]",
+                "Text": "The target must succeed at a @Check[type:reflex|dc:16|name:Antler Arrow] save or become stuck to the surface, taking the critical specialization effects of a bow",
+                "Title": "Antler Arrow"
+            },
+            "ExplosiveAmmunition": {
+                "Greater": {
+                    "Text": "The missile explodes in a @Template[type:burst|distance:10], dealing [[/r 10d6[fire]]] damage to each creature in the area (including the target). Each creature must attempt a @Check[type:reflex|dc:30|basic:true|name:Explosive Ammunition] save.",
+                    "Title": "Explosive Ammunition (Greater)"
+                },
+                "Normal": {
+                    "Text": "The missile explodes in a @Template[type:burst|distance:10], dealing [[/r 6d6[fire]]] damage to each creature in the area (including the target). Each creature must attempt a @Check[type:reflex|dc:25|basic:true|name:Explosive Ammunition] save.",
+                    "Title": "Explosive Ammunition"
+                }
+            },
+            "ExsanguinatingAmmunition": {
+                "Greater": {
+                    "Text": "For 1 minute after you deal damage to a creature with an activated exsanguinating ammunition that creature gains weakness 3 to persistent bleed damage. In addition, the DC of any flat checks to end persistent bleed damage increases from 15 to 17 (from 10 to 12 when receiving particularly effective assistance) for the duration. @UUID[Compendium.pf2e.equipment-effects.5lZWAvm0oGxvF4bm]{Effect: Exsanguinating Ammunition (Greater)}",
+                    "Title": "Exsanguinating Ammunition (Greater)"
+                },
+                "Major": {
+                    "Text": "For 1 minute after you deal damage to a creature with an activated exsanguinating ammunition that creature gains weakness 5 to persistent bleed damage. In addition, the DC of any flat checks to end persistent bleed damage increases from 15 to 17 (from 10 to 12 when receiving particularly effective assistance) for the duration. @UUID[Compendium.pf2e.equipment-effects.mrwg2XftLtSLj197]{Effect: Exsanguinating Ammunition (Major)}",
+                    "Title": "Exsanguinating Ammunition (Major)"
+                },
+                "Normal": {
+                    "Text": "For 1 minute after you deal damage to a creature with an activated exsanguinating ammunition that creature gains weakness 1 to persistent bleed damage. In addition, the DC of any flat checks to end persistent bleed damage increases from 15 to 17 (from 10 to 12 when receiving particularly effective assistance) for the duration. @UUID[Compendium.pf2e.equipment-effects.Fz3cSffzDAxhCh2D]{Effect: Exsanguinating Ammunition}",
+                    "Title": "Exsanguinating Ammunition"
+                }
+            },
+            "FreezingAmmunition": {
+                "Text": "The target must succeed at a @Check[type:fortitude|dc:19] save or be @UUID[Compendium.pf2e.conditionitems.xYTAsEpcJE1Ccni3]{Slowed 1} for 1 round by the intense cold (slowed 1 for 1 minute on a critical failure).",
+                "Title": "Freezing Ammunition"
+            },
+            "MeteorShot": {
+                "CriticalFailureText": "On a critical failure, the weapon misfires.",
+                "Greater": {
+                    "Text": "In addition to the weapon's normal damage, the meteor shot deals fire damage and the ground in the area becomes difficult terrain. The ammunition deals [[/r 6d6[fire]]] damage in a @Template[type:emanation|distance:10] around the target (@Check[type:reflex|dc:29|basic:true|name:Meteor Shot] save).",
+                    "Title": "Meteor Shot (Greater)"
+                },
+                "Major": {
+                    "Text": "In addition to the weapon's normal damage, the meteor shot deals fire damage and the ground in the area becomes difficult terrain. The ammunition deals [[/r 9d6[fire]]] damage in a @Template[type:emanation|distance:20] around the target (@Check[type:reflex|dc:37|basic:true|name:Meteor Shot] save).",
+                    "Title": "Meteor Shot (Major)"
+                },
+                "Normal": {
+                    "Text": "In addition to the weapon's normal damage, the meteor shot deals fire damage and the ground in the area becomes difficult terrain. The ammunition deals [[/r 3d6[fire]]] damage in a @Template[type:emanation|distance:5] around the target (@Check[type:reflex|dc:23|basic:true|name:Meteor Shot] save).",
+                    "Title": "Meteor Shot"
+                }
+            },
+            "ShiningAmmunition": {
+                "Text": "The ammunition sheds bright light in a 20-foot radius (and dim light to the next 20 feet) for 10 minutes. If it hits a target, it sticks, causing the target to shed light in the same radius. @UUID[Compendium.pf2e.equipment-effects.Sf6UO6vgCeicggOK]{Effect: Shining Ammunition}",
+                "Title": "Shining Ammunition"
+            }
+        },
         "AttackEffects": {
             "DropWeapon": "The creature drops the wielded weapon.",
             "IgnoreConcealed": "The attack ignores the @UUID[Compendium.pf2e.conditionitems.DmAIPqOBomZ7H95W]{Concealed} condition.",
@@ -10,8 +64,15 @@
             "KnockProne": "On a hit, the target is knocked @UUID[Compendium.pf2e.conditionitems.j91X7x0XSomq8d60]{Prone}."
         },
         "BattleForm": {
+            "AberrantForm": {
+                "GugSqueezeNote": "Your multiple joints allow you to fit through tight spaces as if you were a Medium creature."
+            },
+            "AngelForm": {
+                "DeafenedNote": "@UUID[Compendium.pf2e.conditionitems.9PR9y0bi4JPKnHPR]{Deafened} for 1 round on a critical hit"
+            },
             "Attack": {
                 "Antler": "Antler",
+                "AqueousFist": "Aqueous Fist",
                 "Beak": "Beak",
                 "Beard": "Beard",
                 "Bite": "Bite",
@@ -33,7 +94,7 @@
                 "LavaFist": "Lava Fist",
                 "Leaf": "Leaf",
                 "Leg": "Leg",
-                "LightingLash": "Lightning Lash",
+                "LightningLash": "Lightning Lash",
                 "Mandibles": "Mandibles",
                 "Moonbeam": "Moonbeam",
                 "PiercingHymn": "Piercing Hymn",
@@ -56,13 +117,36 @@
                 "Vine": "Vine",
                 "WaterSpout": "Water Spout",
                 "Wave": "Wave",
+                "Web": "Web",
                 "Wing": "Wing"
             },
+            "CosmicForm": {
+                "MoonNote": "The target is @UUID[Compendium.pf2e.conditionitems.e1XGnhKNSQIm5IXg]{Stupefied 2} for 1 round.",
+                "SunNote": "The target is @UUID[Compendium.pf2e.conditionitems.TkIyaNPgTZFBCCuh]{Dazzled} for 1 round."
+            },
+            "DaemonForm": {
+                "CeustodaemonDamageNote": "Any successful jaws or claw Strike deals an additional [[/r {1d6}]]{1d6 damage}, and you take the same amount of damage"
+            },
+            "ElementEmbodied": {
+                "AirPushNote": "Plus @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.t6cx9FOODmeZQNYl]{Push} 10 feet",
+                "WaterPushPullNote": "Plus @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.t6cx9FOODmeZQNYl]{Push} or Pull 10 feet"
+            },
+            "InsectForm": {
+                "SpiderWebNote": "A successful Web attack entangles the target for 1 round, but deals no damage"
+            },
+            "MonstrosityForm": {
+                "ShroudOfFlame": "Shroud of Flame"
+            },
             "Note": {
+                "Grab": "You can spend an action immediately after a hit to @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr]{Grab} the target",
                 "GrabbingTrunk": {
                     "Text": "A creature up to two sizes smaller that's hit by your trunk is @UUID[Compendium.pf2e.conditionitems.kWc1fhmv9LBiTuei]{Grabbed}. If you succeed at your @UUID[Compendium.pf2e.actionspf2e.PMbdMWc2QroouFGD]{Grapple} check against a creature grabbed by your trunk, you can reposition the creature to another space within your trunk's reach.",
                     "Title": "Grabbing Trunk"
-                }
+                },
+                "Shove": "You can spend an action immediately after a hit to push the target 5 feet with the effects of a successful @UUID[Compendium.pf2e.actionspf2e.7blmbDrQFNfdT731]{Shove}"
+            },
+            "OozeForm": {
+                "GelatinousCubeNote": "A creature hit by your cube face Strike must succeed at a @Check[type:fortitude|dc:resolve(@actor.attributes.spellDC.value)|traits:incapacitation] save against your spell DC or be @UUID[Compendium.pf2e.conditionitems.dfCMdR4wnpbYNTix]{Stunned 1} (or @UUID[Compendium.pf2e.conditionitems.6uEgoh53GbXuHpTF]{Paralyzed} for 1 round on a critical failure); this save has the incapacitation trait."
             }
         },
         "BombNotes": {
@@ -986,8 +1070,11 @@
             "DisarmStoneMetal": "To Disarm Stone or Metal Objects",
             "DiscernAndPredictWeather": "Discern Weather Patterns and Predict Upcoming Weather Conditions",
             "Escape": "To Escape",
+            "EscapeForceOpenOrLift": "To Escape, Force Open, or Lift Heavy Objects",
             "Feint": "To Feint",
+            "ForceOpenGrappleShoveOrTrip": "To Force Open, Grapple, Shove, or Trip",
             "Forests": "In Forests",
+            "ForestsOrJungles": "In Forests or Jungles",
             "ForestsOrSnow": "In Forests or Snow",
             "ForestsOrSwamps": "In Forests or Swamps",
             "GatherInformation": "to Gather Information",
@@ -1021,6 +1108,7 @@
             "Orate": "To Orate",
             "Paint": "To Paint",
             "Raining": "Raining",
+            "RecallKnowledgeDeadSubject": "To Recall Knowledge about a deceased subject",
             "Rocky": "In Rocky Terrain",
             "RunningWater": "In Running Water",
             "RustyTerrain": "In Areas of Rusty Objects",
@@ -1180,6 +1268,12 @@
                     "Drops": "Level 1 barbarian class feature",
                     "Prompt": "Select an instinct."
                 },
+                "InuredToAlchemy": {
+                    "CriticalSuccess": "Each critical success reduces the stage by 3 for an alchemical poison, drug, or addiction.",
+                    "CriticalSuccessVirulent": "Each critical success reduces the stage by 2 for a virulent alchemical poison, drug, or addiction.",
+                    "Success": "Each of your successful saving throws against an alchemical poison, a drug, or an addiction reduces the stage by 2",
+                    "SuccessVirulent": "Each of your successful saving throws against a virulent alchemical poison, a drug, or an addiction reduces the stage by 1"
+                },
                 "Spirit": {
                     "NegativeDamage": "Negative Damage",
                     "PositiveDamage": "Positive Damage",
@@ -1288,6 +1382,10 @@
             },
             "Convergent": {
                 "Tactics": "An ally with Convergent Tactics is within reach of the target."
+            },
+            "CorrosiveBody": {
+                "Note": "The first time each round that you deal acid damage to a creature in this way, you gain [[/r 3d6 #Temporary Hit Points]]{3d6 temporary Hit Points}",
+                "Note9th": "The first time each round that you deal acid damage to a creature in this way, you gain [[/r 5d6 #Temporary Hit Points]]{5d6 temporary Hit Points}"
             },
             "Cover": {
                 "Greater": "Greater",
@@ -1596,6 +1694,9 @@
                 },
                 "TorchGoblin": {
                     "Note": "As long as you are suffering persistent fire damage, all your melee attacks against adjacent creatures deal an additional [[/r 1[fire]]]{1 Fire Damage} per weapon damage die."
+                },
+                "ScaldingSpit": {
+                    "BoilingSpit": "Boiling Spit"
                 }
             },
             "Gunslinger": {
@@ -1620,6 +1721,12 @@
                     "BalanceNote": "If you roll a success on an Acrobatics check to Balance, you get a critical success instead. You're not flat-footed when you attempt to Balance.",
                     "ClimbNote": "If you roll a success on an Athletics check to Climb, you get a critical success instead. You're not flat-footed when you attempt to Climb."
                 }
+            },
+            "HarrowCourt": {
+                "Fiend": {
+                    "ToggleLabel": "Repeating a non-strike action"
+                },
+                "BooksSuitPrompt": "Was the drawn card from Books?"
             },
             "HarrowDeck": {
                 "HarrowSuits": {
@@ -1668,6 +1775,12 @@
                 "SeekHuntedPrey": "To Seek hunted prey",
                 "TargetHuntedPrey": "Target is your Hunted Prey",
                 "TrackHuntedPrey": "To Track hunted prey"
+            },
+            "Ifrit": {
+                "Lavasoul": {
+                    "MagmaSpike": "Magma Spike",
+                    "MagmaSpikeCriticalSpecialization": "Instead of the normal critical specialization effect, the target takes [[/r 1d6[persistent,fire]]] damage; you gain a bonus on this persistent damage equal to your item bonus to attack rolls on unarmed attacks."
+                }
             },
             "Inventor": {
                 "Innovation": {
@@ -1720,7 +1833,7 @@
             },
             "Leshy": {
                 "Seedpod": {
-                    "Note": "On a critical hit, a seedpod bursts, issuing forth a tangle of vegetation that imposes a -10-foot circumstance penalty on the target's Speed for 1 round."
+                    "Note": "On a critical hit, a seedpod bursts, issuing forth a tangle of vegetation that imposes a -10-foot circumstance penalty on the target's Speed for 1 round. @UUID[Compendium.pf2e.feat-effects.wQDHpOKY3GZqvS2v]{Effect: Seedpod}"
                 },
                 "ThornedSeedpod": {
                     "Note": "When you critically succeed at a seedpod Strike, vines twist and stab your foe, dealing [[/r 1d4[persistent,piercing]]]"
@@ -1732,6 +1845,8 @@
                 }
             },
             "LitCandle": "Candle is lit",
+            "LitCandlecap": "Candlecap is lit",
+            "LitFirePoi": "Fire Poi is lit",
             "LitTorch": "Torch is lit",
             "Lizardfolk": {
                 "GuidedByTheStars": {
@@ -1761,6 +1876,12 @@
                 "DeceiveMark": "To use Deception to Feint your Mark",
                 "SeekMark": "To Seek your Mark",
                 "TargetMark": "Target is Marked for Death"
+            },
+            "Marshal": {
+                "DreadMarshalStance": {
+                    "Title": "Dread Marshal Aura",
+                    "Note": "When you critically hit an enemy with a Strike, that enemy is @UUID[Compendium.pf2e.conditionitems.TBSHQspnbcqxsmjL]{Frightened 1}."
+                }
             },
             "MartialProficiency": {
                 "AdvancedAzarketiWeapons": "Advanced Azarketi Weapons",
@@ -1845,8 +1966,9 @@
                 "SimpleMartialTwoHandedMeleeWeapons": "Simple & Martial Two-Handed Melee Weapons"
             },
             "MechanicalTorch": {
-                "LitCone": "Mechanical torch is lit (cone)",
-                "LitRadius": "Mechanical torch is lit (radius)"
+                "Label": "Mechanical Torch is lit",
+                "LitCone": "Cone",
+                "LitRadius": "Radius"
             },
             "Mindmoppet": {
                 "BrokenShell": "Shell is Broken"
@@ -1861,6 +1983,9 @@
                 },
                 "StunningFist": {
                     "Note": "The target must succeed at a @Check[type:fortitude|dc:resolve(@actor.system.proficiencies.classDCs.monk.value)|traits:incapacitation|overrideTraits:true] save against your class DC or be @UUID[Compendium.pf2e.conditionitems.dfCMdR4wnpbYNTix]{Stunned 1} (or @UUID[Compendium.pf2e.conditionitems.dfCMdR4wnpbYNTix]{Stunned 3} on a critical failure)."
+                },
+                "WolfDrag": {
+                    "Note": "If the attack succeeds, you knock the target @UUID[Compendium.pf2e.conditionitems.j91X7x0XSomq8d60]{Prone}."
                 }
             },
             "MountainStance": {
@@ -1940,6 +2065,7 @@
                 "ConsciousMind": "Select a Conscious Mind.",
                 "CreatureSize": "Select a creature size.",
                 "DamageType": "Select a damage type.",
+                "DegreeOfSuccess": "Select the degree of success",
                 "Deity": "Select a deity.",
                 "DeitysDomain": "Select a deity's domain.",
                 "DragonBreathWeapon": "Select a dragon's Breath Weapon.",
@@ -2000,6 +2126,11 @@
                     "Prompt": "Select a skill to become trained in."
                 }
             },
+            "SaveSuccessToCriticalSuccess": {
+                "Fortitude": "When you roll a success on a Fortitude save, you get a critical success instead.",
+                "Reflex": "When you roll a success on a Reflex save, you get a critical success instead.",
+                "Will": "When you roll a success on a Will save, you get a critical success instead."
+            },
             "ScionOfDomora": {
                 "GuardiansEmbrace": {
                     "PhysicalAttackLabel": "Guarding Against a Physical Attack",
@@ -2010,7 +2141,8 @@
             "Shisk": {
                 "PiercingQuills": {
                     "Note": "Your quills unarmed attack deals @Localize[PF2E.PersistentDamage.Bleed1d4.success] on a critical hit."
-                }
+                },
+                "Quills": "Quills"
             },
             "Shoony": {
                 "EsteemedVisitor": {
@@ -2024,6 +2156,9 @@
                 "AllowedDrops": "Skill Feats",
                 "ExpertPrompt": "Select a skill to become expert in.",
                 "MasterPrompt": "Select a skill to become master in."
+            },
+            "SmokingSword": {
+                "StokeFlames": "Stoke Flames"
             },
             "SneakAttack": "Sneak Attack",
             "SnipersAim": {
@@ -2106,6 +2241,9 @@
                     "WolfJaws": "Wolf Jaws"
                 }
             },
+            "SteadyBalance": {
+                "Note": "If you roll a success using the Balance action, you get a critical success instead."
+            },
             "SterlingDynamo": {
                 "AutomaticPercussive": "Automatic Percussive Striker Dynamo",
                 "AutomaticPower": "Automatic Power Driver Dynamo",
@@ -2144,6 +2282,19 @@
                 "AgainstDevils": "Against Devils",
                 "AgainstHumanoids": "Against Humanoids",
                 "Necromancer": "Target is a necromancer"
+            },
+            "Tattoo": {
+                "WildwoodInk": {
+                    "Greater": {
+                        "InForestLabel": "Wildwood Ink (Greater) (In Forest)"
+                    },
+                    "Major": {
+                        "InForestLabel": "Wildwood Ink (Major) (In Forest)"
+                    },
+                    "Normal": {
+                        "InForestLabel": "Wildwood Ink (In Forest)"
+                    }
+                }
             },
             "TerrainExpertise": {
                 "Prompt": "Select a terrain"
@@ -2240,6 +2391,8 @@
                 "ElementalMatter": "Elemental Matter",
                 "LongVines": "Long Vines",
                 "Prompt": "Select a morph.",
+                "PromptTwo": "Select a 2nd morph.",
+                "PromptThree": "Select a 3rd morph.",
                 "WildClaws": "Wild Claws",
                 "WildJaws": "Wild Jaws",
                 "Wings": "Wings"

@@ -1,0 +1,56 @@
+{
+    "_id": "CW4zphOOpeaLJIWc",
+    "img": "systems/pf2e/icons/equipment/cursed-items/euryale-curse-card.webp",
+    "name": "Effect: Recall Under Pressure",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +1 status bonus to saving throws for the remainder of the combat encounter as your morale soars or a +2 status bonus if the card you drew was from the suit of Books.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": 1
+                    },
+                    {
+                        "label": "UI.RuleElements.ChoiceSet.YesLabel",
+                        "value": 2
+                    }
+                ],
+                "flag": "bonus",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.HarrowCourt.BooksSuitPrompt"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "saving-throw",
+                "value": "@item.flags.pf2e.rulesSelections.bonus"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

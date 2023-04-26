@@ -1,6 +1,6 @@
-import { ItemSourcePF2e } from "@item/data";
-import { KitEntryData } from "@item/kit/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { KitEntryData } from "@item/kit/data.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Convert kit and ABC item pack/id references to UUIDs */
 export class Migration785ABCKitItemUUIDs extends MigrationBase {

@@ -1,5 +1,5 @@
 /** Configure or create a single Combatant within a Combat entity. */
-declare class CombatantConfig<TCombatant extends Combatant> extends DocumentSheet<TCombatant> {
+declare class CombatantConfig<TCombatant extends Combatant<Combat | null>> extends DocumentSheet<TCombatant> {
     static override get defaultOptions(): DocumentSheetOptions;
 
     override get title(): string;

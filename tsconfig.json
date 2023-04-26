@@ -1,48 +1,75 @@
 {
     "compilerOptions": {
-        "target": "es2018",
-        "module": "commonjs",
-        "lib": ["esnext", "dom", "dom.iterable"],
+        "target": "es2022",
+        "module": "esnext",
+        "moduleResolution": "node16",
+        "lib": [
+            "esnext",
+            "dom",
+            "dom.iterable"
+        ],
         "noEmit": true,
         "strict": true,
         "noFallthroughCasesInSwitch": true,
+        "skipLibCheck": true,
         "noImplicitOverride": true,
         "noImplicitReturns": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-
+        "allowImportingTsExtensions": true,
         "forceConsistentCasingInFileNames": true,
         "esModuleInterop": true,
         "sourceMap": true,
         "baseUrl": ".",
+        "rootDir": ".",
+        "outDir": "dist",
         "allowUnusedLabels": false,
         "removeComments": false,
         "resolveJsonModule": true,
+        "useDefineForClassFields": true,
         "paths": {
-            "@actor": ["src/module/actor"],
-            "@actor/*": ["src/module/actor/*"],
-            "@item": ["src/module/item"],
-            "@item/*": ["src/module/item/*"],
-            "@scene": ["src/module/scene"],
-            "@scene/*": ["src/module/scene/*"],
-            "@system/*": ["src/module/system/*"],
-            "@module/*": ["src/module/*"],
-            "@scripts/*": ["src/scripts/*"],
-            "@util": ["src/util"],
-            "@util/*": ["src/util/*"],
-            // https://github.com/Hypercubed/mini-signals/issues/20
-            "mini-signals": [
-                "node_modules/resource-loader/typings/mini-signals.d.ts"
+            "@actor": [
+                "src/module/actor/index.ts"
+            ],
+            "@actor/*": [
+                "src/module/actor/*"
+            ],
+            "@item": [
+                "src/module/item/index.ts"
+            ],
+            "@item/*": [
+                "src/module/item/*"
+            ],
+            "@scene": [
+                "src/module/scene/index.ts"
+            ],
+            "@scene/*": [
+                "src/module/scene/*"
+            ],
+            "@system/*": [
+                "src/module/system/*"
+            ],
+            "@module/*": [
+                "src/module/*"
+            ],
+            "@scripts/*": [
+                "src/scripts/*"
+            ],
+            "@util": [
+                "src/util/index.ts"
+            ],
+            "@util/*": [
+                "src/util/*"
             ]
         },
         "types": [
-            "jquery",
-            "tooltipster",
             "gsap",
+            "handlebars",
             "jest",
+            "jquery",
             "node",
-            "webpack-env",
-            "handlebars"
+            "tooltipster",
+            "vite/client"
         ],
         "typeRoots": [
             "node_modules/@types",
@@ -51,9 +78,9 @@
         ]
     },
     "watchOptions": {
-        "excludeDirectories": ["packs/data/", "static/packs/"],
-    },
-    "ts-node": {
-        "files": true
+        "excludeDirectories": [
+            "packs/data/",
+            "static/packs/"
+        ]
     }
 }

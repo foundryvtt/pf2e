@@ -314,20 +314,20 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>On a critical hit, the shadern immolator's fist Strike also deals [[/r 1d4[persistent,fire]]] damage.</p>"
+                    "value": "<p>On a critical hit, the shadern immolator's fist Strike also deals 1d4 persistent fire damage.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "fist-damage",
-                        "text": "PF2E.PersistentDamage.Fire1d4.success",
-                        "visibility": "gm"
+                        "category": "persistent",
+                        "critical": true,
+                        "damageType": "fire",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "selector": "fist-damage"
                     }
                 ],
                 "slug": "smoldering-fist",
@@ -479,7 +479,7 @@
                 }
             ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 5

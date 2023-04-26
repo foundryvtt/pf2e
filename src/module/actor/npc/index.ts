@@ -1,3 +1,3 @@
-export * from "./data";
-export { NPCPF2e } from "./document";
-export { NPCSheetPF2e } from "./sheet";
+export * from "./data.ts";
+export { NPCPF2e } from "./document.ts";
+export { NPCSheetPF2e } from "./sheet.ts";

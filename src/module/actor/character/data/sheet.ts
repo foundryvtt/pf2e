@@ -1,14 +1,14 @@
 import { CharacterPF2e } from "@actor";
-import { CraftingEntry } from "@actor/character/crafting/entry";
-import { CraftingFormula } from "@actor/character/crafting/formula";
-import { CreatureSheetData } from "@actor/creature/types";
-import { SaveType } from "@actor/types";
+import { CraftingEntry } from "@actor/character/crafting/entry.ts";
+import { CraftingFormula } from "@actor/character/crafting/formula.ts";
+import { CreatureSheetData } from "@actor/creature/types.ts";
+import { SaveType } from "@actor/types.ts";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e, DeityPF2e, HeritagePF2e } from "@item";
-import { MagicTradition } from "@item/spell";
-import { SpellcastingSheetData } from "@item/spellcasting-entry";
-import { FlattenedCondition } from "@system/conditions";
-import { CHARACTER_SHEET_TABS } from "../values";
-import { BonusFeat, CharacterSaveData, CharacterSystemData, ClassDCData, SlottedFeat } from "./types";
+import { MagicTradition } from "@item/spell/index.ts";
+import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
+import { FlattenedCondition } from "@system/conditions/index.ts";
+import { CHARACTER_SHEET_TABS } from "../values.ts";
+import { BonusFeat, CharacterSaveData, CharacterSystemData, ClassDCData, SlottedFeat } from "./types.ts";
 
 type CharacterSheetOptions = ActorSheetOptions;
 
@@ -64,14 +64,14 @@ interface CraftingSheetData {
 
 type CharacterSheetTabVisibility = Record<(typeof CHARACTER_SHEET_TABS)[number], boolean>;
 
-interface CharacterSheetData extends CreatureSheetData<CharacterPF2e> {
+interface CharacterSheetData<TActor extends CharacterPF2e> extends CreatureSheetData<TActor> {
     abpEnabled: boolean;
-    ancestry: Embedded<AncestryPF2e> | null;
-    heritage: Embedded<HeritagePF2e> | null;
-    background: Embedded<BackgroundPF2e> | null;
+    ancestry: AncestryPF2e<CharacterPF2e> | null;
+    heritage: HeritagePF2e<CharacterPF2e> | null;
+    background: BackgroundPF2e<CharacterPF2e> | null;
     adjustedBonusEncumbranceBulk: boolean;
     adjustedBonusLimitBulk: boolean;
-    class: Embedded<ClassPF2e> | null;
+    class: ClassPF2e<CharacterPF2e> | null;
     classDCs: {
         dcs: ClassDCSheetData[];
         /** The slug of the character's primary class DC */
@@ -81,7 +81,7 @@ interface CharacterSheetData extends CreatureSheetData<CharacterPF2e> {
     };
     crafting: CraftingSheetData;
     data: CharacterSystemSheetData;
-    deity: Embedded<DeityPF2e> | null;
+    deity: DeityPF2e<CharacterPF2e> | null;
     hasStamina: boolean;
     /** This actor has actual containers for stowing, rather than just containers serving as a UI convenience */
     hasRealContainers: boolean;

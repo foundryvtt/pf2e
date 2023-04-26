@@ -1,12 +1,13 @@
-import type { ActorPF2e } from "@actor/base";
-import type { ItemPF2e } from "@item/base";
-import type { MacroPF2e } from "@module/macro";
-import { MigrationRunnerBase } from "@module/migration/runner/base";
-import { MigrationBase } from "@module/migration/base";
-import type { UserPF2e } from "@module/user";
-import { TokenDocumentPF2e } from "@module/scene/token-document";
-import { ItemSourcePF2e } from "@item/data";
-import { ActorSourcePF2e } from "@actor/data";
+import type { ActorPF2e } from "@actor/base.ts";
+import type { ItemPF2e } from "@item/base.ts";
+import type { MacroPF2e } from "@module/macro.ts";
+import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
+import { MigrationBase } from "@module/migration/base.ts";
+import type { UserPF2e } from "@module/user/index.ts";
+import { TokenDocumentPF2e } from "@scene/token-document/index.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ScenePF2e } from "@scene/index.ts";
 
 export class MigrationRunner extends MigrationRunnerBase {
     override needsMigration(): boolean {
@@ -45,11 +46,11 @@ export class MigrationRunner extends MigrationRunnerBase {
     }
 
     /** Migrate actor or item documents in batches of 50 */
-    private async migrateDocuments<TDocument extends ActorPF2e | ItemPF2e>(
+    async #migrateDocuments<TDocument extends ActorPF2e<null> | ItemPF2e<null>>(
         collection: WorldCollection<TDocument> | CompendiumCollection<TDocument>,
         migrations: MigrationBase[]
     ): Promise<void> {
-        const DocumentClass = collection.documentClass as unknown as typeof ClientDocument;
+        const DocumentClass = collection.documentClass;
         const pack = "metadata" in collection ? collection.metadata.id : null;
         const updateGroup: TDocument["_source"][] = [];
         // Have familiars go last so that their data migration and re-preparation happen after their master's
@@ -65,8 +66,8 @@ export class MigrationRunner extends MigrationRunnerBase {
             }
             const updated =
                 "items" in document
-                    ? await this.migrateActor(migrations, document, { pack })
-                    : await this.migrateItem(migrations, document, { pack });
+                    ? await this.#migrateActor(migrations, document, { pack })
+                    : await this.#migrateItem(migrations, document, { pack });
             if (updated) updateGroup.push(updated);
         }
         if (updateGroup.length > 0) {
@@ -78,7 +79,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
-    private async migrateItem(
+    async #migrateItem(
         migrations: MigrationBase[],
         item: ItemPF2e,
         options: { pack?: string | null } = {}
@@ -89,7 +90,9 @@ export class MigrationRunner extends MigrationRunnerBase {
             try {
                 return this.getUpdatedItem(baseItem, migrations);
             } catch (error) {
-                console.error(error);
+                if (error instanceof Error) {
+                    console.error(`Error thrown while migrating ${item.uuid}: ${error.message}`);
+                }
                 return null;
             }
         })();
@@ -113,7 +116,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         return updatedItem;
     }
 
-    private async migrateActor(
+    async #migrateActor(
         migrations: MigrationBase[],
         actor: ActorPF2e,
         options: { pack?: string | null } = {}
@@ -125,7 +128,9 @@ export class MigrationRunner extends MigrationRunnerBase {
                 return this.getUpdatedActor(baseActor, migrations);
             } catch (error) {
                 // Output the error, since this means a migration threw it
-                console.error(error);
+                if (error instanceof Error) {
+                    console.error(`Error thrown while migrating ${actor.uuid}: ${error.message}`);
+                }
                 return null;
             }
         })();
@@ -191,7 +196,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         return updatedActor;
     }
 
-    private async migrateWorldJournalEntry(journalEntry: JournalEntry, migrations: MigrationBase[]): Promise<void> {
+    async #migrateWorldJournalEntry(journalEntry: JournalEntry, migrations: MigrationBase[]): Promise<void> {
         if (!migrations.some((migration) => !!migration.updateJournalEntry)) return;
 
         try {
@@ -205,7 +210,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
-    private async migrateWorldMacro(macro: MacroPF2e, migrations: MigrationBase[]): Promise<void> {
+    async #migrateWorldMacro(macro: MacroPF2e, migrations: MigrationBase[]): Promise<void> {
         if (!migrations.some((migration) => !!migration.updateMacro)) return;
 
         try {
@@ -219,7 +224,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
-    private async migrateWorldTable(table: RollTable, migrations: MigrationBase[]): Promise<void> {
+    async #migrateWorldTable(table: RollTable, migrations: MigrationBase[]): Promise<void> {
         if (!migrations.some((migration) => !!migration.updateTable)) return;
 
         try {
@@ -233,10 +238,10 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
-    private async migrateSceneToken(
-        token: TokenDocumentPF2e,
+    async #migrateSceneToken(
+        token: TokenDocumentPF2e<ScenePF2e>,
         migrations: MigrationBase[]
-    ): Promise<foundry.data.TokenSource | null> {
+    ): Promise<foundry.documents.TokenSource | null> {
         if (!migrations.some((migration) => !!migration.updateToken)) return token.toObject();
 
         try {
@@ -257,7 +262,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
-    private async migrateUser(user: UserPF2e, migrations: MigrationBase[]): Promise<void> {
+    async #migrateUser(user: UserPF2e, migrations: MigrationBase[]): Promise<void> {
         if (!migrations.some((migration) => !!migration.updateUser)) return;
 
         try {
@@ -272,7 +277,9 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
-    async runCompendiumMigration<T extends ActorPF2e | ItemPF2e>(compendium: CompendiumCollection<T>) {
+    async runCompendiumMigration<T extends ActorPF2e<null> | ItemPF2e<null>>(
+        compendium: CompendiumCollection<T>
+    ): Promise<void> {
         ui.notifications.info(game.i18n.format("PF2E.Migrations.Starting", { version: game.system.version }), {
             permanent: true,
         });
@@ -284,7 +291,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         );
 
         const migrations = this.migrations.filter((migration) => migration.version > lowestSchemaVersion);
-        await this.migrateDocuments(compendium, migrations);
+        await this.#migrateDocuments(compendium, migrations);
 
         ui.notifications.info(game.i18n.format("PF2E.Migrations.Finished", { version: game.system.version }), {
             permanent: true,
@@ -295,29 +302,29 @@ export class MigrationRunner extends MigrationRunnerBase {
         if (migrations.length === 0) return;
 
         // Migrate World Actors
-        await this.migrateDocuments(game.actors as WorldCollection<ActorPF2e>, migrations);
+        await this.#migrateDocuments(game.actors as WorldCollection<ActorPF2e<null>>, migrations);
 
         // Migrate World Items
-        await this.migrateDocuments(game.items, migrations);
+        await this.#migrateDocuments(game.items, migrations);
 
         // Migrate world journal entries
         for (const entry of game.journal) {
-            await this.migrateWorldJournalEntry(entry, migrations);
+            await this.#migrateWorldJournalEntry(entry, migrations);
         }
 
         const promises: Promise<unknown>[] = [];
         // Migrate World Macros
         for (const macro of game.macros) {
-            promises.push(this.migrateWorldMacro(macro, migrations));
+            promises.push(this.#migrateWorldMacro(macro, migrations));
         }
 
         // Migrate World RollTables
         for (const table of game.tables) {
-            promises.push(this.migrateWorldTable(table, migrations));
+            promises.push(this.#migrateWorldTable(table, migrations));
         }
 
         for (const user of game.users) {
-            promises.push(this.migrateUser(user, migrations));
+            promises.push(this.#migrateUser(user, migrations));
         }
 
         // call the free-form migration function. can really do anything
@@ -336,7 +343,7 @@ export class MigrationRunner extends MigrationRunnerBase {
                 const { actor } = token;
                 if (!actor) continue;
 
-                const wasSuccessful = !!(await this.migrateSceneToken(token, migrations));
+                const wasSuccessful = !!(await this.#migrateSceneToken(token, migrations));
                 if (!wasSuccessful) continue;
 
                 // Only migrate if the synthetic actor has replaced migratable data
@@ -345,7 +352,7 @@ export class MigrationRunner extends MigrationRunnerBase {
                     Object.keys(token._source.actorData).some((k) => ["items", "system"].includes(k));
 
                 if (actor.isToken && hasMigratableData) {
-                    const updated = await this.migrateActor(migrations, actor);
+                    const updated = await this.#migrateActor(migrations, actor);
                     if (updated) {
                         try {
                             await actor.update(updated);
@@ -358,7 +365,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
-    async runMigration(force = false) {
+    async runMigration(force = false): Promise<void> {
         const schemaVersion = {
             latest: MigrationRunner.LATEST_SCHEMA_VERSION,
             current: game.settings.get("pf2e", "worldSchemaVersion"),

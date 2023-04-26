@@ -1,14 +1,14 @@
-import { CharacterPF2e } from "@actor";
-import { CreatureSensePF2e } from "@actor/creature/sense";
-import { CreatureTrait } from "@actor/creature/types";
-import { SIZE_TO_REACH } from "@actor/creature/values";
-import { AbilityString } from "@actor/types";
+import { ActorPF2e, CharacterPF2e } from "@actor";
+import { CreatureSensePF2e } from "@actor/creature/sense.ts";
+import { CreatureTrait } from "@actor/creature/types.ts";
+import { SIZE_TO_REACH } from "@actor/creature/values.ts";
+import { AbilityString } from "@actor/types.ts";
 import { ABCItemPF2e, FeatPF2e } from "@item";
-import { Size } from "@module/data";
+import { Size } from "@module/data.ts";
 import { sluggify } from "@util";
-import { AncestryData, AncestrySystemData } from "./data";
+import { AncestrySource, AncestrySystemData } from "./data.ts";
 
-class AncestryPF2e extends ABCItemPF2e {
+class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABCItemPF2e<TParent> {
     get traits(): Set<CreatureTrait> {
         return new Set(this.system.traits.value);
     }
@@ -34,13 +34,13 @@ class AncestryPF2e extends ABCItemPF2e {
     }
 
     /** Include all ancestry features in addition to any with the expected location ID */
-    override getLinkedItems(): Embedded<FeatPF2e>[] {
+    override getLinkedItems(): FeatPF2e<ActorPF2e>[] {
         if (!this.actor) return [];
 
         return Array.from(
             new Set([
                 ...super.getLinkedItems(),
-                ...this.actor.itemTypes.feat.filter((f) => f.featType === "ancestryfeature"),
+                ...this.actor.itemTypes.feat.filter((f) => f.category === "ancestryfeature"),
             ])
         );
     }
@@ -62,7 +62,7 @@ class AncestryPF2e extends ABCItemPF2e {
     }
 
     /** Prepare a character's data derived from their ancestry */
-    override prepareActorData(this: Embedded<AncestryPF2e>): void {
+    override prepareActorData(this: AncestryPF2e<CharacterPF2e>): void {
         const { actor } = this;
         if (!(actor instanceof CharacterPF2e)) {
             console.error("PF2e System | Only a character can have an ancestry");
@@ -134,8 +134,8 @@ class AncestryPF2e extends ABCItemPF2e {
     }
 }
 
-interface AncestryPF2e extends ABCItemPF2e {
-    readonly data: AncestryData;
+interface AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABCItemPF2e<TParent> {
+    readonly _source: AncestrySource;
     system: AncestrySystemData;
 }
 

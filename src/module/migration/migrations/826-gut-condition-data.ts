@@ -1,6 +1,6 @@
-import { ConditionSystemSource } from "@item/condition/data";
-import { ItemSourcePF2e } from "@item/data";
-import { MigrationBase } from "../base";
+import { ConditionSystemSource } from "@item/condition/data.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Remove unused cruft from condition data */
 export class Migration826GutConditionData extends MigrationBase {

@@ -274,7 +274,7 @@
             },
             "img": "systems/pf2e/icons/spells/circle-of-protection.webp",
             "name": "Circle of Protection",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "ability": {
                     "value": ""
@@ -378,7 +378,7 @@
             },
             "img": "systems/pf2e/icons/spells/searing-light.webp",
             "name": "Searing Light",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "ability": {
                     "value": ""
@@ -399,8 +399,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "fire"
                             },
                             "value": "5d6"
@@ -408,7 +410,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You shoot a blazing ray of light tinged with holy energy. Make a ranged spell attack. The ray deals 5d6 fire damage. If the target is a fiend or undead, you deal an extra [[/r 5d6[good]]] damage.</p>\n<p>If the light passes through an area of magical darkness or targets a creature affected by magical darkness, <em>searing light</em> attempts to counteract the darkness. If you need to determine whether the light passes through an area of darkness, draw a line between yourself and the spell's target</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double fire damage, as well as double good damage if a fiend or undead.</p>\n<p><strong>Success</strong> The target takes full damage</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The fire damage increases by 2d6, and the good damage against fiends and undead increases by 2d6.</p>"
+                    "value": "<p>You shoot a blazing ray of light tinged with holy energy. Make a ranged spell attack. The ray deals 5d6 fire damage. If the target is a fiend or undead, you deal an extra 5d6 good damage.</p>\n<p>If the light passes through an area of magical darkness or targets a creature affected by magical darkness, <em>searing light</em> attempts to counteract the darkness. If you need to determine whether the light passes through an area of darkness, draw a line between yourself and the spell's target</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double fire damage, as well as double good damage if a fiend or undead.</p>\n<p><strong>Success</strong> The target takes full damage</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The fire damage increases by 2d6, and the good damage against fiends and undead increases by 2d6.</p>\n<p>[[/r ((@item.level*2)-1)d6[good]]]{Leveled Good Damage}</p>"
                 },
                 "duration": {
                     "value": ""
@@ -441,7 +443,23 @@
                 "range": {
                     "value": "120 feet"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "good",
+                        "diceNumber": "(@spell.level*2)-1",
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:trait:fiend",
+                                    "target:trait:undead"
+                                ]
+                            }
+                        ],
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "save": {
                     "basic": "",
                     "value": ""
@@ -498,7 +516,7 @@
             },
             "img": "systems/pf2e/icons/spells/consecrate.webp",
             "name": "Consecrate",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "ability": {
                     "value": ""
@@ -599,7 +617,7 @@
             },
             "img": "systems/pf2e/icons/spells/gentle-repose.webp",
             "name": "Gentle Repose",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "ability": {
                     "value": ""
@@ -701,7 +719,7 @@
             },
             "img": "systems/pf2e/icons/spells/silence.webp",
             "name": "Silence",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "ability": {
                     "value": ""
@@ -801,7 +819,7 @@
             },
             "img": "systems/pf2e/icons/spells/spiritual-weapon.webp",
             "name": "Spiritual Weapon",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "ability": {
                     "value": ""
@@ -919,7 +937,7 @@
             },
             "img": "systems/pf2e/icons/spells/deaths-call.webp",
             "name": "Death's Call",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "ability": {
                     "value": ""
@@ -1018,7 +1036,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "ability": {
                     "value": ""
@@ -1127,7 +1145,7 @@
             },
             "img": "systems/pf2e/icons/spells/disrupt-undead.webp",
             "name": "Disrupt Undead",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "ability": {
                     "value": ""
@@ -1247,7 +1265,7 @@
             },
             "img": "systems/pf2e/icons/spells/disrupting-weapons.webp",
             "name": "Disrupting Weapons",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "ability": {
                     "value": ""
@@ -1348,16 +1366,12 @@
             },
             "img": "systems/pf2e/icons/spells/heal.webp",
             "name": "Heal",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "details": "varies",
-                    "type": "emanation",
-                    "value": 30
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1376,7 +1390,6 @@
                             "applyMod": false,
                             "type": {
                                 "categories": [],
-                                "subtype": "",
                                 "value": "positive"
                             },
                             "value": "1d8"
@@ -1415,10 +1428,6 @@
                         "overlayType": "override",
                         "sort": 2,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true,
                                 "verbal": true
@@ -1430,7 +1439,6 @@
                                     }
                                 }
                             },
-                            "heightenedLevel": {},
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -1453,14 +1461,9 @@
                         "overlayType": "override",
                         "sort": 1,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": "touch"
                             },
@@ -1474,12 +1477,15 @@
                         "overlayType": "override",
                         "sort": 4,
                         "system": {
+                            "area": {
+                                "type": "emanation",
+                                "value": 30
+                            },
                             "components": {
                                 "material": true,
                                 "somatic": true,
                                 "verbal": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": ""
                             },
@@ -1497,15 +1503,10 @@
                         "overlayType": "override",
                         "sort": 3,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true,
                                 "verbal": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": "30 feet"
                             },
@@ -1586,7 +1587,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 1500000,
+            "sort": 1400000,
             "system": {
                 "ability": {
                     "value": ""
@@ -1692,7 +1693,7 @@
             },
             "img": "systems/pf2e/icons/spells/mindlink.webp",
             "name": "Mindlink",
-            "sort": 1600000,
+            "sort": 1500000,
             "system": {
                 "ability": {
                     "value": ""
@@ -1793,7 +1794,7 @@
             },
             "img": "systems/pf2e/icons/spells/read-aura.webp",
             "name": "Read Aura",
-            "sort": 1700000,
+            "sort": 1600000,
             "system": {
                 "ability": {
                     "value": ""
@@ -1899,7 +1900,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 1800000,
+            "sort": 1700000,
             "system": {
                 "ability": {
                     "value": ""
@@ -2003,7 +2004,7 @@
             },
             "img": "systems/pf2e/icons/spells/spirit-link.webp",
             "name": "Spirit Link",
-            "sort": 1900000,
+            "sort": 1800000,
             "system": {
                 "ability": {
                     "value": ""
@@ -2105,7 +2106,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
             "name": "Dagger",
-            "sort": 2000000,
+            "sort": 1900000,
             "system": {
                 "MAP": {
                     "value": ""
@@ -2219,7 +2220,7 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/religious-symbol-silver.webp",
             "name": "Religious Symbol of Pharasma",
-            "sort": 2100000,
+            "sort": 2000000,
             "system": {
                 "baseItem": null,
                 "containerId": null,
@@ -2287,7 +2288,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Dagger",
-            "sort": 2200000,
+            "sort": 2100000,
             "system": {
                 "attack": {
                     "value": ""
@@ -2335,7 +2336,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Dagger",
-            "sort": 2300000,
+            "sort": 2200000,
             "system": {
                 "attack": {
                     "value": ""
@@ -2379,7 +2380,7 @@
             "_id": "6SS8rVfwSj7Oy7WY",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Healing Hands",
-            "sort": 2400000,
+            "sort": 2300000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -2429,7 +2430,7 @@
             "_id": "1VRZfyweUQjfqW3F",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Steady Spellcasting",
-            "sort": 2500000,
+            "sort": 2400000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -2468,7 +2469,7 @@
             "_id": "wd1WE0NxbgOqFWT1",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 2600000,
+            "sort": 2500000,
             "system": {
                 "description": {
                     "value": ""
@@ -2491,7 +2492,7 @@
             "_id": "dz9Nbn0n6iYqBEqk",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Medicine",
-            "sort": 2700000,
+            "sort": 2600000,
             "system": {
                 "description": {
                     "value": ""
@@ -2514,7 +2515,7 @@
             "_id": "8ibJeJpay7MI5B2l",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2800000,
+            "sort": 2700000,
             "system": {
                 "description": {
                     "value": ""
@@ -2537,7 +2538,7 @@
             "_id": "mSsoBbHNxNRyQnHO",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 2900000,
+            "sort": 2800000,
             "system": {
                 "description": {
                     "value": ""
@@ -2560,7 +2561,7 @@
             "_id": "7UOsDPQgNjAa996A",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 3000000,
+            "sort": 2900000,
             "system": {
                 "description": {
                     "value": ""
@@ -2617,7 +2618,7 @@
                 "value": 80
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 14

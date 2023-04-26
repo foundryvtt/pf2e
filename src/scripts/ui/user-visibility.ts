@@ -1,4 +1,4 @@
-import { ChatMessagePF2e } from "@module/chat-message";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { htmlQueryAll, objectHasKey } from "@util";
 
 class UserVisibilityPF2e {
@@ -90,7 +90,7 @@ class UserVisibilityPF2e {
 type UserVisibility = "all" | "owner" | "gm" | "none";
 
 interface ProcessOptions {
-    document?: ClientDocument | ClientDocument2 | null;
+    document?: ClientDocument | null;
     message?: ChatMessagePF2e;
 }
 

@@ -1,15 +1,16 @@
-import { ActorType } from "@actor/data";
+import { ActorPF2e } from "@actor";
+import { ActorType } from "@actor/data/index.ts";
 import { ItemPF2e, WeaponPF2e } from "@item";
-import { getStrikingDice } from "@item/physical/runes";
-import { StrikingSynthetic } from "../synthetics";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./";
+import { getStrikingDice } from "@item/physical/runes.ts";
+import { StrikingSynthetic } from "../synthetics.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
 
 export class StrikingRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
     selector: string;
 
-    constructor(data: StrikingSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: StrikingSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
         if (typeof data.selector === "string") {

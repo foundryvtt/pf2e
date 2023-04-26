@@ -1,10 +1,10 @@
-import { ItemSourcePF2e } from "@item/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 export class Migration618MigrateItemImagePaths extends MigrationBase {
     static override version = 0.618;
 
-    readonly IMAGE_PATHS: Record<string, ImageFilePath> = {
+    readonly #IMAGE_PATHS: Record<string, ImageFilePath> = {
         "systems/pf2e/icons/equipment/weapons/blowgun.png": "systems/pf2e/icons/equipment/weapons/blowgun.jpg",
         "systems/pf2e/icons/equipment/weapons/trident.png": "systems/pf2e/icons/equipment/weapons/trident.jpg",
         "systems/pf2e/icons/equipment/weapons/longsword.png": "systems/pf2e/icons/equipment/weapons/longsword.jpg",
@@ -64,7 +64,7 @@ export class Migration618MigrateItemImagePaths extends MigrationBase {
         "systems/pf2e/icons/equipment/weapons/cane.png": "systems/pf2e/icons/equipment/weapons/cane.jpg",
     };
 
-    override async updateItem(itemData: ItemSourcePF2e) {
-        itemData.img = this.IMAGE_PATHS[itemData.img] ?? itemData.img;
+    override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
+        itemData.img = this.#IMAGE_PATHS[itemData.img] ?? itemData.img;
     }
 }

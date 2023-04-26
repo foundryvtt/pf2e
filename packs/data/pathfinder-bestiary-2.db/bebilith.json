@@ -662,12 +662,23 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
+                        "key": "AdjustStrike",
+                        "mode": "add",
                         "predicate": [
                             "target:trait:demon"
                         ],
-                        "selector": "attack",
-                        "text": "<div data-visibility='gm'><p><strong>{item|name}</strong></p>{item|system.description.value}</div>"
+                        "property": "materials",
+                        "value": "cold-iron"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "damageType": "good"
+                        },
+                        "predicate": [
+                            "target:trait:demon"
+                        ],
+                        "selector": "strike-damage"
                     }
                 ],
                 "slug": null,
@@ -817,7 +828,7 @@
                 "value": 200
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 21

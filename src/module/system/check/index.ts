@@ -1,4 +1,4 @@
-export { CheckRoll } from "./roll";
-export { StrikeAttackRoll } from "./strike/attack-roll";
-export * from "./types";
-export * from "./check";
+export { CheckRoll } from "./roll.ts";
+export { StrikeAttackRoll } from "./strike/attack-roll.ts";
+export * from "./types.ts";
+export * from "./check.ts";

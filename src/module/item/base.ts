@@ -1,35 +1,36 @@
-import { ActorPF2e } from "@actor";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { preImportJSON } from "@module/doc-helpers";
-import { MigrationList, MigrationRunner } from "@module/migration";
-import { MigrationRunnerBase } from "@module/migration/runner/base";
-import { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource } from "@module/rules";
-import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers";
-import { UserPF2e } from "@module/user";
-import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
+import { ActorPF2e } from "@actor/base.ts";
+import { ChatMessagePF2e } from "@module/chat-message/document.ts";
+import { preImportJSON } from "@module/doc-helpers.ts";
+import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
+import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource } from "@module/rules/index.ts";
+import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers.ts";
+import { UserPF2e } from "@module/user/document.ts";
+import { EnrichHTMLOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, isObject, setHasElement, sluggify } from "@util";
-import { AfflictionSource } from "./affliction";
-import { ContainerPF2e } from "./container";
+import { AfflictionSource } from "./affliction/data.ts";
+import { ContainerPF2e } from "./container/document.ts";
 import {
     ConditionSource,
     EffectSource,
     FeatSource,
-    ItemDataPF2e,
     ItemSourcePF2e,
     ItemSummaryData,
     ItemType,
     TraitChatData,
-} from "./data";
-import { isItemSystemData, isPhysicalData } from "./data/helpers";
-import { PhysicalItemPF2e } from "./physical/document";
-import { PHYSICAL_ITEM_TYPES } from "./physical/values";
-import { ItemSheetPF2e } from "./sheet/base";
-import { ItemFlagsPF2e, ItemSystemData } from "./data/base";
+} from "./data/index.ts";
+import { isItemSystemData, isPhysicalData } from "./data/helpers.ts";
+import { PhysicalItemPF2e } from "./physical/document.ts";
+import { PHYSICAL_ITEM_TYPES } from "./physical/values.ts";
+import { ItemSheetPF2e } from "./sheet/base.ts";
+import { ItemFlagsPF2e, ItemSystemData } from "./data/base.ts";
+import { ItemInstances } from "./types.ts";
+import { UUIDUtils } from "@util/uuid-utils.ts";
 
 /** Override and extend the basic :class:`Item` implementation */
-class ItemPF2e extends Item<ActorPF2e> {
+class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item<TParent> {
     /** Prepared rule elements from this item */
-    rules!: RuleElementPF2e[];
+    declare rules: RuleElementPF2e[];
 
     /** The sluggified name of the item **/
     get slug(): string | null {
@@ -51,24 +52,59 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /** The item that granted this item, if any */
-    get grantedBy(): Embedded<ItemPF2e> | null {
+    get grantedBy(): ItemPF2e<ActorPF2e> | null {
         return this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "") ?? null;
     }
 
+    /** Check whether this item is in-memory-only on an actor rather than being a world item or embedded and stored */
+    get isTemporary(): boolean {
+        return !!this.actor && !this.actor.items.has(this.id ?? "");
+    }
+
+    /**
+     * Set a source ID on a dropped embedded item without a full data reset
+     * This is currently necessary as of 10.291 due to system measures to prevent premature data preparation
+     */
+    static override fromDropData<TDocument extends foundry.abstract.Document>(
+        this: ConstructorOf<TDocument>,
+        data: object,
+        options?: Record<string, unknown>
+    ): Promise<TDocument | undefined>;
+    static override fromDropData(data: object, options?: Record<string, unknown>): Promise<ClientDocument | undefined> {
+        if ("uuid" in data && UUIDUtils.isItemUUID(data.uuid)) {
+            const item = fromUuidSync(data.uuid);
+            if (item instanceof ItemPF2e && item.parent && !item.sourceId) {
+                // Upstream would do this via `item.updateSource(...)`, causing a data reset
+                item._source.flags = mergeObject(item._source.flags, { core: { sourceId: item.uuid } });
+                item.flags = mergeObject(item.flags, { core: { sourceId: item.uuid } });
+            }
+        }
+
+        return super.fromDropData(data, options);
+    }
+
     /** Check this item's type (or whether it's one among multiple types) without a call to `instanceof` */
-    isOfType<T extends ItemType>(...types: T[]): this is InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][T]>;
-    isOfType(type: "physical"): this is PhysicalItemPF2e;
+    isOfType<T extends ItemType>(...types: T[]): this is ItemInstances<TParent>[T];
+    isOfType(type: "physical"): this is PhysicalItemPF2e<TParent>;
     isOfType<T extends "physical" | ItemType>(
         ...types: T[]
-    ): this is PhysicalItemPF2e | InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][Exclude<T, "physical">]>;
+    ): this is T extends "physical"
+        ? PhysicalItemPF2e<TParent>
+        : T extends ItemType
+        ? ItemInstances<TParent>[T]
+        : never;
     isOfType(...types: string[]): boolean {
         return types.some((t) => (t === "physical" ? setHasElement(PHYSICAL_ITEM_TYPES, this.type) : this.type === t));
     }
 
     /** Redirect the deletion of any owned items to ActorPF2e#deleteEmbeddedDocuments for a single workflow */
-    override async delete(context: DocumentModificationContext<this> = {}): Promise<this> {
+    override async delete(context: DocumentModificationContext<TParent> = {}): Promise<this> {
         if (this.actor) {
-            await this.actor.deleteEmbeddedDocuments("Item", [this.id], context);
+            await this.actor.deleteEmbeddedDocuments(
+                "Item",
+                [this.id],
+                context as DocumentModificationContext<NonNullable<TParent>>
+            );
             return this;
         }
         return super.delete(context);
@@ -122,7 +158,7 @@ class ItemPF2e extends Item<ActorPF2e> {
      * follow-up options for attack rolls, effect application, etc.
      */
     async toMessage(
-        event?: JQuery.TriggeredEvent,
+        event?: MouseEvent | JQuery.TriggeredEvent,
         {
             rollMode = undefined,
             create = true,
@@ -134,7 +170,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         // Basic template rendering data
         const template = `systems/pf2e/templates/chat/${this.type}-card.hbs`;
         const token = this.actor.token;
-        const nearestItem = event ? event.currentTarget.closest(".item") : {};
+        const nearestItem = event?.currentTarget.closest(".item") ?? {};
         const contextualData = Object.keys(data).length > 0 ? data : nearestItem.dataset || {};
         const templateData = {
             actor: this.actor,
@@ -144,7 +180,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         };
 
         // Basic chat message data
-        const chatData: PreCreate<foundry.data.ChatMessageSource> = {
+        const chatData: PreCreate<foundry.documents.ChatMessageSource> = {
             speaker: ChatMessagePF2e.getSpeaker({
                 actor: this.actor,
                 token: this.actor.getActiveTokens(false, true)[0] ?? null,
@@ -186,12 +222,6 @@ class ItemPF2e extends Item<ActorPF2e> {
     override prepareData(): void {
         // If embedded, don't prepare data if the parent's data model hasn't initialized all its properties
         if (this.parent && !this.parent.flags?.pf2e) return;
-        // Also don't prepare data if this item is in a parent's data collection, the parent is initialized, but data
-        // preparation wasn't requested by the parent
-        // Related to https://github.com/foundryvtt/foundryvtt/issues/7987
-        if (this.parent?.items?.get(this.id) === this && !this.parent.preparingEmbeds) {
-            return;
-        }
 
         super.prepareData();
 
@@ -218,12 +248,10 @@ class ItemPF2e extends Item<ActorPF2e> {
         }
     }
 
-    prepareRuleElements(options?: RuleElementOptions): RuleElementPF2e[] {
+    prepareRuleElements(this: ItemPF2e<ActorPF2e>, options?: RuleElementOptions): RuleElementPF2e[] {
         if (!this.actor) throw ErrorPF2e("Rule elements may only be prepared from embedded items");
 
-        return (this.rules = this.actor.canHostRuleElements
-            ? RuleElements.fromOwnedItem(this as Embedded<ItemPF2e>, options)
-            : []);
+        return (this.rules = this.actor.canHostRuleElements ? RuleElements.fromOwnedItem(this, options) : []);
     }
 
     /** Pull the latest system data from the source compendium and replace this item's with it */
@@ -256,11 +284,8 @@ class ItemPF2e extends Item<ActorPF2e> {
             // Preserve container ID
             const { containerId, quantity } = currentSource.system;
             mergeObject(updates, expandObject({ "system.containerId": containerId, "system.quantity": quantity }));
-        } else if (currentSource.type === "spell") {
-            // Preserve spellcasting entry location
-            mergeObject(updates, expandObject({ "system.location.value": currentSource.system.location.value }));
-        } else if (currentSource.type === "feat") {
-            // Preserve feat location
+        } else if (currentSource.type === "feat" || currentSource.type === "spell") {
+            // Preserve feat and spellcasting entry location
             mergeObject(updates, expandObject({ "system.location": currentSource.system.location }));
         }
 
@@ -341,19 +366,37 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /** Don't allow the user to create a condition or spellcasting entry from the sidebar. */
+    static override createDialog<TDocument extends foundry.abstract.Document>(
+        this: ConstructorOf<TDocument>,
+        data?: Record<string, unknown>,
+        context?: {
+            parent?: TDocument["parent"];
+            pack?: Collection<TDocument> | null;
+        } & Partial<FormApplicationOptions>
+    ): Promise<TDocument | null>;
     static override async createDialog(
         data: { folder?: string } = {},
-        options: Partial<FormApplicationOptions> = {}
-    ): Promise<ItemPF2e | undefined> {
+        options: {
+            parent?: Actor<TokenDocument<Scene | null> | null> | null;
+            pack?: Collection<ItemPF2e<null>> | null;
+        } & Partial<FormApplicationOptions> = {}
+    ): Promise<Item<Actor<TokenDocument<Scene | null> | null> | null> | null> {
         const original = game.system.documentTypes.Item;
         game.system.documentTypes.Item = original.filter(
             (itemType: string) =>
                 !["condition", "spellcastingEntry", "lore"].includes(itemType) &&
                 !(["affliction", "book"].includes(itemType) && BUILD_MODE === "production")
         );
-        options = { ...options, classes: [...(options.classes ?? []), "dialog-item-create"] };
-        const newItem = super.createDialog(data, options) as Promise<ItemPF2e | undefined>;
+        const withClasses: {
+            parent?: Actor<TokenDocument<Scene | null> | null> | null;
+            pack?: Collection<Item<Actor<TokenDocument<Scene | null> | null> | null>> | null;
+        } & Partial<FormApplicationOptions> = {
+            ...options,
+            classes: [...(options.classes ?? []), "dialog-item-create"],
+        };
+        const newItem = super.createDialog(data, withClasses);
         game.system.documentTypes.Item = original;
+
         return newItem;
     }
 
@@ -368,15 +411,15 @@ class ItemPF2e extends Item<ActorPF2e> {
         return { ...super.toDragData(), itemType: this.type };
     }
 
-    static override async createDocuments<T extends foundry.abstract.Document>(
-        this: ConstructorOf<T>,
-        data?: (T | PreCreate<T["_source"]>)[],
-        context?: DocumentModificationContext<T>
-    ): Promise<T[]>;
+    static override async createDocuments<TDocument extends foundry.abstract.Document>(
+        this: ConstructorOf<TDocument>,
+        data?: (TDocument | PreCreate<TDocument["_source"]>)[],
+        context?: DocumentModificationContext<TDocument["parent"]>
+    ): Promise<TDocument[]>;
     static override async createDocuments(
         data: (ItemPF2e | PreCreate<ItemSourcePF2e>)[] = [],
-        context: DocumentModificationContext<ItemPF2e> = {}
-    ): Promise<Item[]> {
+        context: DocumentModificationContext<ActorPF2e | null> = {}
+    ): Promise<Item<Actor<TokenDocument<Scene | null> | null> | null>[]> {
         // Convert all `ItemPF2e`s to source objects
         const sources = data.map((d) => (d instanceof ItemPF2e ? d.toObject() : d));
 
@@ -436,32 +479,34 @@ class ItemPF2e extends Item<ActorPF2e> {
         // actor.deleteEmbeddedDocuments() will also delete any linked items.
         const singularTypes = ["ancestry", "background", "class", "heritage", "deity"] as const;
         const singularTypesToDelete = singularTypes.filter((type) => sources.some((s) => s.type === type));
-        const preCreateDeletions = singularTypesToDelete.flatMap((type): Embedded<ItemPF2e>[] => actor.itemTypes[type]);
+        const preCreateDeletions = singularTypesToDelete.flatMap(
+            (type): ItemPF2e<ActorPF2e>[] => actor.itemTypes[type]
+        );
         if (preCreateDeletions.length) {
             const idsToDelete = preCreateDeletions.map((i) => i.id);
             await actor.deleteEmbeddedDocuments("Item", idsToDelete, { render: false });
         }
 
         // Convert all non-kit sources to item objects, and recursively extract the simple grants from ABC items
-        const items = await (async () => {
+        const items = await (async (): Promise<ItemPF2e<ActorPF2e>[]> => {
             /** Internal function to recursively get all simple granted items */
-            async function getSimpleGrants(item: Embedded<ItemPF2e>): Promise<Embedded<ItemPF2e>[]> {
-                const granted = (await item.createGrantedItems?.()) ?? [];
+            async function getSimpleGrants(item: ItemPF2e<ActorPF2e>): Promise<ItemPF2e<ActorPF2e>[]> {
+                const granted = (await item.createGrantedItems?.({ size: context.parent?.size })) ?? [];
                 if (!granted.length) return [];
                 const reparented = granted.map(
-                    (i): Embedded<ItemPF2e> =>
+                    (i): ItemPF2e<ActorPF2e> =>
                         (i.parent
                             ? i
-                            : new CONFIG.Item.documentClass(i._source, { parent: actor })) as Embedded<ItemPF2e>
+                            : new CONFIG.Item.documentClass(i._source, { parent: actor })) as ItemPF2e<ActorPF2e>
                 );
                 return [...reparented, ...(await Promise.all(reparented.map(getSimpleGrants))).flat()];
             }
 
-            const items = sources.map((source): Embedded<ItemPF2e> => {
+            const items = sources.map((source): ItemPF2e<ActorPF2e> => {
                 if (!(context.keepId || context.keepEmbeddedIds)) {
                     source._id = randomID();
                 }
-                return new CONFIG.Item.documentClass(source, { parent: actor }) as Embedded<ItemPF2e>;
+                return new CONFIG.Item.documentClass(source, { parent: actor }) as ItemPF2e<ActorPF2e>;
             });
 
             // If any item we plan to add will add new items (such as ABC items), add those too
@@ -499,7 +544,7 @@ class ItemPF2e extends Item<ActorPF2e> {
                 (i): i is FeatSource =>
                     i.type === "feat" &&
                     typeof i.system?.level?.value === "number" &&
-                    i.system.featType?.value === "classfeature" &&
+                    i.system.category === "classfeature" &&
                     !i.flags?.pf2e?.grantedBy
             );
             for (const feature of classFeatures) {
@@ -511,18 +556,22 @@ class ItemPF2e extends Item<ActorPF2e> {
         return super.createDocuments(nonKits, context);
     }
 
-    static override async deleteDocuments<T extends ConstructorOf<ItemPF2e>>(
-        this: T,
+    static override async deleteDocuments<TDocument extends foundry.abstract.Document>(
+        this: ConstructorOf<TDocument>,
+        ids?: string[],
+        context?: DocumentModificationContext<TDocument["parent"]>
+    ): Promise<TDocument[]>;
+    static override async deleteDocuments(
         ids: string[] = [],
-        context: DocumentModificationContext<InstanceType<T>> = {}
-    ): Promise<InstanceType<T>[]> {
+        context: DocumentModificationContext<ActorPF2e | null> = {}
+    ): Promise<Item<Actor<TokenDocument<Scene | null> | null> | null>[]> {
         ids = Array.from(new Set(ids));
         const actor = context.parent;
         if (actor) {
             const items = ids.flatMap((id) => actor.items.get(id) ?? []);
 
             // If a container is being deleted, its contents need to have their containerId references updated
-            const containers = items.filter((i): i is Embedded<ContainerPF2e> => i.isOfType("backpack"));
+            const containers = items.filter((i): i is ContainerPF2e<ActorPF2e> => i.isOfType("backpack"));
             for (const container of containers) {
                 await container.ejectContents();
             }
@@ -538,7 +587,7 @@ class ItemPF2e extends Item<ActorPF2e> {
             ids = Array.from(new Set(items.map((i) => i.id))).filter((id) => actor.items.has(id));
         }
 
-        return super.deleteDocuments(ids, context) as Promise<InstanceType<T>[]>;
+        return super.deleteDocuments(ids, context);
     }
 
     /* -------------------------------------------- */
@@ -547,7 +596,7 @@ class ItemPF2e extends Item<ActorPF2e> {
 
     protected override async _preCreate(
         data: PreDocumentId<this["_source"]>,
-        options: DocumentModificationContext<this>,
+        options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<void> {
         // Set default icon
@@ -579,7 +628,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     /** Keep `TextEditor` and anything else up to no good from setting this item's description to `null` */
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<this>,
+        options: DocumentUpdateContext<TParent>,
         user: UserPF2e
     ): Promise<void> {
         if (changed.system?.description?.value === null) {
@@ -619,7 +668,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     /** Call onCreate rule-element hooks */
     protected override _onCreate(
         data: ItemSourcePF2e,
-        options: DocumentModificationContext<this>,
+        options: DocumentModificationContext<TParent>,
         userId: string
     ): void {
         super._onCreate(data, options, userId);
@@ -638,7 +687,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /** Call onDelete rule-element hooks */
-    protected override _onDelete(options: DocumentModificationContext, userId: string): void {
+    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
         super._onDelete(options, userId);
         if (!(this.actor && game.user.id === userId)) return;
 
@@ -650,7 +699,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         if (this.actor.isOfType("npc") && ["action", "consumable"].includes(this.type)) {
             const slug = this.slug ?? sluggify(this.name);
             if (!this.actor.isToken) {
-                const itemUpdates: DocumentUpdateData<ItemPF2e>[] = [];
+                const itemUpdates: DocumentUpdateData<this>[] = [];
                 for (const attack of this.actor.itemTypes.melee) {
                     const attackEffects = attack.system.attackEffects.value;
                     if (attackEffects.includes(slug)) {
@@ -666,7 +715,7 @@ class ItemPF2e extends Item<ActorPF2e> {
                 }
             } else {
                 // The above method of updating embedded items in an actor update does not work with synthetic actors
-                const promises: Promise<ItemPF2e>[] = [];
+                const promises: Promise<ItemPF2e<ActorPF2e>>[] = [];
                 for (const item of this.actor.itemTypes.melee) {
                     const attackEffects = item.system.attackEffects.value;
                     if (attackEffects.includes(slug)) {
@@ -688,31 +737,30 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 }
 
-interface ItemPF2e extends Item<ActorPF2e> {
+interface ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item<TParent> {
     flags: ItemFlagsPF2e;
-    readonly system: ItemSystemData;
-    readonly data: ItemDataPF2e;
-    readonly parent: ActorPF2e | null;
+    readonly _source: ItemSourcePF2e;
+    system: ItemSystemData;
 
     _sheet: ItemSheetPF2e<this> | null;
 
     get sheet(): ItemSheetPF2e<this>;
 
-    prepareSiblingData?(this: Embedded<ItemPF2e>): void;
-    prepareActorData?(this: Embedded<ItemPF2e>): void;
+    prepareSiblingData?(this: ItemPF2e<ActorPF2e>): void;
+    prepareActorData?(this: ItemPF2e<ActorPF2e>): void;
 
     /** Returns items that should also be added when this item is created */
-    createGrantedItems(): Promise<ItemPF2e[]>;
+    createGrantedItems(options?: object): Promise<ItemPF2e[]>;
 
     /** Returns items that should also be deleted should this item be deleted */
-    getLinkedItems?(): Embedded<ItemPF2e>[];
+    getLinkedItems?(): ItemPF2e<ActorPF2e>[];
 }
 
 /** A `Proxy` to to get Foundry to construct `ItemPF2e` subclasses */
 const ItemProxyPF2e = new Proxy(ItemPF2e, {
     construct(
         _target,
-        args: [source: PreCreate<ItemSourcePF2e>, context: DocumentConstructionContext<ItemPF2e["parent"]>]
+        args: [source: PreCreate<ItemSourcePF2e>, context?: DocumentConstructionContext<ActorPF2e | null>]
     ) {
         return new CONFIG.PF2E.Item.documentClasses[args[0].type](...args);
     },

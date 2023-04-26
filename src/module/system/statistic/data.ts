@@ -1,7 +1,7 @@
-import { ModifierPF2e, RawModifier } from "@actor/modifiers";
-import { AbilityString } from "@actor/types";
-import { ZeroToFour } from "@module/data";
-import { CheckType } from "@system/check";
+import { ModifierPF2e, RawModifier } from "@actor/modifiers.ts";
+import { AbilityString } from "@actor/types.ts";
+import { ZeroToFour } from "@module/data.ts";
+import { CheckType } from "@system/check/index.ts";
 
 export interface StatisticCheckData {
     type: CheckType;

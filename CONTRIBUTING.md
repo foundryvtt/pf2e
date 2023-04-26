@@ -8,29 +8,33 @@ If you would like to contribute to the project then I welcome all support. If yo
 
 The project uses webpack to package the SASS files needed for a build and can create a local distribution for your own Foundry server. If you want to give it a go yourself follow these steps:
 
-* Clone the repo into a local folder in your dev environment `git clone https://github.com/foundryvtt/pf2e.git master`
+* Clone the repo into a local folder in your dev environment `git clone https://github.com/foundryvtt/pf2e.git`
 
-* Install the Javascript dependencies with `npm ci`
+* From within the clone's folder, Install dependencies with `npm ci`.
 
-* *-Optional-* Configure a `foundryconfig.json` file in the root folder of the project with `dataPath` and `systemName` attributes. An example can be found in `foundryconfig.example.json`, simply copy it and remove the `.example`, and configure it accordingly. The dataPath attribute is your User Data Folder from Foundry and can be found on the Configuration tab on the Setup screen. If you do not configure this file, the build will be built in the dist folder
+* You'll now need to create a symbolic link between the build folder ("dist") and your Foundry data folder. This can be done manually or by running `npm run link` and following the instructions.
 
-* Run `npm run build` to perform a one off compile/build
+* Run `npm run build` to perform a one-off build.
 
-* Run `npm run build:dev` to keep the pf2e system in your Foundry User Data Folder up to date with any coding changes you make in your dev environment.
+* Run `npm run watch` to have any coding changes you make in your dev environment trigger an automatic rebuild.
 
 * To update compendium datafiles, run `npm run extractPacks ${compendium db filename}` after editing the item directly in the built world's compendium, rather than editing the json files directly.
 
 ## How to Help
 
-As a project, we are using a modified gitlab flow, with a development branch (master) for development and a release branch (release) that contains one commit per release. If you want to make improvements to the project, you can ask to be added to the project or make a fork of the project in GitHub. Then push your branch to GitHub and open a pull request for your branch to our development branch. After being reviewed it can be pulled into the project by one of the project maintainers.
+As a project, we are using a modified gitlab flow, with a development branch (`master`) for development and a release branch (`release`) that mirrors the development branch at a certain point in its revision history. If you want to make improvements to the project, you can ask to be added to the project or make a fork of the project in GitHub. Then push your branch to GitHub and open a pull request for your branch to our development branch. After being reviewed it can be pulled into the project by one of the project maintainers.
 
-### Compendium content
+### Compendium Content
 
 As new OGL content is released by Paizo, we would like to incorporate it as soon as we are permitted (usually on a street release date). If you would like to contribute such content, please keep in mind the following guidelines:
 * Name the entities (be they physical items, abilities, or other discrete game features) exactly as they are in the source material, with one exception: square brackets (`[` and `]`) should replaced with another set of characters, like parentheses, or simply omitted.
 * Any embedded links to other entities should be of the form `@Compendium[pf2e.pack-name.Entity Name]`. For ease of maintenance, the linked entities should be referenced by *name* rather than by ID.
 * Do not submit new graphics (especially copyrighted graphics) without first receiving clearance from the copyright holders, if applicable, as well as this repository's maintainers.
 
-### Prettier
+### Pull Requests
 
-We have started to integrate Prettier into this project, but it is still early days. Please do not submit any merge requests with reformatted / auto-formatted code outside what you are actively contributing to. Unfortunately there is a lot of technical debt in this project, and we will be biting it off in small chunks.
+Pull requests ("PRs") can be made by anyone. PRs titles should be in imperative mood and state clearly and concisely what is being changed. A description is often needed to expand on any details. For new contributors, CI actions must be manually triggered by the system maintainers. It will automatically trigger for subsequent pull requests after a first one is merged into `master`.
+
+#### Prettier
+
+We have integrated [Prettier](https://prettier.io/) into this project to enforce a consistent coding—even if it's not one everybody likes. Github CI will block merges of any PR that fails the test suite, which includes style linting. To manually fix style issues, you can call `npm run lint:fix` from the project environment.

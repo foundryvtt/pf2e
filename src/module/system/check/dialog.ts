@@ -1,9 +1,8 @@
-import { ModifierPF2e, MODIFIER_TYPES, StatisticModifier } from "@actor/modifiers";
-import { RollSubstitution } from "@module/rules/synthetics";
+import { ModifierPF2e, MODIFIER_TYPES, StatisticModifier } from "@actor/modifiers.ts";
+import { RollSubstitution } from "@module/rules/synthetics.ts";
 import { ErrorPF2e, htmlQuery, htmlQueryAll, setHasElement, tupleHasValue } from "@util";
-import { CheckRollContext } from "./types";
-import { LocalizePF2e } from "../localize";
-import { RollTwiceOption } from "../rolls";
+import { CheckRollContext } from "./types.ts";
+import { RollTwiceOption } from "../rolls.ts";
 
 /**
  * Dialog for excluding certain modifiers before rolling a check.
@@ -176,9 +175,8 @@ export class CheckModifiersDialog extends Application {
 
     protected override _getHeaderButtons(): ApplicationHeaderButton[] {
         const buttons = super._getHeaderButtons();
-        const label = LocalizePF2e.translations.PF2E.SETTINGS.Settings;
         const settingsButton: ApplicationHeaderButton = {
-            label,
+            label: game.i18n.localize("PF2E.SETTINGS.Settings"),
             class: `settings`,
             icon: "fas fa-cog",
             onclick: () => null,

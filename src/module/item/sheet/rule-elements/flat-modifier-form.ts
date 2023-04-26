@@ -1,13 +1,14 @@
-import { MODIFIER_TYPES } from "@actor/modifiers";
-import { isBracketedValue } from "@module/rules/helpers";
-import { FlatModifierSource } from "@module/rules/rule-element/flat-modifier";
-import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values";
+import { MODIFIER_TYPES } from "@actor/modifiers.ts";
+import { isBracketedValue } from "@module/rules/helpers.ts";
+import { FlatModifierRuleElement, FlatModifierSource } from "@module/rules/rule-element/flat-modifier.ts";
+import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
 import { htmlQuery, isObject, pick, tagify, tupleHasValue } from "@util";
-import { coerceNumber, RuleElementForm } from "./base";
+import { coerceNumber, RuleElementForm, RuleElementFormSheetData } from "./base.ts";
 
 /** Form handler for the flat modifier rule element */
-class FlatModifierForm extends RuleElementForm<FlatModifierSource> {
+class FlatModifierForm extends RuleElementForm<FlatModifierSource, FlatModifierRuleElement> {
     override template = "systems/pf2e/templates/items/rules/flat-modifier.hbs";
+
     override activateListeners(html: HTMLElement): void {
         // Tagify the selector list
         const selectorElement = htmlQuery<HTMLInputElement>(html, ".selector-list");
@@ -54,7 +55,7 @@ class FlatModifierForm extends RuleElementForm<FlatModifierSource> {
         }
     }
 
-    override async getData() {
+    override async getData(): Promise<FlatModifierFormSheetData> {
         const data = await super.getData();
         data.rule.type = data.rule.type === "untyped" ? "" : data.rule.type;
         const valueMode = isBracketedValue(this.rule.value)
@@ -114,6 +115,18 @@ class FlatModifierForm extends RuleElementForm<FlatModifierSource> {
             }
         }
     }
+}
+
+interface FlatModifierFormSheetData extends RuleElementFormSheetData<FlatModifierSource, FlatModifierRuleElement> {
+    selectorIsArray: boolean;
+    abilities: ConfigPF2e["PF2E"]["abilities"];
+    types: Omit<keyof typeof MODIFIER_TYPES, "untyped">[];
+    damageCategories: Pick<ConfigPF2e["PF2E"]["damageCategories"], "persistent" | "precision" | "splash">;
+    isDamage: boolean;
+    value: {
+        mode: "brackets" | "object" | "primitive";
+        data: unknown;
+    };
 }
 
 export { FlatModifierForm };

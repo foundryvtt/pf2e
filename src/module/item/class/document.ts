@@ -1,15 +1,23 @@
-import { ClassDCData } from "@actor/character/data";
-import { FeatSlotLevel } from "@actor/character/feats";
-import { SaveType } from "@actor/types";
-import { SAVE_TYPES, SKILL_ABBREVIATIONS } from "@actor/values";
+import { ClassDCData } from "@actor/character/data/types.ts";
+import { FeatSlotLevel } from "@actor/character/feats.ts";
+import { ActorPF2e, CharacterPF2e } from "@actor";
+import { SaveType } from "@actor/types.ts";
+import { SAVE_TYPES, SKILL_ABBREVIATIONS } from "@actor/values.ts";
+import { ArmorCategory } from "@item/armor/index.ts";
+import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { ABCItemPF2e, FeatPF2e } from "@item";
-import { ARMOR_CATEGORIES } from "@item/armor/values";
-import { WEAPON_CATEGORIES } from "@item/weapon/values";
-import { ZeroToFour } from "@module/data";
+import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
+import { ZeroToFour } from "@module/data.ts";
 import { setHasElement, sluggify } from "@util";
-import { ClassAttackProficiencies, ClassData, ClassDefenseProficiencies, ClassSystemData, ClassTrait } from "./data";
+import {
+    ClassAttackProficiencies,
+    ClassDefenseProficiencies,
+    ClassSource,
+    ClassSystemData,
+    ClassTrait,
+} from "./data.ts";
 
-class ClassPF2e extends ABCItemPF2e {
+class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABCItemPF2e<TParent> {
     get attacks(): ClassAttackProficiencies {
         return this.system.attacks;
     }
@@ -56,24 +64,25 @@ class ClassPF2e extends ABCItemPF2e {
     }
 
     /** Include all top-level class features in addition to any with the expected location ID */
-    override getLinkedItems(): Embedded<FeatPF2e>[] {
-        if (!this.actor) return [];
+    override getLinkedItems(): FeatPF2e<ActorPF2e>[] {
+        const { actor } = this;
+        if (!actor) return [];
 
         return Array.from(
             new Set([
                 ...super.getLinkedItems(),
-                ...this.actor.itemTypes.feat.filter(
+                ...actor.itemTypes.feat.filter(
                     (f) =>
-                        f.featType === "classfeature" &&
-                        !(f.flags.pf2e.grantedBy && this.actor?.items.has(f.flags.pf2e.grantedBy.id))
+                        f.category === "classfeature" &&
+                        !(f.flags.pf2e.grantedBy && actor.items.has(f.flags.pf2e.grantedBy.id))
                 ),
             ])
         );
     }
 
     /** Pulls the features that should be granted by this class, sorted by level and choice set */
-    override async createGrantedItems(options: { level?: number } = {}): Promise<FeatPF2e[]> {
-        const hasChoiceSet = (f: FeatPF2e) => f.system.rules.some((re) => re.key === "ChoiceSet");
+    override async createGrantedItems(options: { level?: number } = {}): Promise<FeatPF2e<null>[]> {
+        const hasChoiceSet = (f: FeatPF2e<null>) => f.system.rules.some((re) => re.key === "ChoiceSet");
         return (await super.createGrantedItems(options)).sort((a, b) => {
             const [aLevel, bLevel] = [a.system.level.value, b.system.level.value];
             if (aLevel !== bLevel) return aLevel - bLevel;
@@ -91,8 +100,8 @@ class ClassPF2e extends ABCItemPF2e {
     }
 
     /** Prepare a character's data derived from their class */
-    override prepareActorData(this: Embedded<ClassPF2e>): void {
-        if (!this.actor.isOfType("character")) {
+    override prepareActorData(this: ClassPF2e<CharacterPF2e>): void {
+        if (!this.actor?.isOfType("character")) {
             console.error("Only a character can have a class");
             return;
         }
@@ -103,14 +112,17 @@ class ClassPF2e extends ABCItemPF2e {
 
         // Add base key ability options
 
-        const { keyAbility } = this.system;
-        build.abilities.keyOptions = [...keyAbility.value];
-        build.abilities.boosts.class = keyAbility.selected;
+        build.abilities.keyOptions = [...this.system.keyAbility.value];
+        build.abilities.boosts.class = this.system.keyAbility.selected;
 
         attributes.classhp = this.hpPerLevel;
 
         attributes.perception.rank = Math.max(attributes.perception.rank, this.perception) as ZeroToFour;
         this.logAutoChange("system.attributes.perception.rank", this.perception);
+
+        // Override the actor's key ability score if it's set
+        details.keyability.value =
+            (build.abilities.manual ? details.keyability.value : build.abilities.boosts.class) ?? "str";
 
         // Set class DC
         type PartialClassDCs = Record<string, Pick<ClassDCData, "label" | "ability" | "rank" | "primary">>;
@@ -118,13 +130,17 @@ class ClassPF2e extends ABCItemPF2e {
         classDCs[slug] = {
             label: this.name,
             rank: this.classDC,
-            ability: this.system.keyAbility.selected ?? "str",
+            ability: details.keyability.value,
             primary: true,
         };
 
         this.logAutoChange(`system.proficiencies.classDCs.${slug}.rank`, this.classDC);
 
-        for (const category of ARMOR_CATEGORIES) {
+        const nonBarding = ARMOR_CATEGORIES.filter(
+            (c): c is Exclude<ArmorCategory, "light-barding" | "heavy-barding" | "shield"> =>
+                !["light-barding", "heavy-barding"].includes(c)
+        );
+        for (const category of nonBarding) {
             martial[category].rank = Math.max(martial[category].rank, this.defenses[category]) as ZeroToFour;
             this.logAutoChange(`system.martial.${category}.rank`, this.defenses[category]);
         }
@@ -150,8 +166,8 @@ class ClassPF2e extends ABCItemPF2e {
     }
 }
 
-interface ClassPF2e extends ABCItemPF2e {
-    readonly data: ClassData;
+interface ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABCItemPF2e<TParent> {
+    readonly _source: ClassSource;
     system: ClassSystemData;
 
     get slug(): ClassTrait | null;

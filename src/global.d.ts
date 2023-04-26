@@ -1,32 +1,37 @@
-import { ActorPF2e } from "@actor/base";
-import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
-import { FeatCategoryOptions } from "@actor/character/feats";
-import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
-import { ItemPF2e } from "@item/base";
-import { CoinsPF2e } from "@item/physical/helpers";
-import { ActiveEffectPF2e } from "@module/active-effect";
-import { CompendiumBrowser, CompendiumBrowserSettings } from "@module/apps/compendium-browser";
-import { EffectsPanel } from "@module/apps/effects-panel";
-import { HotbarPF2e } from "@module/apps/hotbar";
-import { LicenseViewer } from "@module/apps/license-viewer";
-import { ActorDirectoryPF2e, ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/sidebar";
-import { WorldClock } from "@module/apps/world-clock";
-import { CanvasPF2e, EffectsCanvasGroupPF2e } from "@module/canvas";
-import { StatusEffects } from "@module/canvas/status-effects";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { ActorsPF2e } from "@module/collection/actors";
-import { MacroPF2e } from "@module/macro";
-import { RuleElementPF2e, RuleElements } from "@module/rules";
+import { ActorPF2e } from "@actor/base.ts";
+import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
+import { FeatCategoryOptions } from "@actor/character/feats.ts";
+import { CheckModifier, MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { ItemPF2e } from "@item/base.ts";
+import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { ActiveEffectPF2e } from "@module/active-effect.ts";
+import { CompendiumBrowser, CompendiumBrowserSettings } from "@module/apps/compendium-browser/index.ts";
+import { EffectsPanel } from "@module/apps/effects-panel.ts";
+import { HotbarPF2e } from "@module/apps/hotbar.ts";
+import { LicenseViewer } from "@module/apps/license-viewer/app.ts";
+import {
+    ActorDirectoryPF2e,
+    ChatLogPF2e,
+    CompendiumDirectoryPF2e,
+    EncounterTrackerPF2e,
+} from "@module/apps/sidebar/index.ts";
+import { WorldClock } from "@module/apps/world-clock/app.ts";
+import { CanvasPF2e, EffectsCanvasGroupPF2e } from "@module/canvas/index.ts";
+import { StatusEffects } from "@module/canvas/status-effects.ts";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { ActorsPF2e } from "@module/collection/actors.ts";
+import { MacroPF2e } from "@module/macro.ts";
+import { RuleElementPF2e, RuleElements } from "@module/rules/index.ts";
+import { UserPF2e } from "@module/user/index.ts";
 import {
     AmbientLightDocumentPF2e,
     MeasuredTemplateDocumentPF2e,
     ScenePF2e,
     TileDocumentPF2e,
     TokenDocumentPF2e,
-} from "@module/scene";
-import { UserPF2e } from "@module/user";
-import { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config";
-import { DicePF2e } from "@scripts/dice";
+} from "@scene/index.ts";
+import { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config/index.ts";
+import { DicePF2e } from "@scripts/dice.ts";
 import {
     calculateXP,
     editPersistent,
@@ -35,27 +40,29 @@ import {
     rollActionMacro,
     rollItemMacro,
     stealthForSelected,
-} from "@scripts/macros";
-import { remigrate } from "@scripts/system/remigrate";
-import { CheckPF2e } from "@system/check";
-import { EffectTracker } from "@system/effect-tracker";
-import { ModuleArt } from "@system/module-art";
-import { CustomDamageData, HomebrewTag, HomebrewTraitSettingsKey } from "@system/settings/homebrew";
-import { TextEditorPF2e } from "@system/text-editor";
+    xpFromEncounter,
+} from "@scripts/macros/index.ts";
+import { remigrate } from "@scripts/system/remigrate.ts";
+import { CheckPF2e } from "@system/check/index.ts";
+import { EffectTracker } from "@system/effect-tracker.ts";
+import { ModuleArt } from "@system/module-art.ts";
+import { CustomDamageData, HomebrewTag, HomebrewTraitSettingsKey } from "@system/settings/homebrew/index.ts";
+import { TextEditorPF2e } from "@system/text-editor.ts";
 import { sluggify } from "@util";
-import { CombatantPF2e, EncounterPF2e } from "./module/encounter";
-import { ConditionManager } from "./module/system/conditions";
+import Peggy from "peggy";
+import { CombatantPF2e, EncounterPF2e } from "./module/encounter/index.ts";
+import { ConditionManager } from "./module/system/conditions/index.ts";
 
 declare global {
     interface Game<
-        TActor extends Actor,
+        TActor extends Actor<null>,
         TActors extends Actors<TActor>,
-        TChatMessage extends ChatMessage<TActor>,
+        TChatMessage extends ChatMessage,
         TCombat extends Combat,
-        TItem extends Item<TActor>,
+        TItem extends Item<null>,
         TMacro extends Macro,
         TScene extends Scene,
-        TUser extends User<TActor>
+        TUser extends User
     > {
         pf2e: {
             actions: Record<string, Function>;
@@ -68,10 +75,11 @@ declare global {
             rollItemMacro: typeof rollItemMacro;
             gm: {
                 calculateXP: typeof calculateXP;
+                editPersistent: typeof editPersistent;
                 launchTravelSheet: typeof launchTravelSheet;
                 perceptionForSelected: typeof perceptionForSelected;
                 stealthForSelected: typeof stealthForSelected;
-                editPersistent: typeof editPersistent;
+                xpFromEncounter: typeof xpFromEncounter;
             };
             system: {
                 moduleArt: ModuleArt;
@@ -111,10 +119,26 @@ declare global {
 
     namespace globalThis {
         // eslint-disable-next-line no-var
-        var game: Game<ActorPF2e, ActorsPF2e, ChatMessagePF2e, EncounterPF2e, ItemPF2e, MacroPF2e, ScenePF2e, UserPF2e>;
+        var game: Game<
+            ActorPF2e<null>,
+            ActorsPF2e<ActorPF2e<null>>,
+            ChatMessagePF2e,
+            EncounterPF2e,
+            ItemPF2e<null>,
+            MacroPF2e,
+            ScenePF2e,
+            UserPF2e
+        >;
 
         // eslint-disable-next-line no-var
-        var ui: FoundryUI<ActorPF2e, ActorDirectoryPF2e<ActorPF2e>, ItemPF2e, ChatLogPF2e, CompendiumDirectoryPF2e>;
+        var ui: FoundryUI<
+            ActorPF2e<null>,
+            ActorDirectoryPF2e<ActorPF2e<null>>,
+            ItemPF2e<null>,
+            ChatLogPF2e,
+            CompendiumDirectoryPF2e,
+            EncounterTrackerPF2e<EncounterPF2e | null>
+        >;
     }
 
     interface Window {
@@ -197,18 +221,17 @@ declare global {
     }
 
     const BUILD_MODE: "development" | "production";
-    const ROLL_GRAMMAR: string;
+    const ROLL_PARSER: Peggy.Parser;
 }
 
 type ConfiguredConfig = Config<
-    AmbientLightDocumentPF2e,
-    ActiveEffectPF2e,
+    AmbientLightDocumentPF2e<ScenePF2e | null>,
+    ActiveEffectPF2e<ActorPF2e | ItemPF2e | null>,
     ActorPF2e,
-    ActorDirectoryPF2e<ActorPF2e>,
     ChatLogPF2e,
     ChatMessagePF2e,
     EncounterPF2e,
-    CombatantPF2e,
+    CombatantPF2e<EncounterPF2e | null, TokenDocumentPF2e>,
     EncounterTrackerPF2e<EncounterPF2e | null>,
     CompendiumDirectoryPF2e,
     HotbarPF2e,
@@ -219,6 +242,6 @@ type ConfiguredConfig = Config<
     TokenDocumentPF2e,
     WallDocument<ScenePF2e | null>,
     ScenePF2e,
-    UserPF2e<ActorPF2e>,
+    UserPF2e,
     EffectsCanvasGroupPF2e
 >;

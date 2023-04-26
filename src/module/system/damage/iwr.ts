@@ -1,8 +1,7 @@
 import { ActorPF2e } from "@actor";
-import { ResistanceData, WeaknessData } from "@actor/data/iwr";
-import { ConditionSource } from "@item/condition";
-import { DEGREE_OF_SUCCESS } from "@system/degree-of-success";
-import { DamageInstance, DamageRoll } from "./roll";
+import { ResistanceData, WeaknessData } from "@actor/data/iwr.ts";
+import { DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
+import { DamageInstance, DamageRoll } from "./roll.ts";
 
 /** Apply an actor's IWR applications to an evaluated damage roll's instances */
 function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<string>): IWRApplicationData {
@@ -39,9 +38,14 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
         .flatMap((instance): IWRApplication[] => {
             const formalDescription = new Set([...instance.formalDescription, ...rollOptions]);
 
+            // If the roll's total was increased to a minimum of 1, treat the first instance as having a total of 1
+            const wasIncreased = instance.total <= 0 && typeof roll.options.increasedFrom === "number";
+            const isFirst = instances.indexOf(instance) === 0;
+            const instanceTotal = wasIncreased && isFirst ? 1 : Math.max(instance.total, 0);
+
             // Step 0: Inapplicable damage outside the IWR framework
             if (!actor.isAffectedBy(instance.type)) {
-                return [{ category: "unaffected", type: instance.type, adjustment: -1 * instance.total }];
+                return [{ category: "unaffected", type: instance.type, adjustment: -1 * instanceTotal }];
             }
 
             // Step 1: Immunities
@@ -49,7 +53,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             // If the target is immune to the entire instance, we're done with it.
             const immunity = immunities.find((i) => i.test(formalDescription));
             if (immunity) {
-                return [{ category: "immunity", type: immunity.label, adjustment: -1 * instance.total }];
+                return [{ category: "immunity", type: immunity.label, adjustment: -1 * instanceTotal }];
             }
 
             // Before getting a manually-adjusted total, check for immunity to critical hits and "undouble"
@@ -61,16 +65,16 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             const critImmuneTotal =
                 critImmunityApplies && roll.options.degreeOfSuccess === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS
                     ? instance.critImmuneTotal
-                    : instance.total;
+                    : instanceTotal;
 
             const instanceApplications: IWRApplication[] = [];
 
             // If the total was undoubled, log it as an immunity application
-            if (critImmunity && critImmuneTotal < instance.total) {
+            if (critImmunity && critImmuneTotal < instanceTotal) {
                 instanceApplications.push({
                     category: "immunity",
                     type: critImmunity.label,
-                    adjustment: -1 * (instance.total - critImmuneTotal),
+                    adjustment: -1 * (instanceTotal - critImmuneTotal),
                 });
             }
 
@@ -91,10 +95,11 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             }
 
             const afterImmunities = Math.max(
-                instance.total + instanceApplications.reduce((sum, a) => sum + a.adjustment, 0),
+                instanceTotal + instanceApplications.reduce((sum, a) => sum + a.adjustment, 0),
                 0
             );
 
+            // Push applicable persistent damage to a separate list
             if (instance.persistent && !instance.options.evaluatePersistent) {
                 persistent.push(instance);
             }
@@ -192,22 +197,6 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
     return { finalDamage, applications, persistent };
 }
 
-/** Get the theoretic maximum damage for an instance of persistent damage after applying IWR */
-async function maxPersistentAfterIWR(
-    actor: ActorPF2e,
-    data: ConditionSource,
-    rollOptions: Set<string>
-): Promise<number> {
-    const ConditionPF2e = CONFIG.PF2E.Item.documentClasses.condition;
-    const { damage, damageType } = new ConditionPF2e(data, { ready: true }).system.persistent!;
-    const roll = await new DamageRoll(
-        `${damage.maximumValue}[${damageType}]`,
-        {},
-        { evaluatePersistent: true } // In case of bleed damage
-    ).evaluate({ async: true });
-    return applyIWR(actor, roll, rollOptions).finalDamage;
-}
-
 interface IWRApplicationData {
     finalDamage: number;
     applications: IWRApplication[];
@@ -241,4 +230,4 @@ interface ResistanceApplication {
 
 type IWRApplication = UnafectedApplication | ImmunityApplication | WeaknessApplication | ResistanceApplication;
 
-export { IWRApplication, IWRApplicationData, applyIWR, maxPersistentAfterIWR };
+export { IWRApplication, IWRApplicationData, applyIWR };

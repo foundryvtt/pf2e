@@ -1,7 +1,7 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
-import { MODIFIER_TYPE, ModifierPF2e } from "@actor/modifiers";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { MODIFIER_TYPE, ModifierPF2e } from "@actor/modifiers.ts";
 import { CreaturePF2e } from "@actor";
-import { ActorSizePF2e } from "@actor/data/size";
+import { ActorSizePF2e } from "@actor/data/size.ts";
 
 function determineSizeBonus(actorSize: ActorSizePF2e, targetSize: ActorSizePF2e) {
     const sizeDifference = actorSize.difference(targetSize);
@@ -9,7 +9,7 @@ function determineSizeBonus(actorSize: ActorSizePF2e, targetSize: ActorSizePF2e)
     return Math.clamped(2 * sizeDifference, -4, 4);
 }
 
-export function whirlingThrow(options: SkillActionOptions) {
+export function whirlingThrow(options: SkillActionOptions): void {
     const slug = options?.skill ?? "athletics";
     const rollOptions = ["action:whirling-throw"];
     ActionMacroHelpers.simpleRollActionCheck({
@@ -43,5 +43,8 @@ export function whirlingThrow(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.WhirlingThrow", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.WhirlingThrow", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

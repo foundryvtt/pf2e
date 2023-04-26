@@ -1,4 +1,4 @@
-import { Size, SIZES } from "@module/data";
+import { Size, SIZES } from "@module/data.ts";
 import { applyNTimes, Optional } from "@util";
 
 interface StackDefinition {

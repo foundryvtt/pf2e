@@ -9,11 +9,9 @@
         "actions": {
             "value": null
         },
+        "category": "class",
         "description": {
-            "value": "<p>While you're in Stoked Flame Stance, you have cold and fire resistance equal to half your level, and any creature that hits you with an unarmed attack, tries to Grab or Grapple you, or otherwise touches you takes fire damage equal to your Wisdom modifier (minimum 1). A creature can take this damage no more than once per turn.</p>"
-        },
-        "featType": {
-            "value": "class"
+            "value": "<p>While you're in Stoked Flame Stance, you have cold and fire resistance equal to half your level, and any creature that hits you with an unarmed attack, tries to Grab or Grapple you, or otherwise touches you takes [[/r @actor.abilities.wis.mod[fire]]]{fire damage} equal to your Wisdom modifier (minimum 1). A creature can take this damage no more than once per turn.</p>"
         },
         "level": {
             "value": 6
@@ -25,7 +23,19 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:stoked-flame-stance"
+                ],
+                "type": [
+                    "cold",
+                    "fire"
+                ],
+                "value": "floor(@actor.level/2)"
+            }
+        ],
         "source": {
             "value": "Pathfinder Secrets of Magic"
         },

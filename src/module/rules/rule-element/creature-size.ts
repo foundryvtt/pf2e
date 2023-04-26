@@ -1,11 +1,11 @@
-import { CreaturePF2e } from "@actor";
-import { SIZE_TO_REACH } from "@actor/creature/values";
-import { ActorType } from "@actor/data";
-import { ActorSizePF2e } from "@actor/data/size";
+import { ActorPF2e, CreaturePF2e } from "@actor";
+import { SIZE_TO_REACH } from "@actor/creature/values.ts";
+import { ActorType } from "@actor/data/index.ts";
+import { ActorSizePF2e } from "@actor/data/size.ts";
 import { ItemPF2e, TreasurePF2e } from "@item";
-import { Size, SIZES } from "@module/data";
+import { Size, SIZES } from "@module/data.ts";
 import { isObject, tupleHasValue } from "@util";
-import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions, BracketedValue } from "./";
+import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions, BracketedValue } from "./index.ts";
 
 /**
  * @category RuleElement
@@ -21,7 +21,7 @@ class CreatureSizeRuleElement extends RuleElementPF2e {
 
     resizeEquipment: boolean;
 
-    constructor(data: CreatureSizeSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: CreatureSizeSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
         this.resizeEquipment = !!data.resizeEquipment;
 
@@ -119,7 +119,7 @@ class CreatureSizeRuleElement extends RuleElementPF2e {
         reach.manipulate = Math.max(reach.manipulate, reach.base);
 
         if (this.resizeEquipment) {
-            const sizeDifference = originalSize.difference(actor.system.traits.size);
+            const sizeDifference = originalSize.difference(actor.system.traits.size, { smallIsMedium: true });
             for (const item of actor.inventory.filter((i) => !(i instanceof TreasurePF2e && i.isCoinage))) {
                 if (sizeDifference < 0) {
                     item.system.size = this.incrementSize(item.size, Math.abs(sizeDifference));

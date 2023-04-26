@@ -1,15 +1,16 @@
+import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { PredicateField } from "@system/schema-data-fields";
+import { PredicateField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, isObject } from "@util";
-import {
+import type {
     ArrayField,
     BooleanField,
     ModelPropsFromSchema,
     SchemaField,
     StringField,
-} from "types/foundry/common/data/fields.mjs";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from ".";
-import { RollOptionToggle } from "../synthetics";
+} from "types/foundry/common/data/fields.d.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
+import { RollOptionToggle } from "../synthetics.ts";
 
 const { fields } = foundry.data;
 
@@ -30,7 +31,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
      */
     toggleable: boolean | "totm";
 
-    constructor(source: RollOptionSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(source: RollOptionSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         // This rule element behaves much like an override AE-like, so set its default priority to 50
         super({ priority: CONST.ACTIVE_EFFECT_MODES.OVERRIDE * 10, ...source }, item, options);
 

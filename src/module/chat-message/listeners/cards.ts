@@ -1,14 +1,13 @@
 import { ActorPF2e } from "@actor";
-import { craftItem, craftSpellConsumable } from "@actor/character/crafting/helpers";
-import { SAVE_TYPES } from "@actor/values";
+import { craftItem, craftSpellConsumable } from "@actor/character/crafting/helpers.ts";
+import { SAVE_TYPES } from "@actor/values.ts";
 import { ItemPF2e, PhysicalItemPF2e } from "@item";
-import { isSpellConsumable } from "@item/consumable/spell-consumables";
-import { CoinsPF2e } from "@item/physical/helpers";
-import { eventToRollParams } from "@scripts/sheet-util";
-import { onRepairChatCardEvent } from "@system/action-macros/crafting/repair";
-import { LocalizePF2e } from "@system/localize";
+import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
+import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { onRepairChatCardEvent } from "@system/action-macros/crafting/repair.ts";
 import { ErrorPF2e, sluggify, tupleHasValue } from "@util";
-import { ChatMessagePF2e } from "..";
+import { ChatMessagePF2e } from "../index.ts";
 
 export const ChatCards = {
     listen: ($html: JQuery): void => {
@@ -107,15 +106,16 @@ export const ChatCards = {
                         const consumable = actor.items.get($button.attr("data-item") ?? "");
                         if (consumable?.isOfType("consumable")) {
                             const oldQuant = consumable.quantity;
-                            const toReplace = `${consumable.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${oldQuant})`;
+                            const consumableString = game.i18n.localize("ITEM.TypeConsumable");
+                            const toReplace = `${consumable.name} - ${consumableString} (${oldQuant})`;
                             await consumable.consume();
                             const currentQuant = oldQuant === 1 ? 0 : consumable.quantity;
                             let flavor = message.flavor.replace(
                                 toReplace,
-                                `${consumable.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${currentQuant})`
+                                `${consumable.name} - ${consumableString} (${currentQuant})`
                             );
                             if (currentQuant === 0) {
-                                const buttonStr = `>${LocalizePF2e.translations.PF2E.ConsumableUseLabel}</button>`;
+                                const buttonStr = `>${game.i18n.localize("PF2E.ConsumableUseLabel")}</button>`;
                                 flavor = flavor?.replace(buttonStr, " disabled" + buttonStr);
                             }
                             await message.update({ flavor });
@@ -220,7 +220,7 @@ export const ChatCards = {
     }: {
         event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement>;
         actor: ActorPF2e;
-        item: Embedded<ItemPF2e>;
+        item: ItemPF2e<ActorPF2e>;
     }): Promise<void> => {
         if (canvas.tokens.controlled.length > 0) {
             const saveType = event.currentTarget.dataset.save;

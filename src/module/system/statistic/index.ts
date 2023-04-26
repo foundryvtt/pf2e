@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
-import { TraitViewData } from "@actor/data/base";
-import { calculateMAPs } from "@actor/helpers";
+import { TraitViewData } from "@actor/data/base.ts";
+import { calculateMAPs } from "@actor/helpers.ts";
 import {
     CheckModifier,
     createAbilityModifier,
@@ -8,26 +8,34 @@ import {
     ModifierPF2e,
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
-} from "@actor/modifiers";
-import { AbilityString } from "@actor/types";
+} from "@actor/modifiers.ts";
+import { AbilityString } from "@actor/types.ts";
 import { ItemPF2e } from "@item";
-import { ZeroToFour, ZeroToTwo } from "@module/data";
+import { ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import {
     extractDegreeOfSuccessAdjustments,
     extractModifiers,
     extractNotes,
     extractRollSubstitutions,
     extractRollTwice,
-} from "@module/rules/helpers";
-import { eventToRollParams } from "@scripts/sheet-util";
-import { CheckPF2e, CheckRoll, CheckRollCallback, CheckRollContext, CheckType, RollTwiceOption } from "@system/check";
-import { CheckDC, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success";
+} from "@module/rules/helpers.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
+import {
+    CheckPF2e,
+    CheckRoll,
+    CheckRollCallback,
+    CheckRollContext,
+    CheckType,
+    RollTwiceOption,
+} from "@system/check/index.ts";
+import { CheckDC, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success.ts";
 import { isObject, Optional, traitSlugToObject } from "@util";
-import { StatisticChatData, StatisticTraceData, StatisticData, StatisticCheckData } from "./data";
+import { StatisticChatData, StatisticTraceData, StatisticData, StatisticCheckData } from "./data.ts";
+import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
 
-export * from "./data";
+export * from "./data.ts";
 
-export interface StatisticRollParameters {
+interface StatisticRollParameters {
     /** Which attack this is (for the purposes of multiple attack penalty) */
     attackNumber?: number;
     /** Optional target for the roll */
@@ -36,12 +44,16 @@ export interface StatisticRollParameters {
     origin?: ActorPF2e | null;
     /** Optional DC data for the roll */
     dc?: CheckDC | null;
+    /** Optional override for the check modifier label */
+    label?: string;
+    /** Any additional roll notes which should be used in the roll. */
+    extraRollNotes?: (RollNotePF2e | RollNoteSource)[];
     /** Any additional options which should be used in the roll. */
     extraRollOptions?: string[];
     /** Additional modifiers */
     modifiers?: ModifierPF2e[];
     /** The originating item of this attack, if any */
-    item?: Embedded<ItemPF2e> | null;
+    item?: ItemPF2e<ActorPF2e> | null;
     /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
     rollMode?: RollMode | "roll";
     /** Should the dialog be skipped */
@@ -64,7 +76,7 @@ interface RollOptionParameters {
 }
 
 /** Object used to perform checks or get dcs, or both. These are created from StatisticData which drives its behavior. */
-export class Statistic {
+class Statistic {
     /** Source of truth of all statistic data and the params used to create it. Necessary for cloning. */
     #data: StatisticData;
 
@@ -117,6 +129,9 @@ export class Statistic {
 
         this.modifiers = [baseModifiers, data.modifiers ?? []].flat();
         this.check = new StatisticCheck(this, this.#data, this.options);
+
+        // Add DC data with an additional domain if not already set
+        this.#data.dc ??= { domains: [`${this.slug}-dc`] };
         this.dc = new StatisticDifficultyClass(this, this.#data, this.options);
 
         // Add from synthetics, but only after check/dc are created so that modifiers aren't duplicated
@@ -127,24 +142,6 @@ export class Statistic {
             const options = this.createRollOptions(data.domains, {});
             this.modifiers = this.modifiers.map((mod) => mod.clone({ test: options }));
         }
-    }
-
-    /** Compatibility function which creates a statistic from a StatisticModifier instead of from StatisticData. */
-    static from(
-        actor: ActorPF2e,
-        stat: StatisticModifier,
-        slug: string,
-        label: string,
-        type: CheckType,
-        domains?: string[]
-    ) {
-        return new Statistic(actor, {
-            slug,
-            domains,
-            label,
-            check: { type },
-            modifiers: [...stat.modifiers],
-        });
     }
 
     /** Convenience getter to the statistic's total modifier */
@@ -215,6 +212,7 @@ export class Statistic {
         const result = mergeObject(deepClone(this.#data), data);
         result.domains = maybeMergeArrays(this.#data.domains, data.domains);
         result.modifiers = maybeMergeArrays(this.#data.modifiers, data.modifiers);
+        result.rollOptions = maybeMergeArrays(this.#data.rollOptions, data.rollOptions);
         if (result.check && this.#data.check) {
             result.check.domains = maybeMergeArrays(this.#data.check.domains, data.check?.domains);
             result.check.modifiers = maybeMergeArrays(this.#data.check.modifiers, data.check?.modifiers);
@@ -296,7 +294,7 @@ class StatisticCheck {
         this.mod = this.#stat.totalModifier;
     }
 
-    #calculateLabel(data: StatisticData) {
+    #calculateLabel(data: StatisticData): string {
         const parentLabel = this.parent.label;
         if (data.check?.label) return game.i18n.localize(data.check?.label);
 
@@ -334,29 +332,39 @@ class StatisticCheck {
         const item = args.item ?? null;
         const domains = this.domains;
 
+        const { origin } = args;
+        const targetToken = origin
+            ? null
+            : (args.target?.getActiveTokens() ?? Array.from(game.user.targets)).find((t) =>
+                  t.actor?.isOfType("creature")
+              ) ?? null;
+
         // This is required to determine the AC for attack dialogs
         const rollContext = await (() => {
             const isValidAttacker = actor.isOfType("creature", "hazard");
-            const isAttackItem = item?.isOfType("weapon", "melee", "spell");
-            if (isValidAttacker && isAttackItem && ["attack-roll", "spell-attack-roll"].includes(this.type)) {
-                return actor.getAttackRollContext({ item, domains, options: new Set() });
-            }
+            const isTargetedCheck =
+                (this.type === "attack-roll" && item?.isOfType("spell")) ||
+                (["perception-check", "skill-check"].includes(this.type) &&
+                    !!args.dc?.slug &&
+                    (!item || item.isOfType("weapon")));
 
-            return null;
+            return isValidAttacker && isTargetedCheck
+                ? actor.getCheckContext({
+                      item,
+                      domains,
+                      statistic: this,
+                      target: targetToken,
+                      targetedDC: args.dc?.slug ?? "armor",
+                      options: new Set(),
+                  })
+                : null;
         })();
 
-        const { origin } = args;
-        const target = origin
-            ? null
-            : args.target ??
-              rollContext?.target?.actor ??
-              Array.from(game.user.targets)
-                  .flatMap((t) => t.actor ?? [])
-                  .find((a) => a.isOfType("creature"));
-
+        const targetActor = origin ? null : rollContext?.target?.actor ?? args.target ?? null;
         const extraModifiers = [...(args.modifiers ?? [])];
         const extraRollOptions = [...(args.extraRollOptions ?? []), ...(rollContext?.options ?? [])];
-        const options = this.createRollOptions({ ...args, origin, target, extraRollOptions });
+        const options = this.createRollOptions({ ...args, origin, target: targetActor, extraRollOptions });
+        const notes = [...extractNotes(actor.synthetics.rollNotes, this.domains), ...(args.extraRollNotes ?? [])];
         const dc = args.dc ?? rollContext?.dc ?? null;
 
         // Get just-in-time roll options from rule elements
@@ -377,8 +385,8 @@ class StatisticCheck {
             const amount =
                 this.type === "saving-throw" && actor.level > effectLevel
                     ? DEGREE_ADJUSTMENT_AMOUNTS.INCREASE
-                    : !!target &&
-                      target.level > effectLevel &&
+                    : !!targetActor &&
+                      targetActor.level > effectLevel &&
                       ["attack-roll", "spell-attack-roll", "skill-check"].includes(this.type)
                     ? DEGREE_ADJUSTMENT_AMOUNTS.LOWER
                     : null;
@@ -422,7 +430,7 @@ class StatisticCheck {
             domains,
             target: rollContext?.target ?? null,
             dc,
-            notes: extractNotes(actor.synthetics.rollNotes, this.domains),
+            notes,
             options,
             type: this.type,
             rollMode,
@@ -440,7 +448,7 @@ class StatisticCheck {
         }
 
         const roll = await CheckPF2e.roll(
-            new CheckModifier(this.label, this.#stat, extraModifiers),
+            new CheckModifier(args.label || this.label, this.#stat, extraModifiers),
             context,
             null,
             args.callback
@@ -453,7 +461,7 @@ class StatisticCheck {
         return roll;
     }
 
-    get breakdown() {
+    get breakdown(): string {
         return this.modifiers
             .filter((m) => m.enabled)
             .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
@@ -484,10 +492,12 @@ class StatisticDifficultyClass {
         this.value = (data.dc?.base ?? 10) + new StatisticModifier("", this.modifiers, this.options).totalModifier;
     }
 
-    get breakdown() {
+    get breakdown(): string {
         const enabledMods = this.modifiers.filter((m) => m.enabled);
         return [game.i18n.localize("PF2E.DCBase")]
             .concat(enabledMods.map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`))
             .join(", ");
     }
 }
+
+export { Statistic, StatisticCheck, StatisticDifficultyClass, StatisticRollParameters };

@@ -1,7 +1,7 @@
-import { ResistanceData } from "@actor/data/iwr";
-import { ResistanceType } from "@actor/types";
-import { ArrayField, ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
-import { IWRRuleElement, IWRRuleSchema } from "./base";
+import { ResistanceData } from "@actor/data/iwr.ts";
+import { ResistanceType } from "@actor/types.ts";
+import type { ArrayField, ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.d.ts";
+import { IWRRuleElement, IWRRuleSchema } from "./base.ts";
 
 const { fields } = foundry.data;
 
@@ -42,7 +42,7 @@ class ResistanceRuleElement extends IWRRuleElement<ResistanceRuleSchema> {
             if (current) {
                 if (this.override) {
                     resistances.splice(resistances.indexOf(current), 1);
-                } else {
+                } else if (this.mode !== "remove") {
                     current.value = Math.max(current.value, value);
                     current.source = this.label;
                     this.type.splice(this.type.indexOf(resistanceType), 1);

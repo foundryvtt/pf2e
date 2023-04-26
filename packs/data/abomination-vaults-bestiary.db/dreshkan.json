@@ -181,6 +181,20 @@
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 2
+                    },
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": [
+                            "bleed",
+                            "death-effects",
+                            "disease",
+                            "doomed",
+                            "fatigued",
+                            "paralyzed",
+                            "poison",
+                            "sickened"
+                        ]
                     }
                 ],
                 "slug": "1-status-to-all-saves-vs-magic",
@@ -304,7 +318,15 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": [
+                            "healing"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -567,7 +589,7 @@
                 }
             ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 11

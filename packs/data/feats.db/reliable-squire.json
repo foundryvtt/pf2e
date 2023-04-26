@@ -9,11 +9,9 @@
         "actions": {
             "value": null
         },
+        "category": "class",
         "description": {
             "value": "<p>You know the path to victory isn't traveled alone, and you lend aid to your companions whenever you can. You gain a +2 circumstance bonus to checks to Aid. If you roll a critical failure on a check to Aid, you get a failure instead.</p>"
-        },
-        "featType": {
-            "value": "class"
         },
         "level": {
             "value": 2
@@ -21,7 +19,40 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:aid"
+                ],
+                "selector": [
+                    "attack",
+                    "skill-check"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:aid"
+                ],
+                "selector": "attack"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:aid"
+                ],
+                "selector": "skill-check"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Knights of Lastwall"
         },

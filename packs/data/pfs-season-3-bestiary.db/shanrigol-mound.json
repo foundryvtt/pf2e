@@ -337,7 +337,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The shanrigol has a creature grabbed</p>\n<hr />\n<p><strong>Effect</strong> The shanrigol squeezes the life essence from its target, dealing [[/r (1d6+8)[bludgeoning]]] and @Localize[PF2E.PersistentDamage.Bleed1d4.success] (@Check[type:fortitude|dc:21|basic:true] save).</p>\n<p>The shanrigol regains temporary Hit Points equal to half the amount of bludgeoning damage a single target takes; these temporary Hit Points last for 1 minute.</p>"
+                    "value": "<p><strong>Requirements</strong> The shanrigol has a creature grabbed</p>\n<hr />\n<p><strong>Effect</strong> The shanrigol squeezes the life essence from its target, dealing [[/r (1d6+8)[bludgeoning]]] and [[/r 1d4[bleed]]] (@Check[type:fortitude|dc:21|basic:true] save).</p>\n<p>The shanrigol regains temporary Hit Points equal to half the amount of bludgeoning damage a single target takes; these temporary Hit Points last for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -376,7 +376,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A shanrigol rips flesh away from targets in great chunks. Creatures critically hit by the shanrigol's fleshy slap Strike take an additional @Localize[PF2E.PersistentDamage.Bleed1d6.success] and are @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} for as long as they are bleeding.</p>"
+                    "value": "<p>A shanrigol rips flesh away from targets in great chunks. Creatures critically hit by the shanrigol's fleshy slap Strike take an additional [[/r 1d6[bleed]]] and are @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} for as long as they are bleeding.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -390,6 +390,14 @@
                         "selector": "fleshy-slap-damage",
                         "text": "{item|system.description.value}",
                         "title": "{item|name}"
+                    },
+                    {
+                        "critical": true,
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "fleshy-slap-damage"
                     }
                 ],
                 "slug": null,
@@ -593,7 +601,7 @@
                 }
             ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 12

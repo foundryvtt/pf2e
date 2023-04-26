@@ -1,14 +1,15 @@
-import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect";
-import { UserPF2e } from "@module/user";
-import { AfflictionData, AfflictionFlags, AfflictionSystemData } from "./data";
+import { ActorPF2e } from "@actor";
+import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect/index.ts";
+import { UserPF2e } from "@module/user/index.ts";
+import { AfflictionFlags, AfflictionSource, AfflictionSystemData } from "./data.ts";
 
-class AfflictionPF2e extends AbstractEffectPF2e {
+class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
     override get badge(): EffectBadge {
         const label = game.i18n.format("PF2E.Item.Affliction.Stage", { stage: this.stage });
         return { type: "counter", value: this.stage, label };
     }
 
-    get stage() {
+    get stage(): number {
         return this.system.stage;
     }
 
@@ -34,11 +35,18 @@ class AfflictionPF2e extends AbstractEffectPF2e {
         super.prepareBaseData();
         const maxStage = Object.values(this.system.stages).length || 1;
         this.system.stage = Math.clamped(this.system.stage, 1, maxStage);
+
+        // Set certain defaults
+        for (const stage of Object.values(this.system.stages)) {
+            for (const condition of Object.values(stage.conditions)) {
+                condition.linked ??= true;
+            }
+        }
     }
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<this>,
+        options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<void> {
         const duration = changed.system?.duration;
@@ -50,9 +58,9 @@ class AfflictionPF2e extends AbstractEffectPF2e {
     }
 }
 
-interface AfflictionPF2e extends AbstractEffectPF2e {
+interface AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
     flags: AfflictionFlags;
-    readonly data: AfflictionData;
+    readonly _source: AfflictionSource;
     system: AfflictionSystemData;
 }
 

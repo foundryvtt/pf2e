@@ -1,8 +1,8 @@
-import { DamageRoll } from "@system/damage/roll";
-import { LocalizePF2e } from "@system/localize";
+import { DamageRoll } from "@system/damage/roll.ts";
 import { ErrorPF2e, htmlQuery, tupleHasValue } from "@util";
-import { ChatContextFlag, CheckRollContextFlag } from "./data";
-import { ChatMessagePF2e } from "./document";
+import { ChatContextFlag, CheckRollContextFlag } from "./data.ts";
+import { ChatMessagePF2e } from "./document.ts";
+import { extractEphemeralEffects } from "@module/rules/helpers.ts";
 
 function isCheckContextFlag(flag?: ChatContextFlag): flag is CheckRollContextFlag {
     return !!flag && !tupleHasValue(["damage-roll", "spell-cast"], flag.type);
@@ -23,8 +23,7 @@ async function applyDamageFromMessage({
             ? [message.token]
             : canvas.tokens.controlled.filter((t) => !!t.actor).map((t) => t.document);
     if (tokens.length === 0) {
-        const errorMsg = LocalizePF2e.translations.PF2E.UI.errorTargetToken;
-        return ui.notifications.error(errorMsg);
+        return ui.notifications.error("PF2E.UI.errorTargetToken", { localize: true });
     }
 
     const shieldBlockRequest = CONFIG.PF2E.chatDamageButtonShieldToggle;
@@ -34,16 +33,37 @@ async function applyDamageFromMessage({
     const damage = multiplier < 0 ? multiplier * roll.total + addend : roll.alter(multiplier, addend);
 
     // Get origin roll options and apply damage to a contextual clone: this may influence condition IWR, for example
-    const originRollOptions = (message.flags.pf2e.context?.options ?? [])
+    const messageRollOptions = message.flags.pf2e.context?.options ?? [];
+    const originRollOptions = messageRollOptions
         .filter((o) => o.startsWith("self:"))
         .map((o) => o.replace(/^self/, "origin"));
 
     for (const token of tokens) {
-        await token.actor?.getContextualClone(originRollOptions).applyDamage({
+        if (!token.actor) continue;
+
+        const ephemeralEffects =
+            multiplier > 0
+                ? await extractEphemeralEffects({
+                      affects: "target",
+                      origin: message.actor,
+                      target: token.actor,
+                      item: message.item,
+                      domains: ["damage-received"],
+                      options: messageRollOptions,
+                  })
+                : [];
+        const contextClone = token.actor.getContextualClone(originRollOptions, ephemeralEffects);
+        const applicationRollOptions = new Set([
+            ...messageRollOptions.filter((o) => !/^(?:self|target):/.test(o)),
+            ...originRollOptions,
+            ...contextClone.getSelfRollOptions(),
+        ]);
+
+        await contextClone.applyDamage({
             damage,
             token,
             skipIWR: multiplier <= 0,
-            rollOptions: new Set(message.flags.pf2e.context?.options ?? []),
+            rollOptions: applicationRollOptions,
             shieldBlockRequest,
         });
     }

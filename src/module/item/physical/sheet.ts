@@ -1,5 +1,5 @@
-import { ItemSheetDataPF2e } from "@item/sheet/data-types";
-import { createSheetTags, SheetOptions } from "@module/sheet/helpers";
+import { ItemSheetDataPF2e } from "@item/sheet/data-types.ts";
+import { createSheetTags, SheetOptions } from "@module/sheet/helpers.ts";
 import { objectHasKey } from "@util";
 import {
     BasePhysicalItemSource,
@@ -10,29 +10,30 @@ import {
     PhysicalItemPF2e,
     PhysicalItemType,
     PreciousMaterialGrade,
-} from ".";
-import { ItemSheetPF2e } from "../sheet/base";
-import { PRECIOUS_MATERIAL_GRADES } from "./values";
+} from "./index.ts";
+import { ItemSheetPF2e } from "../sheet/base.ts";
+import { PRECIOUS_MATERIAL_GRADES } from "./values.ts";
 
 class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
     /** Show the identified data for editing purposes */
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<PhysicalItemSheetData<TItem>> {
         const sheetData: ItemSheetDataPF2e<TItem> = await super.getData(options);
 
-        // Set the source item data for editing
-        const identifiedData = this.item.getMystifiedData("identified", { source: true });
-        sheetData.item.name = identifiedData.name;
-        sheetData.item.img = identifiedData.img;
-        sheetData.item.system.description.value = identifiedData.data.description.value;
+        const basePrice = new CoinsPF2e(this.item._source.system.price.value);
+        const priceAdjustment = ((): "higher" | "lower" | null => {
+            const baseCopperValue = basePrice.copperValue;
+            const derivedCopperValue = this.item.system.price.value.copperValue;
+            return derivedCopperValue > baseCopperValue
+                ? "higher"
+                : derivedCopperValue < baseCopperValue
+                ? "lower"
+                : null;
+        })();
 
         const { actionTraits } = CONFIG.PF2E;
 
         // Enrich content
         const rollData = { ...this.item.getRollData(), ...this.actor?.getRollData() };
-        sheetData.enrichedContent.description = await TextEditor.enrichHTML(sheetData.item.system.description.value, {
-            rollData,
-            async: true,
-        });
         sheetData.enrichedContent.unidentifiedDescription = await TextEditor.enrichHTML(
             sheetData.item.system.identification.unidentified.data.description.value,
             { rollData, async: true }
@@ -52,8 +53,8 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         return {
             ...sheetData,
             itemType: game.i18n.localize("PF2E.ItemTitle"),
-            basePriceString: new CoinsPF2e(this.item._source.system.price.value).toString(),
-            priceString: this.item.price.value.toString(),
+            basePrice,
+            priceAdjustment,
             actionTypes: CONFIG.PF2E.actionTypes,
             actionsNumber: CONFIG.PF2E.actionsNumber,
             bulkTypes: CONFIG.PF2E.bulkTypes,
@@ -199,7 +200,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         }
 
         // Convert price from a string to an actual object
-        if (formData["system.price.value"]) {
+        if ("system.price.value" in formData) {
             formData["system.price.value"] = CoinsPF2e.fromString(String(formData["system.price.value"]));
         }
 
@@ -222,8 +223,8 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
 
 interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemSheetDataPF2e<TItem> {
     isPhysical: true;
-    basePriceString: string;
-    priceString: string;
+    basePrice: CoinsPF2e;
+    priceAdjustment: "higher" | "lower" | null;
     actionTypes: ConfigPF2e["PF2E"]["actionTypes"];
     actionsNumber: ConfigPF2e["PF2E"]["actionsNumber"];
     bulkTypes: ConfigPF2e["PF2E"]["bulkTypes"];

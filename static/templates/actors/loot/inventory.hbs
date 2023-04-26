@@ -14,7 +14,7 @@
                     </div>
                 {{/if}}
             </li>
-            <ol class="item-list">
+            <ol class="item-list" data-item-type="{{section.type}}">
                 {{#each section.items}}
                     {{> "systems/pf2e/templates/actors/partials/item-line.hbs" this=this editable=@root.editable owner=@root.owner user=@root.user}}
                 {{/each}}

@@ -1,10 +1,11 @@
 import { ActorPF2e } from "@actor";
 import { AbstractEffectPF2e, EffectPF2e } from "@item";
-import { AfflictionPF2e } from "@item/affliction";
-import { EffectExpiryType } from "@item/effect/data";
-import { TokenDocumentPF2e } from "@scene";
+import { AfflictionPF2e } from "@item/affliction/document.ts";
+import { EffectExpiryType } from "@item/effect/data.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import { htmlQuery, htmlQueryAll } from "@util";
-import { FlattenedCondition } from "../system/conditions";
+import { FlattenedCondition } from "../system/conditions/index.ts";
 
 export class EffectsPanel extends Application {
     private get token(): TokenDocumentPF2e | null {
@@ -33,7 +34,14 @@ export class EffectsPanel extends Application {
     override async getData(options?: ApplicationOptions): Promise<EffectsPanelData> {
         const { actor } = this;
         if (!actor || !game.user.settings.showEffectPanel) {
-            return { afflictions: [], conditions: [], effects: [], actor: null, user: { isGM: false } };
+            return {
+                afflictions: [],
+                conditions: [],
+                effects: [],
+                descriptions: { afflictions: [], conditions: [], effects: [] },
+                actor: null,
+                user: { isGM: false },
+            };
         }
 
         const effects =
@@ -61,14 +69,23 @@ export class EffectsPanel extends Application {
                 return effect;
             }) ?? [];
 
-        const conditions = game.pf2e.ConditionManager.getFlattenedConditions(actor.itemTypes.condition);
+        const conditions = game.pf2e.ConditionManager.getFlattenedConditions(actor);
+
+        const afflictions = actor.itemTypes.affliction;
+
+        const descriptions = {
+            afflictions: await this.#getEnrichedDescriptions(afflictions),
+            conditions: await this.#getEnrichedDescriptions(conditions),
+            effects: await this.#getEnrichedDescriptions(effects),
+        };
 
         return {
             ...(await super.getData(options)),
-            actor,
-            effects,
+            afflictions,
             conditions,
-            afflictions: actor.itemTypes.affliction,
+            descriptions,
+            effects,
+            actor,
             user: { isGM: game.user.isGM },
         };
     }
@@ -76,6 +93,9 @@ export class EffectsPanel extends Application {
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         const html = $html[0]!;
+
+        // For inline roll links in descriptions
+        InlineRollLinks.listen(html, this.actor || undefined);
 
         for (const effectEl of htmlQueryAll(html, ".effect-item[data-item-id]")) {
             const itemId = effectEl.dataset.itemId;
@@ -112,9 +132,16 @@ export class EffectsPanel extends Application {
                 }
             });
 
+            // Send effect to chat
+            effectEl.querySelector("[data-action=send-to-chat]")?.addEventListener("click", () => {
+                const { actor } = this;
+                const effect = actor?.conditions.get(itemId) ?? actor?.items.get(itemId);
+                effect?.toMessage();
+            });
+
             // Uses a scale transform to fit the text within the box
             // Note that the value container cannot have padding or measuring will fail.
-            // They cannot be inline elements pre-computation, but most be post-computation (for ellipses)
+            // They cannot be inline elements pre-computation, but must be post-computation (for ellipses)
             const valueContainer = htmlQuery(iconElem, ".value");
             const textElement = htmlQuery(valueContainer, "strong");
             if (valueContainer && textElement) {
@@ -192,11 +219,24 @@ export class EffectsPanel extends Application {
             return game.i18n.format(key, { initiative });
         }
     }
+
+    async #getEnrichedDescriptions(effects: AfflictionPF2e[] | EffectPF2e[] | FlattenedCondition[]): Promise<String[]> {
+        return await Promise.all(
+            effects.map(async (effect) => await TextEditor.enrichHTML(effect.description, { async: true }))
+        );
+    }
+}
+
+interface EffectsDescriptionData {
+    afflictions: String[];
+    conditions: String[];
+    effects: String[];
 }
 
 interface EffectsPanelData {
     afflictions: AfflictionPF2e[];
     conditions: FlattenedCondition[];
+    descriptions: EffectsDescriptionData;
     effects: EffectPF2e[];
     actor: ActorPF2e | null;
     user: { isGM: boolean };

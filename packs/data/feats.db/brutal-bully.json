@@ -9,11 +9,9 @@
         "actions": {
             "value": null
         },
+        "category": "class",
         "description": {
-            "value": "<p>You push your foes around and leave bruises. While raging, when you successfully Disarm, Grapple, Shove, or Trip a foe, you deal that foe bludgeoning damage equal to your Strength modifier; add this to the damage from a critical success to Trip.</p>"
-        },
-        "featType": {
-            "value": "class"
+            "value": "<p>You push your foes around and leave bruises. While raging, when you successfully Disarm, Grapple, Shove, or Trip a foe, you deal that foe [[/r @actor.abilties.str.mod[bludgeoning]]]{bludgeoning damage} equal to your Strength modifier; add this to the damage from a critical success to Trip.</p>"
         },
         "level": {
             "value": 6
@@ -25,7 +23,28 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "self:effect:rage",
+                    {
+                        "or": [
+                            "action:disarm",
+                            "action:grapple",
+                            "action:trip",
+                            "action:shove"
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },

@@ -3,7 +3,6 @@
     "img": "systems/pf2e/icons/equipment/consumables/ammunition/energized-cartridge-cold.webp",
     "name": "Effect: Energized Cartridge (Cold)",
     "system": {
-        "badge": null,
         "description": {
             "value": "<p>For the next strike, the ammunition fired from the affixed weapon to transforms into ice, dealing cold damage instead of its usual damage as well as [[/r 1d6[persistent,cold]]] damage on a critical hit.</p>"
         },
@@ -25,13 +24,13 @@
                 "selector": "strike-damage"
             },
             {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "selector": "strike-damage",
-                "text": "The weapon deals [[/r 1d6[persistent,cold]]] damage on a critical hit.",
-                "title": "Energized Cartridge"
+                "category": "persistent",
+                "critical": true,
+                "damageType": "cold",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "strike-damage"
             }
         ],
         "source": {

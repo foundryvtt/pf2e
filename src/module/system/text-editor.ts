@@ -1,16 +1,16 @@
 import { ActorPF2e } from "@actor";
-import { ModifierPF2e } from "@actor/modifiers";
-import { ActorSheetPF2e } from "@actor/sheet/base";
-import { SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values";
+import { ModifierPF2e } from "@actor/modifiers.ts";
+import { ActorSheetPF2e } from "@actor/sheet/base.ts";
+import { SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
-import { ItemSystemData } from "@item/data/base";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers";
-import { UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility";
+import { ItemSystemData } from "@item/data/base.ts";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
+import { UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
 import { htmlClosest, objectHasKey, sluggify } from "@util";
-import { damageDiceIcon, looksLikeDamageFormula } from "./damage/helpers";
-import { DamageRoll } from "./damage/roll";
-import { Statistic } from "./statistic";
+import { damageDiceIcon, looksLikeDamageRoll } from "./damage/helpers.ts";
+import { DamageRoll } from "./damage/roll.ts";
+import { Statistic } from "./statistic/index.ts";
 
 const superEnrichHTML = TextEditor.enrichHTML;
 const superCreateInlineRoll = TextEditor._createInlineRoll;
@@ -49,7 +49,7 @@ class TextEditorPF2e extends TextEditor {
     ): Promise<HTMLAnchorElement | null> {
         const anchor = await superCreateInlineRoll.apply(this, [match, rollData, options]);
         const formula = anchor?.dataset.formula;
-        if (formula && looksLikeDamageFormula(formula)) {
+        if (formula) {
             const roll = ((): DamageRoll | null => {
                 try {
                     return new DamageRoll(formula);
@@ -57,7 +57,10 @@ class TextEditorPF2e extends TextEditor {
                     return null;
                 }
             })();
-            if (!roll) return null;
+            // Consider any roll formula with d20s or coins to definitely not be a damage roll
+            if (!roll || !looksLikeDamageRoll(roll)) {
+                return anchor;
+            }
 
             // Replace the die icon with one representing the damage roll's first damage die
             const icon = damageDiceIcon(roll);

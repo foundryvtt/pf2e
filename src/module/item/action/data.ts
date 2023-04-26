@@ -1,21 +1,15 @@
 import {
     ActionType,
-    BaseItemDataPF2e,
     BaseItemSourcePF2e,
     Frequency,
     FrequencySource,
     ItemSystemData,
     ItemSystemSource,
     ItemTraits,
-} from "@item/data/base";
-import { ActionItemPF2e } from ".";
-import { OneToThree } from "@module/data";
+} from "@item/data/base.ts";
+import { OneToThree } from "@module/data.ts";
 
 type ActionItemSource = BaseItemSourcePF2e<"action", ActionSystemSource>;
-
-interface ActionItemData
-    extends Omit<ActionItemSource, "flags" | "system" | "type">,
-        BaseItemDataPF2e<ActionItemPF2e, "action", ActionItemSource> {}
 
 type ActionTrait = keyof ConfigPF2e["PF2E"]["actionTraits"];
 interface ActionTraits extends ItemTraits<ActionTrait> {
@@ -48,4 +42,4 @@ interface ActionSystemData extends ActionSystemSource, Omit<ItemSystemData, "lev
     frequency?: Frequency;
 }
 
-export { ActionItemSource, ActionItemData, ActionSystemData, ActionTrait, ActionTraits };
+export { ActionItemSource, ActionSystemData, ActionTrait, ActionTraits };

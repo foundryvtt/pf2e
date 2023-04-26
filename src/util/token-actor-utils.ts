@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { ActorType } from "@actor/data";
+import { ActorType } from "@actor/data/index.ts";
 
 /**
  * Collects every actor whose token is controlled on the canvas, and if none are, collects the current user's character, if it exists.

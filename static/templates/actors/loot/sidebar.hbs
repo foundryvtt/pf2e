@@ -1,6 +1,9 @@
 <section class="sheet-sidebar sidebar sidebar-loot">
-    <img class="actor-icon" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
-
+    <div class="image-container">
+        <img class="actor-image" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
+        <a class="hover-icon" data-action="show-image"><i class="fas fa-image fa-fw"></i></a>
+    </div>
+    
     {{#if (and user.isGM isLoot)}}
         <section class="gm-settings">
             <section class="loot-distribution">

@@ -1,9 +1,10 @@
-import { CharacterPF2e } from "@actor";
-import { AbilityString } from "@actor/types";
+import { ActorPF2e } from "@actor";
+import { AbilityString } from "@actor/types.ts";
 import { SpellPF2e } from "@item";
-import { extractModifiers } from "@module/rules/helpers";
-import { Statistic } from "@system/statistic";
-import { CastOptions, SpellcastingEntry, SpellcastingSheetData } from "./types";
+import { extractModifiers } from "@module/rules/helpers.ts";
+import { Statistic } from "@system/statistic/index.ts";
+import { CastOptions, SpellcastingEntry, SpellcastingSheetData } from "./types.ts";
+import { ErrorPF2e } from "@util/misc.ts";
 
 const TRICK_MAGIC_SKILLS = ["arcana", "nature", "occultism", "religion"] as const;
 type TrickMagicItemSkill = (typeof TRICK_MAGIC_SKILLS)[number];
@@ -23,7 +24,7 @@ const traditionSkills = {
 } as const;
 
 /** A pseudo spellcasting entry used to trick magic item for a single skill */
-class TrickMagicItemEntry implements SpellcastingEntry {
+class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements SpellcastingEntry<TActor> {
     readonly id = `trick-${this.skill}`;
 
     statistic: Statistic;
@@ -32,7 +33,12 @@ class TrickMagicItemEntry implements SpellcastingEntry {
 
     tradition = TrickMagicTradition[this.skill];
 
-    constructor(public actor: CharacterPF2e, public skill: TrickMagicItemSkill) {
+    constructor(public actor: TActor, public skill: TrickMagicItemSkill) {
+        if (!actor.isOfType("character")) {
+            throw ErrorPF2e("Trick magic entries may only be constructed with PCs");
+        }
+        this.actor = actor as TActor;
+
         const { abilities } = actor;
         const { ability } = (["int", "wis", "cha"] as const)
             .map((ability) => {

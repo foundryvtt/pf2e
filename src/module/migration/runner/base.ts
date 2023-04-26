@@ -1,11 +1,12 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemSourcePF2e } from "@item/data";
-import { DocumentSchemaRecord } from "@module/data";
-import { MigrationBase } from "@module/migration/base";
-import { TokenDocumentPF2e } from "@module/scene/token-document";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { DocumentSchemaRecord } from "@module/data.ts";
+import { MigrationBase } from "@module/migration/base.ts";
+import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
+import { ScenePF2e } from "@scene/document.ts";
 import { DateTime } from "luxon";
 
-interface CollectionDiff<T extends foundry.data.ActiveEffectSource | ItemSourcePF2e> {
+interface CollectionDiff<T extends foundry.documents.ActiveEffectSource | ItemSourcePF2e> {
     inserted: T[];
     deleted: string[];
     updated: T[];
@@ -14,7 +15,7 @@ interface CollectionDiff<T extends foundry.data.ActiveEffectSource | ItemSourceP
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.833;
+    static LATEST_SCHEMA_VERSION = 0.837;
 
     static MINIMUM_SAFE_VERSION = 0.618;
 
@@ -28,13 +29,13 @@ export class MigrationRunnerBase {
         return currentVersion < (this.constructor as typeof MigrationRunnerBase).LATEST_SCHEMA_VERSION;
     }
 
-    diffCollection<T extends foundry.data.ActiveEffectSource>(orig: T[], updated: T[]): CollectionDiff<T>;
+    diffCollection<T extends foundry.documents.ActiveEffectSource>(orig: T[], updated: T[]): CollectionDiff<T>;
     diffCollection<T extends ItemSourcePF2e>(orig: T[], updated: T[]): CollectionDiff<T>;
-    diffCollection<T extends foundry.data.ActiveEffectSource | ItemSourcePF2e>(
+    diffCollection<T extends foundry.documents.ActiveEffectSource | ItemSourcePF2e>(
         orig: T[],
         updated: T[]
     ): CollectionDiff<T>;
-    diffCollection<TSource extends foundry.data.ActiveEffectSource | ItemSourcePF2e>(
+    diffCollection<TSource extends foundry.documents.ActiveEffectSource | ItemSourcePF2e>(
         orig: TSource[],
         updated: TSource[]
     ): CollectionDiff<TSource> {
@@ -133,9 +134,9 @@ export class MigrationRunnerBase {
     }
 
     async getUpdatedTable(
-        tableSource: foundry.data.RollTableSource,
+        tableSource: foundry.documents.RollTableSource,
         migrations: MigrationBase[]
-    ): Promise<foundry.data.RollTableSource> {
+    ): Promise<foundry.documents.RollTableSource> {
         const current = deepClone(tableSource);
 
         for (const migration of migrations) {
@@ -150,9 +151,9 @@ export class MigrationRunnerBase {
     }
 
     async getUpdatedMacro(
-        macroSource: foundry.data.MacroSource,
+        macroSource: foundry.documents.MacroSource,
         migrations: MigrationBase[]
-    ): Promise<foundry.data.MacroSource> {
+    ): Promise<foundry.documents.MacroSource> {
         const current = deepClone(macroSource);
 
         for (const migration of migrations) {
@@ -183,7 +184,10 @@ export class MigrationRunnerBase {
         return clone;
     }
 
-    async getUpdatedToken(token: TokenDocumentPF2e, migrations: MigrationBase[]): Promise<foundry.data.TokenSource> {
+    async getUpdatedToken(
+        token: TokenDocumentPF2e<ScenePF2e>,
+        migrations: MigrationBase[]
+    ): Promise<foundry.documents.TokenSource> {
         const current = token.toObject();
         for (const migration of migrations) {
             await migration.updateToken?.(current, token.actor, token.scene);

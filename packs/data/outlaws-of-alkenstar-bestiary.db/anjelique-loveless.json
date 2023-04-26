@@ -1052,9 +1052,10 @@
                         "predicate": [
                             "target:trait:good"
                         ],
-                        "selector": "redeemers-pistol-damage",
+                        "selector": "redeemers-pistol-attack",
                         "text": "{item|system.description.value}",
-                        "title": "{item|name}"
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,
@@ -1160,12 +1161,42 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Anjelique makes a ranged Strike and deals an additional [[/r 2d8[piercing]]] damage on a hit. If the target is frightened, it also takes @Localize[PF2E.PersistentDamage.Bleed2d6.success] on a hit.</p>"
+                    "value": "<p>Anjelique makes a ranged Strike and deals an additional [[/r 2d8[piercing]]] damage on a hit. If the target is frightened, it also takes [[/r 2d6[bleed]]] on a hit.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "tormenting-shot",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "piercing",
+                        "diceNumber": 2,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:ranged",
+                            "tormenting-shot"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:ranged",
+                            "target:condition:frightened",
+                            "tormenting-shot"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1356,7 +1387,7 @@
                 "value": 200
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 24

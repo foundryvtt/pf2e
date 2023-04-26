@@ -374,10 +374,6 @@
                     "0": {
                         "damage": "3d4+11",
                         "damageType": "slashing"
-                    },
-                    "1": {
-                        "damage": "2d10",
-                        "damageType": "bleed"
                     }
                 },
                 "description": {
@@ -508,12 +504,23 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Whenever Twisted Jack deals slashing damage, the target takes an additional @Localize[PF2E.PersistentDamage.Bleed2d10.success].</p>"
+                    "value": "<p>Whenever Twisted Jack deals slashing damage, the target takes an additional 2d10 persistent bleed damage.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 2,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:damage:type:slashing"
+                        ],
+                        "selector": "damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -547,7 +554,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Twisted Jack makes three ranged dagger Strikes, each against a separate target; he ignores the multiple attack penalty until after making all three Strikes. On a critical hit, the target takes 2d10 persistent bleed damage and is blinded for 1 round.</p>"
+                    "value": "<p>Twisted Jack makes three ranged dagger Strikes, each against a separate target; he ignores the multiple attack penalty until after making all three Strikes. On a critical hit, the target takes [[/r 2d10[bleed]]] damage and is @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -610,7 +617,12 @@
             "type": "action"
         },
         {
-            "_id": "8NRxk6m07y9TpopE",
+            "_id": "rUGUrNdhsxVMFs5r",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
             "sort": 1000000,
@@ -625,15 +637,47 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Twisted Jack deals an additional [[/r 3d6]] precision damage to flat-footed targets.</p>"
+                    "value": "<p>Twisted Jack deals an additional 3d6 precision damage to flat-footed targets.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
+                                    {
+                                        "and": [
+                                            "item:ranged",
+                                            {
+                                                "not": "item:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "rarity": "common",
@@ -801,7 +845,7 @@
                 "value": 240
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 32

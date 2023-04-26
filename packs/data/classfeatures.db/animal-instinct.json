@@ -9,11 +9,9 @@
         "actions": {
             "value": null
         },
+        "category": "classfeature",
         "description": {
             "value": "<p>The fury of a wild predator fills you when you Rage, granting you ferocious unarmed attacks. Cultures that revere vicious animals (such as apes or bears) give rise to barbarians with this instinct. You might also be at war with an uncontrollable, animalistic side of your personality, or you might be a descendant of a werewolf or another werecreature. Select an animal from Table 3-3: Animal Instincts that best matches your chosen animal.</p>\n<h2>Table 3-3: Animal Instincts</h2>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Animal</th>\n<th>Attack</th>\n<th>Damage</th>\n<th>Traits</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Ape</td>\n<td>Fist</td>\n<td>1d10 B</td>\n<td>Grapple, unarmed</td>\n</tr>\n<tr>\n<td>Bear</td>\n<td>Jaws</td>\n<td>1d10 P</td>\n<td>Unarmed</td>\n</tr>\n<tr>\n<td>Bear (continued)</td>\n<td>Claw</td>\n<td>1d6 S</td>\n<td>Agile, unarmed</td>\n</tr>\n<tr>\n<td>Bull</td>\n<td>Horn</td>\n<td>1d10 P</td>\n<td>Shove, unarmed</td>\n</tr>\n<tr>\n<td>Cat</td>\n<td>Jaws</td>\n<td>1d10 P</td>\n<td>Unarmed</td>\n</tr>\n<tr>\n<td>Cat (continued)</td>\n<td>Claw</td>\n<td>1d6 S</td>\n<td>Agile, unarmed</td>\n</tr>\n<tr>\n<td>Deer</td>\n<td>Antler</td>\n<td>1d10 P</td>\n<td>Grapple, unarmed</td>\n</tr>\n<tr>\n<td>Frog</td>\n<td>Jaws</td>\n<td>1d10 B</td>\n<td>Unarmed</td>\n</tr>\n<tr>\n<td>Frog (continued)</td>\n<td>Tongue</td>\n<td>1d4 B</td>\n<td>Agile, unarmed</td>\n</tr>\n<tr>\n<td>Shark</td>\n<td>Jaws</td>\n<td>1d10 P</td>\n<td>Grapple, unarmed</td>\n</tr>\n<tr>\n<td>Snake</td>\n<td>Fangs</td>\n<td>1d10 P</td>\n<td>Grapple, unarmed</td>\n</tr>\n<tr>\n<td>Wolf</td>\n<td>Jaws</td>\n<td>1d10 P</td>\n<td>Trip, unarmed</td>\n</tr>\n</tbody>\n</table>\n<h2 class=\"title\">Anathema</h2>\n<p>Flagrantly disrespecting an animal of your chosen kind is anathema to your instinct, as is using weapons while raging.</p>\n<h2 class=\"title\">Bestial Rage (Instinct Ability)</h2>\n<p>When you Rage, you gain your chosen animal's unarmed attack (or attacks). The specific attack gained, the damage it deals, and its traits are listed on Table 3-3: Animal Instincts. These attacks are in the brawling group. Your Rage action gains the morph, primal, and transmutation traits.</p>\n<h2 class=\"title\">Specialization Ability<span style=\"float:right\">Level 7</span></h2>\n<p>Increase the damage die size for the unarmed attacks granted by your chosen animal by one step, and increase the additional damage from Rage from 2 to 5 for your chosen animal's unarmed attacks. The frog's tongue attack and deer's antler attack gain reach 10 feet. If you have greater weapon specialization, increase the damage from Rage from 5 to 12 for your chosen animal's unarmed attacks.</p>\n<h2 class=\"title\">Raging Resistance<span style=\"float:right\">Level 9</span></h2>\n<p>You resist piercing and slashing damage.</p>"
-        },
-        "featType": {
-            "value": "classfeature"
         },
         "level": {
             "value": 1
@@ -80,6 +78,17 @@
                 "selector": "{item|_id}-damage",
                 "slug": "rage",
                 "value": 5
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "class:barbarian",
+                    "feature:greater-weapon-specialization"
+                ],
+                "selector": "{item|_id}-damage",
+                "slug": "rage",
+                "value": 12
             },
             {
                 "key": "Resistance",
@@ -316,7 +325,7 @@
                 "label": "PF2E.BattleForm.Attack.Tongue",
                 "predicate": [
                     "self:effect:rage",
-                    "animal-instinct:wolf",
+                    "animal-instinct:frog",
                     {
                         "or": [
                             "class:barbarian",

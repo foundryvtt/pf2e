@@ -284,7 +284,7 @@
             },
             "img": "systems/pf2e/icons/spells/call-spirit.webp",
             "name": "Call Spirit",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "ability": {
                     "value": ""
@@ -382,7 +382,7 @@
             },
             "img": "systems/pf2e/icons/spells/wall-of-ice.webp",
             "name": "Wall of Ice",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "ability": {
                     "value": ""
@@ -500,7 +500,7 @@
             },
             "img": "systems/pf2e/icons/spells/stone-skin.webp",
             "name": "Stoneskin",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "ability": {
                     "value": ""
@@ -602,7 +602,7 @@
             },
             "img": "systems/pf2e/icons/spells/weapon-storm.webp",
             "name": "Weapon Storm",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "ability": {
                     "value": ""
@@ -702,7 +702,7 @@
             },
             "img": "systems/pf2e/icons/spells/blindness.webp",
             "name": "Blindness",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "ability": {
                     "value": ""
@@ -806,7 +806,7 @@
             },
             "img": "systems/pf2e/icons/spells/fireball.webp",
             "name": "Fireball",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "ability": {
                     "value": ""
@@ -928,7 +928,7 @@
             },
             "img": "systems/pf2e/icons/spells/searing-light.webp",
             "name": "Searing Light",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "ability": {
                     "value": ""
@@ -960,7 +960,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You shoot a blazing ray of light tinged with holy energy. Make a ranged spell attack. The ray deals 5d6 fire damage. If the target is a fiend or undead, you deal an extra [[/r 5d6[good]]] damage.</p>\n<p>If the light passes through an area of magical darkness or targets a creature affected by magical darkness, <em>searing light</em> attempts to counteract the darkness. If you need to determine whether the light passes through an area of darkness, draw a line between yourself and the spell's target</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double fire damage, as well as double good damage if a fiend or undead.</p>\n<p><strong>Success</strong> The target takes full damage</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The fire damage increases by 2d6, and the good damage against fiends and undead increases by 2d6.</p>"
+                    "value": "<p>You shoot a blazing ray of light tinged with holy energy. Make a ranged spell attack. The ray deals 5d6 fire damage. If the target is a fiend or undead, you deal an extra 5d6 good damage.</p>\n<p>If the light passes through an area of magical darkness or targets a creature affected by magical darkness, <em>searing light</em> attempts to counteract the darkness. If you need to determine whether the light passes through an area of darkness, draw a line between yourself and the spell's target</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double fire damage, as well as double good damage if a fiend or undead.</p>\n<p><strong>Success</strong> The target takes full damage</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The fire damage increases by 2d6, and the good damage against fiends and undead increases by 2d6.</p>\n<p>[[/r ((@item.level*2)-1)d6[good]]]{Leveled Good Damage}</p>"
                 },
                 "duration": {
                     "value": ""
@@ -993,7 +993,23 @@
                 "range": {
                     "value": "120 feet"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "good",
+                        "diceNumber": "(@spell.level*2)-1",
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:trait:fiend",
+                                    "target:trait:undead"
+                                ]
+                            }
+                        ],
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "save": {
                     "basic": "",
                     "value": ""
@@ -1050,7 +1066,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "ability": {
                     "value": ""
@@ -1152,7 +1168,7 @@
             },
             "img": "systems/pf2e/icons/spells/flaming-sphere.webp",
             "name": "Flaming Sphere",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "ability": {
                     "value": ""
@@ -1269,7 +1285,7 @@
             },
             "img": "systems/pf2e/icons/spells/restoration.webp",
             "name": "Restoration",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "ability": {
                     "value": ""
@@ -1372,7 +1388,7 @@
             },
             "img": "systems/pf2e/icons/spells/disrupt-undead.webp",
             "name": "Disrupt Undead",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "ability": {
                     "value": ""
@@ -1493,7 +1509,7 @@
             },
             "img": "systems/pf2e/icons/spells/electric-arc.webp",
             "name": "Electric Arc",
-            "sort": 1500000,
+            "sort": 1400000,
             "system": {
                 "ability": {
                     "value": ""
@@ -1613,16 +1629,12 @@
             },
             "img": "systems/pf2e/icons/spells/heal.webp",
             "name": "Heal",
-            "sort": 1600000,
+            "sort": 1500000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "details": "varies",
-                    "type": "emanation",
-                    "value": 30
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1641,7 +1653,6 @@
                             "applyMod": false,
                             "type": {
                                 "categories": [],
-                                "subtype": "",
                                 "value": "positive"
                             },
                             "value": "1d8"
@@ -1680,10 +1691,6 @@
                         "overlayType": "override",
                         "sort": 2,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true,
                                 "verbal": true
@@ -1695,7 +1702,6 @@
                                     }
                                 }
                             },
-                            "heightenedLevel": {},
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -1718,14 +1724,9 @@
                         "overlayType": "override",
                         "sort": 1,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": "touch"
                             },
@@ -1739,12 +1740,15 @@
                         "overlayType": "override",
                         "sort": 4,
                         "system": {
+                            "area": {
+                                "type": "emanation",
+                                "value": 30
+                            },
                             "components": {
                                 "material": true,
                                 "somatic": true,
                                 "verbal": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": ""
                             },
@@ -1762,15 +1766,10 @@
                         "overlayType": "override",
                         "sort": 3,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true,
                                 "verbal": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": "30 feet"
                             },
@@ -1851,7 +1850,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 1700000,
+            "sort": 1600000,
             "system": {
                 "ability": {
                     "value": ""
@@ -1957,7 +1956,7 @@
             },
             "img": "systems/pf2e/icons/spells/shillelagh.webp",
             "name": "Shillelagh",
-            "sort": 1800000,
+            "sort": 1700000,
             "system": {
                 "ability": {
                     "value": ""
@@ -2058,7 +2057,7 @@
             },
             "img": "systems/pf2e/icons/spells/shocking-grasp.webp",
             "name": "Shocking Grasp",
-            "sort": 1900000,
+            "sort": 1800000,
             "system": {
                 "ability": {
                     "value": ""
@@ -2176,7 +2175,7 @@
             },
             "img": "systems/pf2e/icons/spells/stabelize.webp",
             "name": "Stabilize",
-            "sort": 2000000,
+            "sort": 1900000,
             "system": {
                 "ability": {
                     "value": ""
@@ -2281,7 +2280,7 @@
             },
             "img": "systems/pf2e/icons/spells/wild-morph.webp",
             "name": "Wild Morph",
-            "sort": 2100000,
+            "sort": 2000000,
             "system": {
                 "ability": {
                     "value": ""
@@ -2303,7 +2302,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You morph your body based on your training, choosing one of the following effects based on your wild order feats.</p>\n<ul>\n<li>If you have @UUID[Compendium.pf2e.feats-srd.Wild Shape]{Wild Shape}, you can morph your hands into wild claws. Your hands transform into incredibly sharp claws. These claws are an unarmed attack you're trained in and deal 1d6 slashing damage each (agile, finesse). You can still hold and use items with your hands while they're transformed by this spell, but you cannot hold an item while attacking.</li>\n<li>If you have @UUID[Compendium.pf2e.feats-srd.Insect Shape]{Insect Shape}, you can instead transform your mouth into wild jaws, an unarmed attack you're trained in that deals 1d8 piercing damage.</li>\n<li>If you have @UUID[Compendium.pf2e.feats-srd.Elemental Shape]{Elemental Shape}, you can morph your body to be partially composed of elemental matter, granting you resistance 5 to critical hits and precision damage.</li>\n<li>If you have @UUID[Compendium.pf2e.feats-srd.Plant Shape]{Plant Shape}, you can morph your arms into long vines, increasing your reach to 10 feet (or 15 feet with a reach weapon).</li>\n<li>If you have @UUID[Compendium.pf2e.feats-srd.Soaring Shape]{Soaring Shape}, you can cast the spell as a two-action activity (<span class=\"pf2-icon\">2</span> <strong>somatic, verbal</strong>) to grow wings from your back. These wings allow you to fly with a fly Speed of 30 feet.</li>\n</ul>\n<hr />\n<p><strong>Heightened (6th)</strong> You can choose up to two of the effects from the list. Wild claws leave terrible, ragged wounds that also deal @Localize[PF2E.PersistentDamage.Bleed2d6.success] on a hit, and wild jaws are envenomed, also dealing @Localize[PF2E.PersistentDamage.Poison2d6.success] on a hit.</p>\n<p><strong>Heightened (10th)</strong> You can choose up to three of the effects from the list. Wild claws deal @Localize[PF2E.PersistentDamage.Bleed4d6.success] on a hit, and wild jaws deal @Localize[PF2E.PersistentDamage.Poison4d6.success] on a hit.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Wild Morph]{Spell Effect: Wild Morph}</p>"
+                    "value": "<p>You morph your body based on your training, choosing one of the following effects based on your wild order feats.</p>\n<ul>\n<li>If you have @UUID[Compendium.pf2e.feats-srd.Wild Shape]{Wild Shape}, you can morph your hands into wild claws. Your hands transform into incredibly sharp claws. These claws are an unarmed attack you're trained in and deal 1d6 slashing damage each (agile, finesse). You can still hold and use items with your hands while they're transformed by this spell, but you cannot hold an item while attacking.</li>\n<li>If you have @UUID[Compendium.pf2e.feats-srd.Insect Shape]{Insect Shape}, you can instead transform your mouth into wild jaws, an unarmed attack you're trained in that deals 1d8 piercing damage.</li>\n<li>If you have @UUID[Compendium.pf2e.feats-srd.Elemental Shape]{Elemental Shape}, you can morph your body to be partially composed of elemental matter, granting you resistance 5 to critical hits and precision damage.</li>\n<li>If you have @UUID[Compendium.pf2e.feats-srd.Plant Shape]{Plant Shape}, you can morph your arms into long vines, increasing your reach to 10 feet (or 15 feet with a reach weapon).</li>\n<li>If you have @UUID[Compendium.pf2e.feats-srd.Soaring Shape]{Soaring Shape}, you can cast the spell as a two-action activity (<span class=\"pf2-icon\">2</span> <strong>somatic, verbal</strong>) to grow wings from your back. These wings allow you to fly with a fly Speed of 30 feet.</li>\n</ul>\n<hr />\n<p><strong>Heightened (6th)</strong> You can choose up to two of the effects from the list. Wild claws leave terrible, ragged wounds that also deal [[/r 2d6[bleed]]] on a hit, and wild jaws are envenomed, also dealing [[/r 2d6[persistent,poison]]] on a hit.</p>\n<p><strong>Heightened (10th)</strong> You can choose up to three of the effects from the list. Wild claws deal [[/r 4d6[bleed]]] on a hit, and wild jaws deal [[/r 4d6[persistent,poison]]] on a hit.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Wild Morph]{Spell Effect: Wild Morph}</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -2381,7 +2380,7 @@
             },
             "img": "systems/pf2e/icons/spells/wild-shape.webp",
             "name": "Wild Shape",
-            "sort": 2200000,
+            "sort": 2100000,
             "system": {
                 "ability": {
                     "value": ""
@@ -2481,7 +2480,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/club.webp",
             "name": "Club",
-            "sort": 2300000,
+            "sort": 2200000,
             "system": {
                 "MAP": {
                     "value": ""
@@ -2590,7 +2589,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/composite-shortbow.webp",
             "name": "Composite Shortbow",
-            "sort": 2400000,
+            "sort": 2300000,
             "system": {
                 "MAP": {
                     "value": ""
@@ -2704,7 +2703,7 @@
             },
             "img": "systems/pf2e/icons/equipment/armor/leather-armor.webp",
             "name": "+1 Leather Armor",
-            "sort": 2500000,
+            "sort": 2400000,
             "system": {
                 "armor": {
                     "value": 1
@@ -2813,7 +2812,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
             "name": "Arrows",
-            "sort": 2600000,
+            "sort": 2500000,
             "system": {
                 "autoDestroy": {
                     "value": true
@@ -2889,7 +2888,7 @@
             "_id": "M0O2aUtdSXT0HpSQ",
             "img": "systems/pf2e/icons/default-icons/treasure.svg",
             "name": "Chieftain's Necklace",
-            "sort": 2700000,
+            "sort": 2600000,
             "system": {
                 "baseItem": null,
                 "containerId": null,
@@ -2951,7 +2950,7 @@
             "_id": "97i0qo04YJEOlBSn",
             "img": "systems/pf2e/icons/default-icons/treasure.svg",
             "name": "Rare Candles and Incense",
-            "sort": 2800000,
+            "sort": 2700000,
             "system": {
                 "baseItem": null,
                 "containerId": null,
@@ -3018,7 +3017,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Club",
-            "sort": 2900000,
+            "sort": 2800000,
             "system": {
                 "attack": {
                     "value": ""
@@ -3062,7 +3061,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Club",
-            "sort": 3000000,
+            "sort": 2900000,
             "system": {
                 "attack": {
                     "value": ""
@@ -3108,7 +3107,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Composite Shortbow",
-            "sort": 3100000,
+            "sort": 3000000,
             "system": {
                 "attack": {
                     "value": ""
@@ -3158,7 +3157,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Poison",
-            "sort": 3200000,
+            "sort": 3100000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -3207,7 +3206,7 @@
             "_id": "fXlB9FRj3C3aY3Vk",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Form Control",
-            "sort": 3300000,
+            "sort": 3200000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -3246,7 +3245,7 @@
             "_id": "h2wSXBnK6CA96ypS",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Reach Spell",
-            "sort": 3400000,
+            "sort": 3300000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -3285,7 +3284,7 @@
             "_id": "ik0FmQbY7s9wzZh2",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Wild Shape",
-            "sort": 3500000,
+            "sort": 3400000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -3321,7 +3320,7 @@
             "_id": "7clkQrWYkjvhzdoW",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 3600000,
+            "sort": 3500000,
             "system": {
                 "description": {
                     "value": ""
@@ -3344,7 +3343,7 @@
             "_id": "xEvcfRlcYB4MgTxZ",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 3700000,
+            "sort": 3600000,
             "system": {
                 "description": {
                     "value": ""
@@ -3367,7 +3366,7 @@
             "_id": "YUgxGwPDAtgSnMyr",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 3800000,
+            "sort": 3700000,
             "system": {
                 "description": {
                     "value": ""
@@ -3390,7 +3389,7 @@
             "_id": "NWuEqFhRMdvwJvDi",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Performance",
-            "sort": 3900000,
+            "sort": 3800000,
             "system": {
                 "description": {
                     "value": ""
@@ -3413,7 +3412,7 @@
             "_id": "sPwlIK2BZHHV4VXk",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 4000000,
+            "sort": 3900000,
             "system": {
                 "description": {
                     "value": ""
@@ -3436,7 +3435,7 @@
             "_id": "B69z1UyswYSIYiDO",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 4100000,
+            "sort": 4000000,
             "system": {
                 "description": {
                     "value": ""
@@ -3493,7 +3492,7 @@
                 "value": 80
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 19

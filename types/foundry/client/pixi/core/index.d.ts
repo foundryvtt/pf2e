@@ -1,2 +1,2 @@
-import "./interaction";
-import "./shapes";
+import "./interaction/index.d.ts";
+import "./shapes/index.d.ts";

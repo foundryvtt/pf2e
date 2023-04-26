@@ -212,11 +212,9 @@
                 "actions": {
                     "value": null
                 },
+                "category": "general",
                 "description": {
                     "value": "<p>You move more quickly on foot. Your Speed increases by 5 feet.</p>"
-                },
-                "featType": {
-                    "value": "general"
                 },
                 "level": {
                     "value": 1
@@ -322,11 +320,9 @@
                 "actions": {
                     "value": 1
                 },
+                "category": "skill",
                 "description": {
                     "value": "<p><strong>Requirements</strong> You are holding or wearing healer's tools.</p>\n<hr />\n<p>You can patch up yourself or an adjacent ally, even in combat. Attempt a Medicine check with the same DC as for @UUID[Compendium.pf2e.actionspf2e.Treat Wounds]{Treat Wounds}, and restore a corresponding amount of Hit Points; this does not remove the @UUID[Compendium.pf2e.conditionitems.Wounded]{Wounded} condition. As with Treat Wounds, you can attempt checks against higher DCs if you have the minimum proficiency rank. The target is then temporarily @UUID[Compendium.pf2e.feat-effects.Effect: Battle Medicine Immunity]{immune} to your Battle Medicine for 1 day.</p>\n<p><strong>Editors note</strong> Paizo has clarified the usage of worn tools:</p>\n<blockquote>Worn tools should only take 1 hand to use, as you only draw the things you need from the kit and not the entire kit. This has been marked for future errata.</blockquote>"
-                },
-                "featType": {
-                    "value": "skill"
                 },
                 "level": {
                     "value": 1
@@ -604,11 +600,9 @@
                 "actions": {
                     "value": 1
                 },
+                "category": "classfeature",
                 "description": {
                     "value": "<p>You can attack rapidly with fists, feet, elbows, knees, and other unarmed attacks. You gain the Flurry of Blows action.</p>\n<hr />\n<p>Make two unarmed @UUID[Compendium.pf2e.actionspf2e.Strike]{Strikes}. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses. Apply your multiple attack penalty to the Strikes normally. As it has the flourish trait, you can use Flurry of Blows only once per turn.</p>"
-                },
-                "featType": {
-                    "value": "classfeature"
                 },
                 "level": {
                     "value": 1
@@ -649,11 +643,9 @@
                 "actions": {
                     "value": null
                 },
+                "category": "classfeature",
                 "description": {
                     "value": "<p>You know how to wield your fists as deadly weapons. The damage die for your fist increases to 1d6 instead of 1d4. Most people take a -2 circumstance penalty when making a lethal attack with nonlethal unarmed attacks, because they find it hard to use their fists with deadly force. You don't take this penalty when making a lethal attack with your fist or any other unarmed attacks.</p>"
-                },
-                "featType": {
-                    "value": "classfeature"
                 },
                 "level": {
                     "value": 1
@@ -717,11 +709,9 @@
                 "actions": {
                     "value": null
                 },
+                "category": "classfeature",
                 "description": {
                     "value": "<p>You move like the wind. You gain a +10-foot status bonus to your Speed whenever you're not wearing armor. The bonus increases by 5 feet for every 4 levels you have beyond 3rd.</p>"
-                },
-                "featType": {
-                    "value": "classfeature"
                 },
                 "level": {
                     "value": 3
@@ -800,11 +790,9 @@
                 "actions": {
                     "value": null
                 },
+                "category": "classfeature",
                 "description": {
                     "value": "<p>Focusing your will into your physical attacks imbues them with mystical energy. Your unarmed attacks become magical, allowing them to get past resistances to non-magical attacks. However, you still need an item such as @UUID[Compendium.pf2e.equipment-srd.Handwraps of Mighty Blows]{Handwraps of Mighty Blows (+1)} to gain an item bonus to attack rolls or increase your attacks' weapon damage dice.</p>"
-                },
-                "featType": {
-                    "value": "classfeature"
                 },
                 "level": {
                     "value": 3
@@ -866,11 +854,9 @@
                 "actions": {
                     "value": null
                 },
+                "category": "classfeature",
                 "description": {
                     "value": "<p>Experience has made you increasingly aware of threats around you, and you react more quickly to danger. Your proficiency rank for Perception increases to expert.</p>"
-                },
-                "featType": {
-                    "value": "classfeature"
                 },
                 "level": {
                     "value": 5
@@ -915,11 +901,9 @@
                 "actions": {
                     "value": null
                 },
+                "category": "classfeature",
                 "description": {
                     "value": "<p>You've practiced martial arts and have now surpassed your former skill. Your proficiency ranks for unarmed attacks and simple weapons increase to expert.</p>"
-                },
-                "featType": {
-                    "value": "classfeature"
                 },
                 "level": {
                     "value": 5
@@ -980,11 +964,9 @@
                 "actions": {
                     "value": null
                 },
+                "category": "ancestry",
                 "description": {
                     "value": "<p>You were raised to be ambitious and always reach for the stars, leading you to progress quickly in your chosen field. You gain a 1st-level class feat for your class. You must meet the prerequisites, but you can select the feat later in the character creation process in order to determine which prerequisites you meet.</p>"
-                },
-                "featType": {
-                    "value": "ancestry"
                 },
                 "level": {
                     "value": 1
@@ -1023,7 +1005,7 @@
                                     ]
                                 }
                             ],
-                            "query": "{\"system.featType.value\":\"class\",\"system.level.value\":1,\"system.traits.value\":{\"$elemMatch\":\"{actor|system.details.class.trait}\"}}"
+                            "query": "{\"system.category\":\"class\",\"system.level.value\":1,\"system.traits.value\":{\"$elemMatch\":\"{actor|system.details.class.trait}\"}}"
                         },
                         "flag": "naturalAmbition",
                         "key": "ChoiceSet",
@@ -1072,11 +1054,9 @@
                 "actions": {
                     "value": 1
                 },
+                "category": "class",
                 "description": {
                     "value": "<p><strong>Requirements</strong> You are unarmored</p>\n<hr />\n<p>You enter the stance of a dragon and make powerful leg strikes like a lashing dragon's tail. You can make dragon tail attacks that deal 1d10 bludgeoning damage. They are in the brawling group and have the backswing, nonlethal, and unarmed traits.</p>\n<p>While in Dragon Stance, you can ignore the first square of difficult terrain while Striding.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Stance: Dragon Stance]{Stance: Dragon Stance}</p>"
-                },
-                "featType": {
-                    "value": "class"
                 },
                 "level": {
                     "value": 1
@@ -1121,11 +1101,9 @@
                 "actions": {
                     "value": null
                 },
+                "category": "ancestry",
                 "description": {
                     "value": "<p>You've familiarized yourself with a particular weapon, potentially from another ancestry or culture. Choose an uncommon simple or martial weapon with a trait corresponding to an ancestry (such as dwarf, goblin, or orc) or that is common in another culture. You gain access to that weapon, and for the purpose of determining your proficiency, that weapon is a simple weapon. If you are trained in all martial weapons, you can choose an uncommon advanced weapon with such a trait. You gain access to that weapon, and for the purpose of determining your proficiency, that weapon is a martial weapon.</p>"
-                },
-                "featType": {
-                    "value": "ancestry"
                 },
                 "level": {
                     "value": 1
@@ -1165,11 +1143,9 @@
                 "actions": {
                     "value": null
                 },
+                "category": "class",
                 "description": {
                     "value": "<p>Your study of the flow of mystical energy allows you to harness it into your physical strikes. You gain the <em>@UUID[Compendium.pf2e.spells-srd.Ki Strike]{Ki Strike}</em> ki spell and a focus pool of 1 Focus Point.</p>"
-                },
-                "featType": {
-                    "value": "class"
                 },
                 "level": {
                     "value": 1
@@ -1216,11 +1192,9 @@
                 "actions": {
                     "value": null
                 },
+                "category": "class",
                 "description": {
                     "value": "<p>The focused power of your flurry threatens to overwhelm your opponent. When you target the same creature with two Strikes from your @UUID[Compendium.pf2e.actionspf2e.Flurry of Blows]{Flurry of Blows}, you can try to stun the creature. If either Strike hits and deals damage, the target must succeed at a Fortitude save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1} (or @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 3} on a critical failure). This is an incapacitation effect.</p>"
-                },
-                "featType": {
-                    "value": "class"
                 },
                 "level": {
                     "value": 2
@@ -1280,11 +1254,9 @@
                 "actions": {
                     "value": null
                 },
+                "category": "class",
                 "description": {
                     "value": "<p><strong>Access</strong> You are from Mediogalti Island.</p>\n<hr />\n<p>You have learned how to stalk your foes and slay them with a sawtooth sabre. You become trained in Stealth and Assassin Lore; if you were already trained, you become an expert instead. Whenever your proficiency in any weapon increases to expert or beyond, you also gain that new proficiency with @UUID[Compendium.pf2e.equipment-srd.Sawtooth Saber]{Sawtooth Saber}.</p>\n<hr />\n<p><strong>Special</strong> You cannot select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.vx5FGEG34AxI2dow.JournalEntryPage.CB9YE4P7A2Wty1IX]{Red Mantis Assassin} archetype.</p>"
-                },
-                "featType": {
-                    "value": "archetype"
                 },
                 "level": {
                     "value": 2
@@ -1338,11 +1310,9 @@
                 "actions": {
                     "value": 1
                 },
+                "category": "class",
                 "description": {
                     "value": "<p><strong>Frequency</strong> A number of times per day equal to your number of class feats from the Red Mantis assassin archetype</p>\n<hr />\n<p>You swathe yourself in a veil of red mist for 1 minute. While the shroud is active, you gain fast healing equal to half your level. You can Interact with your shroud, swirling it around you, to gain a +1 circumstance bonus to AC until the beginning of your next turn. Finally, if you die while the shroud is active, you can choose to have your entire body vanish into red mist, leaving behind only your gear; you make this choice when you activate Crimson Shroud.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Effect: Crimson Shroud]{Effect: Crimson Shroud}</p>"
-                },
-                "featType": {
-                    "value": "archetype"
                 },
                 "level": {
                     "value": 6
@@ -1389,11 +1359,9 @@
                 "actions": {
                     "value": null
                 },
+                "category": "skill",
                 "description": {
                     "value": "<p>Even in the worst circumstances, you can perform basic tasks. Choose a skill you're trained in. You can forgo rolling a skill check for that skill to instead receive a result of 10 + your proficiency bonus (do not apply any other bonuses, penalties, or modifiers).</p>\n<hr />\n<p><strong>Special</strong> You can select this feat multiple times. Each time, choose a different skill and gain the benefits for that skill.</p>"
-                },
-                "featType": {
-                    "value": "skill"
                 },
                 "level": {
                     "value": 1
@@ -1535,11 +1503,9 @@
                 "actions": {
                     "value": null
                 },
+                "category": "skill",
                 "description": {
                     "value": "<p>Your techniques allow you to fight as you climb. You're not flat-footed while Climbing and can Climb with a hand occupied. You must still use another hand and both legs to Climb.</p>"
-                },
-                "featType": {
-                    "value": "skill"
                 },
                 "level": {
                     "value": 1
@@ -1584,11 +1550,9 @@
                 "actions": {
                     "value": null
                 },
+                "category": "skill",
                 "description": {
                     "value": "<p>You've studied in large medical wards, treating several patients at once and tending to all their needs. When you use Treat Disease or Treat Wounds, you can treat up to two targets. If you're a master in Medicine, you can treat up to four targets, and if you're legendary, you can treat up to eight targets.</p>"
-                },
-                "featType": {
-                    "value": "skill"
                 },
                 "level": {
                     "value": 2
@@ -1633,11 +1597,9 @@
                 "actions": {
                     "value": null
                 },
+                "category": "general",
                 "description": {
                     "value": "<p>You become trained in all simple weapons. If you were already trained in all simple weapons, you become trained in all martial weapons. If you were already trained in all martial weapons, you become trained in one advanced weapon of your choice.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat more than once. Each time you do, you become trained in additional weapons as appropriate, following the above progression.</p>"
-                },
-                "featType": {
-                    "value": "general"
                 },
                 "level": {
                     "value": 1
@@ -3847,7 +3809,7 @@
                 "value": 80
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "resolve": {
                 "max": 0,

@@ -115,7 +115,7 @@
             },
             "img": "systems/pf2e/icons/spells/dimension-door.webp",
             "name": "Dimension Door",
-            "sort": 300000,
+            "sort": 200000,
             "system": {
                 "ability": {
                     "value": ""
@@ -228,7 +228,7 @@
             },
             "img": "systems/pf2e/icons/spells/dimension-door.webp",
             "name": "Dimension Door (At Will)",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "ability": {
                     "value": ""
@@ -341,7 +341,7 @@
             },
             "img": "systems/pf2e/icons/spells/infernal-pact.webp",
             "name": "Infernal Pact",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "ability": {
                     "value": ""
@@ -438,7 +438,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/glaive.webp",
             "name": "+1 Flaming Striking Hellforged Glaive",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "MAP": {
                     "value": ""
@@ -552,7 +552,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Flaming Hellforged Glaive",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "attack": {
                     "value": ""
@@ -610,7 +610,7 @@
             "_id": "99jBJtnLmD48VOSS",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "attack": {
                     "value": ""
@@ -658,7 +658,7 @@
             "_id": "kwMV2uj1jCdvIm7J",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Beard",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "attack": {
                     "value": ""
@@ -707,7 +707,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Greater Darkvision",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "actionCategory": {
                     "value": "interaction"
@@ -751,7 +751,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Telepathy 100 feet",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "actionCategory": {
                     "value": "interaction"
@@ -799,7 +799,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "At-Will Spells",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "actionCategory": {
                     "value": "interaction"
@@ -843,7 +843,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -905,7 +905,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -944,7 +944,7 @@
             "_id": "GZ55vWFhwaHyhnfM",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Avernal Fever",
-            "sort": 1500000,
+            "sort": 1400000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -985,7 +985,7 @@
             "_id": "SNJ0RSCREyP9YYKY",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Infernal Wound",
-            "sort": 1600000,
+            "sort": 1500000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1002,7 +1002,22 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "flaming-hellforged-glaive-damage"
+                    },
+                    {
+                        "key": "Note",
+                        "selector": "flaming-hellforged-glaive-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": "infernal-wound",
                 "source": {
                     "value": ""
@@ -1027,7 +1042,7 @@
             "_id": "zQUhdB7kvudfGv5Z",
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Reposition",
-            "sort": 1700000,
+            "sort": 1600000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1066,7 +1081,7 @@
             "_id": "6zbiPHhWaAV5pJd6",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Wriggling Beard",
-            "sort": 1800000,
+            "sort": 1700000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1105,7 +1120,7 @@
             "_id": "qzignK7W4KJGlwa5",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1900000,
+            "sort": 1800000,
             "system": {
                 "description": {
                     "value": ""
@@ -1128,7 +1143,7 @@
             "_id": "pBx2ddMMhFIWUJbf",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 2000000,
+            "sort": 1900000,
             "system": {
                 "description": {
                     "value": ""
@@ -1151,7 +1166,7 @@
             "_id": "F1ixTyn5kKmtvWSc",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2100000,
+            "sort": 2000000,
             "system": {
                 "description": {
                     "value": ""
@@ -1174,7 +1189,7 @@
             "_id": "ClNedV0QbWHxm3sT",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2200000,
+            "sort": 2100000,
             "system": {
                 "description": {
                     "value": ""
@@ -1197,7 +1212,7 @@
             "_id": "7XWYtzSCDAvmS3Mh",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2300000,
+            "sort": 2200000,
             "system": {
                 "description": {
                     "value": ""
@@ -1262,7 +1277,7 @@
                 }
             ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 13

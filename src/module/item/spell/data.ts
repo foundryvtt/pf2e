@@ -1,15 +1,10 @@
-import { SaveType } from "@actor/types";
-import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "@item/data/base";
-import { OneToTen, TraitsWithRarity, ValueAndMax } from "@module/data";
-import { MaterialDamageEffect, DamageCategoryUnique, DamageType } from "@system/damage";
-import type { SpellPF2e } from "./document";
-import { EffectAreaSize, EffectAreaType, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
+import { SaveType } from "@actor/types.ts";
+import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "@item/data/base.ts";
+import { OneToTen, TraitsWithRarity, ValueAndMax } from "@module/data.ts";
+import { MaterialDamageEffect, DamageCategoryUnique, DamageType } from "@system/damage/index.ts";
+import { EffectAreaSize, EffectAreaType, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types.ts";
 
 type SpellSource = BaseItemSourcePF2e<"spell", SpellSystemSource>;
-
-interface SpellData
-    extends Omit<SpellSource, "flags" | "system" | "type">,
-        BaseItemDataPF2e<SpellPF2e, "spell", SpellSource> {}
 
 interface SpellSystemSource extends ItemSystemSource {
     traits: SpellTraits;
@@ -114,7 +109,7 @@ export interface SpellHeightenLayer {
 
 interface SpellOverlayOverride {
     _id: string;
-    system: Partial<SpellSystemSource>;
+    system: DeepPartial<SpellSystemSource>;
     name?: string;
     overlayType: "override";
     sort: number;
@@ -129,12 +124,4 @@ interface SpellOverlayDamage {
 type SpellOverlay = SpellOverlayOverride | SpellOverlayDamage;
 type SpellOverlayType = SpellOverlay["overlayType"];
 
-export {
-    SpellData,
-    SpellSource,
-    SpellSystemData,
-    SpellSystemSource,
-    SpellOverlay,
-    SpellOverlayOverride,
-    SpellOverlayType,
-};
+export { SpellSource, SpellSystemData, SpellSystemSource, SpellOverlay, SpellOverlayOverride, SpellOverlayType };

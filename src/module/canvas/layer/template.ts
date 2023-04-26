@@ -1,4 +1,4 @@
-import { MeasuredTemplatePF2e } from "..";
+import { MeasuredTemplatePF2e } from "../index.ts";
 
 export class TemplateLayerPF2e<
     TTemplate extends MeasuredTemplatePF2e = MeasuredTemplatePF2e

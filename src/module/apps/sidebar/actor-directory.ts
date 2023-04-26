@@ -1,8 +1,8 @@
-import { ActorPF2e } from "@actor/base";
+import { ActorPF2e } from "@actor/base.ts";
 import { fontAwesomeIcon, htmlQuery, htmlQueryAll } from "@util";
 
 /** Extend ActorDirectory to show more information */
-export class ActorDirectoryPF2e<TDocument extends ActorPF2e> extends ActorDirectory<TDocument> {
+export class ActorDirectoryPF2e<TDocument extends ActorPF2e<null>> extends ActorDirectory<TDocument> {
     static override get defaultOptions(): SidebarDirectoryOptions {
         const options = super.defaultOptions;
         options.renderUpdateKeys.push("system.details.level.value", "system.attributes.adjustment");

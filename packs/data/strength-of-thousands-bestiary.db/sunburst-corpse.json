@@ -162,6 +162,9 @@
                 "rules": [
                     {
                         "key": "TokenLight",
+                        "predicate": [
+                            "blinding-aura-active"
+                        ],
                         "value": {
                             "bright": 60,
                             "color": "#ffffff"
@@ -169,16 +172,25 @@
                     },
                     {
                         "key": "Aura",
+                        "predicate": [
+                            "blinding-aura-active"
+                        ],
                         "radius": 60,
                         "slug": "blinding-aura",
                         "traits": [
-                            "aura",
                             "evocation",
                             "incapacitation",
                             "light",
                             "occult",
                             "visual"
                         ]
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "blinding-aura-active",
+                        "toggleable": true,
+                        "value": true
                     }
                 ],
                 "slug": null,
@@ -275,42 +287,6 @@
             "type": "action"
         },
         {
-            "_id": "cizjjpo245cs9rgx",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Constrict",
-            "sort": 700000,
-            "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>2d6+6 bludgeoning plus 2d8 fire and residual light, DC 34</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "GwIFweEMjNfnhHBa",
             "flags": {
                 "core": {
@@ -319,7 +295,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Constrict",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -358,7 +334,7 @@
             "_id": "pwl8fa1ev5dj8d7q",
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Nova Burst",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -398,7 +374,7 @@
             "_id": "vrzmuimx9amhj6g0",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Residual Light",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -443,7 +419,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -482,7 +458,7 @@
             "_id": "7g9ejtamqsw8r40r",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "description": {
                     "value": ""
@@ -505,7 +481,7 @@
             "_id": "cjtr42plg4ejmce3",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "description": {
                     "value": ""
@@ -528,7 +504,7 @@
             "_id": "26p8vn0czfjtk2ix",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "description": {
                     "value": ""
@@ -602,7 +578,7 @@
                 }
             ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 25

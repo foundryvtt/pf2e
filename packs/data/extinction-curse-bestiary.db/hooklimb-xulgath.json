@@ -278,7 +278,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The hooklimb flexes hooklike barbs on its claws. Until the start of the hooklimb's next turn, its claws @UUID[Compendium.pf2e.actionspf2e.Strike]{Strikes} deal an additional @Localize[PF2E.PersistentDamage.Bleed1d10.success].</p>"
+                    "value": "<p>The hooklimb flexes hooklike barbs on its claws. Until the start of the hooklimb's next turn, its claws Strikes deal an additional 1d10 persistent bleed damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -288,30 +288,17 @@
                         "domain": "damage-roll",
                         "key": "RollOption",
                         "option": "raking-claws",
-                        "toggleable": true,
-                        "value": false
+                        "toggleable": true
                     },
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
                         "predicate": [
                             "raking-claws"
                         ],
-                        "selector": "claw-damage",
-                        "text": "PF2E.PersistentDamage.Bleed1d10.success"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": [
-                            "raking-claws"
-                        ],
-                        "selector": "claw-damage",
-                        "text": "PF2E.PersistentDamage.Bleed1d10.criticalSuccess"
+                        "selector": "claw-damage"
                     }
                 ],
                 "slug": null,
@@ -529,7 +516,7 @@
                 "value": 190
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 18

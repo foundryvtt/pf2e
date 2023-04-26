@@ -1,6 +1,6 @@
-import { UserSourcePF2e } from "@module/user/data";
+import { UserSourcePF2e } from "@module/user/data.ts";
 import { isObject } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 export class Migration617FixUserFlags extends MigrationBase {
     static override version = 0.617;

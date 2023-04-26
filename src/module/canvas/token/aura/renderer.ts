@@ -1,9 +1,9 @@
-import { AuraColors, AuraData } from "@actor/types";
-import { TokenPF2e } from "..";
-import { EffectAreaSquare } from "../../effect-area-square";
-import { ItemTrait } from "@item/data/base";
-import { getAreaSquares } from "./util";
-import { TokenAuraData } from "@scene/token-document/aura";
+import { AuraColors, AuraData } from "@actor/types.ts";
+import { TokenPF2e } from "../index.ts";
+import { EffectAreaSquare } from "../../effect-area-square.ts";
+import { ItemTrait } from "@item/data/base.ts";
+import { getAreaSquares } from "./util.ts";
+import { TokenAuraData } from "@scene/token-document/aura/index.ts";
 
 /** Visual rendering of auras emanated by a token's actor */
 class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
@@ -116,16 +116,11 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
             game.users.find((u) => !!u.character && u.character.id === this.token.actor?.id) ??
             game.users.find((u) => u.isGM && u.active) ??
             game.user;
-        const userColor = Number(foundry.utils.Color.fromString(user.color ?? "#0000000")) || 0;
 
-        if (colors) {
-            return {
-                border: Number(foundry.utils.Color.fromString(colors.border)) || 0,
-                fill: Number(foundry.utils.Color.fromString(colors.fill)) || userColor,
-            };
-        } else {
-            return { border: 0, fill: userColor };
-        }
+        return {
+            border: Number(foundry.utils.Color.fromString(colors?.border ?? "#000000")),
+            fill: Number(foundry.utils.Color.fromString(colors?.fill ?? user.color ?? "#000000")),
+        };
     }
 
     /** Add a numeric label and marker dot indicating the emanation radius */

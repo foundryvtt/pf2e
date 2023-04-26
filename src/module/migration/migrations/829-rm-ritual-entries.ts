@@ -1,7 +1,7 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemSourcePF2e } from "@item/data";
-import { SpellcastingEntrySource } from "@item/spellcasting-entry";
-import { MigrationBase } from "../base";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { SpellcastingEntrySource } from "@item/spellcasting-entry/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Remove ritual spellcasting entries */
 export class Migration829RMRitualEntries extends MigrationBase {

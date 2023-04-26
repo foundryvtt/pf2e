@@ -56,14 +56,14 @@
                         "value": 4
                     },
                     "slot3": {
-                        "max": 0,
+                        "max": 4,
                         "prepared": [],
-                        "value": 0
+                        "value": 4
                     },
                     "slot4": {
-                        "max": 0,
+                        "max": 3,
                         "prepared": [],
-                        "value": 0
+                        "value": 3
                     },
                     "slot5": {
                         "max": 0,
@@ -212,6 +212,102 @@
             "type": "spell"
         },
         {
+            "_id": "7BM4P6YTgqDP3iP5",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.pLEhF3f7KRxFo0vp"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/girzanjes-march.webp",
+            "name": "Girzanje's March",
+            "sort": 300000,
+            "system": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "type": "burst",
+                    "value": 30
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": false,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>You sing a prayer for war, inspiring valor in allies who hear your song. Allied creatures who can hear and understand you gain a +1 status bonus to attack rolls, Fortitude saves, and Will saves against mental effects.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The status bonus increases to +2.</p>\n<p><strong>Heightened (10th)</strong> The status bonus increases to +3.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Girzanje's March]{Spell Effect: Girzanje's March}</p>"
+                },
+                "duration": {
+                    "value": "sustained up to 1 minute"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "heightenedLevel": 4,
+                    "value": "n2wEvyTRjx5A21jq"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "range": {
+                    "value": ""
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "school": {
+                    "value": "enchantment"
+                },
+                "slug": "girzanjes-march",
+                "source": {
+                    "value": "Pathfinder #171: Hurricane's Howl"
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "divine",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "auditory",
+                        "linguistic",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
             "_id": "OKulMvsNJ4JoFuhw",
             "flags": {
                 "core": {
@@ -220,7 +316,7 @@
             },
             "img": "systems/pf2e/icons/spells/heroism.webp",
             "name": "Heroism",
-            "sort": 300000,
+            "sort": 400000,
             "system": {
                 "ability": {
                     "value": ""
@@ -323,7 +419,7 @@
             },
             "img": "systems/pf2e/icons/spells/searing-light.webp",
             "name": "Searing Light",
-            "sort": 400000,
+            "sort": 500000,
             "system": {
                 "ability": {
                     "value": ""
@@ -344,8 +440,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "fire"
                             },
                             "value": "5d6"
@@ -353,7 +451,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You shoot a blazing ray of light tinged with holy energy. Make a ranged spell attack. The ray deals 5d6 fire damage. If the target is a fiend or undead, you deal an extra [[/r 5d6[good]]] damage.</p>\n<p>If the light passes through an area of magical darkness or targets a creature affected by magical darkness, <em>searing light</em> attempts to counteract the darkness. If you need to determine whether the light passes through an area of darkness, draw a line between yourself and the spell's target</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double fire damage, as well as double good damage if a fiend or undead.</p>\n<p><strong>Success</strong> The target takes full damage</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The fire damage increases by 2d6, and the good damage against fiends and undead increases by 2d6.</p>"
+                    "value": "<p>You shoot a blazing ray of light tinged with holy energy. Make a ranged spell attack. The ray deals 5d6 fire damage. If the target is a fiend or undead, you deal an extra 5d6 good damage.</p>\n<p>If the light passes through an area of magical darkness or targets a creature affected by magical darkness, <em>searing light</em> attempts to counteract the darkness. If you need to determine whether the light passes through an area of darkness, draw a line between yourself and the spell's target</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double fire damage, as well as double good damage if a fiend or undead.</p>\n<p><strong>Success</strong> The target takes full damage</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The fire damage increases by 2d6, and the good damage against fiends and undead increases by 2d6.</p>\n<p>[[/r ((@item.level*2)-1)d6[good]]]{Leveled Good Damage}</p>"
                 },
                 "duration": {
                     "value": ""
@@ -387,7 +485,23 @@
                 "range": {
                     "value": "120 feet"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "good",
+                        "diceNumber": "(@spell.level*2)-1",
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:trait:fiend",
+                                    "target:trait:undead"
+                                ]
+                            }
+                        ],
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "save": {
                     "basic": "",
                     "value": ""
@@ -444,7 +558,7 @@
             },
             "img": "systems/pf2e/icons/spells/wanderer's-guide.webp",
             "name": "Wanderer's Guide",
-            "sort": 500000,
+            "sort": 600000,
             "system": {
                 "ability": {
                     "value": ""
@@ -545,7 +659,7 @@
             },
             "img": "systems/pf2e/icons/spells/augury.webp",
             "name": "Augury",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "ability": {
                     "value": ""
@@ -648,7 +762,7 @@
             },
             "img": "systems/pf2e/icons/spells/calm-emotions.webp",
             "name": "Calm Emotions",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "ability": {
                     "value": ""
@@ -756,7 +870,7 @@
             },
             "img": "systems/pf2e/icons/spells/restoration.webp",
             "name": "Restoration",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "ability": {
                     "value": ""
@@ -860,7 +974,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "ability": {
                     "value": ""
@@ -969,7 +1083,7 @@
             },
             "img": "systems/pf2e/icons/spells/guidance.webp",
             "name": "Guidance",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "ability": {
                     "value": ""
@@ -1073,7 +1187,7 @@
             },
             "img": "systems/pf2e/icons/spells/heal.webp",
             "name": "Heal",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "ability": {
                     "value": ""
@@ -1094,6 +1208,7 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
                                 "value": "positive"
@@ -1103,7 +1218,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (somatic, verbal) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"pf2-icon\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"pf2-icon\">2</span> <strong>(verbal, somatic)</strong> The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8</p>\n<p><span class=\"pf2-icon\">3</span> <strong>(material, somatic, verbal)</strong> You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1128,6 +1243,107 @@
                 "materials": {
                     "value": ""
                 },
+                "overlays": {
+                    "37gy7l19tik74o4s": {
+                        "_id": "37gy7l19tik74o4s",
+                        "name": "Heal (vs. Living)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "components": {
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "value": "1d8+8"
+                                    }
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "0": "1d8+8"
+                                }
+                            },
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "save": {
+                                "basic": "",
+                                "value": ""
+                            },
+                            "time": {
+                                "value": "2"
+                            }
+                        }
+                    },
+                    "7qdtetowq348s9oc": {
+                        "_id": "7qdtetowq348s9oc",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "components": {
+                                "somatic": true
+                            },
+                            "range": {
+                                "value": "touch"
+                            },
+                            "time": {
+                                "value": "1"
+                            }
+                        }
+                    },
+                    "7vbvdrv2cl87sqta": {
+                        "_id": "7vbvdrv2cl87sqta",
+                        "overlayType": "override",
+                        "sort": 4,
+                        "system": {
+                            "area": {
+                                "type": "emanation",
+                                "value": 30
+                            },
+                            "components": {
+                                "material": true,
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "range": {
+                                "value": ""
+                            },
+                            "target": {
+                                "value": "all living and undead creatures"
+                            },
+                            "time": {
+                                "value": "3"
+                            }
+                        }
+                    },
+                    "lfxcoz2d3f8j2zq1": {
+                        "_id": "lfxcoz2d3f8j2zq1",
+                        "name": "Heal (vs. Undead)",
+                        "overlayType": "override",
+                        "sort": 3,
+                        "system": {
+                            "components": {
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "spellType": {
+                                "value": "save"
+                            },
+                            "target": {
+                                "value": "1 undead"
+                            },
+                            "time": {
+                                "value": "2"
+                            }
+                        }
+                    }
+                },
                 "prepared": {
                     "value": ""
                 },
@@ -1139,8 +1355,8 @@
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
-                    "value": ""
+                    "basic": "basic",
+                    "value": "fortitude"
                 },
                 "school": {
                     "value": "necromancy"
@@ -1193,7 +1409,7 @@
             },
             "img": "systems/pf2e/icons/spells/mending.webp",
             "name": "Mending",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "ability": {
                     "value": ""
@@ -1296,7 +1512,7 @@
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "ability": {
                     "value": ""
@@ -1402,7 +1618,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement",
-            "sort": 1400000,
+            "sort": 1500000,
             "system": {
                 "ability": {
                     "value": ""
@@ -1506,7 +1722,7 @@
             },
             "img": "systems/pf2e/icons/spells/sanctuary.webp",
             "name": "Sanctuary",
-            "sort": 1500000,
+            "sort": 1600000,
             "system": {
                 "ability": {
                     "value": ""
@@ -1607,7 +1823,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 1600000,
+            "sort": 1700000,
             "system": {
                 "ability": {
                     "value": ""
@@ -1711,7 +1927,7 @@
             },
             "img": "systems/pf2e/icons/equipment/staves/staff-of-fire.webp",
             "name": "Staff of Fire",
-            "sort": 1700000,
+            "sort": 1800000,
             "system": {
                 "MAP": {
                     "value": ""
@@ -1825,7 +2041,7 @@
             },
             "img": "systems/pf2e/icons/equipment/armor/hide.webp",
             "name": "Hide Armor",
-            "sort": 1800000,
+            "sort": 1900000,
             "system": {
                 "armor": {
                     "value": 3
@@ -1924,7 +2140,7 @@
             "_id": "rjnymzg8kc662bar",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
-            "sort": 1900000,
+            "sort": 2000000,
             "system": {
                 "attack": {
                     "value": ""
@@ -1967,7 +2183,7 @@
             "_id": "kxzi9fot877vdfzq",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Deep Breath",
-            "sort": 2000000,
+            "sort": 2100000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -2003,7 +2219,7 @@
             "_id": "uyqangw1ssetun1h",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Move the Stars",
-            "sort": 2100000,
+            "sort": 2200000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -2042,7 +2258,7 @@
             "_id": "jkhwxgqejbao0fio",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Guiding Star",
-            "sort": 2200000,
+            "sort": 2300000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -2082,7 +2298,7 @@
             "_id": "nlz56gslr91v3i7s",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2300000,
+            "sort": 2400000,
             "system": {
                 "description": {
                     "value": ""
@@ -2105,7 +2321,7 @@
             "_id": "n9k03a7dcv8t2pzu",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Astrology Lore",
-            "sort": 2400000,
+            "sort": 2500000,
             "system": {
                 "description": {
                     "value": ""
@@ -2128,7 +2344,7 @@
             "_id": "cabvbq5frinxue82",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 2500000,
+            "sort": 2600000,
             "system": {
                 "description": {
                     "value": ""
@@ -2151,7 +2367,7 @@
             "_id": "9od3e28588dsv0fz",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 2600000,
+            "sort": 2700000,
             "system": {
                 "description": {
                     "value": ""
@@ -2174,7 +2390,7 @@
             "_id": "YeJo6ZDBqwZal7cR",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2700000,
+            "sort": 2800000,
             "system": {
                 "description": {
                     "value": ""
@@ -2237,7 +2453,7 @@
                 "value": 115
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 18

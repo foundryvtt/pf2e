@@ -7,10 +7,10 @@ declare global {
         viewPermission: number;
     }
 
-    interface DocumentSheetData<T extends foundry.abstract.Document = foundry.abstract.Document> {
+    interface DocumentSheetData<TDocument extends foundry.abstract.Document = foundry.abstract.Document> {
         cssClass: string;
         editable: boolean;
-        document: T;
+        document: TDocument;
         data: {};
         limited: boolean;
         options: FormApplicationOptions;

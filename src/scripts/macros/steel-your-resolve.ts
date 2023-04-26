@@ -1,15 +1,14 @@
-import { CharacterPF2e } from "@actor/character";
-import { LocalizePF2e } from "@system/localize";
-import { ActionDefaultOptions } from "@system/action-macros";
+import { CharacterPF2e } from "@actor/character/document.ts";
+import { ActionDefaultOptions } from "@system/action-macros/index.ts";
+import { localizer } from "@util";
 
 export function steelYourResolve(options: ActionDefaultOptions): void {
-    const translations = LocalizePF2e.translations.PF2E.Actions.SteelYourResolve;
+    const localize = localizer("PF2E.Actions.SteelYourResolve");
 
     const actors = Array.isArray(options.actors) ? options.actors : [options.actors];
     const actor = actors[0];
     if (actors.length > 1 || !(actor instanceof CharacterPF2e)) {
-        ui.notifications.error(translations.BadArgs);
-        return;
+        return ui.notifications.error(localize("BadArgs"));
     }
 
     const toChat = (alias: string, content: string) => {
@@ -20,25 +19,18 @@ export function steelYourResolve(options: ActionDefaultOptions): void {
         });
     };
 
-    const title = translations.Title;
-    const content = translations.Content;
-
     if (!game.settings.get("pf2e", "staminaVariant")) {
-        ui.notifications.error(translations.StaminaNotEnabled);
-        return;
+        return ui.notifications.error(localize("StaminaNotEnabled"));
     }
 
     Dialog.confirm({
-        title: title,
-        content: content,
+        title: localize("Title"),
+        content: localize("Content"),
         yes: () => {
             const { resolve, sp } = actor.system.attributes;
             const spRatio = `${sp.value}/${sp.max}`;
-            const recoverStamina = game.i18n.format(translations.RecoverStamina, {
-                name: actor.name,
-                ratio: spRatio,
-            });
-            const noStamina = game.i18n.format(translations.NoStamina, { name: actor.name });
+            const recoverStamina = localize("RecoverStamina", { name: actor.name, ratio: spRatio });
+            const noStamina = localize("NoStamina", { name: actor.name });
             if (resolve.value > 0) {
                 toChat(actor.name, recoverStamina);
                 const newSP = sp.value + Math.floor(sp.max / 2);

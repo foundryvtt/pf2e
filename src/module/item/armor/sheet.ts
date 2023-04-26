@@ -5,10 +5,9 @@ import {
     PhysicalItemSheetData,
     PhysicalItemSheetPF2e,
     PreparedMaterials,
-} from "@item/physical";
-import { createSheetTags, SheetOptions } from "@module/sheet/helpers";
-import { LocalizePF2e } from "@system/localize";
-import { ArmorCategory, ArmorGroup, ArmorPF2e, BaseArmorType } from ".";
+} from "@item/physical/index.ts";
+import { createSheetTags, SheetOptions } from "@module/sheet/helpers.ts";
+import { ArmorCategory, ArmorGroup, ArmorPF2e, BaseArmorType } from "./index.ts";
 
 class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<ArmorSheetData> {
@@ -30,9 +29,9 @@ class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
             armorPotencyRunes: CONFIG.PF2E.armorPotencyRunes,
             armorResiliencyRunes: CONFIG.PF2E.armorResiliencyRunes,
             armorPropertyRunes: CONFIG.PF2E.armorPropertyRunes,
-            categories: CONFIG.PF2E.armorTypes,
+            categories: CONFIG.PF2E.armorCategories,
             groups: CONFIG.PF2E.armorGroups,
-            baseTypes: LocalizePF2e.translations.PF2E.Item.Armor.Base,
+            baseTypes: CONFIG.PF2E.baseArmorTypes,
             bulkTypes: CONFIG.PF2E.bulkTypes,
             preciousMaterials: this.prepareMaterials(ARMOR_MATERIAL_VALUATION_DATA),
             ...propertyRuneSlots,

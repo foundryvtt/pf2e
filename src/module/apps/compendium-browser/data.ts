@@ -1,4 +1,4 @@
-import * as browserTabs from "./tabs";
+import * as browserTabs from "./tabs/index.ts";
 
 interface PackInfo {
     load: boolean;

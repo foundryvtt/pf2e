@@ -1,15 +1,16 @@
-import { TrickMagicItemPopup } from "@actor/sheet/trick-magic-item-popup";
+import { ActorPF2e } from "@actor";
+import { TrickMagicItemPopup } from "@actor/sheet/trick-magic-item-popup.ts";
 import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, WeaponPF2e } from "@item";
-import { ItemSummaryData } from "@item/data";
-import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
-import { ValueAndMax } from "@module/data";
-import { RuleElementPF2e } from "@module/rules";
-import { DamageRoll } from "@system/damage/roll";
+import { ItemSummaryData } from "@item/data/index.ts";
+import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
+import { ValueAndMax } from "@module/data.ts";
+import { RuleElementPF2e } from "@module/rules/index.ts";
+import { DamageRoll } from "@system/damage/roll.ts";
 import { ErrorPF2e } from "@util";
-import { ConsumableData, ConsumableCategory, ConsumableSystemData } from "./data";
-import { OtherConsumableTag } from "./types";
+import { ConsumableCategory, ConsumableSystemData, ConsumableSource } from "./data.ts";
+import { OtherConsumableTag } from "./types.ts";
 
-class ConsumablePF2e extends PhysicalItemPF2e {
+class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     get otherTags(): Set<OtherConsumableTag> {
         return new Set(this.system.traits.otherTags);
     }
@@ -34,14 +35,14 @@ class ConsumablePF2e extends PhysicalItemPF2e {
         return this.system.autoDestroy.value;
     }
 
-    get embeddedSpell(): Embedded<SpellPF2e> | null {
+    get embeddedSpell(): SpellPF2e<ActorPF2e> | null {
         if (!this.actor) throw ErrorPF2e(`No owning actor found for "${this.name}" (${this.id})`);
         if (!this.system.spell) return null;
 
         return new SpellPF2e(deepClone(this.system.spell), {
             parent: this.actor,
             fromConsumable: true,
-        }) as Embedded<SpellPF2e>;
+        }) as SpellPF2e<ActorPF2e>;
     }
 
     get formula(): string | null {
@@ -77,11 +78,10 @@ class ConsumablePF2e extends PhysicalItemPF2e {
     }
 
     override async getChatData(
-        this: Embedded<ConsumablePF2e>,
+        this: ConsumablePF2e<ActorPF2e>,
         htmlOptions: EnrichHTMLOptions = {},
         rollOptions: Record<string, unknown> = {}
     ): Promise<ItemSummaryData> {
-        const systemData = this.system;
         const traits = this.traitChatData(CONFIG.PF2E.consumableTraits);
         const [consumableType, isUsable] = this.isIdentified
             ? [game.i18n.localize(CONFIG.PF2E.consumableTypes[this.category]), true]
@@ -94,12 +94,10 @@ class ConsumablePF2e extends PhysicalItemPF2e {
         const fromFormula = !!rollOptions.fromFormula;
 
         return this.processChatData(htmlOptions, {
-            ...systemData,
+            ...(await super.getChatData()),
             traits,
             properties:
-                this.isIdentified && this.uses.max > 0
-                    ? [`${systemData.charges.value}/${systemData.charges.max} ${usesLabel}`]
-                    : [],
+                this.isIdentified && this.uses.max > 1 ? [`${this.uses.value}/${this.uses.max} ${usesLabel}`] : [],
             usesCharges: this.uses.max > 0,
             hasCharges: this.uses.max > 0 && this.uses.value > 0,
             consumableType,
@@ -147,7 +145,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
     }
 
     /** Use a consumable item, sending the result to chat */
-    async consume(this: Embedded<ConsumablePF2e>): Promise<void> {
+    async consume(this: ConsumablePF2e<ActorPF2e>): Promise<void> {
         const { value, max } = this.uses;
 
         if (["scroll", "wand"].includes(this.category) && this.system.spell) {
@@ -217,7 +215,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
         }
     }
 
-    async castEmbeddedSpell(this: Embedded<ConsumablePF2e>, trickMagicItemData?: TrickMagicItemEntry): Promise<void> {
+    async castEmbeddedSpell(this: ConsumablePF2e<ActorPF2e>, trickMagicItemData?: TrickMagicItemEntry): Promise<void> {
         const spell = this.embeddedSpell;
         if (!spell) return;
         const actor = this.actor;
@@ -227,7 +225,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
             if (trickMagicItemData) return trickMagicItemData;
             return actor.spellcasting
                 .filter(
-                    (e): e is SpellcastingEntryPF2e =>
+                    (e): e is SpellcastingEntryPF2e<ActorPF2e> =>
                         e instanceof SpellcastingEntryPF2e && e.canCast(spell, { origin: this })
                 )
                 .reduce((previous, current) => {
@@ -248,8 +246,8 @@ class ConsumablePF2e extends PhysicalItemPF2e {
     }
 }
 
-interface ConsumablePF2e extends PhysicalItemPF2e {
-    readonly data: ConsumableData;
+interface ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
+    readonly _source: ConsumableSource;
     system: ConsumableSystemData;
 }
 

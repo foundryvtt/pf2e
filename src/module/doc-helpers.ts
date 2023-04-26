@@ -1,13 +1,18 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import { isObject } from "@util";
-import { MigrationList, MigrationRunner } from "./migration";
-import { MigrationRunnerBase } from "./migration/runner/base";
+import { MigrationList, MigrationRunner } from "./migration/index.ts";
+import { MigrationRunnerBase } from "./migration/runner/base.ts";
+import { CombatantPF2e } from "./encounter/index.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
 
 /** Ensure that the import JSON is actually importable and that the data is fully migrated */
-async function preImportJSON<T extends ActorPF2e | ItemPF2e>(document: T, json: string): Promise<string | null> {
+async function preImportJSON<TDocument extends ActorPF2e | ItemPF2e>(
+    document: TDocument,
+    json: string
+): Promise<string | null> {
     const source: unknown = JSON.parse(json);
-    if (!isObject<T["_source"] & { data?: unknown }>(source)) return null;
+    if (!isObject<TDocument["_source"] & { data?: unknown }>(source)) return null;
     if ("data" in source) {
         if ("items" in source) {
             ActorPF2e.migrateData(source);
@@ -31,11 +36,20 @@ async function preImportJSON<T extends ActorPF2e | ItemPF2e>(document: T, json: 
         return null;
     }
 
-    const newDoc = new (document.constructor as ConstructorOf<T>)(source, { parent: document.parent });
+    const newDoc = new (document.constructor as ConstructorOf<TDocument>)(source, { parent: document.parent });
     const migrations = MigrationList.constructFromVersion(newDoc.schemaVersion);
     await MigrationRunner.ensureSchemaVersion(newDoc, migrations);
 
     return JSON.stringify(newDoc.toObject());
 }
 
-export { preImportJSON };
+function combatantAndTokenDoc(document: CombatantPF2e | TokenDocumentPF2e): {
+    combatant: CombatantPF2e | null;
+    tokenDoc: TokenDocumentPF2e | null;
+} {
+    return document instanceof CombatantPF2e
+        ? { combatant: document, tokenDoc: document.token }
+        : { combatant: document.combatant, tokenDoc: document };
+}
+
+export { combatantAndTokenDoc, preImportJSON };

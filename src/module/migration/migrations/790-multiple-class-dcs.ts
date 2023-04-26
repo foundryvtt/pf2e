@@ -1,8 +1,9 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemSourcePF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules";
-import { AELikeSource } from "@module/rules/rule-element/ae-like";
-import { MigrationBase } from "../base";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { FeatSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
+import { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
+import { isObject } from "@util";
+import { MigrationBase } from "../base.ts";
 
 /** Add support for multiple class DCs  */
 export class Migration790MultipleClassDCs extends MigrationBase {
@@ -15,6 +16,15 @@ export class Migration790MultipleClassDCs extends MigrationBase {
         ["ring-bell", "thaumaturge"],
     ]);
 
+    #isClassFeature(source: ItemSourcePF2e): source is FeatSource & { system: { featType: "classfeature" } } {
+        return (
+            source.type === "feat" &&
+            "featType" in source.system &&
+            isObject<{ value: string }>(source.system.featType) &&
+            source.system.featType.value === "classfeature"
+        );
+    }
+
     // Remove custom modifiers at old "class" selector
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         if (source.type !== "character") return;
@@ -26,7 +36,7 @@ export class Migration790MultipleClassDCs extends MigrationBase {
     }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        if (source.type === "feat" && source.system.featType.value === "classfeature") {
+        if (this.#isClassFeature(source)) {
             const classSlug = source.system.traits.value.at(0);
             if (!classSlug) return;
             const aeLikes = source.system.rules.filter((r): r is AELikeSource => r.key === "ActiveEffectLike");

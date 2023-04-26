@@ -1,18 +1,21 @@
+import { InitiativeData } from "@actor/data/base.ts";
+import { strikeFromMeleeItem } from "@actor/helpers.ts";
 import { ActorPF2e } from "@actor";
-import { strikeFromMeleeItem } from "@actor/helpers";
-import { ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
-import { SaveType } from "@actor/types";
-import { SAVE_TYPES } from "@actor/values";
+import { ActorInitiative } from "@actor/initiative.ts";
+import { MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { SaveType } from "@actor/types.ts";
+import { SAVE_TYPES } from "@actor/values.ts";
+import { ItemType } from "@item/data/index.ts";
 import { ConditionPF2e } from "@item";
-import { ItemType } from "@item/data";
-import { Rarity } from "@module/data";
-import { extractModifiers } from "@module/rules/helpers";
-import { DamageType } from "@system/damage";
-import { Statistic } from "@system/statistic";
+import { Rarity } from "@module/data.ts";
+import { extractModifiers } from "@module/rules/helpers.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { DamageType } from "@system/damage/index.ts";
+import { Statistic } from "@system/statistic/index.ts";
 import { isObject, objectHasKey } from "@util";
-import { HazardData, HazardSystemData } from "./data";
+import { HazardSource, HazardSystemData } from "./data.ts";
 
-class HazardPF2e extends ActorPF2e {
+class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     override get allowedItemTypes(): (ItemType | "physical")[] {
         return [...super.allowedItemTypes, "action", "melee"];
     }
@@ -56,10 +59,20 @@ class HazardPF2e extends ActorPF2e {
         super.prepareBaseData();
 
         const { attributes, details } = this.system;
-        attributes.initiative = { tiebreakPriority: this.hasPlayerOwner ? 2 : 1 };
         attributes.hp.negativeHealing = false;
         attributes.hp.brokenThreshold = Math.floor(attributes.hp.max / 2);
         attributes.hasHealth = attributes.hp.max > 0;
+        if (this.isComplex) {
+            // Ensure stealth value is numeric and set baseline initiative data
+            attributes.stealth.value ??= 0;
+            const partialAttributes: { initiative?: Pick<InitiativeData, "statistic" | "tiebreakPriority"> } =
+                this.system.attributes;
+            partialAttributes.initiative = {
+                statistic: "stealth",
+                tiebreakPriority: this.hasPlayerOwner ? 2 : 1,
+            };
+        }
+
         details.alliance = null;
     }
 
@@ -69,6 +82,7 @@ class HazardPF2e extends ActorPF2e {
         const { system } = this;
 
         this.prepareSynthetics();
+        this.prepareInitiative();
 
         // Armor Class
         {
@@ -129,11 +143,33 @@ class HazardPF2e extends ActorPF2e {
             return saves;
         }, {});
     }
+
+    private prepareInitiative(): void {
+        const { attributes } = this;
+        if (!attributes.initiative) return;
+
+        const skillName = game.i18n.localize(CONFIG.PF2E.skillList.stealth);
+        const label = game.i18n.format("PF2E.InitiativeWithSkill", { skillName });
+        const baseMod = attributes.stealth.value || 0;
+        const statistic = new Statistic(this, {
+            slug: "initiative",
+            label,
+            domains: ["initiative"],
+            check: {
+                type: "initiative",
+                modifiers: [new ModifierPF2e("PF2E.ModifierTitle", baseMod, MODIFIER_TYPE.UNTYPED)],
+            },
+        });
+
+        this.initiative = new ActorInitiative(this, statistic);
+        attributes.initiative = mergeObject(attributes.initiative, statistic.getTraceData());
+    }
 }
 
-interface HazardPF2e extends ActorPF2e {
-    readonly data: HazardData;
-    readonly system: HazardSystemData;
+interface HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
+    readonly _source: HazardSource;
+    readonly abilities?: never;
+    system: HazardSystemData;
 
     saves: { [K in SaveType]?: Statistic };
 }

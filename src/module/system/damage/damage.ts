@@ -1,11 +1,12 @@
-import { StrikeData } from "@actor/data/base";
+import { StrikeData } from "@actor/data/base.ts";
 import { ItemPF2e } from "@item";
-import { ItemType } from "@item/data";
-import { ChatMessagePF2e, DamageRollContextFlag } from "@module/chat-message";
-import { ZeroToThree } from "@module/data";
-import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success";
-import { DamageRoll, DamageRollDataPF2e } from "./roll";
-import { DamageRollContext, DamageTemplate } from "./types";
+import { ItemType } from "@item/data/index.ts";
+import { ChatMessagePF2e, DamageRollContextFlag } from "@module/chat-message/index.ts";
+import { ZeroToThree } from "@module/data.ts";
+import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
+import { DamageRoll, DamageRollDataPF2e } from "./roll.ts";
+import { DamageRollContext, DamageTemplate } from "./types.ts";
+import { ActorPF2e } from "@actor";
 
 /** Create a chat message containing a damage roll */
 export class DamagePF2e {
@@ -14,7 +15,7 @@ export class DamagePF2e {
         context: DamageRollContext,
         callback?: Function
     ): Promise<Rolled<DamageRoll> | null> {
-        const outcome = context.outcome ?? "success";
+        const outcome = context.outcome ?? null;
 
         context.rollMode ??= (context.secret ? "blindroll" : undefined) ?? game.settings.get("core", "rollMode");
         context.createMessage ??= true;
@@ -115,7 +116,9 @@ export class DamagePF2e {
         }
 
         // Add breakdown to flavor
-        const breakdown = "breakdownTags" in data.damage ? data.damage.breakdownTags : data.damage.breakdown[outcome];
+        const breakdown = Array.isArray(data.damage.breakdown)
+            ? data.damage.breakdown
+            : data.damage.breakdown[outcome ?? "success"];
         const breakdownTags = breakdown.map((b) => `<span class="tag tag_transparent">${b}</span>`);
         flavor += `<div class="tags">${breakdownTags.join("")}</div>`;
 
@@ -126,14 +129,14 @@ export class DamagePF2e {
                 return damage.roll.evaluate({ async: true });
             }
 
-            const formula = deepClone(damage.formula[outcome]);
+            const formula = deepClone(damage.formula[outcome ?? "success"]);
             if (!formula) {
                 ui.notifications.error(game.i18n.format("PF2E.UI.noDamageInfoForOutcome", { outcome }));
                 return null;
             }
 
             const rollerId = game.userId;
-            const degreeOfSuccess = DEGREE_OF_SUCCESS_STRINGS.indexOf(outcome) as ZeroToThree;
+            const degreeOfSuccess = outcome ? (DEGREE_OF_SUCCESS_STRINGS.indexOf(outcome) as ZeroToThree) : null;
             const critRule = game.settings.get("pf2e", "critRule") === "doubledamage" ? "double-damage" : "double-dice";
 
             const options: DamageRollDataPF2e = {
@@ -151,7 +154,7 @@ export class DamagePF2e {
         const noteRollData = context.self?.item?.getRollData();
         const damageNotes = await Promise.all(
             data.notes
-                .filter((n) => n.outcome.length === 0 || n.outcome.includes(outcome))
+                .filter((n) => n.outcome.length === 0 || (outcome && n.outcome.includes(outcome)))
                 .map(async (note) => await TextEditor.enrichHTML(note.text, { rollData: noteRollData, async: true }))
         );
         const notes = damageNotes.join("<br />");
@@ -168,7 +171,8 @@ export class DamagePF2e {
             if (isStrike && item && self?.actor?.isOfType("character", "npc")) {
                 const strikes: StrikeData[] = self.actor.system.actions;
                 const strike = strikes.find(
-                    (a): a is StrikeData & { item: ItemPF2e } => a.item?.id === item.id && a.item.slug === item.slug
+                    (a): a is StrikeData & { item: ItemPF2e<ActorPF2e> } =>
+                        a.item?.id === item.id && a.item.slug === item.slug
                 );
 
                 if (strike) {
@@ -213,7 +217,7 @@ export class DamagePF2e {
                     pf2e: {
                         context: contextFlag,
                         target: targetFlag,
-                        modifiers: data.modifiers,
+                        modifiers: data.modifiers?.map((m) => m.toObject()) ?? [],
                         origin,
                         strike,
                         preformatted: "both",

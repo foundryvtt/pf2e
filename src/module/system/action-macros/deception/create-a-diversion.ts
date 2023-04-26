@@ -1,27 +1,27 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const PREFIX = "PF2E.Actions.CreateADiversion";
 const CREATE_A_DIVERSION_VARIANTS = ["distracting-words", "gesture", "trick"] as const;
 type CreateADiversionVariant = (typeof CREATE_A_DIVERSION_VARIANTS)[number];
 
-export function createADiversion(options: { variant: CreateADiversionVariant } & SkillActionOptions) {
+export function createADiversion(options: { variant: CreateADiversionVariant } & SkillActionOptions): void {
     const { title, traits, variant } = (() => {
         switch (options?.variant) {
             case "distracting-words":
                 return {
-                    title: `${PREFIX}.DistractingWords`,
+                    title: `${PREFIX}.DistractingWords.Title`,
                     traits: ["auditory", "linguistic", "mental"],
                     variant: options.variant,
                 };
             case "gesture":
                 return {
-                    title: `${PREFIX}.Gesture`,
+                    title: `${PREFIX}.Gesture.Title`,
                     traits: ["manipulate", "mental"],
                     variant: options.variant,
                 };
             case "trick":
                 return {
-                    title: `${PREFIX}.Trick`,
+                    title: `${PREFIX}.Trick.Title`,
                     traits: ["manipulate", "mental"],
                     variant: options.variant,
                 };
@@ -50,5 +50,8 @@ export function createADiversion(options: { variant: CreateADiversionVariant } &
             ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.success`, ["success", "criticalSuccess"]),
             ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.failure`, ["failure", "criticalFailure"]),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

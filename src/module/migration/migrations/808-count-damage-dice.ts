@@ -1,6 +1,6 @@
-import { ItemSourcePF2e } from "@item/data";
+import { ItemSourcePF2e } from "@item/data/index.ts";
 import { recursiveReplaceString } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Have REs counting dice damage via "1 + @weapon.system.runes.striking" instead use "@weapon.system.damage.dice" */
 export class Migration808CountDamageDice extends MigrationBase {

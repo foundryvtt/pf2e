@@ -1,10 +1,7 @@
-import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemSource } from "@item/data/base";
-import { PhysicalItemTraits, PartialPrice } from "@item/physical/data";
-import type { KitPF2e } from ".";
+import { BaseItemSourcePF2e, ItemSystemSource } from "@item/data/base.ts";
+import { PhysicalItemTraits, PartialPrice } from "@item/physical/data.ts";
 
 type KitSource = BaseItemSourcePF2e<"kit", KitSystemSource>;
-
-type KitData = Omit<KitSource, "system"> & BaseItemDataPF2e<KitPF2e, "kit", KitSource>;
 
 interface KitEntryData {
     uuid: ItemUUID;
@@ -24,4 +21,4 @@ interface KitSystemSource extends ItemSystemSource {
 
 type KitSystemData = KitSystemSource;
 
-export { KitData, KitEntryData, KitSource, KitSystemData, KitSystemSource };
+export { KitEntryData, KitSource, KitSystemData, KitSystemSource };

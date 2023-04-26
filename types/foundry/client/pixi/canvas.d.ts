@@ -92,15 +92,14 @@ declare global {
         primary: PrimaryCanvasGroup;
 
         // Layers
-        background: BackgroundLayer;
         controls: ControlsLayer;
         drawings: DrawingsLayer;
-        foreground: ForegroundLayer;
         grid: GridLayer;
         lighting: TAmbientLight["layer"];
         notes: NotesLayer;
         sounds: SoundsLayer;
         templates: TMeasuredTemplate["layer"];
+        tiles: Tile["layer"];
         tokens: TToken["layer"];
         walls: WallsLayer;
 

@@ -1,10 +1,10 @@
-import { CreatureTrait } from "@actor/creature/types";
-import { HazardTrait } from "@actor/hazard";
-import { ActionTrait } from "@item/action";
-import { FeatTrait } from "@item/feat/data";
-import { PhysicalItemTrait } from "@item/physical/data";
+import { CreatureTrait } from "@actor/creature/types.ts";
+import { HazardTrait } from "@actor/hazard/types.ts";
+import { ActionTrait } from "@item/action/index.ts";
+import { FeatTrait } from "@item/feat/types.ts";
+import { PhysicalItemTrait } from "@item/physical/data.ts";
 import { SearchResult } from "minisearch";
-import { SortDirection } from "../data";
+import { SortDirection } from "../data.ts";
 
 type CheckboxOptions = Record<string, { label: string; selected: boolean }>;
 interface CheckboxData {
@@ -67,6 +67,7 @@ interface BaseFilterData {
 
 interface ActionFilters extends BaseFilterData {
     checkboxes: {
+        types: CheckboxData;
         source: CheckboxData;
     };
     multiselects: {
@@ -109,12 +110,7 @@ interface EquipmentFilters extends BaseFilterData {
 }
 
 interface FeatFilters extends BaseFilterData {
-    checkboxes: {
-        feattype: CheckboxData;
-        skills: CheckboxData;
-        rarity: CheckboxData;
-        source: CheckboxData;
-    };
+    checkboxes: Record<"category" | "skills" | "rarity" | "source", CheckboxData>;
     multiselects: {
         traits: MultiselectData<FeatTrait>;
     };

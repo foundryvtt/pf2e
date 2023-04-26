@@ -1,5 +1,5 @@
-import { ItemSourcePF2e } from "@item/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Add Adjust Modifier REs to Mighty Bulwark to suppress dexterity and standard bulwark modifiers */
 export class Migration754MightyBulwarkAdjustModifiers extends MigrationBase {

@@ -1,12 +1,13 @@
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
-import { AbilityString } from "@actor/types";
-import { RollNotePF2e } from "@module/notes";
-import { extractModifierAdjustments } from "@module/rules/helpers";
-import { DamageCategoryUnique, DamageDieSize, DamageType } from "@system/damage/types";
-import { DAMAGE_TYPES } from "@system/damage/values";
-import { PredicatePF2e, RawPredicate } from "@system/predication";
+import { AbilityString } from "@actor/types.ts";
+import type { ItemPF2e } from "@item";
+import { ZeroToFour } from "@module/data.ts";
+import { RollNotePF2e } from "@module/notes.ts";
+import { extractModifierAdjustments } from "@module/rules/helpers.ts";
+import { DamageCategoryUnique, DamageDieSize, DamageType } from "@system/damage/types.ts";
+import { DAMAGE_TYPES } from "@system/damage/values.ts";
+import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
 import { ErrorPF2e, setHasElement, signedInteger, sluggify, tupleHasValue } from "@util";
-import { ZeroToFour } from "@module/data";
 
 const PROFICIENCY_RANK_OPTION = [
     "proficiency:untrained",
@@ -129,6 +130,8 @@ class ModifierPF2e implements RawModifier {
     force: boolean;
     enabled: boolean;
     ignored: boolean;
+    /** An optional originating item of this modifier (typically from a rule element) */
+    item: ItemPF2e<ActorPF2e> | null;
     source: string | null;
     custom: boolean;
     damageType: DamageType | null;
@@ -186,6 +189,7 @@ class ModifierPF2e implements RawModifier {
         this.adjustments = deepClone(params.adjustments ?? []);
         this.enabled = params.enabled ?? true;
         this.ignored = params.ignored ?? false;
+        this.item = params.item ?? null;
         this.custom = params.custom ?? false;
         this.source = params.source ?? null;
         this.predicate = PredicatePF2e.create(params.predicate ?? []);
@@ -248,6 +252,19 @@ class ModifierPF2e implements RawModifier {
         if (this.type === "ability" && this.ability) {
             options.push(`modifier:ability:${this.ability}`);
         }
+        // Add statements informing where this modifier came from
+        if (this.item) {
+            const itemSlug = this.item.slug ?? sluggify(this.item.name);
+            options.push(`${this.kind}:item:type:${this.item.type}`);
+            options.push(`${this.kind}:item:slug:${itemSlug}`);
+
+            const grantingItem = this.item.grantedBy;
+            if (grantingItem) {
+                const granterSlug = grantingItem.slug ?? sluggify(grantingItem.name);
+                options.push(`${this.kind}:item:granter:type:${grantingItem.type}`);
+                options.push(`${this.kind}:item:granter:slug:${granterSlug}`);
+            }
+        }
 
         return new Set(options);
     }
@@ -258,17 +275,18 @@ class ModifierPF2e implements RawModifier {
     }
 
     toObject(): Required<RawModifier> {
-        return duplicate(this);
+        return duplicate({ ...this, item: undefined });
     }
 
-    toString() {
+    toString(): string {
         return this.label;
     }
 }
 
-type ModifierObjectParams = RawModifier & {
+interface ModifierObjectParams extends RawModifier {
     name?: string;
-};
+    item?: ItemPF2e<ActorPF2e> | null;
+}
 
 type ModifierOrderedParams = [
     slug: string,
@@ -436,11 +454,11 @@ class StatisticModifier {
     /** The slug of this collection of modifiers for a statistic. */
     slug: string;
     /** The display label of this statistic */
-    label?: string;
+    declare label?: string;
     /** The list of modifiers which affect the statistic. */
     protected _modifiers: ModifierPF2e[];
     /** The total modifier for the statistic, after applying stacking rules. */
-    totalModifier!: number;
+    declare totalModifier: number;
     /** A textual breakdown of the modifiers factoring into this statistic */
     breakdown = "";
     /** Optional notes, which are often added to statistic modifiers */
@@ -459,7 +477,7 @@ class StatisticModifier {
         const seen: ModifierPF2e[] = [];
         for (const modifier of modifiers) {
             const found = seen.some((m) => m.slug === modifier.slug);
-            if (!found || modifier.type === "ability") seen.push(modifier);
+            if (!found) seen.push(modifier);
         }
         this._modifiers = seen;
 
@@ -689,7 +707,16 @@ class DamageDicePF2e extends DiceModifierPF2e {
     clone(): DamageDicePF2e {
         return new DamageDicePF2e(this);
     }
+
+    toObject(): RawDamageDice {
+        return {
+            ...this,
+            predicate: deepClone([...this.predicate]),
+        };
+    }
 }
+
+type RawDamageDice = Required<DamageDiceParameters>;
 
 export {
     BaseRawModifier,

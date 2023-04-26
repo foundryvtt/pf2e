@@ -1,10 +1,10 @@
-import { ActionMacroHelpers, SkillActionOptions } from "../..";
-import { RollNotePF2e } from "@module/notes";
-import { PredicatePF2e } from "@system/predication";
+import { ActionMacroHelpers, SkillActionOptions } from "../../index.ts";
+import { RollNotePF2e } from "@module/notes.ts";
+import { PredicatePF2e } from "@system/predication.ts";
 import { CreaturePF2e } from "@actor";
-import { MODIFIER_TYPE, ModifierPF2e } from "@actor/modifiers";
+import { MODIFIER_TYPE, ModifierPF2e } from "@actor/modifiers.ts";
 
-export function arcaneSlam(options: SkillActionOptions) {
+export function arcaneSlam(options: SkillActionOptions): void {
     const { actor: target, token } = ActionMacroHelpers.target();
     const slug = options?.skill ?? "acrobatics";
     const rollOptions = ["action:arcane-slam"];
@@ -55,5 +55,8 @@ export function arcaneSlam(options: SkillActionOptions) {
             return notes;
         },
         target: () => (target && token ? { actor: target, token } : null),
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

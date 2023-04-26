@@ -3,7 +3,6 @@
     "img": "systems/pf2e/icons/features/classes/ashes.webp",
     "name": "Effect: Ashes Curse",
     "system": {
-        "badge": null,
         "description": {
             "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Ashes]{Ashes}</p>\n<h3>Curse of Creeping Ashes</h3>\n<p>Your body is slowly being consumed by the fires of your internal power, purifying you with each passing day. You are occasionally wracked with dry, wheezing coughs, and wherever you go you leave behind a fine trace of ash that falls from your body.</p>\n<p><strong>Minor Curse</strong></p>\n<p>The smoldering furnace of power within you begins to feed on your body and generate ash, which you inhale with every breath and leave behind with every step, impeding your footing. You take a –1 penalty on Constitution-based checks, such as Fortitude saves, and your Speed is reduced by 10 feet.</p>\n<p><strong>Moderate Curse</strong></p>\n<p>The ash you produce intensifies and fills the area around you, obscuring details and making the ground challenging to navigate. You are @UUID[Compendium.pf2e.conditionitems.Dazzled]{Dazzled}. An aura of ash surrounds you in a 10-foot emanation. You and creatures in the aura are @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}. If you do not move for 1 round, heaps of ashes settle in the aura, creating difficult terrain that lasts until you move (when the ashes blow away).</p>\n<p><strong>Major Curse (11th)</strong></p>\n<p>You and nearby creatures collapse into ash with the slightest flame. Within your moderate curse's aura, you and all creatures gain weakness to fire equal to half your level. If a creature other than you in this aura is killed by fire damage, its body collapses into ash. Objects and structures in your aura halve their Hardness, and any parts of the object or structures in your aura that are reduced to 0 Hit Points collapse into ash.</p>"
         },
@@ -57,17 +56,17 @@
                     }
                 ],
                 "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
-                "rollOption": "oracular-curse:stage"
+                "rollOption": "self:oracular-curse:stage"
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
                     {
                         "or": [
-                            "oracular-curse:stage:minor",
-                            "oracular-curse:stage:moderate",
-                            "oracular-curse:stage:major",
-                            "oracular-curse:stage:extreme"
+                            "self:oracular-curse:stage:minor",
+                            "self:oracular-curse:stage:moderate",
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
                         ]
                     }
                 ],
@@ -75,13 +74,22 @@
                 "value": -1
             },
             {
+                "effects": [
+                    {
+                        "affects": "all",
+                        "events": [
+                            "enter"
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Effect: Creeping Ashes"
+                    }
+                ],
                 "key": "Aura",
                 "predicate": [
                     {
                         "or": [
-                            "oracular-curse:stage:moderate",
-                            "oracular-curse:stage:major",
-                            "oracular-curse:stage:extreme"
+                            "self:oracular-curse:stage:moderate",
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
                         ]
                     }
                 ],
@@ -92,27 +100,14 @@
                 ]
             },
             {
-                "key": "Weakness",
-                "predicate": [
-                    {
-                        "or": [
-                            "oracular-curse:stage:major",
-                            "oracular-curse:stage:extreme"
-                        ]
-                    }
-                ],
-                "type": "fire",
-                "value": "floor(@actor.level/2)"
-            },
-            {
                 "key": "FlatModifier",
                 "predicate": [
                     {
                         "or": [
-                            "oracular-curse:stage:minor",
-                            "oracular-curse:stage:moderate",
-                            "oracular-curse:stage:major",
-                            "oracular-curse:stage:extreme"
+                            "self:oracular-curse:stage:minor",
+                            "self:oracular-curse:stage:moderate",
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
                         ]
                     }
                 ],
@@ -127,29 +122,13 @@
                 "predicate": [
                     {
                         "or": [
-                            "oracular-curse:stage:moderate",
-                            "oracular-curse:stage:major",
-                            "oracular-curse:stage:extreme"
+                            "self:oracular-curse:stage:moderate",
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
                         ]
                     }
                 ],
                 "uuid": "Compendium.pf2e.conditionitems.Dazzled"
-            },
-            {
-                "key": "GrantItem",
-                "onDeleteActions": {
-                    "grantee": "restrict"
-                },
-                "predicate": [
-                    {
-                        "or": [
-                            "oracular-curse:stage:moderate",
-                            "oracular-curse:stage:major",
-                            "oracular-curse:stage:extreme"
-                        ]
-                    }
-                ],
-                "uuid": "Compendium.pf2e.conditionitems.Concealed"
             }
         ],
         "source": {
@@ -166,8 +145,7 @@
         "traits": {
             "rarity": "common",
             "value": []
-        },
-        "unidentified": false
+        }
     },
     "type": "effect"
 }

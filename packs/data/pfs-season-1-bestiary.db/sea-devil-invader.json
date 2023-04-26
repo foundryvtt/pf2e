@@ -560,34 +560,47 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the sea devil deals piercing or slashing damage, it also deals @Localize[PF2E.PersistentDamage.Bleed1d4.success] if the target was @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} or if the attack was a critical hit.</p>"
+                    "value": "<p>When the sea devil deals piercing or slashing damage, it also deals [[/r 1d4[bleed]]] if the target was @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} or if the attack was a critical hit.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
-                        "key": "Note",
+                        "critical": false,
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed"
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "item:damage:type:piercing",
+                                    "item:damage:type:slashing"
+                                ]
+                            }
                         ],
-                        "selector": "attack",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
+                        "selector": "damage"
                     },
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
+                        "critical": true,
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
                         "predicate": [
                             {
                                 "not": "target:condition:flat-footed"
+                            },
+                            {
+                                "or": [
+                                    "item:damage:type:piercing",
+                                    "item:damage:type:slashing"
+                                ]
                             }
                         ],
-                        "selector": "attack",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
+                        "selector": "damage"
                     }
                 ],
                 "slug": null,
@@ -730,7 +743,7 @@
                 "value": 75
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 9

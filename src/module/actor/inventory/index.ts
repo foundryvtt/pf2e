@@ -1,13 +1,13 @@
 import { ActorPF2e } from "@actor";
 import { PhysicalItemPF2e, TreasurePF2e } from "@item";
-import { Coins } from "@item/physical/data";
-import { DENOMINATIONS } from "@item/physical/values";
-import { coinCompendiumIds, CoinsPF2e } from "@item/physical/helpers";
+import { Coins } from "@item/physical/data.ts";
+import { DENOMINATIONS } from "@item/physical/values.ts";
+import { coinCompendiumIds, CoinsPF2e } from "@item/physical/helpers.ts";
 import { ErrorPF2e, groupBy } from "@util";
-import { InventoryBulk } from "./bulk";
+import { InventoryBulk } from "./bulk.ts";
 
-class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
-    constructor(public readonly actor: ActorPF2e, entries?: Embedded<PhysicalItemPF2e>[]) {
+class ActorInventory<TActor extends ActorPF2e> extends Collection<PhysicalItemPF2e<TActor>> {
+    constructor(public readonly actor: TActor, entries?: PhysicalItemPF2e<TActor>[]) {
         super(entries?.map((entry) => [entry.id, entry]));
     }
 
@@ -23,7 +23,7 @@ class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
             .reduce((first, second) => first.add(second), new CoinsPF2e());
     }
 
-    get invested() {
+    get invested(): { value: number; max: number } | null {
         if (this.actor.isOfType("character")) {
             return {
                 value: this.filter((item) => !!item.isInvested).length,
@@ -38,7 +38,7 @@ class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
         return new InventoryBulk(this.actor);
     }
 
-    async addCoins(coins: Partial<Coins>, { combineStacks = true }: { combineStacks?: boolean } = {}) {
+    async addCoins(coins: Partial<Coins>, { combineStacks = true }: { combineStacks?: boolean } = {}): Promise<void> {
         const topLevelCoins = this.actor.itemTypes.treasure.filter((item) => combineStacks && item.isCoinage);
         const coinsByDenomination = groupBy(topLevelCoins, (item) => item.denomination);
 
@@ -50,7 +50,7 @@ class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
                     await item.update({ "system.quantity": item.quantity + quantity });
                 } else {
                     const compendiumId = coinCompendiumIds[denomination];
-                    const pack = game.packs.find<CompendiumCollection<PhysicalItemPF2e>>(
+                    const pack = game.packs.find<CompendiumCollection<PhysicalItemPF2e<null>>>(
                         (p) => p.collection === "pf2e.equipment-srd"
                     );
                     if (!pack) throw ErrorPF2e("Unexpected error retrieving equipment compendium");
@@ -65,7 +65,7 @@ class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
         }
     }
 
-    async removeCoins(coins: Partial<Coins>, { byValue = true }: { byValue?: boolean } = {}) {
+    async removeCoins(coins: Partial<Coins>, { byValue = true }: { byValue?: boolean } = {}): Promise<boolean> {
         const coinsToRemove = new CoinsPF2e(coins);
         const actorCoins = this.coins;
         const coinsToAdd = new CoinsPF2e();

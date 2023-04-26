@@ -1,11 +1,13 @@
-import { LocalizePF2e } from "@system/localize";
-import { StatusEffectIconTheme } from "@scripts/config";
-import { ErrorPF2e, fontAwesomeIcon, htmlQueryAll, objectHasKey } from "@util";
-import { TokenPF2e } from "@module/canvas/token";
-import { EncounterPF2e } from "@module/encounter";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { PersistentDialog } from "@item/condition/persistent-damage-dialog";
-import { resetActors } from "@actor/helpers";
+import { resetActors } from "@actor/helpers.ts";
+import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
+import { CONDITION_SLUGS } from "@item/condition/values.ts";
+import { ConditionSlug } from "@item/condition/types.ts";
+import { TokenPF2e } from "@module/canvas/token/index.ts";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { EncounterPF2e } from "@module/encounter/index.ts";
+import { StatusEffectIconTheme } from "@scripts/config/index.ts";
+import Translations from "static/lang/en.json";
+import { ErrorPF2e, fontAwesomeIcon, htmlQueryAll, objectHasKey, setHasElement } from "@util";
 
 const debouncedRender = foundry.utils.debounce(() => {
     canvas.tokens.hud.render();
@@ -37,8 +39,8 @@ export class StatusEffects {
         this.#updateStatusIcons();
     }
 
-    static get conditions() {
-        return LocalizePF2e.translations.PF2E.condition;
+    static get conditions(): Record<ConditionSlug, { name: string; rules: string; summary: string }> {
+        return Translations.PF2E.condition;
     }
 
     /**
@@ -101,7 +103,7 @@ export class StatusEffects {
         const iconGrid = html.querySelector<HTMLElement>(".status-effects");
         if (!iconGrid) throw ErrorPF2e("Unexpected error retrieving status effects grid");
 
-        const affectingConditions = token.actor?.itemTypes.condition.filter((c) => c.isInHUD) ?? [];
+        const affectingConditions = token.actor?.conditions.active.filter((c) => c.isInHUD) ?? [];
 
         const titleBar = document.createElement("div");
         titleBar.className = "title-bar";
@@ -195,6 +197,9 @@ export class StatusEffects {
         event.stopPropagation();
 
         const slug = control.dataset.statusId;
+        if (!setHasElement(CONDITION_SLUGS, slug) && slug !== "dead") {
+            return;
+        }
 
         for (const token of canvas.tokens.controlled) {
             const { actor } = token;
@@ -206,9 +211,9 @@ export class StatusEffects {
                 continue;
             }
 
-            const condition = actor.itemTypes.condition.find(
-                (c) => c.slug === slug && c.isInHUD && !c.system.references.parent
-            );
+            const condition = actor.conditions
+                .bySlug(slug, { active: true, temporary: false })
+                .find((c) => c.isInHUD && !c.system.references.parent);
 
             if (event.type === "click") {
                 if (typeof condition?.value === "number") {
@@ -220,9 +225,9 @@ export class StatusEffects {
                 }
             } else if (event.type === "contextmenu") {
                 // Remove or decrement condition
-                if (event.ctrlKey) {
+                if (event.ctrlKey && slug !== "dead") {
                     // Remove all conditions
-                    const conditionIds = actor.itemTypes.condition.filter((c) => c.slug === slug).map((c) => c.id);
+                    const conditionIds = actor.conditions.bySlug(slug, { temporary: false }).map((c) => c.id);
                     await token.actor?.deleteEmbeddedDocuments("Item", conditionIds);
                 } else if (condition?.value) {
                     await game.pf2e.ConditionManager.updateConditionValue(condition.id, token, condition.value - 1);
@@ -238,10 +243,16 @@ export class StatusEffects {
         if (!actor) return;
 
         const slug = control.dataset.statusId ?? "";
+        if (!setHasElement(CONDITION_SLUGS, slug) && slug !== "dead") {
+            return;
+        }
+
         const imgElement = control.querySelector("img");
         const iconSrc = imgElement?.getAttribute("src") as ImageFilePath | null | undefined;
 
-        const affecting = actor?.itemTypes.condition.find((c) => c.slug === slug && !c.system.references.parent);
+        const affecting = actor?.conditions
+            .bySlug(slug, { active: true, temporary: false })
+            .find((c) => !c.system.references.parent);
         const conditionIds: string[] = [];
 
         if (event.type === "click" && !affecting) {
@@ -263,10 +274,12 @@ export class StatusEffects {
     }
 
     /** Creates a ChatMessage with the Actors current status effects. */
-    static #createChatMessage(token: TokenPF2e, whisper = false) {
+    static #createChatMessage(token: TokenPF2e | null, whisper = false): Promise<ChatMessagePF2e | undefined> | null {
+        if (!token) return null;
+
         // Get the active applied conditions.
         // Iterate the list to create the chat and bubble chat dialog.
-        const conditions = token.actor?.itemTypes.condition.filter((c) => c.active) ?? [];
+        const conditions = token.actor?.conditions.active ?? [];
         const statusEffectList = conditions.map((condition): string => {
             const conditionInfo = StatusEffects.conditions[condition.slug];
             const summary = conditionInfo.summary ?? "";
@@ -279,7 +292,7 @@ export class StatusEffects {
                 </li>`;
         });
 
-        if (statusEffectList.length === 0) return;
+        if (statusEffectList.length === 0) return null;
 
         const content = `
             <div class="dice-roll">
@@ -291,7 +304,7 @@ export class StatusEffects {
             </div>
         `;
 
-        const messageSource: DeepPartial<foundry.data.ChatMessageSource> = {
+        const messageSource: DeepPartial<foundry.documents.ChatMessageSource> = {
             user: game.user.id,
             speaker: { alias: game.i18n.format("PF2E.StatusEffects", { name: token.name }) },
             content,
@@ -302,7 +315,8 @@ export class StatusEffects {
         if (hideNPCEvent || whisper) {
             messageSource.whisper = ChatMessage.getWhisperRecipients("GM").map((u) => u.id);
         }
-        ChatMessagePF2e.create(messageSource);
+
+        return ChatMessagePF2e.create(messageSource);
     }
 
     /** Re-render the token HUD */

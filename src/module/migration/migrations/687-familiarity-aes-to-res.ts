@@ -1,8 +1,8 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemSourcePF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules";
-import { PredicateStatement } from "@system/predication";
-import { MigrationBase } from "../base";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
+import { PredicateStatement } from "@system/predication.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Convert weapon familiarity `ActiveEffect`s to Rule Elements */
 export class Migration687FamiliarityAEsToREs extends MigrationBase {

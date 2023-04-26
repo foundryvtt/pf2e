@@ -1,6 +1,6 @@
-import { UserVisibility } from "@scripts/ui/user-visibility";
-import { DegreeOfSuccessString } from "@system/degree-of-success";
-import { PredicatePF2e, RawPredicate } from "@system/predication";
+import { UserVisibility } from "@scripts/ui/user-visibility.ts";
+import { DegreeOfSuccessString } from "@system/degree-of-success.ts";
+import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
 
 class RollNotePF2e {
     /** The selector used to determine on which rolls the note will be shown for. */

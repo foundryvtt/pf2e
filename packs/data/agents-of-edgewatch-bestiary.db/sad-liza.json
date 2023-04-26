@@ -358,7 +358,7 @@
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>This string of beads appears to be a hemp string with lustrous red beads of various sizes hanging from it. When activated, it briefly appears in its true form: a golden chain with golden spheres attached by fine threads.</p>\n<p>This necklace has one [[/r 16d6[fire]]] damage, three [[/r 14d6[fire]]] damage and four [[/r 12d6[fire]]] damage beads with a Reflex save DC of 36. When all the beads are gone, the necklace becomes a non-magical hemp string.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<hr />\n<p><strong>Effect</strong> You detach a sphere from the necklace, causing it to glow with orange light. After you activate a sphere, if you or anyone else hurls it (an Interact action with the ranged trait), it detonates as a fireball where it lands. Your toss can place the center of the fireballed trait), it detonates as a fireball where it lands. Your toss can place the center of the fireball anywhere within 70 feet, though at the GM's discretion you might need to make an attack roll if the throw is unusually challenging. If no one hurls the sphere by the start of your next turn, it turns into a non-magical red bead.</p>"
+                    "value": "<p>This string of beads appears to be a hemp string with lustrous red beads of various sizes hanging from it. When activated, it briefly appears in its true form: a golden chain with golden spheres attached by fine threads.</p>\n<p>This necklace has one [[/r 16d6[fire]]] damage, three [[/r 14d6[fire]]] damage and four [[/r 12d6[fire]]] damage beads with a Reflex save DC of 36. When all the beads are gone, the necklace becomes a non-magical hemp string.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<hr />\n<p><strong>Effect</strong> You detach a sphere from the necklace, causing it to glow with orange light. After you activate a sphere, if you or anyone else hurls it (an Interact action with the ranged trait), it detonates as a <em>@UUID[Compendium.pf2e.spells-srd.Fireball]{Fireball}</em> where it lands. Your toss can place the center of the fireball anywhere within 70 feet, though at the GM's discretion you might need to make an attack roll if the throw is unusually challenging. If no one hurls the sphere by the start of your next turn, it turns into a non-magical red bead.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -441,10 +441,6 @@
                     "0": {
                         "damage": "3d4+11",
                         "damageType": "slashing"
-                    },
-                    "1": {
-                        "damage": "2d10",
-                        "damageType": "bleed"
                     }
                 },
                 "description": {
@@ -536,7 +532,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Twisted Jack Strides three times. Once per Stride, he can attempt a war razor Strike against a creature in his reach at any point during the Stride; he must make each Strike against a different creature, but he doesn't apply his multiple attack penalty until after making all his Strikes. If any of the Strikes are a critical failure, Bloody Mayhem immediately ends.</p>"
+                    "value": "<p>Sad Liza Strides three times. Once per Stride, she can attempt a war razor Strike against a creature in her reach at any point during the Stride; she must make each Strike against a different creature, but she doesn't apply her multiple attack penalty until after making all her Strikes. If any of the Strikes are a critical failure, Bloody Mayhem immediately ends.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -575,12 +571,23 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Whenever Sad Liza deals slashing damage, the target takes an additional @Localize[PF2E.PersistentDamage.Bleed2d10.success].</p>"
+                    "value": "<p>Whenever Sad Liza deals slashing damage, the target takes an additional 2d10 persistent bleed damage.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 2,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:damage:type:slashing"
+                        ],
+                        "selector": "damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -614,7 +621,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Sad Liza makes three ranged dagger Strikes, each against a separate target; she ignores the multiple attack penalty until after making all three Strikes. On a critical hit, the target takes @Localize[PF2E.PersistentDamage.Bleed2d10.success] and is @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>"
+                    "value": "<p>Sad Liza makes three ranged dagger Strikes, each against a separate target; she ignores the multiple attack penalty until after making all three Strikes. On a critical hit, the target takes [[/r 2d10[bleed]]] damage and is @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -653,7 +660,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Twisted Jack's ranged dagger Strikes have a range increment of 20 feet instead of 10 feet.</p>"
+                    "value": "<p>Sad Liza's ranged dagger Strikes have a range increment of 20 feet instead of 10 feet.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -677,7 +684,12 @@
             "type": "action"
         },
         {
-            "_id": "8NRxk6m07y9TpopE",
+            "_id": "BwXqyvY8ZxaJq5Iw",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
             "sort": 1100000,
@@ -692,15 +704,47 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Twisted Jack deals an additional [[/r 3d6]] precision damage to flat-footed targets.</p>"
+                    "value": "<p>Sad Liza deals an additional 3d6 precision damage to flat-footed targets.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
+                                    {
+                                        "and": [
+                                            "item:ranged",
+                                            {
+                                                "not": "item:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "rarity": "common",
@@ -868,7 +912,7 @@
                 "value": 240
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 32

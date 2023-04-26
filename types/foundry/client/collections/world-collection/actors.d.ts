@@ -11,7 +11,7 @@
  * let actor = game.actors.get(actorId);
  * ```
  */
-declare class Actors<TActor extends Actor> extends WorldCollection<TActor> {
+declare class Actors<TActor extends Actor<null>> extends WorldCollection<TActor> {
     /**
      * A mapping of synthetic Token Actors which are currently active within the viewed Scene.
      * Each Actor is referenced by the Token.id.
@@ -23,6 +23,6 @@ declare class Actors<TActor extends Actor> extends WorldCollection<TActor> {
     override fromCompendium(document: TActor | TActor["_source"], options?: FromCompendiumOptions): TActor["_source"];
 }
 
-declare interface Actors<TActor extends Actor> extends WorldCollection<TActor> {
+declare interface Actors<TActor extends Actor<null>> extends WorldCollection<TActor> {
     get documentName(): "Actor";
 }

@@ -3,7 +3,6 @@
     "img": "systems/pf2e/icons/features/classes/ancestors-mystery.webp",
     "name": "Effect: Ancestor Curse",
     "system": {
-        "badge": null,
         "description": {
             "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Ancestors]{Ancestors}</p>\n<h3>Curse of Ancestral Meddling</h3>\n<p>The ancestral spirits you commune with haunt you and meddle with your belongings and actions, either out of a well-intentioned (but ultimately detrimental) attempt to assist you, as punishment for your audacity in circumventing the traditional means of achieving divine power, for their own amusement, or a mixture of the above. Your hair, clothing, and belongings constantly shift and stir, seemingly of their own volition.</p>\n<p><strong>Minor Curse</strong></p>\n<p>One of your ancestors becomes predominant in their meddling. The first time you gain this effect each day, roll [[/r 1d4]] on the list below to determine which type of ancestor becomes predominant. This predominant ancestor guides you to use their preferred type of action. When you try to use one of the types of actions listed for the other ancestors, you must succeed at a @Check[type:flat|dc:4]. On a failure, you spend the action but gain no effect (though you don't lose the spell if you were Casting a Spell). If your action would take 1 minute or longer, it's long enough that you can overcome the meddling, and you don't need to attempt a flat check.</p>\n<p>During combat or another tense, round-by-round encounter, other ancestors wrestle for control of your actions. When you roll initiative, and then at the end of each of your turns during the encounter, roll [[/r 1d4]] and change your predominant ancestor appropriately. Once the encounter ends, you return to the influence of the ancestor you first rolled for the day.</p>\n<p><strong>Moderate Curse</strong></p>\n<p>The flat check DC to use other actions is 6, and you get the moderate curse benefit listed for your predominant ancestor in the list below.</p>\n<p><strong>Major Curse (11th)</strong></p>\n<p>The flat check DC is 8, and you get the major curse benefit listed for your predominant ancestor instead of the moderate curse benefit.</p>\n<hr />\n<h4>Ancestral Influence</h4>\n<ol>\n<li>Martial Ancestor\n<ul>\n<li><strong>Preferred action</strong> Strikes</li>\n<li><strong>Moderate curse benefit</strong> Your Strikes gain a +1 status bonus to attack rolls and a +2 status bonus to damage.</li>\n<li><strong>Major curse benefit</strong> Your Strikes gain a +1 status bonus to attack rolls and a +6 status bonus to damage</li>\n</ul>\n</li>\n<li>Skillful Ancestor\n<ul>\n<li><strong>Preferred action</strong> Perception and Skill actions</li>\n<li><strong>Moderate curse benefit</strong> You gain a +1 status bonus to skill checks and Perception checks.</li>\n<li><strong>Major curse benefit</strong> You gain a +2 status bonus to skill checks and Perception checks.</li>\n</ul>\n</li>\n<li>Spellcasting Ancestor\n<ul>\n<li><strong>Preferred action</strong> Cast a Spell</li>\n<li><strong>Moderate curse benefit</strong> Non-cantrip spells without a duration gain a status bonus to their damage and healing equal to the spell's level.</li>\n<li><strong>Major curse benefit</strong> Non-cantrip spells without a duration gain a status bonus to their damage and healing equal to the spell's level + 3.</li>\n</ul>\n</li>\n<li>You choose which ancestor guides your actions</li>\n</ol>"
         },
@@ -107,15 +106,15 @@
                     }
                 ],
                 "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
-                "rollOption": "oracular-curse:stage"
+                "rollOption": "self:oracular-curse:stage"
             },
             {
                 "key": "Note",
                 "predicate": [
                     {
                         "or": [
-                            "oracular-curse:stage:minor:skill",
-                            "oracular-curse:stage:minor:spell"
+                            "self:oracular-curse:stage:minor:skill",
+                            "self:oracular-curse:stage:minor:spell"
                         ]
                     }
                 ],
@@ -128,8 +127,8 @@
                 "predicate": [
                     {
                         "or": [
-                            "oracular-curse:stage:minor:battle",
-                            "oracular-curse:stage:minor:spell"
+                            "self:oracular-curse:stage:minor:battle",
+                            "self:oracular-curse:stage:minor:spell"
                         ]
                     }
                 ],
@@ -142,8 +141,8 @@
                 "predicate": [
                     {
                         "or": [
-                            "oracular-curse:stage:minor:battle",
-                            "oracular-curse:stage:minor:spell"
+                            "self:oracular-curse:stage:minor:battle",
+                            "self:oracular-curse:stage:minor:spell"
                         ]
                     }
                 ],
@@ -156,8 +155,8 @@
                 "predicate": [
                     {
                         "or": [
-                            "oracular-curse:stage:moderate:skill",
-                            "oracular-curse:stage:moderate:spell"
+                            "self:oracular-curse:stage:moderate:skill",
+                            "self:oracular-curse:stage:moderate:spell"
                         ]
                     }
                 ],
@@ -170,8 +169,8 @@
                 "predicate": [
                     {
                         "or": [
-                            "oracular-curse:stage:moderate:battle",
-                            "oracular-curse:stage:moderate:spell"
+                            "self:oracular-curse:stage:moderate:battle",
+                            "self:oracular-curse:stage:moderate:spell"
                         ]
                     }
                 ],
@@ -184,8 +183,8 @@
                 "predicate": [
                     {
                         "or": [
-                            "oracular-curse:stage:moderate:battle",
-                            "oracular-curse:stage:moderate:spell"
+                            "self:oracular-curse:stage:moderate:battle",
+                            "self:oracular-curse:stage:moderate:spell"
                         ]
                     }
                 ],
@@ -198,10 +197,10 @@
                 "predicate": [
                     {
                         "or": [
-                            "oracular-curse:stage:major:skill",
-                            "oracular-curse:stage:major:spell",
-                            "oracular-curse:stage:extreme:skill",
-                            "oracular-curse:stage:extreme:spell"
+                            "self:oracular-curse:stage:major:skill",
+                            "self:oracular-curse:stage:major:spell",
+                            "self:oracular-curse:stage:extreme:skill",
+                            "self:oracular-curse:stage:extreme:spell"
                         ]
                     }
                 ],
@@ -214,10 +213,10 @@
                 "predicate": [
                     {
                         "or": [
-                            "oracular-curse:stage:major:battle",
-                            "oracular-curse:stage:major:spell",
-                            "oracular-curse:stage:extreme:battle",
-                            "oracular-curse:stage:extreme:spell"
+                            "self:oracular-curse:stage:major:battle",
+                            "self:oracular-curse:stage:major:spell",
+                            "self:oracular-curse:stage:extreme:battle",
+                            "self:oracular-curse:stage:extreme:spell"
                         ]
                     }
                 ],
@@ -230,10 +229,10 @@
                 "predicate": [
                     {
                         "or": [
-                            "oracular-curse:stage:major:battle",
-                            "oracular-curse:stage:major:spell",
-                            "oracular-curse:stage:extreme:battle",
-                            "oracular-curse:stage:extreme:spell"
+                            "self:oracular-curse:stage:major:battle",
+                            "self:oracular-curse:stage:major:spell",
+                            "self:oracular-curse:stage:extreme:battle",
+                            "self:oracular-curse:stage:extreme:spell"
                         ]
                     }
                 ],
@@ -250,7 +249,7 @@
                         ]
                     },
                     "item:duration:0",
-                    "oracular-curse:stage:moderate:spell"
+                    "self:oracular-curse:stage:moderate:spell"
                 ],
                 "selector": "spell-damage",
                 "slug": "moderate-spell",
@@ -268,8 +267,8 @@
                     "item:duration:0",
                     {
                         "or": [
-                            "oracular-curse:stage:major:spell",
-                            "oracular-curse:stage:extreme:spell"
+                            "self:oracular-curse:stage:major:spell",
+                            "self:oracular-curse:stage:extreme:spell"
                         ]
                     }
                 ],
@@ -283,9 +282,9 @@
                 "predicate": [
                     {
                         "or": [
-                            "oracular-curse:stage:moderate:battle",
-                            "oracular-curse:stage:major:battle",
-                            "oracular-curse:stage:extreme:battle"
+                            "self:oracular-curse:stage:moderate:battle",
+                            "self:oracular-curse:stage:major:battle",
+                            "self:oracular-curse:stage:extreme:battle"
                         ]
                     }
                 ],
@@ -296,7 +295,7 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "oracular-curse:stage:moderate:battle"
+                    "self:oracular-curse:stage:moderate:battle"
                 ],
                 "selector": "strike-damage",
                 "slug": "curse-moderate-battle",
@@ -308,8 +307,8 @@
                 "predicate": [
                     {
                         "or": [
-                            "oracular-curse:stage:major:battle",
-                            "oracular-curse:stage:extreme:battle"
+                            "self:oracular-curse:stage:major:battle",
+                            "self:oracular-curse:stage:extreme:battle"
                         ]
                     }
                 ],
@@ -321,7 +320,7 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "oracular-curse:stage:moderate:skill"
+                    "self:oracular-curse:stage:moderate:skill"
                 ],
                 "selector": "skill-check",
                 "slug": "curse-moderate-skill",
@@ -331,7 +330,7 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "oracular-curse:stage:moderate:skill"
+                    "self:oracular-curse:stage:moderate:skill"
                 ],
                 "selector": "perception",
                 "slug": "curse-moderate-perception",
@@ -343,8 +342,8 @@
                 "predicate": [
                     {
                         "or": [
-                            "oracular-curse:stage:major:skill",
-                            "oracular-curse:stage:extreme:skill"
+                            "self:oracular-curse:stage:major:skill",
+                            "self:oracular-curse:stage:extreme:skill"
                         ]
                     }
                 ],
@@ -358,8 +357,8 @@
                 "predicate": [
                     {
                         "or": [
-                            "oracular-curse:stage:major:skill",
-                            "oracular-curse:stage:extreme:skill"
+                            "self:oracular-curse:stage:major:skill",
+                            "self:oracular-curse:stage:extreme:skill"
                         ]
                     }
                 ],
@@ -383,8 +382,7 @@
         "traits": {
             "rarity": "common",
             "value": []
-        },
-        "unidentified": false
+        }
     },
     "type": "effect"
 }

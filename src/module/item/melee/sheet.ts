@@ -1,10 +1,10 @@
-import { ItemSheetPF2e } from "@item/sheet/base";
-import { ItemSheetDataPF2e } from "@item/sheet/data-types";
-import { createSheetOptions, SheetOptions } from "@module/sheet/helpers";
-import { damageCategoriesUnique } from "@scripts/config/damage";
-import { DamageCategoryUnique } from "@system/damage";
+import { ItemSheetPF2e } from "@item/sheet/base.ts";
+import { ItemSheetDataPF2e } from "@item/sheet/data-types.ts";
+import { createSheetOptions, SheetOptions } from "@module/sheet/helpers.ts";
+import { damageCategoriesUnique } from "@scripts/config/damage.ts";
+import { DamageCategoryUnique } from "@system/damage/types.ts";
 import { htmlClosest, htmlQueryAll } from "@util";
-import { MeleePF2e } from ".";
+import { MeleePF2e } from "./index.ts";
 
 export class MeleeSheetPF2e extends ItemSheetPF2e<MeleePF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<MeleeSheetData> {

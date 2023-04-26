@@ -5,7 +5,10 @@ $-alt-color: #786452 !default;
         $-alt-color: $alt-color;
     }
 }
+
 @mixin effects-list {
+    gap: 0.2em;
+
     .item {
         display: flex;
         flex-wrap: wrap;
@@ -21,41 +24,42 @@ $-alt-color: #786452 !default;
         .item-name {
             display: flex;
             align-items: center;
-            cursor: pointer;
             flex: 1;
 
             h4 {
+                cursor: pointer;
                 margin: 0;
             }
 
             .item-image {
-                color: transparent;
-                background-color: var(--secondary);
-                background-repeat: no-repeat;
-                background-size: contain;
-                background-position: center;
-                margin-right: 8px;
-                font-size: var(--font-size-18);
                 @include flex-center;
                 @include frame-icon;
-                padding: 14px;
+                background-color: var(--secondary);
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: contain;
+                color: transparent;
+                font-size: var(--font-size-18);
                 height: 24px;
+                margin-right: 8px;
+                padding: 14px;
                 width: 24px;
 
                 &:hover {
                     background: none !important;
                     color: var(--primary);
                 }
-
-                &[style*='mystery-man'] {
-                    background-size: 24px;
-                }
             }
         }
 
         .item-controls {
             white-space: nowrap;
-            font-size: var(--font-size-10);
+            font-size: var(--font-size-12);
+
+            a.info-only:hover {
+                cursor: default;
+                text-shadow: none;
+            }
 
             a + a {
                 margin-left: 4px;

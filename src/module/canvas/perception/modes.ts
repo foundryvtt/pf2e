@@ -1,5 +1,5 @@
-import { TokenPF2e } from "../token";
-import { HearingSource } from "./hearing-source";
+import { TokenPF2e } from "../token/index.ts";
+import { HearingSource } from "./hearing-source.ts";
 
 const darkvision = new VisionMode({
     id: "darkvision",

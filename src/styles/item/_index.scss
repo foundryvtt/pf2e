@@ -10,6 +10,10 @@
         flex-wrap: nowrap;
     }
 
+    &.affliction form {
+        @import "affliction-sheet";
+    }
+
     &.deity form {
         @import "deity-sheet";
     }
@@ -370,7 +374,8 @@
             grid-template-columns: 1fr 1fr;
             column-gap: 0.25rem;
             .item-controls {
-                margin: 0;
+                margin-left: 2px;
+                gap: 0;
             }
         }
 
@@ -409,6 +414,11 @@
                 span {
                     font-weight: 400;
                 }
+            }
+
+            input.adjusted-higher:not(:focus) {
+                font-weight: 700;
+                color: $adjusted-higher;
             }
 
             input.adjusted-lower:not(:focus) {

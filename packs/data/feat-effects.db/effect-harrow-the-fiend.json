@@ -1,0 +1,45 @@
+{
+    "_id": "MSkspeBsbXm6LQ19",
+    "img": "systems/pf2e/icons/equipment/cursed-items/euryale-curse-card.webp",
+    "name": "Effect: Harrow the Fiend",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +1 status bonus on all Strikes or spell attack rolls against fiends.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:trait:fiend"
+                ],
+                "selector": "attack",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

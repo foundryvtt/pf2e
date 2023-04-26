@@ -1,8 +1,8 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ClassSource, ItemSourcePF2e } from "@item/data";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ClassSource, ItemSourcePF2e } from "@item/data/index.ts";
 import { sluggify, tupleHasValue } from "@util";
-import { SpellcastingEntrySource, SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data";
-import { MigrationBase } from "../base";
+import { SpellcastingEntrySource, SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data.ts";
+import { MigrationBase } from "../base.ts";
 
 const oldTraditions = ["arcane", "occult", "primal", "divine", "focus", "ritual", "halcyon", ""] as const;
 
@@ -19,7 +19,7 @@ const defaultTraditionByClass: Record<string, keyof ConfigPF2e["PF2E"]["magicTra
 export class Migration644SpellcastingCategory extends MigrationBase {
     static override version = 0.644;
 
-    override async updateItem(item: ItemSourcePF2e, actor?: ActorSourcePF2e) {
+    override async updateItem(item: ItemSourcePF2e, actor?: ActorSourcePF2e): Promise<void> {
         if (!actor || item.type !== "spellcastingEntry") return;
         interface SpellcastingOld extends Omit<SpellcastingEntrySystemSource, "tradition"> {
             tradition: {

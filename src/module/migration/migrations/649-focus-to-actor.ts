@@ -1,10 +1,10 @@
-import { MigrationBase } from "../base";
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemSourcePF2e, SpellcastingEntrySource } from "@item/data";
-import { SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data";
-import { CharacterSource } from "@actor/character/data";
-import { NPCSource } from "@actor/npc/data";
-import { CreatureResourcesSource } from "@actor/creature";
+import { MigrationBase } from "../base.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ItemSourcePF2e, SpellcastingEntrySource } from "@item/data/index.ts";
+import { SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data.ts";
+import { CharacterSource } from "@actor/character/data/index.ts";
+import { NPCSource } from "@actor/npc/data.ts";
+import { CreatureResourcesSource } from "@actor/creature/index.ts";
 
 interface SpellcastingEntrySystemDataOld extends Omit<SpellcastingEntrySystemSource, "focus"> {
     focus?: {

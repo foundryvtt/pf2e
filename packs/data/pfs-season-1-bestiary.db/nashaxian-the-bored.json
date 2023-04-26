@@ -115,7 +115,7 @@
             },
             "img": "systems/pf2e/icons/spells/dimension-door.webp",
             "name": "Dimension Door (At Will)",
-            "sort": 300000,
+            "sort": 200000,
             "system": {
                 "ability": {
                     "value": ""
@@ -228,7 +228,7 @@
             },
             "img": "systems/pf2e/icons/spells/infernal-pact.webp",
             "name": "Infernal Pact",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "ability": {
                     "value": ""
@@ -325,7 +325,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/glaive.webp",
             "name": "Glaive",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "MAP": {
                     "value": ""
@@ -438,7 +438,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Glaive",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "attack": {
                     "value": ""
@@ -490,7 +490,7 @@
             "_id": "cDL4QG2fYIrdfosO",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "attack": {
                     "value": ""
@@ -538,7 +538,7 @@
             "_id": "h5k3uAC4TqaKkLDA",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Beard",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "attack": {
                     "value": ""
@@ -587,7 +587,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Greater Darkvision",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "actionCategory": {
                     "value": "interaction"
@@ -631,7 +631,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Telepathy 100 feet",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "actionCategory": {
                     "value": "interaction"
@@ -679,7 +679,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "At-Will Spells",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "actionCategory": {
                     "value": "interaction"
@@ -723,7 +723,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -780,7 +780,7 @@
             "_id": "rPoBtnrj6lEKeg1k",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Infernal Detonations",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -819,7 +819,7 @@
             "_id": "fZf5xHZsnU6ipHuI",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Avernal Fever",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -860,7 +860,7 @@
             "_id": "OAhLWgPPRoWhp4OS",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Infernal Wound",
-            "sort": 1500000,
+            "sort": 1400000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -872,12 +872,27 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Nashaxian's glaive Strike also deals @Localize[PF2E.PersistentDamage.Bleed1d4.success] that resists attempts to heal it.</p>\n<p>The flat check to stop the bleeding starts at @Check[type:flat|dc:15]. The DC is reduced to @Check[type:flat|dc:10] only if the bleeding creature or an ally successfully assists with the recovery. The DC to @UUID[Compendium.pf2e.actionspf2e.Administer First Aid]{Administer First Aid} to a creature with an infernal wound is increased by 3.</p>\n<p>A spellcaster or item attempting to use healing magic on a creature suffering from an infernal wound must succeed at a DC 18 counteract check or the magic fails to heal the creature.</p>"
+                    "value": "<p>Nashaxian's glaive Strike also deals [[/r 1d4[bleed]]] that resists attempts to heal it.</p>\n<p>The flat check to stop the bleeding starts at @Check[type:flat|dc:15]. The DC is reduced to @Check[type:flat|dc:10] only if the bleeding creature or an ally successfully assists with the recovery. The DC to @UUID[Compendium.pf2e.actionspf2e.Administer First Aid]{Administer First Aid} to a creature with an infernal wound is increased by 3.</p>\n<p>A spellcaster or item attempting to use healing magic on a creature suffering from an infernal wound must succeed at a DC 18 counteract check or the magic fails to heal the creature.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "selector": "glaive-damage"
+                    },
+                    {
+                        "key": "Note",
+                        "selector": "glaive-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -902,7 +917,7 @@
             "_id": "utjX4MdvBWi1fMme",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Wriggling Beard",
-            "sort": 1600000,
+            "sort": 1500000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -941,7 +956,7 @@
             "_id": "Zztpyx1HSQqbZ41A",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1700000,
+            "sort": 1600000,
             "system": {
                 "description": {
                     "value": ""
@@ -964,7 +979,7 @@
             "_id": "Ql5FsGPZchyaFbAh",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1800000,
+            "sort": 1700000,
             "system": {
                 "description": {
                     "value": ""
@@ -987,7 +1002,7 @@
             "_id": "Mzg4AMyVYRDFN4Jj",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1900000,
+            "sort": 1800000,
             "system": {
                 "description": {
                     "value": ""
@@ -1010,7 +1025,7 @@
             "_id": "khpEKPS0fUmAOT8J",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2000000,
+            "sort": 1900000,
             "system": {
                 "description": {
                     "value": ""
@@ -1033,7 +1048,7 @@
             "_id": "zj4dXOLdQRaFCpIH",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2100000,
+            "sort": 2000000,
             "system": {
                 "description": {
                     "value": ""
@@ -1095,7 +1110,7 @@
                 }
             ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 9

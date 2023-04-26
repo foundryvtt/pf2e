@@ -1,4 +1,4 @@
-import { DamageCategory, DamageType } from "./types";
+import { DamageCategory, DamageType } from "./types.ts";
 
 const PHYSICAL_DAMAGE_TYPES = ["bludgeoning", "piercing", "slashing", "bleed"] as const;
 const LIFE_ENERGY_DAMAGE_TYPES = ["positive", "negative"] as const;
@@ -103,9 +103,9 @@ const PERSISTENT_DAMAGE_IMAGES: Partial<Record<DamageType, ImageFilePath>> = {
     piercing: "systems/pf2e/icons/equipment/weapons/throwing-knife.webp",
     bludgeoning: "systems/pf2e/icons/equipment/weapons/bola.webp",
     slashing: "systems/pf2e/icons/equipment/weapons/scimitar.webp",
-    fire: "systems/pf2e/icons/spells/flaming-sphere.webp",
-    acid: "systems/pf2e/icons/spells/blister.webp",
-    cold: "systems/pf2e/icons/spells/chilling-spray.webp",
+    fire: "icons/magic/fire/flame-burning-creature-skeleton.webp",
+    acid: "icons/magic/acid/dissolve-arm-flesh.webp",
+    cold: "icons/magic/water/ice-snowman.webp",
     electricity: "systems/pf2e/icons/spells/chain-lightning.webp",
     sonic: "systems/pf2e/icons/spells/cry-of-destruction.webp",
     force: "systems/pf2e/icons/spells/magic-missile.webp",
@@ -114,7 +114,7 @@ const PERSISTENT_DAMAGE_IMAGES: Partial<Record<DamageType, ImageFilePath>> = {
     lawful: "systems/pf2e/icons/equipment/adventuring-gear/merchant-scale.webp",
     chaotic: "systems/pf2e/icons/spells/dinosaur-form.webp",
     good: "systems/pf2e/icons/damage/persistent/good.webp",
-    evil: "systems/pf2e/icons/spells/daemonic-pact.webp",
+    evil: "icons/magic/unholy/strike-body-explode-disintegrate.webp",
     positive: "systems/pf2e/icons/spells/moment-of-renewal.webp",
     negative: "systems/pf2e/icons/spells/grim-tendrils.webp",
 };

@@ -669,7 +669,7 @@
                 }
             },
             "img": "systems/pf2e/icons/spells/weapon-of-judgement.webp",
-            "name": "Weapon of Judgement",
+            "name": "Weapon of Judgment",
             "sort": 700000,
             "system": {
                 "ability": {
@@ -4852,7 +4852,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You shoot a blazing ray of light tinged with holy energy. Make a ranged spell attack. The ray deals 5d6 fire damage. If the target is a fiend or undead, you deal an extra [[/r 5d6[good]]] damage.</p>\n<p>If the light passes through an area of magical darkness or targets a creature affected by magical darkness, <em>searing light</em> attempts to counteract the darkness. If you need to determine whether the light passes through an area of darkness, draw a line between yourself and the spell's target</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double fire damage, as well as double good damage if a fiend or undead.</p>\n<p><strong>Success</strong> The target takes full damage</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The fire damage increases by 2d6, and the good damage against fiends and undead increases by 2d6.</p>"
+                    "value": "<p>You shoot a blazing ray of light tinged with holy energy. Make a ranged spell attack. The ray deals 5d6 fire damage. If the target is a fiend or undead, you deal an extra 5d6 good damage.</p>\n<p>If the light passes through an area of magical darkness or targets a creature affected by magical darkness, <em>searing light</em> attempts to counteract the darkness. If you need to determine whether the light passes through an area of darkness, draw a line between yourself and the spell's target</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double fire damage, as well as double good damage if a fiend or undead.</p>\n<p><strong>Success</strong> The target takes full damage</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The fire damage increases by 2d6, and the good damage against fiends and undead increases by 2d6.</p>\n<p>[[/r ((@item.level*2)-1)d6[good]]]{Leveled Good Damage}</p>"
                 },
                 "duration": {
                     "value": ""
@@ -4885,7 +4885,23 @@
                 "range": {
                     "value": "120 feet"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "good",
+                        "diceNumber": "(@spell.level*2)-1",
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:trait:fiend",
+                                    "target:trait:undead"
+                                ]
+                            }
+                        ],
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "save": {
                     "basic": "",
                     "value": ""
@@ -4974,7 +4990,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You shoot a blazing ray of light tinged with holy energy. Make a ranged spell attack. The ray deals 5d6 fire damage. If the target is a fiend or undead, you deal an extra [[/r 5d6[good]]] damage.</p>\n<p>If the light passes through an area of magical darkness or targets a creature affected by magical darkness, <em>searing light</em> attempts to counteract the darkness. If you need to determine whether the light passes through an area of darkness, draw a line between yourself and the spell's target</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double fire damage, as well as double good damage if a fiend or undead.</p>\n<p><strong>Success</strong> The target takes full damage</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The fire damage increases by 2d6, and the good damage against fiends and undead increases by 2d6.</p>"
+                    "value": "<p>You shoot a blazing ray of light tinged with holy energy. Make a ranged spell attack. The ray deals 5d6 fire damage. If the target is a fiend or undead, you deal an extra 5d6 good damage.</p>\n<p>If the light passes through an area of magical darkness or targets a creature affected by magical darkness, <em>searing light</em> attempts to counteract the darkness. If you need to determine whether the light passes through an area of darkness, draw a line between yourself and the spell's target</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double fire damage, as well as double good damage if a fiend or undead.</p>\n<p><strong>Success</strong> The target takes full damage</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The fire damage increases by 2d6, and the good damage against fiends and undead increases by 2d6.</p>\n<p>[[/r ((@item.level*2)-1)d6[good]]]{Leveled Good Damage}</p>"
                 },
                 "duration": {
                     "value": ""
@@ -5008,7 +5024,23 @@
                 "range": {
                     "value": "120 feet"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "good",
+                        "diceNumber": "(@spell.level*2)-1",
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:trait:fiend",
+                                    "target:trait:undead"
+                                ]
+                            }
+                        ],
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "save": {
                     "basic": "",
                     "value": ""
@@ -7832,11 +7864,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "details": "varies",
-                    "type": "emanation",
-                    "value": 30
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -7855,7 +7883,6 @@
                             "applyMod": false,
                             "type": {
                                 "categories": [],
-                                "subtype": "",
                                 "value": "positive"
                             },
                             "value": "1d8"
@@ -7895,10 +7922,6 @@
                         "overlayType": "override",
                         "sort": 2,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true,
                                 "verbal": true
@@ -7910,7 +7933,6 @@
                                     }
                                 }
                             },
-                            "heightenedLevel": {},
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -7933,14 +7955,9 @@
                         "overlayType": "override",
                         "sort": 1,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": "touch"
                             },
@@ -7954,12 +7971,15 @@
                         "overlayType": "override",
                         "sort": 4,
                         "system": {
+                            "area": {
+                                "type": "emanation",
+                                "value": 30
+                            },
                             "components": {
                                 "material": true,
                                 "somatic": true,
                                 "verbal": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": ""
                             },
@@ -7977,15 +7997,10 @@
                         "overlayType": "override",
                         "sort": 3,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true,
                                 "verbal": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": "30 feet"
                             },
@@ -8071,11 +8086,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "details": "varies",
-                    "type": "emanation",
-                    "value": 30
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -8094,7 +8105,6 @@
                             "applyMod": false,
                             "type": {
                                 "categories": [],
-                                "subtype": "",
                                 "value": "positive"
                             },
                             "value": "1d8"
@@ -8133,10 +8143,6 @@
                         "overlayType": "override",
                         "sort": 2,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true,
                                 "verbal": true
@@ -8148,7 +8154,6 @@
                                     }
                                 }
                             },
-                            "heightenedLevel": {},
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -8171,14 +8176,9 @@
                         "overlayType": "override",
                         "sort": 1,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": "touch"
                             },
@@ -8192,12 +8192,15 @@
                         "overlayType": "override",
                         "sort": 4,
                         "system": {
+                            "area": {
+                                "type": "emanation",
+                                "value": 30
+                            },
                             "components": {
                                 "material": true,
                                 "somatic": true,
                                 "verbal": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": ""
                             },
@@ -8215,15 +8218,10 @@
                         "overlayType": "override",
                         "sort": 3,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true,
                                 "verbal": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": "30 feet"
                             },
@@ -8309,11 +8307,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "details": "varies",
-                    "type": "emanation",
-                    "value": 30
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -8332,7 +8326,6 @@
                             "applyMod": false,
                             "type": {
                                 "categories": [],
-                                "subtype": "",
                                 "value": "positive"
                             },
                             "value": "1d8"
@@ -8372,10 +8365,6 @@
                         "overlayType": "override",
                         "sort": 2,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true,
                                 "verbal": true
@@ -8387,7 +8376,6 @@
                                     }
                                 }
                             },
-                            "heightenedLevel": {},
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -8410,14 +8398,9 @@
                         "overlayType": "override",
                         "sort": 1,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": "touch"
                             },
@@ -8431,12 +8414,15 @@
                         "overlayType": "override",
                         "sort": 4,
                         "system": {
+                            "area": {
+                                "type": "emanation",
+                                "value": 30
+                            },
                             "components": {
                                 "material": true,
                                 "somatic": true,
                                 "verbal": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": ""
                             },
@@ -8454,15 +8440,10 @@
                         "overlayType": "override",
                         "sort": 3,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true,
                                 "verbal": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": "30 feet"
                             },
@@ -8548,11 +8529,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "details": "varies",
-                    "type": "emanation",
-                    "value": 30
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -8571,7 +8548,6 @@
                             "applyMod": false,
                             "type": {
                                 "categories": [],
-                                "subtype": "",
                                 "value": "positive"
                             },
                             "value": "1d8"
@@ -8611,10 +8587,6 @@
                         "overlayType": "override",
                         "sort": 2,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true,
                                 "verbal": true
@@ -8626,7 +8598,6 @@
                                     }
                                 }
                             },
-                            "heightenedLevel": {},
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -8649,14 +8620,9 @@
                         "overlayType": "override",
                         "sort": 1,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": "touch"
                             },
@@ -8670,12 +8636,15 @@
                         "overlayType": "override",
                         "sort": 4,
                         "system": {
+                            "area": {
+                                "type": "emanation",
+                                "value": 30
+                            },
                             "components": {
                                 "material": true,
                                 "somatic": true,
                                 "verbal": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": ""
                             },
@@ -8693,15 +8662,10 @@
                         "overlayType": "override",
                         "sort": 3,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true,
                                 "verbal": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": "30 feet"
                             },
@@ -8787,11 +8751,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "details": "varies",
-                    "type": "emanation",
-                    "value": 30
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -8810,7 +8770,6 @@
                             "applyMod": false,
                             "type": {
                                 "categories": [],
-                                "subtype": "",
                                 "value": "positive"
                             },
                             "value": "1d8"
@@ -8850,10 +8809,6 @@
                         "overlayType": "override",
                         "sort": 2,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true,
                                 "verbal": true
@@ -8865,7 +8820,6 @@
                                     }
                                 }
                             },
-                            "heightenedLevel": {},
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -8888,14 +8842,9 @@
                         "overlayType": "override",
                         "sort": 1,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": "touch"
                             },
@@ -8909,12 +8858,15 @@
                         "overlayType": "override",
                         "sort": 4,
                         "system": {
+                            "area": {
+                                "type": "emanation",
+                                "value": 30
+                            },
                             "components": {
                                 "material": true,
                                 "somatic": true,
                                 "verbal": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": ""
                             },
@@ -8932,15 +8884,10 @@
                         "overlayType": "override",
                         "sort": 3,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true,
                                 "verbal": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": "30 feet"
                             },
@@ -9026,11 +8973,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "details": "varies",
-                    "type": "emanation",
-                    "value": 30
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -9049,7 +8992,6 @@
                             "applyMod": false,
                             "type": {
                                 "categories": [],
-                                "subtype": "",
                                 "value": "positive"
                             },
                             "value": "1d8"
@@ -9089,10 +9031,6 @@
                         "overlayType": "override",
                         "sort": 2,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true,
                                 "verbal": true
@@ -9104,7 +9042,6 @@
                                     }
                                 }
                             },
-                            "heightenedLevel": {},
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -9127,14 +9064,9 @@
                         "overlayType": "override",
                         "sort": 1,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": "touch"
                             },
@@ -9148,12 +9080,15 @@
                         "overlayType": "override",
                         "sort": 4,
                         "system": {
+                            "area": {
+                                "type": "emanation",
+                                "value": 30
+                            },
                             "components": {
                                 "material": true,
                                 "somatic": true,
                                 "verbal": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": ""
                             },
@@ -9171,15 +9106,10 @@
                         "overlayType": "override",
                         "sort": 3,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true,
                                 "verbal": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": "30 feet"
                             },
@@ -9265,11 +9195,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "details": "varies",
-                    "type": "emanation",
-                    "value": 30
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -9288,7 +9214,6 @@
                             "applyMod": false,
                             "type": {
                                 "categories": [],
-                                "subtype": "",
                                 "value": "positive"
                             },
                             "value": "1d8"
@@ -9328,10 +9253,6 @@
                         "overlayType": "override",
                         "sort": 2,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true,
                                 "verbal": true
@@ -9343,7 +9264,6 @@
                                     }
                                 }
                             },
-                            "heightenedLevel": {},
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -9366,14 +9286,9 @@
                         "overlayType": "override",
                         "sort": 1,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": "touch"
                             },
@@ -9387,12 +9302,15 @@
                         "overlayType": "override",
                         "sort": 4,
                         "system": {
+                            "area": {
+                                "type": "emanation",
+                                "value": 30
+                            },
                             "components": {
                                 "material": true,
                                 "somatic": true,
                                 "verbal": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": ""
                             },
@@ -9410,15 +9328,10 @@
                         "overlayType": "override",
                         "sort": 3,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true,
                                 "verbal": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": "30 feet"
                             },
@@ -9504,11 +9417,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "details": "varies",
-                    "type": "emanation",
-                    "value": 30
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -9527,7 +9436,6 @@
                             "applyMod": false,
                             "type": {
                                 "categories": [],
-                                "subtype": "",
                                 "value": "positive"
                             },
                             "value": "1d8"
@@ -9567,10 +9475,6 @@
                         "overlayType": "override",
                         "sort": 2,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true,
                                 "verbal": true
@@ -9582,7 +9486,6 @@
                                     }
                                 }
                             },
-                            "heightenedLevel": {},
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -9605,14 +9508,9 @@
                         "overlayType": "override",
                         "sort": 1,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": "touch"
                             },
@@ -9626,12 +9524,15 @@
                         "overlayType": "override",
                         "sort": 4,
                         "system": {
+                            "area": {
+                                "type": "emanation",
+                                "value": 30
+                            },
                             "components": {
                                 "material": true,
                                 "somatic": true,
                                 "verbal": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": ""
                             },
@@ -9649,15 +9550,10 @@
                         "overlayType": "override",
                         "sort": 3,
                         "system": {
-                            "area": {
-                                "areaType": "",
-                                "value": ""
-                            },
                             "components": {
                                 "somatic": true,
                                 "verbal": true
                             },
-                            "heightenedLevel": {},
                             "range": {
                                 "value": "30 feet"
                             },
@@ -10959,7 +10855,7 @@
                 "value": 400
             },
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 32

@@ -1,9 +1,10 @@
-import { HitPointsSummary } from "@actor/base";
-import { SkillAbbreviation } from "@actor/creature/data";
-import { AbilityString, SkillLongForm } from "@actor/types";
+import { HitPointsSummary } from "@actor/base.ts";
+import { SkillAbbreviation } from "@actor/creature/data.ts";
+import { AbilityString, SkillLongForm } from "@actor/types.ts";
 import { WeaponPF2e } from "@item";
-import { ZeroToFour } from "@module/data";
-import { Statistic } from "@system/statistic";
+import { ZeroToFour } from "@module/data.ts";
+import { Statistic } from "@system/statistic/index.ts";
+import { CharacterPF2e } from "./document.ts";
 
 interface CharacterHitPointsSummary extends HitPointsSummary {
     recoveryMultiplier: number;
@@ -17,14 +18,14 @@ type CharacterSkills = Record<SkillAbbreviation, CharacterSkill> &
     Partial<Record<string, CharacterSkill>>;
 
 interface CreateAuxiliaryInteractParams {
-    weapon: Embedded<WeaponPF2e>;
+    weapon: WeaponPF2e<CharacterPF2e>;
     action: "Interact";
     purpose: "Grip" | "Sheathe" | "Draw" | "Retrieve" | "PickUp";
     hands?: 0 | 1 | 2;
 }
 
 interface CreateAuxiliaryReleaseParams {
-    weapon: Embedded<WeaponPF2e>;
+    weapon: WeaponPF2e<CharacterPF2e>;
     action: "Release";
     purpose: "Grip" | "Drop";
     hands: 0 | 1;

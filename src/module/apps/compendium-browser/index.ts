@@ -1,13 +1,15 @@
 import { KitPF2e, PhysicalItemPF2e } from "@item";
-import { BaseSpellcastingEntry } from "@item/spellcasting-entry";
-import { LocalizePF2e } from "@system/localize";
-import { ErrorPF2e, htmlQueryAll, isObject, objectHasKey } from "@util";
-import { getSelectedOrOwnActors } from "@util/token-actor-utils";
+import { ActionTrait } from "@item/action/index.ts";
+import { ActionType } from "@item/data/base.ts";
+import { BaseSpellcastingEntry } from "@item/spellcasting-entry/index.ts";
+import { ErrorPF2e, htmlQueryAll, isObject, localizer, objectHasKey } from "@util";
+import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
+import { UserPF2e } from "@module/user/document.ts";
 import Tagify from "@yaireo/tagify";
 import noUiSlider from "nouislider";
-import { BrowserTabs, PackInfo, SortDirection, TabData, TabName } from "./data";
-import { Progress } from "./progress";
-import * as browserTabs from "./tabs";
+import { BrowserTabs, PackInfo, SortDirection, TabData, TabName } from "./data.ts";
+import { Progress } from "./progress.ts";
+import * as browserTabs from "./tabs/index.ts";
 import {
     ActionFilters,
     BestiaryFilters,
@@ -20,7 +22,7 @@ import {
     RenderResultListOptions,
     SliderData,
     SpellFilters,
-} from "./tabs/data";
+} from "./tabs/data.ts";
 
 class PackLoader {
     loadedPacks: {
@@ -28,23 +30,27 @@ class PackLoader {
         Item: Record<string, { pack: CompendiumCollection; index: CompendiumIndex } | undefined>;
     } = { Actor: {}, Item: {} };
 
-    async *loadPacks(documentType: "Actor" | "Item", packs: string[], indexFields: string[]) {
+    async *loadPacks(
+        documentType: "Actor" | "Item",
+        packs: string[],
+        indexFields: string[]
+    ): AsyncGenerator<{ pack: CompendiumCollection<CompendiumDocument>; index: CompendiumIndex }, void, unknown> {
         this.loadedPacks[documentType] ??= {};
-        const translations = LocalizePF2e.translations.PF2E.CompendiumBrowser.ProgressBar;
+        const localize = localizer("PF2E.CompendiumBrowser.ProgressBar");
 
         const progress = new Progress({ steps: packs.length });
         for (const packId of packs) {
             let data = this.loadedPacks[documentType][packId];
             if (data) {
                 const { pack } = data;
-                progress.advance(game.i18n.format(translations.LoadingPack, { pack: pack?.metadata.label ?? "" }));
+                progress.advance(localize("LoadingPack", { pack: pack?.metadata.label ?? "" }));
             } else {
                 const pack = game.packs.get(packId);
                 if (!pack) {
                     progress.advance("");
                     continue;
                 }
-                progress.advance(game.i18n.format(translations.LoadingPack, { pack: pack.metadata.label }));
+                progress.advance(localize("LoadingPack", { pack: pack.metadata.label }));
                 if (pack.documentName === documentType) {
                     const index = await pack.getIndex({ fields: indexFields });
                     const firstResult: Partial<CompendiumIndexData> = index.contents.at(0) ?? {};
@@ -66,7 +72,7 @@ class PackLoader {
 
             yield data;
         }
-        progress.close(translations.LoadingComplete);
+        progress.close(localize("LoadingComplete"));
     }
 
     /** Set art provided by a module if any is available */
@@ -87,7 +93,7 @@ class CompendiumBrowser extends Application {
     tabs: BrowserTabs;
 
     packLoader = new PackLoader();
-    activeTab!: TabName;
+    declare activeTab: TabName;
 
     constructor(options = {}) {
         super(options);
@@ -110,8 +116,9 @@ class CompendiumBrowser extends Application {
         return game.i18n.localize("PF2E.CompendiumBrowser.Title");
     }
 
-    static override get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+    static override get defaultOptions(): ApplicationOptions {
+        return {
+            ...super.defaultOptions,
             id: "compendium-browser",
             classes: [],
             template: "systems/pf2e/templates/compendium-browser/compendium-browser.hbs",
@@ -127,11 +134,7 @@ class CompendiumBrowser extends Application {
                 },
             ],
             scrollY: [".control-area", ".item-list"],
-        });
-    }
-
-    override async render(force?: boolean, options?: RenderOptions): Promise<this> {
-        return super.render(force, options);
+        };
     }
 
     /** Reset initial filtering */
@@ -246,6 +249,27 @@ class CompendiumBrowser extends Application {
             return this.tabs[tabName].open(filter);
         }
         return this.loadTab(tabName);
+    }
+
+    async openActionTab(typeFilters: ActionType[], traitFilters: ActionTrait[]): Promise<void> {
+        const actionTab = this.tabs.action;
+        const filter = await actionTab.getFilterData();
+        const { types } = filter.checkboxes;
+        const { traits } = filter.multiselects;
+
+        types.selected = [];
+        for (const type in types.options) {
+            if (typeFilters.includes(type as ActionType)) {
+                types.options[type].selected = true;
+                types.selected.push(type);
+            }
+        }
+
+        traits.selected = traitFilters.length
+            ? traits.options.filter((trait) => traitFilters.includes(trait.value))
+            : [];
+
+        actionTab.open(filter);
     }
 
     async openSpellTab(entry: BaseSpellcastingEntry, maxLevel = 10): Promise<void> {
@@ -800,11 +824,11 @@ class CompendiumBrowser extends Application {
         return item;
     }
 
-    protected override _canDragStart() {
+    protected override _canDragStart(): boolean {
         return true;
     }
 
-    protected override _canDragDrop() {
+    protected override _canDragDrop(): boolean {
         return true;
     }
 
@@ -838,7 +862,7 @@ class CompendiumBrowser extends Application {
         this.element.css({ pointerEvents: "none" });
     }
 
-    override getData() {
+    override getData(): { user: Active<UserPF2e>; settings?: CompendiumBrowserSettings; scrollLimit?: number } {
         const activeTab = this.activeTab;
         // Settings
         if (activeTab === "settings") {

@@ -1,8 +1,8 @@
-import { ItemSourcePF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules";
-import { convertLegacyData, PredicateStatement, RawPredicate } from "@system/predication";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
+import { convertLegacyData, PredicateStatement, RawPredicate } from "@system/predication.ts";
 import { isObject } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Convert predicate properties of rule elements to arrays  */
 export class Migration793MakePredicatesArrays extends MigrationBase {

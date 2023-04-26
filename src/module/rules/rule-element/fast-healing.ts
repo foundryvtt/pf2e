@@ -1,10 +1,10 @@
-import { ActorType } from "@actor/data";
+import { ActorPF2e } from "@actor";
+import { ActorType } from "@actor/data/index.ts";
 import { ItemPF2e } from "@item";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { DamageRoll } from "@system/damage/roll";
-import { LocalizePF2e } from "@system/localize";
-import { tupleHasValue, objectHasKey, localizeList } from "@util";
-import { RuleElementPF2e, RuleElementSource, RuleElementOptions, RuleElementData } from ".";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { DamageRoll } from "@system/damage/roll.ts";
+import { localizeList, objectHasKey, tupleHasValue } from "@util";
+import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
 
 /**
  * Rule element to implement fast healing and regeneration.
@@ -20,7 +20,7 @@ class FastHealingRuleElement extends RuleElementPF2e implements FastHealingData 
 
     #details?: string;
 
-    constructor(data: FastHealingSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: FastHealingSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
         data.type ??= "fast-healing";
 
         super(data, item, options);
@@ -69,10 +69,10 @@ class FastHealingRuleElement extends RuleElementPF2e implements FastHealingData 
         }
 
         const roll = (await new DamageRoll(`${value}`).evaluate({ async: true })).toJSON();
-        const { ReceivedMessage } = LocalizePF2e.translations.PF2E.Encounter.Broadcast.FastHealing[this.type];
+        const receivedMessage = game.i18n.localize(`PF2E.Encounter.Broadcast.FastHealing.${this.type}.ReceivedMessage`);
         const details = this.details;
         const postFlavor = details ? `<div data-visibility="owner">${details}</div>` : "";
-        const flavor = `<div>${ReceivedMessage}</div>${postFlavor}`;
+        const flavor = `<div>${receivedMessage}</div>${postFlavor}`;
         const rollMode = this.actor.hasPlayerOwner ? "publicroll" : "gmroll";
         const speaker = ChatMessagePF2e.getSpeaker({ actor: this.actor, token: this.token });
         ChatMessagePF2e.create({ flavor, speaker, type: CONST.CHAT_MESSAGE_TYPES.ROLL, rolls: [roll] }, { rollMode });

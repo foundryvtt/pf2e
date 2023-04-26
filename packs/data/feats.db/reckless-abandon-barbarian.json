@@ -9,11 +9,9 @@
         "actions": {
             "value": null
         },
+        "category": "class",
         "description": {
-            "value": "<p><strong>Trigger</strong> Your turn begins, and you are at half or fewer Hit Points.</p>\n<hr />\n<p>Your blood boils when you take a beating, and you throw caution to the wind to finish the fight. You gain a +2 circumstance bonus to attack rolls, a -2 penalty to AC, and a -1 penalty to saves. These bonuses and penalties last until your Rage ends or until you are above half Hit Points, whichever comes first.</p>"
-        },
-        "featType": {
-            "value": "class"
+            "value": "<p><strong>Trigger</strong> Your turn begins, and you are at half or fewer Hit Points.</p>\n<hr />\n<p>Your blood boils when you take a beating, and you throw caution to the wind to finish the fight. You gain a +2 circumstance bonus to attack rolls, a -2 penalty to AC, and a -1 penalty to saves. These bonuses and penalties last until your Rage ends or until you are above half Hit Points, whichever comes first.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Effect: Reckless Abandon (Barbarian)]{Effect: Reckless Abandon (Barbarian)}</p>"
         },
         "level": {
             "value": 16
@@ -21,46 +19,7 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [
-            {
-                "domain": "all",
-                "key": "RollOption",
-                "label": "Reckless Abandon",
-                "option": "reckless-abandon",
-                "toggleable": true
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Reckless Abandon",
-                "predicate": [
-                    "self:effect:rage",
-                    "reckless-abandon"
-                ],
-                "selector": "attack",
-                "type": "circumstance",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Reckless Abandon",
-                "predicate": [
-                    "self:effect:rage",
-                    "reckless-abandon"
-                ],
-                "selector": "ac",
-                "value": -2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Reckless Abandon",
-                "predicate": [
-                    "self:effect:rage",
-                    "reckless-abandon"
-                ],
-                "selector": "saving-throw",
-                "value": -1
-            }
-        ],
+        "rules": [],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },

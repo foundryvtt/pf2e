@@ -1,8 +1,8 @@
 import { ErrorPF2e, fontAwesomeIcon } from "@util";
-import { DamageInstance, DamageRoll } from "./roll";
-import { ArithmeticExpression, Grouping, IntermediateDie } from "./terms";
-import { DamageCategory, DamageDieSize, DamageType } from "./types";
-import { BASE_DAMAGE_TYPES_TO_CATEGORIES, DAMAGE_DIE_FACES_TUPLE } from "./values";
+import { DamageInstance, DamageRoll } from "./roll.ts";
+import { ArithmeticExpression, Grouping, IntermediateDie } from "./terms.ts";
+import { DamageCategory, DamageDieSize, DamageType } from "./types.ts";
+import { BASE_DAMAGE_TYPES_TO_CATEGORIES, DAMAGE_DIE_FACES_TUPLE } from "./values.ts";
 
 function nextDamageDieSize(next: { upgrade: DamageDieSize }): DamageDieSize;
 function nextDamageDieSize(next: { downgrade: DamageDieSize }): DamageDieSize;
@@ -68,9 +68,16 @@ function deepFindTerms(term: RollTerm, { flavor }: { flavor: string }): RollTerm
     ].flat();
 }
 
-/** A check for whether a string is a well-formed damage formula and most likely intended to be one */
-function looksLikeDamageFormula(formula: string): boolean {
-    return !formula.includes("d20") && DamageRoll.validate(formula);
+/** Check whether a roll has dice terms associated with a damage roll */
+function looksLikeDamageRoll(roll: Roll): boolean {
+    const { dice } = roll;
+    return (
+        // Flat damage is still possibly a damage "roll"
+        dice.length === 0 ||
+        (dice.some((d) => [4, 6, 8, 10, 12].includes(d.faces ?? 20)) &&
+            // Exclude if the roll has d2s (inclusive of `Coin`s) or d20s
+            !dice.some((d) => [2, 20].includes(d.faces ?? 20)))
+    );
 }
 
 /** Create a representative Font Awesome icon from a damage roll */
@@ -111,7 +118,7 @@ export {
     damageDiceIcon,
     deepFindTerms,
     isSystemDamageTerm,
-    looksLikeDamageFormula,
+    looksLikeDamageRoll,
     markAsCrit,
     nextDamageDieSize,
     renderComponentDamage,

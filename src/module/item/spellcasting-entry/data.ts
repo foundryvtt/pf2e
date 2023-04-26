@@ -1,19 +1,14 @@
-import { AbilityString } from "@actor/types";
-import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "@item/data/base";
-import { MagicTradition } from "@item/spell/types";
-import { OneToTen, ZeroToEleven, ZeroToFour } from "@module/data";
-import { RollNotePF2e } from "@module/notes";
-import { SpellcastingEntryPF2e } from "./document";
-import { SpellcastingCategory } from "./types";
+import { AbilityString } from "@actor/types.ts";
+import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "@item/data/base.ts";
+import { MagicTradition } from "@item/spell/types.ts";
+import { OneToTen, ZeroToEleven, ZeroToFour } from "@module/data.ts";
+import { RollNotePF2e } from "@module/notes.ts";
+import { SpellcastingCategory } from "./types.ts";
 
 // temporary type until the spellcasting entry is migrated to no longer use slotX keys
 type SlotKey = `slot${ZeroToEleven}`;
 
 type SpellcastingEntrySource = BaseItemSourcePF2e<"spellcastingEntry", SpellcastingEntrySystemSource>;
-
-interface SpellcastingEntryData
-    extends Omit<SpellcastingEntrySource, "flags" | "system" | "type">,
-        BaseItemDataPF2e<SpellcastingEntryPF2e, "spellcastingEntry", SpellcastingEntrySource> {}
 
 interface SpellAttackRollModifier {
     breakdown: string;
@@ -83,7 +78,6 @@ export {
     SlotKey,
     SpellAttackRollModifier,
     SpellDifficultyClass,
-    SpellcastingEntryData,
     SpellcastingEntrySource,
     SpellcastingEntrySystemData,
     SpellcastingEntrySystemSource,

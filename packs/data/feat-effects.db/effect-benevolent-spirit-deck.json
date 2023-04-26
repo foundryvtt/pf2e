@@ -1,0 +1,90 @@
+{
+    "_id": "k8gB0eDuAlGRoeQj",
+    "img": "systems/pf2e/icons/spells/dismantle.webp",
+    "name": "Effect: Benevolent Spirit Deck",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +1 status bonus to AC and resistance depending on your harrow omen.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "harrow-omen:crowns"
+                ],
+                "type": "acid",
+                "value": "ternary(gte(@actor.level,15),15,ternary(gte(@actor.level,10),10,5))"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "harrow-omen:hammers"
+                ],
+                "type": "cold",
+                "value": "ternary(gte(@actor.level,15),15,ternary(gte(@actor.level,10),10,5))"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "harrow-omen:books"
+                ],
+                "type": "electricity",
+                "value": "ternary(gte(@actor.level,15),15,ternary(gte(@actor.level,10),10,5))"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "harrow-omen:keys"
+                ],
+                "type": "fire",
+                "value": "ternary(gte(@actor.level,15),15,ternary(gte(@actor.level,10),10,5))"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "harrow-omen:stars"
+                ],
+                "type": "mental",
+                "value": "ternary(gte(@actor.level,15),15,ternary(gte(@actor.level,10),10,5))"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "harrow-omen:shields"
+                ],
+                "type": "poison",
+                "value": "ternary(gte(@actor.level,15),15,ternary(gte(@actor.level,10),10,5))"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder: Stolen Fate Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

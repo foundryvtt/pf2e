@@ -1,14 +1,14 @@
-import { ResistanceType } from "@actor/types";
-import { DamageRollFlag } from "@module/chat-message";
-import { UserPF2e } from "@module/user";
-import { DegreeOfSuccessIndex } from "@system/degree-of-success";
-import { RollDataPF2e } from "@system/rolls";
+import { ResistanceType } from "@actor/types.ts";
+import { DamageRollFlag } from "@module/chat-message/index.ts";
+import { UserPF2e } from "@module/user/index.ts";
+import { DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
+import { RollDataPF2e } from "@system/rolls.ts";
 import { ErrorPF2e, fontAwesomeIcon, isObject, objectHasKey, setHasElement, tupleHasValue } from "@util";
-import Peggy from "peggy";
-import { DamageCategorization, deepFindTerms, renderComponentDamage } from "./helpers";
-import { ArithmeticExpression, Grouping, GroupingData, InstancePool, IntermediateDie } from "./terms";
-import { DamageCategory, DamageTemplate, DamageType, MaterialDamageEffect } from "./types";
-import { DAMAGE_TYPES, DAMAGE_TYPE_ICONS } from "./values";
+import { DamageCategorization, deepFindTerms, renderComponentDamage } from "./helpers.ts";
+import { ArithmeticExpression, Grouping, GroupingData, InstancePool, IntermediateDie } from "./terms.ts";
+import { DamageCategory, DamageTemplate, DamageType, MaterialDamageEffect } from "./types.ts";
+import { DAMAGE_TYPES, DAMAGE_TYPE_ICONS } from "./values.ts";
+import type Peggy from "peggy";
 
 abstract class AbstractDamageRoll extends Roll {
     /** Ensure the presence and validity of the `critRule` option for this roll */
@@ -23,7 +23,7 @@ abstract class AbstractDamageRoll extends Roll {
         super(formula, data, options);
     }
 
-    static parser = Peggy.generate(ROLL_GRAMMAR);
+    declare static parser: Peggy.Parser;
 
     /** Strip out parentheses enclosing constants */
     static override replaceFormulaData(
@@ -48,6 +48,11 @@ abstract class AbstractDamageRoll extends Roll {
         throw ErrorPF2e("Damage rolls must be evaluated asynchronously");
     }
 }
+
+// Vite sets globals too late in dev server mode: push this to the end of the task queue so it'll wait
+Promise.resolve().then(() => {
+    AbstractDamageRoll.parser = ROLL_PARSER;
+});
 
 class DamageRoll extends AbstractDamageRoll {
     roller: UserPF2e | null;
@@ -112,7 +117,7 @@ class DamageRoll extends AbstractDamageRoll {
     /** Identify each "DiceTerm" raw object with a non-abstract subclass name */
     static classifyDice(data: RollTermData): void {
         // Find all dice terms and resolve their class
-        type PreProcessedDiceTerm = { class?: string; faces?: string | number | object };
+        type PreProcessedDiceTerm = { class: string; faces?: string | number | object };
         const isDiceTerm = (v: unknown): v is PreProcessedDiceTerm =>
             isObject<PreProcessedDiceTerm>(v) && v.class === "DiceTerm";
         const deepFindDice = (value: object): PreProcessedDiceTerm[] => {
@@ -576,7 +581,7 @@ interface DamageRollDataPF2e extends RollDataPF2e, AbstractDamageRollData {
     /** Data used to construct the damage formula and options */
     damage?: DamageTemplate;
     result?: DamageRollFlag;
-    degreeOfSuccess?: DegreeOfSuccessIndex;
+    degreeOfSuccess?: DegreeOfSuccessIndex | null;
     /** If the total was increased to 1, the original total */
     increasedFrom?: number;
     /** Whether this roll is the splash damage from another roll */

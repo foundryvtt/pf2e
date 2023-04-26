@@ -1,22 +1,14 @@
-import { CreatureTrait } from "@actor/creature";
-import { ActionTrait } from "@item/action";
-import type { ItemPF2e } from "@item/base";
-import { NPCAttackTrait } from "@item/melee";
-import { DocumentSchemaRecord, OneToThree, Rarity } from "@module/data";
-import { RuleElementSource } from "@module/rules";
-import { ItemType } from ".";
-import { PhysicalItemTrait } from "../physical/data";
+import { CreatureTrait } from "@actor/creature/types.ts";
+import { ActionTrait } from "@item/action/data.ts";
+import { NPCAttackTrait } from "@item/melee/data.ts";
+import { PhysicalItemTrait } from "@item/physical/data.ts";
+import { DocumentSchemaRecord, OneToThree, Rarity } from "@module/data.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
+import { ItemType } from "./index.ts";
 
 interface BaseItemSourcePF2e<TType extends ItemType, TSystemSource extends ItemSystemSource = ItemSystemSource>
-    extends foundry.data.ItemSource<TType, TSystemSource> {
+    extends foundry.documents.ItemSource<TType, TSystemSource> {
     flags: ItemSourceFlagsPF2e;
-}
-
-interface BaseItemDataPF2e<TItem extends ItemPF2e, TType extends ItemType, TSource extends BaseItemSourcePF2e<TType>>
-    extends Omit<BaseItemSourcePF2e<TType, ItemSystemSource>, "flags" | "system">,
-        foundry.data.ItemData<TItem> {
-    readonly _source: TSource;
-    readonly type: TType;
 }
 
 type ItemTrait = ActionTrait | CreatureTrait | PhysicalItemTrait | NPCAttackTrait;
@@ -94,7 +86,6 @@ interface Frequency extends FrequencySource {
 export {
     ActionCost,
     ActionType,
-    BaseItemDataPF2e,
     BaseItemSourcePF2e,
     Frequency,
     FrequencySource,

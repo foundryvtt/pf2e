@@ -1,7 +1,7 @@
 import { HazardPF2e } from "@actor";
-import { TraitViewData } from "@actor/data/base";
-import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
-import { SaveType } from "@actor/types";
+import { TraitViewData } from "@actor/data/base.ts";
+import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
+import { SaveType } from "@actor/types.ts";
 import { ActionItemPF2e } from "@item";
 
 interface HazardSheetData extends ActorSheetDataPF2e<HazardPF2e> {

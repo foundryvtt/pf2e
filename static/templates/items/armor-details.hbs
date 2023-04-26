@@ -9,11 +9,11 @@
     </select>
 </div>
 
-{{#if document.isArmor}}
+{{#if (and item.isArmor (not item.isBarding))}}
     <div class="form-group">
         <label>{{localize "PF2E.ArmorGroupLabel"}}</label>
         <select name="system.group">
-            {{#select data.group}}
+            {{#select item.group}}
                 <option value=""></option>
                 {{#each groups as |name type|}}
                     <option value="{{type}}">{{localize name}}</option>
@@ -25,7 +25,7 @@
     <div class="form-group">
         <label>{{localize "PF2E.ArmorBaseLabel"}}</label>
         <select name="system.baseItem">
-            {{#select data.baseItem}}
+            {{#select item.baseType}}
                 <option value=""></option>
                 {{#each baseTypes as |name slug|}}
                     <option value="{{slug}}">{{name}}</option>
@@ -53,7 +53,7 @@
     </select>
 </div>
 
-{{#if document.isArmor}}
+{{#if (and item.isArmor (not item.isBarding))}}
     <div class="form-group">
         <label>{{localize "PF2E.PotencyRuneLabel"}}</label>
         <select name="system.potencyRune.value" data-dtype="Number">
@@ -145,7 +145,7 @@
     <input type="number" name="system.speed.value" value="{{data.speed.value}}" />
 </div>
 
-{{#if document.isArmor}}
+{{#if item.isArmor}}
     <div class="form-group">
         <label>{{localize "PF2E.ArmorDexLabel"}}</label>
         <input type="number" name="system.dex.value" value="{{data.dex.value}}" />
@@ -153,7 +153,7 @@
 
     <div class="form-group">
         <label>{{localize "PF2E.ArmorCheckLabel"}}</label>
-        <input type="number"{{#if (and document.isArmor document.isShoddy)}} class="adjusted-lower"{{/if}} data-property="system.check.value" data-value-base="{{document._source.system.check.value}}" value="{{data.check.value}}" />
+        <input type="number"{{#if (and item.isArmor item.isShoddy)}} class="adjusted-lower"{{/if}} data-property="system.check.value" data-value-base="{{item._source.system.check.value}}" value="{{data.check.value}}" />
     </div>
 
     <div class="form-group">
@@ -164,7 +164,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.MaxHitPointsHeader"}}</label>
-    <input type="number"{{#if document.isShoddy}} class="adjusted-lower"{{/if}} data-property="system.hp.max" data-value-base="{{document._source.system.hp.max}}" value="{{data.hp.max}}" />
+    <input type="number"{{#if item.isShoddy}} class="adjusted-lower"{{/if}} data-property="system.hp.max" data-value-base="{{item._source.system.hp.max}}" value="{{data.hp.max}}" />
 </div>
 
 <div class="form-group">
@@ -174,12 +174,12 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.ShieldBrokenThresholdLabel"}}</label>
-    <input type="number"{{#if document.isShoddy}} class="adjusted-lower"{{/if}} data-property="system.hp.brokenThreshold" data-value-base="{{document._source.system.hp.brokenThreshold}}" value="{{data.hp.brokenThreshold}}" />
+    <input type="number"{{#if item.isShoddy}} class="adjusted-lower"{{/if}} data-property="system.hp.brokenThreshold" data-value-base="{{item._source.system.hp.brokenThreshold}}" value="{{item.hitPoints.brokenThreshold}}" />
 </div>
 
 <div class="form-group">
     <label>{{localize "PF2E.ShieldHardnessLabel"}}</label>
-    <input type="number" name="system.hardness" value="{{data.hardness}}" />
+    <input type="number"{{#if (gt item.hardness item._source.system.hardness)}} class="adjusted-higher"{{else if (lt item.hardness item._source.system.hardness)}} class="adjusted-lower"{{/if}} data-property="system.hardness" data-value-base="{{item._source.system.hardness}}" value="{{item.hardness}}" />
 </div>
 
 <div class="form-group-stacked">

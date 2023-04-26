@@ -1,5 +1,5 @@
-import { PhysicalItemSheetData, PhysicalItemSheetPF2e } from "@item/physical";
-import { TreasurePF2e } from ".";
+import { PhysicalItemSheetData, PhysicalItemSheetPF2e } from "@item/physical/index.ts";
+import { TreasurePF2e } from "./document.ts";
 
 export class TreasureSheetPF2e extends PhysicalItemSheetPF2e<TreasurePF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<TreasureSheetData> {

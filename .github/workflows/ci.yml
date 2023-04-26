@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [18.x]
 
     steps:
       - uses: actions/checkout@v3
@@ -36,21 +36,9 @@ jobs:
         run: |
           npm ci
 
-      - name: Cache Packs
-        id: cache-packs
-        uses: actions/cache@v3
-        with:
-          path: packs/
-          key: packs-${{ hashFiles('packs/**/*') }}
-
-      - name: Build Packs
-        if: ${{ steps.cache-packs.outputs.cache-hit != 'true' }}
+      - name: Build
         run: |
-          npm run build:packs
-
-      - name: Webpack
-        run: |
-          node_modules/.bin/webpack --mode production
+          npm run build
 
       - name: Test
         run: |

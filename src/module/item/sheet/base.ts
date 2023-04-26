@@ -1,35 +1,34 @@
+import { ItemSourcePF2e } from "@item/data/index.ts";
 import { ItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data";
-import { RuleElements, RuleElementSource } from "@module/rules";
+import { RuleElements, RuleElementSource } from "@module/rules/index.ts";
 import {
     createSheetTags,
     createTagifyTraits,
     maintainTagifyFocusInRender,
     processTagifyInSubmitData,
-} from "@module/sheet/helpers";
-import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
-import { LocalizePF2e } from "@system/localize";
+} from "@module/sheet/helpers.ts";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import {
     BasicConstructorOptions,
-    SelectableTagField,
     SELECTABLE_TAG_FIELDS,
+    SelectableTagField,
     TagSelectorBasic,
-} from "@system/tag-selector";
+} from "@system/tag-selector/index.ts";
 import {
     ErrorPF2e,
+    fontAwesomeIcon,
+    htmlQuery,
+    htmlQueryAll,
+    objectHasKey,
     sluggify,
     sortStringRecord,
-    tupleHasValue,
-    objectHasKey,
     tagify,
-    htmlQueryAll,
-    htmlQuery,
-    fontAwesomeIcon,
+    tupleHasValue,
 } from "@util";
 import type * as TinyMCE from "tinymce";
-import { CodeMirror } from "./codemirror";
-import { ItemSheetDataPF2e } from "./data-types";
-import { RuleElementForm, RULE_ELEMENT_FORMS } from "./rule-elements";
+import { CodeMirror } from "./codemirror.ts";
+import { ItemSheetDataPF2e } from "./data-types.ts";
+import { RULE_ELEMENT_FORMS, RuleElementForm } from "./rule-elements/index.ts";
 
 export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     static override get defaultOptions(): DocumentSheetOptions {
@@ -37,7 +36,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         options.width = 691;
         options.height = 460;
         options.classes = options.classes.concat(["pf2e", "item"]);
-        options.template = "systems/pf2e/templates/items/item-sheet.hbs";
+        options.template = "systems/pf2e/templates/items/sheet.hbs";
         options.scrollY = [".tab.active"];
         options.tabs = [
             {
@@ -81,26 +80,27 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         options.classes?.push(this.item.type);
         options.editable = this.isEditable;
 
-        const item = this.item.clone({}, { keepId: true });
-        const itemData = item.toObject(false) as unknown as TItem;
-        const rules = this.item.toObject().system.rules;
+        const { item } = this;
+        const rules = item.toObject().system.rules;
 
         // Enrich content
         const enrichedContent: Record<string, string> = {};
         const rollData = { ...this.item.getRollData(), ...this.actor?.getRollData() };
-        enrichedContent.description = await TextEditor.enrichHTML(itemData.system.description.value, {
+
+        // Get the source description in case this is an unidentified physical item
+        enrichedContent.description = await TextEditor.enrichHTML(item._source.system.description.value, {
             rollData,
             async: true,
         });
-        enrichedContent.gmNotes = await TextEditor.enrichHTML(itemData.system.description.gm.trim(), {
+        enrichedContent.gmNotes = await TextEditor.enrichHTML(item.system.description.gm.trim(), {
             rollData,
             async: true,
         });
 
         const validTraits = this.validTraits;
-        const hasRarity = !this.item.isOfType("action", "condition", "deity", "effect", "lore", "melee");
-        const itemTraits = this.item.system.traits?.value ?? [];
-        const sourceTraits = this.item._source.system.traits?.value ?? [];
+        const hasRarity = !item.isOfType("action", "condition", "deity", "effect", "lore", "melee");
+        const itemTraits = item.system.traits?.value ?? [];
+        const sourceTraits = item._source.system.traits?.value ?? [];
         const traits = validTraits ? createSheetTags(validTraits, itemTraits) : null;
         const traitTagifyData = validTraits
             ? createTagifyTraits(itemTraits, { sourceTraits, record: validTraits })
@@ -128,8 +128,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             }),
             cssClass: this.isEditable ? "editable" : "locked",
             editable: this.isEditable,
-            document: this.item,
-            item: itemData,
+            document: item,
+            item,
             isPhysical: false,
             data: item.system,
             enrichedContent,
@@ -146,10 +146,12 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             ruleEditing: !!this.editingRuleElement,
             rules: {
                 labels: rules.map((ruleData: RuleElementSource) => {
-                    const translations: Record<string, string> = LocalizePF2e.translations.PF2E.RuleElement;
+                    const localization = CONFIG.PF2E.ruleElement;
                     const key = String(ruleData.key).replace(/^PF2E\.RuleElement\./, "");
-                    const label = translations[key] ?? translations.Unrecognized;
-                    const recognized = label !== translations.Unrecognized;
+                    const label = game.i18n.localize(
+                        localization[key as keyof typeof localization] ?? localization.Unrecognized
+                    );
+                    const recognized = label !== game.i18n.localize(localization.Unrecognized);
                     return { label, recognized };
                 }),
                 selection: {

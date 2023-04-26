@@ -1,5 +1,5 @@
 <div class="tab actions actions-pane" data-group="primary" data-tab="actions">
-    <nav class="actions-nav" data-group="actions-tabs">
+    <nav class="actions-nav sub-nav" data-group="actions-tabs">
         <a class="tab" data-tab="encounter" data-group="actions-tabs">{{localize "PF2E.TabActionsEncounterLabel"}}</a>
         <a class="tab" data-tab="exploration" data-group="actions-tabs">{{localize "PF2E.TabActionsExplorationLabel"}}</a>
         <a class="tab" data-tab="downtime" data-group="actions-tabs">{{localize "PF2E.TabActionsDowntimeLabel"}}</a>
@@ -103,10 +103,13 @@
                                         {{#each action.weaponTraits as |trait|}}
                                             <span class="tag tag_alt {{trait.cssClass}}"{{#if trait.description}} data-description="{{trait.description}}"{{/if}}>{{trait.label}}</span>
                                         {{/each}}
+                                        {{#if action.item.system.reload.label}}
+                                            <span class="tag tag_secondary">{{action.item.system.reload.label}}</span>
+                                        {{/if}}
                                         {{#if action.item.system.maxRange}}
-                                            <span class="tag tag_secondary {{trait.cssClass}}">{{localize (concat "PF2E.TraitRange" action.item.system.maxRange)}}</span>
+                                            <span class="tag tag_secondary">{{localize (concat "PF2E.TraitRange" action.item.system.maxRange)}}</span>
                                         {{else if action.item.system.range}}
-                                            <span class="tag tag_secondary {{trait.cssClass}}">{{localize (concat "PF2E.TraitRangeIncrement" action.item.system.range)}}</span>
+                                            <span class="tag tag_secondary">{{localize (concat "PF2E.TraitRangeIncrement" action.item.system.range)}}</span>
                                         {{/if}}
                                     </div>
                                 </div>
@@ -122,7 +125,7 @@
                                     <button type="button" class="item-control item-create" data-type="action" data-action-type="{{sid}}">
                                         <i class="fas fa-fw fa-plus"></i>{{localize "PF2E.CreateActionTitle"}}
                                     </button>
-                                    <button type="button" class="item-control action-browse" data-type="feat">
+                                    <button type="button" class="item-control action-browse" data-type="action" data-action-type="{{sid}}">
                                         <i class="fas fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}
                                     </button>
                                 </div>
@@ -173,7 +176,7 @@
                                 <button type="button" class="item-control item-create" data-type="action" data-action-type="free">
                                     <i class="fas fa-fw fa-plus"></i>{{localize "PF2E.CreateActionTitle"}}
                                 </button>
-                                <button type="button" class="item-control action-browse" data-type="feat">
+                                <button type="button" class="item-control action-browse" data-type="action" data-action-type="passive" data-action-trait="exploration">
                                     <i class="fas fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}
                                 </button>
                             </div>
@@ -212,7 +215,7 @@
                                 <button type="button" class="item-control item-create" data-type="action" data-action-type="free">
                                     <i class="fas fa-fw fa-plus"></i>{{localize "PF2E.CreateActionTitle"}}
                                 </button>
-                                <button type="button" class="item-control action-browse" data-type="feat">
+                                <button type="button" class="item-control action-browse" data-type="action" data-action-type="passive" data-action-trait="downtime">
                                     <i class="fas fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}
                                 </button>
                             </div>

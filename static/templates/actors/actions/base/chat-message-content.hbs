@@ -1,0 +1,15 @@
+<h4 class="action">
+    {{#if glyph}}
+        <span class="pf2-icon larger">{{glyph}}</span>
+    {{/if}}
+    <strong>{{localize name}}</strong>
+</h4>
+<div class="tags">
+    {{#each traits as |trait|}}
+        <span class="tag tooltipstered" data-slug="{{trait.slug}}" data-description="{{trait.description}}">{{localize trait.label}}</span>
+    {{/each}}
+</div>
+{{#if description}}
+    <hr>
+    {{{localize description}}}
+{{/if}}

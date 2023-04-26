@@ -1,18 +1,20 @@
-import { CharacterPF2e, NPCPF2e } from "@actor";
-import { CharacterSheetPF2e } from "@actor/character/sheet";
-import { InitiativeRollResult } from "@actor/creature";
-import { RollInitiativeOptionsPF2e } from "@actor/data";
-import { resetActors } from "@actor/helpers";
-import { SkillLongForm } from "@actor/types";
-import { SKILL_DICTIONARY, SKILL_LONG_FORMS } from "@actor/values";
-import { ScenePF2e } from "@scene";
-import { LocalizePF2e } from "@system/localize";
+import { ActorPF2e, CharacterPF2e } from "@actor";
+import { CharacterSheetPF2e } from "@actor/character/sheet.ts";
+import { RollInitiativeOptionsPF2e } from "@actor/data/index.ts";
+import { resetActors } from "@actor/helpers.ts";
+import { InitiativeRollResult } from "@actor/initiative.ts";
+import { SkillLongForm } from "@actor/types.ts";
+import { SKILL_DICTIONARY, SKILL_LONG_FORMS } from "@actor/values.ts";
+import { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
 import { setHasElement } from "@util";
-import { CombatantFlags, CombatantPF2e, RolledCombatant } from "./combatant";
+import { CombatantFlags, CombatantPF2e, RolledCombatant } from "./combatant.ts";
 
 class EncounterPF2e extends Combat {
     /** Sort combatants by initiative rolls, falling back to tiebreak priority and then finally combatant ID (random) */
-    protected override _sortCombatants(a: CombatantPF2e<this>, b: CombatantPF2e<this>): number {
+    protected override _sortCombatants(
+        a: CombatantPF2e<this, TokenDocumentPF2e>,
+        b: CombatantPF2e<this, TokenDocumentPF2e>
+    ): number {
         const resolveTie = (): number => {
             const [priorityA, priorityB] = [a, b].map(
                 (combatant): number =>
@@ -37,9 +39,9 @@ class EncounterPF2e extends Combat {
     /** Exclude orphaned, loot-actor, and minion tokens from combat */
     override async createEmbeddedDocuments(
         embeddedName: "Combatant",
-        data: PreCreate<foundry.data.CombatantSource>[],
-        context: DocumentModificationContext<CombatantPF2e> = {}
-    ): Promise<CombatantPF2e<this>[]> {
+        data: PreCreate<foundry.documents.CombatantSource>[],
+        context: DocumentModificationContext<this> = {}
+    ): Promise<CombatantPF2e<this, TokenDocumentPF2e<ScenePF2e>>[]> {
         const createData = data.filter((datum) => {
             const token = canvas.tokens.placeables.find((canvasToken) => canvasToken.id === datum.tokenId);
             if (!token) return false;
@@ -52,7 +54,6 @@ class EncounterPF2e extends Combat {
 
             const actorTraits = actor.traits;
             if (actor.type === "loot" || ["minion", "eidolon"].some((t) => actorTraits.has(t))) {
-                const translation = LocalizePF2e.translations.PF2E.Encounter.ExcludingFromInitiative;
                 const actorTypes: Record<string, string> = CONFIG.PF2E.actorTypes;
                 const type = game.i18n.localize(
                     actorTraits.has("minion")
@@ -61,24 +62,28 @@ class EncounterPF2e extends Combat {
                         ? CONFIG.PF2E.creatureTraits.eidolon
                         : actorTypes[actor.type]
                 );
-                ui.notifications.info(game.i18n.format(translation, { type, actor: actor.name }));
+                ui.notifications.info(
+                    game.i18n.format("PF2E.Encounter.ExcludingFromInitiative", { type, actor: actor.name })
+                );
                 return false;
             }
             return true;
         });
 
-        return super.createEmbeddedDocuments(embeddedName, createData, context) as Promise<CombatantPF2e<this>[]>;
+        return super.createEmbeddedDocuments(embeddedName, createData, context) as Promise<
+            CombatantPF2e<this, TokenDocumentPF2e<ScenePF2e>>[]
+        >;
     }
 
     /** Roll initiative for PCs and NPCs using their prepared roll methods */
     override async rollInitiative(ids: string[], options: RollInitiativeOptionsPF2e = {}): Promise<this> {
-        const combatants = ids.flatMap((id) => this.combatants.get(id) ?? []) as CombatantPF2e<this>[];
-        const fightyCombatants = combatants.filter(
-            (c): c is CombatantPF2e<this, CharacterPF2e | NPCPF2e> => !!c.actor?.isOfType("character", "npc")
+        const combatants: { id: string; actor: ActorPF2e | null }[] = ids.flatMap(
+            (id) => this.combatants.get(id) ?? []
         );
+        const fightyCombatants = combatants.filter((c): c is { id: string; actor: ActorPF2e } => !!c.actor?.initiative);
         const rollResults = await Promise.all(
-            fightyCombatants.map((combatant): Promise<InitiativeRollResult | null> => {
-                const checkType = combatant.actor.system.attributes.initiative.ability;
+            fightyCombatants.map(async (combatant): Promise<InitiativeRollResult | null> => {
+                const checkType = combatant.actor.initiative?.ability ?? "";
                 const skills: Record<string, string | undefined> = SKILL_DICTIONARY;
                 const rollOptions = combatant.actor.getRollOptions([
                     "all",
@@ -86,12 +91,14 @@ class EncounterPF2e extends Combat {
                     skills[checkType] ?? checkType,
                 ]);
                 if (options.secret) rollOptions.push("secret");
-                return combatant.actor.system.attributes.initiative.roll({
-                    options: rollOptions,
-                    updateTracker: false,
-                    skipDialog: !!options.skipDialog,
-                    rollMode: options.messageOptions?.rollMode,
-                });
+                return (
+                    combatant.actor.initiative?.roll({
+                        options: rollOptions,
+                        updateTracker: false,
+                        skipDialog: !!options.skipDialog,
+                        rollMode: options.messageOptions?.rollMode,
+                    }) ?? null
+                );
             })
         );
 
@@ -120,12 +127,12 @@ class EncounterPF2e extends Combat {
     async setMultipleInitiatives(initiatives: SetInitiativeData[]): Promise<void> {
         const currentId = this.combatant?.id;
         const updates = initiatives.map(
-            (i): { _id: string; initiative: number; flags: { pf2e: DeepPartial<CombatantFlags> } } => ({
+            (i): { _id: string; initiative: number; flags: DeepPartial<CombatantFlags> } => ({
                 _id: i.id,
                 initiative: i.value,
                 flags: {
                     pf2e: {
-                        initiativeStatistic: i.statistic,
+                        initiativeStatistic: i.statistic ?? null,
                         overridePriority: {
                             [i.value]: i.overridePriority,
                         },
@@ -136,6 +143,20 @@ class EncounterPF2e extends Combat {
         await this.updateEmbeddedDocuments("Combatant", updates);
         // Ensure the current turn is preserved
         await this.update({ turn: this.turns.findIndex((c) => c.id === currentId) });
+    }
+
+    override async setInitiative(id: string, value: number): Promise<void> {
+        const combatant = this.combatants.get(id, { strict: true });
+        if (combatant.actor?.isOfType("character", "npc")) {
+            return this.setMultipleInitiatives([
+                {
+                    id: combatant.id,
+                    value,
+                    statistic: combatant.actor.attributes.initiative.statistic || "perception",
+                },
+            ]);
+        }
+        super.setInitiative(id, value);
     }
 
     /**
@@ -153,14 +174,14 @@ class EncounterPF2e extends Combat {
 
     /** Enable the initiative button on PC sheets */
     protected override _onCreate(
-        data: foundry.data.CombatSource,
-        options: DocumentModificationContext<this>,
+        data: this["_source"],
+        options: DocumentModificationContext<null>,
         userId: string
     ): void {
         super._onCreate(data, options, userId);
 
         const pcSheets = Object.values(ui.windows).filter(
-            (sheet): sheet is CharacterSheetPF2e => sheet instanceof CharacterSheetPF2e
+            (sheet): sheet is CharacterSheetPF2e<CharacterPF2e> => sheet instanceof CharacterSheetPF2e
         );
         for (const sheet of pcSheets) {
             sheet.enableInitiativeButton();
@@ -169,8 +190,8 @@ class EncounterPF2e extends Combat {
 
     /** Call onTurnStart for each rule element on the new turn's actor */
     protected override _onUpdate(
-        changed: DeepPartial<foundry.data.CombatSource>,
-        options: DocumentModificationContext<this>,
+        changed: DeepPartial<this["_source"]>,
+        options: DocumentModificationContext<null>,
         userId: string
     ): void {
         super._onUpdate(changed, options, userId);
@@ -222,7 +243,7 @@ class EncounterPF2e extends Combat {
     }
 
     /** Disable the initiative button on PC sheets if this was the only encounter */
-    protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void {
+    protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void {
         super._onDelete(options, userId);
 
         if (this.started) {
@@ -233,7 +254,7 @@ class EncounterPF2e extends Combat {
         // Disable the initiative button if this was the only encounter
         if (!game.combat) {
             const pcSheets = Object.values(ui.windows).filter(
-                (sheet): sheet is CharacterSheetPF2e => sheet instanceof CharacterSheetPF2e
+                (sheet): sheet is CharacterSheetPF2e<CharacterPF2e> => sheet instanceof CharacterSheetPF2e
             );
             for (const sheet of pcSheets) {
                 sheet.disableInitiativeButton();
@@ -248,16 +269,8 @@ class EncounterPF2e extends Combat {
     }
 }
 
-interface EncounterPF2e {
-    readonly data: foundry.data.CombatData<this, CombatantPF2e>;
-
-    turns: CombatantPF2e<this>[];
-
-    get scene(): ScenePF2e | undefined;
-
-    get combatant(): CombatantPF2e<this>;
-
-    readonly combatants: foundry.abstract.EmbeddedCollection<CombatantPF2e<this>>;
+interface EncounterPF2e extends Combat {
+    readonly combatants: foundry.abstract.EmbeddedCollection<CombatantPF2e<this, TokenDocumentPF2e | null>>;
 
     rollNPC(options: RollInitiativeOptionsPF2e): Promise<this>;
 }

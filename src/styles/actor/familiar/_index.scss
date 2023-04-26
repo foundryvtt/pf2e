@@ -1,6 +1,6 @@
 .familiar {
     .window-content {
-        background: url('../assets/sheet/background.webp');
+        background: url("/assets/sheet/background.webp");
         background-repeat: repeat-x, no-repeat;
         background-size: cover;
         background-attachment: local;
@@ -34,11 +34,18 @@
             flex-direction: row;
             padding: 4px 6px 0;
 
-            img {
-                flex: 0;
-                width: 125px;
-                height: 100%;
-                border-radius: 0;
+            .image-container {
+                display: flex;
+                img.actor-image {
+                    flex: 0;
+                    width: 125px;
+                    height: 100%;
+                    border-radius: 0;
+                }
+                [data-action=show-image] {
+                    bottom: 2px;
+                    right: 2px;
+                }
             }
 
             .header-content {

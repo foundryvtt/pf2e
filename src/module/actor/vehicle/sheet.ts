@@ -1,8 +1,8 @@
-import { ActorSheetPF2e } from "../sheet/base";
-import { VehiclePF2e } from "@actor/vehicle";
-import { ItemDataPF2e } from "@item/data";
+import { ActorSheetPF2e } from "../sheet/base.ts";
+import { VehiclePF2e } from "@actor/vehicle/index.ts";
 import { ErrorPF2e, getActionIcon, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
-import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
+import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
+import { ActionItemPF2e } from "@item";
 
 export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
     static override get defaultOptions(): ActorSheetOptions {
@@ -40,29 +40,19 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         const actorData = sheetData.actor;
 
         // Actions
-        const actions: Record<"action" | "reaction" | "free", { label: string; actions: ItemDataPF2e[] }> = {
-            action: { label: game.i18n.localize("PF2E.ActionsActionsHeader"), actions: [] },
-            reaction: { label: game.i18n.localize("PF2E.ActionsReactionsHeader"), actions: [] },
-            free: { label: game.i18n.localize("PF2E.ActionsFreeActionsHeader"), actions: [] },
-        };
+        const actions: Record<"action" | "reaction" | "free", { label: string; actions: RawObject<ActionItemPF2e>[] }> =
+            {
+                action: { label: game.i18n.localize("PF2E.ActionsActionsHeader"), actions: [] },
+                reaction: { label: game.i18n.localize("PF2E.ActionsReactionsHeader"), actions: [] },
+                free: { label: game.i18n.localize("PF2E.ActionsFreeActionsHeader"), actions: [] },
+            };
 
-        for (const itemData of actorData.items) {
-            const item = this.actor.items.get(itemData._id, { strict: true });
-            if (item.isOfType("physical")) {
-                const systemData = item.system;
-                itemData.showEdit = sheetData.user.isGM || systemData.identification.status === "identified";
-                itemData.isInvestable = false;
-                itemData.isIdentified = systemData.identification.status === "identified";
-                itemData.assetValue = item.assetValue;
-                itemData.showEdit = true;
-            }
-
-            // Actions
-            if (item.isOfType("action")) {
-                itemData.img = getActionIcon(item.actionCost);
-                const actionType = item.actionCost?.type ?? "free";
-                actions[actionType].actions.push(itemData);
-            }
+        // Actions
+        for (const item of this.actor.itemTypes.action.sort((a, b) => a.sort - b.sort)) {
+            const itemData = item.toObject(false);
+            const img = getActionIcon(item.actionCost);
+            const actionType = item.actionCost?.type ?? "free";
+            actions[actionType].actions.push({ ...itemData, img });
         }
 
         actorData.actions = actions;

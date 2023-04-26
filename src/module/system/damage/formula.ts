@@ -1,8 +1,15 @@
-import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers";
-import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS } from "@system/degree-of-success";
-import { groupBy } from "@util";
-import { CriticalInclusion, DamageCategoryUnique, DamageFormulaData, DamageType, MaterialDamageEffect } from "./types";
-import { CRITICAL_INCLUSION } from "./values";
+import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
+import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
+import { groupBy, sum, sortBy } from "@util";
+import {
+    CriticalInclusion,
+    DamageCategoryUnique,
+    DamageFormulaData,
+    DamagePartialTerm,
+    DamageType,
+    MaterialDamageEffect,
+} from "./types.ts";
+import { CRITICAL_INCLUSION } from "./values.ts";
 
 /** A compiled formula with its associated breakdown */
 interface AssembledFormula {
@@ -34,40 +41,57 @@ function createDamageFormula(
     }
 
     const critical = degree === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
-    const { base } = damage;
+    const base = Array.isArray(damage.base) ? damage.base : [damage.base];
+    if (!base.length) {
+        return null;
+    }
 
     // Group dice by damage type
     const typeMap: DamageTypeMap = new Map();
-    if ((base.diceNumber && base.dieSize) || base.modifier) {
-        const diceSection = base.diceNumber ? `${base.diceNumber}${base.dieSize}` : null;
-        const modifier = base.modifier ? base.modifier : null;
-        const label = [diceSection, modifier].filter((p) => p !== null).join(" + ");
+    for (const baseEntry of base) {
+        const list = typeMap.get(baseEntry.damageType) ?? [];
+        typeMap.set(baseEntry.damageType, list);
 
-        typeMap.set(base.damageType, [
-            {
+        if ("terms" in baseEntry) {
+            list.push(...baseEntry.terms.map((t) => ({ ...baseEntry, ...t, label: null, critical: null })));
+        } else if ((baseEntry.diceNumber && baseEntry.dieSize) || baseEntry.modifier) {
+            const { diceNumber, dieSize, modifier, damageType } = baseEntry;
+            const label = (() => {
+                const diceSection = diceNumber ? `${diceNumber}${dieSize}` : null;
+                if (!diceSection) return String(modifier);
+
+                const displayedModifier = modifier ? Math.abs(modifier) : null;
+                const operator = modifier < 0 ? " - " : " + ";
+                return [diceSection, displayedModifier].filter((p) => p !== null).join(operator);
+            })();
+
+            list.push({
                 label,
-                dice:
-                    base.diceNumber && base.dieSize
-                        ? { number: base.diceNumber, faces: Number(base.dieSize.replace("d", "")) }
-                        : null,
-                modifier: base.modifier ?? 0,
+                dice: diceNumber && dieSize ? { number: diceNumber, faces: Number(dieSize.replace("d", "")) } : null,
+                modifier: modifier ?? 0,
                 critical: null,
-                category: base.category,
-                materials: base.materials ?? [],
-            },
-        ]);
+                damageType,
+                category: baseEntry.category,
+                materials: baseEntry.materials ?? [],
+            });
+        }
     }
+
+    // Hold onto base terms for matching reasons (such as adding extra base dice)
+    const baseTerms = [...typeMap.values()].flat();
 
     // Dice always stack
     for (const dice of damage.dice.filter((d) => d.enabled)) {
-        const dieSize = dice.dieSize || base.dieSize || null;
-        if (dice.diceNumber > 0 && dieSize) {
-            const damageType = dice.damageType ?? base.damageType;
+        const damageType = dice.damageType ?? baseTerms[0].damageType;
+        const matchingBase = baseTerms.find((b) => b.damageType === dice.damageType) ?? baseTerms[0];
+        const faces = Number(dice.dieSize?.replace("d", "")) || matchingBase.dice?.faces || null;
+        if (dice.diceNumber > 0 && faces) {
             const list = typeMap.get(damageType) ?? [];
             list.push({
                 label: dice.label,
-                dice: { number: dice.diceNumber, faces: Number(dieSize.replace("d", "")) },
+                dice: { number: dice.diceNumber, faces },
                 modifier: 0,
+                damageType,
                 category: dice.category,
                 critical: dice.critical,
             });
@@ -81,17 +105,18 @@ function createDamageFormula(
     const modifiers = damage.modifiers
         .filter((m) => m.enabled)
         .flatMap((modifier): ModifierPF2e | never[] => {
-            modifier.damageType ??= base.damageType;
+            modifier.damageType ??= base[0].damageType;
             return outcomeMatches(modifier) ? modifier : [];
         });
 
     for (const modifier of modifiers) {
-        const damageType = modifier.damageType ?? base.damageType;
+        const damageType = modifier.damageType ?? base[0].damageType;
         const list = typeMap.get(damageType) ?? [];
         list.push({
             label: `${modifier.label} ${modifier.value < 0 ? "" : "+"}${modifier.value}`,
             dice: null,
             modifier: modifier.value,
+            damageType,
             category: modifier.damageCategory,
             critical: modifier.critical,
         });
@@ -156,8 +181,23 @@ function instancesFromTypeMap(
         })();
 
         const breakdown = (() => {
+            type DamagePartialWithLabel = DamagePartial & { label: string };
+
             const categories = [null, "persistent", "precision", "splash"] as const;
-            const flattenedDamage = categories.flatMap((c) => groups.get(c) ?? []);
+            const flattenedDamage = categories.flatMap((c) => {
+                const partials = groups.get(c) ?? [];
+                const breakdownDamage = partials.filter((e): e is DamagePartialWithLabel => e.label !== null);
+
+                // Null labels are assumed to be base damage. Combine them and create a single tag.
+                const unlabeled = partials.filter((e) => e.label === null);
+                if (unlabeled.length) {
+                    const append = c === "splash" ? ` ${game.i18n.localize("PF2E.Damage.RollFlavor.splash")}` : "";
+                    const label = createSimpleFormula(unlabeled) + append;
+                    breakdownDamage.splice(0, 0, { ...unlabeled[0], label });
+                }
+
+                return breakdownDamage;
+            });
             const breakdownDamage = flattenedDamage.filter((d) => d.critical !== true);
             if (degree === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS) {
                 breakdownDamage.push(...flattenedDamage.filter((d) => d.critical === true));
@@ -165,6 +205,7 @@ function instancesFromTypeMap(
 
             if (!breakdownDamage.length) return [];
 
+            // Gather label values and assign a damage type string to the first label in the list
             const damageTypeLabel =
                 breakdownDamage[0].category === "persistent"
                     ? game.i18n.format("PF2E.Damage.PersistentTooltip", {
@@ -189,44 +230,90 @@ function createPartialFormulas(
     const categories = [null, "persistent", "precision", "splash"] as const;
     return categories.flatMap((category) => {
         const requestedPartials = (partials.get(category) ?? []).filter((p) => criticalInclusion.includes(p.critical));
-
-        // If dice doubling is requested, immediately double the constant
-        const constant = requestedPartials.reduce((total, p) => total + p.modifier, 0);
-
-        // Group dice by number of faces and combine into dice-expression strings
-        const dice = requestedPartials.filter(
-            (p): p is DamagePartial & { dice: NonNullable<DamagePartial["dice"]> } => !!p.dice && p.dice.number > 0
-        );
-
-        const combinedDice = Array.from(groupBy(dice, (p) => p.dice.faces).entries())
-            .sort(([a], [b]) => b - a)
-            .reduce((expressions: string[], [faces, partials]) => {
-                const number = partials.reduce(
-                    (total, p) => total + (doubleDice ? 2 * p.dice.number : p.dice.number),
-                    0
-                );
-
-                // If dice doubling is requested, mark the dice with flavor text
-                expressions.push(doubleDice ? `(${number}d${faces}[doubled])` : `${number}d${faces}`);
-
-                return expressions;
-            }, [])
-            .join(" + ");
-
         const term = ((): string => {
-            const expression = [combinedDice, Math.abs(constant)]
-                .filter((e) => !!e)
-                .map((e) => (typeof e === "number" && doubleDice ? `2 * ${e}` : e))
-                .join(constant > 0 ? " + " : " - ");
+            const expression = createSimpleFormula(requestedPartials, { doubleDice });
             return ["precision", "splash"].includes(category ?? "") && hasOperators(expression)
                 ? `(${expression})`
                 : expression;
         })();
-
         const flavored = term && category && category !== "persistent" ? `${term}[${category}]` : term;
 
         return flavored || [];
     });
+}
+
+/** Combines damage dice and modifiers into a simplified list of terms */
+function combinePartialTerms(terms: DamagePartialTerm[]): DamagePartialTerm[] {
+    const modifier = terms.reduce((total, p) => total + p.modifier, 0);
+    const constantTerm: DamagePartialTerm | null = modifier ? { dice: null, modifier } : null;
+
+    // Group dice by number of faces
+    const dice = terms
+        .filter((p): p is DamagePartial & { dice: NonNullable<DamagePartial["dice"]> } => !!p.dice && p.dice.number > 0)
+        .sort(sortBy((t) => -t.dice.faces));
+
+    const byFace = [...groupBy(dice, (t) => t.dice.faces).values()];
+    const combinedDice = byFace.map((terms) => ({
+        modifier: 0,
+        dice: { ...terms[0].dice, number: sum(terms.map((d) => d.dice.number)) },
+    }));
+
+    return [...combinedDice, constantTerm].filter((t): t is DamagePartialTerm => !!t);
+}
+
+/** Combines damage dice and modifiers into a single formula, ignoring the damage type and category. */
+function createSimpleFormula(terms: DamagePartialTerm[], { doubleDice }: { doubleDice?: boolean } = {}): string {
+    terms = combinePartialTerms(terms);
+    const constant = terms.find((t) => !!t.modifier)?.modifier ?? 0;
+    const positiveDice = terms.filter(
+        (t): t is DamagePartial & { dice: NonNullable<DamagePartial["dice"]> } => !!t.dice && t.dice.number > 0
+    );
+
+    const diceTerms = positiveDice.map((term) => {
+        const number = doubleDice ? term.dice.number * 2 : term.dice.number;
+        const faces = term.dice.faces;
+        return doubleDice ? `(${number}d${faces}[doubled])` : `${number}d${faces}`;
+    });
+
+    // Create the final term. Double the modifier here if dice doubling is enabled
+    return [diceTerms.join(" + "), Math.abs(constant)]
+        .filter((e) => !!e)
+        .map((e) => (typeof e === "number" && doubleDice ? `2 * ${e}` : e))
+        .join(constant > 0 ? " + " : " - ");
+}
+
+/**
+ * Given a simple flavor-less formula with only +/- operators, returns a list of damage partial terms.
+ * All subtracted terms become negative terms.
+ */
+function parseTermsFromSimpleFormula(
+    formula: string | Roll,
+    options?: { rollData: Record<string, unknown> }
+): DamagePartialTerm[] {
+    const roll = formula instanceof Roll ? formula : new Roll(formula, options?.rollData);
+
+    // Parse from right to left so that when we hit an operator, we already have the term.
+    return roll.terms.reduceRight((result, term) => {
+        // Ignore + terms, we assume + by default
+        if (term.expression === " + ") return result;
+
+        // - terms modify the last term we parsed
+        if (term.expression === " - ") {
+            const termToModify = result[0];
+            if (termToModify) {
+                if (termToModify.modifier) termToModify.modifier *= -1;
+                if (termToModify.dice) termToModify.dice.number *= -1;
+            }
+            return result;
+        }
+
+        result.unshift({
+            modifier: term instanceof NumericTerm ? term.number : 0,
+            dice: term instanceof Die ? { faces: term.faces, number: term.number } : null,
+        });
+
+        return result;
+    }, <DamagePartialTerm[]>[]);
 }
 
 interface PartialFormulaParams {
@@ -261,16 +348,13 @@ function ensureValidFormulaHead(formula: string | null): string | null {
 /** A pool of damage dice & modifiers, grouped by damage type. */
 type DamageTypeMap = Map<DamageType, DamagePartial[]>;
 
-interface DamagePartial {
-    /** Used to create the corresponding breakdown tag */
-    label: string;
-    /** The static amount of damage of the current damage type and category. */
-    modifier: number;
-    /** Maps the die face ("d4", "d6", "d8", "d10", "d12") to the number of dice of that type. */
-    dice: { number: number; faces: number } | null;
+interface DamagePartial extends DamagePartialTerm {
+    /** Used to create the corresponding breakdown tag, if null it will be auto generated */
+    label: string | null;
+    damageType: DamageType;
     category: DamageCategoryUnique | null;
     critical: boolean | null;
     materials?: MaterialDamageEffect[];
 }
 
-export { AssembledFormula, createDamageFormula };
+export { AssembledFormula, combinePartialTerms, createSimpleFormula, createDamageFormula, parseTermsFromSimpleFormula };

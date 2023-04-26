@@ -1,6 +1,6 @@
-import { ItemSourcePF2e } from "@item/data";
+import { ItemSourcePF2e } from "@item/data/index.ts";
 import { recursiveReplaceString } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Rename references to retired compendiums */
 export class Migration778RenameRetiredPackRefs extends MigrationBase {

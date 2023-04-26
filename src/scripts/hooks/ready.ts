@@ -1,13 +1,13 @@
-import { resetActors } from "@actor/helpers";
-import { MigrationSummary } from "@module/apps/migration-summary";
-import { SceneDarknessAdjuster } from "@module/apps/scene-darkness-adjuster";
-import { SetAsInitiative } from "@module/chat-message/listeners/set-as-initiative";
-import { MigrationList } from "@module/migration";
-import { MigrationRunner } from "@module/migration/runner";
-import { SetGamePF2e } from "@scripts/set-game-pf2e";
-import { activateSocketListener } from "@scripts/socket";
-import { storeInitialWorldVersions } from "@scripts/store-versions";
-import { extendDragData } from "@scripts/system/dragstart-handler";
+import { resetActors } from "@actor/helpers.ts";
+import { MigrationSummary } from "@module/apps/migration-summary.ts";
+import { SceneDarknessAdjuster } from "@module/apps/scene-darkness-adjuster.ts";
+import { SetAsInitiative } from "@module/chat-message/listeners/set-as-initiative.ts";
+import { MigrationList } from "@module/migration/index.ts";
+import { MigrationRunner } from "@module/migration/runner/index.ts";
+import { SetGamePF2e } from "@scripts/set-game-pf2e.ts";
+import { activateSocketListener } from "@scripts/socket.ts";
+import { storeInitialWorldVersions } from "@scripts/store-versions.ts";
+import { extendDragData } from "@scripts/system/dragstart-handler.ts";
 
 export const Ready = {
     listen: (): void => {
@@ -45,10 +45,15 @@ export const Ready = {
                 }
 
                 // These modules claim compatibility with all of V9 but are abandoned
-                const abandonedModules = new Set(["foundry_community_macros", "pf2e-lootgen", "pf2e-toolbox"]);
+                const abandonedModules = new Set([
+                    "dragupload",
+                    "foundry_community_macros",
+                    "pf2e-lootgen",
+                    "pf2e-toolbox",
+                ]);
 
                 // Nag the GM for running unmaintained modules
-                const subV9Modules = Array.from(game.modules.values()).filter(
+                const subV10Modules = game.modules.filter(
                     (m) =>
                         m.active &&
                         (m.esmodules.size > 0 || m.scripts.size > 0) &&
@@ -56,10 +61,10 @@ export const Ready = {
                         // without it will also not be listed in the package manager. Skip warning those without it in
                         // case they were made for private use.
                         !!m.compatibility.verified &&
-                        (abandonedModules.has(m.id) || !foundry.utils.isNewerVersion(m.compatibility.verified, "0.8.9"))
+                        (abandonedModules.has(m.id) || !foundry.utils.isNewerVersion(m.compatibility.verified, "9.280"))
                 );
 
-                for (const badModule of subV9Modules) {
+                for (const badModule of subV10Modules) {
                     const message = game.i18n.format("PF2E.ErrorMessage.SubV9Module", { module: badModule.title });
                     ui.notifications.warn(message);
                     console.warn(message);

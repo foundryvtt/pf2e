@@ -1,10 +1,11 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActorPF2e } from "@actor";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 import { WeaponPF2e } from "@item";
 
-export function shove(options: SkillActionOptions) {
+export function shove(options: SkillActionOptions): void {
     const slug = options?.skill ?? "athletics";
     const rollOptions = ["action:shove"];
-    ActionMacroHelpers.simpleRollActionCheck<Embedded<WeaponPF2e>>({
+    ActionMacroHelpers.simpleRollActionCheck<WeaponPF2e<ActorPF2e>>({
         actors: options.actors,
         actionGlyph: options.glyph ?? "A",
         title: "PF2E.Actions.Shove.Title",
@@ -33,5 +34,8 @@ export function shove(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Shove", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Shove", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

@@ -94,61 +94,6 @@
             "type": "melee"
         },
         {
-            "_id": "3LwIm0rpvdkwMEKm",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Desecration Aura",
-            "sort": 300000,
-            "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Template[type:emanation|distance:40]{40 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Desecrated guardians exude a palpable malice that nauseates all but the most wicked passersby. Non-evil creatures that enter the aura must attempt a @Check[type:will|dc:37] save. On a failure, the creature becomes @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure). In addition, any non-evil creatures that attempt to Cast a Spell within the aura must succeed at a @Check[type:flat|dc:5] check or the spell is lost.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 40,
-                        "slug": "desecration-aura",
-                        "traits": [
-                            "abjuration",
-                            "divine",
-                            "evil"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "abjuration",
-                        "aura",
-                        "divine",
-                        "evil"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "IYKsXiDufatrLi0t",
             "flags": {
                 "core": {
@@ -157,7 +102,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Lifesense",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "actionCategory": {
                     "value": "interaction"
@@ -201,7 +146,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity (Tail only)",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -226,6 +171,61 @@
                 "traits": {
                     "rarity": "common",
                     "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3LwIm0rpvdkwMEKm",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Desecration Aura",
+            "sort": 500000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:40]{40 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Desecrated guardians exude a palpable malice that nauseates all but the most wicked passersby. Non-evil creatures that enter the aura must attempt a @Check[type:will|dc:37] save. On a failure, the creature becomes @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure). In addition, any non-evil creatures that attempt to Cast a Spell within the aura must succeed at a @Check[type:flat|dc:5] check or the spell is lost.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 40,
+                        "slug": "desecration-aura",
+                        "traits": [
+                            "abjuration",
+                            "divine",
+                            "evil"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "abjuration",
+                        "aura",
+                        "divine",
+                        "evil"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -627,24 +627,6 @@
             },
             "immunities": [
                 {
-                    "type": "doomed"
-                },
-                {
-                    "type": "drained"
-                },
-                {
-                    "type": "fatigued"
-                },
-                {
-                    "type": "paralyzed"
-                },
-                {
-                    "type": "sickened"
-                },
-                {
-                    "type": "unconscious"
-                },
-                {
                     "type": "cold"
                 },
                 {
@@ -652,28 +634,10 @@
                 },
                 {
                     "type": "mental"
-                },
-                {
-                    "type": "poison"
-                },
-                {
-                    "type": "death-effects"
-                },
-                {
-                    "type": "disease"
-                },
-                {
-                    "type": "healing"
-                },
-                {
-                    "type": "necromancy"
-                },
-                {
-                    "type": "nonlethal-attacks"
                 }
             ],
             "initiative": {
-                "ability": "perception"
+                "statistic": "perception"
             },
             "perception": {
                 "value": 30

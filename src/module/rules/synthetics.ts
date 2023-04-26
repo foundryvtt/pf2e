@@ -1,15 +1,16 @@
-import { DexterityModifierCapData } from "@actor/character/types";
-import { MovementType, LabeledSpeed } from "@actor/creature/data";
-import { CreatureSensePF2e } from "@actor/creature/sense";
-import { DamageDicePF2e, DeferredPromise, DeferredValue, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers";
+import { ActorPF2e } from "@actor";
+import { DexterityModifierCapData } from "@actor/character/types.ts";
+import { MovementType, LabeledSpeed } from "@actor/creature/data.ts";
+import { CreatureSensePF2e } from "@actor/creature/sense.ts";
+import { DamageDicePF2e, DeferredPromise, DeferredValue, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers.ts";
 import { MeleePF2e, WeaponPF2e } from "@item";
-import { ActionTrait } from "@item/action";
-import { ConditionSource, EffectSource } from "@item/data";
-import { WeaponPropertyRuneType } from "@item/weapon/types";
-import { RollNotePF2e } from "@module/notes";
-import { MaterialDamageEffect } from "@system/damage";
-import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
-import { PredicatePF2e } from "@system/predication";
+import { ActionTrait } from "@item/action/index.ts";
+import { ConditionSource, EffectSource } from "@item/data/index.ts";
+import { WeaponPropertyRuneType } from "@item/weapon/types.ts";
+import { RollNotePF2e } from "@module/notes.ts";
+import { MaterialDamageEffect } from "@system/damage/types.ts";
+import { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
+import { PredicatePF2e } from "@system/predication.ts";
 
 /** Defines a list of data provided by rule elements that an actor can pull from during its data preparation lifecycle */
 interface RuleElementSynthetics {
@@ -35,12 +36,14 @@ interface RuleElementSynthetics {
     senses: SenseSynthetic[];
     statisticsModifiers: ModifierSynthetics;
     strikeAdjustments: StrikeAdjustment[];
-    strikes: Map<string, Embedded<WeaponPF2e>>;
+    strikes: Map<string, WeaponPF2e<ActorPF2e>>;
     striking: Record<string, StrikingSynthetic[]>;
     targetMarks: Map<TokenDocumentUUID, string>;
     toggles: RollOptionToggle[];
-    tokenOverrides: DeepPartial<Pick<foundry.data.TokenSource, "light" | "name">> & {
-        texture?: { src: VideoFilePath } | { src: VideoFilePath; scaleX: number; scaleY: number };
+    tokenOverrides: DeepPartial<Pick<foundry.documents.TokenSource, "light" | "name" | "alpha">> & {
+        texture?:
+            | { src: VideoFilePath; tint?: HexColorString }
+            | { src: VideoFilePath; tint?: HexColorString; scaleX: number; scaleY: number };
     };
     weaponPotency: Record<string, PotencySynthetic[]>;
     preparationWarnings: {

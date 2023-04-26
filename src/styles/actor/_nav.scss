@@ -4,8 +4,8 @@ nav.sheet-navigation {
     align-items: center;
     height: 20px;
     background: var(--secondary);
-    background: url('../assets/sheet/border-pattern.webp') repeat-x top,
-        url('../assets/sheet/border-pattern.webp') repeat-x bottom,
+    background: url("/assets/sheet/border-pattern.webp") repeat-x top,
+        url("/assets/sheet/border-pattern.webp") repeat-x bottom,
         var(--secondary);
     transition: all 0.1s ease-out;
     box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
@@ -35,7 +35,7 @@ nav.sheet-navigation {
         transition: all 0.1s ease-out;
         color: var(--tertiary);
         fill: var(--tertiary);
-        background-image: url('../assets/sheet/nav-item-inactive.webp');
+        background-image: url("/assets/sheet/nav-item-inactive.webp");
         background-size: contain;
 
         /* prettier-ignore */
@@ -59,7 +59,7 @@ nav.sheet-navigation {
             transform: scale(1.2);
             color: var(--text-light);
             fill: var(--text-light);
-            background-image: url('../assets/sheet/nav-item.webp');
+            background-image: url("/assets/sheet/nav-item.webp");
         }
 
         .fas {
@@ -80,4 +80,67 @@ nav.sheet-navigation {
             max-height: 0.75rem;
         }
     }
+}
+
+/** White background navigation with little decorations on the left and right */
+nav.sub-nav {
+    @include p-reset;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+
+    background-color: var(--bg);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+    width: 100%;
+    flex: 0 0 44px;
+
+    &::before, &::after {
+        content: "";
+        width: 37px;
+        height: 16px;
+        background: url("/assets/sheet/sub-nav-decoration.webp");
+        margin: 0 16px;
+    }
+
+    &::after {
+        transform: scaleX(-100%);
+    }
+
+    a, .tab {
+        border-left: 1px solid rgba(255, 255, 255, 0.3);
+        border-right: 1px solid rgba(0, 0, 0, 0.2);
+        color: var(--alt);
+        cursor: pointer;
+        display: block;
+        font: 400 var(--font-size-16) var(--serif);
+        flex: 1;
+        margin: 0 0.25rem;
+        max-width: 30%;
+        text-align: center;
+        text-decoration: none;
+        transition: all 0.1s ease-out;
+
+        &.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        &:first-child {
+            border-left: none;
+        }
+
+        &:last-child {
+            border-right: none;
+        }
+
+        &:hover {
+            text-shadow: 0 0 3px rgba(255, 255, 255, 0.5);
+        }
+    }
+}
+
+.tab nav.sub-nav {
+    padding-right: 20px;
 }

@@ -1,11 +1,11 @@
-import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers";
-import { AttackTarget, ResistanceType, StrikeSelf } from "@actor/types";
-import { ZeroToTwo } from "@module/data";
-import { RollNotePF2e } from "@module/notes";
-import { DegreeOfSuccessString } from "@system/degree-of-success";
-import { BaseRollContext } from "@system/rolls";
-import { DamageRoll } from "./roll";
-import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_DIE_FACES, DAMAGE_TYPES } from "./values";
+import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
+import { RollTarget, ResistanceType, StrikeSelf } from "@actor/types.ts";
+import { ZeroToTwo } from "@module/data.ts";
+import { RollNotePF2e } from "@module/notes.ts";
+import { DegreeOfSuccessString } from "@system/degree-of-success.ts";
+import { BaseRollContext } from "@system/rolls.ts";
+import { DamageRoll } from "./roll.ts";
+import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_DIE_FACES, DAMAGE_TYPES } from "./values.ts";
 
 type DamageCategoryUnique = SetElement<typeof DAMAGE_CATEGORIES_UNIQUE>;
 type MaterialDamageEffect = keyof ConfigPF2e["PF2E"]["materialDamageEffects"];
@@ -43,9 +43,9 @@ interface DamageRollRenderData {
 interface DamageRollContext extends BaseRollContext {
     type: "damage-roll";
     sourceType: "attack" | "check" | "save";
-    outcome?: DegreeOfSuccessString;
+    outcome?: DegreeOfSuccessString | null;
     self?: StrikeSelf | null;
-    target?: AttackTarget | null;
+    target?: RollTarget | null;
     options: Set<string>;
     secret?: boolean;
     /** The domains this roll had, for reporting purposes */
@@ -55,10 +55,14 @@ interface DamageRollContext extends BaseRollContext {
 }
 
 interface DamageFormulaData {
-    base: BasicDamageData;
+    base: BaseDamageData | BaseDamageData[];
     dice: DamageDicePF2e[];
     modifiers: ModifierPF2e[];
     ignoredResistances: { type: ResistanceType; max: number | null }[];
+}
+
+interface WeaponDamageFormulaData extends Omit<DamageFormulaData, "base"> {
+    base: WeaponBaseDamageData;
 }
 
 interface ResolvedDamageFormulaData extends DamageFormulaData {
@@ -66,7 +70,14 @@ interface ResolvedDamageFormulaData extends DamageFormulaData {
     breakdown: Record<DegreeOfSuccessString, string[]>;
 }
 
-interface BasicDamageData {
+interface DamagePartialTerm {
+    /** The static amount of damage of the current damage type and category. */
+    modifier: number;
+    /** Maps the die face ("d4", "d6", "d8", "d10", "d12") to the number of dice of that type. */
+    dice: { number: number; faces: number } | null;
+}
+
+interface WeaponBaseDamageData {
     damageType: DamageType;
     diceNumber: number;
     dieSize: DamageDieSize | null;
@@ -74,6 +85,15 @@ interface BasicDamageData {
     category: DamageCategoryUnique | null;
     materials?: MaterialDamageEffect[];
 }
+
+interface DynamicBaseDamageData {
+    terms: DamagePartialTerm[];
+    damageType: DamageType;
+    category: DamageCategoryUnique | null;
+    materials?: MaterialDamageEffect[];
+}
+
+type BaseDamageData = WeaponBaseDamageData | DynamicBaseDamageData;
 
 interface BaseDamageTemplate {
     name: string;
@@ -91,25 +111,29 @@ interface WeaponDamageTemplate extends BaseDamageTemplate {
 interface SpellDamageTemplate extends BaseDamageTemplate {
     damage: {
         roll: DamageRoll;
-        breakdownTags: string[];
+        breakdown: string[];
     };
 }
 
 type DamageTemplate = WeaponDamageTemplate | SpellDamageTemplate;
 
 export {
+    BaseDamageData,
     CriticalInclusion,
     DamageCategory,
     DamageCategoryRenderData,
     DamageCategoryUnique,
     DamageDieSize,
     DamageFormulaData,
+    DamagePartialTerm,
     DamageRollContext,
     DamageRollRenderData,
     DamageTemplate,
     DamageType,
     DamageTypeRenderData,
+    DynamicBaseDamageData,
     MaterialDamageEffect,
     SpellDamageTemplate,
+    WeaponDamageFormulaData,
     WeaponDamageTemplate,
 };

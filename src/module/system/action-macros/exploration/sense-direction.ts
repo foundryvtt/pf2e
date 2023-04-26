@@ -1,7 +1,7 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
-import { ModifierPF2e } from "@actor/modifiers";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { ModifierPF2e } from "@actor/modifiers.ts";
 
-export function senseDirection(options: SkillActionOptions) {
+export function senseDirection(options: SkillActionOptions): void {
     const modifiers = [
         new ModifierPF2e({
             label: "PF2E.Actions.SenseDirection.Modifier.NoCompass",
@@ -24,5 +24,8 @@ export function senseDirection(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.SenseDirection", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.SenseDirection", "success"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

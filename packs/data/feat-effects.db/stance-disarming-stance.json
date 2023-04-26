@@ -4,7 +4,7 @@
     "name": "Stance: Disarming Stance",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Disarming Stance]{Disarming Stance}.</p>\n<p>You gain a +1 circumstance bonus to Athletics checks to Disarm.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Disarming Stance]{Disarming Stance}.</p>\n<p>You gain a +1 circumstance bonus to Athletics checks to Disarm and a +2 circumstance bonus to your Reflex DC when defending against checks to Disarm you.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -18,13 +18,21 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Disarming Stance (Disarm)",
                 "predicate": [
                     "action:disarm"
                 ],
                 "selector": "athletics",
                 "type": "circumstance",
                 "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:disarm"
+                ],
+                "selector": "reflex-dc",
+                "type": "circumstance",
+                "value": 2
             }
         ],
         "source": {

@@ -1,29 +1,29 @@
-import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression";
-import { ActorSizePF2e } from "@actor/data/size";
+import { ActorPF2e } from "@actor";
+import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
+import { ActorSizePF2e } from "@actor/data/size.ts";
 import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e } from "@item";
-import { ItemSummaryData, MeleeSource } from "@item/data";
-import { NPCAttackDamage, NPCAttackTrait } from "@item/melee/data";
+import { ItemSummaryData, MeleeSource } from "@item/data/index.ts";
+import { NPCAttackDamage, NPCAttackTrait } from "@item/melee/data.ts";
 import {
     Bulk,
     CoinsPF2e,
-    getPropertySlots,
     IdentificationStatus,
     MaterialGradeData,
     MystifiedData,
     RuneValuationData,
-    WeaponPropertyRuneData,
     WEAPON_MATERIAL_VALUATION_DATA,
     WEAPON_PROPERTY_RUNES,
     WEAPON_VALUATION_DATA,
-} from "@item/physical";
-import { MAGIC_SCHOOLS, MAGIC_TRADITIONS } from "@item/spell/values";
-import { OneToThree } from "@module/data";
-import { UserPF2e } from "@module/user";
-import { DamageCategorization } from "@system/damage/helpers";
-import { LocalizePF2e } from "@system/localize";
+    WeaponPropertyRuneData,
+    getPropertySlots,
+} from "@item/physical/index.ts";
+import { MAGIC_SCHOOLS, MAGIC_TRADITIONS } from "@item/spell/values.ts";
+import { OneToThree } from "@module/data.ts";
+import { UserPF2e } from "@module/user/index.ts";
+import { DamageCategorization } from "@system/damage/helpers.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify } from "@util";
-import { WeaponDamage, WeaponData, WeaponFlags, WeaponMaterialData, WeaponSource, WeaponSystemData } from "./data";
-import {
+import type { WeaponDamage, WeaponFlags, WeaponMaterialData, WeaponSource, WeaponSystemData } from "./data.ts";
+import type {
     BaseWeaponType,
     OtherWeaponTag,
     StrikingRuneType,
@@ -33,10 +33,11 @@ import {
     WeaponRangeIncrement,
     WeaponReloadTime,
     WeaponTrait,
-} from "./types";
-import { CROSSBOW_WEAPONS, MANDATORY_RANGED_GROUPS, THROWN_RANGES } from "./values";
+} from "./types.ts";
+import { CROSSBOW_WEAPONS, MANDATORY_RANGED_GROUPS, THROWN_RANGES } from "./values.ts";
+import { WeaponTraitToggles } from "./helpers.ts";
 
-class WeaponPF2e extends PhysicalItemPF2e {
+class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     /** Given this weapon is an alternative usage, whether it is melee or thrown */
     altUsageType: "melee" | "thrown" | null = null;
 
@@ -51,7 +52,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
         return super.isEquipped || (this.handsHeld === 1 && traits.value.some((t) => /^jousting-d\d{1,2}$/.test(t)));
     }
 
-    override isStackableWith(item: PhysicalItemPF2e): boolean {
+    override isStackableWith(item: PhysicalItemPF2e<TParent>): boolean {
         if (this.category === "unarmed" || !item.isOfType("weapon") || item.category === "unarmed") {
             return false;
         }
@@ -114,6 +115,13 @@ class WeaponPF2e extends PhysicalItemPF2e {
         return this.isRanged && this.reload === "-";
     }
 
+    get isOversized(): boolean {
+        return (
+            this.category !== "unarmed" &&
+            !!this.parent?.system.traits?.size.isSmallerThan(this.size, { smallIsMedium: true })
+        );
+    }
+
     /** This weapon's damage before modification by creature abilities, effects, etc. */
     get baseDamage(): WeaponDamage {
         return deepClone(this.system.damage);
@@ -134,7 +142,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
         return this.isRanged && ![null, "-"].includes(this.reload);
     }
 
-    get ammo(): Embedded<ConsumablePF2e> | null {
+    get ammo(): ConsumablePF2e<NonNullable<TParent>> | null {
         const ammo = this.actor?.items.get(this.system.selectedAmmoId ?? "");
         return ammo instanceof ConsumablePF2e && ammo.quantity > 0 ? ammo : null;
     }
@@ -154,8 +162,6 @@ class WeaponPF2e extends PhysicalItemPF2e {
             },
         };
         const { actor } = this;
-        const actorSize = actor?.system.traits?.size;
-        const oversized = this.category !== "unarmed" && !!actorSize?.isSmallerThan(this.size, { smallIsMedium: true });
         const isDeityFavored = !!(
             this.baseType &&
             actor?.isOfType("character") &&
@@ -216,7 +222,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 [`damage-dice:${damage.dice.number}`]: !!damage.dice.faces,
                 [`damage:persistent:${persistent?.type}`]: !!persistent,
                 "deity-favored": isDeityFavored,
-                oversized,
+                oversized: this.isOversized,
                 melee: this.isMelee,
                 ranged: this.isRanged,
                 thrown: this.isThrown,
@@ -246,7 +252,14 @@ class WeaponPF2e extends PhysicalItemPF2e {
         systemData.propertyRune2.value ||= null;
         systemData.propertyRune3.value ||= null;
         systemData.propertyRune4.value ||= null;
-        systemData.reload.value ||= null;
+
+        const reloadValue = (systemData.reload.value ||= null);
+        systemData.reload.label = reloadValue
+            ? game.i18n.format("PF2E.Item.Weapon.Reload.LabelN", {
+                  value: CONFIG.PF2E.weaponReload[reloadValue],
+              })
+            : null;
+
         systemData.selectedAmmoId ||= null;
         systemData.damage.die ||= null;
         systemData.damage.modifier ??= 0;
@@ -281,6 +294,9 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 systemData.traits.otherTags.push("crossbow");
             }
         }
+
+        // Lazy-load toggleable traits
+        systemData.traits.toggles = new WeaponTraitToggles(this);
 
         // Ensure unarmed attacks always have the unarmed trait
         if (systemData.category === "unarmed" && !traitsArray.includes("unarmed")) {
@@ -436,7 +452,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     override async getChatData(
-        this: Embedded<WeaponPF2e>,
+        this: WeaponPF2e<ActorPF2e>,
         htmlOptions: EnrichHTMLOptions = {}
     ): Promise<ItemSummaryData> {
         const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
@@ -452,17 +468,21 @@ class WeaponPF2e extends PhysicalItemPF2e {
         return this.processChatData(htmlOptions, {
             ...chatData,
             traits,
-            properties: [CONFIG.PF2E.weaponCategories[this.category], rangeIncrement, maxRange].filter((p) => !!p),
+            properties: [
+                CONFIG.PF2E.weaponCategories[this.category],
+                this.system.reload.label,
+                rangeIncrement,
+                maxRange,
+            ].filter((p) => !!p),
         });
     }
 
     /** Generate a weapon name base on precious-material composition and runes */
     generateMagicName(): string {
-        const translations = LocalizePF2e.translations.PF2E;
-        const baseWeapons = translations.Weapon.Base;
+        const baseWeapons = CONFIG.PF2E.baseWeaponTypes;
 
         const storedName = this._source.name;
-        if (this.isSpecific || !this.baseType || storedName !== baseWeapons[this.baseType]) {
+        if (this.isSpecific || !this.baseType || storedName !== game.i18n.localize(baseWeapons[this.baseType])) {
             return this.name;
         }
 
@@ -475,7 +495,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
         })();
 
         const params = {
-            base: this.baseType ? baseWeapons[this.baseType] : this.name,
+            base: this.baseType ? game.i18n.localize(baseWeapons[this.baseType]) : this.name,
             material: material.precious && game.i18n.localize(CONFIG.PF2E.preciousMaterials[material.precious.type]),
             potency: potencyRune,
             striking: strikingRune && game.i18n.localize(CONFIG.PF2E.weaponStrikingRunes[strikingRune]),
@@ -484,7 +504,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             property3: runes.property[2] && game.i18n.localize(CONFIG.PF2E.weaponPropertyRunes[runes.property[2]]),
             property4: runes.property[3] && game.i18n.localize(CONFIG.PF2E.weaponPropertyRunes[runes.property[3]]),
         };
-        const formatStrings = translations.Item.Weapon.GeneratedName;
+        const formatStrings = CONFIG.PF2E.weaponGeneratedNames;
         // Construct a localization key from the weapon material and runes
         const formatString = (() => {
             const potency = params.potency && "Potency";
@@ -502,7 +522,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             const key = ([potency, striking, properties, material]
                 .filter((keyPart): keyPart is string => !!keyPart)
                 .join("") || null) as keyof typeof formatStrings | null;
-            return key && formatStrings[key];
+            return key && game.i18n.localize(formatStrings[key]);
         })();
 
         return formatString ? game.i18n.format(formatString, params) : this.name;
@@ -515,16 +535,14 @@ class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     override generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
-        const translations = LocalizePF2e.translations.PF2E;
-        const base = this.baseType ? translations.Weapon.Base[this.baseType] : null;
+        const base = this.baseType ? CONFIG.PF2E.baseWeaponTypes[this.baseType] : null;
         const group = this.group ? CONFIG.PF2E.weaponGroups[this.group] : null;
         const fallback = "ITEM.TypeWeapon";
         const itemType = game.i18n.localize(base ?? group ?? fallback);
 
         if (typeOnly) return itemType;
 
-        const formatString = LocalizePF2e.translations.PF2E.identification.UnidentifiedItem;
-        return game.i18n.format(formatString, { item: itemType });
+        return game.i18n.format("PF2E.identification.UnidentifiedItem", { item: itemType });
     }
 
     /**
@@ -533,7 +551,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
      * @param [options.recurse=true] Whether to get the alternative usages of alternative usages
      */
     getAltUsages(options?: { recurse?: boolean }): this[];
-    getAltUsages({ recurse = true } = {}): WeaponPF2e[] {
+    getAltUsages({ recurse = true } = {}): WeaponPF2e<TParent>[] {
         const meleeUsage = this.toMeleeUsage();
 
         return [
@@ -605,7 +623,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     /** Generate a melee item from this weapon for use by NPCs */
-    toNPCAttacks(this: Embedded<WeaponPF2e>): Embedded<MeleePF2e>[] {
+    toNPCAttacks(this: WeaponPF2e<ActorPF2e>): MeleePF2e<ActorPF2e>[] {
         const { actor } = this;
         if (!actor.isOfType("npc")) throw ErrorPF2e("Melee items can only be generated for NPCs");
 
@@ -745,7 +763,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             flags: { pf2e: { linkedWeapon: this.id } },
         };
 
-        const attack = new MeleePF2e(source, { parent: this.actor }) as Embedded<MeleePF2e>;
+        const attack = new MeleePF2e(source, { parent: this.actor });
         // Melee items retrieve these during `prepareSiblingData`, but if the attack is from a Strike rule element,
         // there will be no inventory weapon from which to pull the data.
         attack.category = this.category;
@@ -761,7 +779,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
     protected override _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<this>,
+        options: DocumentUpdateContext<TParent>,
         user: UserPF2e
     ): Promise<void> {
         const traits = changed.system?.traits ?? {};
@@ -773,7 +791,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     /** Remove links to this weapon from NPC attacks */
-    protected override _onDelete(options: DocumentModificationContext, userId: string): void {
+    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
         super._onDelete(options, userId);
 
         if (game.user.id === userId) {
@@ -786,9 +804,9 @@ class WeaponPF2e extends PhysicalItemPF2e {
     }
 }
 
-interface WeaponPF2e extends PhysicalItemPF2e {
+interface WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     flags: WeaponFlags;
-    readonly data: WeaponData;
+    readonly _source: WeaponSource;
     system: WeaponSystemData;
 
     get traits(): Set<WeaponTrait>;

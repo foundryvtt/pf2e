@@ -1,0 +1,43 @@
+{
+    "_id": "E0fYyli4aCVmevgJ",
+    "img": "systems/pf2e/icons/spells/astral-labyrinth.webp",
+    "name": "Effect: Capture Magic",
+    "system": {
+        "description": {
+            "value": "<p>The blade magus gains a +2 status bonus to damage from Arcane Cascade until the end of their next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "selector": "strike-damage",
+                "slug": "arcane-cascade",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #190: The Choosing"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

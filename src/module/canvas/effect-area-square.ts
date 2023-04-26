@@ -1,4 +1,4 @@
-import { TokenAuraColors } from "./token/aura";
+import { TokenAuraColors } from "./token/aura/index.ts";
 
 /** A square (`PIXI.Rectangle`) with additional information about an effect area it's part of */
 export class EffectAreaSquare extends PIXI.Rectangle {
