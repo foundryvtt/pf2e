@@ -57,6 +57,38 @@
                 ],
                 "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
                 "rollOption": "self:oracular-curse:stage"
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "predicate": [
+                    {
+                        "or": [
+                            "self:oracular-curse:stage:moderate",
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Concealed"
+            },
+            {
+                "key": "Aura",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
+                "radius": 10,
+                "slug": "flames-curse",
+                "traits": [
+                    "oracle"
+                ]
             }
         ],
         "source": {
