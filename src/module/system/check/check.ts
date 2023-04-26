@@ -10,7 +10,16 @@ import { RollNotePF2e } from "@module/notes.ts";
 import { ScenePF2e, TokenDocumentPF2e } from "@scene";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { StatisticDifficultyClass } from "@system/statistic/index.ts";
-import { ErrorPF2e, fontAwesomeIcon, objectHasKey, parseHTML, signedInteger, sluggify, traitSlugToObject } from "@util";
+import {
+    ErrorPF2e,
+    fontAwesomeIcon,
+    objectHasKey,
+    omit,
+    parseHTML,
+    signedInteger,
+    sluggify,
+    traitSlugToObject,
+} from "@util";
 import {
     DEGREE_OF_SUCCESS_STRINGS,
     DegreeAdjustmentsRecord,
@@ -221,7 +230,7 @@ class CheckPF2e {
             type: context.type ?? "check",
             traits: context.traits ?? [],
             substitutions,
-            dc: context.dc ?? null,
+            dc: context.dc ? omit(context.dc, ["statistic"]) : null,
             skipDialog: context.skipDialog ?? !game.user.settings.showRollDialogs,
             isReroll: context.isReroll ?? false,
             outcome: context.outcome ?? null,
