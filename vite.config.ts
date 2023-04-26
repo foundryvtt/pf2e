@@ -6,6 +6,7 @@ import checker from "vite-plugin-checker";
 import path from "path";
 import Peggy from "peggy";
 import packageJSON from "./package.json" assert { type: "json" };
+import { viteStaticCopy } from "vite-plugin-static-copy";
 import esbuild from "esbuild";
 
 const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
@@ -18,22 +19,31 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
     // "Note the build.minify option does not minify whitespaces when using the 'es' format in lib mode, as it removes
     // pure annotations and breaks tree-shaking."
     if (buildMode === "production") {
-        plugins.push({
-            name: "minify",
-            renderChunk: {
-                order: "post",
-                async handler(code, chunk) {
-                    return chunk.fileName.endsWith(".mjs")
-                        ? esbuild.transform(code, {
-                              keepNames: true,
-                              minifyIdentifiers: false,
-                              minifySyntax: true,
-                              minifyWhitespace: true,
-                          })
-                        : code;
+        plugins.push(
+            {
+                name: "minify",
+                renderChunk: {
+                    order: "post",
+                    async handler(code, chunk) {
+                        return chunk.fileName.endsWith(".mjs")
+                            ? esbuild.transform(code, {
+                                  keepNames: true,
+                                  minifyIdentifiers: false,
+                                  minifySyntax: true,
+                                  minifyWhitespace: true,
+                              })
+                            : code;
+                    },
                 },
             },
-        });
+            ...viteStaticCopy({
+                targets: [
+                    { src: "CHANGELOG.md", dest: "." },
+                    { src: "README.md", dest: "." },
+                    { src: "CONTRIBUTING.md", dest: "." },
+                ],
+            })
+        );
     } else {
         plugins.push(
             // Foundry expects all esm files listed in system.json to exist: create empty vendor module when in dev mode
