@@ -262,7 +262,7 @@ class PackExtractor {
                 }
 
                 delete (docSource.system as { slug?: unknown }).slug;
-                docSource.flags = docSource.type === "condition" ? { pf2e: { condition: true } } : {};
+                docSource.flags = {};
                 if (isPhysicalData(docSource)) {
                     delete (docSource.system as { equipped?: unknown }).equipped;
                 } else if (docSource.type === "spell" || (docSource.type === "feat" && !docSource.system.location)) {
