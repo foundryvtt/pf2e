@@ -343,7 +343,7 @@ class StatisticCheck {
         const rollContext = await (() => {
             const isValidAttacker = actor.isOfType("creature", "hazard");
             const isTargetedCheck =
-                (this.type === "attack-roll" && item?.isOfType("spell")) ||
+                (this.type === "spell-attack-roll" && item?.isOfType("spell")) ||
                 (["perception-check", "skill-check"].includes(this.type) &&
                     !!args.dc?.slug &&
                     (!item || item.isOfType("weapon")));
