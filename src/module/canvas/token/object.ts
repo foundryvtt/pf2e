@@ -255,6 +255,23 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
                         strokeThickness: 4,
                     },
                 ];
+            } else if (typeof params === "string") {
+                if (!params) return null;
+
+                const textStyle = this._getTextStyle();
+                const textStyleSubset = pick(textStyle, ["fontSize", "stroke", "strokeThickness"]);
+                const fill = this._getBorderColor() || this._getTextStyle().fill;
+
+                return [
+                    this.center,
+                    params,
+                    {
+                        ...textStyleSubset,
+                        anchor: CONST.TEXT_ANCHOR_POINTS.TOP,
+                        duration: 3000,
+                        fill: fill,
+                    },
+                ];
             } else {
                 const [change, details] = Object.entries(params)[0];
                 const isAdded = change === "create";
@@ -420,6 +437,7 @@ interface TokenImage extends PIXI.Sprite {
 type NumericFloatyEffect = { name: string; value?: number | null };
 type ShowFloatyEffectParams =
     | number
+    | string
     | { create: NumericFloatyEffect }
     | { update: NumericFloatyEffect }
     | { delete: NumericFloatyEffect };
