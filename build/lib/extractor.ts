@@ -494,8 +494,7 @@ class PackExtractor {
             case "RollOption":
                 if (
                     "toggleable" in source &&
-                    !!source.toggleable &&
-                    typeof source.value === "boolean" &&
+                    source.toggleable &&
                     !source.value
                 ) {
                     delete source.value;
