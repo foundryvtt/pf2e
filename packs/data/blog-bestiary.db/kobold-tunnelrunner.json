@@ -390,7 +390,7 @@
         {
             "_id": "E2RCzyCZRbmyQ2Wa",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Crafting (+4 traps)",
+            "name": "Crafting",
             "sort": 700000,
             "system": {
                 "description": {
@@ -402,10 +402,26 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Traps",
+                        "predicate": [
+                            "trap"
+                        ],
+                        "selector": "crafting",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
+                },
+                "variants": {
+                    "0": {
+                        "label": "+4 traps",
+                        "options": "trap"
+                    }
                 }
             },
             "type": "lore"

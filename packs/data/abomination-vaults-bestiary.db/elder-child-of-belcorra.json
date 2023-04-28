@@ -2449,7 +2449,7 @@
         {
             "_id": "nQVh2gtZd534YNJW",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth (+21 while buried in a bog)",
+            "name": "Stealth",
             "sort": 2800000,
             "system": {
                 "description": {
@@ -2461,10 +2461,26 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Buried",
+                        "predicate": [
+                            "buried"
+                        ],
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
+                },
+                "variants": {
+                    "0": {
+                        "label": "+21 while buried in a bog",
+                        "options": "buried"
+                    }
                 }
             },
             "type": "lore"
