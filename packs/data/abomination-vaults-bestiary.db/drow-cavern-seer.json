@@ -3981,7 +3981,7 @@
         {
             "_id": "J0lZcblrLKOLNSZZ",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Occultism (+20 underground)",
+            "name": "Occultism",
             "sort": 4500000,
             "system": {
                 "description": {
@@ -3993,10 +3993,26 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Underground",
+                        "predicate": [
+                            "terrain:underground"
+                        ],
+                        "selector": "occultism",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
+                },
+                "variants": {
+                    "0": {
+                        "label": "+20 underground",
+                        "options": "terrain:underground"
+                    }
                 }
             },
             "type": "lore"
