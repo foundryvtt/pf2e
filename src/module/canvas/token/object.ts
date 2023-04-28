@@ -62,21 +62,22 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     /**
      * Determine whether this token can flank another—given that they have a flanking buddy on the opposite side
-     * @param flankee       The potentially flanked token
-     * @param context.reach An optional reach distance specific to this measurement */
-    canFlank(flankee: TokenPF2e, context: { reach?: number } = {}): boolean {
+     * @param flankee                  The potentially flanked token
+     * @param context.reach           An optional reach distance specific to this measurement
+     * @param context.ignoreFlankable Optionally ignore flankable (for targeting indicator) */
+    canFlank(flankee: TokenPF2e, context: { reach?: number, ignoreFlankable?: boolean } = {}): boolean {
         if (this === flankee || !game.settings.get("pf2e", "automation.flankingDetection")) {
             return false;
         }
 
-        if (!(this.actor?.attributes.flanking.canFlank && flankee.actor?.attributes.flanking.flankable)) {
-            return false;
-        }
-
+        // Can actor flank and is flankee flankable (if we care about flankable)
+        const flankable = context.ignoreFlankable || flankee.actor?.attributes.flanking.flankable;
+        if (!(this.actor?.attributes.flanking.canFlank && flankable)) return false;
+        
         // Only PCs and NPCs can flank
         if (!this.actor.isOfType("character", "npc")) return false;
         // Only creatures can be flanked
-        if (!flankee.actor.isOfType("creature")) return false;
+        if (!flankee.actor?.isOfType("creature")) return false;
 
         // Allies don't flank each other
         if (this.actor.isAllyOf(flankee.actor)) return false;
@@ -86,9 +87,13 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return this.actor.canAttack && reach >= this.distanceTo(flankee, { reach });
     }
 
-    /** Determine whether this token is in fact flanking another */
-    isFlanking(flankee: TokenPF2e, { reach }: { reach?: number } = {}): boolean {
-        if (!(this.actor && this.canFlank(flankee, { reach }))) return false;
+    /**
+     * Determine whether this token is in fact flanking another
+     * @param flankee                  The potentially flanked token
+     * @param context.reach           An optional reach distance specific to this measurement
+     * @param context.ignoreFlankable Optionally ignore flankable (for targeting indicator) */
+    isFlanking(flankee: TokenPF2e, context: { reach?: number, ignoreFlankable?: boolean } = {}): boolean {
+        if (!(this.actor && this.canFlank(flankee, context))) return false;
 
         // Return true if a flanking buddy is found
         const { lineSegmentIntersects } = foundry.utils;
@@ -106,7 +111,9 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         };
 
         const { flanking } = this.actor.attributes;
-        const flankingBuddies = canvas.tokens.placeables.filter((t) => t !== this && t.canFlank(flankee));
+        const flankingBuddies = canvas.tokens.placeables.filter(
+            (t) => t !== this && t.canFlank(flankee, pick(context, ["ignoreFlankable"]))
+        );
         if (flankingBuddies.length === 0) return false;
 
         // The actual "Gang Up" rule or similar
