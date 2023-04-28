@@ -24,6 +24,7 @@ declare global {
         items: ItemDirectory<TItem>;
         notifications: Notifications;
         settings: Settings;
+        sidebar: Sidebar;
         tables: RollTableDirectory;
         windows: Record<number, Application>;
     }

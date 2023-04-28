@@ -12,4 +12,56 @@
             color: var(--color-text-light-primary);
         }
     }
+
+    .party-list {
+        flex: 0 1 auto;
+        margin: 0;
+        padding: 0;
+    }
+
+    .party {
+        .party-header {
+            background: rgba(255, 255, 255, 0.2);
+            border-top: 1px solid var(--color-border-dark);
+            border-bottom: 1px solid var(--color-border-dark);
+            line-height: 1.5rem;
+            padding: 6px;
+
+            display: flex;
+            align-items: center;
+
+            .fa-fw {
+                cursor: pointer;
+                flex: 0 0 auto;
+                margin-right: 10px;
+                font-size: var(--font-size-16);
+            }
+
+            h3 {
+                flex: 1;
+                margin: 0;
+                overflow: hidden;
+                white-space: nowrap;
+                font-size: var(--font-size-16);
+            }
+
+            .controls {
+                flex: 0;
+                display: flex;
+                font-size: var(--font-size-14);
+            }
+        }
+
+        &.collapsed {
+            .party-header {
+                background: rgba(0, 0, 0, 0.5);
+            }
+
+            .subdirectory {
+                display: none;
+            }
+        }
+    }
+
+
 }

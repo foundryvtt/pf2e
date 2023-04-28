@@ -456,6 +456,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
+            types?: (ActorType | "creature")[];
         } & Partial<FormApplicationOptions>
     ): Promise<TDocument | null>;
     static override async createDialog(
@@ -463,16 +464,29 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         options: {
             parent?: TokenDocumentPF2e | null;
             pack?: Collection<ActorPF2e<null>> | null;
+            types?: (ActorType | "creature")[];
             [key: string]: unknown;
         } = {}
     ): Promise<Actor<TokenDocument<Scene | null> | null> | null> {
         const original = game.system.documentTypes.Actor;
-        game.system.documentTypes.Actor = original.filter(
-            (actorType: string) => actorType !== "party" || BUILD_MODE !== "production"
-        );
-        const newActor = super.createDialog(data, options);
-        game.system.documentTypes.Actor = original;
-        return newActor;
+        try {
+            game.system.documentTypes.Actor = original.filter(
+                (actorType: string) => actorType !== "party" || BUILD_MODE !== "production"
+            );
+
+            if (options.types) {
+                const validTypes = options.types ?? [];
+                if (validTypes.includes("creature")) validTypes.push(...CREATURE_ACTOR_TYPES);
+                game.system.documentTypes.Actor = game.system.documentTypes.Actor.filter((type) =>
+                    tupleHasValue(validTypes, type)
+                );
+            }
+
+            const newActor = super.createDialog(data, options);
+            return newActor;
+        } finally {
+            game.system.documentTypes.Actor = original;
+        }
     }
 
     /**

@@ -80,7 +80,8 @@ export const Load = {
             import.meta.hot.on("template-update", async ({ path }: { path: string }): Promise<void> => {
                 delete _templateCache[path];
                 await getTemplate(path);
-                for (const app of Object.values(ui.windows)) {
+                const apps = [...Object.values(ui.windows), ui.sidebar];
+                for (const app of apps) {
                     app.render();
                 }
             });

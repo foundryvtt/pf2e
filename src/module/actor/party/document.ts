@@ -2,7 +2,7 @@ import { ActorPF2e, CreaturePF2e } from "@actor";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { MemberData, PartySource, PartySystemData } from "./data.ts";
 import { ItemType } from "@item/data/index.ts";
-import { tupleHasValue } from "@util";
+import { sortBy, tupleHasValue } from "@util";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { PartySheetRenderOptions } from "./sheet.ts";
 import { UserPF2e } from "@module/documents.ts";
@@ -29,24 +29,25 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         super.prepareBaseData();
         this.members = this.system.details.members
             .map((m) => fromUuidSync(m.uuid))
-            .filter((a): a is CreaturePF2e => a instanceof ActorPF2e && a.isOfType("creature"));
+            .filter((a): a is CreaturePF2e => a instanceof ActorPF2e && a.isOfType("creature"))
+            .sort(sortBy((a) => a.name));
 
         for (const member of this.members) {
             member?.parties.add(this);
         }
     }
 
-    addMembers(...newMembers: CreaturePF2e[]): void {
+    async addMembers(...newMembers: CreaturePF2e[]): Promise<void> {
         const existing = this.system.details.members.filter((d) => this.members.some((m) => m.uuid === d.uuid));
         const members: MemberData[] = [...existing, ...newMembers.map((m) => ({ uuid: m.uuid }))];
-        this.update({ system: { details: { members } } });
+        await this.update({ system: { details: { members } } });
     }
 
-    removeMembers(...remove: (ActorUUID | CreaturePF2e)[]): void {
+    async removeMembers(...remove: (ActorUUID | CreaturePF2e)[]): Promise<void> {
         const uuids = remove.map((d) => (typeof d === "string" ? d : d.uuid));
         const existing = this.system.details.members.filter((d) => this.members.some((m) => m.uuid === d.uuid));
         const members: MemberData[] = existing.filter((m) => !tupleHasValue(uuids, m.uuid));
-        this.update({ system: { details: { members } } });
+        await this.update({ system: { details: { members } } });
     }
 
     /** Adds all members to combat */
