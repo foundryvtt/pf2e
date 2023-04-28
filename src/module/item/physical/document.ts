@@ -536,6 +536,11 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             }
         }
 
+        // Uninvest if dropping
+        if (changed.system.equipped?.carryType === "dropped" && this.system.equipped.invested) {
+            changed.system.equipped.invested = false;
+        }
+
         // Remove equipped.handsHeld and equipped.inSlot if the item is held or worn anywhere
         const equipped: Record<string, unknown> = mergeObject(changed, { system: { equipped: {} } }).system.equipped;
         const newCarryType = String(equipped.carryType ?? this.system.equipped.carryType);
