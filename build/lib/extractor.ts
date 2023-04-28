@@ -495,9 +495,7 @@ class PackExtractor {
                 if ("toggleable" in source && source.toggleable && !source.value) {
                     delete source.value;
                 }
-                break;
-            default:
-                break;
+                return;
         }
     }
 
