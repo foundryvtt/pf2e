@@ -2,6 +2,7 @@ import type { ActorSourcePF2e } from "@actor/data/index.ts";
 import type { NPCAttributesSource, NPCSystemSource } from "@actor/npc/data.ts";
 import { isPhysicalData } from "@item/data/helpers.ts";
 import { ActionItemSource, ItemSourcePF2e, MeleeSource, SpellSource } from "@item/data/index.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
 import { isObject, sluggify } from "@util/index.ts";
 import fs from "fs";
 import { JSDOM } from "jsdom";
@@ -481,6 +482,20 @@ class PackExtractor {
             }
         } else if (source.type === "spellcastingEntry" && this.#lastActor?.type === "npc") {
             delete (source.system as { ability?: unknown }).ability;
+        }
+
+        for (const rule of source.system.rules) {
+            this.#pruneRuleElement(rule);
+        }
+    }
+
+    #pruneRuleElement(source: RuleElementSource): void {
+        switch (source.key) {
+            case "RollOption":
+                if ("toggleable" in source && source.toggleable && !source.value) {
+                    delete source.value;
+                }
+                return;
         }
     }
 
