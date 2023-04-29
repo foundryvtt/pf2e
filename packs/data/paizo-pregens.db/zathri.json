@@ -1206,7 +1206,13 @@
                 },
                 "rules": [
                     {
-                        "domain": "damage-roll",
+                        "disabledIf": [
+                            {
+                                "not": "self:effect:panache"
+                            }
+                        ],
+                        "disabledValue": false,
+                        "domain": "all",
                         "key": "RollOption",
                         "label": "PF2E.SpecificRule.PreciseStrike.Finisher",
                         "option": "finisher",
