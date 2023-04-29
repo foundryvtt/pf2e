@@ -14,10 +14,7 @@ export const TargetToken = {
                 if (
                     targeted &&
                     user === game.user &&
-                    !!actorToken?.object?.isFlanking(tokenDocument.object, {
-                        reach: actor.getReach({}),
-                        ignoreFlankable: true,
-                    })
+                    !!actorToken?.object?.isFlanking(tokenDocument.object, { ignoreFlankable: true })
                 ) {
                     actorToken.object.showFloatyText("Flanking Position!");
                 }
