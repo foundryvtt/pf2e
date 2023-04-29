@@ -64,8 +64,8 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
      * Determine whether this token can flank another—given that they have a flanking buddy on the opposite side
      * @param flankee                  The potentially flanked token
      * @param context.reach           An optional reach distance specific to this measurement
-     * @param context.ignoreFlankable Optionally ignore flankable (for targeting indicator) */
-    canFlank(flankee: TokenPF2e, context: { reach?: number, ignoreFlankable?: boolean } = {}): boolean {
+     * @param context.ignoreFlankable Optionally ignore flankable (for flanking position indicator) */
+    canFlank(flankee: TokenPF2e, context: { reach?: number; ignoreFlankable?: boolean } = {}): boolean {
         if (this === flankee || !game.settings.get("pf2e", "automation.flankingDetection")) {
             return false;
         }
@@ -73,7 +73,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         // Can actor flank and is flankee flankable (if we care about flankable)
         const flankable = context.ignoreFlankable || flankee.actor?.attributes.flanking.flankable;
         if (!(this.actor?.attributes.flanking.canFlank && flankable)) return false;
-        
+
         // Only PCs and NPCs can flank
         if (!this.actor.isOfType("character", "npc")) return false;
         // Only creatures can be flanked
@@ -91,8 +91,8 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
      * Determine whether this token is in fact flanking another
      * @param flankee                  The potentially flanked token
      * @param context.reach           An optional reach distance specific to this measurement
-     * @param context.ignoreFlankable Optionally ignore flankable (for targeting indicator) */
-    isFlanking(flankee: TokenPF2e, context: { reach?: number, ignoreFlankable?: boolean } = {}): boolean {
+     * @param context.ignoreFlankable Optionally ignore flankable (for flanking position indicator) */
+    isFlanking(flankee: TokenPF2e, context: { reach?: number; ignoreFlankable?: boolean } = {}): boolean {
         if (!(this.actor && this.canFlank(flankee, context))) return false;
 
         // Return true if a flanking buddy is found
@@ -266,8 +266,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
                 if (!params) return null;
 
                 const textStyle = this._getTextStyle();
-                const textStyleSubset = pick(textStyle, ["fontSize", "stroke", "strokeThickness"]);
-                const fill = this._getBorderColor() || this._getTextStyle().fill;
+                const textStyleSubset = pick(textStyle, ["fill", "fontSize", "stroke", "strokeThickness"]);
 
                 return [
                     this.center,
@@ -276,7 +275,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
                         ...textStyleSubset,
                         anchor: CONST.TEXT_ANCHOR_POINTS.TOP,
                         duration: 3000,
-                        fill: fill,
                     },
                 ];
             } else {
