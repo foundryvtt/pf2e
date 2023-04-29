@@ -19,7 +19,105 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:melee",
+                    {
+                        "or": [
+                            "self:condition:doomed",
+                            "self:condition:wounded"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "lifebloods-call",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:condition:doomed:2",
+                            "self:condition:wounded:2",
+                            {
+                                "and": [
+                                    "self:condition:doomed",
+                                    "self:condition:wounded"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "lifebloods-call",
+                "value": 4
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:condition:doomed:3",
+                            "self:condition:wounded:3",
+                            {
+                                "and": [
+                                    "self:condition:doomed:2",
+                                    "self:condition:wounded"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "self:condition:doomed",
+                                    "self:condition:wounded:2"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "lifebloods-call",
+                "value": 6
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:condition:doomed:4",
+                            "self:condition:wounded:4",
+                            {
+                                "and": [
+                                    "self:condition:doomed:3",
+                                    "self:condition:wounded"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "self:condition:doomed",
+                                    "self:condition:wounded:3"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "self:condition:doomed:2",
+                                    "self:condition:wounded:2"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "lifebloods-call",
+                "value": 8
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Ancestry Guide"
         },
