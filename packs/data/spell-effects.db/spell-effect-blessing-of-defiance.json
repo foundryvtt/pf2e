@@ -1,10 +1,10 @@
 {
-    "_id": "w9HpSwBLByNyRXvi",
+    "_id": "FD9Ce5pqcZYstcMI",
     "img": "systems/pf2e/icons/spells/blessing-of-defiance.webp",
     "name": "Spell Effect: Blessing of Defiance",
     "system": {
         "description": {
-            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Blessing of Defiance]{Blessing of Defiance}</em></p>\n<p>Choose one saving throw: Fortitude, Reflex, or Will. The target gets a +4 status bonus to that saving throw for 1 round.</p>\n<p>If you cast the two-action version, you additionally receive the following: If you choose Fortitude, the target gains resistance 15 to poison. If you choose Reflex, the target gains a +15-foot status bonus to its Speeds. If you choose Will, the target gains resistance 15 to mental damage.</p>"
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Blessing of Defiance]{Blessing of Defiance}</em></p>\n<p>Choose one saving throw: Fortitude, Reflex, or Will. The target gets a +4 status bonus to that saving throw for 1 round.</p>\n<p>If you cast the two-action version, you additionally receive the following: if you choose Fortitude, the target gains resistance 15 to poison. If you choose Reflex, the target gains a +15-foot status bonus to its Speeds. If you choose Will, the target gains resistance 15 to mental damage.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -33,7 +33,8 @@
                 ],
                 "flag": "blessingOfDefianceSave",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.BlessingOfDefiance.Prompt"
+                "prompt": "PF2E.SpecificRule.BlessingOfDefiance.Prompt",
+                "rollOption": "blessing-of-defiance-save"
             },
             {
                 "key": "FlatModifier",
@@ -42,19 +43,10 @@
                 "value": 4
             },
             {
-                "domain": "all",
-                "key": "RollOption",
-                "option": "blessing-of-defiance-save:{item|flags.pf2e.rulesSelections.blessingOfDefianceSave}"
-            },
-            {
                 "key": "Resistance",
                 "predicate": [
-                    {
-                        "and": [
-                            "blessing-of-defiance-save:fortitude",
-                            "blessing-of-defiance-actions:two"
-                        ]
-                    }
+                    "blessing-of-defiance-save:fortitude",
+                    "blessing-of-defiance-actions:two"
                 ],
                 "type": "poison",
                 "value": 15
@@ -62,14 +54,10 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    {
-                        "and": [
-                            "blessing-of-defiance-save:reflex",
-                            "blessing-of-defiance-actions:two"
-                        ]
-                    }
+                    "blessing-of-defiance-save:reflex",
+                    "blessing-of-defiance-actions:two"
                 ],
-                "selector": "speed",
+                "selector": "all-speeds",
                 "type": "status",
                 "value": 15
             },
@@ -89,26 +77,22 @@
             {
                 "choices": [
                     {
-                        "label": "One Action",
+                        "label": "PF2E.ActionNumber1",
                         "value": "one"
                     },
                     {
-                        "label": "Two Actions",
+                        "label": "PF2E.ActionNumber2",
                         "value": "two"
                     },
                     {
-                        "label": "Three Actions",
+                        "label": "PF2E.ActionNumber3",
                         "value": "three"
                     }
                 ],
                 "flag": "blessingOfDefianceActions",
                 "key": "ChoiceSet",
-                "prompt": "How many actions were spent?"
-            },
-            {
-                "domain": "all",
-                "key": "RollOption",
-                "option": "blessing-of-defiance-actions:{item|flags.pf2e.rulesSelections.blessingOfDefianceActions}"
+                "prompt": "PF2E.FeatActionsLabel",
+                "rollOption": "blessing-of-defiance-actions"
             }
         ],
         "source": {
