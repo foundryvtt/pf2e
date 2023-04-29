@@ -1,5 +1,29 @@
 # Changelog
 
+## Version 4.11.1
+
+### Bugfixes
+
+-   (stwlam) Fix target resolution of spell attack rolls
+-   (stwlam) Fix CSS file path passed to TinyMCE editor
+
+### Data Updates
+
+-   (Cerapter) Fix rule elements on Keen Recollection
+-   (Chas) Add correct uses to Drain Bonded Item
+-   (cjneidhart) Create effects for the spell Wish-Twisted Form
+-   (cjneidhart) Fix Advanced Undead Benefits
+-   (cjneidhart) Condense Blessing of Defiance effects
+-   (Dire Weasel) Add Note RE for Distracting Feint
+-   (Dire Weasel) Disable Precise Strike Finisher toggle when Panache effect is not present
+-   (Dire Weasel) Add skill variants for some NPCs
+-   (Dire Weasel) Fix Night Hag's Nightmare Rider link
+-   (Dire Weasel) Remove malformed HTML from Uniila
+-   (LebombJames) Fix level and description of Ashen Wind
+-   (pedrogrullada) Add some Firebrands and Knights of Lastwall feats to archetypes journals
+-   (SpartanCPA) Correct the description of Smoke Curtain
+-   (Tikael) Automate Underwater Marauder
+
 ## Version 4.11.0
 
 ### System Improvements
