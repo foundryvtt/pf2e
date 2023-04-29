@@ -45,6 +45,8 @@ type CheckRollCallback = (
 ) => Promise<void> | void;
 
 class CheckPF2e {
+    static #rollCache: Map<string, { check: CheckModifier; context: CheckRollContext }> = new Map();
+
     /** Roll the given statistic, optionally showing the check modifier dialog if 'Shift' is held down. */
     static async roll(
         check: CheckModifier,
@@ -262,6 +264,10 @@ class CheckPF2e {
             return roll.toMessage({ speaker, flavor, flags }, { rollMode, create }) as MessagePromise;
         })();
 
+        if (message instanceof ChatMessagePF2e && !context.isReroll) {
+            this.#rollCache.set(message.id, { check, context });
+        }
+
         if (callback) {
             const msg = message instanceof ChatMessagePF2e ? message : new ChatMessagePF2e(message);
             const evt = !!event && event instanceof Event ? event : event?.originalEvent ?? null;
@@ -373,7 +379,7 @@ class CheckPF2e {
         { heroPoint = false, keep = "new" }: RerollOptions = {}
     ): Promise<void> {
         if (!(message.isAuthor || game.user.isGM)) {
-            ui.notifications.error(game.i18n.localize("PF2E.RerollMenu.ErrorCantDelete"));
+            ui.notifications.error("PF2E.RerollMenu.ErrorCantDelete", { localize: true });
             return;
         }
 
@@ -398,76 +404,66 @@ class CheckPF2e {
             }
         }
 
-        const systemFlags = deepClone(message.flags.pf2e);
+        const systemFlags = message.flags.pf2e;
         const context = systemFlags.context;
         if (!isCheckContextFlag(context)) return;
-
-        context.skipDialog = true;
-        context.isReroll = true;
 
         const oldRoll = message.rolls.at(0);
         if (!(oldRoll instanceof CheckRoll)) throw ErrorPF2e("Unexpected error retrieving prior roll");
 
-        const RollCls = oldRoll.constructor as typeof CheckRoll;
-        const newData = deepClone(oldRoll.data);
-        const newOptions = { ...oldRoll.options, isReroll: true };
-        const newRoll = await new RollCls(oldRoll.formula, newData, newOptions).evaluate({ async: true });
-
-        // Keep the new roll by default; Old roll is discarded
-        let keptRoll = newRoll;
-        let [oldRollClass, newRollClass] = ["pf2e-reroll-discard", ""];
-
-        // Check if we should keep the old roll instead.
-        if ((keep === "best" && oldRoll.total > newRoll.total) || (keep === "worst" && oldRoll.total < newRoll.total)) {
-            // If so, switch the css classes and keep the old roll.
-            [oldRollClass, newRollClass] = [newRollClass, oldRollClass];
-            keptRoll = oldRoll;
+        const cached = this.#rollCache.get(message.id);
+        if (!cached) {
+            return ui.notifications.warn(`PF2E.Check.CacheExpired`, { localize: true });
         }
 
-        const renders = {
-            old: await CheckPF2e.renderReroll(oldRoll, { isOld: true }),
-            new: await CheckPF2e.renderReroll(newRoll, { isOld: false }),
-        };
+        // Delete the old message and the roll cache entry
+        await message.delete();
+        this.#rollCache.delete(message.id);
 
-        const rerollIcon = fontAwesomeIcon(heroPoint ? "hospital-symbol" : "dice");
-        rerollIcon.classList.add("pf2e-reroll-indicator");
-        rerollIcon.setAttribute("title", rerollFlavor);
+        // Create a new message
+        this.roll(
+            cached.check,
+            { ...cached.context, createMessage: false, skipDialog: true, isReroll: true },
+            null,
+            async (newRoll, _outcome, newMessage) => {
+                const renders = {
+                    old: await CheckPF2e.renderReroll(oldRoll, { isOld: true }),
+                    new: await CheckPF2e.renderReroll(newRoll, { isOld: false }),
+                };
+                const rerollIcon = fontAwesomeIcon(heroPoint ? "hospital-symbol" : "dice");
+                rerollIcon.classList.add("pf2e-reroll-indicator");
+                rerollIcon.setAttribute("title", rerollFlavor);
+                const messageData = await (async () => {
+                    // Check if we should keep the old roll instead.
+                    if (
+                        (keep === "best" && oldRoll.total > newRoll.total) ||
+                        (keep === "worst" && oldRoll.total < newRoll.total)
+                    ) {
+                        // Create a new message with the old roll data and the new roll result
+                        return {
+                            ...message.toObject(),
+                            content: `<div>${renders.old}</div><div class="pf2e-reroll-second pf2e-reroll-discard">${renders.new}</div>`,
+                            flavor: `${rerollIcon.outerHTML}${message.flavor}`,
+                            rolls: [newRoll.toJSON()],
+                        };
+                    }
 
-        const dc = context.dc ?? null;
-        const oldFlavor = message.flavor ?? "";
-        const degree = dc ? new DegreeOfSuccess(newRoll, dc, context.dosAdjustments) : null;
-        const useNewRoll = keptRoll === newRoll && !!degree;
-        context.outcome = useNewRoll ? DEGREE_OF_SUCCESS_STRINGS[degree.value] : context.outcome;
+                    // If this was an initiative roll, apply the result to the current encounter
+                    const { initiativeRoll } = message.flags.core;
+                    if (initiativeRoll) {
+                        const combatant = message.token?.combatant;
+                        await combatant?.parent.setInitiative(combatant.id, newRoll.total);
+                    }
 
-        const newFlavor = useNewRoll
-            ? await (async (): Promise<string> => {
-                  const $parsedFlavor = $("<div>").append(oldFlavor);
-                  const target = context.target ?? null;
-                  const flavor = await this.createResultFlavor({ degree, target });
-                  if (flavor) $parsedFlavor.find(".target-dc-result").replaceWith(flavor);
-                  return $parsedFlavor.html();
-              })()
-            : oldFlavor;
-
-        // If this was an initiative roll, apply the result to the current encounter
-        const { initiativeRoll } = message.flags.core;
-        if (initiativeRoll) {
-            const combatant = message.token?.combatant;
-            await combatant?.parent.setInitiative(combatant.id, newRoll.total);
-        }
-
-        await message.delete({ render: false });
-        await keptRoll.toMessage(
-            {
-                content: `<div class="${oldRollClass}">${renders.old}</div><div class="pf2e-reroll-second ${newRollClass}">${renders.new}</div>`,
-                flavor: `${rerollIcon.outerHTML}${newFlavor}`,
-                speaker: message.speaker,
-                flags: {
-                    core: { initiativeRoll },
-                    pf2e: systemFlags,
-                },
-            },
-            { rollMode: context.rollMode }
+                    // Create a new message with new roll data
+                    return {
+                        ...newMessage.toObject(),
+                        content: `<div class="pf2e-reroll-discard">${renders.old}</div><div class="pf2e-reroll-second">${renders.new}</div>`,
+                        flavor: `${rerollIcon.outerHTML}${newMessage.flavor}`,
+                    };
+                })();
+                ChatMessagePF2e.create(messageData, { rollMode: context.rollMode });
+            }
         );
     }
 
