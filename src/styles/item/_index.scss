@@ -71,7 +71,6 @@
 
         .tab {
             flex: 1;
-            overflow: hidden;
         }
 
         .tag-legacy {
@@ -190,16 +189,7 @@
             }
 
             .tab {
-                padding-left: 10px;
-
-                /** Any tab */
-                .editor {
-                    height: 100%;
-                }
-
-                .editor-content {
-                    @include scrollbar;
-                }
+                padding-left: 0.5rem;
 
                 /** Details */
                 &.item-details {
@@ -258,12 +248,8 @@
 
             .item-description {
                 .descriptions {
-                    height: 100%;
-                    overflow: hidden;
-
-                    .main {
-                        height: 100%;
-                    }
+                    height: fit-content;
+                    padding: 0 0.5em;
 
                     .gm-notes {
                         background-color: var(--visibility-gm-bg);
