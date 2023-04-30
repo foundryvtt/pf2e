@@ -23,7 +23,31 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "self:effect:rain-of-embers-stance"
+                    }
+                ],
+                "disabledValue": false,
+                "domain": "all",
+                "key": "RollOption",
+                "option": "blazing-talon-surge",
+                "toggleable": true
+            },
+            {
+                "category": "persistent",
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "blazing-talon-surge"
+                ],
+                "selector": "fire-talon-damage"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Pathfinder Society Guide"
         },
