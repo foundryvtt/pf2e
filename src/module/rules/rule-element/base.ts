@@ -72,7 +72,9 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             // The DataModel schema defaulted `ignored` to `false`: only change to true if not already true
             if (this.ignored === false) {
                 this.ignored =
-                    (!!this.requiresEquipped && !item.isEquipped) || (!!this.requiresInvestment && !item.isInvested);
+                    (!!this.requiresEquipped && !item.isEquipped) ||
+                    item.system.equipped.carryType === "dropped" ||
+                    (!!this.requiresInvestment && !item.isInvested);
             }
         } else {
             this.requiresEquipped = null;

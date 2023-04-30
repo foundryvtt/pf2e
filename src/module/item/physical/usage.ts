@@ -13,12 +13,20 @@ interface WornUsage {
     hands?: 0;
 }
 
-export type UsageDetails = HeldUsage | WornUsage;
+interface CarriedUsage {
+    value: "carried";
+    type: "carried";
+    hands?: 0;
+}
 
-export function isEquipped(usage: UsageDetails, equipped: EquippedData): boolean {
-    if (usage.type !== equipped.carryType) {
-        return false;
-    }
+type UsageDetails = HeldUsage | WornUsage | CarriedUsage;
+
+type UsageType = UsageDetails["type"];
+
+function isEquipped(usage: UsageDetails, equipped: EquippedData): boolean {
+    if (equipped.carryType === "dropped") return false;
+    if (usage.type === "carried") return true;
+    if (usage.type !== equipped.carryType) return false;
 
     if (usage.type === "worn" && usage.where && !equipped.inSlot) {
         return false;
@@ -29,8 +37,11 @@ export function isEquipped(usage: UsageDetails, equipped: EquippedData): boolean
     return true;
 }
 
-export function getUsageDetails(usage: string): UsageDetails {
+function getUsageDetails(usage: string): UsageDetails {
     switch (usage) {
+        case "carried":
+            return { value: usage, type: usage };
+
         case "held-in-one-hand":
         case "held-in-one-plus-hands":
             return { value: usage, type: "held", hands: 1 };
@@ -129,3 +140,5 @@ export function getUsageDetails(usage: string): UsageDetails {
 
     return { value: usage, type: "worn", where: null };
 }
+
+export { UsageDetails, UsageType, getUsageDetails, isEquipped };
