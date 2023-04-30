@@ -10,6 +10,7 @@ import type { ModelPropsFromSchema, StringField } from "types/foundry/common/dat
 import { StrikeAdjustment } from "../synthetics.ts";
 import { AELikeRuleElement, AELikeSchema, AELikeSource } from "./ae-like.ts";
 import { RuleElementOptions } from "./base.ts";
+import { ResolvableValueField } from "./data.ts";
 
 const { fields } = foundry.data;
 
@@ -39,25 +40,15 @@ class AdjustStrikeRuleElement extends AELikeRuleElement<AdjustStrikeSchema> {
                 initial: undefined,
             }),
             definition: new PredicateField(),
+            value: new ResolvableValueField({ required: true, nullable: false, initial: undefined }),
         };
-    }
-
-    protected override validateData(): void {
-        const tests = {
-            value: ["string", "number"].includes(typeof this.value),
-        };
-
-        for (const [key, result] of Object.entries(tests)) {
-            if (!result) this.warn(key);
-        }
     }
 
     /** Instead of applying the change directly to a property path, defer it to a synthetic */
     override applyAELike(): void {
-        this.validateData();
         if (!this.test()) return;
 
-        const change = this.resolveValue();
+        const change = this.resolveValue(this.value);
 
         const adjustment = ((): StrikeAdjustment => {
             if (!this.property) throw ErrorPF2e("Unexpected error applying adjustment");
@@ -231,11 +222,12 @@ interface AdjustStrikeRuleElement
     extends AELikeRuleElement<AdjustStrikeSchema>,
         ModelPropsFromSchema<AdjustStrikeSchema> {}
 
-type AdjustStrikeSchema = AELikeSchema & {
+type AdjustStrikeSchema = Omit<AELikeSchema, "value"> & {
     /** The property of the strike to adjust */
     property: StringField<AdjustStrikeProperty, AdjustStrikeProperty, true, false, false>;
     /** The definition of the strike in terms of its item (weapon) roll options */
     definition: PredicateField;
+    value: ResolvableValueField<true, false, false>;
 };
 
 type AdjustStrikeProperty = SetElement<(typeof AdjustStrikeRuleElement)["VALID_PROPERTIES"]>;

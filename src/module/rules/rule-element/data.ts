@@ -20,7 +20,7 @@ type RuleElementSource = {
 
 interface RuleElementData extends RuleElementSource {
     key: string;
-    value?: RuleValue | BracketedValue;
+    value?: RuleValue;
     label: string;
     slug?: string | null;
     predicate?: RawPredicate;
@@ -29,7 +29,7 @@ interface RuleElementData extends RuleElementSource {
     removeUponCreate?: boolean;
 }
 
-type RuleValue = string | number | boolean | object | null;
+type RuleValue = string | number | boolean | object | BracketedValue | null;
 
 interface Bracket<T extends object | number | string> {
     start?: number;
@@ -63,20 +63,14 @@ type RuleElementSchema = {
 class ResolvableValueField<
     TRequired extends boolean,
     TNullable extends boolean,
-    THasInitial extends boolean
+    THasInitial extends boolean = false
 > extends foundry.data.fields.DataField<RuleValue, RuleValue, TRequired, TNullable, THasInitial> {
     protected override _validateType(value: unknown): boolean {
-        return (
-            ["string", "number", "boolean"].includes(typeof value) || value === null || this.#isBracketedValue(value)
-        );
-    }
-
-    #isBracketedValue(value: unknown): value is BracketedValue {
-        return isObject<BracketedValue>(value) && Array.isArray(value.brackets) && typeof value.field === "string";
+        return value !== null && ["string", "number", "object", "boolean"].includes(typeof value);
     }
 
     /** No casting is applied to this value */
-    _cast(value: unknown): unknown {
+    protected _cast(value: unknown): unknown {
         return value;
     }
 

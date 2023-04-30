@@ -7,6 +7,9 @@ const { fields } = foundry.data;
 
 /** @category RuleElement */
 class ImmunityRuleElement extends IWRRuleElement<ImmunityRuleSchema> {
+    /** Immunities don't take values */
+    readonly value = null;
+
     static override defineSchema(): ImmunityRuleSchema {
         return {
             ...super.defineSchema(),

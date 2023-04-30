@@ -12,10 +12,9 @@ import type {
     NumberField,
     StringField,
 } from "types/foundry/common/data/fields.d.ts";
-import { AELikeData, AELikeRuleElement, AELikeSchema, AELikeSource } from "./ae-like.ts";
+import { AELikeRuleElement, AELikeSchema, AELikeSource } from "./ae-like.ts";
+import { ResolvableValueField } from "./data.ts";
 import { RuleElementOptions } from "./index.ts";
-
-const { fields } = foundry.data;
 
 /** Adjust the value of a modifier, change its damage type (in case of damage modifiers) or suppress it entirely */
 class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> {
@@ -27,7 +26,6 @@ class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> 
 
         if (data.suppress) {
             data.mode = "override";
-            data.value = 0;
             data.priority ??= 99; // Try to apply last
         }
 
@@ -42,8 +40,11 @@ class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> 
     }
 
     static override defineSchema(): AdjustModifierSchema {
+        const { fields } = foundry.data;
+
         return {
             ...super.defineSchema(),
+            value: new ResolvableValueField({ required: true, nullable: true, initial: null }),
             // `path` isn't used for AdjustModifier REs
             path: new fields.StringField({ blank: true }),
             selector: new fields.StringField({ required: false, blank: false, initial: undefined }),
@@ -57,10 +58,6 @@ class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> 
 
     protected override _validateModel(data: Record<string, unknown>): void {
         super._validateModel(data);
-
-        if (!["string", "number"].includes(typeof data.value) && !this.isBracketedValue(data.value)) {
-            throw Error("`value` must be a string, number, or bracketed value");
-        }
 
         if (data.suppress === true && typeof data.maxApplications === "number") {
             throw Error("use of `maxApplications` in combination with `suppress` is not currently supported");
@@ -119,13 +116,12 @@ class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> 
 interface AdjustModifierRuleElement
     extends AELikeRuleElement<AdjustModifierSchema>,
         ModelPropsFromSchema<AdjustModifierSchema> {
-    data: AELikeData;
-
     suppress: boolean;
     maxApplications: number;
 }
 
-type AdjustModifierSchema = AELikeSchema & {
+type AdjustModifierSchema = Omit<AELikeSchema, "value"> & {
+    value: ResolvableValueField<true, true, true>;
     /** An optional relabeling of the adjusted modifier */
     relabel: StringField<string, string, false, true, false>;
     selector: StringField<string, string, false, false, false>;
