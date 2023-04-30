@@ -427,9 +427,7 @@
                 },
                 "attackEffects": {
                     "custom": "",
-                    "value": [
-                        "bloodletting"
-                    ]
+                    "value": []
                 },
                 "bonus": {
                     "value": 7
@@ -515,7 +513,7 @@
             "sort": 700000,
             "system": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -524,18 +522,23 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the witch’s eye deal piercing or slashing damage to a flat-footed target, they also deal 1 persistent<br />bleed damage.</p>"
+                    "value": "<p>When the witch's eye deals piercing or slashing damage to a @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} target, they also deal 1 persistent bleed damage.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
-                        "damageCategory": "persistent",
                         "damageType": "bleed",
                         "key": "FlatModifier",
                         "predicate": [
-                            "target:condition:flat-footed"
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "item:damage:type:slashing",
+                                    "item:damage:type:piercing",
+                                ]
+                            }
                         ],
                         "selector": "damage",
                         "value": 1
@@ -603,7 +606,7 @@
         {
             "_id": "UVpSLyWiyEs0CxqR",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Owl Coven",
+            "name": "Owl Coven Lore",
             "sort": 1000000,
             "system": {
                 "description": {
@@ -647,9 +650,9 @@
             "type": "lore"
         }
     ],
-    "name": "Witch's Eyes",
+    "name": "Witch's Eye",
     "prototypeToken": {
-        "name": "WITCH’S GAZES"
+        "name": "Witch's Eye"
     },
     "system": {
         "abilities": {
@@ -709,7 +712,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": ""
+                "value": "Pathfinder Society Scenario #4-12: Negotiations for the Star Gun"
             }
         },
         "resources": {},
