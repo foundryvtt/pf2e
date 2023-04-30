@@ -24,6 +24,7 @@ import type {
     StringField,
 } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
+import { AbilityString } from "@actor/types.ts";
 
 const { fields } = foundry.data;
 
@@ -46,7 +47,6 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
 
         // Set defaults without writing to this#_source
         this.slug ??= sluggify(this.label);
-        this.range ??= null;
         this.battleForm ??= false;
         this.otherTags ??= [];
         this.fist ??= false;
@@ -94,7 +94,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                         initial: undefined,
                     }),
                 },
-                { required: false, nullable: true, initial: undefined }
+                { required: false, nullable: true, initial: null }
             ),
             damage: new fields.SchemaField({
                 base: new fields.SchemaField({
@@ -119,6 +119,13 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             replaceAll: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
             replaceBasicUnarmed: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
             battleForm: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
+            ability: new fields.StringField({
+                required: false,
+                blank: false,
+                choices: CONFIG.PF2E.abilities,
+                nullable: true,
+                initial: null,
+            }),
             options: new fields.ArrayField(new fields.StringField(), { required: false, initial: undefined }),
             fist: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
         };
@@ -247,6 +254,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                 category: this.category,
                 group: this.group,
                 baseItem: this.baseType,
+                ability: this.ability,
                 damage: { ...this.damage.base, damageType },
                 range: (this.range?.increment ?? null) as WeaponRangeIncrement | null,
                 maxRange: this.range?.max ?? null,
@@ -311,6 +319,7 @@ type StrikeSchema = RuleElementSchema & {
             modifier: NumberField<number, number, false, false, true>;
         }>;
     }>;
+    ability: StringField<AbilityString, AbilityString, false, true, true>;
     /** A representative icon for the strike */
     img: FilePathField<ImageFilePath, ImageFilePath, true, false, true>;
     /** Whether to replace all other strike actions */

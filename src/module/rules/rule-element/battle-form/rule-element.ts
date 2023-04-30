@@ -376,6 +376,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             range: strikeData.range,
             maxRange: strikeData.maxRange,
             traits: strikeData.traits,
+            ability: strikeData.ability,
         }));
 
         // Repopulate strikes with new WeaponPF2e instances--unless ownUnarmed is true

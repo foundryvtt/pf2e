@@ -36,6 +36,7 @@ import type {
 } from "./types.ts";
 import { CROSSBOW_WEAPONS, MANDATORY_RANGED_GROUPS, THROWN_RANGES } from "./values.ts";
 import { WeaponTraitToggles } from "./helpers.ts";
+import { AbilityString } from "@actor/types.ts";
 
 class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     /** Given this weapon is an alternative usage, whether it is melee or thrown */
@@ -72,6 +73,11 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     get category(): WeaponCategory {
         return this.system.category;
+    }
+
+    /** The default ability used in attack rolls */
+    get defaultAbility(): AbilityString {
+        return this.system.ability ?? (this.isRanged ? "dex" : "str");
     }
 
     get hands(): "0" | "1" | "1+" | "2" {

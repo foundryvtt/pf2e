@@ -24,6 +24,7 @@ import {
     WeaponReloadTime,
     WeaponTrait,
 } from "./types.ts";
+import { AbilityString } from "@actor/types.ts";
 
 type WeaponSource = BasePhysicalItemSource<"weapon", WeaponSystemSource> & {
     flags: DeepPartial<WeaponFlags>;
@@ -116,6 +117,8 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
     MAP: {
         value: string;
     };
+    /** An optional override of the default ability modifier used in attack rolls with this weapon  */
+    ability?: AbilityString | null;
     /** A combination weapon's melee usage */
     meleeUsage?: ComboWeaponMeleeUsage;
     /** Whether the weapon is a "specific magic weapon" */

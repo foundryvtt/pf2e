@@ -1523,7 +1523,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         ];
 
         // Determine the default ability and score for this attack.
-        const defaultAbility = options.defaultAbility ?? (weapon.isMelee ? "str" : "dex");
+        const defaultAbility = options.defaultAbility ?? weapon.defaultAbility;
         modifiers.push(createAbilityModifier({ actor: this, ability: defaultAbility, domains: baseSelectors }));
         if (weapon.isMelee && weaponTraits.has("finesse")) {
             modifiers.push(createAbilityModifier({ actor: this, ability: "dex", domains: baseSelectors }));

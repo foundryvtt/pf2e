@@ -40,7 +40,7 @@ export class Migration691WeaponRangeAbilityCategoryGroup extends MigrationBase {
                 ? ((Number((systemData.range as { value: string }).value) || null) as WeaponRangeIncrement | null)
                 : systemData.range;
 
-            if (hasOldRangeData && systemData.ability) {
+            if (hasOldRangeData && isObject(systemData.ability)) {
                 if (systemData.ability.value === "str" && !setHasElement(MANDATORY_RANGED_GROUPS, systemData.group)) {
                     // The range thrown melee weapons are set by a thrown trait
                     systemData.range = null;
@@ -88,6 +88,6 @@ type MaybeOldData = WeaponSystemSource & {
     "-=weaponType"?: null;
     group: OldOrNewGroup;
     range: WeaponRangeIncrement | null | { value: string };
-    ability?: { value: string };
+    ability?: string | { value: string } | null;
     "-=ability"?: null;
 };
