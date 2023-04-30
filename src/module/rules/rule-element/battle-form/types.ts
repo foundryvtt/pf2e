@@ -52,7 +52,7 @@ type BattleFormSkills = { [K in SkillAbbreviation]?: BattleFormSkill };
 interface BattleFormStrike {
     label: string;
     img?: ImageFilePath;
-    ability: AbilityString;
+    ability?: AbilityString;
     category: WeaponCategory;
     group: WeaponGroup | null;
     baseType?: BaseWeaponType | null;

@@ -65,6 +65,7 @@ import {
     vehicleTraits,
     weaponTraits,
 } from "./traits.ts";
+import { AbilityString } from "@actor/types.ts";
 
 export type StatusEffectIconTheme = "default" | "blackWhite";
 
@@ -76,6 +77,15 @@ const actorTypes: Record<ActorType, string> = {
     npc: "ACTOR.TypeNpc",
     party: "Actor.TypeParty",
     vehicle: "ACTOR.TypeVehicle",
+};
+
+const abilities: Record<AbilityString, string> = {
+    str: "PF2E.AbilityStr",
+    dex: "PF2E.AbilityDex",
+    con: "PF2E.AbilityCon",
+    int: "PF2E.AbilityInt",
+    wis: "PF2E.AbilityWis",
+    cha: "PF2E.AbilityCha",
 };
 
 // Senses
@@ -734,14 +744,7 @@ export const PF2ECONFIG = {
         20: "PF2E.Level20",
     },
 
-    abilities: {
-        str: "PF2E.AbilityStr",
-        dex: "PF2E.AbilityDex",
-        con: "PF2E.AbilityCon",
-        int: "PF2E.AbilityInt",
-        wis: "PF2E.AbilityWis",
-        cha: "PF2E.AbilityCha",
-    },
+    abilities,
 
     attributes: {
         perception: "PF2E.PerceptionLabel",
