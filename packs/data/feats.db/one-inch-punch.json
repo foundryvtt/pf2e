@@ -27,63 +27,21 @@
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "PF2E.SpecificRule.Monk.OneInchPunch.TwoActionLabel",
-                "option": "one-inch-punch-2",
-                "toggleable": true
-            },
-            {
-                "domain": "all",
-                "key": "RollOption",
-                "label": "PF2E.SpecificRule.Monk.OneInchPunch.ThreeActionLabel",
-                "option": "one-inch-punch-3",
-                "toggleable": true
-            },
-            {
-                "key": "DamageDice",
-                "predicate": [
-                    "melee",
+                "option": "one-inch-punch",
+                "suboptions": [
                     {
-                        "or": [
-                            "unarmed",
-                            {
-                                "and": [
-                                    "feat:monastic-weaponry",
-                                    "item:trait:monk"
-                                ]
-                            }
-                        ]
+                        "label": "PF2E.SpecificRule.Actions.TwoActions",
+                        "value": "two"
                     },
-                    "one-inch-punch-2",
                     {
-                        "not": "one-inch-punch-3"
+                        "label": "PF2E.SpecificRule.Actions.ThreeActions",
+                        "value": "three"
                     }
                 ],
-                "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 9,
-                            "value": {
-                                "diceNumber": 1
-                            }
-                        },
-                        {
-                            "end": 17,
-                            "start": 10,
-                            "value": {
-                                "diceNumber": 2
-                            }
-                        },
-                        {
-                            "start": 18,
-                            "value": {
-                                "diceNumber": 3
-                            }
-                        }
-                    ]
-                }
+                "toggleable": true
             },
             {
+                "diceNumber": "ternary(gte(@actor.level, 18), 3, ternary(gte(@actor.level, 10), 2, 1))",
                 "key": "DamageDice",
                 "predicate": [
                     "melee",
@@ -98,32 +56,29 @@
                             }
                         ]
                     },
-                    "one-inch-punch-3"
+                    "one-inch-punch:two"
                 ],
-                "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 9,
-                            "value": {
-                                "diceNumber": 2
+                "selector": "strike-damage"
+            },
+            {
+                "diceNumber": "ternary(gte(@actor.level, 18), 6, ternary(gte(@actor.level, 10), 4, 2))",
+                "key": "DamageDice",
+                "predicate": [
+                    "melee",
+                    {
+                        "or": [
+                            "unarmed",
+                            {
+                                "and": [
+                                    "feat:monastic-weaponry",
+                                    "item:trait:monk"
+                                ]
                             }
-                        },
-                        {
-                            "end": 17,
-                            "start": 10,
-                            "value": {
-                                "diceNumber": 4
-                            }
-                        },
-                        {
-                            "start": 18,
-                            "value": {
-                                "diceNumber": 6
-                            }
-                        }
-                    ]
-                }
+                        ]
+                    },
+                    "one-inch-punch:three"
+                ],
+                "selector": "strike-damage"
             }
         ],
         "source": {
