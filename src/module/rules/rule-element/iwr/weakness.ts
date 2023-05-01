@@ -2,14 +2,16 @@ import { WeaknessData } from "@actor/data/iwr.ts";
 import { WeaknessType } from "@actor/types.ts";
 import type { ArrayField, ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.d.ts";
 import { IWRRuleElement, IWRRuleSchema } from "./base.ts";
-
-const { fields } = foundry.data;
+import { ResolvableValueField } from "../data.ts";
 
 /** @category RuleElement */
 class WeaknessRuleElement extends IWRRuleElement<WeaknessRuleSchema> {
     static override defineSchema(): WeaknessRuleSchema {
+        const { fields } = foundry.data;
+
         return {
             ...super.defineSchema(),
+            value: new ResolvableValueField({ required: true, nullable: false, initial: undefined }),
             exceptions: new fields.ArrayField(
                 new fields.StringField({ required: true, blank: false, choices: this.dictionary, initial: undefined })
             ),
@@ -63,6 +65,7 @@ interface WeaknessRuleElement extends IWRRuleElement<WeaknessRuleSchema>, ModelP
 }
 
 type WeaknessRuleSchema = Omit<IWRRuleSchema, "exceptions"> & {
+    value: ResolvableValueField<true, false, false>;
     exceptions: ArrayField<StringField<WeaknessType, WeaknessType, true, false, false>>;
 };
 
