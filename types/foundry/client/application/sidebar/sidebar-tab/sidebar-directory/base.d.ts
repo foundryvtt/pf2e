@@ -62,6 +62,9 @@ declare global {
 
         protected override _onSearchFilter(event: KeyboardEvent, query: string, rgx: RegExp, html: HTMLElement): void;
 
+        /** Highlight folders as drop targets when a drag event enters or exits their area */
+        protected _onDragHighlight(event: DragEvent): void;
+
         /** Collapse all subfolders in this directory */
         collapseAll(): void;
 
@@ -71,6 +74,20 @@ declare global {
 
         /** Activate event listeners triggered within the Actor Directory HTML */
         override activateListeners(html: JQuery): void;
+
+        /**
+         * Handle Document data being dropped into the directory.
+         * @param target The target element
+         * @param data   The data being dropped
+         */
+        protected _handleDroppedDocument(target: HTMLElement, data: DropCanvasData): Promise<void>;
+
+        /**
+         * Handle Folder data being dropped into the directory.
+         * @param target The target element
+         * @param data   The data being dropped
+         */
+        protected _handleDroppedFolder(target: HTMLElement, data: DropCanvasData): Promise<void>;
 
         /**
          * Default folder context actions
