@@ -44,23 +44,20 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
         } else if (duration === Infinity) {
             return { expired: false, remaining: Infinity };
         } else {
-            const start = this.system.start?.value ?? 0;
+            const start = this.system.start.value;
             const remaining = start + duration - game.time.worldTime;
             const result = { remaining, expired: remaining <= 0 };
-            if (
-                result.remaining === 0 &&
-                ui.combat !== undefined &&
-                game.combat?.active &&
-                game.combat.combatant &&
-                game.combat.turns.length > game.combat.turn
-            ) {
-                const initiative = game.combat.combatant.initiative ?? 0;
-                if (initiative === this.system.start.initiative) {
-                    result.expired = this.system.duration.expiry !== "turn-end";
-                } else {
-                    result.expired = initiative < (this.system.start.initiative ?? 0);
-                }
+            const { combatant } = game.combat ?? {};
+            if (remaining === 0 && combatant) {
+                const startInitiative = this.system.start.initiative ?? 0;
+                const currentInitiative = combatant.initiative ?? 0;
+                const isEffectTurnStart =
+                    startInitiative === currentInitiative && combatant.actor === (this.origin ?? this.actor);
+                result.expired = isEffectTurnStart
+                    ? this.system.duration.expiry === "turn-start"
+                    : currentInitiative < startInitiative;
             }
+
             return result;
         }
     }
@@ -155,10 +152,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
         user: UserPF2e
     ): Promise<void> {
         if (this.isOwned) {
-            const initiative =
-                game.combat && game.combat.turns.length > game.combat.turn
-                    ? game.combat?.turns[game.combat.turn]?.initiative ?? null
-                    : null;
+            const initiative = game.combat?.combatant?.initiative ?? null;
             this.updateSource({
                 "system.start": {
                     value: game.time.worldTime,
