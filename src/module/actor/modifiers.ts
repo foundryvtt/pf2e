@@ -216,6 +216,9 @@ class ModifierPF2e implements RawModifier {
         if (this.force && this.type === "untyped") {
             throw ErrorPF2e("A forced modifier must have a type");
         }
+
+        // Prevent upstream from blindly diving into recursion loops
+        Object.defineProperty(this, "item", { enumerable: false });
     }
 
     get category(): this["damageCategory"] {
