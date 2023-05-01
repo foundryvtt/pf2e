@@ -245,19 +245,14 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
                 const { actor, item } = this;
 
                 switch (source) {
-                    case "actor": {
-                        return (
-                            Number(getProperty({ ...actor, data: actor.system }, field.substring(separator + 1))) || 0
-                        );
-                    }
-                    case "item": {
-                        return Number(getProperty({ ...item, data: item.system }, field.substring(separator + 1))) || 0;
-                    }
-                    case "rule": {
-                        return Number(getProperty(this.data, field.substring(separator + 1))) || 0;
-                    }
+                    case "actor":
+                        return Number(getProperty(actor, field.substring(separator + 1))) || 0;
+                    case "item":
+                        return Number(getProperty(item, field.substring(separator + 1))) || 0;
+                    case "rule":
+                        return Number(getProperty(this, field.substring(separator + 1))) || 0;
                     default:
-                        return Number(getProperty({ ...actor, data: actor.system }, field.substring(0))) || 0;
+                        return Number(getProperty(actor, field.substring(0))) || 0;
                 }
             })();
             const brackets = valueData?.brackets ?? [];
