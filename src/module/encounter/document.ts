@@ -4,7 +4,7 @@ import { RollInitiativeOptionsPF2e } from "@actor/data/index.ts";
 import { resetActors } from "@actor/helpers.ts";
 import { InitiativeRollResult } from "@actor/initiative.ts";
 import { SkillLongForm } from "@actor/types.ts";
-import { SKILL_DICTIONARY, SKILL_LONG_FORMS } from "@actor/values.ts";
+import { SKILL_LONG_FORMS } from "@actor/values.ts";
 import { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
 import { setHasElement } from "@util";
 import { CombatantFlags, CombatantPF2e, RolledCombatant } from "./combatant.ts";
@@ -77,26 +77,22 @@ class EncounterPF2e extends Combat {
 
     /** Roll initiative for PCs and NPCs using their prepared roll methods */
     override async rollInitiative(ids: string[], options: RollInitiativeOptionsPF2e = {}): Promise<this> {
+        const extraRollOptions = options.extraRollOptions ?? [];
+        const rollMode = options.messageOptions?.rollMode ?? options.rollMode;
+        if (options.secret) extraRollOptions.push("secret");
+
         const combatants: { id: string; actor: ActorPF2e | null }[] = ids.flatMap(
             (id) => this.combatants.get(id) ?? []
         );
         const fightyCombatants = combatants.filter((c): c is { id: string; actor: ActorPF2e } => !!c.actor?.initiative);
         const rollResults = await Promise.all(
             fightyCombatants.map(async (combatant): Promise<InitiativeRollResult | null> => {
-                const checkType = combatant.actor.initiative?.ability ?? "";
-                const skills: Record<string, string | undefined> = SKILL_DICTIONARY;
-                const rollOptions = combatant.actor.getRollOptions([
-                    "all",
-                    "initiative",
-                    skills[checkType] ?? checkType,
-                ]);
-                if (options.secret) rollOptions.push("secret");
                 return (
                     combatant.actor.initiative?.roll({
-                        options: rollOptions,
+                        ...options,
+                        extraRollOptions,
                         updateTracker: false,
-                        skipDialog: !!options.skipDialog,
-                        rollMode: options.messageOptions?.rollMode,
+                        rollMode,
                     }) ?? null
                 );
             })
