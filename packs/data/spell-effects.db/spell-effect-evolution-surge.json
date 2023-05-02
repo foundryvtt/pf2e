@@ -36,18 +36,50 @@
                     },
                     {
                         "label": "PF2E.ActorSizeLarge",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    5
+                                ]
+                            }
+                        ],
                         "value": "large"
                     },
                     {
                         "label": "PF2E.SpecificRule.SpellEffectEvolutionSurge.Climb",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    5
+                                ]
+                            }
+                        ],
                         "value": "climb"
                     },
                     {
                         "label": "PF2E.ActorSizeHuge",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    9
+                                ]
+                            }
+                        ],
                         "value": "huge"
                     },
                     {
                         "label": "PF2E.SpecificRule.SpellEffectEvolutionSurge.Fly",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    9
+                                ]
+                            }
+                        ],
                         "value": "fly"
                     }
                 ],
@@ -99,13 +131,7 @@
             {
                 "key": "CreatureSize",
                 "predicate": [
-                    "evolution-surge:large",
-                    {
-                        "gte": [
-                            "self:level",
-                            5
-                        ]
-                    }
+                    "evolution-surge:large"
                 ],
                 "reach": {
                     "upgrade": 10
@@ -115,13 +141,7 @@
             {
                 "key": "BaseSpeed",
                 "predicate": [
-                    "evolution-surge:climb",
-                    {
-                        "gte": [
-                            "self:level",
-                            5
-                        ]
-                    }
+                    "evolution-surge:climb"
                 ],
                 "selector": "climb",
                 "value": "@actor.attributes.speed.total"
@@ -129,13 +149,7 @@
             {
                 "key": "CreatureSize",
                 "predicate": [
-                    "evolution-surge:huge",
-                    {
-                        "gte": [
-                            "self:level",
-                            9
-                        ]
-                    }
+                    "evolution-surge:huge"
                 ],
                 "reach": {
                     "upgrade": 15
@@ -145,13 +159,7 @@
             {
                 "key": "BaseSpeed",
                 "predicate": [
-                    "evolution-surge:fly",
-                    {
-                        "gte": [
-                            "self:level",
-                            9
-                        ]
-                    }
+                    "evolution-surge:fly"
                 ],
                 "selector": "fly",
                 "value": "@actor.attributes.speed.total"
