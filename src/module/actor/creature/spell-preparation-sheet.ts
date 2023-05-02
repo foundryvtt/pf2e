@@ -1,8 +1,10 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
+import { onClickCreateSpell } from "@actor/sheet/helpers.ts";
 import { ItemSummaryRenderer } from "@actor/sheet/item-summary-renderer.ts";
 import { ItemPF2e, SpellPF2e } from "@item";
 import { ItemSourcePF2e, SpellSource } from "@item/data/index.ts";
-import { SpellcastingSheetData, SpellcastingEntryPF2e } from "@item/spellcasting-entry/index.ts";
+import { SpellcastingEntryPF2e, SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
+import { htmlQueryAll } from "@util";
 
 /**
  * Sheet used to render the the spell list for prepared casting.
@@ -92,20 +94,11 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TAct
             }
         });
 
-        $html.find(".spell-create").on("click", (event) => {
-            const data = duplicate(event.currentTarget.dataset);
-            const level = Number(data.level ?? 1);
-            const newLabel = game.i18n.localize("PF2E.NewLabel");
-            const levelLabel = game.i18n.localize(`PF2E.SpellLevel${level}`);
-            const spellLabel = level > 0 ? game.i18n.localize("PF2E.SpellLabel") : "";
-            data.name = `${newLabel} ${levelLabel} ${spellLabel}`;
-            mergeObject(data, {
-                "system.level.value": level,
-                "system.location.value": this.item.id,
+        for (const link of htmlQueryAll(html, ".spell-create")) {
+            link.addEventListener("click", () => {
+                onClickCreateSpell(this.actor, { ...link.dataset, location: this.item.id });
             });
-
-            this.actor.createEmbeddedDocuments("Item", [data]);
-        });
+        }
 
         $html.find(".spell-browse").on("click", (event) => {
             const level = Number($(event.currentTarget).attr("data-level")) ?? null;
