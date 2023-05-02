@@ -23,7 +23,7 @@
                         "value": "sight"
                     },
                     {
-                        "label": "PF2E.SpecificRule.SpellEffectEvolutionSurge.Scent",
+                        "label": "PF2E.SpecificRule.Beastkin.Senses.Scent",
                         "value": "scent"
                     },
                     {
@@ -35,7 +35,7 @@
                         "value": "speed"
                     },
                     {
-                        "label": "PF2E.SpecificRule.SpellEffectEvolutionSurge.Large",
+                        "label": "PF2E.ActorSizeLarge",
                         "value": "large"
                     },
                     {
@@ -43,7 +43,7 @@
                         "value": "climb"
                     },
                     {
-                        "label": "PF2E.SpecificRule.SpellEffectEvolutionSurge.Huge",
+                        "label": "PF2E.ActorSizeHuge",
                         "value": "huge"
                     },
                     {
@@ -57,18 +57,24 @@
             },
             {
                 "key": "Sense",
-                "predicate": "evolution-surge:sight",
+                "predicate": [
+                    "evolution-surge:sight"
+                ],
                 "selector": "lowLightVision"
             },
             {
                 "key": "Sense",
-                "predicate": "evolution-surge:sight",
+                "predicate": [
+                    "evolution-surge:sight"
+                ],
                 "selector": "darkvision"
             },
             {
                 "acuity": "imprecise",
                 "key": "Sense",
-                "predicate": "evolution-surge:scent",
+                "predicate": [
+                    "evolution-surge:scent"
+                ],
                 "range": 30,
                 "selector": "scent"
             },
@@ -77,18 +83,30 @@
                     "amphibious"
                 ],
                 "key": "ActorTraits",
-                "predicate": "evolution-surge:amphibious"
+                "predicate": [
+                    "evolution-surge:amphibious"
+                ]
             },
             {
                 "key": "FlatModifier",
-                "predicate": "evolution-surge:speed",
+                "predicate": [
+                    "evolution-surge:speed"
+                ],
                 "selector": "all-speeds",
                 "type": "status",
                 "value": 20
             },
             {
                 "key": "CreatureSize",
-                "predicate": "evolution-surge:large",
+                "predicate": [
+                    "evolution-surge:large",
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    }
+                ],
                 "reach": {
                     "upgrade": 10
                 },
@@ -96,13 +114,29 @@
             },
             {
                 "key": "BaseSpeed",
-                "predicate": "evolution-surge:climb",
+                "predicate": [
+                    "evolution-surge:climb",
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    }
+                ],
                 "selector": "climb",
                 "value": "@actor.attributes.speed.total"
             },
             {
                 "key": "CreatureSize",
-                "predicate": "evolution-surge:huge",
+                "predicate": [
+                    "evolution-surge:huge",
+                    {
+                        "gte": [
+                            "self:level",
+                            9
+                        ]
+                    }
+                ],
                 "reach": {
                     "upgrade": 15
                 },
@@ -110,13 +144,23 @@
             },
             {
                 "key": "BaseSpeed",
-                "predicate": "evolution-surge:fly",
+                "predicate": [
+                    "evolution-surge:fly",
+                    {
+                        "gte": [
+                            "self:level",
+                            9
+                        ]
+                    }
+                ],
                 "selector": "fly",
                 "value": "@actor.attributes.speed.total"
             },
             {
                 "key": "BaseSpeed",
-                "predicate": "evolution-surge:amphibious",
+                "predicate": [
+                    "evolution-surge:amphibious"
+                ],
                 "selector": "swim",
                 "value": "min(@actor.attributes.speed.total, 30)"
             }
