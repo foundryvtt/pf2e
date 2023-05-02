@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { ItemSummaryData } from "@item/data/index.ts";
-import { getResilientBonus, PhysicalItemHitPoints, PhysicalItemPF2e } from "@item/physical/index.ts";
+import { getPropertySlots, getResilientBonus, PhysicalItemHitPoints, PhysicalItemPF2e } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { addSign, ErrorPF2e, setHasElement, sluggify } from "@util";
 import { ArmorCategory, ArmorGroup, ArmorSource, ArmorSystemData, BaseArmorType } from "./index.ts";
@@ -130,11 +130,9 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
             ),
         };
 
-        // Work around upstream double data-preparation bug
-        // https://github.com/foundryvtt/foundryvtt/issues/7987
-        if (this.isShoddy && this._source.system.check.value) {
-            this.system.check.value = this._source.system.check.value - 2;
-        }
+        // Limit property rune slots
+        const maxPropertySlots = getPropertySlots(this);
+        this.system.runes.property.length = Math.min(this.system.runes.property.length, maxPropertySlots);
     }
 
     override prepareActorData(this: ArmorPF2e<ActorPF2e>): void {
