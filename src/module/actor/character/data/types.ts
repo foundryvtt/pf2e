@@ -38,6 +38,7 @@ import { PredicatePF2e } from "@system/predication.ts";
 import { StatisticTraceData } from "@system/statistic/data.ts";
 import { CharacterPF2e } from "../document.ts";
 import { CharacterSheetTabVisibility } from "./sheet.ts";
+import { SheetOptions } from "@module/sheet/helpers.ts";
 
 interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemData> {
     flags: DeepPartial<CharacterFlags>;
@@ -245,7 +246,8 @@ interface CharacterStrike extends StrikeData {
 interface AuxiliaryAction {
     label: string;
     img: string;
-    execute: () => Promise<void>;
+    options: SheetOptions | null;
+    execute: (options?: { selection?: string | null }) => Promise<void>;
 }
 
 /** A Pathfinder Society Faction */

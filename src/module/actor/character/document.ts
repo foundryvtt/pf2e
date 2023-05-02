@@ -20,9 +20,9 @@ import {
     AttackItem,
     CheckContext,
     CheckContextParams,
-    SaveType,
     RollContext,
     RollContextParams,
+    SaveType,
     SkillLongForm,
 } from "@actor/types.ts";
 import {
@@ -65,6 +65,7 @@ import {
     extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/helpers.ts";
+import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
 import { UserPF2e } from "@module/user/document.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
@@ -75,7 +76,16 @@ import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls.ts";
 import { Statistic, StatisticCheck } from "@system/statistic/index.ts";
-import { ErrorPF2e, getActionGlyph, objectHasKey, sluggify, sortedStringify, traitSlugToObject } from "@util";
+import {
+    ErrorPF2e,
+    getActionGlyph,
+    objectHasKey,
+    pick,
+    sluggify,
+    sortedStringify,
+    traitSlugToObject,
+    tupleHasValue,
+} from "@util";
 import { UUIDUtils } from "@util/uuid-utils.ts";
 import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting/index.ts";
 import {
@@ -112,6 +122,7 @@ import {
     DexterityModifierCapData,
 } from "./types.ts";
 import { CHARACTER_SHEET_TABS } from "./values.ts";
+import { StrikeRuleElement } from "@module/rules/rule-element/strike.ts";
 
 class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends CreaturePF2e<TParent> {
     /** Core singular embeds for PCs */
@@ -1297,8 +1308,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     /** Create an "auxiliary" action, an Interact or Release action using a weapon */
     createAuxAction({ weapon, action, purpose, hands }: CreateAuxiliaryParams): AuxiliaryAction {
-        // A variant title reflects the options to draw, pick up, or retrieve a weapon with one or two hands */
-        const [actions, carryType, fullPurpose] = ((): [ZeroToThree, ItemCarryType, string] => {
+        // A variant's "full purpose" reflects the options to draw, sheathe, etc. a weapon */
+        type ActionsCarryTypePurpose = [ZeroToThree, ItemCarryType, string] | [1, null, "Modular"];
+        const [actions, carryType, fullPurpose] = ((): ActionsCarryTypePurpose => {
             switch (purpose) {
                 case "Draw":
                     return [1, "held", `${purpose}${hands}H`];
@@ -1310,6 +1322,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     return [action === "Interact" ? 1 : 0, "held", purpose];
                 case "Sheathe":
                     return [1, "worn", purpose];
+                case "Modular":
+                    return [1, null, purpose];
                 case "Drop":
                     return [0, "dropped", purpose];
             }
@@ -1319,8 +1333,32 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         return {
             label: game.i18n.localize(`PF2E.Actions.${action}.${fullPurpose}.Title`),
             img: actionGlyph,
-            execute: async (): Promise<void> => {
-                await this.adjustCarryType(weapon, carryType, hands);
+            get options(): SheetOptions | null {
+                return purpose === "Modular"
+                    ? createSheetOptions(
+                          pick(CONFIG.PF2E.damageTypes, weapon.system.traits.toggles.modular.options),
+                          [weapon.system.traits.toggles.modular.selection ?? []].flat()
+                      )
+                    : null;
+            },
+            execute: async ({ selection = null }: { selection?: string | null } = {}): Promise<void> => {
+                if (typeof carryType === "string") {
+                    await this.adjustCarryType(weapon, carryType, hands);
+                } else if (selection && tupleHasValue(weapon.system.traits.toggles.modular.options, selection)) {
+                    // Interact with a modular weapon to change its damage type
+                    const current = weapon.system.traits.toggles.modular.selection;
+                    if (current === selection) return;
+
+                    const item = this.items.get(weapon.id);
+                    if (item?.isOfType("weapon") && item === weapon) {
+                        await item.update({ "system.traits.toggles.modular.selection": selection });
+                    } else {
+                        const rule = item?.rules.find(
+                            (r): r is StrikeRuleElement => r.key === "Strike" && !r.ignored && r.slug === weapon.slug
+                        );
+                        await rule?.toggleTrait({ trait: "modular", selection });
+                    }
+                }
 
                 if (!game.combat) return; // Only send out messages if in encounter mode
 
@@ -1350,6 +1388,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     message: game.i18n.format(`PF2E.Actions.${action}.${fullPurpose}.Description`, {
                         actor: this.name,
                         weapon: weapon.name,
+                        damageType: game.i18n.localize(`PF2E.Damage.RollFlavor.${selection}`),
                     }),
                 });
 
@@ -1623,6 +1662,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const auxiliaryActions: AuxiliaryAction[] = [];
         const isRealItem = this.items.has(weapon.id);
 
+        if (weapon.system.traits.toggles.modular.options.length > 0) {
+            auxiliaryActions.push(this.createAuxAction({ weapon, action: "Interact", purpose: "Modular" }));
+        }
         if (isRealItem && weapon.category !== "unarmed") {
             const traitsArray = weapon.system.traits.value;
             const hasFatalAimTrait = traitsArray.some((t) => t.startsWith("fatal-aim"));

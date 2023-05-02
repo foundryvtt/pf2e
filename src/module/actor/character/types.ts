@@ -20,7 +20,7 @@ type CharacterSkills = Record<SkillAbbreviation, CharacterSkill> &
 interface CreateAuxiliaryInteractParams {
     weapon: WeaponPF2e<CharacterPF2e>;
     action: "Interact";
-    purpose: "Grip" | "Sheathe" | "Draw" | "Retrieve" | "PickUp";
+    purpose: "Draw" | "Grip" | "Modular" | "PickUp" | "Retrieve" | "Sheathe";
     hands?: 0 | 1 | 2;
 }
 
