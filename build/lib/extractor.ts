@@ -491,13 +491,6 @@ class PackExtractor {
 
     #pruneRuleElement(source: RuleElementSource): void {
         switch (source.key) {
-            case "FastHealing": {
-                const fastHealingSource = source as { details?: string | null };
-                if (!fastHealingSource.details?.trim()) {
-                    delete fastHealingSource.details;
-                }
-                return;
-            }
             case "RollOption":
                 if ("toggleable" in source && source.toggleable && !source.value) {
                     delete source.value;
