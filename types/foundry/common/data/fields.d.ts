@@ -482,7 +482,7 @@ export class ArrayField<
 
     protected static override get _defaults(): ArrayFieldOptions<unknown[], boolean, boolean, boolean>;
 
-    protected override _cast(value: unknown): TSourceProp;
+    protected override _cast(value: unknown): unknown;
 
     protected _cleanType(
         value: unknown[] | Set<unknown>,
