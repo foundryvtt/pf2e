@@ -141,7 +141,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             options.push(`${prefix}:level:${level}`);
         }
 
-        if (prefix === "item") {
+        if (["item", "parent"].includes(prefix)) {
             const itemType = this.isOfType("feat") && this.isFeature ? "feature" : this.type;
             options.unshift(`${prefix}:type:${itemType}`);
         }
