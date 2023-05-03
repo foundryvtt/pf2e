@@ -43,7 +43,13 @@
                 "key": "FlatModifier",
                 "predicate": [
                     "action:hide",
-                    "terrain:lighting:dimLightOrDarkness"
+                    {
+                        "or": [
+                            "inscrutable-mask-darkness",
+                            "terrain:lighting:darkness",
+                            "terrain:lighting:dim-light"
+                        ]
+                    }
                 ],
                 "selector": "stealth",
                 "type": "status",
@@ -53,7 +59,7 @@
                 "domain": "all",
                 "key": "RollOption",
                 "label": "PF2E.SkillVariant.DimLightOrDarkness",
-                "option": "terrain:lighting:dimLightOrDarkness",
+                "option": "inscrutable-mask-darkness",
                 "toggleable": true
             }
         ],
