@@ -354,11 +354,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         });
 
         // Limit property rune slots
-        const propertyRuneSlots =
-            ABP.isEnabled(this.actor) && this.actor?.isOfType("character")
-                ? ABP.getAttackPotency(this.actor.level)
-                : getPropertySlots(this);
-        runes.property.length = Math.min(runes.property.length, propertyRuneSlots);
+        const maxPropertySlots = getPropertySlots(this);
+        runes.property.length = Math.min(runes.property.length, maxPropertySlots);
 
         // Set damage dice according to striking rune
         // Only increase damage dice from ABP if the dice number is 1

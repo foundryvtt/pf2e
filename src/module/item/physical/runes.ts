@@ -12,7 +12,7 @@ import { isBlank } from "@util";
 function getPropertySlots(item: WeaponPF2e | ArmorPF2e): ZeroToFour {
     const fromMaterial = item.system.preciousMaterial?.value === "orichalcum" ? 1 : 0;
     const fromPotency = ABP.isEnabled(item.actor)
-        ? ABP.getAttackPotency(item.actor?.level ?? 1)
+        ? ABP.getAttackPotency(item.actor?.level ?? 20) // If the item is unowned, place no limit on slots
         : item.system.runes.potency;
     return (fromMaterial + fromPotency) as ZeroToFour;
 }
