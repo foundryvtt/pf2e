@@ -44,6 +44,7 @@ import { RemoveCoinsPopup } from "./popups/remove-coins-popup.ts";
 import { CraftingFormula } from "@actor/character/crafting/index.ts";
 import { UUIDUtils } from "@util/uuid-utils.ts";
 import Sortable, { type SortableEvent } from "sortablejs";
+import { onClickCreateSpell } from "./helpers.ts";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -496,17 +497,14 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             link.addEventListener("click", () => this.#onClickBrowseEquipmentCompendia(link));
         }
 
-        const $spellcasting = $html.find(".tab.spellcasting, .tab.spells");
-        const $spellControls = $spellcasting.find(".item-control");
-        // Spell Create
-        $spellControls.filter(".spell-create").on("click", (event) => this.#onClickCreateItem(event));
+        // Create a custom item
+        for (const link of htmlQueryAll(html, ".item-create, .item-control.spell-create")) {
+            link.addEventListener("click", () => this.#onClickCreateItem(link));
+        }
 
         /* -------------------------------------------- */
         /*  Inventory                                   */
         /* -------------------------------------------- */
-
-        // Create New Item
-        $html.find(".item-create").on("click", (event) => this.#onClickCreateItem(event));
 
         $html.find(".item-repair").on("click", (event) => this.#repairItem(event));
 
@@ -1209,30 +1207,22 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     /** Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset */
-    #onClickCreateItem(event: JQuery.ClickEvent) {
-        event.preventDefault();
-        const header = event.currentTarget;
-        const data = duplicate(header.dataset);
+    #onClickCreateItem(link: HTMLElement): void {
+        const data: Record<string, string | string[] | number | undefined> = { ...link.dataset };
+        if (!objectHasKey(CONFIG.PF2E.Item.documentClasses, data.type)) {
+            throw ErrorPF2e(`Unrecognized item type: "${data.type}"`);
+        }
+
         data.img = `systems/pf2e/icons/default-icons/${data.type}.svg`;
 
         if (data.type === "action") {
-            const newLabel = game.i18n.localize("PF2E.NewLabel");
-            const actionTypeLabel = game.i18n.localize(`PF2E.ActionType${data.actionType.capitalize()}`);
-            data.name = `${newLabel} ${actionTypeLabel}`;
+            data.name = game.i18n.localize(`PF2E.ActionType${String(data.actionType).capitalize()}`);
             mergeObject(data, { "system.actionType.value": data.actionType });
         } else if (data.type === "melee") {
             data.name = game.i18n.localize(`PF2E.NewPlaceholders.${data.type.capitalize()}`);
             mergeObject(data, { "system.weaponType.value": data.actionType });
         } else if (data.type === "spell") {
-            data.level = Number(data.level ?? 1);
-            const newLabel = game.i18n.localize("PF2E.NewLabel");
-            const levelLabel = game.i18n.localize(`PF2E.SpellLevel${data.level}`);
-            const spellLabel = data.level > 0 ? game.i18n.localize("PF2E.SpellLabel") : "";
-            data.name = `${newLabel} ${levelLabel} ${spellLabel}`;
-            mergeObject(data, {
-                "system.level.value": data.level,
-                "system.location.value": data.location,
-            });
+            return onClickCreateSpell(this.actor, data);
         } else if (data.type === "lore") {
             data.name =
                 this.actor.type === "npc"
