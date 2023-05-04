@@ -30,7 +30,7 @@ import { TokenPF2e } from "@module/canvas/index.ts";
 import { OneToThree, Size } from "@module/data.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
 import { ChatMessagePF2e, ScenePF2e, TokenDocumentPF2e, UserPF2e } from "@module/documents.ts";
-import { EncounterPF2e, RolledCombatant } from "@module/encounter/index.ts";
+import { CombatantPF2e, EncounterPF2e, RolledCombatant } from "@module/encounter/index.ts";
 import { extractEphemeralEffects, processPreUpdateActorHooks } from "@module/rules/helpers.ts";
 import { RuleElementSynthetics } from "@module/rules/index.ts";
 import { RuleElementPF2e } from "@module/rules/rule-element/base.ts";
@@ -275,6 +275,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     get alliance(): ActorAlliance {
         return this.system.details.alliance;
+    }
+
+    get combatant(): CombatantPF2e<EncounterPF2e> | null {
+        return game.combat?.combatants.find((c) => c.actor?.uuid === this.uuid) ?? null;
     }
 
     /** Add effect icons from effect items and rule elements */
@@ -1691,6 +1695,20 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         if (canvas.ready && changed.system?.details && "alliance" in changed.system.details) {
             for (const token of this.getActiveTokens(true, true)) {
                 token.reset();
+            }
+        }
+
+        // Remove the death overlay if present upon hit points being increased
+        const currentHP = this.hitPoints?.value ?? 0;
+        const hpChange = Number(changed.system?.attributes?.hp?.value) || 0;
+        if (currentHP > 0 && hpChange > 0 && this.isDead) {
+            const { combatant } = this;
+            if (combatant) {
+                combatant.toggleDefeated({ to: false });
+            } else {
+                for (const tokenDoc of this.getActiveTokens(false, true)) {
+                    tokenDoc.update({ overlayEffect: null });
+                }
             }
         }
     }
