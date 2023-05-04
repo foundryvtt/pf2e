@@ -284,18 +284,60 @@ function createShoddyPenalty(
     if (!item.isShoddy) return null;
 
     const slug = "shoddy";
-    const { modifierAdjustments } = actor.synthetics;
+
     return new ModifierPF2e({
         label: "PF2E.Item.Physical.OtherTag.Shoddy",
         type: "item",
         slug,
         modifier: -2,
-        adjustments: extractModifierAdjustments(modifierAdjustments, domains, slug),
+        adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, domains, slug),
+    });
+}
+
+/**
+ * Create a penalty for wearing armor with the "ponderous" trait
+ * "You take a –5 penalty to all your Speeds (to a minimum of a 5-foot Speed). This is separate from and in addition to
+ * the armor's Speed penalty, and affects you even if your Strength or an ability lets you reduce or ignore the armor's
+ * Speed penalty."
+ */
+function createHinderingPenalty(actor: CharacterPF2e): ModifierPF2e | null {
+    const slug = "hindering";
+    return actor.wornArmor?.traits.has(slug)
+        ? new ModifierPF2e({
+              label: "PF2E.TraitHindering",
+              type: "untyped",
+              slug,
+              modifier: -5,
+              adjustments: [],
+          })
+        : null;
+}
+
+/**
+ * Create a penalty for wearing armor with the "ponderous" trait
+ * "While wearing the armor, you take a –1 penalty to initiative checks. If you don't meet the armor's required Strength
+ * score, this penalty increases to be equal to the armor's check penalty if it's worse."
+ */
+function createPonderousPenalty(actor: CharacterPF2e): ModifierPF2e | null {
+    const armor = actor.wornArmor;
+    const slug = "ponderous";
+    if (!armor?.traits.has(slug)) return null;
+
+    const penaltyValue = actor.abilities.str.value >= (armor.strength ?? 0) ? -1 : armor.checkPenalty || -1;
+
+    return new ModifierPF2e({
+        label: "PF2E.TraitPonderous",
+        type: "untyped",
+        slug,
+        modifier: penaltyValue,
+        adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, ["all", "initiative"], slug),
     });
 }
 
 export {
     createForceOpenPenalty,
+    createHinderingPenalty,
+    createPonderousPenalty,
     createShoddyPenalty,
     imposeOversizedWeaponCondition,
     PCStrikeAttackTraits,
