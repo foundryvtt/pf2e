@@ -48,15 +48,13 @@ import {
 import { ActionTrait } from "@item/action/data.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { ItemType, PhysicalItemSource } from "@item/data/index.ts";
-import { ItemCarryType } from "@item/physical/data.ts";
 import { getResilientBonus } from "@item/physical/runes.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { WeaponDamage, WeaponSource, WeaponSystemSource } from "@item/weapon/data.ts";
 import { WeaponCategory } from "@item/weapon/types.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
-import { ChatMessagePF2e } from "@module/chat-message/document.ts";
-import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree, ZeroToTwo } from "@module/data.ts";
+import { PROFICIENCY_RANKS, ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import {
     extractDegreeOfSuccessAdjustments,
     extractModifierAdjustments,
@@ -65,7 +63,6 @@ import {
     extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/helpers.ts";
-import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
 import { UserPF2e } from "@module/user/document.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
@@ -76,20 +73,10 @@ import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls.ts";
 import { Statistic, StatisticCheck } from "@system/statistic/index.ts";
-import {
-    ErrorPF2e,
-    getActionGlyph,
-    objectHasKey,
-    pick,
-    sluggify,
-    sortedStringify,
-    traitSlugToObject,
-    tupleHasValue,
-} from "@util";
+import { ErrorPF2e, objectHasKey, sluggify, sortedStringify, traitSlugToObject } from "@util";
 import { UUIDUtils } from "@util/uuid-utils.ts";
 import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting/index.ts";
 import {
-    AuxiliaryAction,
     BaseWeaponProficiencyKey,
     CharacterArmorClass,
     CharacterAttributes,
@@ -111,18 +98,13 @@ import { CharacterSheetTabVisibility } from "./data/sheet.ts";
 import { CharacterFeats } from "./feats.ts";
 import {
     PCStrikeAttackTraits,
+    WeaponAuxiliaryAction,
     createForceOpenPenalty,
     createShoddyPenalty,
     imposeOversizedWeaponCondition,
 } from "./helpers.ts";
-import {
-    CharacterHitPointsSummary,
-    CharacterSkills,
-    CreateAuxiliaryParams,
-    DexterityModifierCapData,
-} from "./types.ts";
+import { CharacterHitPointsSummary, CharacterSkills, DexterityModifierCapData } from "./types.ts";
 import { CHARACTER_SHEET_TABS } from "./values.ts";
-import { StrikeRuleElement } from "@module/rules/rule-element/strike.ts";
 
 class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends CreaturePF2e<TParent> {
     /** Core singular embeds for PCs */
@@ -1306,102 +1288,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         });
     }
 
-    /** Create an "auxiliary" action, an Interact or Release action using a weapon */
-    createAuxAction({ weapon, action, purpose, hands }: CreateAuxiliaryParams): AuxiliaryAction {
-        // A variant's "full purpose" reflects the options to draw, sheathe, etc. a weapon */
-        type ActionsCarryTypePurpose = [ZeroToThree, ItemCarryType, string] | [1, null, "Modular"];
-        const [actions, carryType, fullPurpose] = ((): ActionsCarryTypePurpose => {
-            switch (purpose) {
-                case "Draw":
-                    return [1, "held", `${purpose}${hands}H`];
-                case "PickUp":
-                    return [1, "held", `${purpose}${hands}H`];
-                case "Retrieve":
-                    return [weapon.container?.isHeld ? 2 : 3, "held", `${purpose}${hands}H`];
-                case "Grip":
-                    return [action === "Interact" ? 1 : 0, "held", purpose];
-                case "Sheathe":
-                    return [1, "worn", purpose];
-                case "Modular":
-                    return [1, null, purpose];
-                case "Drop":
-                    return [0, "dropped", purpose];
-            }
-        })();
-        const actionGlyph = getActionGlyph(actions);
-
-        return {
-            label: game.i18n.localize(`PF2E.Actions.${action}.${fullPurpose}.Title`),
-            img: actionGlyph,
-            get options(): SheetOptions | null {
-                return purpose === "Modular"
-                    ? createSheetOptions(
-                          pick(CONFIG.PF2E.damageTypes, weapon.system.traits.toggles.modular.options),
-                          [weapon.system.traits.toggles.modular.selection ?? []].flat()
-                      )
-                    : null;
-            },
-            execute: async ({ selection = null }: { selection?: string | null } = {}): Promise<void> => {
-                if (typeof carryType === "string") {
-                    await this.adjustCarryType(weapon, carryType, hands);
-                } else if (selection && tupleHasValue(weapon.system.traits.toggles.modular.options, selection)) {
-                    // Interact with a modular weapon to change its damage type
-                    const current = weapon.system.traits.toggles.modular.selection;
-                    if (current === selection) return;
-
-                    const item = this.items.get(weapon.id);
-                    if (item?.isOfType("weapon") && item === weapon) {
-                        await item.update({ "system.traits.toggles.modular.selection": selection });
-                    } else {
-                        const rule = item?.rules.find(
-                            (r): r is StrikeRuleElement => r.key === "Strike" && !r.ignored && r.slug === weapon.slug
-                        );
-                        await rule?.toggleTrait({ trait: "modular", selection });
-                    }
-                }
-
-                if (!game.combat) return; // Only send out messages if in encounter mode
-
-                const templates = {
-                    flavor: "./systems/pf2e/templates/chat/action/flavor.hbs",
-                    content: "./systems/pf2e/templates/chat/action/content.hbs",
-                };
-
-                const flavorAction = {
-                    title: `PF2E.Actions.${action}.Title`,
-                    subtitle: `PF2E.Actions.${action}.${fullPurpose}.Title`,
-                    typeNumber: actionGlyph,
-                };
-
-                const flavor = await renderTemplate(templates.flavor, {
-                    action: flavorAction,
-                    traits: [
-                        {
-                            name: CONFIG.PF2E.featTraits.manipulate,
-                            description: CONFIG.PF2E.traitsDescriptions.manipulate,
-                        },
-                    ],
-                });
-
-                const content = await renderTemplate(templates.content, {
-                    imgPath: weapon.img,
-                    message: game.i18n.format(`PF2E.Actions.${action}.${fullPurpose}.Description`, {
-                        actor: this.name,
-                        weapon: weapon.name,
-                        damageType: game.i18n.localize(`PF2E.Damage.RollFlavor.${selection}`),
-                    }),
-                });
-
-                await ChatMessagePF2e.create({
-                    content,
-                    speaker: ChatMessagePF2e.getSpeaker({ actor: this }),
-                    flavor,
-                    type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
-                });
-            },
-        };
-    }
-
     /** Prepare this character's strike actions */
     prepareStrikes({ includeBasicUnarmed = true } = {}): CharacterStrike[] {
         const { itemTypes, synthetics } = this;
@@ -1659,11 +1545,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Multiple attack penalty
         const multipleAttackPenalty = calculateMAPs(weapon, { domains: selectors, options: baseOptions });
 
-        const auxiliaryActions: AuxiliaryAction[] = [];
+        const auxiliaryActions: WeaponAuxiliaryAction[] = [];
         const isRealItem = this.items.has(weapon.id);
 
         if (weapon.system.traits.toggles.modular.options.length > 0) {
-            auxiliaryActions.push(this.createAuxAction({ weapon, action: "Interact", purpose: "Modular" }));
+            auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "Interact", purpose: "Modular" }));
         }
         if (isRealItem && weapon.category !== "unarmed") {
             const traitsArray = weapon.system.traits.value;
@@ -1676,46 +1562,46 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 case "held": {
                     if (weapon.handsHeld === 2) {
                         auxiliaryActions.push(
-                            this.createAuxAction({ weapon, action: "Release", purpose: "Grip", hands: 1 })
+                            new WeaponAuxiliaryAction({ weapon, action: "Release", purpose: "Grip", hands: 1 })
                         );
                     } else if (weapon.handsHeld === 1 && canWield2H) {
                         auxiliaryActions.push(
-                            this.createAuxAction({ weapon, action: "Interact", purpose: "Grip", hands: 2 })
+                            new WeaponAuxiliaryAction({ weapon, action: "Interact", purpose: "Grip", hands: 2 })
                         );
                     }
                     auxiliaryActions.push(
-                        this.createAuxAction({ weapon, action: "Interact", purpose: "Sheathe", hands: 0 })
+                        new WeaponAuxiliaryAction({ weapon, action: "Interact", purpose: "Sheathe", hands: 0 })
                     );
                     auxiliaryActions.push(
-                        this.createAuxAction({ weapon, action: "Release", purpose: "Drop", hands: 0 })
+                        new WeaponAuxiliaryAction({ weapon, action: "Release", purpose: "Drop", hands: 0 })
                     );
                     break;
                 }
                 case "worn": {
                     if (canWield2H) {
                         auxiliaryActions.push(
-                            this.createAuxAction({ weapon, action: "Interact", purpose: "Draw", hands: 2 })
+                            new WeaponAuxiliaryAction({ weapon, action: "Interact", purpose: "Draw", hands: 2 })
                         );
                     }
                     auxiliaryActions.push(
-                        this.createAuxAction({ weapon, action: "Interact", purpose: "Draw", hands: 1 })
+                        new WeaponAuxiliaryAction({ weapon, action: "Interact", purpose: "Draw", hands: 1 })
                     );
                     break;
                 }
                 case "stowed": {
                     auxiliaryActions.push(
-                        this.createAuxAction({ weapon, action: "Interact", purpose: "Retrieve", hands: 1 })
+                        new WeaponAuxiliaryAction({ weapon, action: "Interact", purpose: "Retrieve", hands: 1 })
                     );
                     break;
                 }
                 case "dropped": {
                     if (canWield2H) {
                         auxiliaryActions.push(
-                            this.createAuxAction({ weapon, action: "Interact", purpose: "PickUp", hands: 2 })
+                            new WeaponAuxiliaryAction({ weapon, action: "Interact", purpose: "PickUp", hands: 2 })
                         );
                     }
                     auxiliaryActions.push(
-                        this.createAuxAction({ weapon, action: "Interact", purpose: "PickUp", hands: 1 })
+                        new WeaponAuxiliaryAction({ weapon, action: "Interact", purpose: "PickUp", hands: 1 })
                     );
                     break;
                 }

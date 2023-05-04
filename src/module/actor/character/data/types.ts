@@ -26,19 +26,19 @@ import {
 } from "@actor/data/base.ts";
 import { StatisticModifier } from "@actor/modifiers.ts";
 import { AbilityString, SaveType } from "@actor/types.ts";
+import { FeatPF2e, HeritagePF2e, WeaponPF2e } from "@item";
 import { ArmorCategory } from "@item/armor/types.ts";
 import { ProficiencyRank } from "@item/data/index.ts";
 import { DeitySystemData } from "@item/deity/data.ts";
 import { DeityDomain } from "@item/deity/types.ts";
-import { FeatPF2e, HeritagePF2e, WeaponPF2e } from "@item";
 import { MagicTradition } from "@item/spell/types.ts";
 import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types.ts";
 import { ZeroToFour } from "@module/data.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { StatisticTraceData } from "@system/statistic/data.ts";
 import { CharacterPF2e } from "../document.ts";
+import { WeaponAuxiliaryAction } from "../helpers.ts";
 import { CharacterSheetTabVisibility } from "./sheet.ts";
-import { SheetOptions } from "@module/sheet/helpers.ts";
 
 interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemData> {
     flags: DeepPartial<CharacterFlags>;
@@ -239,15 +239,8 @@ interface CharacterStrike extends StrikeData {
     /** Domains/selectors from which modifiers are drawn */
     domains: string[];
     altUsages: CharacterStrike[];
-    auxiliaryActions: AuxiliaryAction[];
+    auxiliaryActions: WeaponAuxiliaryAction[];
     weaponTraits: TraitViewData[];
-}
-
-interface AuxiliaryAction {
-    label: string;
-    img: string;
-    options: SheetOptions | null;
-    execute: (options?: { selection?: string | null }) => Promise<void>;
 }
 
 /** A Pathfinder Society Faction */
@@ -451,7 +444,6 @@ interface BonusFeat {
 }
 
 export {
-    AuxiliaryAction,
     BaseWeaponProficiencyKey,
     BonusFeat,
     CategoryProficiencies,
