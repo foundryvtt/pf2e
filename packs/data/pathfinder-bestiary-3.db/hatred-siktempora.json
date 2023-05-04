@@ -707,7 +707,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration (50) (Deactivated by Good, Mental, Orichalcum)",
+            "name": "Regeneration 50 (Deactivated by Good, Mental, Orichalcum)",
             "sort": 1100000,
             "system": {
                 "actionCategory": {
@@ -726,7 +726,18 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "good",
+                            "mental",
+                            "orichalcum"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 50
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
