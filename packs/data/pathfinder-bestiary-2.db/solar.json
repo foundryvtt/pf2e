@@ -3545,7 +3545,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 20 (deactivated by evil)",
+            "name": "Regeneration 20 (Deactivated by Evil)",
             "sort": 3700000,
             "system": {
                 "actionCategory": {
@@ -3563,7 +3563,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "evil"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 20
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
