@@ -48,7 +48,6 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
         // Set defaults without writing to this#_source
         this.slug ??= sluggify(this.label);
         this.battleForm ??= false;
-        this.otherTags ??= [];
         this.fist ??= false;
         this.options ??= [];
     }
@@ -79,19 +78,44 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             traits: new fields.ArrayField(
                 new fields.StringField({ required: true, blank: false, choices: CONFIG.PF2E.npcAttackTraits })
             ),
+            traitToggles: new fields.SchemaField(
+                {
+                    modular: new fields.StringField({
+                        required: true,
+                        blank: false,
+                        nullable: true,
+                        choices: CONFIG.PF2E.damageTypes,
+                        initial: null,
+                    }),
+                    versatile: new fields.StringField({
+                        required: true,
+                        blank: false,
+                        nullable: true,
+                        choices: CONFIG.PF2E.damageTypes,
+                        initial: null,
+                    }),
+                },
+                { required: true, nullable: false, initial: { modular: null, versatile: null } }
+            ),
             otherTags: new fields.ArrayField(
                 new fields.StringField({ required: true, blank: false, choices: CONFIG.PF2E.otherWeaponTags }),
-                { required: false, nullable: false, initial: undefined }
+                { required: false, nullable: false, initial: [] }
             ),
             range: new fields.SchemaField(
                 {
-                    increment: new fields.NumberField({ required: true, integer: true, min: 5 }),
+                    increment: new fields.NumberField({
+                        required: true,
+                        integer: true,
+                        min: 5,
+                        nullable: false,
+                        initial: 5,
+                    }),
                     max: new fields.NumberField({
                         required: false,
                         integer: true,
                         min: 5,
                         nullable: true,
-                        initial: undefined,
+                        initial: null,
                     }),
                 },
                 { required: false, nullable: true, initial: null }
@@ -164,6 +188,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             this.group = "brawling";
             this.baseType = "fist";
             this.traits = ["agile", "finesse", "nonlethal"];
+            this.traitToggles = mergeObject({ modular: null, versatile: null }, this._source.traitToggles ?? {});
             this.otherTags = [];
             this.range = null;
             this.damage = {
@@ -258,7 +283,15 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                 damage: { ...this.damage.base, damageType },
                 range: (this.range?.increment ?? null) as WeaponRangeIncrement | null,
                 maxRange: this.range?.max ?? null,
-                traits: { value: this.traits as WeaponTrait[], otherTags: this.otherTags, rarity: "common" },
+                traits: {
+                    value: this.traits as WeaponTrait[],
+                    otherTags: this.otherTags,
+                    rarity: "common",
+                    toggles: {
+                        modular: { selection: this.traitToggles.modular },
+                        versatile: { selection: this.traitToggles.versatile },
+                    },
+                },
                 options: { value: this.options },
                 usage: { value: "held-in-one-hand" },
                 equipped: {
@@ -268,15 +301,22 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             },
         });
 
-        return new WeaponPF2e(source, { parent: this.actor, pf2e: { ready: true } }) as WeaponPF2e<ActorPF2e>;
+        return new WeaponPF2e(source, { parent: this.actor });
+    }
+
+    /** Toggle the modular or versatile trait of this strike's weapon */
+    async toggleTrait({ trait, selection }: UpdateToggleParams): Promise<void> {
+        const ruleSources = deepClone(this.item._source.system.rules);
+        const rule: StrikeSource | undefined = ruleSources.at(this.sourceIndex ?? NaN);
+        if (rule?.key === "Strike") {
+            rule.traitToggles = { ...this.traitToggles, [trait]: selection };
+            await this.item.update({ "system.rules": ruleSources });
+        }
     }
 }
 
 interface StrikeRuleElement extends RuleElementPF2e<StrikeSchema>, ModelPropsFromSchema<StrikeSchema> {
     slug: string;
-    range: { increment: number; max: Maybe<number> } | null;
-    battleForm: boolean;
-    otherTags: OtherWeaponTag[];
     fist: boolean;
     options: string[];
 
@@ -292,21 +332,32 @@ type StrikeSchema = RuleElementSchema & {
     baseType: StringField<BaseWeaponType, BaseWeaponType, true, true, true>;
     /** Permit NPC attack traits to sneak in for battle forms */
     traits: ArrayField<StringField<NPCAttackTrait, NPCAttackTrait, true, false, false>>;
+    traitToggles: SchemaField<
+        {
+            modular: StringField<DamageType, DamageType, true, true, true>;
+            versatile: StringField<DamageType, DamageType, true, true, true>;
+        },
+        { modular: DamageType | null; versatile: DamageType | null },
+        { modular: DamageType | null; versatile: DamageType | null },
+        true,
+        false,
+        true
+    >;
     otherTags: ArrayField<
         StringField<OtherWeaponTag, OtherWeaponTag, true, false, false>,
         OtherWeaponTag[],
         OtherWeaponTag[],
         false,
         false,
-        false
+        true
     >;
     range: SchemaField<
         {
             increment: NumberField<number, number, true, false, true>;
-            max: NumberField<number, number, false, true, false>;
+            max: NumberField<number, number, false, true, true>;
         },
-        { increment: number; max: Maybe<number> },
-        Maybe<{ increment: number; max: Maybe<number> }>,
+        { increment: number; max: number | null },
+        { increment: number; max: number | null } | null,
         false,
         true,
         true
@@ -327,7 +378,7 @@ type StrikeSchema = RuleElementSchema & {
     /** Whether to replace the "basic unarmed" strike action */
     replaceBasicUnarmed: BooleanField<boolean, boolean, false, false, false>;
     /** Whether this attack is from a battle form */
-    battleForm: BooleanField<boolean, boolean, false, false, false>;
+    battleForm: BooleanField<boolean, boolean, false, false, true>;
     options: ArrayField<StringField<string, string, true, false, false>, string[], string[], false, false, false>;
     /** Whether this was a request for a standard fist attack */
     fist: BooleanField<boolean, boolean, false, false, false>;
@@ -342,12 +393,17 @@ interface StrikeSource extends RuleElementSource {
     range?: unknown;
     maxRange?: unknown;
     traits?: unknown;
-    otherTags?: unknown;
+    traitToggles?: unknown;
     replaceAll?: unknown;
     replaceBasicUnarmed?: unknown;
     battleForm?: unknown;
     options?: unknown;
     fist?: unknown;
+}
+
+interface UpdateToggleParams {
+    trait: "modular" | "versatile";
+    selection: DamageType;
 }
 
 export { StrikeRuleElement };
