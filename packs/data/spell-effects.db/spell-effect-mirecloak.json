@@ -19,14 +19,20 @@
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "In an Area of Dim Light or Darkness",
+                "label": "PF2E.SkillVariant.DimLightOrDarkness",
                 "option": "mireclock-darkness",
                 "toggleable": true
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "mirecloak-darkness"
+                    {
+                        "or": [
+                            "mirecloak-darkness",
+                            "lighting:dim-light",
+                            "lighting:darkness"
+                        ]
+                    }
                 ],
                 "selector": "ac",
                 "type": "status",
@@ -38,8 +44,8 @@
                     {
                         "or": [
                             "mirecloak-darkness",
-                            "environment:lighting:lowLight",
-                            "environment:lighting:darkness"
+                            "lighting:dim-light",
+                            "lighting:darkness"
                         ]
                     }
                 ],
