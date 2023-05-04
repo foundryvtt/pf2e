@@ -140,6 +140,11 @@ class AdjustStrikeRuleElement extends AELikeRuleElement<AdjustStrikeSchema> {
                                 return;
                             }
 
+                            // Don't apply the versatile or modular trait to the basic unarmed attack
+                            if (weapon.slug === "basic-unarmed" && /^(?:modular|versatile)/.test(change)) {
+                                return;
+                            }
+
                             const traits = weapon.system.traits.value;
 
                             // If the weapon already has a trait of the same type but a different value, we need to check

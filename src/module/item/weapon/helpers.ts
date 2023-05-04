@@ -11,8 +11,8 @@ class WeaponTraitToggles {
     }
 
     get modular(): { options: DamageType[]; selection: DamageType | null } {
-        const options = this.#resolveTraitToggleOptions("modular");
-        const sourceSelection = this.#weapon._source.system.traits.toggles?.modular;
+        const options = this.#resolveOptions("modular");
+        const sourceSelection = this.#weapon._source.system.traits.toggles?.modular?.selection;
         const selection = tupleHasValue(options, sourceSelection)
             ? sourceSelection
             : // If the weapon's damage type is represented among the modular options, set the selection to it
@@ -24,7 +24,7 @@ class WeaponTraitToggles {
     }
 
     get versatile(): { options: DamageType[]; selection: DamageType | null } {
-        const options = this.#resolveTraitToggleOptions("versatile");
+        const options = this.#resolveOptions("versatile");
         const sourceSelection = this.#weapon._source.system.traits.toggles?.versatile?.selection ?? null;
         const selection = tupleHasValue(options, sourceSelection) ? sourceSelection : null;
 
@@ -32,7 +32,7 @@ class WeaponTraitToggles {
     }
 
     /** Collect selectable damage types among a list of toggleable weapon traits */
-    #resolveTraitToggleOptions(toggle: "modular" | "versatile"): DamageType[] {
+    #resolveOptions(toggle: "modular" | "versatile"): DamageType[] {
         const types = this.#weapon.system.traits.value
             .filter((t) => t.startsWith(toggle))
             .flatMap((trait): DamageType | DamageType[] => {
