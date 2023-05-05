@@ -26,7 +26,13 @@
                                 "or": [
                                     "deity:primary:alignment:cn",
                                     "deity:primary:alignment:cg",
-                                    "deity:primary:alignment:ce"
+                                    "deity:primary:alignment:ce",
+                                    {
+                                        "and": [
+                                            "self:type:npc",
+                                            "self:trait:chaotic"
+                                        ]
+                                    }
                                 ]
                             }
                         ],
@@ -42,7 +48,13 @@
                                 "or": [
                                     "deity:primary:alignment:ce",
                                     "deity:primary:alignment:ne",
-                                    "deity:primary:alignment:le"
+                                    "deity:primary:alignment:le",
+                                    {
+                                        "and": [
+                                            "self:type:npc",
+                                            "self:trait:evil"
+                                        ]
+                                    }
                                 ]
                             }
                         ],
@@ -58,7 +70,13 @@
                                 "or": [
                                     "deity:primary:alignment:cg",
                                     "deity:primary:alignment:ng",
-                                    "deity:primary:alignment:lg"
+                                    "deity:primary:alignment:lg",
+                                    {
+                                        "and": [
+                                            "self:type:npc",
+                                            "self:trait:good"
+                                        ]
+                                    }
                                 ]
                             }
                         ],
@@ -74,7 +92,13 @@
                                 "or": [
                                     "deity:primary:alignment:le",
                                     "deity:primary:alignment:ln",
-                                    "deity:primary:alignment:lg"
+                                    "deity:primary:alignment:lg",
+                                    {
+                                        "and": [
+                                            "self:type:npc",
+                                            "self:trait:lawful"
+                                        ]
+                                    }
                                 ]
                             }
                         ],
@@ -88,7 +112,17 @@
                 "key": "ChoiceSet",
                 "predicate": [
                     {
-                        "not": "deity:primary:alignment:n"
+                        "or": [
+                            {
+                                "and": [
+                                    {
+                                        "not": "deity:primary:alignment:n"
+                                    },
+                                    "deity"
+                                ]
+                            },
+                            "self:type:npc"
+                        ]
                     }
                 ],
                 "prompt": "PF2E.SpecificRule.Prompt.Alignment"
