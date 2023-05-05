@@ -82,6 +82,7 @@ import { ActorSheetPF2e } from "./sheet/base.ts";
 import { ActorSpellcasting } from "./spellcasting.ts";
 import { TokenEffect } from "./token-effect.ts";
 import { CREATURE_ACTOR_TYPES, SAVE_TYPES, SKILL_LONG_FORMS, UNAFFECTED_TYPES } from "./values.ts";
+import { Action, ActionUseOptions, ActionVariant, ActionVariantUseOptions } from "@actor/actions/index.ts";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -113,6 +114,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** A collection of this actor's conditions */
     declare conditions: ActorConditions<this>;
+
+    /** Actions available to this actor */
+    declare actions: Collection<Action>;
 
     /** A cached copy of `Actor#itemTypes`, lazily regenerated every data preparation cycle */
     private declare _itemTypes: EmbeddedItemInstances<this> | null;
@@ -582,6 +586,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         const preparationWarnings: Set<string> = new Set();
         this.synthetics = {
+            actions: [],
             criticalSpecalizations: { standard: [], alternate: [] },
             damageDice: { damage: [] },
             degreeOfSuccessAdjustments: {},
@@ -645,6 +650,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         });
 
         super.prepareData();
+        this.prepareActions();
 
         // Call post-derived-preparation `RuleElement` hooks
         for (const rule of this.rules) {
@@ -754,6 +760,18 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const { rollOptions } = this;
         for (const trait of this.traits) {
             rollOptions.all[`self:trait:${trait}`] = true;
+        }
+    }
+
+    protected prepareActions(): void {
+        this.actions = new Collection<Action>();
+        const actions = this.items
+            .map((item) => item.actions ?? []) // actions from items
+            .flat()
+            .concat(this.synthetics.actions); // actions from rule elements
+        for (const action of actions) {
+            const proxy = new Proxy<Action>(action, new ActionProxyHandler(this));
+            this.actions.set(proxy.slug, proxy);
         }
     }
 
@@ -1818,5 +1836,62 @@ const ActorProxyPF2e = new Proxy(ActorPF2e, {
         return new CONFIG.PF2E.Actor.documentClasses[args[0].type](...args);
     },
 });
+
+type ActionVariantProxy = ActionVariant & { statistic?: string };
+class ActionVariantProxyHandler implements ProxyHandler<ActionVariant> {
+    readonly #actor;
+
+    constructor(actor: ActorPF2e) {
+        this.#actor = actor;
+    }
+
+    get(target: ActionVariantProxy, property: keyof ActionVariantProxy) {
+        const actor = this.#actor;
+        switch (property) {
+            case "statistic":
+                if ("statistic" in target && target.statistic) {
+                    return actor.getStatistic(target.statistic);
+                }
+                break;
+            case "use":
+                return function (options?: Partial<ActionVariantUseOptions>) {
+                    return target.use({ ...options, actors: actor });
+                };
+        }
+        return Reflect.get(target, property);
+    }
+}
+
+type ActionProxy = Action & { statistic?: string; variants: Collection<ActionVariant & { statistic?: string }> };
+class ActionProxyHandler implements ProxyHandler<Action> {
+    readonly #actor;
+
+    constructor(actor: ActorPF2e) {
+        this.#actor = actor;
+    }
+
+    get(target: ActionProxy, property: keyof ActionProxy) {
+        const actor = this.#actor;
+        switch (property) {
+            case "statistic":
+                if ("statistic" in target && target.statistic) {
+                    return actor.getStatistic(target.statistic);
+                }
+                break;
+            case "use":
+                return function (options?: Partial<ActionUseOptions>) {
+                    return target.use({ ...options, actors: actor });
+                };
+            case "variants": {
+                const variantProxyHandler = new ActionVariantProxyHandler(actor);
+                const variants: [string, ActionVariant][] = target.variants.contents
+                    .map((variant) => new Proxy(variant, variantProxyHandler))
+                    .map((variant) => [variant.slug, variant]);
+                return new Collection<ActionVariant>(variants);
+            }
+        }
+        return Reflect.get(target, property);
+    }
+}
 
 export { ActorPF2e, ActorProxyPF2e, ActorUpdateContext, HitPointsSummary };
