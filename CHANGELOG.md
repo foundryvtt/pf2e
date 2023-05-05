@@ -1,5 +1,23 @@
 # Changelog
 
+## Version 4.11.2
+
+### Bugfixes
+
+-   (stwlam) Fix issue causing some actors' prototype token configs to be unopenable
+-   (stwlam) Fix issue preventing property runes from being added to unowned armor when ABP is enabled
+
+### Data Updates
+
+-   (Dire Weasel) Clean up description of Acid Splash and add leveled persistent damage link
+-   (Dire Weasel) Fix malformed predicate in Tashlock Banyan
+-   (LebombJames) Update One Inch Punch to use RollOption suboptions
+-   (rectulo) Add "sorcerer" trait to Harrow bloodline
+-   (rectulo) Fix formatting of Harrow Bloodline link
+-   (stwlam) Fix polytool damage type
+-   (stwlam) Fix resolution of feat choices for Ancient Elf heritage
+-   (Tikael) Add spell effects for several Psychic cantrips
+
 ## Version 4.11.1
 
 ### Bugfixes
@@ -47,6 +65,7 @@
 -   (asuffield) Restore check for melee attacks when applying flanking
 -   (Cerapter) Allow AdjustDegreeOfSuccess RE to adjust to a specific degree of success
 -   (Cerapter) Fix some pre-filtering quirks when opening feat browser from PC sheet
+-   (cjneidhart) Hide NPC names on Loot Sheets
 -   (Dire Weasel) Fix declining a pick from a ChoiceSet defaulting to first item
 -   (stwlam) Show toggle suboptions on NPC sheet
 -   (stwlam) Sort ritual levels on actor sheets
@@ -61,9 +80,8 @@
 ### Data Updates
 
 -   (asuffield) Add rule elements to Skill Mastery (Investigator)
--   (Chris Neidhart) Fix damage on Eidolon breath weapons
--   (Chris Neidhart) Hide NPC names on Loot Sheets
--   (Chris Neidhart) Implement drawbacks to Cognitive Mutagens
+-   (cjneidhart) Fix damage on Eidolon breath weapons
+-   (cjneidhart) Implement drawbacks to Cognitive Mutagens
 -   (Dire Weasel) Add arcane theses links to Wizard
 -   (Dire Weasel) Add Assimilate Lava effect
 -   (Dire Weasel) Add automation for Accurate Swing
