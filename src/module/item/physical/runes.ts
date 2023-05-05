@@ -140,6 +140,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     outcome: ["criticalSuccess"],
                     title: "PF2E.WeaponPropertyRune.anchoring.Name",
                     text: "PF2E.WeaponPropertyRune.anchoring.Note.criticalSuccess",
+                    predicate: [{ not: "item:rune:property:greater-anchoring" }],
                 },
             ],
         },
@@ -210,17 +211,26 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     brilliant: {
         damage: {
             dice: [
-                { damageType: "fire", diceNumber: 1, dieSize: "d4" },
+                {
+                    damageType: "fire",
+                    diceNumber: 1,
+                    dieSize: "d4",
+                    predicate: [{ not: "item:rune:property:greater-brilliant" }],
+                },
                 {
                     damageType: "good",
                     diceNumber: 1,
                     dieSize: "d4",
-                    predicate: [{ or: ["target:trait:fiend", { not: "target" }] }],
+                    predicate: [
+                        { or: ["target:trait:fiend", { not: "target" }] },
+                        { not: "item:rune:property:greater-brilliant" },
+                    ],
                 },
                 {
                     damageType: "positive",
                     diceNumber: 1,
                     dieSize: "d4",
+                    predicate: [{ not: "item:rune:property:greater-brilliant" }],
                 },
             ],
             notes: [
@@ -228,6 +238,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     outcome: ["criticalSuccess"],
                     title: "PF2E.WeaponPropertyRune.brilliant.Name",
                     text: "PF2E.WeaponPropertyRune.brilliant.Note.criticalSuccess",
+                    predicate: [{ not: "item:rune:property:greater-brilliant" }],
                 },
             ],
         },
@@ -248,12 +259,20 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     corrosive: {
         damage: {
-            dice: [{ damageType: "acid", diceNumber: 1, dieSize: "d6" }],
+            dice: [
+                {
+                    damageType: "acid",
+                    diceNumber: 1,
+                    dieSize: "d6",
+                    predicate: [{ not: "item:rune:property:greater-corrosive" }],
+                },
+            ],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
                     title: "PF2E.WeaponPropertyRune.corrosive.Name",
                     text: "PF2E.WeaponPropertyRune.corrosive.Note.criticalSuccess",
+                    predicate: [{ not: "item:rune:property:greater-corrosive" }],
                 },
             ],
         },
@@ -271,6 +290,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     outcome: ["criticalSuccess"],
                     title: "PF2E.WeaponPropertyRune.crushing.Name",
                     text: "PF2E.WeaponPropertyRune.crushing.Note.criticalSuccess",
+                    predicate: [{ not: "item:rune:property:greater-crushing" }],
                 },
             ],
         },
@@ -323,6 +343,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     damageType: "positive",
                     diceNumber: 1,
                     dieSize: "d6",
+                    predicate: [{ not: "item:rune:property:greater-disrupting" }],
                 },
             ],
             notes: [
@@ -330,6 +351,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     outcome: ["criticalSuccess"],
                     title: "PF2E.WeaponPropertyRune.disrupting.Name",
                     text: "PF2E.WeaponPropertyRune.disrupting.Note.criticalSuccess",
+                    predicate: [{ not: "item:rune:property:greater-disrupting" }],
                 },
             ],
         },
@@ -371,6 +393,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     outcome: ["criticalSuccess"],
                     title: "PF2E.WeaponPropertyRune.fearsome.Name",
                     text: "PF2E.WeaponPropertyRune.fearsome.Note.criticalSuccess",
+                    predicate: [{ not: "item:rune:property:greater-fearsome" }],
                 },
             ],
         },
@@ -384,13 +407,19 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     flaming: {
         damage: {
             dice: [
-                { damageType: "fire", diceNumber: 1, dieSize: "d6" },
+                {
+                    damageType: "fire",
+                    diceNumber: 1,
+                    dieSize: "d6",
+                    predicate: [{ not: "item:rune:property:greater-flaming" }],
+                },
                 {
                     damageType: "fire",
                     category: "persistent",
                     diceNumber: 1,
                     dieSize: "d10",
                     critical: true,
+                    predicate: [{ not: "item:rune:property:greater-flaming" }],
                 },
             ],
         },
@@ -403,12 +432,20 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     frost: {
         damage: {
-            dice: [{ damageType: "cold", diceNumber: 1, dieSize: "d6" }],
+            dice: [
+                {
+                    damageType: "cold",
+                    diceNumber: 1,
+                    dieSize: "d6",
+                    predicate: [{ not: "item:rune:property:greater-frost" }],
+                },
+            ],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
                     title: "PF2E.WeaponPropertyRune.frost.Name",
                     text: "PF2E.WeaponPropertyRune.frost.Note.criticalSuccess",
+                    predicate: [{ not: "item:rune:property:greater-frost" }],
                 },
             ],
         },
@@ -873,12 +910,20 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     impactful: {
         damage: {
-            dice: [{ damageType: "force", diceNumber: 1, dieSize: "d6" }],
+            dice: [
+                {
+                    damageType: "force",
+                    diceNumber: 1,
+                    dieSize: "d6",
+                    predicate: [{ not: "item:rune:property:greater-impactful" }],
+                },
+            ],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
                     title: "PF2E.WeaponPropertyRune.impactful.Name",
                     text: "PF2E.WeaponPropertyRune.impactful.Note.criticalSuccess",
+                    predicate: [{ not: "item:rune:property:greater-impactful" }],
                 },
             ],
         },
@@ -964,12 +1009,20 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     shock: {
         damage: {
-            dice: [{ damageType: "electricity", diceNumber: 1, dieSize: "d6" }],
+            dice: [
+                {
+                    damageType: "electricity",
+                    diceNumber: 1,
+                    dieSize: "d6",
+                    predicate: [{ not: "item:rune:property:greater-shock" }],
+                },
+            ],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
                     title: "PF2E.WeaponPropertyRune.shock.Name",
                     text: "PF2E.WeaponPropertyRune.shock.Note.criticalSuccess",
+                    predicate: [{ not: "item:rune:property:greater-shock" }],
                 },
             ],
         },
@@ -998,12 +1051,20 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     thundering: {
         damage: {
-            dice: [{ damageType: "sonic", diceNumber: 1, dieSize: "d6" }],
+            dice: [
+                {
+                    damageType: "sonic",
+                    diceNumber: 1,
+                    dieSize: "d6",
+                    predicate: [{ not: "item:rune:property:greater-thundering" }],
+                },
+            ],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
                     title: "PF2E.WeaponPropertyRune.thundering.Name",
                     text: "PF2E.WeaponPropertyRune.thundering.Note.criticalSuccess",
+                    predicate: [{ not: "item:rune:property:greater-thundering" }],
                 },
             ],
         },
