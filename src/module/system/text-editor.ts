@@ -331,6 +331,21 @@ class TextEditorPF2e extends TextEditor {
         html.setAttribute("data-pf2-adjustment", params.adjustment ?? "");
 
         switch (params.type) {
+            case "action": {
+                if (!params.action) {
+                    ui.notifications.warn(`Error. Missing parameter "action:action-name"`);
+                }
+                const actionSlug = sluggify(params.action, { camel: "bactrian" });
+                const variantSlug = params.variant ? sluggify(params.variant, { camel: "bactrian" }) : null;
+                const actionLabel = params.variant
+                    ? `PF2E.Actions.${actionSlug}.${variantSlug}.Title`
+                    : `PF2E.Actions.${actionSlug}.Title`;
+                html.innerHTML = game.i18n.localize(actionLabel);
+
+                html.setAttribute("data-pf2-action", actionSlug);
+                if (params.variant) html.setAttribute("data-pf2-variant", sluggify(params.variant));
+                break;
+            }
             case "flat":
                 html.innerHTML = inlineLabel ?? game.i18n.localize("PF2E.FlatCheck");
                 html.setAttribute("data-pf2-check", "flat");
@@ -370,7 +385,14 @@ class TextEditorPF2e extends TextEditor {
                           })
                           .join(" ");
                 html.innerHTML = inlineLabel ?? skillLabel;
-                html.setAttribute("data-pf2-check", params.type);
+                if (params.action) {
+                    const actionSlug = sluggify(params.action, { camel: "bactrian" });
+                    html.setAttribute("data-pf2-action", actionSlug);
+                    if (params.variant) html.setAttribute("data-pf2-variant", sluggify(params.variant));
+                    html.setAttribute("data-pf2-skill", params.type);
+                } else {
+                    html.setAttribute("data-pf2-check", params.type);
+                }
             }
         }
 
