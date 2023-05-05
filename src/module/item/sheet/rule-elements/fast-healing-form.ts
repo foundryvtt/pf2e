@@ -5,10 +5,10 @@ import { RuleElementForm, RuleElementFormSheetData } from "./base.ts";
 class FastHealingForm extends RuleElementForm<FastHealingSource, FastHealingRuleElement> {
     override template = "systems/pf2e/templates/items/rules/fast-healing.hbs";
     override activateListeners(html: HTMLElement): void {
-        // Tagify the selector list
+        // Tagify the selector list. Valid defaults should be the IWR weakness types
         const selectorElement = htmlQuery<HTMLInputElement>(html, ".deactivated-by");
         if (selectorElement) {
-            const whitelist = { ...CONFIG.PF2E.damageCategories, ...CONFIG.PF2E.damageTypes };
+            const whitelist = CONFIG.PF2E.weaknessTypes;
             tagify(selectorElement, { whitelist, enforceWhitelist: false });
         }
     }
