@@ -370,7 +370,7 @@ class TextEditorPF2e extends TextEditor {
                           })
                           .join(" ");
                 html.innerHTML = inlineLabel ?? skillLabel;
-                html.setAttribute("data-pf2-check", params.type);
+                html.setAttribute("data-pf2-check", sluggify(params.type));
             }
         }
 
