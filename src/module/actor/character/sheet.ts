@@ -8,6 +8,8 @@ import { BaseWeaponType, WeaponGroup } from "@item/weapon/index.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { PROFICIENCY_RANKS } from "@module/data.ts";
+import { ActorPF2e } from "@module/documents.ts";
+import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { craft } from "@system/action-macros/crafting/craft.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import {
@@ -23,18 +25,17 @@ import {
     setHasElement,
 } from "@util";
 import { UUIDUtils } from "@util/uuid-utils.ts";
-import { CharacterPF2e } from "./document.ts";
 import { CreatureSheetPF2e } from "../creature/sheet.ts";
 import { AbilityBuilderPopup } from "../sheet/popups/ability-builder.ts";
 import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-proficiencies.ts";
 import { AutomaticBonusProgression } from "./automatic-bonus-progression.ts";
 import { CharacterConfig } from "./config.ts";
-import { CraftingFormula, CraftingFormulaData, craftItem, craftSpellConsumable } from "./crafting/index.ts";
 import { PreparedFormulaData } from "./crafting/entry.ts";
-import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProficiencies } from "./data/types.ts";
+import { CraftingFormula, CraftingFormulaData, craftItem, craftSpellConsumable } from "./crafting/index.ts";
 import { CharacterSheetData, ClassDCSheetData, CraftingEntriesSheetData, FeatCategorySheetData } from "./data/sheet.ts";
+import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProficiencies } from "./data/types.ts";
+import { CharacterPF2e } from "./document.ts";
 import { PCSheetTabManager } from "./tab-manager.ts";
-import { ActorPF2e } from "@module/documents.ts";
 
 class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e<TActor> {
     protected readonly actorConfigClass = CharacterConfig;
@@ -1054,6 +1055,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     ): Promise<ItemPF2e<ActorPF2e | null>[]> {
         const item = await ItemPF2e.fromDropData(data);
         if (!item) throw ErrorPF2e("Unable to create item from drop data!");
+
         const actor = this.actor;
         const sourceActor = item?.parent;
         if (sourceActor) {
@@ -1063,6 +1065,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         }
 
         if (item.isOfType("feat")) {
+            // Ensure feats from non-system compendiums are current before checking for appropriate feat slots
+            const itemUUID = item.uuid;
+            if (itemUUID.startsWith("Compendium") && !itemUUID.startsWith("Compendium.pf2e")) {
+                await MigrationRunner.ensureSchemaVersion(item, MigrationList.constructFromVersion(item.schemaVersion));
+            }
             const featSlot = this.#getNearestFeatSlotId(event) ?? { categoryId: "" };
             return await this.actor.feats.insertFeat(item, featSlot);
         }
