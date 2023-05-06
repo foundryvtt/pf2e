@@ -322,7 +322,7 @@ class TextEditorPF2e extends TextEditor {
 
         // Build the inline link
         const html = document.createElement("span");
-        html.dataset.pf2Traits = `${allTraits}`;
+        html.dataset.pf2Traits = allTraits.toString();
         const name = params.name ?? item?.name ?? params.type;
         html.dataset.pf2Label = game.i18n.format("PF2E.InlineCheck.DCWithName", { name });
         html.dataset.pf2RepostFlavor = name;
