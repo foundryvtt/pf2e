@@ -198,7 +198,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
                 const data = key === "rule" ? this.data : key === "actor" || key === "item" ? this[key] : this.item;
                 const value = getProperty(data, prop);
                 if (value === undefined) {
-                    this.failValidation("Failed to resolve injected property");
+                    this.failValidation(`Failed to resolve injected property "${source}"`);
                 }
                 return String(value);
             });
