@@ -24,7 +24,7 @@ import { UserPF2e } from "@module/user/index.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify } from "@util";
 import type { WeaponDamage, WeaponFlags, WeaponMaterialData, WeaponSource, WeaponSystemData } from "./data.ts";
-import { WeaponTraitToggles } from "./helpers.ts";
+import { WeaponTraitToggles, prunePropertyRunes } from "./helpers.ts";
 import type {
     BaseWeaponType,
     OtherWeaponTag,
@@ -355,8 +355,10 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const runes = (this.system.runes = {
             potency: potencyRune.value ?? 0,
             striking: strikingRuneDice.get(strikingRune.value) ?? 0,
-            property: [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value].filter(
-                (r): r is WeaponPropertyRuneType => !!r && r in WEAPON_PROPERTY_RUNES
+            property: prunePropertyRunes(
+                [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value].filter(
+                    (r): r is WeaponPropertyRuneType => !!r && r in WEAPON_PROPERTY_RUNES
+                )
             ),
             effects: [],
         });
