@@ -728,7 +728,98 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "blade-barrage",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.Takatorra.BladeBarrage.StrikeZero",
+                                "value": "zero"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.Takatorra.BladeBarrage.StrikeOne",
+                                "value": "one"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.Takatorra.BladeBarrage.StrikeTwo",
+                                "value": "two"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.Takatorra.BladeBarrage.StrikeThree",
+                                "value": "three"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.Takatorra.BladeBarrage.StrikeFour",
+                                "value": "four"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "item:melee",
+                            {
+                                "or": [
+                                    "blade-barrage:one",
+                                    "blade-barrage:two",
+                                    "blade-barrage:three",
+                                    "blade-barrage:four"
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage",
+                        "text": "PF2E.NPCAbility.Takatorra.BladeBarrage.LevelThirteen",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "blade-barrage:one",
+                            "item:melee"
+                        ],
+                        "selector": "strike-damage",
+                        "slug": "blade-barrage-one",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "blade-barrage:two",
+                            "item:melee"
+                        ],
+                        "selector": "strike-damage",
+                        "slug": "blade-barrage-two",
+                        "type": "circumstance",
+                        "value": 4
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "blade-barrage:three",
+                            "item:melee"
+                        ],
+                        "selector": "strike-damage",
+                        "slug": "blade-barrage-three",
+                        "type": "circumstance",
+                        "value": 6
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "blade-barrage:four",
+                            "item:melee"
+                        ],
+                        "selector": "strike-damage",
+                        "slug": "blade-barrage-four",
+                        "type": "circumstance",
+                        "value": 8
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
