@@ -81,6 +81,7 @@ export const InlineRollLinks = {
             const { pf2Action, pf2Glyph, pf2Variant, pf2Dc, pf2ShowDc, pf2Skill } = $target[0]?.dataset ?? {};
             const action = game.pf2e.actions[pf2Action ? sluggify(pf2Action, { camel: "dromedary" }) : ""];
             const visibility = pf2ShowDc ?? "all";
+            const actors = getSelectedOrOwnActors();
             if (pf2Action && action) {
                 action({
                     event,
@@ -88,6 +89,7 @@ export const InlineRollLinks = {
                     variant: pf2Variant,
                     difficultyClass: pf2Dc ? { scope: "check", value: Number(pf2Dc) || 0, visibility } : undefined,
                     skill: pf2Skill,
+                    actors: actors,
                 });
             } else {
                 console.warn(`PF2e System | Skip executing unknown action '${pf2Action}'`);
