@@ -593,10 +593,16 @@
                 },
                 "rules": [
                     {
-                        "key": "AdjustModifier",
-                        "mode": "add",
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.TumbleThroughMediumOrLarger",
                         "predicate": [
-                            "action:tumble-through"
+                            "action:tumble-through",
+                            {
+                                "gte": [
+                                    "target:size",
+                                    2
+                                ]
+                            }
                         ],
                         "selector": "acrobatics",
                         "value": 1
@@ -609,7 +615,7 @@
                 "variants": {
                     "0": {
                         "label": "+9 to Tumble Through spaces of Medium or larger creatures",
-                        "options": "action:tumble-through"
+                        "options": "action:tumble-through,target:size:2"
                     }
                 }
             },

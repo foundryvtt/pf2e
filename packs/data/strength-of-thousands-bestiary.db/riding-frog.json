@@ -298,18 +298,14 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "To High Jump",
+                        "label": "PF2E.SkillVariant.HighJumpOrLongJump",
                         "predicate": [
-                            "action:high-jump"
-                        ],
-                        "selector": "athletics",
-                        "value": 4
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "To Long Jump",
-                        "predicate": [
-                            "action:long-jump"
+                            {
+                                "or": [
+                                    "action:high-jump",
+                                    "action:long-jump"
+                                ]
+                            }
                         ],
                         "selector": "athletics",
                         "value": 4
@@ -321,12 +317,8 @@
                 },
                 "variants": {
                     "0": {
-                        "label": "+12 to High Jump",
-                        "options": "action:high-jump"
-                    },
-                    "1": {
-                        "label": "or Long Jump",
-                        "options": "action:long-jump"
+                        "label": "+12 to High Jump or Long Jump",
+                        "options": "action:high-jump,action:long-jump"
                     }
                 }
             },
