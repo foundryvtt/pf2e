@@ -104,7 +104,7 @@ class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
                 const stageId = htmlClosest(event.target, "[data-stage-id]")?.dataset.stageId;
                 if (!this.item.system.stages[stageId ?? ""]) return;
 
-                const damage: AfflictionDamage = { value: "", type: "untyped" };
+                const damage: AfflictionDamage = { formula: "", type: "untyped" };
                 this.item.update({ [`system.stages.${stageId}.damage.${randomID()}`]: damage });
             });
         }
@@ -197,6 +197,18 @@ class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
         } else {
             ui.notifications.error("PF2E.Item.Affliction.Error.RestrictedStageItem", { localize: true });
         }
+    }
+
+    protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        // Set empty-string damage categories to `null`
+        const categories = Object.keys(formData).filter((k) =>
+            /^system\.stages\.[a-z0-9]+\.damage\.[a-z0-9]+\.category$/i.test(k)
+        );
+        for (const key of categories) {
+            formData[key] ||= null;
+        }
+
+        return super._updateObject(event, formData);
     }
 }
 
