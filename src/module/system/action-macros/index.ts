@@ -37,7 +37,7 @@ import { bonMot } from "./diplomacy/bon-mot.ts";
 import { gatherInformation } from "./diplomacy/gather-information.ts";
 import { makeAnImpression } from "./diplomacy/make-an-impression.ts";
 import { request } from "./diplomacy/request.ts";
-import { avoidNotice } from "./exploration/avoid-notice.ts";
+import * as avoidNotice from "./exploration/avoid-notice.ts";
 import { senseDirection } from "./exploration/sense-direction.ts";
 import { track } from "./exploration/track.ts";
 import * as decipherWriting from "./general/decipher-writing.ts";
@@ -74,7 +74,7 @@ export const ActionMacros = {
     tamper,
 
     // Exploration
-    avoidNotice,
+    avoidNotice: avoidNotice.legacy,
     senseDirection,
     track,
 
@@ -148,6 +148,7 @@ export const ActionMacros = {
 
 export const SystemActions: Action[] = [
     administerFirstAid.action,
+    avoidNotice.action,
     balance.action,
     coerce.action,
     commandAnAnimal.action,

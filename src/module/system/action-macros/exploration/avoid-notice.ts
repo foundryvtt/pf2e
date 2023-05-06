@@ -1,6 +1,7 @@
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { SingleCheckAction } from "@actor/actions/index.ts";
 
-export function avoidNotice(options: SkillActionOptions): void {
+function avoidNotice(options: SkillActionOptions): void {
     const slug = options?.skill ?? "stealth";
     const rollOptions = ["action:avoid-notice"];
     const modifiers = options?.modifiers;
@@ -22,3 +23,18 @@ export function avoidNotice(options: SkillActionOptions): void {
         throw error;
     });
 }
+
+const action = new SingleCheckAction({
+    description: "PF2E.Actions.AvoidNotice.Description",
+    name: "PF2E.Actions.AvoidNotice.Title",
+    notes: [
+        { outcome: ["criticalSuccess"], text: "PF2E.Actions.AvoidNotice.Notes.criticalSuccess" },
+        { outcome: ["success"], text: "PF2E.Actions.AvoidNotice.Notes.success" },
+    ],
+    rollOptions: ["action:avoid-notice"],
+    slug: "avoid-notice",
+    statistic: "stealth",
+    traits: ["exploration"],
+});
+
+export { avoidNotice as legacy, action };
