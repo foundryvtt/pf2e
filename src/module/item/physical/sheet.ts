@@ -50,6 +50,9 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
             });
         }
 
+        // Show source value for item size in case it is changed by a rule element
+        sheetData.data.size = this.item._source.system.size;
+
         return {
             ...sheetData,
             itemType: game.i18n.localize("PF2E.ItemTitle"),

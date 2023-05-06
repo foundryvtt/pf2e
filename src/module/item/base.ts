@@ -141,7 +141,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             options.push(`${prefix}:level:${level}`);
         }
 
-        if (prefix === "item") {
+        if (["item", "parent"].includes(prefix)) {
             const itemType = this.isOfType("feat") && this.isFeature ? "feature" : this.type;
             options.unshift(`${prefix}:type:${itemType}`);
         }
@@ -427,7 +427,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         for (const source of [...sources]) {
             source.effects = []; // Never
 
-            if (!["flags", "system"].some((k) => k in source)) {
+            if (!Object.keys(source).some((k) => k.startsWith("flags") || k.startsWith("system"))) {
                 // The item has no migratable data: set schema version and skip
                 source.system = { schema: { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION } };
                 continue;

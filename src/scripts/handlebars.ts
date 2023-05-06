@@ -23,6 +23,10 @@ export function registerHandlebarsHelpers(): void {
         return condition ? "disabled" : "";
     });
 
+    Handlebars.registerHelper("selected", (condition: unknown): string => {
+        return condition ? "selected" : "";
+    });
+
     /** Return the first argument that is neither undefined nor null */
     Handlebars.registerHelper("coalesce", (...args: unknown[]): unknown => {
         return args.find((a) => a !== undefined && a !== null) ?? null;

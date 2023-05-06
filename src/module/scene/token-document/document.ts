@@ -405,11 +405,13 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         // Handle ephemeral changes from synthetic actor
         if (!this.actorLink && this.parent && changed.actorData) {
             const preUpdateIcon = this.texture.src;
+            const currentHeight = this.height;
             // If the Actor data override changed, simulate updating the synthetic Actor
             this._onUpdateTokenActor(changed.actorData, options, userId);
             this.reset();
 
             // Fake some updates to trigger redraw
+            if (currentHeight !== this.height) changed.height = this.height;
             changed.light = {} as foundry.data.LightSource;
             if (preUpdateIcon !== this.texture.src) {
                 changed.texture = mergeObject(changed.texture ?? {}, {

@@ -51,9 +51,9 @@
                     {{#if (and (not entry.isPrepared) @root.options.editable)}}
                         <div class="item-controls">
                             <a class="item-control spell-create" title="{{localize "PF2E.CreateSpellTitle"}}" data-type="spell"
-                                data-level="{{section.level}}" data-location="{{entry._id}}"><i class="fas fa-fw fa-plus"></i></a>
+                                data-level="{{section.level}}" data-location="{{entry.id}}"><i class="fas fa-fw fa-plus"></i></a>
                             <a class="item-control spell-browse" title="{{localize "PF2E.OpenSpellBrowserTitle"}}" data-type="spell"
-                                data-level="{{section.level}}" data-location="{{entry._id}}"><i class="fas fa-fw fa-search"></i></a>
+                                data-level="{{section.level}}" data-location="{{entry.id}}"><i class="fas fa-fw fa-search"></i></a>
                         </div>
                     {{/if}}
                 </li>
@@ -152,10 +152,10 @@
         {{#if (and (not entry.levels) @root.options.editable)}}
             <li class="spellbook-header spellbook-empty">
                 <h4>{{localize "PF2E.SpellSlotEmpty"}}</h4>
-                <a class="item-control spell-create" title="{{localize "PF2E.CreateSpellTitle"}}" data-type="spell" data-location="{{entry._id}}">
+                <a class="item-control spell-create" title="{{localize "PF2E.CreateSpellTitle"}}" data-type="spell" data-location="{{entry.id}}">
                     <i class="fas fa-fw fa-plus"></i>{{localize "PF2E.AddSpellTitle"}}
                 </a>
-                <a class="item-control spell-browse" title="{{localize "PF2E.OpenSpellBrowserTitle"}}" data-type="spell" data-location="{{entry._id}}">
+                <a class="item-control spell-browse" title="{{localize "PF2E.OpenSpellBrowserTitle"}}" data-type="spell" data-location="{{entry.id}}">
                     <i class="fas fa-fw fa-search"></i>{{localize "PF2E.OpenSpellBrowserTitle"}}
                 </a>
             </li>

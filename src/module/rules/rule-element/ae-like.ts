@@ -29,6 +29,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
             mode: new fields.StringField({
                 required: true,
                 choices: Object.keys(this.CHANGE_MODES) as AELikeChangeMode[],
+                initial: undefined,
             }),
             path: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
             phase: new fields.StringField({

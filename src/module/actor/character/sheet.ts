@@ -8,6 +8,8 @@ import { BaseWeaponType, WeaponGroup } from "@item/weapon/index.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { PROFICIENCY_RANKS } from "@module/data.ts";
+import { ActorPF2e } from "@module/documents.ts";
+import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { craft } from "@system/action-macros/crafting/craft.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import {
@@ -23,18 +25,17 @@ import {
     setHasElement,
 } from "@util";
 import { UUIDUtils } from "@util/uuid-utils.ts";
-import { CharacterPF2e } from "./document.ts";
 import { CreatureSheetPF2e } from "../creature/sheet.ts";
 import { AbilityBuilderPopup } from "../sheet/popups/ability-builder.ts";
 import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-proficiencies.ts";
 import { AutomaticBonusProgression } from "./automatic-bonus-progression.ts";
 import { CharacterConfig } from "./config.ts";
-import { CraftingFormula, CraftingFormulaData, craftItem, craftSpellConsumable } from "./crafting/index.ts";
 import { PreparedFormulaData } from "./crafting/entry.ts";
-import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProficiencies } from "./data/types.ts";
+import { CraftingFormula, CraftingFormulaData, craftItem, craftSpellConsumable } from "./crafting/index.ts";
 import { CharacterSheetData, ClassDCSheetData, CraftingEntriesSheetData, FeatCategorySheetData } from "./data/sheet.ts";
+import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProficiencies } from "./data/types.ts";
+import { CharacterPF2e } from "./document.ts";
 import { PCSheetTabManager } from "./tab-manager.ts";
-import { ActorPF2e } from "@module/documents.ts";
 
 class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e<TActor> {
     protected readonly actorConfigClass = CharacterConfig;
@@ -487,51 +488,65 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         $html.find(".crb-tag-selector").on("click", (event) => this.openTagSelector(event));
 
         // ACTIONS
-        const $actions = $html.find(".tab.actions");
+        const actionsPanel = htmlQuery(html, ".tab.actions");
+        if (!actionsPanel) throw ErrorPF2e("Unexpected failure finding actions panel");
 
         // Filter strikes
-        $actions.find(".toggle-unready-strikes").on("click", () => {
+        htmlQuery(actionsPanel, ".toggle-unready-strikes")?.addEventListener("click", () => {
             this.actor.setFlag("pf2e", "showUnreadyStrikes", !this.actor.flags.pf2e.showUnreadyStrikes);
         });
 
-        const $strikesList = $actions.find(".strikes-list");
+        for (const strikeElem of htmlQueryAll(actionsPanel, ".strikes-list li")) {
+            // Summary traits & tags
+            for (const tagElem of htmlQueryAll(strikeElem, ".item-summary .item-properties.tags .tag")) {
+                if (tagElem.dataset.description) {
+                    $(tagElem).tooltipster({
+                        content: game.i18n.localize(tagElem.dataset.description),
+                        maxWidth: 400,
+                        theme: "crb-hover",
+                    });
+                }
+            }
 
-        $strikesList.find(".item-summary .item-properties.tags .tag").each((_idx, span) => {
-            if (span.dataset.description) {
-                $(span).tooltipster({
-                    content: game.i18n.localize(span.dataset.description),
-                    maxWidth: 400,
+            // Auxiliary actions
+            const auxActionButtons = htmlQueryAll<HTMLButtonElement>(
+                strikeElem,
+                "button[data-action=auxiliary-action]"
+            );
+            for (const button of auxActionButtons) {
+                const modularSelect = htmlQuery(button, "select");
+                button.addEventListener("click", (event) => {
+                    if (event.target instanceof HTMLSelectElement) return;
+                    const auxiliaryActionIndex = Number(button.dataset.auxiliaryActionIndex ?? NaN);
+                    const strike = this.getStrikeFromDOM(button);
+                    const selection = modularSelect?.value ?? null;
+                    strike?.auxiliaryActions?.at(auxiliaryActionIndex)?.execute({ selection });
+                });
+                // Selecting a damage type isn't committed until the button is pressed
+                modularSelect?.addEventListener("change", (event) => {
+                    event.stopPropagation();
+                });
+            }
+
+            const meleeIcon = htmlQuery(strikeElem, ".melee-icon");
+            if (meleeIcon) {
+                $(meleeIcon).tooltipster({
+                    content: game.i18n.localize("PF2E.Item.Weapon.MeleeUsage.Label"),
+                    position: "left",
                     theme: "crb-hover",
                 });
             }
-        });
 
-        const auxiliaryActionSelector = "button[data-action=auxiliary-action]";
-        $strikesList.find(auxiliaryActionSelector).on("click", (event) => {
-            const auxiliaryActionIndex = $(event.currentTarget)
-                .closest("[data-auxiliary-action-index]")
-                .attr("data-auxiliary-action-index");
-
-            const strike = this.getStrikeFromDOM(event.currentTarget);
-            strike?.auxiliaryActions?.[Number(auxiliaryActionIndex)]?.execute();
-        });
-
-        $strikesList.find(".melee-icon").tooltipster({
-            content: game.i18n.localize("PF2E.Item.Weapon.MeleeUsage.Label"),
-            position: "left",
-            theme: "crb-hover",
-        });
-
-        $strikesList.find("select[name=ammo-used]").on("change", (event) => {
-            event.stopPropagation();
-
-            const actionIndex = $(event.currentTarget).parents(".item").attr("data-action-index");
-            const action = this.actor.system.actions[Number(actionIndex)];
-            const weapon = this.actor.items.get(action.item?.id ?? "");
-            const ammo = this.actor.items.get($(event.currentTarget).val() as string);
-
-            if (weapon) weapon.update({ system: { selectedAmmoId: ammo?.id ?? null } });
-        });
+            const ammoSelect = htmlQuery<HTMLSelectElement>(strikeElem, "select[name=ammo-used]");
+            ammoSelect?.addEventListener("change", (event) => {
+                event.stopPropagation();
+                const actionIndex = htmlClosest(ammoSelect, ".item")?.dataset.actionIndex ?? "NaN";
+                const action = this.actor.system.actions[Number(actionIndex)];
+                const weapon = this.actor.items.get(action.item?.id ?? "");
+                const ammo = this.actor.items.get(ammoSelect.value);
+                if (weapon) weapon.update({ system: { selectedAmmoId: ammo?.id ?? null } });
+            });
+        }
 
         $html.find(".add-modifier .fas.fa-plus-circle").on("click", (event) => this.#onIncrementModifierValue(event));
         $html.find(".add-modifier .fas.fa-minus-circle").on("click", (event) => this.#onDecrementModifierValue(event));
@@ -1040,6 +1055,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     ): Promise<ItemPF2e<ActorPF2e | null>[]> {
         const item = await ItemPF2e.fromDropData(data);
         if (!item) throw ErrorPF2e("Unable to create item from drop data!");
+
         const actor = this.actor;
         const sourceActor = item?.parent;
         if (sourceActor) {
@@ -1049,6 +1065,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         }
 
         if (item.isOfType("feat")) {
+            // Ensure feats from non-system compendiums are current before checking for appropriate feat slots
+            const itemUUID = item.uuid;
+            if (itemUUID.startsWith("Compendium") && !itemUUID.startsWith("Compendium.pf2e")) {
+                await MigrationRunner.ensureSchemaVersion(item, MigrationList.constructFromVersion(item.schemaVersion));
+            }
             const featSlot = this.#getNearestFeatSlotId(event) ?? { categoryId: "" };
             return await this.actor.feats.insertFeat(item, featSlot);
         }

@@ -1716,7 +1716,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 25 (deactivated by Good or Silver)",
+            "name": "Regeneration 25 (Deactivated by Good or Silver)",
             "sort": 1900000,
             "system": {
                 "actionCategory": {
@@ -1735,7 +1735,17 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "good",
+                            "silver"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 25
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"

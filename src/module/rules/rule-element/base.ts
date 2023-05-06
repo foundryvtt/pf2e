@@ -131,8 +131,11 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
         if (this.ignored) return false;
         if (this.predicate.length === 0) return true;
 
-        const optionSet =
-            rollOptions instanceof Set ? rollOptions : new Set(rollOptions ?? this.actor.getRollOptions());
+        const optionSet = new Set([
+            ...(rollOptions ?? this.actor.getRollOptions()),
+            // Always include the item roll options of this rule element's parent item
+            ...this.item.getRollOptions("parent"),
+        ]);
 
         return this.resolveInjectedProperties(this.predicate).test(optionSet);
     }
@@ -195,7 +198,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
                 const data = key === "rule" ? this.data : key === "actor" || key === "item" ? this[key] : this.item;
                 const value = getProperty(data, prop);
                 if (value === undefined) {
-                    this.failValidation("Failed to resolve injected property");
+                    this.failValidation(`Failed to resolve injected property "${source}"`);
                 }
                 return String(value);
             });

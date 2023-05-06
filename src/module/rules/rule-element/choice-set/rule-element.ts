@@ -166,10 +166,10 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
     }
 
     #setDefaultFlag(source: ChoiceSetSource): string {
-        if (typeof source.flag === "string" && source.flag.length > 0) {
-            return sluggify(source.flag, { camel: "dromedary" });
-        }
-        return (source.flag = sluggify(this.item.slug ?? this.item.name, { camel: "dromedary" }));
+        return (source.flag =
+            typeof source.flag === "string" && source.flag.length > 0
+                ? source.flag.replace(/[^-a-z0-9]/gi, "")
+                : sluggify(this.item.slug ?? this.item.name, { camel: "dromedary" }));
     }
 
     /**
