@@ -80,7 +80,7 @@ export const InlineRollLinks = {
             const $target = $(event.currentTarget);
             const { pf2Action, pf2Glyph, pf2Variant, pf2Dc, pf2ShowDc, pf2Skill } = $target[0]?.dataset ?? {};
             const action = game.pf2e.actions[pf2Action ? sluggify(pf2Action, { camel: "dromedary" }) : ""];
-            const visibility = pf2ShowDc ?? "all";
+            const visibility = pf2ShowDc ?? "owner";
             const actors = getSelectedOrOwnActors();
             if (pf2Action && action) {
                 action({
