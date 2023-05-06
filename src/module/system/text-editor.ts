@@ -340,7 +340,7 @@ class TextEditorPF2e extends TextEditor {
                 const actionLabel = params.variant
                     ? `PF2E.Actions.${actionSlug}.${variantSlug}.Title`
                     : `PF2E.Actions.${actionSlug}.Title`;
-                const actionGlyph = game.pf2e.actions.get(params.action).glyph ?? "";
+                const actionGlyph = game.pf2e.actions.get(params.action)?.glyph ?? "";
                 html.innerHTML = game.i18n.localize(actionLabel);
                 html.dataset.pf2Glyph = actionGlyph;
                 html.dataset.pf2Action = actionSlug;
