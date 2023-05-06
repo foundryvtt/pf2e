@@ -247,10 +247,10 @@ class TextEditorPF2e extends TextEditor {
             // Add the html elements used for the inline buttons
             const html = document.createElement("span");
             html.innerHTML = label;
-            html.setAttribute("data-pf2-effect-area", params.type);
-            html.setAttribute("data-pf2-distance", params.distance);
-            if (params.traits !== "") html.setAttribute("data-pf2-traits", params.traits);
-            if (params.type === "line") html.setAttribute("data-pf2-width", params.width ?? "5");
+            html.dataset.pf2EffectArea = params.type;
+            html.dataset.pf2Distance = params.distance;
+            html.dataset.pf2Traits = params.traits;
+            html.dataset.pf2Width = params.width ?? "5";
             return html;
         }
         return null;
@@ -322,13 +322,13 @@ class TextEditorPF2e extends TextEditor {
 
         // Build the inline link
         const html = document.createElement("span");
-        html.setAttribute("data-pf2-traits", `${allTraits}`);
+        html.dataset.pf2Traits = `${allTraits}`;
         const name = params.name ?? item?.name ?? params.type;
-        html.setAttribute("data-pf2-label", game.i18n.format("PF2E.InlineCheck.DCWithName", { name }));
-        html.setAttribute("data-pf2-repost-flavor", name);
+        html.dataset.pf2Label = game.i18n.format("PF2E.InlineCheck.DCWithName", { name });
+        html.dataset.pf2RepostFlavor = name;
         const role = params.showDC ?? "owner";
-        html.setAttribute("data-pf2-show-dc", params.showDC ?? role);
-        html.setAttribute("data-pf2-adjustment", params.adjustment ?? "");
+        html.dataset.pf2ShowDc = params.showDC ?? role;
+        html.dataset.pf2Adjustment = params.adjustment ?? "";
 
         switch (params.type) {
             case "action": {
@@ -342,17 +342,17 @@ class TextEditorPF2e extends TextEditor {
                     : `PF2E.Actions.${actionSlug}.Title`;
                 html.innerHTML = game.i18n.localize(actionLabel);
 
-                html.setAttribute("data-pf2-action", actionSlug);
-                if (params.variant) html.setAttribute("data-pf2-variant", sluggify(params.variant));
+                html.dataset.pf2Action = actionSlug;
+                html.dataset.pf2Variant = sluggify(params.variant);
                 break;
             }
             case "flat":
                 html.innerHTML = inlineLabel ?? game.i18n.localize("PF2E.FlatCheck");
-                html.setAttribute("data-pf2-check", "flat");
+                html.dataset.pf2Check = "flat";
                 break;
             case "perception":
                 html.innerHTML = inlineLabel ?? game.i18n.localize("PF2E.PerceptionLabel");
-                html.setAttribute("data-pf2-check", "perception");
+                html.dataset.pf2Check = "perception";
                 break;
             case "fortitude":
             case "reflex":
@@ -363,7 +363,7 @@ class TextEditorPF2e extends TextEditor {
                         ? game.i18n.format("PF2E.InlineCheck.BasicWithSave", { save: saveName })
                         : saveName;
                 html.innerHTML = inlineLabel ?? saveLabel;
-                html.setAttribute("data-pf2-check", params.type);
+                html.dataset.pf2Check = params.type;
                 break;
             }
             default: {
@@ -387,11 +387,11 @@ class TextEditorPF2e extends TextEditor {
                 html.innerHTML = inlineLabel ?? skillLabel;
                 if (params.action) {
                     const actionSlug = sluggify(params.action, { camel: "bactrian" });
-                    html.setAttribute("data-pf2-action", actionSlug);
-                    if (params.variant) html.setAttribute("data-pf2-variant", sluggify(params.variant));
-                    html.setAttribute("data-pf2-skill", params.type);
+                    html.dataset.pf2Action = actionSlug;
+                    html.dataset.pf2Variant = sluggify(params.variant);
+                    html.dataset.pf2Skill = params.type;
                 } else {
-                    html.setAttribute("data-pf2-check", params.type);
+                    html.dataset.pf2Check = params.type;
                 }
             }
         }
@@ -399,7 +399,7 @@ class TextEditorPF2e extends TextEditor {
         if (params.type && params.dc) {
             // Let the inline roll function handle level base DCs
             const checkDC = params.dc === "@self.level" ? params.dc : getCheckDC({ name, params, item, actor });
-            html.setAttribute("data-pf2-dc", checkDC);
+            html.dataset.pf2Dc = checkDC;
             const text = html.innerHTML;
             if (checkDC !== "@self.level") {
                 html.innerHTML = game.i18n.format("PF2E.DCWithValueAndVisibility", { role, dc: checkDC, text });

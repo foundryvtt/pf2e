@@ -112,6 +112,7 @@ const weaknessTypes = {
     fire: "PF2E.Damage.RollFlavor.fire",
     force: "PF2E.Damage.RollFlavor.force",
     "ghost-touch": "PF2E.Damage.IWR.Type.ghost-touch",
+    glass: "PF2E.Damage.IWR.Type.glass",
     good: "PF2E.Damage.RollFlavor.good",
     lawful: "PF2E.Damage.RollFlavor.lawful",
     light: "PF2E.Damage.IWR.Type.light",
