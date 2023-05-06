@@ -1431,21 +1431,19 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "Climb in Spider or Hybrid Form",
+                        "label": "PF2E.SpecificRule.Anadi.SpiderOrHybridForm",
                         "predicate": [
                             "action:climb",
-                            "in-spider-or-hybrid-form"
+                            {
+                                "or": [
+                                    "spider-form",
+                                    "hybrid-form"
+                                ]
+                            }
                         ],
                         "selector": "athletics",
                         "type": "untyped",
                         "value": 2
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "Creature is in spider or hybrid form",
-                        "option": "in-spider-or-hybrid-form",
-                        "toggleable": true
                     }
                 ],
                 "slug": null,
@@ -1455,7 +1453,7 @@
                 "variants": {
                     "0": {
                         "label": "+6 to climb in spider or hybrid form",
-                        "options": "action:climb"
+                        "options": "action:climb,spider-form,hybrid-form"
                     }
                 }
             },
@@ -1481,7 +1479,7 @@
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Weave",
                         "predicate": [
-                            "action:weaving"
+                            "action:craft:weave"
                         ],
                         "selector": "crafting",
                         "type": "untyped",
@@ -1495,7 +1493,7 @@
                 "variants": {
                     "0": {
                         "label": "+11 to weave",
-                        "options": "action:weaving"
+                        "options": "action:craft:weave"
                     }
                 }
             },

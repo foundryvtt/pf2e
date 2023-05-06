@@ -1504,19 +1504,17 @@
                     "value": 0
                 },
                 "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "In Hybrid or Spider Form",
-                        "option": "spider-form",
-                        "toggleable": true
-                    },
-                    {
+                     {
                         "key": "FlatModifier",
-                        "label": "To Climb in True or Spider Form",
+                        "label": "PF2E.SpecificRule.Anadi.SpiderOrHybridForm",
                         "predicate": [
                             "action:climb",
-                            "spider-form"
+                            {
+                                "or": [
+                                    "spider-form",
+                                    "hybrid-form"
+                                ]
+                            }
                         ],
                         "selector": "athletics",
                         "value": 2
@@ -1529,7 +1527,7 @@
                 "variants": {
                     "0": {
                         "label": "+14 to Climb in hybrid or spider form",
-                        "options": "action:climb, spider-form"
+                        "options": "action:climb,hybrid-form,spider-form"
                     }
                 }
             },
@@ -1553,9 +1551,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "Weaving",
+                        "label": "PF2E.SkillVariant.Weave",
                         "predicate": [
-                            "action:weaving"
+                            "action:craft:weave"
                         ],
                         "selector": "crafting",
                         "value": 4
@@ -1568,7 +1566,7 @@
                 "variants": {
                     "0": {
                         "label": "+14 to weaving",
-                        "options": "action:weaving"
+                        "options": "action:craft:weave"
                     }
                 }
             },
