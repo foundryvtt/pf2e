@@ -1993,7 +1993,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A denizen of Leng maintains a connection to Leng at all times, and when away from Leng, they have @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Fast Healing]{Fast Healing 5}. They lose this ability on Leng or in areas where planar connections do not function. If killed, their body dissolves into nothingness in [[/br 1d4 #Dissolve Body]]{1d4 rounds}, leaving behind their equipment. A slain denizen reforms in Leng; they can be permanently killed only when their planar fast healing doesn't function.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FastHealing]</p>"
+                    "value": "<p>A denizen of Leng maintains a connection to Leng at all times, and when away from Leng, they have fast healing 5. They lose this ability on Leng or in areas where planar connections do not function. If killed, their body dissolves into nothingness in [[/br 1d4 #Dissolve Body]]{1d4 rounds}, leaving behind their equipment. A slain denizen reforms in Leng; they can be permanently killed only when their planar fast healing doesn't function.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FastHealing]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2001,8 +2001,18 @@
                 "rules": [
                     {
                         "key": "FastHealing",
-                        "type": "fast-healing",
+                        "predicate": [
+                            "planar-fast-healing"
+                        ],
                         "value": 5
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.PlanarFastHealing",
+                        "option": "planar-fast-healing",
+                        "toggleable": true,
+                        "value": true
                     }
                 ],
                 "slug": "fast-healing",
