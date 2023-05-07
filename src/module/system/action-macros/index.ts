@@ -38,7 +38,7 @@ import { gatherInformation } from "./diplomacy/gather-information.ts";
 import { makeAnImpression } from "./diplomacy/make-an-impression.ts";
 import { request } from "./diplomacy/request.ts";
 import * as avoidNotice from "./exploration/avoid-notice.ts";
-import { senseDirection } from "./exploration/sense-direction.ts";
+import * as senseDirection from "./exploration/sense-direction.ts";
 import { track } from "./exploration/track.ts";
 import * as decipherWriting from "./general/decipher-writing.ts";
 import * as subsist from "./general/subsist.ts";
@@ -75,7 +75,7 @@ export const ActionMacros = {
 
     // Exploration
     avoidNotice: avoidNotice.legacy,
-    senseDirection,
+    senseDirection: senseDirection.legacy,
     track,
 
     // Acrobatics
@@ -170,6 +170,7 @@ export const SystemActions: Action[] = [
     ready,
     release,
     seek.action,
+    senseDirection.action,
     senseMotive.action,
     sneak.action,
     squeeze.action,
