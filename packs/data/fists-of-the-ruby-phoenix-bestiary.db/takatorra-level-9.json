@@ -459,25 +459,26 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Takatorra makes three melee Strikes. These Strikes gain the forceful trait. If one target is hit with at least two of these Strikes, they also take [[/r 1d6[bleed]]]. The target is then @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{flat-footed} until they heal the persistent bleed damage.</p>"
+                    "value": "<p>Takatorra makes three melee Strikes. These Strikes gain the forceful trait. If one target is hit with at least two of these Strikes, they also take [[/r 1d6[bleed]]]. The target is then @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until they heal the persistent bleed damage.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
-                        "key": "DamageDice",
+                        "definition": [
+                            "item:melee"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
                         "predicate": [
-                            "melee",
                             "blade-barrage"
                         ],
-                        "selector": "strike-damage",
-                        "traits": [
-                            "forceful"
-                        ]
+                        "property": "weapon-traits",
+                        "value": "forceful"
                     },
                     {
-                        "domain": "damage-roll",
+                        "domain": "all",
                         "key": "RollOption",
                         "option": "blade-barrage",
                         "toggleable": true
@@ -485,11 +486,13 @@
                     {
                         "key": "Note",
                         "predicate": [
-                            "melee",
-                            "blade-barrage"
+                            "blade-barrage",
+                            "item:melee"
                         ],
                         "selector": "strike-damage",
-                        "text": "If one target is hit with at least two of these Strikes, they also take [[/r 1d6[bleed]]]. The target is then @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{flat-footed} until they heal the persistent bleed damage."
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,
