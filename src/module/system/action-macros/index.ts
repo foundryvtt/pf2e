@@ -39,7 +39,7 @@ import { makeAnImpression } from "./diplomacy/make-an-impression.ts";
 import { request } from "./diplomacy/request.ts";
 import * as avoidNotice from "./exploration/avoid-notice.ts";
 import * as senseDirection from "./exploration/sense-direction.ts";
-import { track } from "./exploration/track.ts";
+import * as track from "./exploration/track.ts";
 import * as decipherWriting from "./general/decipher-writing.ts";
 import * as subsist from "./general/subsist.ts";
 import * as coerce from "./intimidation/coerce.ts";
@@ -76,7 +76,7 @@ export const ActionMacros = {
     // Exploration
     avoidNotice: avoidNotice.legacy,
     senseDirection: senseDirection.legacy,
-    track,
+    track: track.legacy,
 
     // Acrobatics
     balance: balance.legacy,
@@ -180,6 +180,7 @@ export const SystemActions: Action[] = [
     stride,
     subsist.action,
     takeCover,
+    track.action,
     treatDisease.action,
     treatPoison.action,
     trip.action,

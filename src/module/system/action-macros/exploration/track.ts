@@ -1,6 +1,7 @@
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { SingleCheckAction } from "@actor/actions/index.ts";
 
-export function track(options: SkillActionOptions): void {
+function track(options: SkillActionOptions): void {
     const slug = options?.skill ?? "survival";
     const rollOptions = ["action:track"];
     const modifiers = options?.modifiers;
@@ -24,3 +25,19 @@ export function track(options: SkillActionOptions): void {
         throw error;
     });
 }
+
+const action = new SingleCheckAction({
+    description: "PF2E.Actions.Track.Description",
+    name: "PF2E.Actions.Track.Title",
+    notes: [
+        { outcome: ["success", "criticalSuccess"], text: "PF2E.Actions.Track.Notes.success" },
+        { outcome: ["failure"], text: "PF2E.Actions.Track.Notes.failure" },
+        { outcome: ["criticalFailure"], text: "PF2E.Actions.Track.Notes.criticalFailure" },
+    ],
+    rollOptions: ["action:track"],
+    slug: "track",
+    statistic: "survival",
+    traits: ["concentrate", "exploration", "move"],
+});
+
+export { track as legacy, action };
