@@ -723,103 +723,12 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>Takatorra unleashes a flurry of attacks. Takatorra makes five melee Strikes. Their multiple attack penalty applies as normal. They gain a cumulative +2 circumstance bonus to damage for each successful Strike. If one target is hit with at least two of these Strikes, they also take [[/r 2d6[bleed]]]. They then become @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1} and @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of their next turn.</p>"
+                    "value": "<p>Takatorra unleashes a flurry of attacks. Takatorra makes five melee Strikes. Their multiple attack penalty applies as normal. They gain a cumulative +2 circumstance bonus to damage for each successful Strike. If one target is hit with at least two of these Strikes, they also take [[/r 2d6[bleed]]]. They then become @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1} and @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of their next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Blade Barrage]{Effect: Blade Barrage}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "blade-barrage",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.NPCAbility.Takatorra.BladeBarrage.StrikeZero",
-                                "value": "zero"
-                            },
-                            {
-                                "label": "PF2E.NPCAbility.Takatorra.BladeBarrage.StrikeOne",
-                                "value": "one"
-                            },
-                            {
-                                "label": "PF2E.NPCAbility.Takatorra.BladeBarrage.StrikeTwo",
-                                "value": "two"
-                            },
-                            {
-                                "label": "PF2E.NPCAbility.Takatorra.BladeBarrage.StrikeThree",
-                                "value": "three"
-                            },
-                            {
-                                "label": "PF2E.NPCAbility.Takatorra.BladeBarrage.StrikeFour",
-                                "value": "four"
-                            }
-                        ],
-                        "toggleable": true
-                    },
-                    {
-                        "key": "Note",
-                        "predicate": [
-                            "item:melee",
-                            {
-                                "or": [
-                                    "blade-barrage:one",
-                                    "blade-barrage:two",
-                                    "blade-barrage:three",
-                                    "blade-barrage:four"
-                                ]
-                            }
-                        ],
-                        "selector": "strike-damage",
-                        "text": "PF2E.NPCAbility.Takatorra.BladeBarrage.LevelThirteen",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "blade-barrage:one",
-                            "item:melee"
-                        ],
-                        "selector": "strike-damage",
-                        "slug": "blade-barrage-one",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "blade-barrage:two",
-                            "item:melee"
-                        ],
-                        "selector": "strike-damage",
-                        "slug": "blade-barrage-two",
-                        "type": "circumstance",
-                        "value": 4
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "blade-barrage:three",
-                            "item:melee"
-                        ],
-                        "selector": "strike-damage",
-                        "slug": "blade-barrage-three",
-                        "type": "circumstance",
-                        "value": 6
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "blade-barrage:four",
-                            "item:melee"
-                        ],
-                        "selector": "strike-damage",
-                        "slug": "blade-barrage-four",
-                        "type": "circumstance",
-                        "value": 8
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
