@@ -114,7 +114,7 @@ class CombatantPF2e<
         // Now that a user has been found, make the updates if there are any
         await this.update({ "flags.pf2e.roundOfLastTurn": encounter.round });
         if (Object.keys(actorUpdates).length > 0) {
-            await actor.update(actorUpdates, { render: false });
+            await actor.update(actorUpdates);
         }
 
         Hooks.callAll("pf2e.startTurn", this, encounter, game.user.id);
