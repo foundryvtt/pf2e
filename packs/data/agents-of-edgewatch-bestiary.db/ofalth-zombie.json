@@ -238,12 +238,26 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The ofalth zombie gains @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Fast Healing]{Fast Healing} 2 as long as it is in the Catacombs or another area with a high concentration of dead.</p>"
+                    "value": "<p>The ofalth zombie gains fast healing 2 as long as it is in the Catacombs or another area with a high concentration of dead.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FastHealing",
+                        "predicate": [
+                            "corpse-wallow"
+                        ],
+                        "value": 2
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "corpse-wallow",
+                        "toggleable": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
