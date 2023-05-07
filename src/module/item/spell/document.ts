@@ -25,7 +25,12 @@ import { DamagePF2e } from "@system/damage/damage.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { DamageModifierDialog } from "@system/damage/modifier-dialog.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import { DamageRollContext, DynamicBaseDamageData, SpellDamageTemplate } from "@system/damage/types.ts";
+import {
+    DamageFormulaData,
+    DamageRollContext,
+    DynamicBaseDamageData,
+    SpellDamageTemplate,
+} from "@system/damage/types.ts";
 import { StatisticRollParameters } from "@system/statistic/index.ts";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, getActionIcon, htmlClosest, ordinal, traitSlugToObject } from "@util";
@@ -205,6 +210,11 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         // Loop over the user defined damage fields
         const base: DynamicBaseDamageData[] = [];
         for (const [id, damage] of Object.entries(this.system.damage.value ?? {})) {
+            if (!Roll.validate(damage.value)) {
+                console.error(`Failed to parse damage formula "${damage.value}"`);
+                return null;
+            }
+
             const terms = parseTermsFromSimpleFormula(damage.value, { rollData });
 
             // Check for and apply interval spell scaling
@@ -229,6 +239,10 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             const category = damage.type.subtype || null;
             const materials = damage.type.categories;
             base.push({ terms: combinePartialTerms(terms), damageType, category, materials });
+        }
+
+        if (!base.length) {
+            return null;
         }
 
         const { actor, ability } = this;
@@ -281,17 +295,16 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                             damageCategory: d.type.subtype || null,
                         })
                 );
-            modifiers.push(...abilityModifiers);
 
             // Separate damage modifiers into persistent and all others for stacking rules processing
             const resolvables = { spell: this };
             const syntheticModifiers = extractDamageModifiers(actor.synthetics, domains, { resolvables });
-            modifiers.push(...syntheticModifiers.main);
 
-            const testedModifiers = [
-                ...new StatisticModifier("spell-damage", modifiers, options).modifiers,
-                ...new StatisticModifier("spell-persistent", syntheticModifiers.persistent, options).modifiers,
-            ].filter((m) => m.enabled);
+            const mainModifiers = [...abilityModifiers, ...syntheticModifiers.main];
+            modifiers.push(
+                ...new StatisticModifier("spell-damage", mainModifiers, options).modifiers,
+                ...new StatisticModifier("spell-persistent", syntheticModifiers.persistent, options).modifiers
+            );
 
             damageDice.push(
                 ...extractDamageDice(actor.synthetics.damageDice, domains, {
@@ -312,51 +325,37 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                     dice.label += ` ${dice.dieSize}`;
                 }
             }
-
-            if (BUILD_MODE === "development" && !damageOptions.skipDialog) {
-                const baseDamageType = Object.values(this.system.damage.value)[0]?.type.value;
-                const rolled = await new DamageModifierDialog({
-                    modifiers: testedModifiers,
-                    dice: damageDice,
-                    context,
-                    baseDamageType,
-                }).resolve();
-                if (!rolled) return null;
-            }
-
-            // Apply any damage dice upgrades (such as harmful font)
-            applyDamageDiceOverrides(base, damageDice);
         }
 
-        try {
-            if (base.length) {
-                const { formula, breakdown } = createDamageFormula({
-                    base,
-                    modifiers,
-                    dice: damageDice,
-                    ignoredResistances: [],
-                });
-                const roll = new DamageRoll(formula);
+        const damage: DamageFormulaData = {
+            base,
+            modifiers,
+            dice: damageDice,
+            ignoredResistances: [],
+        };
 
-                const damage: SpellDamageTemplate = {
-                    name: this.name,
-                    damage: { roll, breakdown },
-                    notes: [],
-                    materials: roll.materials,
-                    traits: this.castingTraits,
-                    modifiers,
-                };
-
-                return {
-                    template: damage,
-                    context,
-                };
-            }
-        } catch (err) {
-            console.error(err);
+        if (BUILD_MODE === "development" && !damageOptions.skipDialog) {
+            const rolled = await new DamageModifierDialog({ damage, context }).resolve();
+            if (!rolled) return null;
         }
 
-        return null;
+        // Apply any damage dice upgrades (such as harmful font)
+        // This is similar to weapon's finalizeDamage(), and both will need to be centralized
+        applyDamageDiceOverrides(base, damageDice);
+
+        const { formula, breakdown } = createDamageFormula(damage);
+        const roll = new DamageRoll(formula);
+
+        const template: SpellDamageTemplate = {
+            name: this.name,
+            damage: { roll, breakdown },
+            notes: [],
+            materials: roll.materials,
+            traits: this.castingTraits,
+            modifiers,
+        };
+
+        return { template, context };
     }
 
     /**
