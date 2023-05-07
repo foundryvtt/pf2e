@@ -495,7 +495,11 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             buttons.splice(buttons.indexOf(sheetButton), 1);
         }
         // Convenenience utility for data entry; may make available to general users in the future
-        if (BUILD_MODE === "development" && this.item.isOwned && this.item.sourceId?.startsWith("Compendium.")) {
+        if (
+            game.settings.get("pf2e", "dataTools") &&
+            this.item.isOwned &&
+            this.item.sourceId?.startsWith("Compendium.")
+        ) {
             buttons.unshift({
                 label: "Refresh",
                 class: "refresh-from-compendium",
