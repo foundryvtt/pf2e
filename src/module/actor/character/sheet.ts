@@ -1067,7 +1067,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         if (item.isOfType("feat")) {
             // Ensure feats from non-system compendiums are current before checking for appropriate feat slots
             const itemUUID = item.uuid;
-            if (itemUUID.startsWith("Compendium") && !itemUUID.startsWith("Compendium.pf2e")) {
+            if (itemUUID.startsWith("Compendium") && !itemUUID.startsWith("Compendium.pf2e.")) {
                 await MigrationRunner.ensureSchemaVersion(item, MigrationList.constructFromVersion(item.schemaVersion));
             }
             const featSlot = this.#getNearestFeatSlotId(event) ?? { categoryId: "" };
