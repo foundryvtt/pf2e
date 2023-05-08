@@ -5,6 +5,8 @@ import { ZeroToFour } from "@module/data.ts";
 import { ActorPF2e } from "@actor";
 import { TokenDocumentPF2e } from "@scene";
 import { ActorUpdateContext } from "@actor/base.ts";
+import { ItemType } from "@item/data/index.ts";
+import { ItemPF2e } from "@item";
 
 interface PartySheetData extends ActorSheetDataPF2e<PartyPF2e> {
     members: MemberBreakdown[];
@@ -14,6 +16,8 @@ interface PartySheetData extends ActorSheetDataPF2e<PartyPF2e> {
         totalWealth: number;
         totalBulk: Bulk;
     };
+    /** Unsupported items on the sheet, may occur due to disabled campaign data */
+    orphaned: ItemPF2e[];
 }
 
 interface SkillData {
@@ -44,4 +48,10 @@ interface PartyUpdateContext<TParent extends TokenDocumentPF2e | null> extends A
     removedMembers?: string[];
 }
 
-export { PartySheetData, PartyUpdateContext, LanguageSheetData };
+/** Interface for a party campaign implementation, alternative data preparation used by parties for special campaigns */
+interface PartyCampaign {
+    /** Any additional item types supported by the campaign */
+    extraItemTypes?: ItemType[];
+}
+
+export { MemberBreakdown, PartyCampaign, PartySheetData, PartyUpdateContext, LanguageSheetData };

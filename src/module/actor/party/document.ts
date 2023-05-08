@@ -6,13 +6,18 @@ import { sortBy, tupleHasValue } from "@util";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { PartySheetRenderOptions } from "./sheet.ts";
 import { UserPF2e } from "@module/documents.ts";
-import { PartyUpdateContext } from "./types.ts";
+import { PartyCampaign, PartyUpdateContext } from "./types.ts";
 
 class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     declare members: CreaturePF2e[];
+    campaign: PartyCampaign | null = null;
+
+    get baseAllowedItemTypes(): (ItemType | "physical")[] {
+        return ["effect", "physical"];
+    }
 
     override get allowedItemTypes(): (ItemType | "physical")[] {
-        return ["effect", "physical"];
+        return [...this.baseAllowedItemTypes, ...(this.campaign?.extraItemTypes ?? [])];
     }
 
     /** Friendship lives in our hearts */
