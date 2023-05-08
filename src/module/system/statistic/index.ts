@@ -106,22 +106,27 @@ class Statistic {
         this.ability = data.ability ?? null;
         this.lore = data.lore;
         this.label = game.i18n.localize(data.label);
+        this.rank = data.rank === "untrained-level" ? 0 : data.rank ?? null;
 
         // Add some base modifiers depending on data values
         const baseModifiers: ModifierPF2e[] = [];
 
+        // If this is a character with an ability, add/set the ability modifier
         if (actor.isOfType("character") && this.ability) {
-            this.abilityModifier = createAbilityModifier({ actor, ability: this.ability, domains: data.domains ?? [] });
+            const existing = data.modifiers?.find((m) => m.enabled && m.type === "ability");
+            this.abilityModifier =
+                existing ?? createAbilityModifier({ actor, ability: this.ability, domains: data.domains ?? [] });
             baseModifiers.push(this.abilityModifier);
         }
 
-        if (typeof data.rank === "number") {
-            this.rank = data.rank;
-            baseModifiers.push(createProficiencyModifier({ actor, rank: data.rank, domains: data.domains ?? [] }));
-        } else if (data.rank === "untrained-level") {
-            this.rank = 0;
-            const domains = data.domains ?? [];
-            baseModifiers.push(createProficiencyModifier({ actor, rank: 0, domains, addLevel: true }));
+        // If there isn't already a proficiency modifier, possibly add one
+        if (!data.modifiers?.some((m) => m.type === "proficiency")) {
+            if (typeof data.rank === "number") {
+                baseModifiers.push(createProficiencyModifier({ actor, rank: data.rank, domains: data.domains ?? [] }));
+            } else if (data.rank === "untrained-level") {
+                const domains = data.domains ?? [];
+                baseModifiers.push(createProficiencyModifier({ actor, rank: 0, domains, addLevel: true }));
+            }
         }
 
         // Check rank and data to assign proficient, but default to true
