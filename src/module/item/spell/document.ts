@@ -312,19 +312,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                     resolvables: { spell: this },
                 })
             );
-
-            // Apply tweaks from base to damage dice labels. A similar thing is done in WeaponDamagePF2e#calculate().
-            // Eventually we need to consolidate the two.
-            for (const dice of damageDice) {
-                const matchingBase = base.find((t) => t.damageType === dice.damageType) || base.at(0);
-                const matchingFaces = matchingBase?.terms.find((t) => !!t.dice)?.dice?.faces;
-                const dieSize = dice.dieSize || (matchingFaces ? `d${matchingFaces}` : null);
-                if (dice.diceNumber > 0 && dieSize) {
-                    dice.label += ` +${dice.diceNumber}${dieSize}`;
-                } else if (dieSize) {
-                    dice.label += ` ${dice.dieSize}`;
-                }
-            }
         }
 
         const damage: DamageFormulaData = {

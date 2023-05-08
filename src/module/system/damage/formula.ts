@@ -1,6 +1,6 @@
-import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
+import { DamageDicePF2e } from "@actor/modifiers.ts";
 import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
-import { groupBy, sum, sortBy } from "@util";
+import { groupBy, sum, sortBy, addSign } from "@util";
 import {
     CriticalInclusion,
     DamageCategoryUnique,
@@ -79,15 +79,18 @@ function createDamageFormula(
     // Hold onto base terms for matching reasons (such as adding extra base dice)
     const baseTerms = [...typeMap.values()].flat();
 
-    // Dice always stack
+    // Sometimes a weapon may add base damage as bonus modifiers or dice. We need to auto-generate these
+    const BONUS_BASE_LABELS = ["PF2E.ConditionTypePersistent"].map((l) => game.i18n.localize(l));
+
+    // Add damage dice. Dice always stack
     for (const dice of damage.dice.filter((d) => d.enabled)) {
-        const damageType = dice.damageType ?? baseTerms[0].damageType;
         const matchingBase = baseTerms.find((b) => b.damageType === dice.damageType) ?? baseTerms[0];
-        const faces = Number(dice.dieSize?.replace("d", "")) || matchingBase.dice?.faces || null;
+        const faces = Number(dice.dieSize?.replace("d", "")) || matchingBase?.dice?.faces || null;
+        const damageType = dice.damageType ?? matchingBase.damageType;
         if (dice.diceNumber > 0 && faces) {
             const list = typeMap.get(damageType) ?? [];
             list.push({
-                label: dice.label,
+                label: BONUS_BASE_LABELS.includes(dice.label) ? null : `${dice.label} +${dice.diceNumber}d${faces}`,
                 dice: { number: dice.diceNumber, faces },
                 modifier: 0,
                 damageType,
@@ -101,18 +104,14 @@ function createDamageFormula(
     // Test that a damage modifier or dice partial is compatible with the prior check result
     const outcomeMatches = (m: { critical: boolean | null }): boolean => critical || m.critical !== true;
 
-    const modifiers = damage.modifiers
-        .filter((m) => m.enabled)
-        .flatMap((modifier): ModifierPF2e | never[] => {
-            modifier.damageType ??= damage.base[0].damageType;
-            return outcomeMatches(modifier) ? modifier : [];
-        });
+    // Add modifiers
+    for (const modifier of damage.modifiers.filter((m) => m.enabled && outcomeMatches(m))) {
+        const matchingBase = baseTerms.find((b) => b.damageType === modifier.damageType) ?? baseTerms[0];
+        const damageType = modifier.damageType ?? matchingBase.damageType;
 
-    for (const modifier of modifiers) {
-        const damageType = modifier.damageType ?? damage.base[0].damageType;
         const list = typeMap.get(damageType) ?? [];
         list.push({
-            label: `${modifier.label} ${modifier.value < 0 ? "" : "+"}${modifier.value}`,
+            label: BONUS_BASE_LABELS.includes(modifier.label) ? null : `${modifier.label} ${addSign(modifier.value)}`,
             dice: null,
             modifier: modifier.value,
             damageType,
