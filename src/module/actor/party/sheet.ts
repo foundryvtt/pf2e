@@ -1,10 +1,12 @@
 import { CreaturePF2e } from "@actor";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
-import { LanguageSheetData, PartySheetData } from "./types.ts";
+import { LanguageSheetData, MemberBreakdown, PartySheetData } from "./types.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { createHTMLElement, htmlQueryAll, sortBy, sum } from "@util";
 import { PartyPF2e } from "./document.ts";
 import { Language } from "@actor/creature/index.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 
 interface PartySheetRenderOptions extends RenderOptions {
     actors?: boolean;
@@ -43,53 +45,9 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
         const members = this.actor.members;
 
-        /** sanitize common cases for npc sense types (by removing acuity and range). This should be removed once npcs are refactored */
-        function sanitizeSense(label: string): string {
-            return label
-                .replace(/\((imprecise|precise)\)/gi, "")
-                .replace(/\d+/g, "")
-                .replaceAll("feet", "")
-                .trim();
-        }
-
         return {
             ...base,
-            members: members.map((actor) => {
-                const hasBulk = actor.inventory.bulk.encumberedAt !== Infinity;
-                const bestSkills = Object.values(actor.skills ?? {})
-                    .filter((s): s is Statistic => !!s?.proficient)
-                    .sort(sortBy((s) => s.mod ?? 0))
-                    .reverse()
-                    .slice(0, 5)
-                    .map((s) => ({ slug: s.slug, mod: s.mod, label: s.label, rank: s.rank }));
-                const heroPointsData = actor.isOfType("character") ? actor.system.resources.heroPoints : null;
-                const heroPoints = heroPointsData
-                    ? { value: heroPointsData.value, inactive: heroPointsData.max - heroPointsData.value }
-                    : null;
-                const senses = (() => {
-                    const rawSenses = actor.system.traits.senses ?? [];
-                    if (!Array.isArray(rawSenses)) {
-                        return rawSenses.value.split(",").map((l) => ({
-                            labelFull: l.trim(),
-                            label: sanitizeSense(l),
-                        }));
-                    }
-
-                    // An actor sometimes has only darkvision (fetchling), or darkvision and low-light vision (elf aasimar).
-                    // This is inconsistent, but normal for pf2e. However, its redundant for this sheet.
-                    // We remove low-light vision from the result if the actor has darkvision.
-                    const hasDarkvision = rawSenses.some((s) => s.type === "darkvision");
-                    const adjustedSenses = hasDarkvision
-                        ? rawSenses.filter((r) => r.type !== "lowLightVision")
-                        : rawSenses;
-                    return adjustedSenses.map((r) => ({
-                        acuity: r.acuity,
-                        labelFull: r.label ?? "",
-                        label: CONFIG.PF2E.senses[r.type] ?? r.type,
-                    }));
-                })();
-                return { actor, hasBulk, bestSkills, heroPoints, senses };
-            }),
+            members: this.#prepareMembers(),
             inventorySummary: {
                 totalCoins:
                     sum(members.map((actor) => actor.inventory.coins.goldValue ?? 0)) +
@@ -102,7 +60,54 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     .reduce((a, b) => a.plus(b), this.actor.inventory.bulk.value),
             },
             languages: this.#prepareLanguages(),
+            orphaned: this.actor.items.filter((i) => !i.isOfType(...this.actor.allowedItemTypes)),
         };
+    }
+
+    #prepareMembers(): MemberBreakdown[] {
+        /** sanitize common cases for npc sense types (by removing acuity and range). This should be removed once npcs are refactored */
+        function sanitizeSense(label: string): string {
+            return label
+                .replace(/\((imprecise|precise)\)/gi, "")
+                .replace(/\d+/g, "")
+                .replaceAll("feet", "")
+                .trim();
+        }
+
+        return this.actor.members.map((actor) => {
+            const hasBulk = actor.inventory.bulk.encumberedAt !== Infinity;
+            const bestSkills = Object.values(actor.skills ?? {})
+                .filter((s): s is Statistic => !!s?.proficient)
+                .sort(sortBy((s) => s.mod ?? 0))
+                .reverse()
+                .slice(0, 5)
+                .map((s) => ({ slug: s.slug, mod: s.mod, label: s.label, rank: s.rank }));
+            const heroPointsData = actor.isOfType("character") ? actor.system.resources.heroPoints : null;
+            const heroPoints = heroPointsData
+                ? { value: heroPointsData.value, inactive: heroPointsData.max - heroPointsData.value }
+                : null;
+            const senses = (() => {
+                const rawSenses = actor.system.traits.senses ?? [];
+                if (!Array.isArray(rawSenses)) {
+                    return rawSenses.value.split(",").map((l) => ({
+                        labelFull: l.trim(),
+                        label: sanitizeSense(l),
+                    }));
+                }
+
+                // An actor sometimes has only darkvision (fetchling), or darkvision and low-light vision (elf aasimar).
+                // This is inconsistent, but normal for pf2e. However, its redundant for this sheet.
+                // We remove low-light vision from the result if the actor has darkvision.
+                const hasDarkvision = rawSenses.some((s) => s.type === "darkvision");
+                const adjustedSenses = hasDarkvision ? rawSenses.filter((r) => r.type !== "lowLightVision") : rawSenses;
+                return adjustedSenses.map((r) => ({
+                    acuity: r.acuity,
+                    labelFull: r.label ?? "",
+                    label: CONFIG.PF2E.senses[r.type] ?? r.type,
+                }));
+            })();
+            return { actor, hasBulk, bestSkills, heroPoints, senses };
+        });
     }
 
     #prepareLanguages(): LanguageSheetData[] {
@@ -155,6 +160,24 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             const content = createHTMLElement("span", { children: [title, members] });
             $(languageTag).tooltipster({ content });
         }
+    }
+
+    /** Overriden to prevent inclusion of campaign-only item types. Those should get added to their own sheet */
+    protected override async _onDropItemCreate(
+        itemData: ItemSourcePF2e | ItemSourcePF2e[]
+    ): Promise<Item<PartyPF2e>[]> {
+        const toTest = Array.isArray(itemData) ? itemData : [itemData];
+        const supported = [...PHYSICAL_ITEM_TYPES, ...this.actor.baseAllowedItemTypes];
+        const invalid = toTest.filter((i) => !supported.includes(i.type));
+        if (invalid.length) {
+            for (const source of invalid) {
+                const type = game.i18n.localize(CONFIG.Item.typeLabels[source.type] ?? source.type.titleCase());
+                ui.notifications.error(game.i18n.format("PF2E.Item.CannotAddType", { type }));
+            }
+            return [];
+        }
+
+        return super._onDropItemCreate(itemData);
     }
 
     /** Recursively performs a render and activation of all sub-regions */
