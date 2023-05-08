@@ -166,11 +166,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             if (!objectHasKey(this.system.skills, originalKey)) continue;
 
             const data = this.system.skills[originalKey];
-            skills[key] = mergeObject(skill, {
+            skills[key] = skill.extend({
+                slug: skill.slug,
                 rank: data.rank,
                 ability: data.ability,
-                proficient: data.rank >= 1,
-                abilityModifier: data.modifiers.find((m) => m.enabled && m.type === "ability") ?? null,
             });
         }
 
@@ -180,11 +179,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     override get perception(): Statistic {
         const data = this.system.attributes.perception;
-        const perception = super.perception;
-        return mergeObject(perception, {
+        const base = super.perception;
+        return base.extend({
+            slug: base.slug,
             rank: data.rank,
             ability: data.ability,
-            proficient: data.rank >= 1,
         });
     }
 
