@@ -41,14 +41,13 @@ function createDamageFormula(
     }
 
     const critical = degree === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
-    const base = Array.isArray(damage.base) ? damage.base : [damage.base];
-    if (!base.length) {
+    if (!damage.base.length) {
         return null;
     }
 
     // Group dice by damage type
     const typeMap: DamageTypeMap = new Map();
-    for (const baseEntry of base) {
+    for (const baseEntry of damage.base) {
         const list = typeMap.get(baseEntry.damageType) ?? [];
         typeMap.set(baseEntry.damageType, list);
 
@@ -105,12 +104,12 @@ function createDamageFormula(
     const modifiers = damage.modifiers
         .filter((m) => m.enabled)
         .flatMap((modifier): ModifierPF2e | never[] => {
-            modifier.damageType ??= base[0].damageType;
+            modifier.damageType ??= damage.base[0].damageType;
             return outcomeMatches(modifier) ? modifier : [];
         });
 
     for (const modifier of modifiers) {
-        const damageType = modifier.damageType ?? base[0].damageType;
+        const damageType = modifier.damageType ?? damage.base[0].damageType;
         const list = typeMap.get(damageType) ?? [];
         list.push({
             label: `${modifier.label} ${modifier.value < 0 ? "" : "+"}${modifier.value}`,

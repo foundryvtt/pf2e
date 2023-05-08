@@ -9,7 +9,7 @@ import {
     sortStringRecord,
     tupleHasValue,
 } from "@util";
-import { DamageCategoryUnique, DamageDieSize, DamageRollContext, DamageType } from "./types.ts";
+import { DamageCategoryUnique, DamageDieSize, DamageFormulaData, DamageRollContext, DamageType } from "./types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_TYPE_ICONS } from "./values.ts";
 
 /**
@@ -35,9 +35,9 @@ class DamageModifierDialog extends Application {
     constructor(params: DamageDialogParams) {
         super();
 
-        this.modifiers = params.modifiers ?? [];
-        this.dice = params.dice ?? [];
-        this.baseDamageType = params.baseDamageType;
+        this.modifiers = params.damage.modifiers ?? [];
+        this.dice = params.damage.dice ?? [];
+        this.baseDamageType = params.damage.base.at(0)?.damageType ?? "untyped";
         this.context = params.context ?? {};
         this.isCritical = this.context.outcome === "criticalSuccess";
     }
@@ -313,9 +313,7 @@ class DamageModifierDialog extends Application {
 }
 
 interface DamageDialogParams {
-    modifiers: ModifierPF2e[];
-    dice: DamageDicePF2e[];
-    baseDamageType: DamageType;
+    damage: DamageFormulaData;
     context: Partial<DamageRollContext>;
 }
 
