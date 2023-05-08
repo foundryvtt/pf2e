@@ -3977,7 +3977,11 @@
                 "rules": [
                     {
                         "key": "FastHealing",
-                        "type": "fast-healing",
+                        "predicate": [
+                            {
+                                "not": "turn-to-mist"
+                            }
+                        ],
                         "value": 20
                     }
                 ],
@@ -4071,7 +4075,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>Unlike other undead, Zinogyvaz isn't destroyed at 0 HP. Instead, she falls @UUID[Compendium.pf2e.conditionitems.Unconscious]{Unconscious}. If her body rests in her coffin for 1 hour, Zinogyvaz gains 1 HP, after which her @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Fast Healing]{Fast Healing} begins to function normally.</p>"
+                    "value": "<p>Unlike other undead, Zinogyvaz isn't destroyed at 0 HP. Instead, she falls @UUID[Compendium.pf2e.conditionitems.Unconscious]{Unconscious}. If her body rests in her coffin for 1 hour, Zinogyvaz gains 1 HP, after which her fast healing begins to function normally.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -4352,12 +4356,19 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Zinogyvaz turns into a cloud of vapor, as the <em>@UUID[Compendium.pf2e.spells-srd.Gaseous Form]{Gaseous Form}</em> spell, or back to her normal form. Zinogyvaz loses @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Fast Healing]{Fast Healing} while in gaseous form.</p>\n<p>Zinogyvaz can remain in this form indefinitely.</p>"
+                    "value": "<p>Zinogyvaz turns into a cloud of vapor, as the <em>@UUID[Compendium.pf2e.spells-srd.Gaseous Form]{Gaseous Form}</em> spell, or back to her normal form. Zinogyvaz loses fast healing while in gaseous form.</p>\n<p>Zinogyvaz can remain in this form indefinitely.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "turn-to-mist",
+                        "toggleable": true
+                    }
+                ],
                 "slug": "vampire-true-turn-to-mist",
                 "source": {
                     "value": "Pathfinder Bestiary"
