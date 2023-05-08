@@ -7,10 +7,10 @@
             {{#if (or hasStealth editing)}}
             <div class="section-container">
                 <div class="section-header">
-                    <h3>
+                    <h4>
                         {{localize "PF2E.Check.DC.Specific.stealth"}}
                         <input type="text" value="{{stealthDC}}" data-value="{{stealthDC}}" data-property="system.attributes.stealth.value" data-dtype="Number" placeholder="N/A" />
-                    </h3>
+                    </h4>
                     <div class="controls">
                         <a data-action="edit-section"><i class="fas fa-edit"></i></a>
                     </div>
@@ -24,7 +24,7 @@
             {{#if (or hasDescription editing)}}
             <div class="section-container">
                 <div class="section-header">
-                    <h3>{{localize "PF2E.HazardDescriptionLabel"}}</h3>
+                    <h4>{{localize "PF2E.HazardDescriptionLabel"}}</h4>
                     <div class="controls">
                         <a data-action="edit-section"><i class="fas fa-edit"></i></a>
                     </div>
@@ -38,7 +38,7 @@
             {{#if (or hasDisable editing)}}
             <div class="section-container">
                 <div class="section-header">
-                    <h3>{{localize "PF2E.HazardDisableLabel"}}</h3>
+                    <h4>{{localize "PF2E.HazardDisableLabel"}}</h4>
                     <div class="controls">
                         <a data-action="edit-section"><i class="fas fa-edit"></i></a>
                     </div>
@@ -52,7 +52,7 @@
             {{#if (or hasRoutineDetails editing)}}
             <div class="section-container">
                 <div class="section-header">
-                    <h3>{{localize "PF2E.HazardRoutineLabel"}}</h3>
+                    <h4>{{localize "PF2E.HazardRoutineLabel"}}</h4>
                     <div class="controls">
                         <a data-action="edit-section"><i class="fas fa-edit"></i></a>
                     </div>
@@ -66,7 +66,7 @@
             {{#if (or hasResetDetails editing)}}
             <div class="section-container">
                 <div class="section-header">
-                    <h3>{{localize "PF2E.HazardResetLabel"}}</h3>
+                    <h4>{{localize "PF2E.HazardResetLabel"}}</h4>
                     <div class="controls">
                         <a data-action="edit-section"><i class="fas fa-edit"></i></a>
                     </div>
@@ -79,7 +79,7 @@
 
             <div class="section-container">
                 <div class="section-header">
-                    <h3>{{localize "PF2E.ActionActionsLabel"}}</h3>
+                    <h4>{{localize "PF2E.ActionActionsLabel"}}</h4>
                     {{#if @root.editing}}
                     <div class="controls">
                         <a class="item-create" title="{{localize "PF2E.CreateActionTitle"}}" data-type="action" data-action-type="action"><i class="fas fa-plus"></i> {{localize "ITEM.TypeAction"}}</a>
@@ -92,25 +92,25 @@
                 <div class="section-body">
                     {{#each actions as |section sid|}}
                         {{#if section}}
-                        <ol class="actions-list attacks-list item-list">
-                            <!-- List Actions -->
-                            {{#each section as |action|}}
-                                <li class="item action flexrow" data-item-id="{{action.id}}">
-                                    <div class="action-header">
-                                        <div class="action-name rollable">
-                                            <h4><a>{{action.name}} {{{actionGlyph action.actionCost}}}</a></h4>
+                            <ol class="actions-list attacks-list item-list">
+                                <!-- List Actions -->
+                                {{#each section as |action|}}
+                                    <li class="item action flexrow" data-item-id="{{action.id}}">
+                                        <div class="action-header">
+                                            <div class="action-name rollable">
+                                                <h4><a>{{action.name}} {{{actionGlyph action.actionCost}}}</a></h4>
+                                            </div>
+                                            <div class="item-controls">
+                                                <a class="item-chat chat" title="{{localize "PF2E.NPC.SendToChat"}}"><i class="fas fa-fw fa-comment-alt"></i></a>
+                                                {{#if @root.editing}}
+                                                    <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-fw fa-edit"></i></a>
+                                                    <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-fw fa-trash"></i></a>
+                                                {{/if}}
+                                            </div>
                                         </div>
-                                        <div class="item-controls">
-                                            <a class="item-chat chat" title="{{localize "PF2E.NPC.SendToChat"}}"><i class="fas fa-comment-alt"></i></a>
-                                            {{#if @root.editing}}
-                                                <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
-                                                <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
-                                            {{/if}}
-                                        </div>
-                                    </div>
-                                </li>
-                            {{/each}}
-                        </ol>
+                                    </li>
+                                {{/each}}
+                            </ol>
                         {{/if}}
                     {{/each}}
                     {{#if actor.system.actions}}
