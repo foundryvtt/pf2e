@@ -189,7 +189,6 @@ class ModifierPF2e implements RawModifier {
         this.adjustments = deepClone(params.adjustments ?? []);
         this.enabled = params.enabled ?? true;
         this.ignored = params.ignored ?? false;
-        this.item = params.item ?? null;
         this.custom = params.custom ?? false;
         this.source = params.source ?? null;
         this.predicate = PredicatePF2e.create(params.predicate ?? []);
@@ -197,6 +196,10 @@ class ModifierPF2e implements RawModifier {
         this.traits = deepClone(params.traits ?? []);
         this.hideIfDisabled = params.hideIfDisabled ?? false;
         this.modifier = params.modifier;
+
+        this.item = params.item ?? null;
+        // Prevent upstream from blindly diving into recursion loops
+        Object.defineProperty(this, "item", { enumerable: false });
 
         this.damageType = setHasElement(DAMAGE_TYPES, params.damageType) ? params.damageType : null;
         this.damageCategory = this.damageType === "bleed" ? "persistent" : params.damageCategory ?? null;

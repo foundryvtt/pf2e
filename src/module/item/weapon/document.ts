@@ -1,6 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
+import { AbilityString } from "@actor/types.ts";
 import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e } from "@item";
 import { ItemSummaryData, MeleeSource } from "@item/data/index.ts";
 import { NPCAttackDamage, NPCAttackTrait } from "@item/melee/data.ts";
@@ -23,6 +24,7 @@ import { UserPF2e } from "@module/user/index.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify } from "@util";
 import type { WeaponDamage, WeaponFlags, WeaponMaterialData, WeaponSource, WeaponSystemData } from "./data.ts";
+import { WeaponTraitToggles, prunePropertyRunes } from "./helpers.ts";
 import type {
     BaseWeaponType,
     OtherWeaponTag,
@@ -35,8 +37,6 @@ import type {
     WeaponTrait,
 } from "./types.ts";
 import { CROSSBOW_WEAPONS, MANDATORY_RANGED_GROUPS, THROWN_RANGES } from "./values.ts";
-import { WeaponTraitToggles } from "./helpers.ts";
-import { AbilityString } from "@actor/types.ts";
 
 class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     /** Given this weapon is an alternative usage, whether it is melee or thrown */
@@ -130,7 +130,15 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     /** This weapon's damage before modification by creature abilities, effects, etc. */
     get baseDamage(): WeaponDamage {
-        return deepClone(this.system.damage);
+        return {
+            ...deepClone(this.system.damage),
+            // Damage types from trait toggles are not applied as data mutations so as to delay it for rule elements to
+            // add options
+            damageType:
+                this.system.traits.toggles.versatile.selection ??
+                this.system.traits.toggles.modular.selection ??
+                this.system.damage.damageType,
+        };
     }
 
     /** Does this weapon deal damage? */
@@ -347,18 +355,17 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const runes = (this.system.runes = {
             potency: potencyRune.value ?? 0,
             striking: strikingRuneDice.get(strikingRune.value) ?? 0,
-            property: [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value].filter(
-                (r): r is WeaponPropertyRuneType => !!r && r in WEAPON_PROPERTY_RUNES
+            property: prunePropertyRunes(
+                [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value].filter(
+                    (r): r is WeaponPropertyRuneType => !!r && r in WEAPON_PROPERTY_RUNES
+                )
             ),
             effects: [],
         });
 
         // Limit property rune slots
-        const propertyRuneSlots =
-            ABP.isEnabled(this.actor) && this.actor?.isOfType("character")
-                ? ABP.getAttackPotency(this.actor.level)
-                : getPropertySlots(this);
-        runes.property.length = Math.min(runes.property.length, propertyRuneSlots);
+        const maxPropertySlots = getPropertySlots(this);
+        runes.property.length = Math.min(runes.property.length, maxPropertySlots);
 
         // Set damage dice according to striking rune
         // Only increase damage dice from ABP if the dice number is 1

@@ -674,9 +674,9 @@ const featCategories: Record<FeatCategory, string> = {
     skill: "PF2E.FeatTypeSkill",
     general: "PF2E.FeatTypeGeneral",
     bonus: "PF2E.FeatTypeBonus",
-    pfsboon: "PF2E.FeatPFSBoonHeader",
-    deityboon: "PF2E.FeatDeityBoonHeader",
-    curse: "PF2E.FeatCurseHeader",
+    pfsboon: "PF2E.FeatTypePfsboon",
+    deityboon: "PF2E.FeatTypeDeityboon",
+    curse: "PF2E.FeatTypeCurse",
 };
 
 const alignments: Record<Alignment, string> = {

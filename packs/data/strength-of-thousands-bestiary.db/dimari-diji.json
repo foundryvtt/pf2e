@@ -2147,13 +2147,23 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "fire"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 30
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -2187,18 +2197,30 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:120]{120 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Plants near Dimari-Diji grow larger and more vibrant. Plants in the emanation gain the success effects of the <em>@UUID[Compendium.pf2e.spells-srd.Plant Growth]{Plant Growth}</em> ritual. Any plant spells cast in the area are empowered and use the effects of the spell 1 level higher than it was cast, to a maximum of 9th level (Dimari-Diji's spells are unaffected). Finally, other plant creatures gain @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Fast Healing]{Fast Healing} 20 while in the area.</p>"
+                    "value": "<p>@Template[type:emanation|distance:120]{120 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Plants near Dimari-Diji grow larger and more vibrant. Plants in the emanation gain the success effects of the <em>@UUID[Compendium.pf2e.spells-srd.Plant Growth]{Plant Growth}</em> ritual. Any plant spells cast in the area are empowered and use the effects of the spell 1 level higher than it was cast, to a maximum of 9th level (Dimari-Diji's spells are unaffected). Finally, other plant creatures gain fast healing 20 while in the area.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Aura of Growth]{Effect: Aura of Growth}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
+                        "effects": [
+                            {
+                                "affects": "all",
+                                "events": [
+                                    "enter"
+                                ],
+                                "includesSelf": false,
+                                "predicate": [
+                                    "target:trait:plant"
+                                ],
+                                "uuid": "Compendium.pf2e.bestiary-effects.PR0YzItS9R60X3Zc"
+                            }
+                        ],
                         "key": "Aura",
                         "radius": 120,
                         "slug": "aura-of-growth",
                         "traits": [
-                            "aura",
                             "plant",
                             "primal",
                             "transmutation"
@@ -2287,7 +2309,6 @@
                         "radius": 60,
                         "slug": "enriching-aura",
                         "traits": [
-                            "aura",
                             "evocation",
                             "transmutation"
                         ]
@@ -2677,7 +2698,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "Stealth in a Forest",
+                        "label": "PF2E.SkillVariant.Forests",
                         "predicate": [
                             "terrain:forest"
                         ],

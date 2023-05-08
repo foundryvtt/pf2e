@@ -21,7 +21,7 @@
             "die": "d6"
         },
         "description": {
-            "value": "<p>This <em>+1 striking</em> kukri has a crimson blade that shimmers eerily in bright light. On a critical hit, the kukri deals [[/r 1d8[bleed]]]. If the target didn't already have persistent bleed damage when you scored the critical hit, you also gain 1d8 temporary Hit Points.</p>"
+            "value": "<p>This <em>+1 striking kukri</em> has a crimson blade that shimmers eerily in bright light. On a critical hit, the kukri deals 1d8 persistent bleed damage. If the target didn't already have persistent bleed damage when you scored the critical hit, you also gain [[/r 1d8]] temporary Hit Points.</p>"
         },
         "equippedBulk": {
             "value": ""
@@ -70,7 +70,30 @@
         "reload": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "critical": true,
+                "damageType": "bleed",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "selector": "{item|_id}-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "not": "target:condition:persistent-damage:bleed"
+                    }
+                ],
+                "selector": "{item|_id}-damage",
+                "text": "PF2E.SpecificRule.BloodlettingKukri.Note",
+                "title": "{item|name}"
+            }
+        ],
         "size": "med",
         "source": {
             "value": "Pathfinder Core Rulebook"
@@ -84,7 +107,7 @@
             "value": true
         },
         "splashDamage": {
-            "value": null
+            "value": 0
         },
         "stackGroup": null,
         "strikingRune": {

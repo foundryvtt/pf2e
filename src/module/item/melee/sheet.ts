@@ -8,8 +8,17 @@ import { MeleePF2e } from "./index.ts";
 
 export class MeleeSheetPF2e extends ItemSheetPF2e<MeleePF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<MeleeSheetData> {
+        const data = await super.getData(options);
+
+        // In case of weak/elite adjustments, display source values for attack modifier and damage formulas
+        const itemSource = this.item._source;
+        data.data.attack.value = itemSource.system.attack.value;
+        for (const key of Object.keys(data.data.damageRolls)) {
+            data.data.damageRolls[key].damage = itemSource.system.damageRolls[key].damage;
+        }
+
         return {
-            ...(await super.getData(options)),
+            ...data,
             damageTypes: CONFIG.PF2E.damageTypes,
             damageCategories: damageCategoriesUnique,
             attackEffects: createSheetOptions(this.getAttackEffectOptions(), this.item.system.attackEffects),

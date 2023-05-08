@@ -135,14 +135,28 @@ export function registerSettings(): void {
     });
 
     game.settings.register("pf2e", "deathIcon", {
-        name: "PF2E.Settings.DeathIcon.Name",
-        hint: "PF2E.Settings.DeathIcon.Hint",
+        name: "PF2E.SETTINGS.DeathIcon.Name",
+        hint: "PF2E.SETTINGS.DeathIcon.Hint",
         scope: "world",
         config: false,
         default: "icons/svg/skull.svg",
         type: String,
         onChange: (choice?: string) => {
             if (isImageOrVideoPath(choice)) CONFIG.controlIcons.defeated = choice;
+        },
+    });
+
+    game.settings.register("pf2e", "dataTools", {
+        name: "PF2E.SETTINGS.DataTools.Name",
+        hint: "PF2E.SETTINGS.DataTools.Hint",
+        scope: "world",
+        config: false,
+        default: BUILD_MODE === "development",
+        type: Boolean,
+        onChange: () => {
+            for (const app of Object.values(ui.windows).filter((a) => a instanceof DocumentSheet)) {
+                app.render();
+            }
         },
     });
 

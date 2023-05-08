@@ -21,7 +21,7 @@
             "die": "d8"
         },
         "description": {
-            "value": "<p>This <em>+3 greater striking @UUID[Compendium.pf2e.equipment-srd.Flaming (Greater)]{greater flaming} longsword</em> has an ornate brass hilt and a blade shaped like stylized flames. When wielded, the blade projects illumination resembling shimmering firelight, emitting dim light in a 10-foot radius.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> command, Interact</p>\n<hr />\n<p><strong>Effect</strong> You cast the <em>@UUID[Compendium.pf2e.spells-srd.Produce Flame]{produce flame}</em> cantrip from the sword as a 9th-level arcane spell, using your melee attack modifier with <em>flametongue</em> as your spell attack modifier.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> command</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> A @Template[type:emanation|distance:10] of flame radiates from the <em>greater flame tongue</em> for 1 minute. All weapon and unarmed attacks by you and your allies within the area gain the effect of the <em>flaming</em> property rune.</p>"
+            "value": "<p>This <em>+3 greater striking @UUID[Compendium.pf2e.equipment-srd.Flaming (Greater)]{Greater Flaming} longsword</em> has an ornate brass hilt and a blade shaped like stylized flames. When wielded, the blade projects illumination resembling shimmering firelight, emitting dim light in a 10-foot radius.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> command, Interact</p>\n<hr />\n<p><strong>Effect</strong> You cast the <em>@UUID[Compendium.pf2e.spells-srd.Produce Flame]{Produce Flame}</em> cantrip from the sword as a 9th-level arcane spell, using your melee attack modifier with <em>flametongue</em> as your spell attack modifier.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> command</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> A @Template[type:emanation|distance:10] of flame radiates from the <em>greater flame tongue</em> for 1 minute. All weapon and unarmed attacks by you and your allies within the area gain the effect of the <em>flaming</em> property rune.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Aura: Flame Tongue (Greater)]{Aura: Flame Tongue (Greater)}</p>"
         },
         "equippedBulk": {
             "value": ""
@@ -70,7 +70,25 @@
         "reload": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "TokenLight",
+                "value": {
+                    "animation": {
+                        "intensity": 4,
+                        "speed": 1,
+                        "type": "torch"
+                    },
+                    "color": "#9b7337",
+                    "dim": 10,
+                    "shadows": 0.2
+                }
+            },
+            {
+                "key": "TokenEffectIcon",
+                "value": "systems/pf2e/icons/equipment/weapons/specific-magic-weapons/flame-tongue.webp"
+            }
+        ],
         "size": "med",
         "source": {
             "value": "Pathfinder Core Rulebook"

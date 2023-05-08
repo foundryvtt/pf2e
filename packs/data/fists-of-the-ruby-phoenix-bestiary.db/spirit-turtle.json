@@ -150,7 +150,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration (Deactivated by Cold Iron or Evil)",
+            "name": "Regeneration 25 (Deactivated by Cold Iron or Evil)",
             "sort": 400000,
             "system": {
                 "actionCategory": {
@@ -162,13 +162,24 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "cold-iron",
+                            "evil"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 25
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"

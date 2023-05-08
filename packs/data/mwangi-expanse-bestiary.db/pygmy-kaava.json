@@ -545,19 +545,14 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Forests",
+                        "label": "PF2E.SkillVariant.ForestsOrJungles",
                         "predicate": [
-                            "terrain:forest"
-                        ],
-                        "selector": "stealth",
-                        "type": "status",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Jungles",
-                        "predicate": [
-                            "terrain:jungle"
+                            {
+                                "or": [
+                                    "terrain:forest",
+                                    "terrain:jungle"
+                                ]
+                            }
                         ],
                         "selector": "stealth",
                         "type": "status",
@@ -570,12 +565,8 @@
                 },
                 "variants": {
                     "0": {
-                        "label": "+9 in forests",
-                        "options": "terrain:forest"
-                    },
-                    "1": {
-                        "label": "or jungles",
-                        "options": "terrain:jungle"
+                        "label": "+9 in forests or jungles",
+                        "options": "terrain:forest,terrain:jungle"
                     }
                 }
             },

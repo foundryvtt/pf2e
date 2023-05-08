@@ -194,6 +194,7 @@ declare global {
         get(module: "pf2e", setting: "compendiumBrowserPacks"): CompendiumBrowserSettings;
         get(module: "pf2e", setting: "critFumbleButtons"): boolean;
         get(module: "pf2e", setting: "critRule"): "doubledamage" | "doubledice";
+        get(module: "pf2e", setting: "dataTools"): boolean;
         get(module: "pf2e", setting: "deathIcon"): ImageFilePath;
         get(module: "pf2e", setting: "drawCritFumble"): boolean;
         get(module: "pf2e", setting: "enabledRulesUI"): boolean;

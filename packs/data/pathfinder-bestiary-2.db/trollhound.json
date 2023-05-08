@@ -141,7 +141,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 15 (deactivated by acid or fire)",
+            "name": "Regeneration 15 (Deactivated by Acid or Fire)",
             "sort": 400000,
             "system": {
                 "actionCategory": {
@@ -153,13 +153,24 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "acid",
+                            "fire"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 15
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"

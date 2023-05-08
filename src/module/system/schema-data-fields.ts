@@ -110,6 +110,11 @@ class PredicateField<
         super(new PredicateStatementField(), options);
     }
 
+    /** Don't wrap a non-array in an array */
+    override _cast(value: unknown): unknown {
+        return value;
+    }
+
     /** Construct a `PredicatePF2e` from the initialized `PredicateStatement[]` */
     override initialize(
         value: RawPredicate,

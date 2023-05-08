@@ -5,24 +5,21 @@ import {
     PhysicalItemSheetPF2e,
     PreparedMaterials,
     WEAPON_MATERIAL_VALUATION_DATA,
+    getPropertySlots,
 } from "@item/physical/index.ts";
-import { OneToFour, OneToThree } from "@module/data.ts";
-import { createSheetTags, SheetOptions } from "@module/sheet/helpers.ts";
+import { OneToFour, Rarity } from "@module/data.ts";
+import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { ErrorPF2e, htmlQueryAll, objectHasKey, setHasElement, sortStringRecord, tupleHasValue } from "@util";
 import { ComboWeaponMeleeUsage, WeaponPersistentDamage, WeaponPropertyRuneSlot } from "./data.ts";
 import { type WeaponPF2e } from "./document.ts";
 import { MANDATORY_RANGED_GROUPS, WEAPON_RANGES } from "./values.ts";
-import { Rarity } from "@module/data.ts";
 
 export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<WeaponSheetData> {
         const sheetData: PhysicalItemSheetData<WeaponPF2e> = await super.getData(options);
 
-        const ABPVariant = game.settings.get("pf2e", "automaticBonusVariant");
-        const abpEnabled = ABP.isEnabled(this.actor);
-
         // Limit shown property-rune slots by potency rune level and a material composition of orichalcum
-        const potencyRuneValue = ABPVariant === "ABPFundamentalPotency" ? 4 : sheetData.data.potencyRune.value ?? 0;
+        const maxPropertySlots = getPropertySlots(this.item);
         const propertyRuneSlotsData = [
             [1, sheetData.data.propertyRune1],
             [2, sheetData.data.propertyRune2],
@@ -32,8 +29,8 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         const propertyRuneSlots = propertyRuneSlotsData
             .filter(
                 ([slotNumber, slot], idx) =>
-                    (slotNumber <= potencyRuneValue || sheetData.data.preciousMaterial.value === "orichalcum") &&
-                    (slotNumber === 1 || !!sheetData.data[`propertyRune${idx as OneToThree}` as const]?.value) &&
+                    slotNumber <= maxPropertySlots &&
+                    (slotNumber === 1 || !!sheetData.data[`propertyRune${idx as OneToFour}` as const]?.value) &&
                     !(sheetData.data.specific?.value && slot.value === null)
             )
             .map(([slotNumber, slot]) => ({
@@ -46,6 +43,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         // Weapons have derived damage dice, level, price, and traits: base data is shown for editing
         const baseData = this.item.toObject();
         sheetData.data.traits.rarity = baseData.system.traits.rarity;
+        const abpEnabled = ABP.isEnabled(this.actor);
         const hintText = abpEnabled ? "PF2E.Item.Weapon.FromABP" : "PF2E.Item.Weapon.FromMaterialAndRunes";
 
         const adjustedDiceHint =
