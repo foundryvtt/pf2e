@@ -1320,6 +1320,8 @@ export const PF2ECONFIG = {
         PT24H: "PF2E.Duration.PT24H",
         day: "PF2E.Duration.day",
         P1W: "PF2E.Duration.P1W",
+        P1M: "PF2E.Duration.P1M",
+        P1Y: "PF2E.Duration.P1Y",
     },
 
     timeUnits: {
