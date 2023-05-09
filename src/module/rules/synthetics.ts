@@ -1,8 +1,9 @@
 import { ActorPF2e } from "@actor";
 import { DexterityModifierCapData } from "@actor/character/types.ts";
-import { MovementType, LabeledSpeed } from "@actor/creature/data.ts";
+import { LabeledSpeed } from "@actor/creature/data.ts";
 import { CreatureSensePF2e } from "@actor/creature/sense.ts";
 import { DamageDicePF2e, DeferredPromise, DeferredValue, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers.ts";
+import { MovementType } from "@actor/types.ts";
 import { MeleePF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/action/index.ts";
 import { ConditionSource, EffectSource } from "@item/data/index.ts";

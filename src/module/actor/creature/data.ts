@@ -12,7 +12,14 @@ import {
     RollFunction,
 } from "@actor/data/base.ts";
 import { DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
-import type { AbilityString, ActorAlliance, SaveType, SkillAbbreviation, SkillLongForm } from "@actor/types.ts";
+import type {
+    AbilityString,
+    ActorAlliance,
+    MovementType,
+    SaveType,
+    SkillAbbreviation,
+    SkillLongForm,
+} from "@actor/types.ts";
 import type { CREATURE_ACTOR_TYPES } from "@actor/values.ts";
 import { LabeledNumber, Size, ValueAndMax, ValuesList, ZeroToThree } from "@module/data.ts";
 import { RollParameters } from "@system/rolls.ts";
@@ -182,7 +189,6 @@ interface CreatureSpeeds extends StatisticModifier {
     total: number;
 }
 
-type MovementType = "land" | "burrow" | "climb" | "fly" | "swim";
 interface LabeledSpeed extends Omit<LabeledNumber, "exceptions"> {
     type: MovementType;
     source?: string;
@@ -264,7 +270,6 @@ export {
     HeldShieldData,
     LabeledSpeed,
     Language,
-    MovementType,
     SaveData,
     SenseData,
     SkillAbbreviation,
