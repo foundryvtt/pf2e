@@ -19,7 +19,24 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "skill-ckeck",
+                "key": "RollOption",
+                "label": "Diverse Lore",
+                "option": "diverse-lore-active",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Diverse Lore",
+                "predicate": [
+                    "diverse-lore-active"
+                ],
+                "selector": "esoteric-lore",
+                "value": -2
+            }
+        ],
         "source": {
             "value": "Pathfinder Dark Archive"
         },
