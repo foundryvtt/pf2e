@@ -513,28 +513,6 @@ class WeaponDamagePF2e {
             ignoredResistances,
         };
 
-        // include dice number and size in damage tag
-        for (const dice of damage.dice) {
-            dice.label = game.i18n.localize(dice.label ?? dice.slug);
-            if (dice.diceNumber > 0 && dice.dieSize) {
-                dice.label += ` +${dice.diceNumber}${dice.dieSize}`;
-            } else if (base.dieSize && dice.diceNumber > 0) {
-                dice.label += ` +${dice.diceNumber}${base.dieSize}`;
-            } else if (dice.dieSize) {
-                dice.label += ` ${dice.dieSize}`;
-            }
-            if (
-                dice.category &&
-                dice.category !== "persistent" &&
-                (dice.diceNumber > 0 || dice.dieSize) &&
-                (!dice.damageType || (dice.damageType === base.damageType && dice.category !== base.category))
-            ) {
-                dice.label += ` ${dice.category}`;
-            }
-            dice.enabled = dice.predicate.test(options);
-            dice.ignored = !dice.enabled;
-        }
-
         const excludeFrom = weapon.isOfType("weapon") ? weapon : null;
         this.#excludeDamage({ actor, weapon: excludeFrom, modifiers: [...modifiers, ...damageDice], options });
 
