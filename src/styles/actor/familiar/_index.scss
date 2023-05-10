@@ -1,4 +1,6 @@
 .familiar {
+    @import "../red-action-boxes";
+
     .window-content {
         background: url("/assets/sheet/background.webp");
         background-repeat: repeat-x, no-repeat;
@@ -245,44 +247,11 @@
         }
 
         .section-container {
-            display: flex;
-            flex-direction: column;
             margin: 6px 6px;
-
-            .section-header {
-                display: flex;
-                flex: 0;
-                width: 100%;
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: baseline;
-                border-radius: 3px 3px 0px 0px;
-                background: $primary-color;
-                border: 1px solid $primary-color;
-                border-bottom: transparent;
-                text-align: left;
-                color: #f5efe0;
-                font-size: 0.8rem;
-                padding: 4px 8px;
-
-                h4 {
-                    flex: auto;
-                    margin-bottom: 0px;
-                    text-transform: uppercase;
-                }
-            }
-
             .section-body {
-                display: flex;
-                flex: auto;
-                flex-wrap: wrap;
-                width: 100%;
-                flex-direction: column;
-                justify-content: flex-start;
                 align-items: stretch;
+                flex-direction: column;
                 padding: 4px;
-                border: 1px solid $primary-color;
-                border-radius: 0px 0px 3px 3px;
 
                 input {
                     font-family: var(--body-serif);
