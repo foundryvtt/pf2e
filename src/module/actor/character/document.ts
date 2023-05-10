@@ -1442,15 +1442,14 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         const baseSelectors = [
             ...weaponSpecificSelectors,
-            "attack",
-            "mundane-attack",
             `${weapon.id}-attack`,
             `${slug}-attack`,
             `${slug}-attack-roll`,
-            "strike-attack-roll",
             `${unarmedOrWeapon}-attack-roll`,
             `${meleeOrRanged}-attack-roll`,
+            "strike-attack-roll",
             "attack-roll",
+            "attack",
             "all",
         ];
 
