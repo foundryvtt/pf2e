@@ -7,7 +7,6 @@ import {
     ActorTraitsData,
     ActorTraitsSource,
     HitPointsData,
-    Rollable,
     StrikeData,
     RollFunction,
 } from "@actor/data/base.ts";
@@ -126,12 +125,7 @@ interface CreatureTraitsData extends ActorTraitsData<CreatureTrait>, Omit<Creatu
     languages: ValuesList<Language>;
 }
 
-type SkillData = StatisticModifier &
-    AbilityBasedStatistic &
-    Rollable & {
-        lore?: boolean;
-        visible?: boolean;
-    };
+type SkillData = StatisticTraceData & AbilityBasedStatistic;
 
 /** The full save data for a character; including its modifiers and other details */
 type SaveData = StatisticTraceData & AbilityBasedStatistic & { saveDetail?: string };
