@@ -940,12 +940,22 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Creatures the poisoner hits with a critical hit are flat-footed against their attacks until the end of their next turn.</p>"
+                    "value": "<p>Creatures the poisoner hits with a critical hit are @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} against their attacks until the end of their next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "strike-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
