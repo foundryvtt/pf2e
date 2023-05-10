@@ -36,22 +36,10 @@ class PredicatePF2e extends Array<PredicateStatement> {
             : new PredicatePF2e(...predicate).test(options);
     }
 
-    /** Create a predicate from unknown data, with deprecation support for legacy objects */
-    static create(data: unknown, warn = false): PredicatePF2e {
+    /** Create a predicate from unknown data */
+    static create(data: unknown): PredicatePF2e {
         if (data instanceof PredicatePF2e) return data.clone();
         if (Array.isArray(data)) return new PredicatePF2e(data);
-        if (isObject<OldRawPredicate>(data)) {
-            if (warn) {
-                foundry.utils.logCompatibilityWarning("Predicate data must be an array", {
-                    mode: CONST.COMPATIBILITY_MODES.WARNING,
-                    since: "4.2.0",
-                    until: "4.5.0",
-                });
-            }
-
-            return new PredicatePF2e(convertLegacyData(data));
-        }
-
         return new PredicatePF2e();
     }
 
@@ -217,36 +205,6 @@ class StatementValidator {
     }
 }
 
-function convertLegacyData(predicate: OldRawPredicate): RawPredicate {
-    const keys = Object.keys(predicate);
-    if (keys.length === 0) return [];
-    if (keys.length === 1 && Array.isArray(predicate.all)) {
-        return deepClone(predicate.all);
-    }
-    if (keys.length === 1 && Array.isArray(predicate.any) && predicate.any.length === 1) {
-        return deepClone(predicate.any);
-    }
-
-    return deepClone(
-        [
-            predicate.all ?? [],
-            Array.isArray(predicate.any) ? { or: predicate.any } : [],
-            Array.isArray(predicate.not)
-                ? predicate.not.length === 1
-                    ? { not: predicate.not[0]! }
-                    : { nor: predicate.not }
-                : [],
-        ].flat()
-    );
-}
-
-interface OldRawPredicate {
-    label?: unknown;
-    all?: PredicateStatement[];
-    any?: PredicateStatement[];
-    not?: PredicateStatement[];
-}
-
 type EqualTo = { eq: [string, string | number] };
 type GreaterThan = { gt: [string, string | number] };
 type GreaterThanEqualTo = { gte: [string, string | number] };
@@ -267,4 +225,4 @@ type PredicateStatement = Atom | CompoundStatement;
 
 type RawPredicate = PredicateStatement[];
 
-export { PredicatePF2e, PredicateStatement, RawPredicate, StatementValidator, convertLegacyData };
+export { PredicatePF2e, PredicateStatement, RawPredicate, StatementValidator };
