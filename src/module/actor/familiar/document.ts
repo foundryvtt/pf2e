@@ -1,5 +1,5 @@
 import { CharacterPF2e, CreaturePF2e } from "@actor";
-import { CreatureSaves, LabeledSpeed } from "@actor/creature/data.ts";
+import { CreatureSaves, CreatureSkills, LabeledSpeed } from "@actor/creature/data.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { CheckModifier, MODIFIER_TYPE, ModifierPF2e, StatisticModifier, applyStackingRules } from "@actor/modifiers.ts";
 import { SaveType } from "@actor/types.ts";
@@ -285,56 +285,32 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         }
 
         // Skills
-        for (const shortForm of SKILL_ABBREVIATIONS) {
+        this.skills = Array.from(SKILL_ABBREVIATIONS).reduce((builtSkills, shortForm) => {
             const longForm = SKILL_DICTIONARY[shortForm];
             const modifiers = [new ModifierPF2e("PF2E.MasterLevel", masterLevel, MODIFIER_TYPE.UNTYPED)];
             if (["acr", "ste"].includes(shortForm)) {
-                modifiers.push(
-                    new ModifierPF2e(
-                        `PF2E.MasterAbility.${systemData.master.ability}`,
-                        masterAbilityModifier,
-                        MODIFIER_TYPE.UNTYPED
-                    )
-                );
+                const label = `PF2E.MasterAbility.${systemData.master.ability}`;
+                modifiers.push(new ModifierPF2e(label, masterAbilityModifier, MODIFIER_TYPE.UNTYPED));
             }
+
             const ability = SKILL_EXPANDED[longForm].ability;
             const domains = [longForm, `${ability}-based`, "skill-check", "all"];
-            modifiers.push(...extractModifiers(synthetics, domains));
 
             const label = CONFIG.PF2E.skills[shortForm] ?? longForm;
-            const stat = mergeObject(new StatisticModifier(longForm, modifiers), {
-                adjustments: extractDegreeOfSuccessAdjustments(synthetics, domains),
+            const statistic = new Statistic(this, {
+                slug: longForm,
                 label,
                 ability,
-                value: 0,
-                roll: async (params: RollParameters): Promise<Rolled<CheckRoll> | null> => {
-                    const label = game.i18n.format("PF2E.SkillCheckWithName", {
-                        skillName: game.i18n.localize(CONFIG.PF2E.skills[shortForm]),
-                    });
-                    const rollOptions = new Set(params.options ?? []);
-                    const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, rollOptions);
-
-                    const roll = await CheckPF2e.roll(
-                        new CheckModifier(label, stat),
-                        { actor: this, type: "skill-check", options: rollOptions, dc: params.dc, rollTwice },
-                        params.event,
-                        params.callback
-                    );
-
-                    for (const rule of this.rules.filter((r) => !r.ignored)) {
-                        await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions });
-                    }
-
-                    return roll;
-                },
+                domains,
+                modifiers,
+                lore: false,
+                check: { type: "skill-check" },
             });
-            stat.value = stat.totalModifier;
-            stat.breakdown = stat.modifiers
-                .filter((m) => m.enabled)
-                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                .join(", ");
-            systemData.skills[shortForm] = stat;
-        }
+
+            builtSkills[longForm] = builtSkills[shortForm] = statistic;
+            this.system.skills[shortForm] = statistic.getTraceData({ rollable: ["4.12", "5.0"] });
+            return builtSkills;
+        }, {} as CreatureSkills);
     }
 
     /** Familiars cannot have item bonuses. Nor do they have ability mods nor proficiency (sans master level) */

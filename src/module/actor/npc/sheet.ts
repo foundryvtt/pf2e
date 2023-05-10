@@ -332,9 +332,6 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
         const skills = sheetSystemData.skills;
         for (const shortForm of sortedSkillsIds) {
             const skill = skills[shortForm as SkillAbbreviation];
-            skill.label = objectHasKey(CONFIG.PF2E.skillList, skill.expanded)
-                ? game.i18n.localize(CONFIG.PF2E.skillList[skill.expanded])
-                : skill.label ?? skill.slug;
             skill.adjustedHigher = skill.value > Number(skill.base);
             skill.adjustedLower = skill.value < Number(skill.base);
         }

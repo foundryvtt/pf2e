@@ -34,7 +34,6 @@ import {
     CreatureSystemData,
     LabeledSpeed,
     SenseData,
-    SkillData,
     VisionLevel,
     VisionLevels,
 } from "./data.ts";
@@ -54,49 +53,11 @@ import { SIZE_TO_REACH } from "./values.ts";
 abstract class CreaturePF2e<
     TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null
 > extends ActorPF2e<TParent> {
-    // Internal cached value for creature skills
-    protected _skills: CreatureSkills | null = null;
-
     declare parties: Set<PartyPF2e>;
-
-    /** Skill `Statistic`s for the creature */
-    override get skills(): CreatureSkills {
-        if (this._skills) return this._skills;
-
-        this._skills = Object.entries(this.system.skills).reduce((current, [shortForm, skill]: [string, SkillData]) => {
-            if (!objectHasKey(this.system.skills, shortForm)) return current;
-            const longForm = skill.slug;
-            const skillName = game.i18n.localize(skill.label ?? CONFIG.PF2E.skills[shortForm]) || skill.slug;
-            const domains = ["all", "skill-check", longForm, `${skill.ability}-based`, `${skill.ability}-skill-check`];
-            if (skill.lore) domains.push("lore-skill-check");
-
-            current[longForm] = new Statistic(this, {
-                slug: longForm,
-                label: skillName,
-                lore: !!skill.lore,
-                proficient: skill.visible,
-                domains,
-                check: { type: "skill-check" },
-                modifiers: [...skill.modifiers],
-            });
-
-            if (shortForm !== longForm) {
-                Object.defineProperty(current, shortForm, {
-                    get: () => {
-                        console.warn(
-                            `Short-form skill abbreviations such as actor.skills.${shortForm} are deprecated.`,
-                            `Use actor.skills.${longForm} instead.`
-                        );
-                        return current[longForm];
-                    },
-                });
-            }
-
-            return current;
-        }, {} as CreatureSkills);
-
-        return this._skills;
-    }
+    /** Skill checks for the creature, built during data prep */
+    declare skills: CreatureSkills;
+    /** Saving throw rolls for the creature, built during data prep */
+    declare saves: Record<SaveType, Statistic>;
 
     /** The creature's position on the alignment axes */
     get alignment(): Alignment {
@@ -303,7 +264,6 @@ abstract class CreaturePF2e<
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
     override prepareBaseData(): void {
         super.prepareBaseData();
-        this._skills = null;
 
         const attributes = this.system.attributes;
         attributes.hp = mergeObject(attributes.hp ?? {}, { negativeHealing: false });
@@ -827,9 +787,6 @@ abstract class CreaturePF2e<
 interface CreaturePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     readonly _source: CreatureSource;
     system: CreatureSystemData;
-
-    /** Saving throw rolls for the creature, built during data prep */
-    saves: Record<SaveType, Statistic>;
 
     get traits(): Set<CreatureTrait>;
 

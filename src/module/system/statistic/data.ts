@@ -2,6 +2,7 @@ import { ModifierPF2e, RawModifier } from "@actor/modifiers.ts";
 import { AbilityString } from "@actor/types.ts";
 import { ZeroToFour } from "@module/data.ts";
 import { CheckType } from "@system/check/index.ts";
+import { RollParameters } from "@system/rolls.ts";
 
 export interface StatisticCheckData {
     type: CheckType;
@@ -39,6 +40,8 @@ export interface StatisticData {
     domains?: string[];
     /** Any additional modifiers not already handled by fetching modifiers using domains as selectors */
     modifiers?: ModifierPF2e[];
+    /** If given, filters all automatically acquired modifiers */
+    filter?: (m: ModifierPF2e) => boolean;
     /**
      * Any static roll options that should be added to the list of roll options.
      * This does not include actor, rank, or basic item roll options.
@@ -74,4 +77,7 @@ export interface StatisticTraceData {
     dc: number;
     breakdown: string;
     _modifiers: Required<RawModifier>[];
+
+    /** @deprecated Backwards compatibility for macros only */
+    roll?: (args: RollParameters) => Promise<unknown>;
 }

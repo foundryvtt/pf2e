@@ -114,6 +114,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /** A collection of this actor's conditions */
     declare conditions: ActorConditions<this>;
 
+    /** Skill checks for the actor if supported by the actor type */
+    declare skills?: CreatureSkills;
+
     /** A cached copy of `Actor#itemTypes`, lazily regenerated every data preparation cycle */
     private declare _itemTypes: EmbeddedItemInstances<this> | null;
 
@@ -1746,7 +1749,6 @@ interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     readonly abilities?: Abilities;
     readonly effects: foundry.abstract.EmbeddedCollection<ActiveEffectPF2e<this>>;
     readonly items: foundry.abstract.EmbeddedCollection<ItemPF2e<this>>;
-    readonly skills?: CreatureSkills;
     system: ActorSystemData;
 
     prototypeToken: PrototypeTokenPF2e;
