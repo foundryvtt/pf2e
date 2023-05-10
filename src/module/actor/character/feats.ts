@@ -58,10 +58,21 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup>
                 ? `hb_${classSlug}`
                 : null;
 
+        const classFeatFilter = !classTrait
+            ? // A class hasn't been selected: no useful pre-filtering available
+              null
+            : this.actor.level < 2
+            ? // The PC's level is less than 2: only show feats for the class
+              `traits-${classTrait}`
+            : this.actor.itemTypes.feat.some((f) => f.traits.has("dedication"))
+            ? // The PC has at least one dedication feat: include all archetype feats
+              `traits-${classTrait},traits-archetype`
+            : // No dedication feat has been selected: include dedication but no other archetype feats
+              `traits-${classTrait},traits-dedication`;
         this.createGroup({
             id: "class",
             label: "PF2E.FeatClassHeader",
-            featFilter: classTrait ? `traits-${classTrait},traits-archetype` : null,
+            featFilter: classFeatFilter,
             supported: ["class"],
             slots: classFeatSlots?.class ?? [],
         });
