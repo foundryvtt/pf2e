@@ -28,6 +28,9 @@ const SETTINGS: Record<string, SettingRegistration> = {
         hint: "PF2E.SETTINGS.Variant.FreeArchetype.Hint",
         default: 0,
         type: Boolean,
+        onChange: () => {
+            resetActors(game.actors.filter((a) => a.type === "character"));
+        },
     },
     dualClassVariant: {
         name: "PF2E.SETTINGS.Variant.DualClass.Name",
