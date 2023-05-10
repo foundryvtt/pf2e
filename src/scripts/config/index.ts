@@ -176,7 +176,7 @@ const weaponCategories = {
 const baseArmorTypes = Object.keys(enJSON.PF2E.Item.Armor.Base).reduce(
     (map, slug) => ({
         ...map,
-        [slug]: `PF2E.Weapon.Base.${slug}`,
+        [slug]: `PF2E.Item.Armor.Base.${slug}`,
     }),
     {} as Record<keyof typeof enJSON.PF2E.Item.Armor.Base, string>
 );
