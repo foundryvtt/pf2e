@@ -426,7 +426,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     override prepareSiblingData(): void {
         super.prepareSiblingData();
         // Set the default label to the ammunition item's name
-        const ammoRules = (this.ammo?.system.rules ?? []).map((r) => ({ label: this.ammo?.name, ...deepClone(r) }));
+        const ammoRules = this.ammo?.system.rules.map((r) => ({ label: this.ammo?.name, ...deepClone(r) })) ?? [];
         this.system.rules.push(...ammoRules);
     }
 
@@ -435,7 +435,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         if (!(this.isMagical || materialData) || this.isSpecific) return null;
 
         // Adjust the weapon price according to precious material and runes
-        // Base Prices are not included in these cases
+        // Base prices are not included in these cases
         // https://2e.aonprd.com/Rules.aspx?ID=731
         // https://2e.aonprd.com/Equipment.aspx?ID=380
         const runesData = this.getRunesValuationData();
@@ -444,9 +444,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const bulk = Math.max(Math.ceil(heldOrStowedBulk.normal), 1);
         const materialValue = materialPrice + (bulk * materialPrice) / 10;
         const runeValue = runesData.reduce((sum, rune) => sum + rune.price, 0);
-        const modifiedPrice = new CoinsPF2e({ gp: runeValue + materialValue });
 
-        return modifiedPrice;
+        return new CoinsPF2e({ gp: runeValue + materialValue });
     }
 
     private getRunesValuationData(): RuneValuationData[] {
@@ -455,7 +454,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             WEAPON_VALUATION_DATA.potency[this.system.runes.potency],
             WEAPON_VALUATION_DATA.striking[this.system.runes.striking],
             ...this.system.runes.property.map((p) => propertyRuneData[p]),
-        ].filter((datum): datum is RuneValuationData => !!datum);
+        ].filter((d): d is RuneValuationData => !!d);
     }
 
     private getMaterialValuationData(): MaterialGradeData | null {
