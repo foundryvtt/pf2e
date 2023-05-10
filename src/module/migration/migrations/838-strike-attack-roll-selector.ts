@@ -3,7 +3,7 @@ import { MigrationBase } from "../base.ts";
 
 /** Replace all instances of "mundane-attack" selector with "strike-attack-roll" */
 export class Migration838StrikeAttackRollSelector extends MigrationBase {
-    static override version = 0.837;
+    static override version = 0.838;
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         for (const rule of source.system.rules) {
