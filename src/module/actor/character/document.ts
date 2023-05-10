@@ -1252,7 +1252,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         return statistic;
     }
 
-    prepareFeats(): void {
+    private prepareFeats(): void {
         this.pfsBoons = [];
         this.deityBoonsCurses = [];
         this.feats = new CharacterFeats(this);
