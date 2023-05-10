@@ -49,6 +49,7 @@ import {
 } from "./types.ts";
 import { SIZE_TO_REACH } from "./values.ts";
 import { RollParameters } from "@system/rolls.ts";
+import { createPonderousPenalty } from "@actor/character/helpers.ts";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 abstract class CreaturePF2e<
@@ -445,11 +446,15 @@ abstract class CreaturePF2e<
         const checkType = systemData.attributes.initiative.statistic || "perception";
         const baseStatistic = this.skills[checkType] ?? this.perception;
         const label = game.i18n.format("PF2E.InitiativeWithSkill", { skillName: baseStatistic.label });
+
+        const ponderousPenalty = this.isOfType("character") ? createPonderousPenalty(this) : null;
+
         const statistic = baseStatistic.extend({
             slug: "initiative",
             domains: ["initiative"],
             check: { type: "initiative", label },
             rollOptions: [baseStatistic.slug],
+            modifiers: [ponderousPenalty ?? []].flat(),
         });
 
         this.initiative = new ActorInitiative(this, statistic);
@@ -685,7 +690,6 @@ abstract class CreaturePF2e<
             const fromSynthetics = (this.synthetics.movementTypes[movementType] ?? []).flatMap((d) => d() ?? []);
             landSpeed.value = Math.max(landSpeed.value, ...fromSynthetics.map((s) => s.value));
 
-            const base = landSpeed.value;
             const modifiers = extractModifiers(this.synthetics, domains);
             const stat: CreatureSpeeds = mergeObject(
                 new StatisticModifier(`${movementType}-speed`, modifiers, rollOptions),
@@ -697,15 +701,27 @@ abstract class CreaturePF2e<
             const otherData = {
                 type: "land",
                 label: statLabel,
-                total: base + stat.totalModifier,
-                breakdown: [
-                    `${game.i18n.format("PF2E.SpeedBaseLabel", { type: typeLabel })} ${landSpeed.value}`,
-                    ...stat.modifiers.filter((m) => m.enabled).map((m) => `${m.label} ${m.signedValue}`),
-                ].join(", "),
             };
             this.rollOptions.all["speed:land"] = true;
 
-            return mergeObject(stat, otherData);
+            const merged = mergeObject(stat, otherData);
+            Object.defineProperties(merged, {
+                total: {
+                    get(): number {
+                        return landSpeed.value + stat.totalModifier;
+                    },
+                },
+                breakdown: {
+                    get(): string {
+                        return [
+                            `${game.i18n.format("PF2E.SpeedBaseLabel", { type: typeLabel })} ${landSpeed.value}`,
+                            ...stat.modifiers.filter((m) => m.enabled).map((m) => `${m.label} ${m.signedValue}`),
+                        ].join(", ");
+                    },
+                },
+            });
+
+            return merged;
         } else {
             const candidateSpeeds = ((): (BaseSpeedSynthetic | LabeledSpeed)[] => {
                 const { otherSpeeds } = systemData.attributes.speed;
@@ -734,21 +750,29 @@ abstract class CreaturePF2e<
 
             this.rollOptions.all[`speed:${movementType}`] = true;
 
-            const base = speed.value;
             const modifiers = extractModifiers(this.synthetics, domains);
-            const stat = mergeObject(new StatisticModifier(`${movementType}-speed`, modifiers, rollOptions), speed, {
-                overwrite: false,
+            const stat = new StatisticModifier(`${movementType}-speed`, modifiers, rollOptions);
+            const merged = mergeObject(stat, speed, { overwrite: false });
+            Object.defineProperties(merged, {
+                total: {
+                    get(): number {
+                        return speed.value + stat.totalModifier;
+                    },
+                },
+                breakdown: {
+                    get(): string {
+                        return [`${game.i18n.format("PF2E.SpeedBaseLabel", { type: speed.label })} ${speed.value}`]
+                            .concat(
+                                stat.modifiers
+                                    .filter((m) => m.enabled)
+                                    .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                            )
+                            .join(", ");
+                    },
+                },
             });
-            stat.total = base + stat.totalModifier;
-            stat.breakdown = [`${game.i18n.format("PF2E.SpeedBaseLabel", { type: speed.label })} ${base}`]
-                .concat(
-                    stat.modifiers
-                        .filter((m) => m.enabled)
-                        .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                )
-                .join(", ");
 
-            return stat;
+            return merged;
         }
     }
 
