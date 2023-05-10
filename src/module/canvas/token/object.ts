@@ -409,12 +409,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
 interface TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends Token<TDocument> {
     get layer(): TokenLayerPF2e<this>;
-
-    icon?: TokenImage;
-}
-
-interface TokenImage extends PIXI.Sprite {
-    src?: VideoFilePath;
 }
 
 type NumericFloatyEffect = { name: string; value?: number | null };
