@@ -15,6 +15,7 @@ import { ModifierPF2e } from "./modifiers.ts";
 import {
     ABILITY_ABBREVIATIONS,
     DC_SLUGS,
+    MOVEMENT_TYPES,
     SAVE_TYPES,
     SKILL_ABBREVIATIONS,
     SKILL_LONG_FORMS,
@@ -52,6 +53,8 @@ type ActorAlliance = "party" | "opposition" | null;
 type DCSlug = SetElement<typeof DC_SLUGS>;
 
 type SaveType = (typeof SAVE_TYPES)[number];
+
+type MovementType = (typeof MOVEMENT_TYPES)[number];
 
 interface AuraData {
     slug: string;
@@ -190,6 +193,7 @@ export {
     EmbeddedItemInstances,
     IWRType,
     ImmunityType,
+    MovementType,
     ResistanceType,
     RollContext,
     RollContextParams,

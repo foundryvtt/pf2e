@@ -5,8 +5,8 @@ import { CreatureSheetData } from "@actor/creature/types.ts";
 import { ALIGNMENT_TRAITS } from "@actor/creature/values.ts";
 import { NPCSkillsEditor } from "@actor/npc/skills-editor.ts";
 import { RecallKnowledgePopup } from "@actor/sheet/popups/recall-knowledge-popup.ts";
-import { AbilityString } from "@actor/types.ts";
-import { ABILITY_ABBREVIATIONS, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/values.ts";
+import { AbilityString, MovementType } from "@actor/types.ts";
+import { ABILITY_ABBREVIATIONS, MOVEMENT_TYPES, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/values.ts";
 import { createTagifyTraits } from "@module/sheet/helpers.ts";
 import { DicePF2e } from "@scripts/dice.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
@@ -28,6 +28,7 @@ import {
     NPCIdentificationSheetData,
     NPCSheetData,
     NPCSkillSheetData,
+    NPCSpeedSheetData,
     NPCSpellcastingSheetData,
     NPCStrikeSheetData,
     NPCSystemSheetData,
@@ -161,12 +162,36 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
         level.adjustedHigher = level.value > Number(level.base);
         level.adjustedLower = level.value < Number(level.base);
         const { ac, hp, perception, hardness } = sheetData.data.attributes;
+        const speedData = sheetData.data.attributes.speed;
         ac.adjustedHigher = ac.value > Number(ac.base);
         ac.adjustedLower = ac.value < Number(ac.base);
         hp.adjustedHigher = hp.max > Number(hp.base);
         hp.adjustedLower = hp.max < Number(hp.base);
         perception.adjustedHigher = perception.totalModifier > Number(perception.base);
         perception.adjustedLower = perception.totalModifier < Number(perception.base);
+        sheetData.speeds = {
+            land: {
+                label: speedData.label ?? "",
+                value: speedData.value,
+                details: speedData.details,
+                adjustedHigher: speedData.total > this.actor._source.system.attributes.speed.value,
+                adjustedLower: speedData.total < this.actor._source.system.attributes.speed.value,
+            },
+            ...MOVEMENT_TYPES.filter((t): t is Exclude<MovementType, "land"> => t !== "land").reduce((speeds, type) => {
+                const speed = speedData.otherSpeeds.find((s) => s.type === type);
+                return {
+                    ...speeds,
+                    [type]: speed
+                        ? {
+                              label: speed.label,
+                              value: speed.total,
+                              adjustedHigher: typeof speed.total === "number" && speed.total > speed.value,
+                              adjustedLower: typeof speed.total === "number" && speed.total < speed.value,
+                          }
+                        : null,
+                };
+            }, {} as Record<Exclude<MovementType, "land">, NPCSpeedSheetData | null>),
+        };
 
         sheetData.hasHardness = this.actor.traits.has("construct") || (Number(hardness?.value) || 0) > 0;
 

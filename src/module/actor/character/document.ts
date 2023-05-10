@@ -1,5 +1,5 @@
 import { CreaturePF2e, FamiliarPF2e } from "@actor";
-import { Abilities, CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation } from "@actor/creature/data.ts";
+import { Abilities, CreatureSpeeds, LabeledSpeed, SkillAbbreviation } from "@actor/creature/data.ts";
 import { CreatureUpdateContext } from "@actor/creature/types.ts";
 import { ALLIANCES } from "@actor/creature/values.ts";
 import { StrikeData } from "@actor/data/base.ts";
@@ -20,6 +20,7 @@ import {
     AttackItem,
     CheckContext,
     CheckContextParams,
+    MovementType,
     RollContext,
     RollContextParams,
     SaveType,

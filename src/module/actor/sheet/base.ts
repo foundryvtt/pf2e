@@ -310,11 +310,14 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         if (!this.options.editable) return;
 
         // Handlers for number inputs of properties subject to modification by AE-like rules elements
-        const manualPropertyInputs = htmlQueryAll(html, "select[data-property],input[data-property]");
+        const manualPropertyInputs = htmlQueryAll<HTMLInputElement | HTMLSelectElement>(
+            html,
+            "select[data-property],input[data-property]"
+        );
         for (const input of manualPropertyInputs) {
             input.addEventListener("focus", () => {
                 const propertyPath = input.dataset.property ?? "";
-                input.setAttribute("name", propertyPath);
+                input.name = propertyPath;
                 if (input instanceof HTMLInputElement) {
                     const baseValue = Number(getProperty(this.actor._source, propertyPath));
                     input.value = String(baseValue);
@@ -323,13 +326,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
             input.addEventListener("blur", () => {
                 input.removeAttribute("name");
-                input.removeAttribute("style");
                 const propertyPath = input.dataset.property ?? "";
                 const preparedValue = getProperty(this.actor, propertyPath);
                 if (input instanceof HTMLInputElement) {
-                    const isModifier = input.classList.contains("modifier") && Number(preparedValue) >= 0;
-                    const value = isModifier ? `+${preparedValue}` : preparedValue;
-                    input.value = String(value);
+                    const isPositiveModifier = input.classList.contains("modifier") && Number(preparedValue) >= 0;
+                    input.value = isPositiveModifier ? `+${preparedValue}` : String(preparedValue);
                 }
             });
         }

@@ -1,9 +1,10 @@
 import { ActorPF2e, PartyPF2e } from "@actor";
 import { HitPointsSummary } from "@actor/base.ts";
-import { CreatureSource } from "@actor/data/index.ts";
+import { createPonderousPenalty } from "@actor/character/helpers.ts";
 import { StrikeData } from "@actor/data/base.ts";
+import { CreatureSource } from "@actor/data/index.ts";
 import { MODIFIER_TYPE, MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
-import { SaveType, SkillLongForm } from "@actor/types.ts";
+import { MovementType, SaveType, SkillLongForm } from "@actor/types.ts";
 import { ArmorPF2e, ConditionPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
 import { isCycle } from "@item/container/helpers.ts";
 import { ArmorSource, ItemType } from "@item/data/index.ts";
@@ -12,32 +13,32 @@ import { isEquipped } from "@item/physical/usage.ts";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";
 import { Rarity, SIZES, SIZE_SLUGS } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
-import { RuleElementSynthetics } from "@module/rules/index.ts";
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
+import { RuleElementSynthetics } from "@module/rules/index.ts";
 import { BaseSpeedSynthetic } from "@module/rules/synthetics.ts";
-import { LightLevels } from "@scene/data.ts";
 import { UserPF2e } from "@module/user/index.ts";
+import { LightLevels } from "@scene/data.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { CheckPF2e, CheckRoll } from "@system/check/index.ts";
 import { DamageType } from "@system/damage/types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
+import { RollParameters } from "@system/rolls.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e, isObject, localizer, objectHasKey, setHasElement } from "@util";
+import { ActorInitiative, InitiativeRollResult } from "../initiative.ts";
 import {
     CreatureSkills,
     CreatureSpeeds,
     CreatureSystemData,
     LabeledSpeed,
-    MovementType,
     SenseData,
     SkillData,
     VisionLevel,
     VisionLevels,
 } from "./data.ts";
 import { setImmunitiesFromTraits } from "./helpers.ts";
-import { ActorInitiative, InitiativeRollResult } from "../initiative.ts";
 import { CreatureSensePF2e } from "./sense.ts";
 import {
     Alignment,
@@ -48,8 +49,6 @@ import {
     IsFlatFootedParams,
 } from "./types.ts";
 import { SIZE_TO_REACH } from "./values.ts";
-import { RollParameters } from "@system/rolls.ts";
-import { createPonderousPenalty } from "@actor/character/helpers.ts";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 abstract class CreaturePF2e<
