@@ -100,6 +100,7 @@ import {
     PCStrikeAttackTraits,
     WeaponAuxiliaryAction,
     createForceOpenPenalty,
+    createHinderingPenalty,
     createShoddyPenalty,
     imposeOversizedWeaponCondition,
 } from "./helpers.ts";
@@ -1213,35 +1214,42 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     override prepareSpeed(movementType: Exclude<MovementType, "land">): (LabeledSpeed & StatisticModifier) | null;
     override prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) | null;
     override prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) | null {
+        const statistic = super.prepareSpeed(movementType);
+        if (!statistic) return null;
+
         const { wornArmor } = this;
         const basePenalty = wornArmor?.speedPenalty ?? 0;
         const strength = this.system.abilities.str.value;
         const requirement = wornArmor?.strength ?? strength;
-        const value = strength >= requirement ? Math.min(basePenalty + 5, 0) : basePenalty;
+        const penaltyValue = strength >= requirement ? Math.min(basePenalty + 5, 0) : basePenalty;
 
         const modifierName = wornArmor?.name ?? "PF2E.ArmorSpeedLabel";
         const slug = "armor-speed-penalty";
-        const armorPenalty = value
+        const armorPenalty = penaltyValue
             ? new ModifierPF2e({
                   slug,
                   label: modifierName,
-                  modifier: value,
-                  type: MODIFIER_TYPE.UNTYPED,
+                  modifier: penaltyValue,
+                  type: "untyped",
+                  predicate: new PredicatePF2e({ not: "armor:ignore-speed-penalty" }),
                   adjustments: extractModifierAdjustments(
                       this.synthetics.modifierAdjustments,
-                      ["speed", "all-speeds", `${movementType}-speed`],
+                      ["all-speeds", "speed", `${movementType}-speed`],
                       slug
                   ),
               })
             : null;
+
         if (armorPenalty) {
-            const speedModifiers = (this.synthetics.statisticsModifiers["speed"] ??= []);
-            armorPenalty.predicate.push({ not: "armor:ignore-speed-penalty" });
-            armorPenalty.test(this.getRollOptions(["speed", `${movementType}-speed`]));
-            speedModifiers.push(() => armorPenalty);
+            statistic.push(armorPenalty);
+            statistic.calculateTotal(new Set(this.getRollOptions(["all-speeds", "speed", `${movementType}-speed`])));
         }
 
-        return super.prepareSpeed(movementType);
+        // A hindering penalty can't be removed or mitigated
+        const hinderingPenalty = createHinderingPenalty(this);
+        if (hinderingPenalty) statistic.push(hinderingPenalty);
+
+        return statistic;
     }
 
     prepareFeats(): void {
@@ -1434,15 +1442,14 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         const baseSelectors = [
             ...weaponSpecificSelectors,
-            "attack",
-            "mundane-attack",
             `${weapon.id}-attack`,
             `${slug}-attack`,
             `${slug}-attack-roll`,
-            "strike-attack-roll",
             `${unarmedOrWeapon}-attack-roll`,
             `${meleeOrRanged}-attack-roll`,
+            "strike-attack-roll",
             "attack-roll",
+            "attack",
             "all",
         ];
 

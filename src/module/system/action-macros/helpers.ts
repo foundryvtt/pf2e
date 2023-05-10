@@ -306,7 +306,7 @@ export class ActionMacroHelpers {
                 slug,
                 type: MODIFIER_TYPE.POTENCY,
                 label: "PF2E.AutomaticBonusProgression.attackPotency",
-                modifier: item.actor.synthetics.weaponPotency["mundane-attack"]?.[0]?.bonus ?? 0,
+                modifier: item.actor.synthetics.weaponPotency["strike-attack-roll"]?.[0]?.bonus ?? 0,
                 adjustments: extractModifierAdjustments(item.actor.synthetics.modifierAdjustments, [selector], slug),
             });
         } else if (item.system.runes.potency > 0) {
