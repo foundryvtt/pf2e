@@ -1,9 +1,8 @@
 import { FeatPF2e, ItemPF2e } from "@item";
-import { ItemGrantData } from "@item/data/base.ts";
 import { FeatCategory } from "@item/feat/types.ts";
 import { sluggify } from "@util";
 import { CharacterPF2e } from "./document.ts";
-import { BonusFeat, GrantedFeat, SlottedFeat } from "./data/index.ts";
+import { BonusFeat, SlottedFeat } from "./data/index.ts";
 
 type FeatSlotLevel = number | { id: string; label: string };
 
@@ -125,20 +124,6 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup>
         this.set(options.id, new FeatGroup(this.actor, options));
     }
 
-    #combineGrants(feat: FeatPF2e): { feat: FeatPF2e; grants: GrantedFeat[] } {
-        const getGrantedItems = (grants: Record<string, ItemGrantData>): GrantedFeat[] => {
-            return Object.values(grants).flatMap((grant) => {
-                const item = this.actor.items.get(grant.id);
-                // Allow heritages to be included as granted "feats" (see Elf Atavism, Chosen of Lamashtu)
-                return (item?.isOfType("feat") && !item.system.location) || item?.isOfType("heritage")
-                    ? { feat: item, grants: getGrantedItems(item.flags.pf2e.itemGrants) }
-                    : [];
-            });
-        };
-
-        return { feat, grants: getGrantedItems(feat.flags.pf2e.itemGrants) };
-    }
-
     /** Inserts a feat into the character. If category is empty string, its a bonus feat */
     async insertFeat(feat: FeatPF2e, options: { categoryId: string; slotId?: string }): Promise<ItemPF2e<TActor>[]> {
         const { category, slotId } = this.get(options.categoryId)?.isFeatValid(feat)
@@ -239,27 +224,24 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup>
                 continue;
             }
 
-            const base = this.#combineGrants(feat);
-
             const location = feat.system.location;
             const categoryForSlot = categoryBySlot[location ?? ""];
             const slot = categoryForSlot?.slots[location ?? ""];
             if (slot && slot.feat) {
                 console.debug(`PF2e System | Multiple feats with same index: ${feat.name}, ${slot.feat.name}`);
-                this.unorganized.push(base);
+                this.unorganized.push({ feat });
             } else if (slot) {
                 slot.feat = feat;
-                slot.grants = base.grants;
                 feat.group = categoryForSlot;
             } else {
                 // Perhaps this belongs to a un-slotted group matched on the location or
                 // on the feat type. Failing that, it gets dumped into bonuses.
                 const group = this.get(feat.system.location ?? "") ?? this.get(feat.category);
                 if (group && !group.slotted) {
-                    group.feats.push(base);
+                    group.feats.push({ feat });
                     feat.group = group;
                 } else {
-                    this.unorganized.push(base);
+                    this.unorganized.push({ feat });
                 }
             }
         }

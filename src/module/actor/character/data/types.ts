@@ -26,7 +26,7 @@ import {
 } from "@actor/data/base.ts";
 import { StatisticModifier } from "@actor/modifiers.ts";
 import { AbilityString, SaveType } from "@actor/types.ts";
-import { FeatPF2e, HeritagePF2e, WeaponPF2e } from "@item";
+import { FeatPF2e, WeaponPF2e } from "@item";
 import { ArmorCategory } from "@item/armor/types.ts";
 import { ProficiencyRank } from "@item/data/index.ts";
 import { DeitySystemData } from "@item/deity/data.ts";
@@ -426,21 +426,14 @@ interface CharacterTraitsData extends CreatureTraitsData {
     senses: CreatureSensePF2e[];
 }
 
-interface GrantedFeat {
-    feat: FeatPF2e | HeritagePF2e;
-    grants: GrantedFeat[];
-}
-
 interface SlottedFeat {
     id: string;
     level: number | string;
     feat?: FeatPF2e;
-    grants: GrantedFeat[];
 }
 
 interface BonusFeat {
     feat: FeatPF2e;
-    grants: GrantedFeat[];
 }
 
 export {
@@ -461,7 +454,6 @@ export {
     CharacterSystemData,
     CharacterTraitsData,
     ClassDCData,
-    GrantedFeat,
     LinkedProficiency,
     MagicTraditionProficiencies,
     MartialProficiencies,
