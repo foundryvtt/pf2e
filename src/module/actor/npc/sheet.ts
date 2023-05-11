@@ -440,11 +440,6 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
 
     // ROLLS
 
-    async #rollPerception(event: JQuery.ClickEvent): Promise<void> {
-        const options = this.actor.getRollOptions(["all", "perception-check"]);
-        await this.actor.attributes.perception.roll({ event, options });
-    }
-
     async #rollAbility(event: JQuery.ClickEvent, abilityId: AbilityString): Promise<void> {
         const bonus = this.actor.system.abilities[abilityId].mod;
         const parts = ["@bonus"];
@@ -469,7 +464,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
 
         if (attribute) {
             if (attribute === "perception") {
-                await this.#rollPerception(event);
+                await this.actor.perception.roll(eventToRollParams(event));
             } else if (setHasElement(ABILITY_ABBREVIATIONS, attribute)) {
                 this.#rollAbility(event, attribute);
             }

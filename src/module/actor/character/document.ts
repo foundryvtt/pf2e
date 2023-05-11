@@ -155,16 +155,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         };
     }
 
-    override get perception(): Statistic {
-        const data = this.system.attributes.perception;
-        const base = super.perception;
-        return base.extend({
-            slug: base.slug,
-            rank: data.rank,
-            ability: data.ability,
-        });
-    }
-
     get heroPoints(): { value: number; max: number } {
         return deepClone(this.system.resources.heroPoints);
     }
@@ -476,7 +466,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         game.pf2e.variantRules.AutomaticBonusProgression.concatModifiers(this);
 
         // Extract as separate variables for easier use in this method.
-        const { statisticsModifiers, rollNotes } = synthetics;
+        const { statisticsModifiers } = synthetics;
 
         // Update experience percentage from raw experience amounts.
         systemData.details.xp.pct = Math.min(
@@ -566,64 +556,18 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         this.prepareMartialProficiencies();
 
         // Perception
-        {
-            const domains = ["perception", "wis-based", "all"];
-            const proficiencyRank = systemData.attributes.perception.rank;
-            const modifiers = [
-                createAbilityModifier({ actor: this, ability: "wis", domains }),
-                createProficiencyModifier({ actor: this, rank: proficiencyRank, domains }),
-            ];
-
-            modifiers.push(...extractModifiers(synthetics, domains));
-
-            const stat = mergeObject(
-                new StatisticModifier("perception", modifiers, this.getRollOptions(domains)),
-                systemData.attributes.perception,
-                { overwrite: false }
-            );
-            stat.breakdown = stat.modifiers
-                .filter((m) => m.enabled)
-                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                .join(", ");
-            stat.notes = extractNotes(rollNotes, domains);
-            stat.value = stat.totalModifier;
-            stat.roll = async (params: RollParameters): Promise<Rolled<CheckRoll> | null> => {
-                const label = game.i18n.localize("PF2E.PerceptionCheck");
-                const rollOptions = new Set(params.options ?? []);
-                ensureProficiencyOption(rollOptions, proficiencyRank);
-
-                // Get just-in-time roll options from rule elements
-                for (const rule of this.rules.filter((r) => !r.ignored)) {
-                    rule.beforeRoll?.(domains, rollOptions);
-                }
-
-                const rollTwice = extractRollTwice(synthetics.rollTwice, domains, rollOptions);
-                const context: CheckRollContext = {
-                    actor: this,
-                    type: "perception-check",
-                    options: rollOptions,
-                    dc: params.dc,
-                    rollTwice,
-                    notes: stat.notes,
-                    dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, domains),
-                };
-
-                const roll = await CheckPF2e.roll(
-                    new CheckModifier(label, stat),
-                    context,
-                    params.event,
-                    params.callback
-                );
-
-                for (const rule of this.rules.filter((r) => !r.ignored)) {
-                    await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions });
-                }
-
-                return roll;
-            };
-
-            systemData.attributes.perception = stat;
-        }
+        this.perception = new Statistic(this, {
+            slug: "perception",
+            label: "PF2E.PerceptionCheck",
+            ability: "wis",
+            rank: systemData.attributes.perception.rank,
+            domains: ["perception", "wis-based", "all"],
+            check: { type: "perception-check" },
+        });
+        systemData.attributes.perception = mergeObject(
+            systemData.attributes.perception,
+            this.perception.getTraceData({ value: "mod", rollable: ["4.12", "5.0"] })
+        );
 
         // Skills
         this.skills = this.prepareSkills();

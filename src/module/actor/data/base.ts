@@ -179,9 +179,9 @@ interface InitiativeData extends StatisticTraceData {
 }
 
 /** The full data for character perception rolls (which behave similarly to skills). */
-type PerceptionData = StatisticModifier & AbilityBasedStatistic & Rollable;
-/** The full data for character AC; includes the armor check penalty. */
+type PerceptionData = StatisticTraceData & AbilityBasedStatistic;
 
+/** The full data for character AC; includes the armor check penalty. */
 interface ArmorClassData {
     /** The actual AC value */
     value: number;

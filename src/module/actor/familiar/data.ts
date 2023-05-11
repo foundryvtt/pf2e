@@ -60,11 +60,8 @@ interface FamiliarAttributesSource {
 
 interface FamiliarAttributes extends CreatureAttributes {
     ac: { value: number; breakdown: string; check?: number };
-    perception: FamiliarPerception;
     initiative?: never;
 }
-
-type FamiliarPerception = { value: number } & StatisticModifier & Rollable;
 
 interface FamiliarTraitsData extends CreatureTraitsData {
     senses: CreatureSensePF2e[];
