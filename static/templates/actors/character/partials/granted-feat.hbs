@@ -1,13 +1,13 @@
 {{#if feat.grants}}
     <ol class="nested-items">
-        {{#each feat.grants as |grant|}}
-            <li data-item-id="{{grant.feat.id}}">
+        {{#each feat.grants as |feat|}}
+            <li data-item-id="{{feat.id}}">
                 <div class="item-name rollable">
                     <div class="feat-slot-title"></div>
                     <div class="item-image">
-                        <img class="item-icon" src="{{grant.feat.img}}" alt="{{grant.feat.name}}">
+                        <img class="item-icon" src="{{feat.img}}" alt="{{feat.name}}">
                     </div>
-                    <h4>{{grant.feat.name}}</h4>
+                    <h4>{{feat.name}}</h4>
                 </div>
                 <div class="item-controls">
                     {{#if @root.editable}}
@@ -15,7 +15,7 @@
                         <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-fw fa-trash"></i></a>
                     {{/if}}
                 </div>
-                {{> "systems/pf2e/templates/actors/character/partials/granted-feat.hbs" feat=grant}}
+                {{> "systems/pf2e/templates/actors/character/partials/granted-feat.hbs" feat=feat}}
             </li>
         {{/each}}
     </ol>
