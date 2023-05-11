@@ -237,7 +237,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             const totalMod = applyStackingRules(mods);
             this.perception = new Statistic(this, {
                 slug: "perception",
-                label: "PF2E.PerceptionCheck",
+                label: "PF2E.PerceptionLabel",
                 domains,
                 modifiers: [new ModifierPF2e("PF2E.Actor.Familiar.Master.Perception", totalMod, MODIFIER_TYPE.UNTYPED)],
                 check: { type: "perception-check" },

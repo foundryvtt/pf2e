@@ -558,7 +558,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Perception
         this.perception = new Statistic(this, {
             slug: "perception",
-            label: "PF2E.PerceptionCheck",
+            label: "PF2E.PerceptionLabel",
             ability: "wis",
             rank: systemData.attributes.perception.rank,
             domains: ["perception", "wis-based", "all"],
