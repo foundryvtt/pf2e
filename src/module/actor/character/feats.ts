@@ -3,6 +3,7 @@ import { FeatCategory } from "@item/feat/types.ts";
 import { sluggify } from "@util";
 import { CharacterPF2e } from "./document.ts";
 import { BonusFeat, SlottedFeat } from "./data/index.ts";
+import { ActorPF2e } from "@actor";
 
 type FeatSlotLevel = number | { id: string; label: string };
 
@@ -194,7 +195,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup>
         const category = validCategories.at(0);
         if (validCategories.length === 1 && category) {
             const slotId = category.slotted
-                ? Object.keys(category.slots).find((s) => !category.slots[s].feat) ?? null
+                ? Object.keys(category.slots).find((s) => !category.slots[s]?.feat) ?? null
                 : null;
             return { category, slotId };
         }
@@ -224,25 +225,11 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup>
                 continue;
             }
 
-            const location = feat.system.location;
-            const categoryForSlot = categoryBySlot[location ?? ""];
-            const slot = categoryForSlot?.slots[location ?? ""];
-            if (slot && slot.feat) {
-                console.debug(`PF2e System | Multiple feats with same index: ${feat.name}, ${slot.feat.name}`);
+            // Find the group then assign the feat
+            const location = feat.system.location ?? "";
+            const group = categoryBySlot[location] ?? this.get(location) ?? this.get(feat.category);
+            if (!group?.assignFeat(feat)) {
                 this.unorganized.push({ feat });
-            } else if (slot) {
-                slot.feat = feat;
-                feat.group = categoryForSlot;
-            } else {
-                // Perhaps this belongs to a un-slotted group matched on the location or
-                // on the feat type. Failing that, it gets dumped into bonuses.
-                const group = this.get(feat.system.location ?? "") ?? this.get(feat.category);
-                if (group && !group.slotted) {
-                    group.feats.push({ feat });
-                    feat.group = group;
-                } else {
-                    this.unorganized.push({ feat });
-                }
             }
         }
 
@@ -268,9 +255,9 @@ class FeatGroup {
     supported: FeatCategory[] = [];
 
     /** Lookup for the slots themselves */
-    slots: Record<string, SlottedFeat> = {};
+    slots: Record<string, SlottedFeat | undefined> = {};
 
-    constructor(actor: CharacterPF2e, options: FeatCategoryOptions) {
+    constructor(actor: ActorPF2e, options: FeatCategoryOptions) {
         const maxLevel = options.level ?? actor.level;
         this.id = options.id;
         this.label = options.label;
@@ -291,9 +278,29 @@ class FeatGroup {
         }
     }
 
+    /** Assigns a feat to its correct slot, returning true if it was assigned successfully */
+    assignFeat(feat: FeatPF2e): boolean {
+        const slot: SlottedFeat | undefined = this.slots[feat.system.location ?? ""];
+        if (!slot && this.slotted) return false;
+
+        if (slot?.feat) {
+            console.debug(`PF2e System | Multiple feats with same index: ${feat.name}, ${slot.feat.name}`);
+            return false;
+        }
+
+        if (slot) {
+            slot.feat = feat;
+        } else {
+            this.feats.push({ feat });
+        }
+
+        feat.group = this;
+        return true;
+    }
+
     /** Is this category slotted and without any empty slots */
     get isFull(): boolean {
-        return this.slotted && Object.values(this.slots).every((s) => !!s.feat);
+        return this.slotted && Object.values(this.slots).every((s) => !!s?.feat);
     }
 
     isFeatValid(feat: FeatPF2e): boolean {
