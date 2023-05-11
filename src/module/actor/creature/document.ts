@@ -59,6 +59,8 @@ abstract class CreaturePF2e<
     /** Saving throw rolls for the creature, built during data prep */
     declare saves: Record<SaveType, Statistic>;
 
+    declare perception: Statistic;
+
     /** The creature's position on the alignment axes */
     get alignment(): Alignment {
         return this.system.details.alignment.value;
@@ -167,19 +169,6 @@ abstract class CreaturePF2e<
     get isSpellcaster(): boolean {
         const { itemTypes } = this;
         return itemTypes.spellcastingEntry.length > 0 && itemTypes.spell.length > 0;
-    }
-
-    get perception(): Statistic {
-        const stat = this.system.attributes.perception;
-        return new Statistic(this, {
-            slug: "perception",
-            label: "PF2E.PerceptionLabel",
-            check: {
-                label: "PF2E.PerceptionCheck",
-                type: "perception-check",
-            },
-            modifiers: [...stat.modifiers],
-        });
     }
 
     get wornArmor(): ArmorPF2e<this> | null {

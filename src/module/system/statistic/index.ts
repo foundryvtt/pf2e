@@ -239,7 +239,7 @@ class Statistic extends SimpleStatistic {
         };
     }
 
-    /** Returns data intended to be merged back into actor data */
+    /** Returns data intended to be merged back into actor data. By default the value is the DC */
     getTraceData(
         this: Statistic,
         options: { value?: "dc" | "mod"; rollable?: [string, string] } = {}

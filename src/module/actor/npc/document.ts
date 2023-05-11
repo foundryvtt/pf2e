@@ -3,7 +3,7 @@ import { Abilities, CreatureSkills } from "@actor/creature/data.ts";
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
 import { strikeFromMeleeItem } from "@actor/helpers.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
-import { CheckModifier, MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { AbilityString, SaveType } from "@actor/types.ts";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
 import { ItemPF2e, MeleePF2e } from "@item";
@@ -11,17 +11,9 @@ import { ItemType } from "@item/data/index.ts";
 import { calculateDC } from "@module/dc.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { CreatureIdentificationData, creatureIdentificationDCs } from "@module/recall-knowledge.ts";
-import {
-    extractDegreeOfSuccessAdjustments,
-    extractModifierAdjustments,
-    extractModifiers,
-    extractNotes,
-    extractRollTwice,
-} from "@module/rules/helpers.ts";
+import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
-import { CheckPF2e, CheckRoll } from "@system/check/index.ts";
 import { PredicatePF2e } from "@system/predication.ts";
-import { RollParameters } from "@system/rolls.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { createHTMLElement, objectHasKey, sluggify } from "@util";
 import { NPCFlags, NPCSource, NPCSystemData } from "./data.ts";
@@ -161,7 +153,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
         // Extract as separate variables for easier use in this method.
         const { synthetics } = this;
-        const { modifierAdjustments, statisticsModifiers, strikes, rollNotes } = synthetics;
+        const { modifierAdjustments, statisticsModifiers, strikes } = synthetics;
         const itemTypes = this.itemTypes;
         const baseLevel = this.system.details.level.base;
 
@@ -284,57 +276,25 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         // Perception
         {
             const domains = ["perception", "wis-based", "all"];
-            const base = system.attributes.perception.value;
-            const modifiers = [
-                new ModifierPF2e({
-                    slug: "base",
-                    label: "PF2E.ModifierTitle",
-                    modifier: base,
-                    adjustments: extractModifierAdjustments(modifierAdjustments, domains, "base"),
-                }),
-                ...extractModifiers(this.synthetics, domains),
-            ];
-
-            const stat = mergeObject(
-                new StatisticModifier("perception", modifiers, this.getRollOptions(domains)),
+            this.perception = new Statistic(this, {
+                slug: "perception",
+                label: "PF2E.PerceptionCheck",
+                ability: "wis",
+                domains,
+                modifiers: [
+                    new ModifierPF2e({
+                        slug: "base",
+                        label: "PF2E.ModifierTitle",
+                        modifier: system.attributes.perception.value,
+                        adjustments: extractModifierAdjustments(modifierAdjustments, domains, "base"),
+                    }),
+                ],
+                check: { type: "perception-check" },
+            });
+            system.attributes.perception = mergeObject(
                 system.attributes.perception,
-                { overwrite: false }
+                this.perception.getTraceData({ value: "mod", rollable: ["4.12", "5.0"] })
             );
-            stat.base = base;
-            stat.notes = extractNotes(rollNotes, domains);
-            stat.value = stat.totalModifier;
-            stat.breakdown = stat.modifiers
-                .filter((m) => m.enabled)
-                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                .join(", ");
-            stat.roll = async (params: RollParameters): Promise<Rolled<CheckRoll> | null> => {
-                const label = game.i18n.localize("PF2E.PerceptionCheck");
-                const rollOptions = new Set(params.options ?? []);
-                const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, rollOptions);
-
-                const roll = await CheckPF2e.roll(
-                    new CheckModifier(label, stat),
-                    {
-                        actor: this,
-                        type: "perception-check",
-                        options: new Set(params.options ?? []),
-                        dc: params.dc,
-                        rollTwice,
-                        notes: stat.notes,
-                        dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, domains),
-                    },
-                    params.event,
-                    params.callback
-                );
-
-                for (const rule of this.rules.filter((r) => !r.ignored)) {
-                    await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions });
-                }
-
-                return roll;
-            };
-
-            system.attributes.perception = stat;
         }
 
         this.skills = this.prepareSkills();

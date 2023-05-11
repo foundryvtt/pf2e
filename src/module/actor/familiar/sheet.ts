@@ -2,6 +2,7 @@ import { CharacterPF2e } from "@actor";
 import { CreatureSheetPF2e } from "@actor/creature/sheet.ts";
 import { FamiliarPF2e } from "@actor/familiar/index.ts";
 import { FamiliarSheetData } from "./types.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
 
 /**
  * @category Actor
@@ -61,8 +62,7 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
         super.activateListeners($html);
 
         $html.find("[data-action=perception-check]").on("click", (event) => {
-            const options = this.actor.getRollOptions(["all", "perception"]);
-            this.actor.attributes.perception.roll({ event, options });
+            this.actor.perception.roll(eventToRollParams(event));
         });
 
         $html.find("[data-attack-roll] *").on("click", (event) => {
