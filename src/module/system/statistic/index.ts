@@ -314,6 +314,8 @@ class StatisticCheck {
                 return game.i18n.format("PF2E.SavingThrowWithName", { saveName: parentLabel });
             case "spell-attack-roll":
                 return game.i18n.format("PF2E.SpellAttackWithTradition", { tradition: parentLabel });
+            case "perception-check":
+                return game.i18n.format("PF2E.PerceptionCheck");
             default:
                 return parentLabel;
         }
