@@ -77,9 +77,7 @@ class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> 
             }
 
             if (this.adjustName) {
-                const label = this.data.label.includes(":")
-                    ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "")
-                    : this.label;
+                const label = this.getReducedLabel();
                 source.name = `${source.name} (${label})`;
             }
 

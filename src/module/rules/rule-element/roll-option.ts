@@ -179,12 +179,10 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
             const value = this.resolveValue();
             if (value) domainRecord[option] = value;
 
-            const label = this.label.includes(":") ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : this.label;
-
             if (this.toggleable) {
                 const toggle: RollOptionToggle = {
                     itemId: this.item.id,
-                    label,
+                    label: this.getReducedLabel(),
                     scope: this.scope,
                     domain: this.domain,
                     option,

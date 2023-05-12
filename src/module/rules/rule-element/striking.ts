@@ -33,8 +33,11 @@ export class StrikingRuleElement extends RuleElementPF2e {
                 : 0;
         const value = this.resolveValue(strikingValue);
         if (selector && typeof value === "number") {
-            const label = this.label.includes(":") ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : this.label;
-            const striking: StrikingSynthetic = { label, bonus: value, predicate: this.predicate };
+            const striking: StrikingSynthetic = {
+                label: this.getReducedLabel(),
+                bonus: value,
+                predicate: this.predicate,
+            };
             const strikings = (this.actor.synthetics.striking[selector] ??= []);
             strikings.push(striking);
         } else {

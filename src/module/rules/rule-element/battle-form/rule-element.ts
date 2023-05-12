@@ -43,7 +43,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         super(data, item, options);
         this.initialize(this.data);
         this.overrides = this.resolveValue(this.data.value, this.data.overrides) as this["data"]["overrides"];
-        this.modifierLabel = this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
+        this.modifierLabel = this.getReducedLabel();
         this.ownUnarmed = this.data.ownUnarmed;
     }
 

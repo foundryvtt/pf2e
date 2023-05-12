@@ -103,7 +103,7 @@ class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> 
         };
 
         if (this.relabel) {
-            adjustment.relabel = this.resolveInjectedProperties(this.relabel).replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
+            adjustment.relabel = this.getReducedLabel(this.resolveInjectedProperties(this.relabel));
         }
 
         for (const selector of this.selectors.map((s) => this.resolveInjectedProperties(s))) {
