@@ -191,7 +191,7 @@ class ModifierPF2e implements RawModifier {
         this.ignored = params.ignored ?? false;
         this.custom = params.custom ?? false;
         this.source = params.source ?? null;
-        this.predicate = PredicatePF2e.create(params.predicate ?? []);
+        this.predicate = new PredicatePF2e(params.predicate ?? []);
         this.notes = params.notes ?? "";
         this.traits = deepClone(params.traits ?? []);
         this.hideIfDisabled = params.hideIfDisabled ?? false;
