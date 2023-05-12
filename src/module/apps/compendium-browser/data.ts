@@ -5,6 +5,11 @@ interface PackInfo {
     name: string;
 }
 
+interface SourceInfo {
+    load: boolean;
+    name: string;
+}
+
 interface BrowserTabs {
     action: browserTabs.Actions;
     bestiary: browserTabs.Bestiary;
@@ -31,6 +36,7 @@ export {
     PackInfo,
     SortByOption,
     SortDirection,
+    SourceInfo,
     TabData,
     TabName,
 };
