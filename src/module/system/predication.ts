@@ -36,13 +36,6 @@ class PredicatePF2e extends Array<PredicateStatement> {
             : new PredicatePF2e(...predicate).test(options);
     }
 
-    /** Create a predicate from unknown data */
-    static create(data: unknown): PredicatePF2e {
-        if (data instanceof PredicatePF2e) return data.clone();
-        if (Array.isArray(data)) return new PredicatePF2e(data);
-        return new PredicatePF2e();
-    }
-
     /** Test this predicate against a domain of discourse */
     test(options: Set<string> | string[]): boolean {
         if (this.length === 0) {
