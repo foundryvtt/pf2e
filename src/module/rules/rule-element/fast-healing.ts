@@ -56,7 +56,7 @@ class FastHealingRuleElement extends RuleElementPF2e implements FastHealingData 
             return game.i18n.format("PF2E.Encounter.Broadcast.FastHealing.DeactivatedBy", { types });
         }
 
-        return null;
+        return this.getReducedLabel();
     }
 
     /** Send a message with a "healing" (damage) roll at the start of its turn */
