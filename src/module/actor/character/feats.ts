@@ -34,7 +34,6 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup>
         this.unorganized = new FeatGroup(actor, {
             id: "bonus",
             label: "PF2E.FeatBonusHeader",
-            featFilter: [],
         });
 
         this.createGroup({
