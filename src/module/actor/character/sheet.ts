@@ -369,6 +369,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             id: "bonus",
             label: "PF2E.FeatBonusHeader",
             feats: this.actor.feats.unorganized,
+            featFilter: [],
         };
         return [...this.actor.feats, unorganized];
     }

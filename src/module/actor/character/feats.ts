@@ -7,10 +7,10 @@ import { ActorPF2e } from "@actor";
 
 type FeatSlotLevel = number | { id: string; label: string };
 
-interface FeatCategoryOptions {
+interface FeatGroupOptions {
     id: string;
     label: string;
-    featFilter?: string | null;
+    featFilter?: string[];
     supported?: FeatCategory[];
     slots?: FeatSlotLevel[];
     level?: number;
@@ -44,7 +44,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup>
         this.createGroup({
             id: "ancestry",
             label: "PF2E.FeatAncestryHeader",
-            featFilter: actor.system.details.ancestry?.trait ? `traits-${actor.system.details.ancestry.trait}` : null,
+            featFilter: actor.system.details.ancestry?.trait ? [`traits-${actor.system.details.ancestry.trait}`] : [],
             supported: ["ancestry"],
             slots: classFeatSlots?.ancestry ?? [],
         });
@@ -60,15 +60,15 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup>
 
         const classFeatFilter = !classTrait
             ? // A class hasn't been selected: no useful pre-filtering available
-              null
+              []
             : this.actor.level < 2
             ? // The PC's level is less than 2: only show feats for the class
-              `traits-${classTrait}`
+              [`traits-${classTrait}`]
             : this.actor.itemTypes.feat.some((f) => f.traits.has("dedication"))
             ? // The PC has at least one dedication feat: include all archetype feats
-              `traits-${classTrait},traits-archetype`
+              [`traits-${classTrait}`, `traits-archetype`]
             : // No dedication feat has been selected: include dedication but no other archetype feats
-              `traits-${classTrait},traits-dedication`;
+              [`traits-${classTrait},traits-dedication`];
         this.createGroup({
             id: "class",
             label: "PF2E.FeatClassHeader",
@@ -121,7 +121,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup>
         }
     }
 
-    createGroup(options: FeatCategoryOptions): void {
+    createGroup(options: FeatGroupOptions): void {
         this.set(options.id, new FeatGroup(this.actor, options));
     }
 
@@ -249,7 +249,7 @@ class FeatGroup {
     /** Whether the feats are slotted by level or free-form */
     slotted = false;
     /** Will move to sheet data later */
-    featFilter: string | null;
+    featFilter: string[];
 
     /** Feat Types that are supported */
     supported: FeatCategory[] = [];
@@ -257,12 +257,15 @@ class FeatGroup {
     /** Lookup for the slots themselves */
     slots: Record<string, SlottedFeat | undefined> = {};
 
-    constructor(actor: ActorPF2e, options: FeatCategoryOptions) {
+    constructor(actor: ActorPF2e, options: FeatGroupOptions) {
         const maxLevel = options.level ?? actor.level;
         this.id = options.id;
         this.label = options.label;
         this.supported = options.supported ?? [];
-        this.featFilter = options.featFilter ?? null;
+        this.featFilter = Array.from(
+            new Set([this.supported.map((s) => `category-${s}`), options.featFilter ?? []].flat())
+        );
+
         if (options.slots) {
             this.slotted = true;
             for (const level of options.slots) {
@@ -308,4 +311,4 @@ class FeatGroup {
     }
 }
 
-export { CharacterFeats, FeatGroup, FeatCategoryOptions, FeatSlotLevel };
+export { CharacterFeats, FeatGroup, FeatGroupOptions, FeatSlotLevel };

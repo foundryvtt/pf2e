@@ -106,7 +106,7 @@ interface FeatCategorySheetData {
     label: string;
     feats: (SlottedFeat | BonusFeat)[];
     /** Will move to sheet data later */
-    featFilter?: string | null;
+    featFilter: string[];
 }
 
 export { CharacterSheetData, CharacterSheetTabVisibility, ClassDCSheetData, FeatCategorySheetData };
