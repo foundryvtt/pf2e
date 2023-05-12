@@ -1,0 +1,45 @@
+{
+    "_id": "x8e0MXrPgdRYQqBm",
+    "img": "icons/magic/death/skull-energy-light-white.webp",
+    "name": "Effect: Field of Undeath",
+    "system": {
+        "description": {
+            "value": "<p>Allies within the aura who have negative healing gain fast healing.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "details": "",
+                "key": "FastHealing",
+                "predicate": [
+                    "self:negative-healing"
+                ],
+                "type": "fast-healing",
+                "value": "@item.origin.flags.pf2e.fieldOfUndeathFastHealing"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
