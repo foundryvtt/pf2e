@@ -877,10 +877,10 @@ const armorTraits = {
     ponderous: "PF2E.TraitPonderous",
 };
 
-const rangeDescriptions = RANGE_TRAITS.reduce(
-    (descriptions, trait) => mergeObject(descriptions, { [trait]: "PF2E.TraitDescriptionRange" }),
-    {} as Record<(typeof RANGE_TRAITS)[number], string>
-);
+const rangeDescriptions = RANGE_TRAITS.reduce((descriptions, trait) => {
+    descriptions[trait] = "PF2E.TraitDescriptionRange";
+    return descriptions;
+}, {} as Record<(typeof RANGE_TRAITS)[number], string>);
 
 const preciousMaterialDescriptions = {
     abysium: "PF2E.PreciousMaterialAbysiumDescription",

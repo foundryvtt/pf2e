@@ -878,9 +878,9 @@ export const PF2ECONFIG = {
     },
 
     actionCategories: {
-        interaction: "PF2E.ActionCategoryInteraction",
-        defensive: "PF2E.ActionCategoryDefensive",
-        offensive: "PF2E.ActionCategoryOffensive",
+        interaction: "PF2E.Item.Action.Category.Interaction",
+        defensive: "PF2E.Item.Action.Category.Defensive",
+        offensive: "PF2E.Item.Action.Category.Offensive",
     },
 
     frequencies: {

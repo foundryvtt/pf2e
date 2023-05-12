@@ -236,3 +236,4 @@ export { Migration835InitiativeLongform } from "./835-initiative-longform.ts";
 export { Migration836EnergizingConsolidation } from "./836-energizing-consolidation.ts";
 export { Migration837MoveHazardBookSources } from "./837-move-hazard-book-source.ts";
 export { Migration838StrikeAttackRollSelector } from "./838-strike-attack-roll-selector.ts";
+export { Migration839ActionCategories } from "./839-action-categories.ts";

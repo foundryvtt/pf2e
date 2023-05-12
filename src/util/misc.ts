@@ -241,11 +241,11 @@ function getActionTypeLabel(
 ): string | null {
     switch (type) {
         case "action":
-            return cost === 1 ? "PF2E.Action.Type.Single" : "PF2E.Action.Type.Activity";
+            return cost === 1 ? "PF2E.Item.Action.Type.Single" : "PF2E.Item.Action.Type.Activity";
         case "free":
-            return "PF2E.Action.Type.Free";
+            return "PF2E.Item.Action.Type.Free";
         case "reaction":
-            return "PF2E.Action.Type.Reaction";
+            return "PF2E.Item.Action.Type.Reaction";
         default:
             return null;
     }
