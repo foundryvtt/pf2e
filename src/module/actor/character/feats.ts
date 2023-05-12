@@ -18,7 +18,7 @@ interface FeatGroupOptions {
 
 class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup> {
     /** Feats with no actual category ("bonus feats" in rules text) */
-    unorganized: BonusFeat[] = [];
+    declare unorganized: FeatGroup;
 
     constructor(private actor: TActor) {
         super();
@@ -30,6 +30,11 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup>
             }
             return [];
         })();
+
+        this.unorganized = new FeatGroup(actor, {
+            id: "bonus",
+            label: "PF2E.FeatBonusHeader",
+        });
 
         this.createGroup({
             id: "ancestryfeature",
@@ -229,7 +234,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup>
             const location = feat.system.location ?? "";
             const group = categoryBySlot[location] ?? this.get(location) ?? this.get(feat.category);
             if (!group?.assignFeat(feat)) {
-                this.unorganized.push({ feat });
+                this.unorganized.feats.push({ feat });
             }
         }
 
