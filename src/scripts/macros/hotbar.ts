@@ -1,34 +1,9 @@
 import { SkillAbbreviation } from "@actor/creature/data.ts";
 import { StrikeData } from "@actor/data/base.ts";
 import { SKILL_DICTIONARY } from "@actor/values.ts";
-import { ItemPF2e } from "@item/base.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
-import { EffectPF2e } from "@item/effect/index.ts";
+import { ItemPF2e, EffectPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { MacroPF2e } from "@module/macro.ts";
-
-/**
- * Create a Macro from an Item drop.
- * Get an existing item macro if one exists, otherwise create a new one.
- * @param item     The item data
- * @param slot     The hotbar slot to use
- */
-export async function createItemMacro(item: ItemSourcePF2e, slot: number): Promise<void> {
-    const command = `game.pf2e.rollItemMacro("${item._id}");`;
-    const macro =
-        game.macros.find((macro) => macro.name === item.name && macro.command === command) ??
-        (await MacroPF2e.create(
-            {
-                command,
-                name: item.name,
-                type: "script",
-                img: item.img,
-                flags: { pf2e: { itemMacro: true } },
-            },
-            { renderSheet: false }
-        ));
-    game.user.assignHotbarMacro(macro ?? null, slot);
-}
 
 /**
  * Create a Macro from an Item drop.

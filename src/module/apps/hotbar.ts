@@ -1,12 +1,7 @@
 import { SKILL_ABBREVIATIONS } from "@actor/values.ts";
 import { EffectPF2e, ItemPF2e } from "@item";
 import { MacroPF2e } from "@module/macro.ts";
-import {
-    createActionMacro,
-    createItemMacro,
-    createSkillMacro,
-    createToggleEffectMacro,
-} from "@scripts/macros/hotbar.ts";
+import { createActionMacro, createSkillMacro, createToggleEffectMacro } from "@scripts/macros/hotbar.ts";
 import { isObject, setHasElement } from "@util";
 
 class HotbarPF2e extends Hotbar<MacroPF2e> {
@@ -43,13 +38,13 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
                 if (item instanceof EffectPF2e) {
                     return createToggleEffectMacro(item, slot);
                 } else if (item instanceof ItemPF2e) {
-                    return createItemMacro(item.toObject(), slot);
+                    return HotbarPF2e.#createItemMacro(item, slot);
                 }
                 return;
             }
             case "RollOption": {
                 if (!this.#hasRollOptionData(data)) return;
-                return this.#createRollOptionToggleMacro(data, slot);
+                return HotbarPF2e.#createRollOptionToggleMacro(data, slot);
             }
             case "Skill": {
                 if (!(data.actorId && setHasElement(SKILL_ABBREVIATIONS, data.skill))) return;
@@ -80,7 +75,30 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
         );
     }
 
-    async #createRollOptionToggleMacro(data: RollOptionData, slot: number): Promise<void> {
+    /**
+     * Create a Macro from an Item drop.
+     * Get an existing item macro if one exists, otherwise create a new one.
+     * @param item     The item data
+     * @param slot     The hotbar slot to use
+     */
+    static async #createItemMacro(item: ItemPF2e, slot: number): Promise<void> {
+        const command = `game.pf2e.rollItemMacro("${item.id}");`;
+        const macro =
+            game.macros.find((macro) => macro.name === item.name && macro.command === command) ??
+            (await MacroPF2e.create(
+                {
+                    command,
+                    name: item.name,
+                    type: "script",
+                    img: item.img,
+                    flags: { pf2e: { itemMacro: true } },
+                },
+                { renderSheet: false }
+            ));
+        game.user.assignHotbarMacro(macro ?? null, slot);
+    }
+
+    static async #createRollOptionToggleMacro(data: RollOptionData, slot: number): Promise<void> {
         const name = game.i18n.format("PF2E.ToggleWithName", { property: data.label });
         const img = data.img ?? "icons/svg/d20-grey.svg";
 
