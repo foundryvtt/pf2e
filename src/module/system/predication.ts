@@ -76,19 +76,12 @@ class PredicatePF2e extends Array<PredicateStatement> {
             // E.g., `{ "gt": ["actor:level", 5] }` would match against "actor:level:6" and "actor:level:7"
             const [left, right] = Object.values(statement)[0];
             const domainArray = Array.from(domain);
-
-            const getValues = (operand: string | number) => {
-                return typeof operand === "number" || !Number.isNaN(Number(operand))
-                    ? [Number(operand)]
-                    : domainArray.flatMap((d) => {
-                          if (d.startsWith(operand)) {
-                              const value = Number(/:(-?\d+)$/.exec(d)?.[1]);
-                              if (!Number.isNaN(value)) return value;
-                          }
-                          return [];
-                      });
+            const getValues = (operand: string | number): number[] => {
+                const maybeNumber = Number(operand);
+                if (!Number.isNaN(maybeNumber)) return [maybeNumber];
+                const pattern = new RegExp(String.raw`^${operand}:([^:]+)$`);
+                return domainArray.map((s) => Number(pattern.exec(s)?.[1] || NaN)).filter((v) => !Number.isNaN(v));
             };
-
             const leftValues = getValues(left);
             const rightValues = getValues(right);
 
