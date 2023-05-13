@@ -102,7 +102,7 @@ class PredicatePF2e extends Array<PredicateStatement> {
                 case "lte":
                     return leftValues.some((l) => rightValues.every((r) => l <= r));
                 default:
-                    console.warn("PF2e System | Malformed binary operation encounter");
+                    console.warn("PF2e System | Malformed binary operation encountered");
                     return false;
             }
         }
