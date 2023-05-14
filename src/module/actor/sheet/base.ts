@@ -267,6 +267,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         })();
         this.#activateInventoryListeners(inventoryPanel);
 
+        // Equipment Browser
+        for (const link of htmlQueryAll(html, ".inventory-browse")) {
+            link.addEventListener("click", () => this.#onClickBrowseEquipmentCompendia(link));
+        }
+
         /* -------------------------------------------- */
         /*  Attributes, Skills, Saves and Traits        */
         /* -------------------------------------------- */
@@ -402,20 +407,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             collection?.setSlotExpendedState(slotLevel, slotId, expendedState);
         });
 
-        $html.find(".carry-type-hover").tooltipster({
-            animation: "fade",
-            delay: 200,
-            animationDuration: 10,
-            trigger: "click",
-            arrow: false,
-            contentAsHTML: true,
-            debug: BUILD_MODE === "development",
-            interactive: true,
-            side: ["bottom"],
-            theme: "crb-hover",
-            minWidth: 120,
-        });
-
         // Trait Selector
         $html.find(".tag-selector").on("click", (event) => this.openTagSelector(event));
 
@@ -521,107 +512,121 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     /** DOM listeners for inventory panel */
     #activateInventoryListeners(panel: HTMLElement | null): void {
-        if (!panel) return;
-        const $inventory = $(panel);
-
-        // Increase Item Quantity
-        $inventory.find(".item-increase-quantity").on("click", (event) => {
-            const itemId = $(event.currentTarget).parents(".item").attr("data-item-id") ?? "";
-            const item = this.actor.items.get(itemId);
-            if (!item?.isOfType("physical")) {
-                throw new Error("PF2e System | Tried to update quantity on item that does not have quantity");
-            }
-            this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, "system.quantity": item.quantity + 1 }]);
-        });
-
-        // Decrease Item Quantity
-        $inventory.find(".item-decrease-quantity").on("click", (event) => {
-            const $li = $(event.currentTarget).parents(".item");
-            const itemId = $li.attr("data-item-id") ?? "";
-            const item = this.actor.items.get(itemId);
-            if (!item?.isOfType("physical")) {
-                throw ErrorPF2e("Tried to update quantity on item that does not have quantity");
-            }
-            if (item.quantity > 0) {
-                this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, "system.quantity": item.quantity - 1 }]);
-            }
-        });
-
-        $inventory.find(".add-coins-popup button").on("click", (event) => this.#onAddCoinsPopup(event));
-
-        $inventory.find(".remove-coins-popup button").on("click", (event) => this.#onRemoveCoinsPopup(event));
-
-        $inventory.find(".sell-all-treasure button").on("click", (event) => this.#onSellAllTreasure(event));
-
-        // Inventory Browser
-        for (const link of htmlQueryAll(panel, ".inventory-browse")) {
-            link.addEventListener("click", () => this.#onClickBrowseEquipmentCompendia(link));
-        }
-
-        // Toggle identified
-        $inventory.find(".item-toggle-identified").on("click", (event) => {
-            const f = $(event.currentTarget);
-            const itemId = f.parents(".item").attr("data-item-id") ?? "";
-            const identified = f.hasClass("identified");
-            if (identified) {
+        // Links and buttons
+        panel?.addEventListener("click", (event) => {
+            const link = htmlClosest(event.target, "a[data-action], button[data-action]");
+            if (!link) return;
+            const getItem = (): PhysicalItemPF2e<ActorPF2e> => {
+                const itemId = htmlClosest(link, ".item")?.dataset.itemId ?? "";
                 const item = this.actor.items.get(itemId);
-                if (!item?.isOfType("physical")) {
-                    throw ErrorPF2e(`${itemId} is not a physical item.`);
-                }
-                item.setIdentificationStatus("unidentified");
-            } else {
-                const item = this.actor.items.get(itemId);
-                if (item?.isOfType("physical")) {
-                    new IdentifyItemPopup(item).render(true);
-                }
-            }
-        });
+                if (!item?.isOfType("physical")) throw ErrorPF2e("Item not found or isn't physical");
+                return item;
+            };
 
-        $inventory.find(".item-repair").on("click", (event) => this.#repairItem(event));
-
-        $inventory.find(".item-toggle-container").on("click", (event) => this.#toggleContainer(event));
-
-        // Sell treasure item
-        for (const sellButton of htmlQueryAll(panel, ".item-sell-treasure")) {
-            sellButton.addEventListener("click", (event) => {
-                const itemId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
-                const item = this.actor.inventory.get(itemId, { strict: true });
-                const sellItem = async (): Promise<void> => {
-                    if (item?.isOfType("treasure") && !item.isCoinage) {
-                        await item.delete();
-                        await this.actor.inventory.addCoins(item.assetValue);
-                    }
-                };
-
-                if (event.ctrlKey) {
-                    sellItem();
+            switch (link.dataset.action) {
+                case "add-coins": {
+                    new AddCoinsPopup(this.actor).render(true);
                     return;
                 }
+                case "remove-coins": {
+                    new RemoveCoinsPopup(this.actor).render(true);
+                    return;
+                }
+                case "increase-quantity": {
+                    const item = getItem();
+                    item.update({ "system.quantity": item.quantity + 1 });
+                    return;
+                }
+                case "decrease-quantity": {
+                    const item = getItem();
+                    if (item.quantity > 0) {
+                        item.update({ "system.quantity": item.quantity - 1 });
+                    }
+                    return;
+                }
+                case "repair": {
+                    const item = getItem();
+                    game.pf2e.actions.repair({ event, item });
+                    return;
+                }
+                case "toggle-identified": {
+                    const item = getItem();
+                    if (item.isIdentified) {
+                        item.setIdentificationStatus("unidentified");
+                    } else {
+                        new IdentifyItemPopup(item).render(true);
+                    }
+                    return;
+                }
+                case "toggle-container": {
+                    const item = getItem();
+                    if (!item.isOfType("backpack")) return;
 
-                const content = document.createElement("p");
-                content.innerText = game.i18n.format("PF2E.SellItemQuestion", {
-                    item: item.name,
+                    const isCollapsed = item.system.collapsed ?? false;
+                    item.update({ "system.collapsed": !isCollapsed });
+                    return;
+                }
+                case "sell-treasure": {
+                    const item = getItem();
+                    const sellItem = async (): Promise<void> => {
+                        if (item?.isOfType("treasure") && !item.isCoinage) {
+                            await item.delete();
+                            await this.actor.inventory.addCoins(item.assetValue);
+                        }
+                    };
+
+                    if (event.ctrlKey) {
+                        sellItem();
+                        return;
+                    }
+
+                    const content = document.createElement("p");
+                    content.innerText = game.i18n.format("PF2E.SellItemQuestion", {
+                        item: item.name,
+                    });
+                    new Dialog({
+                        title: game.i18n.localize("PF2E.SellItemConfirmHeader"),
+                        content: content.outerHTML,
+                        buttons: {
+                            Yes: {
+                                icon: fontAwesomeIcon("check").outerHTML,
+                                label: game.i18n.localize("Yes"),
+                                callback: sellItem,
+                            },
+                            cancel: {
+                                icon: fontAwesomeIcon("times").outerHTML,
+                                label: game.i18n.localize("Cancel"),
+                            },
+                        },
+                        default: "Yes",
+                    }).render(true);
+                    return;
+                }
+                case "sell-all-treasure": {
+                    this.#onClickSellAllTreasure();
+                }
+            }
+        });
+
+        if (panel) {
+            $(panel)
+                .find(".carry-type-hover")
+                .tooltipster({
+                    animation: "fade",
+                    delay: 200,
+                    animationDuration: 10,
+                    trigger: "click",
+                    arrow: false,
+                    contentAsHTML: true,
+                    debug: BUILD_MODE === "development",
+                    interactive: true,
+                    side: ["bottom"],
+                    theme: "crb-hover",
+                    minWidth: 120,
                 });
-                new Dialog({
-                    title: game.i18n.localize("PF2E.SellItemConfirmHeader"),
-                    content: content.outerHTML,
-                    buttons: {
-                        Yes: {
-                            icon: fontAwesomeIcon("check").outerHTML,
-                            label: game.i18n.localize("Yes"),
-                            callback: sellItem,
-                        },
-                        cancel: {
-                            icon: fontAwesomeIcon("times").outerHTML,
-                            label: game.i18n.localize("Cancel"),
-                        },
-                    },
-                    default: "Yes",
-                }).render(true);
-            });
         }
 
-        // INVENTORY DRAG & DROP
+        // Drag & drop
         const inventoryList = htmlQuery(panel, "section.inventory-list, ol[data-container-type=actorInventory]");
         if (!inventoryList) return;
         const sortableOptions: Sortable.Options = {
@@ -1196,25 +1201,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
     }
 
-    /** Attempt to repair the item */
-    async #repairItem(event: JQuery.ClickEvent): Promise<void> {
-        const itemId = $(event.currentTarget).parents(".item").data("item-id");
-        const item = this.actor.items.get(itemId);
-        if (!item) return;
-
-        await game.pf2e.actions.repair({ event, item });
-    }
-
-    /** Opens an item container */
-    async #toggleContainer(event: JQuery.ClickEvent): Promise<void> {
-        const itemId = $(event.currentTarget).parents(".item").data("item-id");
-        const item = this.actor.items.get(itemId);
-        if (!item?.isOfType("backpack")) return;
-
-        const isCollapsed = item.system.collapsed ?? false;
-        await item.update({ "system.collapsed": !isCollapsed });
-    }
-
     /** Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset */
     #onClickCreateItem(link: HTMLElement): void {
         const data: Record<string, string | string[] | number | undefined> = { ...link.dataset };
@@ -1244,37 +1230,26 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         this.actor.createEmbeddedDocuments("Item", [data]);
     }
 
-    #onAddCoinsPopup(event: JQuery.ClickEvent) {
-        event.preventDefault();
-        new AddCoinsPopup(this.actor, {}).render(true);
-    }
+    /** Render confirmation dialog to sell all treasure */
+    async #onClickSellAllTreasure(): Promise<void> {
+        const content = await renderTemplate("systems/pf2e/templates/actors/sell-all-treasure-dialog.hbs");
 
-    #onRemoveCoinsPopup(event: JQuery.ClickEvent) {
-        event.preventDefault();
-        new RemoveCoinsPopup(this.actor, {}).render(true);
-    }
-
-    #onSellAllTreasure(event: JQuery.ClickEvent) {
-        event.preventDefault();
-        // Render confirmation modal dialog
-        renderTemplate("systems/pf2e/templates/actors/sell-all-treasure-dialog.hbs").then((html) => {
-            new Dialog({
-                title: game.i18n.localize("PF2E.SellAllTreasureTitle"),
-                content: html,
-                buttons: {
-                    Yes: {
-                        icon: '<i class="fa fa-check"></i>',
-                        label: "Yes",
-                        callback: async () => this.actor.inventory.sellAllTreasure(),
-                    },
-                    cancel: {
-                        icon: '<i class="fas fa-times"></i>',
-                        label: "Cancel",
-                    },
+        new Dialog({
+            title: game.i18n.localize("PF2E.SellAllTreasureTitle"),
+            content,
+            buttons: {
+                yes: {
+                    icon: fontAwesomeIcon("check").outerHTML,
+                    label: "Yes",
+                    callback: async () => this.actor.inventory.sellAllTreasure(),
                 },
-                default: "Yes",
-            }).render(true);
-        });
+                cancel: {
+                    icon: fontAwesomeIcon("times").outerHTML,
+                    label: "Cancel",
+                },
+            },
+            default: "cancel",
+        }).render(true);
     }
 
     protected openTagSelector(event: JQuery.ClickEvent | MouseEvent): void {
