@@ -40,8 +40,9 @@
                         {{#each data.actions as |action ai|}}
                             <li class="item action strike expandable{{#if action.ready}} ready{{/if}}{{#unless action.visible}} hidden{{/unless}}" data-action-index="{{ai}}">
                                 <div class="item-name rollable">
-                                    <div class="item-image variant-strike" data-action="strike-attack" data-variant-index="0" style="background-image: url({{action.imageUrl}})">
-                                        <i class="fas fa-dice-d20"></i>
+                                    <div class="item-image variant-strike framed" data-action="strike-attack" data-variant-index="0">
+                                        <img src="{{action.imageUrl}}"/>
+                                        <i class="fa-solid fa-dice-d20"></i>
                                     </div>
                                     <div class="actions-title">
                                         <div class="action-name">
@@ -148,8 +149,8 @@
                                 {{#if action.encounter}}
                                     <li class="item action" data-item-id="{{action._id}}">
                                         <div class="item-name rollable">
-                                            <div class="item-image" style="background-image: url({{action.img}})">
-                                                <i class="fas fa-comment-alt"></i>
+                                            <div class="item-image">
+                                                <img src="{{action.img}}"/>
                                             </div>
                                             <h4>{{action.name}}</h4>
                                             {{#if action.system.frequency}}

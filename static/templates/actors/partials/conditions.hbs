@@ -2,8 +2,9 @@
     {{#if (or item.isIdentified @root.user.isGM)}}
         <li class="item effects expandable{{#unless item.isIdentified}} unidentified{{/unless}}" data-item-type="{{item.type}}" data-item-id="{{item.id}}">
             <div class="item-name rollable">
-                <div class="item-image" style="background-image: url({{item.img}})">
-                    <i class="fas fa-comment-alt"></i>
+                <div class="item-image framed">
+                    <img class="item-icon" src="{{item.img}}" alt="{{item.name}}">
+                    <i class="fa-solid fa-message"></i>
                 </div>
                 <h4 class="action-name">
                     {{item.name}}
