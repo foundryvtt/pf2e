@@ -2,9 +2,8 @@ import { ActorPF2e } from "@actor";
 import { ModifierAdjustment } from "@actor/modifiers.ts";
 import { ItemPF2e } from "@item";
 import { DamageType } from "@system/damage/types.ts";
-import { DAMAGE_TYPES } from "@system/damage/values.ts";
 import { PredicatePF2e } from "@system/predication.ts";
-import { setHasElement } from "@util";
+import { objectHasKey } from "@util";
 import type {
     ArrayField,
     BooleanField,
@@ -93,7 +92,7 @@ class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> 
                 if (!this.damageType) return current;
 
                 const damageType = this.resolveInjectedProperties(this.damageType);
-                if (!setHasElement(DAMAGE_TYPES, damageType)) {
+                if (!objectHasKey(CONFIG.PF2E.damageTypes, damageType)) {
                     this.failValidation(`${damageType} is an unrecognized damage type.`);
                     return current;
                 }
