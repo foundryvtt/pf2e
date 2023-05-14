@@ -8,7 +8,8 @@ import { MagicTradition } from "@item/spell/index.ts";
 import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
 import { FlattenedCondition } from "@system/conditions/index.ts";
 import { CHARACTER_SHEET_TABS } from "../values.ts";
-import { BonusFeat, CharacterSaveData, CharacterSystemData, ClassDCData, SlottedFeat } from "./types.ts";
+import { CharacterSaveData, CharacterSystemData, ClassDCData } from "./types.ts";
+import { FeatGroup } from "../feats.ts";
 
 type CharacterSheetOptions = ActorSheetOptions;
 
@@ -91,7 +92,7 @@ interface CharacterSheetData<TActor extends CharacterPF2e> extends CreatureSheet
     showPFSTab: boolean;
     spellcastingEntries: SpellcastingSheetData[];
     tabVisibility: CharacterSheetTabVisibility;
-    feats: FeatCategorySheetData[];
+    feats: FeatGroup[];
 }
 
 interface ClassDCSheetData extends ClassDCData {
@@ -101,12 +102,4 @@ interface ClassDCSheetData extends ClassDCData {
     rankName: string;
 }
 
-interface FeatCategorySheetData {
-    id: string;
-    label: string;
-    feats: (SlottedFeat | BonusFeat)[];
-    /** Will move to sheet data later */
-    featFilter?: string | null;
-}
-
-export { CharacterSheetData, CharacterSheetTabVisibility, ClassDCSheetData, FeatCategorySheetData };
+export { CharacterSheetData, CharacterSheetTabVisibility, ClassDCSheetData };

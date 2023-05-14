@@ -1,6 +1,6 @@
 import { CreatureSheetData } from "@actor/creature/types.ts";
 import { HitPointsData, PerceptionData } from "@actor/data/base.ts";
-import { SaveType, SkillAbbreviation } from "@actor/types.ts";
+import { MovementType, SaveType, SkillAbbreviation } from "@actor/types.ts";
 import { ActionItemPF2e, EffectPF2e, ItemPF2e } from "@item";
 import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
 import { ZeroToFour } from "@module/data.ts";
@@ -89,6 +89,15 @@ interface NPCSheetData<TActor extends NPCPF2e> extends CreatureSheetData<TActor>
     configLootableNpc?: boolean;
     traitTagifyData: TraitTagifyEntry[];
     languageDetails?: string;
+    speeds: Record<"land", NPCSpeedSheetData & { details: string }> &
+        Record<Exclude<MovementType, "land">, NPCSpeedSheetData | null>;
+}
+
+interface NPCSpeedSheetData {
+    value: number;
+    label: string;
+    adjustedHigher: boolean;
+    adjustedLower: boolean;
 }
 
 type NPCSheetItemData<TItem extends ItemPF2e<NPCPF2e>> = RawObject<TItem> & {
@@ -126,6 +135,7 @@ export {
     NPCSheetData,
     NPCSheetItemData,
     NPCSkillSheetData,
+    NPCSpeedSheetData,
     NPCSpellcastingSheetData,
     NPCStrikeSheetData,
     NPCSystemSheetData,

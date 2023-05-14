@@ -18,7 +18,7 @@ class RollNotePF2e {
 
     constructor(params: RollNoteSource) {
         this.selector = params.selector;
-        this.predicate = PredicatePF2e.create(params.predicate ?? []);
+        this.predicate = new PredicatePF2e(params.predicate ?? []);
         this.outcome = [...(params.outcome ?? [])];
         this.visibility = params.visibility ?? null;
         this.#title = params.title ?? null;

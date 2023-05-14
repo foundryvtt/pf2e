@@ -120,6 +120,11 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
         return controlled?.document ?? tokens.shift()?.document ?? null;
     }
 
+    /** Generate a label without a leading title (such as "Effect:") */
+    protected getReducedLabel(label = this.label): string {
+        return label.includes(":") ? label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : label;
+    }
+
     /** Disallow invalid data fallbacks */
     override validate(options: DataModelValidationOptions = {}): boolean {
         options.fallback = false;

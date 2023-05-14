@@ -32,7 +32,7 @@ import { AutomaticBonusProgression } from "./automatic-bonus-progression.ts";
 import { CharacterConfig } from "./config.ts";
 import { PreparedFormulaData } from "./crafting/entry.ts";
 import { CraftingFormula, CraftingFormulaData, craftItem, craftSpellConsumable } from "./crafting/index.ts";
-import { CharacterSheetData, ClassDCSheetData, CraftingEntriesSheetData, FeatCategorySheetData } from "./data/sheet.ts";
+import { CharacterSheetData, ClassDCSheetData, CraftingEntriesSheetData } from "./data/sheet.ts";
 import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProficiencies } from "./data/types.ts";
 import { CharacterPF2e } from "./document.ts";
 import { PCSheetTabManager } from "./tab-manager.ts";
@@ -167,7 +167,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         // Is the stamina variant rule enabled?
         sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant") > 0;
         sheetData.spellcastingEntries = await this.prepareSpellcasting();
-        sheetData.feats = this.#prepareFeats();
+        sheetData.feats = [...this.actor.feats, this.actor.feats.unorganized];
 
         const formulasByLevel = await this.prepareCraftingFormulas();
         const flags = this.actor.flags.pf2e;
@@ -362,15 +362,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         }
 
         return craftingEntries;
-    }
-
-    #prepareFeats(): FeatCategorySheetData[] {
-        const unorganized: FeatCategorySheetData = {
-            id: "bonus",
-            label: "PF2E.FeatBonusHeader",
-            feats: this.actor.feats.unorganized,
-        };
-        return [...this.actor.feats, unorganized];
     }
 
     /** Disable the initiative button located on the sidebar */

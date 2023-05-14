@@ -1,11 +1,11 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { MovementType } from "@actor/creature/data.ts";
 import { ActorType } from "@actor/data/index.ts";
+import { MovementType } from "@actor/types.ts";
 import { MOVEMENT_TYPES } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
 import { tupleHasValue } from "@util";
-import { BracketedValue, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
 import { BaseSpeedSynthetic, DeferredMovementType } from "../synthetics.ts";
+import { BracketedValue, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
 
 /**
  * @category RuleElement

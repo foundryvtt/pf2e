@@ -91,11 +91,7 @@ class DamageDiceRuleElement extends RuleElementPF2e {
         const selector = this.resolveInjectedProperties(this.selector);
 
         const deferredDice = (params: DeferredValueParams = {}): DamageDicePF2e | null => {
-            // In English (and in other languages when the same general form is used), labels patterned as
-            // "Title: Subtitle (Parenthetical)" will be reduced to "Subtitle"
-            // e.g., "Spell Effect: Ooze Form (Gelatinous Cube)" will become "Ooze Form"
-            const label = this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
-
+            const label = this.getReducedLabel();
             const diceNumber = Number(this.resolveValue(this.diceNumber, 0, { resolvables: params.resolvables })) || 0;
 
             const resolvedBrackets = this.resolveValue(this.brackets, {}, { resolvables: params.resolvables });

@@ -4,7 +4,6 @@ import {
     CreatureSystemData,
     CreatureSystemSource,
     CreatureTraitsData,
-    SkillAbbreviation,
 } from "@actor/creature/data.ts";
 import { CreatureSensePF2e } from "@actor/creature/sense.ts";
 import { Rollable } from "@actor/data/base.ts";
@@ -44,7 +43,6 @@ interface FamiliarSystemData
     actions?: never;
     attack: StatisticModifier & Rollable;
     attributes: FamiliarAttributes;
-    skills: FamiliarSkills;
     master: {
         id: string | null;
         ability: AbilityString | null;
@@ -62,13 +60,8 @@ interface FamiliarAttributesSource {
 
 interface FamiliarAttributes extends CreatureAttributes {
     ac: { value: number; breakdown: string; check?: number };
-    perception: FamiliarPerception;
     initiative?: never;
 }
-
-type FamiliarPerception = { value: number } & StatisticModifier & Rollable;
-type FamiliarSkill = StatisticModifier & Rollable & { value: number; ability: AbilityString; visible?: boolean };
-type FamiliarSkills = Record<SkillAbbreviation, FamiliarSkill>;
 
 interface FamiliarTraitsData extends CreatureTraitsData {
     senses: CreatureSensePF2e[];

@@ -425,6 +425,11 @@
         },
         {
             "_id": "Y7P7UpMZajGcxNz4",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
             "sort": 1100000,
@@ -439,15 +444,70 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The clockwork assassin's Strikes deal an additional 3d6+4 precision damage to flat-footed creatures.</p>"
+                    "value": "<p>The clockwork assassin's Strikes deal an additional 3d6+4 precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
+                                    {
+                                        "and": [
+                                            "item:ranged",
+                                            {
+                                                "not": "item:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "damageCategory": "precision",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
+                                    {
+                                        "and": [
+                                            "item:ranged",
+                                            {
+                                                "not": "item:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage",
+                        "value": 4
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "rarity": "common",
@@ -478,7 +538,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Creatures hit by the clockwork assassin's rapier hand Strike are flat-footed until the start of the clockwork assassin's next turn.</p>"
+                    "value": "<p>Creatures hit by the clockwork assassin's rapier hand Strike are @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of the clockwork assassin's next turn.</p>"
                 },
                 "requirements": {
                     "value": ""

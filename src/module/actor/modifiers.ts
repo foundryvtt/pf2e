@@ -5,9 +5,8 @@ import { ZeroToFour } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { DamageCategoryUnique, DamageDieSize, DamageType } from "@system/damage/types.ts";
-import { DAMAGE_TYPES } from "@system/damage/values.ts";
 import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
-import { ErrorPF2e, setHasElement, signedInteger, sluggify, tupleHasValue } from "@util";
+import { ErrorPF2e, objectHasKey, signedInteger, sluggify, tupleHasValue } from "@util";
 
 const PROFICIENCY_RANK_OPTION = [
     "proficiency:untrained",
@@ -191,7 +190,7 @@ class ModifierPF2e implements RawModifier {
         this.ignored = params.ignored ?? false;
         this.custom = params.custom ?? false;
         this.source = params.source ?? null;
-        this.predicate = PredicatePF2e.create(params.predicate ?? []);
+        this.predicate = new PredicatePF2e(params.predicate ?? []);
         this.notes = params.notes ?? "";
         this.traits = deepClone(params.traits ?? []);
         this.hideIfDisabled = params.hideIfDisabled ?? false;
@@ -201,7 +200,7 @@ class ModifierPF2e implements RawModifier {
         // Prevent upstream from blindly diving into recursion loops
         Object.defineProperty(this, "item", { enumerable: false });
 
-        this.damageType = setHasElement(DAMAGE_TYPES, params.damageType) ? params.damageType : null;
+        this.damageType = objectHasKey(CONFIG.PF2E.damageTypes, params.damageType) ? params.damageType : null;
         this.damageCategory = this.damageType === "bleed" ? "persistent" : params.damageCategory ?? null;
         // Force splash damage into being critical-only or not doubling on critical hits
         this.critical = this.damageCategory === "splash" ? !!params.critical : params.critical ?? null;

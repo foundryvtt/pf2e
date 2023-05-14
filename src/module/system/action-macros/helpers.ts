@@ -29,6 +29,7 @@ import { getRangeIncrement } from "@actor/helpers.ts";
 import { CheckPF2e, CheckType } from "@system/check/index.ts";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
+import { Statistic } from "@system/statistic/index.ts";
 
 export class ActionMacroHelpers {
     static resolveStat(stat: string): {
@@ -71,7 +72,8 @@ export class ActionMacroHelpers {
         data: CheckContextData<ItemType>
     ): CheckContext<ItemType> | undefined {
         const { checkType: type, property, stat: slug, subtitle } = this.resolveStat(data.slug);
-        const statistic = getProperty(options.actor, property) as StatisticModifier & { rank?: number };
+        const statistic =
+            options.actor.getStatistic(data.slug) ?? (getProperty(options.actor, property) as StatisticModifier);
         if (!statistic) {
             const { actor } = options;
             const message = `Actor ${actor.name} (${actor.id}) does not have a statistic for ${slug}.`;
@@ -186,9 +188,6 @@ export class ActionMacroHelpers {
                     subtitle,
                     title: options.title,
                 });
-                const content = (await options.content?.(header)) ?? header;
-
-                const check = new CheckModifier(content, statistic, modifiers);
 
                 const dc = ((): CheckDC | null => {
                     if (options.difficultyClass) {
@@ -208,10 +207,6 @@ export class ActionMacroHelpers {
                     return null;
                 })();
 
-                const finalOptions = new Set(combinedOptions);
-                ensureProficiencyOption(finalOptions, statistic.rank ?? -1);
-                check.calculateTotal(finalOptions);
-
                 const actionTraits: Record<string, string | undefined> = CONFIG.PF2E.actionTraits;
                 const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
                 const traitObjects = options.traits.map((trait) => ({
@@ -220,57 +215,77 @@ export class ActionMacroHelpers {
                     label: actionTraits[trait] ?? trait,
                 }));
 
-                const distance = ((): number | null => {
-                    const reach =
-                        selfActor instanceof CreaturePF2e && weapon?.isOfType("weapon")
-                            ? selfActor.getReach({ action: "attack", weapon }) ?? null
-                            : null;
-                    return selfToken?.object && target?.object
-                        ? selfToken.object.distanceTo(target.object, { reach })
-                        : null;
-                })();
-                const rangeIncrement =
-                    weapon?.isOfType("weapon") && typeof distance === "number"
-                        ? getRangeIncrement(weapon, distance)
-                        : null;
+                const notes = options.extraNotes?.(statistic.slug) ?? [];
 
-                const domains = ["all", type, statistic.slug];
+                const label = (await options.content?.(header)) ?? header;
+                const title = `${game.i18n.localize(options.title)} - ${game.i18n.localize(subtitle)}`;
 
-                const targetInfo =
-                    target && targetActor && typeof distance === "number"
-                        ? { token: target, actor: targetActor, distance, rangeIncrement }
-                        : null;
-                const notes = [options.extraNotes?.(statistic.slug) ?? [], statistic.notes ?? []].flat();
-                const substitutions = extractRollSubstitutions(
-                    actor.synthetics.rollSubstitutions,
-                    domains,
-                    finalOptions
-                );
-
-                const dosAdjustments = extractDegreeOfSuccessAdjustments(actor.synthetics, domains);
-
-                await CheckPF2e.roll(
-                    check,
-                    {
-                        actor: selfActor,
+                if (statistic instanceof Statistic) {
+                    await statistic.roll({
                         token: selfToken,
-                        item: weapon,
-                        createMessage: options.createMessage,
-                        target: targetInfo,
+                        label,
+                        title,
                         dc,
-                        type,
-                        options: finalOptions,
-                        notes,
-                        dosAdjustments,
-                        substitutions,
+                        extraRollNotes: notes,
+                        extraRollOptions: combinedOptions,
+                        target: targetActor,
                         traits: traitObjects,
-                        title: `${game.i18n.localize(options.title)} - ${game.i18n.localize(subtitle)}`,
-                    },
-                    options.event,
-                    (roll, outcome, message) => {
-                        options.callback?.({ actor, message, outcome, roll });
-                    }
-                );
+                    });
+                } else {
+                    const check = new CheckModifier(label, statistic, modifiers);
+
+                    const finalOptions = new Set(combinedOptions);
+                    ensureProficiencyOption(finalOptions, statistic.rank ?? -1);
+                    check.calculateTotal(finalOptions);
+
+                    const distance = ((): number | null => {
+                        const reach =
+                            selfActor instanceof CreaturePF2e && weapon?.isOfType("weapon")
+                                ? selfActor.getReach({ action: "attack", weapon }) ?? null
+                                : null;
+                        return selfToken?.object && target?.object
+                            ? selfToken.object.distanceTo(target.object, { reach })
+                            : null;
+                    })();
+                    const rangeIncrement =
+                        weapon?.isOfType("weapon") && typeof distance === "number"
+                            ? getRangeIncrement(weapon, distance)
+                            : null;
+                    const domains = ["all", type, statistic.slug];
+                    const targetInfo =
+                        target && targetActor && typeof distance === "number"
+                            ? { token: target, actor: targetActor, distance, rangeIncrement }
+                            : null;
+                    const substitutions = extractRollSubstitutions(
+                        actor.synthetics.rollSubstitutions,
+                        domains,
+                        finalOptions
+                    );
+                    const dosAdjustments = extractDegreeOfSuccessAdjustments(actor.synthetics, domains);
+
+                    await CheckPF2e.roll(
+                        check,
+                        {
+                            actor: selfActor,
+                            token: selfToken,
+                            item: weapon,
+                            createMessage: options.createMessage,
+                            target: targetInfo,
+                            dc,
+                            type,
+                            options: finalOptions,
+                            notes: [...notes, ...(statistic.notes ?? [])],
+                            dosAdjustments,
+                            substitutions,
+                            traits: traitObjects,
+                            title,
+                        },
+                        options.event,
+                        (roll, outcome, message) => {
+                            options.callback?.({ actor, message, outcome, roll });
+                        }
+                    );
+                }
             } catch (cce) {
                 if (cce instanceof CheckContextError) {
                     const message = game.i18n.format("PF2E.ActionsWarning.NoStatistic", {
@@ -306,7 +321,7 @@ export class ActionMacroHelpers {
                 slug,
                 type: MODIFIER_TYPE.POTENCY,
                 label: "PF2E.AutomaticBonusProgression.attackPotency",
-                modifier: item.actor.synthetics.weaponPotency["mundane-attack"]?.[0]?.bonus ?? 0,
+                modifier: item.actor.synthetics.weaponPotency["strike-attack-roll"]?.[0]?.bonus ?? 0,
                 adjustments: extractModifierAdjustments(item.actor.synthetics.modifierAdjustments, [selector], slug),
             });
         } else if (item.system.runes.potency > 0) {

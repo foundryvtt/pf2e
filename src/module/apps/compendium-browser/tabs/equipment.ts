@@ -97,9 +97,9 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
 
                     // Prepare source
                     const source = itemData.system.source.value;
+                    const sourceSlug = sluggify(source);
                     if (source) {
                         sources.add(source);
-                        itemData.system.source.value = sluggify(source);
                     }
 
                     // Infer magical trait from runes
@@ -124,7 +124,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         priceInCopper: coinValue,
                         traits: itemData.system.traits.value,
                         rarity: itemData.system.traits.rarity,
-                        source: itemData.system.source.value,
+                        source: sourceSlug,
                     });
                 }
             }

@@ -1,6 +1,6 @@
-import { CreatureTrait, MovementType, SkillAbbreviation } from "@actor/creature/index.ts";
+import { CreatureTrait, SkillAbbreviation } from "@actor/creature/index.ts";
 import { SenseAcuity, SenseType } from "@actor/creature/sense.ts";
-import { AbilityString } from "@actor/types.ts";
+import { AbilityString, MovementType } from "@actor/types.ts";
 import { WeaponDamage } from "@item/weapon/data.ts";
 import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponTrait } from "@item/weapon/types.ts";
 import { Size } from "@module/data.ts";

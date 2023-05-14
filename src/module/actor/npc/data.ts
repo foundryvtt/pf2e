@@ -16,7 +16,6 @@ import {
     HeldShieldData,
     LabeledSpeed,
     SaveData,
-    SkillData,
 } from "@actor/creature/data.ts";
 import {
     ActorAttributesSource,
@@ -31,6 +30,7 @@ import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { AbilityString, ActorAlliance, SaveType } from "@actor/types.ts";
 import { MeleePF2e } from "@item";
 import { Rarity, Size } from "@module/data.ts";
+import { StatisticTraceData } from "@system/statistic/data.ts";
 
 interface NPCSource extends BaseCreatureSource<"npc", NPCSystemSource> {
     flags: DeepPartial<NPCFlags>;
@@ -234,14 +234,12 @@ interface NPCPerception extends PerceptionData {
 }
 
 /** Skill data with a "base" value and whether the skill should be rendered (visible) */
-interface NPCSkillData extends SkillData {
+interface NPCSkillData extends StatisticTraceData {
     base?: number;
     visible?: boolean;
     isLore?: boolean;
     itemID?: string;
     ability: AbilityString;
-    label: string;
-    expanded: string;
 }
 
 interface NPCSpeeds extends CreatureSpeeds {

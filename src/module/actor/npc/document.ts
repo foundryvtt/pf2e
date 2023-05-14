@@ -1,27 +1,19 @@
-import { ActorPF2e, CreaturePF2e } from "@actor";
-import { Abilities } from "@actor/creature/data.ts";
+import { CreaturePF2e } from "@actor";
+import { Abilities, CreatureSkills } from "@actor/creature/data.ts";
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
 import { strikeFromMeleeItem } from "@actor/helpers.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
-import { CheckModifier, MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
-import { SaveType } from "@actor/types.ts";
+import { MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { AbilityString, SaveType } from "@actor/types.ts";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
 import { ItemPF2e, MeleePF2e } from "@item";
 import { ItemType } from "@item/data/index.ts";
 import { calculateDC } from "@module/dc.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { CreatureIdentificationData, creatureIdentificationDCs } from "@module/recall-knowledge.ts";
-import {
-    extractDegreeOfSuccessAdjustments,
-    extractModifierAdjustments,
-    extractModifiers,
-    extractNotes,
-    extractRollTwice,
-} from "@module/rules/helpers.ts";
+import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
-import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check/index.ts";
 import { PredicatePF2e } from "@system/predication.ts";
-import { RollParameters } from "@system/rolls.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { createHTMLElement, objectHasKey, sluggify } from "@util";
 import { NPCFlags, NPCSource, NPCSystemData } from "./data.ts";
@@ -161,7 +153,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
         // Extract as separate variables for easier use in this method.
         const { synthetics } = this;
-        const { modifierAdjustments, statisticsModifiers, strikes, rollNotes } = synthetics;
+        const { modifierAdjustments, statisticsModifiers, strikes } = synthetics;
         const itemTypes = this.itemTypes;
         const baseLevel = this.system.details.level.base;
 
@@ -240,6 +232,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
         // Speeds
         const speeds = (system.attributes.speed = this.prepareSpeed("land"));
+        speeds.value = speeds.total;
         speeds.otherSpeeds = (["burrow", "climb", "fly", "swim"] as const).flatMap((m) => this.prepareSpeed(m) ?? []);
 
         // Armor Class
@@ -283,210 +276,33 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         // Perception
         {
             const domains = ["perception", "wis-based", "all"];
-            const base = system.attributes.perception.value;
-            const modifiers = [
-                new ModifierPF2e({
-                    slug: "base",
-                    label: "PF2E.ModifierTitle",
-                    modifier: base,
-                    adjustments: extractModifierAdjustments(modifierAdjustments, domains, "base"),
-                }),
-                ...extractModifiers(this.synthetics, domains),
-            ];
-
-            const stat = mergeObject(
-                new StatisticModifier("perception", modifiers, this.getRollOptions(domains)),
-                system.attributes.perception,
-                { overwrite: false }
-            );
-            stat.base = base;
-            stat.notes = extractNotes(rollNotes, domains);
-            stat.value = stat.totalModifier;
-            stat.breakdown = stat.modifiers
-                .filter((m) => m.enabled)
-                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                .join(", ");
-            stat.roll = async (params: RollParameters): Promise<Rolled<CheckRoll> | null> => {
-                const label = game.i18n.localize("PF2E.PerceptionCheck");
-                const rollOptions = new Set(params.options ?? []);
-                const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, rollOptions);
-
-                const roll = await CheckPF2e.roll(
-                    new CheckModifier(label, stat),
-                    {
-                        actor: this,
-                        type: "perception-check",
-                        options: new Set(params.options ?? []),
-                        dc: params.dc,
-                        rollTwice,
-                        notes: stat.notes,
-                        dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, domains),
-                    },
-                    params.event,
-                    params.callback
-                );
-
-                for (const rule of this.rules.filter((r) => !r.ignored)) {
-                    await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions });
-                }
-
-                return roll;
-            };
-
-            system.attributes.perception = stat;
-        }
-
-        // default all skills to untrained
-        system.skills = {};
-        for (const skill of SKILL_LONG_FORMS) {
-            const { ability, shortform } = SKILL_EXPANDED[skill];
-            const domains = [skill, `${ability}-based`, "skill-check", `${ability}-skill-check`, "all"];
-            const modifiers = [
-                new ModifierPF2e({
-                    slug: "base",
-                    label: "PF2E.ModifierTitle",
-                    modifier: system.abilities[ability].mod,
-                    adjustments: extractModifierAdjustments(modifierAdjustments, domains, "base"),
-                }),
-                ...extractModifiers(this.synthetics, domains),
-            ];
-            const notes = extractNotes(rollNotes, domains);
-            const name = game.i18n.localize(`PF2E.Skill${SKILL_DICTIONARY[shortform].capitalize()}`);
-
-            const stat = mergeObject(
-                new StatisticModifier(skill, modifiers, this.getRollOptions(domains)),
-                {
-                    ability,
-                    expanded: skill,
-                    label: name,
-                    value: 0,
-                    visible: false,
-                    roll: async (params: RollParameters): Promise<Rolled<CheckRoll> | null> => {
-                        console.warn(
-                            `Rolling skill checks via actor.system.skills.${shortform}.roll() is deprecated, use actor.skills.${skill}.check.roll() instead`
-                        );
-                        const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: name });
-                        const rollOptions = new Set(params.options ?? []);
-                        const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, rollOptions);
-                        const context = {
-                            actor: this,
-                            type: "skill-check" as const,
-                            options: rollOptions,
-                            dc: params.dc,
-                            rollTwice,
-                            notes,
-                            dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, domains),
-                        };
-
-                        const roll = await CheckPF2e.roll(
-                            new CheckModifier(label, stat),
-                            context,
-                            params.event,
-                            params.callback
-                        );
-
-                        for (const rule of this.rules.filter((r) => !r.ignored)) {
-                            await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions });
-                        }
-
-                        return roll;
-                    },
-                    lore: false,
-                },
-                { overwrite: false }
-            );
-            stat.value = stat.totalModifier;
-            stat.breakdown = stat.modifiers
-                .filter((m) => m.enabled)
-                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                .join(", ");
-            system.skills[shortform] = stat;
-        }
-
-        // process OwnedItem instances, which for NPCs include skills, attacks, equipment, special abilities etc.
-        const generatedMelee = Array.from(strikes.values()).flatMap((w) => w.toNPCAttacks());
-        const items: ItemPF2e<ActorPF2e>[] = [...this.items.contents, ...generatedMelee];
-        for (const item of items) {
-            if (item.isOfType("lore")) {
-                // override untrained skills if defined in the NPC data
-                const skill = sluggify(item.name); // normalize skill name to lower-case and dash-separated words
-                // assume lore, if skill cannot be looked up
-                const { ability, shortform } = objectHasKey(SKILL_EXPANDED, skill)
-                    ? SKILL_EXPANDED[skill]
-                    : { ability: "int" as const, shortform: skill };
-
-                const base = item.system.mod.value;
-                const domains = [
-                    skill,
-                    `${ability}-based`,
-                    "skill-check",
-                    "lore-skill-check",
-                    `${ability}-skill-check`,
-                    "all",
-                ];
-                const modifiers = [
+            this.perception = new Statistic(this, {
+                slug: "perception",
+                label: "PF2E.PerceptionLabel",
+                ability: "wis",
+                domains,
+                modifiers: [
                     new ModifierPF2e({
                         slug: "base",
                         label: "PF2E.ModifierTitle",
-                        modifier: base,
+                        modifier: system.attributes.perception.value,
                         adjustments: extractModifierAdjustments(modifierAdjustments, domains, "base"),
                     }),
-                    extractModifiers(this.synthetics, domains),
-                ].flat();
+                ],
+                check: { type: "perception-check" },
+            });
+            system.attributes.perception = mergeObject(
+                system.attributes.perception,
+                this.perception.getTraceData({ value: "mod", rollable: ["4.12", "5.0"] })
+            );
+        }
 
-                const stat = new StatisticModifier(skill, modifiers, this.getRollOptions(domains));
-                const additionalData = {
-                    itemID: item.id,
-                    lore: !objectHasKey(SKILL_EXPANDED, skill),
-                    ability,
-                    rank: 1,
-                    notes: extractNotes(rollNotes, domains),
-                    base,
-                    expanded: skill,
-                    label: item.name,
-                    value: stat.totalModifier,
-                    visible: true,
-                    breakdown: stat.modifiers
-                        .filter((m) => m.enabled)
-                        .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                        .join(", "),
-                    variants: Object.values(item.system.variants ?? {}),
-                    roll: async (params: RollParameters): Promise<Rolled<CheckRoll> | null> => {
-                        console.warn(
-                            `Rolling skill checks via actor.system.skills.${shortform}.roll() is deprecated, use actor.skills.${skill}.check.roll() instead`
-                        );
-                        const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: item.name });
-                        const rollOptions = new Set(params.options ?? []);
-                        const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, rollOptions);
-                        const context: CheckRollContext = {
-                            actor: this,
-                            type: "skill-check",
-                            options: rollOptions,
-                            dc: params.dc,
-                            rollTwice,
-                            notes: stat.notes,
-                            dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, domains),
-                        };
+        this.skills = this.prepareSkills();
 
-                        const roll = await CheckPF2e.roll(
-                            new CheckModifier(label, stat),
-                            context,
-                            params.event,
-                            params.callback
-                        );
-
-                        for (const rule of this.rules.filter((r) => !r.ignored)) {
-                            await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions });
-                        }
-
-                        return roll;
-                    },
-                };
-
-                system.skills[shortform] = mergeObject(stat, additionalData);
-            } else if (item.isOfType("melee")) {
-                system.actions.push(strikeFromMeleeItem(item));
-            }
+        // process strikes.
+        const generatedMelee = Array.from(strikes.values()).flatMap((w) => w.toNPCAttacks());
+        for (const item of [...this.itemTypes.melee, ...generatedMelee]) {
+            system.actions.push(strikeFromMeleeItem(item));
         }
 
         // Spellcasting Entries
@@ -587,6 +403,93 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         }
 
         this.saves = saves as Record<SaveType, Statistic>;
+    }
+
+    private prepareSkills(): CreatureSkills {
+        const { system } = this;
+        const { modifierAdjustments } = this.synthetics;
+
+        // Internal function to create trace data, since NPCs still use the lore item type
+        system.skills = {};
+        function createTrace(stat: Statistic, item?: ItemPF2e) {
+            const { ability, shortform } = objectHasKey(SKILL_EXPANDED, stat.slug)
+                ? SKILL_EXPANDED[stat.slug]
+                : { ability: "int" as AbilityString, shortform: stat.slug };
+            system.skills[shortform] = {
+                ...stat.getTraceData({ rollable: ["4.12", "5.0"] }),
+                isLore: !!stat.lore,
+                itemID: item?.id,
+                ability,
+                visible: stat.proficient,
+            };
+        }
+
+        // Create default "untrained" skills for all basic types first
+        const skills: Partial<CreatureSkills> = {};
+        for (const skill of SKILL_LONG_FORMS) {
+            const { ability, shortform } = SKILL_EXPANDED[skill];
+            const domains = [skill, `${ability}-based`, "skill-check", `${ability}-skill-check`, "all"];
+            const name = game.i18n.localize(`PF2E.Skill${SKILL_DICTIONARY[shortform].capitalize()}`);
+
+            const statistic = new Statistic(this, {
+                slug: skill,
+                label: name,
+                ability,
+                domains,
+                modifiers: [
+                    new ModifierPF2e({
+                        slug: "base",
+                        label: "PF2E.ModifierTitle",
+                        modifier: system.abilities[ability].mod,
+                        adjustments: extractModifierAdjustments(modifierAdjustments, domains, "base"),
+                    }),
+                ],
+                lore: false,
+                proficient: false,
+                check: { type: "skill-check" },
+            });
+
+            skills[skill] = statistic;
+            createTrace(statistic);
+        }
+
+        for (const item of this.itemTypes.lore) {
+            // override untrained skills if defined in the NPC data
+            const skill = sluggify(item.name); // normalize skill name to lower-case and dash-separated words
+            const ability = objectHasKey(SKILL_EXPANDED, skill) ? SKILL_EXPANDED[skill].ability : "int";
+
+            const base = item.system.mod.value;
+            const domains = [
+                skill,
+                `${ability}-based`,
+                "skill-check",
+                "lore-skill-check",
+                `${ability}-skill-check`,
+                "all",
+            ];
+
+            const statistic = new Statistic(this, {
+                slug: skill,
+                label: item.name,
+                ability,
+                lore: !objectHasKey(SKILL_EXPANDED, skill),
+                domains,
+                modifiers: [
+                    new ModifierPF2e({
+                        slug: "base",
+                        label: "PF2E.ModifierTitle",
+                        modifier: base,
+                        adjustments: extractModifierAdjustments(modifierAdjustments, domains, "base"),
+                    }),
+                ],
+                check: { type: "skill-check" },
+            });
+
+            skills[skill] = statistic;
+            createTrace(statistic, item);
+        }
+
+        return skills as CreatureSkills;
     }
 
     async getAttackEffects(attack: MeleePF2e): Promise<RollNotePF2e[]> {

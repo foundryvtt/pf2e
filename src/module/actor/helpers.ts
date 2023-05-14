@@ -160,14 +160,13 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     const meleeOrRanged = isMelee ? "melee" : "ranged";
 
     const domains = [
-        "attack",
-        "mundane-attack",
         `${slug}-attack`,
         `${item.id}-attack`,
         `${unarmedOrWeapon}-attack-roll`,
         `${meleeOrRanged}-attack-roll`,
         "strike-attack-roll",
         "attack-roll",
+        "attack",
         "all",
     ];
 
