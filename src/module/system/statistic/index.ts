@@ -33,6 +33,7 @@ import { isObject, Optional, traitSlugToObject } from "@util";
 import { StatisticChatData, StatisticTraceData, StatisticData, StatisticCheckData } from "./data.ts";
 import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
 import { RollParameters } from "@system/rolls.ts";
+import { TokenDocumentPF2e } from "@scene";
 
 export * from "./data.ts";
 
@@ -340,6 +341,7 @@ class StatisticCheck {
         })();
 
         const actor = this.parent.actor;
+        const token = args.token ?? actor.token;
         const item = args.item ?? null;
         const domains = this.domains;
 
@@ -437,6 +439,7 @@ class StatisticCheck {
         // Create parameters for the check roll function
         const context: CheckRollContext = {
             actor,
+            token,
             item,
             domains,
             target: rollContext?.target ?? null,
@@ -450,6 +453,7 @@ class StatisticCheck {
             substitutions: extractRollSubstitutions(actor.synthetics.rollSubstitutions, domains, options),
             dosAdjustments,
             traits,
+            title: args.title,
             createMessage: args.createMessage ?? true,
         };
 
@@ -512,6 +516,8 @@ class StatisticDifficultyClass {
 }
 
 interface StatisticRollParameters {
+    /** What token to use for the roll itself. Defaults to the actor's token */
+    token?: TokenDocumentPF2e;
     /** Which attack this is (for the purposes of multiple attack penalty) */
     attackNumber?: number;
     /** Optional target for the roll */
@@ -522,6 +528,8 @@ interface StatisticRollParameters {
     dc?: CheckDC | null;
     /** Optional override for the check modifier label */
     label?: string;
+    /** Optional override for the dialog's title. Defaults to label */
+    title?: string;
     /** Any additional roll notes which should be used in the roll. */
     extraRollNotes?: (RollNotePF2e | RollNoteSource)[];
     /** Any additional options which should be used in the roll. */
