@@ -505,6 +505,7 @@ const traitsDescriptions = {
     "reach-1000": "PF2E.TraitDescriptionReach",
     "reach-15": "PF2E.TraitDescriptionReach",
     "reach-20": "PF2E.TraitDescriptionReach",
+    "reach-200": "PF2E.TraitDescriptionReach",
     "reach-25": "PF2E.TraitDescriptionReach",
     "reach-30": "PF2E.TraitDescriptionReach",
     "reach-40": "PF2E.TraitDescriptionReach",
