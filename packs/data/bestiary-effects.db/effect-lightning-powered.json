@@ -1,0 +1,44 @@
+{
+    "_id": "MxFFGo4WJpHh1e70",
+    "img": "systems/pf2e/icons/spells/shocking-grasp.webp",
+    "name": "Effect: Lightning Powered",
+    "system": {
+        "badge": {
+            "type": "counter",
+            "value": 1
+        },
+        "description": {
+            "value": "<p>For each shock zombie within 30 feet, the shock zombie gains fast healing 2 (to a maximum of fast healing 10).</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FastHealing",
+                "value": "min(@item.badge.value*2,10)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #180: The Smoking Gun"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
