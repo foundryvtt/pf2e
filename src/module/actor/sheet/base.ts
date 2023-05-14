@@ -226,6 +226,15 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             new ImagePopout(actor.img, { title, uuid: actor.uuid }).render(true);
         });
 
+        // Inventory drag & drop. This has to happen prior to the options.editable check to allow drag & drop on limited permission sheets.
+        const inventoryPanel = ((): HTMLElement | null => {
+            const selector = this.actor.isOfType("loot") ? ".sheet-body" : ".tab[data-tab=inventory]";
+            return htmlQuery(html, selector);
+        })();
+        if (this._canDragDrop(".item-list")) {
+            this.#activateInventoryDragDrop(inventoryPanel);
+        }
+
         // Everything below here is only needed if the sheet is editable
         if (!this.options.editable) return;
 
@@ -261,10 +270,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         // Inventory
-        const inventoryPanel = ((): HTMLElement | null => {
-            const selector = this.actor.isOfType("loot") ? ".sheet-body" : ".tab[data-tab=inventory]";
-            return htmlQuery(html, selector);
-        })();
         this.#activateInventoryListeners(inventoryPanel);
 
         // Equipment Browser
@@ -625,8 +630,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                     minWidth: 120,
                 });
         }
+    }
 
-        // Drag & drop
+    /** Inventory drag & drop listeners */
+    #activateInventoryDragDrop(panel: HTMLElement | null): void {
         const inventoryList = htmlQuery(panel, "section.inventory-list, ol[data-container-type=actorInventory]");
         if (!inventoryList) return;
         const sortableOptions: Sortable.Options = {
