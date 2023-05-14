@@ -226,86 +226,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             new ImagePopout(actor.img, { title, uuid: actor.uuid }).render(true);
         });
 
-        // Inventory drag drop
-        const inventoryList = htmlQuery(html, "section.inventory-list, ol[data-container-type=actorInventory]");
-        if (inventoryList) {
-            const sortableOptions: Sortable.Options = {
-                animation: 200,
-                direction: "vertical",
-                dragClass: "drag-preview",
-                dragoverBubble: true,
-                filter: "div.item-summary",
-                preventOnFilter: false,
-                easing: "cubic-bezier(1, 0, 0, 1)",
-                ghostClass: "drag-gap",
-                scroll: inventoryList,
-                scrollSensitivity: 30,
-                scrollSpeed: 15,
-                setData: (dataTransfer, dragEl) => {
-                    const item = this.actor.inventory.get(htmlQuery(dragEl, "div[data-item-id]")?.dataset.itemId, {
-                        strict: true,
-                    });
-                    dataTransfer.setData("text/plain", JSON.stringify({ ...item.toDragData(), fromInventory: true }));
-                },
-                onStart: () => {
-                    // Reset move data
-                    this.#sortableOnMoveData = {};
-                },
-                onClone: (event) => {
-                    // Cloning sets draggable to false for some reason
-                    for (const link of htmlQueryAll(htmlQuery(event.item, "div.item-summary"), "a.content-link")) {
-                        link.draggable = true;
-                    }
-                },
-                onMove: (event, originalEvent) => this.#sortableOnMove(event, originalEvent),
-                onEnd: (event) => this.#sortableOnEnd(event),
-            };
-
-            for (const list of htmlQueryAll(inventoryList, "ol.inventory-items, ol.item-list")) {
-                const itemType = list.dataset.itemType;
-                // Ignore nested container lists that have the same selector. They will be handled by the backpack section
-                if (list.dataset.containerId || !itemType) continue;
-
-                // Containers
-                if (itemType === "backpack") {
-                    Sortable.create(list, {
-                        ...sortableOptions,
-                        group: {
-                            name: "container",
-                            put: (_to, _from, dragEl) => dragEl.dataset.itemType === "backpack",
-                        },
-                        swapThreshold: 0.2,
-                    });
-                    // Nested items inside containers
-                    for (const subList of htmlQueryAll(list, "ol.container-held-items")) {
-                        Sortable.create(subList, {
-                            ...sortableOptions,
-                            group: {
-                                name: "nested-item",
-                                put: true,
-                            },
-                            swapThreshold: 0.2,
-                        });
-                    }
-                    continue;
-                }
-
-                // Everything else
-                Sortable.create(list, {
-                    ...sortableOptions,
-                    group: {
-                        name: itemType,
-                        put: (to, from, dragEl) => {
-                            // Return early if both lists are the same
-                            if (from === to) return true;
-                            // Allow dragging by item type
-                            return dragEl.dataset.itemType === to.el.dataset.itemType;
-                        },
-                    },
-                });
-            }
-        }
-
         // Everything below here is only needed if the sheet is editable
         if (!this.options.editable) return;
 
@@ -334,6 +254,18 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 }
             });
         }
+
+        // Delete Item
+        for (const link of htmlQueryAll(html, ".item-delete")) {
+            link.addEventListener("click", (event) => this.#onClickDeleteItem(event));
+        }
+
+        // Inventory
+        const inventoryPanel = ((): HTMLElement | null => {
+            const selector = this.actor.isOfType("loot") ? ".sheet-body" : ".tab[data-tab=inventory]";
+            return htmlQuery(html, selector);
+        })();
+        this.#activateInventoryListeners(inventoryPanel);
 
         /* -------------------------------------------- */
         /*  Attributes, Skills, Saves and Traits        */
@@ -487,68 +419,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         // Trait Selector
         $html.find(".tag-selector").on("click", (event) => this.openTagSelector(event));
 
-        $html.find(".add-coins-popup button").on("click", (event) => this.#onAddCoinsPopup(event));
-
-        $html.find(".remove-coins-popup button").on("click", (event) => this.#onRemoveCoinsPopup(event));
-
-        $html.find(".sell-all-treasure button").on("click", (event) => this.#onSellAllTreasure(event));
-
-        // Inventory Browser
-        for (const link of htmlQueryAll(html, ".inventory-browse")) {
-            link.addEventListener("click", () => this.#onClickBrowseEquipmentCompendia(link));
-        }
-
         // Create a custom item
         for (const link of htmlQueryAll(html, ".item-create, .item-control.spell-create")) {
             link.addEventListener("click", () => this.#onClickCreateItem(link));
-        }
-
-        /* -------------------------------------------- */
-        /*  Inventory                                   */
-        /* -------------------------------------------- */
-
-        $html.find(".item-repair").on("click", (event) => this.#repairItem(event));
-
-        $html.find(".item-toggle-container").on("click", (event) => this.#toggleContainer(event));
-
-        // Sell treasure item
-        for (const sellButton of htmlQueryAll(html, ".item-sell-treasure")) {
-            sellButton.addEventListener("click", (event) => {
-                const itemId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
-                const item = this.actor.inventory.get(itemId, { strict: true });
-                const sellItem = async (): Promise<void> => {
-                    if (item?.isOfType("treasure") && !item.isCoinage) {
-                        await item.delete();
-                        await this.actor.inventory.addCoins(item.assetValue);
-                    }
-                };
-
-                if (event.ctrlKey) {
-                    sellItem();
-                    return;
-                }
-
-                const content = document.createElement("p");
-                content.innerText = game.i18n.format("PF2E.SellItemQuestion", {
-                    item: item.name,
-                });
-                new Dialog({
-                    title: game.i18n.localize("PF2E.SellItemConfirmHeader"),
-                    content: content.outerHTML,
-                    buttons: {
-                        Yes: {
-                            icon: fontAwesomeIcon("check").outerHTML,
-                            label: game.i18n.localize("Yes"),
-                            callback: sellItem,
-                        },
-                        cancel: {
-                            icon: fontAwesomeIcon("times").outerHTML,
-                            label: game.i18n.localize("Cancel"),
-                        },
-                    },
-                    default: "Yes",
-                }).render(true);
-            });
         }
 
         // Update an embedded item
@@ -556,25 +429,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             const itemId = $(event.currentTarget).closest("[data-item-id]").attr("data-item-id");
             const item = this.actor.items.get(itemId ?? "");
             item?.sheet.render(true, { focus: true });
-        });
-
-        // Toggle identified
-        $html.find(".item-toggle-identified").on("click", (event) => {
-            const f = $(event.currentTarget);
-            const itemId = f.parents(".item").attr("data-item-id") ?? "";
-            const identified = f.hasClass("identified");
-            if (identified) {
-                const item = this.actor.items.get(itemId);
-                if (!item?.isOfType("physical")) {
-                    throw ErrorPF2e(`${itemId} is not a physical item.`);
-                }
-                item.setIdentificationStatus("unidentified");
-            } else {
-                const item = this.actor.items.get(itemId);
-                if (item?.isOfType("physical")) {
-                    new IdentifyItemPopup(item).render(true);
-                }
-            }
         });
 
         // Decrease effect value
@@ -610,34 +464,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 }
             });
         }
-
-        // Delete Inventory Item
-        for (const deleteLink of htmlQueryAll(html, ".item-delete")) {
-            deleteLink.addEventListener("click", (event) => this.#onClickDeleteItem(event));
-        }
-
-        // Increase Item Quantity
-        $html.find(".item-increase-quantity").on("click", (event) => {
-            const itemId = $(event.currentTarget).parents(".item").attr("data-item-id") ?? "";
-            const item = this.actor.items.get(itemId);
-            if (!item?.isOfType("physical")) {
-                throw new Error("PF2e System | Tried to update quantity on item that does not have quantity");
-            }
-            this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, "system.quantity": item.quantity + 1 }]);
-        });
-
-        // Decrease Item Quantity
-        $html.find(".item-decrease-quantity").on("click", (event) => {
-            const li = $(event.currentTarget).parents(".item");
-            const itemId = li.attr("data-item-id") ?? "";
-            const item = this.actor.items.get(itemId);
-            if (!item?.isOfType("physical")) {
-                throw ErrorPF2e("Tried to update quantity on item that does not have quantity");
-            }
-            if (item.quantity > 0) {
-                this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, "system.quantity": item.quantity - 1 }]);
-            }
-        });
 
         // Item chat cards
         for (const element of htmlQueryAll(html, ".item[data-item-id] .item-image, .item[data-item-id] .item-chat")) {
@@ -689,6 +515,188 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             deltaInput.addEventListener("input", () => {
                 const match = /[+-]?\d*/.exec(deltaInput.value)?.at(0);
                 deltaInput.value = match ?? deltaInput.value;
+            });
+        }
+    }
+
+    /** DOM listeners for inventory panel */
+    #activateInventoryListeners(panel: HTMLElement | null): void {
+        if (!panel) return;
+        const $inventory = $(panel);
+
+        // Increase Item Quantity
+        $inventory.find(".item-increase-quantity").on("click", (event) => {
+            const itemId = $(event.currentTarget).parents(".item").attr("data-item-id") ?? "";
+            const item = this.actor.items.get(itemId);
+            if (!item?.isOfType("physical")) {
+                throw new Error("PF2e System | Tried to update quantity on item that does not have quantity");
+            }
+            this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, "system.quantity": item.quantity + 1 }]);
+        });
+
+        // Decrease Item Quantity
+        $inventory.find(".item-decrease-quantity").on("click", (event) => {
+            const $li = $(event.currentTarget).parents(".item");
+            const itemId = $li.attr("data-item-id") ?? "";
+            const item = this.actor.items.get(itemId);
+            if (!item?.isOfType("physical")) {
+                throw ErrorPF2e("Tried to update quantity on item that does not have quantity");
+            }
+            if (item.quantity > 0) {
+                this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, "system.quantity": item.quantity - 1 }]);
+            }
+        });
+
+        $inventory.find(".add-coins-popup button").on("click", (event) => this.#onAddCoinsPopup(event));
+
+        $inventory.find(".remove-coins-popup button").on("click", (event) => this.#onRemoveCoinsPopup(event));
+
+        $inventory.find(".sell-all-treasure button").on("click", (event) => this.#onSellAllTreasure(event));
+
+        // Inventory Browser
+        for (const link of htmlQueryAll(panel, ".inventory-browse")) {
+            link.addEventListener("click", () => this.#onClickBrowseEquipmentCompendia(link));
+        }
+
+        // Toggle identified
+        $inventory.find(".item-toggle-identified").on("click", (event) => {
+            const f = $(event.currentTarget);
+            const itemId = f.parents(".item").attr("data-item-id") ?? "";
+            const identified = f.hasClass("identified");
+            if (identified) {
+                const item = this.actor.items.get(itemId);
+                if (!item?.isOfType("physical")) {
+                    throw ErrorPF2e(`${itemId} is not a physical item.`);
+                }
+                item.setIdentificationStatus("unidentified");
+            } else {
+                const item = this.actor.items.get(itemId);
+                if (item?.isOfType("physical")) {
+                    new IdentifyItemPopup(item).render(true);
+                }
+            }
+        });
+
+        $inventory.find(".item-repair").on("click", (event) => this.#repairItem(event));
+
+        $inventory.find(".item-toggle-container").on("click", (event) => this.#toggleContainer(event));
+
+        // Sell treasure item
+        for (const sellButton of htmlQueryAll(panel, ".item-sell-treasure")) {
+            sellButton.addEventListener("click", (event) => {
+                const itemId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
+                const item = this.actor.inventory.get(itemId, { strict: true });
+                const sellItem = async (): Promise<void> => {
+                    if (item?.isOfType("treasure") && !item.isCoinage) {
+                        await item.delete();
+                        await this.actor.inventory.addCoins(item.assetValue);
+                    }
+                };
+
+                if (event.ctrlKey) {
+                    sellItem();
+                    return;
+                }
+
+                const content = document.createElement("p");
+                content.innerText = game.i18n.format("PF2E.SellItemQuestion", {
+                    item: item.name,
+                });
+                new Dialog({
+                    title: game.i18n.localize("PF2E.SellItemConfirmHeader"),
+                    content: content.outerHTML,
+                    buttons: {
+                        Yes: {
+                            icon: fontAwesomeIcon("check").outerHTML,
+                            label: game.i18n.localize("Yes"),
+                            callback: sellItem,
+                        },
+                        cancel: {
+                            icon: fontAwesomeIcon("times").outerHTML,
+                            label: game.i18n.localize("Cancel"),
+                        },
+                    },
+                    default: "Yes",
+                }).render(true);
+            });
+        }
+
+        // INVENTORY DRAG & DROP
+        const inventoryList = htmlQuery(panel, "section.inventory-list, ol[data-container-type=actorInventory]");
+        if (!inventoryList) return;
+        const sortableOptions: Sortable.Options = {
+            animation: 200,
+            direction: "vertical",
+            dragClass: "drag-preview",
+            dragoverBubble: true,
+            filter: "div.item-summary",
+            preventOnFilter: false,
+            easing: "cubic-bezier(1, 0, 0, 1)",
+            ghostClass: "drag-gap",
+            scroll: inventoryList,
+            scrollSensitivity: 30,
+            scrollSpeed: 15,
+            setData: (dataTransfer, dragEl) => {
+                const item = this.actor.inventory.get(htmlQuery(dragEl, "div[data-item-id]")?.dataset.itemId, {
+                    strict: true,
+                });
+                dataTransfer.setData("text/plain", JSON.stringify({ ...item.toDragData(), fromInventory: true }));
+            },
+            onStart: () => {
+                // Reset move data
+                this.#sortableOnMoveData = {};
+            },
+            onClone: (event) => {
+                // Cloning sets draggable to false for some reason
+                for (const link of htmlQueryAll(htmlQuery(event.item, "div.item-summary"), "a.content-link")) {
+                    link.draggable = true;
+                }
+            },
+            onMove: (event, originalEvent) => this.#sortableOnMove(event, originalEvent),
+            onEnd: (event) => this.#sortableOnEnd(event),
+        };
+
+        for (const list of htmlQueryAll(inventoryList, "ol.inventory-items, ol.item-list")) {
+            const itemType = list.dataset.itemType;
+            // Ignore nested container lists that have the same selector. They will be handled by the backpack section
+            if (list.dataset.containerId || !itemType) continue;
+
+            // Containers
+            if (itemType === "backpack") {
+                Sortable.create(list, {
+                    ...sortableOptions,
+                    group: {
+                        name: "container",
+                        put: (_to, _from, dragEl) => dragEl.dataset.itemType === "backpack",
+                    },
+                    swapThreshold: 0.2,
+                });
+                // Nested items inside containers
+                for (const subList of htmlQueryAll(list, "ol.container-held-items")) {
+                    Sortable.create(subList, {
+                        ...sortableOptions,
+                        group: {
+                            name: "nested-item",
+                            put: true,
+                        },
+                        swapThreshold: 0.2,
+                    });
+                }
+                continue;
+            }
+
+            // Everything else
+            Sortable.create(list, {
+                ...sortableOptions,
+                group: {
+                    name: itemType,
+                    put: (to, from, dragEl) => {
+                        // Return early if both lists are the same
+                        if (from === to) return true;
+                        // Allow dragging by item type
+                        return dragEl.dataset.itemType === to.el.dataset.itemType;
+                    },
+                },
             });
         }
     }
