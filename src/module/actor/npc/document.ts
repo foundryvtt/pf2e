@@ -6,7 +6,7 @@ import { ActorInitiative } from "@actor/initiative.ts";
 import { MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { AbilityString, SaveType } from "@actor/types.ts";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
-import { ItemPF2e, MeleePF2e } from "@item";
+import { ItemPF2e, LorePF2e, MeleePF2e } from "@item";
 import { ItemType } from "@item/data/index.ts";
 import { calculateDC } from "@module/dc.ts";
 import { RollNotePF2e } from "@module/notes.ts";
@@ -411,16 +411,18 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
         // Internal function to create trace data, since NPCs still use the lore item type
         system.skills = {};
-        function createTrace(stat: Statistic, item?: ItemPF2e) {
+        function createTrace(stat: Statistic, item?: LorePF2e<NPCPF2e>) {
             const { ability, shortform } = objectHasKey(SKILL_EXPANDED, stat.slug)
                 ? SKILL_EXPANDED[stat.slug]
                 : { ability: "int" as AbilityString, shortform: stat.slug };
             system.skills[shortform] = {
                 ...stat.getTraceData({ rollable: ["4.12", "5.0"] }),
+                base: item?.system.mod.value,
                 isLore: !!stat.lore,
                 itemID: item?.id,
                 ability,
                 visible: stat.proficient,
+                variants: Object.values(item?.system.variants ?? {}),
             };
         }
 

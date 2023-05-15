@@ -240,6 +240,7 @@ interface NPCSkillData extends StatisticTraceData {
     isLore?: boolean;
     itemID?: string;
     ability: AbilityString;
+    variants: { label: string; options: string }[];
 }
 
 interface NPCSpeeds extends CreatureSpeeds {
