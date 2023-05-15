@@ -93,15 +93,13 @@
             "name": "Darkvision",
             "sort": 300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -132,15 +130,13 @@
             "name": "Corpse Sense (Precise) 30 feet",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>A corpselight can sense dead bodies within range. This is a precise sense that functions through solid barriers less than 5 feet thick.</p>"
                 },
@@ -176,15 +172,13 @@
             "name": "Negative Healing",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
@@ -222,15 +216,13 @@
             "name": "Sunlight Powerlessness",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>A corpselight exposed to sunlight is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 2} and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2}, and cannot Claim a Corpse.</p>"
                 },
@@ -261,15 +253,13 @@
             "name": "Wisp Form",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "deathNote": true,
                 "description": {
                     "value": "<p>When a corpselight is reduced to 0 Hit Points while merged with a corpse, it is instead reduced to 1 Hit Point as the corpse collapses to the ground and the corpselight emerges in its wisp form.</p>\n<p>While in wisp form, a corpselight is Tiny and can take no actions other than Claim Corpse or Fly.</p>\n<p>A corpselight that starts its turn in wisp form must attempt a @Check[type:flat|dc:16|immutable:true] at the end of its turn; if it fails, it loses 1 Hit Point. A corpselight reduced to 0 Hit Points while in wisp form is destroyed.</p>"
@@ -301,15 +291,13 @@
             "name": "Claim Corpse",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Prerequisites</strong> The corpselight is in wisp form and is adjacent to a Medium or Small corpse that hasn't been claimed by a corpselight in the past 24 hours</p>\n<hr />\n<p><strong>Effect</strong> The corpselight merges with the corpse, causes the corpse to Stand, and regains [[/r 3d6[healing]]]{3d6 Hit Points}.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Claim Corpse - Fleshy]{Effect: Claim Corpse - Fleshy}</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Claim Corpse - Skeletal]{Effect: Claim Corpse - Skeletal}</p>"
                 },
@@ -342,15 +330,13 @@
             "name": "Death Light",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 3
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Prerequisites</strong> The corpselight is in a corpse</p>\n<hr />\n<p><strong>Effect</strong> The corpselight emits a sickly blue beam of light from its mouth and eyes in a @Template[type:cone|distance:20]. All living creatures in this area must attempt a @Check[type:fortitude|dc:18|traits:damaging-effect] saving throw. If at least 1 creature fails its save, the corpselight regains [[/r 2d6[healing]]]{2d6 Hit Points}, gaining any that exceed its maximum as temporary Hit Points that last for 1 minute.</p>\n<p>The corpselight can't use again for [[/br 1d4 #Recharge Death Light]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r 1d6[negative]]] damage.</p>\n<p><strong>Failure</strong> The creature takes [[/r 2d6[negative]]] damage and is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r 4d6[negative]]] damage and is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 3}.</p>"
                 },
