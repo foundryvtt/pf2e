@@ -271,6 +271,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return null;
     }
 
+    /** The actor's hardness: zero with the exception of some hazards and NPCs */
+    get hardness(): number {
+        return 0;
+    }
+
     /** Most actor types can host rule elements */
     get canHostRuleElements(): boolean {
         return true;
@@ -1125,6 +1130,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     async applyDamage({
         damage,
         token,
+        item,
         rollOptions = new Set(),
         skipIWR = false,
         shieldBlockRequest = false,
@@ -1174,15 +1180,51 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 : false;
 
         const shieldHardness = shieldBlock ? actorShield?.hardness ?? 0 : 0;
-        const absorbedDamage = Math.min(shieldHardness, Math.abs(finalDamage));
+        const damageAbsorbedByShield = finalDamage > 0 ? Math.min(shieldHardness, finalDamage) : 0;
         const shieldDamage = shieldBlock
-            ? Math.min(actorShield?.hp.value ?? 0, Math.abs(finalDamage) - absorbedDamage)
+            ? Math.min(actorShield?.hp.value ?? 0, Math.abs(finalDamage) - damageAbsorbedByShield)
             : 0;
+
+        // Reduce damage by actor hardness
+        const baseActorHardness = this.hardness;
+        const effectiveActorHardness = ((): number => {
+            // "[Adamantine weapons] treat any object they hit as if it had half as much Hardness as usual, unless the
+            // object's Hardness is greater than that of the adamantine weapon."
+            const damageHasAdamantine = typeof damage === "number" ? false : damage.materials.includes("adamantine");
+            const materialGrade =
+                item?.isOfType("weapon") && item.material.precious?.type === "adamantine"
+                    ? item.material.precious.grade
+                    : "standard";
+            // Hardness values for thin adamantine items (inclusive of weapons):
+            const itemHardness = {
+                low: 0, // low-grade adamantine doesn't exist
+                standard: 10,
+                high: 13,
+            }[materialGrade];
+            return damageHasAdamantine && itemHardness >= baseActorHardness
+                ? Math.floor(baseActorHardness / 2)
+                : baseActorHardness;
+        })();
+
+        // Include actor-hardness absorption in list of damage modifications
+        const damageAbsorbedByActor =
+            finalDamage > 0 ? Math.min(finalDamage - damageAbsorbedByShield, effectiveActorHardness) : 0;
+        if (damageAbsorbedByActor > 0) {
+            const typeLabel =
+                effectiveActorHardness === baseActorHardness
+                    ? "PF2E.Damage.Hardness.Full"
+                    : "PF2E.Damage.Hardness.Half";
+            result.applications.push({
+                category: "reduction",
+                type: game.i18n.localize(typeLabel),
+                adjustment: -1 * damageAbsorbedByActor,
+            });
+        }
 
         const hpUpdate = this.calculateHealthDelta({
             hp: hitPoints,
             sp: this.isOfType("character") ? this.attributes.sp : undefined,
-            delta: finalDamage - absorbedDamage,
+            delta: finalDamage - damageAbsorbedByShield - damageAbsorbedByActor,
         });
         const hpDamage = hpUpdate.totalApplied;
 
@@ -1212,9 +1254,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         // Send chat message
         const hpStatement = ((): string => {
             // This would be a nested ternary, except prettier thoroughly mangles it
-            if (finalDamage === 0) return localize("TakesNoDamage");
+            if (finalDamage - damageAbsorbedByActor === 0) {
+                return localize("TakesNoDamage");
+            }
             if (finalDamage > 0) {
-                return absorbedDamage > 0
+                return damageAbsorbedByShield > 0
                     ? hpDamage > 0
                         ? localize("DamagedForNShield")
                         : localize("ShieldAbsorbsAll")
@@ -1240,7 +1284,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                     game.i18n.format(s, {
                         actor: token.name.replace(/[<>]/g, ""),
                         hpDamage: Math.abs(hpDamage),
-                        absorbedDamage,
+                        absorbedDamage: damageAbsorbedByShield,
                         shieldDamage,
                     })
                 )

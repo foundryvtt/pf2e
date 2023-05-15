@@ -29,6 +29,10 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
         return this.system.details.isComplex;
     }
 
+    override get hardness(): number {
+        return Math.abs(this.system.attributes.hardness);
+    }
+
     /** Minimal check since the disabled status of a hazard isn't logged */
     override get canAttack(): boolean {
         return this.itemTypes.melee.length > 0;
