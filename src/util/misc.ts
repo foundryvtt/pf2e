@@ -54,6 +54,17 @@ function mapValues<K extends string | number | symbol, V, R>(
     }, {} as Record<K, R>);
 }
 
+/** Given an array of potential keys, creates a new object with each value constructed using a mapping function */
+function objectFromMappedKeys<K extends string | number | symbol, V>(
+    array: Iterable<K>,
+    mapping: (key: K) => V
+): Record<K, V> {
+    return [...array].reduce((result, key) => {
+        result[key] = mapping(key);
+        return result;
+    }, {} as Record<K, V>);
+}
+
 type Optional<T> = T | null | undefined;
 
 /**
@@ -480,6 +491,7 @@ export {
     localizeList,
     localizer,
     mapValues,
+    objectFromMappedKeys,
     objectHasKey,
     omit,
     ordinal,

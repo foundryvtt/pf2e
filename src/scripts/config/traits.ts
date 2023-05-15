@@ -6,7 +6,7 @@ import { RANGE_TRAITS } from "@item/data/values.ts";
 import { PreciousMaterialType } from "@item/physical/types.ts";
 import { MagicSchool, MagicTradition } from "@item/spell/types.ts";
 import { OtherWeaponTag } from "@item/weapon/types.ts";
-import { sluggify } from "@util";
+import { objectFromMappedKeys, sluggify } from "@util";
 
 // Ancestry and heritage traits
 const ancestryTraits = {
@@ -877,10 +877,7 @@ const armorTraits = {
     ponderous: "PF2E.TraitPonderous",
 };
 
-const rangeDescriptions = RANGE_TRAITS.reduce(
-    (descriptions, trait) => mergeObject(descriptions, { [trait]: "PF2E.TraitDescriptionRange" }),
-    {} as Record<(typeof RANGE_TRAITS)[number], string>
-);
+const rangeDescriptions = objectFromMappedKeys(RANGE_TRAITS, () => "PF2E.TraitDescriptionRange");
 
 const preciousMaterialDescriptions = {
     abysium: "PF2E.PreciousMaterialAbysiumDescription",
