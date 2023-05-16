@@ -248,8 +248,16 @@
 
             .item-description {
                 .descriptions {
-                    height: fit-content;
-                    padding: 0 0.5em;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 3px;
+                    height: 100%;
+                    padding: 0 0.25em;
+
+                    > * {
+                        display: inherit;
+                        flex-direction: inherit;
+                    }
 
                     .gm-notes {
                         background-color: var(--visibility-gm-bg);
@@ -265,7 +273,15 @@
                         }
                     }
 
+                    .main {
+                        flex-grow: 1;
+                    }
+
                     .editor {
+                        display: inherit;
+                        flex-direction: inherit;
+                        flex-grow: inherit;
+
                         a.add-gm-notes, a.editor-edit {
                             font-size: 1.33em;
                             background: rgb(205, 205, 205);
@@ -290,10 +306,6 @@
                         &:hover a.add-gm-notes {
                             display: block;
                         }
-                    }
-
-                    .main .editor {
-                        min-height: 6em;
                     }
                 }
             }
