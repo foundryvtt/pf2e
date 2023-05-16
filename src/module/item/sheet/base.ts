@@ -33,7 +33,7 @@ import { RULE_ELEMENT_FORMS, RuleElementForm } from "./rule-elements/index.ts";
 export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     static override get defaultOptions(): DocumentSheetOptions {
         const options = super.defaultOptions;
-        options.width = 691;
+        options.width = 695;
         options.height = 460;
         options.classes = options.classes.concat(["pf2e", "item"]);
         options.template = "systems/pf2e/templates/items/sheet.hbs";
