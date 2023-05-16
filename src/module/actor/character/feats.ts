@@ -16,9 +16,9 @@ interface FeatGroupOptions {
     level?: number;
 }
 
-class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup> {
+class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<TActor>> {
     /** Feats with no actual category ("bonus feats" in rules text) */
-    declare unorganized: FeatGroup;
+    declare unorganized: FeatGroup<TActor>;
 
     constructor(private actor: TActor) {
         super();
@@ -132,16 +132,19 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup>
 
     /** Inserts a feat into the character. If category is empty string, its a bonus feat */
     async insertFeat(feat: FeatPF2e, options: { categoryId: string; slotId?: string }): Promise<ItemPF2e<TActor>[]> {
+        // Certain feat types aren't "real" feats and need to be inserted normally
+        const alreadyHasFeat = this.actor.items.has(feat.id);
+        if (isBoonOrCurse(feat)) {
+            return alreadyHasFeat ? [] : this.actor.createEmbeddedDocuments("Item", [feat.toObject()]);
+        }
+
         const { category, slotId } = this.get(options.categoryId)?.isFeatValid(feat)
             ? {
                   category: this.get(options.categoryId),
                   slotId: options.slotId ?? null,
               }
             : this.findBestLocation(feat, { requested: options.categoryId });
-        const location = (category?.slotted ? slotId : category?.id) || null;
         const isFeatValidInSlot = !!category?.isFeatValid(feat);
-        const alreadyHasFeat = this.actor.items.has(feat.id);
-        const existing = this.actor.itemTypes.feat.filter((x) => x.system.location === location);
 
         // If the feat is invalid in the targeted category and no alternative was found, warn and exit out
         if (options.categoryId !== "bonus" && !category) {
@@ -162,37 +165,14 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup>
             return this.actor.updateEmbeddedDocuments("Item", [{ _id: feat.id, "system.location": null }]);
         }
 
-        const changed: ItemPF2e<TActor>[] = [];
-
-        // If this is a new feat, create a new feat item on the actor first
-        if (!alreadyHasFeat && (isFeatValidInSlot || !location)) {
-            const source = feat.toObject();
-            source.system.location = location;
-            changed.push(...(await this.actor.createEmbeddedDocuments("Item", [source])));
-            const label = game.i18n.localize(location && category?.label ? category.label : "PF2E.FeatBonusHeader");
-            ui.notifications.info(game.i18n.format("PF2E.Item.Feat.Info.Added", { item: feat.name, category: label }));
-        }
-
-        // Determine what feats we have to move around
-        const locationUpdates: { _id: string; "system.location": string | null }[] = category?.slotted
-            ? existing.map((x) => ({ _id: x.id, "system.location": null }))
-            : [];
-        if (alreadyHasFeat && isFeatValidInSlot) {
-            locationUpdates.push({ _id: feat.id, "system.location": location });
-        }
-
-        if (locationUpdates.length > 0) {
-            changed.push(...(await this.actor.updateEmbeddedDocuments("Item", locationUpdates)));
-        }
-
-        return changed;
+        return category?.insertFeat(feat, { slotId }) ?? this.unorganized.insertFeat(feat);
     }
 
     /** If a drop target is omitted or turns out to be invalid, make a limited attempt to find an eligible slot */
     private findBestLocation(
         feat: FeatPF2e,
         { requested }: { requested?: string }
-    ): { category: FeatGroup | null; slotId: string | null } {
+    ): { category: FeatGroup<TActor> | null; slotId: string | null } {
         if (feat.isFeature) return { category: this.get(feat.category) ?? null, slotId: null };
         if (requested === "bonus") return { category: null, slotId: null };
 
@@ -208,6 +188,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup>
         return { category: null, slotId: null };
     }
 
+    /** Assigns existing feats to their correct spots during data preparation */
     assignFeats(): void {
         const slotted = this.contents.filter((category) => category.slotted);
         const categoryBySlot = slotted.reduce((previous: Partial<Record<string, FeatGroup>>, current) => {
@@ -219,15 +200,10 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup>
 
         // put the feats in their feat slots
         const feats = this.actor.itemTypes.feat.sort((f1, f2) => f1.sort - f2.sort);
-        for (const feat of feats) {
+        for (const feat of feats.filter((f) => !isBoonOrCurse(f))) {
             if (feat.flags.pf2e.grantedBy && !feat.system.location) {
                 const granter = this.actor.items.get(feat.flags.pf2e.grantedBy.id);
                 if (granter?.isOfType("feat")) continue;
-            }
-
-            // We don't handle certain feat types here
-            if (["pfsboon", "deityboon", "curse"].includes(feat.category)) {
-                continue;
             }
 
             // Find the group then assign the feat
@@ -242,12 +218,12 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup>
     }
 }
 
-interface CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup> {
-    get(key: "ancestry" | "ancestryfeature" | "class" | "classfeature" | "general" | "skill"): FeatGroup;
-    get(key: string): FeatGroup | undefined;
+interface CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<TActor>> {
+    get(key: "ancestry" | "ancestryfeature" | "class" | "classfeature" | "general" | "skill"): FeatGroup<TActor>;
+    get(key: string): FeatGroup<TActor> | undefined;
 }
 
-class FeatGroup {
+class FeatGroup<TActor extends ActorPF2e = ActorPF2e> {
     id: string;
     label: string;
     feats: (SlottedFeat | BonusFeat)[] = [];
@@ -262,7 +238,7 @@ class FeatGroup {
     /** Lookup for the slots themselves */
     slots: Record<string, SlottedFeat | undefined> = {};
 
-    constructor(actor: ActorPF2e, options: FeatGroupOptions) {
+    constructor(private actor: TActor, options: FeatGroupOptions) {
         const maxLevel = options.level ?? actor.level;
         this.id = options.id;
         this.label = options.label;
@@ -286,7 +262,7 @@ class FeatGroup {
         }
     }
 
-    /** Assigns a feat to its correct slot, returning true if it was assigned successfully */
+    /** Assigns a feat to its correct slot during data preparation, returning true if successful */
     assignFeat(feat: FeatPF2e): boolean {
         const slot: SlottedFeat | undefined = this.slots[feat.system.location ?? ""];
         if (!slot && this.slotted) return false;
@@ -314,6 +290,43 @@ class FeatGroup {
     isFeatValid(feat: FeatPF2e): boolean {
         return this.supported.length === 0 || this.supported.includes(feat.category);
     }
+
+    /** Adds a new feat to the actor, or reorders an existing one, into the correct slot */
+    async insertFeat(feat: FeatPF2e, { slotId }: { slotId?: string | null } = {}): Promise<ItemPF2e<TActor>[]> {
+        const location = (this.slotted ? slotId : this.id !== "bonus" ? this.id : null) || null;
+        const existing = this.actor.itemTypes.feat.filter((x) => x.system.location === location);
+        const isFeatValidInSlot = this.isFeatValid(feat);
+        const alreadyHasFeat = this.actor.items.has(feat.id);
+
+        const changed: ItemPF2e<TActor>[] = [];
+
+        // If this is a new feat, create a new feat item on the actor first
+        if (!alreadyHasFeat && (isFeatValidInSlot || !location)) {
+            const source = feat.toObject();
+            source.system.location = location;
+            changed.push(...(await this.actor.createEmbeddedDocuments("Item", [source])));
+            const label = game.i18n.localize(this.label);
+            ui.notifications.info(game.i18n.format("PF2E.Item.Feat.Info.Added", { item: feat.name, category: label }));
+        }
+
+        // Determine what feats we have to move around
+        const locationUpdates: { _id: string; "system.location": string | null }[] = this.slotted
+            ? existing.map((x) => ({ _id: x.id, "system.location": null }))
+            : [];
+        if (alreadyHasFeat && isFeatValidInSlot) {
+            locationUpdates.push({ _id: feat.id, "system.location": location });
+        }
+
+        if (locationUpdates.length > 0) {
+            changed.push(...(await this.actor.updateEmbeddedDocuments("Item", locationUpdates)));
+        }
+
+        return changed;
+    }
+}
+
+function isBoonOrCurse(feat: FeatPF2e) {
+    return ["pfsboon", "deityboon", "curse"].includes(feat.category);
 }
 
 export { CharacterFeats, FeatGroup, FeatGroupOptions, FeatSlotLevel };

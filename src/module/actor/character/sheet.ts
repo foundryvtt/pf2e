@@ -1037,7 +1037,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     #getNearestFeatSlotId(event: ElementDragEvent) {
         const categoryId = event.target?.closest<HTMLElement>("[data-category-id]")?.dataset.categoryId;
         const slotId = event.target?.closest<HTMLElement>("[data-slot-id]")?.dataset.slotId;
-        return typeof categoryId === "string" ? { slotId, categoryId: categoryId } : null;
+        return typeof categoryId === "string" ? { slotId, categoryId } : null;
     }
 
     protected override async _onDropItem(
@@ -1047,12 +1047,9 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         const item = await ItemPF2e.fromDropData(data);
         if (!item) throw ErrorPF2e("Unable to create item from drop data!");
 
-        const actor = this.actor;
-        const sourceActor = item?.parent;
-        if (sourceActor) {
-            const isSameActor =
-                sourceActor.id === actor.id || (actor.isToken && sourceActor?.token?.id === actor.token?.id);
-            if (isSameActor) return super._onDropItem(event, data);
+        // If the actor is the same, call the parent method, which will eventually call the sort instead
+        if (this.actor.uuid === item.parent?.uuid) {
+            return super._onDropItem(event, data);
         }
 
         if (item.isOfType("feat")) {
@@ -1185,14 +1182,14 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         const item = this.actor.items.get(itemSource._id);
         if (item?.isOfType("feat")) {
             const featSlot = this.#getNearestFeatSlotId(event);
-            if (!featSlot) return [];
-
-            const group = this.actor.feats.get(featSlot.categoryId) ?? null;
-            const resorting = item.group === group && !group?.slotted;
-            if (group?.slotted && !featSlot.slotId) {
-                return [];
-            } else if (!resorting) {
-                return this.actor.feats.insertFeat(item, featSlot);
+            if (featSlot) {
+                const group = this.actor.feats.get(featSlot.categoryId) ?? null;
+                const resorting = item.group === group && !group?.slotted;
+                if (group?.slotted && !featSlot.slotId) {
+                    return [];
+                } else if (!resorting) {
+                    return this.actor.feats.insertFeat(item, featSlot);
+                }
             }
         }
 
