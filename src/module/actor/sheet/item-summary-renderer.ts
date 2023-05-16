@@ -146,7 +146,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
                             break;
                         case "consume":
                             if (item.isOfType("consumable")) {
-                                (item as ConsumablePF2e<ActorPF2e>).consume();
+                                (item as ConsumablePF2e<ActorPF2e>).consume({ toMessageOnDelete: true });
                             }
                             break;
                     }

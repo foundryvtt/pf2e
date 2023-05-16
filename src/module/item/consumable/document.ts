@@ -101,7 +101,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             usesCharges: this.uses.max > 0,
             hasCharges: this.uses.max > 0 && this.uses.value > 0,
             consumableType,
-            isUsable: fromFormula ? false : isUsable,
+            isUsable: fromFormula ? false : isUsable && this.quantity,
         });
     }
 
@@ -145,7 +145,10 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     }
 
     /** Use a consumable item, sending the result to chat */
-    async consume(this: ConsumablePF2e<ActorPF2e>): Promise<void> {
+    async consume(
+        this: ConsumablePF2e<ActorPF2e>,
+        { toMessageOnDelete }: { toMessageOnDelete?: boolean } = {}
+    ): Promise<void> {
         const { value, max } = this.uses;
 
         if (["scroll", "wand"].includes(this.category) && this.system.spell) {
@@ -166,6 +169,30 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
                 name: this.name,
                 current: value - 1,
             });
+
+            const quantity = this.quantity;
+
+            // Optionally destroy the item
+            if (this.autoDestroy && value <= 1) {
+                if (quantity <= 1) {
+                    await this.delete();
+                    this.updateSource({ "system.quantity": 0 });
+                    if (toMessageOnDelete) {
+                        await this.toMessage();
+                    }
+                } else {
+                    // Deduct one from quantity if this item has one charge or doesn't have charges
+                    await this.update({
+                        "system.quantity": Math.max(quantity - 1, 0),
+                        "system.charges.value": max,
+                    });
+                }
+            } else {
+                // Deduct one charge
+                await this.update({
+                    "system.charges.value": Math.max(value - 1, 0),
+                });
+            }
 
             // If using this consumable creates a roll, we need to show it
             const flags = {
@@ -192,26 +219,6 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
                     ChatMessage.create({ speaker, content, flags });
                 }
             }
-        }
-
-        const quantity = this.quantity;
-
-        // Optionally destroy the item
-        if (this.autoDestroy && value <= 1) {
-            if (quantity <= 1) {
-                await this.delete();
-            } else {
-                // Deduct one from quantity if this item has one charge or doesn't have charges
-                await this.update({
-                    "system.quantity": Math.max(quantity - 1, 0),
-                    "system.charges.value": max,
-                });
-            }
-        } else {
-            // Deduct one charge
-            await this.update({
-                "system.charges.value": Math.max(value - 1, 0),
-            });
         }
     }
 
