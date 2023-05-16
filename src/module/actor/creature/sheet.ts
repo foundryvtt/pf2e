@@ -392,11 +392,12 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         const dropContainerType = dropContainerEl?.dataset.containerType;
 
         const item = this.actor.items.get(itemSource._id);
-        if (!(item && dropItemEl && dropContainerEl)) return [];
+        if (!item) return [];
 
         // if they are dragging onto another spell, it's just sorting the spells
         // or moving it from one spellcastingEntry to another
         if (item.isOfType("spell")) {
+            if (!(dropItemEl && dropContainerEl)) return [];
             const entryId = dropContainerEl.dataset.containerId;
             const collection = this.actor.spellcasting.collections.get(entryId, { strict: true });
 
@@ -451,7 +452,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         } else if (item.isOfType("spellcastingEntry") && dropContainerType === "spellcastingEntry") {
             // target and source are spellcastingEntries and need to be sorted
             const sourceId = item.id;
-            const dropId = dropContainerEl.dataset.containerId ?? "";
+            const dropId = dropContainerEl?.dataset.containerId ?? "";
             const source = this.actor.items.get(sourceId);
             const target = this.actor.items.get(dropId);
 
