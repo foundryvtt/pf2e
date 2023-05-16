@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { TrickMagicItemPopup } from "@actor/sheet/trick-magic-item-popup.ts";
-import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, WeaponPF2e } from "@item";
+import { EffectPF2e, ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, WeaponPF2e } from "@item";
 import { ItemSummaryData } from "@item/data/index.ts";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
 import { ValueAndMax } from "@module/data.ts";
@@ -9,6 +9,7 @@ import { DamageRoll } from "@system/damage/roll.ts";
 import { ErrorPF2e } from "@util";
 import { ConsumableCategory, ConsumableSystemData, ConsumableSource } from "./data.ts";
 import { OtherConsumableTag } from "./types.ts";
+import { UUIDUtils } from "@util/uuid-utils.ts";
 
 class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     get otherTags(): Set<OtherConsumableTag> {
@@ -191,6 +192,15 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
                 } else {
                     ChatMessage.create({ speaker, content, flags });
                 }
+            }
+
+            if (!this.actor) return;
+            const appliedEffects = this.system.appliedEffects ?? [];
+            if (appliedEffects.length) {
+                const itemSources = (await UUIDUtils.fromUUIDs(appliedEffects))
+                    .filter((i): i is EffectPF2e => i instanceof EffectPF2e)
+                    .map((e) => e.toObject());
+                await this.actor.createEmbeddedDocuments("Item", itemSources, { render: false });
             }
         }
 

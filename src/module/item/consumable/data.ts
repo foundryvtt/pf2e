@@ -18,6 +18,7 @@ interface ConsumableTraits extends PhysicalItemTraits<ConsumableTrait> {
 interface ConsumableSystemSource extends PhysicalSystemSource {
     traits: ConsumableTraits;
 
+    appliedEffects: ItemUUID[];
     consumableType: {
         value: ConsumableCategory;
     };
