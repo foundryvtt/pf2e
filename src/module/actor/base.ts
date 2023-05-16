@@ -40,7 +40,7 @@ import { DicePF2e } from "@scripts/dice.ts";
 import { IWRApplicationData, applyIWR } from "@system/damage/iwr.ts";
 import { DamageType } from "@system/damage/types.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
-import { Statistic, StatisticCheck } from "@system/statistic/index.ts";
+import { Statistic, StatisticCheck, StatisticDifficultyClass } from "@system/statistic/index.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import {
     ErrorPF2e,
@@ -82,6 +82,7 @@ import { ActorSheetPF2e } from "./sheet/base.ts";
 import { ActorSpellcasting } from "./spellcasting.ts";
 import { TokenEffect } from "./token-effect.ts";
 import { CREATURE_ACTOR_TYPES, SAVE_TYPES, SKILL_LONG_FORMS, UNAFFECTED_TYPES } from "./values.ts";
+import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -92,10 +93,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     private constructed = true;
 
     /** Handles rolling initiative for the current actor */
-    declare initiative?: ActorInitiative;
+    declare initiative: ActorInitiative | null;
 
     /** A separate collection of owned physical items for convenient access */
     declare inventory: ActorInventory<this>;
+
+    declare armorClass: StatisticDifficultyClass<ArmorStatistic> | null;
 
     /** A separate collection of owned spellcasting entries for convenience */
     declare spellcasting: ActorSpellcasting<this>;
@@ -585,6 +588,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         this.constructed ??= false;
         this._itemTypes = null;
         this.rules = [];
+        this.initiative = null;
+        this.armorClass = null;
         this.conditions = new ActorConditions();
         this.auras = new Map();
 

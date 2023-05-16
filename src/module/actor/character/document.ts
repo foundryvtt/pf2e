@@ -8,7 +8,6 @@ import { calculateMAPs } from "@actor/helpers.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import {
     CheckModifier,
-    MODIFIER_TYPE,
     ModifierPF2e,
     StatisticModifier,
     createAbilityModifier,
@@ -72,13 +71,13 @@ import { DamageRoll } from "@system/damage/roll.ts";
 import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls.ts";
+import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic, StatisticCheck } from "@system/statistic/index.ts";
 import { ErrorPF2e, objectHasKey, sluggify, sortedStringify, traitSlugToObject } from "@util";
 import { UUIDUtils } from "@util/uuid-utils.ts";
 import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting/index.ts";
 import {
     BaseWeaponProficiencyKey,
-    CharacterArmorClass,
     CharacterAttributes,
     CharacterFlags,
     CharacterProficiency,
@@ -489,16 +488,16 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             const ancestryHP = systemData.attributes.ancestryhp;
             const classHP = systemData.attributes.classhp;
             const hitPoints = systemData.attributes.hp;
-            const modifiers = [new ModifierPF2e("PF2E.AncestryHP", ancestryHP, MODIFIER_TYPE.UNTYPED)];
+            const modifiers = [new ModifierPF2e("PF2E.AncestryHP", ancestryHP, "untyped")];
 
             if (game.settings.get("pf2e", "staminaVariant")) {
                 const halfClassHp = Math.floor(classHP / 2);
                 systemData.attributes.sp.max = (halfClassHp + systemData.abilities.con.mod) * this.level;
                 systemData.attributes.resolve.max = systemData.abilities[systemData.details.keyability.value].mod;
 
-                modifiers.push(new ModifierPF2e("PF2E.ClassHP", halfClassHp * this.level, MODIFIER_TYPE.UNTYPED));
+                modifiers.push(new ModifierPF2e("PF2E.ClassHP", halfClassHp * this.level, "untyped"));
             } else {
-                modifiers.push(new ModifierPF2e("PF2E.ClassHP", classHP * this.level, MODIFIER_TYPE.UNTYPED));
+                modifiers.push(new ModifierPF2e("PF2E.ClassHP", classHP * this.level, "untyped"));
 
                 // Facilitate level-zero variant play by always adding the constitution modifier at at least level 1
                 const conHP = systemData.abilities.con.mod * Math.max(this.level, 1);
@@ -507,7 +506,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                         slug: "hp-con",
                         label: "PF2E.AbilityCon",
                         ability: "con",
-                        type: MODIFIER_TYPE.ABILITY,
+                        type: "ability",
                         modifier: conHP,
                         adjustments: extractModifierAdjustments(
                             synthetics.modifierAdjustments,
@@ -534,7 +533,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             // PFS Level Bump - hit points
             if (systemData.pfs.levelBump) {
                 const hitPointsBump = Math.max(10, stat.totalModifier * 0.1);
-                stat.push(new ModifierPF2e("PF2E.PFS.LevelBump", hitPointsBump, MODIFIER_TYPE.UNTYPED));
+                stat.push(new ModifierPF2e("PF2E.PFS.LevelBump", hitPointsBump, "untyped"));
             }
 
             stat.max = stat.totalModifier;
@@ -608,12 +607,14 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         systemData.attributes.classDC = Object.values(systemData.proficiencies.classDCs).find((c) => c.primary) ?? null;
 
         // Armor Class
-        systemData.attributes.ac = this.prepareArmorClass();
+        const armorStatistic = this.createArmorStatistic();
+        this.armorClass = armorStatistic.dc;
+        systemData.attributes.ac = armorStatistic.getTraceData();
 
         // Apply the speed penalty from this character's held shield
         const { heldShield } = this;
         if (heldShield?.speedPenalty) {
-            const speedPenalty = new ModifierPF2e(heldShield.name, heldShield.speedPenalty, MODIFIER_TYPE.UNTYPED);
+            const speedPenalty = new ModifierPF2e(heldShield.name, heldShield.speedPenalty, "untyped");
             speedPenalty.predicate.push({ not: "self:shield:ignore-speed-penalty" });
             statisticsModifiers.speed ??= [];
             statisticsModifiers.speed.push(() => speedPenalty);
@@ -787,7 +788,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         rollOptionsAll[`hands-free:but-really:${handsReallyFree}`] = true;
     }
 
-    private prepareArmorClass(): CharacterArmorClass {
+    private createArmorStatistic(): ArmorStatistic {
         const { synthetics, wornArmor } = this;
 
         // Upgrade light barding proficiency to trained if this PC is somehow an animal
@@ -795,80 +796,39 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             ? (Math.max(this.system.martial["light-barding"].rank, 1) as ZeroToFour)
             : 0;
 
-        const modifiers = [this.getShieldBonus() ?? []].flat();
+        const modifiers: ModifierPF2e[] = [];
         const dexCapSources: DexterityModifierCapData[] = [
             { value: Infinity, source: "" },
             ...synthetics.dexterityModifierCaps,
         ];
-        let armorCheckPenalty = 0;
         const proficiency = wornArmor?.category ?? "unarmored";
 
         if (wornArmor) {
             dexCapSources.push({ value: Number(wornArmor.dexCap ?? 0), source: wornArmor.name });
-            if (wornArmor.checkPenalty) {
-                // armor check penalty
-                if (typeof wornArmor.strength === "number" && this.system.abilities.str.value < wornArmor.strength) {
-                    armorCheckPenalty = Number(wornArmor.checkPenalty ?? 0);
-                }
-            }
-
-            const slug = wornArmor.baseType ?? wornArmor.slug ?? sluggify(wornArmor.name);
-            modifiers.unshift(
-                new ModifierPF2e({
-                    label: wornArmor.name,
-                    type: "item",
-                    slug,
-                    modifier: wornArmor.acBonus,
-                    item: wornArmor,
-                    adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, ["all", "ac"], slug),
-                })
-            );
-
-            const shoddyPenalty = createShoddyPenalty(this, wornArmor, ["all", "ac"]);
-            if (shoddyPenalty) modifiers.push(shoddyPenalty);
         }
 
         // DEX modifier is limited by the lowest cap, usually from armor
+        const dexCap = dexCapSources.reduce((lowest, candidate) =>
+            lowest.value > candidate.value ? candidate : lowest
+        );
         const dexModifier = createAbilityModifier({
             actor: this,
             ability: "dex",
             domains: ["all", "ac", "dex-based"],
+            max: dexCap.value,
         });
-        const dexCap = dexCapSources.reduce((lowest, candidate) =>
-            lowest.value > candidate.value ? candidate : lowest
-        );
-        dexModifier.modifier = Math.min(dexModifier.modifier, dexCap.value);
 
         // In case an ability other than DEX is added, find the best ability modifier and use that as the ability on
         // which AC is based
         const abilityModifier = modifiers
             .filter((m) => m.type === "ability" && !!m.ability)
             .reduce((best, modifier) => (modifier.modifier > best.modifier ? modifier : best), dexModifier);
-        const acAbility = abilityModifier.ability!;
-        const domains = ["all", "ac", `${acAbility}-based`];
 
-        const rank = this.system.martial[proficiency]?.rank ?? 0;
-        modifiers.unshift(createProficiencyModifier({ actor: this, rank, domains }));
-        modifiers.unshift(dexModifier);
-        modifiers.push(...extractModifiers(synthetics, domains));
-
-        const rollOptions = this.getRollOptions(domains);
-        const stat: CharacterArmorClass = mergeObject(new StatisticModifier("ac", modifiers, rollOptions), {
-            value: 10,
-            breakdown: "",
-            check: armorCheckPenalty,
-            dexCap,
+        return new ArmorStatistic(this, {
+            rank: this.system.martial[proficiency]?.rank ?? 0,
+            ability: abilityModifier.ability!,
+            modifiers: [abilityModifier],
         });
-        stat.value += stat.totalModifier;
-        stat.breakdown = [game.i18n.localize("PF2E.ArmorClassBase")]
-            .concat(
-                stat.modifiers
-                    .filter((m) => m.enabled)
-                    .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-            )
-            .join(", ");
-
-        return stat;
     }
 
     private prepareSaves(): void {
@@ -887,7 +847,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             if (wornArmor?.system.resiliencyRune.value) {
                 const resilientBonus = getResilientBonus(wornArmor.system);
                 if (resilientBonus > 0 && wornArmor.isInvested) {
-                    modifiers.push(new ModifierPF2e(wornArmor.name, resilientBonus, MODIFIER_TYPE.ITEM));
+                    modifiers.push(new ModifierPF2e(wornArmor.name, resilientBonus, "item"));
                 }
             }
 
@@ -896,7 +856,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 const slug = "bulwark";
                 const bulwarkModifier = new ModifierPF2e({
                     slug,
-                    type: MODIFIER_TYPE.UNTYPED,
+                    type: "untyped",
                     label: CONFIG.PF2E.armorTraits.bulwark,
                     modifier: 3,
                     predicate: ["damaging-effect"],
@@ -959,7 +919,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     slug,
                     label: "PF2E.ArmorCheckPenalty",
                     modifier: wornArmor.checkPenalty,
-                    type: MODIFIER_TYPE.UNTYPED,
+                    type: "untyped",
                     adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, domains, slug),
                 });
 
@@ -1330,7 +1290,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         if (weapon.group === "bomb" && !ABP.isEnabled(this)) {
             const attackBonus = Number(weapon.system.bonus?.value) || 0;
             if (attackBonus !== 0) {
-                modifiers.push(new ModifierPF2e("PF2E.ItemBonusLabel", attackBonus, MODIFIER_TYPE.ITEM));
+                modifiers.push(new ModifierPF2e("PF2E.ItemBonusLabel", attackBonus, "item"));
             }
         }
 
@@ -1510,12 +1470,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             (statistic: StrikeData, otherModifiers: ModifierPF2e[]) =>
                 new CheckModifier(checkName, statistic, [
                     ...otherModifiers,
-                    new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map1, MODIFIER_TYPE.UNTYPED),
+                    new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map1, "untyped"),
                 ]),
             (statistic: StrikeData, otherModifiers: ModifierPF2e[]) =>
                 new CheckModifier(checkName, statistic, [
                     ...otherModifiers,
-                    new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map2, MODIFIER_TYPE.UNTYPED),
+                    new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map2, "untyped"),
                 ]),
         ];
 

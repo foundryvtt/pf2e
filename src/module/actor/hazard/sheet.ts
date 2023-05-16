@@ -41,7 +41,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         const systemData: HazardSystemData = sheetData.data;
         const actor = this.actor;
 
-        const hasDefenses = !!actor.hitPoints?.max || !!actor.attributes.ac.value;
+        const { hasDefenses } = actor;
         const hasImmunities = systemData.attributes.immunities.length > 0;
         const hasResistances = systemData.attributes.resistances.length > 0;
         const hasWeaknesses = systemData.attributes.weaknesses.length > 0;

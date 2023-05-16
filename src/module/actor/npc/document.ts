@@ -3,7 +3,7 @@ import { Abilities, CreatureSkills } from "@actor/creature/data.ts";
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
 import { strikeFromMeleeItem } from "@actor/helpers.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
-import { MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { AbilityString, SaveType } from "@actor/types.ts";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
 import { ItemPF2e, LorePF2e, MeleePF2e } from "@item";
@@ -14,6 +14,7 @@ import { CreatureIdentificationData, creatureIdentificationDCs } from "@module/r
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { PredicatePF2e } from "@system/predication.ts";
+import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { createHTMLElement, objectHasKey, sluggify } from "@util";
 import { NPCFlags, NPCSource, NPCSystemData } from "./data.ts";
@@ -173,7 +174,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                     new ModifierPF2e(
                         "PF2E.NPC.Adjustment.EliteLabel",
                         this.getHpAdjustment(baseLevel, "elite"),
-                        MODIFIER_TYPE.UNTYPED
+                        "untyped"
                     )
             );
         } else if (this.isWeak) {
@@ -188,7 +189,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                     new ModifierPF2e(
                         "PF2E.NPC.Adjustment.WeakLabel",
                         this.getHpAdjustment(baseLevel, "weak") * -1,
-                        MODIFIER_TYPE.UNTYPED
+                        "untyped"
                     )
             );
         }
@@ -240,40 +241,18 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         speeds.otherSpeeds = (["burrow", "climb", "fly", "swim"] as const).flatMap((m) => this.prepareSpeed(m) ?? []);
 
         // Armor Class
-        {
-            const base = system.attributes.ac.value;
-            const domains = ["ac", "dex-based", "all"];
-            const modifiers = [
+        const armorStatistic = new ArmorStatistic(this, {
+            modifiers: [
                 new ModifierPF2e({
                     slug: "base",
                     label: "PF2E.ModifierTitle",
-                    modifier: base,
-                    adjustments: extractModifierAdjustments(modifierAdjustments, domains, "base"),
+                    modifier: system.attributes.ac.value - 10,
+                    adjustments: extractModifierAdjustments(modifierAdjustments, ["all", "ac", "dex-based"], "base"),
                 }),
-                this.getShieldBonus() ?? [],
-                extractModifiers(this.synthetics, domains),
-            ].flat();
-
-            const rollOptions = this.getRollOptions(domains);
-            const stat = mergeObject(new StatisticModifier("ac", modifiers, rollOptions), system.attributes.ac, {
-                overwrite: false,
-            });
-            stat.base = base;
-            stat.value = stat.totalModifier;
-            stat.breakdown = stat.modifiers
-                .filter((m) => m.enabled)
-                .map((m) => {
-                    if (m.slug === "base") {
-                        return `10 + ${m.modifier - 10} ${m.label}`;
-                    } else {
-                        const sign = m.modifier < 0 ? "" : "+";
-                        return `${m.label} ${sign}${m.modifier}`;
-                    }
-                })
-                .join(", ");
-
-            system.attributes.ac = stat;
-        }
+            ],
+        });
+        this.armorClass = armorStatistic.dc;
+        this.system.attributes.ac = armorStatistic.getTraceData();
 
         this.prepareSaves();
 
@@ -337,11 +316,11 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
             // Check Modifiers, calculate using the user configured value
             const baseMod = Number(entry.system?.spelldc?.value ?? 0);
-            const attackModifiers = [new ModifierPF2e("PF2E.ModifierTitle", baseMod, MODIFIER_TYPE.UNTYPED)];
+            const attackModifiers = [new ModifierPF2e("PF2E.ModifierTitle", baseMod, "untyped")];
 
             // Save Modifiers, reverse engineer using the user configured value - 10
             const baseDC = Number(entry.system?.spelldc?.dc ?? 0);
-            const saveModifiers = [new ModifierPF2e("PF2E.ModifierTitle", baseDC - 10, MODIFIER_TYPE.UNTYPED)];
+            const saveModifiers = [new ModifierPF2e("PF2E.ModifierTitle", baseDC - 10, "untyped")];
 
             // Assign statistic data to the spellcasting entry
             entry.statistic = new Statistic(this, {

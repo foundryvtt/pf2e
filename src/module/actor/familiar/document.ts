@@ -1,13 +1,14 @@
 import { CharacterPF2e, CreaturePF2e } from "@actor";
 import { CreatureSaves, CreatureSkills, LabeledSpeed } from "@actor/creature/data.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
-import { CheckModifier, MODIFIER_TYPE, ModifierPF2e, StatisticModifier, applyStackingRules } from "@actor/modifiers.ts";
+import { CheckModifier, ModifierPF2e, ModifierType, StatisticModifier, applyStackingRules } from "@actor/modifiers.ts";
 import { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
 import { extractDegreeOfSuccessAdjustments, extractModifiers, extractRollTwice } from "@module/rules/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { CheckPF2e, CheckRoll } from "@system/check/index.ts";
 import { RollParameters } from "@system/rolls.ts";
+import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { FamiliarSource, FamiliarSystemData } from "./data.ts";
 
@@ -127,7 +128,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             });
 
             const modifiers = [
-                new ModifierPF2e("PF2E.MasterLevelHP", level * 5, MODIFIER_TYPE.UNTYPED),
+                new ModifierPF2e("PF2E.MasterLevelHP", level * 5, "untyped"),
                 extractModifiers(synthetics, ["hp"]),
                 perLevelModifiers,
             ].flat();
@@ -146,23 +147,13 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
 
         // Armor Class
         if (master) {
-            const source = master.system.attributes.ac.modifiers.filter(
-                (modifier) => !["status", "circumstance"].includes(modifier.type)
-            );
-            const base = 10 + new StatisticModifier("base", source).totalModifier;
-            const modifiers = extractModifiers(synthetics, ["ac", "dex-based", "all"]);
-            const stat = mergeObject(new StatisticModifier("ac", modifiers), systemData.attributes.ac, {
-                overwrite: false,
-            });
-            stat.value = base + stat.totalModifier;
-            stat.breakdown = [game.i18n.format("PF2E.MasterArmorClass", { base })]
-                .concat(
-                    stat.modifiers
-                        .filter((m) => m.enabled)
-                        .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                )
-                .join(", ");
-            systemData.attributes.ac = stat;
+            const masterModifiers = master.armorClass.modifiers
+                .filter((m) => !["status", "circumstance"].includes(m.type))
+                .map((m) => m.clone());
+            const statistic = new ArmorStatistic(this);
+            statistic.dc.modifiers = masterModifiers; // Prevent evaluation of predicates by `Statistic`
+            this.armorClass = statistic.dc;
+            systemData.attributes.ac = statistic.getTraceData();
         }
 
         // Saving Throws
@@ -176,7 +167,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
                 slug: saveType,
                 label: game.i18n.localize(CONFIG.PF2E.saves[saveType]),
                 domains: selectors,
-                modifiers: [new ModifierPF2e(`PF2E.MasterSavingThrow.${saveType}`, totalMod, MODIFIER_TYPE.UNTYPED)],
+                modifiers: [new ModifierPF2e(`PF2E.MasterSavingThrow.${saveType}`, totalMod, "untyped")],
                 check: { type: "saving-throw" },
             });
 
@@ -195,7 +186,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         if (master) {
             const domains = ["attack", "attack-roll", "all"];
             const modifiers = [
-                new ModifierPF2e("PF2E.MasterLevel", masterLevel, MODIFIER_TYPE.UNTYPED),
+                new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped"),
                 ...extractModifiers(synthetics, domains),
             ];
             const stat = mergeObject(new StatisticModifier("attack", modifiers), {
@@ -239,7 +230,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
                 slug: "perception",
                 label: "PF2E.PerceptionLabel",
                 domains,
-                modifiers: [new ModifierPF2e("PF2E.Actor.Familiar.Master.Perception", totalMod, MODIFIER_TYPE.UNTYPED)],
+                modifiers: [new ModifierPF2e("PF2E.Actor.Familiar.Master.Perception", totalMod, "untyped")],
                 check: { type: "perception-check" },
             });
             systemData.attributes.perception = mergeObject(
@@ -251,10 +242,10 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         // Skills
         this.skills = Array.from(SKILL_ABBREVIATIONS).reduce((builtSkills, shortForm) => {
             const longForm = SKILL_DICTIONARY[shortForm];
-            const modifiers = [new ModifierPF2e("PF2E.MasterLevel", masterLevel, MODIFIER_TYPE.UNTYPED)];
+            const modifiers = [new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped")];
             if (["acr", "ste"].includes(shortForm)) {
                 const label = `PF2E.MasterAbility.${systemData.master.ability}`;
-                modifiers.push(new ModifierPF2e(label, masterAbilityModifier, MODIFIER_TYPE.UNTYPED));
+                modifiers.push(new ModifierPF2e(label, masterAbilityModifier, "untyped"));
             }
 
             const ability = SKILL_EXPANDED[longForm].ability;
@@ -279,7 +270,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
 
     /** Familiars cannot have item bonuses. Nor do they have ability mods nor proficiency (sans master level) */
     private stripInvalidModifiers(): void {
-        const invalidModifierTypes: string[] = [MODIFIER_TYPE.ABILITY, MODIFIER_TYPE.PROFICIENCY, MODIFIER_TYPE.ITEM];
+        const invalidModifierTypes: ModifierType[] = ["ability", "proficiency", "item"];
         for (const key of Object.keys(this.synthetics.statisticsModifiers)) {
             this.synthetics.statisticsModifiers[key] = this.synthetics.statisticsModifiers[key]?.filter((modifier) => {
                 const resolvedModifier = modifier();

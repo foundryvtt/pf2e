@@ -18,13 +18,11 @@ import { CreatureSensePF2e } from "@actor/creature/sense.ts";
 import {
     AbilityBasedStatistic,
     ActorFlagsPF2e,
-    ArmorClassData,
     InitiativeData,
     PerceptionData,
     StrikeData,
     TraitViewData,
 } from "@actor/data/base.ts";
-import { StatisticModifier } from "@actor/modifiers.ts";
 import { AbilityString, SaveType } from "@actor/types.ts";
 import { FeatPF2e, WeaponPF2e } from "@item";
 import { ArmorCategory } from "@item/armor/types.ts";
@@ -35,6 +33,7 @@ import { MagicTradition } from "@item/spell/types.ts";
 import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types.ts";
 import { ZeroToFour } from "@module/data.ts";
 import { PredicatePF2e } from "@system/predication.ts";
+import { ArmorClassTraceData } from "@system/statistic/armor-class.ts";
 import { StatisticTraceData } from "@system/statistic/data.ts";
 import { CharacterPF2e } from "../document.ts";
 import { WeaponAuxiliaryAction } from "../helpers.ts";
@@ -270,8 +269,6 @@ interface PathfinderSocietyData {
     reputation: PathfinderSocietyReputation;
 }
 
-type CharacterArmorClass = StatisticModifier & Required<ArmorClassData>;
-
 interface CharacterResources extends CreatureResources {
     /** The current and maximum number of hero points */
     heroPoints: { value: number; max: number };
@@ -369,7 +366,7 @@ interface CharacterAttributes extends CreatureAttributes {
     /** The higher between highest spellcasting DC and (if present) class DC */
     classOrSpellDC: { rank: number; value: number };
     /** Creature armor class, used to defend against attacks. */
-    ac: CharacterArmorClass;
+    ac: ArmorClassTraceData;
     /** Initiative, used to determine turn order in combat. */
     initiative: InitiativeData;
     /** The amount of HP provided per level by the character's class. */
@@ -440,7 +437,6 @@ export {
     BaseWeaponProficiencyKey,
     BonusFeat,
     CategoryProficiencies,
-    CharacterArmorClass,
     CharacterAttributes,
     CharacterDetails,
     CharacterFlags,

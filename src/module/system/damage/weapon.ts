@@ -4,7 +4,6 @@ import {
     DamageDiceOverride,
     DamageDicePF2e,
     DiceModifierPF2e,
-    MODIFIER_TYPE,
     ModifierPF2e,
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
@@ -151,7 +150,7 @@ class WeaponDamagePF2e {
                     label: CONFIG.PF2E.abilities.str,
                     ability: "str",
                     modifier: modifierValue,
-                    type: MODIFIER_TYPE.ABILITY,
+                    type: "ability",
                     adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, baseDomains, "str"),
                 });
                 modifiers.push(strModifier);

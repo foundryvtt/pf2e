@@ -78,7 +78,10 @@ interface ActorAttributes extends ActorAttributesSource {
     weaknesses: WeaknessData[];
     resistances: ResistanceData[];
     initiative?: InitiativeData;
-    shield?: object;
+    shield?: {
+        raised: boolean;
+        broken: boolean;
+    };
     flanking: {
         /** Whether the actor can flank at all */
         canFlank: boolean;
