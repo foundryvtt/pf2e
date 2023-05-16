@@ -62,6 +62,7 @@ async function applyDamageFromMessage({
         await contextClone.applyDamage({
             damage,
             token,
+            item: message.item,
             skipIWR: multiplier <= 0,
             rollOptions: applicationRollOptions,
             shieldBlockRequest,

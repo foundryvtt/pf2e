@@ -1,9 +1,9 @@
 import * as ActorInstance from "@actor";
-import { ActorPF2e } from "@actor/base.ts";
 import * as ItemInstance from "@item";
 import { EffectTrait } from "@item/abstract-effect/index.ts";
 import { ItemInstances } from "@item/types.ts";
 import { TokenPF2e } from "@module/canvas/index.ts";
+import { ActorPF2e, ItemPF2e } from "@module/documents.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
@@ -164,6 +164,8 @@ interface CheckContext<
 interface ApplyDamageParams {
     damage: number | Rolled<DamageRoll>;
     token: TokenDocumentPF2e;
+    /** The item used in the damaging action */
+    item?: ItemPF2e<ActorPF2e> | null;
     skipIWR?: boolean;
     /** Predicate statements from the damage roll */
     rollOptions?: Set<string>;
