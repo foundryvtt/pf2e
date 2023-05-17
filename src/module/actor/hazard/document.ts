@@ -99,7 +99,7 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
             const baseModifier = new ModifierPF2e({
                 slug: "base",
                 label: "PF2E.BaseModifier",
-                modifier: system.attributes.ac.value,
+                modifier: system.attributes.ac.value - 10,
             });
             const statistic = new ArmorStatistic(this, { rank: 1, modifiers: [baseModifier] });
             this.armorClass = statistic.dc;
