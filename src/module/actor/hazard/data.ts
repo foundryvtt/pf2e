@@ -7,13 +7,13 @@ import {
     ActorTraitsSource,
     ActorAttributesSource,
     ActorHitPoints,
-    InitiativeData,
 } from "@actor/data/base.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { NPCStrike } from "@actor/npc/index.ts";
 import { SaveType } from "@actor/types.ts";
 import { Rarity, Size } from "@module/data.ts";
 import { HazardTrait } from "./types.ts";
+import { InitiativeTraceData } from "@actor/initiative.ts";
 
 /** The stored source data of a hazard actor */
 type HazardSource = BaseActorSourcePF2e<"hazard", HazardSystemSource>;
@@ -71,7 +71,7 @@ interface HazardAttributes
     hasHealth: boolean;
     hp: HazardHitPoints;
     hardness: number;
-    initiative?: HazardInitiativeData;
+    initiative?: InitiativeTraceData;
     stealth: {
         value: number | null;
         details: string;
@@ -83,10 +83,6 @@ interface HazardAttributes
     emitsSound: boolean | "encounter";
 
     shield?: never;
-}
-
-interface HazardInitiativeData extends InitiativeData {
-    statistic: "stealth";
 }
 
 interface HazardDetailsSource {

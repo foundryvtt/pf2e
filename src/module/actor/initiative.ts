@@ -1,7 +1,9 @@
+import { createPonderousPenalty } from "@actor/character/helpers.ts";
+import { InitiativeData } from "@actor/data/base.ts";
 import { ActorPF2e } from "@module/documents.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { CheckRoll } from "@system/check/index.ts";
-import { Statistic, StatisticRollParameters } from "@system/statistic/index.ts";
+import { Statistic, StatisticData, StatisticRollParameters, StatisticTraceData } from "@system/statistic/index.ts";
 import { AbilityString } from "./types.ts";
 
 interface InitiativeRollResult {
@@ -23,9 +25,29 @@ class ActorInitiative {
         return this.statistic.ability;
     }
 
-    constructor(creature: ActorPF2e, statistic: Statistic) {
-        this.actor = creature;
-        this.statistic = statistic;
+    constructor(actor: ActorPF2e) {
+        this.actor = actor;
+
+        const initiativeSkill = actor.isOfType("hazard")
+            ? "stealth"
+            : actor.isOfType("character", "npc")
+            ? actor.attributes.initiative?.statistic || "perception"
+            : null;
+        const base = initiativeSkill ? actor.getStatistic(initiativeSkill) : null;
+
+        const ponderousPenalty = actor.isOfType("character") ? createPonderousPenalty(actor) : null;
+        const rollLabel = game.i18n.format("PF2E.InitiativeWithSkill", { skillName: base?.label ?? "" });
+
+        const data: StatisticData = {
+            slug: "initiative",
+            label: base?.label ?? "PF2E.InitiativeLabel",
+            domains: ["initiative"],
+            rollOptions: [base?.slug ?? []].flat(),
+            check: { type: "initiative", label: rollLabel },
+            modifiers: [ponderousPenalty ?? []].flat(),
+        };
+
+        this.statistic = base ? base.extend(data) : new Statistic(actor, data);
     }
 
     async roll(args: InitiativeRollParams = {}): Promise<InitiativeRollResult | null> {
@@ -52,6 +74,28 @@ class ActorInitiative {
 
         return { combatant, roll };
     }
+
+    getTraceData(): InitiativeTraceData {
+        const initiativeData = this.actor.attributes.initiative;
+        const tiebreakPriority = initiativeData?.tiebreakPriority ?? 0;
+
+        return {
+            ...this.statistic.getTraceData(),
+            statistic: initiativeData?.statistic ?? "perception",
+            tiebreakPriority,
+            roll: (args: InitiativeRollParams) => {
+                const deprecationLabel = `Rolling initiative via actor.attributes.initiative.roll() is deprecated: use actor.initiative.roll() instead.`;
+                foundry.utils.logCompatibilityWarning(deprecationLabel, {
+                    since: "4.12",
+                    until: "5.0",
+                });
+
+                return this.roll(args);
+            },
+        };
+    }
 }
 
-export { ActorInitiative, InitiativeRollResult };
+type InitiativeTraceData = StatisticTraceData & InitiativeData;
+
+export { ActorInitiative, InitiativeRollResult, InitiativeTraceData };

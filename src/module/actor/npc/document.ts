@@ -347,7 +347,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         })();
 
         // Initiative
-        this.prepareInitiative();
+        this.initiative = new ActorInitiative(this);
+        this.system.attributes.initiative = this.initiative.getTraceData();
     }
 
     private prepareSaves(): void {

@@ -88,9 +88,10 @@ class Statistic extends SimpleStatistic {
     /** If this is a skill, returns whether it is a lore skill or not */
     lore?: boolean;
 
-    check: StatisticCheck<this>;
-    dc: StatisticDifficultyClass<this>;
     options: RollOptionParameters;
+
+    #check?: StatisticCheck<this>;
+    #dc?: StatisticDifficultyClass<this>;
 
     constructor(actor: ActorPF2e, data: StatisticData, options: RollOptionParameters = {}) {
         data.modifiers ??= [];
@@ -130,11 +131,16 @@ class Statistic extends SimpleStatistic {
             this.modifiers = this.modifiers.filter(data.filter);
         }
 
-        this.check = new StatisticCheck(this, this.data, this.options);
-
         // Add DC data with an additional domain if not already set
         this.data.dc ??= { domains: [`${this.slug}-dc`] };
-        this.dc = new StatisticDifficultyClass(this, this.data, this.options);
+    }
+
+    get check(): StatisticCheck<this> {
+        return (this.#check ??= new StatisticCheck(this, this.data, this.options));
+    }
+
+    get dc(): StatisticDifficultyClass<this> {
+        return (this.#dc ??= new StatisticDifficultyClass(this, this.data, this.options));
     }
 
     /** Convenience getter to the statistic's total modifier */
@@ -270,7 +276,6 @@ class Statistic extends SimpleStatistic {
                     until: rollable[1],
                 });
 
-                console.warn();
                 return this.check.roll({
                     extraRollOptions: args.options ? [...args.options] : [],
                     ...options,
@@ -290,8 +295,6 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
     mod: number;
     modifiers: ModifierPF2e[];
 
-    #stat: StatisticModifier;
-
     constructor(parent: TParent, data: StatisticData, options?: RollOptionParameters) {
         this.parent = parent;
         this.type = data.check?.type ?? "check";
@@ -305,8 +308,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             data.check?.domains ? extractModifiers(parent.actor.synthetics, data.check.domains) : [],
         ].flat();
         this.modifiers = allCheckModifiers.map((modifier) => modifier.clone({ test: rollOptions }));
-        this.#stat = new StatisticModifier(this.label, this.modifiers, rollOptions);
-        this.mod = this.#stat.totalModifier;
+        this.mod = new StatisticModifier(this.label, this.modifiers, rollOptions).totalModifier;
     }
 
     #determineLabel(data: StatisticData): string {
@@ -468,7 +470,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         }
 
         const roll = await CheckPF2e.roll(
-            new CheckModifier(args.label || this.label, this.#stat, extraModifiers),
+            new CheckModifier(args.label || this.label, { modifiers: this.modifiers }, extraModifiers),
             context,
             null,
             args.callback

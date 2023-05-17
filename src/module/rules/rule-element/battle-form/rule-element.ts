@@ -25,6 +25,7 @@ import { ErrorPF2e, isObject, setHasElement, sluggify, tupleHasValue } from "@ut
 import { RuleElementSource } from "../data.ts";
 import { CharacterStrike } from "@actor/character/data/index.ts";
 import { CharacterSkill } from "@actor/character/types.ts";
+import { ActorInitiative } from "@actor/initiative.ts";
 
 export class BattleFormRuleElement extends RuleElementPF2e {
     overrides: this["data"]["overrides"];
@@ -197,6 +198,10 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         this.#prepareSpeeds();
         this.#prepareStrikes();
         this.#prepareIWR();
+
+        // Initiative is built from skills/perception, so re-initialize just in case
+        this.actor.initiative = new ActorInitiative(this.actor);
+        this.actor.system.attributes.initiative = this.actor.initiative.getTraceData();
     }
 
     /** Remove temporary hit points */
