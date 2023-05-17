@@ -109,7 +109,7 @@ class PredicatePF2e extends Array<PredicateStatement> {
             ("or" in statement && statement.or.some((subProp) => this.isTrue(subProp, domain))) ||
             ("nor" in statement && !statement.nor.some((subProp) => this.isTrue(subProp, domain))) ||
             ("not" in statement && !this.isTrue(statement.not, domain)) ||
-            ("if" in statement && !(this.isTrue(statement.if, domain) && !this.isTrue(statement.then, domain)))
+            ("if" in statement && !(this.isTrue(statement.if[0], domain) && !this.isTrue(statement.if[1], domain)))
         );
     }
 }
@@ -191,9 +191,12 @@ class StatementValidator {
         return Object.keys(statement).length === 1 && !!statement.not && this.isStatement(statement.not);
     }
 
-    static isIf(statement: { if?: unknown; then?: unknown }): statement is Conditional {
+    static isIf(statement: { if?: unknown }): statement is Conditional {
         return (
-            Object.keys(statement).length === 2 && this.isStatement(statement.if) && this.isStatement(statement.then)
+            Array.isArray(statement.if) &&
+            statement.if.length === 2 &&
+            this.isStatement(statement.if[0]) &&
+            this.isStatement(statement.if[1])
         );
     }
 }
@@ -211,7 +214,7 @@ type Disjunction = { or: PredicateStatement[] };
 type Negation = { not: PredicateStatement };
 type AlternativeDenial = { nand: PredicateStatement[] };
 type JointDenial = { nor: PredicateStatement[] };
-type Conditional = { if: PredicateStatement; then: PredicateStatement };
+type Conditional = { if: [PredicateStatement, PredicateStatement] };
 type CompoundStatement = Conjunction | Disjunction | AlternativeDenial | JointDenial | Negation | Conditional;
 
 type PredicateStatement = Atom | CompoundStatement;

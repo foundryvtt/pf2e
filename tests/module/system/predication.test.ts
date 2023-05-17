@@ -168,7 +168,7 @@ describe("Predication with joint denial return correct results", () => {
 
 describe("Predication with material conditional and negation return correct results", () => {
     test("material conditional with the `all` quantifier", () => {
-        const predicate = new PredicatePF2e({ if: "foo", then: "bar" });
+        const predicate = new PredicatePF2e({ if: ["foo", "bar"] });
         expect(predicate.test(["foo"])).toEqual(false);
         expect(predicate.test(["foo", "bar"])).toEqual(true);
         expect(predicate.test(["bar"])).toEqual(true);
@@ -177,7 +177,7 @@ describe("Predication with material conditional and negation return correct resu
     });
 
     test("material conditional and negation with the `all` quantifier", () => {
-        const predicate = new PredicatePF2e({ if: "foo", then: { not: "bar" } });
+        const predicate = new PredicatePF2e({ if: ["foo", { not: "bar" }] });
         expect(predicate.test(["foo"])).toEqual(true);
         expect(predicate.test(["foo", "bar"])).toEqual(false);
         expect(predicate.test(["bar"])).toEqual(true);
@@ -187,10 +187,7 @@ describe("Predication with material conditional and negation return correct resu
 
     test("dijunction of material conditional and negation", () => {
         const predicate = new PredicatePF2e({
-            or: [
-                { if: "foo", then: { not: "bar" } },
-                { if: "bar", then: { not: "foo" } },
-            ],
+            or: [{ if: ["foo", { not: "bar" }] }, { if: ["bar", { not: "foo" }] }],
         });
         expect(predicate.test(["foo"])).toEqual(true);
         expect(predicate.test(["foo", "bar"])).toEqual(false);
@@ -211,7 +208,7 @@ describe("Tautological propositions pass all predicate tests", () => {
     });
 
     test("if p then p", () => {
-        const predicate = new PredicatePF2e({ if: "foo", then: "foo" });
+        const predicate = new PredicatePF2e({ if: ["foo", "foo"] });
         expect(predicate.test(["foo"])).toEqual(true);
         expect(predicate.test([])).toEqual(true);
         expect(predicate.test(["bar"])).toEqual(true);
@@ -231,7 +228,7 @@ describe("Contradictory propositions fail all predicate tests", () => {
     });
 
     test("p; if p then not p", () => {
-        const predicate = new PredicatePF2e("foo", { if: "foo", then: { not: "foo" } });
+        const predicate = new PredicatePF2e("foo", { if: ["foo", { not: "foo" }] });
         expect(predicate.test(["foo"])).toEqual(false);
         expect(predicate.test([])).toEqual(false);
         expect(predicate.test(["bar"])).toEqual(false);
@@ -240,7 +237,7 @@ describe("Contradictory propositions fail all predicate tests", () => {
     });
 
     test("p; if p then q; if q then not p", () => {
-        const predicate = new PredicatePF2e("foo", { if: "foo", then: "bar" }, { if: "bar", then: { not: "foo" } });
+        const predicate = new PredicatePF2e("foo", { if: ["foo", "bar"] }, { if: ["bar", { not: "foo" }] });
         expect(predicate.test(["foo"])).toEqual(false);
         expect(predicate.test([])).toEqual(false);
         expect(predicate.test(["bar"])).toEqual(false);
