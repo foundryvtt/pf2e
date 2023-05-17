@@ -3,7 +3,7 @@ import { SingleCheckAction } from "@actor/actions/index.ts";
 
 function disableDevice(options: SkillActionOptions): void {
     const slug = options?.skill ?? "thievery";
-    const rollOptions = ["action:disable-device"];
+    const rollOptions = ["action:disable-a-device","action:disable-device"];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options?.actors,
