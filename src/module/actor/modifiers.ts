@@ -6,7 +6,7 @@ import { RollNotePF2e } from "@module/notes.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { DamageCategoryUnique, DamageDieSize, DamageType } from "@system/damage/types.ts";
 import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
-import { ErrorPF2e, objectHasKey, signedInteger, sluggify, tupleHasValue } from "@util";
+import { ErrorPF2e, objectHasKey, setHasElement, signedInteger, sluggify, tupleHasValue } from "@util";
 
 const PROFICIENCY_RANK_OPTION = [
     "proficiency:untrained",
@@ -21,20 +21,6 @@ function ensureProficiencyOption(options: Set<string>, rank: number): void {
         options.add(`skill:rank:${rank}`).add(PROFICIENCY_RANK_OPTION[rank]);
     }
 }
-
-/**
- * The canonical pathfinder modifier types; modifiers of the same type do not stack (except for 'untyped' modifiers,
- * which fully stack).
- */
-const MODIFIER_TYPE = {
-    ABILITY: "ability",
-    PROFICIENCY: "proficiency",
-    CIRCUMSTANCE: "circumstance",
-    ITEM: "item",
-    POTENCY: "potency",
-    STATUS: "status",
-    UNTYPED: "untyped",
-} as const;
 
 const MODIFIER_TYPES = new Set([
     "ability",
@@ -174,15 +160,12 @@ class ModifierPF2e implements RawModifier {
               }
             : args[0];
 
-        const isValidModifierType = (type: unknown): type is ModifierType =>
-            (Object.values(MODIFIER_TYPE) as unknown[]).includes(type);
-
         this.label = game.i18n.localize(params.label ?? params.name);
         this.slug = sluggify(params.slug ?? this.label);
 
         this.#originalValue = this.modifier = params.modifier;
 
-        this.type = isValidModifierType(params.type) ? params.type : "untyped";
+        this.type = setHasElement(MODIFIER_TYPES, params.type) ? params.type : "untyped";
         this.ability = params.ability ?? null;
         this.force = params.force ?? false;
         this.adjustments = deepClone(params.adjustments ?? []);
@@ -304,13 +287,15 @@ type ModifierOrderedParams = [
  * Create a modifier from a given ability type and score.
  * @returns The modifier provided by the given ability score.
  */
-function createAbilityModifier({ actor, ability, domains }: CreateAbilityModifierParams): ModifierPF2e {
+function createAbilityModifier({ actor, ability, domains, max }: CreateAbilityModifierParams): ModifierPF2e {
     const withAbilityBased = domains.includes(`${ability}-based`) ? domains : [...domains, `${ability}-based`];
+    const modifierValue = Math.floor((actor.abilities[ability].value - 10) / 2);
+    const cappedValue = Math.min(modifierValue, max ?? modifierValue);
 
     return new ModifierPF2e({
         slug: ability,
         label: CONFIG.PF2E.abilities[ability],
-        modifier: Math.floor((actor.abilities[ability].value - 10) / 2),
+        modifier: cappedValue,
         type: "ability",
         ability,
         adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, withAbilityBased, ability),
@@ -321,6 +306,8 @@ interface CreateAbilityModifierParams {
     actor: CharacterPF2e | NPCPF2e;
     ability: AbilityString;
     domains: string[];
+    /** An optional maximum for this ability modifier */
+    max?: number;
 }
 
 /**
@@ -410,7 +397,7 @@ function applyStackingRules(modifiers: ModifierPF2e[]): number {
     const lowestPenalty: Record<string, ModifierPF2e> = {};
 
     // There are no ability bonuses or penalties, so always take the highest ability modifier.
-    const abilityModifiers = modifiers.filter((m) => m.type === MODIFIER_TYPE.ABILITY && !m.ignored);
+    const abilityModifiers = modifiers.filter((m) => m.type === "ability" && !m.ignored);
     const bestAbility = abilityModifiers.reduce((best: ModifierPF2e | null, modifier): ModifierPF2e | null => {
         if (best === null) {
             return modifier;
@@ -430,7 +417,7 @@ function applyStackingRules(modifiers: ModifierPF2e[]): number {
         }
 
         // Untyped modifiers always stack, so enable them and add their modifier.
-        if (modifier.type === MODIFIER_TYPE.UNTYPED) {
+        if (modifier.type === "untyped") {
             modifier.enabled = true;
             total += modifier.modifier;
             continue;
@@ -730,7 +717,6 @@ export {
     DeferredValue,
     DeferredValueParams,
     DiceModifierPF2e,
-    MODIFIER_TYPE,
     MODIFIER_TYPES,
     ModifierAdjustment,
     ModifierPF2e,

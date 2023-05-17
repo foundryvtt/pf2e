@@ -21,7 +21,7 @@ import { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
 import { ErrorPF2e, getActionGlyph, getActionIcon, sluggify } from "@util";
 import { ActorSourcePF2e } from "./data/index.ts";
 import { DamageRollFunction, TraitViewData } from "./data/base.ts";
-import { CheckModifier, MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "./modifiers.ts";
+import { CheckModifier, ModifierPF2e, StatisticModifier } from "./modifiers.ts";
 import { NPCStrike } from "./npc/data.ts";
 import { AttackItem } from "./types.ts";
 import { ANIMAL_COMPANION_SOURCE_ID, CONSTRUCT_COMPANION_SOURCE_ID } from "./values.ts";
@@ -254,8 +254,8 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
 
     strike.variants = [
         null,
-        new ModifierPF2e("PF2E.MultipleAttackPenalty", multipleAttackPenalty.map1, MODIFIER_TYPE.UNTYPED),
-        new ModifierPF2e("PF2E.MultipleAttackPenalty", multipleAttackPenalty.map2, MODIFIER_TYPE.UNTYPED),
+        new ModifierPF2e("PF2E.MultipleAttackPenalty", multipleAttackPenalty.map1, "untyped"),
+        new ModifierPF2e("PF2E.MultipleAttackPenalty", multipleAttackPenalty.map2, "untyped"),
     ].map((map, mapIncreases) => {
         const label = map
             ? game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: map.modifier })
@@ -436,7 +436,7 @@ function calculateRangePenalty(
     const modifier = new ModifierPF2e({
         label: "PF2E.RangePenalty",
         slug,
-        type: MODIFIER_TYPE.UNTYPED,
+        type: "untyped",
         modifier: Math.max((increment - 1) * -2, -12), // Max range penalty before automatic failure
         predicate: [{ nor: ["ignore-range-penalty", { gte: ["ignore-range-penalty", increment] }] }],
         adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, selectors, slug),

@@ -1,12 +1,6 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
 import { DC_SLUGS, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
-import {
-    CheckModifier,
-    ensureProficiencyOption,
-    ModifierPF2e,
-    MODIFIER_TYPE,
-    StatisticModifier,
-} from "@actor/modifiers.ts";
+import { CheckModifier, ensureProficiencyOption, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import { WeaponTrait } from "@item/weapon/types.ts";
 import { RollNotePF2e } from "@module/notes.ts";
@@ -319,7 +313,7 @@ export class ActionMacroHelpers {
         if (AutomaticBonusProgression.isEnabled(item.actor)) {
             return new ModifierPF2e({
                 slug,
-                type: MODIFIER_TYPE.POTENCY,
+                type: "potency",
                 label: "PF2E.AutomaticBonusProgression.attackPotency",
                 modifier: item.actor.synthetics.weaponPotency["strike-attack-roll"]?.[0]?.bonus ?? 0,
                 adjustments: extractModifierAdjustments(item.actor.synthetics.modifierAdjustments, [selector], slug),
@@ -327,7 +321,7 @@ export class ActionMacroHelpers {
         } else if (item.system.runes.potency > 0) {
             return new ModifierPF2e({
                 slug,
-                type: MODIFIER_TYPE.ITEM,
+                type: "item",
                 label: "PF2E.PotencyRuneLabel",
                 modifier: item.system.runes.potency,
                 adjustments: extractModifierAdjustments(item.actor.synthetics.modifierAdjustments, [selector], slug),

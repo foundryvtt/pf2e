@@ -9,7 +9,7 @@ export interface StatisticCheckData {
     label?: string;
     /** Additional domains for fetching actor roll options */
     domains?: string[];
-    /** Any additional modifiers not already handled by fetching modifiers using domains as selectors */
+    /** Modifiers not retrieved from the actor's synthetics record */
     modifiers?: ModifierPF2e[];
 }
 
@@ -18,7 +18,7 @@ export interface StatisticDifficultyClassData {
     /** Additional domains for fetching actor roll options */
     domains?: string[];
     label?: string;
-    /** Any additional modifiers not already handled by fetching modifiers using domains as selectors */
+    /** Modifiers not retrieved from the actor's synthetics record */
     modifiers?: ModifierPF2e[];
 }
 
@@ -28,7 +28,7 @@ export interface StatisticDifficultyClassData {
 export interface StatisticData {
     /** An identifier such as "reflex" or "ac" or "deception" */
     slug: string;
-    ability?: AbilityString;
+    ability?: AbilityString | null;
     rank?: ZeroToFour | "untrained-level";
     label: string;
     /** If the actor is proficient with this statistic (rather than deriving from rank) */
@@ -38,7 +38,7 @@ export interface StatisticData {
     dc?: StatisticDifficultyClassData;
     /** Base domains for fetching actor roll options */
     domains?: string[];
-    /** Any additional modifiers not already handled by fetching modifiers using domains as selectors */
+    /** Modifiers not retrieved from the actor's synthetics record */
     modifiers?: ModifierPF2e[];
     /** If given, filters all automatically acquired modifiers */
     filter?: (m: ModifierPF2e) => boolean;
@@ -76,7 +76,7 @@ export interface StatisticTraceData {
     totalModifier: number;
     dc: number;
     breakdown: string;
-    _modifiers: Required<RawModifier>[];
+    modifiers: Required<RawModifier>[];
 
     /** @deprecated Backwards compatibility for macros only */
     roll?: (args: RollParameters) => Promise<unknown>;

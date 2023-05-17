@@ -163,8 +163,8 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
         level.adjustedLower = level.value < Number(level.base);
         const { ac, hp, perception, hardness } = sheetData.data.attributes;
         const speedData = sheetData.data.attributes.speed;
-        ac.adjustedHigher = ac.value > Number(ac.base);
-        ac.adjustedLower = ac.value < Number(ac.base);
+        ac.adjustedHigher = ac.value > Number(this.actor._source.system.attributes.ac.value);
+        ac.adjustedLower = ac.value < Number(this.actor._source.system.attributes.ac.value);
         hp.adjustedHigher = hp.max > Number(hp.base);
         hp.adjustedLower = hp.max < Number(hp.base);
         perception.adjustedHigher = perception.totalModifier > Number(perception.base);

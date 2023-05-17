@@ -4,11 +4,14 @@ import { ItemType } from "@item/data/index.ts";
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
-import { Statistic } from "@system/statistic/index.ts";
+import { ArmorStatistic } from "@system/statistic/armor-class.ts";
+import { Statistic, StatisticDifficultyClass } from "@system/statistic/index.ts";
 import { ActorPF2e, HitPointsSummary } from "../base.ts";
 import { TokenDimensions, VehicleSource, VehicleSystemData } from "./data.ts";
 
 class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
+    declare armorClass: StatisticDifficultyClass<ArmorStatistic>;
+
     override get allowedItemTypes(): (ItemType | "physical")[] {
         return [...super.allowedItemTypes, "physical", "action"];
     }
@@ -117,21 +120,18 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
         }
 
         // Prepare AC
-        const ac = new Statistic(this, {
-            slug: "ac",
-            label: "PF2E.ArmorClassLabel",
-            domains: ["all", "ac"],
+        const armorStatistic = new ArmorStatistic(this, {
             modifiers: [
                 new ModifierPF2e({
                     slug: "base",
                     label: "PF2E.ModifierTitle",
-                    modifier: this.system.attributes.ac.value,
+                    modifier: this.system.attributes.ac.value - 10,
                     adjustments: extractModifierAdjustments(modifierAdjustments, ["all", "ac"], "base"),
                 }),
             ],
-            dc: { base: 0 },
         });
-        this.system.attributes.ac = ac.getTraceData({ value: "dc" });
+        this.armorClass = armorStatistic.dc;
+        this.system.attributes.ac = armorStatistic.getTraceData();
 
         this.prepareSaves();
     }

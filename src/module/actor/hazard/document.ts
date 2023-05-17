@@ -1,20 +1,21 @@
+import { ActorPF2e } from "@actor";
 import { InitiativeData } from "@actor/data/base.ts";
 import { strikeFromMeleeItem } from "@actor/helpers.ts";
-import { ActorPF2e } from "@actor";
 import { ActorInitiative, InitiativeRollResult } from "@actor/initiative.ts";
-import { MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { ModifierPF2e } from "@actor/modifiers.ts";
 import { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
-import { ItemType } from "@item/data/index.ts";
 import { ConditionPF2e } from "@item";
+import { ItemType } from "@item/data/index.ts";
 import { Rarity } from "@module/data.ts";
 import { extractModifiers } from "@module/rules/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { DamageType } from "@system/damage/index.ts";
+import { RollParameters } from "@system/rolls.ts";
+import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { isObject, objectHasKey } from "@util";
 import { HazardSource, HazardSystemData } from "./data.ts";
-import { RollParameters } from "@system/rolls.ts";
 
 class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     override get allowedItemTypes(): (ItemType | "physical")[] {
@@ -31,6 +32,10 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
 
     override get hardness(): number {
         return Math.abs(this.system.attributes.hardness);
+    }
+
+    get hasDefenses(): boolean {
+        return !!(this.hitPoints?.max || this.attributes.ac.value);
     }
 
     /** Minimal check since the disabled status of a hazard isn't logged */
@@ -90,24 +95,15 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
         this.prepareInitiative();
 
         // Armor Class
-        {
-            const base = system.attributes.ac.value;
-            const domains = ["ac", "dex-based", "all"];
-            const modifiers = [
-                new ModifierPF2e("PF2E.BaseModifier", base, MODIFIER_TYPE.UNTYPED),
-                ...extractModifiers(this.synthetics, domains, { test: this.getRollOptions(domains) }),
-            ];
-
-            const stat = mergeObject(new StatisticModifier("ac", modifiers), system.attributes.ac, {
-                overwrite: false,
+        if (this.hasDefenses) {
+            const baseModifier = new ModifierPF2e({
+                slug: "base",
+                label: "PF2E.BaseModifier",
+                modifier: system.attributes.ac.value,
             });
-            stat.value = stat.totalModifier;
-            stat.breakdown = stat.modifiers
-                .filter((m) => m.enabled)
-                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                .join(", ");
-
-            system.attributes.ac = mergeObject(stat, { base });
+            const statistic = new ArmorStatistic(this, { rank: 1, modifiers: [baseModifier] });
+            this.armorClass = statistic.dc;
+            system.attributes.ac = statistic.getTraceData();
         }
 
         this.saves = this.prepareSaves();
@@ -134,7 +130,7 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
                 label: saveName,
                 domains: selectors,
                 modifiers: [
-                    new ModifierPF2e("PF2E.BaseModifier", base, MODIFIER_TYPE.UNTYPED),
+                    new ModifierPF2e("PF2E.BaseModifier", base, "untyped"),
                     ...extractModifiers(this.synthetics, selectors),
                 ],
                 check: {
@@ -162,7 +158,7 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
             domains: ["initiative"],
             check: {
                 type: "initiative",
-                modifiers: [new ModifierPF2e("PF2E.ModifierTitle", baseMod, MODIFIER_TYPE.UNTYPED)],
+                modifiers: [new ModifierPF2e("PF2E.ModifierTitle", baseMod, "untyped")],
             },
         });
 

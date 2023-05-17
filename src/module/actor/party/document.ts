@@ -9,6 +9,8 @@ import { UserPF2e } from "@module/documents.ts";
 import { PartyCampaign, PartyUpdateContext } from "./types.ts";
 
 class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
+    override armorClass = null;
+
     declare members: CreaturePF2e[];
     campaign: PartyCampaign | null = null;
 

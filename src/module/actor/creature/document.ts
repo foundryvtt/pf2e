@@ -3,7 +3,7 @@ import { HitPointsSummary } from "@actor/base.ts";
 import { createPonderousPenalty } from "@actor/character/helpers.ts";
 import { StrikeData } from "@actor/data/base.ts";
 import { CreatureSource } from "@actor/data/index.ts";
-import { MODIFIER_TYPE, MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
+import { MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import { MovementType, SaveType, SkillLongForm } from "@actor/types.ts";
 import { ArmorPF2e, ConditionPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
 import { isCycle } from "@item/container/helpers.ts";
@@ -13,7 +13,7 @@ import { isEquipped } from "@item/physical/usage.ts";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";
 import { Rarity, SIZES, SIZE_SLUGS } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
-import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
+import { extractModifiers } from "@module/rules/helpers.ts";
 import { RuleElementSynthetics } from "@module/rules/index.ts";
 import { BaseSpeedSynthetic } from "@module/rules/synthetics.ts";
 import { UserPF2e } from "@module/user/index.ts";
@@ -25,7 +25,7 @@ import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
 import { RollParameters } from "@system/rolls.ts";
-import { Statistic } from "@system/statistic/index.ts";
+import { Statistic, StatisticDifficultyClass } from "@system/statistic/index.ts";
 import { ErrorPF2e, isObject, localizer, objectHasKey, setHasElement } from "@util";
 import { ActorInitiative, InitiativeRollResult } from "../initiative.ts";
 import {
@@ -48,12 +48,15 @@ import {
     IsFlatFootedParams,
 } from "./types.ts";
 import { SIZE_TO_REACH } from "./values.ts";
+import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 abstract class CreaturePF2e<
     TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null
 > extends ActorPF2e<TParent> {
     declare parties: Set<PartyPF2e>;
+    /** A creature always has an AC */
+    declare armorClass: StatisticDifficultyClass<ArmorStatistic>;
     /** Skill checks for the creature, built during data prep */
     declare skills: CreatureSkills;
     /** Saving throw rolls for the creature, built during data prep */
@@ -349,6 +352,11 @@ abstract class CreaturePF2e<
         // Set whether this actor is wearing armor
         rollOptions.all["self:armored"] = !!this.wornArmor && this.wornArmor.category !== "unarmored";
 
+        // Set whether the actor's shield is raised
+        if (attributes.shield?.raised && !attributes.shield.broken) {
+            this.rollOptions.all["self:shield:raised"] = true;
+        }
+
         // Set whether this creature emits sound
         this.system.attributes.emitsSound = !this.isDead;
 
@@ -431,29 +439,6 @@ abstract class CreaturePF2e<
             const syntheticModifiers = (statisticsModifiers[selector] ??= []);
             syntheticModifiers.push(...modifiers.map((m) => () => m));
         }
-    }
-
-    /** Add a circumstance bonus if this creature has a raised shield */
-    protected getShieldBonus(): ModifierPF2e | null {
-        if (!this.isOfType("character", "npc")) return null;
-        const shieldData = this.system.attributes.shield;
-        if (shieldData.raised && !shieldData.broken) {
-            const slug = "raised-shield";
-            this.rollOptions.all["self:shield:raised"] = true;
-            return new ModifierPF2e({
-                label: shieldData.name,
-                slug,
-                adjustments: extractModifierAdjustments(
-                    this.synthetics.modifierAdjustments,
-                    ["all", "dex-based", "ac"],
-                    slug
-                ),
-                type: MODIFIER_TYPE.CIRCUMSTANCE,
-                modifier: shieldData.ac,
-            });
-        }
-
-        return null;
     }
 
     /**

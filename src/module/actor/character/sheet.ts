@@ -1,5 +1,5 @@
 import { SkillAbbreviation } from "@actor/creature/data.ts";
-import { createProficiencyModifier, MODIFIER_TYPE } from "@actor/modifiers.ts";
+import { MODIFIER_TYPES, createProficiencyModifier } from "@actor/modifiers.ts";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { ActionItemPF2e, ItemPF2e, LorePF2e } from "@item";
 import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
@@ -1006,7 +1006,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             // This is a UI error rather than a user error
             throw ErrorPF2e("No character attribute found");
         }
-        const modifierTypes: string[] = Object.values(MODIFIER_TYPE);
+        const modifierTypes: string[] = Array.from(MODIFIER_TYPES);
         if (!modifierTypes.includes(type)) {
             errors.push("Type is required.");
         }

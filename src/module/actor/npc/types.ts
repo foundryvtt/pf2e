@@ -6,7 +6,8 @@ import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
 import { ZeroToFour } from "@module/data.ts";
 import { TraitTagifyEntry } from "@module/sheet/helpers.ts";
 import { NPCPF2e, NPCStrike } from "./index.ts";
-import { NPCArmorClass, NPCAttributes, NPCSaveData, NPCSkillData, NPCSystemData } from "./data.ts";
+import { NPCAttributes, NPCSaveData, NPCSkillData, NPCSystemData } from "./data.ts";
+import { ArmorClassTraceData } from "@system/statistic/armor-class.ts";
 
 interface ActionsDetails {
     label: string;
@@ -43,7 +44,7 @@ type NPCSkillSheetData = NPCSkillData & WithAdjustments & WithRank;
 interface NPCSystemSheetData extends NPCSystemData {
     actions: NPCStrikeSheetData[];
     attributes: NPCAttributes & {
-        ac: NPCArmorClass & WithAdjustments;
+        ac: ArmorClassTraceData & WithAdjustments;
         hp: HitPointsData & WithAdjustments;
         perception: PerceptionData & WithAdjustments & WithRank;
     };
