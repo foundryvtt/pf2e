@@ -165,59 +165,76 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         } else {
             const exhausted = max > 1 && value === 1;
             const key = exhausted ? "UseExhausted" : max > 1 ? "UseMulti" : "UseSingle";
-            const content = game.i18n.format(`PF2E.ConsumableMessage.${key}`, {
+            const consumableMessage = game.i18n.format(`PF2E.ConsumableMessage.${key}`, {
                 name: this.name,
                 current: value - 1,
             });
 
-            const quantity = this.quantity;
-
-            // Optionally destroy the item
-            if (this.autoDestroy && value <= 1) {
-                if (quantity <= 1) {
-                    await this.delete();
-                    this.updateSource({ "system.quantity": 0 });
-                    if (toMessageOnDelete) {
-                        await this.toMessage();
+            const deleted = await (async (): Promise<boolean> => {
+                const quantity = this.quantity;
+                // Optionally destroy the item
+                if (this.autoDestroy && value <= 1) {
+                    if (quantity <= 1) {
+                        await this.delete();
+                        this.updateSource({ "system.quantity": 0 });
+                        return true;
+                    } else {
+                        // Deduct one from quantity if this item has one charge or doesn't have charges
+                        await this.update({
+                            "system.quantity": Math.max(quantity - 1, 0),
+                            "system.charges.value": max,
+                        });
                     }
                 } else {
-                    // Deduct one from quantity if this item has one charge or doesn't have charges
+                    // Deduct one charge
                     await this.update({
-                        "system.quantity": Math.max(quantity - 1, 0),
-                        "system.charges.value": max,
+                        "system.charges.value": Math.max(value - 1, 0),
                     });
                 }
-            } else {
-                // Deduct one charge
-                await this.update({
-                    "system.charges.value": Math.max(value - 1, 0),
-                });
-            }
-
-            // If using this consumable creates a roll, we need to show it
-            const flags = {
-                pf2e: {
-                    origin: {
-                        sourceId: this.flags.core?.sourceId,
-                        uuid: this.uuid,
-                        type: this.type,
-                    },
-                },
-            };
+                return false;
+            })();
 
             if (this.category !== "ammo") {
                 const speaker = ChatMessage.getSpeaker({ actor: this.actor });
 
-                if (this.formula) {
-                    const damageType = this.traits.has("positive")
-                        ? "positive"
-                        : this.traits.has("negative")
-                        ? "negative"
-                        : "untyped";
-                    new DamageRoll(`${this.formula}[${damageType}]`).toMessage({ speaker, flavor: content, flags });
-                } else {
-                    ChatMessage.create({ speaker, content, flags });
+                const flags = {
+                    pf2e: {
+                        origin: {
+                            sourceId: this.flags.core?.sourceId,
+                            uuid: this.uuid,
+                            type: this.type,
+                        },
+                    },
+                };
+
+                const damageType = this.traits.has("positive")
+                    ? "positive"
+                    : this.traits.has("negative")
+                    ? "negative"
+                    : "untyped";
+                const roll = this.formula ? new DamageRoll(`${this.formula}[${damageType}]`) : null;
+
+                if (deleted && toMessageOnDelete) {
+                    const itemMessage = (await this.toMessage(undefined, { create: false }))?.toObject();
+                    if (!itemMessage) return;
+                    if (roll) {
+                        const evaluated = await roll.evaluate({ async: true });
+                        itemMessage.rolls.push(evaluated.toJSON());
+                        itemMessage.type = CONST.CHAT_MESSAGE_TYPES.ROLL;
+                        const rollMessage = await evaluated.render();
+                        itemMessage.content = `${itemMessage.content}<hr>${rollMessage}`;
+                    }
+                    itemMessage.flavor = consumableMessage;
+                    ChatMessage.create(itemMessage);
+                    return;
                 }
+
+                if (roll) {
+                    roll.toMessage({ speaker, flavor: consumableMessage, flags });
+                    return;
+                }
+
+                ChatMessage.create({ speaker, content: consumableMessage, flags });
             }
         }
     }
