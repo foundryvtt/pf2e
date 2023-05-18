@@ -1,24 +1,21 @@
 form > header {
+    align-items: center;
     background: url("/assets/sheet/header-bw.webp"), url("/assets/sheet/background.webp");
+    background-blend-mode: multiply;
+    background-color: #238580;
     background-repeat: repeat-x, no-repeat;
     background-size: cover;
-    background-color: #238580;
-    background-blend-mode: multiply;
-    color: white;
-
-    width: 100%;
-    font-family: var(--sans-serif);
-    text-transform: uppercase;
-    font-weight: 600;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 16px;
-    margin-bottom: 0.1em;
-    gap: 8px;
-
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+    color: white;
+    display: flex;
+    font-family: var(--sans-serif);
+    font-weight: 600;
+    gap: 8px;
+    justify-content: space-between;
+    margin-bottom: 0.1em;
+    padding: 0 16px;
+    text-transform: uppercase;
+    width: 100%;
 
     .frame-container {
         flex: 0 0 60px;
@@ -79,7 +76,7 @@ form > header {
         color: white;
         border: none;
         border-bottom: 1px solid transparent;
-        &:hover, &:focus {
+        &:hover:not(:disabled), &:focus {
             border: none;
             border-bottom: 1px solid var(--text-light);
             box-shadow: none;

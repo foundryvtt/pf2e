@@ -12,7 +12,9 @@
                         <input type="text" value="{{stealthDC}}" data-value="{{stealthDC}}" data-property="system.attributes.stealth.value" data-dtype="Number" placeholder="N/A" />
                     </h4>
                     <div class="controls">
-                        <a data-action="edit-section"><i class="fas fa-edit"></i></a>
+                        {{#if editing}}
+                            <a data-action="edit-section"><i class="fa-solid fa-edit"></i></a>
+                        {{/if}}
                     </div>
                 </div>
                 <div class="section-body hazard-editor">
@@ -26,7 +28,9 @@
                 <div class="section-header">
                     <h4>{{localize "PF2E.HazardDescriptionLabel"}}</h4>
                     <div class="controls">
-                        <a data-action="edit-section"><i class="fas fa-edit"></i></a>
+                        {{#if editing}}
+                            <a data-action="edit-section"><i class="fas fa-edit"></i></a>
+                        {{/if}}
                     </div>
                 </div>
                 <div class="section-body hazard-editor">
@@ -36,57 +40,63 @@
             {{/if}}
 
             {{#if (or hasDisable editing)}}
-            <div class="section-container">
-                <div class="section-header">
-                    <h4>{{localize "PF2E.HazardDisableLabel"}}</h4>
-                    <div class="controls">
-                        <a data-action="edit-section"><i class="fas fa-edit"></i></a>
+                <div class="section-container">
+                    <div class="section-header">
+                        <h4>{{localize "PF2E.HazardDisableLabel"}}</h4>
+                        <div class="controls">
+                            {{#if editing}}
+                                <a data-action="edit-section"><i class="fas fa-edit"></i></a>
+                            {{/if}}
+                        </div>
+                    </div>
+                    <div class="section-body hazard-editor">
+                        {{editor enrichedContent.disable target="system.details.disable" button=true owner=owner editable=editable}}
                     </div>
                 </div>
-                <div class="section-body hazard-editor">
-                    {{editor enrichedContent.disable target="system.details.disable" button=true owner=owner editable=editable}}
-                </div>
-            </div>
             {{/if}}
 
             {{#if (or hasRoutineDetails editing)}}
-            <div class="section-container">
-                <div class="section-header">
-                    <h4>{{localize "PF2E.HazardRoutineLabel"}}</h4>
-                    <div class="controls">
-                        <a data-action="edit-section"><i class="fas fa-edit"></i></a>
+                <div class="section-container">
+                    <div class="section-header">
+                        <h4>{{localize "PF2E.HazardRoutineLabel"}}</h4>
+                        <div class="controls">
+                            {{#if editing}}
+                                <a data-action="edit-section"><i class="fas fa-edit"></i></a>
+                            {{/if}}
+                        </div>
+                    </div>
+                    <div class="section-body hazard-editor">
+                        {{editor enrichedContent.routine target="system.details.routine" button=true owner=owner editable=editable}}
                     </div>
                 </div>
-                <div class="section-body hazard-editor">
-                    {{editor enrichedContent.routine target="system.details.routine" button=true owner=owner editable=editable}}
-                </div>
-            </div>
             {{/if}}
 
             {{#if (or hasResetDetails editing)}}
-            <div class="section-container">
-                <div class="section-header">
-                    <h4>{{localize "PF2E.HazardResetLabel"}}</h4>
-                    <div class="controls">
-                        <a data-action="edit-section"><i class="fas fa-edit"></i></a>
+                <div class="section-container">
+                    <div class="section-header">
+                        <h4>{{localize "PF2E.HazardResetLabel"}}</h4>
+                        <div class="controls">
+                            {{#if editing}}
+                                <a data-action="edit-section"><i class="fas fa-edit"></i></a>
+                            {{/if}}
+                        </div>
+                    </div>
+                    <div class="section-body hazard-editor">
+                        {{editor enrichedContent.reset target="system.details.reset" button=true owner=owner editable=editable}}
                     </div>
                 </div>
-                <div class="section-body hazard-editor">
-                    {{editor enrichedContent.reset target="system.details.reset" button=true owner=owner editable=editable}}
-                </div>
-            </div>
             {{/if}}
 
             <div class="section-container">
                 <div class="section-header">
                     <h4>{{localize "PF2E.ActionActionsLabel"}}</h4>
-                    {{#if @root.editing}}
                     <div class="controls">
-                        <a class="item-create" title="{{localize "PF2E.CreateActionTitle"}}" data-type="action" data-action-type="action"><i class="fas fa-plus"></i> {{localize "ITEM.TypeAction"}}</a>
-                        <a class="attack-add item-create" data-type="melee" data-action-type="melee"><i class="fas fa-plus"></i> {{localize "PF2E.NPCAttackMelee"}}</a>
-                        <a class="attack-add item-create" data-type="melee" data-action-type="ranged"><i class="fas fa-plus"></i> {{localize "PF2E.NPCAttackRanged"}}</a>
+                        {{#if editing}}
+                            <a class="item-create" title="{{localize "PF2E.CreateActionTitle"}}" data-type="action" data-action-type="action"><i class="fas fa-plus"></i> {{localize "ITEM.TypeAction"}}</a>
+                            <a class="attack-add item-create" data-type="melee" data-action-type="melee"><i class="fas fa-plus"></i> {{localize "PF2E.NPCAttackMelee"}}</a>
+                            <a class="attack-add item-create" data-type="melee" data-action-type="ranged"><i class="fas fa-plus"></i> {{localize "PF2E.NPCAttackRanged"}}</a>
+                        {{/if}}
                     </div>
-                    {{/if}}
                 </div>
 
                 <div class="section-body">

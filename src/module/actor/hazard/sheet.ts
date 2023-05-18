@@ -34,8 +34,8 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         return this.options.editable && !!this.actor.getFlag("pf2e", "editHazard.value");
     }
 
-    override async getData(): Promise<HazardSheetData> {
-        const sheetData = await super.getData();
+    override async getData(options?: ActorSheetOptions): Promise<HazardSheetData> {
+        const sheetData = await super.getData(options);
 
         sheetData.actor.flags.editHazard ??= { value: false };
         const systemData: HazardSystemData = sheetData.data;
