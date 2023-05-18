@@ -91,8 +91,7 @@ import {
     MartialProficiencies,
     MartialProficiency,
     WeaponGroupProficiencyKey,
-} from "./data/index.ts";
-import { CharacterSheetTabVisibility } from "./data/sheet.ts";
+} from "./data.ts";
 import { CharacterFeats } from "./feats.ts";
 import {
     PCStrikeAttackTraits,
@@ -102,6 +101,7 @@ import {
     createShoddyPenalty,
     imposeOversizedWeaponCondition,
 } from "./helpers.ts";
+import { CharacterSheetTabVisibility } from "./sheet.ts";
 import { CharacterHitPointsSummary, CharacterSkill, CharacterSkills, DexterityModifierCapData } from "./types.ts";
 import { CHARACTER_SHEET_TABS } from "./values.ts";
 

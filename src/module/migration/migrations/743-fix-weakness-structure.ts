@@ -1,4 +1,4 @@
-import { CharacterTraitsData } from "@actor/character/data/index.ts";
+import { CharacterTraitsData } from "@actor/character/data.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { NPCTraitsSource } from "@actor/npc/data.ts";
 import { MigrationBase } from "../base.ts";

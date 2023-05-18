@@ -1,4 +1,4 @@
-import { CharacterDetails } from "@actor/character/data/index.ts";
+import { CharacterDetails } from "@actor/character/data.ts";
 import { CreatureTrait } from "@actor/creature/types.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { FeatSource, ItemSourcePF2e } from "@item/data/index.ts";

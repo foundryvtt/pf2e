@@ -1,4 +1,4 @@
-import { CharacterSystemData } from "@actor/character/data/index.ts";
+import { CharacterSystemData } from "@actor/character/data.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { MigrationBase } from "../base.ts";
 
