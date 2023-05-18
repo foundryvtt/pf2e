@@ -340,7 +340,12 @@ type CharacterDetails = Omit<CreatureDetails, "creature"> & {
     };
 
     /** Convenience information for easy access when the item class instance isn't available */
-    ancestry: { name: string; trait: string } | null;
+    ancestry: {
+        name: string;
+        trait: string;
+        /** All ancestries and versatile heritages the character "counts as" when selecting ancestry feats */
+        countsAs: string[];
+    } | null;
     heritage: { name: string; trait: string | null } | null;
     class: { name: string; trait: string } | null;
     deities: CharacterDeities;

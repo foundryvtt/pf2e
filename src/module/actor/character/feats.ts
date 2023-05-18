@@ -49,7 +49,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
         this.createGroup({
             id: "ancestry",
             label: "PF2E.FeatAncestryHeader",
-            featFilter: actor.system.details.ancestry?.trait ? [`traits-${actor.system.details.ancestry.trait}`] : [],
+            featFilter: actor.system.details.ancestry?.countsAs.map((t) => `traits-${t}`) ?? [],
             supported: ["ancestry"],
             slots: classFeatSlots?.ancestry ?? [],
         });
