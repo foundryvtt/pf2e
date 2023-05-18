@@ -884,6 +884,8 @@ export const PF2ECONFIG = {
     },
 
     frequencies: {
+        turn: "PF2E.Duration.turn",
+        round: "PF2E.Duration.round",
         PT1M: "PF2E.Duration.PT1M",
         PT10M: "PF2E.Duration.PT10M",
         PT1H: "PF2E.Duration.PT1H",
