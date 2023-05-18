@@ -1193,12 +1193,18 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const sourceItemQuantity = item.quantity;
         const stackable = !!targetActor.findStackableItem(targetActor, item._source);
         const isPurchase = sourceActor.isOfType("loot") && sourceActor.isMerchant && !sourceActor.isOwner;
+        const isAmmunition = item.isOfType("consumable") && item.isAmmunition;
 
         // If more than one item can be moved, show a popup to ask how many to move
         if (sourceItemQuantity > 1) {
+            const defaultQuantity = isPurchase
+                ? isAmmunition
+                    ? Math.min(10, sourceItemQuantity)
+                    : 1
+                : sourceItemQuantity;
             const popup = new MoveLootPopup(
                 sourceActor,
-                { maxQuantity: sourceItemQuantity, lockStack: !stackable, isPurchase },
+                { quantity: { max: sourceItemQuantity, default: defaultQuantity }, lockStack: !stackable, isPurchase },
                 (quantity, newStack) => {
                     sourceActor.transferItemToActor(targetActor, item, quantity, containerId, newStack);
                 }
