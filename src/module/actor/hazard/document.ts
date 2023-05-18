@@ -15,6 +15,7 @@ import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { isObject, objectHasKey } from "@util";
 import { HazardSource, HazardSystemData } from "./data.ts";
+import { ImmunityData } from "@actor/data/iwr.ts";
 
 class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     declare skills: { stealth: Statistic };
@@ -73,6 +74,11 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
         attributes.hp.negativeHealing = false;
         attributes.hp.brokenThreshold = Math.floor(attributes.hp.max / 2);
         attributes.hasHealth = attributes.hp.max > 0;
+        // Hazards have object immunities (CRB p. 273): can be overridden by Immunity rule element
+        if (!attributes.immunities.some((i) => i.type === "object-immunities")) {
+            attributes.immunities.unshift(new ImmunityData({ type: "object-immunities", source: "ACTOR.TypeHazard" }));
+        }
+
         if (this.isComplex) {
             // Ensure stealth value is numeric and set baseline initiative data
             attributes.stealth.value ??= 0;
