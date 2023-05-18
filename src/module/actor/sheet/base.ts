@@ -79,6 +79,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     override async getData(options: ActorSheetOptions = this.options): Promise<ActorSheetDataPF2e<TActor>> {
         options.id ||= this.id;
+        options.editable = this.isEditable;
+
         // The Actor and its Items
         const actorData = this.actor.toObject(false) as ActorPF2e;
 
