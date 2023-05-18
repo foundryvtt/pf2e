@@ -1,6 +1,5 @@
 import { ActorPF2e, PartyPF2e } from "@actor";
 import { HitPointsSummary } from "@actor/base.ts";
-import { createPonderousPenalty } from "@actor/character/helpers.ts";
 import { StrikeData } from "@actor/data/base.ts";
 import { CreatureSource } from "@actor/data/index.ts";
 import { MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
@@ -24,10 +23,8 @@ import { DamageType } from "@system/damage/types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
-import { RollParameters } from "@system/rolls.ts";
 import { Statistic, StatisticDifficultyClass } from "@system/statistic/index.ts";
 import { ErrorPF2e, isObject, localizer, objectHasKey, setHasElement } from "@util";
-import { ActorInitiative, InitiativeRollResult } from "../initiative.ts";
 import {
     CreatureSkills,
     CreatureSpeeds,
@@ -393,40 +390,6 @@ abstract class CreaturePF2e<
             }
             status.value = Math.min(condition?.value ?? 0, status.max);
         }
-    }
-
-    protected prepareInitiative(): void {
-        if (!this.isOfType("character", "npc")) return;
-
-        const systemData = this.system;
-        const checkType = systemData.attributes.initiative.statistic || "perception";
-        const baseStatistic = this.skills[checkType] ?? this.perception;
-        const label = game.i18n.format("PF2E.InitiativeWithSkill", { skillName: baseStatistic.label });
-
-        const ponderousPenalty = this.isOfType("character") ? createPonderousPenalty(this) : null;
-
-        const statistic = baseStatistic.extend({
-            slug: "initiative",
-            domains: ["initiative"],
-            check: { type: "initiative", label },
-            rollOptions: [baseStatistic.slug],
-            modifiers: [ponderousPenalty ?? []].flat(),
-        });
-
-        this.initiative = new ActorInitiative(this, statistic);
-        systemData.attributes.initiative = mergeObject(systemData.attributes.initiative, statistic.getTraceData());
-        systemData.attributes.initiative.roll = async (args: RollParameters): Promise<InitiativeRollResult | null> => {
-            console.warn(
-                `Rolling initiative via actor.attributes.initiative.roll() is deprecated: use actor.initiative.roll() instead.`
-            );
-
-            const result = await this.initiative?.roll({
-                extraRollOptions: args.options ? [...args.options] : [],
-                ...args,
-            });
-
-            return result ?? null;
-        };
     }
 
     protected override prepareSynthetics(): void {

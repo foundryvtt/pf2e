@@ -689,7 +689,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         })();
 
         // Initiative
-        this.prepareInitiative();
+        this.initiative = new ActorInitiative(this);
+        this.system.attributes.initiative = this.initiative.getTraceData();
 
         // Resources
         const { focus, crafting } = this.system.resources;

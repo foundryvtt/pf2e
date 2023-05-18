@@ -118,7 +118,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     declare conditions: ActorConditions<this>;
 
     /** Skill checks for the actor if supported by the actor type */
-    declare skills?: CreatureSkills;
+    declare skills?: Partial<CreatureSkills>;
 
     /** A cached copy of `Actor#itemTypes`, lazily regenerated every data preparation cycle */
     private declare _itemTypes: EmbeddedItemInstances<this> | null;
