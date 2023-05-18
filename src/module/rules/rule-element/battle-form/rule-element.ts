@@ -1,4 +1,24 @@
-import { RuleElementPF2e, RuleElementData, RuleElementOptions } from "../index.ts";
+import { ActorPF2e, CharacterPF2e } from "@actor";
+import { CharacterStrike } from "@actor/character/data.ts";
+import { CharacterSkill } from "@actor/character/types.ts";
+import { SENSE_TYPES } from "@actor/creature/sense.ts";
+import { ActorType } from "@actor/data/index.ts";
+import { ActorInitiative } from "@actor/initiative.ts";
+import { DiceModifierPF2e, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { MOVEMENT_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values.ts";
+import { ItemPF2e, WeaponPF2e } from "@item";
+import { RollNotePF2e } from "@module/notes.ts";
+import { PredicatePF2e } from "@system/predication.ts";
+import { ErrorPF2e, isObject, setHasElement, sluggify, tupleHasValue } from "@util";
+import { CreatureSizeRuleElement } from "../creature-size.ts";
+import { RuleElementSource } from "../data.ts";
+import { RuleElementData, RuleElementOptions, RuleElementPF2e } from "../index.ts";
+import { ImmunityRuleElement } from "../iwr/immunity.ts";
+import { ResistanceRuleElement } from "../iwr/resistance.ts";
+import { WeaknessRuleElement } from "../iwr/weakness.ts";
+import { SenseRuleElement } from "../sense.ts";
+import { StrikeRuleElement } from "../strike.ts";
+import { TempHPRuleElement } from "../temp-hp.ts";
 import {
     BattleFormAC,
     BattleFormOverrides,
@@ -6,26 +26,6 @@ import {
     BattleFormStrike,
     BattleFormStrikeQuery,
 } from "./types.ts";
-import { CreatureSizeRuleElement } from "../creature-size.ts";
-import { ImmunityRuleElement } from "../iwr/immunity.ts";
-import { ResistanceRuleElement } from "../iwr/resistance.ts";
-import { WeaknessRuleElement } from "../iwr/weakness.ts";
-import { SenseRuleElement } from "../sense.ts";
-import { StrikeRuleElement } from "../strike.ts";
-import { TempHPRuleElement } from "../temp-hp.ts";
-import { ActorPF2e, CharacterPF2e } from "@actor";
-import { SENSE_TYPES } from "@actor/creature/sense.ts";
-import { ActorType } from "@actor/data/index.ts";
-import { MOVEMENT_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values.ts";
-import { ItemPF2e, WeaponPF2e } from "@item";
-import { DiceModifierPF2e, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
-import { RollNotePF2e } from "@module/notes.ts";
-import { PredicatePF2e } from "@system/predication.ts";
-import { ErrorPF2e, isObject, setHasElement, sluggify, tupleHasValue } from "@util";
-import { RuleElementSource } from "../data.ts";
-import { CharacterStrike } from "@actor/character/data/index.ts";
-import { CharacterSkill } from "@actor/character/types.ts";
-import { ActorInitiative } from "@actor/initiative.ts";
 
 export class BattleFormRuleElement extends RuleElementPF2e {
     overrides: this["data"]["overrides"];

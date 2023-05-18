@@ -2,7 +2,7 @@ import { FeatPF2e, ItemPF2e } from "@item";
 import { FeatCategory } from "@item/feat/types.ts";
 import { sluggify } from "@util";
 import { CharacterPF2e } from "./document.ts";
-import { BonusFeat, SlottedFeat } from "./data/index.ts";
+import { BonusFeat, SlottedFeat } from "./data.ts";
 import { ActorPF2e } from "@actor";
 
 type FeatSlotLevel = number | { id: string; label: string };

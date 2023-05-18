@@ -1,4 +1,4 @@
-import { BaseWeaponProficiencyKey, WeaponGroupProficiencyKey } from "@actor/character/data/index.ts";
+import { BaseWeaponProficiencyKey, WeaponGroupProficiencyKey } from "@actor/character/data.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e, MeleeSource, WeaponSource } from "@item/data/index.ts";
 import { MigrationBase } from "@module/migration/base.ts";

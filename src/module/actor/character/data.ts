@@ -35,8 +35,8 @@ import { ZeroToFour } from "@module/data.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { ArmorClassTraceData } from "@system/statistic/armor-class.ts";
 import { StatisticTraceData } from "@system/statistic/data.ts";
-import { CharacterPF2e } from "../document.ts";
-import { WeaponAuxiliaryAction } from "../helpers.ts";
+import { CharacterPF2e } from "./document.ts";
+import { WeaponAuxiliaryAction } from "./helpers.ts";
 import { CharacterSheetTabVisibility } from "./sheet.ts";
 
 interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemData> {

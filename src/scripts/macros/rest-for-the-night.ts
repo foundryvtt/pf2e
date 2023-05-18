@@ -1,4 +1,4 @@
-import { CharacterAttributes, CharacterResources } from "@actor/character/data/index.ts";
+import { CharacterAttributes, CharacterResources } from "@actor/character/data.ts";
 import { ActorPF2e, CharacterPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import { ChatMessageSourcePF2e } from "@module/chat-message/data.ts";
