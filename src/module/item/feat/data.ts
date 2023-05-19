@@ -1,6 +1,7 @@
 import { ActionType, BaseItemSourcePF2e, Frequency, FrequencySource, ItemSystemSource } from "@item/data/base.ts";
 import { OneToThree, TraitsWithRarity } from "@module/data.ts";
 import { FeatCategory, FeatTrait } from "./types.ts";
+import { AbilityString } from "@actor/types.ts";
 
 type FeatSource = BaseItemSourcePF2e<"feat", FeatSystemSource>;
 
@@ -28,12 +29,18 @@ interface FeatSystemSource extends ItemSystemSource {
     };
     location: string | null;
     frequency?: FrequencySource;
+    subfeatures?: Partial<FeatSubfeatures>;
 }
 
 interface FeatSystemData extends Omit<FeatSystemSource, "maxTaken"> {
     /** `null` is set to `Infinity` during data preparation */
     maxTakable: number;
     frequency?: Frequency;
+    subfeatures: FeatSubfeatures;
+}
+
+interface FeatSubfeatures {
+    keyOptions: AbilityString[];
 }
 
 type FeatTraits = TraitsWithRarity<FeatTrait>;
