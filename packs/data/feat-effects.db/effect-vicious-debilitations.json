@@ -1,0 +1,60 @@
+{
+    "_id": "Rgt9hH3W1oh9dvku",
+    "img": "systems/pf2e/icons/spells/blade-barrier.webp",
+    "name": "Effect: Vicious Debilitations",
+    "system": {
+        "description": {
+            "value": "<p>The target gains weakness 5 to your choice of bludgeoning, piercing, or slashing damage. </p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Damage.RollFlavor.bludgeoning",
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.Damage.RollFlavor.piercing",
+                        "value": "piercing"
+                    },
+                    {
+                        "label": "PF2E.Damage.RollFlavor.slashing",
+                        "value": "slashing"
+                    }
+                ],
+                "flag": "vicious-debilitations",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType"
+            },
+            {
+                "key": "Weakness",
+                "type": "{item|flags.pf2e.rulesSelections.vicious-debilitations}",
+                "value": 5
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
