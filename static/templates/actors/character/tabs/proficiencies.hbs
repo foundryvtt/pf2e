@@ -38,7 +38,7 @@
             <!-- Lore Skills -->
             {{#each data.skills as |skill idx|}}
                 {{#if skill.lore}}
-                    <li class="skill item" data-skill="{{skill.shortform}}" data-item-id="{{skill.itemID}}" data-item-type="lore">
+                    <li class="skill item" data-skill="{{skill.slug}}" data-item-id="{{skill.itemID}}" data-item-type="lore">
                         <h1 class="skill-score rollable" title="{{skill.breakdown}}">{{numberFormat skill.value decimals=0 sign=true}}</h1>
                         <div class="skill-name lore-name-input item-name-input">
                             <input data-item-id="{{skill.itemID}}" data-item-property="name" type="text" value="{{skill.label}}" style="color: white" />

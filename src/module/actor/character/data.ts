@@ -70,6 +70,8 @@ interface CharacterSkillData extends SkillData {
     armor: boolean;
     /** Is this skill a Lore skill? */
     lore?: boolean;
+    /** If this is a lore skill, what item it came from */
+    itemID?: string;
 }
 
 /** The raw information contained within the actor data object for characters. */
