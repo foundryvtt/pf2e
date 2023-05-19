@@ -562,19 +562,20 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 this.ruleElementForms[idx]?._updateObject(rules[idx]);
 
                 // predicate is special cased as always json. Later on extend such parsing to more things
-                const predicateValue = value.predicate as unknown;
-                if (typeof predicateValue === "string" && predicateValue.trim() === "") {
-                    delete rules[idx].predicate;
-                } else {
-                    try {
-                        rules[idx].predicate = JSON.parse(predicateValue as string);
-                    } catch (error) {
-                        if (error instanceof Error) {
-                            ui.notifications.error(
-                                game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
-                            );
-                            console.warn("Syntax error in rule element definition.", error.message, predicateValue);
-                            throw error; // prevent update, to give the user a chance to correct, and prevent bad data
+                const predicateValue = value.predicate;
+                if (typeof predicateValue === "string") {
+                    if (predicateValue.trim() === "") {
+                        delete rules[idx].predicate;
+                    } else {
+                        try {
+                            rules[idx].predicate = JSON.parse(predicateValue);
+                        } catch (error) {
+                            if (error instanceof Error) {
+                                ui.notifications.error(
+                                    game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
+                                );
+                                throw error; // prevent update, to give the user a chance to correct, and prevent bad data
+                            }
                         }
                     }
                 }
