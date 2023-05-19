@@ -480,6 +480,10 @@ class PackExtractor {
             if (!source.system.onlyLevel1) {
                 delete (source.system as { onlyLevel1?: boolean }).onlyLevel1;
             }
+
+            if (Object.keys(source.system.subfeatures ?? {}).length === 0) {
+                delete source.system.subfeatures;
+            }
         } else if (source.type === "spellcastingEntry" && this.#lastActor?.type === "npc") {
             delete (source.system as { ability?: unknown }).ability;
         }
