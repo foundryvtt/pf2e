@@ -6,8 +6,8 @@ function getHazards(actors: ActorPF2e[]): HazardPF2e[] {
     return actors.filter((a): a is HazardPF2e => a.type === "hazard");
 }
 
-function getLevels(actors: ActorPF2e[], type: string): number[] {
-    return actors.filter((a) => a.type === type).map((a) => a.level);
+function getLevels(actors: ActorPF2e[], alliance: string): number[] {
+    return actors.filter((a) => a.alliance === alliance).map((a) => a.level);
 }
 
 function dialogTemplate(xp: XPCalculation): string {
@@ -187,11 +187,13 @@ function askPartyLevelAndSize(npcLevels: number[], hazards: HazardPF2e[]): void 
 
 function xpFromEncounter(): void {
     const actors = canvas.tokens.controlled.flatMap((a) => a.actor ?? []).filter((a) => !a.traits.has("minion"));
-    const npcLevels = getLevels(actors, "npc");
-    const pcLevels = getLevels(actors, "character");
+    const npcLevels = getLevels(actors, "opposition");
+    const pcLevels = getLevels(actors, "party");
     const hazards = getHazards(actors);
     if (npcLevels.length === 0 && hazards.length === 0) {
-        ui.notifications.error(`You must select at least one npc and/or hazard token and optionally all PC tokens`);
+        ui.notifications.error(
+            `You must select at least one opposition and/or hazard token and optionally all PC tokens`
+        );
         return;
     }
     if (pcLevels.length === 0) {
