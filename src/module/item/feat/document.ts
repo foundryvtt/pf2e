@@ -1,12 +1,14 @@
 import { ActorPF2e } from "@actor";
 import { FeatGroup } from "@actor/character/feats.ts";
-import { ItemSummaryData } from "@item/data/index.ts";
 import { Frequency } from "@item/data/base.ts";
+import { ItemSummaryData } from "@item/data/index.ts";
 import { OneToThree } from "@module/data.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { getActionTypeLabel, sluggify } from "@util";
+import * as R from "remeda";
 import { HeritagePF2e, ItemPF2e } from "../index.ts";
 import { FeatSource, FeatSystemData } from "./data.ts";
+import { featCanHaveKeyOptions } from "./helpers.ts";
 import { FeatCategory, FeatTrait } from "./types.ts";
 
 class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
@@ -105,18 +107,30 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         if (this.actor && this.system.frequency) {
             this.system.frequency.value ??= this.system.frequency.max;
         }
+
+        this.system.subfeatures = mergeObject({ keyOptions: [] }, this.system.subfeatures ?? {});
     }
 
     /** Set a self roll option for this feat(ure) */
     override prepareActorData(this: FeatPF2e<ActorPF2e>): void {
+        const { actor } = this;
         const prefix = this.isFeature ? "feature" : "feat";
         const slug = this.slug ?? sluggify(this.name);
-        this.actor.rollOptions.all[`${prefix}:${slug}`] = true;
+        actor.rollOptions.all[`${prefix}:${slug}`] = true;
+
+        const { subfeatures } = this.system;
+        if (!featCanHaveKeyOptions(this)) subfeatures.keyOptions = [];
+
+        // Add key ability options to parent's list
+        if (actor.isOfType("character") && subfeatures.keyOptions.length > 0) {
+            actor.system.build.abilities.keyOptions = R.uniq([
+                ...actor.system.build.abilities.keyOptions,
+                ...subfeatures.keyOptions,
+            ]);
+        }
     }
 
     override prepareSiblingData(): void {
-        super.prepareSiblingData?.();
-
         const itemGrants = this.flags.pf2e.itemGrants;
         this.grants = Object.values(itemGrants).flatMap((grant) => {
             const item = this.actor?.items.get(grant.id);
