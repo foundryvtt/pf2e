@@ -137,15 +137,13 @@
             "name": "Darkvision",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -176,15 +174,13 @@
             "name": "Voice Imitation",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>Irahkatu can mimic the sounds of a person in distress by attempting a Deception check to @UUID[Compendium.pf2e.actionspf2e.Lie]{Lie}. Irahkatu has a +4 circumstance bonus to this check.</p>"
                 },
@@ -215,15 +211,13 @@
             "name": "Disfigure",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> Irahkatu has a Medium or smaller creature @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} with his tail claw or has already damaged a creature with his claw or tail claw Strike this turn</p>\n<p><strong>Effect</strong> Irahkatu attempts an Athletics check against the creature's Fortitude DC.</p>\n<hr />\n<p><strong>Critical Success</strong> Irahkatu tears at the target's eyes. The target takes [[/r 14d6[slashing]]] damage and is @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded} for 24 hours. This blinded condition is removed earlier if the creature is fully healed of all damage.</p>\n<p><strong>Success</strong> Irahkatu mangles some fingers. The target takes [[/r 7d6[slashing]]] damage and is @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} for 24 hours.</p>\n<p><strong>Failure</strong> Irahkatu claws at the creature, dealing [[/r 3d6[slashing]]] damage.</p>\n<p><strong>Critical Failure</strong> The creature is unaffected.</p>"
                 },
@@ -251,15 +245,13 @@
             "name": "Tail Drag",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> Irahkatu has a Medium or smaller creature grabbed with its tail claw</p>\n<hr />\n<p><strong>Effect</strong> Irahkatu attempts an Athletics check against the creature's Fortitude DC.</p>\n<hr />\n<p><strong>Critical Success</strong> If the creature is 10 feet away from Irahkatu, it is dragged into a square adjacent to Irahkatu. Irahkatu can make a jaws Strike against the creature.</p>\n<p><strong>Success</strong> If the creature is 10 feet away from Irahkatu, it is dragged into a square adjacent to Irahkatu.</p>\n<p><strong>Failure</strong> The creature is not dragged.</p>\n<p><strong>Critical Failure</strong> The creature is not dragged and Irahkatu no longer has the creature grabbed.</p>"
                 },
@@ -295,15 +287,13 @@
             "name": "Improved Grab",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
                 },
@@ -369,6 +359,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.ImitateVoice",
                         "predicate": [
                             "voice-imitation"
                         ],

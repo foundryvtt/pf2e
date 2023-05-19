@@ -3,12 +3,12 @@ import { DamageRollFlag } from "@module/chat-message/index.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
 import { RollDataPF2e } from "@system/rolls.ts";
-import { ErrorPF2e, fontAwesomeIcon, isObject, objectHasKey, setHasElement, tupleHasValue } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, isObject, objectHasKey, tupleHasValue } from "@util";
+import type Peggy from "peggy";
 import { DamageCategorization, deepFindTerms, renderComponentDamage } from "./helpers.ts";
 import { ArithmeticExpression, Grouping, GroupingData, InstancePool, IntermediateDie } from "./terms.ts";
 import { DamageCategory, DamageTemplate, DamageType, MaterialDamageEffect } from "./types.ts";
-import { DAMAGE_TYPES, DAMAGE_TYPE_ICONS } from "./values.ts";
-import type Peggy from "peggy";
+import { DAMAGE_TYPE_ICONS } from "./values.ts";
 
 abstract class AbstractDamageRoll extends Roll {
     /** Ensure the presence and validity of the `critRule` option for this roll */
@@ -323,7 +323,8 @@ class DamageInstance extends AbstractDamageRoll {
         super(formula.trim(), data, options);
 
         const flavorIdentifiers = options.flavor?.replace(/[^a-z,_-]/g, "").split(",") ?? [];
-        this.type = flavorIdentifiers.find((t): t is DamageType => setHasElement(DAMAGE_TYPES, t)) ?? "untyped";
+        this.type =
+            flavorIdentifiers.find((t): t is DamageType => objectHasKey(CONFIG.PF2E.damageTypes, t)) ?? "untyped";
         this.persistent = flavorIdentifiers.includes("persistent") || flavorIdentifiers.includes("bleed");
         this.materials = flavorIdentifiers.filter((i): i is MaterialDamageEffect =>
             objectHasKey(CONFIG.PF2E.materialDamageEffects, i)

@@ -2049,15 +2049,13 @@
             "name": "Canny Reversal",
             "sort": 2100000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> An opponent within the Onyx Alliance agent's reach critically fails on a melee Strike targeted at the agent</p>\n<hr />\n<p><strong>Effect</strong> The Onyx Alliance agent makes a melee Strike or Trip attempt against the opponent and then Steps.</p>"
                 },
@@ -2088,17 +2086,19 @@
             "name": "Shadow Retreat",
             "sort": 2200000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 3
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per year</p>\n<hr />\n<p><strong>Effect</strong> Activating a special ritual taught through the Onyx Alliance, the agent teleports to a safe house located in the Shadow Plane.</p>\n<p>Simultaneous with the teleportation, a @Template[type:emanation|distance:5] of darkness appears where the agent once stood. The darkness lasts for one minute.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "P1Y"
                 },
                 "requirements": {
                     "value": ""
@@ -2137,15 +2137,13 @@
             "name": "Sneak Attack",
             "sort": 2300000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The Onyx Alliance agents deal an additional 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>"
                 },

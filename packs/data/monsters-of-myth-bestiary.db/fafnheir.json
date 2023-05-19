@@ -708,15 +708,13 @@
             "name": "Darkvision",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -752,15 +750,13 @@
             "name": "Scent (Imprecise) 120 feet",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
                 },
@@ -796,15 +792,13 @@
             "name": "At-Will Spells",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
                 },
@@ -840,15 +834,13 @@
             "name": "Constant Spells",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
@@ -884,15 +876,13 @@
             "name": "+1 Status to All Saves vs. Magic",
             "sort": 1400000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
@@ -946,22 +936,30 @@
             "name": "Regeneration 20 (Deactivated by Cold Iron)",
             "sort": 1500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "cold-iron"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 20
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -985,15 +983,13 @@
             "name": "Attack of Opportunity",
             "sort": 1600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>[reaction] Tail only.</p>"
                 },
@@ -1026,15 +1022,13 @@
             "name": "Attack of Opportunity (Tail Only)",
             "sort": 1700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
@@ -1065,15 +1059,13 @@
             "name": "Curse of the Woeful Wyrd",
             "sort": 1800000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>When a creature slays Fafnheir, it becomes home to his soul, which slowly emerges from his killer's body. The creature must attempt a @Check[type:will|dc:52] save or become @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed 2} (@UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed 1} on a success, unaffected on a critical success). Unless the creature critically succeeded at the saving throw, each day the doomed value increases by 1. If the creature dies while suffering the curse of the woeful wyrd, its corpse explodes in a @Template[type:burst|distance:60] with the effect of Blasting Breath. Fafnheir is immediately returned to life in the nearest available space to the corpse with full Hit Points and no conditions. Even an indirect slaying usually still allows Fafnheir to curse the soul of his slayer through the metaphysical link between them.</p>"
                 },
@@ -1104,15 +1096,13 @@
             "name": "Enormous",
             "sort": 1900000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>Fafnheir takes up a space of 6 squares by 6 squares (30 feet by 30 feet) and is 60 feet long.</p>"
                 },
@@ -1140,15 +1130,13 @@
             "name": "Extra Reactions",
             "sort": 2000000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>Fafnheir gains 2 reactions at the start of each of his turns.</p>"
                 },
@@ -1181,15 +1169,13 @@
             "name": "Frightful Presence",
             "sort": 2100000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:90]{90 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura} @Check[type:will|dc:45]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
@@ -1237,15 +1223,13 @@
             "name": "Spit Boiling Blood",
             "sort": 2200000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> A creature within 60 feet damages Fafnheir</p>\n<hr />\n<p><strong>Effect</strong> Fafnheir spits blood at the creature. It must immediately attempt a Fortitude save against boiling blood.</p>"
                 },
@@ -1273,15 +1257,13 @@
             "name": "Blasting Breath",
             "sort": 2300000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Fafnheir exhales a cataclysmic firestorm laced with lightning and hurricane-strength winds, dealing [[/r 20d6[fire]]] damage in a @Template[type:cone|distance:90] (@Check[type:reflex|dc:48|basic:true] save). Additionally, Fafnheir deals [[/r 10d6[electricity]]]{10d6} additional electricity damage to one creature within the area of Blasting Breath of Fafnheir's choice, determined by the same basic Reflex save. Creatures in the area must also attempt a @Check[type:fortitude|dc:48|name:Resist Winds|traits:damaging-effect] save to resist the powerful winds and deafening thunderclaps of the breath. Creatures that fail experience the effects of <em>@UUID[Compendium.pf2e.spells-srd.Gust of Wind]{Gust of Wind}</em>, affecting Large or smaller creatures as normal. Finally, creatures that fail their Fortitude save become @UUID[Compendium.pf2e.conditionitems.Deafened]{Deafened} for 1 minute (permanently deafened on a critical failure).</p>"
                 },
@@ -1314,15 +1296,13 @@
             "name": "Boiling Blood",
             "sort": 2400000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:48]</p>\n<p><strong>Maximum Duration</strong> 10 rounds</p>\n<p><strong>Stage 1</strong> [[/r 6d8[fire]]] damage and @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 6d10[fire]]] damage and @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 6d12[fire]]] damage and @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 3} (1 round)</p>"
                 },
@@ -1353,15 +1333,13 @@
             "name": "Furious Frenzy",
             "sort": 2500000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Fafnheir makes two claw Strikes and one Strike with his jaws, horns, or tail, in any order.</p>"
                 },
@@ -1394,15 +1372,13 @@
             "name": "Improved Grab",
             "sort": 2600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
                 },

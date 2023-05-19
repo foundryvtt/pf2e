@@ -13,15 +13,13 @@
             "name": "Low-Light Vision",
             "sort": 100000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
                 },
@@ -57,15 +55,13 @@
             "name": "Scent (Imprecise) 30 feet",
             "sort": 200000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
                 },
@@ -96,15 +92,13 @@
             "name": "Flea Fever",
             "sort": 300000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Drain from flea fever can't be reduced or recovered from naturally until the disease is cured.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:19]</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} ([[/r 1d4]]{1d4 hours})</p>\n<p><strong>Stage 2</strong> drained 1 and @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2} and sickened 1 (1 day)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 3} and sickened 1 (1 day)</p>\n<p><strong>Stage 5</strong> dead</p>"
                 },
@@ -137,15 +131,13 @@
             "name": "Suck Blood",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> The flea swarm's last action was Swarming Bites, and it dealt damage to at least one enemy</p>\n<hr />\n<p><strong>Effect</strong> The flea swarm drinks the creatures' blood. Each victim becomes @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} and the swarm regains [[/r 3]]{3 HP} for each victim drained.</p>"
                 },
@@ -176,15 +168,13 @@
             "name": "Swarming Bites",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Each enemy in the swarm's space takes [[/r (2d4+7)[piercing]]] damage and must attempt a @Check[type:reflex|dc:22|basic:true] save. A creature that fails its save is exposed to flea fever.</p>"
                 },
@@ -250,9 +240,14 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "To Jump",
+                        "label": "PF2E.SkillVariant.HighJumpOrLongJump",
                         "predicate": [
-                            "trait:action:jump"
+                            {
+                                "or": [
+                                    "action:high-jump",
+                                    "action:long-jump"
+                                ]
+                            }
                         ],
                         "selector": "athletics",
                         "value": 4
@@ -265,7 +260,7 @@
                 "variants": {
                     "0": {
                         "label": "+13 to Jump",
-                        "options": "trait:action:jump"
+                        "options": "action:high-jump,action:long-jump"
                     }
                 }
             },

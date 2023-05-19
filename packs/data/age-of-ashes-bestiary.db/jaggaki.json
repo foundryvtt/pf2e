@@ -3439,15 +3439,13 @@
             "name": "Darkvision",
             "sort": 3100000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -3483,15 +3481,13 @@
             "name": "+1 Status to All Saves vs. Positive",
             "sort": 3200000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
@@ -3537,15 +3533,13 @@
             "name": "Negative Healing",
             "sort": 3300000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
@@ -3583,15 +3577,13 @@
             "name": "Catch Rock",
             "sort": 3400000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.CatchRock]</p>"
                 },
@@ -3646,15 +3638,13 @@
             "name": "Rejuvenation",
             "sort": 3500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "deathNote": true,
                 "description": {
                     "value": "<p>When a lich is destroyed, its soul immediately transfers to its <em>@UUID[Compendium.pf2e.equipment-srd.Lich Soul Cage]{Soul Cage}</em>. A lich can be permanently destroyed only if its <em>soul cage</em> is found and destroyed.</p>"
@@ -3689,15 +3679,13 @@
             "name": "Bones of Stone",
             "sort": 3600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> The target is standing on or adjacent to a stone surface.</p>\n<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> Jaggaki calls upon unquiet spirits within the land, causing a giant skeletal arm made of jagged stone to reach out of a stone surface adjacent to a creature within 60 feet. Jaggaki makes a hand Strike against the target via this stone arm rather than using his own hand. If the Strike hits, it deals [[/r 4d6[bludgeoning]]] damage.</p>"
                 },
@@ -3754,15 +3742,13 @@
             "name": "Drain Soul Cage",
             "sort": 3700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Jaggaki taps into his <em>@UUID[Compendium.pf2e.equipment-srd.Lich Soul Cage]{Soul Cage's}</em> power to cast any arcane spell up to the highest level he can cast, even if the spell being cast is not one of the lich's prepared spells.</p>\n<p>Jaggaki's <em>soul cage</em> doesn't need to be present for him to use this ability.</p>"
                 },
@@ -3798,15 +3784,13 @@
             "name": "Paralyzing Touch",
             "sort": 3800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>A creature damaged by the Jaggaki's hand Strike must succeed at a @Check[type:fortitude|dc:29] save.</p>\n<p>The creature becomes @UUID[Compendium.pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round on a failure. On a critical failure, the creature is paralyzed permanently, falls @UUID[Compendium.pf2e.conditionitems.Prone]{Prone}, and seems dead. A @Check[type:medicine|dc:25|name:Diagnose Paralysis] check reveals the victim is alive.</p>"
                 },
@@ -3842,15 +3826,13 @@
             "name": "Steady Spellcasting",
             "sort": 3900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>If another creature's reaction would disrupt Jaggaki's spellcasting action, Jaggaki attempts a @Check[type:flat|dc:15] check. If he succeeds, his action isn't disrupted.</p>"
                 },
@@ -3985,6 +3967,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Rocky",
                         "predicate": [
                             "terrain:rocky"
                         ],

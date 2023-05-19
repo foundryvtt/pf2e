@@ -476,15 +476,13 @@
             "name": "Darkvision",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -520,15 +518,13 @@
             "name": "Telepathy 200 feet",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
                 },
@@ -568,15 +564,13 @@
             "name": "At-Will Spells",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
                 },
@@ -612,15 +606,13 @@
             "name": "Constant Spells",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
@@ -656,15 +648,13 @@
             "name": "Regeneration 40 (Deactivated by Chaotic, Mental or Orichalcum)",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
@@ -672,7 +662,18 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "chaotic",
+                            "mental",
+                            "orichalcum"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 40
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -696,15 +697,13 @@
             "name": "Cheaters Never Prosper",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:50]{50 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature within the aura who uses or benefits from an effect with the fortune trait must succeed at a @Check[type:will|dc:34] save or become @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for 1 round (@UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 2} on a critical failure).</p>"
                 },
@@ -750,15 +749,13 @@
             "name": "Clinch Victory",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> A creature within the triumph siktempora's reach uses an action that would restore Hit Points</p>\n<hr />\n<p><strong>Effect</strong> The triumph siktempora makes a glorious fist Strike against the triggering creature. On a critical success, this Strike also disrupts the triggering action.</p>"
                 },
@@ -789,15 +786,13 @@
             "name": "Temporal Sense",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>A siktempora can always roll Dimension of Time Lore for initiative. When it does, it gains a +2 circumstance bonus to the roll.</p>"
                 },
@@ -838,15 +833,13 @@
             "name": "Uncanny Pounce",
             "sort": 1400000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> The triumph siktempora rolls Dimension of Time Lore for initiative</p>\n<hr />\n<p><strong>Effect</strong> The triumph siktempora Strides once and makes a claw Strike, in either order.</p>"
                 },
@@ -877,15 +870,13 @@
             "name": "Vie for Victory",
             "sort": 1500000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The triumph siktempora pushes themself beyond their limits to secure victory over a chosen foe. They choose one target they can see and reach with a single Stride action. They attempt to @UUID[Compendium.pf2e.actionspf2e.Demoralize]{Demoralize} that target, ignoring the typical limitations on distance and with no penalty for not sharing a language with the target. They then Stride and attempt one Athletics attack action (such as @UUID[Compendium.pf2e.actionspf2e.Grapple]{Grapple} or @UUID[Compendium.pf2e.actionspf2e.Disarm]{Disarm}) against the target.</p>"
                 },
@@ -916,15 +907,13 @@
             "name": "Winning Smile",
             "sort": 1600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The triumph siktempora flashes their disarming grin at one creature within 15 feet. The target takes [[/r 10d8[mental]]] damage (@Check[type:will|dc:34|basic:true] save). On a failure, the target's attacks against the triumph siktempora also become nonlethal until the end of the target's next turn.</p>"
                 },

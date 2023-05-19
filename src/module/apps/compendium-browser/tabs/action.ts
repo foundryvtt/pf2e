@@ -54,9 +54,9 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
 
                     // Prepare source
                     const source = actionData.system.source.value;
+                    const sourceSlug = sluggify(source);
                     if (source) {
                         sources.add(source);
-                        actionData.system.source.value = sluggify(source);
                     }
                     actions.push({
                         type: actionData.type,
@@ -65,7 +65,7 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
                         uuid: `Compendium.${pack.collection}.${actionData._id}`,
                         traits: actionData.system.traits.value,
                         actionType: actionData.system.actionType.value,
-                        source: actionData.system.source.value,
+                        source: sourceSlug,
                     });
                 }
             }

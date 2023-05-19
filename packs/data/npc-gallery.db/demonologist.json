@@ -2623,15 +2623,13 @@
             "name": "Abyssal Temptation",
             "sort": 2600000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>Demonic study has garnered the attention of at least one demon that is actively trying to possess the demonologist.</p>\n<p>When the demonologist publicly espouses the benefits of demonic power (whether they believe it a good thing or not), they gain a +1 status bonus to skill checks, AC, and saves for 1 day. These bonuses don't apply against demons.</p>\n<p>At the end of the day, the demonologist must attempt a @Check[type:will|dc:20] save, becoming possessed for 1 day on a failure (permanently on a critical failure).</p>"
                 },
@@ -2701,15 +2699,13 @@
             "name": "Breach the Abyss",
             "sort": 2700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> The demonologist's last action was to cast a non-cantrip spell</p>\n<hr />\n<p><strong>Effect</strong> The demonologist siphons energy drawn from the Abyss into their weapon. Until the end of the turn, the weapon deals an extra [[/r {2d6}]]{2d6 damage}.</p>\n<p>Roll [[/r {1d20} type]] to determine the type:</p>\n<ul>\n<li>1-7 @UUID[Compendium.pf2e.bestiary-effects.Effect: Breach the Abyss - Acid]{Effect: Breach the Abyss - Acid}</li>\n<li>8-9 @UUID[Compendium.pf2e.bestiary-effects.Effect: Breach the Abyss - Cold]{Effect: Breach the Abyss - Cold}</li>\n<li>10-11 @UUID[Compendium.pf2e.bestiary-effects.Effect: Breach the Abyss - Electricity]{Effect: Breach the Abyss - Electricity}</li>\n<li>12-18 @UUID[Compendium.pf2e.bestiary-effects.Effect: Breach the Abyss - Fire]{Effect: Breach the Abyss - Fire}</li>\n<li>19-20 @UUID[Compendium.pf2e.bestiary-effects.Effect: Breach the Abyss - Negative]{Effect: Breach the Abyss - Negative}</li>\n</ul>"
                 },
@@ -2740,15 +2736,13 @@
             "name": "Demon Summoning",
             "sort": 2800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The demonologist can cast a 5th-level <em>@UUID[Compendium.pf2e.spells-srd.Summon Fiend]{Summon Fiend}</em> arcane spell to summon a demon. To do so, they must sacrifice two 4th-level prepared spells and voluntarily take [[/r 4d12[mental]]] damage that can't be reduced or prevented.</p>\n<p>If the demonologist is unable to @UUID[Compendium.pf2e.actionspf2e.Sustain a Spell]{Sustain} the Spell, including if they're knocked out or killed, the spell continues, but the GM rolls a @Check[type:flat|dc:10] each round, ending the spell on a failure.</p>"
                 },
@@ -2860,7 +2854,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "With Demons",
+                        "label": "PF2E.SkillVariant.VsDemons",
                         "predicate": [
                             "target:trait:demon"
                         ],

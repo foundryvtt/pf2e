@@ -4,7 +4,6 @@ import {
     DamageDiceOverride,
     DamageDicePF2e,
     DiceModifierPF2e,
-    MODIFIER_TYPE,
     ModifierPF2e,
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
@@ -33,6 +32,7 @@ import {
     DamageDieSize,
     DamageRollContext,
     MaterialDamageEffect,
+    WeaponBaseDamageData,
     WeaponDamageFormulaData,
     WeaponDamageTemplate,
 } from "./types.ts";
@@ -150,7 +150,7 @@ class WeaponDamagePF2e {
                     label: CONFIG.PF2E.abilities.str,
                     ability: "str",
                     modifier: modifierValue,
-                    type: MODIFIER_TYPE.ABILITY,
+                    type: "ability",
                     adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, baseDomains, "str"),
                 });
                 modifiers.push(strModifier);
@@ -483,6 +483,15 @@ class WeaponDamagePF2e {
             ...new StatisticModifier("strike-persistent", synthetics.persistent, options).modifiers,
         ];
 
+        const base: WeaponBaseDamageData = {
+            diceNumber: baseDamage.die ? baseDamage.dice : 0,
+            dieSize: baseDamage.die,
+            modifier: baseDamage.modifier,
+            damageType: baseDamage.damageType,
+            category: "category" in baseDamage && baseDamage.category === "persistent" ? "persistent" : null,
+            materials: Array.from(materials),
+        };
+
         // Damage dice from synthetics
         damageDice.push(
             ...extractDamageDice(actor.synthetics.damageDice, selectors, {
@@ -493,14 +502,7 @@ class WeaponDamagePF2e {
         );
 
         const damage: WeaponDamageFormulaData = {
-            base: {
-                diceNumber: baseDamage.die ? baseDamage.dice : 0,
-                dieSize: baseDamage.die,
-                modifier: baseDamage.modifier,
-                damageType: baseDamage.damageType,
-                category: "category" in baseDamage && baseDamage.category === "persistent" ? "persistent" : null,
-                materials: Array.from(materials),
-            },
+            base: [base],
             // CRB p. 279, Counting Damage Dice: Effects based on a weapon's number of damage dice include
             // only the weapon's damage die plus any extra dice from a striking rune. They don't count
             // extra dice from abilities, critical specialization effects, property runes, weapon traits,
@@ -510,40 +512,11 @@ class WeaponDamagePF2e {
             ignoredResistances,
         };
 
-        // include dice number and size in damage tag
-        for (const dice of damage.dice) {
-            dice.label = game.i18n.localize(dice.label ?? dice.slug);
-            if (dice.diceNumber > 0 && dice.dieSize) {
-                dice.label += ` +${dice.diceNumber}${dice.dieSize}`;
-            } else if (damage.base.dieSize && dice.diceNumber > 0) {
-                dice.label += ` +${dice.diceNumber}${damage.base.dieSize}`;
-            } else if (dice.dieSize) {
-                dice.label += ` ${dice.dieSize}`;
-            }
-            if (
-                dice.category &&
-                dice.category !== "persistent" &&
-                (dice.diceNumber > 0 || dice.dieSize) &&
-                (!dice.damageType ||
-                    (dice.damageType === damage.base.damageType && dice.category !== damage.base.category))
-            ) {
-                dice.label += ` ${dice.category}`;
-            }
-            dice.enabled = dice.predicate.test(options);
-            dice.ignored = !dice.enabled;
-        }
-
         const excludeFrom = weapon.isOfType("weapon") ? weapon : null;
         this.#excludeDamage({ actor, weapon: excludeFrom, modifiers: [...modifiers, ...damageDice], options });
 
         if (BUILD_MODE === "development" && !context.skipDialog) {
-            const rolled = await new DamageModifierDialog({
-                modifiers: damage.modifiers,
-                dice: damage.dice,
-                context,
-                baseDamageType: baseDamage.damageType,
-            }).resolve();
-
+            const rolled = await new DamageModifierDialog({ damage, context }).resolve();
             if (!rolled) return null;
         }
 
@@ -578,8 +551,9 @@ class WeaponDamagePF2e {
     static #finalizeDamage(damage: WeaponDamageFormulaData, degree?: DegreeOfSuccessIndex): AssembledFormula | null;
     static #finalizeDamage(damage: WeaponDamageFormulaData, degree: DegreeOfSuccessIndex): AssembledFormula | null {
         damage = deepClone(damage);
-        const { base } = damage;
+        const base = damage.base.at(0);
         const critical = degree === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
+        if (!base) return null;
 
         // Test that a damage modifier is compatible with the prior check result
         const outcomeMatches = (m: { critical: boolean | null }): boolean =>

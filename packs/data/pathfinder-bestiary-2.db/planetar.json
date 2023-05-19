@@ -3172,15 +3172,13 @@
             "name": "Darkvision",
             "sort": 3000000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -3216,15 +3214,13 @@
             "name": "At-Will Spells",
             "sort": 3100000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
                 },
@@ -3260,15 +3256,13 @@
             "name": "Constant Spells",
             "sort": 3200000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
@@ -3299,15 +3293,13 @@
             "name": "+1 Status to All Saves vs. Magic",
             "sort": 3300000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
@@ -3358,25 +3350,33 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 15 (deactivated by evil)",
+            "name": "Regeneration 15 (Deactivated by Evil)",
             "sort": 3400000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "evil"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 15
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -3400,15 +3400,13 @@
             "name": "+4 Bonus on Perception to Detect Illusions",
             "sort": 3500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
@@ -3448,15 +3446,13 @@
             "name": "Aura of Righteousness",
             "sort": 3600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Allies in the planetar's aura gain a +2 status bonus to AC against evil creatures and a +2 status bonus to damage rolls against evil creatures. The area in the aura is difficult terrain for evil creatures.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Aura of Righteousness (Planetar)]{Effect: Aura of Righteousness (Planetar)}</p>"
                 },
@@ -3511,15 +3507,13 @@
             "name": "Blade of Justice",
             "sort": 3700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The planetar makes a greatsword Strike against a target it detects as evil. If the target is evil, the Strike deals three extra weapon damage dice and deals [[/r 1d6[persistent,good]]] damage to the target. The planetar can convert all the physical damage from the attack into good damage.</p>"
                 },
@@ -3570,15 +3564,13 @@
             "name": "Change Shape",
             "sort": 3800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The planetar can take on the appearance of any Small or Medium humanoid. This doesn't change their Speed or Strikes.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
                 },
@@ -3614,15 +3606,13 @@
             "name": "Holy Armaments",
             "sort": 3900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Any weapon gains the effect of a @UUID[Compendium.pf2e.equipment-srd.Holy]{Holy} property rune while a planetar wields it.</p>"
                 },

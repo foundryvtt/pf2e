@@ -186,7 +186,7 @@ function askPartyLevelAndSize(npcLevels: number[], hazards: HazardPF2e[]): void 
 }
 
 function xpFromEncounter(): void {
-    const actors = canvas.tokens.controlled.flatMap((a) => a.actor ?? []);
+    const actors = canvas.tokens.controlled.flatMap((a) => a.actor ?? []).filter((a) => !a.traits.has("minion"));
     const npcLevels = getLevels(actors, "npc");
     const pcLevels = getLevels(actors, "character");
     const hazards = getHazards(actors);

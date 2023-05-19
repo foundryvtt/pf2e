@@ -203,7 +203,7 @@ interface IWRApplicationData {
     persistent: DamageInstance[];
 }
 
-interface UnafectedApplication {
+interface UnaffectedApplication {
     category: "unaffected";
     type: string;
     adjustment: number;
@@ -228,6 +228,18 @@ interface ResistanceApplication {
     ignored: boolean;
 }
 
-type IWRApplication = UnafectedApplication | ImmunityApplication | WeaknessApplication | ResistanceApplication;
+/** Post-IWR reductions from various sources (e.g., hardness) */
+interface DamageReductionApplication {
+    category: "reduction";
+    type: string;
+    adjustment: number;
+}
+
+type IWRApplication =
+    | UnaffectedApplication
+    | ImmunityApplication
+    | WeaknessApplication
+    | ResistanceApplication
+    | DamageReductionApplication;
 
 export { IWRApplication, IWRApplicationData, applyIWR };

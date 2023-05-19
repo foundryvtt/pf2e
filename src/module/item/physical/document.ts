@@ -142,9 +142,11 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     get bulk(): Bulk {
         const { value, per } = this.system.bulk;
         const bulkRelevantQuantity = Math.floor(this.quantity / per);
-        return new Bulk({ light: value })
-            .convertToSize(this.size, this.actor?.size ?? this.size)
-            .times(bulkRelevantQuantity);
+        // Only convert to actor-relative size if the actor is a creature
+        // https://2e.aonprd.com/Rules.aspx?ID=258
+        const actorSize = this.actor?.isOfType("creature") ? this.actor.size : null;
+
+        return new Bulk({ light: value }).convertToSize(this.size, actorSize ?? this.size).times(bulkRelevantQuantity);
     }
 
     get activations(): (ItemActivation & { componentsLabel: string })[] {

@@ -1,6 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
+import { AbilityString } from "@actor/types.ts";
 import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e } from "@item";
 import { ItemSummaryData, MeleeSource } from "@item/data/index.ts";
 import { NPCAttackDamage, NPCAttackTrait } from "@item/melee/data.ts";
@@ -23,6 +24,7 @@ import { UserPF2e } from "@module/user/index.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify } from "@util";
 import type { WeaponDamage, WeaponFlags, WeaponMaterialData, WeaponSource, WeaponSystemData } from "./data.ts";
+import { WeaponTraitToggles, prunePropertyRunes } from "./helpers.ts";
 import type {
     BaseWeaponType,
     OtherWeaponTag,
@@ -35,8 +37,6 @@ import type {
     WeaponTrait,
 } from "./types.ts";
 import { CROSSBOW_WEAPONS, MANDATORY_RANGED_GROUPS, THROWN_RANGES } from "./values.ts";
-import { WeaponTraitToggles } from "./helpers.ts";
-import { AbilityString } from "@actor/types.ts";
 
 class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     /** Given this weapon is an alternative usage, whether it is melee or thrown */
@@ -130,7 +130,15 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     /** This weapon's damage before modification by creature abilities, effects, etc. */
     get baseDamage(): WeaponDamage {
-        return deepClone(this.system.damage);
+        return {
+            ...deepClone(this.system.damage),
+            // Damage types from trait toggles are not applied as data mutations so as to delay it for rule elements to
+            // add options
+            damageType:
+                this.system.traits.toggles.versatile.selection ??
+                this.system.traits.toggles.modular.selection ??
+                this.system.damage.damageType,
+        };
     }
 
     /** Does this weapon deal damage? */
@@ -347,8 +355,10 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const runes = (this.system.runes = {
             potency: potencyRune.value ?? 0,
             striking: strikingRuneDice.get(strikingRune.value) ?? 0,
-            property: [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value].filter(
-                (r): r is WeaponPropertyRuneType => !!r && r in WEAPON_PROPERTY_RUNES
+            property: prunePropertyRunes(
+                [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value].filter(
+                    (r): r is WeaponPropertyRuneType => !!r && r in WEAPON_PROPERTY_RUNES
+                )
             ),
             effects: [],
         });
@@ -416,7 +426,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     override prepareSiblingData(): void {
         super.prepareSiblingData();
         // Set the default label to the ammunition item's name
-        const ammoRules = (this.ammo?.system.rules ?? []).map((r) => ({ label: this.ammo?.name, ...deepClone(r) }));
+        const ammoRules = this.ammo?.system.rules.map((r) => ({ label: this.ammo?.name, ...deepClone(r) })) ?? [];
         this.system.rules.push(...ammoRules);
     }
 
@@ -425,7 +435,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         if (!(this.isMagical || materialData) || this.isSpecific) return null;
 
         // Adjust the weapon price according to precious material and runes
-        // Base Prices are not included in these cases
+        // Base prices are not included in these cases
         // https://2e.aonprd.com/Rules.aspx?ID=731
         // https://2e.aonprd.com/Equipment.aspx?ID=380
         const runesData = this.getRunesValuationData();
@@ -434,9 +444,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const bulk = Math.max(Math.ceil(heldOrStowedBulk.normal), 1);
         const materialValue = materialPrice + (bulk * materialPrice) / 10;
         const runeValue = runesData.reduce((sum, rune) => sum + rune.price, 0);
-        const modifiedPrice = new CoinsPF2e({ gp: runeValue + materialValue });
 
-        return modifiedPrice;
+        return new CoinsPF2e({ gp: runeValue + materialValue });
     }
 
     private getRunesValuationData(): RuneValuationData[] {
@@ -445,7 +454,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             WEAPON_VALUATION_DATA.potency[this.system.runes.potency],
             WEAPON_VALUATION_DATA.striking[this.system.runes.striking],
             ...this.system.runes.property.map((p) => propertyRuneData[p]),
-        ].filter((datum): datum is RuneValuationData => !!datum);
+        ].filter((d): d is RuneValuationData => !!d);
     }
 
     private getMaterialValuationData(): MaterialGradeData | null {

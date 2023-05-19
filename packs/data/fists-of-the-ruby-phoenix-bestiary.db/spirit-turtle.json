@@ -106,15 +106,13 @@
             "name": "Environmental Balance",
             "sort": 300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p><strong>Trigger</strong> The spirit turtle begins their turn</p>\n<hr />\n<p><strong>Effect</strong> The spirit turtle harnesses their connection with the world around them to augment their attacks. They choose acid, cold, electricity, or fire. The energy damage dealt by their Strikes and Unbalancing Stomp changes to the selected energy type.</p>"
                 },
@@ -150,25 +148,34 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration (Deactivated by Cold Iron or Evil)",
+            "name": "Regeneration 25 (Deactivated by Cold Iron or Evil)",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "cold-iron",
+                            "evil"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 25
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -192,15 +199,13 @@
             "name": "Pacifying Aura",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:100]{100 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A spirit turtle exudes a constant feeling of calm. Creatures within the aura are subjected to a 10th-level <em>@UUID[Compendium.pf2e.spells-srd.Calm Emotions]{Calm Emotions}</em> spell (@Check[type:will|dc:44] save). The effects persist up to 1 hour, even if the creature leaves the aura. Regardless of the result of the saving throw, the creature is temporarily immune for 1 hour.</p>"
                 },
@@ -235,15 +240,13 @@
             "name": "Unbalancing Stomp",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The spirit turtle makes a foot Strike. Whether or not the Strike hits, the stomp creates a shockwave on the ground in a @Template[type:burst|distance:15] centered on the target. All creatures in the area other than the spirit turtle take [[/r 10d10[bludgeoning]]] damage and [[/r 4d8 #energy]]{4d8 energy damage} and are knocked @UUID[Compendium.pf2e.conditionitems.Prone]{Prone} (@Check[type:reflex|dc:41|basic:true] save). Creatures that critically succeed at their Reflex save are not knocked prone. The spirit turtle can't use Unbalancing Stomp again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
@@ -279,15 +282,13 @@
             "name": "Improved Grab",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
                 },
@@ -323,15 +324,13 @@
             "name": "Improved Knockdown",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedKnockdown]</p>"
                 },

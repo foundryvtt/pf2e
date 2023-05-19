@@ -9,6 +9,8 @@ import { ErrorPF2e } from "@util";
 import { LootSource, LootSystemData } from "./data.ts";
 
 class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
+    override armorClass = null;
+
     override get allowedItemTypes(): (ItemType | "physical")[] {
         return ["physical"];
     }

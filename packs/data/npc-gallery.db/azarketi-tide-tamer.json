@@ -471,15 +471,13 @@
             "name": "Hydration",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>Azarketi must regularly submerge themselves in water to rehydrate their water-acclimated skin. After the first 24 hours outside of water, they gain a -1 status penalty to Fortitude saves as their skin cracks and their gills become painful. After 48 hours, they struggle to breathe air and begin to suffocate until returned to water.</p>"
                 },
@@ -524,15 +522,13 @@
             "name": "Speaker of the Oceans",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>An azarketi tide tamer can speak with animals that have the aquatic or amphibious trait.</p>"
                 },
@@ -560,15 +556,13 @@
             "name": "Submerged Stealth",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>While submerged in water, an azarketi tide tamer gains a +2 circumstance bonus on their Stealth check, indicated above.</p>"
                 },
@@ -606,15 +600,13 @@
             "name": "Aquatic Predator",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>While submerged in water, an azarketi tide tamer takes advantage of the shifting tides to increase the deadliness of their attacks. They deal [[/r 2d8]] additional damage on a successful weapon Strike while they are underwater.</p>"
                 },
@@ -671,6 +663,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Swim",
                         "predicate": [
                             "action:swim"
                         ],
@@ -752,7 +745,17 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Underwater",
+                        "predicate": [
+                            "terrain:underwater"
+                        ],
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -814,9 +817,6 @@
         }
     ],
     "name": "Azarketi Tide Tamer",
-    "prototypeToken": {
-        "name": "0"
-    },
     "system": {
         "abilities": {
             "cha": {

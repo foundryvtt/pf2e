@@ -563,15 +563,13 @@
             "name": "Ranged Feint",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>When the Norgorberite spy successfully @UUID[Compendium.pf2e.actionspf2e.Feint]{Feints} a creature, the target is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} against the spy's ranged attacks as well as melee attacks.</p>"
                 },
@@ -599,15 +597,13 @@
             "name": "Reaper's Protection",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> The spy is about to attempt a saving throw</p>\n<hr />\n<p><strong>Effect</strong> The spy touches their religious symbol of Norgorber and gains a +2 circumstance bonus to the triggering save.</p>"
                 },
@@ -653,15 +649,13 @@
             "name": "Quick Draw",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The Norgorberite spy Interacts to draw a weapon, then Strikes with that weapon.</p>"
                 },
@@ -694,15 +688,13 @@
             "name": "Sneak Attack",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The Norgorberite spy deals an additional 4d6 precision damage to flat-footed creatures or creatures within reach of at least two of their allies.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
@@ -785,22 +777,40 @@
             "name": "Surprise Attack",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>On the first round of combat, creatures that haven't acted yet are @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to the Norgorberite spy.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "encounter:round:1",
+                            {
+                                "lt": [
+                                    "self:participant:initiative:rank",
+                                    "target:participant:initiative:rank"
+                                ]
+                            }
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "spell-attack-roll",
+                            "strike-damage",
+                            "attack-spell-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.AJh5ex99aV6VTggg"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

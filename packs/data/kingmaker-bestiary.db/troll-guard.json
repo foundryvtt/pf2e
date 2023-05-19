@@ -324,15 +324,13 @@
             "name": "Darkvision",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -368,22 +366,31 @@
             "name": "Regeneration 40 (Deactivated by Acid or Fire)",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "acid",
+                            "fire"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 40
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -412,15 +419,13 @@
             "name": "Attack of Opportunity",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
@@ -451,15 +456,13 @@
             "name": "Vigorous Shake",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> The troll guard takes @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent} acid or fire damage.</p>\n<hr />\n<p><strong>Effect</strong> The troll guard shakes itself to remove persistent acid or fire effects. The troll guard immediately attempts a @Check[type:flat|dc:15] check to end the persistent damage that triggered this reaction. If the troll guard succeeds at this check, it can immediately use Primordial Roar as part of this reaction.</p>"
                 },
@@ -490,15 +493,13 @@
             "name": "Axe Critical Specialization",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The troll guard has access to axe critical specialization effects.</p>"
                 },
@@ -533,15 +534,13 @@
             "name": "Forced Regeneration",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> The troll guard's regeneration is not currently deactivated.</p>\n<hr />\n<p><strong>Effect</strong> The guard king regains [[/r 20[healing]]]{20 HP}.</p>"
                 },
@@ -574,15 +573,13 @@
             "name": "Primordial Roar",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The troll guard unleashes a bestial roar. Each non-troll creature within @Template[type:emanation|distance:100]{100 feet} must attempt a @Check[type:will|dc:35] save. The creature is then temporarily immune for 10 minutes.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2}</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 3}</p>"
                 },
@@ -623,15 +620,13 @@
             "name": "Rend",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Battleaxe</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Rend]</p>"
                 },
@@ -662,15 +657,13 @@
             "name": "Twin Chop",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The troll guard lashes out at two foes with its axes. The troll guard attempts two battleaxe Strikes, each of which must target a different foe within reach. These attacks count toward the troll's multiple attack penalty, but the multiple attack penalty doesn't increase until after the troll makes both attacks.</p>"
                 },

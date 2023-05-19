@@ -97,15 +97,13 @@
             "name": "Darkvision",
             "sort": 300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -141,15 +139,13 @@
             "name": "Scent (Imprecise) 30 feet",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
                 },
@@ -185,15 +181,13 @@
             "name": "Attack of Opportunity",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
@@ -224,22 +218,30 @@
             "name": "Unbalancing Blow",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Any creature a grick critically hits is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} against its attacks until the end of the grick's next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "strike-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -263,15 +265,13 @@
             "name": "Vermicular Movement",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>When a grick takes a Stride action to move half its Speed or less, that movement doesn't trigger reactions.</p>"
                 },
@@ -360,6 +360,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Rocky",
                         "predicate": [
                             "terrain:rocky"
                         ],

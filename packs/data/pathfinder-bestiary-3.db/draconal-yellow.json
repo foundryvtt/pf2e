@@ -1992,15 +1992,13 @@
             "name": "Darkvision",
             "sort": 1900000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -2036,15 +2034,13 @@
             "name": "Constant Spells",
             "sort": 2000000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
@@ -2080,15 +2076,13 @@
             "name": "Regeneration 20 (Deactivated by Evil)",
             "sort": 2100000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
@@ -2096,7 +2090,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "evil"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 20
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -2120,15 +2123,13 @@
             "name": "Dragon's Salvation",
             "sort": 2200000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> A creature within the draconal's reach would take damage.</p>\n<hr />\n<p><strong>Effect</strong> Before applying the damage, the draconal casts <em>@UUID[Compendium.pf2e.spells-srd.Lay on Hands]{Lay on Hands}</em> on the triggering creature.</p>"
                 },
@@ -2159,15 +2160,13 @@
             "name": "Breath Weapon",
             "sort": 2300000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The draconal breathes a blast of energy that deals [[/r 21d6[acid]]] damage to creatures they choose to damage in a @Template[type:cone|distance:60] (@Check[type:reflex|dc:44|basic:true] save).</p>\n<p>They can make this effect nonlethal for selected creatures in the area or choose not to damage certain creatures at all.</p>\n<p>They can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
@@ -2201,15 +2200,13 @@
             "name": "Dragon's Wisdom",
             "sort": 2400000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Draconals embody the core value of wisdom, but every path to wisdom and enlightenment differs, so draconals' powers vary by temperament and coloration. A draconal's scale color determines their associated energy damage type.</p>\n<p>They gain resistance 15 to that damage type, deal 4d6 extra damage of that type with their Strikes, and deal 21d6 damage of that type with their breath weapon. They gain additional wisdom in the form of the basic and advanced domain spells from one domain, chosen from four domains available to draconals with their scale color.</p>\n<hr />\n<p><em>Note: Choose the domain powers from the available domains according to the Draconal's scale color and add them to the \"Champion Focus Spell\" spellcasting entry.</em></p>\n<ul>\n<li><em><strong>All colors</strong> @UUID[Compendium.pf2e.domains.Air Domain]{Air Domain} @UUID[Compendium.pf2e.domains.Healing Domain]{Healing Domain}</em></li>\n<li><em><strong>Yellow</strong> @UUID[Compendium.pf2e.domains.Earth Domain]{Earth Domain} @UUID[Compendium.pf2e.domains.Luck Domain]{Luck Domain}</em></li>\n</ul>"
                 },

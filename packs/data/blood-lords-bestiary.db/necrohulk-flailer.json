@@ -99,15 +99,13 @@
             "name": "Darkvision",
             "sort": 300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -138,22 +136,28 @@
             "name": "Alchemical Cartridge",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>Critical hits rupture the necrohulk's alchemical cartridge. The first time the necrohulk takes a critical hit, it loses its regeneration. The second time it takes a critical hit, it takes [[/r 15[persistent,acid]]]{15} damage that it can't heal unless the cartridge is stitched back into place.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.Necrohulk.AlchemicalCartridgeRuptured",
+                        "option": "alchemical-cartridge-ruptured",
+                        "toggleable": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -181,15 +185,13 @@
             "name": "Negative Healing",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
@@ -232,15 +234,13 @@
             "name": "Regeneration 15 (Deactivated by Acid)",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
@@ -248,7 +248,21 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "acid"
+                        ],
+                        "key": "FastHealing",
+                        "predicate": [
+                            {
+                                "not": "alchemical-cartridge-ruptured"
+                            }
+                        ],
+                        "type": "regeneration",
+                        "value": 15
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -272,15 +286,13 @@
             "name": "Alchemical Amplification",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> The necrohulk draws upon alchemical stores to push its body into overdrive. It becomes @UUID[Compendium.pf2e.conditionitems.Quickened]{Quickened} for [[/br 1d4 #Quickened Duration]]{1d4 rounds}. It can use this extra action to Step, Stride, or Strike.</p>"
                 },
@@ -315,15 +327,13 @@
             "name": "Constrict",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>[[/r 6d6[bludgeoning]]], @Check[type:fortitude|dc:32|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
@@ -354,15 +364,13 @@
             "name": "Tentacle Storm",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The necrohulk flailer makes up to four tentacle Strikes, each against a different target. These attacks count toward its multiple attack penalty, but the penalty doesn't increase until after the necrohulk makes all of these attacks.</p>"
                 },
@@ -395,15 +403,13 @@
             "name": "Grab",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
                 },

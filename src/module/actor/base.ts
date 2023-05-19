@@ -30,7 +30,7 @@ import { TokenPF2e } from "@module/canvas/index.ts";
 import { OneToThree, Size } from "@module/data.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
 import { ChatMessagePF2e, ScenePF2e, TokenDocumentPF2e, UserPF2e } from "@module/documents.ts";
-import { EncounterPF2e, RolledCombatant } from "@module/encounter/index.ts";
+import { CombatantPF2e, EncounterPF2e, RolledCombatant } from "@module/encounter/index.ts";
 import { extractEphemeralEffects, processPreUpdateActorHooks } from "@module/rules/helpers.ts";
 import { RuleElementSynthetics } from "@module/rules/index.ts";
 import { RuleElementPF2e } from "@module/rules/rule-element/base.ts";
@@ -40,7 +40,7 @@ import { DicePF2e } from "@scripts/dice.ts";
 import { IWRApplicationData, applyIWR } from "@system/damage/iwr.ts";
 import { DamageType } from "@system/damage/types.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
-import { Statistic, StatisticCheck } from "@system/statistic/index.ts";
+import { Statistic, StatisticCheck, StatisticDifficultyClass } from "@system/statistic/index.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import {
     ErrorPF2e,
@@ -82,6 +82,7 @@ import { ActorSheetPF2e } from "./sheet/base.ts";
 import { ActorSpellcasting } from "./spellcasting.ts";
 import { TokenEffect } from "./token-effect.ts";
 import { CREATURE_ACTOR_TYPES, SAVE_TYPES, SKILL_LONG_FORMS, UNAFFECTED_TYPES } from "./values.ts";
+import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -92,10 +93,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     private constructed = true;
 
     /** Handles rolling initiative for the current actor */
-    declare initiative?: ActorInitiative;
+    declare initiative: ActorInitiative | null;
 
     /** A separate collection of owned physical items for convenient access */
     declare inventory: ActorInventory<this>;
+
+    declare armorClass: StatisticDifficultyClass<ArmorStatistic> | null;
 
     /** A separate collection of owned spellcasting entries for convenience */
     declare spellcasting: ActorSpellcasting<this>;
@@ -113,6 +116,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** A collection of this actor's conditions */
     declare conditions: ActorConditions<this>;
+
+    /** Skill checks for the actor if supported by the actor type */
+    declare skills?: Partial<CreatureSkills>;
 
     /** A cached copy of `Actor#itemTypes`, lazily regenerated every data preparation cycle */
     private declare _itemTypes: EmbeddedItemInstances<this> | null;
@@ -268,6 +274,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return null;
     }
 
+    /** The actor's hardness: zero with the exception of some hazards and NPCs */
+    get hardness(): number {
+        return 0;
+    }
+
     /** Most actor types can host rule elements */
     get canHostRuleElements(): boolean {
         return true;
@@ -275,6 +286,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     get alliance(): ActorAlliance {
         return this.system.details.alliance;
+    }
+
+    get combatant(): CombatantPF2e<EncounterPF2e> | null {
+        return game.combat?.combatants.find((c) => c.actor?.uuid === this.uuid) ?? null;
     }
 
     /** Add effect icons from effect items and rule elements */
@@ -573,6 +588,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         this.constructed ??= false;
         this._itemTypes = null;
         this.rules = [];
+        this.initiative = null;
+        this.armorClass = null;
         this.conditions = new ActorConditions();
         this.auras = new Map();
 
@@ -1118,6 +1135,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     async applyDamage({
         damage,
         token,
+        item,
         rollOptions = new Set(),
         skipIWR = false,
         shieldBlockRequest = false,
@@ -1167,15 +1185,51 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 : false;
 
         const shieldHardness = shieldBlock ? actorShield?.hardness ?? 0 : 0;
-        const absorbedDamage = Math.min(shieldHardness, Math.abs(finalDamage));
+        const damageAbsorbedByShield = finalDamage > 0 ? Math.min(shieldHardness, finalDamage) : 0;
         const shieldDamage = shieldBlock
-            ? Math.min(actorShield?.hp.value ?? 0, Math.abs(finalDamage) - absorbedDamage)
+            ? Math.min(actorShield?.hp.value ?? 0, Math.abs(finalDamage) - damageAbsorbedByShield)
             : 0;
+
+        // Reduce damage by actor hardness
+        const baseActorHardness = this.hardness;
+        const effectiveActorHardness = ((): number => {
+            // "[Adamantine weapons] treat any object they hit as if it had half as much Hardness as usual, unless the
+            // object's Hardness is greater than that of the adamantine weapon."
+            const damageHasAdamantine = typeof damage === "number" ? false : damage.materials.includes("adamantine");
+            const materialGrade =
+                item?.isOfType("weapon") && item.material.precious?.type === "adamantine"
+                    ? item.material.precious.grade
+                    : "standard";
+            // Hardness values for thin adamantine items (inclusive of weapons):
+            const itemHardness = {
+                low: 0, // low-grade adamantine doesn't exist
+                standard: 10,
+                high: 13,
+            }[materialGrade];
+            return damageHasAdamantine && itemHardness >= baseActorHardness
+                ? Math.floor(baseActorHardness / 2)
+                : baseActorHardness;
+        })();
+
+        // Include actor-hardness absorption in list of damage modifications
+        const damageAbsorbedByActor =
+            finalDamage > 0 ? Math.min(finalDamage - damageAbsorbedByShield, effectiveActorHardness) : 0;
+        if (damageAbsorbedByActor > 0) {
+            const typeLabel =
+                effectiveActorHardness === baseActorHardness
+                    ? "PF2E.Damage.Hardness.Full"
+                    : "PF2E.Damage.Hardness.Half";
+            result.applications.push({
+                category: "reduction",
+                type: game.i18n.localize(typeLabel),
+                adjustment: -1 * damageAbsorbedByActor,
+            });
+        }
 
         const hpUpdate = this.calculateHealthDelta({
             hp: hitPoints,
             sp: this.isOfType("character") ? this.attributes.sp : undefined,
-            delta: finalDamage - absorbedDamage,
+            delta: finalDamage - damageAbsorbedByShield - damageAbsorbedByActor,
         });
         const hpDamage = hpUpdate.totalApplied;
 
@@ -1205,9 +1259,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         // Send chat message
         const hpStatement = ((): string => {
             // This would be a nested ternary, except prettier thoroughly mangles it
-            if (finalDamage === 0) return localize("TakesNoDamage");
+            if (finalDamage - damageAbsorbedByActor === 0) {
+                return localize("TakesNoDamage");
+            }
             if (finalDamage > 0) {
-                return absorbedDamage > 0
+                return damageAbsorbedByShield > 0
                     ? hpDamage > 0
                         ? localize("DamagedForNShield")
                         : localize("ShieldAbsorbsAll")
@@ -1233,7 +1289,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                     game.i18n.format(s, {
                         actor: token.name.replace(/[<>]/g, ""),
                         hpDamage: Math.abs(hpDamage),
-                        absorbedDamage,
+                        absorbedDamage: damageAbsorbedByShield,
                         shieldDamage,
                     })
                 )
@@ -1693,6 +1749,20 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 token.reset();
             }
         }
+
+        // Remove the death overlay if present upon hit points being increased
+        const currentHP = this.hitPoints?.value ?? 0;
+        const hpChange = Number(changed.system?.attributes?.hp?.value) || 0;
+        if (currentHP > 0 && hpChange > 0 && this.isDead) {
+            const { combatant } = this;
+            if (combatant) {
+                combatant.toggleDefeated({ to: false });
+            } else {
+                for (const tokenDoc of this.getActiveTokens(false, true)) {
+                    tokenDoc.update({ overlayEffect: null });
+                }
+            }
+        }
     }
 
     /** Unregister all effects possessed by this actor */
@@ -1728,7 +1798,6 @@ interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     readonly abilities?: Abilities;
     readonly effects: foundry.abstract.EmbeddedCollection<ActiveEffectPF2e<this>>;
     readonly items: foundry.abstract.EmbeddedCollection<ItemPF2e<this>>;
-    readonly skills?: CreatureSkills;
     system: ActorSystemData;
 
     prototypeToken: PrototypeTokenPF2e;

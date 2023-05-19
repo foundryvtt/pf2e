@@ -2072,15 +2072,13 @@
             "name": "Low-Light Vision",
             "sort": 2200000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
                 },
@@ -2111,15 +2109,13 @@
             "name": "Cheek Pouches",
             "sort": 2300000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Like all ratfolk, Fipp has stretchy cheek pouches that can store up to 1 cubic foot of objects (though no more than 4 light items). Fipp can remove or store an item using the Interact action. As long as Fipp has at least one object in his cheek pouches, his speech is noticeably difficult to understand.</p>"
                 },
@@ -2182,12 +2178,11 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "Spouting Prophesy",
+                        "label": "PF2E.SkillVariant.Prophecy",
                         "predicate": [
-                            "action:spout-prophesy"
+                            "action:perform:prophecy"
                         ],
                         "selector": "performance",
-                        "type": "untyped",
                         "value": 2
                     }
                 ],
@@ -2197,8 +2192,8 @@
                 },
                 "variants": {
                     "0": {
-                        "label": "+10 to Spout Prophesy",
-                        "options": "action:spout-prophesy"
+                        "label": "+10 to Spout Prophecy",
+                        "options": "action:perform:prophecy"
                     }
                 }
             },

@@ -720,15 +720,13 @@
             "name": "Keen Eyes",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>Calmont's eyes are sharp, allowing him to make out small details about @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} or even @UUID[Compendium.pf2e.conditionitems.Invisible]{Invisible} creatures that others might miss. He gains a +2 circumstance bonus when using the @UUID[Compendium.pf2e.actionspf2e.Seek]{Seek} action to find @UUID[Compendium.pf2e.conditionitems.Hidden]{Hidden} or @UUID[Compendium.pf2e.conditionitems.Undetected]{Undetected} creatures within 30 feet of him. When Calmont target an opponent that is concealed from him or hidden from him, reduce the DC of the flat check to 3 for a concealed target or 9 for a hidden one.</p>"
                 },
@@ -791,15 +789,13 @@
             "name": "Deny Advantage",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>Calmont isn't @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to @UUID[Compendium.pf2e.conditionitems.Hidden]{Hidden}, @UUID[Compendium.pf2e.conditionitems.Undetected]{Undetected}, or flanking creatures of level 3 or lower.</p>"
                 },
@@ -837,15 +833,13 @@
             "name": "Nimble Dodge",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> A creature targets Calmont with an attack and he can see the attacker.</p>\n<p><strong>Requirements</strong> Calmont is not @UUID[Compendium.pf2e.conditionitems.Encumbered]{Encumbered}</p>\n<p>Calmont deftly dodges out of the way, gaining a +2 circumstance bonus to AC against the triggering attack.</p>"
                 },
@@ -892,15 +886,13 @@
             "name": "Quick Draw",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Calmont draws his weapon and attacks with the same motion. He Interacts to draw a weapon, then Strikes with that weapon.</p>"
                 },
@@ -936,15 +928,13 @@
             "name": "Sneak Attack",
             "sort": 1400000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Calmont deals 1d6 extra damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
@@ -1007,22 +997,46 @@
             "name": "Surprise Attack",
             "sort": 1500000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>If Calmont used Deception or Stealth for initiative, creatures that haven't acted are @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to Calmont on the first round of combat.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "encounter:round:1",
+                            {
+                                "lt": [
+                                    "self:participant:initiative:rank",
+                                    "target:participant:initiative:rank"
+                                ]
+                            },
+                            {
+                                "or": [
+                                    "self:participant:initiative:stat:deception",
+                                    "self:participant:initiative:stat:stealth"
+                                ]
+                            }
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "spell-attack-roll",
+                            "strike-damage",
+                            "attack-spell-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.AJh5ex99aV6VTggg"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

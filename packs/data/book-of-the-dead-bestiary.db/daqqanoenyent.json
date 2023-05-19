@@ -107,15 +107,13 @@
             "name": "Darkvision",
             "sort": 300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -151,15 +149,13 @@
             "name": "Negative Healing",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
@@ -197,15 +193,13 @@
             "name": "Baleful Gaze",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The daqqanoenyent's face twists into an expression of unbridled rage. Each creature within @Template[type:emanation|distance:30]{30 feet} that can see the daqqanoenyent must attempt a @Check[type:will|dc:28] save. The creature is then temporarily immune for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 3}.</p>"
                 },
@@ -239,15 +233,13 @@
             "name": "Snatch",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>A daqqanoenyent can Fly at half Speed while they have a Medium or smaller creature @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} or @UUID[Compendium.pf2e.conditionitems.Restrained]{Restrained} in their talons, carrying that creature along with them.</p>"
                 },
@@ -280,15 +272,13 @@
             "name": "Swallow Whole",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Medium, [[/r (2d8+9)[bludgeoning]]], Rupture 24</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
@@ -326,15 +316,13 @@
             "name": "Grab",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
                 },
@@ -377,7 +365,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "PF2E.Actions.ManeuverInFlight.Title",
+                        "label": "PF2E.SkillVariant.ManeuverInFlight",
                         "predicate": [
                             "action:maneuver-in-flight"
                         ],
@@ -439,7 +427,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "To Track Anyone Involved in the Desecration that Created Them",
+                        "label": "PF2E.SkillVariant.TrackCreator",
                         "predicate": [
                             "involved-in-creation",
                             "action:track"

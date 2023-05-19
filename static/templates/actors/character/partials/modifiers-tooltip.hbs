@@ -3,7 +3,8 @@
         <h2>{{localize title}}</h2>
     </div>
     <ul class="modifier-list">
-        {{#each _modifiers as |modifier|}}
+        {{!-- Coalesce until `StatisticModifier` is removed --}}
+        {{#each (coalesce modifiers _modifiers) as |modifier|}}
             {{#if (or modifier.enabled (not modifier.hideIfDisabled))}}
                 <li class="item {{#unless modifier.enabled}}no-effect{{/unless}}">
                     <span class="tag-legacy">

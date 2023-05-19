@@ -1751,15 +1751,13 @@
             "name": "At-Will Spells",
             "sort": 1700000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
                 },
@@ -1795,22 +1793,30 @@
             "name": "Regeneration 15 (Deactivated by Good)",
             "sort": 1800000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "good"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 15
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -1834,15 +1840,13 @@
             "name": "Immortality",
             "sort": 1900000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>The immortal ichor doesn't age, nor does it need to eat or breathe. It can die only as a result of violence.</p>"
                 },
@@ -1873,15 +1877,13 @@
             "name": "Corrupt Ally",
             "sort": 2000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>A creature that fails to save against an immortal ichor's charm spell becomes @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1}. The stupefied value reduces by 1 every 24 hours. The first time each day a creature stupefied by the ichor's charm fails to save against another casting of the ichor's charm, the value of the condition increases by [[/r 1d4]]{1d4}. If the stupefied condition ever equals the creature's Wisdom score, it becomes controlled by the ichor permanently; if it dies, it rises the next round as a zombie (of the GM's choice) under the ichor's control. If the ichor is killed, these zombies are destroyed.</p>"
                 },
@@ -1916,15 +1918,13 @@
             "name": "Dead Spells",
             "sort": 2100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>An immortal ichor can cast an initial and advanced domain spell of a domain that belonged to the dead deity from which the ichor arose (the domain spells presented here are from the destruction domain).</p>"
                 },
@@ -1955,15 +1955,13 @@
             "name": "Mental Erosion",
             "sort": 2200000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>A creature hit by the ichor's pseudopod is @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 2} for 1 day unless it succeeds at a @Check[type:will|dc:35] save.</p>"
                 },
@@ -1994,15 +1992,13 @@
             "name": "Resanguinate",
             "sort": 2300000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 3
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The immortal ichor draws blood from the pores of living creatures around it. Any living creature within 30 feet that has blood takes [[/r {4d6}]]{4d6 damage} (@Check[type:fortitude|dc:33|basic:true] save). The immortal ichor regains HP equal to the total damage dealt. A creature that fails its save is also @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} (or @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2} on a critical failure).</p>"
                 },

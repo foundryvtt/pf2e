@@ -2185,15 +2185,13 @@
             "name": "Low-Light Vision",
             "sort": 2200000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
                 },
@@ -2224,15 +2222,13 @@
             "name": "Deny Advantage",
             "sort": 2300000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>Mialari isn't @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to flanking creatures of 10th level or lower, or creatures of 10th level or lower using surprise attack.</p>"
                 },
@@ -2267,15 +2263,13 @@
             "name": "Nimble Dodge",
             "sort": 2400000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> Mialari is targeted with a melee or ranged attack by an attacker she can see.</p>\n<hr />\n<p><strong>Effect</strong> Mialari gains a +2 circumstance bonus to AC against the triggering attack.</p>"
                 },
@@ -2319,15 +2313,13 @@
             "name": "Ranged Legerdemain",
             "sort": 2500000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Mialari can use telekinesis to perform manipulate actions that use the Thievery skill at a range of 30 feet, but she takes a -2 circumstance penalty to her check when doing so.</p>"
                 },
@@ -2376,15 +2368,13 @@
             "name": "Sneak Attack",
             "sort": 2600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Mialari deals an extra 2d6 precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
@@ -2447,15 +2437,13 @@
             "name": "Steady Spellcasting",
             "sort": 2700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>When a reaction would disrupt Mialari's spell, she can attempt a @Check[type:flat|dc:15] check, avoiding the disruption on a success.</p>"
                 },
@@ -2483,22 +2471,40 @@
             "name": "Surprise Attack",
             "sort": 2800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>On the first round of combat, creatures that haven't acted yet are @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to Mialari.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "encounter:round:1",
+                            {
+                                "lt": [
+                                    "self:participant:initiative:rank",
+                                    "target:participant:initiative:rank"
+                                ]
+                            }
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "spell-attack-roll",
+                            "strike-damage",
+                            "attack-spell-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.AJh5ex99aV6VTggg"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -2519,15 +2525,13 @@
             "name": "Unbalancing Blow",
             "sort": 2900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Creatures Mialari hits with a critical hit are @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} against her attacks until the end of her next turn.</p>"
                 },
@@ -2541,7 +2545,7 @@
                             "criticalSuccess"
                         ],
                         "selector": "strike-damage",
-                        "text": "Creatures Mialari hits with a critical hit are @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} against her attacks until the end of her next turn.",
+                        "text": "{item|system.description.value}",
                         "title": "{item|name}"
                     }
                 ],

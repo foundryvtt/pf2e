@@ -1,5 +1,5 @@
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
-import { MODIFIER_TYPE, ModifierPF2e } from "@actor/modifiers.ts";
+import { ModifierPF2e } from "@actor/modifiers.ts";
 import { CreaturePF2e } from "@actor";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 
@@ -24,7 +24,7 @@ export function whirlingThrow(options: SkillActionOptions): void {
                 const sizeModifier = new ModifierPF2e(
                     "Size Modifier",
                     determineSizeBonus(actorSize, targetSize),
-                    MODIFIER_TYPE.CIRCUMSTANCE
+                    "circumstance"
                 );
                 if (sizeModifier.modifier) {
                     modifiers.push(sizeModifier);

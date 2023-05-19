@@ -1,14 +1,15 @@
 import {
-    ActorSystemData,
     ActorAttributes,
-    BaseActorSourcePF2e,
-    BaseHitPointsSource,
-    ActorTraitsData,
-    ActorSystemSource,
     ActorDetailsSource,
     ActorHitPoints,
+    ActorSystemData,
+    ActorSystemSource,
+    ActorTraitsData,
+    BaseActorSourcePF2e,
+    BaseHitPointsSource,
 } from "@actor/data/base.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
+import { ArmorClassTraceData } from "@system/statistic/armor-class.ts";
 import { StatisticTraceData } from "@system/statistic/index.ts";
 import { VehicleTrait } from "./types.ts";
 
@@ -62,7 +63,7 @@ interface VehicleSystemData extends VehicleSystemSource, Omit<ActorSystemData, "
 }
 
 interface VehicleAttributes extends VehicleAttributesSource, ActorAttributes {
-    ac: StatisticTraceData;
+    ac: ArmorClassTraceData;
     hp: VehicleHitPoints;
     initiative?: never;
     shield?: never;

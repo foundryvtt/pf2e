@@ -751,15 +751,13 @@
             "name": "Telepathy 60 feet",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p><span style=\"font-family: var(--font-primary); font-size: var(--font-size-14);\">@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</span></p>"
                 },
@@ -794,15 +792,13 @@
             "name": "Id Ooze Acid",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>An id ooze's acid damages only metal and organic materials, not stone.</p>"
                 },
@@ -830,15 +826,13 @@
             "name": "Manipulate Ooze",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per turn</p>\n<p><strong>Effect</strong> The id ooze manipulates the senses and impulses within a mindless ooze of the id ooze's level or lower within 30 feet, issuing it telepathic orders to undertake a specific action. The orders must be simple, such as a directive to attack a specific target in preference to another, or to hold ground in a spot to protect a location, or even to adjust its positioning and body to form crude shapes or symbols. A manipulated ooze performs the direction to the best of its ability on its next turn, after which it returns to its normal behavior.</p>"
                 },
@@ -869,15 +863,13 @@
             "name": "Motion Sense 60 feet",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>An id ooze can sense nearby creatures through vibration and air or water movement.</p>"
                 },
@@ -905,15 +897,13 @@
             "name": "Puddled Ampush",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> A creature enters or interacts with a space occupied by an id ooze</p>\n<p><strong>Requirements</strong> Initiative hasn't yet been rolled</p>\n<p><strong>Effect</strong> The id ooze automatically notices the creature, then makes a pseudopod Strike against one creature adjacent to itself before rolling initiative.</p>"
                 },
@@ -946,15 +936,13 @@
             "name": "Constrict",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>[[/r (1d4+8)[bludgeoning]]] plus [[/r 1d6[acid]]], <span class=\"pl-s\">@Check[type:fortitude|dc:25|basic:true|traits:acid,constrict,bludgeoning]</span></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
@@ -1063,7 +1051,17 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Moist",
+                        "predicate": [
+                            "terrain:moist"
+                        ],
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

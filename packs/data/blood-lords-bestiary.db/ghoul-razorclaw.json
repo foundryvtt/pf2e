@@ -620,15 +620,13 @@
             "name": "Darkvision",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -664,15 +662,13 @@
             "name": "Negative Healing",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
@@ -710,15 +706,13 @@
             "name": "Deny Advantage",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>The razorclaw isn't @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to creatures of 13th level or lower that are @UUID[Compendium.pf2e.conditionitems.Hidden]{Hidden}, @UUID[Compendium.pf2e.conditionitems.Undetected]{Undetected}, flanking, or using @UUID[Compendium.pf2e.classfeatures.Surprise Attack]{Surprise Attack}.</p>"
                 },
@@ -753,15 +747,13 @@
             "name": "Adamantine Edges",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The ghoul's claws have been dipped in adamantine. The razorclaw treats any object they hit with a claw Strike as if it had half as much Hardness and any creature they hit as if they had half as much physical resistance.</p>"
                 },
@@ -794,15 +786,13 @@
             "name": "Consume Flesh",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> The ghoul is adjacent to the corpse of a creature that died within the last hour.</p>\n<hr />\n<p><strong>Effect</strong> The ghoul devours a chunk of the corpse and regains [[/r 7d6[healing]]]{7d6 Hit Points} .</p>\n<p>It can regain Hit Points from any given corpse only once.</p>"
                 },
@@ -840,15 +830,13 @@
             "name": "Ghoul Fever",
             "sort": 1400000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:31]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> [[/r 4d6[negative]]] damage and regains half as many Hit Points from all healing (1 day)</p>\n<p><strong>Stage 3</strong> as stage 2 (1 day)</p>\n<p><strong>Stage 4</strong> [[/r 4d6[negative]]] damage and gains no benefit from healing (1 day)</p>\n<p><strong>Stage 5</strong> as stage 4 (1 day)</p>\n<p><strong>Stage 6</strong> dead, and rises as a @UUID[Compendium.pf2e.pathfinder-bestiary.Ghoul]{Ghoul} the next midnight.</p>"
                 },
@@ -886,15 +874,13 @@
             "name": "Paralysis",
             "sort": 1500000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Any living, non-elf creature hit by a ghoul's attack must succeed at a @Check[type:fortitude|dc:31] save or become @UUID[Compendium.pf2e.conditionitems.Paralyzed]{Paralyzed}. It can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each such save.</p>"
                 },
@@ -934,15 +920,13 @@
             "name": "Sneak Attack",
             "sort": 1600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The ghoul razorclaw deals an extra 3d6 precision damage to flat-footed creatures.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
@@ -1005,22 +989,40 @@
             "name": "Surprise Attacker",
             "sort": 1700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>On the first round of combat, creatures that haven't acted yet are @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to the ghoul razorclaw.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "encounter:round:1",
+                            {
+                                "lt": [
+                                    "self:participant:initiative:rank",
+                                    "target:participant:initiative:rank"
+                                ]
+                            }
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "spell-attack-roll",
+                            "strike-damage",
+                            "attack-spell-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.AJh5ex99aV6VTggg"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1046,15 +1048,13 @@
             "name": "Swift Leap",
             "sort": 1800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The ghoul razorclaw jumps up to half its Speed. This movement doesn't trigger reactions.</p>"
                 },

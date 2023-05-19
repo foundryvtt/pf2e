@@ -1988,15 +1988,13 @@
             "name": "Regeneration 20 (Deactivated by Acid or Fire)",
             "sort": 1900000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
@@ -2004,7 +2002,17 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "acid",
+                            "fire"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 20
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -2028,15 +2036,13 @@
             "name": "Sudden Stormburst",
             "sort": 2000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> An ally within 60 feet is suffering persistent acid or fire damage.</p>\n<hr />\n<p><strong>Effect</strong> Gurija summons a torrential but localized rainstorm around the ally that washes off any acid or douses any fire on it to immediately end persistent acid or fire damage.</p>"
                 },

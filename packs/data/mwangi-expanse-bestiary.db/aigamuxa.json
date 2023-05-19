@@ -97,15 +97,13 @@
             "name": "Scent (Imprecise) 30 feet",
             "sort": 300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
                 },
@@ -136,15 +134,13 @@
             "name": "Limited Vision",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>An aigamuxa's eyes are located on the bottom of their feet, making it difficult for them to see. An aigamuxa is typically @UUID[Compendium.pf2e.conditionitems.Blinded]{blind}. If they @UUID[Compendium.pf2e.actionspf2e.Seek]{Seek}, they can see normally until the end of their turn.</p>"
                 },
@@ -175,15 +171,13 @@
             "name": "Weak Feet",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>If an aigamuxa takes damage from Striding or Stepping into hazardous terrain or a square with similar grounded hazards (such as caltrops), they can't Seek until the end of their next turn.</p>"
                 },
@@ -214,15 +208,13 @@
             "name": "Burrowed Ambush",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> The aigamuxa is @UUID[Compendium.pf2e.actionspf2e.Hide]{Hiding} in dirt, sand, or another soft surface</p>\n<hr />\n<p><strong>Effect</strong> The aigamuxa makes a claw Strike against a creature within reach. On a hit, the aigamuxa automatically Grabs the creature. Whether or not they hit, the aigamuxa then Strides. If they have a creature grabbed, the creature moves with the aigamuxa.</p>"
                 },
@@ -253,15 +245,13 @@
             "name": "Burrowing Concealment",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> The aigamuxa is standing on dirt, sand, or another soft surface</p>\n<hr />\n<p><strong>Effect</strong> The aigamuxa quickly digs into the surface and @UUID[Compendium.pf2e.actionspf2e.Hide]{Hides}. They leave their feet partially exposed, allowing them to see out from the surface. The aigamuxa can hold their breath for up to 10 minutes while hiding in this way.</p>"
                 },
@@ -297,15 +287,13 @@
             "name": "Swallow Whole",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Small, [[/r (2d12+4)[bludgeoning]]] damage, Rupture 22</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
@@ -343,15 +331,13 @@
             "name": "Grab",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
                 },
@@ -440,7 +426,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "In Desert",
+                        "label": "PF2E.SkillVariant.Deserts",
                         "predicate": [
                             "terrain:desert"
                         ],

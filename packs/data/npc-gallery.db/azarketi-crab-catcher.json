@@ -351,15 +351,13 @@
             "name": "Hydration",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>Azarketi must regularly submerge themselves in water to rehydrate their water-acclimated skin. After the first 24 hours outside of water, they gain a -1 status penalty to Fortitude saves as their skin cracks and their gills become painful. After 48 hours, they struggle to breathe air and begin to suffocate until returned to water.</p>"
                 },
@@ -404,15 +402,13 @@
             "name": "Submerged Stealth",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>While submerged in water, an azarketi crab catcher gains a +2 circumstance bonus on their Stealth check, indicated above.</p>"
                 },
@@ -450,15 +446,13 @@
             "name": "Swim Away",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> The azarketi crab catcher is swimming</p>\n<p><strong>Trigger</strong> The azarketi crab catcher is targeted with an attack and can see the attacker</p>\n<hr />\n<p><strong>Effect</strong> The azarketi crab catcher gains a +2 circumstance bonus to AC against the triggering attack. After the attack, they Swim 5 feet.</p>"
                 },
@@ -514,6 +508,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Swim",
                         "predicate": [
                             "action:swim"
                         ],
@@ -595,7 +590,17 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Underwater",
+                        "predicate": [
+                            "terrain:underwater"
+                        ],
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -657,9 +662,6 @@
         }
     ],
     "name": "Azarketi Crab Catcher",
-    "prototypeToken": {
-        "name": "0"
-    },
     "system": {
         "abilities": {
             "cha": {

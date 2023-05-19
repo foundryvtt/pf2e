@@ -12,6 +12,7 @@ export class ActionSheetPF2e extends ItemSheetPF2e<ActionItemPF2e> {
 
         return {
             ...data,
+            hasSidebar: true,
             categories: CONFIG.PF2E.actionCategories,
             actionTypes: CONFIG.PF2E.actionTypes,
             actionsNumber: CONFIG.PF2E.actionsNumber,
@@ -33,6 +34,17 @@ export class ActionSheetPF2e extends ItemSheetPF2e<ActionItemPF2e> {
         $html.find("[data-action=frequency-delete]").on("click", () => {
             this.item.update({ "system.-=frequency": null });
         });
+    }
+
+    protected override _getSubmitData(updateData?: Record<string, unknown>): Record<string, unknown> {
+        const data = super._getSubmitData(updateData);
+
+        // Convert empty string category to null
+        if (data["system.category"] === "") {
+            data["system.category"] = null;
+        }
+
+        return data;
     }
 }
 

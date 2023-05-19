@@ -1,0 +1,49 @@
+{
+    "_id": "aMQxiTCdTxVcradv",
+    "img": "systems/pf2e/icons/features/classes/precise-strike.webp",
+    "name": "Effect: Blade Barrage",
+    "system": {
+        "badge": {
+            "type": "counter",
+            "value": 1
+        },
+        "description": {
+            "value": "<p>They gain a cumulative +2 circumstance bonus to damage for each successful Strike.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:melee"
+                ],
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": "@item.system.badge.value * 2"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #167: Ready? Fight!"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

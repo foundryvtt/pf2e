@@ -9,13 +9,13 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/dice/damage-tooltip.hbs",
 
         // PC Sheet Tooltips and Section Partials
+        "systems/pf2e/templates/actors/character/partials/abilities.hbs",
+        "systems/pf2e/templates/actors/character/partials/background.hbs",
+        "systems/pf2e/templates/actors/character/partials/detail-item.hbs",
+        "systems/pf2e/templates/actors/character/partials/feat-slot.hbs",
+        "systems/pf2e/templates/actors/character/partials/header.hbs",
         "systems/pf2e/templates/actors/character/partials/modifiers-tooltip.hbs",
         "systems/pf2e/templates/actors/character/partials/traits.hbs",
-        "systems/pf2e/templates/actors/character/partials/background.hbs",
-        "systems/pf2e/templates/actors/character/partials/abilities.hbs",
-        "systems/pf2e/templates/actors/character/partials/header.hbs",
-        "systems/pf2e/templates/actors/character/partials/granted-feat.hbs",
-        "systems/pf2e/templates/actors/character/partials/detail-item.hbs",
 
         // PC Sheet Sidebar
         "systems/pf2e/templates/actors/character/sidebar/armor-class.hbs",
@@ -78,6 +78,7 @@ export function registerTemplates(): void {
         // Item Sheet Partials
         "systems/pf2e/templates/items/rules-panel.hbs",
         "systems/pf2e/templates/items/action-details.hbs",
+        "systems/pf2e/templates/items/action-sidebar.hbs",
         "systems/pf2e/templates/items/affliction-details.hbs",
         "systems/pf2e/templates/items/affliction-sidebar.hbs",
         "systems/pf2e/templates/items/ancestry-details.hbs",

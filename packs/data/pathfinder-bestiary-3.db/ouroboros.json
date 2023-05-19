@@ -192,15 +192,13 @@
             "name": "Darkvision",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -236,15 +234,13 @@
             "name": "+1 Status to All Saves vs. Magic",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
@@ -298,15 +294,13 @@
             "name": "Regeneration 50 (Deactivated by Fire)",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
@@ -314,7 +308,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "fire"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 50
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -343,15 +346,13 @@
             "name": "Attack of Opportunity (Special)",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>Incalculable Fangs Only</p>\n<p>Because the ouroboros contains an infinite number of snakes that act independently, its Attack of Opportunity is a free action (though it can still use only one per trigger).</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
@@ -382,15 +383,13 @@
             "name": "Sanguine Spray",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>When the ouroboros takes slashing or piercing damage, or when Devour Tail ends, blood gushes from the wound in a @Template[type:cone|distance:15]. Each creature in the area takes [[/r 5d6[acid]]] damage (@Check[type:reflex|dc:41|basic:true] save). A creature that takes any damage is exposed to the ouroboros's regenerative blood.</p>\n<p>Where the blood falls upon ground, it coagulates into magical snakes that bite at anyone who passes. This is hazardous terrain deals [[/r {17[piercing],5[poison]}]]{17 piercing damage and 5 poison damage} to any non-ouroboros creature that moves through the square or ends its turn there. A creature that avoids all the piercing damage doesn't take the poison damage. After 1 hour, a blood patch permanently becomes a living snake, typically an @UUID[Compendium.pf2e.pathfinder-bestiary-2.Emperor Cobra]{Emperor Cobra}.</p>"
                 },
@@ -421,15 +420,13 @@
             "name": "Unfathomable Infinity",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:100]{100 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>The ouroboros is the embodiment of perfect infinity, and this concept pulls at the threads of mortal minds, desperately straining the limits of their comprehension. When a creature ends its turn in the aura, it must attempt a @Check[type:will|dc:41] save.</p>\n<p>The creature is then temporarily immune for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 round.</p>\n<p><strong>Success</strong> The creature is stupefied 1 for 1 minute.</p>\n<p><strong>Failure</strong> The creature is stupefied 1 for 1 minute and @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 3}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 3} and @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned}, both for 1 minute.</p>"
                 },
@@ -477,15 +474,13 @@
             "name": "Devour Tail",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>An ouroboros spend most of its life eating its own tail, which perpetually regrows at the same rate it's consumed. The ouroboros places its maw around the end of its tail and begins devouring its own body.</p>\n<p>While the ouroboros is consuming itself, its regeneration can't be suppressed, and it is immune to @UUID[Compendium.pf2e.conditionitems.Drained]{Drained}, @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled}, @UUID[Compendium.pf2e.conditionitems.Fatigued]{Fatigued}, @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Damage}, and @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened} conditions. If any of these conditions is in effect when the ouroboros takes this action, the condition immediately ends.</p>\n<p>While eating its tail, the ouroboros can't make maw or tail strikes, and its Speeds are 50 feet. It continues devouring its tail even while @UUID[Compendium.pf2e.conditionitems.Dying]{Dying}, @UUID[Compendium.pf2e.conditionitems.Unconscious]{Unconscious}, @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned}, or otherwise unable to act.</p>\n<p>To end this effect, the ouroboros must first be @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized}, then a creature must successfully @UUID[Compendium.pf2e.actionspf2e.Grapple]{Grapple} it, which tears the maw free in addition to its normal effects. The ouroboros can also cease Devouring its Tail with a single action. Either of these tears the maw free of the tail, causing the stump to spill blood as described in sanguine spray.</p>"
                 },
@@ -536,15 +531,13 @@
             "name": "Fast Swallow",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> The ouroboros @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabs} a creature with their maw</p>\n<hr />\n<p><strong>Effect</strong> The ouroboros uses Swallow Whole.</p>"
                 },
@@ -580,15 +573,13 @@
             "name": "Flying Wheel",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> The ouroboros is eating its own tail (see Devour Tail)</p>\n<hr />\n<p><strong>Effect</strong> As Trample, except the ouroboros can Fly up to double its Speed instead of Striding.</p>\n<p>Huge or smaller, body, @Check[type:reflex|dc:45|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
                 },
@@ -619,15 +610,13 @@
             "name": "Regenerative Blood",
             "sort": 1400000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The regenerative and transmutative properties of ouroboros blood regenerate and mutate a creature's body into ouroboros-like snakes. A creature already affected by regenerative blood is immune to additional exposure.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:42]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 24 hours</p>\n<p><strong>Stage 1</strong> regeneration 5 (deactivated by fire), @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1}, and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2} (12 hours)</p>\n<p><strong>Stage 2</strong> regeneration 5 (deactivated by fire), @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 2} and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 4} (12 hours)</p>\n<p><strong>Stage 3</strong> The creature's body transmutes into a mass of writhing snakes, with the effects an 8th-level <em>@UUID[Compendium.pf2e.spells-srd.Animal Form]{Animal Form}</em> spell but with an unlimited duration.</p>"
                 },
@@ -671,15 +660,13 @@
             "name": "Swallow Whole",
             "sort": 1500000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Huge, [[/r (4d10+9)[acid]]], Rupture 50</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
@@ -717,15 +704,13 @@
             "name": "Improved Grab",
             "sort": 1600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
                 },

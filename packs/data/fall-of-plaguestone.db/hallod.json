@@ -329,6 +329,68 @@
             "type": "armor"
         },
         {
+            "_id": "7ChbBnE9NpIFnI3W",
+            "img": "systems/pf2e/icons/equipment/held-items/key-purple.webp",
+            "name": "Key",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "containerId": null,
+                "description": {
+                    "gm": "<p>Key to strongbox</p>",
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": null
+                },
+                "preciousMaterialGrade": {
+                    "value": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "stackGroup": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "type": "equipment"
+        },
+        {
             "_id": "absaDuPVtwrxZgJb",
             "flags": {
                 "core": {
@@ -337,7 +399,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
             "name": "Bolts",
-            "sort": 400000,
+            "sort": 500000,
             "system": {
                 "autoDestroy": {
                     "value": true
@@ -418,7 +480,7 @@
             },
             "img": "systems/pf2e/icons/equipment/consumables/potions/healing-potion.webp",
             "name": "Healing Potion (Lesser)",
-            "sort": 500000,
+            "sort": 600000,
             "system": {
                 "autoDestroy": {
                     "value": true
@@ -505,7 +567,7 @@
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/juggernaut-mutagen.webp",
             "name": "Juggernaut Mutagen (Lesser)",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "autoDestroy": {
                     "value": true
@@ -581,65 +643,6 @@
                 }
             },
             "type": "consumable"
-        },
-        {
-            "_id": "FmhLbq4XRUKjCmVU",
-            "img": "systems/pf2e/icons/equipment/held-items/key-purple.webp",
-            "name": "Key to Strongbox",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "containerId": "null",
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": 0,
-                "hp": {
-                    "brokenThreshold": 0,
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": ""
-                },
-                "weight": {
-                    "value": "-"
-                }
-            },
-            "type": "treasure"
         },
         {
             "_id": "BxmH1fhCQ3U0b1Nz",
@@ -789,15 +792,13 @@
             "name": "Attack of Opportunity",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
@@ -828,15 +829,13 @@
             "name": "Dirty Trick",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> Hallod scores a critical hit with a melee attack.</p>\n<hr />\n<p><strong>Effect</strong> Hallod can attempt an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Shove]{Shove} or @UUID[Compendium.pf2e.actionspf2e.Trip]{Trip} the target of his attack. This uses the same multiple attack penalty as the attack, but it does not count as an additional attack for that penalty</p>"
                 },
@@ -879,15 +878,13 @@
             "name": "One-Two Move",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Hallod makes two Strikes, one with each hand; he usually attacks first with his kukri. If this first attack hits, the target is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to the second attack (which for Hallod is usually a fist Strike). The multiple attack penalty applies to these attacks as normal</p>"
                 },
@@ -923,15 +920,13 @@
             "name": "Sneak Attack",
             "sort": 1400000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Hallod deals 1d6 extra precision damage precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },

@@ -323,15 +323,13 @@
             "name": "Low-Light Vision",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
                 },
@@ -362,15 +360,13 @@
             "name": "Soaring Flight",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Takatorra expands their wings, gaining a 25-foot fly Speed for 5 minutes.</p>"
                 },
@@ -410,15 +406,13 @@
             "name": "Attack of Opportunity",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
@@ -449,35 +443,34 @@
             "name": "Blade Barrage",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>Takatorra makes three melee Strikes. These Strikes gain the forceful trait. If one target is hit with at least two of these Strikes, they also take [[/r 1d6[bleed]]]. The target is then @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{flat-footed} until they heal the persistent bleed damage.</p>"
+                    "value": "<p>Takatorra makes three melee Strikes. These Strikes gain the forceful trait. If one target is hit with at least two of these Strikes, they also take [[/r 1d6[bleed]]]. The target is then @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until they heal the persistent bleed damage.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
-                        "key": "DamageDice",
+                        "definition": [
+                            "item:melee"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
                         "predicate": [
-                            "melee",
                             "blade-barrage"
                         ],
-                        "selector": "strike-damage",
-                        "traits": [
-                            "forceful"
-                        ]
+                        "property": "weapon-traits",
+                        "value": "forceful"
                     },
                     {
-                        "domain": "damage-roll",
+                        "domain": "all",
                         "key": "RollOption",
                         "option": "blade-barrage",
                         "toggleable": true
@@ -485,11 +478,13 @@
                     {
                         "key": "Note",
                         "predicate": [
-                            "melee",
-                            "blade-barrage"
+                            "blade-barrage",
+                            "item:melee"
                         ],
                         "selector": "strike-damage",
-                        "text": "If one target is hit with at least two of these Strikes, they also take [[/r 1d6[bleed]]]. The target is then @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{flat-footed} until they heal the persistent bleed damage."
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,
@@ -515,15 +510,13 @@
             "name": "Disarming Whirl",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Takatorra spins, striking at their foes' weapons. Takatorra attempts an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Disarm]{Disarm} against each enemy within melee reach. Each attempt counts toward Takatorra's multiple attack penalty, but the penalty doesn't increase until they have made all the attempts.</p>"
                 },

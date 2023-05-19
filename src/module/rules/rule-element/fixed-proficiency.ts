@@ -1,6 +1,6 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
-import { ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers.ts";
+import { ModifierPF2e } from "@actor/modifiers.ts";
 import { AbilityString } from "@actor/types.ts";
 import { ABILITY_ABBREVIATIONS, SKILL_ABBREVIATIONS, SKILL_EXPANDED } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
@@ -48,7 +48,7 @@ class FixedProficiencyRuleElement extends RuleElementPF2e {
         const abilityModifier = this.ability ? this.actor.system.abilities[this.ability].mod : 0;
 
         const modifier = new ModifierPF2e({
-            type: MODIFIER_TYPE.PROFICIENCY,
+            type: "proficiency",
             slug: this.slug ?? sluggify(this.label),
             label: this.label,
             modifier: proficiencyBonus + abilityModifier,
@@ -72,13 +72,6 @@ class FixedProficiencyRuleElement extends RuleElementPF2e {
             const toIgnore = statistic.modifiers.filter((m) => m.type === "proficiency" && m.slug !== this.slug);
             for (const modifier of toIgnore) {
                 modifier.predicate = new PredicatePF2e(`overridden-by-${this.slug}`);
-            }
-
-            // Only AC will be a `StatisticModifier`
-            if (statistic instanceof StatisticModifier) {
-                const rollOptions = new Set(this.actor.getRollOptions(["ac", `${this.ability}-based`]));
-                statistic.calculateTotal(rollOptions);
-                statistic.value = 10 + statistic.totalModifier;
             }
         }
     }

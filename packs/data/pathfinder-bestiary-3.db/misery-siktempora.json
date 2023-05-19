@@ -583,15 +583,13 @@
             "name": "Darkvision",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -627,15 +625,13 @@
             "name": "Telepathy 300 feet",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
                 },
@@ -670,15 +666,13 @@
             "name": "Temporal Sense",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>A siktempora can always roll Dimension of Time Lore for initiative. When it does, it gains a +2 circumstance bonus to the roll.</p>"
                 },
@@ -724,15 +718,13 @@
             "name": "At-Will Spells",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
                 },
@@ -768,15 +760,13 @@
             "name": "Constant Spells",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
@@ -812,15 +802,13 @@
             "name": "Regeneration 40 (Deactivated by Positive, Mental, or Orichalcum)",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
@@ -828,7 +816,18 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "positive",
+                            "mental",
+                            "orichalcum"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 40
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -852,22 +851,39 @@
             "name": "Slash the Suffering",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>Creatures with the @UUID[Compendium.pf2e.conditionitems.Confused]{Confused} or @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied} condition are @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to the misery siktempora.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:condition:confused",
+                                    "target:condition:stupefied"
+                                ]
+                            }
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "spell-attack-roll",
+                            "strike-damage",
+                            "attack-spell-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.AJh5ex99aV6VTggg"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -891,15 +907,13 @@
             "name": "Uncanny Pounce",
             "sort": 1400000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> The misery siktempora rolls Dimension of Time Lore for initiative</p>\n<hr />\n<p><strong>Effect</strong> The misery siktempora Strides once and makes a claw Strike, in either order.</p>"
                 },
@@ -930,15 +944,13 @@
             "name": "Inflict Misery",
             "sort": 1500000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> The misery siktempora's last action was a claw Strike that damaged the target</p>\n<hr />\n<p><strong>Effect</strong> The misery siktempora fills the target's thoughts with abject despair. The target must attempt a @Check[type:will|dc:32] save. Regardless of outcome, the target is then immune to Inflict Misery for 1 minute.</p>\n<hr />\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2}, @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2} and @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 2} for 1 round.</p>\n<p><strong>Critical Failure</strong> As failure, but for 1 minute.</p>"
                 },
@@ -974,15 +986,13 @@
             "name": "Telepathic Wail",
             "sort": 1600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The misery siktempora assails the mind of one creature within 100 feet with a wail of anguish and torment that deals [[/r 8d6[mental]]] damage (@Check[type:will|dc:32|basic:true] save).</p>\n<p>On a failed save, the target is also @UUID[Compendium.pf2e.conditionitems.Confused]{Confused} for the first action of its next turn (or for 1 round on a critical failure).</p>"
                 },

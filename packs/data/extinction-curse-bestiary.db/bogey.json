@@ -513,15 +513,13 @@
             "name": "Low-Light Vision",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
                 },
@@ -552,15 +550,13 @@
             "name": "Devour Soul",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 3
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> The bogey has killed a creature within the last round and is adjacent to the creature</p>\n<hr />\n<p><strong>Effect</strong> The bogey consumes the creature's soul. The soul is utterly destroyed-nothing short of <em>@UUID[Compendium.pf2e.spells-srd.Wish]{Wish}</em> or a similar effect can restore it to life, and only after the bogey has been slain. The bogey regains Hit Points equal to double the level of the consumed creature. After devouring three souls within a year, the bogey transforms into a bugaboo.</p>"
                 },
@@ -594,22 +590,40 @@
             "name": "Surprise Attack",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>On the first round of combat, creatures that haven't acted yet are @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to the bogey.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "encounter:round:1",
+                            {
+                                "lt": [
+                                    "self:participant:initiative:rank",
+                                    "target:participant:initiative:rank"
+                                ]
+                            }
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "spell-attack-roll",
+                            "strike-damage",
+                            "attack-spell-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.AJh5ex99aV6VTggg"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

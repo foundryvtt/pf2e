@@ -617,15 +617,13 @@
             "name": "Darkvision",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -661,15 +659,13 @@
             "name": "Regeneration 10 (Deactivated by Cold Iron)",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
@@ -677,7 +673,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "cold-iron"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 10
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -701,15 +706,13 @@
             "name": "Conformance",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The conformer contorts and reshapes their body into a desired form. The conformer takes on the specific appearance of any Small, Medium, or Large humanoid or animal that they've observed and whose appearance they remember. This doesn't change the conformer's Speed or their attack and damage bonus with their Strikes, but might change the damage type their Strikes deal.</p>"
                 },
@@ -742,15 +745,13 @@
             "name": "Surgical Detachment",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The conformer detaches part of their body to serve them as an autonomous organism. For the next 24 hours, the conformer gains the loyal service of a fleshforged @UUID[Compendium.pf2e.lost-omens-impossible-lands-bestiary.Skinskitter]{Skinskitter}. As long as they remain within 1 mile of each other, the conformer can use the Surgical Detachment action again to empathically direct the actions of their skinskitter servant as well as perceive through its senses. Due to how taxing this process is, the conformer can have only one skinskitter servant at a time.</p>"
                 },
@@ -784,15 +785,13 @@
             "name": "Tissue Siphon",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> The conformer is within reach of an @UUID[Compendium.pf2e.conditionitems.Unconscious]{Unconscious} or willing creature, or a creature taking persistent bleed damage</p>\n<hr />\n<p><strong>Effect</strong> The conformer touches and absorbs some of the creature's flesh. The target must attempt a @Check[type:fortitude|dc:26] save; on a failure, they become @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} and take damage from their persistent bleed damage, even though it isn't the end of their turn.</p>"
                 },
@@ -824,15 +823,13 @@
             "name": "Wear Flesh",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> The conformer has used Tissue Siphon to absorb flesh within the last hour</p>\n<hr />\n<p><strong>Effect</strong> The conformer expends the flesh they've absorbed to transform their body, reproducing the effects of one of the following spells: <em>@UUID[Compendium.pf2e.spells-srd.Adapt Self]{Adapt Self}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Enlarge]{Enlarge}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Shifting Form]{Shifting Form}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Tentacular Limbs]{Tentacular Limbs}</em>, or @UUID[Compendium.pf2e.ancestryfeatures.Unusual Anatomy]{Unusual Anatomy}. The Wear Flesh action gains the traits of the spell it's reproducing, and the conformer can Sustain a Spell on these effects.</p>"
                 },

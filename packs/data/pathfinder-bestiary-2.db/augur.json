@@ -701,15 +701,13 @@
             "name": "Greater Darkvision",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
                 },
@@ -740,15 +738,13 @@
             "name": "Painsight",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>A velstrac automatically knows whether a creature it sees has any of the @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed}, @UUID[Compendium.pf2e.conditionitems.Dying]{Dying}, and @UUID[Compendium.pf2e.conditionitems.Wounded]{Wounded} conditions, as well as the value of those conditions.</p>"
                 },
@@ -787,22 +783,31 @@
             "name": "Regeneration 2 (Deactivated by Good or Silver)",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "good",
+                            "silver"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 2
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -826,15 +831,13 @@
             "name": "Feel the Blades",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>When a creature ends its turn in the aura, it feels the sharp barbs of the augur's blades on its skin. The creature must succeed at a @Check[type:will|dc:17] save or become @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2} on a critical failure).</p>"
                 },
@@ -886,15 +889,13 @@
             "name": "Focus Gaze",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The augur stares at a creature they can see within 30 feet. The target must immediately attempt a Will save against Feel the Blades. After attempting this save, the creature is then temporarily immune until the start of the augur's next turn.</p>"
                 },
@@ -932,15 +933,13 @@
             "name": "Whirling Slice",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The augur Flies or Strides, whirling as they move. The augur deals the damage of their blade Strike to each creature whose space they enter (@Check[type:reflex|dc:16|basic:true] save). Each creature is affected only once, even if the augur moves through its space multiple times.</p>"
                 },

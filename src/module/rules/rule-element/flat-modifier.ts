@@ -95,8 +95,7 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
     override beforePrepareData(): void {
         if (this.ignored) return;
 
-        // Strip out the title ("Effect:", etc.) of the effect name
-        const label = this.label.includes(":") ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : this.label;
+        const label = this.getReducedLabel();
         const slug = this.slug ?? sluggify(label);
 
         const selectors = this.selectors.map((s) => this.resolveInjectedProperties(s)).filter((s) => !!s);

@@ -16,7 +16,10 @@ class MoveLootPopup extends FormApplication<{}, MoveLootOptions> {
 
         return {
             ...(await super.getData()),
-            maxQuantity: this.options.maxQuantity,
+            quantity: {
+                default: this.options.quantity.default,
+                max: this.options.quantity.max,
+            },
             newStack: this.options.newStack,
             lockStack: this.options.lockStack,
             prompt,
@@ -32,7 +35,10 @@ class MoveLootPopup extends FormApplication<{}, MoveLootOptions> {
             title: game.i18n.localize("PF2E.loot.MoveLootPopupTitle"),
             template: "systems/pf2e/templates/popups/loot/move-loot-popup.hbs",
             width: "auto",
-            maxQuantity: 1,
+            quantity: {
+                default: 1,
+                max: 1,
+            },
             newStack: false,
             lockStack: false,
             isPurchase: false,
@@ -48,7 +54,10 @@ class MoveLootPopup extends FormApplication<{}, MoveLootOptions> {
 }
 
 interface MoveLootOptions extends FormApplicationOptions {
-    maxQuantity: number;
+    quantity: {
+        default: number;
+        max: number;
+    };
     newStack: boolean;
     lockStack: boolean;
     isPurchase: boolean;
@@ -60,7 +69,10 @@ interface MoveLootFormData extends FormData {
 }
 
 interface PopupData extends FormApplicationData {
-    maxQuantity: number;
+    quantity: {
+        default: number;
+        max: number;
+    };
     newStack: boolean;
     lockStack: boolean;
     prompt: string;

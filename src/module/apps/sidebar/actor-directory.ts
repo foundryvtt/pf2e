@@ -37,8 +37,8 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
         folders: Folder<EnfolderableDocument>[],
         documents: ActorPF2e<null>[]
     ): { root: boolean; content: WorldDocument[]; children: Folder<EnfolderableDocument>[] } {
-        const filteredDocuments: Actor<null>[] = documents.filter(
-            (a) => !a.isOfType("party", "creature") || (a.isOfType("creature") && !a.parties.size)
+        const filteredDocuments = documents.filter(
+            (a) => (a.isOfType("creature") && !a.parties.size) || !a.isOfType("party", "creature")
         );
         return super.setupFolders(folders, filteredDocuments);
     }

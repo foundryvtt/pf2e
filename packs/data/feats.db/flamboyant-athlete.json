@@ -4,10 +4,10 @@
     "name": "Flamboyant Athlete",
     "system": {
         "actionType": {
-            "value": "action"
+            "value": "passive"
         },
         "actions": {
-            "value": 2
+            "value": null
         },
         "category": "class",
         "description": {
@@ -23,7 +23,24 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "self:effect:panache"
+                ],
+                "selector": "climb",
+                "value": "floor(@actor.attributes.speed.total/2)"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "self:effect:panache"
+                ],
+                "selector": "swim",
+                "value": "floor(@actor.attributes.speed.total/2)"
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },

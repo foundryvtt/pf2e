@@ -753,15 +753,13 @@
             "name": "Axe Vulnerability",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>An arboreal tar tree takes [[/r 10[additional]]]{10 additional} from axes.</p>"
                 },
@@ -789,17 +787,15 @@
             "name": "Spawn Tar Tree",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>A living arboreal or animated tree slain by a tar tree's thorny branch Strike rises as a tar tree spawn after [[/r 1d4 #rounds]]{1d4 rounds}. This tar tree spawn is under the command of the tar tree that killed it. It doesn't have primal innate spells or the spawn tar tree ability and becomes @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2} for as long as it's a tar tree spawn. If the creator of the tar tree spawn dies, the tar tree spawn becomes a full-fledged, autonomous tar tree; it regains its free will, gains primal innate spells and the spawn tar tree ability, and is no longer clumsy.</p>"
+                    "value": "<p>A living arboreal or animated tree slain by a tar tree's thorny branch Strike rises as a tar tree spawn after [[/br 1d4 #rounds]]{1d4 rounds}. This tar tree spawn is under the command of the tar tree that killed it. It doesn't have primal innate spells or the spawn tar tree ability and becomes @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2} for as long as it's a tar tree spawn. If the creator of the tar tree spawn dies, the tar tree spawn becomes a full-fledged, autonomous tar tree; it regains its free will, gains primal innate spells and the spawn tar tree ability, and is no longer clumsy.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -828,15 +824,13 @@
             "name": "Throw Rock",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": ""
                 },
@@ -942,7 +936,17 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Forests",
+                        "predicate": [
+                            "terrain:forest"
+                        ],
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -950,7 +954,7 @@
                 "variants": {
                     "0": {
                         "label": "+22 in forests",
-                        "options": "trait:terrain:forest"
+                        "options": "terrain:forest"
                     }
                 }
             },

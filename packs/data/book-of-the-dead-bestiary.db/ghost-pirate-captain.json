@@ -100,15 +100,13 @@
             "name": "Darkvision",
             "sort": 300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -144,15 +142,13 @@
             "name": "Negative Healing",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
@@ -190,15 +186,13 @@
             "name": "Curse Ye Scallywags!",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "deathNote": true,
                 "description": {
                     "value": "<p>When the ghost pirate captain is reduced to 0 HP, all creatures within 60 feet are subjected to a @Check[type:will|dc:25] <em>@UUID[Compendium.pf2e.spells-srd.Mariner's Curse]{Mariner's Curse}</em> spell. The locations of those that critically fail are known to the ghost until the curse is removed. This curse ends if the ghost is permanently destroyed.</p>"
@@ -236,18 +230,16 @@
             "name": "Rejuvenation",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When the ghost pirate captain is destroyed, they re-form after [[/r 2d4 #Rejuvenation]]{2d4 days} within the ship or location they're bound to, fully healed. They can be permanently destroyed if their desires are fulfilled, which could involve being defeated in a great battle or ensuring their treasure has been hidden.</p>"
+                    "value": "<p>When the ghost pirate captain is destroyed, they re-form after [[/br 2d4 #Rejuvenation]]{2d4 days} within the ship or location they're bound to, fully healed. They can be permanently destroyed if their desires are fulfilled, which could involve being defeated in a great battle or ensuring their treasure has been hidden.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -279,15 +271,13 @@
             "name": "Ship Bound",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>The ghost is typically bound to a vessel, even one damaged beyond repair. They can't venture more than 120 feet away from the ship or site of its wreckage.</p>"
                 },
@@ -315,15 +305,13 @@
             "name": "Combat Current",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The ghost makes a Strike with its cutlass or hand crossbow, then Flies up to half their Speed and makes a Strike with the other attack. If they moved through an enemy when they Flew, that enemy is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} against the second Strike.</p>"
                 },
@@ -351,15 +339,13 @@
             "name": "Savvy Joinin' Me Crew?",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> The ghost reduces a living creature to 0 Hit Points with a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> The creature attempts a @Check[type:fortitude|dc:25] save. If the creature fails its save, it remains conscious but is controlled by the ghost until it loses its dying condition. It continues to attempt recovery checks as normal for the dying condition. The effect ends if the creature loses the dying condition. If the creature dies while under this effect, it joins the ghost's undead crew in [[/r 1d4 #days]]{1d4 days}. If the ghost is destroyed before the creature dies, the creature is spared this terrible fate.</p>"
                 },

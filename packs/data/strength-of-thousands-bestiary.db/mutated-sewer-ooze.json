@@ -62,15 +62,13 @@
             "name": "Motion Sense 60 feet",
             "sort": 200000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>A sewer ooze can sense nearby motion through vibration and air movements.</p>"
                 },
@@ -101,15 +99,13 @@
             "name": "Noxious Scent",
             "sort": 300000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature that enters the area must attempt a @Check[type:fortitude|dc:23] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure). A creature taking persistent acid damage from the ooze's pseudopod can't recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
                 },
@@ -153,15 +149,13 @@
             "name": "Filth Wave",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per minute</p>\n<hr />\n<p><strong>Effect</strong> The sewer ooze unleashes a wave of filth, covering all creatures within a @Template[type:emanation|distance:20]. Each creature in the area must succeed at a @Check[type:reflex|dc:24|traits:damaging,ooze-effect] save or take [[/r 1d4[acid]]] damage and a -10-foot penalty to its Speeds for 1 minute (on a critical failure, the creature also falls @UUID[Compendium.pf2e.conditionitems.Prone]{Prone}). A creature can spend an Interact action to clean someone off, decreasing the Speed penalty by 5 feet with each action.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Filth Wave]{Effect: Filth Wave}</p>"
                 },
@@ -204,9 +198,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "Stealth in Sewers",
+                        "label": "PF2E.SkillVariant.Sewers",
                         "predicate": [
-                            "terrain:sewers"
+                            "terrain:sewer"
                         ],
                         "selector": "stealth",
                         "type": "untyped",
@@ -220,7 +214,7 @@
                 "variants": {
                     "0": {
                         "label": "+12 in sewers",
-                        "options": "terrain:sewers"
+                        "options": "terrain:sewer"
                     }
                 }
             },

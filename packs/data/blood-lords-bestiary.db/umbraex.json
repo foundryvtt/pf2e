@@ -1057,15 +1057,13 @@
             "name": "Greater Darkvision",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
                 },
@@ -1101,15 +1099,13 @@
             "name": "Lifesense 100 feet",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
                 },
@@ -1145,15 +1141,13 @@
             "name": "At-Will Spells",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
                 },
@@ -1189,15 +1183,13 @@
             "name": "Negative Healing",
             "sort": 1400000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
@@ -1240,15 +1232,13 @@
             "name": "Regeneration 20 (Deactivated by Fire or Good)",
             "sort": 1500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
@@ -1256,7 +1246,17 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "fire",
+                            "good"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 20
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -1280,18 +1280,16 @@
             "name": "Ashen Rise",
             "sort": 1600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When an umbraex is destroyed, its body discorporates into fine ash before being restored, fully healed, [[/r 1d4 #Rounds]]{1d4 rounds} later. An umbraex can't use this ability as long as its remains are within an area consecrated to a good deity or an area of bright light. The umbraex can't use Ashen Rise again for 1 day.</p>"
+                    "value": "<p>When an umbraex is destroyed, its body discorporates into fine ash before being restored, fully healed, [[/br 1d4 #Rounds]]{1d4 rounds} later. An umbraex can't use this ability as long as its remains are within an area consecrated to a good deity or an area of bright light. The umbraex can't use Ashen Rise again for 1 day.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1320,15 +1318,13 @@
             "name": "Entropy's Shadow",
             "sort": 1700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:40]{40 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>Umbraex leak entropy and corruption from their very being. A living creature entering or starting its turn in the aura takes [[/r 8d6[negative]]] damage with a @Check[type:fortitude|dc:42|basic:true]. If it fails, it's also @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 minute and pulled 10 feet toward the vanyver.</p>"
                 },
@@ -1373,15 +1369,13 @@
             "name": "Sunlight Powerlessness",
             "sort": 1800000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>An umbraex caught in sunlight is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 2} and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2}.</p>"
                 },
@@ -1409,15 +1403,13 @@
             "name": "Life-Siphoning Screech",
             "sort": 1900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 3
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The umbraex Flies, shrieking as it passes its enemies. Creatures within 20 feet of the umbraex's flight path take [[/r 22d6[mental]]] damage depending on their @Check[type:fortitude|dc:45] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage and is @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1}.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is drained 2 and @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed 1}.</p>"
                 },

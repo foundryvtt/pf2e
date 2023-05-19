@@ -12,6 +12,7 @@ import {
 import { AbilityString } from "@actor/types.ts";
 import { ItemPF2e } from "@item";
 import { ZeroToFour, ZeroToTwo } from "@module/data.ts";
+import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
 import {
     extractDegreeOfSuccessAdjustments,
     extractModifiers,
@@ -19,6 +20,7 @@ import {
     extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/helpers.ts";
+import { TokenDocumentPF2e } from "@scene";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import {
     CheckPF2e,
@@ -29,57 +31,52 @@ import {
     RollTwiceOption,
 } from "@system/check/index.ts";
 import { CheckDC, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success.ts";
+import { RollParameters } from "@system/rolls.ts";
 import { isObject, Optional, traitSlugToObject } from "@util";
-import { StatisticChatData, StatisticTraceData, StatisticData, StatisticCheckData } from "./data.ts";
-import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
+import { StatisticChatData, StatisticCheckData, StatisticData, StatisticTraceData } from "./data.ts";
 
 export * from "./data.ts";
+export { RollOptionParameters, Statistic, StatisticCheck, StatisticDifficultyClass, StatisticRollParameters };
 
-interface StatisticRollParameters {
-    /** Which attack this is (for the purposes of multiple attack penalty) */
-    attackNumber?: number;
-    /** Optional target for the roll */
-    target?: ActorPF2e | null;
-    /** Optional origin for the roll: only one of target and origin may be provided */
-    origin?: ActorPF2e | null;
-    /** Optional DC data for the roll */
-    dc?: CheckDC | null;
-    /** Optional override for the check modifier label */
-    label?: string;
-    /** Any additional roll notes which should be used in the roll. */
-    extraRollNotes?: (RollNotePF2e | RollNoteSource)[];
-    /** Any additional options which should be used in the roll. */
-    extraRollOptions?: string[];
-    /** Additional modifiers */
-    modifiers?: ModifierPF2e[];
-    /** The originating item of this attack, if any */
-    item?: ItemPF2e<ActorPF2e> | null;
-    /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
-    rollMode?: RollMode | "roll";
-    /** Should the dialog be skipped */
-    skipDialog?: boolean;
-    /** Should this roll be rolled twice? If so, should it keep highest or lowest? */
-    rollTwice?: RollTwiceOption;
-    /** Any traits for the check */
-    traits?: (TraitViewData | string)[];
-    /** Whether to create a chat message using the roll (defaults true) */
-    createMessage?: boolean;
-    /** Callback called when the roll occurs. */
-    callback?: CheckRollCallback;
+/** Basic data forming any Pathfinder statistic */
+abstract class SimpleStatistic {
+    /** The actor to which this statistic belongs */
+    actor: ActorPF2e;
+    /** A stable but human-readable identifier */
+    slug: string;
+    /** A display label */
+    label: string;
+    /** Original construction arguments */
+    protected data: StatisticData;
+    /** Penalties, bonuses, and actual modifiers comprising a total modifier value */
+    modifiers: ModifierPF2e[];
+    /** String category identifiers: used to retrieve modifiers and other synthetics as well as create roll options  */
+    domains: string[];
+
+    constructor(actor: ActorPF2e, data: StatisticData) {
+        this.actor = actor;
+        this.slug = data.slug;
+        this.label = game.i18n.localize(data.label);
+        this.modifiers = [...(data.modifiers ??= [])];
+        this.domains = [...(data.domains ??= [])];
+        this.data = { ...data };
+
+        if (this.domains.length > 0) {
+            this.modifiers.push(...extractModifiers(this.actor.synthetics, this.domains));
+
+            // Test the gathered modifiers if there are any domains
+            const options = this.createRollOptions();
+            this.modifiers = this.modifiers.map((mod) => mod.clone({ test: options }));
+        }
+    }
+
+    createRollOptions(domains = this.domains): Set<string> {
+        return new Set(this.actor.getRollOptions(domains));
+    }
 }
 
-interface RollOptionParameters {
-    extraRollOptions?: string[];
-    item?: ItemPF2e | null;
-    origin?: ActorPF2e | null;
-    target?: ActorPF2e | null;
-}
-
-/** Object used to perform checks or get dcs, or both. These are created from StatisticData which drives its behavior. */
-class Statistic {
-    /** Source of truth of all statistic data and the params used to create it. Necessary for cloning. */
-    #data: StatisticData;
-
+/** A Pathfinder statistic used to perform checks or get dcs */
+class Statistic extends SimpleStatistic {
     ability: AbilityString | null = null;
 
     abilityModifier: ModifierPF2e | null = null;
@@ -88,60 +85,62 @@ class Statistic {
 
     proficient = true;
 
-    modifiers: ModifierPF2e[];
-
-    slug: string;
-
-    label: string;
-
     /** If this is a skill, returns whether it is a lore skill or not */
     lore?: boolean;
 
-    check: StatisticCheck;
-    dc: StatisticDifficultyClass;
+    options: RollOptionParameters;
 
-    constructor(public actor: ActorPF2e, data: StatisticData, public options?: RollOptionParameters) {
-        this.#data = data;
-        this.slug = data.slug;
-        this.ability = data.ability ?? null;
-        this.lore = data.lore;
-        this.label = game.i18n.localize(data.label);
+    #check?: StatisticCheck<this>;
+    #dc?: StatisticDifficultyClass<this>;
 
+    constructor(actor: ActorPF2e, data: StatisticData, options: RollOptionParameters = {}) {
+        data.modifiers ??= [];
+        const domains = (data.domains ??= []);
         // Add some base modifiers depending on data values
-        const baseModifiers: ModifierPF2e[] = [];
+        // If this is a character with an ability, add/set the ability modifier
+        const abilityModifier =
+            actor.isOfType("character") &&
+            data.ability &&
+            !data.modifiers.some((m) => m.enabled && m.type === "ability")
+                ? createAbilityModifier({ actor, ability: data.ability, domains })
+                : null;
 
-        if (actor.isOfType("character") && this.ability) {
-            this.abilityModifier = createAbilityModifier({ actor, ability: this.ability, domains: data.domains ?? [] });
-            baseModifiers.push(this.abilityModifier);
+        const baseModifiers: ModifierPF2e[] = abilityModifier ? [abilityModifier] : [];
+        // If there isn't already a proficiency modifier, possibly add one
+        if (actor.isOfType("character") && !data.modifiers.some((m) => m.type === "proficiency")) {
+            if (typeof data.rank === "number") {
+                baseModifiers.push(createProficiencyModifier({ actor, rank: data.rank, domains }));
+            } else if (data.rank === "untrained-level") {
+                baseModifiers.push(createProficiencyModifier({ actor, rank: 0, domains, addLevel: true }));
+            }
         }
+        data.modifiers.unshift(...baseModifiers);
 
-        if (typeof data.rank === "number") {
-            this.rank = data.rank;
-            baseModifiers.push(createProficiencyModifier({ actor, rank: data.rank, domains: data.domains ?? [] }));
-        } else if (data.rank === "untrained-level") {
-            this.rank = 0;
-            const domains = data.domains ?? [];
-            baseModifiers.push(createProficiencyModifier({ actor, rank: 0, domains, addLevel: true }));
-        }
+        super(actor, data);
+
+        this.ability = data.ability ?? null;
+        if (typeof data.lore === "boolean") this.lore = data.lore;
+        this.rank = data.rank === "untrained-level" ? 0 : data.rank ?? null;
+        this.options = options;
 
         // Check rank and data to assign proficient, but default to true
         this.proficient = data.proficient === undefined ? this.rank === null || this.rank > 0 : !!data.proficient;
 
-        this.modifiers = [baseModifiers, data.modifiers ?? []].flat();
-        this.check = new StatisticCheck(this, this.#data, this.options);
+        // Run the modifiers filter function if one is supplied
+        if (data.filter) {
+            this.modifiers = this.modifiers.filter(data.filter);
+        }
 
         // Add DC data with an additional domain if not already set
-        this.#data.dc ??= { domains: [`${this.slug}-dc`] };
-        this.dc = new StatisticDifficultyClass(this, this.#data, this.options);
+        this.data.dc ??= { domains: [`${this.slug}-dc`] };
+    }
 
-        // Add from synthetics, but only after check/dc are created so that modifiers aren't duplicated
-        if (data.domains) this.modifiers.push(...extractModifiers(this.actor.synthetics, data.domains));
+    get check(): StatisticCheck<this> {
+        return (this.#check ??= new StatisticCheck(this, this.data, this.options));
+    }
 
-        // Test the gathered modifiers if there are any domains
-        if (data.domains) {
-            const options = this.createRollOptions(data.domains, {});
-            this.modifiers = this.modifiers.map((mod) => mod.clone({ test: options }));
-        }
+    get dc(): StatisticDifficultyClass<this> {
+        return (this.#dc ??= new StatisticDifficultyClass(this, this.data, this.options));
     }
 
     /** Convenience getter to the statistic's total modifier */
@@ -149,25 +148,25 @@ class Statistic {
         return this.check.mod;
     }
 
-    createRollOptions(domains: string[], args: RollOptionParameters = {}): Set<string> {
+    override createRollOptions(domains = this.domains, args: RollOptionParameters = {}): Set<string> {
         const { item, extraRollOptions, origin, target } = args;
 
         const rollOptions: string[] = [];
-        if (domains && domains.length) {
-            rollOptions.push(...this.actor.getRollOptions(domains), ...this.actor.getSelfRollOptions());
+        if (domains.length > 0) {
+            rollOptions.push(...super.createRollOptions());
         }
 
         if (typeof this.rank === "number") {
             rollOptions.push(PROFICIENCY_RANK_OPTION[this.rank]);
         }
 
-        if (this.#data.rollOptions) {
-            rollOptions.push(...this.#data.rollOptions);
+        if (this.data.rollOptions) {
+            rollOptions.push(...this.data.rollOptions);
         }
 
         if (item) {
             rollOptions.push(...item.getRollOptions("item"));
-            if (item.actor && item.actor.id !== this.actor.id) {
+            if (item.actor && item.actor.uuid !== this.actor.uuid) {
                 rollOptions.push(...item.actor.getSelfRollOptions("origin"));
             }
 
@@ -194,32 +193,30 @@ class Statistic {
 
     withRollOptions(options?: RollOptionParameters): Statistic {
         const newOptions = mergeObject(this.options ?? {}, options ?? {}, { inplace: false });
-        return new Statistic(this.actor, deepClone(this.#data), newOptions);
+        return new Statistic(this.actor, deepClone(this.data), newOptions);
     }
 
     /**
      * Extend this statistic into a new cloned statistic with additional data.
      * Combines all domains and modifier lists.
      */
-    extend(
-        data: Omit<DeepPartial<StatisticData>, "check"> & { slug: string } & { check?: Partial<StatisticCheckData> }
-    ): Statistic {
+    extend(data: Omit<DeepPartial<StatisticData>, "check"> & { check?: Partial<StatisticCheckData> }): Statistic {
         function maybeMergeArrays<T>(arr1: Optional<T[]>, arr2: Optional<T[]>) {
             if (!arr1 && !arr2) return undefined;
             return [...new Set([arr1 ?? [], arr2 ?? []].flat())];
         }
 
-        const result = mergeObject(deepClone(this.#data), data);
-        result.domains = maybeMergeArrays(this.#data.domains, data.domains);
-        result.modifiers = maybeMergeArrays(this.#data.modifiers, data.modifiers);
-        result.rollOptions = maybeMergeArrays(this.#data.rollOptions, data.rollOptions);
-        if (result.check && this.#data.check) {
-            result.check.domains = maybeMergeArrays(this.#data.check.domains, data.check?.domains);
-            result.check.modifiers = maybeMergeArrays(this.#data.check.modifiers, data.check?.modifiers);
+        const result = mergeObject(deepClone(this.data), data);
+        result.domains = maybeMergeArrays(this.domains, data.domains);
+        result.modifiers = maybeMergeArrays(this.data.modifiers, data.modifiers);
+        result.rollOptions = maybeMergeArrays(this.data.rollOptions, data.rollOptions);
+        if (result.check && this.data.check) {
+            result.check.domains = maybeMergeArrays(this.data.check.domains, data.check?.domains);
+            result.check.modifiers = maybeMergeArrays(this.data.check.modifiers, data.check?.modifiers);
         }
-        if (result.dc && this.#data.dc) {
-            result.dc.domains = maybeMergeArrays(this.#data.dc.domains, data.dc?.domains);
-            result.dc.modifiers = maybeMergeArrays(this.#data.dc.modifiers, data.dc?.modifiers);
+        if (result.dc && this.data.dc) {
+            result.dc.domains = maybeMergeArrays(this.data.dc.domains, data.dc?.domains);
+            result.dc.modifiers = maybeMergeArrays(this.data.dc.modifiers, data.dc?.modifiers);
         }
         return new Statistic(this.actor, result, this.options);
     }
@@ -251,50 +248,70 @@ class Statistic {
         };
     }
 
-    /** Returns data intended to be merged back into actor data */
-    getTraceData(this: Statistic, options: { value?: "dc" | "mod" } = {}): StatisticTraceData {
+    /** Returns data intended to be merged back into actor data. By default the value is the DC */
+    getTraceData(options: { value?: "dc" | "mod"; rollable?: [string, string] } = {}): StatisticTraceData {
         const { check, dc } = this;
         const valueProp = options.value ?? "mod";
+        const [label, value, totalModifier, breakdown, modifiers] =
+            valueProp === "mod"
+                ? [this.label, check.mod, check.mod, check.breakdown, check.modifiers]
+                : [dc.label || this.label, dc.value, dc.value - 10, dc.breakdown, dc.modifiers];
 
-        return {
+        const trace: StatisticTraceData = {
             slug: this.slug,
-            label: this.label,
-            value: valueProp === "mod" ? check.mod : dc.value,
-            totalModifier: check.mod ?? 0,
+            label,
+            value,
+            totalModifier,
             dc: dc.value,
-            breakdown: check.breakdown ?? "",
-            _modifiers: check.modifiers.map((m) => m.toObject()),
+            breakdown,
+            modifiers: modifiers.map((m) => m.toObject()),
         };
+
+        const rollable = options.rollable;
+        if (rollable) {
+            trace.roll = (args: RollParameters = {}): Promise<unknown> => {
+                const deprecationLabel = `Rolling ${this.label} (${this.slug}) via actor system data is deprecated`;
+                foundry.utils.logCompatibilityWarning(deprecationLabel, {
+                    since: rollable[0],
+                    until: rollable[1],
+                });
+
+                return this.check.roll({
+                    extraRollOptions: args.options ? [...args.options] : [],
+                    ...options,
+                });
+            };
+        }
+
+        return trace;
     }
 }
 
-class StatisticCheck {
+class StatisticCheck<TParent extends Statistic = Statistic> {
+    parent: TParent;
     type: CheckType;
     label: string;
     domains: string[];
     mod: number;
     modifiers: ModifierPF2e[];
 
-    #stat: StatisticModifier;
-
-    constructor(private parent: Statistic, data: StatisticData, options?: RollOptionParameters) {
+    constructor(parent: TParent, data: StatisticData, options?: RollOptionParameters) {
+        this.parent = parent;
         this.type = data.check?.type ?? "check";
-        this.label = this.#calculateLabel(data);
+        this.label = this.#determineLabel(data);
         this.domains = (data.domains ?? []).concat(data.check?.domains ?? []);
 
         const rollOptions = parent.createRollOptions(this.domains, options);
         const allCheckModifiers = [
             parent.modifiers,
             data.check?.modifiers ?? [],
-            extractModifiers(parent.actor.synthetics, this.domains),
+            data.check?.domains ? extractModifiers(parent.actor.synthetics, data.check.domains) : [],
         ].flat();
         this.modifiers = allCheckModifiers.map((modifier) => modifier.clone({ test: rollOptions }));
-
-        this.#stat = new StatisticModifier(this.label, this.modifiers, rollOptions);
-        this.mod = this.#stat.totalModifier;
+        this.mod = new StatisticModifier(this.label, this.modifiers, rollOptions).totalModifier;
     }
 
-    #calculateLabel(data: StatisticData): string {
+    #determineLabel(data: StatisticData): string {
         const parentLabel = this.parent.label;
         if (data.check?.label) return game.i18n.localize(data.check?.label);
 
@@ -305,6 +322,8 @@ class StatisticCheck {
                 return game.i18n.format("PF2E.SavingThrowWithName", { saveName: parentLabel });
             case "spell-attack-roll":
                 return game.i18n.format("PF2E.SpellAttackWithTradition", { tradition: parentLabel });
+            case "perception-check":
+                return game.i18n.format("PF2E.PerceptionCheck");
             default:
                 return parentLabel;
         }
@@ -329,6 +348,7 @@ class StatisticCheck {
         })();
 
         const actor = this.parent.actor;
+        const token = args.token ?? actor.token;
         const item = args.item ?? null;
         const domains = this.domains;
 
@@ -426,6 +446,7 @@ class StatisticCheck {
         // Create parameters for the check roll function
         const context: CheckRollContext = {
             actor,
+            token,
             item,
             domains,
             target: rollContext?.target ?? null,
@@ -439,6 +460,7 @@ class StatisticCheck {
             substitutions: extractRollSubstitutions(actor.synthetics.rollSubstitutions, domains, options),
             dosAdjustments,
             traits,
+            title: args.title,
             createMessage: args.createMessage ?? true,
         };
 
@@ -448,7 +470,7 @@ class StatisticCheck {
         }
 
         const roll = await CheckPF2e.roll(
-            new CheckModifier(args.label || this.label, this.#stat, extraModifiers),
+            new CheckModifier(args.label || this.label, { modifiers: this.modifiers }, extraModifiers),
             context,
             null,
             args.callback
@@ -469,14 +491,15 @@ class StatisticCheck {
     }
 }
 
-class StatisticDifficultyClass {
+class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
+    parent: TParent;
     domains: string[];
-    value: number;
     label?: string;
     modifiers: ModifierPF2e[];
     options: Set<string>;
 
-    constructor(parent: Statistic, data: StatisticData, options: RollOptionParameters = {}) {
+    constructor(parent: TParent, data: StatisticData, options: RollOptionParameters = {}) {
+        this.parent = parent;
         this.domains = (data.domains ?? []).concat(data.dc?.domains ?? []);
         this.label = data.dc?.label;
         this.options = parent.createRollOptions(this.domains, options);
@@ -485,11 +508,13 @@ class StatisticDifficultyClass {
         const allDCModifiers = [
             parent.modifiers,
             data.dc?.modifiers ?? [],
-            extractModifiers(parent.actor.synthetics, this.domains),
+            data.dc?.domains ? extractModifiers(parent.actor.synthetics, data.dc.domains) : [],
         ].flat();
         this.modifiers = allDCModifiers.map((modifier) => modifier.clone({ test: this.options }));
+    }
 
-        this.value = (data.dc?.base ?? 10) + new StatisticModifier("", this.modifiers, this.options).totalModifier;
+    get value(): number {
+        return 10 + new StatisticModifier("", this.modifiers, this.options).totalModifier;
     }
 
     get breakdown(): string {
@@ -500,4 +525,46 @@ class StatisticDifficultyClass {
     }
 }
 
-export { Statistic, StatisticCheck, StatisticDifficultyClass, StatisticRollParameters };
+interface StatisticRollParameters {
+    /** What token to use for the roll itself. Defaults to the actor's token */
+    token?: TokenDocumentPF2e;
+    /** Which attack this is (for the purposes of multiple attack penalty) */
+    attackNumber?: number;
+    /** Optional target for the roll */
+    target?: ActorPF2e | null;
+    /** Optional origin for the roll: only one of target and origin may be provided */
+    origin?: ActorPF2e | null;
+    /** Optional DC data for the roll */
+    dc?: CheckDC | null;
+    /** Optional override for the check modifier label */
+    label?: string;
+    /** Optional override for the dialog's title. Defaults to label */
+    title?: string;
+    /** Any additional roll notes which should be used in the roll. */
+    extraRollNotes?: (RollNotePF2e | RollNoteSource)[];
+    /** Any additional options which should be used in the roll. */
+    extraRollOptions?: string[];
+    /** Additional modifiers */
+    modifiers?: ModifierPF2e[];
+    /** The originating item of this attack, if any */
+    item?: ItemPF2e<ActorPF2e> | null;
+    /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
+    rollMode?: RollMode | "roll";
+    /** Should the dialog be skipped */
+    skipDialog?: boolean;
+    /** Should this roll be rolled twice? If so, should it keep highest or lowest? */
+    rollTwice?: RollTwiceOption;
+    /** Any traits for the check */
+    traits?: (TraitViewData | string)[];
+    /** Whether to create a chat message using the roll (defaults true) */
+    createMessage?: boolean;
+    /** Callback called when the roll occurs. */
+    callback?: CheckRollCallback;
+}
+
+interface RollOptionParameters {
+    extraRollOptions?: string[];
+    item?: ItemPF2e | null;
+    origin?: ActorPF2e | null;
+    target?: ActorPF2e | null;
+}

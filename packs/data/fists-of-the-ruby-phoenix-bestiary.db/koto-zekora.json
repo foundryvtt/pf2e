@@ -5727,15 +5727,13 @@
             "name": "Darkvision",
             "sort": 5500000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -5766,15 +5764,13 @@
             "name": "Bloodline Magic",
             "sort": 5600000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>When Koto Zekora casts a bloodline spell, <em>@UUID[Compendium.pf2e.spells-srd.Dimension Door]{Dimension Door}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Disintegrate]{Disintegrate}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Haste]{Haste}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Magic Missile]{Magic Missile}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Prismatic Spray]{Prismatic Spray}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Prying Eye]{Prying Eye}</em>, or <em>@UUID[Compendium.pf2e.spells-srd.Maze]{Maze}</em>, she gains a +1 status bonus to skill checks for 1 round.<br />@UUID[Compendium.pf2e.bestiary-effects.Effect: Bloodline Magic]{Effect: Bloodline Magic}</p>"
                 },
@@ -5820,15 +5816,13 @@
             "name": "At-Will Spells",
             "sort": 5700000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
                 },
@@ -5859,15 +5853,13 @@
             "name": "+1 status to all saves vs. magic",
             "sort": 5800000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
@@ -5910,25 +5902,34 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 15 (deactivated by acid or fire)",
+            "name": "Regeneration 15 (Deactivated by Acid or Fire)",
             "sort": 5900000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "acid",
+                            "fire"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 15
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -5957,15 +5958,13 @@
             "name": "Attack of Opportunity",
             "sort": 6000000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
@@ -6001,15 +6000,13 @@
             "name": "Change Shape",
             "sort": 6100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Koto Zekora takes on the appearance of an ogre. This doesn't change her Speed or Strike attack and damage.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
                 },

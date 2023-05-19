@@ -1590,15 +1590,13 @@
             "name": "Darkvision",
             "sort": 1600000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -1634,15 +1632,13 @@
             "name": "At-Will Spells",
             "sort": 1700000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
                 },
@@ -1678,15 +1674,13 @@
             "name": "Constant Spells",
             "sort": 1800000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
@@ -1722,15 +1716,13 @@
             "name": "+1 Status to All Saves vs. Magic",
             "sort": 1900000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
@@ -1784,22 +1776,31 @@
             "name": "Regeneration 20 (Deactivated by Cold or Evil)",
             "sort": 2000000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "cold",
+                            "evil"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 20
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -1823,18 +1824,20 @@
             "name": "Self-Resurrection",
             "sort": 2100000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "deathNote": true,
                 "description": {
                     "value": "<p>When a phoenix dies, it collapses into a pile of smoldering ashes before returning to life fully healed [[/br 1d4 #Self-Resurrection]]{1d4 rounds} later, as if subject to a 7th-level <em>@UUID[Compendium.pf2e.spells-srd.Resurrect]{Resurrect}</em> ritual. Self-resurrection happens only if there are some remains to resurrect; for instance, a phoenix killed by a <em>@UUID[Compendium.pf2e.spells-srd.Disintegrate]{Disintegrate}</em> spell can't use this ability. A phoenix whose remains rest within an area devoted to an evil deity by <em>@UUID[Compendium.pf2e.spells-srd.Consecrate]{Consecrate}</em> can't self-resurrect until its remains are no longer in that area. A phoenix can self-resurrect only once per year.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "P1Y"
                 },
                 "requirements": {
                     "value": ""
@@ -1867,15 +1870,13 @@
             "name": "Shroud of Flame",
             "sort": 2200000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>[[/r 4d6[fire]]] damage @Check[type:reflex|dc:37|basic:true] save</p>\n<p>While this aura is active, any adjacent creature that hits the phoenix with a melee attack or otherwise touches it takes [[/r 2d6[fire]]] damage. The phoenix can activate or deactivate the aura with a single action, which has the concentrate trait.</p>"
                 },
@@ -1933,15 +1934,13 @@
             "name": "Flaming Strafe",
             "sort": 2300000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The phoenix blazes with superheated flame and Flies up to its Speed. It deals [[/r 6d6[fire]]] damage to each creature within @Template[type:emanation|distance:20]{20 feet} of each square it moves through (@Check[type:reflex|dc:37|basic:true] save).</p>"
                 },

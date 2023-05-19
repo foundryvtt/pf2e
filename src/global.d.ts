@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor/base.ts";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
-import { FeatCategoryOptions } from "@actor/character/feats.ts";
+import { FeatGroupOptions } from "@actor/character/feats.ts";
 import { CheckModifier, MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { ItemPF2e } from "@item/base.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
@@ -185,15 +185,17 @@ declare global {
         get(module: "pf2e", setting: "worldClock.worldCreatedOn"): string;
 
         get(module: "pf2e", setting: "campaignFeats"): boolean;
-        get(module: "pf2e", setting: "campaignFeatSections"): FeatCategoryOptions[];
+        get(module: "pf2e", setting: "campaignFeatSections"): FeatGroupOptions[];
 
         get(module: "pf2e", setting: "homebrew.weaponCategories"): HomebrewTag<"weaponCategories">[];
         get(module: "pf2e", setting: HomebrewTraitSettingsKey): HomebrewTag[];
         get(module: "pf2e", setting: "homebrew.damageTypes"): CustomDamageData[];
 
         get(module: "pf2e", setting: "compendiumBrowserPacks"): CompendiumBrowserSettings;
+        get(module: "pf2e", setting: "compendiumBrowserSources"): CompendiumBrowserSources;
         get(module: "pf2e", setting: "critFumbleButtons"): boolean;
         get(module: "pf2e", setting: "critRule"): "doubledamage" | "doubledice";
+        get(module: "pf2e", setting: "dataTools"): boolean;
         get(module: "pf2e", setting: "deathIcon"): ImageFilePath;
         get(module: "pf2e", setting: "drawCritFumble"): boolean;
         get(module: "pf2e", setting: "enabledRulesUI"): boolean;

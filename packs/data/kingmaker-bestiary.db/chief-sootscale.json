@@ -214,15 +214,13 @@
             "name": "Darkvision",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -253,15 +251,13 @@
             "name": "Bark Orders",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Chief Sootscale pushes other kobolds under his command to fight harder and more bravely. Until the start of his next turn, all kobold allies within 30 feet of him gain a +1 status bonus on attack rolls and saving throws against fear effects.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Bark Orders]{Effect: Bark Orders}</p>"
                 },
@@ -296,15 +292,13 @@
             "name": "Sneak Attack",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Chief Sootscale deals an extra 1d6 precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
@@ -367,15 +361,13 @@
             "name": "Unbalancing Blow",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Whenever Chief Sootscale critically hits and deals damage to a foe with a Strike, the creature struck is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} against his attacks until the end of his next turn.</p>"
                 },
@@ -388,8 +380,9 @@
                         "outcome": [
                             "criticalSuccess"
                         ],
-                        "selector": "attack",
-                        "text": "{item|system.description.value}"
+                        "selector": "strike-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}"
                     }
                 ],
                 "slug": null,

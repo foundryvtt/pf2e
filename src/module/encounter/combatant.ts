@@ -114,7 +114,7 @@ class CombatantPF2e<
         // Now that a user has been found, make the updates if there are any
         await this.update({ "flags.pf2e.roundOfLastTurn": encounter.round });
         if (Object.keys(actorUpdates).length > 0) {
-            await actor.update(actorUpdates, { render: false });
+            await actor.update(actorUpdates);
         }
 
         Hooks.callAll("pf2e.startTurn", this, encounter, game.user.id);
@@ -144,9 +144,11 @@ class CombatantPF2e<
     }
 
     /** Toggle the defeated status of this combatant, applying or removing the overlay icon on its token */
-    async toggleDefeated(): Promise<void> {
-        await this.update({ defeated: !this.defeated });
-        await this.token?.object?.toggleEffect(game.settings.get("pf2e", "deathIcon"), { overlay: true });
+    async toggleDefeated({ to = !this.isDefeated } = {}): Promise<void> {
+        if (to === this.isDefeated) return;
+
+        await this.update({ defeated: to });
+        await this.token?.object?.toggleEffect(game.settings.get("pf2e", "deathIcon"), { active: to, overlay: true });
 
         /** Remove this combatant's token as a target if it died */
         if (this.isDefeated && this.token?.object?.isTargeted) {

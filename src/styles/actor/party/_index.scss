@@ -107,12 +107,21 @@
         height: 100%;
     }
 
-    [data-tab="inventory"] {
-        @import "inventory";
-    }
-
-    [data-tab="overview"] {
-        @import "overview";
+    .item-list.directory-list {
+        @include effects-list;
+        @include p-reset;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        .item {
+            margin: 2px 0;
+            border: solid transparent;
+            border-width: 0 0 1px;
+            border-image: linear-gradient(90deg, #f1edea, #d5cac1) 1 repeat;
+            .item-summary {
+                margin-top: 8px;
+            }
+        }
     }
 
     .sidebar {
@@ -170,5 +179,18 @@
         display: flex;
         align-items: center;
     }
-}
 
+    [data-tab="inventory"] {
+        @import "inventory";
+    }
+
+    [data-tab="overview"] {
+        @import "overview";
+    }
+
+    [data-tab="orphaned"] {
+        .item-list {
+            margin: 16px;
+        }
+    }
+}

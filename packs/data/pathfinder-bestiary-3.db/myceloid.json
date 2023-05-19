@@ -55,15 +55,13 @@
             "name": "Darkvision",
             "sort": 200000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -99,15 +97,13 @@
             "name": "Scent (Imprecise) 30 feet",
             "sort": 300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
                 },
@@ -143,15 +139,13 @@
             "name": "Telepathy 100 feet (Myceloids and Those Afflicted by Purple Pox Only)",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
                 },
@@ -186,15 +180,13 @@
             "name": "Spore Pop",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "deathNote": true,
                 "description": {
                     "value": "<p>If a myceloid is reduced to 0 HP by a critical hit, it pops, forcing it to immediately Emit Spores, even if it has already used the ability that day.</p>"
@@ -226,15 +218,13 @@
             "name": "Emit Spores",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The myceloid expels spores in a @Template[type:burst|distance:10] centered on a corner of its own space. This cloud lasts until the start of the myceloid's next turn. Each creature that is in the cloud or enters it is exposed to purple pox.</p>"
                 },
@@ -265,15 +255,13 @@
             "name": "Purple Pox",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Myceloids are immune</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:20]</p>\n<hr />\n<p><strong>Onset</strong> 1 minute</p>\n<p><strong>Stage 1</strong> [[/r 2d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1} (1 day)</p>\n<p><strong>Stage 2</strong> [[/r 6d6[poison]]] damage, @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 3}, and the creature is compelled to seek out the nearest myceloid colony-this compulsion is a mental emotion effect (1 day)</p>\n<p><strong>Stage 3</strong> The creature dies. Over 24 hours, its corpse becomes bloated and bursts, releasing a new, fully grown myceloid.</p>"
                 },
@@ -306,15 +294,13 @@
             "name": "Spore Domination",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The myceloid targets one creature affected by purple pox within 60 feet. That creature must attempt a @Check[type:will|dc:22] save.</p>\n<p>It is then temporarily immune to spore domination for 10 minutes.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> Until the end of its next turn, the target is @UUID[Compendium.pf2e.conditionitems.Helpful]{Helpful} to myceloids and can't take hostile actions against them.</p>\n<p><strong>Failure</strong> As success, but for 1 minute.</p>\n<p><strong>Critical Failure</strong> As success, but until the purple pox is cured.</p>"
                 },

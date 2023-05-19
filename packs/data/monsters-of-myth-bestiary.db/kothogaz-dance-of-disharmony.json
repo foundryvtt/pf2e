@@ -160,15 +160,13 @@
             "name": "Darkvision",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -204,15 +202,13 @@
             "name": "Scent (Imprecise) 120 feet",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
                 },
@@ -248,22 +244,28 @@
             "name": "Regeneration 30",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 30
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -292,15 +294,13 @@
             "name": "Attack of Opportunity",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
@@ -336,15 +336,13 @@
             "name": "Frightful Presence",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:300]{300 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura} @Check[type:will|dc:41]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
@@ -392,15 +390,13 @@
             "name": "Horrific Speed",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>Kothogaz is permanently @UUID[Compendium.pf2e.conditionitems.Quickened]{Quickened 1}. It can use this extra action to Stride or Strike.</p>"
                 },
@@ -428,15 +424,13 @@
             "name": "Noxious Aura",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:120] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature that enters or begins its turn in the emanation must succeed at a @Check[type:fortitude|dc:41] save or be @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} (sickened 3 on a critical failure).</p>"
                 },
@@ -477,15 +471,13 @@
             "name": "Reactive",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>Kothogaz gains 3 reactions each round.</p>"
                 },
@@ -513,15 +505,13 @@
             "name": "Tympanic Heartbeat",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:120] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Kothogaz's heartbeat booms like a deity's drum. A creature that enters or begins its turn in the emanation must attempt a @Check[type:will|dc:41] save. On a failure, its next two actions must be move actions to move at least half its Speed away from Kothogaz. A creature that critically succeeds is temporarily immune to tympanic heartbeat for 1 minute.</p>"
                 },
@@ -562,15 +552,13 @@
             "name": "Disharmonic Door",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Kothogaz disappears, then bursts as a cacophonous sound from the throat of a creature within 240 feet. Kothogaz appears within reach of the creature and makes a melee Strike against it. The Strike deals an additional [[/r 2d12[sonic]]] damage.</p>"
                 },
@@ -618,15 +606,13 @@
             "name": "Many-Eyed Blight",
             "sort": 1400000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>@Check[type:fortitude|dc:44]</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 2}</p>\n<p><strong>Stage 2</strong> stupefied 2 and @UUID[Compendium.pf2e.conditionitems.Dazzled]{Dazzled}</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 3}, @UUID[Compendium.pf2e.conditionitems.Confused]{Confused}, and @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded}</p>\n<p><strong>Stage 4</strong> if you die, at the next new moon, your body splits, and your viscera become an undead under Kothogaz's control.</p>"
                 },
@@ -657,15 +643,13 @@
             "name": "Pox the Land",
             "sort": 1500000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Kothogaz raises a pustule from the ground within 120 feet, which erupts in a @Template[type:burst|distance:10]{10-foot radius}, 200-foot-high cylinder of cloying filth. Creatures in the area must succeed at a @Check[type:reflex|dc:44|basic:true] save or take [[/r 6d10[poison]]] damage. On a failure, they can't fly for 1 round (1 minute on a critical failure); flying creatures fall safely to the ground.</p>"
                 },
@@ -696,15 +680,13 @@
             "name": "Suppurating Passage",
             "sort": 1600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The earth festers in Kothogaz's wake. Kothogaz Strides up to its Speed. Squares through which Kothogaz passes are greater difficult terrain until the start of its next turn, and any creature that enters or begins its turn in those squares must succeed at a @Check[type:reflex|dc:44] save or take [[/r {4d10[poison],4d10[acid]}]]{4d10 poison damage and 4d10 acid damage} (on a critical failure, double damage and exposed to many-eyed blight).</p>"
                 },
@@ -737,15 +719,13 @@
             "name": "Swallow Whole",
             "sort": 1700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Huge, [[/r {(4d10+18)[bludgeoning],2d12[sonic]}]]{4d10+18 bludgeoning plus 2d12 sonic} and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} while swallowed, Rupture 40</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
@@ -783,15 +763,13 @@
             "name": "Improved Grab",
             "sort": 1800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
                 },

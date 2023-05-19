@@ -659,15 +659,13 @@
             "name": "Evasion",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>When Hegremon rolls a success on a Reflex save, he gets a critical success instead.</p>"
                 },
@@ -710,15 +708,13 @@
             "name": "Aimed Shot",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Hegremon makes a single <i>mammoth bow</i> Strike against his prey; he gains a +2 circumstance bonus to the attack roll and ignores his prey's @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} condition.</p>"
                 },
@@ -748,17 +744,15 @@
             "name": "Chill Breath",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>(cold, evocation, primal) Hegremon breathes out a @Template[type:cone|distance:15] of freezing moisture that quickly condenses into ice, dealing [[/r 6d6[cold]]] damage. Each creature in the cone must attempt a @Check[type:reflex|dc:28|basic:true]. A creature that fails its save is also @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} and takes 2d6 cold damage at the end of each of its turns until it breaks free (Escape DC 28). Hegremon can't use Chill Breath again for [[/r 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>(cold, evocation, primal) Hegremon breathes out a @Template[type:cone|distance:15] of freezing moisture that quickly condenses into ice, dealing [[/r 6d6[cold]]] damage. Each creature in the cone must attempt a @Check[type:reflex|dc:28|basic:true]. A creature that fails its save is also @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} and takes 2d6 cold damage at the end of each of its turns until it breaks free (Escape DC 28). Hegremon can't use Chill Breath again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -784,15 +778,13 @@
             "name": "Hunt Prey",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Hegremon designates a single creature he can see and hear, or one he's Tracking, as his prey. Hegremon has a +2 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Seek]{Seek} his prey and a +2 circumstance bonus to Survival checks to @UUID[Compendium.pf2e.actionspf2e.Track]{Track} his prey. He ignores the penalty to ranged attacks within his second range increment against his prey. The first time Hegremon hits his prey in a round, he inflicts an additional 2d8 precision damage. These effects last until Hegremon uses Hunt Prey again.</p>"
                 },
@@ -877,15 +869,13 @@
             "name": "Hunting Shot",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> Hegremon makes two <i>mammoth bow</i> Strikes against his prey. If both hit, combine their damage for the purposes of resistances and weaknesses. His multiple attack penalty applies to each Strike normally.</p>"
                 },
@@ -913,15 +903,13 @@
             "name": "Ice Stride",
             "sort": 1400000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Hegremon isn't impeded by difficult terrain caused by snow or ice, nor does he need to attempt Acrobatics checks to keep from falling on slippery ice.</p>"
                 },
@@ -949,15 +937,13 @@
             "name": "Nature's Edge",
             "sort": 1500000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Creatures in natural difficult terrain or on natural uneven ground are @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to Hegremon.</p>"
                 },
@@ -985,15 +971,13 @@
             "name": "Penetrating Shot",
             "sort": 1600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Hegremon chooses a target that's giving lesser cover to his prey and makes a <i>mammoth bow</i> Strike against the chosen target and his prey. This attack ignores lesser cover the chosen target provides his prey. Hegremon rolls damage twice and applies it to each creature he hits. A Penetrating Shot counts as two attacks for his multiple attack penalty.</p>"
                 },
@@ -1168,15 +1152,25 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Snow",
+                        "predicate": [
+                            "terrain:snow"
+                        ],
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
-                    "value": "Pathfinder #177: Burning Tundra"
+                    "value": ""
                 },
                 "variants": {
                     "0": {
                         "label": "+29 in snow",
-                        "options": "trait:environment:snow"
+                        "options": "terrain:snow"
                     }
                 }
             },

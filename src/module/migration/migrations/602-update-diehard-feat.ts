@@ -1,6 +1,6 @@
-import { MigrationBase } from "../base.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { FeatPF2e } from "@item";
+import { MigrationBase } from "../base.ts";
 
 export class Migration602UpdateDiehardFeat extends MigrationBase {
     static override version = 0.602;

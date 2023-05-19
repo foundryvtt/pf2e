@@ -600,15 +600,13 @@
             "name": "Darkvision",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -639,15 +637,13 @@
             "name": "Planar Acclimation",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>The thrasfyr always treats the plane it is located on as its home plane.</p>"
                 },
@@ -683,15 +679,13 @@
             "name": "Constant Spells",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
@@ -722,15 +716,13 @@
             "name": "+1 Status to All Saves vs. Magic",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
@@ -781,25 +773,34 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 25 (deactivated by acid or cold)",
+            "name": "Regeneration 25 (Deactivated by Acid or Cold)",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "acid",
+                            "cold"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 25
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -823,15 +824,13 @@
             "name": "Breath Weapon",
             "sort": 1400000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The thrasfyr's serpent tail breathes a blast of flame in a @Template[type:cone|distance:50], dealing [[/r 10d12[fire]]] damage (@Check[type:reflex|dc:40|basic:true] save).</p>\n<p>It can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
@@ -862,15 +861,13 @@
             "name": "Rider's Bond",
             "sort": 1500000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The thrasfyr designates one creature as its rider by touching the rider with its claw. The thrasfyr and rider can communicate with each other telepathically at any range on the same plane and are aware of each other's present state, direction from each other, distance from each other, and any conditions affecting either.</p>"
                 },
@@ -905,15 +902,13 @@
             "name": "Tangling Chains",
             "sort": 1600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The thrasfyr thrashes its chains in all directions. Each creature in a @Template[type:emanation|distance:15] takes [[/r 18d6[bludgeoning]]] damage (@Check[type:reflex|dc:38|basic:true] save); creatures that fail are @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} until the start of the thrasfyr's next turn.</p>\n<p>The thrasfyr can't use Tangling Chains or make chain Strikes for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
@@ -948,15 +943,13 @@
             "name": "Whirling Frenzy",
             "sort": 1700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The thrasfyr makes a jaws Strike, a horn Strike, and two claw Strikes, each against a different target. Each attack counts toward the thrasfyr's multiple attack penalty, but the penalty doesn't increase until after all the attacks.</p>"
                 },
@@ -992,15 +985,13 @@
             "name": "Improved Knockdown",
             "sort": 1800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedKnockdown]</p>"
                 },

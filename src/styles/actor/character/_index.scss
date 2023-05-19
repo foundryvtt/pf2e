@@ -87,6 +87,45 @@ nav.sheet-navigation {
         }
     }
 
+    // general item-image properties
+    .item-image {
+        display: flex;
+        cursor: pointer;
+        position: relative;
+        font-size: var(--font-size-16);
+        height: 24px;
+        width: 24px;
+
+        img {
+            border: none;
+        }
+
+        i {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            color: black;
+        }
+
+        &:hover {
+            i {
+                background: #f1eee9;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+
+    // character specific item-image properties
+    .item-image.framed {
+        background-color: var(--tertiary);
+        &, i {
+            @include frame-icon;
+        }
+    }
+
     .tab {
         flex-direction: column;
 

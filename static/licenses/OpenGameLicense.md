@@ -212,6 +212,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Quest #11: A Parchment Tree © 2020, Paizo Inc.; Author: Carlos Cabrera.
     * Pathfinder Society Quest #12: Putrid Seeds © 2020, Paizo Inc.; Author: Cass Reyfield and James Case.
     * Pathfinder Society Quest #13: Falcons' Descent © 2020, Paizo Inc.; Author: Joshua Hennington.
+	* Pathfinder Society Quest #14: The Swordlord's Challenge © 2023, Paizo Inc.; Author: Tineke Bolleman.
 
     * Pathfinder Society Bounty #1: The Whitefang Wyrm © 2020, Paizo Inc.; Author: Michael Sayre
     * Pathfinder Society Bounty #2: Blood of the Beautiful © 2020, Paizo Inc.; Author: Thurston Hillman

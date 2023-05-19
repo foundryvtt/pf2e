@@ -36,6 +36,47 @@ $header-height: 89px;   /* Adjust height of the header */
     @import "item-summary";
     @import "inventory";
 
+    .item-image {
+        display: flex;
+        cursor: pointer;
+        position: relative;
+        font-size: var(--font-size-16);
+        height: 24px;
+        width: 24px;
+
+        &.framed {
+            background-color: var(--tertiary);
+            img {
+                border-radius: 2px;
+            }
+            &, i {
+                @include frame-icon;
+            }
+        }
+
+        img {
+            border: none;
+        }
+
+        i {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            color: black;
+            box-shadow: inset 0 0 4px rgba(black, 0.5);
+        }
+
+        &:hover {
+            i {
+                background: #f1eee9;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+
     .alignment-select {
         background-color: #566193;
         border: 2px solid #d8c384;

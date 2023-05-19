@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { ClassDCData } from "@actor/character/data/types.ts";
+import { ClassDCData } from "@actor/character/data.ts";
 import { SpellcastingEntryPF2e } from "@item";
 import { SpellcastingEntrySource, SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data.ts";
 import { omit, pick } from "@util/misc.ts";

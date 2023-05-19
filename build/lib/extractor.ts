@@ -673,6 +673,7 @@ class PackExtractor {
         return this.#sortItemsWithOverrides(docName, actions, overrides);
     }
 
+    /** Sorts actions by category, only called for NPCs */
     #sortActions(docName: string, actions: Set<ItemSourcePF2e>): ItemSourcePF2e[] {
         const notActions: [string, string][] = [
             ["Innate Spells", "spellcastingEntry"],
@@ -695,15 +696,13 @@ class PackExtractor {
                     `Error in ${docName}: ${notActionMatch[0]} has type action but should be type ${notActionMatch[1]}!`
                 );
             }
-            if (!actionData.system.actionCategory?.value) {
+            if (!actionData.system.category) {
                 if (this.emitWarnings) {
-                    console.log(
-                        `Warning in ${docName}: Action item '${actionData.name}' has no actionCategory defined!`
-                    );
+                    console.log(`Warning in ${docName}: Action item '${actionData.name}' has no category defined!`);
                 }
                 actionsMap.get("other")!.push(actionData);
             } else {
-                let actionCategory = actionData.system.actionCategory.value;
+                let actionCategory: string = actionData.system.category;
                 if (!actionsMap.has(actionCategory)) {
                     actionCategory = "other";
                 }

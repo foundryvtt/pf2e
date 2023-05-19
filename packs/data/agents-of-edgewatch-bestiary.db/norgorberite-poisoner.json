@@ -726,15 +726,13 @@
             "name": "Deny Advantage",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>The poisoner isn't flat-footed to creatures of 11th level or lower that are hidden, undetected, flanking, or using surprise attack.</p>"
                 },
@@ -772,15 +770,13 @@
             "name": "Nimble Dodge",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> The poisoner is targeted with a melee or ranged attack by an attacker it can see</p>\n<hr />\n<p><strong>Effect</strong> The poisoner gains a +2 circumstance bonus to AC against the triggering attack.</p>"
                 },
@@ -811,15 +807,13 @@
             "name": "Impromptu Toxin",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Cost</strong> 1 batch of infused reagents</p>\n<hr />\n<p><strong>Effect</strong> The poisoner dribbles a few experimental chemicals over a melee weapon. Until the start of their next turn, Strikes with the weapon deal an additional [[/r 2d8[poison]]] damage, and targets hit by Strikes with the weapon must succeed at a @Check[type:fortitude|dc:27|traits:damaging-effect] save or become enfeebled 1 or clumsy 1 (the poisoner's choice) for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
@@ -859,15 +853,13 @@
             "name": "Sneak Attack",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The poisoner deals an additional 3d6 precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
@@ -930,22 +922,30 @@
             "name": "Unbalancing Blow",
             "sort": 1400000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>Creatures the poisoner hits with a critical hit are flat-footed against their attacks until the end of their next turn.</p>"
+                    "value": "<p>Creatures the poisoner hits with a critical hit are @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} against their attacks until the end of their next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "strike-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

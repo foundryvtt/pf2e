@@ -1207,15 +1207,13 @@
             "name": "Form Up",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.FormUp]</p>"
                 },
@@ -1251,15 +1249,13 @@
             "name": "Troop Defenses",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.TroopDefenses]</p>"
                 },
@@ -1290,15 +1286,13 @@
             "name": "Frenetic Assault",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><span class=\"pf2-icon\">1</span> to <span class=\"pf2-icon\">3</span> actions</p>\n<strong>Frequency</strong> once per round\n<hr />\n<p><strong>Effect</strong> The members of the brigade wildly swing their weapons-primarily spears-in a frenzied attack at each enemy adjacent to the troop (@Check[type:reflex|dc:29|basic:true] save). The damage depends on the number of actions.</p>\n<p><span class=\"pf2-icon\">1</span> [[/r (1d12+1)[piercing]]] damage</p>\n<p><span class=\"pf2-icon\">2</span> [[/r (2d12+11)[piercing]]] damage</p>\n<p><span class=\"pf2-icon\">3</span> [[/r (3d12+11)[piercing]]] damage</p>"
                 },
@@ -1326,15 +1320,13 @@
             "name": "Troop Movement",
             "sort": 1400000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Whenever the troop Strides, they first Form Up as a free action to condense into a 20-foot-by-20-foot area (minus any missing squares), then move up to their Speed. This works just like a Gargantuan creature moving; for instance, if any square of the troop enters difficult terrain, the extra movement cost applies to the whole troop.</p>"
                 },
@@ -1362,15 +1354,13 @@
             "name": "Troop Spellcasting",
             "sort": 1500000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>When the sun warrior brigade Casts a Spell, its constituent members combine their efforts into casting a more powerful version of the spell than any one member could achieve alone. When Casting a Spell that has an area of a burst, cone, or line and doesn't have a duration, increase the area of that spell. Add 5 feet to the radius of a burst that normally has a radius of at least 10 feet (a burst with a smaller radius is not affected). Add 5 feet to the length of a cone or line that is normally 15 feet long or smaller, and add 10 feet to the length of a larger cone or line.</p>"
                 },
@@ -1398,15 +1388,13 @@
             "name": "Walkena's Radiance",
             "sort": 1600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The brigade calls upon Walkena to burn and blind their foes. The sun warriors present their religious symbols and create a white-hot flash of light in a @Template[type:cone|distance:45]. Creatures in the cone take [[/r 10d8[fire]]] damage (@Check[type:fortitude|dc:29|basic:true] save). Creatures that fail their save become @UUID[Compendium.pf2e.conditionitems.Dazzled]{Dazzled} for 1 round. Creatures that critically fail become @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded} for 1 round instead. When the troop is reduced to 8 or fewer squares, this area decreases to a @Template[type:cone|distance:20].</p>"
                 },
@@ -1504,9 +1492,6 @@
         }
     ],
     "name": "Sun Warrior Brigade",
-    "prototypeToken": {
-        "name": "Sun Warrior Brigades"
-    },
     "system": {
         "abilities": {
             "cha": {

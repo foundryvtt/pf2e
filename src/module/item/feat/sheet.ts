@@ -1,6 +1,8 @@
 import { FeatPF2e } from "@item/feat/document.ts";
 import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/sheet/index.ts";
+import { htmlQuery, tagify } from "@util";
 import Tagify from "@yaireo/tagify";
+import { featCanHaveKeyOptions } from "./helpers.ts";
 
 class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
     override get validTraits(): Record<string, string> {
@@ -25,6 +27,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             isFeat: this.item.isFeat,
             mandatoryTakeOnce: hasLineageTrait || sheetData.data.onlyLevel1,
             hasLineageTrait,
+            canHaveKeyOptions: featCanHaveKeyOptions(this.item),
         };
     }
 
@@ -32,27 +35,39 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
         super.activateListeners($html);
         const html = $html[0];
 
-        const prerequisites = html.querySelector<HTMLInputElement>('input[name="system.prerequisites.value"]');
+        const prerequisites = htmlQuery<HTMLInputElement>(html, 'input[name="system.prerequisites.value"]');
         if (prerequisites) {
             new Tagify(prerequisites, {
                 editTags: 1,
             });
         }
 
-        html.querySelector<HTMLAnchorElement>("a[data-action=frequency-add]")?.addEventListener("click", () => {
+        htmlQuery(html, "a[data-action=frequency-add]")?.addEventListener("click", () => {
             const per = CONFIG.PF2E.frequencies.day;
             this.item.update({ system: { frequency: { max: 1, per } } });
         });
 
-        html.querySelector("a[data-action=frequency-delete]")?.addEventListener("click", () => {
+        htmlQuery(html, "a[data-action=frequency-delete]")?.addEventListener("click", () => {
             this.item.update({ "system.-=frequency": null });
         });
+
+        const keyOptionsInput = htmlQuery<HTMLInputElement>(html, 'input[name="system.subfeatures.keyOptions"]');
+        tagify(keyOptionsInput, { whitelist: CONFIG.PF2E.abilities, maxTags: 3 });
     }
 
     protected override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // This will be here until we migrate feat prerequisites to be a list of strings
         if (Array.isArray(formData["system.prerequisites.value"])) {
             formData["system.prerequisites.value"] = formData["system.prerequisites.value"].map((value) => ({ value }));
+        }
+
+        // Keep feat data tidy
+        const keyOptionsKey = "system.subfeatures.keyOptions";
+        const hasEmptyKeyOptions = Array.isArray(formData[keyOptionsKey]) && formData[keyOptionsKey].length === 0;
+        const hasNoKeyOptions = !(keyOptionsKey in formData);
+        if (hasEmptyKeyOptions || hasNoKeyOptions) {
+            delete formData["system.subfeatures.keyOptions"];
+            formData["system.subfeatures.-=keyOptions"] = null;
         }
 
         return super._updateObject(event, formData);
@@ -69,6 +84,7 @@ interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     isFeat: boolean;
     mandatoryTakeOnce: boolean;
     hasLineageTrait: boolean;
+    canHaveKeyOptions: boolean;
 }
 
 export { FeatSheetPF2e };

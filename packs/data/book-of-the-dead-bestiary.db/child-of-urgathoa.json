@@ -664,15 +664,13 @@
             "name": "Darkvision",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -708,15 +706,13 @@
             "name": "Negative Healing",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
@@ -754,15 +750,13 @@
             "name": "Share Blessings",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "deathNote": true,
                 "description": {
                     "value": "<p>When the child of Urgathoa is destroyed, they explode in a blast of infectious rot. All creatures in a @Template[type:emanation|distance:10] are exposed to pallid plague.</p>"
@@ -796,15 +790,13 @@
             "name": "Pallid Plague",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:26]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier (3 days)</p>\n<p><strong>Stage 2</strong> [[/r 3d8[negative]]] damage and @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed 1} (1 day)</p>\n<p><strong>Stage 3</strong> [[/r 3d8[negative]]] damage, doomed 1, and @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} (1 day)</p>\n<p><strong>Stage 4</strong> [[/r 4d8[negative]]] damage, @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed 2}, and drained 1 (1 day)</p>\n<p><strong>Stage 5</strong> [[/r 4d8[negative]]] damage, @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed 3}, and @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2} (1 day)</p>\n<p><strong>Stage 6</strong> dead. A creature that dies while infected with pallid plague rises as a @UUID[Compendium.pf2e.book-of-the-dead-bestiary.Zombie Lord]{Zombie Lord}.</p>"
                 },
@@ -837,15 +829,13 @@
             "name": "Reap",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The child of Urgathoa makes a scything blade Strike and compares the attack roll result to the AC of up to two foes, each of whom must be within their melee reach. Roll damage only once and apply it to each creature hit. Reap counts as two attacks for the child of Urgathoa's multiple attack penalty.</p>"
                 },
@@ -873,15 +863,13 @@
             "name": "Wake the Dead",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per minute</p>\n<p><strong>Requirements</strong> The child of Urgathoa is adjacent to a creature that died within the last minute</p>\n<hr />\n<p><strong>Effect</strong> The child of Urgathoa animates the dead with a touch of their hand. The creature must succeed at a @Check[type:will|dc:26] save or arise as a @UUID[Compendium.pf2e.book-of-the-dead-bestiary.Zombie Lord]{Zombie Lord}. These zombies are controlled by the child of Urgathoa. A child of Urgathoa can control no more than four zombie lords at a time. If a child of Urgathoa has raised zombie lords before an encounter begins, they count toward the encounter's XP budget normally.</p>"
                 },
@@ -1023,9 +1011,6 @@
         }
     ],
     "name": "Child of Urgathoa",
-    "prototypeToken": {
-        "name": "Child Of Urgathoa"
-    },
     "system": {
         "abilities": {
             "cha": {

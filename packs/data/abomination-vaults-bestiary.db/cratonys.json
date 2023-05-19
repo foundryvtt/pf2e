@@ -66,15 +66,13 @@
             "name": "Greater Darkvision",
             "sort": 200000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
                 },
@@ -105,15 +103,13 @@
             "name": "Painsight",
             "sort": 300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>A velstrac automatically knows whether a creature it sees has any of the @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed}, @UUID[Compendium.pf2e.conditionitems.Dying]{Dying}, and @UUID[Compendium.pf2e.conditionitems.Wounded]{Wounded} conditions, as well as the value of those conditions</p>"
                 },
@@ -152,15 +148,13 @@
             "name": "+1 Status to All Saves vs. Magic",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
@@ -214,22 +208,31 @@
             "name": "Regeneration 10 (Deactivated by Good or Silver)",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "good",
+                            "silver"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 10
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -258,15 +261,13 @@
             "name": "Attack of Opportunity",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
@@ -297,15 +298,13 @@
             "name": "Unnerving Gaze",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>When a creature ends its turn in the aura, it sees the face of a departed loved one in place of the evangelist's face. The creature must succeed at a @Check[type:will|dc:21] save or become @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2} (@UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 3} on a critical failure).</p>"
                 },
@@ -357,15 +356,13 @@
             "name": "Animate Chains",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Chains in the evangelist's vicinity sprout barbs and writhe menacingly. The evangelist can make chain Strikes against any creature that is adjacent to an unattended chain within 20 feet, in addition to those within the reach of the evangelist's chain Strike.</p>"
                 },
@@ -399,15 +396,13 @@
             "name": "Focus Gaze",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The evangelist stares at a creature they can see within 30 feet. The target must immediately attempt a @Check[type:will|dc:21] save against Unnerving gaze. In addition, if the creature was already @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened}, on a failed save, the evangelist is @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} from the creature for as long as the creature remains frightened.</p>\n<p>After attempting this save, the creature is then temporarily immune until the start of the evangelist's next turn.</p>"
                 },
@@ -445,15 +440,13 @@
             "name": "Impaling Chain",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>When the evangelist critically hits with a chain Strike, the target is impaled and anchored in place, becoming @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} by the chain. The creature is unable to recover from @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} damage until it gets free (Escape DC 25).</p>"
                 },
@@ -484,15 +477,13 @@
             "name": "Rusty Chains",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>When Cratonys damages a creature with her chains, including persistent bleed damage from being impaled by a chain, the creature must succeed at a @Check[type:fortitude|dc:21|traits:disease,virulent] saving throw or contract a severe form of tetanus called velstrac tetanus.</p>\n<hr /><p>Velstracs sometimes intentionally infect their chains with dangerous diseases, such as this aggressive form of tetanus. Tetanus can produce stiffness, muscle spasms strong enough to break bones, and ultimately death.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:21|traits:disease,virulent]</p>\n<hr />\n<p><strong>Onset</strong> [[/br 1d4 #Velstrac Tetanus Onset]]{1d4 days}</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} (1 week)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2} and can't speak (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Paralyzed]{Paralyzed} (1 day)</p>\n<p><strong>Stage 4</strong> death</p>"
                 },

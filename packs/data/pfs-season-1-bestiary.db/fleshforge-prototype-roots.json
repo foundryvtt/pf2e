@@ -88,22 +88,34 @@
             "name": "Roots",
             "sort": 300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "interaction",
                 "description": {
-                    "value": "<p>The fleshforge prototype roots into the surface it is standing on. It gains @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Fast Healing]{Fast Healing 5} until it leaves that space.</p>"
+                    "value": "<p>The fleshforge prototype roots into the surface it is standing on. It gains fast healing 5 until it leaves that space.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FastHealing",
+                        "predicate": [
+                            "roots"
+                        ],
+                        "value": 5
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "roots",
+                        "toggleable": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

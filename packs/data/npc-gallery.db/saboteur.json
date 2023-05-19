@@ -789,15 +789,13 @@
             "name": "Snare Crafting",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>The saboteur can @UUID[Compendium.pf2e.actionspf2e.Craft]{Craft} snares and has the supplies to make up to two @UUID[Compendium.pf2e.equipment-srd.Caltrop Snare]{Caltrop Snares} and up to two @UUID[Compendium.pf2e.equipment-srd.Hampering Snare]{Hampering Snares}.</p>"
                 },
@@ -833,15 +831,13 @@
             "name": "+2 Status to Reflex Saves vs. Traps",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
@@ -887,15 +883,13 @@
             "name": "+2 Status to Perception to Find Traps",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
@@ -947,15 +941,13 @@
             "name": "Sneak Attack",
             "sort": 1400000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The saboteur deals an extra 1d6 precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
@@ -1076,10 +1068,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "To Craft Snares",
+                        "label": "PF2E.SkillVariant.CraftSnare",
                         "predicate": [
-                            "action:craft",
-                            "snare"
+                            "action:craft:snare"
                         ],
                         "selector": "crafting",
                         "value": 2
@@ -1092,7 +1083,7 @@
                 "variants": {
                     "0": {
                         "label": "+8 to Craft snares",
-                        "options": "action:craft,snare"
+                        "options": "action:craft:snare"
                     }
                 }
             },

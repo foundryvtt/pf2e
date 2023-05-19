@@ -840,15 +840,13 @@
             "name": "Darkvision",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -884,15 +882,13 @@
             "name": "Tremorsense (Imprecise) 60 feet",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
                 },
@@ -923,15 +919,13 @@
             "name": "Imposing Mien",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>Temteki can use Intimidation to Coerce or Demoralize up to four targets instead of one, rolling separate Intimidation checks against the Will DCs of each target. In addition, since Temteki Demoralizes using its appearance alone, it doesn't take a penalty to Intimidation checks to Demoralize for not speaking a language.</p>"
                 },
@@ -959,15 +953,13 @@
             "name": "Interposing Earth",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> Temteki is targeted with a melee or ranged attack from an attacker it can see</p>\n<hr />\n<p><strong>Effect</strong> Temteki raises earth to block, gaining a +2 circumstance bonus to AC against the triggering attack.</p>"
                 },
@@ -1011,15 +1003,13 @@
             "name": "Earth Glide",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Temteki can Burrow through any earthen matter, including rock. When it does so, it moves at its full burrow Speed, leaving no tunnel or sign of its passing.</p>"
                 },
@@ -1047,15 +1037,13 @@
             "name": "Earthen Cypress",
             "sort": 1400000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> Temteki is standing on the ground</p><hr /><p><strong>Effect</strong> Temteki draws up the earth around itself into the shape of a cypress tree. While in this stance, Temteki's reach for spike Strikes increases to 15 feet, but Temteki can't move except to Burrow into the ground using Earth Glide. Doing so causes Temteki to leave this stance and creates a heap of earth in the square Temteki left, making the square difficult terrain.</p>"
                 },
@@ -1085,15 +1073,13 @@
             "name": "Toolbreaker",
             "sort": 1500000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Temteki can only target worked or crafted items with <em>@UUID[Compendium.pf2e.spells-srd.Shatter]{Shatter}</em>, not natural objects.</p>"
                 },
@@ -1126,15 +1112,13 @@
             "name": "Push",
             "sort": 1600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Push]</p>"
                 },
@@ -1178,12 +1162,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "variants": {
-                    "0": {
-                        "label": "+15 in forests",
-                        "options": "terrain:forest"
-                    }
                 }
             },
             "type": "lore"
@@ -1249,10 +1227,26 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Forests",
+                        "predicate": [
+                            "terrain:forest"
+                        ],
+                        "selector": "stealth",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
+                },
+                "variants": {
+                    "0": {
+                        "label": "+15 in forests",
+                        "options": "terrain:forest"
+                    }
                 }
             },
             "type": "lore"

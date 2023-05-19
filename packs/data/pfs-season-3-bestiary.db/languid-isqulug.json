@@ -1003,15 +1003,13 @@
             "name": "Greater Darkvision",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
                 },
@@ -1042,15 +1040,13 @@
             "name": "Host Scent 30 feet",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>An isqulug can precisely sense any creature infected with isqulugia within 30 feet, and knows the current stage of the disease.</p>"
                 },
@@ -1086,15 +1082,13 @@
             "name": "All-Around Vision",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AllAroundVision]</p>"
                 },
@@ -1137,15 +1131,13 @@
             "name": "At-Will Spells",
             "sort": 1400000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
                 },
@@ -1181,15 +1173,13 @@
             "name": "Constant Spells",
             "sort": 1500000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
@@ -1225,22 +1215,30 @@
             "name": "Regeneration 10 (Deactivated by Cold)",
             "sort": 1600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "cold"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 10
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -1269,15 +1267,13 @@
             "name": "Swarm Mind",
             "sort": 1700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.SwarmMind]</p>"
                 },
@@ -1308,15 +1304,13 @@
             "name": "Expel Infestation",
             "sort": 1800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The isqulug expels larvae from the hivemind in its head in a @Template[type:cone|distance:30]. Creatures in this area take [[/r 5d10[piercing]]] damage as the swarm feeds on their flesh (@Check[type:reflex|dc:28|basic:true] save). Any creature that takes damage is exposed to isqulugia.</p>\n<p>The isqulug becomes @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1} for [[/br 1d4 #Stupifed Duration]]{1d4 rounds}, during which it can't Expel Infestation.</p>"
                 },
@@ -1347,15 +1341,13 @@
             "name": "Isqulugia",
             "sort": 1900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Isqulugia's @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened}, @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed}, and @UUID[Compendium.pf2e.conditionitems.Paralyzed]{Paralyzed} conditions can't be removed until this affliction is removed</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:28]</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} (1 hour)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Fatigued]{Fatigued} and @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} (1 day)</p>\n<p><strong>Stage 3</strong> fatigued and @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} (1 day)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Paralyzed]{Paralyzed} (1 day)</p>\n<p><strong>Stage 5</strong> the creature dies, and its body violently transforms into a new isqulug. <em>@UUID[Compendium.pf2e.spells-srd.Wish]{Wish}</em>, similar magic, or a 9th-level <em>@UUID[Compendium.pf2e.spells-srd.Resurrect]{Resurrect}</em> ritual can return the victim to life. The new isqulug remains even if the victim is brought back to life.</p>"
                 },
@@ -1392,15 +1384,13 @@
             "name": "Malleability",
             "sort": 2000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The isqulug can @UUID[Compendium.pf2e.actionspf2e.Squeeze]{Squeeze} through tight spaces as if it were a Small creature. While Squeezing, it can move at its full Speed. The isqulug can even Squeeze through spaces that typically fit only a Tiny creature, but does so at the standard speed for Squeezing.</p>"
                 },
@@ -1431,15 +1421,13 @@
             "name": "Swamp Stride",
             "sort": 2100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>An isqulug ignores difficult terrain that's caused by typical features of swamps.</p>"
                 },

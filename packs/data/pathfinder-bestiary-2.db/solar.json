@@ -3359,15 +3359,13 @@
             "name": "Darkvision",
             "sort": 3300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -3403,15 +3401,13 @@
             "name": "At-Will Spells",
             "sort": 3400000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
                 },
@@ -3447,15 +3443,13 @@
             "name": "Constant Spells",
             "sort": 3500000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
@@ -3486,15 +3480,13 @@
             "name": "+1 Status to All Saves vs. Magic",
             "sort": 3600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
@@ -3545,25 +3537,33 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 20 (deactivated by evil)",
+            "name": "Regeneration 20 (Deactivated by Evil)",
             "sort": 3700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "evil"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 20
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -3587,15 +3587,13 @@
             "name": "Aura of Protection",
             "sort": 3800000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Allies in the solar's aura gain a +2 status bonus to AC against evil creatures and a +2 status bonus to saves against effects from evil creatures. The bonus increases to +4 against control by evil creatures and attacks by evil summoned creatures. When the solar or an ally is hit by an attack from a creature in the aura, that foe must succeed at a @Check[type:will|dc:43|traits:incapacitation] save or be blinded for 1 minute (this is an incapacitation effect). It's then temporarily immune for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Aura of Protection (Solar)]{Effect: Aura of Protection (Solar)}</p>"
                 },
@@ -3650,15 +3648,13 @@
             "name": "Animate Weapon",
             "sort": 3900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> The solar hits with a melee weapon Strike while Animate Weapon is not already in effect</p>\n<hr />\n<p><strong>Effect</strong> The solar's weapon leaps into the air and moves with the solar as if held with both hands. The weapon gains the effects of the dancing weapon rune for 1 minute.</p>"
                 },
@@ -3689,15 +3685,13 @@
             "name": "Arrow of Mortality",
             "sort": 4000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The solar doesn't need to provide ammunition for their bow. When they draw their bow, they create a magical arrow of light that sheds bright light in a 20-foot radius until the end of the solar's next turn.</p>\n<p>On a critical hit with the arrow, if the target has 75 or fewer Hit Points after taking the damage, it drops to 0 Hit Points and becomes @UUID[Compendium.pf2e.conditionitems.Dying]{Dying 1} (or, if it was already dying, increases its dying value by 3).</p>"
                 },
@@ -3733,15 +3727,13 @@
             "name": "Change Shape",
             "sort": 4100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The solar can take on the appearance of any Small or Medium humanoid. This doesn't change their Speed or Strikes.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
                 },
@@ -3777,15 +3769,13 @@
             "name": "Holy Armaments",
             "sort": 4200000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Any weapon gains the effect of a @UUID[Compendium.pf2e.equipment-srd.Holy]{Holy} property rune while a solar wields it.</p>"
                 },

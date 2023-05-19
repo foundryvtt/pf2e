@@ -237,15 +237,13 @@
             "name": "Darkvision",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -281,15 +279,13 @@
             "name": "Scent (Imprecise) 120 feet",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
                 },
@@ -320,15 +316,13 @@
             "name": "+2 Status to All Saves vs. Magic",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
@@ -382,22 +376,28 @@
             "name": "Regeneration 50",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 50
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -426,15 +426,13 @@
             "name": "Attack of Opportunity",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
@@ -465,15 +463,13 @@
             "name": "Carapace",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>Tarrasque is immune to cones, lines, rays, and magic missile spells. These effects bounce harmlessly off its scales.</p>"
                 },
@@ -509,15 +505,13 @@
             "name": "Frightful Presence",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:300]{300 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura} @Check[type:will|dc:39]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
@@ -565,15 +559,13 @@
             "name": "Inexorable",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>Tarrasque recovers from the @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed} and @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned} conditions at the end of its turn. It's also immune to penalties to its Speeds, and it ignores difficult terrain and greater difficult terrain.</p>"
                 },
@@ -604,15 +596,13 @@
             "name": "Reactive",
             "sort": 1400000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>Tarrasque gains 3 reactions each round. It can still use only one reaction per trigger.</p>"
                 },
@@ -643,15 +633,13 @@
             "name": "Reflect",
             "sort": 1500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> Tarrasque's carapace deflects an effect.</p>\n<hr />\n<p><strong>Effect</strong> The effect is redirected back at its source.</p>"
                 },
@@ -682,15 +670,13 @@
             "name": "Destructive Frenzy",
             "sort": 1600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 3
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Tarrasque makes a jaws Strike, two claw Strikes, two horn Strikes, and one tail Strike in any order.</p>"
                 },
@@ -721,15 +707,13 @@
             "name": "Fast Swallow",
             "sort": 1700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> Tarrasque Grabs a creature with its jaws</p>\n<hr />\n<p><strong>Effect</strong> Tarrasque uses Swallow Whole.</p>"
                 },
@@ -760,15 +744,13 @@
             "name": "Spine Volley",
             "sort": 1800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Tarrasque flings spines in a @Template[type:cone|distance:120], dealing [[/r (3d10+20)[piercing]]] damage to each creature in the area (@Check[type:reflex|dc:53|basic:true] save).</p>\n<p>Tarrasque can't use Spine Volley again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
@@ -804,15 +786,13 @@
             "name": "Swallow Whole",
             "sort": 1900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Huge, [[/r (10d6+12)[bludgeoning],10d6[acid]]], Rupture 50</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
@@ -850,15 +830,13 @@
             "name": "Trample",
             "sort": 2000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 3
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Huge or smaller, claw, @Check[type:reflex|dc:49|basic:true] save. When Tarrasque Tramples, it can Stride up to triple its Speed.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
                 },
@@ -894,15 +872,13 @@
             "name": "Improved Grab",
             "sort": 2100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
                 },

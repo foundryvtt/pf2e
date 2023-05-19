@@ -1,13 +1,14 @@
 import { CharacterPF2e, CreaturePF2e } from "@actor";
-import { CreatureSaves, LabeledSpeed } from "@actor/creature/data.ts";
+import { CreatureSaves, CreatureSkills, LabeledSpeed } from "@actor/creature/data.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
-import { CheckModifier, MODIFIER_TYPE, ModifierPF2e, StatisticModifier, applyStackingRules } from "@actor/modifiers.ts";
+import { CheckModifier, ModifierPF2e, ModifierType, StatisticModifier, applyStackingRules } from "@actor/modifiers.ts";
 import { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
 import { extractDegreeOfSuccessAdjustments, extractModifiers, extractRollTwice } from "@module/rules/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { CheckPF2e, CheckRoll } from "@system/check/index.ts";
 import { RollParameters } from "@system/rolls.ts";
+import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { FamiliarSource, FamiliarSystemData } from "./data.ts";
 
@@ -90,30 +91,25 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         super.prepareDerivedData();
 
         const { master } = this;
-
-        // Data preparation ends here unless the familiar has a master
-        if (!master) {
-            // Refrain from processing rule elements with no master set
-            this.rules = [];
-            return;
-        }
-
         const systemData = this.system;
         const { attributes, details } = systemData;
 
-        // Apply active effects now that the master (if selected) is ready.
-        super.applyActiveEffects();
+        // Apply active effects if the master (if selected) is ready.
+        if (master) {
+            super.applyActiveEffects();
+        } else {
+            this.rules = [];
+        }
 
         // Ensure uniqueness of traits
         systemData.traits.value = [...this.traits].sort();
 
         // The familiar's alliance is the same as its master's
-        const level = (details.level.value = master.level);
+        const level = (details.level.value = master?.level ?? 0);
         this.rollOptions.all[`self:level:${level}`] = true;
-        details.alliance = master.system.details.alliance;
+        details.alliance = master?.system.details.alliance ?? "party";
 
-        const masterLevel =
-            game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel" ? 0 : master.level;
+        const masterLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel" ? 0 : level;
 
         const masterAbilityModifier = this.masterAbilityModifier!;
 
@@ -132,7 +128,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             });
 
             const modifiers = [
-                new ModifierPF2e("PF2E.MasterLevelHP", level * 5, MODIFIER_TYPE.UNTYPED),
+                new ModifierPF2e("PF2E.MasterLevelHP", level * 5, "untyped"),
                 extractModifiers(synthetics, ["hp"]),
                 perLevelModifiers,
             ].flat();
@@ -150,38 +146,28 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         }
 
         // Armor Class
-        {
-            const source = master.system.attributes.ac.modifiers.filter(
-                (modifier) => !["status", "circumstance"].includes(modifier.type)
-            );
-            const base = 10 + new StatisticModifier("base", source).totalModifier;
-            const modifiers = extractModifiers(synthetics, ["ac", "dex-based", "all"]);
-            const stat = mergeObject(new StatisticModifier("ac", modifiers), systemData.attributes.ac, {
-                overwrite: false,
-            });
-            stat.value = base + stat.totalModifier;
-            stat.breakdown = [game.i18n.format("PF2E.MasterArmorClass", { base })]
-                .concat(
-                    stat.modifiers
-                        .filter((m) => m.enabled)
-                        .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                )
-                .join(", ");
-            systemData.attributes.ac = stat;
+        if (master) {
+            const masterModifiers = master.armorClass.modifiers
+                .filter((m) => !["status", "circumstance"].includes(m.type))
+                .map((m) => m.clone());
+            const statistic = new ArmorStatistic(this);
+            statistic.dc.modifiers = masterModifiers; // Prevent evaluation of predicates by `Statistic`
+            this.armorClass = statistic.dc;
+            systemData.attributes.ac = statistic.getTraceData();
         }
 
         // Saving Throws
         this.saves = SAVE_TYPES.reduce((partialSaves, saveType) => {
-            const save = master.saves[saveType];
-            const saveName = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
-            const source = save.modifiers.filter((modifier) => !["status", "circumstance"].includes(modifier.type));
+            const save = master?.saves[saveType];
+            const source = save?.modifiers.filter((m) => !["status", "circumstance"].includes(m.type)) ?? [];
             const totalMod = applyStackingRules(source);
-            const selectors = [saveType, `${save.ability}-based`, "saving-throw", "all"];
+            const ability = CONFIG.PF2E.savingThrowDefaultAbilities[saveType];
+            const selectors = [saveType, `${ability}-based`, "saving-throw", "all"];
             const stat = new Statistic(this, {
                 slug: saveType,
-                label: saveName,
+                label: game.i18n.localize(CONFIG.PF2E.saves[saveType]),
                 domains: selectors,
-                modifiers: [new ModifierPF2e(`PF2E.MasterSavingThrow.${saveType}`, totalMod, MODIFIER_TYPE.UNTYPED)],
+                modifiers: [new ModifierPF2e(`PF2E.MasterSavingThrow.${saveType}`, totalMod, "untyped")],
                 check: { type: "saving-throw" },
             });
 
@@ -197,10 +183,10 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         this.system.traits.senses = this.prepareSenses(this.system.traits.senses, synthetics);
 
         // Attack
-        {
+        if (master) {
             const domains = ["attack", "attack-roll", "all"];
             const modifiers = [
-                new ModifierPF2e("PF2E.MasterLevel", masterLevel, MODIFIER_TYPE.UNTYPED),
+                new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped"),
                 ...extractModifiers(synthetics, domains),
             ];
             const stat = mergeObject(new StatisticModifier("attack", modifiers), {
@@ -238,108 +224,53 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         // Perception
         {
             const domains = ["perception", "wis-based", "all"];
-            const modifiers = [
-                new ModifierPF2e("PF2E.MasterLevel", masterLevel, MODIFIER_TYPE.UNTYPED),
-                new ModifierPF2e(
-                    `PF2E.MasterAbility.${systemData.master.ability}`,
-                    masterAbilityModifier,
-                    MODIFIER_TYPE.UNTYPED
-                ),
-                ...extractModifiers(synthetics, domains),
-            ];
-            const stat = mergeObject(new StatisticModifier("perception", modifiers), systemData.attributes.perception, {
-                overwrite: false,
+            const mods = master?.perception.modifiers.filter((m) => !["status", "circumstance"].includes(m.type)) ?? [];
+            const totalMod = applyStackingRules(mods);
+            this.perception = new Statistic(this, {
+                slug: "perception",
+                label: "PF2E.PerceptionLabel",
+                domains,
+                modifiers: [new ModifierPF2e("PF2E.Actor.Familiar.Master.Perception", totalMod, "untyped")],
+                check: { type: "perception-check" },
             });
-            stat.value = stat.totalModifier;
-            stat.breakdown = stat.modifiers
-                .filter((m) => m.enabled)
-                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                .join(", ");
-
-            stat.roll = async (params: RollParameters): Promise<Rolled<CheckRoll> | null> => {
-                const label = game.i18n.localize("PF2E.PerceptionCheck");
-                const rollOptions = new Set(params.options ?? []);
-                const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, rollOptions);
-
-                const roll = await CheckPF2e.roll(
-                    new CheckModifier(label, stat),
-                    {
-                        actor: this,
-                        type: "perception-check",
-                        options: rollOptions,
-                        dc: params.dc,
-                        rollTwice,
-                        dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, domains),
-                    },
-                    params.event,
-                    params.callback
-                );
-
-                for (const rule of this.rules.filter((r) => !r.ignored)) {
-                    await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions });
-                }
-
-                return roll;
-            };
-            systemData.attributes.perception = stat;
+            systemData.attributes.perception = mergeObject(
+                systemData.attributes.perception,
+                this.perception.getTraceData({ value: "mod", rollable: ["4.12", "5.0"] })
+            );
         }
 
         // Skills
-        for (const shortForm of SKILL_ABBREVIATIONS) {
+        this.skills = Array.from(SKILL_ABBREVIATIONS).reduce((builtSkills, shortForm) => {
             const longForm = SKILL_DICTIONARY[shortForm];
-            const modifiers = [new ModifierPF2e("PF2E.MasterLevel", masterLevel, MODIFIER_TYPE.UNTYPED)];
+            const modifiers = [new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped")];
             if (["acr", "ste"].includes(shortForm)) {
-                modifiers.push(
-                    new ModifierPF2e(
-                        `PF2E.MasterAbility.${systemData.master.ability}`,
-                        masterAbilityModifier,
-                        MODIFIER_TYPE.UNTYPED
-                    )
-                );
+                const label = `PF2E.MasterAbility.${systemData.master.ability}`;
+                modifiers.push(new ModifierPF2e(label, masterAbilityModifier, "untyped"));
             }
+
             const ability = SKILL_EXPANDED[longForm].ability;
             const domains = [longForm, `${ability}-based`, "skill-check", "all"];
-            modifiers.push(...extractModifiers(synthetics, domains));
 
             const label = CONFIG.PF2E.skills[shortForm] ?? longForm;
-            const stat = mergeObject(new StatisticModifier(longForm, modifiers), {
-                adjustments: extractDegreeOfSuccessAdjustments(synthetics, domains),
+            const statistic = new Statistic(this, {
+                slug: longForm,
                 label,
                 ability,
-                value: 0,
-                roll: async (params: RollParameters): Promise<Rolled<CheckRoll> | null> => {
-                    const label = game.i18n.format("PF2E.SkillCheckWithName", {
-                        skillName: game.i18n.localize(CONFIG.PF2E.skills[shortForm]),
-                    });
-                    const rollOptions = new Set(params.options ?? []);
-                    const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, rollOptions);
-
-                    const roll = await CheckPF2e.roll(
-                        new CheckModifier(label, stat),
-                        { actor: this, type: "skill-check", options: rollOptions, dc: params.dc, rollTwice },
-                        params.event,
-                        params.callback
-                    );
-
-                    for (const rule of this.rules.filter((r) => !r.ignored)) {
-                        await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions });
-                    }
-
-                    return roll;
-                },
+                domains,
+                modifiers,
+                lore: false,
+                check: { type: "skill-check" },
             });
-            stat.value = stat.totalModifier;
-            stat.breakdown = stat.modifiers
-                .filter((m) => m.enabled)
-                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                .join(", ");
-            systemData.skills[shortForm] = stat;
-        }
+
+            builtSkills[longForm] = builtSkills[shortForm] = statistic;
+            this.system.skills[shortForm] = statistic.getTraceData({ rollable: ["4.12", "5.0"] });
+            return builtSkills;
+        }, {} as CreatureSkills);
     }
 
     /** Familiars cannot have item bonuses. Nor do they have ability mods nor proficiency (sans master level) */
     private stripInvalidModifiers(): void {
-        const invalidModifierTypes: string[] = [MODIFIER_TYPE.ABILITY, MODIFIER_TYPE.PROFICIENCY, MODIFIER_TYPE.ITEM];
+        const invalidModifierTypes: ModifierType[] = ["ability", "proficiency", "item"];
         for (const key of Object.keys(this.synthetics.statisticsModifiers)) {
             this.synthetics.statisticsModifiers[key] = this.synthetics.statisticsModifiers[key]?.filter((modifier) => {
                 const resolvedModifier = modifier();

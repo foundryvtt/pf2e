@@ -2,6 +2,7 @@ import { ActorPF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
 import { ItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/action/data.ts";
+import { prunePropertyRunes } from "@item/weapon/helpers.ts";
 import { WeaponRangeIncrement } from "@item/weapon/types.ts";
 import { MaterialDamageEffect } from "@system/damage/index.ts";
 import { PredicateField } from "@system/schema-data-fields.ts";
@@ -140,6 +141,11 @@ class AdjustStrikeRuleElement extends AELikeRuleElement<AdjustStrikeSchema> {
                                 return;
                             }
 
+                            // Don't apply the versatile or modular trait to the basic unarmed attack
+                            if (weapon.slug === "basic-unarmed" && /^(?:modular|versatile)/.test(change)) {
+                                return;
+                            }
+
                             const traits = weapon.system.traits.value;
 
                             // If the weapon already has a trait of the same type but a different value, we need to check
@@ -196,11 +202,13 @@ class AdjustStrikeRuleElement extends AELikeRuleElement<AdjustStrikeSchema> {
 
                             const propertyRunes = weapon.system.runes.property;
 
-                            if (this.mode === "add" && !propertyRunes.includes(runeSlug)) {
+                            if (this.mode === "add") {
                                 propertyRunes.push(runeSlug);
-                            } else if (this.mode !== "add" && propertyRunes.includes(runeSlug)) {
+                            } else if (propertyRunes.includes(runeSlug)) {
                                 propertyRunes.splice(propertyRunes.indexOf(runeSlug), 1);
                             }
+
+                            weapon.system.runes.property = prunePropertyRunes(propertyRunes);
                         },
                     };
             }

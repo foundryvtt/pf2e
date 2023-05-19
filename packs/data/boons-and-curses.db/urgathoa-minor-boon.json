@@ -19,7 +19,27 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "heritage:irongut-goblin"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.heritages.Irongut Goblin"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "heritage:irongut-goblin"
+                ],
+                "slug": "irongut-save-bonus",
+                "value": 4
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Gods & Magic"
         },

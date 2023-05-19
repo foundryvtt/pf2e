@@ -801,15 +801,13 @@
             "name": "Deny Advantage",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>Cole isn't @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to creatures of 7th level or lower that are @UUID[Compendium.pf2e.conditionitems.Hidden]{Hidden}, @UUID[Compendium.pf2e.conditionitems.Undetected]{Undetected}, flanking, or using surprise attack.</p>"
                 },
@@ -847,15 +845,13 @@
             "name": "Evasion",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>When Cole rolls a success on a Reflex save, he gets a critical success instead.</p>"
                 },
@@ -901,15 +897,13 @@
             "name": "Nimble Dodge",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> Cole is targeted with an attack by an attacker he can see</p>\n<hr />\n<p><strong>Effect</strong> Cole gains a +2 circumstance bonus to AC against the triggering attack.</p>"
                 },
@@ -957,22 +951,46 @@
             "name": "Surprise Attack",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>On the first round of combat, if Cole rolls Deception or Stealth for initiative, creatures who haven't acted are @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to him.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "encounter:round:1",
+                            {
+                                "lt": [
+                                    "self:participant:initiative:rank",
+                                    "target:participant:initiative:rank"
+                                ]
+                            },
+                            {
+                                "or": [
+                                    "self:participant:initiative:stat:deception",
+                                    "self:participant:initiative:stat:stealth"
+                                ]
+                            }
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "spell-attack-roll",
+                            "strike-damage",
+                            "attack-spell-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.AJh5ex99aV6VTggg"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -996,15 +1014,13 @@
             "name": "Brutal Rally",
             "sort": 1400000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> Cole rolls a critical hit against a creature</p>\n<hr />\n<p><strong>Effect</strong> All allies that can see Cole gain a +1 circumstance bonus to attack rolls until the start of Cole's next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Brutal Rally]{Effect: Brutal Rally}</p>"
                 },
@@ -1040,15 +1056,13 @@
             "name": "Gang Up",
             "sort": 1500000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Any enemy is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} against Cole's melee attacks due to flanking as long as the enemy is within melee reach of both Cole and one of his allies.</p>"
                 },
@@ -1079,15 +1093,13 @@
             "name": "Quick Draw",
             "sort": 1600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Cole Interacts to draw a weapon, then Strikes with that weapon.</p>"
                 },
@@ -1123,15 +1135,13 @@
             "name": "Sneak Attack",
             "sort": 1700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Cole deals an extra 2d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>"
                 },

@@ -1820,15 +1820,13 @@
             "name": "Darkvision",
             "sort": 1700000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -1864,15 +1862,13 @@
             "name": "Negative Healing",
             "sort": 1800000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
@@ -1910,15 +1906,13 @@
             "name": "Denounce Heretic",
             "sort": 1900000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> A creature within 60 feet who the deathless acolyte can see and who doesn't worship Urgathoa casts a divine spell</p>\n<hr />\n<p><strong>Effect</strong> The deathless acolyte attempts to counteract the triggering spell using their spell attack modifier and a counteract level of 2. If the deathless acolyte fails to counteract the spell, the caster is temporarily immune to further uses of Denounce Heretic for 24 hours.</p>"
                 },
@@ -1949,34 +1943,47 @@
             "name": "Field of Undeath",
             "sort": 2000000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>Allies within the aura who have negative healing gain @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Fast Healing]{Fast Healing 2}. When a creature within the aura would receive positive healing, it must succeed at a @Check[type:flat|dc:5] or receive no healing from the effect.</p>"
+                    "value": "<p>20 feet. Allies within the aura who have negative healing gain fast healing 2. When a creature within the aura would receive positive healing, it must succeed at a @Check[type:flat|dc:5] or receive no healing from the effect.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.fieldOfUndeathFastHealing",
+                        "value": 2
+                    },
+                    {
+                        "effects": [
+                            {
+                                "affects": "allies",
+                                "includesSelf": false,
+                                "predicate": [
+                                    "target:negative-healing"
+                                ],
+                                "uuid": "Compendium.pf2e.bestiary-effects.x8e0MXrPgdRYQqBm"
+                            }
+                        ],
                         "key": "Aura",
                         "radius": 20,
                         "slug": "field-of-undeath",
                         "traits": [
-                            "aura",
                             "divine",
                             "necromancy"
                         ]
                     }
                 ],
-                "slug": null,
+                "slug": "field-of-undeath",
                 "source": {
                     "value": ""
                 },

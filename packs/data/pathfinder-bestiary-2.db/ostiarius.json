@@ -886,15 +886,13 @@
             "name": "Greater Darkvision",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
                 },
@@ -930,15 +928,13 @@
             "name": "Telepathy",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
                 },
@@ -973,15 +969,13 @@
             "name": "Painsight",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>A velstrac automatically knows whether a creature it sees has any of the @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed}, @UUID[Compendium.pf2e.conditionitems.Dying]{Dying}, and @UUID[Compendium.pf2e.conditionitems.Wounded]{Wounded} conditions, as well as the value of those conditions</p>"
                 },
@@ -1015,15 +1009,13 @@
             "name": "Sense Portal",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>The ostiarius always knows the direction and distance to the closest portal between the Shadow Plane and the Material Plane. This sense functions only on these two planes.</p>"
                 },
@@ -1062,15 +1054,13 @@
             "name": "At-Will Spells",
             "sort": 1400000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
                 },
@@ -1101,15 +1091,13 @@
             "name": "+1 Status to All Saves vs. Magic",
             "sort": 1500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
@@ -1159,25 +1147,34 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 5 (deactivated by good or silver)",
+            "name": "Regeneration 5 (Deactivated by Good or Silver)",
             "sort": 1600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "good",
+                            "silver"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 5
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -1201,15 +1198,13 @@
             "name": "Whispering Wounds",
             "sort": 1700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>When a creature ends its turn in the aura, it hears the wounds on the ostiarius's body whisper obscene truths. The creature must succeed at a @Check[type:will|dc:21] save or become @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}.</p>"
                 },
@@ -1259,15 +1254,13 @@
             "name": "Compel Courage",
             "sort": 1800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The ostiarius inspires their willing allies and themself by whispering words of courage from their wounds. The ostiarius and their allies in a @Template[type:emanation|distance:50] gain a +1 status bonus to attack rolls, damage rolls, and saves against fear effects. The ostiarius can Sustain Compel Courage.</p>\n<p>Non-velstracs who accept this compelled courage find bleeding wounds opening on their own bodies to whisper in thanks. They take [[/r 1[bleed]]] damage and can't attempt a flat check to end this damage as long as they're compelled.</p>"
                 },
@@ -1305,15 +1298,13 @@
             "name": "Focus Gaze",
             "sort": 1900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The ostiarius stares at a creature they can see within 30 feet. The creature must immediately attempt a Will save against Whispering Wounds. In addition, if the creature was already @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened} and fails its save, the creature is @UUID[Compendium.pf2e.conditionitems.Fascinated]{Fascinated} by the ostiarius and can't use hostile actions. This fascination lasts for 1 round or until the ostiarius takes any hostile action against the creature or the creature's allies. Whether the creature succeeds at or fails the save, it is temporarily immune for 1 hour.</p>"
                 },

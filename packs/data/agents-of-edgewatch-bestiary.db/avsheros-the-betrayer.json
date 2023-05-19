@@ -2129,15 +2129,13 @@
             "name": "Darkvision",
             "sort": 2100000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -2173,15 +2171,13 @@
             "name": "At-Will Spells",
             "sort": 2200000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
                 },
@@ -2217,15 +2213,13 @@
             "name": "Constant Spells",
             "sort": 2300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
@@ -2256,15 +2250,13 @@
             "name": "+1 Status to All Saves vs. Magic",
             "sort": 2400000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
@@ -2318,22 +2310,30 @@
             "name": "Regeneration 20 (Deactivated by Evil)",
             "sort": 2500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "evil"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 20
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -2362,15 +2362,13 @@
             "name": "Attack of Opportunity",
             "sort": 2600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
@@ -2401,15 +2399,13 @@
             "name": "Hateful Gaze",
             "sort": 2700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:60]{60 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>When a creature ends its turn in the aura, it must attempt a @Check[type:fortitude|dc:45] save. If the creature fails, it is @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} and @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2} and @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure).</p>\n<p>Avsheros can deactivate or activate this aura using a single action, which has the concentrate trait.</p>\n<p>No matter the result of the save, a creature can't be affected by Avsheros's hateful gaze again for 1 minute.</p>"
                 },
@@ -2467,15 +2463,13 @@
             "name": "Blasphemous Arms",
             "sort": 2800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Any weapon gains the effects of an @UUID[Compendium.pf2e.equipment-srd.Unholy]{Unholy} property rune while Avsheros wields it.</p>"
                 },
@@ -2509,15 +2503,13 @@
             "name": "Wail of the Betrayed",
             "sort": 2900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Avsheros lets out an agonized wail that invokes grief and a feeling of betrayal in those who hear it.</p>\n<p>All creatures within 120 feet must succeed at a @Check[type:will|dc:47] save or become @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2}. A creature frightened in this way can't willingly accept aid of any kind from an ally until the frightened condition is removed.</p>\n<p>On a successful save, the creature is immune to Avsheros's Wail of the Betrayed for 24 hours.</p>"
                 },

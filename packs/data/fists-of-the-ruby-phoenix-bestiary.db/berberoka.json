@@ -52,15 +52,13 @@
             "name": "Deep Breath",
             "sort": 200000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>A berberoka can hold their breath for 2 hours</p>"
                 },
@@ -91,15 +89,13 @@
             "name": "Fear of Crabs",
             "sort": 300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>If a berberoka sees a crab or crab-like creature, the berberoka must attempt a @Check[type:will|dc:33] save. They then becomes immune to the sight of that creature for 10 minutes.</p>\n<hr />\n<p><strong>Critical Success</strong> The berberoka is unaffected.</p>\n<p><strong>Success</strong> The berberoka becomes @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Failure</strong> The berberoka gains the @UUID[Compendium.pf2e.conditionitems.Fleeing]{Fleeing} condition for 1 round and is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 4}.</p>"
                 },
@@ -139,15 +135,13 @@
             "name": "Attack of Opportunity",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
@@ -178,15 +172,13 @@
             "name": "Consume Lake",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The berberoka drinks a prolific amount from an adjacent water source. If the water source is equal to or greater in volume than themself, the berberoka consumes up to 1,500 gallons of water per minute and becomes waterlogged. They can release water at the same rate. While waterlogged, the berberoka can use Spray Water, their size grows to Gargantuan, and their Speed is reduced to 15 feet.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Waterlogged]{Effect: Waterlogged}</p>"
                 },
@@ -224,15 +216,13 @@
             "name": "Greater Constrict",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>[[/r (2d12+12)[bludgeoning]]] damage, @Check[type:fortitude|dc:33|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
                 },
@@ -263,15 +253,13 @@
             "name": "Spray Water",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> The berberoka is waterlogged.</p>\n<hr />\n<p><strong>Effect</strong> The berberoka sprays a blast of water in a @Template[type:line|distance:60]. All creatures in the line take [[/r 6d8[bludgeoning]]] damage (@Check[type:reflex|dc:35|basic:true] save). On a failed save, a creature is knocked @UUID[Compendium.pf2e.conditionitems.Prone]{Prone} and pushed back 5 feet (10 feet on a critically failed save).</p>"
                 },
@@ -307,15 +295,13 @@
             "name": "Grab",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
                 },
@@ -381,9 +367,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "Impersonate Mound",
+                        "label": "PF2E.SkillVariant.ImpersonateMound",
                         "predicate": [
-                            "impersonate-mound"
+                            "action:impersonate:mound"
                         ],
                         "selector": "deception",
                         "value": 4
@@ -395,8 +381,8 @@
                 },
                 "variants": {
                     "0": {
-                        "label": "+31 to Impersonate a small mound or island in its native environ",
-                        "options": "impersonate-mound"
+                        "label": "+31 to Impersonate a small mound or island in its native environment",
+                        "options": "action:impersonate:mound"
                     }
                 }
             },

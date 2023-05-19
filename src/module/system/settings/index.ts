@@ -68,6 +68,23 @@ export function registerSettings(): void {
         },
     });
 
+    game.settings.register("pf2e", "compendiumBrowserSources", {
+        name: "PF2E.SETTINGS.compendiumBrowserSources.Name",
+        hint: "PF2E.SETTINGS.compendiumBrowserSources.Hint",
+        default: {
+            ignoreAsGM: true,
+            showEmptySources: true,
+            showUnknownSources: true,
+            sources: {},
+        },
+        type: Object,
+        scope: "world",
+        onChange: () => {
+            game.pf2e.compendiumBrowser.packLoader.reset();
+            game.pf2e.compendiumBrowser.initCompendiumList();
+        },
+    });
+
     game.settings.register("pf2e", "enabledRulesUI", {
         name: "PF2E.SETTINGS.EnabledRulesUI.Name",
         hint: "PF2E.SETTINGS.EnabledRulesUI.Hint",
@@ -135,14 +152,28 @@ export function registerSettings(): void {
     });
 
     game.settings.register("pf2e", "deathIcon", {
-        name: "PF2E.Settings.DeathIcon.Name",
-        hint: "PF2E.Settings.DeathIcon.Hint",
+        name: "PF2E.SETTINGS.DeathIcon.Name",
+        hint: "PF2E.SETTINGS.DeathIcon.Hint",
         scope: "world",
         config: false,
         default: "icons/svg/skull.svg",
         type: String,
         onChange: (choice?: string) => {
             if (isImageOrVideoPath(choice)) CONFIG.controlIcons.defeated = choice;
+        },
+    });
+
+    game.settings.register("pf2e", "dataTools", {
+        name: "PF2E.SETTINGS.DataTools.Name",
+        hint: "PF2E.SETTINGS.DataTools.Hint",
+        scope: "world",
+        config: false,
+        default: BUILD_MODE === "development",
+        type: Boolean,
+        onChange: () => {
+            for (const app of Object.values(ui.windows).filter((a) => a instanceof DocumentSheet)) {
+                app.render();
+            }
         },
     });
 

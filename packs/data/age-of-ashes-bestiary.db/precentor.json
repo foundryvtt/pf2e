@@ -1483,15 +1483,13 @@
             "name": "Darkvision",
             "sort": 1400000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -1522,15 +1520,13 @@
             "name": "Painsight",
             "sort": 1500000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>A precentor automatically knows whether a creature it sees has any of the @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed}, @UUID[Compendium.pf2e.conditionitems.Dying]{Dying}, and @UUID[Compendium.pf2e.conditionitems.Wounded]{Wounded} conditions, as well as the value of those conditions.</p>"
                 },
@@ -1569,15 +1565,13 @@
             "name": "At-Will Spells",
             "sort": 1600000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
                 },
@@ -1613,15 +1607,13 @@
             "name": "Constant Spells",
             "sort": 1700000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
@@ -1657,15 +1649,13 @@
             "name": "+1 Status to All Saves vs. Magic",
             "sort": 1800000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
@@ -1716,18 +1706,16 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 25 (deactivated by Good or Silver)",
+            "name": "Regeneration 25 (Deactivated by Good or Silver)",
             "sort": 1900000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
@@ -1735,7 +1723,17 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "good",
+                            "silver"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 25
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -1759,15 +1757,13 @@
             "name": "Unnerving Gaze",
             "sort": 2000000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>When a creature ends its turn in the aura, it must succeed at a @Check[type:will|dc:38] save or become @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed 1}.</p>"
                 },
@@ -1817,15 +1813,13 @@
             "name": "Assemble Choir",
             "sort": 2100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The precentor adds a creature that is affected by its Tormenting Touch and is within 100 feet to its choir of screams. A precentor can have any number of creatures in its choir, although a creature no longer affected by Tormenting Touch leaves the choir immediately. Creatures in a precentor's choir of screams are @UUID[Compendium.pf2e.conditionitems.Fascinated]{Fascinated} by each other and the precentor, and they can't use hostile actions toward each other or the precentor. When the precentor casts an innate divine spell, it can cause the effect to originate from any member of its choir instead of itself, using the precentor's saving throw DC and attack bonus.</p>"
                 },
@@ -1856,15 +1850,13 @@
             "name": "Focus Gaze",
             "sort": 2200000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The precentor stares at a creature it can see within 30 feet. The target must immediately attempt a @Check[type:will|dc:38|name:Unnerving Gaze|traits:aura] save against the precentor's unnerving gaze.</p>\n<p>In addition, if the creature was already @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed}, on a failed save, it sees the skin of its own body peel back, making it @UUID[Compendium.pf2e.conditionitems.Confused]{Confused} for as long as it remains @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed}. After attempting this save, the creature is then temporarily immune until the start of the precentor's next turn.</p>"
                 },
@@ -1901,15 +1893,13 @@
             "name": "Tormenting Touch",
             "sort": 2300000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The precentor touches a creature within 10 feet, causing it to constantly scream in agony. The target must attempt a @Check[type:will|dc:38] save.</p>\n<p>While the target is stupefied by this effect, its continual screams cause it to automatically fail Stealth checks.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 3}.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 4}.</p>\n<p>The target can attempt a new Will save at the start of each of its turns, reducing the stupefied condition by 1 on each successful save. If the target reduces its stupefied condition to 0 in this way, the target is no longer affected.</p>"
                 },

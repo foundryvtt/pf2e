@@ -7,15 +7,19 @@ import {
     ActorTraitsData,
     ActorTraitsSource,
     HitPointsData,
-    Rollable,
     StrikeData,
-    RollFunction,
 } from "@actor/data/base.ts";
 import { DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
-import type { AbilityString, ActorAlliance, SaveType, SkillAbbreviation, SkillLongForm } from "@actor/types.ts";
+import type {
+    AbilityString,
+    ActorAlliance,
+    MovementType,
+    SaveType,
+    SkillAbbreviation,
+    SkillLongForm,
+} from "@actor/types.ts";
 import type { CREATURE_ACTOR_TYPES } from "@actor/values.ts";
 import { LabeledNumber, Size, ValueAndMax, ValuesList, ZeroToThree } from "@module/data.ts";
-import { RollParameters } from "@system/rolls.ts";
 import { Statistic, StatisticTraceData } from "@system/statistic/index.ts";
 import { CreatureSensePF2e, SenseAcuity, SenseType } from "./sense.ts";
 import { Alignment, CreatureTrait } from "./types.ts";
@@ -126,12 +130,7 @@ interface CreatureTraitsData extends ActorTraitsData<CreatureTrait>, Omit<Creatu
     languages: ValuesList<Language>;
 }
 
-type SkillData = StatisticModifier &
-    AbilityBasedStatistic &
-    Rollable & {
-        lore?: boolean;
-        visible?: boolean;
-    };
+type SkillData = StatisticTraceData & AbilityBasedStatistic;
 
 /** The full save data for a character; including its modifiers and other details */
 type SaveData = StatisticTraceData & AbilityBasedStatistic & { saveDetail?: string };
@@ -168,10 +167,7 @@ interface CreatureAttributes extends ActorAttributes {
     emitsSound: boolean;
 }
 
-interface CreaturePerception extends StatisticModifier {
-    value: number;
-    roll?: RollFunction<RollParameters>;
-}
+type CreaturePerception = StatisticTraceData;
 
 interface CreatureSpeeds extends StatisticModifier {
     /** The actor's primary speed (usually walking/stride speed). */
@@ -182,7 +178,6 @@ interface CreatureSpeeds extends StatisticModifier {
     total: number;
 }
 
-type MovementType = "land" | "burrow" | "climb" | "fly" | "swim";
 interface LabeledSpeed extends Omit<LabeledNumber, "exceptions"> {
     type: MovementType;
     source?: string;
@@ -264,7 +259,6 @@ export {
     HeldShieldData,
     LabeledSpeed,
     Language,
-    MovementType,
     SaveData,
     SenseData,
     SkillAbbreviation,

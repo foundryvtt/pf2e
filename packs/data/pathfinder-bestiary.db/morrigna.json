@@ -3586,15 +3586,13 @@
             "name": "Darkvision",
             "sort": 3400000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -3630,15 +3628,13 @@
             "name": "Lifesense 60 feet",
             "sort": 3500000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>A psychopomp senses the vital essence of living and undead creatures within the listed range.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
                 },
@@ -3677,15 +3673,13 @@
             "name": "Constant Spells",
             "sort": 3600000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
@@ -3721,15 +3715,13 @@
             "name": "+1 Status to All Saves vs. Magic",
             "sort": 3700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
@@ -3783,22 +3775,31 @@
             "name": "Regeneration 20 (Deactivated by Acid or Fire)",
             "sort": 3800000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "acid",
+                            "fire"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 20
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -3827,15 +3828,13 @@
             "name": "Change Shape",
             "sort": 3900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>A morrigna can take the appearance of any Small or Medium animal or humanoid. This doesn't change their Speed or their attack and damage modifiers with their Strikes, but it might change the damage type their Strikes deal.</p>\n<p>Unless they choose to manifest their web wrappings in their new form, they cannot make web wrappings Strikes.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
                 },
@@ -3871,15 +3870,13 @@
             "name": "Spider Minions",
             "sort": 4000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 3
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The morrigna summons a @UUID[Compendium.pf2e.pathfinder-bestiary.Giant Tarantula]{Giant Tarantula} or @UUID[Compendium.pf2e.pathfinder-bestiary.Spider Swarm]{Spider Swarm}. These spiders have the summoned trait and remain for 10 minutes or until reduced to 0 Hit Points, whichever comes first.</p>\n<p>The morrigna does not need to Sustain the Spell to direct these summoned creatures, and the morrigna can have any number of summoned spiders in existence at once.</p>\n<p>The morrigna can see through the eyes of any of their summoned spiders at any time.</p>"
                 },
@@ -3913,15 +3910,13 @@
             "name": "Spirit Touch",
             "sort": 4100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>A morrigna's Strikes affect incorporeal creatures as though etched with a @UUID[Compendium.pf2e.equipment-srd.Ghost Touch]{Ghost Touch} property rune and deal [[/r 4d6[negative]]] damage to living creatures or [[/r 4d6[positive]]] damage to undead.</p>"
                 },
@@ -3975,15 +3970,13 @@
             "name": "Wrappings Lash",
             "sort": 4200000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> A creature within reach of the morrigna's web wrappings uses an action to Strike or attempt a skill check.</p>\n<hr />\n<p><strong>Effect</strong> The morrigna makes a web wrappings Strike against the triggering creature. If the strike is a critical hit, the triggering action is disrupted.</p>"
                 },
@@ -4019,15 +4012,13 @@
             "name": "Grab",
             "sort": 4300000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
                 },

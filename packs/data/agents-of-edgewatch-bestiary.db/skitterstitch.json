@@ -100,15 +100,13 @@
             "name": "Darkvision",
             "sort": 300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -139,17 +137,15 @@
             "name": "Pest Haven",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": "<p>The rotting hides and molding straw stuffing of skitterstitches are ideal nesting grounds for vermin and insect swarms.</p>\n<p>Any animal swarm sharing a space with a skitterstitch gains @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Fast Healing]{Fast Healing} 3.</p>\n<p>Additionally, if a creature deals at least 10 piercing or slashing damage to the skitterstitchstitch, the swarm can use its swarming bites Strike (or similar attack) against the attacker as a reaction.</p>"
+                    "value": "<p>The rotting hides and molding straw stuffing of skitterstitches are ideal nesting grounds for vermin and insect swarms. Any animal swarm sharing a space with a skitterstitch gains fast healing 3.</p>\n<p>Additionally, if a creature deals at least 10 piercing or slashing damage to the skitterstitchstitch, the swarm can use its swarming bites Strike (or similar attack) against the attacker as a reaction.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Pest Haven]{Effect: Pest Haven}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -179,15 +175,13 @@
             "name": "Spider Swarm Host",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "deathNote": true,
                 "description": {
                     "value": "<p>Skitterstitches host a @UUID[Compendium.pf2e.pathfinder-bestiary.Spider Swarm]{Spider Swarm} within themselves, which erupts out when the Skitterstitch is destroyed</p>"
@@ -220,22 +214,37 @@
             "name": "Flay",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>The skitterstitch makes a blade Strike against an animal or humanoid. On a success, the skitterstitch slices a long strip of flesh from the target; if the skitterstitch dealt damage, it deals an additional [[/r (1d6+4)[bleed]]] damage.</p>"
+                    "value": "<p>The skitterstitch makes a blade Strike against an animal or humanoid. On a success, the skitterstitch slices a long strip of flesh from the target; if the skitterstitch dealt damage, it deals an additional 1d6 persistent bleed damage.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "strike-damage",
+                        "key": "RollOption",
+                        "option": "flay",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "flay"
+                        ],
+                        "selector": "blade-legs-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -260,15 +269,13 @@
             "name": "Skitterstitch Venom",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:23|traits:poison]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d10[poison]]] damage, @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed}, and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 1d10[poison]]] damage, flat-footed, and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round)</p>"
                 },
@@ -300,17 +307,15 @@
             "name": "Stitch Skin",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The skitterstitch hasn't used this ability since the last time it successfully used its Flay ability</p>\n<hr />\n<p><strong>Effect</strong> The skitterstitch sews flayed flesh to its body to seal tears and rents. The skitterstitch regains 8 Hit Points.</p>"
+                    "value": "<p><strong>Requirements</strong> The skitterstitch hasn't used this ability since the last time it successfully used its Flay ability</p>\n<hr />\n<p><strong>Effect</strong> The skitterstitch sews flayed flesh to its body to seal tears and rents. The skitterstitch regains [[/r 8[healing]]]{8 Hit Points}.</p>"
                 },
                 "requirements": {
                     "value": ""

@@ -21,12 +21,10 @@ interface ActionSystemSource extends ItemSystemSource {
     actionType: {
         value: ActionType;
     };
-    actionCategory: {
-        value: string;
-    };
     actions: {
         value: OneToThree | null;
     };
+    category: ActionCategory | null;
     requirements: {
         value: string;
     };
@@ -41,5 +39,7 @@ interface ActionSystemSource extends ItemSystemSource {
 interface ActionSystemData extends ActionSystemSource, Omit<ItemSystemData, "level" | "traits"> {
     frequency?: Frequency;
 }
+
+type ActionCategory = keyof ConfigPF2e["PF2E"]["actionCategories"];
 
 export { ActionItemSource, ActionSystemData, ActionTrait, ActionTraits };

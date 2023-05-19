@@ -19,7 +19,31 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "unexpected-shift",
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "unexpected-shift"
+                ],
+                "type": "all-damage",
+                "value": "@actor.level"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "unexpected-shift"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Character Guide"
         },

@@ -52,7 +52,7 @@ interface CheckContext<ItemType extends ItemPF2e<ActorPF2e>> {
     modifiers?: ModifierPF2e[];
     rollOptions: string[];
     slug: string;
-    statistic: StatisticModifier & { rank?: number };
+    statistic: Statistic | (StatisticModifier & { rank?: number });
     subtitle: string;
     type: CheckType;
 }

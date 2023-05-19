@@ -93,15 +93,13 @@
             "name": "Darkvision",
             "sort": 300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -137,15 +135,13 @@
             "name": "Regeneration 5 (Deactivated by Acid, Fire, or Positive)",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
@@ -153,7 +149,18 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "acid",
+                            "fire",
+                            "positive"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 5
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -182,15 +189,13 @@
             "name": "Attack of Opportunity",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
@@ -221,15 +226,13 @@
             "name": "Death Feast",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> The troll's last action was a jaws Strike that damaged a living creature or a corpse</p>\n<hr />\n<p><strong>Effect</strong> The troll deals [[/r 1d6[bleed]]] damage to the target as it swallows a mouthful of meat and converts it into negative energy. Its jaws and claw Strikes deal 1 additional negative damage for 1 minute or until it uses its Grave Breath, whichever comes first.</p>"
                 },
@@ -259,15 +262,13 @@
             "name": "Grave Breath",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> The troll is bloated with negative energy from a Death Feast</p>\n<hr />\n<p><strong>Effect</strong> The troll breathes a @Template[type:cone|distance:15] of putrid, soul-chilling gas. Each living creature in the area takes [[/r 2d6[negative]]] damage (@Check[type:fortitude|dc:14|basic:true]). On a failure, the creature also becomes @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}. The troll can't use Grave Breath until it uses Death Feast again.</p>"
                 },
@@ -304,15 +305,13 @@
             "name": "Rend",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Claw</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Rend]</p>"
                 },

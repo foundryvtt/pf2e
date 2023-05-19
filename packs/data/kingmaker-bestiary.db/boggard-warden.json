@@ -446,7 +446,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This venom erodes its target's defenses, aiding the spider in securing prey.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> <span data-pf2-traits=\"alchemical,consumable,injury,poison,action:hunting-spider-venom,origin:type:npc,origin:level:9,origin:mode:living,origin:trait:amphibious,origin:trait:boggard,origin:trait:humanoid,origin:trait:evil,origin:trait:chaotic,origin:caster,origin:size:2,origin:size:medium\" data-pf2-label=\"Hunting Spider Venom (on darts) DC\" data-pf2-repost-flavor=\"Hunting Spider Venom (on darts)\" data-pf2-show-dc=\"owner\" data-pf2-adjustment=\"\" data-pf2-check=\"fortitude\" data-pf2-dc=\"21\" class=\"with-repost\"><span data-visibility=\"gm\">DC 21</span> Fortitude<i class=\"fas fa-comment-alt\" data-pf2-repost=\"\" title=\"Post prompt to chat\"></i></span></p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> <a class=\"inline-roll roll\" data-mode=\"roll\" data-flavor=\"1d10 poison damage\" data-formula=\"{1d10}[poison]\" data-tooltip=\"{1d10}[poison]\"><i class=\"fas fa-dice-d20\"></i>1d10 poison damage</a> and @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 2</strong> <a class=\"inline-roll roll\" data-mode=\"roll\" data-flavor=\"1d12 poison damage\" data-formula=\"{1d12}[poison]\" data-tooltip=\"{1d12}[poison]\"><i class=\"fas fa-dice-d20\"></i>1d12 poison damage</a>, @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1}, and flat-footed (1 round)</p>\n<p><strong>Stage 3</strong> <a class=\"inline-roll roll\" data-mode=\"roll\" data-flavor=\"2d6 poison damage\" data-formula=\"{2d6}[poison]\" data-tooltip=\"{2d6}[poison]\"><i class=\"fas fa-dice-d20\"></i>2d6 poison damage</a>, clumsy 2, and flat-footed (1 round)</p>"
+                    "value": "<p>This venom erodes its target's defenses, aiding the spider in securing prey.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:21]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d10[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 1d12[poison]]] damage, @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1}, and @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 2d6[poison]]] damage, @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2}, and flat-footed (1 round)</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -699,15 +699,13 @@
             "name": "Darkvision",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -738,15 +736,13 @@
             "name": "Nature's Edge",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Boggard wardens are trained to take advantage of their foes' weak points when they're on unfavorable terrain. Enemies are @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to the boggard warden if they're in natural difficult terrain.</p>"
                 },
@@ -779,15 +775,13 @@
             "name": "Sneak Attack",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>A boggard warden deals 2d6 extra precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
@@ -850,15 +844,13 @@
             "name": "Swamp Stride",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>A boggard cultist ignores difficult terrain caused by swamp terrain features.</p>"
                 },
@@ -889,15 +881,13 @@
             "name": "Terrifying Croak",
             "sort": 1400000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The boggard warden unleashes a terrifying croak. Any non-boggard within @Template[type:emanation|distance:30]{30 feet} becomes @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1} unless they succeed at a @Check[type:will|dc:28] save.</p>\n<p>Those who critically succeed are temporarily immune for 1 minute.</p>"
                 },
@@ -933,15 +923,13 @@
             "name": "Tongue Grab",
             "sort": 1500000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>If the boggard warden hits a creature with its tongue, that creature becomes @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} by the boggard. Unlike with a normal Grab, the creature isn't @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized}, but it can't move beyond the reach of the boggard's tongue. A creature can sever the tongue by hitting AC 24 and dealing at least 10 slashing damage. Though this doesn't deal any damage to the boggard, it prevents it from using its tongue Strike until it regrows its tongue, which takes a week.</p>"
                 },

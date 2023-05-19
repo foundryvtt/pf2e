@@ -513,15 +513,13 @@
             "name": "Hydration",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>Azarketi must regularly submerge themselves in water to rehydrate their water-acclimated skin. After the first 24 hours outside of water, they gain a -1 status penalty to Fortitude saves as their skin cracks and their gills become painful. After 48 hours, they struggle to breathe air and begin to suffocate until returned to water.</p>"
                 },
@@ -566,15 +564,13 @@
             "name": "Sea Legs",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>An azarketi sailor gains a +1 circumstance bonus to Acrobatics checks to @UUID[Compendium.pf2e.actionspf2e.Balance]{Balance} and can roll twice and take the better result on checks to Balance while aboard a ship.</p>"
                 },
@@ -614,15 +610,13 @@
             "name": "Submerged Stealth",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>While submerged in water, an azarketi sailor gains a +2 circumstance bonus on their Stealth check, indicated above.</p>"
                 },
@@ -660,15 +654,13 @@
             "name": "Swinging Strike",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> The azarketi sailor is hanging from a rope or vine</p>\n<hr />\n<p><strong>Effect</strong> The azarketi sailor swings a distance equal to up to twice their Speed, moving in a straight line, and makes a single Strike at any point during the movement.</p>"
                 },
@@ -733,6 +725,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Swim",
                         "predicate": [
                             "action:swim"
                         ],
@@ -814,7 +807,17 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Underwater",
+                        "predicate": [
+                            "terrain:underwater"
+                        ],
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -853,9 +856,6 @@
         }
     ],
     "name": "Azarketi Sailor",
-    "prototypeToken": {
-        "name": "0"
-    },
     "system": {
         "abilities": {
             "cha": {

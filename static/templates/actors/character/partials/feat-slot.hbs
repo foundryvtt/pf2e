@@ -1,0 +1,61 @@
+{{#if featSlot.feat}}
+    <li class="item feat-item" data-item-id="{{featSlot.feat.id}}" data-slot-id="{{featSlot.id}}">
+        <div class="item-name rollable drag-handle">
+            <div class="feat-slot-title">
+                {{#if featSlot.level}}
+                    {{featSlot.level}}
+                {{else if featSlot.feat.level}}
+                    {{featSlot.feat.level}}
+                {{/if}}
+            </div>
+            <div class="item-image framed">
+                <img class="item-icon" src="{{featSlot.feat.img}}" alt="{{featSlot.feat.name}}">
+                <i class="fa-solid fa-message"></i>
+            </div>
+            <h4>{{featSlot.feat.name}}</h4>
+        </div>
+        <div class="item-controls">
+            {{#if @root.editable}}
+                <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-fw fa-edit"></i></a>
+                <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-fw fa-trash"></i></a>
+            {{/if}}
+        </div>
+        {{> grantedFeats parent=featSlot.feat}}
+    </li>
+{{else}}
+    <li class="feat-item" data-slot-id="{{featSlot.id}}">
+        <div class="item-name">
+            <div class="feat-slot-title">{{featSlot.level}}</div>
+            <div class="item-placeholder">{{localize "PF2E.EmptySlot"}}</div>
+        </div>
+        <div class="item-controls">
+            {{#if @root.editable}}
+                <a class="item-control feat-browse" data-filter="{{featFilter}},conjunction-or" data-level="{{featSlot.level}}"><i class="fas fa-fw fa-search"></i></a>
+            {{/if}}
+        </div>
+    </li>
+{{/if}}
+
+{{#*inline "grantedFeats"}}
+    <ol class="nested-items">
+        {{#each parent.grants as |feat|}}
+            <li data-item-id="{{feat.id}}">
+                <div class="item-name rollable">
+                    <div class="feat-slot-title"></div>
+                    <div class="item-image framed">
+                        <img class="item-icon" src="{{feat.img}}" alt="{{feat.name}}">
+                        <i class="fa-solid fa-message"></i>
+                    </div>
+                    <h4>{{feat.name}}</h4>
+                </div>
+                <div class="item-controls">
+                    {{#if @root.editable}}
+                        <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-fw fa-edit"></i></a>
+                        <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-fw fa-trash"></i></a>
+                    {{/if}}
+                </div>
+                {{> grantedFeats parent=feat}}
+            </li>
+        {{/each}}
+    </ol>
+{{/inline}}

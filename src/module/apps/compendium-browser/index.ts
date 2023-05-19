@@ -2,12 +2,12 @@ import { KitPF2e, PhysicalItemPF2e } from "@item";
 import { ActionTrait } from "@item/action/index.ts";
 import { ActionType } from "@item/data/base.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/index.ts";
-import { ErrorPF2e, htmlQueryAll, isObject, localizer, objectHasKey } from "@util";
+import { ErrorPF2e, htmlQuery, htmlQueryAll, isBlank, isObject, localizer, objectHasKey, sluggify } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
 import { UserPF2e } from "@module/user/document.ts";
 import Tagify from "@yaireo/tagify";
 import noUiSlider from "nouislider";
-import { BrowserTabs, PackInfo, SortDirection, TabData, TabName } from "./data.ts";
+import { BrowserTabs, PackInfo, SortDirection, SourceInfo, TabData, TabName } from "./data.ts";
 import { Progress } from "./progress.ts";
 import * as browserTabs from "./tabs/index.ts";
 import {
@@ -30,6 +30,13 @@ class PackLoader {
         Item: Record<string, { pack: CompendiumCollection; index: CompendiumIndex } | undefined>;
     } = { Actor: {}, Item: {} };
 
+    loadedSources: string[] = [];
+    sourcesSettings: CompendiumBrowserSources;
+
+    constructor() {
+        this.sourcesSettings = game.settings.get("pf2e", "compendiumBrowserSources");
+    }
+
     async *loadPacks(
         documentType: "Actor" | "Item",
         packs: string[],
@@ -37,6 +44,7 @@ class PackLoader {
     ): AsyncGenerator<{ pack: CompendiumCollection<CompendiumDocument>; index: CompendiumIndex }, void, unknown> {
         this.loadedPacks[documentType] ??= {};
         const localize = localizer("PF2E.CompendiumBrowser.ProgressBar");
+        const sources = this.#getSources();
 
         const progress = new Progress({ steps: packs.length });
         for (const packId of packs) {
@@ -56,8 +64,9 @@ class PackLoader {
                     const firstResult: Partial<CompendiumIndexData> = index.contents.at(0) ?? {};
                     // Every result should have the "system" property otherwise the indexFields were wrong for that pack
                     if (firstResult.system) {
-                        this.setModuleArt(packId, index);
-                        data = { pack, index };
+                        const filteredIndex = this.#createFilteredIndex(index, sources);
+                        this.#setModuleArt(packId, filteredIndex);
+                        data = { pack, index: filteredIndex };
                         this.loadedPacks[documentType][packId] = data;
                     } else {
                         ui.notifications.warn(
@@ -76,13 +85,129 @@ class PackLoader {
     }
 
     /** Set art provided by a module if any is available */
-    private setModuleArt(packName: string, index: CompendiumIndex): void {
+    #setModuleArt(packName: string, index: CompendiumIndex): void {
         if (!packName.startsWith("pf2e.")) return;
         for (const record of index) {
             const uuid: CompendiumUUID = `Compendium.${packName}.${record._id}`;
             const actorArt = game.pf2e.system.moduleArt.map.get(uuid)?.img;
             record.img = actorArt ?? record.img;
         }
+    }
+
+    #getSources(): Set<string> {
+        const sources = new Set<string>();
+        for (const source of Object.values(this.sourcesSettings.sources)) {
+            if (source?.load) {
+                sources.add(source.name);
+            }
+        }
+        return sources;
+    }
+
+    #createFilteredIndex(index: CompendiumIndex, sources: Set<string>): CompendiumIndex {
+        if (sources.size === 0) {
+            // Make sure everything works as before as long as the settings are not yet defined
+            return index;
+        }
+
+        if (game.user.isGM && this.sourcesSettings.ignoreAsGM) {
+            return index;
+        }
+
+        const filteredIndex: CompendiumIndex = new Collection<CompendiumIndexData>();
+        const knownSources = Object.values(this.sourcesSettings.sources).map((value) => value?.name);
+
+        for (const document of index) {
+            const source = this.#getSourceFromDocument(document);
+            const blank = isBlank(source);
+
+            if (
+                (blank && this.sourcesSettings.showEmptySources) ||
+                sources.has(source) ||
+                (this.sourcesSettings.showUnknownSources && !blank && !knownSources.includes(source))
+            ) {
+                filteredIndex.set(document._id, document);
+            }
+        }
+        return filteredIndex;
+    }
+
+    async updateSources(packs: string[]): Promise<void> {
+        await this.#loadSources(packs);
+
+        for (const source of this.loadedSources) {
+            const slug = sluggify(source);
+            if (this.sourcesSettings.sources[slug] === undefined) {
+                this.sourcesSettings.sources[slug] = {
+                    load: this.sourcesSettings.showUnknownSources,
+                    name: source,
+                };
+            }
+        }
+
+        // Make sure it can be easily displayed sorted
+        this.sourcesSettings.sources = Object.fromEntries(
+            Object.entries(this.sourcesSettings.sources).sort((a, b) => a[0].localeCompare(b[0], game.i18n.lang))
+        );
+    }
+
+    async #loadSources(packs: string[]): Promise<void> {
+        const localize = localizer("PF2E.CompendiumBrowser.ProgressBar");
+        const progress = new Progress({ steps: packs.length });
+
+        const loadedSources = new Set<string>();
+        const indexFields = ["system.details.source.value", "system.source.value"];
+        const knownDocumentTypes = ["Actor", "Item"];
+
+        for (const packId of packs) {
+            const pack = game.packs.get(packId);
+            if (!pack || !knownDocumentTypes.includes(pack.documentName)) {
+                progress.advance("");
+                continue;
+            }
+            progress.advance(localize("LoadingPack", { pack: pack?.metadata.label ?? "" }));
+            const index = await pack.getIndex({ fields: indexFields });
+
+            for (const element of index) {
+                const source = this.#getSourceFromDocument(element);
+                if (source && source !== "") {
+                    loadedSources.add(source);
+                }
+            }
+        }
+
+        progress.close(localize("LoadingComplete"));
+        const loadedSourcesArray = Array.from(loadedSources).sort();
+        this.loadedSources = loadedSourcesArray;
+    }
+
+    #getSourceFromDocument(document: CompendiumIndexData): string {
+        // There are two possible fields where the source can be, check them in order
+        if (document.system?.details?.source?.value) {
+            return document.system.details.source.value;
+        }
+
+        if (document.system?.source?.value) {
+            return document.system.source.value;
+        }
+
+        return "";
+    }
+
+    reset(): void {
+        this.loadedPacks = { Actor: {}, Item: {} };
+        this.loadedSources = [];
+    }
+
+    async hardReset(packs: string[]): Promise<void> {
+        this.reset();
+        this.sourcesSettings = {
+            ignoreAsGM: true,
+            showEmptySources: true,
+            showUnknownSources: true,
+            sources: {},
+        };
+        await this.updateSources(packs);
     }
 }
 
@@ -306,6 +431,7 @@ class CompendiumBrowser extends Application {
         this.activeTab = tabName;
         // Settings tab
         if (tabName === "settings") {
+            await this.packLoader.updateSources(this.loadedPacksAll());
             await this.render(true);
             return;
         }
@@ -331,6 +457,14 @@ class CompendiumBrowser extends Application {
         });
     }
 
+    loadedPacksAll(): string[] {
+        const loadedPacks = new Set<string>();
+        for (const tabName of this.dataTabsList) {
+            this.loadedPacks(tabName).forEach((item) => loadedPacks.add(item));
+        }
+        return Array.from(loadedPacks).sort();
+    }
+
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         const html = $html[0];
@@ -354,13 +488,76 @@ class CompendiumBrowser extends Application {
                         }
                     }
                     await game.settings.set("pf2e", "compendiumBrowserPacks", this.settings);
-                    for (const tab of Object.values(this.tabs)) {
-                        if (tab.isInitialized) {
-                            await tab.init();
-                            tab.scrollLimit = 100;
+
+                    for (const [key, source] of Object.entries(this.packLoader.sourcesSettings.sources)) {
+                        if (!source || isBlank(source.name)) {
+                            delete this.packLoader.sourcesSettings.sources[key]; // just to make sure we clean up
+                            continue;
+                        }
+                        source.load = formData.has(`source-${key}`);
+                    }
+
+                    this.packLoader.sourcesSettings.showEmptySources = formData.has("show-empty-sources");
+                    this.packLoader.sourcesSettings.showUnknownSources = formData.has("show-unknown-sources");
+                    this.packLoader.sourcesSettings.ignoreAsGM = formData.has("ignore-as-gm");
+                    await game.settings.set("pf2e", "compendiumBrowserSources", this.packLoader.sourcesSettings);
+
+                    await this.#resetInitializedTabs();
+                    this.render(true);
+                });
+
+                const sourceSearch = htmlQuery<HTMLInputElement>(form, "input[data-element=setting-sources-search]");
+                const sourceToggle = htmlQuery<HTMLInputElement>(
+                    form,
+                    "input[data-action=setting-sources-toggle-visible]"
+                );
+                const sourceSettings = htmlQueryAll<HTMLElement>(form, "label[data-element=setting-source]");
+
+                sourceSearch?.addEventListener("input", () => {
+                    const value = sourceSearch.value?.trim().toLocaleLowerCase(game.i18n.lang);
+
+                    for (const element of sourceSettings) {
+                        const name = element.dataset.name?.toLocaleLowerCase(game.i18n.lang);
+                        const shouldBeHidden = !isBlank(value) && !isBlank(name) && !name.includes(value);
+
+                        element.classList.toggle("hidden", shouldBeHidden);
+                    }
+
+                    if (sourceToggle) {
+                        sourceToggle.checked = false;
+                    }
+                });
+
+                sourceToggle?.addEventListener("click", () => {
+                    for (const element of sourceSettings) {
+                        const checkbox = htmlQuery<HTMLInputElement>(element, "input[type=checkbox]");
+                        if (!element.classList.contains("hidden") && checkbox) {
+                            checkbox.checked = sourceToggle.checked;
                         }
                     }
-                    this.render(true);
+                });
+
+                const deleteButton = htmlQuery<HTMLInputElement>(form, "button[data-action=settings-sources-delete]");
+                deleteButton?.addEventListener("click", async () => {
+                    const localize = localizer("PF2E.SETTINGS.CompendiumBrowserSources");
+                    const confirm = await Dialog.confirm({
+                        title: localize("DeleteAllTitle"),
+                        content: `
+                        <p>
+                            ${localize("DeleteAllQuestion")}
+                        </p>
+                        <p>
+                            ${localize("DeleteAllInfo")}
+                        </p>
+                        `,
+                    });
+
+                    if (confirm) {
+                        await this.packLoader.hardReset(this.loadedPacksAll());
+                        await game.settings.set("pf2e", "compendiumBrowserSources", this.packLoader.sourcesSettings);
+                        await this.#resetInitializedTabs();
+                        this.render(true);
+                    }
                 });
             }
             return;
@@ -376,8 +573,8 @@ class CompendiumBrowser extends Application {
         if (search) {
             search.addEventListener("input", () => {
                 currentTab.filterData.search.text = search.value;
-                this.clearScrollLimit();
-                this.renderResultList({ replace: true });
+                this.#clearScrollLimit();
+                this.#renderResultList({ replace: true });
             });
         }
 
@@ -389,7 +586,7 @@ class CompendiumBrowser extends Application {
                 order.addEventListener("change", () => {
                     const orderBy = order.value ?? "name";
                     currentTab.filterData.order.by = orderBy;
-                    this.clearScrollLimit(true);
+                    this.#clearScrollLimit(true);
                 });
             }
             const directionAnchor = sortContainer.querySelector<HTMLAnchorElement>("a.direction");
@@ -397,7 +594,7 @@ class CompendiumBrowser extends Application {
                 directionAnchor.addEventListener("click", () => {
                     const direction = (directionAnchor.dataset.direction as SortDirection) ?? "asc";
                     currentTab.filterData.order.direction = direction === "asc" ? "desc" : "asc";
-                    this.clearScrollLimit(true);
+                    this.#clearScrollLimit(true);
                 });
             }
         }
@@ -410,15 +607,15 @@ class CompendiumBrowser extends Application {
                     const filterData = currentTab.filterData;
                     if (!filterData.selects?.timefilter) return;
                     filterData.selects.timefilter.selected = timeFilter.value;
-                    this.clearScrollLimit(true);
+                    this.#clearScrollLimit(true);
                 });
             }
         }
 
         // Clear all filters button
         controlArea.querySelector<HTMLButtonElement>("button.clear-filters")?.addEventListener("click", () => {
-            this.resetFilters();
-            this.clearScrollLimit(true);
+            this.#resetFilters();
+            this.#clearScrollLimit(true);
         });
 
         // Filters
@@ -502,7 +699,7 @@ class CompendiumBrowser extends Application {
                             option.selected
                                 ? checkbox.selected.push(optionName)
                                 : (checkbox.selected = checkbox.selected.filter((name) => name !== optionName));
-                            this.clearScrollLimit(true);
+                            this.#clearScrollLimit(true);
                         }
                     });
                 });
@@ -523,7 +720,7 @@ class CompendiumBrowser extends Application {
                             const values = currentTab.parseRangeFilterInput(filterName, lowerBound, upperBound);
                             range.values = values;
                             range.changed = true;
-                            this.clearScrollLimit(true);
+                            this.#clearScrollLimit(true);
                         }
                     });
                 });
@@ -640,7 +837,7 @@ class CompendiumBrowser extends Application {
                         $minLabel.text(min);
                         $maxLabel.text(max);
 
-                        this.clearScrollLimit(true);
+                        this.#clearScrollLimit(true);
                     });
 
                     // Set styling
@@ -662,13 +859,22 @@ class CompendiumBrowser extends Application {
                 const maxValue = currentTab.totalItemCount ?? 0;
                 if (currentValue < maxValue) {
                     currentTab.scrollLimit = Math.clamped(currentValue + 100, 100, maxValue);
-                    this.renderResultList({ list, start: currentValue });
+                    this.#renderResultList({ list, start: currentValue });
                 }
             }
         });
 
         // Initial result list render
-        this.renderResultList({ list });
+        this.#renderResultList({ list });
+    }
+
+    async #resetInitializedTabs(): Promise<void> {
+        for (const tab of Object.values(this.tabs)) {
+            if (tab.isInitialized) {
+                await tab.init();
+                tab.scrollLimit = 100;
+            }
+        }
     }
 
     /**
@@ -678,7 +884,7 @@ class CompendiumBrowser extends Application {
      * @param options.start The index position to start from
      * @param options.replace Replace the current list with the new results?
      */
-    private async renderResultList({ list, start = 0, replace = false }: RenderResultListOptions): Promise<void> {
+    async #renderResultList({ list, start = 0, replace = false }: RenderResultListOptions): Promise<void> {
         const currentTab = this.activeTab !== "settings" ? this.tabs[this.activeTab] : null;
         const html = this.element[0];
         if (!currentTab) return;
@@ -692,7 +898,7 @@ class CompendiumBrowser extends Application {
         // Get new results from index
         const newResults = await currentTab.renderResults(start);
         // Add listeners to new results only
-        this.activateResultListeners(newResults);
+        this.#activateResultListeners(newResults);
         // Add the results to the DOM
         const fragment = document.createDocumentFragment();
         fragment.append(...newResults);
@@ -708,7 +914,7 @@ class CompendiumBrowser extends Application {
     }
 
     /** Activate click listeners on loaded actors and items */
-    private activateResultListeners(liElements: HTMLLIElement[] = []): void {
+    #activateResultListeners(liElements: HTMLLIElement[] = []): void {
         for (const liElement of liElements) {
             const { entryUuid } = liElement.dataset;
             if (!entryUuid) continue;
@@ -728,20 +934,20 @@ class CompendiumBrowser extends Application {
                 liElement
                     .querySelector<HTMLAnchorElement>("a[data-action=take-item]")
                     ?.addEventListener("click", () => {
-                        this.takePhysicalItem(entryUuid);
+                        this.#takePhysicalItem(entryUuid);
                     });
 
                 // Attempt to buy an item with the selected tokens' actors'
                 liElement.querySelector<HTMLAnchorElement>("a[data-action=buy-item]")?.addEventListener("click", () => {
-                    this.buyPhysicalItem(entryUuid);
+                    this.#buyPhysicalItem(entryUuid);
                 });
             }
         }
     }
 
-    private async takePhysicalItem(uuid: string): Promise<void> {
+    async #takePhysicalItem(uuid: string): Promise<void> {
         const actors = getSelectedOrOwnActors(["character", "npc"]);
-        const item = await this.getPhysicalItem(uuid);
+        const item = await this.#getPhysicalItem(uuid);
 
         if (actors.length === 0) {
             ui.notifications.error(game.i18n.format("PF2E.ErrorMessage.NoTokenSelected"));
@@ -764,9 +970,9 @@ class CompendiumBrowser extends Application {
         }
     }
 
-    private async buyPhysicalItem(uuid: string): Promise<void> {
+    async #buyPhysicalItem(uuid: string): Promise<void> {
         const actors = getSelectedOrOwnActors(["character", "npc"]);
-        const item = await this.getPhysicalItem(uuid);
+        const item = await this.#getPhysicalItem(uuid);
 
         if (actors.length === 0) {
             ui.notifications.error(game.i18n.format("PF2E.ErrorMessage.NoTokenSelected"));
@@ -815,7 +1021,7 @@ class CompendiumBrowser extends Application {
         }
     }
 
-    private async getPhysicalItem(uuid: string): Promise<PhysicalItemPF2e | KitPF2e> {
+    async #getPhysicalItem(uuid: string): Promise<PhysicalItemPF2e | KitPF2e> {
         const item = await fromUuid(uuid);
         if (!(item instanceof PhysicalItemPF2e || item instanceof KitPF2e)) {
             throw ErrorPF2e("Unexpected failure retrieving compendium item");
@@ -862,13 +1068,22 @@ class CompendiumBrowser extends Application {
         this.element.css({ pointerEvents: "none" });
     }
 
-    override getData(): { user: Active<UserPF2e>; settings?: CompendiumBrowserSettings; scrollLimit?: number } {
+    override getData(): {
+        user: Active<UserPF2e>;
+        settings?: { settings: CompendiumBrowserSettings; sources: CompendiumBrowserSources };
+        scrollLimit?: number;
+    } {
         const activeTab = this.activeTab;
         // Settings
         if (activeTab === "settings") {
+            const settings = {
+                settings: this.settings,
+                sources: this.packLoader.sourcesSettings,
+            };
+
             return {
                 user: game.user,
-                settings: this.settings,
+                settings: settings,
             };
         }
         // Active tab
@@ -888,14 +1103,14 @@ class CompendiumBrowser extends Application {
         };
     }
 
-    private resetFilters(): void {
+    #resetFilters(): void {
         const activeTab = this.activeTab;
         if (activeTab !== "settings") {
             this.tabs[activeTab].resetFilters();
         }
     }
 
-    private clearScrollLimit(render = false) {
+    #clearScrollLimit(render = false): void {
         const tab = this.activeTab;
         if (tab === "settings") return;
 
@@ -912,4 +1127,12 @@ class CompendiumBrowser extends Application {
 
 type CompendiumBrowserSettings = Omit<TabData<Record<string, PackInfo | undefined>>, "settings">;
 
-export { CompendiumBrowser, CompendiumBrowserSettings };
+type CompendiumBrowserSourcesList = Record<string, SourceInfo | undefined>;
+interface CompendiumBrowserSources {
+    ignoreAsGM: boolean;
+    showEmptySources: boolean;
+    showUnknownSources: boolean;
+    sources: CompendiumBrowserSourcesList;
+}
+
+export { CompendiumBrowser, CompendiumBrowserSettings, CompendiumBrowserSources };

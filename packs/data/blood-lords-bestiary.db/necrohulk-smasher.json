@@ -99,15 +99,13 @@
             "name": "Darkvision",
             "sort": 300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -138,22 +136,28 @@
             "name": "Alchemical Cartridge",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>Critical hits rupture the necrohulk's alchemical cartridge. The first time the necrohulk takes a critical hit, it loses its regeneration. The second time it takes a critical hit, it takes [[/r 15[persistent,acid]]]{15} damage that it can't heal unless the cartridge is stitched back into place.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.Necrohulk.AlchemicalCartridgeRuptured",
+                        "option": "alchemical-cartridge-ruptured",
+                        "toggleable": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -181,15 +185,13 @@
             "name": "Negative Healing",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
@@ -232,15 +234,13 @@
             "name": "Regeneration 15 (Deactivated by Acid)",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
@@ -248,7 +248,21 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "acid"
+                        ],
+                        "key": "FastHealing",
+                        "predicate": [
+                            {
+                                "not": "alchemical-cartridge-ruptured"
+                            }
+                        ],
+                        "type": "regeneration",
+                        "value": 15
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -277,15 +291,13 @@
             "name": "Attack of Opportunity",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
@@ -316,15 +328,13 @@
             "name": "Alchemical Amplification",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> The necrohulk draws upon alchemical stores to push its body into overdrive. It becomes @UUID[Compendium.pf2e.conditionitems.Quickened]{Quickened} for [[/br 1d4 #Quickened Duration]]{1d4 rounds}. It can use this extra action to Step, Stride, or Strike.</p>"
                 },
@@ -359,15 +369,13 @@
             "name": "Rend",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Fist</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Rend]</p>"
                 },
@@ -398,15 +406,13 @@
             "name": "Smashing Blow",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The necrohulk smasher makes a fist Strike. If it hits, the necrohulk smashes the target into the floor or nearby wall. The target takes an additional [[/r 6d10[bludgeoning]]] damage, depending on its @Check[type:fortitude|dc:33] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes half of the additional damage.</p>\n<p><strong>Success</strong> The target takes half the additional damage and is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The target takes full additional damage, is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 3}, and knocked @UUID[Compendium.pf2e.conditionitems.Prone]{Prone}.</p>\n<p><strong>Critical Failure</strong> The target takes double the additional damage, is stunned 3, and knocked prone.</p>"
                 },
@@ -439,15 +445,13 @@
             "name": "Throw Rock",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ThrowRock]</p>"
                 },
@@ -483,15 +487,13 @@
             "name": "Improved Push",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedPush]</p>"
                 },

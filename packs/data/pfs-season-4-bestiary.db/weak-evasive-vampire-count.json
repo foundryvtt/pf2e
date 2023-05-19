@@ -530,15 +530,13 @@
             "name": "Darkvision",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -574,15 +572,13 @@
             "name": "Children of the Night",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>The vampire's presence brings forth creatures of the night to do the master's bidding. These typically include @UUID[Compendium.pf2e.pathfinder-bestiary.Rat Swarm]{Rat Swarms}, @UUID[Compendium.pf2e.pathfinder-bestiary.Vampire Bat Swarm]{Bat Swarms}, and @UUID[Compendium.pf2e.pathfinder-bestiary.Wolf]{Wolves}, but can include other creatures.</p>\n<p>The vampire can give telepathic orders to these creatures as long as they are within 100 feet, but they can't communicate back.</p>"
                 },
@@ -622,15 +618,13 @@
             "name": "Fast Healing 7",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.FastHealing]</p>"
                 },
@@ -639,7 +633,6 @@
                 },
                 "rules": [
                     {
-                        "details": "",
                         "key": "FastHealing",
                         "type": "fast-healing",
                         "value": 7
@@ -673,15 +666,13 @@
             "name": "Negative Healing",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
@@ -724,17 +715,15 @@
             "name": "Coffin Restoration",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": "<p>Unlike other undead, a vampire isn't destroyed at 0 HP. Instead, it falls @UUID[Compendium.pf2e.conditionitems.Unconscious]{Unconscious}. If its body rests in its coffin for 1 hour, the vampire gains 1 HP, after which its @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Fast Healing]{Fast Healing} begins to function normally.</p>"
+                    "value": "<p>Unlike other undead, a vampire isn't destroyed at 0 HP. Instead, it falls @UUID[Compendium.pf2e.conditionitems.Unconscious]{Unconscious}. If its body rests in its coffin for 1 hour, the vampire gains 1 HP, after which its fast healing begins to function normally.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -767,15 +756,13 @@
             "name": "Mist Evasion",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> The vampire count would take damage from a critical hit, or from critically failing a saving throw against a damaging effect.</p>\n<hr />\n<p><strong>Effect</strong> The vampire count's body briefly evaporates into the surrounding mists, dispersing the triggering attack. The attack has the results of a failure instead of a critical success.</p>"
                 },
@@ -807,15 +794,13 @@
             "name": "Vampire Weaknesses",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>All vampires possess the following weaknesses.</p>\n<ul>\n<li><strong>Compulsions</strong> Vampires are creatures of strange and unknowable compulsions. A typical vampire can't voluntarily cross running water unless it is transported while it hides within its coffin, nor can it enter a private dwelling unless invited in by someone with the authority to do so. At your discretion, vampires might have different compulsions-a pirate vampire might not be able to set foot on solid ground without being invited, for example. The vampire can still be forced to do these things and might be able to overcome its compulsion just as it does its revulsion.</li>\n<li><strong>Revulsion</strong> A vampire can't voluntarily come within 10 feet of brandished garlic or a brandished religious symbol of a non-evil deity. To brandish garlic or a religious symbol, a creature must Interact to do so for 1 round (similar to Raising a Shield). If the vampire involuntarily comes within 10 feet of an object of its revulsion, it gains the @UUID[Compendium.pf2e.conditionitems.Fleeing]{Fleeing} condition, running from the object of its revulsion until it ends an action beyond 10 feet. After 1 round of being exposed to the subject of its revulsion, a vampire can attempt a @Check[type:will|dc:25|name:Overcome Revulsion] save as a single action, which has the concentrate trait. On a success, it overcomes its revulsions for [[/br 1d6 #rounds]]{1d6 rounds} (or 1 hour on a critical success).</li>\n<li><strong>Stake</strong> A wooden stake driven through a vampire's heart drops the vampire to 0 HP and prevents it from healing above 0 HP, even in its coffin. Staking a vampire requires three actions and works only if the vampire is unconscious. If the stake is removed, the vampire can heal above 0 HP again, and if it's in its coffin the 1-hour rest period begins once the stake is removed. If the vampire's head is severed and anointed with <em>@UUID[Compendium.pf2e.equipment-srd.Holy Water]{Holy Water}</em> while the stake is in place, the vampire is destroyed.</li>\n<li><strong>Sunlight</strong> If exposed to direct sunlight, a vampire immediately becomes @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1}. The slowed value increases by 1 each time the vampire ends its turn in sunlight. If the vampire loses all its actions in this way, it is destroyed. Due to their supernatural aversion to light, vampires don't cast shadows or show a reflection in mirrors.</li>\n</ul>"
                 },
@@ -851,15 +836,13 @@
             "name": "Change Shape",
             "sort": 1400000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The vampire transforms into its animal form or back into its normal form.</p>\n<ul>\n<li><strong>Bat</strong> The vampire changes into a @UUID[Compendium.pf2e.pathfinder-bestiary.Giant Bat]{Giant Bat}</li>\n<ul>\n<li><strong>Size</strong> Large</li>\n<li><strong>Senses</strong> Echolocation 40 feet</li>\n<li><strong>Speed</strong> 20 feet, fly 30 feet</li>\n<li><strong>Melee</strong> fangs [[/r 1d20+13 #Fangs]]{+13}/[[/r 1d20+8 #Fangs]]{+8}/[[/r 1d20+3 #Fangs]]{+3}, <strong>Damage</strong> [[/r (1d8+7)[piercing]]] damage</li>\n</ul>\n</ul>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
                 },
@@ -900,15 +883,13 @@
             "name": "Create Spawn",
             "sort": 1500000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>If a creature dies after being reduced to 0 HP by Drink Blood, the vampire can turn this victim into a vampire by donating some of its own blood to the victim and burying the victim in earth for 3 nights.</p>\n<p>If the new vampire is lower level than its creator, it is under the creator's control. If a vampire controls too many spawn at once (as determined by the GM), strong-willed spawn can free themselves by succeeding at a @Check[type:will|dc:22|name:Escape Thralldom] saving throw against the vampire's Will DC.</p>"
                 },
@@ -948,15 +929,13 @@
             "name": "Dominate",
             "sort": 1600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The vampire can cast <em>@UUID[Compendium.pf2e.spells-srd.Dominate]{Dominate}</em> at will as a divine innate spell. Casting it requires staring into the target's eyes, giving the spell the visual trait. The save DC uses the DC of the vampire's level, and a creature that succeeds is temporarily immune to that vampire's Dominate for 24 hours.</p>\n<p>Fully destroying the vampire ends the domination, but merely reducing the vampire to 0 HP is insufficient to break the spell.</p>"
                 },
@@ -998,15 +977,13 @@
             "name": "Drink Blood",
             "sort": 1700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> A @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed}, @UUID[Compendium.pf2e.conditionitems.Paralyzed]{Paralyzed}, @UUID[Compendium.pf2e.conditionitems.Restrained]{Restrained}, @UUID[Compendium.pf2e.conditionitems.Unconscious]{Unconscious}, or willing creature is within the vampire's reach.</p>\n<hr />\n<p><strong>Effect</strong> The vampire sinks its fangs into that creature to drink its blood. This requires an Athletics check against the victim's Fortitude DC if the victim is grabbed and is automatic for any of the other conditions.</p>\n<p>The victim is @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2} and the vampire regains [[/r 10[healing]]]{10 Hit Points}, gaining any excess HP as temporary Hit Points. Drinking Blood from a creature that's already drained doesn't restore any HP to the vampire but increases the victim's drain value by 1. A vampire can also consume blood that's been emptied into a vessel for sustenance, but it gains no HP from doing so.</p>\n<p>A victim's drained condition decreases by 1 per week. A blood transfusion, which requires a @Check[type:medicine|dc:20|name:Blood Transfusion] check and sufficient blood or a blood donor, reduces the drain by 1 after 10 minutes.</p>"
                 },
@@ -1045,15 +1022,13 @@
             "name": "Grab",
             "sort": 1800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
                 },

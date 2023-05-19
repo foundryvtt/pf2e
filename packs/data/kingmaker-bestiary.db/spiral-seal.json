@@ -8,15 +8,13 @@
             "name": "Backlash",
             "sort": 0,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": null,
                 "description": {
                     "value": "<p><strong>Trigger</strong> A creature fails an attempt to disable the Spiral Seal or inflicts damage to it without successfully breaking it</p>\n<hr />\n<p><strong>Effect</strong> The magic stored within the Spiral Seal blasts outward in a concussive wave of power, surging in a spiraling vortex. All creatures within 60 feet of the Spiral Seal must attempt a @Check[type:fortitude|dc:41] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is knocked @UUID[Compendium.pf2e.conditionitems.Prone]{Prone}.</p>\n<p><strong>Failure</strong> The creature is knocked prone and is @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1} for 24 hours.</p>\n<p><strong>Critical Failure</strong> The creature is knocked prone, is @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 3} for 24 hours, and increases their @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed} value by 1.</p>"
                 },
@@ -48,15 +46,13 @@
             "name": "Recovery",
             "sort": 0,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": null,
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Trigger</strong> The Spiral Seal is damaged but is above its Broken Threshold</p>\n<hr />\n<p><strong>Effect</strong> The Spiral Seal repairs itself, regaining [[/r 30[healing]]]{30 Hit Points}.</p>"
                 },
@@ -96,9 +92,6 @@
             "immunities": [
                 {
                     "type": "critical-hits"
-                },
-                {
-                    "type": "object-immunities"
                 },
                 {
                     "type": "precision"

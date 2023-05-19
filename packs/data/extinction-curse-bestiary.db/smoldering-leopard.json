@@ -106,15 +106,13 @@
             "name": "Darkvision",
             "sort": 300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -150,15 +148,13 @@
             "name": "Scent (Imprecise) 30 feet",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
                 },
@@ -189,15 +185,13 @@
             "name": "Aura of Smoke",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Every creature within the aura is @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}; smoldering leopards can see through this concealment.</p>"
                 },
@@ -228,15 +222,13 @@
             "name": "Pounce",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The smoldering leopard Strides and makes a Strike at the end of that movement. If the leopard began this action @UUID[Compendium.pf2e.conditionitems.Hidden]{Hidden}, it remains hidden until after making this ability's Strike.</p>"
                 },
@@ -267,15 +259,13 @@
             "name": "Scorching Maul",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The smoldering leopard makes two claw Strikes against a creature it has @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed}. A creature hit by both claw Strikes also takes [[/r 1d4[persistent,fire]]] damage. Both attacks count toward its multiple attack penalty, but the penalty increases only after both attacks are made.</p>"
                 },
@@ -311,15 +301,13 @@
             "name": "Sneak Attack",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The smoldering leopard deals an extra 1d4 precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
@@ -440,12 +428,12 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "In Dim Light or Darker",
+                        "label": "PF2E.SkillVariant.DimLightOrDarkness",
                         "predicate": [
                             {
                                 "or": [
-                                    "terrain:lighting:dimLight",
-                                    "terrain:lighting:darkness"
+                                    "lighting:dim-light",
+                                    "lighting:darkness"
                                 ]
                             }
                         ],
@@ -460,7 +448,7 @@
                 "variants": {
                     "0": {
                         "label": "+14 in dim light or darker",
-                        "options": "terrain:lighting:dimLight,terrain:lighting:darkness"
+                        "options": "lighting:dim-light,lighting:darkness"
                     }
                 }
             },

@@ -120,6 +120,11 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
         return controlled?.document ?? tokens.shift()?.document ?? null;
     }
 
+    /** Generate a label without a leading title (such as "Effect:") */
+    protected getReducedLabel(label = this.label): string {
+        return label.includes(":") ? label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : label;
+    }
+
     /** Disallow invalid data fallbacks */
     override validate(options: DataModelValidationOptions = {}): boolean {
         options.fallback = false;
@@ -198,7 +203,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
                 const data = key === "rule" ? this.data : key === "actor" || key === "item" ? this[key] : this.item;
                 const value = getProperty(data, prop);
                 if (value === undefined) {
-                    this.failValidation("Failed to resolve injected property");
+                    this.failValidation(`Failed to resolve injected property "${source}"`);
                 }
                 return String(value);
             });

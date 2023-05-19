@@ -14,7 +14,6 @@ import { ActorType } from "./index.ts";
 import { ImmunityData, ImmunitySource, ResistanceData, ResistanceSource, WeaknessData, WeaknessSource } from "./iwr.ts";
 import { ActorPF2e } from "@actor/base.ts";
 import { StatisticTraceData } from "@system/statistic/data.ts";
-import { InitiativeRollResult } from "@actor/initiative.ts";
 
 /** Base interface for all actor data */
 interface BaseActorSourcePF2e<TType extends ActorType, TSystemSource extends ActorSystemSource = ActorSystemSource>
@@ -78,7 +77,10 @@ interface ActorAttributes extends ActorAttributesSource {
     weaknesses: WeaknessData[];
     resistances: ResistanceData[];
     initiative?: InitiativeData;
-    shield?: object;
+    shield?: {
+        raised: boolean;
+        broken: boolean;
+    };
     flanking: {
         /** Whether the actor can flank at all */
         canFlank: boolean;
@@ -173,15 +175,12 @@ interface InitiativeData extends StatisticTraceData {
      * constitutes a higher priority.
      */
     tiebreakPriority: ZeroToTwo;
-
-    /** @deprecated */
-    roll(args: RollParameters): Promise<InitiativeRollResult | null>;
 }
 
 /** The full data for character perception rolls (which behave similarly to skills). */
-type PerceptionData = StatisticModifier & AbilityBasedStatistic & Rollable;
-/** The full data for character AC; includes the armor check penalty. */
+type PerceptionData = StatisticTraceData & AbilityBasedStatistic;
 
+/** The full data for character AC; includes the armor check penalty. */
 interface ArmorClassData {
     /** The actual AC value */
     value: number;

@@ -328,15 +328,13 @@
             "name": "Fascinating Dance",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The dancer Strides up to their Speed. Once during this movement, when the dancer is adjacent to a creature, the dancer can make that creature attempt a @Check[type:will|dc:17] save. On a failure, that creature is @UUID[Compendium.pf2e.conditionitems.Fascinated]{Fascinated} with the dancer until the end of its next turn.</p>"
                 },
@@ -448,9 +446,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "When Dancing",
+                        "label": "PF2E.SkillVariant.Dance",
                         "predicate": [
-                            "action:dance"
+                            "action:perform:dance"
                         ],
                         "selector": "performance",
                         "value": 2
@@ -463,7 +461,7 @@
                 "variants": {
                     "0": {
                         "label": "+15 when dancing",
-                        "options": "action:dance"
+                        "options": "action:perform:dance"
                     }
                 }
             },

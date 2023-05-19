@@ -1,0 +1,41 @@
+{
+    "_id": "DawVHfoPKbPJsz4k",
+    "img": "systems/pf2e/icons/spells/dancing-shield.webp",
+    "name": "Effect: Champion's Resistance",
+    "system": {
+        "description": {
+            "value": "<p>The ally gains resistance to all damage against the triggering damage equal to 2 + your level.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "all-damage",
+                "value": "@item.origin.level+2"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

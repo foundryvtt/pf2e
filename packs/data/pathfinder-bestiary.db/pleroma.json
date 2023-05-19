@@ -2105,15 +2105,13 @@
             "name": "Darkvision",
             "sort": 2200000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -2144,15 +2142,13 @@
             "name": "Envisioning",
             "sort": 2300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>Pleromas care little for communication with other creatures, but when they do convey information, they do so wordlessly through a series of psychic projections. This acts as @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Telepathy]{Telepathy} with a range of 100 feet but is understandable to all creatures regardless of whether they have a language, though the aeon's meaning to non-aeons can be vague and is often mysterious.</p>\n<p>An aeon can use this ability to communicate flawlessly with any other aeon on the same plane as itself.</p>"
                 },
@@ -2188,15 +2184,13 @@
             "name": "Lifesense 120 feet",
             "sort": 2400000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
                 },
@@ -2232,15 +2226,13 @@
             "name": "At-Will Spells",
             "sort": 2500000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
                 },
@@ -2276,15 +2268,13 @@
             "name": "Constant Spells",
             "sort": 2600000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
@@ -2320,15 +2310,13 @@
             "name": "+1 Status to All Saves vs. Magic",
             "sort": 2700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
@@ -2382,22 +2370,30 @@
             "name": "Regeneration 20 (Deactivated by Chaotic)",
             "sort": 2800000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "chaotic"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 20
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -2421,15 +2417,13 @@
             "name": "Reality Twist",
             "sort": 2900000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> The pleroma critically fails the saving throw.</p>\n<hr />\n<p><strong>Effect</strong> The critical failure becomes a normal failure.</p>"
                 },
@@ -2460,15 +2454,13 @@
             "name": "Sphere of Creation",
             "sort": 3000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Three times per day, a pleroma can manifest a 2-foot-diameter sphere of white energy that hovers above its left hand. By using a single action, which has the concentrate trait, the pleroma can cause the sphere to fly 10 feet. The sphere can move in any direction, ignoring difficult terrain, but it can't move farther than 300 feet away from the pleroma.</p>\n<p>Wherever the sphere travels, it leaves behind a 5-foot-wide path of new matter, creating either new terrain (the pleroma's choice of normal, difficult, or greater difficult terrain) or a 5-foot-square solid barrier of a single natural substance (such as clay, wood, or stone).</p>\n<p>The sphere can enter the space of a creature; when it does, the creature must succeed at a @Check[type:fortitude|dc:43] save or be absorbed into the sphere. On a successful save, the creature is pushed to a space of the GM's choice away from the sphere. Those who fail take [[/r 20d6[positive]]] damage (even if they are living) and are pushed away as a success. Those who critically fail, or are reduced to 0 HP by the damage from a failure, become one with the new material and can be restored only via a 10th-level spell.</p>\n<p>A pleroma can have only one Sphere of Creation in existence at a time, and the sphere automatically vanishes in a flash of blinding light after [[/br 1d4 #minutes]] minutes.</p>\n<p>All creatures within 30 feet of the sphere of creation when it vanishes must succeed at a @Check[type:fortitude|dc:43] save or be permanently @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded}.</p>"
                 },
@@ -2502,15 +2494,13 @@
             "name": "Sphere of Oblivion",
             "sort": 3100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Three times per day, a pleroma can manifest a 2-foot-diameter sphere of complete and utter darkness that hovers above its right hand. By using a single action, which has the concentrate trait, the pleroma can cause the sphere to fly 10 feet. The sphere can move in any direction, ignoring difficult terrain, but it can't move farther than 300 feet away from the pleroma.</p>\n<p>The sphere is an empty void that lasts for 1 minute before collapsing in on itself and winking out of existence.</p>\n<p>Once manifested, the sphere can be used as a ranged attack, but it blinks out of existence immediately after that attack is resolved. Any unattended object that touches the void is sucked in and completely destroyed. Larger objects (such as ships or buildings) are destroyed at a rate of one 10-foot cube per round of contact.</p>\n<p>The sphere can enter the space of a creature; when it does, the creature must succeed at a @Check[type:fortitude|dc:43] save or be absorbed into the sphere. On a successful save, the creature is pushed to a space of the GM's choice away from the sphere. Those who fail take [[/r 20d6[negative]]] damage (even to undead) and are pushed away as a success. Those who critically fail, or are reduced to 0 HP by the damage from a failure, are annihilated and can be restored only via a 10th-level spell.</p>"
                 },

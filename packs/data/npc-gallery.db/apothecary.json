@@ -719,15 +719,13 @@
             "name": "Medical Wisdom",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>The apothecary can identify the effect of any alchemical composition or medical ingredient using only their senses. This typically takes 1 minute.</p>"
                 },
@@ -758,15 +756,13 @@
             "name": "+1 Circumstance Bonus on Saves vs. Poisons",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
@@ -819,18 +815,14 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "To Craft Alchemy",
+                        "label": "PF2E.SkillVariant.CraftAlchemicalOrMedicine",
                         "predicate": [
-                            "alchemy"
-                        ],
-                        "selector": "crafting",
-                        "value": 3
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "To Craft Medication",
-                        "predicate": [
-                            "medication"
+                            {
+                                "or": [
+                                    "action:craft:alchemical",
+                                    "action:craft:medicine"
+                                ]
+                            }
                         ],
                         "selector": "crafting",
                         "value": 3
@@ -842,12 +834,8 @@
                 },
                 "variants": {
                     "0": {
-                        "label": "+8 for alchemy",
-                        "options": "alchemy"
-                    },
-                    "1": {
-                        "label": "and medication",
-                        "options": "medication"
+                        "label": "+8 for alchemy and medication",
+                        "options": "action:craft:alchemical,action:craft:medicine"
                     }
                 }
             },

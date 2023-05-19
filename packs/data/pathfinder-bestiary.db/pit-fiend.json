@@ -1822,15 +1822,13 @@
             "name": "Greater Darkvision",
             "sort": 1900000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
                 },
@@ -1866,15 +1864,13 @@
             "name": "Telepathy 100 feet",
             "sort": 2000000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
                 },
@@ -1914,15 +1910,13 @@
             "name": "At-Will Spells",
             "sort": 2100000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
                 },
@@ -1958,15 +1952,13 @@
             "name": "Constant Spells",
             "sort": 2200000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
@@ -2002,15 +1994,13 @@
             "name": "+1 Status to All Saves vs. Magic",
             "sort": 2300000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
@@ -2064,22 +2054,30 @@
             "name": "Regeneration 30 (Deactivated by Good)",
             "sort": 2400000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "good"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 30
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -2108,15 +2106,13 @@
             "name": "Attack of Opportunity (Special)",
             "sort": 2500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>The pit fiend can make an Attack of Opportunity when a creature within reach uses a concentrate action, in addition to the usual trigger. The devil can disrupt triggering concentrate actions, and they disrupt actions on any hit, not only a critical hit.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
@@ -2147,15 +2143,13 @@
             "name": "Commander's Aura",
             "sort": 2600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:100]{100 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Commanded or allied evil creatures in the aura of lower level than the pit fiend gain a +1 circumstance bonus to attack rolls, damage rolls, AC, saves, and skill checks.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Commander's Aura]{Effect: Commander's Aura}</p>"
                 },
@@ -2224,15 +2218,13 @@
             "name": "Frightful Presence",
             "sort": 2700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura} @Check[type:will|dc:42]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
@@ -2289,15 +2281,13 @@
             "name": "Constrict",
             "sort": 2800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>[[/r {(2d10+17)[bludgeoning],2d6[evil]}]]{2d10+17 bludgeoning plus 2d6 evil}, @Check[type:fortitude|dc:43|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
@@ -2328,15 +2318,13 @@
             "name": "Devil Shaping",
             "sort": 2900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The pit fiend reshapes a large number of @UUID[Compendium.pf2e.pathfinder-bestiary.Lemure]{Lemures} within a 600-foot radius into more powerful devils to swell Hell's legions. The pit fiend must have available the number of lemures listed on the table below.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Devil Level</th>\n<th>Number of Lemures</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>4 or below</td>\n<td>4</td>\n</tr>\n<tr>\n<td>5-6</td>\n<td>8</td>\n</tr>\n<tr>\n<td>7-8</td>\n<td>16</td>\n</tr>\n<tr>\n<td>9-10</td>\n<td>32</td>\n</tr>\n<tr>\n<td>11-12</td>\n<td>64</td>\n</tr>\n<tr>\n<td>13-14</td>\n<td>128</td>\n</tr>\n<tr>\n<td>15-16</td>\n<td>256</td>\n</tr>\n<tr>\n<td>17-18</td>\n<td>512</td>\n</tr>\n<tr>\n<td>19-20</td>\n<td>1.024</td>\n</tr>\n</tbody>\n</table>\n<p>The pit fiend can shape 100 lemures per day, to a maximum of 1,100 lemures in 11 days. Devils created in this way are in thrall to the pit fiend and follow its orders, with the exception of created pit fiends or other devils of similar power, which are always independent. As a result, few pit fiends choose to create peers. At the end of the Devil Shaping activity, the pit fiend attempts an incredibly hard Religion check of the desired devil's level, with results as follows.</p>\n<hr />\n<p><strong>Critical Success</strong> The pit fiend shapes two devils from the massed lemures instead of one.</p>\n<p><strong>Success</strong> The pit fiend shapes a devil of the desired type and level.</p>\n<p><strong>Failure</strong> The devil shaped from the lemures is 2 levels lower than the intended devil.</p>\n<p><strong>Critical Failure</strong> The pit fiend fails to shape any devils and draws the ire of an archdevil for its waste of resources.</p>"
                 },
@@ -2371,15 +2359,13 @@
             "name": "Fast Swoop",
             "sort": 3000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The pit fiend Flies and makes a wing Strike at any point during its movement.</p>"
                 },
@@ -2410,15 +2396,13 @@
             "name": "Masterful Quickened Casting",
             "sort": 3100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per round.</p>\n<hr />\n<p><strong>Effect</strong> If the pit fiend's next action is to cast an 8th-level or lower innate spell, reduce the number of actions to cast it by 1 (minimum 1 action).</p>"
                 },
@@ -2451,15 +2435,13 @@
             "name": "Pit Fiend Venom",
             "sort": 3200000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:43]</p>\n<p><strong>Maximum Duration</strong> 10 rounds</p>\n<p><strong>Stage 1</strong> [[/r 6d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 7d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 8d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 3} (1 round)</p>"
                 },
@@ -2497,15 +2479,13 @@
             "name": "Improved Grab",
             "sort": 3300000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
                 },

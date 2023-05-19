@@ -513,15 +513,13 @@
             "name": "Deny Advantage",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>Delamar isn't @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to creatures of 6th level or lower that are @UUID[Compendium.pf2e.conditionitems.Hidden]{Hidden}, @UUID[Compendium.pf2e.conditionitems.Undetected]{Undetected}, flanking, or using @UUID[Compendium.pf2e.feats-srd.Surprise Attack]{Surprise Attack}.</p>"
                 },
@@ -559,15 +557,13 @@
             "name": "Nimble Opportunist",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> A creature within Delamar's melee reach is hit by a melee attack from one of his allies</p>\n<hr />\n<p><strong>Effect</strong> Delamar makes a Strike against the triggering creature with a -2 penalty to the attack roll. He can't deal sneak attack damage on this Strike. After this Strike, Delamar can Stride without triggering reactions.</p>"
                 },
@@ -613,22 +609,46 @@
             "name": "Surprise Attack",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>On the first round of combat, if Delamar rolled Deception or Stealth for initiative, creatures that haven't acted are @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to him.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "encounter:round:1",
+                            {
+                                "lt": [
+                                    "self:participant:initiative:rank",
+                                    "target:participant:initiative:rank"
+                                ]
+                            },
+                            {
+                                "or": [
+                                    "self:participant:initiative:stat:deception",
+                                    "self:participant:initiative:stat:stealth"
+                                ]
+                            }
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "spell-attack-roll",
+                            "strike-damage",
+                            "attack-spell-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.AJh5ex99aV6VTggg"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -649,15 +669,13 @@
             "name": "Quick Draw",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Delamar draws a weapon with an Interact action, then Strikes with the weapon he just drew.</p>"
                 },
@@ -693,15 +711,13 @@
             "name": "Sneak Attack",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Delamar deals an extra 2d6 precision damage precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },

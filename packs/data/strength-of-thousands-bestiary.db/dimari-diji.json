@@ -1914,15 +1914,13 @@
             "name": "Low-Light Vision",
             "sort": 2000000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
                 },
@@ -1958,15 +1956,13 @@
             "name": "Tremorsense (imprecise) 120 feet",
             "sort": 2100000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
                 },
@@ -2002,15 +1998,13 @@
             "name": "Telepathy 300 feet",
             "sort": 2200000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
                 },
@@ -2050,15 +2044,13 @@
             "name": "At-Will Spells",
             "sort": 2300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
                 },
@@ -2094,15 +2086,13 @@
             "name": "Constant Spells",
             "sort": 2400000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
@@ -2138,22 +2128,30 @@
             "name": "Regeneration 30 (Deactivated by Fire)",
             "sort": 2500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "fire"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 30
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -2177,28 +2175,38 @@
             "name": "Aura of Growth",
             "sort": 2600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:120]{120 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Plants near Dimari-Diji grow larger and more vibrant. Plants in the emanation gain the success effects of the <em>@UUID[Compendium.pf2e.spells-srd.Plant Growth]{Plant Growth}</em> ritual. Any plant spells cast in the area are empowered and use the effects of the spell 1 level higher than it was cast, to a maximum of 9th level (Dimari-Diji's spells are unaffected). Finally, other plant creatures gain @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Fast Healing]{Fast Healing} 20 while in the area.</p>"
+                    "value": "<p>@Template[type:emanation|distance:120]{120 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Plants near Dimari-Diji grow larger and more vibrant. Plants in the emanation gain the success effects of the <em>@UUID[Compendium.pf2e.spells-srd.Plant Growth]{Plant Growth}</em> ritual. Any plant spells cast in the area are empowered and use the effects of the spell 1 level higher than it was cast, to a maximum of 9th level (Dimari-Diji's spells are unaffected). Finally, other plant creatures gain fast healing 20 while in the area.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Aura of Growth]{Effect: Aura of Growth}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
+                        "effects": [
+                            {
+                                "affects": "all",
+                                "events": [
+                                    "enter"
+                                ],
+                                "includesSelf": false,
+                                "predicate": [
+                                    "target:trait:plant"
+                                ],
+                                "uuid": "Compendium.pf2e.bestiary-effects.PR0YzItS9R60X3Zc"
+                            }
+                        ],
                         "key": "Aura",
                         "radius": 120,
                         "slug": "aura-of-growth",
                         "traits": [
-                            "aura",
                             "plant",
                             "primal",
                             "transmutation"
@@ -2230,15 +2238,13 @@
             "name": "Axe Vulnerability",
             "sort": 2700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>An arboreal nature-speaker takes 20 additional damage from axes.</p>"
                 },
@@ -2266,15 +2272,13 @@
             "name": "Enriching Aura",
             "sort": 2800000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:60]{60 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Dimari-Diji's natural power enhances primal spellcasting around him. All creatures within the emanation can alter a primal spell as if they had just used @UUID[Compendium.pf2e.feats-srd.Reach Spell]{Reach Spell} or @UUID[Compendium.pf2e.feats-srd.Widen Spell]{Widen Spell} when they Cast the Spell.</p>"
                 },
@@ -2287,7 +2291,6 @@
                         "radius": 60,
                         "slug": "enriching-aura",
                         "traits": [
-                            "aura",
                             "evocation",
                             "transmutation"
                         ]
@@ -2317,15 +2320,13 @@
             "name": "Fungus Sight",
             "sort": 2900000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>Dimari-Diji produces small clumps of fungus that he can use to see beyond his normal sight. He can use a single action, which has the concentrate trait, to project his senses into an intact fungus clump on the Material Plane or to end this projection. Dimari-Diji loses all sensory information from his own body while projecting his senses into fungus.</p>"
                 },
@@ -2356,17 +2357,19 @@
             "name": "Forest Growth",
             "sort": 3000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Once per month, Dimari-Diji can spend 1 hour to sprout a new forest. He causes the forest to sprout in a @Template[type:burst|distance:50] within 300 feet. The forest instantly springs to life, and is composed of fungi, plants, and trees most appropriate to the area he selected. The forest grows to the height, density, and liveliness of a forest that has grown for 10 years. The forest doesn't feature any animals or other creatures, but animals within 1 mile are aware of the new forest and might make the forest their new habitat as appropriate.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "P1M"
                 },
                 "requirements": {
                     "value": ""
@@ -2392,15 +2395,13 @@
             "name": "Memories of Ages",
             "sort": 3100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Dimari-Diji's mental blasts cloud the minds of his foes, making it difficult for them to focus on combat. A creature that takes damage from Dimari-Diji's mental blast is @UUID[Compendium.pf2e.conditionitems.Dazzled]{Dazzled} for 1 round. If the attack was a critical hit, the creature is dazzled for 1 minute instead.</p>"
                 },
@@ -2428,15 +2429,13 @@
             "name": "Memory Maelstrom",
             "sort": 3200000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 3
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Dimari - Diji tries to overwhelm foes with a surge of information he has absorbed over his long life. This surge deals [[/r 12d6[mental]]] damage to each enemy within 60 feet, who must attempt a @Check[type:will|dc:32] save.</p>\n<p><strong>Critical Success</strong> The creature maintains its composure, takes no damage, and is temporarily immune to Memory Maelstrom for 1 minute.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1} and takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 3}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, is @UUID[Compendium.pf2e.conditionitems.Confused]{Confused} for [[/r 2d4 #rounds]]{2d4 rounds}, and is stunned 3.</p>"
                 },
@@ -2470,15 +2469,13 @@
             "name": "Nature's Concentration",
             "sort": 3300000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> Dimari-Diji's turn begins</p><hr /><p><strong>Effect</strong> Dimari-Diji calls upon the natural world around him to support his magic. He Sustains a Spell.</p>"
                 },
@@ -2511,15 +2508,13 @@
             "name": "Improved Knockdown",
             "sort": 3400000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedKnockdown]</p>"
                 },
@@ -2677,7 +2672,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "Stealth in a Forest",
+                        "label": "PF2E.SkillVariant.Forests",
                         "predicate": [
                             "terrain:forest"
                         ],
@@ -2701,9 +2696,6 @@
         }
     ],
     "name": "Dimari-Diji",
-    "prototypeToken": {
-        "name": "Dimari-diji"
-    },
     "system": {
         "abilities": {
             "cha": {

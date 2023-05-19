@@ -26,3 +26,18 @@
     <label>{{localize "PF2E.FeatPrereqLabel"}}</label>
     <input class="pf2e-tagify" type="text" name="system.prerequisites.value" value="{{prerequisites}}" data-dtype="JSON" />
 </div>
+
+{{#if canHaveKeyOptions}}
+    <div class="form-group">
+        <label>{{localize "PF2E.Item.Feat.KeyAbilityOptions.Label"}}</label>
+        <div class="form-fields">
+            <input class="pf2e-tagify"
+                type="text"
+                name="system.subfeatures.keyOptions"
+                value="{{json item.system.subfeatures.keyOptions}}"
+                data-dtype="JSON"
+            />
+        </div>
+        <p class="hint">{{localize "PF2E.Item.Feat.KeyAbilityOptions.Hint"}}</p>
+    </div>
+{{/if}}

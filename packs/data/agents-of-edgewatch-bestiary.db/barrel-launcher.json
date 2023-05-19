@@ -149,15 +149,13 @@
             "name": "Attack of Opportunity",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
@@ -188,15 +186,13 @@
             "name": "Integrated Launcher",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "deathNote": true,
                 "description": {
                     "value": "<p>A projectile launcher is integrated into a clockwork assassin's systems, containing 10 spinning blades and five smoke bombs. When the assassin is destroyed, the launcher and its ammunition are also destroyed.</p>"
@@ -228,15 +224,13 @@
             "name": "Smoke Vision",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>The clockwork assassin ignores the concealed condition from smoke.</p>"
                 },
@@ -267,15 +261,13 @@
             "name": "Wind-Up",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>For the clockwork assassin to act, it must be wound with a unique key by another creature. This takes 1 minute. Once wound, it remains operational for 24 hours, after which time it becomes unaware of its surroundings and can't act until it's wound again.The assassin can enter standby mode as a 3-action activity. Its operational time doesn't decrease in standby, but it can sense its surroundings (with a -2 penalty to Perception). It can't act, with one exception: when it perceives a creature, it can exit standby as a reaction (rolling initiative if appropriate).A creature can attempt a @Check[type:thievery|dc:33|name:Wind Down|traits:manipulate,action:disable-a-device] check to Disable a Device to wind the assassin down. For each success, the assassin loses 1 hour of operational time. This can be done even if the assassin is in standby mode.</p>"
                 },
@@ -306,15 +298,13 @@
             "name": "Poison Ink",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:38]</p>\n<p><strong>Maximum Duration</strong> 10 rounds</p>\n<p><strong>Stage 1</strong> [[/r 3d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 4d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} (1 round).</p>"
                 },
@@ -347,15 +337,13 @@
             "name": "Rapid Repair",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The clockwork assassin spends 1 hour of its operational time to repair itself, regaining 25 Hit Points and refilling its integrated projectile launcher with 4 spinning blades (to a maximum of 10) and 2 smoke bombs (to a maximum of 5).</p>"
                 },
@@ -388,15 +376,13 @@
             "name": "Smoke Bomb Launcher",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The clockwork assassin launches a smoke bomb. A screen of thick, opaque smoke fills a @Template[type:burst|distance:10] within 60 feet of the clockwork assassin. Creatures within the area are concealed, and all other creatures are concealed to them. The smoke lasts for 1 minute or until dispersed by a strong wind.</p>"
                 },
@@ -425,29 +411,87 @@
         },
         {
             "_id": "Y7P7UpMZajGcxNz4",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>The clockwork assassin's Strikes deal an additional 3d6+4 precision damage to flat-footed creatures.</p>"
+                    "value": "<p>The clockwork assassin's Strikes deal an additional 3d6+4 precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
+                                    {
+                                        "and": [
+                                            "item:ranged",
+                                            {
+                                                "not": "item:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "damageCategory": "precision",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
+                                    {
+                                        "and": [
+                                            "item:ranged",
+                                            {
+                                                "not": "item:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage",
+                        "value": 4
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "rarity": "common",
@@ -468,17 +512,15 @@
             "name": "Unbalancing Blow",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>Creatures hit by the clockwork assassin's rapier hand Strike are flat-footed until the start of the clockwork assassin's next turn.</p>"
+                    "value": "<p>Creatures hit by the clockwork assassin's rapier hand Strike are @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of the clockwork assassin's next turn.</p>"
                 },
                 "requirements": {
                     "value": ""

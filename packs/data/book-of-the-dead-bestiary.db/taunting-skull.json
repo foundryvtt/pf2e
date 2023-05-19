@@ -57,15 +57,13 @@
             "name": "Darkvision",
             "sort": 200000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -101,15 +99,13 @@
             "name": "Negative Healing",
             "sort": 300000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
@@ -147,15 +143,13 @@
             "name": "Bite Back",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> The taunting skull is attacked by a creature within their reach</p>\n<hr />\n<p><strong>Effect</strong> The taunting skull makes a jaws Strike against that creature.</p>"
                 },
@@ -183,15 +177,13 @@
             "name": "Incessant Goading",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The skull chooses one creature within 60 feet and antagonizes it mercilessly. The target must attempt a @Check[type:will|dc:22] save to resist the effect.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and is temporarily immune for 1 minute.</p>\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} for 1 round. On its next turn, if the taunting skull is within the target's reach, the target wildly attacks the taunting skull as many times as possible.</p>\n<p><strong>Critical Failure</strong> As failure, but the target also immediately performs a Strike against itself; this Strike doesn't take any actions.</p>"
                 },
@@ -236,7 +228,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "PF2E.Actions.ManeuverInFlight.Title",
+                        "label": "PF2E.SkillVariant.ManeuverInFlight",
                         "predicate": [
                             "action:maneuver-in-flight"
                         ],
@@ -275,7 +267,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "PF2E.Actions.Demoralize.Title",
+                        "label": "PF2E.SkillVariant.Demoralize",
                         "predicate": [
                             "action:demoralize"
                         ],

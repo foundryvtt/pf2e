@@ -1,6 +1,7 @@
 import type { DamageType } from "@system/damage/types.ts";
-import { objectHasKey, tupleHasValue } from "@util";
+import { objectHasKey, setHasElement, tupleHasValue } from "@util";
 import { WeaponPF2e } from "./document.ts";
+import { WeaponPropertyRuneType } from "./types.ts";
 
 /** A helper class to handle toggleable weapon traits */
 class WeaponTraitToggles {
@@ -11,8 +12,8 @@ class WeaponTraitToggles {
     }
 
     get modular(): { options: DamageType[]; selection: DamageType | null } {
-        const options = this.#resolveTraitToggleOptions("modular");
-        const sourceSelection = this.#weapon._source.system.traits.toggles?.modular;
+        const options = this.#resolveOptions("modular");
+        const sourceSelection = this.#weapon._source.system.traits.toggles?.modular?.selection;
         const selection = tupleHasValue(options, sourceSelection)
             ? sourceSelection
             : // If the weapon's damage type is represented among the modular options, set the selection to it
@@ -24,7 +25,7 @@ class WeaponTraitToggles {
     }
 
     get versatile(): { options: DamageType[]; selection: DamageType | null } {
-        const options = this.#resolveTraitToggleOptions("versatile");
+        const options = this.#resolveOptions("versatile");
         const sourceSelection = this.#weapon._source.system.traits.toggles?.versatile?.selection ?? null;
         const selection = tupleHasValue(options, sourceSelection) ? sourceSelection : null;
 
@@ -32,7 +33,7 @@ class WeaponTraitToggles {
     }
 
     /** Collect selectable damage types among a list of toggleable weapon traits */
-    #resolveTraitToggleOptions(toggle: "modular" | "versatile"): DamageType[] {
+    #resolveOptions(toggle: "modular" | "versatile"): DamageType[] {
         const types = this.#weapon.system.traits.value
             .filter((t) => t.startsWith(toggle))
             .flatMap((trait): DamageType | DamageType[] => {
@@ -56,4 +57,10 @@ class WeaponTraitToggles {
     }
 }
 
-export { WeaponTraitToggles };
+/** Remove duplicate and lesser versions from an array of property runes */
+function prunePropertyRunes(runes: WeaponPropertyRuneType[]): WeaponPropertyRuneType[] {
+    const runeSet = new Set(runes);
+    return Array.from(runeSet).filter((r) => !setHasElement(runeSet, `greater${r.titleCase()}`));
+}
+
+export { prunePropertyRunes, WeaponTraitToggles };

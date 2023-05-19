@@ -426,15 +426,13 @@
             "name": "Low-Light Vision",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
                 },
@@ -465,15 +463,13 @@
             "name": "Verdant Burst",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "deathNote": true,
                 "description": {
                     "value": "<p>When a vine leshy dies, a burst of primal energy explodes from its body, restoring [[/r 1d4]] Hit Points to each plant creature in a @Template[type:emanation|distance:30]. This area fills with tangling vines, becoming difficult terrain. If the terrain is not a viable environment for the vines, they wither after 24 hours.</p>"
@@ -510,15 +506,13 @@
             "name": "Change Shape",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The vine leshy transforms into a Small plant with vines. This ability otherwise uses the effects of <em>@UUID[Compendium.pf2e.spells-srd.Tree Shape]{Tree Shape}</em>.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
                 },
@@ -554,15 +548,13 @@
             "name": "Extend Vines",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The vine leshy Interacts to extend or shorten their arms. With limbs extended, the vine leshy has a 10-foot reach. The leshy can't use weapons that already have reach in this way, because they would be unable to keep their balance.</p>"
                 },
@@ -593,15 +585,13 @@
             "name": "Heft Crate",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> The Clearwater Cleaner is adjacent to a crate</p>\n<hr />\n<p><strong>Effect</strong> The Clearwater Cleaner picks up a crate and heaves it up to 15 feet. Upon landing, the crate breaks open in a @Template[type:burst|distance:5]. Each creature within the area takes [[/r 2d6[bludgeoning]]] damage (@Check[type:reflex|dc:13|basic:true]), and the area becomes difficult terrain until cleared.</p>"
                 },
@@ -714,7 +704,7 @@
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Orate",
                         "predicate": [
-                            "oratory"
+                            "action:perform:oratory"
                         ],
                         "selector": "performance",
                         "value": 1
@@ -727,7 +717,7 @@
                 "variants": {
                     "0": {
                         "label": "+6 for Oratory",
-                        "options": "oratory"
+                        "options": "action:perform:oratory"
                     }
                 }
             },

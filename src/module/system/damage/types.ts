@@ -55,14 +55,14 @@ interface DamageRollContext extends BaseRollContext {
 }
 
 interface DamageFormulaData {
-    base: BaseDamageData | BaseDamageData[];
+    base: BaseDamageData[];
     dice: DamageDicePF2e[];
     modifiers: ModifierPF2e[];
     ignoredResistances: { type: ResistanceType; max: number | null }[];
 }
 
 interface WeaponDamageFormulaData extends Omit<DamageFormulaData, "base"> {
-    base: WeaponBaseDamageData;
+    base: [WeaponBaseDamageData];
 }
 
 interface ResolvedDamageFormulaData extends DamageFormulaData {
@@ -115,9 +115,12 @@ interface SpellDamageTemplate extends BaseDamageTemplate {
     };
 }
 
-type DamageTemplate = WeaponDamageTemplate | SpellDamageTemplate;
+type AfflictionDamageTemplate = SpellDamageTemplate;
+
+type DamageTemplate = WeaponDamageTemplate | SpellDamageTemplate | AfflictionDamageTemplate;
 
 export {
+    AfflictionDamageTemplate,
     BaseDamageData,
     CriticalInclusion,
     DamageCategory,
@@ -134,6 +137,7 @@ export {
     DynamicBaseDamageData,
     MaterialDamageEffect,
     SpellDamageTemplate,
+    WeaponBaseDamageData,
     WeaponDamageFormulaData,
     WeaponDamageTemplate,
 };

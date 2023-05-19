@@ -432,15 +432,13 @@
             "name": "Low-Light Vision",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
                 },
@@ -476,15 +474,13 @@
             "name": "Scent (Imprecise) 30 feet",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
                 },
@@ -515,15 +511,13 @@
             "name": "Blunt Snout",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>The Shoony Militia Member's blunt snout and labyrinthine sinus system make it resistant to phenomena that assail the nose. When it rolls a saving throw against inhaled threats (such as inhaled poisons) and olfactory effects (such as xulgath stench), the outcome is one degree of success better than the result of its roll.</p>"
                 },
@@ -593,10 +587,16 @@
                 },
                 "rules": [
                     {
-                        "key": "AdjustModifier",
-                        "mode": "add",
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.TumbleThroughMediumOrLarger",
                         "predicate": [
-                            "action:tumble-through"
+                            "action:tumble-through",
+                            {
+                                "gte": [
+                                    "target:size",
+                                    2
+                                ]
+                            }
                         ],
                         "selector": "acrobatics",
                         "value": 1
@@ -609,7 +609,7 @@
                 "variants": {
                     "0": {
                         "label": "+9 to Tumble Through spaces of Medium or larger creatures",
-                        "options": "action:tumble-through"
+                        "options": "action:tumble-through,target:size:2"
                     }
                 }
             },

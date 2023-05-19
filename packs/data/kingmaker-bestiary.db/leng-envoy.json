@@ -2347,15 +2347,13 @@
             "name": "Darkvision",
             "sort": 2400000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -2391,15 +2389,13 @@
             "name": "Constant Spells",
             "sort": 2500000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
@@ -2432,20 +2428,18 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Planar Fast Healing 15",
+            "name": "Planar Fast Healing",
             "sort": 2600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": "<p>A denizen of Leng maintains a connection to Leng at all times, and when away from Leng, they have Fast Healing 15. They lose this ability on Leng or in areas where planar connections do not function. If killed, their body dissolves into nothingness in [[/br 1d4 #Dissolve Body]]{1d4 rounds}, leaving behind their equipment. A slain denizen reforms in Leng; they can be permanently killed only when their planar fast healing doesn't function.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FastHealing]</p>"
+                    "value": "<p>A denizen of Leng maintains a connection to Leng at all times, and when away from Leng, they have fast healing 15. They lose this ability on Leng or in areas where planar connections do not function. If killed, their body dissolves into nothingness in [[/br 1d4 #Dissolve Body]]{1d4 rounds}, leaving behind their equipment. A slain denizen reforms in Leng; they can be permanently killed only when their planar fast healing doesn't function.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FastHealing]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2453,8 +2447,17 @@
                 "rules": [
                     {
                         "key": "FastHealing",
-                        "type": "fast-healing",
+                        "predicate": [
+                            "planar-fast-healing"
+                        ],
                         "value": 15
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "planar-fast-healing",
+                        "toggleable": true,
+                        "value": true
                     }
                 ],
                 "slug": "fast-healing",
@@ -2480,15 +2483,13 @@
             "name": "No Breath",
             "sort": 2700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>The Leng envoy doesn't need to breathe.</p>"
                 },
@@ -2519,15 +2520,13 @@
             "name": "Debilitating Bite",
             "sort": 2800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>A creature that takes damage from a denizen's bite must succeed at a @Check[type:fortitude|dc:40] save or become @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1}. Each time a target fails an additional save against this ability, the condition value increases by 1 (to a maximum of Clumsy 4). This condition value decreases by 1 every 24 hours.</p>"
                 },
@@ -2561,15 +2560,13 @@
             "name": "Leng Ruby",
             "sort": 2900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Many denizens of Leng carry strange rubies mined from quarries in Leng. As long as a creature holds a Leng ruby that it willingly accepted as a gift or payment from a denizen of Leng, any denizen of Leng can target that creature with <em>@UUID[Compendium.pf2e.spells-srd.Mind Reading]{Mind Reading}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Outcast's Curse]{Outcast's Curse}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Phantom Pain]{Phantom Pain}</em>, or <em>@UUID[Compendium.pf2e.spells-srd.Warp Mind]{Warp Mind}</em> at a range of 1 mile, and the bearer uses an outcome one degree of success worse than the result of its saving throw against <em>Outcast's Curse</em>.</p>"
                 },
@@ -2603,15 +2600,13 @@
             "name": "Play the Pipes",
             "sort": 3000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 3
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> The Leng envoy is holding a musical instrument</p>\n<hr />\n<p><strong>Effect</strong> The envoy plays a melody on its instrument to cast <em>@UUID[Compendium.pf2e.spells-srd.Uncontrollable Dance]{Uncontrollable Dance}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Unfathomable Song]{Unfathomable Song}</em>, or <em>@UUID[Compendium.pf2e.spells-srd.Warp Mind]{Warp Mind}</em> without expending the spell slot and using his music in place of providing the spell's component actions. The spell gains the auditory trait and targets all creatures in a @Template[type:emanation|distance:60] instead of its usual targets. A creature that succeeds at its Will save against any spell is then temporarily immune from all spells played from the envoy's pipes for 1 minute. Aberrations are immune to this music.</p>"
                 },

@@ -449,15 +449,13 @@
             "name": "Low-Light Vision",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
                 },
@@ -493,15 +491,13 @@
             "name": "Tremorsense",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
                 },
@@ -532,15 +528,13 @@
             "name": "Axe Vulnerability 15",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>A canopy elder has a weakness to axes.</p>"
                 },
@@ -576,15 +570,13 @@
             "name": "Constant Spells",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
@@ -620,15 +612,13 @@
             "name": "Attack of Opportunity",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
@@ -659,15 +649,13 @@
             "name": "Vine Splint",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>The canopy elder grows a mesh of vines around its broken branches, repairing the damage and restoring 40 HP to itself. The canopy elder can't use Vine Splint again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
@@ -700,15 +688,13 @@
             "name": "Fungal Web",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The canopy elder launches a rapidly growing net of fungus from the mushrooms growing on its body at a single creature within 80 feet. The target must attempt a @Check[type:reflex|dc:39] save or become restrained by the fungal web (Escape DC 39). While restrained, the creature takes [[/r 4d6[poison]]] damage at the end of each of their turns.</p>"
                 },
@@ -739,15 +725,13 @@
             "name": "Pollen Cloud",
             "sort": 1400000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The canopy elder releases a dense cloud of pollen from the epiphytes living in its branches. The cloud emanates from the canopy elder in a @Template[type:emanation|distance:40]. The cloud doesn't move with the canopy elder and remains in place for [[/br 1d6 #rounds]]{1d6 rounds} before dissipating. Creatures inside the cloud become @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the cloud become concealed to creatures within it. Non-plant and non-fungus creatures within the cloud must attempt a @Check[type:fortitude|dc:38] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 3}, and on a critical failure the creature is also @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded} for 1 minute. Regardless of the result, a creature is then temporarily immune to the sickening and blinding effects of the canopy elder's pollen for 24 hours.</p>"
                 },
@@ -783,15 +767,13 @@
             "name": "Improved Grab",
             "sort": 1500000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
                 },
@@ -827,15 +809,13 @@
             "name": "Improved Push",
             "sort": 1600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedPush]</p>"
                 },
@@ -990,7 +970,17 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Forests",
+                        "predicate": [
+                            "terrain:forest"
+                        ],
+                        "selector": "stealth",
+                        "value": 8
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -998,7 +988,7 @@
                 "variants": {
                     "0": {
                         "label": "+39 in forests",
-                        "options": "forest"
+                        "options": "terrain:forest"
                     }
                 }
             },

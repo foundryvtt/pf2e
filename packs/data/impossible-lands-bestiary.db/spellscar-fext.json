@@ -54,15 +54,13 @@
             "name": "Darkvision",
             "sort": 200000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -93,15 +91,13 @@
             "name": "Magic Sense (Imprecise) 30 feet",
             "sort": 300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": ""
                 },
@@ -134,15 +130,13 @@
             "name": "+1 Status to All Saves vs. Magic",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
@@ -196,15 +190,13 @@
             "name": "Negative Healing",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
@@ -247,15 +239,13 @@
             "name": "Regeneration 10 (Deactivated by Glass)",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
@@ -263,7 +253,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "glass"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 10
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -287,15 +286,13 @@
             "name": "Unstable Feedback",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> A creature Casts a Spell on the spellscar fext, and the spellscar fext either succeeds at its saving throw versus the spell or the caster fails the spell attack roll against the spellscar fext</p>\n<hr />\n<p><strong>Effect</strong> The caster of the triggering spell undergoes a @UUID[Compendium.pf2e.rollable-tables.Wellspring Surges]{Wellspring Surge}. Even if several spellscar fexts use this reaction after succeeding at a save against the same spell, the spellcaster undergoes only one wellspring surge.</p>"
                 },
@@ -323,15 +320,13 @@
             "name": "Grasp Power",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> The spellscar fext's last action was a successful fist Strike</p>\n<hr />\n<p><strong>Effect</strong> The spellscar fext attempts a counteract check against a single spell affecting the creature (counteract level 4, counteract modifier [[/r 1d20+17 #Counter]]{+17}). If the check is successful, the creature also takes [[/r 6d6[mental]]] damage (@Check[type:will|dc:25|basic:true]).</p>"
                 },

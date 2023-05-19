@@ -2122,15 +2122,13 @@
             "name": "Darkvision",
             "sort": 2200000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -2161,15 +2159,13 @@
             "name": "Perpetual Storm Aura",
             "sort": 2300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>Clouded Quartz is surrounded by a perpetual storm. The whirling winds impose a -2 circumstance penalty on ranged attack rolls using physical ammunition that target her or originate from her.</p>"
                 },
@@ -2197,15 +2193,13 @@
             "name": "Tempest Sight",
             "sort": 2400000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>Clouded Quartz can see perfectly through wind and water. She never takes penalties to Perception from wind, rain, fog, or other precipitation, or from looking through water or being underwater, and such conditions don't cause anything to be @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} from her.</p>"
                 },
@@ -2238,22 +2232,31 @@
             "name": "Regeneration 20 (Deactivated by Acid or Sonic)",
             "sort": 2500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "acid",
+                            "sonic"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 20
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -2282,15 +2285,13 @@
             "name": "Attack of Opportunity",
             "sort": 2600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
@@ -2326,15 +2327,13 @@
             "name": "Catch Rock",
             "sort": 2700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.CatchRock]</p>"
                 },
@@ -2365,15 +2364,13 @@
             "name": "Sunlight Petrification",
             "sort": 2800000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>If exposed to direct sunlight, Clouded Quartz immediately becomes @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions or Trample. The slowed value increases by 1 each time she ends her turn in sunlight. If Clouded Quartz's actions are reduced to 0 in this way, she becomes @UUID[Compendium.pf2e.conditionitems.Petrified]{Petrified} until she spends at least 1 minute in darkness. Spells like <em>@UUID[Compendium.pf2e.spells-srd.Sunburst]{Sunburst}</em> that create magical sunlight cannot petrify Clouded Quartz, but she is slowed 1 for [[/br 1d4 #rounds]]{1d4 rounds} after being exposed to such an effect.</p>"
                 },
@@ -2409,15 +2406,13 @@
             "name": "Rend",
             "sort": 2900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Claw</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Rend]</p>"
                 },
@@ -2448,15 +2443,13 @@
             "name": "Rock Tunneler",
             "sort": 3000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Clouded Quartz can burrow through solid stone at a Speed of 10 feet. She can leave a tunnel if she desires.</p>"
                 },
@@ -2492,15 +2485,13 @@
             "name": "Throw Rock",
             "sort": 3100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ThrowRock]</p>"
                 },

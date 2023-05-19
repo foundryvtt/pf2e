@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { MODIFIER_TYPE, ModifierPF2e } from "@actor/modifiers.ts";
+import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
@@ -42,7 +42,7 @@ function tripCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
                         context.rollOptions,
                         "ranged-trip"
                     ),
-                    type: MODIFIER_TYPE.CIRCUMSTANCE,
+                    type: "circumstance",
                     label: CONFIG.PF2E.weaponTraits["ranged-trip"],
                     modifier: -2,
                 })

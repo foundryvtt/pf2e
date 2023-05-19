@@ -901,15 +901,13 @@
             "name": "Darkvision",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -945,15 +943,13 @@
             "name": "Telepathy 500 feet",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
                 },
@@ -988,15 +984,13 @@
             "name": "Telepathic Singer",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>A love siktempora can provide verbal components and auditory performances for their composition spells even though they can't speak. They do so without needing to make noise, as all creatures within range of their telepathy hear the components in their mind. However, the siktempora can do so only as long as at least one other creature with an Intelligence modifier of +0 or higher is within the range of their telepathy.</p>"
                 },
@@ -1027,15 +1021,13 @@
             "name": "Temporal Sense",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>A siktempora can always roll Dimension of Time Lore for initiative. When it does, it gains a +2 circumstance bonus to the roll.</p>"
                 },
@@ -1081,15 +1073,13 @@
             "name": "At-Will Spells",
             "sort": 1400000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
                 },
@@ -1125,15 +1115,13 @@
             "name": "Constant Spells",
             "sort": 1500000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
@@ -1169,15 +1157,13 @@
             "name": "Regeneration 50 (Deactivated by Evil, Mental, or Orichalcum)",
             "sort": 1600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
@@ -1185,7 +1171,18 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "evil",
+                            "mental",
+                            "orichalcum"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 50
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -1209,15 +1206,13 @@
             "name": "Deflect Aggression",
             "sort": 1700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> The love siktempora is targeted by an attack</p>\n<hr />\n<p><strong>Effect</strong> The siktempora glows with compassion, deflecting the attacker's aggression. The siktempora gains a +2 circumstance bonus to their AC and resistance 15 against the triggering attack, and the attacker must attempt a saving throw against the siktempora's heartsong (see below).</p>"
                 },
@@ -1269,15 +1264,13 @@
             "name": "Uncanny Pounce",
             "sort": 1800000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> The love siktempora rolls Dimension of Time Lore for initiative</p>\n<hr />\n<p><strong>Effect</strong> The love siktempora Strides once and makes a claw Strike, in either order.</p>"
                 },
@@ -1308,15 +1301,13 @@
             "name": "Heartsong",
             "sort": 1900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>A creature that takes mental damage from the love siktempora's emotional bolt must succeed at a @Check[type:will|dc:37] save or become @UUID[Compendium.pf2e.conditionitems.Fascinated]{Fascinated} by the siktempora until the end of the target's next turn. Hostile actions don't end this fascinated condition.</p>"
                 },
@@ -1352,15 +1343,13 @@
             "name": "Love's Impunity",
             "sort": 2000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The love siktempora's emotional bolt Strike doesn't trigger reactions that normally trigger based off making a ranged attack.</p>"
                 },
@@ -1399,15 +1388,13 @@
             "name": "Telepathic Ballad",
             "sort": 2100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The love siktempora casts <em>@UUID[Compendium.pf2e.spells-srd.Inspire Courage]{Inspire Courage}</em> or <em>@UUID[Compendium.pf2e.spells-srd.Inspire Defense]{Inspire Defense}</em>. It increases the area to a @Template[type:emanation|distance:200] and increases the status bonuses the cantrip provides to +2.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Inspire Courage (Love Siktempora)]{Effect: Inspire Courage (Love Siktempora)}</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Inspire Defense (Love Siktempora)]{Effect: Inspire Defense (Love Siktempora)}</p>"
                 },

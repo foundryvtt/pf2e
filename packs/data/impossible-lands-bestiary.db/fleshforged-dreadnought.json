@@ -140,15 +140,13 @@
             "name": "Darkvision",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -179,15 +177,13 @@
             "name": "Scaling Spikes",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>A fleshforged dreadnought is covered in handholds and footholds that make it easy to climb. Creatures of Medium or smaller size can Climb the dreadnought, sharing one of its spaces as they do so. The DC to Climb a fleshforged dreadnought is 15, and creatures move 5 more feet on a success and 10 more feet on a critical success, to a maximum of their Speed when Climbing the construct.</p>"
                 },
@@ -220,15 +216,13 @@
             "name": "Regeneration 20 (Deactivated by Cold Iron)",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
@@ -236,7 +230,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "cold-iron"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 20
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -260,15 +263,13 @@
             "name": "Caustic Leak",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per turn</p>\n<p><strong>Trigger</strong> The fleshforged dreadnought is damaged by a non-reach piercing or slashing melee Strike</p>\n<hr />\n<p><strong>Effect</strong> Corrosive fluid sprays the attacker, dealing [[/r 8d6[acid]]] damage (@Check[type:reflex|dc:40|basic:true]).</p>"
                 },
@@ -300,15 +301,13 @@
             "name": "Destructive Charge",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The fleshforged dreadnought Strides up to twice its speed and makes a battering ram Strike against a structure or unattended object. The Strike ignores 20 points of the target's Hardness.</p>"
                 },
@@ -336,15 +335,13 @@
             "name": "Drown in Ichor",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The fleshforged dreadnought releases a wave of caustic fluid from vents in its sides. Creatures within a @Template[type:emanation|distance:20] take [[/r 8d6[acid]]] damage (@Check[type:reflex|dc:40|basic:true]). Creatures who fail their saves also take [[/r 3d6[persistent,acid]]] damage.</p>"
                 },
@@ -381,15 +378,13 @@
             "name": "Trample",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 3
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Huge or smaller, battering ram, @Check[type:reflex|dc:44|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
                 },
@@ -427,15 +422,13 @@
             "name": "Improved Push 15 feet",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedPush]</p>"
                 },

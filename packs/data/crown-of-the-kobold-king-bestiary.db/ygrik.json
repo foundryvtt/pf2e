@@ -225,19 +225,21 @@
             "type": "armor"
         },
         {
-            "_id": "XZBoMKiOHsPvJKkr",
-            "img": "systems/pf2e/icons/default-icons/treasure.svg",
-            "name": "Keys to prisoner cages",
+            "_id": "aaHH7VWzbOBiaEoB",
+            "img": "systems/pf2e/icons/equipment/held-items/key-purple.webp",
+            "name": "Keys",
             "sort": 300000,
             "system": {
                 "baseItem": null,
                 "containerId": null,
                 "description": {
+                    "gm": "<p>To prisoner cages</p>",
                     "value": ""
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 0
+                    "handsHeld": 0,
+                    "invested": null
                 },
                 "equippedBulk": {
                     "value": ""
@@ -276,13 +278,13 @@
                     "value": []
                 },
                 "usage": {
-                    "value": ""
+                    "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": "-"
+                    "value": "L"
                 }
             },
-            "type": "treasure"
+            "type": "equipment"
         },
         {
             "_id": "KbRqOltAvvC8OuSC",
@@ -395,15 +397,13 @@
             "name": "Darkvision",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -434,15 +434,13 @@
             "name": "Intimidating Retreat",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> Ygrik is adjacent to at least one enemy and at least one ally;</p>\n<p><strong>Effect</strong> Ygrik commands an adjacent ally to fight harder and threatens dire punishment if the ally fails to obey; that ally gains a +1 circumstance bonus to its next melee Strike attack roll, as long as that attack is made before the start of Ygrik's next turn. Ygrik then Strides up to his Speed and gains a +2 circumstance bonus to AC against reactions triggered by this movement. He must end this movement in a space that isn't adjacent to any enemy.</p>"
                 },
@@ -475,15 +473,13 @@
             "name": "Sneak Attack",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Ygrik deals an additional 1d6 precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
@@ -578,7 +574,17 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.CraftTrap",
+                        "predicate": [
+                            "action:craft:trap"
+                        ],
+                        "selector": "crafting",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -586,7 +592,7 @@
                 "variants": {
                     "0": {
                         "label": "+8 traps",
-                        "options": "traps"
+                        "options": "action:craft:trap"
                     }
                 }
             },

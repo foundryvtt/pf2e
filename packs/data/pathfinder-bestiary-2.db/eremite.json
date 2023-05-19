@@ -1929,15 +1929,13 @@
             "name": "Greater Darkvision",
             "sort": 1800000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
                 },
@@ -1973,15 +1971,13 @@
             "name": "Telepathy",
             "sort": 1900000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
                 },
@@ -2016,15 +2012,13 @@
             "name": "Painsight",
             "sort": 2000000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>A velstrac automatically knows whether a creature it sees has any of the @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed}, @UUID[Compendium.pf2e.conditionitems.Dying]{Dying}, and @UUID[Compendium.pf2e.conditionitems.Wounded]{Wounded} conditions, as well as the value of those conditions.</p>"
                 },
@@ -2063,15 +2057,13 @@
             "name": "At-Will Spells",
             "sort": 2100000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
                 },
@@ -2107,15 +2099,13 @@
             "name": "Constant Spells",
             "sort": 2200000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
@@ -2146,15 +2136,13 @@
             "name": "+1 Status to All Saves vs. Magic",
             "sort": 2300000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
@@ -2208,22 +2196,31 @@
             "name": "Regeneration 25 (Deactivated by Good or Silver)",
             "sort": 2400000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "good",
+                            "silver"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 25
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -2247,15 +2244,13 @@
             "name": "Ignore Pain",
             "sort": 2500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>An eremite's actions can't be disrupted due to damage or Strikes (such as @UUID[Compendium.pf2e.feats-srd.Attack of Opportunity]{Attack of Opportunity}).</p>"
                 },
@@ -2286,15 +2281,13 @@
             "name": "Paralytic Perfection",
             "sort": 2600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>When a creature ends its turn in the aura, it feels compelled to offer pieces of its own flesh to the eremite. The creature must succeed at a @Check[type:will|dc:40] save or become @UUID[Compendium.pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round.</p>"
                 },
@@ -2348,15 +2341,13 @@
             "name": "Evisceration",
             "sort": 2700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> The eremite has a creature grabbed</p>\n<hr />\n<p><strong>Effect</strong> The eremite excises flesh or bone from a creature it has grabbed. The target takes [[/r 6d10[bleed]]].</p>"
                 },
@@ -2389,15 +2380,13 @@
             "name": "Exquisite Pain",
             "sort": 2800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>An eremite's knowledge of pressure points and pain centers is unsurpassed. A creature hit by an eremite's melee Strikes must succeed at a @Check[type:fortitude|dc:40] save or be @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 2} (@UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 4} on a critical failure).</p>\n<p>A creature that critically succeeds is temporarily immune for 24 hours.</p>"
                 },
@@ -2428,15 +2417,13 @@
             "name": "Focus Gaze",
             "sort": 2900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The eremite stares at a creature they can see within 30 feet. The creature must immediately attempt a Will save against paralytic perfection.</p>\n<p>In addition, if the creature was already paralyzed, on a failed save, its unnatural longing causes it to become @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed 1}.</p>\n<p>After attempting this save, the creature is then temporarily immune until the start of the eremite's next turn.</p>"
                 },
@@ -2474,15 +2461,13 @@
             "name": "Graft Flesh",
             "sort": 3000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> The eremite holds a piece of flesh they collected via Evisceration</p>\n<hr />\n<p><strong>Effect</strong> The eremite attaches the stolen flesh to themself. They either regain 100 Hit Points; reduce the value of their clumsy, drained, enfeebled, or stupefied condition by 3; or reduce the stage of any affliction affecting them by 3.</p>"
                 },
@@ -2513,15 +2498,13 @@
             "name": "Shadow Traveler",
             "sort": 3100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>When an eremite uses <em>@UUID[Compendium.pf2e.spells-srd.Plane Shift]{Plane Shift}</em> or <em>@UUID[Compendium.pf2e.spells-srd.Shadow Walk]{Shadow Walk}</em>, they arrive at exactly their intended destination.</p>"
                 },
@@ -2560,15 +2543,13 @@
             "name": "Improved Grab",
             "sort": 3200000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
                 },

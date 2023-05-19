@@ -53,15 +53,13 @@
             "name": "Infuse Corpse",
             "sort": 200000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>A blood ooze can seep into a corpse's wounds, displacing its natural blood. It can burst out of the corpse as a free action.</p>"
                 },
@@ -92,15 +90,13 @@
             "name": "Motion Sense 60 feet",
             "sort": 300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>A blood ooze can sense nearby motion through vibration and air movement.</p>"
                 },
@@ -131,15 +127,13 @@
             "name": "Blood Pool",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>Whenever a creature adjacent to a blood ooze takes bleed damage, the blood ooze regains an amount of Hit Points equal to the damage dealt.</p>"
                 },
@@ -170,15 +164,13 @@
             "name": "Clot",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> The blood ooze is damaged by a piercing or slashing attack.</p>\n<hr />\n<p><strong>Effect</strong> The blood ooze forms a clot around the wound, reducing the damage taken by 5 (to a minimum of 0).</p>"
                 },
@@ -209,15 +201,13 @@
             "name": "Siphon Vitality",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The blood ooze draws forth blood from nearby creatures, causing their flesh to break open and blood to spill out which replenishes the blood ooze. Each living creature @Template[type:emanation|distance:15]{within 15 feet} takes [[/r 3d6[slashing]]] damage (@Check[type:fortitude|dc:21|basic:true] save).</p>\n<p>The blood ooze regains an amount of Hit Points equal to half the damage Siphon Vitality dealt to the single creature that took the most damage.</p>"
                 },
@@ -283,9 +273,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "If Hiding Inside a Body",
+                        "label": "PF2E.SkillVariant.HideInBody",
                         "predicate": [
-                            "hidingBody"
+                            "hiding-in-body"
                         ],
                         "selector": "stealth",
                         "value": 8
@@ -298,7 +288,7 @@
                 "variants": {
                     "0": {
                         "label": "+12 if hiding inside a body",
-                        "options": "hidingBody"
+                        "options": "hiding-in-body"
                     }
                 }
             },

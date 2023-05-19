@@ -4440,15 +4440,13 @@
             "name": "Greater Darkvision",
             "sort": 4000000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
                 },
@@ -4484,15 +4482,13 @@
             "name": "At-Will Spells",
             "sort": 4100000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
                 },
@@ -4528,15 +4524,13 @@
             "name": "Constant Spells",
             "sort": 4200000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
@@ -4567,15 +4561,13 @@
             "name": "Combustible",
             "sort": 4300000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>The first time each round that the Daemonic Infector takes fire damage, his fumes combust, dealing [[/r 30[fire]]] damage to all other creatures within the area of his toxic fumes aura.</p>"
                 },
@@ -4606,15 +4598,13 @@
             "name": "Toxic Fumes",
             "sort": 4400000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A creature that enters or begins its turn within the aura must attempt a @Check[type:fortitude|dc:44] save.</p>\n<p>On a failed save, the creature is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}, and on a critical failure, it's also @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} for 1 minute. In addition, creatures within the aura attempting a flat check to remove @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage} must roll twice and take the lower result.</p>"
                 },
@@ -4660,15 +4650,13 @@
             "name": "Breathe Death",
             "sort": 4500000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The Daemonic Infector exhales a @Template[type:line|distance:30] of concentrated fumes.</p>\n<p>Each creature in the area takes [[/r 12d10[poison]]] damage (@Check[type:fortitude|dc:44|basic:true] save; on a critical failure the creature is also @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1}).</p>\n<p>The Infector can't Breathe Death again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
@@ -4703,15 +4691,13 @@
             "name": "Infector",
             "sort": 4600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The Daemonic targets a creature within 30 feet that's currently subject to a poison affliction. The poison affliction progresses to the next stage.</p>"
                 },
@@ -4746,15 +4732,13 @@
             "name": "Steady Spellcasting",
             "sort": 4700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>If a reaction would disrupt the Daemonic Infector's spellcasting action, he attempts a @Check[type:flat|dc:15] check. On a success, the action isn't disrupted.</p>"
                 },
@@ -4820,7 +4804,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "When Crafting Poison",
+                        "label": "PF2E.SkillVariant.Poison",
                         "predicate": [
                             "craft:poison"
                         ],

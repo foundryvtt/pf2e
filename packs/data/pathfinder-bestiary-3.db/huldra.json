@@ -98,15 +98,13 @@
             "name": "Darkvision",
             "sort": 300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -142,15 +140,13 @@
             "name": "Scent (Imprecise) 60 feet",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
                 },
@@ -186,15 +182,13 @@
             "name": "Regeneration 5 (Deactivated by Acid or Fire)",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
@@ -202,7 +196,17 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "acid",
+                            "fire"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 5
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -226,15 +230,13 @@
             "name": "Befuddling Lash",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>When the huldra damages a creature with their tail, a wave of befuddlement clouds the target's thoughts. The creature must succeed at a @Check[type:will|dc:19] save or become @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1} (@UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 2} on a critical failure) for 1 minute.</p>"
                 },
@@ -269,15 +271,13 @@
             "name": "Manipulate Luck",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The huldra touches another creature to manipulate the creature's luck. The creature must attempt a @Check[type:will|dc:21] save.</p>\n<p>On a failure, the huldra chooses good luck or bad luck. If the huldra chooses good luck, the affected creature can roll twice on one d20 roll within the next minute and use the higher result; this is a fortune effect. If the huldra chooses bad luck, the creature must roll twice and use the lower result on its next d20 roll; this is a misfortune effect.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Manipulate Luck (Good)]{Effect: Manipulate Luck (Good)}</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Manipulate Luck (Bad)]{Effect: Manipulate Luck (Bad)}</p>"
                 },

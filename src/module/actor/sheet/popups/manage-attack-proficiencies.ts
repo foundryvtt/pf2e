@@ -1,5 +1,5 @@
+import { BaseWeaponProficiencyKey, WeaponGroupProficiencyKey } from "@actor/character/data.ts";
 import { CharacterPF2e } from "@actor/character/document.ts";
-import { BaseWeaponProficiencyKey, WeaponGroupProficiencyKey } from "@actor/character/data/index.ts";
 import { BaseWeaponType } from "@item/weapon/types.ts";
 import { fontAwesomeIcon, htmlClosest, localizer, objectHasKey } from "@util";
 

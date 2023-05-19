@@ -3092,15 +3092,13 @@
             "name": "Spin Silk",
             "sort": 3200000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>By spending several minutes, an anadi can produce silk to craft items made of cloth. An anadi can produce enough silk in a day to craft a single garment.</p>"
                 },
@@ -3135,15 +3133,13 @@
             "name": "Fate's Threads",
             "sort": 3300000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> three times per day</p>\n<p><strong>Trigger</strong> An ally within 30 feet of the anadi fateweaver that they can see makes a skill check or a saving throw</p>\n<hr />\n<p><strong>Effect</strong> The creature rerolls the triggering check and takes the new result.</p>"
                 },
@@ -3176,15 +3172,13 @@
             "name": "Anadi Venom",
             "sort": 3400000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:20]</p>\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 1d6[poison]]] damage, flat-footed, and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round)</p>"
                 },
@@ -3222,15 +3216,13 @@
             "name": "Change Shape",
             "sort": 3500000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The anadi changes into their hybrid, spider, or human form. The above statistics assume the anadi is in hybrid form. While in human form, the anadi seeker loses their climb Speed and can't use their fangs attack. When in spider form, they can't use weapons.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
                 },
@@ -3301,21 +3293,19 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "Climb in Spider or Hybrid Form",
+                        "label": "PF2E.SpecificRule.Anadi.SpiderOrHybridForm",
                         "predicate": [
                             "action:climb",
-                            "in-spider-or-hybrid-form"
+                            {
+                                "or": [
+                                    "spider-form",
+                                    "hybrid-form"
+                                ]
+                            }
                         ],
                         "selector": "athletics",
                         "type": "untyped",
                         "value": 4
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "Creature is in spider or hybrid form",
-                        "option": "in-spider-or-hybrid-form",
-                        "toggleable": true
                     }
                 ],
                 "slug": null,
@@ -3325,7 +3315,7 @@
                 "variants": {
                     "0": {
                         "label": "+15 to climb in spider or hybrid form",
-                        "options": "action:climb"
+                        "options": "action:climb,spider-form,hybrid-form"
                     }
                 }
             },
@@ -3349,9 +3339,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "Weaving",
+                        "label": "PF2E.SkillVariant.Weave",
                         "predicate": [
-                            "action:weaving"
+                            "action:craft:weave"
                         ],
                         "selector": "crafting",
                         "type": "untyped",
@@ -3365,7 +3355,7 @@
                 "variants": {
                     "0": {
                         "label": "+13 to weave",
-                        "options": "action:weaving"
+                        "options": "action:craft:weave"
                     }
                 }
             },

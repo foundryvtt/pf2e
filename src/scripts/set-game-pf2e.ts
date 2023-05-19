@@ -1,6 +1,6 @@
 import { Action } from "@actor/actions/index.ts";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
-import { CheckModifier, MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { CheckModifier, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { CompendiumBrowser } from "@module/apps/compendium-browser/index.ts";
 import { EffectsPanel } from "@module/apps/effects-panel.ts";
@@ -53,6 +53,16 @@ export const SetGamePF2e = {
         })) {
             actions[name] = action;
         }
+
+        const MODIFIER_TYPE = {
+            ABILITY: "ability",
+            PROFICIENCY: "proficiency",
+            CIRCUMSTANCE: "circumstance",
+            ITEM: "item",
+            POTENCY: "potency",
+            STATUS: "status",
+            UNTYPED: "untyped",
+        } as const;
 
         const initSafe: Partial<(typeof game)["pf2e"]> = {
             Check: CheckPF2e,

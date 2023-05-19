@@ -370,15 +370,13 @@
             "name": "Low-Light Vision",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
                 },
@@ -409,15 +407,13 @@
             "name": "Trackless",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>A kaava moving at half their Speed or less steps so lightly that they leave virtually no trace. The DCs of checks to Track a kaava are increased by 10.</p>"
                 },
@@ -448,15 +444,13 @@
             "name": "Woodland Stride",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>A kaava ignores difficult terrain and greater difficult terrain from non-magical foliage.</p>"
                 },
@@ -545,19 +539,14 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Forests",
+                        "label": "PF2E.SkillVariant.ForestsOrJungles",
                         "predicate": [
-                            "terrain:forest"
-                        ],
-                        "selector": "stealth",
-                        "type": "status",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Jungles",
-                        "predicate": [
-                            "terrain:jungle"
+                            {
+                                "or": [
+                                    "terrain:forest",
+                                    "terrain:jungle"
+                                ]
+                            }
                         ],
                         "selector": "stealth",
                         "type": "status",
@@ -570,12 +559,8 @@
                 },
                 "variants": {
                     "0": {
-                        "label": "+9 in forests",
-                        "options": "terrain:forest"
-                    },
-                    "1": {
-                        "label": "or jungles",
-                        "options": "terrain:jungle"
+                        "label": "+9 in forests or jungles",
+                        "options": "terrain:forest,terrain:jungle"
                     }
                 }
             },

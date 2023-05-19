@@ -559,15 +559,13 @@
             "name": "Anadi Venom",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:16]</p>\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 1d6[poison]]] damage, flat-footed, and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round)</p>"
                 },
@@ -605,15 +603,13 @@
             "name": "Change Shape",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The anadi changes into their hybrid form, spider form, or human form. The above statistics assume the anadi is in their hybrid form. While in their human form, the anadi hunter can't use their fangs attack and loses their climb Speed. When in spider form, they can't use weapons.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
                 },
@@ -649,15 +645,13 @@
             "name": "Spin Silk",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>By spending several minutes, an anadi can produce silk to craft items made of cloth. A single anadi can produce enough silk in a day to craft a single garment.</p>"
                 },
@@ -726,18 +720,16 @@
                 },
                 "rules": [
                     {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "In Hybrid or Spider Form",
-                        "option": "spider-form",
-                        "toggleable": true
-                    },
-                    {
                         "key": "FlatModifier",
-                        "label": "To Climb in True or Spider Form",
+                        "label": "PF2E.SpecificRule.Anadi.SpiderOrHybridForm",
                         "predicate": [
                             "action:climb",
-                            "spider-form"
+                            {
+                                "or": [
+                                    "spider-form",
+                                    "hybrid-form"
+                                ]
+                            }
                         ],
                         "selector": "athletics",
                         "value": 2
@@ -750,7 +742,7 @@
                 "variants": {
                     "0": {
                         "label": "+8 to Climb in hybrid or spider form",
-                        "options": "action:climb, spider-form"
+                        "options": "action:climb,hybrid-form,spider-form"
                     }
                 }
             },
@@ -774,9 +766,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "Weaving",
+                        "label": "PF2E.SkillVariant.Weave",
                         "predicate": [
-                            "action:weaving"
+                            "action:craft:weave"
                         ],
                         "selector": "crafting",
                         "value": 4
@@ -789,7 +781,7 @@
                 "variants": {
                     "0": {
                         "label": "+10 to weaving",
-                        "options": "action:weaving"
+                        "options": "action:craft:weave"
                     }
                 }
             },

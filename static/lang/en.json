@@ -133,21 +133,11 @@
                 "MeleeLabel": "Melee Strike: {weapon}",
                 "OutOfRange": "The target is out of range.",
                 "RangedLabel": "Ranged Strike: {weapon}"
-            },
-            "Type": {
-                "Activity": "Activity",
-                "Free": "Free Action",
-                "Single": "Single Action",
-                "Reaction": "Reaction"
             }
         },
         "ActionActionTypeLabel": "Action Type",
         "ActionActionsLabel": "Actions",
         "ActionBrowserSearchHint": "You can search for name or custom attributes. Possible searchable attributes are:<br> source, spellType, level, school, components, materials, target, range, time, duration, damage, damageType, save, concentration, ritual, ability and classes. <br>Example: 'fire, damage:d6' to show all spells that have fire in their name and a d6 in the damage",
-        "ActionCategoryDefensive": "Defensive",
-        "ActionCategoryInteraction": "Interaction",
-        "ActionCategoryLabel": "Action Category",
-        "ActionCategoryOffensive": "Offensive",
         "ActionDeathNoteLabel": "Death Note",
         "ActionNumber1": "One",
         "ActionNumber2": "Two",
@@ -254,6 +244,7 @@
                         "Scent": "Scent",
                         "SeeInvisibility": "See Invisibility",
                         "Spiritsense": "Spiritsense",
+                        "Thoughtsense": "Thoughtsense",
                         "Tremorsense": "Tremorsense",
                         "Wavesense": "Wavesense"
                     },
@@ -278,6 +269,14 @@
                 }
             },
             "Dead": "Dead",
+            "Familiar": {
+                "Master": {
+                    "Perception": "Master Perception"
+                }
+            },
+            "Hardness": {
+                "ShortLabel": "HRD"
+            },
             "Hazard": {
                 "EmitsSound": {
                     "Encounter": "During Encounters",
@@ -335,7 +334,8 @@
                 "NoSpecialSenses": "No Special Senses",
                 "Tabs": {
                     "Overview": "Overview",
-                    "Inventory": "Inventory"
+                    "Inventory": "Inventory",
+                    "Orphaned": "Orphaned Items"
                 },
                 "Total": "Party Total",
                 "Wealth": "Wealth"
@@ -706,7 +706,7 @@
             "TabEquipment": "Equipment",
             "TabFeat": "Feats/Features",
             "TabHazard": "Hazards",
-            "TabSettings": "Load Packs",
+            "TabSettings": "Settings",
             "TabSpell": "Spells",
             "TakeLabel": "Take Item",
             "Title": "Compendium Browser"
@@ -891,7 +891,8 @@
                     "immunity": "Immune to {type}: {adjustment}",
                     "resistance": "Resistant to {type}: {adjustment}",
                     "unaffected": "Unaffected by {type}: {adjustment}",
-                    "weakness": "Weak to {type}: {adjustment}"
+                    "weakness": "Weak to {type}: {adjustment}",
+                    "reduction": "Reduced by {type}: {adjustment}"
                 },
                 "CompositeLabel": {
                     "Exceptions0DoubleVs0": "{type} {value}",
@@ -958,6 +959,7 @@
                     "fleeing": "fleeing",
                     "frightened": "frightened",
                     "ghost-touch": "ghost touch",
+                    "glass": "glass",
                     "grabbed": "grabbed",
                     "healing": "healing",
                     "hidden": "hidden",
@@ -1014,6 +1016,10 @@
                     "weapons": "weapons",
                     "weapons-shedding-bright-light": "weapons shedding bright light"
                 }
+            },
+            "Hardness": {
+                "Full": "hardness",
+                "Half": "half hardness"
             },
             "IncreasedFrom": "Increased from {original} to minimum of 1",
             "NoDamageFormulaLabel": "No damage",
@@ -1093,7 +1099,9 @@
         "DetailsHeading": "Details",
         "DragDropFeats": "Drag & Drop feats to add",
         "Duration": {
+            "P1M": "month",
             "P1W": "week",
+            "P1Y": "year",
             "PT10M": "10 minutes",
             "PT1H": "hour",
             "PT1M": "minute",
@@ -1353,6 +1361,21 @@
         "Item": {
             "ABC": {
                 "InvalidDrop": "{badType} cannot be dropped here (must be {goodType})"
+            },
+            "Action": {
+                "CategoryLabel": "Category",
+                "Category": {
+                    "None": "None",
+                    "Defensive": "Defensive",
+                    "Interaction": "Interaction",
+                    "Offensive": "Offensive"
+                },
+                "Type": {
+                    "Activity": "Activity",
+                    "Free": "Free Action",
+                    "Single": "Single Action",
+                    "Reaction": "Reaction"
+                }
             },
             "Activation": {
                 "Add": "Add Activation",
@@ -1807,6 +1830,10 @@
             "Feat": {
                 "Info": {
                     "Added": "{item} was added to {category}."
+                },
+                "KeyAbilityOptions": {
+                    "Label": "Key Ability Options",
+                    "Hint": "Key ability options in addition to this provided by a class"
                 },
                 "LevelLabel": "Feat",
                 "LevelN": "Feat {level}",
@@ -2675,6 +2702,17 @@
             "CompendiumBrowserPacks": {
                 "Hint": "Settings to exclude packs from loading",
                 "Name": "Compendium Browser Packs"
+            },
+            "CompendiumBrowserSources": {
+                "DeleteAllInfo": "All compendium documents will become browseable, including those with empty sources.",
+                "DeleteAllQuestion": "Are you sure you want to reset all settings for included sources?",
+                "DeleteAllTitle": "Reset Settings",
+                "Hint": "Settings to display only entries with specified sources in the compendium browser.",
+                "IgnoreAsGM": "Let GMs ignore filtering and see all entries.",
+                "Name": "Included Sources",
+                "ShowEmptySources": "Do not filter entries with empty sources.",
+                "ShowUnknownSources": "Do not filter entries with unknown sources.",
+                "SourcesListHeader": "Specified Sources"
             },
             "CritRule": {
                 "Choices": {
@@ -4121,6 +4159,7 @@
         "TraitReach1000": "Reach 1,000 ft",
         "TraitReach15": "Reach 15 ft",
         "TraitReach20": "Reach 20 ft",
+        "TraitReach200": "Reach 200 ft",
         "TraitReach25": "Reach 25 ft",
         "TraitReach30": "Reach 30 ft",
         "TraitReach40": "Reach 40 ft",
@@ -4129,6 +4168,7 @@
         "TraitReckless": "Reckless",
         "TraitRecovery": "Recovery",
         "TraitReflection": "Reflection",
+        "TraitRelic": "Relic",
         "TraitReload": "Reload",
         "TraitReload0": "Reload 0",
         "TraitReload1": "Reload 1",
@@ -4865,7 +4905,7 @@
             "greaterFlaming": {
                 "Name": "Greater Flaming",
                 "Note": {
-                    "criticalSuccess": "Fire damage dealt by this weapon (including the persistent fire damage) ignores the target's fire resistance. When you critically succeed at a Strike with this weapon, you deal an additional [[/r 2d10[persistent,fire]]].",
+                    "criticalSuccess": "Fire damage dealt by this weapon (including the persistent fire damage) ignores the target's fire resistance.",
                     "success": "Fire damage dealt by this weapon ignores the target's fire resistance."
                 }
             },

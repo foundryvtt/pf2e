@@ -60,15 +60,13 @@
             "name": "Low-Light Vision",
             "sort": 200000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
                 },
@@ -104,15 +102,13 @@
             "name": "Lifesense 30 feet",
             "sort": 300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
                 },
@@ -143,15 +139,13 @@
             "name": "Axe Vulnerability 20",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>A Tree that Weeps takes 20 additional damage from axes.</p>"
                 },
@@ -182,15 +176,13 @@
             "name": "Ripping Disarm",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> A creature rolls a critical failure on a melee weapon Strike against the Tree that Weepos</p>\n<hr />\n<p><strong>Effect</strong> The Tree that Weeps attempts to @UUID[Compendium.pf2e.actionspf2e.Disarm]{Disarm} the creature.</p>"
                 },
@@ -221,15 +213,13 @@
             "name": "Weeping Aura",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:30] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p><strong>Requirements</strong> The Tree that Weeps isn't using Dead Tree</p>\n<p><strong>Effect</strong> A creature that begins its turn in the aura is potentially overwhelmed with despair and must attempt a @Check[type:will|dc:40] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune for 1 hour.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round by despair, and then @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} after recovering from paralysis.</p>\n<p><strong>Critical Failure</strong> As failure, but the paralysis doesn't end automatically. A character can attempt a new Will save to end the paralysis at the end of their turn; the DC is reduced by 1 each turn that passes.</p>"
                 },
@@ -275,15 +265,13 @@
             "name": "Dead Tree",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Until the Tree that Weeps acts, it appears to be a dead tree. It automatically takes 43 as the result of its Deception checks and has a Deception DC of 43 to pass as a dead tree.</p>"
                 },
@@ -316,15 +304,13 @@
             "name": "Woodland Ambush",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> The Tree that Weeps is using Dead Tree in forested terrain, and a creature that hasn't detected it is within 30 feet</p>\n<p><strong>Effect</strong> The Tree that Weeps Strides with a +10-foot circumstance bonus to its Speed in the direction of the triggering creature. Once the creature is in reach, the Tree that Weeps makes a scythe branch Strike against it. The creature is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} against this Strike.</p>"
                 },
@@ -390,6 +376,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Forests",
                         "predicate": [
                             "terrain:forest"
                         ],

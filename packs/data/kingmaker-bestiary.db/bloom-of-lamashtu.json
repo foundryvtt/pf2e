@@ -103,15 +103,13 @@
             "name": "Low-Light Vision",
             "sort": 300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
                 },
@@ -147,15 +145,13 @@
             "name": "Tremorsense (Precise) 30 feet",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
                 },
@@ -191,15 +187,13 @@
             "name": "Regeneration 30 (Deactivated by Fire or Good)",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
@@ -207,7 +201,17 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "fire",
+                            "good"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 30
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -231,15 +235,13 @@
             "name": "Defensive Burst",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> The bloom takes slashing damage.</p>\n<p><strong>Effect</strong> The bloom of Lamashtu sprays a gout of acid against an adjacent creature, inflicting [[/r 9d6[acid]]] damage (@Check[type:reflex|dc:26|basic:true]). The bloom can't use Defensive Burst for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
@@ -267,15 +269,13 @@
             "name": "Bloom Curse",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>A living creature is exposed to the bloom curse if it eats any portion of a bloom of Lamashtu, fails a save against the bloom's seed pod, or is critically hit by the bloom's thorny vine Strike. Unlike the bloom curse contracted from secondary sources, there is no onset time for this version of the curse, and the creature spawned by the victim's death may be much more powerful and is always chaotic evil.</p>\n<hr />\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:29]</p>\n<p><strong>Stage 1</strong> no ill effects (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 day)</p>\n<p><strong>Stage 3</strong> enfeebled 1 and [[/r 2d6[poison]]] damage (8 hours)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Unconscious]{Unconscious} and [[/r 4d6[poison]]] damage (10 minutes)</p>\n<p><strong>Stage 5</strong> death;</p>\n<p><strong>Special</strong> A creature that dies from the bloom curse explodes in a blast of First World foliage and releases a monster into the world. This creature is a chaotic evil low-intelligence beast or dragon (chosen by the GM ) of the same level as the dead creature.</p>"
                 },
@@ -316,15 +316,13 @@
             "name": "Spew Seed Pod",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The bloom of Lamashtu's central stalk disgorges a pulsing seed pod from its flower, spitting it at a range of up to 60 feet and creating a @Template[type:burst|distance:20] when the seed pod explodes into a spray of supernatural acidic poison. All creatures in this area must attempt a @Check[type:reflex|dc:29] save. The bloom of Lamashtu can't Spew Seed Pod for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r 3d6[acid]]] damage and [[/r 3d6[poison]]] damage.</p>\n<p><strong>Failure</strong> The creature takes [[/r 5d6[acid]]] damage and [[/r 5d6[poison]]] damage and is exposed to the bloom curse.</p>\n<p><strong>Critical Failure</strong> As failure, but [[/r 10d6[acid]]] damage and [[/r 10d6[poison]]] damage, plus knocked @UUID[Compendium.pf2e.conditionitems.Prone]{Prone} by the force of the blast.</p>"
                 },
@@ -391,7 +389,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "In wooded or underground areas",
+                        "label": "PF2E.SkillVariant.ForestsOrUnderground",
                         "predicate": [
                             {
                                 "or": [

@@ -24,7 +24,7 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -819,15 +819,13 @@
             "name": "Greater Darkvision",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
                 },
@@ -858,15 +856,13 @@
             "name": "Painsight",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>A velstrac automatically knows whether a creature it sees has any of the @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed}, @UUID[Compendium.pf2e.conditionitems.Dying]{Dying}, and @UUID[Compendium.pf2e.conditionitems.Wounded]{Wounded} conditions, as well as the value of those conditions.</p>"
                 },
@@ -900,15 +896,13 @@
             "name": "+1 Status to All Saves vs. Magic",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
@@ -962,22 +956,31 @@
             "name": "Regeneration 20 (Deactivated by Good or Silver)",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "good",
+                            "silver"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 20
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -1006,15 +1009,13 @@
             "name": "Attack of Opportunity",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
@@ -1045,15 +1046,13 @@
             "name": "Glimpse of Stolen Flesh",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>When a creature ends its turn in the aura, it sees pieces of its own body amid the interlocutor's form. The creature must succeed at a @Check[type:will|dc:29] save or become @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}.</p>"
                 },
@@ -1105,15 +1104,13 @@
             "name": "Focus Gaze",
             "sort": 1400000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The interlocutor stares at a creature they can see within 30 feet. The creature must immediately attempt a Will save against glimpse of stolen flesh. In addition, if the creature was already @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned}, on a failed save, it feels its internal organs twist and writhe, and is @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2} for 1 minute.</p>\n<p>After attempting this save, the creature is then temporarily immune until the start of the interlocutor's next turn.</p>"
                 },
@@ -1151,35 +1148,26 @@
             "name": "Surgical Rend",
             "sort": 1500000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>This functions as the @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Rend]{Rend} ability, dealing claw damage.</p>\n<p>In addition, if the target is a living creature with organs and muscle, the interlocutor opens a precise wound.</p>\n<p>Until the creature is restored to its maximum Hit Points, thus closing the wound, Strikes against the creature deal 1d6 extra precision damage.</p>"
+                    "value": "<p>This functions as the @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Rend]{Rend} ability, dealing claw damage. In addition, if the target is a living creature with organs and muscle, the interlocutor opens a precise wound. Until the creature is restored to its maximum Hit Points, thus closing the wound, Strikes against the creature deal 1d6 extra precision damage.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Surgical Rend]{Effect: Surgical Rend}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "Target has a precise wound",
-                        "option": "precise-wound",
-                        "toggleable": true
-                    },
-                    {
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "precise-wound"
+                            "target:effect:surgical-rend"
                         ],
                         "selector": "strike-damage"
                     }

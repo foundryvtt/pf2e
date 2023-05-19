@@ -94,15 +94,13 @@
             "name": "Darkvision",
             "sort": 300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -133,15 +131,13 @@
             "name": "Crushed Windpipes",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>The blindheim can't vocalize and is @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} until its neck injuries heal.</p>"
                 },
@@ -169,15 +165,13 @@
             "name": "Spotlight",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Bright light shines from the blindheim's eyes in a @Template[type:emanation|distance:30] (also creating dim light to 60 feet). Each creature in the bright light when the blindheim uses this action, or who enters it while the light continues, must attempt a @Check[type:fortitude|dc:18] save. It is then temporarily immune for 1 hour. This light remains until the blindheim dims its eyes by using this action again.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Dazzled]{Dazzled} for 1 round.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded} for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<p><strong>Critical Failure</strong> The creature is Blinded for 1 hour.</p>"
                 },
@@ -246,11 +240,12 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "To Leap or Swim",
+                        "label": "PF2E.SkillVariant.JumpOrSwim",
                         "predicate": [
                             {
                                 "or": [
-                                    "action:leap",
+                                    "action:long-jump",
+                                    "action:high-jump",
                                     "action:swim"
                                 ]
                             }
@@ -265,8 +260,8 @@
                 },
                 "variants": {
                     "0": {
-                        "label": "+7 to Leap or Swim",
-                        "options": "action:leap, action:swim"
+                        "label": "+7 to Jump or Swim",
+                        "options": "action:swim,action:long-jump,action:high-jump"
                     }
                 }
             },

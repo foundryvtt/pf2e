@@ -177,15 +177,13 @@
             "name": "Darkvision",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -221,15 +219,13 @@
             "name": "Negative Healing",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
@@ -267,15 +263,13 @@
             "name": "Flammable",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>A tar zombie requires a successful @Check[type:flat|dc:20] to recover from persistent fire damage. This DC isn't reduced for assisted recovery.</p>"
                 },
@@ -303,15 +297,13 @@
             "name": "Fling",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirements</strong> The tar zombie mammoth has a creature @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} or @UUID[Compendium.pf2e.conditionitems.Restrained]{Restrained} by its trunk</p>\n<hr />\n<p><strong>Effect</strong> The tar zombie mammoth whips its prey violently into the air. It attempts an Athletics check against the grabbed or restrained creature's Fortitude DC. If the creature is restrained, the mammoth gains a +4 circumstance bonus to this check. On a success, the mammoth flings the creature up to 30 feet overhead and up to 30 feet away (the creature takes damage from the fall as normal, up to 15 damage for a 30-foot fall). If the flung creature lands on another creature, the creature it lands on takes the same amount of bludgeoning damage (@Check[type:reflex|dc:28|basic:true] save).</p>"
                 },
@@ -339,15 +331,13 @@
             "name": "Shambling Trample",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>As @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Trample]{Trample}, but the tar zombie mammoth Strides up to its Speed instead of double its Speed.</p>"
                 },
@@ -375,17 +365,15 @@
             "name": "Vomit Tar",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>The tar zombie vomits a gout of sticky tar in a @Template[type:cone|distance:15] that deals [[/r 7d6[bludgeoning]]] damage ((@Check[type:reflex|dc:28|basic:true]) save). Creatures that fail the save are @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} and gain fire weakness 5. Both conditions end after 3 rounds or when the tar is scrubbed off (which requires 3 Interact actions). The tar zombie can't Vomit Tar again for [[/r 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The tar zombie vomits a gout of sticky tar in a @Template[type:cone|distance:15] that deals [[/r 7d6[bludgeoning]]] damage ((@Check[type:reflex|dc:28|basic:true]) save). Creatures that fail the save are @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} and gain fire weakness 5. Both conditions end after 3 rounds or when the tar is scrubbed off (which requires 3 Interact actions). The tar zombie can't Vomit Tar again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -459,7 +447,7 @@
                 ],
                 "slug": null,
                 "source": {
-                    "value": "Pathfinder #177: Burning Tundra"
+                    "value": ""
                 },
                 "variants": {
                     "0": {
@@ -472,9 +460,6 @@
         }
     ],
     "name": "Tar Zombie Mammoth",
-    "prototypeToken": {
-        "name": "Tar Zombie Snatcher"
-    },
     "system": {
         "abilities": {
             "cha": {

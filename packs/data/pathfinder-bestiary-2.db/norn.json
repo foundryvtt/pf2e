@@ -1762,15 +1762,13 @@
             "name": "Greater Darkvision",
             "sort": 1900000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
                 },
@@ -1806,15 +1804,13 @@
             "name": "Lifesense",
             "sort": 2000000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
                 },
@@ -1845,15 +1841,13 @@
             "name": "Sense Fate",
             "sort": 2100000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>A norn automatically rolls a 20 when she rolls initiative.</p>"
                 },
@@ -1892,15 +1886,13 @@
             "name": "Triumvirate",
             "sort": 2200000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>This functions as the @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Coven]{Coven} ability, except only norns can join a triumvirate, and it functions only as long as exactly three norns are part of the triumvirate. A triumvirate grants the following spells: <em>@UUID[Compendium.pf2e.spells-srd.Alter Reality]{Alter Reality}</em> (once per day), <em>@UUID[Compendium.pf2e.spells-srd.Cataclysm]{Cataclysm}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Discern Location]{Discern Location}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Foresight]{Foresight}</em>, and <em>@UUID[Compendium.pf2e.spells-srd.Revival]{Revival}</em>.</p>"
                 },
@@ -1936,15 +1928,13 @@
             "name": "At-Will Spells",
             "sort": 2300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
                 },
@@ -1980,15 +1970,13 @@
             "name": "Constant Spells",
             "sort": 2400000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
@@ -2019,15 +2007,13 @@
             "name": "+1 Status to All Saves vs. Magic",
             "sort": 2500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
@@ -2077,25 +2063,33 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 20 (deactivated by cold iron)",
+            "name": "Regeneration 20 (Deactivated by Cold Iron)",
             "sort": 2600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "cold-iron"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 20
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -2119,15 +2113,13 @@
             "name": "Fated",
             "sort": 2700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>When a creature is subject to a fortune effect from a norn and a misfortune effect from any source other than a norn (or vice versa), the norn's effect automatically counteracts the other effect and then takes place normally, rather than the two effects canceling each other out. If both the fortune and misfortune effect are from a norn, then the two cancel each other out as normal. At the GM's discretion, powerful entities related to fate or luck, like Desna, Magdh, or Pharasma, count as a norn for the purpose of this ability.</p>"
                 },
@@ -2161,17 +2153,15 @@
             "name": "Sever Fate",
             "sort": 2800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>When a norn deals negative damage with a Strike, she regains 10 Hit Points. The target must succeed at a @Check[type:fortitude|dc:39] save or become @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} (@UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2} on a critical failure).</p>\n<p>Further negative damage dealt by the norn increases the drained condition value by 1 on a failed save (or by 2 on a critical failure), to a maximum of drained 4.</p>"
+                    "value": "<p>When a norn deals negative damage with a Strike, she regains [[/r 10]] Hit Points. The target must succeed at a @Check[type:fortitude|dc:39] save or become @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} (@UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2} on a critical failure).</p>\n<p>Further negative damage dealt by the norn increases the drained condition value by 1 on a failed save (or by 2 on a critical failure), to a maximum of drained 4.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2203,15 +2193,13 @@
             "name": "Shift Fate",
             "sort": 2900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> A creature within 120 feet attempts a saving throw</p>\n<hr />\n<p><strong>Effect</strong> The creature rolls the saving throw twice, and then the norn decides which result applies. If the norn chooses the lower roll, this is a misfortune effect; if she chooses the higher roll, it's a fortune effect; if they're the same, she decides which trait to apply.</p>"
                 },
@@ -2247,15 +2235,13 @@
             "name": "Snip Thread",
             "sort": 3000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> three times per day</p>\n<hr />\n<p><strong>Effect</strong> The norn produces a golden thread linked to the fate of a creature within 100 feet of her, then snips it short with her shears. The target takes [[/r 100[negative]]] damage (@Check[type:fortitude|dc:42|basic:true] save). If the target is reduced to 0 Hit Points from this damage, the thread is completely severed and the creature dies immediately. A creature slain by Snip Thread can't be restored to life except by <em>@UUID[Compendium.pf2e.spells-srd.Miracle]{Miracle}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Wish]{Wish}</em>, or similarly powerful magic; or by divine intervention. Regardless of the outcome of their saving throw, a creature targeted by Snip Thread then becomes temporarily immune for 24 hours. The norn can't use Snip Thread again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },

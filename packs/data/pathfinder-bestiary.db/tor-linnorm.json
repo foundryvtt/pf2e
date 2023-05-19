@@ -459,15 +459,13 @@
             "name": "Darkvision",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -503,15 +501,13 @@
             "name": "Scent (Imprecise) 60 feet",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
                 },
@@ -547,15 +543,13 @@
             "name": "Constant Spells",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
@@ -591,15 +585,13 @@
             "name": "+1 Status to All Saves vs. Magic",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
@@ -653,22 +645,30 @@
             "name": "Regeneration 20 (Deactivated by Cold Iron)",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "cold-iron"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 20
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -697,15 +697,13 @@
             "name": "Attack of Opportunity (Tail Only)",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>Tail only</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
@@ -736,15 +734,13 @@
             "name": "Curse of Boiling Blood",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>When a creature slays a tor linnorm, it must succeed at a @Check[type:will|dc:48] save or permanently gain weakness to fire 20 and @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} from the agonizing pain it now endures at all times. As long as a character continues to suffer this curse, its slowed condition can never be reduced below slowed 1.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Curse of Boiling Blood]{Effect: Curse of Boiling Blood}</p>"
                 },
@@ -779,15 +775,13 @@
             "name": "Lava Affinity",
             "sort": 1400000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>A tor linnorm can breathe and swim freely while submerged in lava and magma.</p>"
                 },
@@ -818,15 +812,13 @@
             "name": "Breath Weapon",
             "sort": 1500000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The tor linnorm expels a @Template[type:cone|distance:60] of flame and ash dealing [[/r 20d6[fire]]] damage to creatures within the area (@Check[type:reflex|dc:46|basic:true] save). At the start of the tor linnorm's next turn, the area affected by the breath weapon is covered in thick, scorching smoke that burns both the lungs and eyes, dealing an additional [[/r 10d6[fire]]] damage to all creatures in the area (@Check[type:reflex|dc:46|basic:true] save). A creature that spends an entire round in the smoke with open eyes must succeed at a @Check[type:fortitude|dc:44] save or is @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded} for 1 minute. The smoke dissipates after 1 minute; in strong winds, the smoke dissipates in 5 rounds, and in more powerful winds, it may clear even more quickly.</p>\n<p>The tor linnorm can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
@@ -866,15 +858,13 @@
             "name": "Constrict",
             "sort": 1600000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>[[/r (3d6+21)[bludgeoning]]], @Check[type:fortitude|dc:46|basic:true] save</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
@@ -905,15 +895,13 @@
             "name": "Slashing Claws",
             "sort": 1700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>A tor linnorm makes four Strikes with its claws, each against a different target. These attacks count toward the tor linnorm's multiple attack penalty, but the multiple attack penalty doesn't increase until after the tor linnorm makes all its attacks.</p>"
                 },
@@ -944,15 +932,13 @@
             "name": "Tor Linnorm Venom",
             "sort": 1800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:44]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 10 rounds</p>\n<p><strong>Stage 1</strong> [[/r 8d6[fire]]] damage and @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1}</p>\n<p><strong>Stage 2</strong> [[/r 12d6[fire]]] damage and @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2}</p>"
                 },
@@ -992,15 +978,13 @@
             "name": "Improved Grab",
             "sort": 1900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
                 },

@@ -1506,15 +1506,13 @@
             "name": "Darkvision",
             "sort": 1600000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -1550,15 +1548,13 @@
             "name": "At-Will Spells",
             "sort": 1700000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
                 },
@@ -1594,15 +1590,13 @@
             "name": "Constant Spells",
             "sort": 1800000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
@@ -1638,15 +1632,13 @@
             "name": "Change Shape",
             "sort": 1900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Ishti can take on the appearance of a Medium humanoid. This doesn't change her Speed or her attack and damage modifiers with her Strikes, but it does prevent them from using her cursed touch. Ishti has a fixed humanoid form-they cannot adopt a different appearance each time they use this ability, and the appearance resembles that of their upper torso when in their true form.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
                 },
@@ -1682,15 +1674,13 @@
             "name": "Matriarch's Caress",
             "sort": 2000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Ishti touches a creature, who must succeed at a @Check[type:will|dc:40] save or become @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1} (@UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 2} if it critically fails).</p>\n<p>If the target fails additional saves against this ability, the condition value increases by 1 (or 2 if it critically fails) (to a maximum of stupefied 4). This condition value decreases by 1 every 24 hours.</p>"
                 },
@@ -1723,15 +1713,13 @@
             "name": "Poison Weapon",
             "sort": 2100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Ishti applies a poison to a piercing or slashing weapon of her choice.</p>"
                 },
@@ -1761,15 +1749,13 @@
             "name": "Quick Dervish Strike",
             "sort": 2200000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Ishti makes a dagger attack against each enemy within reach. Each attack counts toward her multiple attack penalty, but the penalty does not increase until after all the attacks. The first enemy she damages is subject to matriarch's caress.</p>"
                 },
@@ -1832,6 +1818,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Poison",
                         "predicate": [
                             "poison"
                         ],

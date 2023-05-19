@@ -1082,15 +1082,13 @@
             "name": "Darkvision",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -1121,15 +1119,13 @@
             "name": "Envisioning",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>When a bythos conveys information, it does so wordlessly through psychic projections. This acts as @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Telepathy]{Telepathy} with a range of 100 feet but is understandable to all creatures regardless of whether they have a language.</p>\n<p>The meaning to non-aeons can be vague and is often mysterious. A bythos can use this ability to communicate flawlessly with any other aeon on the same plane.</p>"
                 },
@@ -1160,15 +1156,13 @@
             "name": "+1 Status to All Saves vs. Magic",
             "sort": 1400000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
@@ -1222,22 +1216,30 @@
             "name": "Regeneration 15 (Deactivated by Chaotic)",
             "sort": 1500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "chaotic"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 15
+                    }
+                ],
                 "slug": "regeneration",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -1261,15 +1263,13 @@
             "name": "Confusing Gaze",
             "sort": 1600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature that ends its turn in the aura must attempt a @Check[type:will|dc:34] save. If it fails, it's @UUID[Compendium.pf2e.conditionitems.Confused]{Confused} for 1 round (or [[/br 1d4 #rounds]]{1d4 rounds} on a critical failure).</p>"
                 },
@@ -1323,15 +1323,13 @@
             "name": "Temporal Reversion",
             "sort": 1700000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> The bythos fails or critically fails a check</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The bythos rerolls the triggering check and takes the better result.</p>"
                 },
@@ -1364,15 +1362,13 @@
             "name": "Aging Strikes",
             "sort": 1800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The bythos make two fist Strikes against a single target. If both Strikes hit, the target attempts a @Check[type:fortitude|dc:37] save. Creatures that don't get weaker with age or don't age are immune (GM's discretion).</p>\n<p>If a creature becomes clumsy 4, drained 4, and enfeebled 4 due to Aging Strikes, it dies of old age.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1}, @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1}, and @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1}, or increases each of these conditions by 1. This effect is cumulative with other aging strikes from bythoses, to a maximum of clumsy 4, drained 4, and enfeebled 4.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature becomes @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2}, @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2}, and @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2}, or increases these conditions by 2.</p>"
                 },
@@ -1406,15 +1402,13 @@
             "name": "Focused Gaze",
             "sort": 1900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The bythos focuses its gaze on a creature it can see within 30 feet. The target must attempt a save against the bythos's confusing gaze. A bythos can't use this ability against the same creature more than once per turn.</p>"
                 },
@@ -1447,15 +1441,13 @@
             "name": "Temporal Flurry",
             "sort": 2000000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The bythos makes four fist Strikes. Its multiple attack penalty increases normally with each attack.</p>"
                 },
@@ -1486,15 +1478,13 @@
             "name": "Temporal Strike",
             "sort": 2100000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 2
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>The bythos touches a creature or object to displace it from time. The target attempts a @Check[type:fortitude|dc:37|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> Time flows around the target; the target is @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The target disappears from the present moment and reappears in the same location [[/br 1d4 #rounds]]{1d4 rounds} later as if no time had passed for it. If a creature or object occupies that space when the target returns, the target appears in the closest available space to its original location.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for an extra [[/br 1d4 #rounds]]{1d4 rounds} after it returns.</p>"
                 },

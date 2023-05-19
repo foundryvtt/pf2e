@@ -773,15 +773,13 @@
             "name": "Shield Block",
             "sort": 1000000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ShieldBlock]</p>"
                 },
@@ -812,15 +810,13 @@
             "name": "Spurred by Death",
             "sort": 1100000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> An ally within 30 feet reduces a creature to 0 HP</p>\n<hr />\n<p><strong>Effect</strong> The longshield Steps or Strides.</p>"
                 },
@@ -848,15 +844,13 @@
             "name": "Opportunistic Defense",
             "sort": 1200000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "free"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> The longshield successfully Strikes with their shield boss</p>\n<hr />\n<p><strong>Effect</strong> The longshield Raises their Shield.</p>"
                 },
@@ -884,15 +878,13 @@
             "name": "Shield Shove",
             "sort": 1300000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The longshield's shield is raised</p>\n<hr />\n<p><strong>Effect</strong> The longshield rolls an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Shove]{Shove} a creature in reach. If they roll a failure, they get a success instead, and if they roll a success, they get a critical success instead. The longshield's shield is lowered.</p>"
                 },
@@ -948,7 +940,7 @@
                 "variants": {
                     "0": {
                         "label": "+8 to Shove with Shield Raised",
-                        "options": "action:shove"
+                        "options": "action:shove,self:shield:raised"
                     }
                 }
             },

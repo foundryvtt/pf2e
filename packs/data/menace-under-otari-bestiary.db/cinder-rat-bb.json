@@ -60,15 +60,13 @@
             "name": "Darkvision",
             "sort": 200000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -99,15 +97,13 @@
             "name": "Smoke Vision",
             "sort": 300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>The cinder rat ignores the @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} condition from smoke.</p>"
                 },
@@ -138,15 +134,13 @@
             "name": "Fetid Fumes",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>A cloud of smoke surrounds the cinder rat. All creatures within @Template[type:emanation|distance:5]{5 feet}, including the cinder rat, gain the @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} condition from this smoke. A creature that comes within 5 feet of the cinder rat or begins its turn within 5 feet must succeed at a @Check[type:fortitude|dc:22] save or take a -1 status penalty to all checks and DCs for 1 round <em>(Use @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1})</em>.</p>"
                 },
@@ -155,6 +149,15 @@
                 },
                 "rules": [
                     {
+                        "effects": [
+                            {
+                                "affects": "all",
+                                "events": [
+                                    "enter"
+                                ],
+                                "uuid": "Compendium.pf2e.bestiary-effects.mD44D9I05NQaXiED"
+                            }
+                        ],
                         "key": "Aura",
                         "radius": 5,
                         "slug": "fetid-fumes"

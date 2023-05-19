@@ -155,15 +155,13 @@
             "name": "Low-Light Vision",
             "sort": 300000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
                 },
@@ -199,15 +197,13 @@
             "name": "Tremorsense (Precise) 30 feet",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
                 },
@@ -238,15 +234,13 @@
             "name": "Clever Disguises",
             "sort": 500000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>Ixirizmid can use Deception to impersonate any Medium humanoid creature, although creating such a disguise takes 1 hour. They can't impersonate a specific individual with this ability.</p>"
                 },
@@ -277,15 +271,13 @@
             "name": "No Breath",
             "sort": 600000,
             "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": "<p>Ixirizmid doesn't breathe and is immune to effects that require breathing (such as an inhaled poison).</p>"
                 },
@@ -316,15 +308,13 @@
             "name": "Eviscerate",
             "sort": 700000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Ixirizmid performs a swift and painful surgery on a creature it has grabbed or restrained, or who's otherwise immobilized. They roll a Medicine check against the target's Fortitude DC. Regardless of the result, the target then becomes temporarily immune to Eviscerate for 24 hours.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes [[/r 8d6[slashing]]] damage, is @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for 1 round, and becomes @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1}, @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1}, or @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1} (the mi-go chooses) for 24 hours.</p>\n<p><strong>Success</strong> The target takes [[/r 5d6[slashing]]] damage and is @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for 1 round by the pain.</p>\n<p><strong>Failure</strong> The target takes [[/r 3d6[slashing]]] damage.</p>\n<p><strong>Critical Failure</strong> The target takes no damage.</p>"
                 },
@@ -362,15 +352,13 @@
             "name": "Sneak Attack",
             "sort": 800000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>Ixirizmid deals an additional 1d6 precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
@@ -424,15 +412,13 @@
             "name": "Grab",
             "sort": 900000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
                     "value": 1
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
                 },
@@ -544,12 +530,11 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "Deception to Impersonate",
+                        "label": "PF2E.SkillVariant.Impersonate",
                         "predicate": [
                             "action:impersonate"
                         ],
                         "selector": "deception",
-                        "type": "circumstance",
                         "value": 4
                     }
                 ],

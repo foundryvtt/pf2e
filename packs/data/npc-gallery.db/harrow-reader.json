@@ -237,15 +237,13 @@
             "name": "Fated Doom",
             "sort": 400000,
             "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
                     "value": "<p>While harrow readers try to avoid combat, no throw of the cards can avoid fate, so a harrow reader learns how to best survive. In the harrow reader's first encounter each day, they gain a +1 status bonus to their initiative roll, their attack rolls, and their AC.</p>"
                 },
@@ -374,9 +372,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "Fortune-Telling",
+                        "label": "PF2E.SkillVariant.FortuneTelling",
                         "predicate": [
-                            "action:fortune-telling"
+                            "action:perform:fortune-telling"
                         ],
                         "selector": "performance",
                         "value": 1
@@ -389,7 +387,7 @@
                 "variants": {
                     "0": {
                         "label": "+11 when fortune-telling",
-                        "options": "action:fortune-telling"
+                        "options": "action:perform:fortune-telling"
                     }
                 }
             },

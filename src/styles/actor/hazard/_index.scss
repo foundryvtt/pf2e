@@ -1,4 +1,11 @@
+$faded-color: #7a7971;
+$attack-button-color: $secondary-color;
+$damage-button-color: $primary-color;
+$light-text: #f5efe0;
+
 .sheet.hazard {
+    @import "../red-action-boxes";
+
     ul, ol {
         @include p-reset;
         list-style-type: none;
@@ -32,7 +39,7 @@
         background: none;
         border: 1px solid transparent;
 
-        &:hover, &:focus {
+        &:hover:not(:disabled), &:focus {
             border: 1px solid black;
             box-shadow: 0 0 10px #00005a;
         }
@@ -56,63 +63,10 @@
         @include scrollbar;
     }
 
-    @import "header", "sidebar", "actions";
+    @import "header", "sidebar";
 
     .section-container {
-        display: flex;
-        flex-direction: column;
         padding: 4px 6px 0;
-
-        .section-header {
-            display: flex;
-            flex: 0;
-            width: 100%;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: baseline;
-            border: 1px solid $primary-color;
-            border-radius: 3px 3px 0px 0px;
-            background: $primary-color;
-            text-align: left;
-            color: white;
-            font-size: 0.8rem;
-            padding: 4px 8px;
-
-            h3, input {
-                font-size: var(--font-size-15);
-                font-weight: 600;
-            }
-
-            h3 {
-                flex: auto;
-                display: flex;
-                align-items: baseline;
-                gap: 4px;
-            }
-
-            input {
-                color: inherit;
-                width: auto;
-            }
-
-            .controls {
-                display: flex;
-                gap: 8px;
-                justify-self: flex-end;
-            }
-        }
-
-        .section-body {
-            display: flex;
-            flex: auto;
-            flex-wrap: wrap;
-            width: 100%;
-            flex-direction: row;
-            justify-content: flex-start;
-            align-items: baseline;
-            border: 1px solid $primary-color;
-            border-radius: 0px 0px 3px 3px;
-        }
 
         .editor {
             width: 100%;
@@ -125,15 +79,22 @@
             }
         }
 
-        &.headerless .section-body {
-            border-radius: 3px;
-        }
-
         &.skills > .section-body {
             .list {
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
+            }
+        }
+
+        .actions-list, .attacks-list {
+            border-bottom: 1px solid var(--alt);
+            &:last-child {
+                border-bottom: none;
+            }
+
+            .action {
+                padding: 4px 0;
             }
         }
     }
