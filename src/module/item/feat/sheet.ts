@@ -66,8 +66,10 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
         const hasEmptyKeyOptions = Array.isArray(formData[keyOptionsKey]) && formData[keyOptionsKey].length === 0;
         const hasNoKeyOptions = !(keyOptionsKey in formData);
         if (hasEmptyKeyOptions || hasNoKeyOptions) {
-            delete formData["system.subfeatures.keyOptions"];
-            formData["system.subfeatures.-=keyOptions"] = null;
+            delete formData[keyOptionsKey];
+            if (this.item._source.system.subfeatures) {
+                formData["system.subfeatures.-=keyOptions"] = null;
+            }
         }
 
         return super._updateObject(event, formData);
