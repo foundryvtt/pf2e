@@ -99,6 +99,7 @@ const senses: Record<SenseType, string> = {
     scent: "PF2E.Actor.Creature.Sense.Type.Scent",
     seeInvisibility: "PF2E.Actor.Creature.Sense.Type.SeeInvisibility",
     spiritsense: "PF2E.Actor.Creature.Sense.Type.Spiritsense",
+    thoughtsense: "PF2E.Actor.Creature.Sense.Type.Thoughtsense",
     tremorsense: "PF2E.Actor.Creature.Sense.Type.Tremorsense",
     wavesense: "PF2E.Actor.Creature.Sense.Type.Wavesense",
 };
