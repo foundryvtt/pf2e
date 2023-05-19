@@ -23,7 +23,26 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "saving-throw",
+                "key": "RollOption",
+                "option": "grit-and-tenacity",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "grit-and-tenacity"
+                ],
+                "selector": [
+                    "fortitude",
+                    "will"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": "Pathfinder Guns & Gears"
         },
