@@ -1114,12 +1114,17 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         attribute: string,
         value: number,
         isDelta = false,
-        isBar = true
+        isBar?: boolean
     ): Promise<this> {
         const token = this.getActiveTokens(false, true).shift();
-        const isDamage = isDelta || (value === 0 && !!token?.combatant);
-        if (token && attribute === "attributes.hp" && isDamage) {
-            const damage = value === 0 ? this.hitPoints?.value ?? 0 : -value;
+        const { hitPoints } = this;
+        const isDamage = !!(
+            attribute === "attributes.hp" &&
+            hitPoints &&
+            (isDelta || (value === 0 && token?.combatant))
+        );
+        if (isDamage && token) {
+            const damage = isDelta ? value : hitPoints.value - value;
             return this.applyDamage({ damage, token });
         }
         return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
@@ -1245,7 +1250,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             );
         }
         if (hpDamage !== 0) {
-            const updated = await this.update(hpUpdate.updates);
+            const updated = await this.update(hpUpdate.updates, { damageTaken: hpDamage });
             const deadAtZero = ["npcsOnly", "both"].includes(game.settings.get("pf2e", "automation.actorsDeadAtZero"));
             const toggleDefeated =
                 updated.isDead &&
@@ -1716,13 +1721,13 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         options: ActorUpdateContext<TParent>,
         user: UserPF2e
     ): Promise<void> {
-        // Show floaty text when applying damage or healing
+        // Always announce HP changes for player-owned actors as floaty text (via `damageTaken` option)
         const changedHP = changed.system?.attributes?.hp;
         const currentHP = this.hitPoints;
-        if (typeof changedHP?.value === "number" && currentHP) {
-            const hpChange = changedHP.value - currentHP.value;
+        if (!options.damageTaken && this.hasPlayerOwner && typeof changedHP?.value === "number" && currentHP) {
+            const damageTaken = -1 * (changedHP.value - currentHP.value);
             const levelChanged = !!changed.system?.details && "level" in changed.system.details;
-            if (hpChange !== 0 && !levelChanged) options.damageTaken = hpChange;
+            if (damageTaken && !levelChanged) options.damageTaken = damageTaken;
         }
 
         await super._preUpdate(changed, options, user);
@@ -1739,7 +1744,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         if (options.damageTaken && !hideFromUser) {
             const tokens = this.getActiveTokens();
             for (const token of tokens) {
-                token.showFloatyText(options.damageTaken);
+                token.showFloatyText(-1 * options.damageTaken);
             }
         }
 
@@ -1803,6 +1808,8 @@ interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     prototypeToken: PrototypeTokenPF2e;
 
     get sheet(): ActorSheetPF2e<this>;
+
+    update(data: DocumentUpdateData<this>, options?: ActorUpdateContext<TParent>): Promise<this>;
 
     /** See implementation in class */
     createEmbeddedDocuments(
