@@ -1,0 +1,45 @@
+{
+    "_id": "1wCgwFLJByW8YKyM",
+    "img": "systems/pf2e/icons/spells/shatter.webp",
+    "name": "Effect: Sacrifice Armor",
+    "system": {
+        "badge": {
+            "type": "counter",
+            "value": 2
+        },
+        "description": {
+            "value": "<p>The scrapborn's AC is lowered for 24 hours. The scrapborn's AC cannot be reduced below 16 in this way.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 24
+        },
+        "level": {
+            "value": 5
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "value": "max(-@item.badge.value,-6)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Adventure: The Enmity Cycle"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
