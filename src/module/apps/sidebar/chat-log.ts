@@ -74,7 +74,7 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 }
             }
 
-            const revertDamageButton = htmlClosest<HTMLButtonElement>(target, "button.revert-damage");
+            const revertDamageButton = htmlClosest<HTMLButtonElement>(target, "button[data-action=revert-damage]");
             if (revertDamageButton) {
                 const appliedDamageFlag = message?.flags.pf2e.appliedDamage;
                 if (appliedDamageFlag) {
