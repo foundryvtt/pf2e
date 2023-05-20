@@ -152,7 +152,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
         user: UserPF2e
     ): Promise<void> {
         if (this.isOwned) {
-            const initiative = game.combat?.combatant?.initiative ?? null;
+            const initiative = this.origin?.combatant?.initiative ?? game.combat?.combatant?.initiative ?? null;
             this.updateSource({
                 "system.start": {
                     value: game.time.worldTime,

@@ -65,6 +65,7 @@ import { CharacterPF2e } from "./document.ts";
 import { FeatGroup } from "./feats.ts";
 import { PCSheetTabManager } from "./tab-manager.ts";
 import { CHARACTER_SHEET_TABS } from "./values.ts";
+import { toggleWeaponTrait } from "@item/weapon/helpers.ts";
 
 class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e<TActor> {
     protected readonly actorConfigClass = CharacterConfig;
@@ -528,6 +529,24 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 }
             }
 
+            // Versatile-damage toggles
+            const versatileToggleButtons = htmlQueryAll<HTMLButtonElement>(
+                strikeElem,
+                "button[data-action=toggle-versatile]"
+            );
+            for (const button of versatileToggleButtons) {
+                button.addEventListener("click", () => {
+                    const weapon = this.getStrikeFromDOM(button)?.item;
+                    const baseType = weapon?.system.damage.damageType ?? null;
+                    const selection =
+                        button.classList.contains("selected") || button.value === baseType ? null : button.value;
+                    const selectionIsValid = objectHasKey(CONFIG.PF2E.damageTypes, selection) || selection === null;
+                    if (weapon && selectionIsValid) {
+                        toggleWeaponTrait({ trait: "versatile", weapon, selection });
+                    }
+                });
+            }
+
             // Auxiliary actions
             const auxActionButtons = htmlQueryAll<HTMLButtonElement>(
                 strikeElem,
@@ -560,11 +579,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const ammoSelect = htmlQuery<HTMLSelectElement>(strikeElem, "select[data-action=link-ammo]");
             ammoSelect?.addEventListener("change", (event) => {
                 event.stopPropagation();
-                const actionIndex = Number(htmlClosest(ammoSelect, ".item")?.dataset.actionIndex ?? "NaN");
-                const action = this.actor.system.actions[actionIndex];
-                const weapon = this.actor.items.get(action.item?.id ?? "");
+                const action = this.getStrikeFromDOM(ammoSelect);
+                const weapon = action?.item;
                 const ammo = this.actor.items.get(ammoSelect.value);
-                if (weapon) weapon.update({ system: { selectedAmmoId: ammo?.id ?? null } });
+                weapon?.update({ system: { selectedAmmoId: ammo?.id ?? null } });
             });
         }
 

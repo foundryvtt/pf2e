@@ -38,6 +38,7 @@ import { StatisticTraceData } from "@system/statistic/data.ts";
 import { CharacterPF2e } from "./document.ts";
 import { WeaponAuxiliaryAction } from "./helpers.ts";
 import { CharacterSheetTabVisibility } from "./sheet.ts";
+import { DamageType } from "@system/damage/types.ts";
 
 interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemData> {
     flags: DeepPartial<CharacterFlags>;
@@ -242,6 +243,14 @@ interface CharacterStrike extends StrikeData {
     altUsages: CharacterStrike[];
     auxiliaryActions: WeaponAuxiliaryAction[];
     weaponTraits: TraitViewData[];
+    versatileOptions: VersatileWeaponOption[];
+}
+
+interface VersatileWeaponOption {
+    value: DamageType;
+    selected: boolean;
+    label: string;
+    glyph: string | null;
 }
 
 /** A Pathfinder Society Faction */

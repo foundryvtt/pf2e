@@ -66,8 +66,9 @@ import { UserPF2e } from "@module/user/document.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check/index.ts";
-import { DamagePF2e, DamageRollContext } from "@system/damage/index.ts";
+import { DamagePF2e, DamageRollContext, DamageType } from "@system/damage/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
+import { DAMAGE_TYPE_ICONS } from "@system/damage/values.ts";
 import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls.ts";
@@ -1403,6 +1404,20 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const rollOptions = [...this.getRollOptions(selectors), ...weaponRollOptions, ...weaponTraits, meleeOrRanged];
         const strikeStat = new StatisticModifier(slug, modifiers, rollOptions);
         const altUsages = weapon.getAltUsages().map((w) => this.prepareStrike(w, { categories }));
+        const versatileLabel = (damageType: DamageType): string => {
+            switch (damageType) {
+                case "bludgeoning":
+                    return CONFIG.PF2E.weaponTraits["versatile-b"];
+                case "piercing":
+                    return CONFIG.PF2E.weaponTraits["versatile-p"];
+                case "slashing":
+                    return CONFIG.PF2E.weaponTraits["versatile-s"];
+                default: {
+                    const weaponTraits: Record<string, string | undefined> = CONFIG.PF2E.weaponTraits;
+                    return weaponTraits[`versatile-${damageType}`] ?? CONFIG.PF2E.damageTypes[damageType];
+                }
+            }
+        };
 
         const action: CharacterStrike = mergeObject(strikeStat, {
             label: weapon.name,
@@ -1424,7 +1439,22 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             selectedAmmoId: weapon.system.selectedAmmoId,
             altUsages,
             auxiliaryActions,
+            versatileOptions: weapon.system.traits.toggles.versatile.options.map((o) => ({
+                value: o,
+                selected: weapon.system.traits.toggles.versatile.selection === o,
+                label: versatileLabel(o),
+                glyph: DAMAGE_TYPE_ICONS[o],
+            })),
         });
+
+        if (action.versatileOptions.length > 0) {
+            action.versatileOptions.unshift({
+                value: weapon.system.damage.damageType,
+                selected: weapon.system.traits.toggles.versatile.selection === null,
+                label: CONFIG.PF2E.damageTypes[weapon.system.damage.damageType],
+                glyph: DAMAGE_TYPE_ICONS[weapon.system.damage.damageType],
+            });
+        }
 
         // Show the ammo list if the weapon requires ammo
         if (weapon.requiresAmmo) {
