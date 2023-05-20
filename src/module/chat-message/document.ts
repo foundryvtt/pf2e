@@ -248,6 +248,14 @@ class ChatMessagePF2e extends ChatMessage {
             });
         }
 
+        // Remove revert damage button based on user permissions
+        const appliedDamageFlag = this.flags.pf2e.appliedDamage;
+        if (!appliedDamageFlag?.isReverted) {
+            if (!this.actor?.canUserModify(game.user, "update")) {
+                htmlQuery(html, "button[data-action=revert-damage]")?.remove();
+            }
+        }
+
         html.addEventListener("mouseenter", () => this.onHoverIn());
         html.addEventListener("mouseleave", () => this.onHoverOut());
 
