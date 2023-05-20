@@ -909,35 +909,25 @@ export class ModelValidationError extends Error {
 
 // System utility types
 
-export type SourcePropFromDataField<TDataField extends DataField> = TDataField extends SchemaField<
-    infer _TSchemaDataSchema,
-    infer TSchemaSourceProp,
-    infer _TSchemaModelProp,
-    infer TSchemaRequired,
-    infer TSchemaNullable,
-    infer TSchemaHasInitial
+export type SourcePropFromDataField<T> = T extends DataField<
+    infer TSourceProp,
+    infer _TModelProp,
+    infer TRequired,
+    infer TNullable,
+    infer THasInitial
 >
-    ? MaybeSchemaProp<TSchemaSourceProp, TSchemaRequired, TSchemaNullable, TSchemaHasInitial>
-    : TDataField extends DataField<
-          infer TSourceProp,
-          infer _TModelProp,
-          infer TRequired,
-          infer TNullable,
-          infer THasInitial
-      >
     ? MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>
     : never;
 
-export type ModelPropFromDataField<TDataField extends DataField> = TDataField extends SchemaField<
-    infer _TSchemaDataSchema,
-    infer _TSchemaSourceProp,
-    infer TSchemaModelProp,
-    infer TSchemaRequired,
-    infer TSchemaNullable,
-    infer TSchemaHasInitial
+export type ModelPropFromDataField<T> = T extends DataField<
+    infer _TSourceProp,
+    infer TModelProp,
+    infer TRequired,
+    infer TNullable,
+    infer THasInitial
 >
-    ? MaybeSchemaProp<TSchemaModelProp, TSchemaRequired, TSchemaNullable, TSchemaHasInitial>
-    : ReturnType<TDataField["initialize"]>;
+    ? MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>
+    : never;
 
 type ModelPropsFromSchema<TDataSchema extends DataSchema> = {
     [K in keyof TDataSchema]: ModelPropFromDataField<TDataSchema[K]>;
