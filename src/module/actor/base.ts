@@ -83,6 +83,7 @@ import { ActorSpellcasting } from "./spellcasting.ts";
 import { TokenEffect } from "./token-effect.ts";
 import { CREATURE_ACTOR_TYPES, SAVE_TYPES, SKILL_LONG_FORMS, UNAFFECTED_TYPES } from "./values.ts";
 import { ArmorStatistic } from "@system/statistic/armor-class.ts";
+import { AppliedDamageFlag } from "@module/chat-message/index.ts";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -1334,6 +1335,33 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         await ChatMessagePF2e.create({
             speaker: ChatMessagePF2e.getSpeaker({ token }),
             content,
+            flags: {
+                pf2e: {
+                    appliedDamage: {
+                        uuid: this.uuid,
+                        isHealing: hpDamage < 0,
+                        shield: shieldDamage !== 0 ? { id: actorShield?.itemId ?? "", damage: shieldDamage } : null,
+                        persistent: persistentCreated.map((c) => c.id),
+                        updates: Object.entries(hpUpdate.updates)
+                            .map(([key, value]) => {
+                                const property = getProperty(this, key);
+                                if (typeof property === "number") {
+                                    const difference = property - value;
+                                    if (difference === 0) {
+                                        // Ignore the update if there is no difference
+                                        return [];
+                                    }
+                                    return {
+                                        path: key,
+                                        value: difference,
+                                    };
+                                }
+                                return [];
+                            })
+                            .flat(),
+                    },
+                },
+            },
             type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
             whisper:
                 game.settings.get("pf2e", "metagame_secretDamage") && !token.actor?.hasPlayerOwner
@@ -1342,6 +1370,39 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         });
 
         return this;
+    }
+
+    /** Revert applied actor damage based on the AppliedDamageFlag stored in a damage chat message */
+    async revertDamage(appliedDamage: AppliedDamageFlag): Promise<void> {
+        const { updates, shield, persistent } = appliedDamage;
+
+        const actorUpdates: Record<string, number | Record<string, number | string>[]> = {};
+        for (const update of updates) {
+            const currentValue = getProperty(this, update.path);
+            if (typeof currentValue === "number") {
+                actorUpdates[update.path] = currentValue + update.value;
+            }
+        }
+
+        if (shield) {
+            const item = this.inventory.get<ArmorPF2e<this>>(shield.id);
+            if (item) {
+                actorUpdates.items = [
+                    {
+                        _id: shield.id,
+                        "system.hp.value": item.hitPoints.value + shield.damage,
+                    },
+                ];
+            }
+        }
+
+        const updateCount = Object.keys(actorUpdates).length;
+        if (persistent.length) {
+            await this.deleteEmbeddedDocuments("Item", persistent, { render: updateCount === 0 });
+        }
+        if (updateCount) {
+            this.update(actorUpdates);
+        }
     }
 
     isLootableBy(user: UserPF2e): boolean {
