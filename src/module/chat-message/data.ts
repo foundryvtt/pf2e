@@ -24,6 +24,7 @@ type ChatMessageFlagsPF2e = foundry.documents.ChatMessageFlags & {
         journalEntry?: DocumentUUID;
         spellVariant?: { overlayIds: string[] };
         strike?: StrikeLookupData | null;
+        appliedDamage?: AppliedDamageFlag;
         [key: string]: unknown;
     };
     core: NonNullable<foundry.documents.ChatMessageFlags["core"]>;
@@ -100,7 +101,20 @@ interface SpellCastContextFlag {
     rollMode?: RollMode;
 }
 
+interface AppliedDamageFlag {
+    uuid: ActorUUID | TokenDocumentUUID;
+    isHealing: boolean;
+    isReverted?: boolean;
+    persistent: string[];
+    shield: {
+        id: string;
+        damage: number;
+    } | null;
+    updates: { path: string; value: number }[];
+}
+
 export {
+    AppliedDamageFlag,
     ChatContextFlag,
     ChatMessageSourcePF2e,
     ChatMessageFlagsPF2e,

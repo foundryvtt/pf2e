@@ -1,13 +1,14 @@
 import { ActorPF2e } from "@actor";
 import { ArmorPF2e } from "@item";
 import { TokenPF2e } from "@module/canvas/index.ts";
-import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { AppliedDamageFlag, ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { applyDamageFromMessage } from "@module/chat-message/helpers.ts";
 import { CombatantPF2e } from "@module/encounter/index.ts";
 import { CheckPF2e } from "@system/check/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { fontAwesomeIcon, htmlClosest, htmlQuery, objectHasKey } from "@util";
 import { looksLikeDamageRoll } from "@system/damage/helpers.ts";
+import { TokenDocumentPF2e } from "@scene";
 
 export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
     /** Replace parent method in order to use DamageRoll class as needed */
@@ -44,7 +45,7 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         super.activateListeners($html);
         const html = $html[0];
 
-        html.addEventListener("click", (event): void => {
+        html.addEventListener("click", async (event): Promise<void> => {
             const target = event.target;
             if (!(target instanceof HTMLElement)) return;
             const messageEl = htmlClosest<HTMLLIElement>(target, "li.chat-message");
@@ -69,6 +70,22 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                     if (button.classList.contains(cssClass)) {
                         const index = htmlClosest(button, ".damage-application")?.dataset.rollIndex;
                         return this.#handleDamageButtonClick(message, cssClass, event.shiftKey, index);
+                    }
+                }
+            }
+
+            const revertDamageButton = htmlClosest<HTMLButtonElement>(target, "button[data-action=revert-damage]");
+            if (revertDamageButton) {
+                const appliedDamageFlag = message?.flags.pf2e.appliedDamage;
+                if (appliedDamageFlag) {
+                    const reverted = await this.#handleRevertDamageClick(appliedDamageFlag);
+                    if (reverted) {
+                        htmlQuery(messageEl, "span.statements")?.classList.add("reverted");
+                        revertDamageButton.remove();
+                        await message.update({
+                            "flags.pf2e.appliedDamage.isReverted": true,
+                            content: htmlQuery(messageEl, ".message-content")?.innerHTML ?? message.content,
+                        });
                     }
                 }
             }
@@ -103,6 +120,26 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             promptModifier: shiftKey,
             rollIndex: Number(index) || 0,
         });
+    }
+
+    async #handleRevertDamageClick(flag: AppliedDamageFlag): Promise<boolean> {
+        const actorOrToken = fromUuidSync(flag.uuid);
+        const actor =
+            actorOrToken instanceof ActorPF2e
+                ? actorOrToken
+                : actorOrToken instanceof TokenDocumentPF2e
+                ? actorOrToken.actor
+                : null;
+        if (actor) {
+            await actor.revertDamage(flag);
+            ui.notifications.info(
+                game.i18n.format(`PF2E.RevertDamage.${flag.isHealing ? "Healing" : "Damage"}Message`, {
+                    actor: actor.name,
+                })
+            );
+            return true;
+        }
+        return false;
     }
 
     #handleShieldButtonClick(shieldButton: HTMLButtonElement, messageEl: HTMLLIElement): void {
