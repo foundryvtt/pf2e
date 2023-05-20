@@ -1323,7 +1323,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             persistentDamage.length > 0 ? await this.createEmbeddedDocuments("Item", persistentDamage) : []
         ) as ConditionPF2e<this>[];
 
-        const isHealing = hpDamage < 0;
         const content = await renderTemplate("systems/pf2e/templates/chat/damage/damage-taken.hbs", {
             statements,
             persistent: persistentCreated.map((p) => p.system.persistent!.damage.formula),
@@ -1332,7 +1331,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 visibility: this.hasPlayerOwner ? "all" : "gm",
             },
             canRevertDamage: this.canUserModify(game.user, "update"),
-            isHealing,
         });
 
         await ChatMessagePF2e.create({
@@ -1342,7 +1340,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 pf2e: {
                     appliedDamage: {
                         uuid: this.uuid,
-                        isHealing,
+                        isHealing: hpDamage < 0,
                         shield: shieldDamage !== 0 ? { id: actorShield?.itemId ?? "", damage: shieldDamage } : null,
                         persistent: persistentCreated.map((c) => c.id),
                         updates: Object.entries(hpUpdate.updates)
