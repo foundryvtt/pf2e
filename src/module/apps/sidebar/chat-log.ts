@@ -74,12 +74,18 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 }
             }
 
-            if (htmlClosest(target, "span.revert-damage")) {
+            const revertDamageButton = htmlClosest<HTMLButtonElement>(target, "button.revert-damage");
+            if (revertDamageButton) {
                 const appliedDamageFlag = message?.flags.pf2e.appliedDamage;
                 if (appliedDamageFlag) {
                     const reverted = await this.#handleRevertDamageClick(appliedDamageFlag);
                     if (reverted) {
-                        message.delete();
+                        htmlQuery(messageEl, "span.statements")?.classList.add("reverted");
+                        revertDamageButton.remove();
+                        await message.update({
+                            "flags.pf2e.appliedDamage.isReverted": true,
+                            content: htmlQuery(messageEl, ".message-content")?.innerHTML ?? message.content,
+                        });
                     }
                 }
             }
