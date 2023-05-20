@@ -246,20 +246,6 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         const canApplyTripleDamage: ContextOptionCondition = ($li: JQuery) =>
             canApplyDamage($li) && game.settings.get("pf2e", "critFumbleButtons");
 
-        const canRevertDamage: ContextOptionCondition = ($li: JQuery) => {
-            const message = game.messages.get($li[0].dataset.messageId, { strict: true });
-            const flag = message.flags.pf2e.appliedDamage;
-            if (!flag) return false;
-            const actorOrToken = fromUuidSync(flag.uuid);
-            const actor =
-                actorOrToken instanceof ActorPF2e
-                    ? actorOrToken
-                    : actorOrToken instanceof TokenDocumentPF2e
-                    ? actorOrToken.actor
-                    : null;
-            return !!actor && actor.canUserModify(game.user, "update");
-        };
-
         const canApplyInitiative: ContextOptionCondition = ($li: JQuery) => {
             const message = game.messages.get($li[0].dataset.messageId, { strict: true });
 
@@ -341,32 +327,6 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 callback: ($li: JQuery) => {
                     const message = game.messages.get($li[0].dataset.messageId, { strict: true });
                     applyDamageFromMessage({ message, multiplier: -1 });
-                },
-            },
-            {
-                name: "PF2E.RevertDamage.Label",
-                icon: fontAwesomeIcon("trash-undo").outerHTML,
-                condition: canRevertDamage,
-                callback: async ($li: JQuery) => {
-                    const message = game.messages.get($li[0].dataset.messageId, { strict: true });
-                    const flag = message.flags.pf2e.appliedDamage;
-                    if (flag) {
-                        const actorOrToken = fromUuidSync(flag.uuid);
-                        const actor =
-                            actorOrToken instanceof ActorPF2e
-                                ? actorOrToken
-                                : actorOrToken instanceof TokenDocumentPF2e
-                                ? actorOrToken.actor
-                                : null;
-                        if (actor) {
-                            await actor.revertDamage(flag);
-                            const localization = flag.isHealing
-                                ? "PF2E.RevertDamage.HealingMessage"
-                                : "PF2E.RevertDamage.DamageMessage";
-                            ui.notifications.info(game.i18n.format(localization, { actor: actor.name }));
-                            message.delete();
-                        }
-                    }
                 },
             },
             {
