@@ -124,7 +124,11 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
         actor.system.traits.value.push(...this.traits);
 
         const slug = this.slug ?? sluggify(this.name);
-        actor.system.details.ancestry = { name: this.name, trait: slug };
+        actor.system.details.ancestry = {
+            name: this.name,
+            trait: slug,
+            countsAs: [slug],
+        };
 
         // Set self: roll option for this ancestry and its associated traits
         actor.rollOptions.all[`self:ancestry:${slug}`] = true;

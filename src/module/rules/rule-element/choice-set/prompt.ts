@@ -7,15 +7,16 @@ import {
     PromptTemplateData,
 } from "@module/apps/pick-a-thing-prompt.ts";
 import { PredicatePF2e } from "@system/predication.ts";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, sluggify } from "@util";
+import { UUIDUtils } from "@util/uuid-utils.ts";
 
 /** Prompt the user for a selection among a set of options */
 export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
     /** The prompt statement to present the user in this application's window */
     prompt: string;
 
-    /** Does this choice set contain UUIDs? If true, options are always buttons and an item-drop zone may be added */
-    containsUUIDs: boolean;
+    /** Does this choice set contain items? If true, an item-drop zone may be added */
+    containsItems: boolean;
 
     /** A predicate validating a dragged & dropped item selection */
     allowedDrops: { label: string | null; predicate: PredicatePF2e } | null;
@@ -24,8 +25,8 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
         super(data);
         this.prompt = data.prompt;
         this.choices = data.choices ?? [];
-        this.containsUUIDs = data.containsUUIDs;
-        this.allowedDrops = this.containsUUIDs ? data.allowedDrops : null;
+        this.containsItems = data.containsItems;
+        this.allowedDrops = this.containsItems ? data.allowedDrops : null;
     }
 
     static override get defaultOptions(): ApplicationOptions {
@@ -67,12 +68,12 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
     /** Return early if there is only one choice */
     override async resolveSelection(): Promise<PickableThing<string | number | object> | null> {
         const firstChoice = this.choices.at(0);
-        if (!this.containsUUIDs && firstChoice && this.choices.length === 1) {
+        if (!this.containsItems && firstChoice && this.choices.length === 1) {
             return (this.selection = firstChoice);
         }
 
         // Exit early if there are no valid choices
-        if (this.choices.length === 0 && !this.containsUUIDs) {
+        if (this.choices.length === 0 && !this.containsItems) {
             await this.close({ force: true });
             return null;
         }
@@ -81,7 +82,7 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
     }
 
     /** Handle a dropped homebrew item */
-    override async _onDrop(event: ElementDragEvent): Promise<void> {
+    protected override async _onDrop(event: ElementDragEvent): Promise<void> {
         event.preventDefault();
         const dataString = event.dataTransfer?.getData("text/plain");
         const dropData: DropCanvasDataPF2e<"Item"> | undefined = JSON.parse(dataString ?? "");
@@ -104,7 +105,13 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
         }
 
         // Drop accepted: Add to button list or select menu
-        const newChoice = { value: droppedItem.uuid, label: droppedItem.name };
+        const slugsAsValues =
+            this.containsItems && this.choices.length > 0 && this.choices.every((c) => !UUIDUtils.isItemUUID(c.value));
+
+        const newChoice = {
+            value: slugsAsValues ? droppedItem.slug ?? sluggify(droppedItem.id) : droppedItem.uuid,
+            label: droppedItem.name,
+        };
         const choicesLength = this.choices.push(newChoice);
 
         const prompt = document.querySelector<HTMLElement>(`#${this.id}`);
@@ -143,7 +150,7 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
         }
     }
 
-    override _canDragDrop(): boolean {
+    protected override _canDragDrop(): boolean {
         return this.actor.isOwner;
     }
 }
@@ -151,7 +158,7 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
 interface ChoiceSetPromptData extends PickAThingConstructorArgs<string | number | object> {
     prompt: string;
     choices?: PickableThing[];
-    containsUUIDs: boolean;
+    containsItems: boolean;
     allowedDrops: { label: string | null; predicate: PredicatePF2e } | null;
 }
 

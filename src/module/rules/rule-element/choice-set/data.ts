@@ -95,6 +95,8 @@ interface ChoiceSetPackQuery {
     /** A system item type: if omitted, "feat" is used */
     itemType?: ItemType;
     query: string;
+    /** Use the item slugs as values instead of their UUIDs */
+    slugsAsValues?: boolean;
     ownedItems?: never;
     attacks?: never;
     unarmedAttacks?: never;
