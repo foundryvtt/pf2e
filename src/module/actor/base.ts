@@ -1335,7 +1335,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 applications: result.applications,
                 visibility: this.hasPlayerOwner ? "all" : "gm",
             },
-            canRevertDamage: this.canUserModify(game.user, "update"),
         });
 
         await ChatMessagePF2e.create({
