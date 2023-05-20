@@ -557,11 +557,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 });
             }
 
-            const ammoSelect = htmlQuery<HTMLSelectElement>(strikeElem, "select[name=ammo-used]");
+            const ammoSelect = htmlQuery<HTMLSelectElement>(strikeElem, "select[data-action=link-ammo]");
             ammoSelect?.addEventListener("change", (event) => {
                 event.stopPropagation();
-                const actionIndex = htmlClosest(ammoSelect, ".item")?.dataset.actionIndex ?? "NaN";
-                const action = this.actor.system.actions[Number(actionIndex)];
+                const actionIndex = Number(htmlClosest(ammoSelect, ".item")?.dataset.actionIndex ?? "NaN");
+                const action = this.actor.system.actions[actionIndex];
                 const weapon = this.actor.items.get(action.item?.id ?? "");
                 const ammo = this.actor.items.get(ammoSelect.value);
                 if (weapon) weapon.update({ system: { selectedAmmoId: ammo?.id ?? null } });
