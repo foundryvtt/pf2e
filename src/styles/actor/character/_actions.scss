@@ -8,42 +8,54 @@
         }
 
         li.strike {
+            gap: 3px;
+
             .item-name {
-                align-items: flex-start;
-            }
+                align-items: start;
 
-            .ammo-remaining {
-                white-space: nowrap;
-                margin-right: 8px;
-                display: flex;
-                font-family: var(--sans-serif);
-                font-weight: 600;
-                gap: 2px;
-
-                .ammo-icon {
-                    display: inline-block;
-                    width: 14px;
-                    height: 14px;
-                    background-image: url("/assets/icons/heavy-bullets.svg") !important;
-                    background-size: cover;
+                .actions-title {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 3px;
                 }
-            }
 
-            .item-name {
                 .item-image {
                     height: 32px;
                     width: 32px;
-                    font-size: var(--font-size-20);
                 }
 
-                .action-options {
+                .ammo {
+                    align-items: center;
                     display: flex;
-                    margin-left: auto;
+                    gap: 3px;
 
-                    .item-toggle-equip {
-                        color: rgba(black, 0.5);
-                        &.active {
-                            color: var(--secondary);
+                    select.linked {
+                        font: normal var(--font-size-12) var(--sans-serif);
+                        line-height: var(--font-size-12);
+                        max-width: 50%;
+                        padding-top: 3px;
+                        width: fit-content;
+
+                        &[data-compatible=false] {
+                            color: #ffffff99;
+                        }
+
+                        option, optgroup {
+                            color: white;
+                        }
+                    }
+
+                    .magazine {
+                        margin-right: 0.5rem;
+                        font-family: var(--sans-serif);
+                        font-weight: 600;
+
+                        .icon {
+                            display: inline-block;
+                            width: 0.9rem;
+                            height: 0.9rem;
+                            background-image: url("/assets/icons/heavy-bullets.svg");
+                            background-size: cover;
                         }
                     }
                 }
@@ -52,6 +64,7 @@
             .button-group {
                 flex-wrap: nowrap;
                 font-size: var(--font-size-14);
+                margin-bottom: 0;
 
                 button {
                     @include button;
@@ -201,23 +214,5 @@
     .item-controls {
         min-width: 28px;
         text-align: right;
-    }
-
-    select[name=ammo-used] {
-        max-width: fit-content;
-        font-family: var(--sans-serif);
-        font-weight: normal;
-        margin-left: auto;
-        max-width: 14em;
-        padding-top: 0;
-        padding-bottom: 0;
-        font-size: 0.75em;
-        &[data-compatible="false"] {
-            color: #ffffff99;
-        }
-
-        option, optgroup {
-            color: white;
-        }
     }
 }
