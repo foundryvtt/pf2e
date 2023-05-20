@@ -1323,6 +1323,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             persistentDamage.length > 0 ? await this.createEmbeddedDocuments("Item", persistentDamage) : []
         ) as ConditionPF2e<this>[];
 
+        const isHealing = hpDamage < 0;
         const content = await renderTemplate("systems/pf2e/templates/chat/damage/damage-taken.hbs", {
             statements,
             persistent: persistentCreated.map((p) => p.system.persistent!.damage.formula),
@@ -1330,6 +1331,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 applications: result.applications,
                 visibility: this.hasPlayerOwner ? "all" : "gm",
             },
+            canRevertDamage: this.canUserModify(game.user, "update"),
+            isHealing,
         });
 
         await ChatMessagePF2e.create({
@@ -1339,14 +1342,14 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 pf2e: {
                     appliedDamage: {
                         uuid: this.uuid,
-                        isHealing: hpDamage < 0,
+                        isHealing,
                         shield: shieldDamage !== 0 ? { id: actorShield?.itemId ?? "", damage: shieldDamage } : null,
                         persistent: persistentCreated.map((c) => c.id),
                         updates: Object.entries(hpUpdate.updates)
                             .map(([key, value]) => {
-                                const property = getProperty(this, key);
-                                if (typeof property === "number") {
-                                    const difference = property - value;
+                                const currentValue = getProperty(this, key);
+                                if (typeof currentValue === "number") {
+                                    const difference = currentValue - value;
                                     if (difference === 0) {
                                         // Ignore the update if there is no difference
                                         return [];
