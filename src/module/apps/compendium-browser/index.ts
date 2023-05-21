@@ -258,7 +258,7 @@ class CompendiumBrowser extends Application {
                     initial: "landing-page",
                 },
             ],
-            scrollY: [".control-area", ".item-list"],
+            scrollY: [".control-area", ".item-list", ".settings-container"],
         };
     }
 
@@ -504,6 +504,7 @@ class CompendiumBrowser extends Application {
 
                     await this.#resetInitializedTabs();
                     this.render(true);
+                    ui.notifications.info("PF2E.BrowserSettingsSaved", { localize: true });
                 });
 
                 const sourceSearch = htmlQuery<HTMLInputElement>(form, "input[data-element=setting-sources-search]");
