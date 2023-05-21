@@ -263,6 +263,14 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             this.actor.skills[key]?.check.roll(rollParams);
         });
 
+        // Roll perception checks
+        for (const element of htmlQueryAll<HTMLAnchorElement>(html, "a[data-action=perception-check]")) {
+            element.addEventListener("click", (event) => {
+                const extraRollOptions = element.dataset.secret ? ["secret"] : [];
+                this.actor.perception.roll({ ...eventToRollParams(event), extraRollOptions });
+            });
+        }
+
         // Add, edit, and remove spellcasting entries
         for (const section of htmlQueryAll(html, ".tab.spellcasting, .tab.spells") ?? []) {
             for (const element of htmlQueryAll(section, "[data-action=spellcasting-create]") ?? []) {
