@@ -1125,7 +1125,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             (isDelta || (value === 0 && token?.combatant))
         );
         if (isDamage && token) {
-            const damage = isDelta ? value : hitPoints.value - value;
+            const damage = isDelta ? -1 * value : hitPoints.value - value;
             return this.applyDamage({ damage, token });
         }
         return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
