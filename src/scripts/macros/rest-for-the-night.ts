@@ -4,7 +4,7 @@ import { ItemPF2e } from "@item";
 import { ChatMessageSourcePF2e } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { ActionDefaultOptions } from "@system/action-macros/index.ts";
-import { localizer } from "@util";
+import { localizer, tupleHasValue } from "@util";
 import { Duration } from "luxon";
 
 /** A macro for the Rest for the Night quasi-action */
@@ -113,7 +113,8 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
         const withFrequency = actionsAndFeats.filter(
             (a) =>
                 a.frequency &&
-                (a.frequency.per === "day" || Duration.fromISO(a.frequency.per) <= Duration.fromISO("PT8H")) &&
+                (tupleHasValue(["turn", "round", "day"], a.frequency.per) ||
+                    Duration.fromISO(a.frequency.per) <= Duration.fromISO("PT8H")) &&
                 a.frequency.value < a.frequency.max
         );
         if (withFrequency.length) {
