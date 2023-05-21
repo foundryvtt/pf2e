@@ -264,7 +264,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         });
 
         // Roll perception checks
-        for (const element of htmlQueryAll<HTMLAnchorElement>(html, "a[data-action=perception-check]")) {
+        for (const element of htmlQueryAll(html, "a[data-action=perception-check]")) {
             element.addEventListener("click", (event) => {
                 const extraRollOptions = element.dataset.secret ? ["secret"] : [];
                 this.actor.perception.roll({ ...eventToRollParams(event), extraRollOptions });
