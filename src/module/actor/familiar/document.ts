@@ -58,8 +58,6 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         type RawSpeed = { value: number; otherSpeeds: LabeledSpeed[] };
 
         systemData.details.alignment = { value: "N" };
-        systemData.details.level = { value: 0 };
-        systemData.details.alliance = this.hasPlayerOwner ? "party" : "opposition";
 
         systemData.attributes.flanking.canFlank = false;
         systemData.attributes.perception = {};
@@ -85,6 +83,11 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             di: [],
             dr: [],
         });
+
+        const { master } = this;
+        systemData.details.level = { value: master?.level ?? 0 };
+        this.rollOptions.all[`self:level:${this.level}`] = true;
+        systemData.details.alliance = master?.alliance ?? "party";
     }
 
     override prepareDerivedData(): void {
@@ -92,7 +95,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
 
         const { master } = this;
         const systemData = this.system;
-        const { attributes, details } = systemData;
+        const { attributes, traits } = systemData;
 
         // Apply active effects if the master (if selected) is ready.
         if (master) {
@@ -102,12 +105,9 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         }
 
         // Ensure uniqueness of traits
-        systemData.traits.value = [...this.traits].sort();
+        traits.value = [...this.traits].sort();
 
-        // The familiar's alliance is the same as its master's
-        const level = (details.level.value = master?.level ?? 0);
-        this.rollOptions.all[`self:level:${level}`] = true;
-        details.alliance = master?.system.details.alliance ?? "party";
+        const { level } = this;
 
         const masterLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel" ? 0 : level;
 
@@ -116,7 +116,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         const { synthetics } = this;
         this.stripInvalidModifiers();
 
-        const speeds = (systemData.attributes.speed = this.prepareSpeed("land"));
+        const speeds = (attributes.speed = this.prepareSpeed("land"));
         speeds.otherSpeeds = (["burrow", "climb", "fly", "swim"] as const).flatMap((m) => this.prepareSpeed(m) ?? []);
 
         // Hit Points
@@ -180,7 +180,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         );
 
         // Senses
-        this.system.traits.senses = this.prepareSenses(this.system.traits.senses, synthetics);
+        traits.senses = this.prepareSenses(this.system.traits.senses, synthetics);
 
         // Attack
         if (master) {
