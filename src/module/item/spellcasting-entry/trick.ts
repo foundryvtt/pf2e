@@ -1,10 +1,11 @@
 import { ActorPF2e } from "@actor";
-import { AbilityString } from "@actor/types.ts";
+import { AbilityString, SkillLongForm } from "@actor/types.ts";
 import { SpellPF2e } from "@item";
 import { extractModifiers } from "@module/rules/helpers.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { CastOptions, SpellcastingEntry, SpellcastingSheetData } from "./types.ts";
 import { ErrorPF2e } from "@util/misc.ts";
+import { MagicTradition } from "@item/spell/types.ts";
 
 const TRICK_MAGIC_SKILLS = ["arcana", "nature", "occultism", "religion"] as const;
 type TrickMagicItemSkill = (typeof TRICK_MAGIC_SKILLS)[number];
@@ -25,19 +26,25 @@ const traditionSkills = {
 
 /** A pseudo spellcasting entry used to trick magic item for a single skill */
 class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements SpellcastingEntry<TActor> {
-    readonly id = `trick-${this.skill}`;
+    readonly id: string;
+
+    actor: TActor;
+
+    skill: SkillLongForm;
 
     statistic: Statistic;
 
     ability: AbilityString;
 
-    tradition = TrickMagicTradition[this.skill];
+    tradition: MagicTradition;
 
-    constructor(public actor: TActor, public skill: TrickMagicItemSkill) {
+    constructor(actor: TActor, skill: TrickMagicItemSkill) {
         if (!actor.isOfType("character")) {
             throw ErrorPF2e("Trick magic entries may only be constructed with PCs");
         }
-        this.actor = actor as TActor;
+        this.actor = actor;
+        this.skill = skill;
+        this.id = `trick-${this.skill}`;
 
         const { abilities } = actor;
         const { ability } = (["int", "wis", "cha"] as const)
@@ -53,7 +60,7 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
             });
 
         this.ability = ability;
-        const tradition = TrickMagicTradition[skill];
+        const tradition = (this.tradition = TrickMagicTradition[skill]);
 
         const selectors = [`${ability}-based`, "all", "spell-attack-dc"];
         const attackSelectors = [
