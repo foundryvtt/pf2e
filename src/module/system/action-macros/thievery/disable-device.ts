@@ -3,7 +3,7 @@ import { SingleCheckAction } from "@actor/actions/index.ts";
 
 function disableDevice(options: SkillActionOptions): void {
     const slug = options?.skill ?? "thievery";
-    const rollOptions = ["action:disable-device"];
+    const rollOptions = ["action:disable-a-device", "action:disable-device"];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options?.actors,
@@ -34,7 +34,7 @@ const action = new SingleCheckAction({
         { outcome: ["success"], text: "PF2E.Actions.DisableDevice.Notes.success" },
         { outcome: ["criticalFailure"], text: "PF2E.Actions.DisableDevice.Notes.criticalFailure" },
     ],
-    rollOptions: ["action:disable-device"],
+    rollOptions: ["action:disable-a-device", "action:disable-device"],
     slug: "disable-device",
     statistic: "thievery",
     traits: ["manipulate"],
