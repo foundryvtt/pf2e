@@ -8,7 +8,7 @@ import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
 import { MeasuredTemplateDocumentPF2e } from "@scene/index.ts";
 import { MeasuredTemplatePF2e } from "@module/canvas/index.ts";
 
-const inlineSelector = ["action", "check", "effect-area", "repost"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
+const inlineSelector = ["action", "check", "effect-area"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
 
 export const InlineRollLinks = {
     injectRepostElement: (links: HTMLElement[], foundryDoc?: ClientDocument): void => {
@@ -29,7 +29,8 @@ export const InlineRollLinks = {
             if (foundryDoc && !foundryDoc.isOwner) continue;
 
             const newButton = document.createElement("i");
-            newButton.classList.add("fas", "fa-comment-alt");
+            const icon = link.parentElement?.dataset?.pf2Checkgroup != null ? "fa-comment-alt-dots" : "fa-comment-alt";
+            newButton.classList.add("fas", icon);
             newButton.setAttribute("data-pf2-repost", "");
             newButton.setAttribute("title", game.i18n.localize("PF2E.Repost"));
             link.appendChild(newButton);
@@ -42,7 +43,7 @@ export const InlineRollLinks = {
 
         const links = htmlQueryAll(html, inlineSelector).filter((l) => l.nodeName === "SPAN");
         InlineRollLinks.injectRepostElement(links, foundryDoc);
-        const $repostLinks = $html.find("i.fas.fa-comment-alt").filter(inlineSelector);
+        // const $repostLinks = $html.find("i.fas.fa-comment-alt").filter(inlineSelector);
 
         InlineRollLinks.flavorDamageRolls(html, foundryDoc instanceof ActorPF2e ? foundryDoc : null);
 
@@ -66,7 +67,7 @@ export const InlineRollLinks = {
                 : null;
         };
 
-        $repostLinks.filter("i[data-pf2-repost]").on("click", (event) => {
+        $html.find("i[data-pf2-repost]").on("click", (event) => {
             const target = event.currentTarget;
             const parent = target.parentElement;
             const document = documentFromDOM(target);
@@ -202,6 +203,12 @@ export const InlineRollLinks = {
         });
     },
 
+    makeRepostHtml: (target: HTMLElement, defaultVisibility: string) => {
+        const flavor = target.attributes.getNamedItem("data-pf2-repost-flavor")?.value ?? "";
+        const showDC = target.attributes.getNamedItem("data-pf2-show-dc")?.value ?? defaultVisibility;
+        return `<span data-visibility="${showDC}">${flavor}</span> ${target.outerHTML}`.trim();
+    },
+
     repostAction: (
         target: HTMLElement,
         document: ActorPF2e | JournalEntry | JournalEntryPage<JournalEntry> | null = null
@@ -210,15 +217,24 @@ export const InlineRollLinks = {
             return;
         }
 
-        const flavor = target.attributes.getNamedItem("data-pf2-repost-flavor")?.value ?? "";
-        const showDC =
-            target.attributes.getNamedItem("data-pf2-show-dc")?.value ?? (document?.hasPlayerOwner ? "all" : "gm");
+        const defaultVisibility = (document?.hasPlayerOwner ? "all" : "gm");
+        let content;
+        if (target.parentElement?.dataset?.pf2Checkgroup != null) {
+            content = htmlQueryAll(target.parentElement, inlineSelector)
+                .map(target => InlineRollLinks.makeRepostHtml(target, defaultVisibility))
+                .join("<br>");
+
+            content = `<div data-pf2-checkgroup>${content}</div>`;
+        } else {
+            content = InlineRollLinks.makeRepostHtml(target, defaultVisibility);
+        }
+
         const speaker =
             document instanceof ActorPF2e
                 ? ChatMessagePF2e.getSpeaker({
-                      actor: document,
-                      token: document.token ?? document.getActiveTokens(false, true).shift(),
-                  })
+                    actor: document,
+                    token: document.token ?? document.getActiveTokens(false, true).shift(),
+                })
                 : ChatMessagePF2e.getSpeaker();
 
         // If the originating document is a journal entry, include its UUID as a flag
@@ -226,7 +242,7 @@ export const InlineRollLinks = {
 
         ChatMessagePF2e.create({
             speaker,
-            content: `<span data-visibility="${showDC}">${flavor}</span> ${target.outerHTML}`.trim(),
+            content,
             flags,
         });
     },

@@ -97,10 +97,10 @@ class TextEditorPF2e extends TextEditor {
             app instanceof ActorSheetPF2e
                 ? [app.actor, app.actor.getRollData()]
                 : app instanceof ItemSheetPF2e
-                ? [app.item.actor, app.item.getRollData()]
-                : message?.actor
-                ? [message.actor, message.getRollData()]
-                : [null, {}];
+                    ? [app.item.actor, app.item.getRollData()]
+                    : message?.actor
+                        ? [message.actor, message.getRollData()]
+                        : [null, {}];
         const options = anchor.dataset.flavor ? { flavor: anchor.dataset.flavor } : {};
         const roll = new DamageRoll(anchor.dataset.formula, rollData, options);
 
@@ -256,6 +256,79 @@ class TextEditorPF2e extends TextEditor {
         return null;
     }
 
+    static #createSingleCheck({ params, allTraits, item, actor, inlineLabel }: {
+        params: { type: string, dc: string } & Record<string, string>,
+        allTraits: string[],
+        item?: ItemPF2e | null,
+        actor?: ActorPF2e | null,
+        inlineLabel?: string
+    }): HTMLSpanElement | null {
+        // Build the inline link
+        const html = document.createElement("span");
+        html.setAttribute("data-pf2-traits", `${allTraits}`);
+        const name = params.name ?? item?.name ?? params.type;
+        html.setAttribute("data-pf2-label", game.i18n.format("PF2E.InlineCheck.DCWithName", { name }));
+        html.setAttribute("data-pf2-repost-flavor", name);
+        const role = params.showDC ?? "owner";
+        html.setAttribute("data-pf2-show-dc", params.showDC ?? role);
+        html.setAttribute("data-pf2-adjustment", params.adjustment ?? "");
+
+        switch (params.type) {
+            case "flat":
+                html.innerHTML = inlineLabel ?? game.i18n.localize("PF2E.FlatCheck");
+                html.setAttribute("data-pf2-check", "flat");
+                break;
+            case "perception":
+                html.innerHTML = inlineLabel ?? game.i18n.localize("PF2E.PerceptionLabel");
+                html.setAttribute("data-pf2-check", "perception");
+                break;
+            case "fortitude":
+            case "reflex":
+            case "will": {
+                const saveName = game.i18n.localize(CONFIG.PF2E.saves[params.type]);
+                const saveLabel =
+                    params.basic === "true"
+                        ? game.i18n.format("PF2E.InlineCheck.BasicWithSave", { save: saveName })
+                        : saveName;
+                html.innerHTML = inlineLabel ?? saveLabel;
+                html.setAttribute("data-pf2-check", params.type);
+                break;
+            }
+            default: {
+                // Skill or Lore
+                const shortForm = (() => {
+                    if (objectHasKey(SKILL_EXPANDED, params.type)) {
+                        return SKILL_EXPANDED[params.type].shortform;
+                    } else if (objectHasKey(SKILL_DICTIONARY, params.type)) {
+                        return params.type;
+                    }
+                    return;
+                })();
+                const skillLabel = shortForm
+                    ? game.i18n.localize(CONFIG.PF2E.skills[shortForm])
+                    : params.type
+                        .split("-")
+                        .map((word) => {
+                            return word.slice(0, 1).toUpperCase() + word.slice(1);
+                        })
+                        .join(" ");
+                html.innerHTML = inlineLabel ?? skillLabel;
+                html.dataset.pf2Check = sluggify(params.type);
+            }
+        }
+
+        if (params.type && params.dc) {
+            // Let the inline roll function handle level base DCs
+            const checkDC = params.dc === "@self.level" ? params.dc : getCheckDC({ name, params, item, actor });
+            html.setAttribute("data-pf2-dc", checkDC);
+            const text = html.innerHTML;
+            if (checkDC !== "@self.level") {
+                html.innerHTML = game.i18n.format("PF2E.DCWithValueAndVisibility", { role, dc: checkDC, text });
+            }
+        }
+        return html;
+    }
+
     static #createCheck({
         paramString,
         inlineLabel,
@@ -266,7 +339,7 @@ class TextEditorPF2e extends TextEditor {
         inlineLabel?: string;
         item?: ItemPF2e | null;
         actor?: ActorPF2e | null;
-    }): HTMLSpanElement | null {
+    }): HTMLElement | null {
         // Parse the parameter string
         const parts = paramString.split("|");
         const params: { type: string; dc: string } & Record<string, string> = { type: "", dc: "" };
@@ -320,70 +393,29 @@ class TextEditorPF2e extends TextEditor {
         // Deduplicate traits
         const allTraits = Array.from(new Set(traits));
 
-        // Build the inline link
-        const html = document.createElement("span");
-        html.setAttribute("data-pf2-traits", `${allTraits}`);
-        const name = params.name ?? item?.name ?? params.type;
-        html.setAttribute("data-pf2-label", game.i18n.format("PF2E.InlineCheck.DCWithName", { name }));
-        html.setAttribute("data-pf2-repost-flavor", name);
-        const role = params.showDC ?? "owner";
-        html.setAttribute("data-pf2-show-dc", params.showDC ?? role);
-        html.setAttribute("data-pf2-adjustment", params.adjustment ?? "");
+        const types = params.type.split(",");
 
-        switch (params.type) {
-            case "flat":
-                html.innerHTML = inlineLabel ?? game.i18n.localize("PF2E.FlatCheck");
-                html.setAttribute("data-pf2-check", "flat");
-                break;
-            case "perception":
-                html.innerHTML = inlineLabel ?? game.i18n.localize("PF2E.PerceptionLabel");
-                html.setAttribute("data-pf2-check", "perception");
-                break;
-            case "fortitude":
-            case "reflex":
-            case "will": {
-                const saveName = game.i18n.localize(CONFIG.PF2E.saves[params.type]);
-                const saveLabel =
-                    params.basic === "true"
-                        ? game.i18n.format("PF2E.InlineCheck.BasicWithSave", { save: saveName })
-                        : saveName;
-                html.innerHTML = inlineLabel ?? saveLabel;
-                html.setAttribute("data-pf2-check", params.type);
-                break;
+        const buttons = types.map(type => this.#createSingleCheck({
+            allTraits, actor, item, inlineLabel,
+            params: { ...params, ...{ type } }
+        }))
+        if (buttons.length === 1) {
+            return buttons[0];
+        } else {
+            const checkGroup = document.createElement("div");
+            checkGroup.setAttribute("data-pf2-checkgroup", "");
+            for (const button of buttons) {
+                if (button == null) {
+                    // Warning should have been displayed already by #createSingleCheck
+                    return null;
+                }
+                if (checkGroup.hasChildNodes()) {
+                    checkGroup.appendChild(document.createElement("br"));
+                }
+                checkGroup.appendChild(button);
             }
-            default: {
-                // Skill or Lore
-                const shortForm = (() => {
-                    if (objectHasKey(SKILL_EXPANDED, params.type)) {
-                        return SKILL_EXPANDED[params.type].shortform;
-                    } else if (objectHasKey(SKILL_DICTIONARY, params.type)) {
-                        return params.type;
-                    }
-                    return;
-                })();
-                const skillLabel = shortForm
-                    ? game.i18n.localize(CONFIG.PF2E.skills[shortForm])
-                    : params.type
-                          .split("-")
-                          .map((word) => {
-                              return word.slice(0, 1).toUpperCase() + word.slice(1);
-                          })
-                          .join(" ");
-                html.innerHTML = inlineLabel ?? skillLabel;
-                html.dataset.pf2Check = sluggify(params.type);
-            }
+            return checkGroup;
         }
-
-        if (params.type && params.dc) {
-            // Let the inline roll function handle level base DCs
-            const checkDC = params.dc === "@self.level" ? params.dc : getCheckDC({ name, params, item, actor });
-            html.setAttribute("data-pf2-dc", checkDC);
-            const text = html.innerHTML;
-            if (checkDC !== "@self.level") {
-                html.innerHTML = game.i18n.format("PF2E.DCWithValueAndVisibility", { role, dc: checkDC, text });
-            }
-        }
-        return html;
     }
 }
 
