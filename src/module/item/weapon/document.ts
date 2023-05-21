@@ -309,6 +309,12 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             }
         }
 
+        // Ensure presence of traits array on melee usage if not have been added yet
+        if (this.system.meleeUsage) {
+            this.system.meleeUsage.traits ??= [];
+            this.system.meleeUsage.traitToggles ??= { modular: null, versatile: null };
+        }
+
         // Lazy-load toggleable traits
         systemData.traits.toggles = new WeaponTraitToggles(this);
 
@@ -326,8 +332,6 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
         // If the `comboMeleeUsage` flag is true, then this is a combination weapon in its melee form
         this.flags.pf2e.comboMeleeUsage ??= false;
-        // Ensure presence of traits array on melee usage if not have been added yet
-        if (this.system.meleeUsage) this.system.meleeUsage.traits ??= [];
 
         this.prepareMaterialAndRunes();
         this.prepareLevelAndRarity();
@@ -616,13 +620,18 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const { meleeUsage } = this.system;
         if (!meleeUsage || this.flags.pf2e.comboMeleeUsage) return null;
 
+        const traitToggles = {
+            module: { selection: meleeUsage.traitToggles.modular },
+            versatile: { selection: meleeUsage.traitToggles.versatile },
+        };
+
         const overlay: DeepPartial<WeaponSource> = {
             system: {
                 damage: { damageType: meleeUsage.damage.type, dice: 1, die: meleeUsage.damage.die },
                 group: meleeUsage.group,
                 range: null,
                 reload: { value: null },
-                traits: { value: meleeUsage.traits.concat("combination") },
+                traits: { value: meleeUsage.traits.concat("combination"), toggles: traitToggles },
                 selectedAmmoId: null,
             },
             flags: {

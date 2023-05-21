@@ -172,6 +172,7 @@ interface WeaponSystemData
     };
     material: WeaponMaterialData;
     usage: UsageDetails & WeaponSystemSource["usage"];
+    meleeUsage?: Required<ComboWeaponMeleeUsage>;
 }
 
 interface WeaponTraits extends WeaponTraitsSource {
@@ -190,7 +191,8 @@ interface WeaponMaterialData {
 interface ComboWeaponMeleeUsage {
     damage: { type: DamageType; die: DamageDieSize };
     group: MeleeWeaponGroup;
-    traits: WeaponTrait[];
+    traits?: WeaponTrait[];
+    traitToggles?: { modular: DamageType | null; versatile: DamageType | null };
 }
 
 export {
