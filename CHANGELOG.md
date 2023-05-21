@@ -1,5 +1,124 @@
 # Changelog
 
+## Version 4.12.0
+
+### New Features
+
+-   (In3luki) Add chat-message button to undo damage applied to actors
+-   (M. Siebert) Allow GM to exclude content by book source from compendium browser
+-   (stwlam) Add versatile- and modular-damage toggling to PC strikes
+
+### System Improvements
+
+-   (Dana) Restore (homebrew) wands to max charges when resting rather than 1
+-   (In3luki) Add roll-initiative button to hazard sheets
+-   (stwlam) Implement damage reduction from hardness
+-   (stwlam) Implement hindering and ponderous penalties
+-   (stwlam) Remove the death overlay if present upon hit points being increased
+-   (stwlam) Add section on level-one class features to add key ability score options
+-   (stwlam) Automatically add object immunities to hazards
+-   (stwlam) Don't display token floaty text when GMs update NPC hit points from sheets
+-   (stwlam) Drop support for "mundane-attack" rule-element selector (use "strike-attack-roll" instead)
+-   (stwlam) Reduce editability on hazard sheet when edit lock is active
+-   (Supe) Show result formula for damage roll dialog
+-   (Supe) Support any statistic for inline checks
+-   (xdy) Show frequency for exploration actions, add month and year action frequencies
+-   (xdy) Buy one item (10 for ammunition) from a merchant by default
+
+### Bugfixes
+
+-   (Dire Weasel) Prevent binary-operation predication statements from comparing NaNs
+-   (Dire Weasel) Restore actor-sheet rerender upon setting temp HP on round start
+-   (LebombJames) Add thoughtsense as a sense type
+-   (stwlam) Preserve mystified names of uidentified physical items when used to generate macros
+-   (stwlam) Fix edit-mode height of description editor in item sheets
+-   (stwlam) Fix localization of base-type labels on armor sheet
+-   (stwlam) Fix modification of NPC speeds and their display on sheets
+-   (stwlam) Fix refreshing mouse-interactive bounds of unlinked tokens when resized
+-   (Supe) Fix autofill options for regeneration deactivation
+-   (Supe) Fix breakdown tag for weapon persistent damage
+-   (Supe) Fix initiative using skills overriden by battle forms
+-   (Supe) Remove incorrect message when adding intercessions to PCs, fix boon sorting
+-   (xdy) Update XP budget macro to exclude minions and use actor alliance instead of actor type
+
+### Data Updates
+
+-   (bcronin90) Add effects for Tactical and Vicious Debilitation
+-   (bcronin90) Add rule elements to Diverse Lore feat
+-   (cjneidhart) Condense Evolution Surge effects
+-   (Dire Weasel) Add and update REs for Blade Barrage
+-   (Dire Weasel) Add aura effect for Aura of Growth
+-   (Dire Weasel) Add aura effect for Fetid Fumes
+-   (Dire Weasel) Add rule elements to Aerial Piledriver, Callow May, Grit and Tenacity, Lekmek's False Retreat, Planar Sidestep, Unexpected Shift, Voice of Authority
+-   (Dire Weasel) Add damage overlay to Positive Attunement
+-   (Dire Weasel) Add effect and leveled damage link for Incendiary Aura
+-   (Dire Weasel) Add effects for Champion's Resistance, Energy Shot, Fulminating Shot, Harden Flesh, Hunter's Brooch, Inscrutable Mask, Sanguine Rain, Shock Zombie's Lightning Powered, Bloom Regeneration, Zinba Restoration, Incendiary Ashes, Numbing Tonic, Soul Crush, Soul Lock, Pest Haven
+-   (Dire Weasel) Add glass to weakness types
+-   (Dire Weasel) Add Noxious Smog aura effect
+-   (Dire Weasel) Add persistent damage links to Ancient Dust, Grim Tendrils, Phantom Pain, Savor the Sting, Withering Grasp, and Brutal Critical
+-   (Dire Weasel) Add regeneration rule element to Effect: Bully the Departed
+-   (Dire Weasel) Add fast healing and regeneration rule elements to several NPCs
+-   (Dire Weasel) Add Sneak Attack rule elements for Barrel Launcher, Clockwork Chopper, Clockwork Injector
+-   (Dire Weasel) Add spell effect for Hymn of Healing, Magic Stone
+-   (Dire Weasel) Add toggle for Warped Fulu
+-   (Dire Weasel) Add token light and automation to Flame Tongue and Flame Tongue (Greater).
+-   (Dire Weasel) Automate Misery Siktempora's Slash the Suffering, Deinonychus' Predator's Advantage
+-   (Dire Weasel) Add rule elements for NPC Surprise Attack abilities
+-   (Dire Weasel) Automate Skinstitch Flay damage
+-   (Dire Weasel) Correct traits and bulk of Monkey's Fist
+-   (Dire Weasel) Fix Animal Instinct Frog jaws attack to be bludgeoning
+-   (Dire Weasel) Fix ChoiceSet flag on Effect: Vicious Debilitations to be camelCase
+-   (Dire Weasel) Fix Flamboyant Athlete to be passive and add base speed REs
+-   (Dire Weasel) Fix inline roll for Facetbound Nullifier Defensive Dispel
+-   (Dire Weasel) Fix level of Weapon Mastery in Swashbuckler description
+-   (Dire Weasel) Fix Mechanical Torch label
+-   (Dire Weasel) Fix name of Spell Effect: Mirror Image
+-   (Dire Weasel) Fix reach on Wild Morph Long Vines
+-   (Dire Weasel) Fix selectors for Extra Squishy, Fluid Contortionist, Slither, Gruhastha
+-   (Dire Weasel) Fix text formatting for Insight Coffee Pumpkin Spice
+-   (Dire Weasel) Fix usage of Earthbinding rune
+-   (Dire Weasel) Fix Vazgorlu creature level
+-   (Dire Weasel) Fix Wellspring Mage Initiative localized string
+-   (Dire Weasel) Make some NPC cooldown rolls blind
+-   (Dire Weasel) Mark NPC regeneration abilities as deathNote
+-   (Dire Weasel) Predicate Flamboyant Athlete base speed REs on Panache
+-   (Dire Weasel) Standardize Oracle curse names
+-   (Drental) Fix enriched html in kingmaker statblocks
+-   (InfamousSky) Add some weapon icons
+-   (Manuel Hegner) Fix traits of Shield Warden feat
+-   (Mira Mechtley) Fix predicate of energizing lattice
+-   (rectulo) Fix alignment of The Rakshasa harrow card
+-   (rectulo) Fix formatting of Harrow Bloodline link
+-   (rectulo) Fix intro of the harrower archetype
+-   (rectulo) Fix level and price of Armory bracelet (Major)
+-   (rectulo) Fix shield-throw range of meteor shield
+-   (rectulo) Fix the traits of the harrow bloodline
+-   (reyzor1991) Add slugs to Anadi fangs, jaws strikes, tail attacks, and some NPC reactions
+-   (SpartanCPA) Assign Ancestry icons to non-human pregens
+-   (SpartanCPA) Correct the scaling of the Primal Dragon's Cantrips
+-   (SpartanCPA) Fix errant token names
+-   (stwlam) Add Fast Healing effect to Field of Undeath auras
+-   (stwlam) Add inline checks to Ventriloquist's Rings
+-   (stwlam) Add rule elements to Urgathoa's Minor Boon
+-   (stwlam) Add rule elements to Adopted Ancestry
+-   (stwlam) Fix rule elements on Virtuosic Performer
+-   (stwlam) Remove dragon-type restriction for non-draconic sorcerers on Dragon Disciple Dedication
+-   (Tikael) Add hazards for PFS Scenario 4-12
+-   (Tikael) Add spell effects for several Psychic cantrips
+-   (Tikael) Add variants to Lay on Hands and Touch of Corruption
+-   (Tikael) Automate Lifeblood's Call, Ghost Eater Dedication
+-   (Tikael) Brush up automation of Gloom Blade
+-   (Tikael) Change treasure keys to equipment
+-   (Tikael) Clean up and localize several NPC skill variants
+-   (Tikael) Condense Divine Vessel effects
+-   (Tikael) Fix focus points added by Psychic Dedication
+-   (Tikael) Fix typos in Thrill Seeker background, Eerie Flicker
+-   (Tikael) Improve Resonant Reflection automation
+-   (Tikael) Standardize lighting roll options
+-   (Tikael) Add Paizo blog apex items
+-   (TMun) Add NPCs from PFS Quest 14
+-   (xdy) Link conditions in descriptions where missing
+
 ## Version 4.11.2
 
 ### Bugfixes
