@@ -36,7 +36,10 @@
                     <div class="valued-icon">
                         <input type="text" value="{{numberFormat data.attributes.stealth.value decimals=0 sign=true}}" data-property="system.attributes.stealth.value" data-dtype="Number" placeholder="N/A" />
                     </div>
-                    <h4 class="attribute-name">{{localize "PF2E.StealthLabel"}}</h4>
+                    <h2 class="roll-init{{#if @root.options.editable}} rollable{{/if}}" data-action="roll-initiative">
+                        <i class="fa-solid fa-dice-d20"></i>
+                        {{localize "PF2E.StealthLabel"}}
+                    </h2>
                 </div>
             </div>
         </section>
