@@ -1,5 +1,4 @@
 import { HitPointsSummary } from "@actor/base.ts";
-import { SkillAbbreviation } from "@actor/creature/data.ts";
 import { AbilityString, SkillLongForm } from "@actor/types.ts";
 import { ZeroToFour } from "@module/data.ts";
 import { Statistic } from "@system/statistic/index.ts";
@@ -11,9 +10,7 @@ interface CharacterHitPointsSummary extends HitPointsSummary {
 
 type CharacterSkill = Statistic & { rank: ZeroToFour; ability: AbilityString };
 
-type CharacterSkills = Record<SkillAbbreviation, CharacterSkill> &
-    Record<SkillLongForm, CharacterSkill> &
-    Partial<Record<string, CharacterSkill>>;
+type CharacterSkills = Record<SkillLongForm, CharacterSkill> & Partial<Record<string, CharacterSkill>>;
 
 /** Single source of a Dexterity modifier cap to Armor Class, including the cap value itself. */
 interface DexterityModifierCapData {

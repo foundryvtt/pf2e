@@ -29,10 +29,8 @@ type BaseCreatureSource<TType extends CreatureType, TSystemSource extends Creatu
     TSystemSource
 >;
 
-/** Skill and Lore statistics for rolling. Both short and longform are supported, but eventually only long form will be */
-type CreatureSkills = Record<SkillAbbreviation, Statistic> &
-    Record<SkillLongForm, Statistic> &
-    Partial<Record<string, Statistic>>;
+/** Skill and Lore statistics for rolling. */
+type CreatureSkills = Record<SkillLongForm, Statistic> & Partial<Record<string, Statistic>>;
 
 interface CreatureSystemSource extends ActorSystemSource {
     details?: {
