@@ -57,6 +57,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
+                        "grab",
                         "oil-rot"
                     ]
                 },
@@ -101,7 +102,6 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "grab",
                         "oil-rot"
                     ]
                 },
@@ -109,6 +109,11 @@
                     "value": 27
                 },
                 "damageRolls": {
+                    "BFf5ReXYnLr34MMa": {
+                        "category": "persistent",
+                        "damage": "1d6",
+                        "damageType": "bleed"
+                    },
                     "qp4Pof5su9UuNKXf": {
                         "damage": "3d6+14",
                         "damageType": "slashing"
@@ -323,6 +328,9 @@
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
+                        "predicate": [
+                            "ignite-oil"
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -559,7 +567,7 @@
                 "details": "",
                 "max": 260,
                 "temp": 0,
-                "value": 10
+                "value": 260
             },
             "immunities": [
                 {
