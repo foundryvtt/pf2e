@@ -104,7 +104,7 @@ export interface SpellHeighteningFixed {
 
 export interface SpellHeightenLayer {
     level: number;
-    system: Partial<SpellSystemData>;
+    system: Partial<SpellSystemSource>;
 }
 
 interface SpellOverlayOverride {
