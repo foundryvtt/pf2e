@@ -1,3 +1,4 @@
+import * as R from "remeda";
 import { ActorPF2e } from "@actor";
 import { TraitViewData } from "@actor/data/base.ts";
 import { calculateMAPs } from "@actor/helpers.ts";
@@ -96,24 +97,27 @@ class Statistic extends SimpleStatistic {
     constructor(actor: ActorPF2e, data: StatisticData, options: RollOptionParameters = {}) {
         data.modifiers ??= [];
         const domains = (data.domains ??= []);
+
         // Add some base modifiers depending on data values
         // If this is a character with an ability, add/set the ability modifier
         const abilityModifier =
-            actor.isOfType("character") &&
-            data.ability &&
-            !data.modifiers.some((m) => m.enabled && m.type === "ability")
+            actor.isOfType("character") && data.ability
                 ? createAbilityModifier({ actor, ability: data.ability, domains })
                 : null;
 
-        const baseModifiers: ModifierPF2e[] = abilityModifier ? [abilityModifier] : [];
-        // If there isn't already a proficiency modifier, possibly add one
-        if (actor.isOfType("character") && !data.modifiers.some((m) => m.type === "proficiency")) {
-            if (typeof data.rank === "number") {
-                baseModifiers.push(createProficiencyModifier({ actor, rank: data.rank, domains }));
-            } else if (data.rank === "untrained-level") {
-                baseModifiers.push(createProficiencyModifier({ actor, rank: 0, domains, addLevel: true }));
-            }
-        }
+        // If this is a character with a proficiency, add a proficiency modifier
+        const proficiencyModifier = !actor.isOfType("character")
+            ? null
+            : typeof data.rank === "number"
+            ? createProficiencyModifier({ actor, rank: data.rank, domains })
+            : data.rank === "untrained-level"
+            ? createProficiencyModifier({ actor, rank: 0, domains, addLevel: true })
+            : null;
+
+        // Add the auto-generated modifiers, overriding any already existing copies
+        const baseModifiers = R.compact([abilityModifier, proficiencyModifier]);
+        const activeSlugs = new Set(baseModifiers.map((m) => m.slug));
+        data.modifiers = data.modifiers.filter((m) => !activeSlugs.has(m.slug));
         data.modifiers.unshift(...baseModifiers);
 
         super(actor, data);
