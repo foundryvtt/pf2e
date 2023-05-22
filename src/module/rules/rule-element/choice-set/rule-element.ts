@@ -113,7 +113,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
 
         this.#setDefaultFlag(ruleSource);
 
-        const inflatedChoices = (await this.#inflateChoices()).filter((c) => c.predicate?.test(rollOptions) ?? true);
+        const inflatedChoices = (await this.inflateChoices()).filter((c) => c.predicate?.test(rollOptions) ?? true);
         if (this.allowedDrops?.predicate) {
             this.allowedDrops.predicate = this.resolveInjectedProperties(this.allowedDrops.predicate);
         }
@@ -181,7 +181,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
      * If an array was passed, localize & sort the labels and return. If a string, look it up in CONFIG.PF2E and
      * create an array of choices.
      */
-    async #inflateChoices(): Promise<PickableThing[]> {
+    async inflateChoices(): Promise<PickableThing[]> {
         const choices: PickableThing<string | number>[] = Array.isArray(this.choices)
             ? this.choices // Static choices from RE constructor data
             : isObject(this.choices) // ChoiceSetAttackQuery or ChoiceSetItemQuery
@@ -190,7 +190,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                 : this.choices.attacks || this.choices.unarmedAttacks
                 ? this.#choicesFromAttacks(this.choices.predicate)
                 : "query" in this.choices && typeof this.choices.query === "string"
-                ? await this.#queryCompendium(this.choices)
+                ? await this.queryCompendium(this.choices)
                 : []
             : typeof this.choices === "string"
             ? this.#choicesFromPath(this.choices)
@@ -291,7 +291,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
     }
 
     /** Perform an NeDB query against the system feats compendium (or a different one if specified) */
-    async #queryCompendium(choices: ChoiceSetPackQuery): Promise<PickableThing<string>[]> {
+    async queryCompendium(choices: ChoiceSetPackQuery): Promise<PickableThing<string>[]> {
         const pack = game.packs.get(choices.pack ?? "pf2e.feats-srd");
         if (choices.postFilter) choices.postFilter = new PredicatePF2e(choices.postFilter);
 
