@@ -40,7 +40,6 @@ export const InlineRollLinks = {
 
     listen: ($html: HTMLElement | JQuery, foundryDoc?: ClientDocument): void => {
         const html = $html instanceof HTMLElement ? $html : $html[0]!;
-        if ($html instanceof HTMLElement) $html = $($html);
 
         const links = htmlQueryAll(html, inlineSelector).filter((l) => l.nodeName === "SPAN");
         InlineRollLinks.injectRepostElement(links, foundryDoc);
@@ -67,13 +66,16 @@ export const InlineRollLinks = {
                 : null;
         };
 
-        $html.find("i[data-pf2-repost]").on("click", (event) => {
-            const target = event.currentTarget;
-            const parent = target.parentElement;
-            const document = documentFromDOM(target);
-            if (parent) InlineRollLinks.repostAction(parent, document);
-            event.stopPropagation();
-        });
+        htmlQueryAll(html, "i[data-pf2-repost]").forEach((btn) =>
+            btn.addEventListener("click", (event) => {
+                const target = event.target;
+                if (!(target instanceof HTMLElement)) return;
+                const parent = target?.parentElement;
+                const document = documentFromDOM(target);
+                if (parent) InlineRollLinks.repostAction(parent, document);
+                event.stopPropagation();
+            })
+        );
 
         const $links = $(links);
         $links.filter("[data-pf2-action]").on("click", (event) => {
