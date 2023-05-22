@@ -170,7 +170,8 @@ class WeaponAuxiliaryAction {
         if (typeof this.carryType === "string") {
             actor.adjustCarryType(this.weapon, this.carryType, this.hands ?? 0);
         } else if (selection && tupleHasValue(weapon.system.traits.toggles.modular.options, selection)) {
-            toggleWeaponTrait({ weapon, trait: "modular", selection });
+            const updated = await toggleWeaponTrait({ weapon, trait: "modular", selection });
+            if (!updated) return;
         }
 
         if (!game.combat) return; // Only send out messages if in encounter mode
