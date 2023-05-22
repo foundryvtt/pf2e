@@ -27,6 +27,7 @@ import { DamageModifierDialog } from "@system/damage/modifier-dialog.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import {
     DamageFormulaData,
+    DamagePartialTerm,
     DamageRollContext,
     DynamicBaseDamageData,
     SpellDamageTemplate,
@@ -210,12 +211,16 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         // Loop over the user defined damage fields
         const base: DynamicBaseDamageData[] = [];
         for (const [id, damage] of Object.entries(this.system.damage.value ?? {})) {
-            if (damage.value !== "" && !Roll.validate(damage.value)) {
+            const terms = ((): DamagePartialTerm[] | null => {
+                if (damage.value === "") return [];
+                if (!Roll.validate(damage.value)) return null;
+                return parseTermsFromSimpleFormula(damage.value, { rollData });
+            })();
+
+            if (!terms) {
                 console.error(`Failed to parse damage formula "${damage.value}"`);
                 return null;
             }
-
-            const terms = parseTermsFromSimpleFormula(damage.value, { rollData });
 
             // Check for and apply interval spell scaling
             const heightening = this.system.heightening;
