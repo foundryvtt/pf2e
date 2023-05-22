@@ -63,10 +63,13 @@ class WeaponTraitToggles {
     }
 }
 
-/**  Update a modular or versatile weapon to change its damage type */
-async function toggleWeaponTrait({ weapon, trait, selection }: ToggleWeaponTraitParams): Promise<void> {
+/**
+ * Update a modular or versatile weapon to change its damage type
+ * @returns A promise indicating whether an update was made
+ */
+async function toggleWeaponTrait({ weapon, trait, selection }: ToggleWeaponTraitParams): Promise<boolean> {
     const current = weapon.system.traits.toggles[trait].selection;
-    if (current === selection) return;
+    if (current === selection) return false;
 
     const item = weapon.actor?.items.get(weapon.id);
     if (item?.isOfType("weapon") && item === weapon) {
@@ -79,6 +82,8 @@ async function toggleWeaponTrait({ weapon, trait, selection }: ToggleWeaponTrait
         );
         await rule?.toggleTrait({ trait, selection });
     }
+
+    return true;
 }
 
 interface ToggleWeaponTraitParams {
