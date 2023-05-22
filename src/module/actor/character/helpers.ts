@@ -267,10 +267,10 @@ function createForceOpenPenalty(actor: CharacterPF2e, domains: string[]): Modifi
 
 function createShoddyPenalty(
     actor: CharacterPF2e,
-    item: WeaponPF2e | ArmorPF2e,
+    item: WeaponPF2e | ArmorPF2e | null,
     domains: string[]
 ): ModifierPF2e | null {
-    if (!item.isShoddy) return null;
+    if (!item?.isShoddy) return null;
 
     const slug = "shoddy";
 
