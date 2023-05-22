@@ -137,12 +137,11 @@ export const InlineRollLinks = {
                         const statistic = actor.getStatistic(pf2Check ?? "");
                         if (statistic) {
                             const dcValue = (() => {
+                                const adjustment = Number(pf2Adjustment) || 0;
                                 if (pf2Dc === "@self.level") {
-                                    const adjustment = Number(pf2Adjustment) || 0;
                                     return calculateDC(actor.level) + adjustment;
                                 }
-
-                                return Number(pf2Dc);
+                                return Number(pf2Dc) + adjustment;
                             })();
 
                             const dc = Number.isInteger(dcValue) ? { label: pf2Label, value: dcValue } : null;
