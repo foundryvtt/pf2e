@@ -213,8 +213,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         for (const [id, damage] of Object.entries(this.system.damage.value ?? {})) {
             const terms = ((): DamagePartialTerm[] | null => {
                 if (damage.value === "") return [];
-                if (!Roll.validate(damage.value)) return null;
-                return parseTermsFromSimpleFormula(damage.value, { rollData });
+                return Roll.validate(damage.value) ? parseTermsFromSimpleFormula(damage.value, { rollData }) : null;
             })();
 
             if (!terms) {
