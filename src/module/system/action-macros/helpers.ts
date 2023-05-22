@@ -224,6 +224,10 @@ export class ActionMacroHelpers {
                         extraRollOptions: combinedOptions,
                         target: targetActor,
                         traits: traitObjects,
+                        createMessage: options.createMessage,
+                        callback: (roll, outcome, message) => {
+                            options.callback?.({ actor, message, outcome, roll });
+                        },
                     });
                 } else {
                     const check = new CheckModifier(label, statistic, modifiers);
