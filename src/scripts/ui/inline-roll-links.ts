@@ -217,16 +217,17 @@ export const InlineRollLinks = {
         }
 
         const defaultVisibility = document?.hasPlayerOwner ? "all" : "gm";
-        let content;
-        if (target.parentElement?.dataset?.pf2Checkgroup !== undefined) {
-            content = htmlQueryAll(target.parentElement, inlineSelector)
-                .map((target) => InlineRollLinks.makeRepostHtml(target, defaultVisibility))
-                .join("<br>");
+        const content = (() => {
+            if (target.parentElement?.dataset?.pf2Checkgroup !== undefined) {
+                const content = htmlQueryAll(target.parentElement, inlineSelector)
+                    .map((target) => InlineRollLinks.makeRepostHtml(target, defaultVisibility))
+                    .join("<br>");
 
-            content = `<div data-pf2-checkgroup>${content}</div>`;
-        } else {
-            content = InlineRollLinks.makeRepostHtml(target, defaultVisibility);
-        }
+                return `<div data-pf2-checkgroup>${content}</div>`;
+            } else {
+                return InlineRollLinks.makeRepostHtml(target, defaultVisibility);
+            }
+        })();
 
         const speaker =
             document instanceof ActorPF2e
