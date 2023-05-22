@@ -58,27 +58,6 @@
                                             <!-- ATTACK/DAMAGE -->
                                             {{#> attackDamage action}}{{/attackDamage}}
 
-                                            {{#if action.ammunition}}
-                                                <div class="ammo">
-                                                    <select class="linked"
-                                                        data-action="link-ammo"
-                                                        {{#if action.ammunition.selected}} data-compatible="{{action.ammunition.selected.compatible}}"{{/if}}>
-                                                        {{#select action.ammunition.selected.id}}
-                                                            <option value="">{{localize "PF2E.NoAmmoLabel"}}</option>
-                                                            {{#each action.ammunition.compatible as |ammo|}}
-                                                                <option value="{{ammo.id}}" data-compatible="true">{{ammo.name}} ({{ammo.quantity}})</option>
-                                                            {{/each}}
-                                                        {{/select}}
-                                                    </select>
-
-                                                    <span class="magazine" data-item-id="{{action.item.id}}">
-                                                        {{#if (gt action.item.ammo.uses.max 1)}}
-                                                            <span class="remaining"><i class="icon"></i> {{action.item.ammo.uses.value}}</span>
-                                                        {{/if}}
-                                                    </span>
-                                                </div>
-                                            {{/if}}
-
                                         {{/if}}
                                     </div>
                                 </div>
@@ -94,6 +73,27 @@
                                             {{#> attackDamage usage isAltUsage=true}}{{/attackDamage}}
                                         </div>
                                     {{/each}}
+                                {{/if}}
+
+                                {{#if (and action.ammunition (or action.ready ../actor.flags.pf2e.showUnreadyStrikes))}}
+                                    <div class="ammo auxiliary-actions">
+                                        <select class="linked"
+                                            data-action="link-ammo"
+                                            {{#if action.ammunition.selected}} data-compatible="{{action.ammunition.selected.compatible}}"{{/if}}>
+                                            {{#select action.ammunition.selected.id}}
+                                                <option value="">{{localize "PF2E.NoAmmoLabel"}}</option>
+                                                {{#each action.ammunition.compatible as |ammo|}}
+                                                    <option value="{{ammo.id}}" data-compatible="true">{{ammo.name}} ({{ammo.quantity}})</option>
+                                                {{/each}}
+                                            {{/select}}
+                                        </select>
+
+                                        <span class="magazine" data-item-id="{{action.item.id}}">
+                                            {{#if (gt action.item.ammo.uses.max 1)}}
+                                                <span class="remaining"><i class="icon"></i> {{action.item.ammo.uses.value}}</span>
+                                            {{/if}}
+                                        </span>
+                                    </div>
                                 {{/if}}
 
                                 <div class="auxiliary-actions{{#if action.ready}} weapon-drawn{{/if}}">
