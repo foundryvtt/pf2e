@@ -554,17 +554,18 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             );
             for (const button of auxActionButtons) {
                 const modularSelect = htmlQuery(button, "select");
-                button.addEventListener("click", (event) => {
-                    if (event.target instanceof HTMLSelectElement) return;
+                button.addEventListener("click", () => {
                     const auxiliaryActionIndex = Number(button.dataset.auxiliaryActionIndex ?? NaN);
                     const strike = this.getStrikeFromDOM(button);
                     const selection = modularSelect?.value ?? null;
                     strike?.auxiliaryActions?.at(auxiliaryActionIndex)?.execute({ selection });
                 });
                 // Selecting a damage type isn't committed until the button is pressed
-                modularSelect?.addEventListener("change", (event) => {
-                    event.stopPropagation();
-                });
+                for (const eventType of ["change", "click", "dragenter", "input"]) {
+                    modularSelect?.addEventListener(eventType, (event) => {
+                        event.stopImmediatePropagation();
+                    });
+                }
             }
 
             const meleeIcon = htmlQuery(strikeElem, ".melee-icon");
