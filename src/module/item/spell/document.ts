@@ -210,7 +210,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         // Loop over the user defined damage fields
         const base: DynamicBaseDamageData[] = [];
         for (const [id, damage] of Object.entries(this.system.damage.value ?? {})) {
-            if (!Roll.validate(damage.value)) {
+            if (damage.value !== "" && !Roll.validate(damage.value)) {
                 console.error(`Failed to parse damage formula "${damage.value}"`);
                 return null;
             }
