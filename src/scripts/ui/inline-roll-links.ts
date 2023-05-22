@@ -44,7 +44,6 @@ export const InlineRollLinks = {
 
         const links = htmlQueryAll(html, inlineSelector).filter((l) => l.nodeName === "SPAN");
         InlineRollLinks.injectRepostElement(links, foundryDoc);
-        // const $repostLinks = $html.find("i.fas.fa-comment-alt").filter(inlineSelector);
 
         InlineRollLinks.flavorDamageRolls(html, foundryDoc instanceof ActorPF2e ? foundryDoc : null);
 
