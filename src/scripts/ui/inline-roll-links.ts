@@ -29,7 +29,8 @@ export const InlineRollLinks = {
             if (foundryDoc && !foundryDoc.isOwner) continue;
 
             const newButton = document.createElement("i");
-            const icon = link.parentElement?.dataset?.pf2Checkgroup != null ? "fa-comment-alt-dots" : "fa-comment-alt";
+            const icon =
+                link.parentElement?.dataset?.pf2Checkgroup !== undefined ? "fa-comment-alt-dots" : "fa-comment-alt";
             newButton.classList.add("fas", icon);
             newButton.setAttribute("data-pf2-repost", "");
             newButton.setAttribute("title", game.i18n.localize("PF2E.Repost"));
@@ -202,7 +203,7 @@ export const InlineRollLinks = {
         });
     },
 
-    makeRepostHtml: (target: HTMLElement, defaultVisibility: string) => {
+    makeRepostHtml: (target: HTMLElement, defaultVisibility: string): string => {
         const flavor = target.attributes.getNamedItem("data-pf2-repost-flavor")?.value ?? "";
         const showDC = target.attributes.getNamedItem("data-pf2-show-dc")?.value ?? defaultVisibility;
         return `<span data-visibility="${showDC}">${flavor}</span> ${target.outerHTML}`.trim();
@@ -216,11 +217,11 @@ export const InlineRollLinks = {
             return;
         }
 
-        const defaultVisibility = (document?.hasPlayerOwner ? "all" : "gm");
+        const defaultVisibility = document?.hasPlayerOwner ? "all" : "gm";
         let content;
-        if (target.parentElement?.dataset?.pf2Checkgroup != null) {
+        if (target.parentElement?.dataset?.pf2Checkgroup !== undefined) {
             content = htmlQueryAll(target.parentElement, inlineSelector)
-                .map(target => InlineRollLinks.makeRepostHtml(target, defaultVisibility))
+                .map((target) => InlineRollLinks.makeRepostHtml(target, defaultVisibility))
                 .join("<br>");
 
             content = `<div data-pf2-checkgroup>${content}</div>`;
@@ -231,9 +232,9 @@ export const InlineRollLinks = {
         const speaker =
             document instanceof ActorPF2e
                 ? ChatMessagePF2e.getSpeaker({
-                    actor: document,
-                    token: document.token ?? document.getActiveTokens(false, true).shift(),
-                })
+                      actor: document,
+                      token: document.token ?? document.getActiveTokens(false, true).shift(),
+                  })
                 : ChatMessagePF2e.getSpeaker();
 
         // If the originating document is a journal entry, include its UUID as a flag

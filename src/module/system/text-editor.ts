@@ -97,10 +97,10 @@ class TextEditorPF2e extends TextEditor {
             app instanceof ActorSheetPF2e
                 ? [app.actor, app.actor.getRollData()]
                 : app instanceof ItemSheetPF2e
-                    ? [app.item.actor, app.item.getRollData()]
-                    : message?.actor
-                        ? [message.actor, message.getRollData()]
-                        : [null, {}];
+                ? [app.item.actor, app.item.getRollData()]
+                : message?.actor
+                ? [message.actor, message.getRollData()]
+                : [null, {}];
         const options = anchor.dataset.flavor ? { flavor: anchor.dataset.flavor } : {};
         const roll = new DamageRoll(anchor.dataset.formula, rollData, options);
 
@@ -256,12 +256,18 @@ class TextEditorPF2e extends TextEditor {
         return null;
     }
 
-    static #createSingleCheck({ params, allTraits, item, actor, inlineLabel }: {
-        params: { type: string, dc: string } & Record<string, string>,
-        allTraits: string[],
-        item?: ItemPF2e | null,
-        actor?: ActorPF2e | null,
-        inlineLabel?: string
+    static #createSingleCheck({
+        params,
+        allTraits,
+        item,
+        actor,
+        inlineLabel,
+    }: {
+        params: { type: string; dc: string } & Record<string, string>;
+        allTraits: string[];
+        item?: ItemPF2e | null;
+        actor?: ActorPF2e | null;
+        inlineLabel?: string;
     }): HTMLSpanElement | null {
         // Build the inline link
         const html = document.createElement("span");
@@ -307,11 +313,11 @@ class TextEditorPF2e extends TextEditor {
                 const skillLabel = shortForm
                     ? game.i18n.localize(CONFIG.PF2E.skills[shortForm])
                     : params.type
-                        .split("-")
-                        .map((word) => {
-                            return word.slice(0, 1).toUpperCase() + word.slice(1);
-                        })
-                        .join(" ");
+                          .split("-")
+                          .map((word) => {
+                              return word.slice(0, 1).toUpperCase() + word.slice(1);
+                          })
+                          .join(" ");
                 html.innerHTML = inlineLabel ?? skillLabel;
                 html.dataset.pf2Check = sluggify(params.type);
             }
@@ -324,7 +330,7 @@ class TextEditorPF2e extends TextEditor {
 
             let displayedDC = checkDC;
             if (!isNaN(parseInt(params.dc))) {
-                // When using fixed DCs/adjustments, parse and add them to render the actual DC
+                // When using fixed DCs/adjustments, parse and add them to render the real DC
                 displayedDC = `${parseInt(params.dc) + parseInt(params.adjustment)}`;
             }
             const text = html.innerHTML;
@@ -409,22 +415,27 @@ class TextEditorPF2e extends TextEditor {
             adjustments = new Array(types.length).fill(adjustments[0]);
         }
 
-        if (adjustments.some(adj => adj !== "" && isNaN(parseInt(adj)))) {
+        if (adjustments.some((adj) => adj !== "" && isNaN(parseInt(adj)))) {
             ui.notifications.warn(game.i18n.localize("PF2E.InlineCheck.Errors.NonIntegerAdjustment"));
             return null;
         }
 
-        const buttons = types.map((type, i) => this.#createSingleCheck({
-            allTraits, actor, item, inlineLabel,
-            params: { ...params, ...{ type, adjustment: adjustments[i] || "0" } }
-        }))
+        const buttons = types.map((type, i) =>
+            this.#createSingleCheck({
+                allTraits,
+                actor,
+                item,
+                inlineLabel,
+                params: { ...params, ...{ type, adjustment: adjustments[i] || "0" } },
+            })
+        );
         if (buttons.length === 1) {
             return buttons[0];
         } else {
             const checkGroup = document.createElement("div");
             checkGroup.setAttribute("data-pf2-checkgroup", "");
             for (const button of buttons) {
-                if (button == null) {
+                if (button === null) {
                     // Warning should have been displayed already by #createSingleCheck
                     return null;
                 }
