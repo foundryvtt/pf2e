@@ -33,7 +33,7 @@ async function applyDamageFromMessage({
     const damage = multiplier < 0 ? multiplier * roll.total + addend : roll.alter(multiplier, addend);
 
     // Get origin roll options and apply damage to a contextual clone: this may influence condition IWR, for example
-    const messageRollOptions = message.flags.pf2e.context?.options ?? [];
+    const messageRollOptions = [...(message.flags.pf2e.context?.options ?? [])];
     const originRollOptions = messageRollOptions
         .filter((o) => o.startsWith("self:"))
         .map((o) => o.replace(/^self/, "origin"));
@@ -41,6 +41,10 @@ async function applyDamageFromMessage({
     for (const token of tokens) {
         if (!token.actor) continue;
 
+        // If no target was acquired during a roll, set roll options for it during damage application
+        if (!messageRollOptions.some((o) => o.startsWith("target"))) {
+            messageRollOptions.push(...token.actor.getSelfRollOptions("target"));
+        }
         const ephemeralEffects =
             multiplier > 0
                 ? await extractEphemeralEffects({
