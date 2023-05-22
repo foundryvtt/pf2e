@@ -412,6 +412,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             NonNullable<TParent>
         >;
         variant.original = this as SpellPF2e<NonNullable<TParent>>;
+        variant.trickMagicEntry = this.trickMagicEntry;
         variant.appliedOverlays = appliedOverlays;
         // Retrieve tradition since `#prepareSiblingData` isn't run:
         variant.system.traits.value = Array.from(new Set([...variant.traits, ...variant.traditions]));
