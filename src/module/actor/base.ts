@@ -81,7 +81,7 @@ import { StatisticModifier } from "./modifiers.ts";
 import { ActorSheetPF2e } from "./sheet/base.ts";
 import { ActorSpellcasting } from "./spellcasting.ts";
 import { TokenEffect } from "./token-effect.ts";
-import { CREATURE_ACTOR_TYPES, SAVE_TYPES, SKILL_LONG_FORMS, UNAFFECTED_TYPES } from "./values.ts";
+import { CREATURE_ACTOR_TYPES, SAVE_TYPES, UNAFFECTED_TYPES } from "./values.ts";
 import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { AppliedDamageFlag } from "@module/chat-message/index.ts";
 
@@ -361,8 +361,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         if (tupleHasValue(SAVE_TYPES, slug)) {
             return this.saves?.[slug] ?? null;
         }
-        if (setHasElement(SKILL_LONG_FORMS, slug)) {
-            return this.skills?.[slug] ?? null;
+        if (this.skills && objectHasKey(this.skills, slug)) {
+            return this.skills[slug] ?? null;
         }
 
         return null;
