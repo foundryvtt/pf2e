@@ -1328,7 +1328,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             persistentDamage.length > 0 ? await this.createEmbeddedDocuments("Item", persistentDamage) : []
         ) as ConditionPF2e<this>[];
 
-        const canUndoDamage = !!hpDamage || !!shieldDamage || !!persistentCreated.length;
+        const canUndoDamage = !!(hpDamage || shieldDamage || persistentCreated.length);
         const content = await renderTemplate("systems/pf2e/templates/chat/damage/damage-taken.hbs", {
             statements,
             persistent: persistentCreated.map((p) => p.system.persistent!.damage.formula),
