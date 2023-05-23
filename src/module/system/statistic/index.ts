@@ -157,7 +157,7 @@ class Statistic extends SimpleStatistic {
 
         const rollOptions: string[] = [];
         if (domains.length > 0) {
-            rollOptions.push(...super.createRollOptions());
+            rollOptions.push(...super.createRollOptions(domains));
         }
 
         if (typeof this.rank === "number") {
