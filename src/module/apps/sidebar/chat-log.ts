@@ -131,7 +131,7 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 ? actorOrToken.actor
                 : null;
         if (actor) {
-            await actor.revertDamage(flag);
+            await actor.undoDamage(flag);
             ui.notifications.info(
                 game.i18n.format(`PF2E.RevertDamage.${flag.isHealing ? "Healing" : "Damage"}Message`, {
                     actor: actor.name,

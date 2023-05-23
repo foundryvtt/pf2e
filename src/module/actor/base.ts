@@ -1384,7 +1384,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Revert applied actor damage based on the AppliedDamageFlag stored in a damage chat message */
-    async revertDamage(appliedDamage: AppliedDamageFlag): Promise<void> {
+    async undoDamage(appliedDamage: AppliedDamageFlag): Promise<void> {
         const { updates, shield, persistent } = appliedDamage;
 
         const actorUpdates: Record<string, number | Record<string, number | string>[]> = {};
@@ -1412,7 +1412,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             await this.deleteEmbeddedDocuments("Item", persistent, { render: updateCount === 0 });
         }
         if (updateCount) {
-            this.update(actorUpdates);
+            const { hitPoints } = this;
+            const damageTaken =
+                hitPoints && typeof actorUpdates["system.attributes.hp.value"] === "number"
+                    ? hitPoints.value - actorUpdates["system.attributes.hp.value"]
+                    : 0;
+            this.update(actorUpdates, { damageTaken, damageUndo: true });
         }
     }
 
@@ -1932,6 +1937,7 @@ interface HitPointsSummary {
 
 interface ActorUpdateContext<TParent extends TokenDocumentPF2e | null> extends DocumentUpdateContext<TParent> {
     damageTaken?: number;
+    damageUndo?: boolean;
 }
 
 /** A `Proxy` to to get Foundry to construct `ActorPF2e` subclasses */
