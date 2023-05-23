@@ -1,8 +1,14 @@
-import { SkillAbbreviation } from "@actor/creature/data.ts";
-import { identifyItem, IdentifyAlchemyDCs, IdentifyMagicDCs, GenericIdentifyDCs } from "@item/identification.ts";
+import { SkillLongForm } from "@actor/types.ts";
+import {
+    GenericIdentifyDCs,
+    IdentifyAlchemyDCs,
+    IdentifyMagicDCs,
+    getItemIdentificationDCs,
+} from "@item/identification.ts";
 import { PhysicalItemPF2e } from "@item/physical/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { objectHasKey } from "@util";
+import * as R from "remeda";
 
 export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
     static override get defaultOptions(): FormApplicationOptions {
@@ -24,12 +30,12 @@ export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
         const item = this.object;
         const notMatchingTraditionModifier = game.settings.get("pf2e", "identifyMagicNotMatchingTraditionModifier");
         const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
-        const dcs = identifyItem(item, { proficiencyWithoutLevel, notMatchingTraditionModifier });
+        const dcs = getItemIdentificationDCs(item, { proficiencyWithoutLevel, notMatchingTraditionModifier });
 
         return {
             ...(await super.getData()),
-            isMagic: ["arc", "nat", "rel", "occ"].some((s) => s in dcs),
-            isAlchemical: "cra" in dcs,
+            isMagic: item.isMagical,
+            isAlchemical: item.isAlchemical,
             dcs,
         };
     }
@@ -48,21 +54,28 @@ export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
             const skills = $("div#identify-item")
                 .find("tr")
                 .toArray()
-                .flatMap((row): { name: string; shortForm: SkillAbbreviation; dc: number } | never[] => {
-                    const shortForm = row.dataset.skill;
+                .flatMap((row): { name: string; slug: SkillLongForm | "lore"; dc: number } | never[] => {
+                    const slug = row.dataset.skill;
                     const dc = Number(row.dataset.dc);
-                    if (!(Number.isInteger(dc) && objectHasKey(CONFIG.PF2E.skills, shortForm))) {
+                    if (!(Number.isInteger(dc) && objectHasKey(CONFIG.PF2E.skillList, slug))) {
                         return [];
                     }
-                    const name = game.i18n.localize(CONFIG.PF2E.skills[shortForm]);
+                    const name = game.i18n.localize(CONFIG.PF2E.skillList[slug]);
 
-                    return { shortForm, name, dc };
+                    return { slug, name, dc };
                 });
+
+            const actionOption = item.isMagical
+                ? "action:identify-magic"
+                : item.isAlchemical
+                ? "action:identify-alchemy"
+                : null;
 
             const content = await renderTemplate("systems/pf2e/templates/actors/identify-item-chat-skill-checks.hbs", {
                 itemImg,
                 itemName,
                 identifiedName,
+                rollOptions: R.compact(["concentrate", "exploration", "secret", actionOption]),
                 skills,
             });
 
