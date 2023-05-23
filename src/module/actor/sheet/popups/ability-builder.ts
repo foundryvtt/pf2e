@@ -1,11 +1,12 @@
+import * as R from "remeda";
 import { CharacterPF2e } from "@actor";
 import { Abilities } from "@actor/creature/data.ts";
 import { AbilityString } from "@actor/types.ts";
 import { ABILITY_ABBREVIATIONS } from "@actor/values.ts";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e } from "@item";
-import { ErrorPF2e, htmlQuery, setHasElement } from "@util";
+import { htmlClosest, htmlQuery, htmlQueryAll, tupleHasValue } from "@util";
 
-export class AbilityBuilderPopup extends Application {
+class AbilityBuilderPopup extends Application {
     constructor(private actor: CharacterPF2e) {
         super();
         actor.apps[this.appId] = this;
@@ -41,147 +42,130 @@ export class AbilityBuilderPopup extends Application {
             abilityScores: actor.abilities,
             manualKeyAbility: actor.keyAbility,
             keyOptions: build.keyOptions,
-            ancestryBoosts: this.#calculateAncestryBoosts(),
+            ...this.#calculateAncestryBoosts(),
             backgroundBoosts: this.#calculateBackgroundBoosts(),
-            alternateAncestryBoosts: !!actor.ancestry?.system.alternateAncestryBoosts,
             legacyFlaws: actor.ancestry?.system.voluntary?.boost !== undefined,
-            levelBoosts: this.#calculatedLeveledBoosts(),
+            levelBoosts: this.#calculateLeveledBoosts(),
         };
     }
 
-    #calculateAncestryBoosts(): AncestryBoosts | null {
+    #createButtons(): Record<AbilityString, BoostFlawState> {
+        return Array.from(ABILITY_ABBREVIATIONS).reduce((accumulated, ability) => {
+            accumulated[ability] = { ability };
+            return accumulated;
+        }, {} as Record<AbilityString, BoostFlawState>);
+    }
+
+    #calculateAncestryBoosts(): { ancestryBoosts: AncestryBoosts | null; voluntaryFlaws: VoluntaryFlaws | null } {
         const { actor } = this;
         const ancestry = actor.ancestry;
-        if (!ancestry) return null;
+        if (!ancestry) return { ancestryBoosts: null, voluntaryFlaws: null };
 
         // Create initial state. These are updated to gain the final result
-        const ancestryBoosts: BoostFlawRow = Array.from(ABILITY_ABBREVIATIONS).reduce(
-            (accumulated, abbrev) => ({
-                ...accumulated,
-                [abbrev]: defaultBoostFlawState(),
-            }),
-            {} as BoostFlawRow
-        );
+        const buttons = this.#createButtons();
 
-        // If alternative ancestry boosts isn't enabled, flag the boosts/flaws that are no-touchy.
-        if (!ancestry.system.alternateAncestryBoosts) {
-            for (const flaw of Object.values(ancestry.system.flaws)) {
-                if (flaw.selected) {
-                    ancestryBoosts[flaw.selected].lockedFlaw = true;
+        // Determine what boosts are selected and how many we can pick
+        const [maxBoosts, selectedBoosts] = (() => {
+            const alternateAncestryBoosts = ancestry.system.alternateAncestryBoosts;
+            if (alternateAncestryBoosts) return [2, alternateAncestryBoosts];
+
+            const baseBoosts = Object.values(ancestry.system.boosts);
+            const selectedBoosts = baseBoosts.map((b) => b.selected).filter((b): b is AbilityString => !!b);
+            const maxBoosts = baseBoosts.filter((b) => b.value.length > 0 || b.selected).length;
+            return [maxBoosts, selectedBoosts];
+        })();
+
+        // Get accumultated boosts (and flaws) from the actor
+        // These are necessary to prevent double boosting in legacy flaws
+        const build = actor.system.build.abilities;
+        const netBoosted = R.difference(build.boosts.ancestry, build.flaws.ancestry);
+
+        // Create boost (and flaw) buttons for the ancestry
+        const remaining = maxBoosts - selectedBoosts.length;
+        const lockedBoosts = ancestry.system.alternateAncestryBoosts ? null : ancestry.lockedBoosts;
+        const lockedFlaws = ancestry.system.alternateAncestryBoosts ? null : ancestry.lockedFlaws;
+        for (const ability of ABILITY_ABBREVIATIONS) {
+            const state = buttons[ability];
+            const selected = selectedBoosts.includes(ability);
+            state.boost = {
+                selected,
+                locked: lockedBoosts?.includes(ability),
+                disabled: selected ? false : !remaining || netBoosted.includes(ability),
+            };
+
+            if (lockedFlaws?.includes(ability)) {
+                state.flaw = { selected: true, locked: true };
+            }
+        }
+
+        const voluntaryFlaws = ((): VoluntaryFlaws | null => {
+            const voluntary = ancestry.system.voluntary ?? { flaws: [] };
+
+            const legacyFlaws = voluntary.boost !== undefined;
+            const flawsComplete = legacyFlaws && voluntary.flaws.length >= 2;
+
+            const buttons = this.#createButtons();
+            for (const ability of ABILITY_ABBREVIATIONS) {
+                const state = buttons[ability];
+                const numFlaws = voluntary.flaws.filter((f) => f === ability).length;
+                state.flaw = {
+                    selected: numFlaws > 0,
+                    disabled: !numFlaws && flawsComplete,
+                };
+
+                if (legacyFlaws) {
+                    // Locked ancestry boosts can accept a second flaw
+                    if (lockedBoosts?.includes(ability)) {
+                        state.flaw.second = {
+                            selected: numFlaws > 1,
+                            disabled: !numFlaws || (numFlaws < 2 && flawsComplete),
+                        };
+                    }
+
+                    const boosted = voluntary.boost === ability;
+                    state.boost = {
+                        selected: boosted,
+                        disabled: boosted ? false : !flawsComplete || !!voluntary.boost || netBoosted.includes(ability),
+                    };
                 }
             }
 
-            for (const lockedBoost of ancestry.lockedBoosts) {
-                ancestryBoosts[lockedBoost].lockedBoost = true;
-            }
-        }
+            return {
+                remaining: voluntary && legacyFlaws && !voluntary.boost ? 1 : 0,
+                buttons,
+                voluntaryBoostsRemaining: 0,
+                labels: this.#getBoostFlawLabels(ancestry.system.flaws),
+            };
+        })();
 
-        const baseBoosts = Object.values(ancestry.system.boosts);
-        const alternateBoosts = ancestry.system.alternateAncestryBoosts;
-        const selectedBoosts =
-            alternateBoosts ?? baseBoosts.map((b) => b.selected).filter((b): b is AbilityString => !!b);
-        const maxBoosts = alternateBoosts ? 2 : baseBoosts.filter((b) => b.value.length > 0 || b.selected).length;
-        const boostsRemaining = maxBoosts - selectedBoosts.length;
-
-        // Mark all selected boosts
-        for (const ability of selectedBoosts) {
-            ancestryBoosts[ability].boosted = true;
-            ancestryBoosts[ability].available = true;
-        }
-
-        // If we still have boosts remaining, mark them all as available
-        if (boostsRemaining > 0) {
-            for (const boost of Object.values(ancestryBoosts)) {
-                boost.available = true;
-            }
-        }
-
-        const { voluntary } = ancestry.system;
-        const legacyFlaws = voluntary?.boost !== undefined;
-        const voluntaryBoostsRemaining = voluntary && legacyFlaws && !voluntary.boost ? 1 : 0;
-
-        if (voluntary) {
-            for (const flaw of voluntary.flaws) {
-                ancestryBoosts[flaw].voluntary.selected += 1;
-            }
-
-            if (voluntary.boost) {
-                ancestryBoosts[voluntary.boost].voluntary.boosted = true;
-            }
-
-            if (legacyFlaws) {
-                const flawsComplete = voluntary.flaws.length >= 2;
-                for (const boost of Object.values(ancestryBoosts)) {
-                    boost.voluntary.canDoubleFlaw = boost.lockedBoost;
-                    boost.voluntary.disabled = !boost.voluntary.selected && flawsComplete;
-                    boost.voluntary.secondFlawDisabled =
-                        !boost.voluntary.selected || (boost.voluntary.selected !== 2 && flawsComplete);
-                    boost.voluntary.boostDisabled = !flawsComplete || (!!voluntary.boost && !boost.voluntary.boosted);
-                }
-            }
-        }
-
-        // Do some house-keeping and make sure they can't do things multiple times
-        for (const ability of Array.from(ABILITY_ABBREVIATIONS)) {
-            const hasFlaw = ancestryBoosts[ability].lockedFlaw || ancestryBoosts[ability].voluntary.selected;
-
-            if (ancestryBoosts[ability].lockedFlaw) {
-                ancestryBoosts[ability].voluntary.disabled = true;
-            }
-            if (ancestryBoosts[ability].boosted && !hasFlaw) {
-                ancestryBoosts[ability].voluntary.boostDisabled = true;
-            }
-            if (
-                ancestryBoosts[ability].voluntary.boosted &&
-                !hasFlaw &&
-                !ancestryBoosts[ability].boosted &&
-                !ancestryBoosts[ability].lockedBoost &&
-                !ancestryBoosts[ability].lockedFlaw
-            ) {
-                ancestryBoosts[ability].available = false;
-            }
-        }
-
-        return {
-            hasLockedFlaws: Object.values(ancestryBoosts).some((data) => data.lockedFlaw),
-            boosts: ancestryBoosts,
-            remaining: boostsRemaining,
-            voluntaryBoostsRemaining,
+        const ancestryBoosts: AncestryBoosts = {
+            buttons,
+            remaining,
             labels: this.#getBoostFlawLabels(ancestry.system.boosts),
-            flawLabels: this.#getBoostFlawLabels(ancestry.system.flaws),
+            alternate: !!ancestry.system.alternateAncestryBoosts,
         };
+
+        return { ancestryBoosts, voluntaryFlaws };
     }
 
     #calculateBackgroundBoosts(): BackgroundBoosts | null {
         const { actor } = this;
         if (!actor.background) return null;
 
-        const backgroundBoosts: BoostFlawRow = Array.from(ABILITY_ABBREVIATIONS).reduce(
-            (accumulated, abbrev) => ({
-                ...accumulated,
-                [abbrev]: defaultBoostFlawState(),
-            }),
-            {} as BoostFlawRow
-        );
+        const buttons = this.#createButtons();
 
-        let boostsRemaining = 0;
-        let shownBoost = false;
-        for (const boost of Object.values(actor.background.system.boosts)) {
-            if (boost.selected) {
-                if (boost.value.length === 1) {
-                    backgroundBoosts[boost.selected].lockedBoost = true;
-                }
-                backgroundBoosts[boost.selected].available = true;
-                backgroundBoosts[boost.selected].boosted = true;
-            } else if (boost.value.length > 0) {
-                boostsRemaining += 1;
-                if (!shownBoost) {
-                    for (const ability of boost.value) {
-                        backgroundBoosts[ability].available = true;
-                    }
-                    shownBoost = true;
-                }
-            }
+        const boosts = Object.values(actor.background.system.boosts);
+        const selectedBoosts = boosts.map((b) => b.selected).filter((b): b is AbilityString => !!b);
+        const unselectedRestricted = boosts.filter((b) => b.value.length < 6 && !b.selected).flatMap((b) => b.value);
+        const remaining = boosts.length - selectedBoosts.length;
+
+        for (const ability of ABILITY_ABBREVIATIONS) {
+            const selected = selectedBoosts.includes(ability);
+            const mightBeForced = unselectedRestricted.includes(ability);
+            buttons[ability].boost = {
+                selected,
+                disabled: !(selected || remaining) || (!!unselectedRestricted.length && !mightBeForced),
+            };
         }
 
         const labels = this.#getBoostFlawLabels(actor.background.system.boosts);
@@ -206,34 +190,26 @@ export class AbilityBuilderPopup extends Application {
             }
         })();
 
-        return {
-            boosts: backgroundBoosts,
-            remaining: boostsRemaining,
-            labels,
-            tooltip,
-        };
+        return { buttons, remaining, labels, tooltip };
     }
 
-    #calculatedLeveledBoosts() {
+    #calculateLeveledBoosts(): LevelBoostData[] {
         const build = this.actor.system.build.abilities;
         const isGradual = game.settings.get("pf2e", "gradualBoostsVariant");
-        return ([1, 5, 10, 15, 20] as const).reduce(
-            (ret: Record<number, LevelBoostData>, level) => ({
-                ...ret,
-                [level]: {
-                    boosts: [...ABILITY_ABBREVIATIONS].map((ability) => ({
-                        ability,
-                        taken: build.boosts[level].includes(ability),
-                    })),
-                    full: build.boosts[level].length >= build.allowedBoosts[level],
-                    eligible: build.allowedBoosts[level] > 0,
-                    remaining: build.allowedBoosts[level] - build.boosts[level].length,
-                    minLevel: isGradual ? Math.max(1, level - 3) : level,
-                    level,
-                },
-            }),
-            {}
-        );
+        return ([1, 5, 10, 15, 20] as const).map((level): LevelBoostData => {
+            const remaining = build.allowedBoosts[level] - build.boosts[level].length;
+            const buttons = this.#createButtons();
+            for (const ability of ABILITY_ABBREVIATIONS) {
+                buttons[ability].boost = {
+                    selected: build.boosts[level].includes(ability),
+                    disabled: !remaining,
+                };
+            }
+
+            const eligible = build.allowedBoosts[level] > 0;
+            const minLevel = isGradual ? Math.max(1, level - 3) : level;
+            return { buttons, remaining, level, eligible, minLevel };
+        });
     }
 
     #getBoostFlawLabels(
@@ -302,106 +278,108 @@ export class AbilityBuilderPopup extends Application {
             const voluntary = ancestry.system.voluntary;
             if (voluntary?.boost !== undefined) {
                 // Convert from legacy. Flaws must each be unique
-                const flaws = [...new Set(voluntary.flaws)];
+                const flaws = R.uniq(voluntary.flaws);
                 ancestry.update({ system: { voluntary: { "-=boost": null, flaws } } });
             } else {
-                // Convert to legacy. We can only have up to 2 flaws in legacy
+                // Convert to legacy. We can only have up to 2 total flaws in legacy
                 const flaws = voluntary?.flaws.slice(0, 2) ?? [];
                 ancestry.update({ system: { voluntary: { boost: null, flaws } } });
             }
         });
 
-        $html.find("button[data-action=ancestry-boost]").on("click", async (event) => {
-            const ancestry = actor.ancestry;
-            if (!ancestry) return;
+        for (const button of htmlQueryAll(html, "[data-section=ancestry] .boost")) {
+            button.addEventListener("click", async () => {
+                const ancestry = actor.ancestry;
+                const ability = htmlClosest(button, "[data-ability]")?.dataset.ability as AbilityString;
+                if (!ancestry || !ability) return;
 
-            const ability = $(event.currentTarget).attr("data-ability") as AbilityString;
+                // If alternative ancestry boosts, write to there instead
+                if (ancestry.system.alternateAncestryBoosts) {
+                    const existingBoosts = ancestry.system.alternateAncestryBoosts;
+                    const boosts = existingBoosts.includes(ability)
+                        ? existingBoosts.filter((b) => b !== ability)
+                        : [...existingBoosts, ability].slice(0, 2);
+                    ancestry.update({ "system.alternateAncestryBoosts": boosts });
+                    return;
+                }
 
-            // If alternative ancestry boosts, write to there instead
-            if (ancestry.system.alternateAncestryBoosts) {
-                const existingBoosts = ancestry.system.alternateAncestryBoosts;
-                const boosts = existingBoosts.includes(ability)
-                    ? existingBoosts.filter((b) => b !== ability)
-                    : [...existingBoosts, ability].slice(0, 2);
-                ancestry.update({ "system.alternateAncestryBoosts": boosts });
-                return;
-            }
+                const boostToRemove = Object.entries(ancestry.system.boosts ?? {}).find(
+                    ([, b]) => b.selected === ability
+                );
+                if (boostToRemove) {
+                    await ancestry.update({ [`system.boosts.${boostToRemove[0]}.selected`]: null });
+                    return;
+                }
 
-            const boostToRemove = Object.entries(ancestry.system.boosts ?? {}).find(([, b]) => b.selected === ability);
-            if (boostToRemove) {
-                await ancestry.update({ [`system.boosts.${boostToRemove[0]}.selected`]: null });
-                return;
-            }
+                const freeBoost = Object.entries(ancestry.system.boosts ?? {}).find(
+                    ([, b]) => !b.selected && b.value.length > 0
+                );
+                if (freeBoost) {
+                    await ancestry.update({ [`system.boosts.${freeBoost[0]}.selected`]: ability });
+                }
+            });
+        }
 
-            const freeBoost = Object.entries(ancestry.system.boosts ?? {}).find(
-                ([, b]) => !b.selected && b.value.length > 0
-            );
-            if (freeBoost) {
-                await ancestry.update({ [`system.boosts.${freeBoost[0]}.selected`]: ability });
-            }
-        });
+        for (const button of htmlQueryAll(html, "[data-section=voluntary] .boost-button")) {
+            button.addEventListener("click", () => {
+                const ancestry = actor.ancestry;
+                const ability = htmlClosest(button, "[data-ability]")?.dataset.ability as AbilityString;
+                if (!ancestry || !ability) return;
 
-        $html.find("button[data-action=voluntary-flaw]").on("click", async (event) => {
-            const $button = $(event.currentTarget);
-            const ability = $button.attr("data-ability");
-            const removing = $button.hasClass("selected");
-            const { ancestry } = actor;
-            if (!ancestry || !setHasElement(ABILITY_ABBREVIATIONS, ability)) return;
+                const removing = button.classList.contains("selected");
 
-            const { flaws, boost } = ancestry.system.voluntary ?? { flaws: [] };
-            const alreadyHasFlaw = flaws.includes(ability);
-            const isLegacy = boost !== undefined;
+                if (button.dataset.action === "flaw") {
+                    const { flaws, boost } = ancestry.system.voluntary ?? { flaws: [] };
+                    const alreadyHasFlaw = flaws.includes(ability);
+                    const isLegacy = boost !== undefined;
 
-            // If removing, it must exist and there shouldn't be a boost selected
-            if (removing && alreadyHasFlaw && !boost) {
-                flaws.splice(flaws.indexOf(ability), 1);
-                ancestry.update({ system: { voluntary: { flaws } } });
-                return;
-            }
+                    // If removing, it must exist and there shouldn't be a boost selected
+                    if (removing && alreadyHasFlaw && !boost) {
+                        flaws.splice(flaws.indexOf(ability), 1);
+                        ancestry.update({ system: { voluntary: { flaws } } });
+                        return;
+                    }
 
-            // If adding, we need to be under 2 flaws if legacy, it must be new or be a locked ancestry boost (to double flaw)
-            const boostedByAncestry = ancestry.lockedBoosts.includes(ability);
-            const canDoubleFlaw = boostedByAncestry && isLegacy;
-            const maxFlaws = isLegacy ? 2 : 6;
-            if (flaws.length < maxFlaws && (!alreadyHasFlaw || canDoubleFlaw)) {
-                flaws.push(ability);
-                ancestry.update({ system: { voluntary: { flaws } } });
-            }
-        });
+                    // If adding, we need to be under 2 flaws if legacy, it must be new or be a locked ancestry boost (to double flaw)
+                    const boostedByAncestry = ancestry.lockedBoosts.includes(ability);
+                    const canDoubleFlaw = boostedByAncestry && isLegacy;
+                    const maxFlaws = isLegacy ? 2 : 6;
+                    if (flaws.length < maxFlaws && (!alreadyHasFlaw || canDoubleFlaw)) {
+                        flaws.push(ability);
+                        ancestry.update({ system: { voluntary: { flaws } } });
+                    }
+                } else {
+                    const boost = removing ? null : ability;
+                    ancestry.update({ system: { voluntary: { boost } } });
+                }
+            });
+        }
 
-        $html.find("button[data-action=voluntary-boost]").on("click", async (event) => {
-            const $button = $(event.currentTarget);
-            const removing = $button.hasClass("selected");
-            const ability = $button.attr("data-ability");
-            const { ancestry } = actor;
-            if (!ancestry || !setHasElement(ABILITY_ABBREVIATIONS, ability)) return;
+        for (const button of htmlQueryAll(html, "[data-section=background] .boost")) {
+            button.addEventListener("click", () => {
+                const ability = htmlClosest(button, "[data-ability]")?.dataset.ability as AbilityString;
+                if (!ability) return;
 
-            const boost = removing ? null : ability;
-            await ancestry.update({ system: { voluntary: { boost } } });
-        });
+                const boostToRemove = Object.entries(actor.background?.system.boosts ?? {}).find(
+                    ([, b]) => b.selected === ability
+                );
+                if (boostToRemove) {
+                    actor.background?.update({
+                        [`system.boosts.${boostToRemove[0]}.selected`]: null,
+                    });
+                    return;
+                }
 
-        $html.find("button[data-action=background-boost]").on("click", async (event) => {
-            const ability = $(event.currentTarget).attr("data-ability");
-
-            const boostToRemove = Object.entries(actor.background?.system.boosts ?? {}).find(
-                ([, b]) => b.selected === ability
-            );
-            if (boostToRemove) {
-                await actor.background?.update({
-                    [`system.boosts.${boostToRemove[0]}.selected`]: null,
-                });
-                return;
-            }
-
-            const freeBoost = Object.entries(actor.background?.system.boosts ?? {}).find(
-                ([, b]) => !b.selected && b.value.length > 0
-            );
-            if (freeBoost) {
-                await actor.background?.update({
-                    [`system.boosts.${freeBoost[0]}.selected`]: ability,
-                });
-            }
-        });
+                const freeBoost = Object.entries(actor.background?.system.boosts ?? {}).find(
+                    ([, b]) => !b.selected && b.value.length > 0
+                );
+                if (freeBoost) {
+                    actor.background?.update({
+                        [`system.boosts.${freeBoost[0]}.selected`]: ability,
+                    });
+                }
+            });
+        }
 
         $html.find("button[data-action=class-key-ability]").on("click", async (event) => {
             const ability = $(event.currentTarget).attr("data-ability");
@@ -412,26 +390,23 @@ export class AbilityBuilderPopup extends Application {
             }
         });
 
-        $html.find("button[data-action=level]").on("click", async (event) => {
-            const ability = event.currentTarget.dataset.ability;
-            const level = event.currentTarget.dataset.level;
-            if (
-                !setHasElement(ABILITY_ABBREVIATIONS, ability) ||
-                !setHasElement(new Set(["1", "5", "10", "15", "20"] as const), level)
-            ) {
-                throw ErrorPF2e("Unexpected update requested to ability boosts and flaws");
-            }
+        for (const button of htmlQueryAll(html, "[data-level] .boost")) {
+            button.addEventListener("click", () => {
+                const level = Number(htmlClosest(button, "[data-level]")?.dataset.level);
+                const ability = htmlClosest(button, "[data-ability]")?.dataset.ability as AbilityString;
+                if (!ability || !tupleHasValue([1, 5, 10, 15, 20] as const, level)) return;
 
-            const buildSource = mergeObject(actor.toObject().system.build ?? {}, { abilities: { boosts: {} } });
-            const boosts = (buildSource.abilities.boosts[level] ??= []);
-            if (boosts.includes(ability)) {
-                boosts.splice(boosts.indexOf(ability), 1);
-            } else {
-                boosts.push(ability);
-            }
+                const buildSource = mergeObject(actor.toObject().system.build ?? {}, { abilities: { boosts: {} } });
+                const boosts = (buildSource.abilities.boosts[level] ??= []);
+                if (boosts.includes(ability)) {
+                    boosts.splice(boosts.indexOf(ability), 1);
+                } else {
+                    boosts.push(ability);
+                }
 
-            await actor.update({ "system.build": buildSource });
-        });
+                actor.update({ "system.build": buildSource });
+            });
+        }
 
         $html.find<HTMLInputElement>("input[data-property]").on("blur", async (event) => {
             const $input = $(event.target);
@@ -454,70 +429,53 @@ interface AbilityBuilderSheetData {
     background: BackgroundPF2e<CharacterPF2e> | null;
     class: ClassPF2e<CharacterPF2e> | null;
     manual: boolean;
+
     ancestryBoosts: AncestryBoosts | null;
+    voluntaryFlaws: VoluntaryFlaws | null;
     backgroundBoosts: BackgroundBoosts | null;
     keyOptions: AbilityString[] | null;
-    levelBoosts: Record<number, LevelBoostData>;
-    alternateAncestryBoosts: boolean;
+    levelBoosts: LevelBoostData[];
+
     legacyFlaws: boolean;
 }
 
 interface BoostFlawState {
-    lockedFlaw: boolean;
-    lockedBoost: boolean;
-    boosted: boolean;
-    available: boolean;
-    voluntary: {
-        /** How many times this flaw was applied. Some ancestries allow multiple legacy flaws on the same stat */
-        selected: number;
-        disabled: boolean;
-        /** Abilities with a locked boost can allow for 2 flaws with legacy flaws */
-        canDoubleFlaw: boolean;
-        secondFlawDisabled: boolean;
-        boosted: boolean;
-        boostDisabled: boolean;
-    };
+    ability: string;
+    flaw?: BuilderButton;
+    boost?: BuilderButton;
 }
 
-function defaultBoostFlawState(): BoostFlawState {
-    return {
-        lockedFlaw: false,
-        lockedBoost: false,
-        boosted: false,
-        available: false,
-        voluntary: {
-            selected: 0,
-            disabled: false,
-            canDoubleFlaw: false,
-            secondFlawDisabled: false,
-            boosted: false,
-            boostDisabled: false,
-        },
-    };
+interface BuilderButton {
+    selected?: boolean;
+    locked?: boolean;
+    disabled?: boolean;
+    second?: Omit<BuilderButton, "second">;
 }
 
-type BoostFlawRow = Record<AbilityString, BoostFlawState>;
-
-interface AncestryBoosts {
-    /** Whether or not the ancestry itself creates flaws */
-    hasLockedFlaws: boolean;
-    boosts: BoostFlawRow;
+interface BoostFlawRow {
+    buttons: Record<AbilityString, BoostFlawState>;
     remaining: number;
+}
+
+interface AncestryBoosts extends BoostFlawRow {
+    alternate: boolean;
+    labels: string[];
+}
+
+interface VoluntaryFlaws extends BoostFlawRow {
     voluntaryBoostsRemaining: number;
     labels: string[];
-    flawLabels: string[];
 }
 
-interface BackgroundBoosts {
-    boosts: BoostFlawRow;
-    remaining: number;
+interface BackgroundBoosts extends BoostFlawRow {
     labels: string[];
     tooltip: string | null;
 }
 
-interface LevelBoostData {
-    boosts: { ability: string; taken: boolean }[];
-    full: boolean;
+interface LevelBoostData extends BoostFlawRow {
+    level: number;
     eligible: boolean;
-    remaining: number;
+    minLevel: number;
 }
+
+export { AbilityBuilderPopup, BoostFlawState };
