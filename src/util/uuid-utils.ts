@@ -26,6 +26,7 @@ class UUIDUtils {
         const items: ItemPF2e[] = [];
 
         const documents = uuids.map((u): [string, ReturnType<typeof fromUuidSync>] => [u, this.fromUuidSync(u)]);
+        const packMap: Map<string, string[]> = new Map();
         for (const [uuid, doc] of documents) {
             if (doc instanceof ActorPF2e) {
                 actors.push(doc);
@@ -33,7 +34,31 @@ class UUIDUtils {
                 items.push(doc);
             } else {
                 // Cache miss: retrieve from server
-                const document = await fromUuid(uuid);
+                const [type, scope, packId, id]: (string | undefined)[] = uuid.split(".");
+                if (type !== "Compendium") continue;
+                if (!(scope && packId && id)) console.error(`Unable to parse UUID: ${uuid}`);
+
+                const pack = `${scope}.${packId}`;
+                const packIds = (() => {
+                    const ids = packMap.get(pack);
+                    if (ids) {
+                        return ids;
+                    }
+                    packMap.set(pack, [id]);
+                    return null;
+                })();
+                packIds?.push(id);
+            }
+        }
+        for (const [packId, ids] of packMap) {
+            const pack = game.packs.get(packId);
+            if (!pack) {
+                console.error(`Unkonwn pack id: ${packId}`);
+                continue;
+            }
+            const query = game.release.generation === 11 ? { _id__in: ids } : { _id: { $in: ids } };
+            const documents = await pack.getDocuments(query);
+            for (const document of documents) {
                 if (document instanceof ActorPF2e) {
                     actors.push(document);
                 } else if (document instanceof ItemPF2e) {
