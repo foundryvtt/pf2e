@@ -24,7 +24,7 @@ type ChatMessageFlagsPF2e = foundry.documents.ChatMessageFlags & {
         journalEntry?: DocumentUUID;
         spellVariant?: { overlayIds: string[] };
         strike?: StrikeLookupData | null;
-        appliedDamage?: AppliedDamageFlag;
+        appliedDamage?: AppliedDamageFlag | null;
         [key: string]: unknown;
     };
     core: NonNullable<foundry.documents.ChatMessageFlags["core"]>;
