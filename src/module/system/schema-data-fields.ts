@@ -55,7 +55,7 @@ class SlugField<
         value: Maybe<string>,
         options?: CleanFieldOptions
     ): MaybeSchemaProp<string, TRequired, TNullable, THasInitial>;
-    protected override _cleanType(value: Maybe<string>, options?: CleanFieldOptions): string | null | undefined {
+    protected override _cleanType(value: Maybe<string>, options?: CleanFieldOptions): unknown {
         const slug = super._cleanType(value, options);
         const camel = this.options.camel ?? null;
         return typeof slug === "string" ? sluggify(slug, { camel }) : slug;
@@ -111,7 +111,12 @@ class PredicateField<
     }
 
     /** Don't wrap a non-array in an array */
-    override _cast(value: unknown): unknown {
+    protected override _cast(value: unknown): unknown {
+        return value;
+    }
+
+    /** Parent method assumes array-wrapping: pass through unchanged */
+    protected override _cleanType(value: unknown): unknown {
         return value;
     }
 

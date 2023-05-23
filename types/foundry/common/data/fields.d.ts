@@ -122,10 +122,7 @@ export abstract class DataField<
      * @param [options] Additional options for how the field is cleaned.
      * @returns The cleaned value.
      */
-    protected _cleanType(
-        value?: unknown,
-        options?: CleanFieldOptions
-    ): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
+    protected _cleanType(value: unknown, options?: CleanFieldOptions): unknown;
 
     /**
      * Cast a non-default value to ensure it is the correct type for the field
@@ -484,10 +481,7 @@ export class ArrayField<
 
     protected override _cast(value: unknown): unknown;
 
-    protected _cleanType(
-        value: unknown[] | Set<unknown>,
-        options?: CleanFieldOptions
-    ): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
+    protected _cleanType(value: unknown, options?: CleanFieldOptions): unknown;
 
     protected override _validateType(value: unknown, options?: Record<string, unknown>): void;
 
