@@ -1,5 +1,6 @@
+import * as R from "remeda";
 import { KitPF2e, PhysicalItemPF2e } from "@item";
-import { ActionTrait } from "@item/action/index.ts";
+import { ActionCategory, ActionTrait } from "@item/action/index.ts";
 import { ActionType } from "@item/data/base.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/index.ts";
 import { ErrorPF2e, htmlQuery, htmlQueryAll, isBlank, isObject, localizer, objectHasKey, sluggify } from "@util";
@@ -298,6 +299,7 @@ class CompendiumBrowser extends Application {
         // NPCs and Hazards are all loaded by default other packs can be set here.
         const loadDefault: Record<string, boolean | undefined> = {
             "pf2e.actionspf2e": true,
+            "pf2e.familiar-abilities": true,
             "pf2e.equipment-srd": true,
             "pf2e.ancestryfeatures": true,
             "pf2e.classfeatures": true,
@@ -381,7 +383,11 @@ class CompendiumBrowser extends Application {
         return this.loadTab(tabName);
     }
 
-    async openActionTab(typeFilters: ActionType[], traitFilters: ActionTrait[]): Promise<void> {
+    async openActionTab(options: {
+        types?: ActionType[];
+        categories?: ActionCategory[];
+        traits?: ActionTrait[];
+    }): Promise<void> {
         const actionTab = this.tabs.action;
         const filter = await actionTab.getFilterData();
         const { types } = filter.checkboxes;
@@ -389,15 +395,22 @@ class CompendiumBrowser extends Application {
 
         types.selected = [];
         for (const type in types.options) {
-            if (typeFilters.includes(type as ActionType)) {
+            if (options.types?.includes(type as ActionType)) {
                 types.options[type].selected = true;
                 types.selected.push(type);
             }
         }
 
+        const traitFilters = options.traits ?? [];
         traits.selected = traitFilters.length
             ? traits.options.filter((trait) => traitFilters.includes(trait.value))
             : [];
+
+        if (options.categories?.length) {
+            const optionsToSwitch = R.pick(filter.checkboxes.category.options, options.categories);
+            Object.values(optionsToSwitch).forEach((o) => (o.selected = true));
+            filter.checkboxes.category.selected = Object.keys(optionsToSwitch);
+        }
 
         actionTab.open(filter);
     }
