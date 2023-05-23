@@ -102,7 +102,8 @@ class Statistic extends SimpleStatistic {
         // If this is a character with an ability, add/set the ability modifier
         const abilityModifier =
             actor.isOfType("character") && data.ability
-                ? createAbilityModifier({ actor, ability: data.ability, domains })
+                ? data.modifiers.find((m) => m.type === "ability" && m.ability === data.ability) ??
+                  createAbilityModifier({ actor, ability: data.ability, domains })
                 : null;
 
         // If this is a character with a proficiency, add a proficiency modifier
