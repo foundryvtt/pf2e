@@ -1,6 +1,6 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
 import { StrikeData, TraitViewData } from "@actor/data/base.ts";
-import { CheckModifier, StatisticModifier } from "@actor/modifiers.ts";
+import { CheckModifier } from "@actor/modifiers.ts";
 import { RollTarget } from "@actor/types.ts";
 import { WeaponPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
@@ -549,7 +549,7 @@ class CheckPF2e {
 
             // Get any circumstance penalties or bonuses to the target's DC
             const circumstances =
-                dc.statistic instanceof StatisticModifier || dc.statistic instanceof StatisticDifficultyClass
+                dc.statistic instanceof StatisticDifficultyClass
                     ? dc.statistic.modifiers.filter((m) => m.enabled && m.type === "circumstance")
                     : [];
             const preadjustedDC =
