@@ -1275,14 +1275,14 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>As long as it isn't @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened}, a mitflit gains a [[/r +2 # status bonus to damage rolls against a creature that has previously damage]] status bonus to damage rolls against a creature that has previously damaged or tormented it.</p>"
+                    "value": "<p>As long as he isn't @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened}, Boss Skrawng gains a +2 status bonus to damage rolls against a creature that has previously damaged or tormented him.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
-                        "domain": "all",
+                        "domain": "damage-roll",
                         "key": "RollOption",
                         "option": "vengeful-anger",
                         "toggleable": true
@@ -1290,7 +1290,10 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "vengeful-anger"
+                            "vengeful-anger",
+                            {
+                                "not": "self:condition:frightened"
+                            }
                         ],
                         "selector": "strike-damage",
                         "type": "status",
