@@ -358,6 +358,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Get (almost) any statistic by slug: handling expands in `ActorPF2e` subclasses */
     getStatistic(slug: string): Statistic | null {
+        if (["armor", "ac"].includes(slug)) {
+            return this.armorClass?.parent ?? null;
+        }
         if (tupleHasValue(SAVE_TYPES, slug)) {
             return this.saves?.[slug] ?? null;
         }
@@ -1012,26 +1015,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const dcData = ((): CheckDC | null => {
             const { domains, targetedDC } = params;
             const scope = domains.includes("attack") ? "attack" : "check";
-
-            switch (targetedDC) {
-                case "ac":
-                case "armor":
-                    return targetActor?.attributes.ac
-                        ? {
-                              scope,
-                              slug: "ac",
-                              statistic:
-                                  targetActor.attributes.ac instanceof StatisticModifier
-                                      ? targetActor.attributes.ac
-                                      : null,
-                              value: targetActor.attributes.ac.value,
-                          }
-                        : null;
-                default: {
-                    const statistic = targetActor?.getStatistic(targetedDC)?.dc;
-                    return statistic ? { scope, statistic, slug: targetedDC, value: statistic.value } : null;
-                }
-            }
+            const statistic = targetActor?.getStatistic(targetedDC)?.dc;
+            return statistic ? { scope, statistic, slug: targetedDC, value: statistic.value } : null;
         })();
 
         return { ...context, dc: dcData };
