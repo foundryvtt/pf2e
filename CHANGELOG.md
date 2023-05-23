@@ -1,5 +1,29 @@
 # Changelog
 
+## Version 4.12.1
+
+### System Improvements
+
+-   (Supe) Move ammo select below all alternate weapon usages
+
+### Bugfixes
+
+-   (In3luki) Fix crafting items at cost from crafting tab
+-   (In3luki) Fix casting spell variants with Trick Magic Item
+-   (MrPrimate) Restore access to system internals necessary for the Pathmuncher module
+-   (stwlam) Don't send message when using Interact (Modular) action makes no change
+-   (stwlam) Fix overrides of PC speeds by battle form effects
+-   (stwlam) Fix handling of delta values when updating actor hit points from token HUD
+-   (stwlam) Fix issue causing conditional AC bonuses to not apply to armorless PCs
+-   (stwlam) Fix retrieval of some skills used in inline checks
+-   (stwlam) Prevent Firefox from losing its mind on Interact (Modular) select menu
+-   (Supe) Fix issue causing some spells to not show damage buttons when cast
+-   (Supe) Fix setting of at least trained proficiency to innate spellcasting
+
+### Data Updates
+
+-   (Dire Weasel) Fix description of Cunning rune
+
 ## Version 4.12.0
 
 ### New Features
