@@ -1328,6 +1328,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             persistentDamage.length > 0 ? await this.createEmbeddedDocuments("Item", persistentDamage) : []
         ) as ConditionPF2e<this>[];
 
+        const canUndoDamage = !!(hpDamage || shieldDamage || persistentCreated.length);
         const content = await renderTemplate("systems/pf2e/templates/chat/damage/damage-taken.hbs", {
             statements,
             persistent: persistentCreated.map((p) => p.system.persistent!.damage.formula),
@@ -1335,36 +1336,41 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 applications: result.applications,
                 visibility: this.hasPlayerOwner ? "all" : "gm",
             },
+            canUndoDamage,
         });
+
+        const appliedDamage = canUndoDamage
+            ? {
+                  uuid: this.uuid,
+                  isHealing: hpDamage < 0,
+                  shield: shieldDamage !== 0 ? { id: actorShield?.itemId ?? "", damage: shieldDamage } : null,
+                  persistent: persistentCreated.map((c) => c.id),
+                  updates: Object.entries(hpUpdate.updates)
+                      .map(([key, value]) => {
+                          const currentValue = getProperty(this, key);
+                          if (typeof currentValue === "number") {
+                              const difference = currentValue - value;
+                              if (difference === 0) {
+                                  // Ignore the update if there is no difference
+                                  return [];
+                              }
+                              return {
+                                  path: key,
+                                  value: difference,
+                              };
+                          }
+                          return [];
+                      })
+                      .flat(),
+              }
+            : null;
 
         await ChatMessagePF2e.create({
             speaker: ChatMessagePF2e.getSpeaker({ token }),
             content,
             flags: {
                 pf2e: {
-                    appliedDamage: {
-                        uuid: this.uuid,
-                        isHealing: hpDamage < 0,
-                        shield: shieldDamage !== 0 ? { id: actorShield?.itemId ?? "", damage: shieldDamage } : null,
-                        persistent: persistentCreated.map((c) => c.id),
-                        updates: Object.entries(hpUpdate.updates)
-                            .map(([key, value]) => {
-                                const currentValue = getProperty(this, key);
-                                if (typeof currentValue === "number") {
-                                    const difference = currentValue - value;
-                                    if (difference === 0) {
-                                        // Ignore the update if there is no difference
-                                        return [];
-                                    }
-                                    return {
-                                        path: key,
-                                        value: difference,
-                                    };
-                                }
-                                return [];
-                            })
-                            .flat(),
-                    },
+                    appliedDamage,
                 },
             },
             type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
