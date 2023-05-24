@@ -1,5 +1,24 @@
 # Changelog
 
+## Version 4.12.2
+
+### Bugfixes
+
+-   (In3luki) Hide undo damage button if no damage was dealt
+-   (stwlam) Fix application of dexterity modifier cap
+-   (stwlam) Fix issue causing some predicated AC bonuses to not apply to PCs
+-   (stwlam) Fix issue preventing tooltip for AC circumstance bonuses/penalties from appearing in attack roll messages
+
+### Data Updates
+
+-   (Dana) Remove obsolete sheath item from alchemist class kit
+-   (Dire Weasel) Fix description of Divine Armageddon and add leveled damage links
+-   (Dire Weasel) Fix usage of Bloodthirsty, Crushing, and Cunning runes
+-   (Dire Weasel) Update description and REs of Boss Skrawng's Vengeful Anger
+-   (Dire Weasel) Update Iloise's Bomb splash from Note to damage
+-   (stwlam) Add rule element and effect for Holy Castigation feat
+-   (stwlam) Fix Takedown Expert rule elements
+
 ## Version 4.12.1
 
 ### System Improvements
@@ -14,7 +33,7 @@
 -   (stwlam) Don't send message when using Interact (Modular) action makes no change
 -   (stwlam) Fix overrides of PC speeds by battle form effects
 -   (stwlam) Fix handling of delta values when updating actor hit points from token HUD
--   (stwlam) Fix issue causing conditional AC bonuses to not apply to armorless PCs
+-   (stwlam) Fix issue causing shield AC bonuses to not apply to armorless PCs
 -   (stwlam) Fix retrieval of some skills used in inline checks
 -   (stwlam) Prevent Firefox from losing its mind on Interact (Modular) select menu
 -   (Supe) Fix issue causing some spells to not show damage buttons when cast
