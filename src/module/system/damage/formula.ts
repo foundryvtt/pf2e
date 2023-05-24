@@ -1,3 +1,4 @@
+import * as R from "remeda";
 import { DamageDicePF2e } from "@actor/modifiers.ts";
 import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
 import { groupBy, sum, sortBy, addSign } from "@util";
@@ -256,7 +257,8 @@ function combinePartialTerms(terms: DamagePartialTerm[]): DamagePartialTerm[] {
         dice: { ...terms[0].dice, number: sum(terms.map((d) => d.dice.number)) },
     }));
 
-    return [...combinedDice, constantTerm].filter((t): t is DamagePartialTerm => !!t);
+    const combined = R.compact([...combinedDice, constantTerm]);
+    return combined.length ? combined : [{ dice: null, modifier: 0 }];
 }
 
 /** Combines damage dice and modifiers into a single formula, ignoring the damage type and category. */
