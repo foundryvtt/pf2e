@@ -1,6 +1,5 @@
-import { ActorPF2e } from "@actor";
-import { ItemPF2e } from "@item";
-import { ErrorPF2e } from "./misc.ts";
+import * as R from "remeda";
+import { ErrorPF2e, tupleHasValue } from "./misc.ts";
 
 class UUIDUtils {
     /** A replacement for core fromUuidSync that returns cached compendium documents. Remove in v11. */
@@ -18,31 +17,31 @@ class UUIDUtils {
     }
 
     /** Retrieve multiple documents by UUID */
-    static async fromUUIDs(uuids: Exclude<ActorUUID | TokenDocumentUUID, CompendiumUUID>[]): Promise<ActorPF2e[]>;
-    static async fromUUIDs(uuids: Exclude<ItemUUID, CompendiumUUID>[]): Promise<ItemPF2e[]>;
-    static async fromUUIDs(uuids: string[]): Promise<ClientDocument[]>;
-    static async fromUUIDs(uuids: string[]): Promise<foundry.abstract.Document[] | ActorPF2e[] | ItemPF2e[]> {
-        const actors: ActorPF2e[] = [];
-        const items: ItemPF2e[] = [];
+    static async fromUUIDs(uuids: string[]): Promise<ClientDocument[]> {
+        uuids = R.uniq(uuids);
+        const documentsAndIndexData = uuids.map((u) => fromUuidSync(u));
+        const worldDocs = documentsAndIndexData.filter(
+            (d): d is ClientDocument => d instanceof foundry.abstract.Document
+        );
+        const indexEntries = documentsAndIndexData.filter(
+            (d): d is CompendiumIndexData => !tupleHasValue(worldDocs, d)
+        );
+        const packs = R.uniq(indexEntries.flatMap((e) => game.packs.get(e.pack ?? "") ?? []));
+        const packDocs = (
+            await Promise.all(
+                packs.map(async (pack) => {
+                    const ids = indexEntries.filter((e) => e.pack === pack.metadata.id).map((e) => e._id);
+                    const cacheHits = ids.flatMap((id) => pack.get(id) ?? []);
+                    const cacheMisses = ids.filter((id) => !cacheHits.some((i) => i._id === id));
+                    const fromServer =
+                        cacheMisses.length > 0 ? await pack.getDocuments({ _id: { $in: cacheMisses } }) : [];
 
-        const documents = uuids.map((u): [string, ReturnType<typeof fromUuidSync>] => [u, this.fromUuidSync(u)]);
-        for (const [uuid, doc] of documents) {
-            if (doc instanceof ActorPF2e) {
-                actors.push(doc);
-            } else if (doc instanceof ItemPF2e) {
-                items.push(doc);
-            } else {
-                // Cache miss: retrieve from server
-                const document = await fromUuid(uuid);
-                if (document instanceof ActorPF2e) {
-                    actors.push(document);
-                } else if (document instanceof ItemPF2e) {
-                    items.push(document);
-                }
-            }
-        }
+                    return [cacheHits, fromServer].flat();
+                })
+            )
+        ).flat();
 
-        return actors.length > 0 ? actors : items;
+        return R.sortBy([...worldDocs, ...packDocs], (d) => uuids.indexOf(d.uuid));
     }
 
     static #parseUuid(uuid: string, relative?: ClientDocument): ResolvedUUID {

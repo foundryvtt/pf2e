@@ -5,7 +5,7 @@ import type { BackgroundSource, BackgroundSystemData } from "@item/background/da
 import type { ClassSource, ClassSystemData } from "@item/class/data.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { objectHasKey } from "@util";
-import { UUIDUtils } from "@util/uuid-utils.ts";
+import { UUIDUtils } from "@util/uuid.ts";
 
 /** Abstract base class representing a Pathfinder (A)ncestry, (B)ackground, or (C)lass */
 abstract class ABCItemPF2e<TParent extends ActorPF2e | null> extends ItemPF2e<TParent> {

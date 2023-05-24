@@ -1,7 +1,7 @@
 import { DeferredValueParams } from "@actor/modifiers.ts";
 import { ItemPF2e } from "@item";
 import { ConditionSource, EffectSource } from "@item/data/index.ts";
-import { UUIDUtils } from "@util/uuid-utils.ts";
+import { UUIDUtils } from "@util/uuid.ts";
 import type {
     ArrayField,
     BooleanField,

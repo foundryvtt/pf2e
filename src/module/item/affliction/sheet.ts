@@ -6,7 +6,7 @@ import { ConditionManager } from "@system/conditions/index.ts";
 import { DamageCategoryUnique } from "@system/damage/types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, pick } from "@util";
-import { UUIDUtils } from "@util/uuid-utils.ts";
+import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { AfflictionConditionData, AfflictionDamage, AfflictionOnset, AfflictionStageData } from "./data.ts";
 

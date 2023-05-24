@@ -8,7 +8,7 @@ import {
 } from "@module/apps/pick-a-thing-prompt.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { ErrorPF2e, sluggify } from "@util";
-import { UUIDUtils } from "@util/uuid-utils.ts";
+import { UUIDUtils } from "@util/uuid.ts";
 
 /** Prompt the user for a selection among a set of options */
 export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {

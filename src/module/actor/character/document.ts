@@ -75,7 +75,7 @@ import { AttackRollParams, DamageRollParams, RollParameters } from "@system/roll
 import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic, StatisticCheck } from "@system/statistic/index.ts";
 import { ErrorPF2e, objectHasKey, sluggify, sortedStringify, traitSlugToObject } from "@util";
-import { UUIDUtils } from "@util/uuid-utils.ts";
+import { UUIDUtils } from "@util/uuid.ts";
 import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting/index.ts";
 import {
     BaseWeaponProficiencyKey,
@@ -172,11 +172,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const { formulas } = this.system.crafting;
         formulas.sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0));
         const formulaMap = new Map(formulas.map((data) => [data.uuid, data]));
-        const items: unknown[] = await UUIDUtils.fromUUIDs(formulas.map((data) => data.uuid));
-        if (!items.every((i): i is ItemPF2e => i instanceof ItemPF2e)) return [];
+        const items = await UUIDUtils.fromUUIDs(formulas.map((f) => f.uuid));
 
         return items
-            .filter((i): i is PhysicalItemPF2e => i.isOfType("physical"))
+            .filter((i): i is PhysicalItemPF2e => i instanceof ItemPF2e && i.isOfType("physical"))
             .map((item) => {
                 const { dc, batchSize, deletable } = formulaMap.get(item.uuid) ?? { deletable: false };
                 return new CraftingFormula(item, { dc, batchSize, deletable });
