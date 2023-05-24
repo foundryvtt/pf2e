@@ -391,6 +391,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	*  Pathfinder Harrow Deck © 2023, Paizo Inc.; Author: TBD
 
 *  Paizo Blog
+	*  Fine-tuning Ancestries © 2023, Paizo Inc.; Author: Jason Bulmahn.
     *  Kineticist Playtest Analysis © 2022, Paizo Inc.; Author: Logan Bonner; Illustrator: Wayne Reynolds.
 	*  No-Prep Character: Gristleburst © 2021, Paizo Inc.; Author: Ron Lundeen; Illustrator: Valeria Dryzhak.
     *  No-Prep Character: Duhgik © 2021, Paizo Inc.; Author: Vanessa Hoskins; Illustrator: Dominik Derow.
