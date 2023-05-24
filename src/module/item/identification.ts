@@ -40,7 +40,11 @@ export interface GenericIdentifyDCs {
     dc: number;
 }
 
-function identifyMagic(item: PhysicalItemPF2e, baseDC: number, notMatchingTraditionModifier: number): IdentifyMagicDCs {
+function getIdentifyMagicDCs(
+    item: PhysicalItemPF2e,
+    baseDC: number,
+    notMatchingTraditionModifier: number
+): IdentifyMagicDCs {
     const result = {
         occult: baseDC,
         primal: baseDC,
@@ -75,7 +79,7 @@ export function getItemIdentificationDCs(
     const rarity = getDcRarity(item);
     const dc = adjustDCByRarity(baseDC, rarity);
     if (item.isMagical) {
-        return identifyMagic(item, dc, notMatchingTraditionModifier);
+        return getIdentifyMagicDCs(item, dc, notMatchingTraditionModifier);
     } else if (item.isAlchemical) {
         return { crafting: dc };
     } else {
