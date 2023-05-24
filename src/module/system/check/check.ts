@@ -3,23 +3,15 @@ import { StrikeData, TraitViewData } from "@actor/data/base.ts";
 import { CheckModifier } from "@actor/modifiers.ts";
 import { RollTarget } from "@actor/types.ts";
 import { WeaponPF2e } from "@item";
-import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { ChatMessageSourcePF2e, CheckRollContextFlag, TargetFlag } from "@module/chat-message/data.ts";
 import { isCheckContextFlag } from "@module/chat-message/helpers.ts";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { ScenePF2e, TokenDocumentPF2e } from "@scene";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { StatisticDifficultyClass } from "@system/statistic/index.ts";
-import {
-    ErrorPF2e,
-    fontAwesomeIcon,
-    objectHasKey,
-    omit,
-    parseHTML,
-    signedInteger,
-    sluggify,
-    traitSlugToObject,
-} from "@util";
+import { ErrorPF2e, fontAwesomeIcon, objectHasKey, parseHTML, signedInteger, sluggify, traitSlugToObject } from "@util";
+import * as R from "remeda";
 import {
     DEGREE_OF_SUCCESS_STRINGS,
     DegreeAdjustmentsRecord,
@@ -230,7 +222,7 @@ class CheckPF2e {
             type: context.type ?? "check",
             traits: context.traits ?? [],
             substitutions,
-            dc: context.dc ? omit(context.dc, ["statistic"]) : null,
+            dc: context.dc ? R.omit(context.dc, ["statistic"]) : null,
             skipDialog: context.skipDialog ?? !game.user.settings.showRollDialogs,
             isReroll: context.isReroll ?? false,
             outcome: context.outcome ?? null,

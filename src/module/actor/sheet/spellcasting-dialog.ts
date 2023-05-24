@@ -2,7 +2,8 @@ import { ActorPF2e } from "@actor";
 import { ClassDCData } from "@actor/character/data.ts";
 import { SpellcastingEntryPF2e } from "@item";
 import { SpellcastingEntrySource, SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data.ts";
-import { omit, pick } from "@util/misc.ts";
+import { pick } from "@util/misc.ts";
+import * as R from "remeda";
 
 function createEmptySpellcastingEntry(actor: ActorPF2e): SpellcastingEntryPF2e<ActorPF2e> {
     return new SpellcastingEntryPF2e(
@@ -57,7 +58,7 @@ class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryP
             classDCs,
             data: this.object.toObject().system,
             magicTraditions: CONFIG.PF2E.magicTraditions,
-            spellcastingTypes: omit(CONFIG.PF2E.preparationType, ["ritual"]),
+            spellcastingTypes: R.omit(CONFIG.PF2E.preparationType, ["ritual"]),
             abilities: CONFIG.PF2E.abilities,
             hasAbility: this.#canSetAbility(),
         };
