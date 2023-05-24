@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { createShoddyPenalty } from "@actor/character/helpers.ts";
-import { ModifierPF2e } from "@actor/modifiers.ts";
+import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { ArmorPF2e } from "@item";
 import { ZeroToFour } from "@module/data.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
@@ -32,7 +32,8 @@ class ArmorStatistic extends Statistic {
         super(actor, fullData);
 
         this.details = data.details ?? "";
-        this.dc.modifiers.push(...this.#createBonusesAndPenalties());
+        const dcModifiers = [...this.dc.modifiers, ...this.#createBonusesAndPenalties()].map((m) => m.clone());
+        this.dc.modifiers = [...new StatisticModifier("", dcModifiers, this.dc.options).modifiers];
     }
 
     /** If this statistic belongs to a PC, create bonuses and penalties from their worn armor */

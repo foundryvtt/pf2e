@@ -1,4 +1,3 @@
-import * as R from "remeda";
 import { ActorPF2e } from "@actor";
 import { TraitViewData } from "@actor/data/base.ts";
 import { calculateMAPs } from "@actor/helpers.ts";
@@ -34,6 +33,7 @@ import {
 import { CheckDC, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success.ts";
 import { RollParameters } from "@system/rolls.ts";
 import { isObject, Optional, traitSlugToObject } from "@util";
+import * as R from "remeda";
 import { StatisticChatData, StatisticCheckData, StatisticData, StatisticTraceData } from "./data.ts";
 
 export * from "./data.ts";
@@ -515,11 +515,24 @@ class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
             data.dc?.modifiers ?? [],
             data.dc?.domains ? extractModifiers(parent.actor.synthetics, data.dc.domains) : [],
         ].flat();
-        this.modifiers = allDCModifiers.map((modifier) => modifier.clone({ test: this.options }));
+        this.modifiers = [
+            ...new StatisticModifier(
+                "",
+                allDCModifiers.map((m) => m.clone()),
+                this.options
+            ).modifiers,
+        ];
     }
 
     get value(): number {
-        return 10 + new StatisticModifier("", this.modifiers, this.options).totalModifier;
+        return (
+            10 +
+            new StatisticModifier(
+                "",
+                this.modifiers.map((m) => m.clone()),
+                this.options
+            ).totalModifier
+        );
     }
 
     get breakdown(): string {
