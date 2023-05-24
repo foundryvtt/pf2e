@@ -183,8 +183,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             });
     }
 
-    async getCraftingEntries(): Promise<CraftingEntry[]> {
-        const craftingFormulas = await this.getCraftingFormulas();
+    async getCraftingEntries(formulas?: CraftingFormula[]): Promise<CraftingEntry[]> {
+        const craftingFormulas = formulas ?? (await this.getCraftingFormulas());
         return Object.values(this.system.crafting.entries)
             .filter((entry): entry is CraftingEntryData => CraftingEntry.isValid(entry))
             .map((entry) => new CraftingEntry(this, craftingFormulas, entry));
