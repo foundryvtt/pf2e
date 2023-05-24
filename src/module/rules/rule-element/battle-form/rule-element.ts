@@ -437,6 +437,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             if (!this.#filterModifier(modifier)) {
                 modifier.adjustments.push({ slug: null, predicate: new PredicatePF2e(), suppress: true });
                 modifier.ignored = true;
+                modifier.enabled = false;
             }
         }
         if (statistic instanceof StatisticModifier) {
