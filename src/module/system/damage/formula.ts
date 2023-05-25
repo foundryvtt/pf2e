@@ -187,12 +187,15 @@ function instancesFromTypeMap(
                 const partials = groups.get(c) ?? [];
                 const breakdownDamage = partials.filter((e): e is DamagePartialWithLabel => e.label !== null);
 
-                // Null labels are assumed to be base damage. Combine them and create a single tag.
-                const unlabeled = partials.filter((e) => e.label === null);
-                if (unlabeled.length) {
+                // Null labels are assumed to be base damage. Combine them and create a single breakdown component
+                const leadingTerms = partials.filter(
+                    (p) =>
+                        p.label === null && (p.modifier || p.dice?.number || partials.every((pp) => pp.label === null))
+                );
+                if (leadingTerms.length) {
                     const append = c === "splash" ? ` ${game.i18n.localize("PF2E.Damage.RollFlavor.splash")}` : "";
-                    const label = createSimpleFormula(unlabeled) + append;
-                    breakdownDamage.splice(0, 0, { ...unlabeled[0], label });
+                    const label = createSimpleFormula(leadingTerms) + append;
+                    breakdownDamage.unshift({ ...leadingTerms[0], label });
                 }
 
                 return breakdownDamage;
@@ -231,7 +234,9 @@ function createPartialFormulas(
         const requestedPartials = (partials.get(category) ?? []).filter((p) => criticalInclusion.includes(p.critical));
         const term = ((): string => {
             const expression = createSimpleFormula(requestedPartials, { doubleDice });
-            if (expression === "0") return "";
+            if (expression === "0" && category !== null) {
+                return "";
+            }
             return ["precision", "splash"].includes(category ?? "") && hasOperators(expression)
                 ? `(${expression})`
                 : expression;
