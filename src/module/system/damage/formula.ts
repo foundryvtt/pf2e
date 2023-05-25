@@ -231,12 +231,12 @@ function createPartialFormulas(
         const requestedPartials = (partials.get(category) ?? []).filter((p) => criticalInclusion.includes(p.critical));
         const term = ((): string => {
             const expression = createSimpleFormula(requestedPartials, { doubleDice });
+            if (expression === "0") return "";
             return ["precision", "splash"].includes(category ?? "") && hasOperators(expression)
                 ? `(${expression})`
                 : expression;
         })();
         const flavored = term && category && category !== "persistent" ? `${term}[${category}]` : term;
-
         return flavored || [];
     });
 }
@@ -276,10 +276,11 @@ function createSimpleFormula(terms: DamagePartialTerm[], { doubleDice }: { doubl
     });
 
     // Create the final term. Double the modifier here if dice doubling is enabled
-    return [diceTerms.join(" + "), Math.abs(constant)]
+    const result = [diceTerms.join(" + "), Math.abs(constant)]
         .filter((e) => !!e)
         .map((e) => (typeof e === "number" && doubleDice ? `2 * ${e}` : e))
         .join(constant > 0 ? " + " : " - ");
+    return result || "0"; // Empty string is an invalid formula
 }
 
 /**
