@@ -168,8 +168,10 @@ function instancesFromTypeMap(
             return sumExpression(createPartialFormulas(groups, { criticalInclusion }));
         })();
 
+        // Build final damage, and exit early if its 0 persistent dammage
         const summedDamage = sumExpression(degree ? [nonCriticalDamage, criticalDamage] : [nonCriticalDamage]);
-        const enclosed = ensureValidFormulaHead(summedDamage);
+        const enclosed = ensureValidFormulaHead(summedDamage) || "0";
+        if (enclosed === "0" && persistent) return [];
 
         const flavor = ((): string => {
             const typeFlavor = damageType === "untyped" && !persistent ? [] : [damageType];
@@ -234,7 +236,7 @@ function createPartialFormulas(
         const requestedPartials = (partials.get(category) ?? []).filter((p) => criticalInclusion.includes(p.critical));
         const term = ((): string => {
             const expression = createSimpleFormula(requestedPartials, { doubleDice });
-            if (expression === "0" && category !== null) {
+            if (expression === "0") {
                 return "";
             }
             return ["precision", "splash"].includes(category ?? "") && hasOperators(expression)
