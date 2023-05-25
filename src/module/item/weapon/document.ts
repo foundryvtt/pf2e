@@ -2,6 +2,7 @@ import { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { AbilityString } from "@actor/types.ts";
+import { ABILITY_ABBREVIATIONS } from "@actor/values.ts";
 import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e } from "@item";
 import { ItemSummaryData, MeleeSource } from "@item/data/index.ts";
 import { NPCAttackDamage, NPCAttackTrait } from "@item/melee/data.ts";
@@ -266,6 +267,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         systemData.propertyRune2.value ||= null;
         systemData.propertyRune3.value ||= null;
         systemData.propertyRune4.value ||= null;
+        if (!setHasElement(ABILITY_ABBREVIATIONS, systemData.ability)) {
+            systemData.ability = null;
+        }
 
         const reloadValue = (systemData.reload.value ||= null);
         systemData.reload.label = reloadValue
