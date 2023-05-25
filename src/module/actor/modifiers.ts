@@ -594,11 +594,12 @@ class CheckModifier extends StatisticModifier {
      */
     constructor(
         slug: string,
-        statistic: { modifiers: readonly ModifierPF2e[] },
+        statistic: { modifiers: readonly (ModifierPF2e | RawModifier)[] },
         modifiers: ModifierPF2e[] = [],
         rollOptions: string[] | Set<string> = new Set()
     ) {
-        super(slug, statistic.modifiers.map((modifier) => modifier.clone()).concat(modifiers), rollOptions);
+        const baseModifiers = statistic.modifiers.map((m) => ("clone" in m ? m.clone() : new ModifierPF2e(m)));
+        super(slug, baseModifiers.concat(modifiers), rollOptions);
     }
 }
 
