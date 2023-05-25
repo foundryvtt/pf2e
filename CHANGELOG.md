@@ -1,5 +1,20 @@
 # Changelog
 
+## Version 4.12.3
+
+### Bugfixes
+
+-   (stwlam) Fix processing of AC modifier adjustments
+-   (stwlam) Fix acquisition of statistics for skill-action macros
+-   (stwlam) Fix display of DCs from `IdentifyItemPopup`
+-   (Supe) Fix term creation for spells that deal zero damage when unheightened
+
+### Data Updates
+
+-   (Abaddon) Fix inline rolls in Wicked Thorns
+-   (stwlam) Fix data error in Dragon's Crest item
+-   (TMun) Add Stonewall feat from blog
+
 ## Version 4.12.2
 
 ### Bugfixes
