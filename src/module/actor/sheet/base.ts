@@ -42,7 +42,7 @@ import { IdentifyItemPopup } from "./popups/identify-popup.ts";
 import { IWREditor } from "./popups/iwr-editor.ts";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup.ts";
 import { CraftingFormula } from "@actor/character/crafting/index.ts";
-import { UUIDUtils } from "@util/uuid-utils.ts";
+import { UUIDUtils } from "@util/uuid.ts";
 import Sortable, { type SortableEvent } from "sortablejs";
 import { onClickCreateSpell } from "./helpers.ts";
 

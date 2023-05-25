@@ -1,7 +1,7 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { FeatPF2e } from "@item";
 import { EffectSource, ItemSourcePF2e } from "@item/data/index.ts";
-import { UUIDUtils } from "@util/uuid-utils.ts";
+import { UUIDUtils } from "@util/uuid.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Update feats, items, and rule elements to accurately process cumulative item bonuses */

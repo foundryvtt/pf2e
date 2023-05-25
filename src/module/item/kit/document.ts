@@ -5,7 +5,7 @@ import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { DENOMINATIONS } from "@item/physical/values.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { ErrorPF2e, isObject } from "@util";
-import { UUIDUtils } from "@util/uuid-utils.ts";
+import { UUIDUtils } from "@util/uuid.ts";
 import { KitEntryData, KitSource, KitSystemData } from "./data.ts";
 import { Size } from "@module/data.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";

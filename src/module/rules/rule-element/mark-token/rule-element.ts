@@ -2,7 +2,7 @@ import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { ErrorPF2e, sluggify } from "@util";
-import { UUIDUtils } from "@util/uuid-utils.ts";
+import { UUIDUtils } from "@util/uuid.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "../index.ts";
 import { MarkTargetPrompt } from "./prompt.ts";
 

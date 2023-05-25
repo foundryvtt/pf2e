@@ -1,7 +1,7 @@
 import { SpellPF2e } from "@item";
 import { ItemSourcePF2e, SpellSource } from "@item/data/index.ts";
 import { sluggify } from "@util";
-import { UUIDUtils } from "@util/uuid-utils.ts";
+import { UUIDUtils } from "@util/uuid.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Handle spells gaining fixed level heightening */
