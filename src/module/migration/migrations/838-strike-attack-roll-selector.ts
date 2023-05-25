@@ -6,6 +6,11 @@ export class Migration838StrikeAttackRollSelector extends MigrationBase {
     static override version = 0.838;
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
+        // Sanity check
+        if (!Array.isArray(source.system.rules)) {
+            source.system.rules = [];
+        }
+
         for (const rule of source.system.rules) {
             if (!("selector" in rule)) continue;
 

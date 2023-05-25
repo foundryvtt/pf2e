@@ -2,6 +2,7 @@ import { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { AbilityString } from "@actor/types.ts";
+import { ABILITY_ABBREVIATIONS } from "@actor/values.ts";
 import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e } from "@item";
 import { ItemSummaryData, MeleeSource } from "@item/data/index.ts";
 import { NPCAttackDamage, NPCAttackTrait } from "@item/melee/data.ts";
@@ -266,6 +267,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         systemData.propertyRune2.value ||= null;
         systemData.propertyRune3.value ||= null;
         systemData.propertyRune4.value ||= null;
+        if (!setHasElement(ABILITY_ABBREVIATIONS, systemData.ability)) {
+            systemData.ability = null;
+        }
 
         const reloadValue = (systemData.reload.value ||= null);
         systemData.reload.label = reloadValue
@@ -309,6 +313,12 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             }
         }
 
+        // Ensure presence of traits array on melee usage if not have been added yet
+        if (this.system.meleeUsage) {
+            this.system.meleeUsage.traits ??= [];
+            this.system.meleeUsage.traitToggles ??= { modular: null, versatile: null };
+        }
+
         // Lazy-load toggleable traits
         systemData.traits.toggles = new WeaponTraitToggles(this);
 
@@ -326,8 +336,6 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
         // If the `comboMeleeUsage` flag is true, then this is a combination weapon in its melee form
         this.flags.pf2e.comboMeleeUsage ??= false;
-        // Ensure presence of traits array on melee usage if not have been added yet
-        if (this.system.meleeUsage) this.system.meleeUsage.traits ??= [];
 
         this.prepareMaterialAndRunes();
         this.prepareLevelAndRarity();
@@ -616,13 +624,18 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const { meleeUsage } = this.system;
         if (!meleeUsage || this.flags.pf2e.comboMeleeUsage) return null;
 
+        const traitToggles = {
+            module: { selection: meleeUsage.traitToggles.modular },
+            versatile: { selection: meleeUsage.traitToggles.versatile },
+        };
+
         const overlay: DeepPartial<WeaponSource> = {
             system: {
                 damage: { damageType: meleeUsage.damage.type, dice: 1, die: meleeUsage.damage.die },
                 group: meleeUsage.group,
                 range: null,
                 reload: { value: null },
-                traits: { value: meleeUsage.traits.concat("combination") },
+                traits: { value: meleeUsage.traits.concat("combination"), toggles: traitToggles },
                 selectedAmmoId: null,
             },
             flags: {

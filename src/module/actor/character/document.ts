@@ -66,15 +66,16 @@ import { UserPF2e } from "@module/user/document.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check/index.ts";
-import { DamagePF2e, DamageRollContext } from "@system/damage/index.ts";
+import { DamagePF2e, DamageRollContext, DamageType } from "@system/damage/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
+import { DAMAGE_TYPE_ICONS } from "@system/damage/values.ts";
 import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls.ts";
 import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic, StatisticCheck } from "@system/statistic/index.ts";
 import { ErrorPF2e, objectHasKey, sluggify, sortedStringify, traitSlugToObject } from "@util";
-import { UUIDUtils } from "@util/uuid-utils.ts";
+import { UUIDUtils } from "@util/uuid.ts";
 import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting/index.ts";
 import {
     BaseWeaponProficiencyKey,
@@ -171,19 +172,18 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const { formulas } = this.system.crafting;
         formulas.sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0));
         const formulaMap = new Map(formulas.map((data) => [data.uuid, data]));
-        const items: unknown[] = await UUIDUtils.fromUUIDs(formulas.map((data) => data.uuid));
-        if (!items.every((i): i is ItemPF2e => i instanceof ItemPF2e)) return [];
+        const items = await UUIDUtils.fromUUIDs(formulas.map((f) => f.uuid));
 
         return items
-            .filter((i): i is PhysicalItemPF2e => i.isOfType("physical"))
+            .filter((i): i is PhysicalItemPF2e => i instanceof ItemPF2e && i.isOfType("physical"))
             .map((item) => {
                 const { dc, batchSize, deletable } = formulaMap.get(item.uuid) ?? { deletable: false };
                 return new CraftingFormula(item, { dc, batchSize, deletable });
             });
     }
 
-    async getCraftingEntries(): Promise<CraftingEntry[]> {
-        const craftingFormulas = await this.getCraftingFormulas();
+    async getCraftingEntries(formulas?: CraftingFormula[]): Promise<CraftingEntry[]> {
+        const craftingFormulas = formulas ?? (await this.getCraftingFormulas());
         return Object.values(this.system.crafting.entries)
             .filter((entry): entry is CraftingEntryData => CraftingEntry.isValid(entry))
             .map((entry) => new CraftingEntry(this, craftingFormulas, entry));
@@ -955,11 +955,25 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 check: { type: "skill-check" },
             }) as CharacterSkill;
 
-            builtSkills[longForm] = builtSkills[shortForm] = statistic;
+            builtSkills[longForm] = statistic;
             this.system.skills[shortForm] = mergeObject(
                 this.system.skills[shortForm],
                 statistic.getTraceData({ rollable: ["4.12", "5.0"] })
             );
+
+            Object.defineProperty(builtSkills, shortForm, {
+                get: () => {
+                    foundry.utils.logCompatibilityWarning(
+                        `Short-form skill abbreviations such as actor.skills.${shortForm} are deprecated. Use actor.skills.${longForm} instead.`,
+                        {
+                            since: "4.12",
+                            until: "5.0",
+                        }
+                    );
+                    return builtSkills[longForm];
+                },
+            });
+
             return builtSkills;
         }, {} as CharacterSkills);
 
@@ -1403,6 +1417,20 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const rollOptions = [...this.getRollOptions(selectors), ...weaponRollOptions, ...weaponTraits, meleeOrRanged];
         const strikeStat = new StatisticModifier(slug, modifiers, rollOptions);
         const altUsages = weapon.getAltUsages().map((w) => this.prepareStrike(w, { categories }));
+        const versatileLabel = (damageType: DamageType): string => {
+            switch (damageType) {
+                case "bludgeoning":
+                    return CONFIG.PF2E.weaponTraits["versatile-b"];
+                case "piercing":
+                    return CONFIG.PF2E.weaponTraits["versatile-p"];
+                case "slashing":
+                    return CONFIG.PF2E.weaponTraits["versatile-s"];
+                default: {
+                    const weaponTraits: Record<string, string | undefined> = CONFIG.PF2E.weaponTraits;
+                    return weaponTraits[`versatile-${damageType}`] ?? CONFIG.PF2E.damageTypes[damageType];
+                }
+            }
+        };
 
         const action: CharacterStrike = mergeObject(strikeStat, {
             label: weapon.name,
@@ -1424,7 +1452,22 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             selectedAmmoId: weapon.system.selectedAmmoId,
             altUsages,
             auxiliaryActions,
+            versatileOptions: weapon.system.traits.toggles.versatile.options.map((o) => ({
+                value: o,
+                selected: weapon.system.traits.toggles.versatile.selection === o,
+                label: versatileLabel(o),
+                glyph: DAMAGE_TYPE_ICONS[o],
+            })),
         });
+
+        if (action.versatileOptions.length > 0) {
+            action.versatileOptions.unshift({
+                value: weapon.system.damage.damageType,
+                selected: weapon.system.traits.toggles.versatile.selection === null,
+                label: CONFIG.PF2E.damageTypes[weapon.system.damage.damageType],
+                glyph: DAMAGE_TYPE_ICONS[weapon.system.damage.damageType],
+            });
+        }
 
         // Show the ammo list if the weapon requires ammo
         if (weapon.requiresAmmo) {

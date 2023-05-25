@@ -4,6 +4,7 @@
         <a class="tab" data-tab="exploration" data-group="actions-tabs">{{localize "PF2E.TabActionsExplorationLabel"}}</a>
         <a class="tab" data-tab="downtime" data-group="actions-tabs">{{localize "PF2E.TabActionsDowntimeLabel"}}</a>
     </nav>
+
     <div class="actions-container tab-content">
         <div class="actions-tabs-wrapper">
             <section class="actions-panels">
@@ -57,30 +58,10 @@
                                             <!-- ATTACK/DAMAGE -->
                                             {{#> attackDamage action}}{{/attackDamage}}
 
-                                            {{#if action.ammunition}}
-                                                <div class="ammo">
-                                                    <select class="linked"
-                                                        data-action="link-ammo"
-                                                        {{#if action.ammunition.selected}} data-compatible="{{action.ammunition.selected.compatible}}"{{/if}}>
-                                                        {{#select action.ammunition.selected.id}}
-                                                            <option value="">{{localize "PF2E.NoAmmoLabel"}}</option>
-                                                            {{#each action.ammunition.compatible as |ammo|}}
-                                                                <option value="{{ammo.id}}" data-compatible="true">{{ammo.name}} ({{ammo.quantity}})</option>
-                                                            {{/each}}
-                                                        {{/select}}
-                                                    </select>
-
-                                                    <span class="magazine" data-item-id="{{action.item.id}}">
-                                                        {{#if (gt action.item.ammo.uses.max 1)}}
-                                                            <span class="remaining"><i class="icon"></i> {{action.item.ammo.uses.value}}</span>
-                                                        {{/if}}
-                                                    </span>
-                                                </div>
-                                            {{/if}}
-
                                         {{/if}}
                                     </div>
                                 </div>
+
                                 {{#if (and action.altUsages (or action.ready ../actor.flags.pf2e.showUnreadyStrikes))}}
                                     {{#each action.altUsages as |usage|}}
                                         <div class="alt-usage">
@@ -92,6 +73,27 @@
                                             {{#> attackDamage usage isAltUsage=true}}{{/attackDamage}}
                                         </div>
                                     {{/each}}
+                                {{/if}}
+
+                                {{#if (and action.ammunition (or action.ready ../actor.flags.pf2e.showUnreadyStrikes))}}
+                                    <div class="ammo auxiliary-actions">
+                                        <select class="linked"
+                                            data-action="link-ammo"
+                                            {{#if action.ammunition.selected}} data-compatible="{{action.ammunition.selected.compatible}}"{{/if}}>
+                                            {{#select action.ammunition.selected.id}}
+                                                <option value="">{{localize "PF2E.NoAmmoLabel"}}</option>
+                                                {{#each action.ammunition.compatible as |ammo|}}
+                                                    <option value="{{ammo.id}}" data-compatible="true">{{ammo.name}} ({{ammo.quantity}})</option>
+                                                {{/each}}
+                                            {{/select}}
+                                        </select>
+
+                                        <span class="magazine" data-item-id="{{action.item.id}}">
+                                            {{#if (gt action.item.ammo.uses.max 1)}}
+                                                <span class="remaining"><i class="icon"></i> {{action.item.ammo.uses.value}}</span>
+                                            {{/if}}
+                                        </span>
+                                    </div>
                                 {{/if}}
 
                                 <div class="auxiliary-actions{{#if action.ready}} weapon-drawn{{/if}}">
@@ -115,7 +117,7 @@
                                 <div class="item-summary">
                                     <div class="item-description">
                                         <p>{{{localize action.description}}}</p>
-                                        <hr/>
+                                        <hr />
                                         <dl>
                                             <dt>{{{localize "PF2E.CritSuccess"}}}</dt>
                                             <dd>{{{localize action.criticalSuccess}}}</dd>
@@ -305,6 +307,21 @@
             <button type="button" class="tag damage" data-action="strike-critical"
                 {{#if isAltUsage}}data-alt-usage="{{#if item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
             >{{localize "PF2E.CriticalDamageLabel"}}</button>
+            {{#if (and versatileOptions (not (eq item.altUsageType "thrown")))}}
+                <div class="versatile-options">
+                    {{#each versatileOptions as |option|}}
+                        <button
+                            type="button"
+                            {{#if option.selected}}class="selected"{{/if}}
+                            data-tooltip="{{localize option.label}}"
+                            {{#if ../isAltUsage}} data-alt-usage="{{#if ../item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
+                            value="{{option.value}}"
+                            data-action="toggle-versatile">
+                            <i class="fa-solid fa-{{option.glyph}} fa-fw"></i>
+                        </button>
+                    {{/each}}
+                </div>
+            {{/if}}
         {{/if}}
     </div>
 {{/inline}}

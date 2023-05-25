@@ -1,3 +1,4 @@
+import * as R from "remeda";
 import { DamageDicePF2e } from "@actor/modifiers.ts";
 import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
 import { groupBy, sum, sortBy, addSign } from "@util";
@@ -167,8 +168,10 @@ function instancesFromTypeMap(
             return sumExpression(createPartialFormulas(groups, { criticalInclusion }));
         })();
 
+        // Build final damage, and exit early if its 0 persistent dammage
         const summedDamage = sumExpression(degree ? [nonCriticalDamage, criticalDamage] : [nonCriticalDamage]);
-        const enclosed = ensureValidFormulaHead(summedDamage);
+        const enclosed = ensureValidFormulaHead(summedDamage) || "0";
+        if (enclosed === "0" && persistent) return [];
 
         const flavor = ((): string => {
             const typeFlavor = damageType === "untyped" && !persistent ? [] : [damageType];
@@ -186,12 +189,15 @@ function instancesFromTypeMap(
                 const partials = groups.get(c) ?? [];
                 const breakdownDamage = partials.filter((e): e is DamagePartialWithLabel => e.label !== null);
 
-                // Null labels are assumed to be base damage. Combine them and create a single tag.
-                const unlabeled = partials.filter((e) => e.label === null);
-                if (unlabeled.length) {
+                // Null labels are assumed to be base damage. Combine them and create a single breakdown component
+                const leadingTerms = partials.filter(
+                    (p) =>
+                        p.label === null && (p.modifier || p.dice?.number || partials.every((pp) => pp.label === null))
+                );
+                if (leadingTerms.length) {
                     const append = c === "splash" ? ` ${game.i18n.localize("PF2E.Damage.RollFlavor.splash")}` : "";
-                    const label = createSimpleFormula(unlabeled) + append;
-                    breakdownDamage.splice(0, 0, { ...unlabeled[0], label });
+                    const label = createSimpleFormula(leadingTerms) + append;
+                    breakdownDamage.unshift({ ...leadingTerms[0], label });
                 }
 
                 return breakdownDamage;
@@ -230,12 +236,14 @@ function createPartialFormulas(
         const requestedPartials = (partials.get(category) ?? []).filter((p) => criticalInclusion.includes(p.critical));
         const term = ((): string => {
             const expression = createSimpleFormula(requestedPartials, { doubleDice });
+            if (expression === "0") {
+                return "";
+            }
             return ["precision", "splash"].includes(category ?? "") && hasOperators(expression)
                 ? `(${expression})`
                 : expression;
         })();
         const flavored = term && category && category !== "persistent" ? `${term}[${category}]` : term;
-
         return flavored || [];
     });
 }
@@ -256,7 +264,8 @@ function combinePartialTerms(terms: DamagePartialTerm[]): DamagePartialTerm[] {
         dice: { ...terms[0].dice, number: sum(terms.map((d) => d.dice.number)) },
     }));
 
-    return [...combinedDice, constantTerm].filter((t): t is DamagePartialTerm => !!t);
+    const combined = R.compact([...combinedDice, constantTerm]);
+    return combined.length ? combined : [{ dice: null, modifier: 0 }];
 }
 
 /** Combines damage dice and modifiers into a single formula, ignoring the damage type and category. */
@@ -274,10 +283,11 @@ function createSimpleFormula(terms: DamagePartialTerm[], { doubleDice }: { doubl
     });
 
     // Create the final term. Double the modifier here if dice doubling is enabled
-    return [diceTerms.join(" + "), Math.abs(constant)]
+    const result = [diceTerms.join(" + "), Math.abs(constant)]
         .filter((e) => !!e)
         .map((e) => (typeof e === "number" && doubleDice ? `2 * ${e}` : e))
         .join(constant > 0 ? " + " : " - ");
+    return result || "0"; // Empty string is an invalid formula
 }
 
 /**

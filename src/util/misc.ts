@@ -143,16 +143,6 @@ function pick<T extends object, K extends keyof T>(obj: T, keys: Iterable<K>): P
     }, {} as Pick<T, K>);
 }
 
-/** Returns a subset of an object with explicitly excluded keys */
-function omit<T extends object, K extends keyof T>(obj: T, keys: Iterable<K>): Omit<T, K> {
-    const clone = deepClone(obj);
-    for (const key of keys) {
-        delete clone[key];
-    }
-
-    return clone;
-}
-
 let intlNumberFormat: Intl.NumberFormat;
 /**
  * Return an integer string of a number, always with sign (+/-)
@@ -481,7 +471,6 @@ export {
     localizer,
     mapValues,
     objectHasKey,
-    omit,
     ordinal,
     padArray,
     parseHTML,

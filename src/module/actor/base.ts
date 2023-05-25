@@ -81,7 +81,7 @@ import { StatisticModifier } from "./modifiers.ts";
 import { ActorSheetPF2e } from "./sheet/base.ts";
 import { ActorSpellcasting } from "./spellcasting.ts";
 import { TokenEffect } from "./token-effect.ts";
-import { CREATURE_ACTOR_TYPES, SAVE_TYPES, SKILL_LONG_FORMS, UNAFFECTED_TYPES } from "./values.ts";
+import { CREATURE_ACTOR_TYPES, SAVE_TYPES, UNAFFECTED_TYPES } from "./values.ts";
 import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { AppliedDamageFlag } from "@module/chat-message/index.ts";
 
@@ -358,11 +358,14 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Get (almost) any statistic by slug: handling expands in `ActorPF2e` subclasses */
     getStatistic(slug: string): Statistic | null {
+        if (["armor", "ac"].includes(slug)) {
+            return this.armorClass?.parent ?? null;
+        }
         if (tupleHasValue(SAVE_TYPES, slug)) {
             return this.saves?.[slug] ?? null;
         }
-        if (setHasElement(SKILL_LONG_FORMS, slug)) {
-            return this.skills?.[slug] ?? null;
+        if (this.skills && objectHasKey(this.skills, slug)) {
+            return this.skills[slug] ?? null;
         }
 
         return null;
@@ -1012,26 +1015,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const dcData = ((): CheckDC | null => {
             const { domains, targetedDC } = params;
             const scope = domains.includes("attack") ? "attack" : "check";
-
-            switch (targetedDC) {
-                case "ac":
-                case "armor":
-                    return targetActor?.attributes.ac
-                        ? {
-                              scope,
-                              slug: "ac",
-                              statistic:
-                                  targetActor.attributes.ac instanceof StatisticModifier
-                                      ? targetActor.attributes.ac
-                                      : null,
-                              value: targetActor.attributes.ac.value,
-                          }
-                        : null;
-                default: {
-                    const statistic = targetActor?.getStatistic(targetedDC)?.dc;
-                    return statistic ? { scope, statistic, slug: targetedDC, value: statistic.value } : null;
-                }
-            }
+            const statistic = targetActor?.getStatistic(targetedDC)?.dc;
+            return statistic ? { scope, statistic, slug: targetedDC, value: statistic.value } : null;
         })();
 
         return { ...context, dc: dcData };
@@ -1125,7 +1110,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             (isDelta || (value === 0 && token?.combatant))
         );
         if (isDamage && token) {
-            const damage = isDelta ? value : hitPoints.value - value;
+            const damage = isDelta ? -1 * value : hitPoints.value - value;
             return this.applyDamage({ damage, token });
         }
         return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
@@ -1328,6 +1313,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             persistentDamage.length > 0 ? await this.createEmbeddedDocuments("Item", persistentDamage) : []
         ) as ConditionPF2e<this>[];
 
+        const canUndoDamage = !!(hpDamage || shieldDamage || persistentCreated.length);
         const content = await renderTemplate("systems/pf2e/templates/chat/damage/damage-taken.hbs", {
             statements,
             persistent: persistentCreated.map((p) => p.system.persistent!.damage.formula),
@@ -1335,37 +1321,41 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 applications: result.applications,
                 visibility: this.hasPlayerOwner ? "all" : "gm",
             },
-            canRevertDamage: this.canUserModify(game.user, "update"),
+            canUndoDamage,
         });
+
+        const appliedDamage = canUndoDamage
+            ? {
+                  uuid: this.uuid,
+                  isHealing: hpDamage < 0,
+                  shield: shieldDamage !== 0 ? { id: actorShield?.itemId ?? "", damage: shieldDamage } : null,
+                  persistent: persistentCreated.map((c) => c.id),
+                  updates: Object.entries(hpUpdate.updates)
+                      .map(([key, value]) => {
+                          const currentValue = getProperty(this, key);
+                          if (typeof currentValue === "number") {
+                              const difference = currentValue - value;
+                              if (difference === 0) {
+                                  // Ignore the update if there is no difference
+                                  return [];
+                              }
+                              return {
+                                  path: key,
+                                  value: difference,
+                              };
+                          }
+                          return [];
+                      })
+                      .flat(),
+              }
+            : null;
 
         await ChatMessagePF2e.create({
             speaker: ChatMessagePF2e.getSpeaker({ token }),
             content,
             flags: {
                 pf2e: {
-                    appliedDamage: {
-                        uuid: this.uuid,
-                        isHealing: hpDamage < 0,
-                        shield: shieldDamage !== 0 ? { id: actorShield?.itemId ?? "", damage: shieldDamage } : null,
-                        persistent: persistentCreated.map((c) => c.id),
-                        updates: Object.entries(hpUpdate.updates)
-                            .map(([key, value]) => {
-                                const currentValue = getProperty(this, key);
-                                if (typeof currentValue === "number") {
-                                    const difference = currentValue - value;
-                                    if (difference === 0) {
-                                        // Ignore the update if there is no difference
-                                        return [];
-                                    }
-                                    return {
-                                        path: key,
-                                        value: difference,
-                                    };
-                                }
-                                return [];
-                            })
-                            .flat(),
-                    },
+                    appliedDamage,
                 },
             },
             type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
@@ -1379,7 +1369,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Revert applied actor damage based on the AppliedDamageFlag stored in a damage chat message */
-    async revertDamage(appliedDamage: AppliedDamageFlag): Promise<void> {
+    async undoDamage(appliedDamage: AppliedDamageFlag): Promise<void> {
         const { updates, shield, persistent } = appliedDamage;
 
         const actorUpdates: Record<string, number | Record<string, number | string>[]> = {};
@@ -1407,7 +1397,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             await this.deleteEmbeddedDocuments("Item", persistent, { render: updateCount === 0 });
         }
         if (updateCount) {
-            this.update(actorUpdates);
+            const { hitPoints } = this;
+            const damageTaken =
+                hitPoints && typeof actorUpdates["system.attributes.hp.value"] === "number"
+                    ? hitPoints.value - actorUpdates["system.attributes.hp.value"]
+                    : 0;
+            this.update(actorUpdates, { damageTaken, damageUndo: true });
         }
     }
 
@@ -1927,6 +1922,7 @@ interface HitPointsSummary {
 
 interface ActorUpdateContext<TParent extends TokenDocumentPF2e | null> extends DocumentUpdateContext<TParent> {
     damageTaken?: number;
+    damageUndo?: boolean;
 }
 
 /** A `Proxy` to to get Foundry to construct `ActorPF2e` subclasses */

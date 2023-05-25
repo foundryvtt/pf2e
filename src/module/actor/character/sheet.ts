@@ -17,6 +17,7 @@ import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { SpellcastingSheetData } from "@item/spellcasting-entry/types.ts";
+import { toggleWeaponTrait } from "@item/weapon/helpers.ts";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/types.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
@@ -30,7 +31,6 @@ import {
     ErrorPF2e,
     fontAwesomeIcon,
     getActionIcon,
-    groupBy,
     htmlClosest,
     htmlQuery,
     htmlQueryAll,
@@ -38,7 +38,8 @@ import {
     objectHasKey,
     setHasElement,
 } from "@util";
-import { UUIDUtils } from "@util/uuid-utils.ts";
+import { UUIDUtils } from "@util/uuid.ts";
+import * as R from "remeda";
 import { CreatureSheetPF2e } from "../creature/sheet.ts";
 import { AbilityBuilderPopup } from "../sheet/popups/ability-builder.ts";
 import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-proficiencies.ts";
@@ -198,7 +199,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         sheetData.spellcastingEntries = await this.prepareSpellcasting();
         sheetData.feats = [...this.actor.feats, this.actor.feats.unorganized];
 
-        const formulasByLevel = await this.prepareCraftingFormulas();
+        const craftingFormulas = await this.actor.getCraftingFormulas();
+        const formulasByLevel = R.groupBy(craftingFormulas, (f) => f.level);
         const flags = this.actor.flags.pf2e;
         const hasQuickAlchemy = !!(
             this.actor.rollOptions.all["feature:quick-alchemy"] || this.actor.rollOptions.all["feat:quick-alchemy"]
@@ -208,7 +210,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             noCost: flags.freeCrafting,
             hasQuickAlchemy,
             knownFormulas: formulasByLevel,
-            entries: await this.prepareCraftingEntries(),
+            entries: await this.#prepareCraftingEntries(craftingFormulas),
         };
 
         this.knownFormulas = Object.values(formulasByLevel)
@@ -362,13 +364,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         actorData.lores = lores;
     }
 
-    protected async prepareCraftingFormulas(): Promise<Record<number, CraftingFormula[]>> {
-        const craftingFormulas = await this.actor.getCraftingFormulas();
-        return Object.fromEntries(groupBy(craftingFormulas, (formula) => formula.level));
-    }
-
-    protected async prepareCraftingEntries(): Promise<CraftingEntriesSheetData> {
-        const actorCraftingEntries = await this.actor.getCraftingEntries();
+    async #prepareCraftingEntries(formulas: CraftingFormula[]): Promise<CraftingEntriesSheetData> {
         const craftingEntries: CraftingEntriesSheetData = {
             dailyCrafting: false,
             other: [],
@@ -379,7 +375,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             },
         };
 
-        for (const entry of actorCraftingEntries) {
+        for (const entry of await this.actor.getCraftingEntries(formulas)) {
             if (entry.isAlchemical) {
                 craftingEntries.alchemical.entries.push(entry);
                 craftingEntries.alchemical.totalReagentCost += entry.reagentCost || 0;
@@ -528,6 +524,24 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 }
             }
 
+            // Versatile-damage toggles
+            const versatileToggleButtons = htmlQueryAll<HTMLButtonElement>(
+                strikeElem,
+                "button[data-action=toggle-versatile]"
+            );
+            for (const button of versatileToggleButtons) {
+                button.addEventListener("click", () => {
+                    const weapon = this.getStrikeFromDOM(button)?.item;
+                    const baseType = weapon?.system.damage.damageType ?? null;
+                    const selection =
+                        button.classList.contains("selected") || button.value === baseType ? null : button.value;
+                    const selectionIsValid = objectHasKey(CONFIG.PF2E.damageTypes, selection) || selection === null;
+                    if (weapon && selectionIsValid) {
+                        toggleWeaponTrait({ trait: "versatile", weapon, selection });
+                    }
+                });
+            }
+
             // Auxiliary actions
             const auxActionButtons = htmlQueryAll<HTMLButtonElement>(
                 strikeElem,
@@ -535,17 +549,18 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             );
             for (const button of auxActionButtons) {
                 const modularSelect = htmlQuery(button, "select");
-                button.addEventListener("click", (event) => {
-                    if (event.target instanceof HTMLSelectElement) return;
+                button.addEventListener("click", () => {
                     const auxiliaryActionIndex = Number(button.dataset.auxiliaryActionIndex ?? NaN);
                     const strike = this.getStrikeFromDOM(button);
                     const selection = modularSelect?.value ?? null;
                     strike?.auxiliaryActions?.at(auxiliaryActionIndex)?.execute({ selection });
                 });
                 // Selecting a damage type isn't committed until the button is pressed
-                modularSelect?.addEventListener("change", (event) => {
-                    event.stopPropagation();
-                });
+                for (const eventType of ["change", "click", "dragenter", "input"]) {
+                    modularSelect?.addEventListener(eventType, (event) => {
+                        event.stopImmediatePropagation();
+                    });
+                }
             }
 
             const meleeIcon = htmlQuery(strikeElem, ".melee-icon");
@@ -560,11 +575,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const ammoSelect = htmlQuery<HTMLSelectElement>(strikeElem, "select[data-action=link-ammo]");
             ammoSelect?.addEventListener("change", (event) => {
                 event.stopPropagation();
-                const actionIndex = Number(htmlClosest(ammoSelect, ".item")?.dataset.actionIndex ?? "NaN");
-                const action = this.actor.system.actions[actionIndex];
-                const weapon = this.actor.items.get(action.item?.id ?? "");
+                const action = this.getStrikeFromDOM(ammoSelect);
+                const weapon = action?.item;
                 const ammo = this.actor.items.get(ammoSelect.value);
-                if (weapon) weapon.update({ system: { selectedAmmoId: ammo?.id ?? null } });
+                weapon?.update({ system: { selectedAmmoId: ammo?.id ?? null } });
             });
         }
 

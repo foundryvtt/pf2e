@@ -19,7 +19,34 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "allowedDrops": {
+                    "label": "PF2E.SpecificRule.AdoptedAncestry.AllowedDrops",
+                    "predicate": [
+                        "item:type:ancestry",
+                        {
+                            "not": "item:ancestry:{actor|system.details.ancestry.trait}"
+                        }
+                    ]
+                },
+                "choices": {
+                    "itemType": "ancestry",
+                    "pack": "pf2e.ancestries",
+                    "query": "{\"$not\":{\"system.slug\":\"{actor|system.details.ancestry.trait}\"},\"system.traits.rarity\":\"common\"}",
+                    "slugsAsValues": true
+                },
+                "flag": "ancestry",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.AdoptedAncestry.Prompt"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.details.ancestry.countsAs",
+                "value": "{item|flags.pf2e.rulesSelections.ancestry}"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },

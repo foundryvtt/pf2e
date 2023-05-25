@@ -1,10 +1,11 @@
 import { ActorPF2e } from "@actor";
 import { createShoddyPenalty } from "@actor/character/helpers.ts";
-import { ModifierPF2e } from "@actor/modifiers.ts";
+import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { ArmorPF2e } from "@item";
 import { ZeroToFour } from "@module/data.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { sluggify } from "@util";
+import * as R from "remeda";
 import { Statistic, StatisticData, StatisticTraceData } from "./index.ts";
 
 class ArmorStatistic extends Statistic {
@@ -31,7 +32,8 @@ class ArmorStatistic extends Statistic {
         super(actor, fullData);
 
         this.details = data.details ?? "";
-        this.dc.modifiers.push(...this.#createBonusesAndPenalties());
+        const dcModifiers = [...this.dc.modifiers, ...this.#createBonusesAndPenalties()].map((m) => m.clone());
+        this.dc.modifiers = [...new StatisticModifier("", dcModifiers, this.dc.options).modifiers];
     }
 
     /** If this statistic belongs to a PC, create bonuses and penalties from their worn armor */
@@ -39,21 +41,24 @@ class ArmorStatistic extends Statistic {
         const { actor } = this;
         if (!actor.isOfType("character")) return [];
         const armor = actor.wornArmor;
-        if (!armor) return [];
 
-        const armorSlug = armor.baseType ?? armor.slug ?? sluggify(armor.name);
+        const armorSlug = armor ? armor.baseType ?? armor.slug ?? sluggify(armor.name) : "";
+        const itemBonus = armor
+            ? new ModifierPF2e({
+                  label: armor.name,
+                  type: "item",
+                  slug: armorSlug,
+                  modifier: armor.acBonus,
+                  item: armor,
+                  adjustments: extractModifierAdjustments(
+                      actor.synthetics.modifierAdjustments,
+                      ["all", "ac"],
+                      armorSlug
+                  ),
+              })
+            : null;
 
-        return [
-            new ModifierPF2e({
-                label: armor.name,
-                type: "item",
-                slug: armorSlug,
-                modifier: armor.acBonus,
-                item: armor,
-                adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, ["all", "ac"], armorSlug),
-            }),
-            ...[createShoddyPenalty(actor, armor, this.dc.domains) ?? [], this.#createShieldBonus() ?? []].flat(),
-        ];
+        return R.compact([itemBonus, createShoddyPenalty(actor, armor, this.dc.domains), this.#createShieldBonus()]);
     }
 
     #createShieldBonus(): ModifierPF2e | null {

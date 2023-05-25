@@ -413,6 +413,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         >;
         variant.original = this as SpellPF2e<NonNullable<TParent>>;
         variant.appliedOverlays = appliedOverlays;
+        variant.trickMagicEntry = this.trickMagicEntry;
         // Retrieve tradition since `#prepareSiblingData` isn't run:
         variant.system.traits.value = Array.from(new Set([...variant.traits, ...variant.traditions]));
 
@@ -494,6 +495,22 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         }
 
         if (this.isRitual) this.system.location.value = "rituals";
+
+        // Ensure formulas are never empty string and default to 0
+        for (const formula of Object.values(this.system.damage.value)) {
+            formula.value = formula.value?.trim() || "0";
+        }
+        if (this.system.heightening?.type === "fixed") {
+            for (const heighten of Object.values(this.system.heightening.levels)) {
+                for (const formula of Object.values(heighten.damage?.value ?? {})) {
+                    formula.value = formula.value?.trim() || "0";
+                }
+            }
+        } else if (this.system.heightening?.type === "interval") {
+            for (const key of Object.keys(this.system.heightening.damage)) {
+                this.system.heightening.damage[key] = this.system.heightening.damage[key]?.trim() || "0";
+            }
+        }
 
         this.overlays = new SpellOverlayCollection(this, this.system.overlays);
     }

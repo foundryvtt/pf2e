@@ -1,9 +1,10 @@
+import { SkillLongForm } from "@actor/types.ts";
+import { Rarity } from "@module/data.ts";
+import { setHasElement } from "@util";
 import { adjustDCByRarity, calculateDC, DCOptions } from "../dc.ts";
 import { PhysicalItemPF2e } from "./physical/index.ts";
 import { MagicTradition } from "./spell/types.ts";
 import { MAGIC_TRADITIONS } from "./spell/values.ts";
-import { setHasElement } from "@util";
-import { Rarity } from "@module/data.ts";
 
 /**
  * Implementation of Identify Magic and Identify Alchemy Rules for items
@@ -22,42 +23,43 @@ function getMagicTraditions(item: PhysicalItemPF2e): Set<MagicTradition> {
     return new Set(traits.filter((t): t is MagicTradition => setHasElement(MAGIC_TRADITIONS, t)));
 }
 
+type MagicSkill = Extract<SkillLongForm, "arcana" | "nature" | "religion" | "occultism">;
+
 /** All cursed items are incredibly hard to identify */
 function getDcRarity(item: PhysicalItemPF2e): Rarity {
     return item.traits.has("cursed") ? "unique" : item.rarity;
 }
 
-export interface IdentifyMagicDCs {
-    arc: number;
-    nat: number;
-    rel: number;
-    occ: number;
-}
+export type IdentifyMagicDCs = Record<MagicSkill, number>;
 
 export interface IdentifyAlchemyDCs {
-    cra: number;
+    crafting: number;
 }
 
 export interface GenericIdentifyDCs {
     dc: number;
 }
 
-function identifyMagic(item: PhysicalItemPF2e, baseDc: number, notMatchingTraditionModifier: number) {
+function getIdentifyMagicDCs(
+    item: PhysicalItemPF2e,
+    baseDC: number,
+    notMatchingTraditionModifier: number
+): IdentifyMagicDCs {
     const result = {
-        occult: baseDc,
-        primal: baseDc,
-        divine: baseDc,
-        arcane: baseDc,
+        occult: baseDC,
+        primal: baseDC,
+        divine: baseDC,
+        arcane: baseDC,
     };
     const traditions = getMagicTraditions(item);
     for (const key of MAGIC_TRADITIONS) {
         // once an item has a magic tradition, all skills
         // that don't match the tradition are hard
         if (traditions.size > 0 && !traditions.has(key)) {
-            result[key] = baseDc + notMatchingTraditionModifier;
+            result[key] = baseDC + notMatchingTraditionModifier;
         }
     }
-    return { arc: result.arcane, nat: result.primal, rel: result.divine, occ: result.occult };
+    return { arcana: result.arcane, nature: result.primal, religion: result.divine, occultism: result.occult };
 }
 
 export function isMagical(item: PhysicalItemPF2e): boolean {
@@ -69,7 +71,7 @@ interface IdentifyItemOptions extends DCOptions {
     notMatchingTraditionModifier: number;
 }
 
-export function identifyItem(
+export function getItemIdentificationDCs(
     item: PhysicalItemPF2e,
     { proficiencyWithoutLevel = false, notMatchingTraditionModifier }: IdentifyItemOptions
 ): GenericIdentifyDCs | IdentifyMagicDCs | IdentifyAlchemyDCs {
@@ -77,9 +79,9 @@ export function identifyItem(
     const rarity = getDcRarity(item);
     const dc = adjustDCByRarity(baseDC, rarity);
     if (item.isMagical) {
-        return identifyMagic(item, dc, notMatchingTraditionModifier);
+        return getIdentifyMagicDCs(item, dc, notMatchingTraditionModifier);
     } else if (item.isAlchemical) {
-        return { cra: dc };
+        return { crafting: dc };
     } else {
         return { dc: dc };
     }

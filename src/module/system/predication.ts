@@ -41,7 +41,7 @@ class PredicatePF2e extends Array<PredicateStatement> {
         if (this.length === 0) {
             return true;
         } else if (!this.isValid) {
-            console.error("PF2e System | The provided predicate set is malformed.");
+            console.warn("PF2e System | The provided predicate set is malformed.");
             return false;
         }
 

@@ -2,10 +2,10 @@ import { StrikeAttackTraits } from "@actor/creature/helpers.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ArmorPF2e, ConditionPF2e, WeaponPF2e } from "@item";
 import { ItemCarryType } from "@item/physical/index.ts";
+import { toggleWeaponTrait } from "@item/weapon/helpers.ts";
 import { ZeroToThree, ZeroToTwo } from "@module/data.ts";
 import { ChatMessagePF2e } from "@module/documents.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
-import { StrikeRuleElement } from "@module/rules/rule-element/strike.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
 import { DAMAGE_DIE_FACES } from "@system/damage/values.ts";
 import { PredicatePF2e } from "@system/predication.ts";
@@ -168,21 +168,10 @@ class WeaponAuxiliaryAction {
     async execute({ selection = null }: { selection?: string | null } = {}): Promise<void> {
         const { actor, weapon } = this;
         if (typeof this.carryType === "string") {
-            await actor.adjustCarryType(this.weapon, this.carryType, this.hands ?? 0);
+            actor.adjustCarryType(this.weapon, this.carryType, this.hands ?? 0);
         } else if (selection && tupleHasValue(weapon.system.traits.toggles.modular.options, selection)) {
-            // Interact with a modular weapon to change its damage type
-            const current = weapon.system.traits.toggles.modular.selection;
-            if (current === selection) return;
-
-            const item = actor.items.get(weapon.id);
-            if (item?.isOfType("weapon") && item === weapon) {
-                await item.update({ "system.traits.toggles.modular.selection": selection });
-            } else {
-                const rule = item?.rules.find(
-                    (r): r is StrikeRuleElement => r.key === "Strike" && !r.ignored && r.slug === weapon.slug
-                );
-                await rule?.toggleTrait({ trait: "modular", selection });
-            }
+            const updated = await toggleWeaponTrait({ weapon, trait: "modular", selection });
+            if (!updated) return;
         }
 
         if (!game.combat) return; // Only send out messages if in encounter mode
@@ -278,10 +267,10 @@ function createForceOpenPenalty(actor: CharacterPF2e, domains: string[]): Modifi
 
 function createShoddyPenalty(
     actor: CharacterPF2e,
-    item: WeaponPF2e | ArmorPF2e,
+    item: WeaponPF2e | ArmorPF2e | null,
     domains: string[]
 ): ModifierPF2e | null {
-    if (!item.isShoddy) return null;
+    if (!item?.isShoddy) return null;
 
     const slug = "shoddy";
 

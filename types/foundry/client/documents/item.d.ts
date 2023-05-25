@@ -53,5 +53,6 @@ declare global {
     }
 
     type EmbeddedItemUUID = `Actor.${string}.Item.${string}`;
-    type ItemUUID = WorldDocumentUUID<Item<null>> | EmbeddedItemUUID | CompendiumUUID;
+    type WorldItemUUID = WorldDocumentUUID<Item<null>>;
+    type ItemUUID = WorldItemUUID | EmbeddedItemUUID | CompendiumUUID;
 }

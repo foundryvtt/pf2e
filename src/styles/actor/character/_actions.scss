@@ -16,52 +16,54 @@
                 .actions-title {
                     display: flex;
                     flex-direction: column;
-                    gap: 3px;
                 }
 
                 .item-image {
                     height: 32px;
                     width: 32px;
                 }
+            }
 
-                .ammo {
-                    align-items: center;
-                    display: flex;
-                    gap: 3px;
+            .ammo {
+                align-items: center;
+                display: flex;
+                gap: 3px;
 
-                    select.linked {
-                        font: normal var(--font-size-12) var(--sans-serif);
-                        line-height: var(--font-size-12);
-                        max-width: 50%;
-                        padding-top: 3px;
-                        width: fit-content;
+                select.linked {
+                    font: normal var(--font-size-12) var(--sans-serif);
+                    line-height: var(--font-size-12);
+                    padding-top: 3px;
+                    width: fit-content;
 
-                        &[data-compatible=false] {
-                            color: #ffffff99;
-                        }
-
-                        option, optgroup {
-                            color: white;
-                        }
+                    &[data-compatible="false"] {
+                        color: #ffffff99;
                     }
 
-                    .magazine {
-                        margin-right: 0.5rem;
-                        font-family: var(--sans-serif);
-                        font-weight: 600;
+                    option,
+                    optgroup {
+                        color: white;
+                    }
+                }
 
-                        .icon {
-                            display: inline-block;
-                            width: 0.9rem;
-                            height: 0.9rem;
-                            background-image: url("/assets/icons/heavy-bullets.svg");
-                            background-size: cover;
-                        }
+                .magazine {
+                    margin-right: 0.5rem;
+                    font-family: var(--sans-serif);
+                    font-weight: 600;
+
+                    .icon {
+                        display: inline-block;
+                        width: 0.9rem;
+                        height: 0.9rem;
+                        background-image: url("/assets/icons/heavy-bullets.svg");
+                        background-size: cover;
                     }
                 }
             }
 
             .button-group {
+                align-items: center;
+                display: flex;
+                flex-direction: row;
                 flex-wrap: nowrap;
                 font-size: var(--font-size-14);
                 margin-bottom: 0;
@@ -70,7 +72,7 @@
                     @include button;
                     border: none;
                     flex: 0;
-                    height: 2em;
+                    height: 1.25rem;
                     margin: 0;
                     padding: 0 0.5em;
                     white-space: nowrap;
@@ -92,6 +94,39 @@
                         &:hover {
                             box-shadow: none;
                             text-shadow: 0 0 2px white;
+                        }
+                    }
+                }
+
+                .versatile-options {
+                    align-items: center;
+                    display: flex;
+                    font-size: var(--font-size-14);
+                    gap: 2px;
+                    padding: 0 3px;
+
+                    .title {
+                        text-transform: uppercase;
+                    }
+
+                    button {
+                        align-items: center;
+                        background: var(--bg-dark);
+                        display: flex;
+                        justify-content: center;
+                        width: 3ch;
+
+                        &.selected {
+                            background: var(--body);
+                            color: var(--bg-dark);
+                        }
+
+                        &:hover {
+                            box-shadow: inset 0 0 0 1px rgba(white, 0.15), inset 0 0 0 2px rgba(black, 0.4);
+                        }
+
+                        &:active {
+                            text-shadow: 0 0 1px $rank-legendary;
                         }
                     }
                 }
@@ -132,8 +167,7 @@
                     padding: 3px;
                     white-space: nowrap;
 
-                    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3),
-                                inset 0 0 0 2px rgba(0, 0, 0, 0.2);
+                    box-shadow: inset 0 0 0 1px rgba(white, 0.3), inset 0 0 0 2px rgba(0, 0, 0, 0.2);
 
                     span.activity-icon {
                         line-height: 14px;
@@ -150,11 +184,11 @@
                         cursor: pointer;
 
                         &:hover {
-                            text-shadow: 0 0 1px var(--text-dark);
+                            box-shadow: inset 0 0 0 1px rgba(white, 0.15), inset 0 0 0 2px rgba(black, 0.4);
                         }
 
                         &:active {
-                            box-shadow: none;
+                            color: $rank-legendary;
                         }
                     }
 

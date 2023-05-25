@@ -2,6 +2,8 @@ import type { DamageType } from "@system/damage/types.ts";
 import { objectHasKey, setHasElement, tupleHasValue } from "@util";
 import { WeaponPF2e } from "./document.ts";
 import { WeaponPropertyRuneType } from "./types.ts";
+import { CharacterPF2e } from "@actor";
+import { StrikeRuleElement } from "@module/rules/rule-element/strike.ts";
 
 /** A helper class to handle toggleable weapon traits */
 class WeaponTraitToggles {
@@ -53,8 +55,41 @@ class WeaponTraitToggles {
                 }
             });
 
-        return Array.from(new Set(types));
+        const allOptions = Array.from(new Set(types));
+        return toggle === "modular"
+            ? allOptions
+            : // Filter out any versatile options that are the same as the weapon's base damage type
+              allOptions.filter((t) => this.#weapon.system.damage.damageType !== t);
     }
+}
+
+/**
+ * Update a modular or versatile weapon to change its damage type
+ * @returns A promise indicating whether an update was made
+ */
+async function toggleWeaponTrait({ weapon, trait, selection }: ToggleWeaponTraitParams): Promise<boolean> {
+    const current = weapon.system.traits.toggles[trait].selection;
+    if (current === selection) return false;
+
+    const item = weapon.actor?.items.get(weapon.id);
+    if (item?.isOfType("weapon") && item === weapon) {
+        await item.update({ [`system.traits.toggles.${trait}.selection`]: selection });
+    } else if (item?.isOfType("weapon") && weapon.altUsageType === "melee") {
+        item.update({ [`system.meleeUsage.traitToggles.${trait}`]: selection });
+    } else {
+        const rule = item?.rules.find(
+            (r): r is StrikeRuleElement => r.key === "Strike" && !r.ignored && r.slug === weapon.slug
+        );
+        await rule?.toggleTrait({ trait, selection });
+    }
+
+    return true;
+}
+
+interface ToggleWeaponTraitParams {
+    weapon: WeaponPF2e<CharacterPF2e>;
+    trait: "modular" | "versatile";
+    selection: DamageType | null;
 }
 
 /** Remove duplicate and lesser versions from an array of property runes */
@@ -63,4 +98,4 @@ function prunePropertyRunes(runes: WeaponPropertyRuneType[]): WeaponPropertyRune
     return Array.from(runeSet).filter((r) => !setHasElement(runeSet, `greater${r.titleCase()}`));
 }
 
-export { prunePropertyRunes, WeaponTraitToggles };
+export { WeaponTraitToggles, prunePropertyRunes, toggleWeaponTrait };

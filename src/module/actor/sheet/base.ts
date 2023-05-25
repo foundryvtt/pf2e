@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import { RollFunction, StrikeData } from "@actor/data/base.ts";
+import { StrikeData } from "@actor/data/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { AbstractEffectPF2e, ContainerPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
@@ -42,7 +42,7 @@ import { IdentifyItemPopup } from "./popups/identify-popup.ts";
 import { IWREditor } from "./popups/iwr-editor.ts";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup.ts";
 import { CraftingFormula } from "@actor/character/crafting/index.ts";
-import { UUIDUtils } from "@util/uuid-utils.ts";
+import { UUIDUtils } from "@util/uuid.ts";
 import Sortable, { type SortableEvent } from "sortablejs";
 import { onClickCreateSpell } from "./helpers.ts";
 
@@ -314,24 +314,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             const suboption = suboptionsSelect?.value ?? null;
             if (checkbox && domain && option) {
                 this.actor.toggleRollOption(domain, option, itemId ?? null, checkbox.checked, suboption);
-            }
-        });
-
-        // Roll Attribute Checks
-        $html.find(".attribute-name").on("click", (event) => {
-            event.preventDefault();
-            const key = event.currentTarget.parentElement?.getAttribute("data-attribute") || "";
-            const isSecret = event.currentTarget.getAttribute("data-secret");
-            const attributes: object = this.actor.system.attributes;
-            const attribute: unknown = objectHasKey(attributes, key) ? attributes[key] : null;
-            const isRollable = (property: unknown): property is { roll: RollFunction } =>
-                property instanceof Object && "roll" in property && typeof property["roll"] === "function";
-            if (isRollable(attribute)) {
-                const options = this.actor.getRollOptions(["all", key]);
-                if (isSecret) options.push("secret");
-                attribute.roll({ event, options });
-            } else {
-                this.actor.rollAttribute(event, key);
             }
         });
 

@@ -293,23 +293,18 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             if (typeof speedOverride !== "number") continue;
 
             if (movementType === "land") {
-                const landSpeed = attributes.speed;
                 this.#suppressModifiers(attributes.speed);
-                attributes.speed.totalModifier = speedOverride + landSpeed.totalModifier;
+                attributes.speed.value = speedOverride;
             } else {
                 const { otherSpeeds } = currentSpeeds;
                 const label = game.i18n.localize(CONFIG.PF2E.speedTypes[movementType]);
-                otherSpeeds.findSplice((speed) => speed.type === movementType);
-                otherSpeeds.push({
-                    type: movementType,
-                    label,
-                    value: speedOverride,
-                });
+                otherSpeeds.findSplice((s) => s.type === movementType);
+                otherSpeeds.push({ type: movementType, label, value: speedOverride });
                 const newSpeed = this.actor.prepareSpeed(movementType);
                 if (!newSpeed) throw ErrorPF2e("Unexpected failure retrieving movement type");
                 this.#suppressModifiers(newSpeed);
-                newSpeed.totalModifier = speedOverride + newSpeed.totalModifier;
-                otherSpeeds.findSplice((speed) => speed.type === movementType);
+
+                otherSpeeds.findSplice((s) => s.type === movementType);
                 otherSpeeds.push(newSpeed);
             }
         }
@@ -442,6 +437,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             if (!this.#filterModifier(modifier)) {
                 modifier.adjustments.push({ slug: null, predicate: new PredicatePF2e(), suppress: true });
                 modifier.ignored = true;
+                modifier.enabled = false;
             }
         }
         if (statistic instanceof StatisticModifier) {

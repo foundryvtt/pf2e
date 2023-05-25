@@ -14,6 +14,10 @@ class HeritagePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
         return this.system.traits.rarity;
     }
 
+    get isVersatile(): boolean {
+        return !this.system.ancestry;
+    }
+
     /** Prepare a character's data derived from their heritage */
     override prepareActorData(this: HeritagePF2e<ActorPF2e>): void {
         if (!this.actor.isOfType("character")) throw ErrorPF2e("heritage embedded on non-character");
@@ -31,6 +35,12 @@ class HeritagePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
             name: this.name,
             trait: slug in CONFIG.PF2E.ancestryTraits ? slug : null,
         };
+
+        // If this heritage is versatile, add to the "countsAs" array
+        // (serves as a list of traits of eligible ancestry feats)
+        if (this.isVersatile) {
+            this.actor.system.details.ancestry?.countsAs.push(slug);
+        }
 
         // Add a roll option for this heritage
         this.actor.rollOptions.all[`heritage:${slug}`] = true;

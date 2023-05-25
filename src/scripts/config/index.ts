@@ -576,9 +576,11 @@ export const PF2ECONFIG = {
         "etched-onto-clan-dagger": "PF2E.TraitEtchedOntoAClanDagger",
         "etched-onto-lm-nonmetal-armor": "PF2E.TraitEtchedOntoLightMedNMArmor",
         "etched-onto-med-heavy-armor": "PF2E.TraitEtchedOntoMedHeavyArmor",
+        "etched-onto-bludgeoning-weapon": "PF2E.TraitEtchedOntoABludgeoningWeapon",
         "etched-onto-melee-weapon": "PF2E.TraitEtchedOntoAMeleeWeapon",
         "etched-onto-slashing-melee-weapon": "PF2E.TraitEtchedOntoASlashingMeleeWeapon",
         "etched-onto-piercing-or-slashing-melee-weapon": "PF2E.TraitEtchedOntoAPiercingOrSlashingMeleeWeapon",
+        "etched-onto-piercing-or-slashing-weapon": "PF2E.TraitEtchedOntoAPiercingOrSlashingWeapon",
         "etched-onto-weapon-wo-anarchic-rune": "PF2E.TraitEtchedOntoAWeaponWOAxiomaticRune",
         "etched-onto-weapon-wo-axiomatic-rune": "PF2E.TraitEtchedOntoAWeaponWOAnarchicRune",
         "etched-onto-weapon-wo-unholy-rune": "PF2E.TraitEtchedOntoAWeaponWOHolyRune",
@@ -885,6 +887,8 @@ export const PF2ECONFIG = {
     },
 
     frequencies: {
+        turn: "PF2E.Duration.turn",
+        round: "PF2E.Duration.round",
         PT1M: "PF2E.Duration.PT1M",
         PT10M: "PF2E.Duration.PT10M",
         PT1H: "PF2E.Duration.PT1H",

@@ -1,5 +1,5 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { DC_SLUGS, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
+import { DC_SLUGS } from "@actor/values.ts";
 import { CheckModifier, ensureProficiencyOption, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import { WeaponTrait } from "@item/weapon/types.ts";
@@ -36,7 +36,7 @@ export class ActionMacroHelpers {
             case "perception":
                 return {
                     checkType: "perception-check",
-                    property: "system.attributes.perception",
+                    property: "perception",
                     stat,
                     subtitle: "PF2E.ActionsCheck.perception",
                 };
@@ -49,8 +49,7 @@ export class ActionMacroHelpers {
                 };
             default: {
                 const slug = sluggify(stat);
-                const shortForm = setHasElement(SKILL_LONG_FORMS, slug) ? SKILL_EXPANDED[slug].shortform : slug;
-                const property = `system.skills.${shortForm}`;
+                const property = `skills.${slug}`;
                 return {
                     checkType: "skill-check",
                     property,
@@ -224,6 +223,10 @@ export class ActionMacroHelpers {
                         extraRollOptions: combinedOptions,
                         target: targetActor,
                         traits: traitObjects,
+                        createMessage: options.createMessage,
+                        callback: (roll, outcome, message) => {
+                            options.callback?.({ actor, message, outcome, roll });
+                        },
                     });
                 } else {
                     const check = new CheckModifier(label, statistic, modifiers);

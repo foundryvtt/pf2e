@@ -1,7 +1,7 @@
 {
     "_id": "1XlJ9xLzL19GHoOL",
     "img": "systems/pf2e/icons/features/feats/overdrive-critical-success.webp",
-    "name": "Effect: Overdrive (Critical Success)",
+    "name": "Effect: Overdrive",
     "system": {
         "description": {
             "value": "<p>Your gizmos go into a state of incredible efficiency called critical overdrive, adding great power to your attacks. Your Strikes deal additional damage equal to your Intelligence modifier for 1 minute. After the Overdrive ends, your gizmos become unusable as they cool down or reset, and you can't use Overdrive for 1 minute.</p>"
@@ -17,48 +17,24 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "predicate": [
+                "choices": [
                     {
-                        "not": "feature:expert-overdrive"
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": "@item.origin.system.abilities.int.mod"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "floor(@item.origin.system.abilities.int.mod/2)"
                     }
                 ],
-                "selector": "strike-damage",
-                "slug": "overdrive",
-                "value": "@actor.abilities.int.mod"
+                "flag": "baseDamage",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
             },
             {
                 "key": "FlatModifier",
-                "predicate": [
-                    "feature:expert-overdrive",
-                    {
-                        "not": "feature:master-overdrive"
-                    }
-                ],
                 "selector": "strike-damage",
-                "slug": "overdrive-expert",
-                "value": "@actor.abilities.int.mod+1"
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "feature:master-overdrive",
-                    {
-                        "not": "feature:legendary-overdrive"
-                    }
-                ],
-                "selector": "strike-damage",
-                "slug": "overdrive-master",
-                "value": "@actor.abilities.int.mod+2"
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "feature:legendary-overdrive"
-                ],
-                "selector": "strike-damage",
-                "slug": "overdrive-legendary",
-                "value": "@actor.abilities.int.mod+3"
+                "value": "{item|flags.pf2e.rulesSelections.baseDamage}+ternary(gte(@item.origin.level,15), 3, ternary(gte(@item.origin.level,7), 2, ternary(gte(@item.origin.level,3),1,0)))"
             }
         ],
         "source": {
