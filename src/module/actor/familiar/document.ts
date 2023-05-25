@@ -110,7 +110,6 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         const { level } = this;
 
         const masterLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel" ? 0 : level;
-
         const masterAbilityModifier = this.masterAbilityModifier!;
 
         const { synthetics } = this;
@@ -224,13 +223,15 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         // Perception
         {
             const domains = ["perception", "wis-based", "all"];
-            const mods = master?.perception.modifiers.filter((m) => !["status", "circumstance"].includes(m.type)) ?? [];
-            const totalMod = applyStackingRules(mods);
+            const modifiers = [
+                new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped"),
+                new ModifierPF2e(`PF2E.MasterAbility.${systemData.master.ability}`, masterAbilityModifier, "untyped"),
+            ];
             this.perception = new Statistic(this, {
                 slug: "perception",
                 label: "PF2E.PerceptionLabel",
                 domains,
-                modifiers: [new ModifierPF2e("PF2E.Actor.Familiar.Master.Perception", totalMod, "untyped")],
+                modifiers,
                 check: { type: "perception-check" },
             });
             systemData.attributes.perception = mergeObject(
