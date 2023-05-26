@@ -1,5 +1,22 @@
 # Changelog
 
+## Version 4.12.4
+
+### System Improvements
+
+-   (stwlam) Speed up loading of PC sheets with large numbers of crafting formulas
+
+### Bugfixes
+
+-   (Supe) Fix formula for familiar perception modifier
+-   (Supe) Fix zero damage showing up in persistent damage formulas
+
+### Data Updates
+
+-   (Dire Weasel) Add effects for Resonating Fork - Armor
+-   (Dire Weasel) Add template to Shrieker's Shriek
+-   (stwlam) Add Authorized and Earthbinding to weapon rune options
+
 ## Version 4.12.3
 
 ### Bugfixes
