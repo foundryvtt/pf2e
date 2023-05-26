@@ -21,9 +21,9 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
 
     /** Get the actor from which this effect originated */
     get origin(): ActorPF2e | null {
-        const actorOrToken = this.isOfType("affliction", "effect")
-            ? UUIDUtils.fromUuidSync(this.system.context?.origin.actor ?? "")
-            : null;
+        const actorOrToken: unknown = this.system.context?.origin.actor
+            ? UUIDUtils.fromUuidSync(this.system.context.origin.actor)
+            : this.actor;
 
         return actorOrToken instanceof ActorPF2e
             ? actorOrToken
