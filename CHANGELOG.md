@@ -1,5 +1,15 @@
 # Changelog
 
+## Version 4.12.5
+
+### Bugfixes
+
+-   (In3luki) Gracefully handle PC crafting formulas with dangling item references
+
+### Data Updates
+
+-   (Dire Weasel) Add healing links to Holy Prayer Beads
+
 ## Version 4.12.4
 
 ### System Improvements
