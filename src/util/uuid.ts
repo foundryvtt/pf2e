@@ -19,7 +19,7 @@ class UUIDUtils {
     /** Retrieve multiple documents by UUID */
     static async fromUUIDs(uuids: string[]): Promise<ClientDocument[]> {
         uuids = R.uniq(uuids);
-        const documentsAndIndexData = R.compact(uuids.map((u) => fromUuidSync(u)));
+        const documentsAndIndexData = uuids.flatMap((u) => fromUuidSync(u) ?? []);
         const worldDocs = documentsAndIndexData.filter(
             (d): d is ClientDocument => d instanceof foundry.abstract.Document
         );
