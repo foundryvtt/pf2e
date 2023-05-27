@@ -221,6 +221,7 @@ export class ActionMacroHelpers {
                         dc,
                         extraRollNotes: notes,
                         extraRollOptions: combinedOptions,
+                        modifiers,
                         target: targetActor,
                         traits: traitObjects,
                         createMessage: options.createMessage,
