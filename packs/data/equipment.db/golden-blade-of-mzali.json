@@ -1,6 +1,6 @@
 {
     "_id": "dIUmjoLjlcrKgXbH",
-    "img": "systems/pf2e/icons/default-icons/weapon.svg",
+    "img": "systems/pf2e/icons/equipment/weapons/spear.webp",
     "name": "Golden Blade of Mzali",
     "system": {
         "MAP": {
@@ -74,9 +74,40 @@
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "You have cast elemental form using the Golden Blade of Mzali",
+                "label": "PF2E.SpecificRule.GoldenBladeOfMzali.LitLabel",
+                "option": "lit-golden-blade",
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.GoldenBladeOfMzali.ElementalFormLabel",
                 "option": "used-elemental-form",
                 "toggleable": true
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "lit-golden-blade"
+                ],
+                "value": {
+                    "animation": {
+                        "intensity": 1,
+                        "speed": 2,
+                        "type": "pulse"
+                    },
+                    "bright": 60,
+                    "color": "#343434",
+                    "dim": 120
+                }
+            },
+            {
+                "key": "TokenEffectIcon",
+                "predicate": [
+                    "lit-golden-blade"
+                ],
+                "value": "systems/pf2e/icons/equipment/weapons/spear.webp"
             },
             {
                 "damageType": "fire",
@@ -96,8 +127,30 @@
                     "criticalSuccess"
                 ],
                 "selector": "{item|_id}-damage",
-                "text": "When you critically hit a creature with the spear, the creature takes [[/r 1d8[persistent,fire]]] damage and [[/r 1d8[bleed]]] as its blood boils away. Unlike normal when taking two types of persistent damage, a creature needs only a single successful flat check to remove both the fire and bleed damage.",
+                "text": "PF2E.SpecificRule.GoldenBladeOfMzali.PersistentDamageNote",
                 "title": "{item|name}"
+            },
+            {
+                "category": "persistent",
+                "critical": true,
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "not": "used-elemental-form"
+                    }
+                ],
+                "selector": "{item|_id}-damage"
+            },
+            {
+                "critical": true,
+                "damageType": "bleed",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "selector": "{item|_id}-damage"
             }
         ],
         "size": "med",
