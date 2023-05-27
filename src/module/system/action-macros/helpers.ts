@@ -1,6 +1,8 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
+import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
+import { getRangeIncrement } from "@actor/helpers.ts";
+import { CheckModifier, ModifierPF2e, StatisticModifier, ensureProficiencyOption } from "@actor/modifiers.ts";
 import { DC_SLUGS } from "@actor/values.ts";
-import { CheckModifier, ensureProficiencyOption, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import { WeaponTrait } from "@item/weapon/types.ts";
 import { RollNotePF2e } from "@module/notes.ts";
@@ -9,21 +11,20 @@ import {
     extractModifierAdjustments,
     extractRollSubstitutions,
 } from "@module/rules/helpers.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { CheckPF2e, CheckType } from "@system/check/index.ts";
 import { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success.ts";
+import { Statistic } from "@system/statistic/index.ts";
 import { setHasElement, sluggify } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
 import {
-    CheckContextOptions,
     CheckContext,
-    SimpleRollActionCheckOptions,
-    CheckContextError,
     CheckContextData,
+    CheckContextError,
+    CheckContextOptions,
+    SimpleRollActionCheckOptions,
 } from "./types.ts";
-import { getRangeIncrement } from "@actor/helpers.ts";
-import { CheckPF2e, CheckType } from "@system/check/index.ts";
-import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
-import { TokenDocumentPF2e } from "@scene/index.ts";
-import { Statistic } from "@system/statistic/index.ts";
 
 export class ActionMacroHelpers {
     static resolveStat(stat: string): {
@@ -215,6 +216,7 @@ export class ActionMacroHelpers {
 
                 if (statistic instanceof Statistic) {
                     await statistic.roll({
+                        ...eventToRollParams(options.event),
                         token: selfToken,
                         label,
                         title,
