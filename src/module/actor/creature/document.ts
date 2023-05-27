@@ -604,13 +604,13 @@ abstract class CreaturePF2e<
             Object.defineProperties(merged, {
                 total: {
                     get(): number {
-                        return landSpeed.value + stat.totalModifier;
+                        return stat.value + stat.totalModifier;
                     },
                 },
                 breakdown: {
                     get(): string {
                         return [
-                            `${game.i18n.format("PF2E.SpeedBaseLabel", { type: typeLabel })} ${landSpeed.value}`,
+                            `${game.i18n.format("PF2E.SpeedBaseLabel", { type: typeLabel })} ${stat.value}`,
                             ...stat.modifiers.filter((m) => m.enabled).map((m) => `${m.label} ${m.signedValue}`),
                         ].join(", ");
                     },
