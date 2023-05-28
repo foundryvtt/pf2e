@@ -7,6 +7,8 @@ import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { PartySheetRenderOptions } from "./sheet.ts";
 import { UserPF2e } from "@module/documents.ts";
 import { PartyCampaign, PartyUpdateContext } from "./types.ts";
+import { KingdomModel } from "./kingdom/index.ts";
+import { InvalidCampaign } from "./invalid-campaign.ts";
 
 class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     override armorClass = null;
@@ -20,6 +22,11 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     override get allowedItemTypes(): (ItemType | "physical")[] {
         return [...this.baseAllowedItemTypes, ...(this.campaign?.extraItemTypes ?? [])];
+    }
+
+    /** Parties use the campaign's level as their own level, as they otherwise don't have a level */
+    override get level(): number {
+        return this.campaign?.level ?? super.level;
     }
 
     /** Friendship lives in our hearts */
@@ -41,6 +48,21 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         for (const member of this.members) {
             member?.parties.add(this);
+        }
+
+        // Bind campaign data, though only kingmaker is supported (and hardcoded).
+        // This will need to be expanded to allow modules to add to the list
+        this.campaign = null;
+        const campaignType = game.settings.get("pf2e", "campaignType");
+        if (campaignType !== "none") {
+            const typeMatches = this.system.campaign?.type === campaignType;
+            if (this.system.campaign && !typeMatches) {
+                this.campaign = new InvalidCampaign(this, campaignType);
+            } else {
+                // Hardcoded, later on we need to make this configurable
+                const model = (this.campaign = new KingdomModel(this, this.system.campaign));
+                this.system.campaign = model._source;
+            }
         }
     }
 
@@ -89,6 +111,11 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         if (newMemberUUIDs) {
             const deletedMembers = members.filter((m) => m?.uuid && !newMemberUUIDs.includes(m.uuid));
             options.removedMembers = deletedMembers.map((m) => m.uuid);
+        }
+
+        // Ensure the party campaign type is properly set if any data gets updated
+        if (changed.system?.campaign && this.campaign && this.campaign.type !== "invalid") {
+            changed.system.campaign.type = this.campaign.type;
         }
     }
 

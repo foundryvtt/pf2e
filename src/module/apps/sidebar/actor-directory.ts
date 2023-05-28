@@ -15,7 +15,8 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
         options.renderUpdateKeys.push(
             "system.details.level.value",
             "system.attributes.adjustment",
-            "system.details.members"
+            "system.details.members",
+            "system.campaign.type"
         );
         return options;
     }
@@ -58,6 +59,12 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
         // Implements folder-like collapse/expand functionality for parties.
         for (const partyEl of htmlQueryAll(html, ".party-header")) {
             partyEl.addEventListener("click", (event) => {
+                // If this is a controls element, stop propogation and don't open/collapse the sheet
+                if (htmlClosest(event.target, "a")?.closest(".controls")) {
+                    event.stopPropagation();
+                    return;
+                }
+
                 const folderEl = htmlClosest(event.target, ".party");
                 const documentId = htmlClosest(event.target, "[data-document-id]")?.dataset.documentId ?? "";
                 const party = game.actors.get(documentId);
@@ -158,6 +165,20 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
         const $element = await super._renderInner(data);
         const partyHTML = await renderTemplate("systems/pf2e/templates/sidebar/party-document-partial.hbs", data);
         $element.find(".directory-list").prepend(partyHTML);
+
+        // Inject any additional data for specific party implementations
+        for (const header of htmlQueryAll($element.get(0), ".party")) {
+            const party = game.actors.get(header.dataset.documentId ?? "");
+            if (!(party instanceof PartyPF2e)) continue;
+
+            if (party.campaign?.createSidebarButtons) {
+                const sidebarButtons = party.campaign.createSidebarButtons();
+                if (sidebarButtons) {
+                    header.querySelector(".controls")?.prepend(...sidebarButtons);
+                }
+            }
+        }
+
         return $element;
     }
 

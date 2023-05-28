@@ -13,6 +13,7 @@ interface PartySystemSource extends ActorSystemSource {
     attributes: PartyAttributesSource;
     details: PartyDetailsSource;
     traits?: never;
+    campaign?: PartyCampaignSource;
 }
 
 interface PartyAttributesSource extends ActorAttributesSource {
@@ -51,4 +52,6 @@ interface PartyAttributes
 
 interface PartyDetails extends PartyDetailsSource, ActorDetails {}
 
-export { MemberData, PartySource, PartySystemData };
+type PartyCampaignSource = { type: string } & Record<string, unknown>;
+
+export { MemberData, PartyCampaignSource, PartySource, PartySystemData };
