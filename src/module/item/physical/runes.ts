@@ -150,6 +150,14 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         slug: "anchoring",
         traits: ["abjuration", "magical"],
     },
+    authorized: {
+        level: 3,
+        name: "PF2E.WeaponPropertyRune.authorized.Name",
+        price: 50,
+        rarity: "common",
+        slug: "authorized",
+        traits: ["abjuration", "magical"],
+    },
     axiomatic: {
         damage: {
             dice: [
@@ -339,6 +347,14 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         rarity: "common",
         slug: "disrupting",
         traits: ["magical", "necromancy"],
+    },
+    earthbinding: {
+        level: 5,
+        name: "PF2E.WeaponPropertyRune.earthbinding.Name",
+        price: 125,
+        rarity: "common",
+        slug: "earthbinding",
+        traits: ["magical", "transmutation"],
     },
     energizing: {
         level: 6,

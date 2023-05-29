@@ -315,5 +315,6 @@ function registerWorldSchemaVersion(): void {
         config: true,
         default: MigrationRunner.LATEST_SCHEMA_VERSION,
         type: Number,
+        requiresReload: true,
     });
 }

@@ -1,5 +1,52 @@
 # Changelog
 
+## 4.12.6
+
+### System Improvements
+
+-   (In3luki) Split Compendium Browser settings into subtabs
+
+### Bugfixes
+
+-   (In3luki) Fix attack roll result being labeled as "DC" instead of "AC"
+-   (nikolaj-a) Fix applying ad-hoc modifiers to action checks
+-   (stwlam) Fix calculation of battle form land speeds
+-   (stwlam) Include roll parameters from mouse events in action macros
+
+### Data Updates
+
+-   (Dire Weasel) Add effect for Ichthyosis Mutagen
+-   (Dire Weasel) Add rule element to Battle Medic's Baton
+-   (Dire Weasel) Update descriptions and fix inline damage types of Masks of the Banshee
+-   (SpartanCPA) Fix name of Benthic Reaver
+
+## Version 4.12.5
+
+### Bugfixes
+
+-   (In3luki) Gracefully handle PC crafting formulas with dangling item references
+
+### Data Updates
+
+-   (Dire Weasel) Add healing links to Holy Prayer Beads
+
+## Version 4.12.4
+
+### System Improvements
+
+-   (stwlam) Speed up loading of PC sheets with large numbers of crafting formulas
+
+### Bugfixes
+
+-   (Supe) Fix formula for familiar perception modifier
+-   (Supe) Fix zero damage showing up in persistent damage formulas
+
+### Data Updates
+
+-   (Dire Weasel) Add effects for Resonating Fork - Armor
+-   (Dire Weasel) Add template to Shrieker's Shriek
+-   (stwlam) Add Authorized and Earthbinding to weapon rune options
+
 ## Version 4.12.3
 
 ### Bugfixes

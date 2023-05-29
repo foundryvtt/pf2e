@@ -3,8 +3,9 @@
 
     form {
         display: flex;
-        height: 100%;
+        height: 88%;
         flex-direction: column;
+        margin-bottom: 10px;
 
         .setting-section {
             border: 1px solid #bbb;
@@ -55,6 +56,14 @@
             display: flex;
             flex-wrap: wrap;
 
+            .tab[data-tab].active {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 100%;
+            }
+
             .single-column {
                 width: 100%;
             }
@@ -66,9 +75,19 @@
             }
 
             div {
-                width: 375px;
+                width: 365px;
                 margin-right: 1em;
             }
         }
+    }
+
+    @import "nav";
+    nav {
+        border-width: unset;
+    }
+
+    button.save-settings {
+        background: rgba(0, 0, 0, 0.1);
+        border: 2px groove var(--color-border-light-highlight);
     }
 }
