@@ -257,6 +257,11 @@ class CompendiumBrowser extends Application {
                     contentSelector: "section.content",
                     initial: "landing-page",
                 },
+                {
+                    navSelector: "nav[data-group=settings]",
+                    contentSelector: ".settings-container",
+                    initial: "packs",
+                },
             ],
             scrollY: [".control-area", ".item-list", ".settings-container"],
         };
@@ -478,72 +483,71 @@ class CompendiumBrowser extends Application {
 
         // Settings Tab
         if (activeTabName === "settings") {
-            const form = html.querySelector<HTMLFormElement>(".compendium-browser-settings form");
-            if (form) {
-                form.querySelector("button.save-settings")?.addEventListener("click", async () => {
-                    const formData = new FormData(form);
-                    for (const [t, packs] of Object.entries(this.settings) as [string, { [key: string]: PackInfo }][]) {
-                        for (const [key, pack] of Object.entries(packs) as [string, PackInfo][]) {
-                            pack.load = formData.has(`${t}-${key}`);
-                        }
+            const settings = htmlQuery(html, ".compendium-browser-settings");
+            const form = settings?.querySelector<HTMLFormElement>("form");
+            if (!form) return;
+
+            htmlQuery(settings, "button[data-action=save-settings]")?.addEventListener("click", async () => {
+                const formData = new FormData(form);
+                for (const [t, packs] of Object.entries(this.settings) as [string, { [key: string]: PackInfo }][]) {
+                    for (const [key, pack] of Object.entries(packs) as [string, PackInfo][]) {
+                        pack.load = formData.has(`${t}-${key}`);
                     }
-                    await game.settings.set("pf2e", "compendiumBrowserPacks", this.settings);
+                }
+                await game.settings.set("pf2e", "compendiumBrowserPacks", this.settings);
 
-                    for (const [key, source] of Object.entries(this.packLoader.sourcesSettings.sources)) {
-                        if (!source || isBlank(source.name)) {
-                            delete this.packLoader.sourcesSettings.sources[key]; // just to make sure we clean up
-                            continue;
-                        }
-                        source.load = formData.has(`source-${key}`);
+                for (const [key, source] of Object.entries(this.packLoader.sourcesSettings.sources)) {
+                    if (!source || isBlank(source.name)) {
+                        delete this.packLoader.sourcesSettings.sources[key]; // just to make sure we clean up
+                        continue;
                     }
+                    source.load = formData.has(`source-${key}`);
+                }
 
-                    this.packLoader.sourcesSettings.showEmptySources = formData.has("show-empty-sources");
-                    this.packLoader.sourcesSettings.showUnknownSources = formData.has("show-unknown-sources");
-                    this.packLoader.sourcesSettings.ignoreAsGM = formData.has("ignore-as-gm");
-                    await game.settings.set("pf2e", "compendiumBrowserSources", this.packLoader.sourcesSettings);
+                this.packLoader.sourcesSettings.showEmptySources = formData.has("show-empty-sources");
+                this.packLoader.sourcesSettings.showUnknownSources = formData.has("show-unknown-sources");
+                this.packLoader.sourcesSettings.ignoreAsGM = formData.has("ignore-as-gm");
+                await game.settings.set("pf2e", "compendiumBrowserSources", this.packLoader.sourcesSettings);
 
-                    await this.#resetInitializedTabs();
-                    this.render(true);
-                    ui.notifications.info("PF2E.BrowserSettingsSaved", { localize: true });
-                });
+                await this.#resetInitializedTabs();
+                this.render(true);
+                ui.notifications.info("PF2E.BrowserSettingsSaved", { localize: true });
+            });
 
-                const sourceSearch = htmlQuery<HTMLInputElement>(form, "input[data-element=setting-sources-search]");
-                const sourceToggle = htmlQuery<HTMLInputElement>(
-                    form,
-                    "input[data-action=setting-sources-toggle-visible]"
-                );
-                const sourceSettings = htmlQueryAll<HTMLElement>(form, "label[data-element=setting-source]");
+            const sourceSearch = htmlQuery<HTMLInputElement>(form, "input[data-element=setting-sources-search]");
+            const sourceToggle = htmlQuery<HTMLInputElement>(form, "input[data-action=setting-sources-toggle-visible]");
+            const sourceSettings = htmlQueryAll<HTMLElement>(form, "label[data-element=setting-source]");
 
-                sourceSearch?.addEventListener("input", () => {
-                    const value = sourceSearch.value?.trim().toLocaleLowerCase(game.i18n.lang);
+            sourceSearch?.addEventListener("input", () => {
+                const value = sourceSearch.value?.trim().toLocaleLowerCase(game.i18n.lang);
 
-                    for (const element of sourceSettings) {
-                        const name = element.dataset.name?.toLocaleLowerCase(game.i18n.lang);
-                        const shouldBeHidden = !isBlank(value) && !isBlank(name) && !name.includes(value);
+                for (const element of sourceSettings) {
+                    const name = element.dataset.name?.toLocaleLowerCase(game.i18n.lang);
+                    const shouldBeHidden = !isBlank(value) && !isBlank(name) && !name.includes(value);
 
-                        element.classList.toggle("hidden", shouldBeHidden);
+                    element.classList.toggle("hidden", shouldBeHidden);
+                }
+
+                if (sourceToggle) {
+                    sourceToggle.checked = false;
+                }
+            });
+
+            sourceToggle?.addEventListener("click", () => {
+                for (const element of sourceSettings) {
+                    const checkbox = htmlQuery<HTMLInputElement>(element, "input[type=checkbox]");
+                    if (!element.classList.contains("hidden") && checkbox) {
+                        checkbox.checked = sourceToggle.checked;
                     }
+                }
+            });
 
-                    if (sourceToggle) {
-                        sourceToggle.checked = false;
-                    }
-                });
-
-                sourceToggle?.addEventListener("click", () => {
-                    for (const element of sourceSettings) {
-                        const checkbox = htmlQuery<HTMLInputElement>(element, "input[type=checkbox]");
-                        if (!element.classList.contains("hidden") && checkbox) {
-                            checkbox.checked = sourceToggle.checked;
-                        }
-                    }
-                });
-
-                const deleteButton = htmlQuery<HTMLInputElement>(form, "button[data-action=settings-sources-delete]");
-                deleteButton?.addEventListener("click", async () => {
-                    const localize = localizer("PF2E.SETTINGS.CompendiumBrowserSources");
-                    const confirm = await Dialog.confirm({
-                        title: localize("DeleteAllTitle"),
-                        content: `
+            const deleteButton = htmlQuery<HTMLInputElement>(form, "button[data-action=settings-sources-delete]");
+            deleteButton?.addEventListener("click", async () => {
+                const localize = localizer("PF2E.SETTINGS.CompendiumBrowserSources");
+                const confirm = await Dialog.confirm({
+                    title: localize("DeleteAllTitle"),
+                    content: `
                         <p>
                             ${localize("DeleteAllQuestion")}
                         </p>
@@ -551,16 +555,15 @@ class CompendiumBrowser extends Application {
                             ${localize("DeleteAllInfo")}
                         </p>
                         `,
-                    });
-
-                    if (confirm) {
-                        await this.packLoader.hardReset(this.loadedPacksAll());
-                        await game.settings.set("pf2e", "compendiumBrowserSources", this.packLoader.sourcesSettings);
-                        await this.#resetInitializedTabs();
-                        this.render(true);
-                    }
                 });
-            }
+
+                if (confirm) {
+                    await this.packLoader.hardReset(this.loadedPacksAll());
+                    await game.settings.set("pf2e", "compendiumBrowserSources", this.packLoader.sourcesSettings);
+                    await this.#resetInitializedTabs();
+                    this.render(true);
+                }
+            });
             return;
         }
 
