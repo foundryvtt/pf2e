@@ -193,6 +193,9 @@ class PackExtractor {
         const sanitized = this.#sanitizeDocument(docSource);
         if (isActorSource(sanitized)) {
             sanitized.items = sanitized.items.map((itemData) => this.#sanitizeDocument(itemData, { isEmbedded: true }));
+            for (const item of sanitized.items) {
+                CompendiumPack.convertRuleUUIDs(item, { to: "names", map: this.#idsToNames });
+            }
         }
 
         if (isItemSource(sanitized)) {

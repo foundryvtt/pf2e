@@ -201,6 +201,7 @@ class CompendiumPack {
             docSource.system.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
             for (const item of docSource.items) {
                 item.system.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
+                CompendiumPack.convertRuleUUIDs(item, { to: "ids", map: CompendiumPack.namesToIds });
             }
         }
 
@@ -260,6 +261,8 @@ class CompendiumPack {
                 (c): c is { value: unknown } => typeof c.value === "string" && c.value.startsWith("Compendium.")
             );
 
+        const animalCompanionsPrefix = "Compendium.pf2e-animal-companions.";
+
         const toNameRef = (uuid: string): string => {
             const parts = uuid.split(".");
             const [packId, docId] = parts.slice(2, 4);
@@ -267,7 +270,9 @@ class CompendiumPack {
             if (docName) {
                 return parts.slice(0, 3).concat(docName).join(".");
             } else {
-                console.debug(`Warning: Unable to find document name corresponding with ${uuid}`);
+                if (!uuid.startsWith(animalCompanionsPrefix)) {
+                    console.debug(`Warning: Unable to find document name corresponding with ${uuid}`);
+                }
                 return uuid;
             }
         };
@@ -278,6 +283,8 @@ class CompendiumPack {
             const docId = map.get(packId ?? "")?.get(docName ?? "");
             if (docName && docId) {
                 return uuid.replace(docName, docId);
+            } else if (uuid.startsWith(animalCompanionsPrefix)) {
+                return uuid;
             } else {
                 throw PackError(`Unable to resolve UUID in ${source.name}: ${uuid}`);
             }
@@ -295,9 +302,14 @@ class CompendiumPack {
                 }
             } else if (rule.key === "GrantItem" && typeof rule.uuid === "string" && !rule.uuid.startsWith("{")) {
                 rule.uuid = convert(rule.uuid);
-            } else if (rule.key === "ChoiceSet" && hasUUIDChoices(rule.choices)) {
-                for (const [key, choice] of Object.entries(rule.choices)) {
-                    rule.choices[key].value = convert(choice.value);
+            } else if (rule.key === "ChoiceSet") {
+                if (hasUUIDChoices(rule.choices)) {
+                    for (const [key, choice] of Object.entries(rule.choices)) {
+                        rule.choices[key].value = convert(choice.value);
+                    }
+                }
+                if ("selection" in rule && typeof rule.selection === "string" && rule.selection.startsWith("Compendium.")) {
+                    rule.selection = convert(rule.selection);
                 }
             }
         }
