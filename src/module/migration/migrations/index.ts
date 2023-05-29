@@ -237,3 +237,4 @@ export { Migration836EnergizingConsolidation } from "./836-energizing-consolidat
 export { Migration837MoveHazardBookSources } from "./837-move-hazard-book-source.ts";
 export { Migration838StrikeAttackRollSelector } from "./838-strike-attack-roll-selector.ts";
 export { Migration839ActionCategories } from "./839-action-categories.ts";
+export { Migration840ArrayWrapPredicates } from "./840-array-wrap-predicates.ts";
