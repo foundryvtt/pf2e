@@ -45,6 +45,7 @@ import { CraftingFormula } from "@actor/character/crafting/index.ts";
 import { UUIDUtils } from "@util/uuid.ts";
 import Sortable, { type SortableEvent } from "sortablejs";
 import { onClickCreateSpell } from "./helpers.ts";
+import { ActionType } from "@item/data/base.ts";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -1200,31 +1201,50 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     /** Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset */
     #onClickCreateItem(link: HTMLElement): void {
-        const data: Record<string, string | string[] | number | undefined> = { ...link.dataset };
+        const data = link.dataset;
         if (!objectHasKey(CONFIG.PF2E.Item.documentClasses, data.type)) {
             throw ErrorPF2e(`Unrecognized item type: "${data.type}"`);
         }
 
-        data.img = `systems/pf2e/icons/default-icons/${data.type}.svg`;
-
-        if (data.type === "action") {
-            data.name = game.i18n.localize(`PF2E.ActionType${String(data.actionType).capitalize()}`);
-            mergeObject(data, { "system.actionType.value": data.actionType });
-        } else if (data.type === "melee") {
-            data.name = game.i18n.localize(`PF2E.NewPlaceholders.${data.type.capitalize()}`);
-            mergeObject(data, { "system.weaponType.value": data.actionType });
-        } else if (data.type === "spell") {
+        if (data.type === "spell") {
             return onClickCreateSpell(this.actor, data);
-        } else if (data.type === "lore") {
-            data.name =
-                this.actor.type === "npc"
-                    ? game.i18n.localize("PF2E.SkillLabel")
-                    : game.i18n.localize("PF2E.NewPlaceholders.Lore");
-        } else {
-            data.name = game.i18n.localize(`PF2E.NewPlaceholders.${data.type.capitalize()}`);
         }
 
-        this.actor.createEmbeddedDocuments("Item", [data]);
+        const img: ImageFilePath = `systems/pf2e/icons/default-icons/${data.type}.svg`;
+        const type = data.type;
+        const itemSource = ((): DeepPartial<ItemSourcePF2e> | null => {
+            switch (type) {
+                case "action": {
+                    const name = game.i18n.localize(`PF2E.ActionType${String(data.actionType).capitalize()}`);
+                    const actionType = data.actionType as ActionType;
+                    return { type, img, name, system: { actionType: { value: actionType } } };
+                }
+                case "melee": {
+                    const name = game.i18n.localize(`PF2E.NewPlaceholders.${type.capitalize()}`);
+                    const weaponType = data.actionType as "melee" | "ranged";
+                    return { type, img, name, system: { weaponType: { value: weaponType } } };
+                }
+                case "lore": {
+                    const name =
+                        this.actor.type === "npc"
+                            ? game.i18n.localize("PF2E.SkillLabel")
+                            : game.i18n.localize("PF2E.NewPlaceholders.Lore");
+                    return { type, img, name };
+                }
+                default:
+                    console.warn(`Unsupported item type ${type}`);
+                    return null;
+            }
+        })();
+
+        if (itemSource) {
+            if (data.traits) {
+                const traits = String(data.traits).split(",");
+                itemSource.system = mergeObject(itemSource.system ?? {}, { traits: { value: traits } });
+            }
+
+            this.actor.createEmbeddedDocuments("Item", [itemSource]);
+        }
     }
 
     /** Render confirmation dialog to sell all treasure */
