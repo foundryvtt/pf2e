@@ -308,7 +308,11 @@ class CompendiumPack {
                         rule.choices[key].value = convert(choice.value);
                     }
                 }
-                if ("selection" in rule && typeof rule.selection === "string" && rule.selection.startsWith("Compendium.")) {
+                if (
+                    "selection" in rule &&
+                    typeof rule.selection === "string" &&
+                    rule.selection.startsWith("Compendium.")
+                ) {
                     rule.selection = convert(rule.selection);
                 }
             }
