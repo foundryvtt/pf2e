@@ -1,5 +1,25 @@
 # Changelog
 
+## 4.12.6
+
+### System Improvements
+
+-   (In3luki) Split Compendium Browser settings into subtabs
+
+### Bugfixes
+
+-   (In3luki) Fix attack roll result being labeled as "DC" instead of "AC"
+-   (nikolaj-a) Fix applying ad-hoc modifiers to action checks
+-   (stwlam) Fix calculation of battle form land speeds
+-   (stwlam) Include roll parameters from mouse events in action macros
+
+### Data Updates
+
+-   (Dire Weasel) Add effect for Ichthyosis Mutagen
+-   (Dire Weasel) Add rule element to Battle Medic's Baton
+-   (Dire Weasel) Update descriptions and fix inline damage types of Masks of the Banshee
+-   (SpartanCPA) Fix name of Benthic Reaver
+
 ## Version 4.12.5
 
 ### Bugfixes
