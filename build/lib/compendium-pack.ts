@@ -201,6 +201,7 @@ class CompendiumPack {
             docSource.system.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
             for (const item of docSource.items) {
                 item.system.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
+                CompendiumPack.convertRuleUUIDs(item, { to: "ids", map: CompendiumPack.namesToIds });
             }
         }
 
@@ -257,7 +258,7 @@ class CompendiumPack {
         const hasUUIDChoices = (choices: object | string | undefined): choices is Record<string, { value: string }> =>
             typeof choices === "object" &&
             Object.values(choices ?? {}).every(
-                (c): c is { value: unknown } => typeof c.value === "string" && c.value.startsWith("Compendium.")
+                (c): c is { value: unknown } => typeof c.value === "string" && c.value.startsWith("Compendium.pf2e.")
             );
 
         const toNameRef = (uuid: string): string => {
@@ -283,7 +284,14 @@ class CompendiumPack {
             }
         };
 
-        const convert = to === "ids" ? toIDRef : toNameRef;
+        const convert = (uuid: string): string => {
+            if (uuid.startsWith("Item.")) {
+                throw PackError(`World-item UUID found: ${uuid}`);
+            }
+            if (!uuid.startsWith("Compendium.pf2e.")) return uuid;
+            return to === "ids" ? toIDRef(uuid) : toNameRef(uuid);
+        };
+
         const rules: REMaybeWithUUIDs[] = source.system.rules;
 
         for (const rule of rules) {
@@ -293,11 +301,14 @@ class CompendiumPack {
                         effect.uuid = convert(effect.uuid);
                     }
                 }
-            } else if (rule.key === "GrantItem" && typeof rule.uuid === "string" && !rule.uuid.startsWith("{")) {
+            } else if (rule.key === "GrantItem" && typeof rule.uuid === "string") {
                 rule.uuid = convert(rule.uuid);
             } else if (rule.key === "ChoiceSet" && hasUUIDChoices(rule.choices)) {
                 for (const [key, choice] of Object.entries(rule.choices)) {
                     rule.choices[key].value = convert(choice.value);
+                }
+                if ("selection" in rule && typeof rule.selection === "string") {
+                    rule.selection = convert(rule.selection);
                 }
             }
         }
