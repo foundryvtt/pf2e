@@ -10,6 +10,12 @@ If you would like to undertake a similar project, much of what this system inclu
 
 If you have any suggestions or feedback, please contact us on Discord in the #pf2e channel on the Foundry Discord server.
 
+**Compatibility**
+
+This system is not yet ready for Foundry VTT v11!
+
+![Not ready for v11](https://cdn.discordapp.com/attachments/697845559435853865/1113162807165325333/NotReadyV11.png)
+
 ## Licenses
 
 **Project Licensing:**
