@@ -1,29 +1,40 @@
 import type { ActorPF2e } from "@actor";
+import { SpellSource } from "@item/spell/index.ts";
+import { ZeroToTen } from "@module/data.ts";
 import { ErrorPF2e } from "@util";
+import * as R from "remeda";
 
-function onClickCreateSpell(actor: ActorPF2e, data: Record<string, string | string[] | number | undefined>): void {
+function onClickCreateSpell(actor: ActorPF2e, data: Record<string, unknown>): void {
     if (!data.location) {
         throw ErrorPF2e("Unexpected missing spellcasting-entry location");
     }
 
-    data.level = Number(data.level ?? 1);
+    const level = Number(data.level ?? 1) as ZeroToTen;
     const newLabel = game.i18n.localize("PF2E.NewLabel");
     const [levelLabel, spellLabel] =
-        data.level > 0
+        level > 0
             ? [
                   game.i18n.localize(`PF2E.SpellLevel${data.level}`),
                   game.i18n.localize(data.location === "rituals" ? "PF2E.SpellCategoryRitual" : "PF2E.SpellLabel"),
               ]
-            : ["", game.i18n.localize("PF2E.TraitCantrip")];
-    data.name = `${newLabel} ${levelLabel} ${spellLabel}`.replace(/\s{2,}/, " ");
-    data["system.traits.value"] = data.level === 0 ? ["cantrip"] : [];
-    data["system.level.value"] = data.level || 1;
-    data["system.location.value"] = data.location;
+            : [null, game.i18n.localize("PF2E.TraitCantrip")];
+    const source = {
+        type: "spell",
+        name: R.compact([newLabel, levelLabel, spellLabel]).join(" "),
+        system: {
+            level: { value: level || 1 },
+            location: { value: String(data.location) },
+            traits: {
+                value: level === 0 ? ["cantrip"] : [],
+            },
+        },
+    } satisfies DeepPartial<SpellSource>;
+
     if (data.location === "rituals") {
-        data["system.category.value"] = "ritual";
+        source.system = mergeObject(source.system, { category: { value: "ritual" } });
     }
 
-    actor.createEmbeddedDocuments("Item", [expandObject(data)]);
+    actor.createEmbeddedDocuments("Item", [source]);
 }
 
 export { onClickCreateSpell };
