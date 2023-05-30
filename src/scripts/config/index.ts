@@ -884,6 +884,7 @@ export const PF2ECONFIG = {
         interaction: "PF2E.Item.Action.Category.Interaction",
         defensive: "PF2E.Item.Action.Category.Defensive",
         offensive: "PF2E.Item.Action.Category.Offensive",
+        familiar: "PF2E.Item.Action.Category.Familiar",
     },
 
     frequencies: {
