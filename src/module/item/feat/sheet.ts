@@ -3,6 +3,7 @@ import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/sheet/index.ts";
 import { htmlQuery, tagify } from "@util";
 import Tagify from "@yaireo/tagify";
 import { featCanHaveKeyOptions } from "./helpers.ts";
+import { FrequencySource } from "@item/data/base.ts";
 
 class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
     override get validTraits(): Record<string, string> {
@@ -43,8 +44,8 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
         }
 
         htmlQuery(html, "a[data-action=frequency-add]")?.addEventListener("click", () => {
-            const per = CONFIG.PF2E.frequencies.day;
-            this.item.update({ system: { frequency: { max: 1, per } } });
+            const frequency: FrequencySource = { max: 1, per: "day" };
+            this.item.update({ system: { frequency } });
         });
 
         htmlQuery(html, "a[data-action=frequency-delete]")?.addEventListener("click", () => {
