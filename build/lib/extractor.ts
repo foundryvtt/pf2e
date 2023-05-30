@@ -239,7 +239,10 @@ class PackExtractor {
 
             const idPattern = new RegExp(`(?<!"_?id":")${docId}(?=\\])`, "g");
             // Remove link labels when the label is the same as the document name
-            const labeledLinkPattern = new RegExp(String.raw`(@UUID\[[^\]]+\])\{${docName}\}`);
+            const labeledLinkPattern = (() => {
+                const escapedDocName = docName.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&");
+                return new RegExp(String.raw`(@UUID\[[^\]]+\])\{${escapedDocName}\}`);
+            })();
             return partiallyConverted.replace(idPattern, docName).replace(labeledLinkPattern, "$1");
         }, docJSON);
 
