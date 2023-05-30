@@ -4,7 +4,7 @@ import { ArmorPF2e, ConditionPF2e, WeaponPF2e } from "@item";
 import { ItemCarryType } from "@item/physical/index.ts";
 import { toggleWeaponTrait } from "@item/weapon/helpers.ts";
 import { ZeroToThree, ZeroToTwo } from "@module/data.ts";
-import { ChatMessagePF2e } from "@module/documents.ts";
+import { ActorPF2e, ChatMessagePF2e } from "@module/documents.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
 import { DAMAGE_DIE_FACES } from "@system/damage/values.ts";
@@ -266,11 +266,11 @@ function createForceOpenPenalty(actor: CharacterPF2e, domains: string[]): Modifi
 }
 
 function createShoddyPenalty(
-    actor: CharacterPF2e,
+    actor: ActorPF2e,
     item: WeaponPF2e | ArmorPF2e | null,
     domains: string[]
 ): ModifierPF2e | null {
-    if (!item?.isShoddy) return null;
+    if (!actor.isOfType("character") || !item?.isShoddy) return null;
 
     const slug = "shoddy";
 
