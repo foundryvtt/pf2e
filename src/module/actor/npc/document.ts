@@ -449,6 +449,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             // override untrained skills if defined in the NPC data
             const skill = sluggify(item.name); // normalize skill name to lower-case and dash-separated words
             const ability = objectHasKey(SKILL_EXPANDED, skill) ? SKILL_EXPANDED[skill].ability : "int";
+            const label = objectHasKey(CONFIG.PF2E.skillList, skill) ? CONFIG.PF2E.skillList[skill] : item.name;
 
             const base = item.system.mod.value;
             const domains = [
@@ -462,7 +463,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
             const statistic = new Statistic(this, {
                 slug: skill,
-                label: item.name,
+                label,
                 ability,
                 lore: !objectHasKey(SKILL_EXPANDED, skill),
                 domains,
