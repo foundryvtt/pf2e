@@ -71,9 +71,9 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
               [`traits-${classTrait}`]
             : this.actor.itemTypes.feat.some((f) => f.traits.has("dedication"))
             ? // The PC has at least one dedication feat: include all archetype feats
-              [`traits-${classTrait}`, `traits-archetype`]
+              [`traits-${classTrait}`, "traits-archetype"]
             : // No dedication feat has been selected: include dedication but no other archetype feats
-              [`traits-${classTrait},traits-dedication`];
+              [`traits-${classTrait}`, "traits-dedication"];
         this.createGroup({
             id: "class",
             label: "PF2E.FeatClassHeader",
