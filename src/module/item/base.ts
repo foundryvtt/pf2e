@@ -26,6 +26,7 @@ import { ItemSheetPF2e } from "./sheet/base.ts";
 import { ItemFlagsPF2e, ItemSystemData } from "./data/base.ts";
 import { ItemInstances } from "./types.ts";
 import { UUIDUtils } from "@util/uuid.ts";
+import { ItemOriginFlag } from "@module/chat-message/data.ts";
 
 /** Override and extend the basic :class:`Item` implementation */
 class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item<TParent> {
@@ -190,7 +191,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                     canPopout: true,
                 },
                 pf2e: {
-                    origin: { uuid: this.uuid, type: this.type },
+                    origin: this.getOriginData(),
                 },
             },
             type: CONST.CHAT_MESSAGE_TYPES.OTHER,
@@ -310,6 +311,10 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         await this.update(updates, { diff: false, recursive: false });
         ui.notifications.info(`Item "${this.name}" has been refreshed.`);
+    }
+
+    getOriginData(): ItemOriginFlag {
+        return { uuid: this.uuid, type: this.type as ItemType };
     }
 
     /* -------------------------------------------- */
