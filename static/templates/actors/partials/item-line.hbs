@@ -32,9 +32,9 @@
             </span>
         {{/if}}
         <span class="item-quantity">
-            {{#if editable}}<a class="item-decrease-quantity" data-action="decrease-quantity">&ndash;</a>{{/if}}
+            {{#if editable}}<a class="item-decrease-quantity" data-action="decrease-quantity" title="{{localize "PF2E.Actor.Inventory.ItemQuantity.Decrease.Click"}}&#013;{{localize "PF2E.Actor.Inventory.ItemQuantity.Decrease.ShiftClick"}}&#013;{{localize "PF2E.Actor.Inventory.ItemQuantity.Decrease.ControlClick"}}">&ndash;</a>{{/if}}
             <span>{{item.quantity}}</span>
-            {{#if editable}}<a class="item-increase-quantity" data-action="increase-quantity">+</a>{{/if}}
+            {{#if editable}}<a class="item-increase-quantity" data-action="increase-quantity" title="{{localize "PF2E.Actor.Inventory.ItemQuantity.Increase.Click"}}&#013;{{localize "PF2E.Actor.Inventory.ItemQuantity.Increase.ShiftClick"}}&#013;{{localize "PF2E.Actor.Inventory.ItemQuantity.Increase.ControlClick"}}">+</a>{{/if}}
         </span>
 
         {{#if (ne @root.actor.type "npc")}}

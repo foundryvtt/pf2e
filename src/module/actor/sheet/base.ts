@@ -524,13 +524,15 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 }
                 case "increase-quantity": {
                     const item = getItem();
-                    item.update({ "system.quantity": item.quantity + 1 });
+                    const addend = event.ctrlKey ? 10 : event.shiftKey ? 5 : 1;
+                    item.update({ "system.quantity": item.quantity + addend });
                     return;
                 }
                 case "decrease-quantity": {
                     const item = getItem();
                     if (item.quantity > 0) {
-                        item.update({ "system.quantity": item.quantity - 1 });
+                        const subtrahend = Math.min(item.quantity, event.ctrlKey ? 10 : event.shiftKey ? 5 : 1);
+                        item.update({ "system.quantity": item.quantity - subtrahend });
                     }
                     return;
                 }
