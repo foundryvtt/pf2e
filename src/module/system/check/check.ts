@@ -23,6 +23,7 @@ import { CheckModifiersDialog } from "./dialog.ts";
 import { CheckRoll, CheckRollDataPF2e } from "./roll.ts";
 import { StrikeAttackRoll } from "./strike/attack-roll.ts";
 import { CheckRollContext } from "./types.ts";
+import { ItemType } from "@item/data/index.ts";
 
 interface RerollOptions {
     heroPoint?: boolean;
@@ -232,7 +233,14 @@ class CheckPF2e {
 
         type MessagePromise = Promise<ChatMessagePF2e | ChatMessageSourcePF2e>;
         const message = await ((): MessagePromise => {
-            const origin = item && { uuid: item.uuid, type: item.type };
+            const origin: ChatMessageSourcePF2e["flags"]["pf2e"]["origin"] = item && {
+                uuid: item.uuid,
+                type: item.type as ItemType,
+            };
+            if (origin && item?.isOfType("spell")) {
+                origin.castLevel = item.level;
+                if (item.isVariant) origin.spellVariantOverlayIds = [...item.appliedOverlays!.values()];
+            }
             const coreFlags: Record<string, unknown> = { canPopout: true };
             if (context.type === "initiative") coreFlags.initiativeRoll = true;
             const flags = {

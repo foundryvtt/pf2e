@@ -1,7 +1,7 @@
 import { StrikeData } from "@actor/data/base.ts";
 import { ItemPF2e } from "@item";
 import { ItemType } from "@item/data/index.ts";
-import { ChatMessagePF2e, DamageRollContextFlag } from "@module/chat-message/index.ts";
+import { ChatMessageFlagsPF2e, ChatMessagePF2e, DamageRollContextFlag } from "@module/chat-message/index.ts";
 import { ZeroToThree } from "@module/data.ts";
 import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
 import { DamageRoll, DamageRollDataPF2e } from "./roll.ts";
@@ -162,7 +162,14 @@ export class DamagePF2e {
 
         const { self, target } = context;
         const item = self?.item ?? null;
-        const origin = item ? { uuid: item.uuid, type: item.type as ItemType } : null;
+        const origin: ChatMessageFlagsPF2e["pf2e"]["origin"] = item && {
+            uuid: item.uuid,
+            type: item.type as ItemType,
+        };
+        if (origin && item?.isOfType("spell")) {
+            origin.castLevel = item.level;
+            if (item.isVariant) origin.spellVariantOverlayIds = [...item.appliedOverlays!.values()];
+        }
         const targetFlag = target ? { actor: target.actor.uuid, token: target.token.uuid } : null;
 
         // Retrieve strike flags. Strikes need refactoring to use ids before we can do better
