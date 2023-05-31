@@ -210,6 +210,17 @@
                                 <div class="action-header">
                                     <div class="action-name rollable">
                                         <h4><a>{{action.name}} {{{actionGlyph action.actionCost}}}</a></h4>
+                                        {{#if action.system.frequency}}
+                                            <section class="action-tracking">
+                                                <input type="number" value="{{action.system.frequency.value}}" data-item-id="{{action._id}}" data-item-property="system.frequency.value"/>
+                                                <span>
+                                                    /
+                                                    {{action.system.frequency.max}}
+                                                    {{localize "PF2E.Frequency.per"}}
+                                                    {{localize (lookup @root.frequencies action.system.frequency.per)}}
+                                                </span>
+                                            </section>
+                                        {{/if}}
                                     </div>
                                     <div class="item-controls">
                                         <a class="item-chat chat" title="{{localize "PF2E.NPC.SendToChat"}}"><i class="fa-solid fa-fw fa-comment-alt"></i></a>
