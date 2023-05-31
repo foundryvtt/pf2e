@@ -8,7 +8,7 @@ import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
 import { MeasuredTemplateDocumentPF2e } from "@scene/index.ts";
 import { MeasuredTemplatePF2e } from "@module/canvas/index.ts";
 
-const inlineSelector = ["action", "check", "effect-area", "repost"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
+const inlineSelector = ["action", "check", "effect-area"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
 
 export const InlineRollLinks = {
     injectRepostElement: (links: HTMLElement[], foundryDoc?: ClientDocument): void => {
@@ -29,7 +29,9 @@ export const InlineRollLinks = {
             if (foundryDoc && !foundryDoc.isOwner) continue;
 
             const newButton = document.createElement("i");
-            newButton.classList.add("fas", "fa-comment-alt");
+            const icon =
+                link.parentElement?.dataset?.pf2Checkgroup !== undefined ? "fa-comment-alt-dots" : "fa-comment-alt";
+            newButton.classList.add("fas", icon);
             newButton.setAttribute("data-pf2-repost", "");
             newButton.setAttribute("title", game.i18n.localize("PF2E.Repost"));
             link.appendChild(newButton);
@@ -38,11 +40,9 @@ export const InlineRollLinks = {
 
     listen: ($html: HTMLElement | JQuery, foundryDoc?: ClientDocument): void => {
         const html = $html instanceof HTMLElement ? $html : $html[0]!;
-        if ($html instanceof HTMLElement) $html = $($html);
 
         const links = htmlQueryAll(html, inlineSelector).filter((l) => l.nodeName === "SPAN");
         InlineRollLinks.injectRepostElement(links, foundryDoc);
-        const $repostLinks = $html.find("i.fas.fa-comment-alt").filter(inlineSelector);
 
         InlineRollLinks.flavorDamageRolls(html, foundryDoc instanceof ActorPF2e ? foundryDoc : null);
 
@@ -66,13 +66,16 @@ export const InlineRollLinks = {
                 : null;
         };
 
-        $repostLinks.filter("i[data-pf2-repost]").on("click", (event) => {
-            const target = event.currentTarget;
-            const parent = target.parentElement;
-            const document = documentFromDOM(target);
-            if (parent) InlineRollLinks.repostAction(parent, document);
-            event.stopPropagation();
-        });
+        htmlQueryAll(html, "i[data-pf2-repost]").forEach((btn) =>
+            btn.addEventListener("click", (event) => {
+                const target = event.target;
+                if (!(target instanceof HTMLElement)) return;
+                const parent = target?.parentElement;
+                const document = documentFromDOM(target);
+                if (parent) InlineRollLinks.repostAction(parent, document);
+                event.stopPropagation();
+            })
+        );
 
         const $links = $(links);
         $links.filter("[data-pf2-action]").on("click", (event) => {
@@ -136,12 +139,11 @@ export const InlineRollLinks = {
                         const statistic = actor.getStatistic(pf2Check ?? "");
                         if (statistic) {
                             const dcValue = (() => {
+                                const adjustment = Number(pf2Adjustment) || 0;
                                 if (pf2Dc === "@self.level") {
-                                    const adjustment = Number(pf2Adjustment) || 0;
                                     return calculateDC(actor.level) + adjustment;
                                 }
-
-                                return Number(pf2Dc);
+                                return Number(pf2Dc) + adjustment;
                             })();
 
                             const dc = Number.isInteger(dcValue) ? { label: pf2Label, value: dcValue } : null;
@@ -202,6 +204,12 @@ export const InlineRollLinks = {
         });
     },
 
+    makeRepostHtml: (target: HTMLElement, defaultVisibility: string): string => {
+        const flavor = target.attributes.getNamedItem("data-pf2-repost-flavor")?.value ?? "";
+        const showDC = target.attributes.getNamedItem("data-pf2-show-dc")?.value ?? defaultVisibility;
+        return `<span data-visibility="${showDC}">${flavor}</span> ${target.outerHTML}`.trim();
+    },
+
     repostAction: (
         target: HTMLElement,
         document: ActorPF2e | JournalEntry | JournalEntryPage<JournalEntry> | null = null
@@ -210,9 +218,19 @@ export const InlineRollLinks = {
             return;
         }
 
-        const flavor = target.attributes.getNamedItem("data-pf2-repost-flavor")?.value ?? "";
-        const showDC =
-            target.attributes.getNamedItem("data-pf2-show-dc")?.value ?? (document?.hasPlayerOwner ? "all" : "gm");
+        const defaultVisibility = document?.hasPlayerOwner ? "all" : "gm";
+        const content = (() => {
+            if (target.parentElement?.dataset?.pf2Checkgroup !== undefined) {
+                const content = htmlQueryAll(target.parentElement, inlineSelector)
+                    .map((target) => InlineRollLinks.makeRepostHtml(target, defaultVisibility))
+                    .join("<br>");
+
+                return `<div data-pf2-checkgroup>${content}</div>`;
+            } else {
+                return InlineRollLinks.makeRepostHtml(target, defaultVisibility);
+            }
+        })();
+
         const speaker =
             document instanceof ActorPF2e
                 ? ChatMessagePF2e.getSpeaker({
@@ -226,7 +244,7 @@ export const InlineRollLinks = {
 
         ChatMessagePF2e.create({
             speaker,
-            content: `<span data-visibility="${showDC}">${flavor}</span> ${target.outerHTML}`.trim(),
+            content,
             flags,
         });
     },

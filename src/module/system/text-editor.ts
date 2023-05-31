@@ -266,7 +266,7 @@ class TextEditorPF2e extends TextEditor {
         inlineLabel?: string;
         item?: ItemPF2e | null;
         actor?: ActorPF2e | null;
-    }): HTMLSpanElement | null {
+    }): HTMLElement | null {
         // Parse the parameter string
         const parts = paramString.split("|");
         const params: { type: string; dc: string } & Record<string, string> = { type: "", dc: "" };
@@ -320,6 +320,62 @@ class TextEditorPF2e extends TextEditor {
         // Deduplicate traits
         const allTraits = Array.from(new Set(traits));
 
+        const types = params.type.split(",");
+        let adjustments = params.adjustment?.split(",") ?? ["0"];
+
+        if (types.length !== adjustments.length && adjustments.length > 1) {
+            ui.notifications.warn(game.i18n.localize("PF2E.InlineCheck.Errors.AdjustmentLengthMismatch"));
+            return null;
+        } else if (types.length > adjustments.length) {
+            adjustments = new Array(types.length).fill(adjustments[0]);
+        }
+
+        if (adjustments.some((adj) => adj !== "" && isNaN(parseInt(adj)))) {
+            ui.notifications.warn(game.i18n.localize("PF2E.InlineCheck.Errors.NonIntegerAdjustment"));
+            return null;
+        }
+
+        const buttons = types.map((type, i) =>
+            this.#createSingleCheck({
+                allTraits,
+                actor,
+                item,
+                inlineLabel,
+                params: { ...params, ...{ type, adjustment: adjustments[i] || "0" } },
+            })
+        );
+        if (buttons.length === 1) {
+            return buttons[0];
+        } else {
+            const checkGroup = document.createElement("div");
+            checkGroup.setAttribute("data-pf2-checkgroup", "");
+            for (const button of buttons) {
+                if (button === null) {
+                    // Warning should have been displayed already by #createSingleCheck
+                    return null;
+                }
+                if (checkGroup.hasChildNodes()) {
+                    checkGroup.appendChild(document.createElement("br"));
+                }
+                checkGroup.appendChild(button);
+            }
+            return checkGroup;
+        }
+    }
+
+    static #createSingleCheck({
+        params,
+        allTraits,
+        item,
+        actor,
+        inlineLabel,
+    }: {
+        params: { type: string; dc: string } & Record<string, string>;
+        allTraits: string[];
+        item?: ItemPF2e | null;
+        actor?: ActorPF2e | null;
+        inlineLabel?: string;
+    }): HTMLSpanElement | null {
         // Build the inline link
         const html = document.createElement("span");
         html.setAttribute("data-pf2-traits", `${allTraits}`);
@@ -378,9 +434,14 @@ class TextEditorPF2e extends TextEditor {
             // Let the inline roll function handle level base DCs
             const checkDC = params.dc === "@self.level" ? params.dc : getCheckDC({ name, params, item, actor });
             html.setAttribute("data-pf2-dc", checkDC);
+
+            // When using fixed DCs/adjustments, parse and add them to render the real DC
+            const displayedDC = !isNaN(parseInt(params.dc))
+                ? `${parseInt(params.dc) + parseInt(params.adjustment)}`
+                : checkDC;
             const text = html.innerHTML;
             if (checkDC !== "@self.level") {
-                html.innerHTML = game.i18n.format("PF2E.DCWithValueAndVisibility", { role, dc: checkDC, text });
+                html.innerHTML = game.i18n.format("PF2E.DCWithValueAndVisibility", { role, dc: displayedDC, text });
             }
         }
         return html;
