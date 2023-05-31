@@ -4,6 +4,7 @@ import { ItemPF2e, ItemSheetPF2e } from "@item";
 import { StatusEffects } from "@module/canvas/status-effects.ts";
 import { MigrationRunner } from "@module/migration/runner/index.ts";
 import { isImageOrVideoPath } from "@util";
+import * as R from "remeda";
 import { AutomationSettings } from "./automation.ts";
 import { HomebrewElements } from "./homebrew/menu.ts";
 import { MetagameSettings } from "./metagame.ts";
@@ -261,9 +262,23 @@ export function registerSettings(): void {
     });
     WorldClockSettings.registerSettings();
 
+    game.settings.register("pf2e", "campaignType", {
+        name: "PF2E.SETTINGS.CampaignType.Name",
+        hint: "PF2E.SETTINGS.CampaignType.Hint",
+        scope: "world",
+        config: false, // 🤫
+        default: "none",
+        choices: R.mapToObj(["none", "kingmaker"], (key) => [key, `PF2E.SETTINGS.CampaignType.Choices.${key}`]),
+        type: String,
+        onChange: async () => {
+            await resetActors(game.actors.filter((a) => a.isOfType("party")));
+            ui.sidebar.render();
+        },
+    });
+
     game.settings.register("pf2e", "campaignFeats", {
-        name: CONFIG.PF2E.SETTINGS.CampaignFeats.name,
-        hint: CONFIG.PF2E.SETTINGS.CampaignFeats.hint,
+        name: "PF2E.SETTINGS.CampaignFeats.Name",
+        hint: "PF2E.SETTINGS.CampaignFeats.Hint",
         scope: "world",
         config: true,
         default: false,

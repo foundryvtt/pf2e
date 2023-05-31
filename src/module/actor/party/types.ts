@@ -50,8 +50,12 @@ interface PartyUpdateContext<TParent extends TokenDocumentPF2e | null> extends A
 
 /** Interface for a party campaign implementation, alternative data preparation used by parties for special campaigns */
 interface PartyCampaign {
+    type: string;
+    level?: number;
     /** Any additional item types supported by the campaign */
     extraItemTypes?: ItemType[];
+    /** Sidebar buttons to inject into the party header */
+    createSidebarButtons?(): HTMLElement[];
 }
 
 export { MemberBreakdown, PartyCampaign, PartySheetData, PartyUpdateContext, LanguageSheetData };

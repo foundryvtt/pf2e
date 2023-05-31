@@ -186,6 +186,7 @@ declare global {
 
         get(module: "pf2e", setting: "campaignFeats"): boolean;
         get(module: "pf2e", setting: "campaignFeatSections"): FeatGroupOptions[];
+        get(module: "pf2e", setting: "campaignType"): string;
 
         get(module: "pf2e", setting: "homebrew.weaponCategories"): HomebrewTag<"weaponCategories">[];
         get(module: "pf2e", setting: HomebrewTraitSettingsKey): HomebrewTag[];
