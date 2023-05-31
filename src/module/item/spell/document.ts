@@ -449,6 +449,8 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                     origin: {
                         type: this.type,
                         uuid: this.uuid,
+                        castLevel: this.level,
+                        spellVariantOverlayIds: this.isVariant ? [...this.appliedOverlays!.values()] : [],
                         name: this.name,
                         slug: this.slug,
                         traits: deepClone(this.system.traits.value),

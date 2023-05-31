@@ -2,6 +2,8 @@ import { MeasuredTemplateDocumentPF2e } from "@scene/measured-template-document.
 import { TemplateLayerPF2e } from "./index.ts";
 import { highlightGrid } from "./helpers.ts";
 import { ScenePF2e } from "@scene/index.ts";
+import { ItemPF2e } from "@item";
+import { ActorPF2e } from "@actor";
 
 class MeasuredTemplatePF2e<
     TDocument extends MeasuredTemplateDocumentPF2e<ScenePF2e | null> = MeasuredTemplateDocumentPF2e<ScenePF2e | null>
@@ -104,6 +106,10 @@ class MeasuredTemplatePF2e<
             this.refresh();
         }
     };
+
+    get item(): ItemPF2e<ActorPF2e> | null {
+        return this.document.item;
+    }
 }
 
 interface MeasuredTemplatePF2e<
