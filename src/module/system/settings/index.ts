@@ -266,7 +266,7 @@ export function registerSettings(): void {
         name: "PF2E.SETTINGS.CampaignType.Name",
         hint: "PF2E.SETTINGS.CampaignType.Hint",
         scope: "world",
-        config: BUILD_MODE === "development",
+        config: false, // 🤫
         default: "none",
         choices: R.mapToObj(["none", "kingmaker"], (key) => [key, `PF2E.SETTINGS.CampaignType.Choices.${key}`]),
         type: String,
