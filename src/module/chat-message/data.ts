@@ -15,14 +15,13 @@ type ChatMessageFlagsPF2e = foundry.documents.ChatMessageFlags & {
     pf2e: {
         damageRoll?: DamageRollFlag;
         context?: ChatContextFlag;
-        origin?: { type: ItemType; uuid: string } | null;
-        casting?: { id: string; level: number; tradition: MagicTradition } | null;
+        origin?: { type: ItemType; uuid: string; castLevel?: number; spellVariantOverlayIds?: string[] } | null;
+        casting?: { id: string; tradition: MagicTradition } | null;
         modifierName?: string;
         modifiers?: BaseRawModifier[];
         preformatted?: "flavor" | "content" | "both";
         isFromConsumable?: boolean;
         journalEntry?: DocumentUUID;
-        spellVariant?: { overlayIds: string[] };
         strike?: StrikeLookupData | null;
         appliedDamage?: AppliedDamageFlag | null;
         [key: string]: unknown;

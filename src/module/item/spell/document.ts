@@ -575,12 +575,14 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const flags = messageSource.flags.pf2e;
         const entry = this.trickMagicEntry ?? this.spellcasting;
 
+        flags.origin!.castLevel = Number(castData.castLevel) || this.level;
+        if (this.isVariant) flags.origin!.spellVariantOverlayIds = [...this.appliedOverlays!.values()];
+
         if (entry?.statistic) {
             // Eventually we need to figure out a way to request a tradition if the ability doesn't provide one
             const tradition = Array.from(this.traditions).at(0);
             flags.casting = {
                 id: entry.id,
-                level: Number(castData.castLevel) || this.level,
                 tradition: entry.tradition ?? tradition ?? "arcane",
             };
 
@@ -597,12 +599,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         }
 
         flags.isFromConsumable = this.isFromConsumable;
-
-        if (this.isVariant) {
-            flags.spellVariant = {
-                overlayIds: [...this.appliedOverlays!.values()],
-            };
-        }
 
         if (!create) {
             message.updateSource(messageSource);
