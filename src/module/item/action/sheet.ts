@@ -2,6 +2,8 @@ import { ActionItemPF2e } from "@item/action/document.ts";
 import { ItemSheetDataPF2e } from "@item/sheet/data-types.ts";
 import { getActionIcon } from "@util/misc.ts";
 import { ItemSheetPF2e } from "../sheet/base.ts";
+import { FrequencySource } from "@item/data/base.ts";
+import { htmlQuery } from "@util";
 
 export class ActionSheetPF2e extends ItemSheetPF2e<ActionItemPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<ActionSheetData> {
@@ -25,13 +27,14 @@ export class ActionSheetPF2e extends ItemSheetPF2e<ActionItemPF2e> {
 
     override activateListeners($html: JQuery<HTMLElement>): void {
         super.activateListeners($html);
+        const html = $html[0];
 
-        $html.find("[data-action=frequency-add]").on("click", () => {
-            const per = CONFIG.PF2E.frequencies.day;
-            this.item.update({ system: { frequency: { max: 1, per } } });
+        htmlQuery(html, "a[data-action=frequency-add]")?.addEventListener("click", () => {
+            const frequency: FrequencySource = { max: 1, per: "day" };
+            this.item.update({ system: { frequency } });
         });
 
-        $html.find("[data-action=frequency-delete]").on("click", () => {
+        htmlQuery(html, "a[data-action=frequency-delete]")?.addEventListener("click", () => {
             this.item.update({ "system.-=frequency": null });
         });
     }

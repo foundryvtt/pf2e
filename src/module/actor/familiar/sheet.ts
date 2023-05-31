@@ -1,8 +1,10 @@
+import * as R from "remeda";
 import { CharacterPF2e } from "@actor";
 import { CreatureSheetPF2e } from "@actor/creature/sheet.ts";
 import { FamiliarPF2e } from "@actor/familiar/index.ts";
-import { FamiliarSheetData } from "./types.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { ActionItemPF2e } from "@item";
+import { CreatureSheetData } from "@actor/creature/index.ts";
 
 /**
  * @category Actor
@@ -38,7 +40,7 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
         const abilities = CONFIG.PF2E.abilities;
 
         const size = CONFIG.PF2E.actorSizes[familiar.system.traits.size.value] ?? null;
-        const familiarAbilities = this.actor.master?.attributes?.familiarAbilities ?? { value: 0 };
+        const familiarAbilities = this.actor.master?.attributes?.familiarAbilities;
 
         // Update save labels
         if (baseData.data.saves) {
@@ -54,7 +56,10 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
             masters,
             abilities,
             size,
-            familiarAbilities,
+            familiarAbilities: {
+                value: familiarAbilities?.value ?? 0,
+                items: R.sortBy(this.actor.itemTypes.action, (a) => a.sort),
+            },
         };
     }
 
@@ -70,4 +75,15 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
             this.actor.system.attack.roll({ event, options });
         });
     }
+}
+
+interface FamiliarSheetData<TActor extends FamiliarPF2e> extends CreatureSheetData<TActor> {
+    master: CharacterPF2e | null;
+    masters: CharacterPF2e[];
+    abilities: ConfigPF2e["PF2E"]["abilities"];
+    size: string;
+    familiarAbilities: {
+        value: number;
+        items: ActionItemPF2e[];
+    };
 }

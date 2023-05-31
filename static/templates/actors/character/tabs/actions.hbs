@@ -164,33 +164,7 @@
                         <ol class="actions-list item-list directory-list">
                             {{#each section.actions as |action aid|}}
                                 {{#if action.encounter}}
-                                    <li class="item action" data-item-id="{{action._id}}">
-                                        <div class="item-name rollable">
-                                            <div class="item-image">
-                                                <img src="{{action.img}}"/>
-                                            </div>
-                                            <h4>{{action.name}}</h4>
-                                            {{#if action.system.frequency}}
-                                                <div class="action-tracking">
-                                                    <input type="number" value="{{action.system.frequency.value}}" data-item-id="{{action._id}}" data-item-property="system.frequency.value"/>
-                                                    <span>
-                                                        /
-                                                        {{action.system.frequency.max}}
-                                                        {{localize "PF2E.Frequency.per"}}
-                                                        {{localize (lookup @root.frequencies action.system.frequency.per)}}
-                                                    </span>
-                                                </div>
-                                            {{/if}}
-                                        </div>
-                                        {{#if @root.options.editable}}
-                                            <div class="item-controls">
-                                                <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fa-solid fa-fw fa-edit"></i></a>
-                                                {{#unless action.feat}}
-                                                    <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
-                                                {{/unless}}
-                                            </div>
-                                        {{/if}}
-                                    </li>
+                                    {{> action action=action}}
                                 {{/if}}
                             {{/each}}
                         </ol>
@@ -202,7 +176,7 @@
                         {{localize "PF2E.ActionsActionsHeader"}}
                         {{#if @root.options.editable}}
                             <div class="controls">
-                                <button type="button" class="item-control item-create" data-type="action" data-action-type="free">
+                                <button type="button" class="item-control item-create" data-type="action" data-action-type="free" data-traits="exploration">
                                     <i class="fa-solid fa-fw fa-plus"></i>{{localize "PF2E.CreateActionTitle"}}
                                 </button>
                                 <button type="button" class="item-control action-browse" data-type="action" data-action-type="passive" data-action-trait="exploration">
@@ -215,33 +189,7 @@
                     <ol class="actions-list item-list directory-list">
                         {{#each actor.actions.free.actions as |action aid|}}
                             {{#if action.exploration}}
-                                <li class="action item" data-item-id="{{action._id}}">
-                                    <div class="item-name rollable">
-                                        <div class="item-image" style="background-image: url({{action.img}})">
-                                            <i class="fa-solid fa-comment-alt"></i>
-                                        </div>
-                                        <h4>{{action.name}}</h4>
-                                        {{#if action.system.frequency}}
-                                            <div class="action-tracking">
-                                                <input type="number" value="{{action.system.frequency.value}}" data-item-id="{{action._id}}" data-item-property="system.frequency.value"/>
-                                                <span>
-                                                    /
-                                                    {{action.system.frequency.max}}
-                                                    {{localize "PF2E.Frequency.per"}}
-                                                    {{localize (lookup @root.frequencies action.system.frequency.per)}}
-                                                </span>
-                                            </div>
-                                        {{/if}}
-                                    </div>
-                                    {{#if @root.options.editable}}
-                                        <div class="item-controls">
-                                            <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fa-solid fa-fw fa-edit"></i></a>
-                                            {{#unless action.feat}}
-                                                <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
-                                            {{/unless}}
-                                        </div>
-                                    {{/if}}
-                                </li>
+                                {{> action action=action}}
                             {{/if}}
                         {{/each}}
                     </ol>
@@ -252,7 +200,7 @@
                         {{localize "PF2E.ActionsActionsHeader"}}
                         {{#if @root.options.editable}}
                             <div class="controls">
-                                <button type="button" class="item-control item-create" data-type="action" data-action-type="free">
+                                <button type="button" class="item-control item-create" data-type="action" data-action-type="free" data-traits="downtime">
                                     <i class="fa-solid fa-fw fa-plus"></i>{{localize "PF2E.CreateActionTitle"}}
                                 </button>
                                 <button type="button" class="item-control action-browse" data-type="action" data-action-type="passive" data-action-trait="downtime">
@@ -265,22 +213,7 @@
                     <ol class="actions-list item-list directory-list">
                         {{#each actor.actions.free.actions as |action aid|}}
                             {{#if action.downtime}}
-                                <li class="action item" data-item-id="{{action._id}}">
-                                    <div class="item-name rollable">
-                                        <div class="item-image" style="background-image: url({{action.img}})">
-                                            <i class="fa-solid fa-comment-alt"></i>
-                                        </div>
-                                        <h4>{{action.name}}</h4>
-                                    </div>
-                                    {{#if @root.options.editable}}
-                                        <div class="item-controls">
-                                            <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fa-solid fa-fw fa-edit"></i></a>
-                                            {{#unless action.feat}}
-                                                <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
-                                            {{/unless}}
-                                        </div>
-                                    {{/if}}
-                                </li>
+                                {{> action action=action}}
                             {{/if}}
                         {{/each}}
                     </ol>
@@ -324,4 +257,34 @@
             {{/if}}
         {{/if}}
     </div>
+{{/inline}}
+
+{{#*inline "action"}}
+    <li class="action item" data-item-id="{{action._id}}">
+        <div class="item-name rollable">
+            <div class="item-image">
+                <img src="{{action.img}}"/>
+            </div>
+            <h4>{{action.name}}</h4>
+            {{#if action.system.frequency}}
+                <div class="action-tracking">
+                    <input type="number" value="{{action.system.frequency.value}}" data-item-id="{{action._id}}" data-item-property="system.frequency.value"/>
+                    <span>
+                        /
+                        {{action.system.frequency.max}}
+                        {{localize "PF2E.Frequency.per"}}
+                        {{localize (lookup @root.frequencies action.system.frequency.per)}}
+                    </span>
+                </div>
+            {{/if}}
+        </div>
+        {{#if @root.options.editable}}
+            <div class="item-controls">
+                <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fa-solid fa-fw fa-edit"></i></a>
+                {{#unless action.feat}}
+                    <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
+                {{/unless}}
+            </div>
+        {{/if}}
+    </li>
 {{/inline}}

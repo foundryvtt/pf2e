@@ -1,10 +1,4 @@
 .ability-builder-popup .window-content {
-    $boost-color: #316549;
-    $boost-locked-color: #1b3c2a;
-    $flaw-color: #5e0000;
-    $flaw-locked-color: #5e0000;
-    $neutral-color: var(--alt);
-
     background: url("/assets/sheet/background.webp");
     background-repeat: repeat-x, no-repeat;
     background-size: cover;
@@ -13,28 +7,28 @@
     padding: 10px 20px 10px 20px;
     position: relative;
 
+    h3 {
+        font: 400 var(--font-size-24) var(--serif-condensed);
+        line-height: var(--font-size-24);
+    }
+
+    h4 {
+        font: 400 var(--font-size-10) var(--sans-serif);
+        text-transform: uppercase;
+        color: #605856;
+    }
+
     button:focus:not(:focus-visible) {
         box-shadow: none;
     }
 
-    .background-stripes {
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 50px;
-        right: 0;
-        padding: 10px 20px 10px 20px;
-        pointer-events: none;
-
-        div:nth-child(even) {
-            background-color: rgba(68, 55, 48, 0.1);
-        }
-    }
-
     .row {
-        display: grid;
-        grid-template-columns: 220px repeat(6, 84px);
-        grid-template-rows: auto;
+        display: flex;
+        align-items: center;
+
+        .row-heading {
+            width: 220px;
+        }
 
         &.not-eligible {
             pointer-events: none;
@@ -45,17 +39,47 @@
                 visibility: hidden;
             }
         }
+
+        .abilities {
+            display: grid;
+            grid-template-columns: repeat(6, 84px);
+            grid-template-rows: auto;
+            flex: 0 0 auto;
+        }
+
+        .full-row {
+            display: flex;
+            flex: 1;
+            justify-content: center;
+        }
     }
 
-    .header-row {
+    header.row {
+        align-items: normal;
+        padding-top: 10px;
         height: 60px;
-
-        div {
-            padding-top: 10px;
-        }
 
         .row-column {
             display: block;
+        }
+
+        .abilities {
+            align-items: normal;
+        }
+    }
+
+    .background-stripes {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 50px;
+        right: 0;
+        padding: 10px 20px 10px 20px;
+        pointer-events: none;
+        align-items: normal;
+
+        .abilities div:nth-child(odd) {
+            background-color: rgba(68, 55, 48, 0.1);
         }
     }
 
@@ -88,13 +112,6 @@
                 }
             }
         }
-    }
-
-    .full-row {
-        align-items: center;
-        display: flex;
-        grid-column: 2 / span 6;
-        justify-content: center;
     }
 
     .row-heading {
@@ -130,8 +147,8 @@
             grid-area: remaining;
             display: flex;
             margin-right: 10px;
-            width: 26px;
-            height: 26px;
+            width: 1.6rem;
+            height: 1.6rem;
             border-radius: 50%;
             background: rgba(68, 55, 48, 0.1);
             align-self: center;
@@ -163,19 +180,38 @@
 
         button {
             align-items: center;
+            border: 1px solid var(--button-color);
+            color: var(--button-color);
             display: flex;
             font-size: var(--font-size-12);
-            height: 1.5em;
             justify-content: space-around;
-            line-height: inherit;
-            margin: 4px 0;
             outline: none;
+            margin: 0;
             padding: 0.1em 0 0;
             position: relative;
             text-transform: uppercase;
+
             width: 6em;
+            height: 1.5em;
+
+            &.boost {
+                margin-top: auto; // line up with bottom
+                --button-color: #316549;
+                --button-locked-color: #1b3c2a;
+            }
+
+            &.flaw {
+                margin-bottom: auto; // line up with top
+                --button-color: #5e0000;
+                --button-locked-color: #5e0000;
+            }
+
+            &.selected {
+                background: var(--button-color);
+            }
 
             &:hover {
+                box-shadow: 0 0 5px var(--button-color);
                 cursor: pointer;
 
                 &.key-ability.selected {
@@ -204,6 +240,7 @@
 
             &:disabled {
                 background: rgba(0, 0, 0, 0.04);
+                opacity: 0.4;
 
                 &:active {
                     pointer-events: none;
@@ -211,103 +248,61 @@
             }
 
             &.locked {
+                background: var(--button-locked-color);
+                border-color: var(--button-locked-color);
                 pointer-events: none;
             }
 
-            &.boost {
-                border: 1px solid $boost-color;
-                color: $boost-color;
-
-                &.locked, &.selected {
-                    color: white;
-                }
-
-                &.selected {
-                    background: $boost-color;
-                }
-
-                &.locked {
-                    background: $boost-locked-color;
-                    border-color: $boost-locked-color;
-                }
-
-                &:hover {
-                    box-shadow: 0 0 5px $boost-color;
-                    &:disabled {
-                        box-shadow: none;
-                        color: rgba($boost-color, 0.4);
-                        border-color: rgba($boost-color, 0.4);
-                    }
-                }
-
-                &:disabled {
-                    color: rgba($boost-color, 0.4);
-                    border-color: rgba($boost-color, 0.4);
-                }
-            }
-
-            &.flaw {
-                border: 1px solid $flaw-color;
-                color: $flaw-color;
-
-                &.locked, &.selected {
-                    color: white;
-                }
-
-                &.selected {
-                    background: $flaw-color;
-                }
-
-                &.locked {
-                    background: $flaw-locked-color;
-                    border-color: $flaw-locked-color;
-                }
-
-                &:hover {
-                    box-shadow: 0 0 5px $flaw-color;
-                    &:disabled {
-                        box-shadow: none;
-                        color: rgba($flaw-color, 0.4);
-                        border-color: rgba($flaw-color, 0.4);
-                    }
-                }
-
-                &:disabled {
-                    color: rgba($flaw-color, 0.4);
-                    border-color: rgba($flaw-color, 0.4);
-                }
-            }
-
-            .flaw-indicator {
-                float: left;
-                margin: -1px -6px;
-                height: 14px;
-                width: 27px;
-                background: $flaw-color;
+            &.locked, &.selected {
                 color: white;
-                display: flex;
-                align-items: center;
-                justify-content: center;
             }
+        }
 
-            &.neutral {
-                border: 1px solid $neutral-color;
-                color: $neutral-color;
-
-                &.selected {
-                    border: none;
-                    background: $neutral-color;
-                    color: white;
-                }
-            }
+        div + .boost, button + .boost {
+            margin-top: 4px;
         }
     }
 
     .summary-row {
-        grid-template-rows: auto auto;
-
         .row-heading {
-            grid-row: 1 / 3;
+            display: block;
+        }
+
+        .hint-container {
+            background: rgba(211, 204, 188, 0.4);
+            padding: 12px;
+            margin-right: 10px;
+            border: 1px solid rgba(211, 204, 188, 1);
+            border-radius: 3px;
+            align-self: end;
+
+            h3 {
+                color: var(--primary);
+                font-variant: small-caps;
+                font-size: var(--font-size-20);
+                line-height: var(--font-size-16);
+                font-family: var(--sans-serif-condensed);
+                font-weight: 500;
+            }
+
+            p {
+                font-style: italic;
+                font-size: var(--font-size-12);
+                line-height: var(--font-size-14);
+                font-family: var(--sans-serif);
+                font-weight: 500;
+                margin-bottom: 3px;
+            }
+
+            label {
+                display: flex;
+                align-items: center;
+                margin-top: 10px;
+            }
+        }
+
+        .abilities {
+            grid-template-rows: auto auto;
         }
 
         .row-column {
@@ -347,54 +342,18 @@
         }
 
         .complete {
-            grid-row: 2 / 3;
-            grid-column: 2 / 9;
-
-            display: flex;
-            align-items: flex-end;
-            justify-content: flex-end;
+            grid-row: 2;
+            grid-column: 1 / 7;
             margin-top: 10px;
-
-            button {
-                color: white;
-                background: var(--secondary);
-                height: 35px;
-                width: 131px;
-                border: 1px solid var(--tertiary);
-            }
-        }
-    }
-
-    .hint-container {
-        background: rgba(211, 204, 188, 0.4);
-        padding: 12px;
-        margin-right: 10px;
-        border: 1px solid rgba(211, 204, 188, 1);
-        border-radius: 3px;
-        align-self: end;
-
-        h3 {
-            color: var(--primary);
-            font-variant: small-caps;
-            font-size: var(--font-size-20);
-            line-height: var(--font-size-16);
-            font-family: var(--sans-serif-condensed);
-            font-weight: 500;
+            margin-left: auto;
         }
 
-        p {
-            font-style: italic;
-            font-size: var(--font-size-12);
-            line-height: var(--font-size-14);
-            font-family: var(--sans-serif);
-            font-weight: 500;
-            margin-bottom: 3px;
-        }
-
-        label {
-            display: flex;
-            align-items: center;
-            margin-top: 10px;
+        button.complete {
+            color: white;
+            background: var(--secondary);
+            height: 35px;
+            width: 131px;
+            border: 1px solid var(--tertiary);
         }
     }
 
@@ -428,17 +387,6 @@
             height: var(--font-size-12);
             margin: 0;
         }
-    }
-
-    h3 {
-        font: 400 var(--font-size-24) var(--serif-condensed);
-        line-height: var(--font-size-24);
-    }
-
-    h4 {
-        font: 400 var(--font-size-10) var(--sans-serif);
-        text-transform: uppercase;
-        color: #605856;
     }
 }
 

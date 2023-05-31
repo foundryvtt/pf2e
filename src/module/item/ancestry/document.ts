@@ -33,6 +33,13 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
             .filter((boost): boost is AbilityString => !!boost);
     }
 
+    /** Returns all flaws enforced by this ancestry normally */
+    get lockedFlaws(): AbilityString[] {
+        return Object.values(this.system.flaws)
+            .map((flaw) => flaw.selected)
+            .filter((flaw): flaw is AbilityString => !!flaw);
+    }
+
     /** Include all ancestry features in addition to any with the expected location ID */
     override getLinkedItems(): FeatPF2e<ActorPF2e>[] {
         if (!this.actor) return [];

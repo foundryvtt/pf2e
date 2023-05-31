@@ -192,7 +192,10 @@ class PackExtractor {
 
         const sanitized = this.#sanitizeDocument(docSource);
         if (isActorSource(sanitized)) {
-            sanitized.items = sanitized.items.map((itemData) => this.#sanitizeDocument(itemData, { isEmbedded: true }));
+            sanitized.items = sanitized.items.map((itemData) => {
+                CompendiumPack.convertRuleUUIDs(itemData, { to: "names", map: this.#idsToNames });
+                return this.#sanitizeDocument(itemData, { isEmbedded: true });
+            });
         }
 
         if (isItemSource(sanitized)) {
@@ -234,8 +237,13 @@ class PackExtractor {
                 return partiallyConverted;
             }
 
-            const replacePattern = new RegExp(`(?<!"_?id":")${docId}(?=\\])`, "g");
-            return partiallyConverted.replace(replacePattern, docName);
+            const idPattern = new RegExp(`(?<!"_?id":")${docId}(?=\\])`, "g");
+            // Remove link labels when the label is the same as the document name
+            const labeledLinkPattern = (() => {
+                const escapedDocName = docName.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&");
+                return new RegExp(String.raw`(@UUID\[[^\]]+\])\{${escapedDocName}\}`);
+            })();
+            return partiallyConverted.replace(idPattern, docName).replace(labeledLinkPattern, "$1");
         }, docJSON);
 
         return JSON.parse(convertedJson) as PackEntry;

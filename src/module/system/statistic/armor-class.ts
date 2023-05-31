@@ -39,10 +39,9 @@ class ArmorStatistic extends Statistic {
     /** If this statistic belongs to a PC, create bonuses and penalties from their worn armor */
     #createBonusesAndPenalties(): ModifierPF2e[] {
         const { actor } = this;
-        if (!actor.isOfType("character")) return [];
-        const armor = actor.wornArmor;
 
-        const armorSlug = armor ? armor.baseType ?? armor.slug ?? sluggify(armor.name) : "";
+        const armor = actor.isOfType("character") ? actor.wornArmor : null;
+        const armorSlug = armor?.baseType ?? armor?.slug ?? sluggify(armor?.name ?? "");
         const itemBonus = armor
             ? new ModifierPF2e({
                   label: armor.name,

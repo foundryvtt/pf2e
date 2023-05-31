@@ -2,7 +2,7 @@ import { ActorPF2e, CreaturePF2e } from "@actor";
 import { createSpellcastingDialog } from "@actor/sheet/spellcasting-dialog.ts";
 import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values.ts";
 import { ItemPF2e, SpellPF2e, SpellcastingEntryPF2e } from "@item";
-import { ActionTrait } from "@item/action/index.ts";
+import { ActionCategory, ActionTrait } from "@item/action/index.ts";
 import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { ActionType } from "@item/data/base.ts";
@@ -531,10 +531,10 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
     }
 
     #onClickBrowseActions(button: HTMLElement) {
-        const actionTypes = (button.dataset.actionType || "").split(",") as ActionType[];
-        const actionTraits = (button.dataset.actionTrait || "").split(",") as ActionTrait[];
-
-        game.pf2e.compendiumBrowser.openActionTab(actionTypes, actionTraits);
+        const types = (button.dataset.actionType || "").split(",") as ActionType[];
+        const traits = (button.dataset.actionTrait || "").split(",") as ActionTrait[];
+        const categories = (button.dataset.actionCategory || "").split(",") as ActionCategory[];
+        game.pf2e.compendiumBrowser.openActionTab({ types, traits, categories });
     }
 
     #onClickBrowseSpellCompendia(button: HTMLElement) {
