@@ -172,10 +172,10 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
         sheetData.speeds = {
             land: {
                 label: speedData.label ?? "",
-                value: speedData.value,
+                value: speedData.total,
                 details: speedData.details,
-                adjustedHigher: speedData.total > this.actor._source.system.attributes.speed.value,
-                adjustedLower: speedData.total < this.actor._source.system.attributes.speed.value,
+                adjustedHigher: speedData.total > speedData.value,
+                adjustedLower: speedData.total < speedData.value,
             },
             ...MOVEMENT_TYPES.filter((t): t is Exclude<MovementType, "land"> => t !== "land").reduce((speeds, type) => {
                 const speed = speedData.otherSpeeds.find((s) => s.type === type);
