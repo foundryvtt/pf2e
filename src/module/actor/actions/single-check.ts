@@ -39,12 +39,11 @@ interface SingleCheckActionData extends BaseActionData<SingleCheckActionVariantD
 }
 
 interface SingleCheckActionUseOptions extends ActionUseOptions {
-    actors: ActorPF2e | ActorPF2e[];
     difficultyClass: CheckDC | string;
     modifiers: ModifierPF2e[];
     multipleAttackPenalty: number;
     notes: SingleCheckActionRollNoteData[];
-    rollOptions?: string[];
+    rollOptions: string[];
     statistic: string;
 }
 
@@ -130,7 +129,7 @@ class SingleCheckActionVariant extends BaseActionVariant {
                     note.selector ||= selector; // treat empty selectors as always applicable to this check
                     return note;
                 }),
-            traits: this.traits,
+            traits: this.traits.concat(options?.traits ?? []),
         });
         return results;
     }

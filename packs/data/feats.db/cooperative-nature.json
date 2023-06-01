@@ -19,7 +19,17 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": ["attack-roll", "perception-check", "saving-throw", "skill-check", "check"],
+                "value": 4,
+                "type": "circumstance",
+                "predicate": [
+                    "action:aid"
+                ]
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
