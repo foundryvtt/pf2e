@@ -318,7 +318,7 @@
                 },
                 "damageRolls": {
                     "MR7Ur8Vba5cU6ga5": {
-                        "damage": "3d8+8",
+                        "damage": "1d8+8",
                         "damageType": "piercing"
                     }
                 },
@@ -333,8 +333,7 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "magical",
-                        "shove"
+                        "magical"
                     ]
                 },
                 "weaponType": {
@@ -484,12 +483,32 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Abendego brutes deal an extra [[/r {2d8}]]{2d8 damage} with tridents, and a trident gains the shove trait while the brute is using it in melee (both the extra damage dice and the shove trait are included in the <em>fighter's fork </em>Strikes above).</p>"
+                    "value": "<p>Abendego brutes deal an extra 2d8 damage with tridents, and a trident gains the shove trait while the brute is using it in melee (both the extra damage dice and the shove trait are included in the <em>fighter's fork</em> Strikes above).</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "diceNumber": 2,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:base:trident"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "definition": [
+                            "item:base:trident",
+                            "item:melee"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "weapon-traits",
+                        "value": "shove"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
