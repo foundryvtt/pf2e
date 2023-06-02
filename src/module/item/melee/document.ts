@@ -1,7 +1,7 @@
-import { SIZE_TO_REACH } from "@actor/creature/values.ts";
 import { ActorPF2e } from "@actor";
-import { ItemSummaryData } from "@item/data/index.ts";
+import { SIZE_TO_REACH } from "@actor/creature/values.ts";
 import { ItemPF2e, WeaponPF2e } from "@item";
+import { ItemSummaryData } from "@item/data/index.ts";
 import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponRangeIncrement } from "@item/weapon/types.ts";
 import { simplifyFormula } from "@scripts/dice.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
@@ -88,7 +88,12 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     get dealsDamage(): boolean {
         const { baseDamage } = this;
-        return baseDamage.dice > 0 || baseDamage.modifier > 0;
+        return (
+            baseDamage.dice > 0 ||
+            baseDamage.modifier > 0 ||
+            !!baseDamage.persistent?.number ||
+            Object.values(this.system.damageRolls).some((d) => d.category === "splash")
+        );
     }
 
     /** Additional effects that are part of this attack */

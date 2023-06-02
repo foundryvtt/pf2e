@@ -108,7 +108,7 @@ class WeaponDamagePF2e {
         const { options } = context;
         if (baseDamage.die === null && baseDamage.modifier > 0) {
             baseDamage.dice = 0;
-        } else if (baseDamage.dice === 0 && baseDamage.modifier === 0) {
+        } else if (!weapon.dealsDamage) {
             return null;
         }
 
@@ -511,6 +511,12 @@ class WeaponDamagePF2e {
             modifiers: testedModifiers,
             ignoredResistances,
         };
+
+        // If a weapon deals no base damage, remove all bonuses, penalties, and modifiers to it.
+        if (!(damage.base[0].diceNumber || damage.base[0].modifier)) {
+            damage.dice = damage.dice.filter((d) => ![null, "precision"].includes(d.category));
+            damage.modifiers = damage.modifiers.filter((m) => ![null, "precision"].includes(m.category));
+        }
 
         const excludeFrom = weapon.isOfType("weapon") ? weapon : null;
         this.#excludeDamage({ actor, weapon: excludeFrom, modifiers: [...modifiers, ...damageDice], options });
