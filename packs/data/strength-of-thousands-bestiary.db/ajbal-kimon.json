@@ -369,8 +369,7 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "magical",
-                        "shove"
+                        "magical"
                     ]
                 },
                 "weaponType": {
@@ -882,7 +881,30 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:base:trident",
+                            "item:melee"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "weapon-traits",
+                        "value": "shove"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "item:base:trident"
+                        ],
+                        "selector": "strike-attack-roll",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

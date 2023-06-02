@@ -515,7 +515,7 @@
                 },
                 "damageRolls": {
                     "eLSPGHVs7GYRAtvW": {
-                        "damage": "3d8+11",
+                        "damage": "2d8+11",
                         "damageType": "piercing"
                     },
                     "h7ybr02hncv42ux0kdza": {
@@ -534,8 +534,7 @@
                 "traits": {
                     "value": [
                         "electricity",
-                        "magical",
-                        "shove"
+                        "magical"
                     ]
                 },
                 "weaponType": {
@@ -669,7 +668,7 @@
                 },
                 "damageRolls": {
                     "A5wZez4vLld3L083": {
-                        "damage": "3d8+11",
+                        "damage": "2d8+11",
                         "damageType": "piercing"
                     },
                     "pxb8r6ppq4q4wsl5kyh6": {
@@ -942,12 +941,32 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Bharlen deals an extra [[/r {1d8}]]{1d8 damage} with tridents, and a trident gains the shove trait while she is using it in melee (both the extra damage die and the shove trait have been included in Bharlen's trident Strikes above).</p>"
+                    "value": "<p>Bharlen deals an extra 1d8 damage with tridents, and a trident gains the shove trait while she is using it in melee (both the extra damage die and the shove trait have been included in Bharlen's trident Strikes above).</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:base:trident"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "definition": [
+                            "item:base:trident",
+                            "item:melee"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "weapon-traits",
+                        "value": "shove"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
