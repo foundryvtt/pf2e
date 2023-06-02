@@ -77,19 +77,20 @@ declare class AmbientLight<
     /*  Mouse Interaction Handlers                  */
     /* -------------------------------------------- */
 
-    protected override _canHUD(user: User, event: PIXI.InteractionEvent): boolean;
+    protected override _canHUD(user: User, event: PIXI.FederatedEvent): boolean;
 
-    protected override _canConfigure(user: User, event: PIXI.InteractionEvent): boolean;
+    protected override _canConfigure(user: User, event: PIXI.FederatedEvent): boolean;
 
-    protected override _onClickRight(event: PIXI.InteractionEvent): void;
+    protected override _onClickRight(event: PIXI.FederatedEvent): void;
 
-    protected override _onDragLeftStart(event: PIXI.InteractionEvent): void;
+    protected override _onDragLeftStart(event: PIXI.FederatedEvent): void;
 
-    protected override _onDragLeftMove(event: PIXI.InteractionEvent): void;
+    protected override _onDragLeftMove(event: PIXI.FederatedEvent): void;
 
-    protected override _onDragLeftCancel(event: PIXI.InteractionEvent): void;
+    protected override _onDragLeftCancel(event: PIXI.FederatedEvent): void;
 }
-
-declare interface AmbientLight {
+declare interface AmbientLight<
+    TDocument extends AmbientLightDocument<Scene | null> = AmbientLightDocument<Scene | null>
+> extends PlaceableObject<TDocument> {
     get layer(): LightingLayer<this>;
 }

@@ -109,11 +109,11 @@ declare class MeasuredTemplate<
     /*  Interactivity                               */
     /* -------------------------------------------- */
 
-    protected override _canControl(user: User, event?: PIXI.InteractionEvent): boolean;
+    protected override _canControl(user: User, event?: PIXI.FederatedEvent): boolean;
 
-    protected override _canConfigure(user: User, event?: PIXI.InteractionEvent): boolean;
+    protected override _canConfigure(user: User, event?: PIXI.FederatedEvent): boolean;
 
-    protected override _canView(user: User, event?: PIXI.InteractionEvent): boolean;
+    protected override _canView(user: User, event?: PIXI.FederatedEvent): boolean;
 
     /* -------------------------------------------- */
     /*  Socket Listeners and Handlers               */

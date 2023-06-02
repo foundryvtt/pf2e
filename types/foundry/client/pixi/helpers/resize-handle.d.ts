@@ -30,17 +30,17 @@ declare class ResizeHandle extends PIXI.Graphics {
      * Handle mouse-over event on a control handle
      * @param event The mouseover event
      */
-    protected _onHoverIn(event: PIXI.InteractionEvent): void;
+    protected _onHoverIn(event: PIXI.FederatedEvent): void;
 
     /**
      * Handle mouse-out event on a control handle
      * @param event The mouseout event
      */
-    protected _onHoverOut(event: PIXI.InteractionEvent): void;
+    protected _onHoverOut(event: PIXI.FederatedEvent): void;
 
     /**
      * When we start a drag event - create a preview copy of the Tile for re-positioning
      * @param event The mousedown event
      */
-    protected _onMouseDown(event: PIXI.InteractionEvent): void;
+    protected _onMouseDown(event: PIXI.FederatedEvent): void;
 }

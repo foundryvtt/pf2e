@@ -84,11 +84,11 @@ declare class AmbientSound<
     /*  Interaction Event Handlers                  */
     /* -------------------------------------------- */
 
-    protected override _canHUD(user: User, event: PIXI.InteractionEvent): boolean;
+    protected override _canHUD(user: User, event: PIXI.FederatedEvent): boolean;
 
-    protected override _canConfigure(user: User, event: PIXI.InteractionEvent): boolean;
+    protected override _canConfigure(user: User, event: PIXI.FederatedEvent): boolean;
 
-    protected override _onClickRight(event: PIXI.InteractionEvent): void;
+    protected override _onClickRight(event: PIXI.FederatedEvent): void;
 
-    protected override _onDragLeftMove(event: PIXI.InteractionEvent): void;
+    protected override _onDragLeftMove(event: PIXI.FederatedEvent): void;
 }

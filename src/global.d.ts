@@ -1,3 +1,5 @@
+/// <reference types="vite/client" />
+
 import { ActorPF2e } from "@actor/base.ts";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
 import { FeatGroupOptions } from "@actor/character/feats.ts";
