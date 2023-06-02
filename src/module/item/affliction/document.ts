@@ -2,12 +2,7 @@ import { ActorPF2e } from "@actor";
 import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect/index.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { AfflictionFlags, AfflictionSource, AfflictionSystemData } from "./data.ts";
-import {
-    AfflictionDamageTemplate,
-    DamagePF2e,
-    DamageRollContext,
-    DynamicBaseDamageData,
-} from "@system/damage/index.ts";
+import { AfflictionDamageTemplate, DamagePF2e, DamageRollContext, BaseDamageData } from "@system/damage/index.ts";
 import { createDamageFormula, parseTermsFromSimpleFormula } from "@system/damage/formula.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 
@@ -56,7 +51,7 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     getStageDamage(stage: number): AfflictionDamage | null {
         const stageData = Object.values(this.system.stages).at(stage - 1);
 
-        const base: DynamicBaseDamageData[] = [];
+        const base: BaseDamageData[] = [];
         for (const data of Object.values(stageData?.damage ?? {})) {
             const { formula, type: damageType, category } = data;
             const terms = parseTermsFromSimpleFormula(formula);
