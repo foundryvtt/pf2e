@@ -1,7 +1,7 @@
-import * as R from "remeda";
 import { DamageDicePF2e } from "@actor/modifiers.ts";
-import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
-import { groupBy, sum, sortBy, addSign } from "@util";
+import { DEGREE_OF_SUCCESS, DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
+import { addSign, groupBy, sortBy, sum } from "@util";
+import * as R from "remeda";
 import {
     CriticalInclusion,
     DamageCategoryUnique,
