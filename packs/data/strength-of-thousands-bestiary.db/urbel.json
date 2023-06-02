@@ -746,19 +746,7 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "damageType": "slashing",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "label": "Pound Down",
-                        "predicate": [
-                            "target:condition:prone"
-                        ],
-                        "selector": "{item|_id}-damage"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -767,7 +755,8 @@
                     "rarity": "common",
                     "value": [
                         "agile",
-                        "finesse"
+                        "finesse",
+                        "unarmed"
                     ]
                 },
                 "weaponType": {
@@ -805,19 +794,7 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "damageType": "piercing",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "label": "Pound Down",
-                        "predicate": [
-                            "target:condition:prone"
-                        ],
-                        "selector": "{item|_id}-damage"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -825,8 +802,7 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "fatal-d10",
-                        "shove"
+                        "fatal-d10"
                     ]
                 },
                 "weaponType": {
@@ -862,19 +838,7 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "damageType": "piercing",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "label": "Pound Down",
-                        "predicate": [
-                            "target:condition:prone"
-                        ],
-                        "selector": "{item|_id}-damage"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -882,7 +846,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "finesse"
+                        "finesse",
+                        "unarmed"
                     ]
                 },
                 "weaponType": {
@@ -993,16 +958,34 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalFailure"
+                        "definition": [
+                            "item:melee",
+                            {
+                                "not": "item:category:unarmed"
+                            }
                         ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "weapon-traits",
+                        "value": "shove"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "bully",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "adjustment": {
+                            "criticalFailure": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
                         "predicate": [
-                            "action:shove"
+                            "action:shove",
+                            "bully"
                         ],
-                        "selector": "shove",
-                        "text": "A critical failure when attempting to Shove a creature with the weapon is treated as a failure instead.",
-                        "title": "{item|name}"
+                        "selector": "athletics"
                     }
                 ],
                 "slug": null,
@@ -1036,12 +1019,23 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Urbel's melee Strikes deal an additional [[/r {1d6}]]{1d6 damage} to @UUID[Compendium.pf2e.conditionitems.Prone] targets.</p>"
+                    "value": "<p>Urbel's melee Strikes deal an additional 1d6 damage to @UUID[Compendium.pf2e.conditionitems.Prone] targets.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "melee",
+                            "target:condition:prone"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
