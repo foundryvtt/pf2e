@@ -77,23 +77,19 @@ interface DamagePartialTerm {
     dice: { number: number; faces: number } | null;
 }
 
-interface WeaponBaseDamageData {
+interface BaseDamageData {
+    terms?: DamagePartialTerm[];
     damageType: DamageType;
-    diceNumber: number;
-    dieSize: DamageDieSize | null;
-    modifier: number;
+    diceNumber?: number;
+    dieSize?: DamageDieSize | null;
+    modifier?: number;
     category: DamageCategoryUnique | null;
     materials?: MaterialDamageEffect[];
 }
 
-interface DynamicBaseDamageData {
-    terms: DamagePartialTerm[];
-    damageType: DamageType;
-    category: DamageCategoryUnique | null;
-    materials?: MaterialDamageEffect[];
+interface WeaponBaseDamageData extends BaseDamageData {
+    terms?: never;
 }
-
-type BaseDamageData = WeaponBaseDamageData | DynamicBaseDamageData;
 
 interface BaseDamageTemplate {
     name: string;
@@ -134,7 +130,6 @@ export {
     DamageTemplate,
     DamageType,
     DamageTypeRenderData,
-    DynamicBaseDamageData,
     MaterialDamageEffect,
     SpellDamageTemplate,
     WeaponBaseDamageData,

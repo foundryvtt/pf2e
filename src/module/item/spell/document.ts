@@ -25,12 +25,7 @@ import { DamagePF2e } from "@system/damage/damage.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { DamageModifierDialog } from "@system/damage/modifier-dialog.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import {
-    DamageFormulaData,
-    DamageRollContext,
-    DynamicBaseDamageData,
-    SpellDamageTemplate,
-} from "@system/damage/types.ts";
+import { DamageFormulaData, DamageRollContext, BaseDamageData, SpellDamageTemplate } from "@system/damage/types.ts";
 import { StatisticRollParameters } from "@system/statistic/index.ts";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, getActionIcon, htmlClosest, ordinal, traitSlugToObject } from "@util";
@@ -208,7 +203,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const rollData = this.getRollData({ castLevel });
 
         // Loop over the user defined damage fields
-        const base: DynamicBaseDamageData[] = [];
+        const base: BaseDamageData[] = [];
         for (const [id, damage] of Object.entries(this.system.damage.value ?? {})) {
             if (!Roll.validate(damage.value)) {
                 console.error(`Failed to parse damage formula "${damage.value}"`);

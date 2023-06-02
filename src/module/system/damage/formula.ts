@@ -52,10 +52,11 @@ function createDamageFormula(
         const list = typeMap.get(baseEntry.damageType) ?? [];
         typeMap.set(baseEntry.damageType, list);
 
-        if ("terms" in baseEntry) {
+        if (baseEntry.terms) {
             list.push(...baseEntry.terms.map((t) => ({ ...baseEntry, ...t, label: null, critical: null })));
         } else if ((baseEntry.diceNumber && baseEntry.dieSize) || baseEntry.modifier) {
-            const { diceNumber, dieSize, modifier, damageType } = baseEntry;
+            const { diceNumber, dieSize, damageType } = baseEntry;
+            const modifier = baseEntry.modifier ?? 0;
             const label = (() => {
                 const diceSection = diceNumber ? `${diceNumber}${dieSize}` : null;
                 if (!diceSection) return String(modifier);
@@ -68,7 +69,7 @@ function createDamageFormula(
             list.push({
                 label,
                 dice: diceNumber && dieSize ? { number: diceNumber, faces: Number(dieSize.replace("d", "")) } : null,
-                modifier: modifier ?? 0,
+                modifier,
                 critical: null,
                 damageType,
                 category: baseEntry.category,
@@ -77,16 +78,14 @@ function createDamageFormula(
         }
     }
 
-    // Hold onto base terms for matching reasons (such as adding extra base dice)
-    const baseTerms = [...typeMap.values()].flat();
-
     // Sometimes a weapon may add base damage as bonus modifiers or dice. We need to auto-generate these
     const BONUS_BASE_LABELS = ["PF2E.ConditionTypePersistent"].map((l) => game.i18n.localize(l));
 
     // Add damage dice. Dice always stack
     for (const dice of damage.dice.filter((d) => d.enabled)) {
-        const matchingBase = baseTerms.find((b) => b.damageType === dice.damageType) ?? baseTerms[0];
-        const faces = Number(dice.dieSize?.replace("d", "")) || matchingBase?.dice?.faces || null;
+        const matchingBase = damage.base.find((b) => b.damageType === dice.damageType) ?? damage.base[0];
+        const baseDieSize = Number(matchingBase.dieSize?.replace("d", "")) || matchingBase.terms?.[0].dice?.faces;
+        const faces = Number(dice.dieSize?.replace("d", "")) || baseDieSize || null;
         const damageType = dice.damageType ?? matchingBase.damageType;
         if (dice.diceNumber > 0 && faces) {
             const list = typeMap.get(damageType) ?? [];
@@ -107,7 +106,7 @@ function createDamageFormula(
 
     // Add modifiers
     for (const modifier of damage.modifiers.filter((m) => m.enabled && outcomeMatches(m))) {
-        const matchingBase = baseTerms.find((b) => b.damageType === modifier.damageType) ?? baseTerms[0];
+        const matchingBase = damage.base.find((b) => b.damageType === modifier.damageType) ?? damage.base[0];
         const damageType = modifier.damageType ?? matchingBase.damageType;
 
         const list = typeMap.get(damageType) ?? [];
