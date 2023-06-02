@@ -91,31 +91,31 @@ declare global {
         can(user: User, action: UserAction): boolean;
 
         /** Can the User access the HUD for this Placeable Object? */
-        protected _canHUD(user: User, event?: PIXI.InteractionEvent): boolean;
+        protected _canHUD(user: User, event?: PIXI.FederatedEvent): boolean;
 
         /** Does the User have permission to configure the Placeable Object? */
-        protected _canConfigure(user: User, event?: PIXI.InteractionEvent): boolean;
+        protected _canConfigure(user: User, event?: PIXI.FederatedEvent): boolean;
 
         /** Does the User have permission to control the Placeable Object? */
-        protected _canControl(user: User, event?: PIXI.InteractionEvent): boolean;
+        protected _canControl(user: User, event?: PIXI.FederatedEvent): boolean;
 
         /** Does the User have permission to view details of the Placeable Object? */
-        protected _canView(user: User, event?: PIXI.InteractionEvent): boolean;
+        protected _canView(user: User, event?: PIXI.FederatedEvent): boolean;
 
         /** Does the User have permission to create the underlying Embedded Entity? */
-        protected _canCreate(user: User, event?: PIXI.InteractionEvent): boolean;
+        protected _canCreate(user: User, event?: PIXI.FederatedEvent): boolean;
 
         /** Does the User have permission to drag this Placeable Object? */
-        protected _canDrag(user: User, event?: PIXI.InteractionEvent): boolean;
+        protected _canDrag(user: User, event?: PIXI.FederatedEvent): boolean;
 
         /** Does the User have permission to hover on this Placeable Object? */
-        protected _canHover(user: User, event?: PIXI.InteractionEvent): boolean;
+        protected _canHover(user: User, event?: PIXI.FederatedEvent): boolean;
 
         /** Does the User have permission to update the underlying Embedded Entity? */
-        protected _canUpdate(user: User, event?: PIXI.InteractionEvent): boolean;
+        protected _canUpdate(user: User, event?: PIXI.FederatedEvent): boolean;
 
         /** Does the User have permission to delete the underlying Embedded Entity? */
-        protected _canDelete(user: User, event?: PIXI.InteractionEvent): boolean;
+        protected _canDelete(user: User, event?: PIXI.FederatedEvent): boolean;
 
         /* -------------------------------------------- */
         /*  Rendering                                   */
@@ -248,21 +248,21 @@ declare global {
 
         /** Actions that should be taken for this Placeable Object when a mouseover event occurs */
         protected _onHoverIn(
-            event: PIXI.InteractionEvent,
+            event: PIXI.FederatedEvent,
             { hoverOutOthers }?: { hoverOutOthers?: boolean }
         ): boolean | void;
 
         /** Actions that should be taken for this Placeable Object when a mouseout event occurs */
-        protected _onHoverOut(event: PIXI.InteractionEvent): boolean | void;
+        protected _onHoverOut(event: PIXI.FederatedEvent): boolean | void;
 
         /** Callback actions which occur on a single left-click event to assume control of the object */
-        protected _onClickLeft(event: PIXI.InteractionEvent): boolean | void;
+        protected _onClickLeft(event: PIXI.FederatedEvent): boolean | void;
 
         /** Callback actions which occur on a double left-click event to activate */
-        protected _onClickLeft2(event: PIXI.InteractionEvent): boolean | void;
+        protected _onClickLeft2(event: PIXI.FederatedEvent): boolean | void;
 
         /** Callback actions which occur on a single right-click event to configure properties of the object */
-        protected _onClickRight(event: PIXI.InteractionEvent): void;
+        protected _onClickRight(event: PIXI.FederatedEvent): void;
 
         /**
          * Handle mouse-wheel events at the PlaceableObjects layer level to rotate multiple objects at once.
@@ -272,10 +272,10 @@ declare global {
         protected _onMouseWheel(event: WheelEvent): void;
 
         /** Callback actions which occur on a double right-click event to configure properties of the object */
-        protected _onClickRight2(event: PIXI.InteractionEvent): void;
+        protected _onClickRight2(event: PIXI.FederatedEvent): void;
 
         /** Callback actions which occur when a mouse-drag action is first begun. */
-        protected _onDragLeftStart(event: PIXI.InteractionEvent): void;
+        protected _onDragLeftStart(event: PIXI.FederatedEvent): void;
 
         /**
          * Begin a drag operation from the perspective of the preview clone.
@@ -290,13 +290,13 @@ declare global {
         protected _onDragEnd(): void;
 
         /** Callback actions which occur on a mouse-move operation. */
-        protected _onDragLeftMove(event: PIXI.InteractionEvent): void;
+        protected _onDragLeftMove(event: PIXI.FederatedEvent): void;
 
         /** Callback actions which occur on a mouse-move operation. */
-        protected _onDragLeftDrop(event: PIXI.InteractionEvent): Promise<this["document"][]>;
+        protected _onDragLeftDrop(event: PIXI.FederatedEvent): Promise<this["document"][]>;
 
         /** Callback actions which occur on a mouse-move operation. */
-        protected _onDragLeftCancel(event: PIXI.InteractionEvent): void;
+        protected _onDragLeftCancel(event: PIXI.FederatedEvent): void;
     }
 
     interface PlaceableObject<TDocument extends CanvasDocument = CanvasDocument> extends PIXI.Container {

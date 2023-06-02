@@ -245,13 +245,13 @@ declare global {
          * Handle left mouse-click events which originate from the Canvas stage and are dispatched to this Layer.
          * @see {Canvas#_onClickLeft}
          */
-        protected _onClickLeft(event: PIXI.InteractionEvent): void;
+        protected _onClickLeft(event: PIXI.FederatedEvent): void;
 
         /**
          * Handle double left-click events which originate from the Canvas stage and are dispatched to this Layer.
          * @see {Canvas#_onClickLeft2}
          */
-        protected _onClickLeft2(event: PIXI.InteractionEvent): void;
+        protected _onClickLeft2(event: PIXI.FederatedEvent): void;
 
         /**
          * Start a left-click drag workflow originating from the Canvas stage.
@@ -269,19 +269,19 @@ declare global {
          * Conclude a left-click drag workflow originating from the Canvas stage.
          * @see {Canvas#_onDragLeftDrop}
          */
-        protected _onDragLeftDrop(event: PIXI.InteractionEvent): Promise<void>;
+        protected _onDragLeftDrop(event: PIXI.FederatedEvent): Promise<void>;
 
         /**
          * Cancel a left-click drag workflow originating from the Canvas stage.
          * @see {Canvas#_onDragLeftDrop}
          */
-        protected _onDragLeftCancel(event: PIXI.InteractionEvent): void;
+        protected _onDragLeftCancel(event: PIXI.FederatedEvent): void;
 
         /**
          * Handle right mouse-click events which originate from the Canvas stage and are dispatched to this Layer.
          * @see {Canvas#_onClickRight}
          */
-        protected _onClickRight(event: PIXI.InteractionEvent): void;
+        protected _onClickRight(event: PIXI.FederatedEvent): void;
 
         /**
          * Handle mouse-wheel events at the PlaceableObjects layer level to rotate multiple objects at once.
@@ -294,7 +294,7 @@ declare global {
          * Handle a DELETE keypress while a placeable object is hovered
          * @param event The delete key press event which triggered the request
          */
-        protected _onDeleteKey(event: PIXI.InteractionEvent): Promise<void>;
+        protected _onDeleteKey(event: PIXI.FederatedEvent): Promise<void>;
     }
 
     interface PlaceablesLayerOptions extends CanvasLayerOptions {
@@ -307,8 +307,8 @@ declare global {
         sheetClass: ConstructorOf<FormApplication>;
     }
 
-    interface PlaceablesLayerEvent<TObject extends PlaceableObject> extends PIXI.InteractionEvent {
-        data: PlaceableInteractionData<TObject>;
+    interface PlaceablesLayerEvent<TObject extends PlaceableObject> extends PIXI.FederatedEvent {
+        interactionData: PlaceableInteractionData<TObject>;
     }
 
     interface CanvasHistory<TObject extends PlaceableObject> {
@@ -319,7 +319,7 @@ declare global {
     }
 }
 
-interface PlaceableInteractionData<TObject extends PlaceableObject> extends PIXI.InteractionData {
+interface PlaceableInteractionData<TObject extends PlaceableObject> {
     originalEvent: PlaceablesPointerEvent;
     preview?: TObject | null;
     createState?: number;
@@ -327,6 +327,6 @@ interface PlaceableInteractionData<TObject extends PlaceableObject> extends PIXI
     destination: Point;
 }
 
-type PlaceablesPointerEvent = PIXI.InteractivePointerEvent & {
+type PlaceablesPointerEvent = {
     isShift: boolean;
 };

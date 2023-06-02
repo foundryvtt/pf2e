@@ -8,26 +8,26 @@ export class TemplateLayerPF2e<
         if (!canvas.scene || !canvas.dimensions) return;
 
         // From PlaceablesLayer#_onDragLeftMove
-        const preview = event.data.preview;
+        const preview = event.interactionData.preview;
         if (!preview || preview.destroyed) return;
         if (preview.parent === null) {
             // In theory this should never happen, but rarely does
             this.preview.addChild(preview);
         }
-        const createState = event.data.createState ?? 0;
+        const createState = event.interactionData.createState ?? 0;
 
         if (createState >= 1) {
             // Snap the destination to the grid
-            const dest = event.data.destination;
+            const dest = event.interactionData.destination;
             const { x, y } = canvas.grid.getSnappedPosition(dest.x, dest.y, 2);
             dest.x = x;
             dest.y = y;
 
             // Compute the ray
-            const template = event.data.preview;
+            const template = event.interactionData.preview;
             if (!template) return;
 
-            const ray = new Ray(event.data.origin, event.data.destination);
+            const ray = new Ray(event.interactionData.origin, event.interactionData.destination);
             const ratio = canvas.dimensions.size / canvas.dimensions.distance;
 
             // Update the shape data
@@ -47,7 +47,7 @@ export class TemplateLayerPF2e<
 
             // Draw the pending shape
             template.refresh();
-            event.data.createState = 2;
+            event.interactionData.createState = 2;
         }
     }
 

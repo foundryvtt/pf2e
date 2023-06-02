@@ -473,36 +473,36 @@ declare global {
         /** Define additional steps taken when an existing placeable object of this type is deleted */
         protected override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;
 
-        protected override _canControl(user: User, event?: PIXI.InteractionEvent): boolean;
+        protected override _canControl(user: User, event?: PIXI.FederatedEvent): boolean;
 
-        protected override _canHUD(user: User, event?: PIXI.InteractionEvent): boolean;
+        protected override _canHUD(user: User, event?: PIXI.FederatedEvent): boolean;
 
-        protected override _canConfigure(user: User, event?: PIXI.InteractionEvent): boolean;
+        protected override _canConfigure(user: User, event?: PIXI.FederatedEvent): boolean;
 
-        protected override _canHover(user: User, event?: PIXI.InteractionEvent): boolean;
+        protected override _canHover(user: User, event?: PIXI.FederatedEvent): boolean;
 
-        protected override _canView(user: User, event?: PIXI.InteractionEvent): boolean;
+        protected override _canView(user: User, event?: PIXI.FederatedEvent): boolean;
 
-        protected override _canDrag(user: User, event?: PIXI.InteractionEvent): boolean;
+        protected override _canDrag(user: User, event?: PIXI.FederatedEvent): boolean;
 
         protected override _onHoverIn(
-            event: PIXI.InteractionEvent,
+            event: PIXI.FederatedEvent,
             { hoverOutOthers }?: { hoverOutOthers?: boolean }
         ): boolean | void;
 
-        protected override _onHoverOut(event: PIXI.InteractionEvent): boolean | void;
+        protected override _onHoverOut(event: PIXI.FederatedEvent): boolean | void;
 
-        protected override _onClickLeft(event: PIXI.InteractionEvent): void;
+        protected override _onClickLeft(event: PIXI.FederatedEvent): void;
 
-        protected override _onClickLeft2(event: PIXI.InteractionEvent): void;
+        protected override _onClickLeft2(event: PIXI.FederatedEvent): void;
 
-        protected override _onClickRight2(event: PIXI.InteractionEvent): void;
+        protected override _onClickRight2(event: PIXI.FederatedEvent): void;
 
-        protected override _onDragLeftDrop(event: TokenInteractionEvent<this>): Promise<TDocument[]>;
+        protected override _onDragLeftDrop(event: TokenFederatedEvent<this>): Promise<TDocument[]>;
 
-        protected override _onDragLeftMove(event: TokenInteractionEvent<this>): void;
+        protected override _onDragLeftMove(event: TokenFederatedEvent<this>): void;
 
-        protected override _onDragLeftCancel(event: TokenInteractionEvent<this>): void;
+        protected override _onDragLeftCancel(event: TokenFederatedEvent<this>): void;
 
         protected override _onDragStart(): void;
 
@@ -551,8 +551,8 @@ declare global {
         editable: boolean;
     }
 
-    interface TokenInteractionEvent<T extends Token> extends PIXI.InteractionEvent {
-        data: PIXI.InteractionData & {
+    interface TokenFederatedEvent<T extends Token> extends PIXI.FederatedEvent {
+        interactionData: {
             clones?: T[];
         };
     }

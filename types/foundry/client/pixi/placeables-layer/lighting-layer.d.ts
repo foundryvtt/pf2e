@@ -117,11 +117,11 @@ declare global {
          */
         protected _onDarknessChange(darkness: number, prior: number): void;
 
-        protected override _onDragLeftStart(event: PIXI.InteractionEvent): Promise<void>;
+        protected override _onDragLeftStart(event: PIXI.FederatedEvent): Promise<void>;
 
-        protected override _onDragLeftMove(event: PIXI.InteractionEvent): Promise<void>;
+        protected override _onDragLeftMove(event: PIXI.FederatedEvent): Promise<void>;
 
-        protected override _onDragLeftCancel(event: PIXI.InteractionEvent): void;
+        protected override _onDragLeftCancel(event: PIXI.FederatedEvent): void;
 
         protected override _onMouseWheel(event: WheelEvent): void;
     }
@@ -129,7 +129,7 @@ declare global {
     interface IlluminationContainer extends PIXI.Container {
         primary: PIXI.Container;
         background: PIXI.Graphics;
-        filter: InstanceType<typeof PIXI.filters.AlphaFilter> | InstanceType<typeof PIXI.filters.BlurFilter>;
+        filter: InstanceType<typeof PIXI.AlphaFilter> | InstanceType<typeof PIXI.BlurFilter>;
         lights: PIXI.Container;
     }
 

@@ -190,12 +190,14 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         this.auras.draw();
     }
 
+    /** @fixme */
     emitHoverIn(): void {
-        this.emit("mouseover", { data: { object: this } });
+        this.emit("mouseover", { interactionData: { object: this } } as unknown as PIXI.FederatedPointerEvent);
     }
 
+    /** @fixme */
     emitHoverOut(): void {
-        this.emit("mouseout", { data: { object: this } });
+        this.emit("mouseout", { interactionData: { object: this } } as unknown as PIXI.FederatedPointerEvent);
     }
 
     /** If Party Vision is enabled, make all player-owned actors count as vision sources for non-GM users */
@@ -348,14 +350,14 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         this.auras.refresh();
     }
 
-    protected override _onDragLeftStart(event: TokenInteractionEvent<this>): void {
+    protected override _onDragLeftStart(event: TokenFederatedEvent<this>): void {
         super._onDragLeftStart(event);
         this.auras.clearHighlights();
     }
 
     /** If a single token (this one) was dropped, re-establish the hover status */
-    protected override async _onDragLeftDrop(event: TokenInteractionEvent<this>): Promise<this["document"][]> {
-        const clones = event.data.clones ?? [];
+    protected override async _onDragLeftDrop(event: TokenFederatedEvent<this>): Promise<this["document"][]> {
+        const clones = event.interactionData.clones ?? [];
         const dropped = await super._onDragLeftDrop(event);
 
         if (clones.length === 1) {
@@ -368,7 +370,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return dropped;
     }
 
-    protected override _onHoverIn(event: PIXI.InteractionEvent, options?: { hoverOutOthers?: boolean }): boolean {
+    protected override _onHoverIn(event: PIXI.FederatedEvent, options?: { hoverOutOthers?: boolean }): boolean {
         const refreshed = super._onHoverIn(event, options);
         if (refreshed === false) return false;
         this.auras.refresh();
@@ -376,7 +378,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return true;
     }
 
-    protected override _onHoverOut(event: PIXI.InteractionEvent): boolean {
+    protected override _onHoverOut(event: PIXI.FederatedEvent): boolean {
         const refreshed = super._onHoverOut(event);
         if (refreshed === false) return false;
         this.auras.refresh();
