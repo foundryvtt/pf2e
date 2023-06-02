@@ -147,10 +147,12 @@ export const InlineRollLinks = {
                             })();
 
                             const dc = Number.isInteger(dcValue) ? { label: pf2Label, value: dcValue } : null;
+                            const maybeOrigin = documentFromDOM(event.currentTarget);
+
                             statistic.check.roll({
                                 ...eventRollParams,
                                 extraRollOptions: parsedTraits,
-                                origin: document instanceof ActorPF2e ? document : null,
+                                origin: maybeOrigin instanceof ActorPF2e ? maybeOrigin : null,
                                 dc,
                             });
                         } else {
