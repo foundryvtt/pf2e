@@ -970,16 +970,22 @@
                         "value": "shove"
                     },
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalFailure"
-                        ],
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "bully",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "adjustment": {
+                            "criticalFailure": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
                         "predicate": [
-                            "action:shove"
+                            "action:shove",
+                            "bully"
                         ],
-                        "selector": "athletics",
-                        "text": "PF2E.NPCAbility.Urbel.ShoveNote",
-                        "title": "{item|name}"
+                        "selector": "athletics"
                     }
                 ],
                 "slug": null,
