@@ -4,8 +4,8 @@ import { ItemPF2e } from "@item";
 import { CriticalInclusion, DamageDieSize } from "@system/damage/types.ts";
 import { DAMAGE_DIE_FACES } from "@system/damage/values.ts";
 import { isObject, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
-import { RuleElementData, RuleElementPF2e } from "./index.ts";
 import { BracketedValue, RuleElementSource } from "./data.ts";
+import { RuleElementData, RuleElementPF2e } from "./index.ts";
 
 class DamageDiceRuleElement extends RuleElementPF2e {
     override slug: string;
@@ -79,7 +79,8 @@ class DamageDiceRuleElement extends RuleElementPF2e {
         } else {
             this.failValidation(
                 "The override property must be an object with one property of `upgrade` (boolean),",
-                "`downgrade (boolean)`, `dieSize` (d6-d12), or `damageType` (recognized damage type)"
+                "`downgrade (boolean)`, `diceNumber` (integer between 0 and 10), `dieSize` (d6-d12), or `damageType`",
+                "(recognized damage type)"
             );
             this.override = null;
         }
@@ -158,7 +159,7 @@ class DamageDiceRuleElement extends RuleElementPF2e {
                 typeof override.dieSize === "string" ||
                 (typeof override.diceNumber === "number" &&
                     Number.isInteger(override.diceNumber) &&
-                    override.diceNumber > 0 &&
+                    override.diceNumber >= 0 &&
                     override.diceNumber <= 10))
         );
     }
