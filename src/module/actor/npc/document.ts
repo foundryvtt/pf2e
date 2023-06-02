@@ -243,7 +243,6 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
         // Speeds
         const speeds = (system.attributes.speed = this.prepareSpeed("land"));
-        speeds.value = speeds.total;
         speeds.otherSpeeds = (["burrow", "climb", "fly", "swim"] as const).flatMap((m) => this.prepareSpeed(m) ?? []);
 
         // Armor Class
