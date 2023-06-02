@@ -172,7 +172,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
                 const damageType =
                     pdElements.find((e) => e.dataset.persistentField === "type")?.value || baseDamageType;
 
-                if (!(diceNumber && typeof dieFaces === "number" && damageType)) {
+                if (!(typeof diceNumber === "number" && typeof dieFaces === "number" && damageType)) {
                     throw ErrorPF2e("Unexpected error updating persistent damage data");
                 }
 

@@ -145,7 +145,12 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     /** Does this weapon deal damage? */
     get dealsDamage(): boolean {
         const { baseDamage } = this;
-        return baseDamage.dice > 0 || baseDamage.modifier > 0;
+        return (
+            baseDamage.dice > 0 ||
+            baseDamage.modifier > 0 ||
+            this.system.splashDamage.value > 0 ||
+            !!baseDamage.persistent?.number
+        );
     }
 
     override get material(): WeaponMaterialData {
