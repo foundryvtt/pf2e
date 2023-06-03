@@ -192,12 +192,9 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
                 const anchor = li.querySelector("a")!;
                 anchor.innerText = match.name;
                 const details = li.querySelector("span")!;
-                const systemType =
-                    match.metadata.type === "Actor"
-                        ? game.i18n.localize(`TYPES.Actor.${match.type}`)
-                        : match.metadata.type === "Item"
-                        ? game.i18n.localize(`TYPES.Item.${match.type}`)
-                        : null;
+                const systemType = ["Actor", "Item"].includes(match.metadata.type)
+                    ? game.i18n.localize(`TYPES.${match.metadata.type}.${match.type}`)
+                    : null;
                 details.innerText = systemType
                     ? `${systemType} (${match.metadata.label})`
                     : `(${match.metadata.label})`;
