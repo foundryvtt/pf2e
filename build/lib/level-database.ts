@@ -80,7 +80,7 @@ class LevelDatabase extends ClassicLevel<string, DBEntry> {
     }
 
     #getDBKeys(packName: string): { dbKey: DBKey; embeddedKey: EmbeddedKey | null } {
-        const metadata = systemJSON.packs.find((p) => p.path.endsWith(packName.slice(0, packName.length - 3))); // Remove slice after pack folder conversion
+        const metadata = systemJSON.packs.find((p) => p.path.endsWith(packName));
         if (!metadata) {
             throw PackError(
                 `Error generating dbKeys: Compendium ${packName} has no metadata in the local system.json file.`

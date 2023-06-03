@@ -67,7 +67,7 @@ class CompendiumPack {
 
     constructor(packDir: string, parsedData: unknown[]) {
         const metadata = CompendiumPack.packsMetadata.find(
-            (pack) => path.basename(pack.path) === path.basename(packDir.slice(0, packDir.length - 3)) // Remove slice after pack folder conversion
+            (pack) => path.basename(pack.path) === path.basename(packDir)
         );
         if (metadata === undefined) {
             throw PackError(`Compendium at ${packDir} has no metadata in the local system.json file.`);
