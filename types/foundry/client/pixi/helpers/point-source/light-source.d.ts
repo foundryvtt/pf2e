@@ -3,10 +3,10 @@ export {};
 declare global {
     /**
      * A specialized subclass of the PointSource abstraction which is used to control the rendering of light sources.
-     * @param object The light-emitting object that generates this light source
+     * @param [options.object] The light-emitting object that generates this light source
      */
-    class LightSource<TObject extends Maybe<AmbientLight | Token>> extends PointSource<TObject> {
-        constructor(object: TObject);
+    class LightSource<TObject extends AmbientLight | Token | null> extends PointSource<TObject> {
+        constructor(options?: { object?: TObject });
 
         /** The light or darkness container for this source */
         background: PIXI.Mesh;
