@@ -68,7 +68,7 @@ export const Load = {
             loot: "fa-solid fa-treasure-chest",
         };
         CONFIG.Item.typeIcons = {
-            action: "fa-solid fa-person-running-fast",
+            action: "fa-solid fa-person-running",
             affliction: "fa-solid fa-biohazard",
             armor: "fa-solid fa-shirt-long-sleeve",
             backpack: "fa-solid fa-sack",
@@ -77,6 +77,7 @@ export const Load = {
             deity: "fa-solid fa-spaghetti-monster-flying",
             effect: "fa-solid fa-person-rays",
             equipment: "fa-solid fa-hat-cowboy",
+            feat: "fa-solid fa-medal",
             spell: "fa-solid fa-sparkles",
             treasure: "fa-solid fa-gem",
             weapon: "fa-solid fa-sword",
