@@ -146,7 +146,7 @@
                         {{/each}}
                     </ol>
 
-                    {{#each actor.actions as |section sid|}}
+                    {{#each actions.combat as |section sid|}}
                         <h3 class="header">
                             {{section.label}}
                             {{#if @root.options.editable}}
@@ -163,9 +163,7 @@
 
                         <ol class="actions-list item-list directory-list">
                             {{#each section.actions as |action aid|}}
-                                {{#if action.encounter}}
-                                    {{> action action=action}}
-                                {{/if}}
+                                {{> action action=action}}
                             {{/each}}
                         </ol>
                     {{/each}}
@@ -187,10 +185,8 @@
                     </h3>
 
                     <ol class="actions-list item-list directory-list">
-                        {{#each actor.actions.free.actions as |action aid|}}
-                            {{#if action.exploration}}
-                                {{> action action=action}}
-                            {{/if}}
+                        {{#each actions.exploration as |action aid|}}
+                            {{> action action=action}}
                         {{/each}}
                     </ol>
                 </div>
@@ -211,10 +207,8 @@
                     </h3>
 
                     <ol class="actions-list item-list directory-list">
-                        {{#each actor.actions.free.actions as |action aid|}}
-                            {{#if action.downtime}}
-                                {{> action action=action}}
-                            {{/if}}
+                        {{#each actions.downtime as |action aid|}}
+                            {{> action action=action}}
                         {{/each}}
                     </ol>
                 </div>
@@ -260,20 +254,20 @@
 {{/inline}}
 
 {{#*inline "action"}}
-    <li class="action item" data-item-id="{{action._id}}">
+    <li class="action item" data-item-id="{{action.id}}" data-item-summary-id="action-{{action.id}}">
         <div class="item-name rollable">
             <div class="item-image">
                 <img src="{{action.img}}"/>
             </div>
             <h4>{{action.name}}</h4>
-            {{#if action.system.frequency}}
+            {{#if action.frequency}}
                 <div class="action-tracking">
-                    <input type="number" value="{{action.system.frequency.value}}" data-item-id="{{action._id}}" data-item-property="system.frequency.value"/>
+                    <input type="number" value="{{action.frequency.value}}" data-item-id="{{action.id}}" data-item-property="system.frequency.value"/>
                     <span>
                         /
-                        {{action.system.frequency.max}}
+                        {{action.frequency.max}}
                         {{localize "PF2E.Frequency.per"}}
-                        {{localize (lookup @root.frequencies action.system.frequency.per)}}
+                        {{localize (lookup @root.frequencies action.frequency.per)}}
                     </span>
                 </div>
             {{/if}}
