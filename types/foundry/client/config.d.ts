@@ -60,6 +60,7 @@ declare global {
                     }
                 >
             >;
+            typeIcons: Record<string, string>;
             typeLabels: Record<string, string | undefined>;
         };
 
@@ -114,6 +115,7 @@ declare global {
                     }
                 >
             >;
+            typeIcons: Record<string, string>;
             typeLabels: Record<string, string | undefined>;
         };
 
