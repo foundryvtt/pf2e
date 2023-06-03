@@ -6,7 +6,6 @@ import { RuleElementSource } from "@module/rules/index.ts";
 import { isObject, sluggify } from "@util/index.ts";
 import fs from "fs";
 import { JSDOM } from "jsdom";
-import Datastore from "nedb-promises";
 import path from "path";
 import process from "process";
 import systemJSON from "../../static/system.json" assert { type: "json" };
@@ -14,6 +13,7 @@ import templateJSON from "../../static/template.json" assert { type: "json" };
 import { CompendiumPack, isActorSource, isItemSource } from "./compendium-pack.ts";
 import { PackError } from "./helpers.ts";
 import { PackEntry } from "./types.ts";
+import { LevelDatabase } from "./level-database.ts";
 
 declare global {
     interface Global {
@@ -91,47 +91,41 @@ class PackExtractor {
         return (
             await Promise.all(
                 foundryPacks.map(async (filePath) => {
-                    const dbFilename = path.basename(filePath);
+                    const dbDirectory = path.basename(filePath);
 
-                    if (!dbFilename.endsWith(".db")) {
-                        throw PackError(`Pack file is not a DB file: "${dbFilename}"`);
-                    }
                     if (!fs.existsSync(filePath)) {
-                        throw PackError(`File not found: "${dbFilename}"`);
+                        throw PackError(`Directory not found: "${dbDirectory}"`);
                     }
 
-                    const outDirPath = path.resolve(this.dataPath, dbFilename);
-                    const tempOutDirPath = path.resolve(this.tempDataPath, dbFilename);
+                    const outDirPath = path.resolve(this.dataPath, dbDirectory);
+                    const tempOutDirPath = path.resolve(this.tempDataPath, dbDirectory);
 
                     await fs.promises.mkdir(tempOutDirPath);
 
-                    const sourceCount = await this.#extractPack(filePath, dbFilename);
+                    const sourceCount = await this.extractPack(filePath, dbDirectory);
 
-                    // Move ./packs/temp-data/[packname].db/ to ./packs/data/[packname].db/
+                    // Move ./packs/temp-data/[packname]/ to ./packs/data/[packname]/
                     fs.rmSync(outDirPath, { recursive: true, force: true });
                     await fs.promises.rename(tempOutDirPath, outDirPath);
 
-                    console.log(`Finished extracting ${sourceCount} documents from pack ${dbFilename}`);
+                    console.log(`Finished extracting ${sourceCount} documents from pack ${dbDirectory}`);
                     return sourceCount;
                 })
             )
         ).reduce((runningTotal, count) => runningTotal + count, 0);
     }
 
-    async #extractPack(filePath: string, packFilename: string): Promise<number> {
-        console.log(`Extracting pack: ${packFilename} (Presorting: ${this.disablePresort ? "Disabled" : "Enabled"})`);
-        const outPath = path.resolve(this.tempDataPath, packFilename);
+    async extractPack(filePath: string, packDirectory: string): Promise<number> {
+        console.log(`Extracting pack: ${packDirectory} (Presorting: ${this.disablePresort ? "Disabled" : "Enabled"})`);
+        const outPath = path.resolve(this.tempDataPath, packDirectory);
 
-        const packSources = await (async () => {
-            const packDB = Datastore.create({ filename: filePath, corruptAlertThreshold: 10 });
-            await packDB.load();
-            return packDB.find({}) as Promise<PackEntry[]>;
-        })();
+        const db = new LevelDatabase(filePath, { packName: packDirectory });
+        const packSources = await db.getEntries();
+
         const idPattern = /^[a-z0-9]{20,}$/g;
-
         for (const source of packSources) {
             // Remove or replace unwanted values from the document source
-            const preparedSource = this.#convertLinks(source, packFilename);
+            const preparedSource = this.#convertLinks(source, packDirectory);
             if ("items" in preparedSource && preparedSource.type === "npc" && !this.disablePresort) {
                 preparedSource.items = this.#sortDataItems(preparedSource);
             }
@@ -163,7 +157,7 @@ class PackExtractor {
             const outFilePath = path.resolve(outPath, outFileName);
 
             if (fs.existsSync(outFilePath)) {
-                throw PackError(`Error: Duplicate name "${source.name}" in pack: ${packFilename}`);
+                throw PackError(`Error: Duplicate name "${source.name}" in pack: ${packDirectory}`);
             }
 
             this.#assertDocIdSame(preparedSource, outFilePath);
@@ -228,6 +222,7 @@ class PackExtractor {
             const [packId, docId] = parts.slice(1, 3);
             const packMap = this.#idsToNames.get(packId);
             if (!packMap) {
+                console.log(this.#idsToNames.size);
                 throw PackError(`Pack ${packId} has no ID-to-name map.`);
             }
 
@@ -787,7 +782,7 @@ class PackExtractor {
         for (const packDir of packDirs) {
             const metadata = this.packsMetadata.find((p) => path.basename(p.path) === packDir);
             if (metadata === undefined) {
-                throw PackError(`Compendium at ${packDir} has metadata in the local system.json file.`);
+                throw PackError(`Compendium at ${packDir} has no metadata in the local system.json file.`);
             }
 
             const packMap: Map<string, string> = new Map();

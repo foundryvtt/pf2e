@@ -7,10 +7,9 @@ const argv = yargs(process.argv.slice(2)) as Argv<ExtractArgs>;
 const args = argv
     .command("$0 <packDb> [disablePresort] [logWarnings]", "Extract one or all compendium packs to packs/data", () => {
         argv.positional("packDb", {
-            describe: 'A compendium pack filename (*.db) or otherwise "all"',
+            describe: 'A compendium pack folder name or otherwise "all"',
             coerce: (arg: string) => {
-                const packDb = arg.toLowerCase();
-                return packDb === "all" ? packDb : packDb.replace(/[^a-z0-9]+$/, "").replace(/(?:\.db)?$/, ".db");
+                return arg.toLowerCase();
             },
         })
             .option("disablePresort", {
@@ -24,9 +23,9 @@ const args = argv
                 default: true,
             })
             .example([
-                ["npm run $0 spells.db /path/to/foundryvtt/Config/options.json"],
-                ["npm run $0 spells.db C:\\Users\\me\\this\\way\\to\\options.json"],
-                ["npm run $0 spells.db # copy of config at ./foundryconfig.json or otherwise using dist/"],
+                ["npm run $0 spells /path/to/foundryvtt/Config/options.json"],
+                ["npm run $0 spells C:\\Users\\me\\this\\way\\to\\options.json"],
+                ["npm run $0 spells # copy of config at ./foundryconfig.json or otherwise using dist/"],
                 ["npm run $0 all       # same"],
             ]);
     })
