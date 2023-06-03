@@ -1,5 +1,12 @@
 # Changelog
 
+## 4.12.8
+
+### Bugfixes
+
+-   (stwlam) Fix creation of custom physical items on actor sheets
+-   (stwlam) Include roll data in effects panel descriptions in case there are inline roll links
+
 ## 4.12.7
 
 ### System Improvements
