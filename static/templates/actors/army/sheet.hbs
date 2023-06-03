@@ -12,27 +12,27 @@
 
         {{!-- AC --}}
         <div class="sidebar-section ac">
-                    <div class="sidebar-label">
-                        <i class="fas fa-fw fa-shield-alt"></i>
-                        <h4>{{localize "PF2E.ArmorClassShortLabel"}}</h4>
-                        <input type="text" data-property="system.attributes.ac.value" value="{{data.attributes.ac.value}}" data-dtype="Number" placeholder="0"/>
-                    </div>
-                    <input type="text" name="system.attributes.ac.details" value="{{data.attributes.ac.details}}" class="armor-details" placeholder="{{localize "PF2E.NPC.ArmorExtraInfoLabelPlaceholder"}}" />
+            <div class="sidebar-label">
+                <i class="fas fa-fw fa-shield-alt"></i>
+                <h4>{{localize "PF2E.ArmorClassLabel"}}</h4>
+                <input type="text" data-property="system.attributes.ac.value" value="{{data.attributes.ac.value}}" data-dtype="Number" placeholder="0"/>
+            </div>
+            <input type="text" data-dtype="String" data-property="system.attributes.ac.details" value="{{data.attributes.ac.details}}" class="armor-details" placeholder="{{localize "PF2E.NPC.ArmorExtraInfoLabelPlaceholder"}}" />
         </div>
 
         {{!-- HP --}}
         <div class="sidebar-section hp">
             <div class="sidebar-label">
-                    <i class="fas fa-fw fa-heart"></i>
-                    <h4>{{localize "PF2E.HitPointsShortLabel"}}</h4>
-                    <div class="hit-points">
-                            <input type="number" name="system.attributes.hp.value" value="{{data.attributes.hp.value}}" class="current" placeholder="0" />
-                            <span class="slash">/</span>
-                            <input type="text" class="max adjustable{{#if (lt data.attributes.hp.max 10)}} lt10{{else if (lt data.attributes.hp.max 100)}} lt100{{else}} lt1000{{/if}}" data-property="system.attributes.hp.max" value="{{data.attributes.hp.max}}" data-dtype="Number" placeholder="0"/>
-                    </div>
+                <i class="fas fa-fw fa-heart"></i>
+                <h4>{{localize "PF2E.HitPointsShortLabel"}}</h4>
+                <div class="hit-points">
+                    <input type="text" data-property="system.attributes.hp.value" value="{{data.attributes.hp.value}}" data-dtype="Number" placeholder="0" />
+                    <span class="slash">/</span>
+                    <input type="text" data-property="system.attributes.hp.max" value="{{data.attributes.hp.max}}" data-dtype="Number" placeholder="0"/>
+                </div>
             </div>
             <div class="side-bar-section-content">
-                <input class="hp-details" type="text" name="system.attributes.hp.details" value="{{data.attributes.hp.details}}" title="{{data.attributes.hp.details}}" data-dtype="String" placeholder="{{localize "PF2E.NPC.HPExtraInfoLabelPlaceholder"}}"/>
+                <input type="text" data-property="system.attributes.hp.details" value="{{data.attributes.hp.details}}" title="{{data.attributes.hp.details}}" data-dtype="String" placeholder="{{localize "PF2E.NPC.HPExtraInfoLabelPlaceholder"}}"/>
             </div>
         </div>
 
@@ -42,7 +42,7 @@
                 <i class="fas fa-fw fa-eye"></i>
                 <h4>Scouting</h4>
                 <a class="roll-icon">
-                <div>{{numberFormat data.attributes.scouting.totalModifier decimals=0 sign=true}}</div>
+                <div>{{numberFormat system.attributes.scouting.totalModifier decimals=0 sign=true}}</div>
                 <i class="fas fa-dice-d20"></i>
                 </a>                    
             </div>
@@ -55,14 +55,14 @@
                     <h4>Morale</h4>
                     <a class="roll-icon">
                     <i class="fas fa-dice-d20"></i>
-                    <input type="text" value="{{numberFormat data.saves.morale.value decimals=0 sign=true}}" data-property="system.saves.morale.value" data-dtype="Number" placeholder="0" />
+                    <input type="text" value="{{numberFormat system.saves.morale.value decimals=0 sign=true}}" data-property="system.saves.morale.value" data-dtype="Number" placeholder="0" />
                     </a>                        
                 </div>
                 <div class="half" data-save="{{data.saves.morale}}">
                     <h4>Maneuver</h4>
                     <a class="roll-icon">
                     <i class="fas fa-dice-d20"></i>
-                    <input type="text" value="{{numberFormat data.saves.maneuver.value decimals=0 sign=true}}" data-property="system.saves.maneuver.value" data-dtype="Number" placeholder="0" />
+                    <input type="text" value="{{numberFormat system.saves.maneuver.value decimals=0 sign=true}}" data-property="system.saves.maneuver.value" data-dtype="Number" placeholder="0" />
                     </a>   
                 </div>    
             </div>
@@ -84,22 +84,22 @@
             <div class="flexrow" style="justify-content: space-between; width: 100%;">
                 <div class="flexrow" style="flex: auto;">
                     {{!-- TRAITS --}}
-                    <select class="rarity-select trait rarity {{data.traits.rarity}}" data-property="system.traits.rarity.value">
-                        {{#select data.traits.rarity}}
+                    <select class="rarity-select trait rarity {{system.traits.rarity}}" data-property="system.traits.rarity.value">
+                        {{#select system.traits.rarity}}
                             {{#each rarity as |label key|}}
                                 <option value="{{key}}">{{localize label}}</option>
                             {{/each}}
                         {{/select}}
                     </select>
                     <select class="alignment-select trait alignment" data-property="system.details.alignment.value">
-                        {{#select data.details.alignment.value}}
+                        {{#select system.details.alignment.value}}
                             {{#each alignments as |label key|}}
                                 <option value="{{key}}">{{localize label}}</option>
                             {{/each}}
                         {{/select}}
                     </select>
                     <select class="type-select trait type" data-property="system.traits.type.value">
-                        {{#select data.traits.type.value}}
+                        {{#select system.traits.type.value}}
                             {{#each type as |label key|}}
                                 <option value="{{key}}">{{localize label}}</option>
                             {{/each}}
