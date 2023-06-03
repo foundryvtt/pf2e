@@ -51,6 +51,27 @@ export const Load = {
         // Mystery Man but with a drop shadow
         Actor.DEFAULT_ICON = "systems/pf2e/icons/default-icons/mystery-man.svg";
 
+        // Inline link icons
+        CONFIG.Actor.typeIcons = {
+            familiar: "fa-solid fa-cat",
+            hazard: "fa-solid fa-hill-rockslide",
+            loot: "fa-solid fa-treasure-chest",
+        };
+        CONFIG.Item.typeIcons = {
+            action: "fa-solid fa-person-running-fast",
+            affliction: "fa-solid fa-biohazard",
+            armor: "fa-solid fa-shirt-long-sleeve",
+            backpack: "fa-solid fa-sack",
+            book: "fa-solid fa-book",
+            consumable: "fa-solid fa-flask-round-potion",
+            deity: "fa-solid fa-spaghetti-monster-flying",
+            effect: "fa-solid fa-person-rays",
+            equipment: "fa-solid fa-hat-cowboy",
+            spell: "fa-solid fa-sparkles",
+            treasure: "fa-solid fa-gem",
+            weapon: "fa-solid fa-sword",
+        };
+
         // Make available immediately on load for module subclassing
         window.AutomaticBonusProgression = AutomaticBonusProgression;
 
