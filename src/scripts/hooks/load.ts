@@ -67,6 +67,7 @@ export const Load = {
             deity: "fa-solid fa-spaghetti-monster-flying",
             effect: "fa-solid fa-person-rays",
             equipment: "fa-solid fa-hat-cowboy",
+            feat: "fa-solid fa-medal",
             spell: "fa-solid fa-sparkles",
             treasure: "fa-solid fa-gem",
             weapon: "fa-solid fa-sword",
