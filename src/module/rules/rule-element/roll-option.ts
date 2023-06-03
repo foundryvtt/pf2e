@@ -108,8 +108,8 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
         };
     }
 
-    protected override _validateModel(source: SourceFromSchema<RollOptionSchema>): void {
-        super._validateModel(source);
+    static override validateJoint(source: SourceFromSchema<RollOptionSchema>): void {
+        super.validateJoint(source);
 
         const toggleable = "toggleable" in source ? !!source.toggleable : false;
 
@@ -126,9 +126,9 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
         }
 
         if (typeof source.disabledValue === "boolean" && (!toggleable || !source.disabledIf)) {
-            this.failValidation(
-                'The "disabledValue" property may only be included if "toggeable" is true and',
-                'there is a "disabledIf" predicate.'
+            throw Error(
+                'The "disabledValue" property may only be included if "toggeable" is true and there is a ' +
+                    '"disabledIf" predicate.'
             );
         }
     }

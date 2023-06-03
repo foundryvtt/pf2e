@@ -50,8 +50,8 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
         }
     }
 
-    protected override _validateModel(data: SourceFromSchema<FlatModifierSchema>): void {
-        super._validateModel(data);
+    static override validateJoint(data: SourceFromSchema<FlatModifierSchema>): void {
+        super.validateJoint(data);
         if (data.type !== "ability" && data.value === undefined) {
             throw Error('must have defined value if type is not "ability"');
         }

@@ -55,8 +55,8 @@ class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> 
         };
     }
 
-    protected override _validateModel(data: Record<string, unknown>): void {
-        super._validateModel(data);
+    static override validateJoint(data: Record<string, unknown>): void {
+        super.validateJoint(data);
 
         if (data.suppress === true && typeof data.maxApplications === "number") {
             throw Error("use of `maxApplications` in combination with `suppress` is not currently supported");
