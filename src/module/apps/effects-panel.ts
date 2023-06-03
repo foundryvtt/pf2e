@@ -222,7 +222,11 @@ export class EffectsPanel extends Application {
 
     async #getEnrichedDescriptions(effects: AfflictionPF2e[] | EffectPF2e[] | FlattenedCondition[]): Promise<String[]> {
         return await Promise.all(
-            effects.map(async (effect) => await TextEditor.enrichHTML(effect.description, { async: true }))
+            effects.map(async (effect) => {
+                const actor = "actor" in effect ? effect.actor : null;
+                const rollData = { actor, item: effect };
+                return await TextEditor.enrichHTML(effect.description, { async: true, rollData });
+            })
         );
     }
 }
