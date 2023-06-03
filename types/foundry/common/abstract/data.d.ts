@@ -127,7 +127,7 @@ export default abstract class DataModel<
      * @param data The candidate data object to validate
      * @throws An error if a validation failure is detected
      */
-    protected _validateModel(data: object): void;
+    static validateJoint(data: object): void;
 
     /* ---------------------------------------- */
     /*  Data Management                         */

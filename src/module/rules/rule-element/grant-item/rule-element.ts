@@ -79,8 +79,8 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
 
     static ON_DELETE_ACTIONS = ["cascade", "detach", "restrict"] as const;
 
-    override _validateModel(data: SourceFromSchema<GrantItemSchema>): void {
-        super._validateModel(data);
+    static override validateJoint(data: SourceFromSchema<GrantItemSchema>): void {
+        super.validateJoint(data);
 
         if (data.track && !data.flag) {
             throw Error("must have explicit flag set if granted item is tracked");

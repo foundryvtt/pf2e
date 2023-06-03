@@ -32,8 +32,8 @@ class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> 
         };
     }
 
-    protected override _validateModel(data: SourceFromSchema<EphemeralEffectSchema>): void {
-        super._validateModel(data);
+    static override validateJoint(data: SourceFromSchema<EphemeralEffectSchema>): void {
+        super.validateJoint(data);
 
         if (data.selectors.length === 0) {
             throw Error("must have at least one selector");
