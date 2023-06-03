@@ -16,7 +16,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     constructor(document: TDocument) {
         super(document);
 
-        this.hearing = new HearingSource(this);
+        this.hearing = new HearingSource({ object: this });
         this.auras = new AuraRenderers(this);
         Object.defineProperty(this, "auras", { configurable: false, writable: false }); // It's ours, Kim!
     }

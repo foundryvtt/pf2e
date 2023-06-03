@@ -2,11 +2,22 @@ export {};
 
 declare global {
     /**
-     * A helper class used by the Sight Layer to represent a source of vision or illumination.
-     * @param object The object responsible for the PointSource
+     * An abstract base class which defines a framework for effect sources which originate radially from a specific point.
+     * This abstraction is used by the LightSource, VisionSource, SoundSource, and MovementSource subclasses.
+     *
+     * @example A standard PointSource lifecycle:
+     * ```js
+     * const source = new PointSource({object}); // Create the point source
+     * source.initialize(data);                  // Configure the point source with new data
+     * source.refresh();                         // Refresh the point source
+     * source.destroy();                         // Destroy the point source
+     * ```
+     *
+     * @param [options]
+     * @param [options.object] Some other object which is responsible for this source
      */
-    abstract class PointSource<TObject extends Maybe<PlaceableObject> = Maybe<PlaceableObject>> {
-        constructor(object: TObject);
+    abstract class PointSource<TObject extends PlaceableObject | null = PlaceableObject | null> {
+        constructor(options?: { object?: TObject });
 
         /** The PlaceableObject which is the origin of this PointSource. */
         object: TObject;
