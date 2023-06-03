@@ -1,5 +1,39 @@
 # Changelog
 
+## 4.12.7
+
+### System Improvements
+
+-   (Dana) Add shorthand syntax for multiple rollable check buttons
+-   (nikolaj-a) Add Aid action implementation
+-   (Supe) Convert familiar abilities to the action item type, add abilities frequency display to familiar sheet
+-   (xdy) Increase/decrease item quantities by 5 if shift-clicking and by 10 if ctrl-clicking
+
+### Bugfixes
+
+-   (Dire Weasel) Fix item:base roll option for NPC attacks with linked weapon
+-   (stwlam) Fix breakdown data of NPC land speeds
+-   (stwlam) Fix application of shield AC bonuses to NPCs
+-   (stwlam) Fix retrieval of origin actor from inline saving throws
+-   (stwlam) Restore localization of Dual Class Feats header on PC sheet
+-   (Supe, stwlam) Fix damage-formula construction for formulas lacking "base" damage (affects Tallow Bomb, which only deal splash and persistent damage)
+-   (Supe) Fix default action and feat frequency value
+-   (Supe) Fix item-creation behavior for exploration and downtime actions
+-   (Supe) Restore localization of NPC skill names
+
+### Data Updates
+
+-   (bucket-au) Fix success message for Wellspring Surge
+-   (Demorome) Add effects for Choker-Arm Mutagen
+-   (Dire Weasel) Add rule elements for Brute Strength, Trident Bully, Festrog's On All Fours, and Tallow Guardian's Melt
+-   (Dire Weasel) Fix Heartripper Blade effect
+-   (Dire Weasel) Fix missing extreme for Curse of Living Death and Curse of the Hero's Burden
+-   (Dire Weasel) Fix spelling mistake in Pit of Toil
+-   (Dire Weasel) Remove no-longer-necessary regular success note from Tallow Bombs
+-   (Dire Weasel) Update rule elements for Artokus's Fire and Urbel
+-   (stwlam) Correct several data fields in Acrobat's Staff
+-   (Tikael) Add Affinity Ablaze actions
+
 ## 4.12.6
 
 ### System Improvements
