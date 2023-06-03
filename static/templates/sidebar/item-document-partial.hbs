@@ -1,8 +1,8 @@
-<li class="directory-item document {{@root.documentCls}} flexrow" data-document-id="{{this.id}}">
+<li class="directory-item document {{@root.documentCls}} flexrow" data-entry-id="{{this.id}}" data-document-id="{{this.id}}">
     {{#if this.thumbnail}}
         <img class="thumbnail" title="{{this.name}}" data-src="{{this.thumbnail}}"/>
     {{/if}}
-    <h4 class="document-name">
+    <h4 class="entry-name document-name">
         <a>{{this.name}}</a>
         {{#if (gte this.level 0)}}
             {{#if (eq this.type "feat")}}

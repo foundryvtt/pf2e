@@ -3,17 +3,12 @@ import { fontAwesomeIcon, htmlQuery, htmlQueryAll } from "@util";
 
 /** Extend ItemDirectory to show more information */
 export class ItemDirectoryPF2e<TItem extends ItemPF2e<null>> extends ItemDirectory<TItem> {
+    static override entryPartial = "systems/pf2e/templates/sidebar/item-document-partial.hbs";
+
     static override get defaultOptions(): SidebarDirectoryOptions {
         const options = super.defaultOptions;
         options.renderUpdateKeys.push("system.level.value");
         return options;
-    }
-
-    override async getData(): Promise<object> {
-        return {
-            ...(await super.getData()),
-            documentPartial: "systems/pf2e/templates/sidebar/item-document-partial.hbs",
-        };
     }
 
     override activateListeners($html: JQuery<HTMLElement>): void {

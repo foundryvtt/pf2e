@@ -1,8 +1,8 @@
-<li class="directory-item document {{@root.documentCls}} flexrow" data-document-id="{{this.id}}">
+<li class="directory-item document {{@root.documentCls}} flexrow" data-entry-id="{{this.id}}" data-document-id="{{this.id}}">
     {{#if this.thumbnail}}
         <img class="thumbnail" title="{{this.name}}" data-src="{{this.thumbnail}}"/>
     {{/if}}
-    <h4 class="document-name">
+    <h4 class="entry-name document-name">
         <a>{{this.name}}</a>
         {{#if (ne this.type "loot")}}
             {{#if (eq this.type "hazard")}}
@@ -13,5 +13,5 @@
                 <span class="actor-level">{{localize "PF2E.LevelN" level=this.level}}</span>
             {{/if}}
         {{/if}}
-  </h4>
+    </h4>
 </li>

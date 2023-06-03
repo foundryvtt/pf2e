@@ -2,7 +2,7 @@ export {};
 
 declare global {
     /** A shared pattern for the sidebar directory which Actors, Items, and Scenes all use */
-    class SidebarDirectory<TDocument extends WorldDocument> extends SidebarTab<SidebarDirectoryOptions> {
+    class DocumentDirectory<TDocument extends WorldDocument> extends SidebarTab<SidebarDirectoryOptions> {
         /** References to the set of Documents that are displayed in the Sidebar */
         documents: TDocument[];
 
@@ -12,8 +12,8 @@ declare global {
         /** A reference to the named Document type that this Sidebar Directory instance displays */
         static documentName: string;
 
-        /** The path to the template partial which renders a single Document within this directory */
-        static documentPartial: string;
+        /** The path to the template partial which renders a single Entry within this directory */
+        static entryPartial: string;
 
         /** The path to the template partial which renders a single Folder within this directory */
         static folderPartial: string;
@@ -76,11 +76,11 @@ declare global {
         override activateListeners(html: JQuery): void;
 
         /**
-         * Handle Document data being dropped into the directory.
+         * Handle Entry data being dropped into the directory.
          * @param target The target element
          * @param data   The data being dropped
          */
-        protected _handleDroppedDocument(target: HTMLElement, data: DropCanvasData): Promise<void>;
+        protected _handleDroppedEntry(target: HTMLElement, data: DropCanvasData): Promise<void>;
 
         /**
          * Handle Folder data being dropped into the directory.

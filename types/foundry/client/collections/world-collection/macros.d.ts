@@ -5,7 +5,7 @@
 declare class Macros<TMacro extends Macro> extends WorldCollection<TMacro> {
     override get documentName(): "Macro";
 
-    override get directory(): SidebarDirectory<TMacro>;
+    override get directory(): DocumentDirectory<TMacro>;
 
     override fromCompendium(document: TMacro): TMacro["_source"];
 }
