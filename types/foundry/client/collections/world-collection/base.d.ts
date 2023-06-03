@@ -34,7 +34,7 @@ declare global {
          * Return a reference to the SidebarDirectory application for this WorldCollection, or null if it has not yet
          * been created.
          */
-        get directory(): SidebarDirectory<TDocument> | null;
+        get directory(): DocumentDirectory<TDocument> | null;
 
         /** Return a reference to the singleton instance of this WorldCollection, or null if it has not yet been created. */
         static get instance(): WorldCollection<WorldDocument>;
