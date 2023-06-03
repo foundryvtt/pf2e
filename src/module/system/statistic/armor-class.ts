@@ -21,7 +21,7 @@ class ArmorStatistic extends Statistic {
         const domains = ability ? ["all", `${ability}-based`] : ["all"];
         const fullData: ArmorStatisticData = {
             ...data,
-            label: "ITEM.TypeArmor",
+            label: "TYPEs.Item.armor",
             slug: "armor",
             ability,
             domains,

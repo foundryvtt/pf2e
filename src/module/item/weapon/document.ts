@@ -562,12 +562,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     override generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
         const base = this.baseType ? CONFIG.PF2E.baseWeaponTypes[this.baseType] : null;
         const group = this.group ? CONFIG.PF2E.weaponGroups[this.group] : null;
-        const fallback = "ITEM.TypeWeapon";
-        const itemType = game.i18n.localize(base ?? group ?? fallback);
+        const itemType = game.i18n.localize(base ?? group ?? "TYPES.Item.weapon");
 
-        if (typeOnly) return itemType;
-
-        return game.i18n.format("PF2E.identification.UnidentifiedItem", { item: itemType });
+        return typeOnly ? itemType : game.i18n.format("PF2E.identification.UnidentifiedItem", { item: itemType });
     }
 
     /**

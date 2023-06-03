@@ -227,13 +227,10 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
     override generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
         const base = this.baseType ? CONFIG.PF2E.baseArmorTypes[this.baseType] : null;
         const group = this.group ? CONFIG.PF2E.armorGroups[this.group] : null;
-        const fallback = this.isShield ? "PF2E.ArmorTypeShield" : "ITEM.TypeArmor";
-
+        const fallback = this.isShield ? "PF2E.ArmorTypeShield" : "TYPES.Item.armor";
         const itemType = game.i18n.localize(base ?? group ?? fallback);
 
-        if (typeOnly) return itemType;
-
-        return game.i18n.format("PF2E.identification.UnidentifiedItem", { item: itemType });
+        return typeOnly ? itemType : game.i18n.format("PF2E.identification.UnidentifiedItem", { item: itemType });
     }
 }
 

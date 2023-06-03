@@ -153,13 +153,13 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         });
 
         this.filterData.checkboxes.itemtypes.options = this.generateCheckboxOptions({
-            weapon: "ITEM.TypeWeapon",
-            armor: "ITEM.TypeArmor",
-            equipment: "ITEM.TypeEquipment",
-            consumable: "ITEM.TypeConsumable",
-            treasure: "ITEM.TypeTreasure",
-            backpack: "ITEM.TypeBackpack",
-            kit: "ITEM.TypeKit",
+            weapon: "TYPES.Item.weapon",
+            armor: "TYPES.Item.armor",
+            equipment: "TYPES.Item.equipment",
+            consumable: "TYPES.Item.consumable",
+            treasure: "TYPES.Item.treasure",
+            backpack: "TYPES.Item.backpack",
+            kit: "TYPES.Item.kit",
         });
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, false);
         this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(sources);

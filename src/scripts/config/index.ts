@@ -70,13 +70,13 @@ import { AbilityString } from "@actor/types.ts";
 export type StatusEffectIconTheme = "default" | "blackWhite";
 
 const actorTypes: Record<ActorType, string> = {
-    character: "ACTOR.TypeCharacter",
-    familiar: "ACTOR.TypeFamiliar",
-    hazard: "ACTOR.TypeHazard",
-    loot: "ACTOR.TypeLoot",
-    npc: "ACTOR.TypeNpc",
-    party: "Actor.TypeParty",
-    vehicle: "ACTOR.TypeVehicle",
+    character: "TYPES.Actor.character",
+    familiar: "TYPES.Actor.familiar",
+    hazard: "TYPES.Actor.hazard",
+    loot: "TYPES.Actor.loot",
+    npc: "TYPES.Actor.npc",
+    party: "TYPES.Actor.party",
+    vehicle: "TYPES.Actor.vehicle",
 };
 
 const abilities: Record<AbilityString, string> = {

@@ -2,7 +2,6 @@ import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { ErrorPF2e, fontAwesomeIcon, htmlQueryAll } from "@util";
-import { UUIDUtils } from "@util/uuid.ts";
 import MiniSearch from "minisearch";
 
 /** Extend CompendiumDirectory to support a search bar */
@@ -105,7 +104,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
                 condition: ($li) => {
                     const { uuid } = $li.get(0)?.dataset ?? {};
                     if (!uuid) throw ErrorPF2e("Unexpected missing uuid");
-                    const collection = game.packs.get(UUIDUtils.fromUuidSync(uuid)?.pack ?? "", { strict: true });
+                    const collection = game.packs.get(fromUuidSync(uuid)?.pack ?? "", { strict: true });
                     const documentClass = collection.documentClass as unknown as typeof foundry.abstract.Document;
 
                     return documentClass.canUserCreate(game.user);
@@ -113,9 +112,9 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
                 callback: ($li) => {
                     const { uuid } = $li.get(0)?.dataset ?? {};
                     if (!uuid) throw ErrorPF2e("Unexpected missing uuid");
-                    const packCollection = game.packs.get(UUIDUtils.fromUuidSync(uuid)?.pack ?? "", { strict: true });
+                    const packCollection = game.packs.get(fromUuidSync(uuid)?.pack ?? "", { strict: true });
                     const worldCollection = game.collections.get(packCollection.documentName, { strict: true });
-                    const indexData = UUIDUtils.fromUuidSync(uuid) ?? { _id: "" };
+                    const indexData = fromUuidSync(uuid) ?? { _id: "" };
                     if (!("_id" in indexData && typeof indexData._id === "string")) {
                         throw ErrorPF2e("Unexpected missing document _id");
                     }
@@ -195,9 +194,9 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
                 const details = li.querySelector("span")!;
                 const systemType =
                     match.metadata.type === "Actor"
-                        ? game.i18n.localize(`ACTOR.Type${match.type.titleCase()}`)
+                        ? game.i18n.localize(`TYPES.Actor.${match.type}`)
                         : match.metadata.type === "Item"
-                        ? game.i18n.localize(`ITEM.Type${match.type.titleCase()}`)
+                        ? game.i18n.localize(`TYPES.Item.${match.type}`)
                         : null;
                 details.innerText = systemType
                     ? `${systemType} (${match.metadata.label})`
@@ -225,7 +224,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         const { uuid } = dragElement.dataset;
         if (!uuid) return;
 
-        const indexEntry = UUIDUtils.fromUuidSync(uuid);
+        const indexEntry = fromUuidSync(uuid);
         if (!indexEntry) throw ErrorPF2e("Unexpected error retrieving index data");
 
         // Clean up old drag preview

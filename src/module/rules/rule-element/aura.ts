@@ -5,7 +5,6 @@ import { ItemPF2e } from "@item";
 import { EffectTrait } from "@item/abstract-effect/data.ts";
 import { PredicateField } from "@system/schema-data-fields.ts";
 import { sluggify } from "@util";
-import { UUIDUtils } from "@util/uuid.ts";
 import type {
     ArrayField,
     BooleanField,
@@ -107,7 +106,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
 
             // Late validation check of effect UUID
             for (const effect of data.effects) {
-                const indexEntry = UUIDUtils.fromUuidSync(effect.uuid);
+                const indexEntry = fromUuidSync(effect.uuid);
                 if (!(indexEntry && "type" in indexEntry && typeof indexEntry.type === "string")) {
                     this.failValidation(`Unable to resolve effect uuid: ${effect.uuid}`);
                     return;

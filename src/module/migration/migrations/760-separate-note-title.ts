@@ -93,7 +93,7 @@ export class Migration760SeparateNoteTitle extends MigrationBase {
             } else if (newTitle === "Critical Specialization") {
                 note.title = "PF2E.Actor.Creature.CriticalSpecialization";
             } else if (newTitle === "Effect") {
-                note.title = "ITEM.TypeEffect";
+                note.title = "TYPES.Item.effect";
             } else {
                 note.title = newTitle;
             }

@@ -124,7 +124,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             hasSidebar: this.item.isOfType("condition", "lore"),
             hasDetails: true,
             sidebarTitle: game.i18n.format("PF2E.Item.SidebarSummary", {
-                type: game.i18n.localize(`ITEM.Type${this.item.type.capitalize()}`),
+                type: game.i18n.localize(`TYPES.Item.${this.item.type}`),
             }),
             cssClass: this.isEditable ? "editable" : "locked",
             editable: this.isEditable,
