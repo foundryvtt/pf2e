@@ -10,6 +10,7 @@ import path from "path";
 import coreIconsJSON from "../core-icons.json" assert { type: "json" };
 import { PackError } from "./helpers.ts";
 import { PackEntry } from "./types.ts";
+import { LevelDatabase } from "./level-database.ts";
 
 interface PackMetadata {
     system: string;
@@ -66,7 +67,7 @@ class CompendiumPack {
 
     constructor(packDir: string, parsedData: unknown[]) {
         const metadata = CompendiumPack.packsMetadata.find(
-            (pack) => path.basename(pack.path) === path.basename(packDir)
+            (pack) => path.basename(pack.path) === path.basename(packDir.slice(0, packDir.length - 3)) // Remove slice after pack folder conversion
         );
         if (metadata === undefined) {
             throw PackError(`Compendium at ${packDir} has no metadata in the local system.json file.`);
@@ -150,11 +151,6 @@ class CompendiumPack {
     }
 
     static loadJSON(dirPath: string): CompendiumPack {
-        if (!dirPath.replace(/\/$/, "").endsWith(".db")) {
-            const dirName = path.basename(dirPath);
-            throw PackError(`JSON directory (${dirName}) does not end in ".db"`);
-        }
-
         const filenames = fs.readdirSync(dirPath);
         const filePaths = filenames.map((f) => path.resolve(dirPath, f));
         const parsedData = filePaths.map((filePath) => {
@@ -314,18 +310,21 @@ class CompendiumPack {
         }
     }
 
-    save(): number {
+    async save(): Promise<number> {
         if (!fs.lstatSync(CompendiumPack.outDir, { throwIfNoEntry: false })?.isDirectory()) {
             fs.mkdirSync(CompendiumPack.outDir);
         }
+        const packDir = path.join(CompendiumPack.outDir, this.packDir);
 
-        fs.writeFileSync(
-            path.resolve(CompendiumPack.outDir, this.packDir),
-            this.data
-                .map((datum) => this.#finalize(datum))
-                .join("\n")
-                .concat("\n")
-        );
+        // If the old folder is not removed the new data will be inserted into the existing db
+        const stats = fs.lstatSync(packDir, { throwIfNoEntry: false });
+        if (stats?.isDirectory()) {
+            fs.rmSync(packDir, { recursive: true });
+        }
+
+        const db = new LevelDatabase(packDir, { packName: path.basename(packDir) });
+        const finalized: PackEntry[] = this.data.map((datum) => JSON.parse(this.#finalize(datum)));
+        await db.createPack(finalized);
         console.log(`Pack "${this.packId}" with ${this.data.length} entries built successfully.`);
 
         return this.data.length;

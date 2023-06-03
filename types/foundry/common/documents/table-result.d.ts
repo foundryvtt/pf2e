@@ -41,6 +41,7 @@ export default interface BaseTableResult<TParent extends BaseRollTable | null> e
  * @property [drawn=false] Has this result already been drawn (without replacement)
  */
 interface TableResultSource {
+    _id: string;
     type: TableResultType;
     text: string;
     img: ImageFilePath;
