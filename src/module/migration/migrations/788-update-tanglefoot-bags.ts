@@ -41,14 +41,14 @@ export class Migration788UpdateTanglefootBags extends MigrationBase {
                 outcome: ["success"],
                 selector: "{item|_id}-attack",
                 text: `PF2E.BombNotes.TanglefootBag.${type}.success`,
-                title: "ITEM.TypeEffect",
+                title: "TYPES.Item.effect",
             },
             {
                 key: "Note",
                 outcome: ["criticalSuccess"],
                 selector: "{item|_id}-attack",
                 text: `PF2E.BombNotes.TanglefootBag.${type}.criticalSuccess`,
-                title: "ITEM.TypeEffect",
+                title: "TYPES.Item.effect",
             },
         ];
     }

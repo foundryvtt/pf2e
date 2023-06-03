@@ -106,7 +106,7 @@ export const ChatCards = {
                         const consumable = actor.items.get($button.attr("data-item") ?? "");
                         if (consumable?.isOfType("consumable")) {
                             const oldQuant = consumable.quantity;
-                            const consumableString = game.i18n.localize("ITEM.TypeConsumable");
+                            const consumableString = game.i18n.localize("TYPES.Item.consumable");
                             const toReplace = `${consumable.name} - ${consumableString} (${oldQuant})`;
                             await consumable.consume();
                             const currentQuant = oldQuant === 1 ? 0 : consumable.quantity;

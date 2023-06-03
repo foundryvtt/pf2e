@@ -3,14 +3,14 @@
     <div class="familiar-sheet-header">
         <div class="image-container">
             <img class="actor-image" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
-            <a class="hover-icon" data-action="show-image"><i class="fas fa-image fa-fw"></i></a>
+            <a class="hover-icon" data-action="show-image"><i class="fa-solid fa-image fa-fw"></i></a>
         </div>
 
         <div class="header-content">
             <div class="charname">
                 <input class=" charname-value" name="name" type="text" value="{{actor.name}}"
                     placeholder="{{localize "PF2E.NPC.Familiar"}}" spellcheck="false" />
-                <label class="familiar-title">{{localize "ACTOR.TypeFamiliar"}}</label>
+                <label class="familiar-title">{{localize "TYPES.Actor.familiar"}}</label>
                 {{#if data.master.id}}
                     <label class="familiar-title"> {{data.details.level.value}}</label>
                 {{/if}}
@@ -57,7 +57,7 @@
                     <div class="value dying-section">
                         {{#if data.attributes.dying.value}}
                             <a class="rollable roll-icon" data-action="recovery-check" title="{{localize "PF2E.Check.Specific.Recovery"}}">
-                                <i class="fas fa-dice-d20"></i>
+                                <i class="fa-solid fa-dice-d20"></i>
                             </a>
                         {{/if}}
                         <a class="dots dying" title="{{localize "PF2E.condition.dying.summary"}}">

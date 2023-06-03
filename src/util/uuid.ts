@@ -2,20 +2,6 @@ import * as R from "remeda";
 import { ErrorPF2e, tupleHasValue } from "./misc.ts";
 
 class UUIDUtils {
-    /** A replacement for core fromUuidSync that returns cached compendium documents. Remove in v11. */
-    static fromUuidSync(uuid: string, relative?: ClientDocument): ClientDocument | CompendiumIndexData | null {
-        if (game.release.generation === 10) {
-            const { doc, embedded } = this.#parseUuid(uuid, relative);
-            if (doc) {
-                if (embedded.length) {
-                    return _resolveEmbedded(doc, embedded) ?? null;
-                }
-                return doc;
-            }
-        }
-        return fromUuidSync(uuid, relative);
-    }
-
     /** Retrieve multiple documents by UUID */
     static async fromUUIDs(uuids: string[]): Promise<ClientDocument[]> {
         uuids = R.uniq(uuids);
@@ -33,8 +19,7 @@ class UUIDUtils {
                     const ids = indexEntries.filter((e) => e.pack === pack.metadata.id).map((e) => e._id);
                     const cacheHits = ids.flatMap((id) => pack.get(id) ?? []);
                     const cacheMisses = ids.filter((id) => !cacheHits.some((i) => i._id === id));
-                    const fromServer =
-                        cacheMisses.length > 0 ? await pack.getDocuments({ _id: { $in: cacheMisses } }) : [];
+                    const fromServer = cacheMisses.length > 0 ? await pack.getDocuments({ _id__in: cacheMisses }) : [];
 
                     return [cacheHits, fromServer].flat();
                 })
@@ -42,14 +27,6 @@ class UUIDUtils {
         ).flat();
 
         return R.sortBy([...worldDocs, ...packDocs], (d) => uuids.indexOf(d.uuid));
-    }
-
-    static #parseUuid(uuid: string, relative?: ClientDocument): ResolvedUUID {
-        const resolved = _parseUuid(uuid, relative);
-        if (resolved.collection) {
-            resolved.doc = resolved.collection.get(resolved.documentId) ?? null;
-        }
-        return resolved;
     }
 
     static isItemUUID(uuid: unknown): uuid is ItemUUID {

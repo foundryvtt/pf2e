@@ -76,7 +76,9 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
         attributes.hasHealth = attributes.hp.max > 0;
         // Hazards have object immunities (CRB p. 273): can be overridden by Immunity rule element
         if (!attributes.immunities.some((i) => i.type === "object-immunities")) {
-            attributes.immunities.unshift(new ImmunityData({ type: "object-immunities", source: "ACTOR.TypeHazard" }));
+            attributes.immunities.unshift(
+                new ImmunityData({ type: "object-immunities", source: "TYPES.Actor.hazard" })
+            );
         }
 
         if (this.isComplex) {

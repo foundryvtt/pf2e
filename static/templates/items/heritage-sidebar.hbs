@@ -1,13 +1,13 @@
 <div class="feat-details">
     <div class="form-group required-ancestry">
-        <label class="pf-title">{{localize "ITEM.TypeAncestry"}}</label>
+        <label class="pf-title">{{localize "TYPES.Item.ancestry"}}</label>
         <div class="drop-zone{{#if ancestryRefBroken}} ancestry-ref-broken{{/if}}" title="{{#if ancestryRefBroken}}{{localize "PF2E.Item.Heritage.AncestryNotFound"}}{{else}}{{localize "PF2E.Item.Heritage.DragAncestryHere"}}{{/if}}">
             {{!-- Check data.ancestry instead of the ancestry item in case the required ancestry has a broken UUID reference  --}}
             {{#if data.ancestry}}
                 {{!-- Reference the retrieved ancestry item's name for localization purposes --}}
                 <span>{{#if ancestry}}{{ancestry.name}}{{else}}{{data.ancestry.name}}{{/if}}</span>
                 {{#if options.editable}}
-                    <a class="remove-ancestry" data-action="remove-ancestry" title="{{localize "PF2E.Item.Heritage.RemoveAncestry"}}"><i class="fas fa-trash"></i></a>
+                    <a class="remove-ancestry" data-action="remove-ancestry" title="{{localize "PF2E.Item.Heritage.RemoveAncestry"}}"><i class="fa-solid fa-trash"></i></a>
                 {{/if}}
             {{else}}
                 {{localize "PF2E.Item.Heritage.NoneVersatile"}}

@@ -467,7 +467,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     }
 
     generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = {}): string {
-        const itemType = game.i18n.localize(`ITEM.Type${this.type.capitalize()}`);
+        const itemType = game.i18n.localize(`TYPES.Item.${this.type}`);
         if (typeOnly) return itemType;
 
         return game.i18n.format("PF2E.identification.UnidentifiedItem", { item: itemType });

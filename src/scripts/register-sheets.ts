@@ -42,9 +42,8 @@ export function registerSheets(): void {
     Actors.unregisterSheet("core", ActorSheet);
 
     const localizeType = (type: string) => {
-        const docType = type in CONFIG.PF2E.Actor.documentClasses ? "ACTOR" : "ITEM";
-        const camelized = type[0].toUpperCase() + type.slice(1).toLowerCase();
-        return game.i18n.localize(`${docType}.Type${camelized}`);
+        const docType = type in CONFIG.PF2E.Actor.documentClasses ? "Actor" : "Item";
+        return game.i18n.localize(`TYPES.${docType}.${type}`);
     };
 
     Actors.registerSheet("pf2e", CharacterSheetPF2e, {
