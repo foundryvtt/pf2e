@@ -51,6 +51,10 @@ form.army-sheet {
         justify-content: flex-start;
         align-items: center;
 
+        input[type="text"] {
+            text-align: left;
+          }
+
         .sidebar-label {
           display: flex;
           width: 100%;
@@ -78,9 +82,6 @@ form.army-sheet {
               min-width: 2em;
               padding-right: 1px;
           }
-          input[type="text"] {
-            text-align: left;
-          }
           &.hp-temp > label {
               margin-right: 0.5em;
           }
@@ -103,8 +104,9 @@ form.army-sheet {
           display: flex;
         }
         .half {
-          width: 48%;
-        }
+            margin: auto;
+            flex-basis: content;
+            }
         a.roll-icon {
           flex-direction: row;
           align-items: baseline;
@@ -196,7 +198,16 @@ form.army-sheet {
     section.sheet-body.tab {
         overflow-y: auto;
         fieldset {
-          margin: 8px 0;
+          border: 1px solid #5e0000;
+          border-radius: 3px;
+          legend {
+            background: #5e0000;
+            text-align: left;
+            color: #f5efe0;
+            font-size: 0.8rem;
+            border-radius: 3px 3px 0 0;
+            width: 100%;
+            }
         }
         textarea {
           width: 100%;
@@ -222,7 +233,11 @@ form.army-sheet {
     border: 1px solid transparent;
   }
 
-  select {
+  button.roll {
+    width: 72px;
+    }
+
+   select {
     min-width: 100px;
     height: 28px;
   }
