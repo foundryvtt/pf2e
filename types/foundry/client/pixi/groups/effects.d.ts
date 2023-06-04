@@ -15,7 +15,7 @@ declare global {
         constructor();
 
         /** The current global light source */
-        globalLightSource: LightSource<undefined>;
+        globalLightSource: LightSource<null>;
 
         /** Whether to currently animate light sources. */
         animateLightSources: boolean;
@@ -39,7 +39,7 @@ declare global {
         initializeLightSources(): void;
 
         /** Update the global light source which provide global illumination to the Scene. */
-        protected _updateGlobalLightSource(): LightSource<undefined>;
+        protected _updateGlobalLightSource(): LightSource<null>;
 
         /** Refresh the state and uniforms of all LightSource objects. */
         refreshLightSources(): void;

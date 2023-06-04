@@ -53,7 +53,6 @@ import "./client/pixi/canvas-layer/controls-layer.d.ts";
 import "./client/pixi/canvas-layer/grid-layer.d.ts";
 import "./client/pixi/grid/index.d.ts";
 import "./client/pixi/helpers/index.d.ts";
-import "./client/pixi/helpers/point-source/index.d.ts";
 import "./client/pixi/mouse-interaction-manager.d.ts";
 import "./client/pixi/placeable-object/index.d.ts";
 import "./client/pixi/placeables-layer/index.d.ts";

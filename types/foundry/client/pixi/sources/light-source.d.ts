@@ -73,14 +73,7 @@ declare global {
          */
         protected override _initialize(data?: Partial<LightSourceData>): void;
 
-        protected _getPolygonConfiguration(): {
-            type: "light" | "universal";
-            angle: number;
-            density: number;
-            radius: number;
-            rotation: number;
-            source: LightSource<TObject>;
-        };
+        protected _getPolygonConfiguration(): PointSourcePolygonConfig;
 
         /**
          * Initialize the PointSource with new input data
@@ -212,47 +205,29 @@ declare global {
         protected _ar1(y: number, { phi, center, sigma, max, min }?: ARParameters): number;
     }
 
-    interface LightSourceData {
-        /** The x-coordinate of the source location */
-        x: number;
-        /** The y-coordinate of the source location */
-        y: number;
-        /** An optional z-index sorting for the source */
-        z?: number;
-        /** The angle of rotation for this point source */
-        rotation: number;
+    interface LightSourceData extends RenderedPointSourceData {
         /** An opacity for the emitted light, if any */
         alpha: number;
         /** An animation configuration for the source */
         animation: object;
-        /** The angle of emission for this point source */
-        angle: number;
         /** The allowed radius of bright vision or illumination */
         bright: number;
-        /** A tint color for the emitted light, if any */
-        color: number;
         /** The coloration technique applied in the shader */
         coloration: number;
         /** The amount of contrast this light applies to the background texture */
         contrast: number;
-        /** A darkness range (min and max) for which the source should be active */
-        darkness: { min: number; max: number };
         /** The allowed radius of dim vision or illumination */
         dim: number;
-        /** Fade the difference between bright, dim, and dark gradually? */
-        gradual: boolean;
+        /** Strength of the attenuation between bright, dim, and dark */
+        attenuation: number;
         /** The luminosity applied in the shader */
         luminosity: number;
         /** The amount of color saturation this light applies to the background texture */
         saturation: number;
         /** The depth of shadows this light applies to the background texture */
         shadows: number;
-        /** Whether or not the source is constrained by walls */
-        walls: boolean;
         /** Whether or not this source provides a source of vision */
         vision: boolean;
-        /** An integer seed to synchronize (or de-synchronize) animations */
-        seed: number;
     }
 
     interface LightSourceMeshes {
