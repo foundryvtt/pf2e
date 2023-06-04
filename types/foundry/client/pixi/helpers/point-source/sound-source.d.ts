@@ -24,7 +24,7 @@ declare global {
          * @param data Initial data provided to the point source
          * @returns A reference to the initialized source
          */
-        initialize(data?: Partial<SoundSourceData>): this;
+        protected override _initialize(data: Partial<SoundSourceData>): void;
 
         protected _getPolygonConfiguration(): PointSourcePolygonConfig;
 

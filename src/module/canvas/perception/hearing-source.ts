@@ -4,18 +4,9 @@ import { TokenPF2e } from "../token/index.ts";
 class HearingSource<TObject extends TokenPF2e> extends PointSource<TObject> {
     static override sourceType = "sound";
 
-    initialize(): this {
-        this.data = {
-            x: this.object.center.x,
-            y: this.object.center.y,
-            z: this.object.document.elevation,
-            radius: canvas.dimensions?.maxR ?? 0,
-            walls: true,
-        };
-        this.radius = this.data.radius;
-        this.los = this._createPolygon();
-
-        return this;
+    protected override _initialize(data: SoundSourceData): void {
+        super._initialize(data);
+        this.data.walls = true;
     }
 
     protected override _getPolygonConfiguration(): PointSourcePolygonConfig {

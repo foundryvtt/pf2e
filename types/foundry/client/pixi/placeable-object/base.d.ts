@@ -18,7 +18,7 @@ declare global {
          * Track the field of vision for the placeable object.
          * This is necessary to determine whether a player has line-of-sight towards a placeable object or vice-versa
          */
-        vision: { fov: unknown; los: unknown };
+        vision: { fov: unknown; shape: unknown };
 
         /** A control icon for interacting with the object */
         controlIcon: ControlIcon;

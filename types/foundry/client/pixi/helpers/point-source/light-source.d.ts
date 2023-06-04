@@ -71,7 +71,7 @@ declare global {
          * @param data Initial data provided to the point source
          * @return A reference to the initialized source
          */
-        initialize(data?: Partial<LightSourceData>): this;
+        protected override _initialize(data?: Partial<LightSourceData>): void;
 
         protected _getPolygonConfiguration(): {
             type: "light" | "universal";
