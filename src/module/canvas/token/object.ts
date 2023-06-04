@@ -142,11 +142,11 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         const { value, max, temp } = actor.attributes.hp ?? {};
         const healthPercent = Math.clamped(value, 0, max) / max;
 
-        // Compute the color based on health percentage, this formula is the one core foundry uses
+        // Compute the color based on health percentage, this formula is the one core Foundry uses
         const black = 0x000000;
         const color = number
-            ? PIXI.utils.rgb2hex([0.5 * healthPercent, 0.7 * healthPercent, 0.5 + healthPercent / 2])
-            : PIXI.utils.rgb2hex([1 - healthPercent / 2, healthPercent, 0]);
+            ? Number(Color.fromRGB([0.5 * healthPercent, 0.7 * healthPercent, 0.5 + healthPercent / 2]))
+            : Number(Color.fromRGB([1 - healthPercent / 2, healthPercent, 0]));
 
         // Bar size logic stolen from core
         let h = Math.max(canvas.dimensions.size / 12, 8);
@@ -314,7 +314,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /** Add a callback for when a movement animation finishes */
     override async animate(updateData: Record<string, unknown>, options?: TokenAnimationOptions<this>): Promise<void> {
         await super.animate(updateData, options);
-        if (!this._animation) this.onFinishAnimation();
+        if (!this._animation) this.#onFinishAnimation();
     }
 
     /** Hearing should be updated whenever vision is */
@@ -393,7 +393,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     }
 
     /** A callback for when a movement animation for this token finishes */
-    private async onFinishAnimation(): Promise<void> {
+    async #onFinishAnimation(): Promise<void> {
         await this._animation;
         this.auras.refresh();
     }
