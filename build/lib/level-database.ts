@@ -13,8 +13,10 @@ const EMBEDDED_KEYS = ["items", "pages", "results"] as const;
 
 class LevelDatabase extends ClassicLevel<string, DBEntry> {
     #dbkey: DBKey;
-    #documentDb: Sublevel<DBEntry>;
     #embeddedKey: EmbeddedKey | null;
+
+    #documentDb: Sublevel<DBEntry>;
+    #foldersDb: Sublevel<DBFolder>;
     #embeddedDb: Sublevel<EmbeddedEntry> | null = null;
 
     constructor(location: string, options: LevelDatabaseOptions<DBEntry>) {
@@ -26,16 +28,17 @@ class LevelDatabase extends ClassicLevel<string, DBEntry> {
         this.#dbkey = dbKey;
         this.#embeddedKey = embeddedKey;
 
-        this.#documentDb = this.sublevel<string, DBEntry>(dbKey, dbOptions);
+        this.#documentDb = this.sublevel(dbKey, dbOptions);
+        this.#foldersDb = this.sublevel("folders", dbOptions) as unknown as Sublevel<DBFolder>;
         if (this.#embeddedKey) {
-            this.#embeddedDb = this.sublevel<string, DBEntry>(
+            this.#embeddedDb = this.sublevel(
                 `${this.#dbkey}.${this.#embeddedKey}`,
                 dbOptions
             ) as unknown as Sublevel<EmbeddedEntry>;
         }
     }
 
-    async createPack(docSources: DBEntry[]): Promise<void> {
+    async createPack(docSources: DBEntry[], folders: DBFolder[]): Promise<void> {
         const isDoc = (source: unknown): source is EmbeddedEntry => {
             return isObject(source) && "_id" in source;
         };
@@ -60,10 +63,17 @@ class LevelDatabase extends ClassicLevel<string, DBEntry> {
         if (embeddedBatch?.length) {
             await embeddedBatch.write();
         }
+        if (folders.length) {
+            const folderBatch = this.#foldersDb.batch();
+            for (const folder of folders) {
+                folderBatch.put(folder._id, folder);
+            }
+            await folderBatch.write();
+        }
         await this.close();
     }
 
-    async getEntries(): Promise<PackEntry[]> {
+    async getEntries(): Promise<{ packSources: PackEntry[]; folders: DBFolder[] }> {
         const packSources: PackEntry[] = [];
         for await (const [docId, source] of this.#documentDb.iterator()) {
             const embeddedKey = this.#embeddedKey;
@@ -75,8 +85,13 @@ class LevelDatabase extends ClassicLevel<string, DBEntry> {
             }
             packSources.push(source as PackEntry);
         }
+        const folders: DBFolder[] = [];
+        for await (const [_key, folder] of this.#foldersDb.iterator()) {
+            folders.push(folder);
+        }
         await this.close();
-        return packSources;
+
+        return { packSources, folders };
     }
 
     #getDBKeys(packName: string): { dbKey: DBKey; embeddedKey: EmbeddedKey | null } {
@@ -125,14 +140,34 @@ type Sublevel<T> = AbstractSublevel<ClassicLevel<string, T>, string | Buffer | U
 
 type EmbeddedEntry = ItemSourcePF2e | JournalEntryPageSource | TableResultSource;
 type DBEntry = Omit<PackEntry, "pages" | "items" | "results"> & {
+    folder?: string | null;
     items?: (EmbeddedEntry | string)[];
     pages?: (EmbeddedEntry | string)[];
     results?: (EmbeddedEntry | string)[];
 };
+
+interface DBFolder {
+    name: string;
+    sorting: string;
+    folder: string | null;
+    type: CompendiumDocumentType;
+    _id: string;
+    sort: number;
+    color: string | null;
+    flags: object;
+    _stats: {
+        systemId: string | null;
+        systemVersion: string | null;
+        coreVersion: string | null;
+        createdTime: number | null;
+        modifiedTime: number | null;
+        lastModifiedBy: string | null;
+    };
+}
 
 interface LevelDatabaseOptions<T> {
     packName: string;
     dbOptions?: DatabaseOptions<string, T>;
 }
 
-export { LevelDatabase };
+export { DBFolder, LevelDatabase };
