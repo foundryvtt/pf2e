@@ -37,7 +37,7 @@ export class WorldClock extends Application {
 
     /** Setting: display either a 24-hour or 12-hour clock */
     get timeConvention(): 24 | 12 {
-        const setting = game.settings.get("pf2e", "worldClock.timeConvention");
+        const setting = Number(game.settings.get("pf2e", "worldClock.timeConvention"));
         if (setting !== 24 && setting !== 12) {
             throw Error("PF2e System | Unrecognized time convention");
         }
