@@ -11,6 +11,7 @@ import { PERSISTENT_DAMAGE_IMAGES } from "@system/damage/values.ts";
 import { DegreeOfSuccess } from "@system/degree-of-success.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e } from "@util";
+import * as R from "remeda";
 import { ConditionSource, ConditionSystemData, PersistentDamageData } from "./data.ts";
 import { ConditionKey, ConditionSlug } from "./types.ts";
 
@@ -56,6 +57,27 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     /** Is the condition found in the token HUD menu? */
     get isInHUD(): boolean {
         return this.slug in CONFIG.PF2E.statusEffects.conditions;
+    }
+
+    /** Create a textual breakdown of what applied this condition */
+    get breakdown(): string | null {
+        if (!this.active) return null;
+
+        const granters = R.uniq(
+            R.compact(
+                this.actor?.conditions.bySlug(this.slug).map((condition) => {
+                    const { appliedBy } = condition;
+                    return !appliedBy?.isOfType("condition") || appliedBy?.active ? appliedBy : null;
+                }) ?? []
+            )
+        );
+
+        const list = granters
+            .map((p) => p.name)
+            .sort((a, b) => a.localeCompare(b, game.i18n.lang))
+            .join(", ");
+
+        return list ? game.i18n.format("PF2E.EffectPanel.AppliedBy", { "condition-list": list }) : null;
     }
 
     /** Include damage type and possibly category for persistent-damage conditions */
