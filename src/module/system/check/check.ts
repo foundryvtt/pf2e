@@ -232,7 +232,6 @@ class CheckPF2e {
 
         type MessagePromise = Promise<ChatMessagePF2e | ChatMessageSourcePF2e>;
         const message = await ((): MessagePromise => {
-            const origin = item && { uuid: item.uuid, type: item.type };
             const coreFlags: Record<string, unknown> = { canPopout: true };
             if (context.type === "initiative") coreFlags.initiativeRoll = true;
             const flags = {
@@ -242,7 +241,7 @@ class CheckPF2e {
                     unsafe: flavor,
                     modifierName: check.slug,
                     modifiers: check.modifiers.map((m) => m.toObject()),
-                    origin,
+                    origin: item?.getOriginData(),
                     strike,
                 },
             };

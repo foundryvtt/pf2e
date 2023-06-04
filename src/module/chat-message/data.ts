@@ -11,18 +11,24 @@ interface ChatMessageSourcePF2e extends foundry.documents.ChatMessageSource {
     flags: ChatMessageFlagsPF2e;
 }
 
+export interface ItemOriginFlag {
+    type: ItemType;
+    uuid: string;
+    castLevel?: number;
+    variant?: { overlays: string[] };
+}
+
 type ChatMessageFlagsPF2e = foundry.documents.ChatMessageFlags & {
     pf2e: {
         damageRoll?: DamageRollFlag;
         context?: ChatContextFlag;
-        origin?: { type: ItemType; uuid: string } | null;
-        casting?: { id: string; level: number; tradition: MagicTradition } | null;
+        origin?: ItemOriginFlag | null;
+        casting?: { id: string; tradition: MagicTradition } | null;
         modifierName?: string;
         modifiers?: BaseRawModifier[];
         preformatted?: "flavor" | "content" | "both";
         isFromConsumable?: boolean;
         journalEntry?: DocumentUUID;
-        spellVariant?: { overlayIds: string[] };
         strike?: StrikeLookupData | null;
         appliedDamage?: AppliedDamageFlag | null;
         [key: string]: unknown;
