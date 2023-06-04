@@ -2,6 +2,10 @@
 
 ## 4.12.8
 
+-   (stwlam) Fix issue causing effects panel to not load when certain conditions were present on an actor
+
+## 4.12.8
+
 ### Bugfixes
 
 -   (stwlam) Fix creation of custom physical items on actor sheets
