@@ -2,6 +2,13 @@ import { ActorPF2e } from "@actor";
 import { ActorUpdateContext } from "@actor/base.ts";
 
 export class ActorsPF2e<TActor extends ActorPF2e<null>> extends Actors<TActor> {
+    /** Overrwriten to omit actors in parties, which are rendered separately */
+    override _getVisibleTreeContents(): TActor[] {
+        return super
+            ._getVisibleTreeContents()
+            .filter((a) => (a.isOfType("creature") && !a.parties.size) || !a.isOfType("party", "creature"));
+    }
+
     /** Work around a bug as of Foundry V9.242 in which token default settings are ignored for compendium imports */
     override fromCompendium(actor: TActor | TActor["_source"], options?: FromCompendiumOptions): TActor["_source"] {
         const defaultToken = deepClone(game.settings.get("core", "defaultToken"));

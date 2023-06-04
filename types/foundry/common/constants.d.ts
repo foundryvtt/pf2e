@@ -231,6 +231,12 @@ export const PLAYLIST_SORT_MODES: {
     MANUAL: "m";
 };
 
+/** The available modes for searching within a DirectoryCollection */
+export const DIRECTORY_SEARCH_MODES: {
+    FULL: "full";
+    NAME: "name";
+};
+
 /** The allowed package types */
 export const PACKAGE_TYPES: ["world", "system", "module"];
 
