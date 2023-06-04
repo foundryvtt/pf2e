@@ -11,63 +11,80 @@
         </div>
 
         {{!-- AC --}}
-        <div class="sidebar-section ac">
+        <div class="sidebar-section">
             <div class="sidebar-label">
                 <i class="fas fa-fw fa-shield-alt"></i>
                 <h4>{{localize "PF2E.ArmorClassLabel"}}</h4>
-                <input type="text" data-property="system.attributes.ac.value" value="{{data.attributes.ac.value}}" data-dtype="Number" placeholder="0"/>
+                <input type="number" data-property="system.attributes.ac.value" value="{{data.attributes.ac.value}}" data-dtype="Number" placeholder="0"/>
             </div>
             <input type="text" data-dtype="String" data-property="system.attributes.ac.details" value="{{data.attributes.ac.details}}" class="armor-details" placeholder="{{localize "PF2E.NPC.ArmorExtraInfoLabelPlaceholder"}}" />
         </div>
 
         {{!-- HP --}}
-        <div class="sidebar-section hp">
+        <div class="sidebar-section">
             <div class="sidebar-label">
                 <i class="fas fa-fw fa-heart"></i>
                 <h4>{{localize "PF2E.HitPointsShortLabel"}}</h4>
                 <div class="hit-points">
-                    <input type="text" data-property="system.attributes.hp.value" value="{{data.attributes.hp.value}}" data-dtype="Number" placeholder="0" />
+                    <input type="number" data-property="system.attributes.hp.value" value="{{data.attributes.hp.value}}" data-dtype="Number" placeholder="0" />
                     <span class="slash">/</span>
-                    <input type="text" data-property="system.attributes.hp.max" value="{{data.attributes.hp.max}}" data-dtype="Number" placeholder="0"/>
+                    <input type="number" data-property="system.attributes.hp.max" value="{{data.attributes.hp.max}}" data-dtype="Number" placeholder="0"/>
                 </div>
             </div>
-            <div class="side-bar-section-content">
-                <input type="text" data-property="system.attributes.hp.details" value="{{data.attributes.hp.details}}" title="{{data.attributes.hp.details}}" data-dtype="String" placeholder="{{localize "PF2E.NPC.HPExtraInfoLabelPlaceholder"}}"/>
-            </div>
+            <input type="text" data-property="system.attributes.hp.details" value="{{data.attributes.hp.details}}" title="{{data.attributes.hp.details}}" data-dtype="String" placeholder="{{localize "PF2E.NPC.HPExtraInfoLabelPlaceholder"}}"/>
         </div>
 
         {{!-- Scouting --}}
-        <div class="sidebar-section scouting">
+        <div class="sidebar-section">
             <div class="sidebar-label">
                 <i class="fas fa-fw fa-eye"></i>
                 <h4>Scouting</h4>
                 <a class="roll-icon">
-                <div>{{numberFormat system.attributes.scouting.totalModifier decimals=0 sign=true}}</div>
                 <i class="fas fa-dice-d20"></i>
-                </a>                    
+                </a>
+                <input type="number" data-property="system.attributes.scouting.value" value="{{data.attributes.scouting.value}}" data-dtype="Number" placeholder="0" />
             </div>
         </div>
 
         {{!-- Saves --}}
-        <div class="sidebar-section saves">
-            <div class="row">
-                <div class="half" data-save="{{data.saves.morale}}">
-                    <h4>Morale</h4>
-                    <a class="roll-icon">
-                    <i class="fas fa-dice-d20"></i>
-                    <input type="text" value="{{numberFormat system.saves.morale.value decimals=0 sign=true}}" data-property="system.saves.morale.value" data-dtype="Number" placeholder="0" />
-                    </a>                        
-                </div>
-                <div class="half" data-save="{{data.saves.morale}}">
-                    <h4>Maneuver</h4>
-                    <a class="roll-icon">
-                    <i class="fas fa-dice-d20"></i>
-                    <input type="text" value="{{numberFormat system.saves.maneuver.value decimals=0 sign=true}}" data-property="system.saves.maneuver.value" data-dtype="Number" placeholder="0" />
-                    </a>   
-                </div>    
+        <div class="sidebar-section">
+            <div class="sidebar-label">
+                <i class="fas fa-fw fa-boot"></i>
+                <h4>Saves</h4>
+            </div>        
+            <div class="flex">
+                <label for="system.saves.morale.value">Morale</label>
+                <a class="roll-icon">
+                <i class="fas fa-dice-d20"></i>
+                </a>   
+                <input type="number" data-property="system.saves.morale.value" value="{{data.saves.morale.value}}" data-dtype="Number" placeholder="0" />
+            </div>
+            <div class="flex">                     
+                <label for="system.saves.maneuver.value">Maneuver</label>
+                <a class="roll-icon">
+                <i class="fas fa-dice-d20"></i>
+                </a>
+                <input type="number" data-property="system.saves.maneuver.value" value="{{data.saves.maneuver.value}}" data-dtype="Number" placeholder="0" />
             </div>
             <input type="text" name="system.saves.allSaves.value" value="{{data.saves.allSaves.value}}" title="{{data.saves.allSaves.value}}" placeholder="{{localize "PF2E.NPC.SavesExtraInfoLabelPlaceholder"}}"/>
         </div>
+
+        {{!-- Economy --}}
+        <div class="sidebar-section">   
+            <div class="sidebar-label">
+                <i class="fas fa-fw fa-coins"></i>
+                <h4>Economy</h4>
+            </div>        
+            <div class="flex">
+                <label for="data.attributes.consumption.value">Consumption:</label>
+                <input type="number" data-property="system.attributes.consumption.value" value="{{data.attributes.consumption.value}}" data-dtype="Number" placeholder="0"/>
+            </div>
+            <div class="flex">
+                <label for="data.attributes.recruitmentDC.value">Recruitment DC:</label>
+                <input type="number" data-property="system.attributes.recruitmentDC.value" value="{{data.attributes.recruitmentDC.value}}" data-dtype="Number" placeholder="0"/>
+            </div>
+        </div>
+
     </aside>
 
     <section class="army-body">
@@ -76,106 +93,87 @@
         {{!--     Header     --}}
         {{!-- ============== --}}
         <header class="army-sheet-header">
-            <div class="name flexrow bottom-separator">
+            {{!-- NAME --}}
+            <div class="name flex">
                 <input class="name-value" name="name" type="text" value="{{actor.name}}" placeholder="Army Name" spellcheck="false" />
                 <label class="level-label">Army</label>
                 <input class="level" name="system.details.level.value" type="number" value="{{data.details.level.value}}" placeholder="1" />
             </div>
-            <div class="flexrow" style="justify-content: space-between; width: 100%;">
-                <div class="flexrow" style="flex: auto;">
-                    {{!-- TRAITS --}}
-                    <select class="rarity-select trait rarity {{system.traits.rarity}}" data-property="system.traits.rarity.value">
-                        {{#select system.traits.rarity}}
-                            {{#each rarity as |label key|}}
-                                <option value="{{key}}">{{localize label}}</option>
-                            {{/each}}
-                        {{/select}}
-                    </select>
-                    <select class="alignment-select trait alignment" data-property="system.details.alignment.value">
-                        {{#select system.details.alignment.value}}
-                            {{#each alignments as |label key|}}
-                                <option value="{{key}}">{{localize label}}</option>
-                            {{/each}}
-                        {{/select}}
-                    </select>
-                    <select class="type-select trait type" data-property="system.traits.type.value">
-                        {{#select system.traits.type.value}}
-                            {{#each type as |label key|}}
-                                <option value="{{key}}">{{localize label}}</option>
-                            {{/each}}
-                        {{/select}}
-                    </select>
-                </div>
+            {{!-- TRAITS --}}
+            {{!-- copied this bit from the character sheet so it's not my fault it's scuffed --}}
+            <div>
+                <select class="rarity-select trait {{system.traits.rarity}}" data-property="system.traits.rarity">
+                    {{#select system.traits.rarity}}
+                        {{#each rarity as |label key|}}
+                            <option value="{{key}}">Rarity</option>
+                        {{/each}}
+                    {{/select}}
+                </select>
+                <select class="alignment-select trait" data-property="system.details.alignment">
+                    {{#select system.details.alignment}}
+                        {{#each alignments as |label key|}}
+                            <option value="{{key}}">Alignment</option>
+                        {{/each}}
+                    {{/select}}
+                </select>
+                <select class="type-select trait" data-property="system.traits.type">
+                    {{#select system.traits.type}}
+                        {{#each type as |label key|}}
+                            <option value="{{key}}">Type</option>
+                        {{/each}}
+                    {{/select}}
+                </select>
             </div>
-            <div class="flexrow">
-                <input name="system.details.blurb" type="text" value="{{data.details.blurb}}" />
-            </div>
+            {{!-- BLURB --}}
+            <input name="system.details.blurb" type="text" value="{{data.details.blurb}}" />
         </header>
-
-        {{!-- ============== --}}
-        {{!--      Nav       --}}
-        {{!-- ============== --}}
-        <nav class="sheet-tabs tabs" data-group="primary">
-            <a class="item" data-tab="main">Main</a>
-            <a class="item" data-tab="inventory">Inventory</a>
-            <a class="item" data-tab="effects">Effects</a>
-            <a class="item" data-tab="notes">Notes</a>
-        </nav>
 
         {{!-- ============== --}}
         {{!--      Body      --}}
         {{!-- ============== --}}
         <section class="sheet-body">
-            {{!-- ============== --}}
-            {{!--      Main      --}}
-            {{!-- ============== --}}
-            <section class="tab main" data-group="primary">
-                    <fieldset class="strikes">
-                    <legend><i class="fa-light fa-swords"></i>&nbsp;Strikes</legend>
-                        <div class="flex">
-                            <button class="roll"><i class="fa-light fa-dice-d20"></i></button><span>&nbsp;</span>
-                            <input type="text" name="Melee Strike Name" value="Strike Name"/><span>&nbsp;</span>
-                            <input type="number" name="strikes.melee" value="{{data.attributes.strikes.melee}}"/><span>&nbsp;</span>
-                        </div>
-                        <div class="flex">
-                            <button class="roll"><i class="fa-light fa-dice-d20"></i></button><span>&nbsp;</span>
-                            <input type="text" name="Ranged Strike Name" value="Strike Name"/><span>&nbsp;</span>
-                            <input type="number" name="strikes.ranged" value="{{data.attributes.strikes.ranged}}"/><span>&nbsp;</span>
-                        </div>
-                    </fieldset>
-                    <fieldset class="description">
-                        <legend><i class="fa-light fa-pencil"></i>&nbsp;Description</legend>
-                            {{editor enrichedContent.privateNotes target="system.details.description" button=true editable=editable}}
-                    </fieldset>
-                    <div class="economy flex">
-                        <div>
-                            <label for="consumption.value">Consumption:</label>
-                            <input type="number" name="consumption.value" value="{{data.attributes.consumption.value}}"/>
-                        </div>
-                        <div>
-                            <label for="recruitmentDC.value">Recruitment DC:</label>
-                            <input type="number" name="recruitmentDC.value" value="{{data.attributes.recruitmentDC.value}}"/>
-                        </div>
+
+                {{!-- ============== --}}
+                {{!--     Strikes    --}}
+                {{!-- ============== --}}
+                <fieldset>
+                <legend><i class="fa-light fa-swords"></i>&nbsp;Strikes</legend>
+                    <div class="flex strike">
+                        {{!--     For some reason editing one of these edits both but also doesn't set the values correctly    --}}
+                        <input class="name" type="text" data-property="system.attributes.strikes.melee.name" value="{{data.attributes.strikes.melee.name}}" placeholder="Melee Strike" />
+                        <a class="roll-icon">
+                        <i class="fas fa-dice-d20"></i>
+                        </a>
+                        <input class="value" type="number" data-property="system.attributes.strikes.melee.bonus" value="{{data.attributes.strikes.melee.bonus}}" placeholder="0" />
                     </div>
-            </section>
+                    <div class="flex strike">
+                        <input class="name" type="text" data-property="system.attributes.strikes.ranged.name" value="{{data.attributes.strikes.melee.name}}" placeholder="Ranged Strike" />
+                        <a class="roll-icon"><i class="fas fa-dice-d20"></i></a>
+                        <input class="value" type="number" data-property="system.attributes.strikes.ranged.bonus" value="{{data.attributes.strikes.melee.bonus}}" placeholder="0" />
+                    </div>
+                </fieldset>
 
-            {{!-- ============== --}}
-            {{!--      Inv       --}}
-            {{!-- ============== --}}
-            <section class="tab inventory" data-container-type="actorInventory" data-group="primary">
-            </section>   
+                {{!-- ============== --}}
+                {{!--     Tactics    --}}
+                {{!-- ============== --}}
+                <fieldset>
+                <legend><i class="fa-light fa-flag-swallowtail"></i>&nbsp;Tactics</legend>
+                </fieldset>
 
-            {{!-- ============== --}}
-            {{!--    Effects     --}}
-            {{!-- ============== --}}
-            <section class="tab effects" data-group="primary">
-            </section>
+                {{!-- ============== --}}
+                {{!--      Gear      --}}
+                {{!-- ============== --}}
+                <fieldset>
+                <legend><i class="fa-light fa-flask-round-potion"></i>&nbsp;Gear</legend>
+                </fieldset>
 
-            {{!-- ============== --}}
-            {{!--     Notes      --}}
-            {{!-- ============== --}}
-            <section class="tab notes" data-group="primary">
-            </section>
+                {{!-- ============== --}}
+                {{!--      Desc      --}}
+                {{!-- ============== --}}
+                <fieldset>
+                    <legend><i class="fa-light fa-pencil"></i>&nbsp;Description</legend>
+                    <input type="text" data-property="system.details.description" value="{{data.details.description}}" placeholder="A description of this army!"/>
+                </fieldset>
 
         </section>
     </section>

@@ -126,31 +126,23 @@ import { ActorAlliance } from "./types";
                 details: string;
             };
     
-            maneuver: {
-                value: number;
-                details: string;
-            };
-    
-            morale: {
-                value: number;
-                details: string;
-            };
-    
             strikes: {
-              melee: {
-                    value: number;
-                    details: string;
+                melee: {
+                    bonus: number;
+                    name: string;
                 };
     
                 ranged: {
-                    value: number;
-                    details: string;
+                    bonus: number;
+                    name: string;
                 };
             };    
         };
 
         details: {
-            level: { value: number };
+            level: { 
+                value: number 
+            };
             description: string;
         };
 
