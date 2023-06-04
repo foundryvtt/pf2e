@@ -1,6 +1,8 @@
 # Changelog
 
-## 4.12.8
+## 4.12.9
+
+### Bugfixes
 
 -   (stwlam) Fix issue causing effects panel to not load when certain conditions were present on an actor
 
