@@ -1,11 +1,8 @@
-import { ActorPF2e } from "@actor";
-import { AbstractEffectPF2e, EffectPF2e } from "@item";
-import { AfflictionPF2e } from "@item/affliction/document.ts";
+import { AbstractEffectPF2e, AfflictionPF2e, ConditionPF2e, EffectPF2e } from "@item";
 import { EffectExpiryType } from "@item/effect/data.ts";
-import { TokenDocumentPF2e } from "@scene/index.ts";
+import { ActorPF2e, TokenDocumentPF2e } from "@module/documents.ts";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import { htmlQuery, htmlQueryAll } from "@util";
-import { FlattenedCondition } from "../system/conditions/index.ts";
 
 export class EffectsPanel extends Application {
     private get token(): TokenDocumentPF2e | null {
@@ -69,8 +66,7 @@ export class EffectsPanel extends Application {
                 return effect;
             }) ?? [];
 
-        const conditions = game.pf2e.ConditionManager.getFlattenedConditions(actor);
-
+        const conditions = actor.conditions.active;
         const afflictions = actor.itemTypes.affliction;
 
         const descriptions = {
@@ -220,7 +216,7 @@ export class EffectsPanel extends Application {
         }
     }
 
-    async #getEnrichedDescriptions(effects: AfflictionPF2e[] | EffectPF2e[] | FlattenedCondition[]): Promise<String[]> {
+    async #getEnrichedDescriptions(effects: AfflictionPF2e[] | EffectPF2e[] | ConditionPF2e[]): Promise<string[]> {
         return await Promise.all(
             effects.map(async (effect) => {
                 const actor = "actor" in effect ? effect.actor : null;
@@ -232,14 +228,14 @@ export class EffectsPanel extends Application {
 }
 
 interface EffectsDescriptionData {
-    afflictions: String[];
-    conditions: String[];
-    effects: String[];
+    afflictions: string[];
+    conditions: string[];
+    effects: string[];
 }
 
 interface EffectsPanelData {
     afflictions: AfflictionPF2e[];
-    conditions: FlattenedCondition[];
+    conditions: ConditionPF2e[];
     descriptions: EffectsDescriptionData;
     effects: EffectPF2e[];
     actor: ActorPF2e | null;
