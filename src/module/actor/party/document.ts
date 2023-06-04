@@ -4,9 +4,10 @@ import { UserPF2e } from "@module/documents.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { sortBy, tupleHasValue } from "@util";
+import { DataModelValidationOptions } from "types/foundry/common/abstract/data.js";
 import { MemberData, PartySource, PartySystemData } from "./data.ts";
 import { InvalidCampaign } from "./invalid-campaign.ts";
-import { KingdomModel } from "./kingdom/index.ts";
+import { Kingdom } from "./kingdom/index.ts";
 import { PartySheetRenderOptions } from "./sheet.ts";
 import { PartyCampaign, PartyUpdateContext } from "./types.ts";
 
@@ -47,6 +48,19 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return false;
     }
 
+    /** Override validation to defer certain properties to the campaign model */
+    override validate(options?: DataModelValidationOptions): boolean {
+        if (!super.validate(options)) return false;
+
+        const changes: DeepPartial<PartySource> = options?.changes ?? {};
+        if (changes.system?.campaign) {
+            const campaignValid = this.campaign?.validate({ ...options, changes: changes.system.campaign });
+            if (!campaignValid) return false;
+        }
+
+        return true;
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
         this.members = this.system.details.members
@@ -60,16 +74,24 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         // Bind campaign data, though only kingmaker is supported (and hardcoded).
         // This will need to be expanded to allow modules to add to the list
-        this.campaign = null;
         const campaignType = game.settings.get("pf2e", "campaignType");
         if (campaignType !== "none") {
             const typeMatches = this.system.campaign?.type === campaignType;
             if (this.system.campaign && !typeMatches) {
-                this.campaign = new InvalidCampaign(this, campaignType);
+                this.campaign = new InvalidCampaign(this, { campaignType, reason: "mismatch" });
             } else {
-                // Hardcoded, later on we need to make this configurable
-                const model = (this.campaign = new KingdomModel(this, this.system.campaign));
-                this.system.campaign = model._source;
+                // Wrap in a try catch in case data preparation fails
+                try {
+                    if (this.campaign?.type === campaignType) {
+                        this.campaign.updateSource(this.system.campaign);
+                    } else {
+                        const model = (this.campaign = new Kingdom(this.system.campaign, { parent: this }));
+                        this.system.campaign = model._source;
+                    }
+                } catch (err) {
+                    console.error(err);
+                    this.campaign = new InvalidCampaign(this, { campaignType, reason: "error" });
+                }
             }
         }
     }

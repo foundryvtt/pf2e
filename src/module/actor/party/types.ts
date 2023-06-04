@@ -7,6 +7,7 @@ import { TokenDocumentPF2e } from "@scene";
 import { ActorUpdateContext } from "@actor/base.ts";
 import { ItemType } from "@item/data/index.ts";
 import { ItemPF2e } from "@item";
+import DataModel from "types/foundry/common/abstract/data.js";
 
 interface PartySheetData extends ActorSheetDataPF2e<PartyPF2e> {
     members: MemberBreakdown[];
@@ -49,7 +50,7 @@ interface PartyUpdateContext<TParent extends TokenDocumentPF2e | null> extends A
 }
 
 /** Interface for a party campaign implementation, alternative data preparation used by parties for special campaigns */
-interface PartyCampaign {
+interface PartyCampaign extends DataModel<PartyPF2e, {}> {
     type: string;
     level?: number;
     /** Any additional item types supported by the campaign */

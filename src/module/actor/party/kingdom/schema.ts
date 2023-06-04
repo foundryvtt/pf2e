@@ -25,6 +25,8 @@ function buildKingdomCHGSchema(): {
 }
 
 const KINGDOM_BUILD_SCHEMA = {
+    /** Determines if the ability scores are manually set or automatically determined. */
+    manual: new fields.BooleanField<boolean, boolean>({ required: true, nullable: false, initial: false }),
     charter: new fields.SchemaField(buildKingdomCHGSchema(), { nullable: true, initial: null }),
     heartland: new fields.SchemaField(buildKingdomCHGSchema(), { nullable: true, initial: null }),
     government: new fields.SchemaField(
@@ -36,6 +38,7 @@ const KINGDOM_BUILD_SCHEMA = {
         },
         { nullable: true, initial: null }
     ),
+    /** Boost selections made by the user, both during the build process and levelling */
     boosts: new fields.SchemaField(
         mapValuesFromKeys(["charter", "heartland", "government", "1", "5", "10", "15", "20"] as const, () => {
             return new fields.ArrayField<StringField<KingdomAbility, KingdomAbility, true, false>>(
@@ -67,9 +70,10 @@ const KINGDOM_RESOURCES_SCHEMA = {
 
 const KINGDOM_SCHEMA = {
     type: new fields.StringField({
-        initial: "kingmaker",
+        choices: ["kingmaker"],
         required: true,
         nullable: false,
+        initial: "kingmaker",
     }),
     capital: new fields.StringField({ initial: "", required: true }),
     size: new fields.NumberField({ initial: 1, required: true, nullable: false }),
@@ -89,6 +93,12 @@ const KINGDOM_SCHEMA = {
         }),
     }),
     active: new fields.BooleanField<boolean, boolean, true, false>({ initial: false, required: true, nullable: false }),
+    aspiration: new fields.StringField({
+        choices: ["fame", "infamy"],
+        required: true,
+        nullable: false,
+        initial: "fame",
+    }),
     abilities: new fields.SchemaField(
         mapValuesFromKeys(KINGDOM_ABILITIES, () => {
             return new fields.SchemaField({

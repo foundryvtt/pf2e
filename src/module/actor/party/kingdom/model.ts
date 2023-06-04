@@ -1,24 +1,28 @@
-import { createHTMLElement, fontAwesomeIcon } from "@util";
-import { KingdomCHG, KingdomGovernment, KingdomSchema, KingdomSource } from "./data.ts";
-import { KINGDOM_SCHEMA } from "./schema.ts";
-import type { PartyPF2e } from "../document.ts";
-import { ModelPropsFromSchema } from "types/foundry/common/data/fields.js";
-import { PartyCampaign } from "../types.ts";
-import { ItemType } from "@item/data/index.ts";
 import { FeatGroup } from "@actor/character/feats.ts";
-import { KINGDOM_ABILITIES } from "./values.ts";
+import { ItemType } from "@item/data/index.ts";
+import { createHTMLElement, fontAwesomeIcon } from "@util";
+import { ModelPropsFromSchema } from "types/foundry/common/data/fields.js";
+import type { PartyPF2e } from "../document.ts";
+import { PartyCampaign } from "../types.ts";
+import { KingdomBuilder } from "./builder.ts";
+import { KingdomCHG, KingdomGovernment, KingdomSchema, KingdomSource } from "./data.ts";
 import { resolveKingdomBoosts } from "./helpers.ts";
-import { PartyCampaignSource } from "../data.ts";
+import { KINGDOM_SCHEMA } from "./schema.ts";
+import { KINGDOM_ABILITIES } from "./values.ts";
 
 const { DataModel } = foundry.abstract;
 
 /** Model for the Kingmaker campaign data type, which represents a Kingdom */
-class KingdomModel extends DataModel<null, KingdomSchema> implements PartyCampaign {
+class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampaign {
     declare feats: FeatGroup<PartyPF2e>;
     declare bonusFeats: FeatGroup<PartyPF2e>;
 
     static override defineSchema(): KingdomSchema {
         return KINGDOM_SCHEMA;
+    }
+
+    get actor(): PartyPF2e {
+        return this.parent;
     }
 
     get extraItemTypes(): ItemType[] {
@@ -37,10 +41,10 @@ class KingdomModel extends DataModel<null, KingdomSchema> implements PartyCampai
         return this.build.government;
     }
 
-    constructor(private actor: PartyPF2e, source?: PartyCampaignSource) {
-        super(source);
-        this.#prepareAbilityScores();
-        this.#prepareFeats();
+    override _initialize(options?: Record<string, unknown>): void {
+        super._initialize(options);
+        this.prepareAbilityScores();
+        this.prepareFeats();
     }
 
     /** Creates sidebar buttons to inject into the chat message sidebar */
@@ -48,8 +52,16 @@ class KingdomModel extends DataModel<null, KingdomSchema> implements PartyCampai
         // Do not show kingdom to party members until it becomes activated.
         if (!this.active && !game.user.isGM) return [];
 
-        const icon = createHTMLElement("a", { children: [fontAwesomeIcon("crown", { fixedWidth: true })] });
-        // todo: open sheet once clicked
+        const crownIcon = fontAwesomeIcon("crown");
+        const icon = createHTMLElement("a", { classes: ["create-button"], children: [crownIcon] });
+        if (!this.active) {
+            icon.appendChild(fontAwesomeIcon("plus"));
+        }
+
+        icon.addEventListener("click", () => {
+            // todo: open actual kingdom sheet once active
+            new KingdomBuilder(this).render(true);
+        });
         return [icon];
     }
 
@@ -57,7 +69,9 @@ class KingdomModel extends DataModel<null, KingdomSchema> implements PartyCampai
         await this.actor.update({ "system.campaign": data });
     }
 
-    #prepareAbilityScores(): void {
+    private prepareAbilityScores(): void {
+        if (this.build.manual) return;
+
         for (const ability of KINGDOM_ABILITIES) {
             this.abilities[ability].value = 10;
         }
@@ -79,7 +93,7 @@ class KingdomModel extends DataModel<null, KingdomSchema> implements PartyCampai
         }
 
         // Level boosts
-        const activeLevels = ([1, 5, 10, 15, 20] as const).filter((l) => this.level > l);
+        const activeLevels = ([1, 5, 10, 15, 20] as const).filter((l) => this.level >= l);
         for (const level of activeLevels) {
             const chosen = this.build.boosts[level].slice(0, 2);
             for (const ability of chosen) {
@@ -88,7 +102,7 @@ class KingdomModel extends DataModel<null, KingdomSchema> implements PartyCampai
         }
     }
 
-    #prepareFeats(): void {
+    private prepareFeats(): void {
         const { actor } = this;
 
         const evenLevels = new Array(actor.level)
@@ -118,6 +132,6 @@ class KingdomModel extends DataModel<null, KingdomSchema> implements PartyCampai
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface KingdomModel extends ModelPropsFromSchema<KingdomSchema> {}
+interface Kingdom extends ModelPropsFromSchema<KingdomSchema> {}
 
-export { KingdomModel };
+export { Kingdom };

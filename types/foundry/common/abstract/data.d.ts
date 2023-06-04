@@ -1,5 +1,6 @@
 import type * as fields from "../data/fields.d.ts";
 import type { EmbeddedCollection } from "./embedded-collection.d.mts";
+import type { Document } from "./module.d.ts";
 
 /**
  * The abstract base class which defines the data schema contained within a Document.
@@ -7,7 +8,7 @@ import type { EmbeddedCollection } from "./embedded-collection.d.mts";
  * @param [options={}] Options which affect DataModel construction
  */
 export default abstract class DataModel<
-    TParent extends DataModel | null = _DataModel | null,
+    TParent extends DataModel | Document | null = _DataModel | null,
     TSchema extends fields.DataSchema = fields.DataSchema
 > {
     constructor(
@@ -203,7 +204,7 @@ export default abstract class DataModel<
     static migrateDataSafe(source: object): object;
 }
 
-export type RawObject<TModel extends DataModel<DataModel | null>> = {
+export type RawObject<TModel extends _DataModel> = {
     [P in keyof TModel]: TModel[P] extends EmbeddedCollection<infer U>
         ? RawObject<U>[]
         : TModel[P] extends DataModel
@@ -223,7 +224,7 @@ export interface DataModelValidationOptions {
 }
 
 declare global {
-    interface DataModelConstructionOptions<TParent extends DataModel | null> {
+    interface DataModelConstructionOptions<TParent extends DataModel | Document | null> {
         /** @param [parent=null] A parent DataModel instance to which this DataModel belongs */
         parent?: TParent;
         /** @param [strict=true] Control the strictness of validation for initially provided data */
@@ -236,4 +237,4 @@ declare global {
     }
 }
 
-type _DataModel = DataModel<_DataModel | null, fields.DataSchema>;
+type _DataModel = DataModel<_DataModel | null, fields.DataSchema> | Document;
