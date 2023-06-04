@@ -14,7 +14,7 @@ export const RenderSettings = {
             }
 
             systemInfo.classList.remove("system");
-            systemInfo.classList.add("system-info");
+            systemInfo.classList.add("system-links");
             const links = [
                 {
                     url: "https://github.com/foundryvtt/pf2e/blob/release/CHANGELOG.md",
