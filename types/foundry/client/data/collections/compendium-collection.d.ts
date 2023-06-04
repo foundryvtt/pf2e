@@ -56,9 +56,6 @@ declare global {
         /** Track whether the Compendium Collection is locked for editing */
         get locked(): boolean;
 
-        /** Track whether the Compendium Collection is private */
-        get private(): boolean;
-
         /** A convenience reference to the label which should be used as the title for the Compendium pack. */
         get title(): string;
 

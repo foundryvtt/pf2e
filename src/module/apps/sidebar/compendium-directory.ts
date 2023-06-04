@@ -241,7 +241,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
 
     #compileSearchIndex(): void {
         console.debug("PF2e System | compiling search index");
-        const packs = game.packs.filter((p) => p.index.size > 0 && (game.user.isGM || !p.private));
+        const packs = game.packs.filter((p) => p.index.size > 0 && p.testUserPermission(game.user, "OBSERVER"));
 
         for (const pack of packs) {
             const contents = pack.index.map((i) => ({
