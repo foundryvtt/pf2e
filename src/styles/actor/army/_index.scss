@@ -25,6 +25,7 @@ form.army-sheet {
       flex-direction: column;
       flex: 160px 0 0;
       text-align: center;
+
       //Portrait
       div.image-container {
         border: none;
@@ -43,6 +44,7 @@ form.army-sheet {
         }
       }
 
+      // Sidebar sections
       .sidebar-section {
         width: 100%;
         display: flex;
@@ -51,9 +53,20 @@ form.army-sheet {
         justify-content: flex-start;
         align-items: center;
 
-        input[type="text"] {
+        input {
+            &[type="number"] {
+            width: 32px;
+            }
+            &[type="text"] {
             text-align: left;
-          }
+            }
+        }
+
+        h4, label {
+            font-weight: bold;
+            margin-right: auto;
+            font-size: 0.8rem;
+            }  
 
         .sidebar-label {
           display: flex;
@@ -61,19 +74,9 @@ form.army-sheet {
           font-size: 1rem;
           border-bottom: 1px solid;
           border-color: $faded-color;
-          margin-top: 10px;
-          margin-bottom: 0px;
-          flex: auto;
-          flex-direction: row;
-          justify-content:space-between;
+          margin: 8px 0;
           align-items: baseline;
-          flex: 1;
 
-          h4, label {
-          font-weight: bold;
-          margin-right: auto;
-          font-size: 0.8rem;
-          }
           input[type="text"],
           input[type="number"] {
               flex: 0;
@@ -85,28 +88,12 @@ form.army-sheet {
           &.hp-temp > label {
               margin-right: 0.5em;
           }
-          .fa {
-            font-size: 0.8rem;
-          }
+
           h4 {
             margin-bottom: 0px;
             padding-left: 2px;
           }
-          input {
-            width: 32px;
-          }
         }
-        .controls {
-            padding-right: 4px;
-        }
-        .row {
-          flex-direction: row;
-          display: flex;
-        }
-        .half {
-            margin: auto;
-            flex-basis: content;
-            }
         a.roll-icon {
           flex-direction: row;
           align-items: baseline;
@@ -158,15 +145,15 @@ form.army-sheet {
             }
         }
         .trait {
-          flex: auto 0 0;
-          padding: 4px;
-          background: var(--primary);
-          border: 2px solid var(--color-border-trait);
-          color: var(--color-text-trait);
-          font-size: 0.9em;
-          font-weight: 500;
-          text-transform: uppercase;
-      }
+            background: var(--primary);
+            border: 2px solid var(--color-border-trait);
+            color: var(--color-text-trait);
+            font-size: 0.9em;
+            font-weight: 500;
+            text-transform: uppercase;
+            height: 28px;
+            width: 128px;    
+        }
         .paizo-style {
             border: none;
             margin-top: 2px;
@@ -175,480 +162,44 @@ form.army-sheet {
         }
     }
 
-    // ============== //
-    //     NAVBAR     //
-    // ============== //
-    .tabs {
-      flex: 0 0 40px;
-      border-top: 1px solid #AAA;
-      border-bottom: 1px solid #AAA;
-
-      a {
-        font-weight: bold;
-        &.active {
-          text-transform:none;
-          text-shadow: rgb(192, 16, 16);
-        }
-      }
-    }
-
-    // ============== //
-    //       TAB      //
-    // ============== //
-    section.sheet-body.tab {
-        overflow-y: auto;
+    // ================ //
+    //       Body      //
+    // ================ //
+    section.sheet-body {
         fieldset {
           border: 1px solid #5e0000;
           border-radius: 3px;
+          margin: 8px 0;
           legend {
-            background: #5e0000;
-            text-align: left;
-            color: #f5efe0;
-            font-size: 0.8rem;
-            border-radius: 3px 3px 0 0;
-            width: 100%;
+            font-size: 1rem;
+            color: rgb(95, 0, 0);
+            text-transform: bold;
+          }
+        }
+        .strike {
+            input.name {
+                flex-basis: 100%;
+                text-align: left;
+            }
+            a {
+                flex-basis: 32px;
+            }
+            input.value {
+                flex-basis: 64px;
             }
         }
-        textarea {
-          width: 100%;
-          resize: none;
-          border: none;
-        }
-      }
-  }
-
-  // Elements and Classes
-
-  hr {
-      margin: 10px 6px 10px 0;
-  }
-
-  input[type=number], input[type=text] {
-    width: calc(100% - 4px);
-    height: calc(100% - 4px);
-    background: none;
-    padding: 0;
-    margin: 1px 0;
-    color: #333;
-    border: 1px solid transparent;
-  }
-
-  button.roll {
-    width: 72px;
-    }
-
-   select {
-    min-width: 100px;
-    height: 28px;
-  }
-  label.top {
-    display:block;
-    text-align:center;
-  }
-  fieldset {
-    border-radius: 5px;
-    legend {
-      color: rgb(95, 0, 0);
-      text-transform: bold;
-    }  
-    &.strikes {
-      input.name {
-        flex: 2;
-      }
     }
   }
+
   .flex {
-    flex: 1 1 128px;
-    overflow: hidden;
     display: flex;
     justify-content: space-between;
-    margin: 5px 0;
-    text-align: center;
-    flex-direction: row;
-    align-items: center;
-    &.economy {
-      justify-content: space-around;
+    align-items: baseline;
+    width: 100%;
+    label {
+        min-width: 50%;
+        text-align: left;
+        }
     }
-  }
 
-  .default section.window-content {
-    padding: 0;
-    overflow: hidden;
-  }
-
-  .controls {
-      font-size: 0.8rem;
-      display: flex;
-      flex-wrap: nowrap;
-      align-items: baseline;
-      margin-left: auto;
-      gap: 1px;
-
-      .chat {
-          margin-right: 3px;
-          font-size: 0.9em;
-      }
-      > a.item-control {
-          padding-left: 4px;
-      }
-  }
-
-  .disabled {
-      color: $color-disabled;
-      border-color: $color-disabled;
-
-      &:hover, &.active {
-          color: $color;
-          border-color: $faded-color;
-      }
-  }
-
-  .effects-list {
-      display: flex;
-      flex: 1 0 auto;
-      flex-direction: row;
-      flex-wrap: wrap;
-      width: 100%;
-
-      .separator {
-          flex: 0 0 1px;
-          height: 32px;
-          margin-right: 4px;
-          border-left: 2px solid $color;
-      }
-
-      > .effect {
-          display: flex;
-          flex: 0 0 32px;
-          height: 32px;
-          margin-right: 4px;
-          margin-bottom: 4px;
-          border-bottom: none !important;
-
-          .item-image {
-              background-size: cover;
-              border: 1px solid $color;
-              border-bottom: 1px solid $color;
-              border-radius: 3px;
-              width: 32px;
-          }
-
-          .item-image:hover {
-              border: 1px solid $light-text;
-              border-radius: 3px;
-          }
-      }
-  }
-
-  .actions-options {
-      .actions-option {
-          display: flex;
-          align-items: center;
-          width: 100%;
-
-          label {
-              width: 100%;
-
-              * {
-                  display: inline;
-                  vertical-align: middle;
-              }
-
-              input {
-                  margin: 0;
-                  padding: 0;
-              }
-          }
-      }
-  }
-
-  .actions-list {
-      align-items: baseline;
-      padding: 0px;
-      margin: 0px;
-      width: 97%;
-
-      .action {
-          display: flex;
-          flex: 1 0 46%;
-          margin-left: 6px;
-          margin-right: 6px;
-          flex-direction: column;
-          justify-content: flex-start;
-          width: 100%;
-          margin-top: 6px;
-
-          &:not(:last-child) {
-              border-bottom: 1px solid $faded-color;
-          }
-
-          .action-header {
-              display: flex;
-              flex: 1 0 auto;
-              flex-direction: row;
-              justify-content: space-between;
-              align-items: center;
-              width: 100%;
-
-              .action-name {
-                  display: flex;
-                  flex: auto;
-                  font-size: 0.9rem;
-
-                  h4 {
-                      margin: 0px;
-                      margin-bottom: 0px;
-                  }
-
-                  .action-traits {
-                      margin-left: 12px;
-                  }
-              }
-          }
-
-          .item-summary {
-              flex: 0 1 auto;
-              margin-top: 0.5em;
-          }
-      }
-  }
-
-  .section-container {
-      display: flex;
-      flex-direction: column;
-      padding: 4px 6px 0;
-
-      .section-header {
-          display: flex;
-          flex: 0;
-          width: 100%;
-          flex-direction: row;
-          justify-content: space-between;
-          align-items: baseline;
-          border: 1px solid $primary-accent;
-          border-radius: 3px 3px 0px 0px;
-          background: $primary-accent;
-          text-align: left;
-          color: $light-text;
-          font-size: 0.8rem;
-          padding: 4px 8px;
-
-          h4 {
-              flex: auto;
-              margin-bottom: 0px;
-              text-transform: uppercase;
-          }
-      }
-
-      .section-body {
-          display: flex;
-          flex: auto;
-          flex-wrap: wrap;
-          width: 100%;
-          flex-direction: row;
-          justify-content: flex-start;
-          align-items: baseline;
-          padding: 4px;
-          border: 1px solid $primary-accent;
-          border-radius: 0px 0px 3px 3px;
-      }
-
-      &.languages {
-          flex: 1;
-      }
-  }
-
-  .attacks {
-      .section-header .controls {
-          gap: 8px;
-      }
-
-      .section-body {
-          padding: 0 4px;
-          min-height: 10px;
-      }
-  }
-
-  .attacks-list {
-      width: 100%;
-      padding: 0px;
-      margin: 0px;
-
-      .attack {
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-start;
-
-          margin: 8px 6px 0 6px;
-          border-bottom: 1px solid $faded-color;
-
-          &:last-child {
-              border-bottom: none;
-          }
-
-          .attack-header {
-              display: flex;
-              flex: 1 0 auto;
-              flex-direction: row;
-              align-items: baseline;
-              width: 100%;
-          }
-
-          .attack-name {
-              display: flex;
-              flex-wrap: wrap;
-              align-items: center;
-              gap: 2px;
-              white-space: nowrap;
-              margin: 0 4px 0 0;
-
-              font-size: 0.9rem;
-              font-weight: 500;
-
-              & > span {
-                  gap: 3px;
-                  margin-right: 4px;
-                  display: flex;
-                  align-items: baseline;
-                  line-height: 1.125rem;
-              }
-          }
-
-          .attack-body {
-              display: flex;
-              align-items: flex-start;
-              flex-direction: column;
-
-              width: 100%;
-              padding-top: 3px;
-
-              .flexrow,
-              .sub-section {
-                  gap: 2px;
-              }
-
-              .sub-section {
-                  align-items: flex-start;
-                  display: flex;
-                  flex-direction: row;
-                  flex-wrap: wrap;
-                  flex: auto;
-                  justify-content: flex-start;
-
-                  h4 {
-                      margin-left: 12px;
-                      margin-right: 12px;
-                  }
-              }
-
-              button {
-                  background: $attack-button-color;
-                  border-radius: 3px;
-                  border: none;
-                  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
-                  color: $light-text;
-                  cursor: pointer;
-                  font-size: var(--font-size-11);
-                  font-weight: 500;
-                  height: 18px;
-                  line-height: 18px;
-                  margin: 0;
-                  padding: 0 8px;
-                  text-align: center;
-                  white-space: nowrap;
-                  width: auto !important;
-
-                  &:first-child {
-                      margin-left: 0px;
-                  }
-
-                  &:hover {
-                      box-shadow: none;
-                      text-shadow: 0 0 2px white;
-                  }
-              }
-
-              .attack-button {
-                  background-color: $attack-button-color;
-              }
-
-              .damage-button,
-              .critical-button {
-                  background-color: $damage-button-color;
-              }
-
-              .attack-description {
-                  min-height: 10px;
-              }
-          }
-      }
-  }
-
-  .tag {
-      line-height: 0.8rem;
-  }
-
-  select {
-      flex: auto 0 0;
-      padding: 4px !important;
-      height: auto !important;
-      font-family: var(--sans-serif);
-      font-weight: 500;
-      text-transform: uppercase;
-
-      option {
-          color: var(--text-light);
-          background-color: var(--alt);
-      }
-  }
-
-  .notes {
-      padding-right: 15px;
-
-      &.active {
-          display: flex;
-          flex-direction: column;
-      }
-
-      .details-label {
-          padding: 4px;
-          font-family: var(--sans-serif);
-          font-size: var(--font-size-10);
-          font-weight: 800;
-          line-height: 1;
-          text-transform: uppercase;
-          color: var(--primary);
-
-          margin-right: 2px;
-          white-space: nowrap;
-      }
-
-      .notes-section {
-          flex: 1 0 auto;
-          display: flex;
-          flex-direction: column;
-      }
-
-      .notes-text {
-          margin-left: 8px;
-          padding: 4px;
-          color: #333;
-          flex-grow: 1;
-
-          .editor {
-              height: 100%;
-              .editor-edit {
-                  background: var(--primary);
-                  color: white;
-              }
-
-              .editor-content {
-                  min-height: 75px;
-                  height: 100%;
-              }
-          }
-      }
-
-
-  }
 }
