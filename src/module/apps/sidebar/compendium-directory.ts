@@ -162,7 +162,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         const docMatches = query.length > 0 ? this.searchEngine.search(query) : [];
 
         // Create a list of document matches
-        const matchTemplate = htmlQuery(html, "#compendium-search-match");
+        const matchTemplate = htmlQuery<HTMLTemplateElement>(html, "#compendium-search-match");
         if (!matchTemplate) throw ErrorPF2e("Match template not found");
 
         const listElements = docMatches.map((match): HTMLLIElement => {
