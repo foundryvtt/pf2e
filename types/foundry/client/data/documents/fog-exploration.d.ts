@@ -18,7 +18,7 @@ declare global {
          * @param [force=false] Force the position to be re-explored
          * @returns Is the source position newly explored?
          */
-        explore(source: PointSource<Maybe<Token>>, force?: boolean): boolean;
+        explore(source: PointSource<Token | null>, force?: boolean): boolean;
 
         /** Obtain the fog of war exploration progress for a specific Scene and User. */
         static get<T extends FogExploration>(

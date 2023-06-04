@@ -4,6 +4,7 @@ import {
     AccessibilityManager,
     AlphaFilter,
     Application,
+    BLEND_MODES,
     BlurFilter,
     CLEAR_MODES,
     Circle,
@@ -46,6 +47,7 @@ import "./groups/index.d.ts";
 import "./layers/controls/ruler.d.ts";
 import "./layers/effects/visibility.d.ts";
 import "./perception/index.d.ts";
+import "./sources/index.d.ts";
 import "./webgl/index.d.ts";
 
 declare global {
@@ -54,6 +56,7 @@ declare global {
             AccessibilityManager,
             AlphaFilter,
             Application,
+            BLEND_MODES,
             BlurFilter,
             CLEAR_MODES,
             Circle,
