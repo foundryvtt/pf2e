@@ -22,6 +22,39 @@ declare global {
         protected _initialize(data: TDocument["_source"][]): void;
 
         /* -------------------------------------------- */
+        /*  Directory Collection Mixin                  */
+        /* -------------------------------------------- */
+
+        /** The built tree structure of the DocumentCollection */
+        get tree(): object;
+
+        /** The current search mode for this collection */
+        get searchMode(): "full" | "name";
+
+        /** Toggle the search mode for this collection between "name" and "full" text search */
+        toggleSearchMode(): void;
+
+        /** The current sort mode used to order the top level entries in this collection */
+        get sortingMode(): "a" | "m";
+
+        /** Toggle the sorting mode for this collection between "a" (Alphabetical) and "m" (Manual by sort property) */
+        toggleSortingMode(): void;
+
+        /** The maximum depth of folder nesting which is allowed in this collection */
+        get maxFolderDepth(): number;
+
+        /** Return a reference to list of entries which are visible to the User in this tree */
+        _getVisibleTreeContents(): TDocument[];
+
+        initializeTree(): void;
+
+        /** Sort two Entries by name, alphabetically. */
+        static _sortAlphabetical(a: Document, b: Document): number;
+
+        /** Sort two Entries using their numeric sort fields. */
+        static _sortStandard(a: Document, b: Document): number;
+
+        /* -------------------------------------------- */
         /*  Collection Properties                       */
         /* -------------------------------------------- */
 
@@ -29,6 +62,9 @@ declare global {
 
         /** The base Document type which is contained within this WorldCollection */
         static documentName: string | null;
+
+        /** Reference the set of Folders which contain documents in this collection */
+        get folders(): Collection<Folder>;
 
         /**
          * Return a reference to the SidebarDirectory application for this WorldCollection, or null if it has not yet

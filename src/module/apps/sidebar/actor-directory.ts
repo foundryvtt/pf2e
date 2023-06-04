@@ -1,4 +1,4 @@
-import { CharacterPF2e, PartyPF2e } from "@actor";
+import { CharacterPF2e, CreaturePF2e, PartyPF2e } from "@actor";
 import { ActorPF2e } from "@actor/base.ts";
 import { fontAwesomeIcon, htmlClosest, htmlQuery, htmlQueryAll, sortBy } from "@util";
 
@@ -107,70 +107,70 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
         this.#appendBrowseButton(html);
     }
 
-    // protected override _onDragStart(event: ElementDragEvent): void {
-    //     super._onDragStart(event);
+    protected override _onDragStart(event: ElementDragEvent): void {
+        super._onDragStart(event);
 
-    //     // Add additional party metadata to the drag event
-    //     const fromParty = htmlClosest(event.target, ".party")?.dataset.documentId;
-    //     if (fromParty) {
-    //         const data: ActorSidebarDropData = JSON.parse(event.dataTransfer.getData("text/plain"));
-    //         data.fromParty = fromParty;
-    //         this.draggingParty = fromUuidSync(data.uuid as ActorUUID) instanceof PartyPF2e;
-    //         event.dataTransfer.setData("text/plain", JSON.stringify(data));
-    //     } else {
-    //         this.draggingParty = false;
-    //     }
-    // }
+        // Add additional party metadata to the drag event
+        const fromParty = htmlClosest(event.target, ".party")?.dataset.documentId;
+        if (fromParty) {
+            const data: ActorSidebarDropData = JSON.parse(event.dataTransfer.getData("text/plain"));
+            data.fromParty = fromParty;
+            this.draggingParty = fromUuidSync(data.uuid as ActorUUID) instanceof PartyPF2e;
+            event.dataTransfer.setData("text/plain", JSON.stringify(data));
+        } else {
+            this.draggingParty = false;
+        }
+    }
 
-    // /** Overriden to prevent highlighting of certain types of draggeed data (such as parties) */
-    // protected override _onDragHighlight(event: DragEvent): void {
-    //     if (event.type === "dragenter" && this.draggingParty) {
-    //         event.stopPropagation();
-    //         return;
-    //     }
+    /** Overriden to prevent highlighting of certain types of draggeed data (such as parties) */
+    protected override _onDragHighlight(event: DragEvent): void {
+        if (event.type === "dragenter" && this.draggingParty) {
+            event.stopPropagation();
+            return;
+        }
 
-    //     super._onDragHighlight(event);
-    // }
+        super._onDragHighlight(event);
+    }
 
-    // protected override async _handleDroppedEntry(target: HTMLElement, data: ActorSidebarDropData): Promise<void> {
-    //     await super._handleDroppedEntry(target, data);
+    protected override async _handleDroppedEntry(target: HTMLElement, data: ActorSidebarDropData): Promise<void> {
+        await super._handleDroppedEntry(target, data);
 
-    //     // Handle dragging members to and from parties (if relevant)
-    //     const toPartyId = htmlClosest(target, ".party")?.dataset.documentId;
-    //     if (toPartyId !== data.fromParty && data.uuid) {
-    //         const toParty = game.actors.get(toPartyId ?? "");
-    //         const fromParty = game.actors.get(data.fromParty ?? "");
-    //         const actor = fromUuidSync(data.uuid);
-    //         if (fromParty instanceof PartyPF2e) {
-    //             await fromParty.removeMembers(data.uuid as ActorUUID);
-    //         }
-    //         if (toParty instanceof PartyPF2e && actor instanceof CreaturePF2e) {
-    //             await toParty.addMembers(actor);
-    //         }
-    //     }
-    // }
+        // Handle dragging members to and from parties (if relevant)
+        const toPartyId = htmlClosest(target, ".party")?.dataset.documentId;
+        if (toPartyId !== data.fromParty && data.uuid) {
+            const toParty = game.actors.get(toPartyId ?? "");
+            const fromParty = game.actors.get(data.fromParty ?? "");
+            const actor = fromUuidSync(data.uuid);
+            if (fromParty instanceof PartyPF2e) {
+                await fromParty.removeMembers(data.uuid as ActorUUID);
+            }
+            if (toParty instanceof PartyPF2e && actor instanceof CreaturePF2e) {
+                await toParty.addMembers(actor);
+            }
+        }
+    }
 
-    // /** Inject parties without having to alter a core template */
-    // protected override async _renderInner(data: object): Promise<JQuery> {
-    //     const $element = await super._renderInner(data);
-    //     const partyHTML = await renderTemplate("systems/pf2e/templates/sidebar/party-document-partial.hbs", data);
-    //     $element.find(".directory-list").prepend(partyHTML);
+    /** Inject parties without having to alter a core template */
+    protected override async _renderInner(data: object): Promise<JQuery> {
+        const $element = await super._renderInner(data);
+        const partyHTML = await renderTemplate("systems/pf2e/templates/sidebar/party-document-partial.hbs", data);
+        $element.find(".directory-list").prepend(partyHTML);
 
-    //     // Inject any additional data for specific party implementations
-    //     for (const header of htmlQueryAll($element.get(0), ".party")) {
-    //         const party = game.actors.get(header.dataset.documentId ?? "");
-    //         if (!(party instanceof PartyPF2e)) continue;
+        // Inject any additional data for specific party implementations
+        for (const header of htmlQueryAll($element.get(0), ".party")) {
+            const party = game.actors.get(header.dataset.documentId ?? "");
+            if (!(party instanceof PartyPF2e)) continue;
 
-    //         if (party.campaign?.createSidebarButtons) {
-    //             const sidebarButtons = party.campaign.createSidebarButtons();
-    //             if (sidebarButtons) {
-    //                 header.querySelector(".controls")?.prepend(...sidebarButtons);
-    //             }
-    //         }
-    //     }
+            if (party.campaign?.createSidebarButtons) {
+                const sidebarButtons = party.campaign.createSidebarButtons();
+                if (sidebarButtons) {
+                    header.querySelector(".controls")?.prepend(...sidebarButtons);
+                }
+            }
+        }
 
-    //     return $element;
-    // }
+        return $element;
+    }
 
     /** Include flattened update data so parent method can read nested update keys */
     protected override async _render(force?: boolean, context: SidebarDirectoryRenderOptions = {}): Promise<void> {
@@ -184,30 +184,30 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
         return super._render(force, context);
     }
 
-    // protected override _contextMenu($html: JQuery<HTMLElement>): void {
-    //     super._contextMenu($html);
-    //     ContextMenu.create(this, $html, ".party .party-header", this._getEntryContextOptions());
-    // }
+    protected override _contextMenu($html: JQuery<HTMLElement>): void {
+        super._contextMenu($html);
+        ContextMenu.create(this, $html, ".party .party-header", this._getEntryContextOptions());
+    }
 
-    // protected override _getEntryContextOptions(): EntryContextOption[] {
-    //     const options = super._getEntryContextOptions();
-    //     options.push({
-    //         name: "Remove Member",
-    //         icon: '<i class="fas fa-bus"></i>',
-    //         condition: ($li) => $li.closest(".party").length > 0 && !$li.closest(".party-header").length,
-    //         callback: ($li) => {
-    //             const actorId = $li.data("document-id");
-    //             const partyId = $li.closest(".party").data("document-id");
-    //             const actor = game.actors.get(actorId ?? "");
-    //             const party = game.actors.get(partyId ?? "");
-    //             if (actor instanceof ActorPF2e && party instanceof PartyPF2e) {
-    //                 party.removeMembers(actor.uuid as ActorUUID);
-    //             }
-    //         },
-    //     });
+    protected override _getEntryContextOptions(): EntryContextOption[] {
+        const options = super._getEntryContextOptions();
+        options.push({
+            name: "Remove Member",
+            icon: '<i class="fas fa-bus"></i>',
+            condition: ($li) => $li.closest(".party").length > 0 && !$li.closest(".party-header").length,
+            callback: ($li) => {
+                const actorId = $li.data("document-id");
+                const partyId = $li.closest(".party").data("document-id");
+                const actor = game.actors.get(actorId ?? "");
+                const party = game.actors.get(partyId ?? "");
+                if (actor instanceof ActorPF2e && party instanceof PartyPF2e) {
+                    party.removeMembers(actor.uuid as ActorUUID);
+                }
+            },
+        });
 
-    //     return options;
-    // }
+        return options;
+    }
 
     /** Append a button to open the bestiary browser for GMs */
     #appendBrowseButton(html: HTMLElement): void {
@@ -227,8 +227,8 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
     }
 }
 
-// interface ActorSidebarDropData extends DropCanvasData<"actor", ActorPF2e> {
-//     fromParty?: string;
-// }
+interface ActorSidebarDropData extends DropCanvasData<"actor", ActorPF2e> {
+    fromParty?: string;
+}
 
 export { ActorDirectoryPF2e };
