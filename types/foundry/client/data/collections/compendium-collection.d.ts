@@ -141,6 +141,12 @@ declare global {
         /** Request that a Compendium pack be migrated to the latest System data template */
         migrate(options?: Record<string, unknown>): Promise<this>;
 
+        testUserPermission(
+            user: foundry.documents.BaseUser,
+            permission: DocumentOwnershipString | DocumentOwnershipLevel,
+            { exact }?: { exact?: boolean }
+        ): boolean;
+
         protected override _onCreateDocuments(
             documents: TDocument[],
             result: TDocument["_source"][],

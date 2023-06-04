@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
-import { ErrorPF2e, fontAwesomeIcon, htmlQueryAll } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, htmlQuery, htmlQueryAll } from "@util";
 import MiniSearch from "minisearch";
 
 /** Extend CompendiumDirectory to support a search bar */
@@ -132,28 +132,27 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
 
     /** System compendium search */
     protected override _onSearchFilter(_event: KeyboardEvent, query: string): void {
+        const html = this.element[0];
         // Match compendiums by title
         const matchesQuery = (pack: CompendiumCollection): boolean => {
             return pack.title.toLocaleLowerCase(game.i18n.lang).includes(query.toLocaleLowerCase(game.i18n.lang));
         };
         const filteredPacks = query.length > 0 ? game.packs.filter(matchesQuery) : game.packs.contents;
-        const packRows = Array.from(
-            this.element.get(0)?.querySelectorAll<HTMLOListElement>("li.compendium-pack") ?? []
-        );
+        const packRows = htmlQueryAll(html, "li.directory-item.compendium");
 
         // Display matching compendium rows along with any document matches within each compendium
         for (const pack of filteredPacks) {
-            const packRow = packRows.find((r) => r.dataset.collection === pack.collection);
-            if (!packRow || (pack.private && !game.user.isGM)) {
+            const packRow = packRows.find((r) => r.dataset.pack === pack.collection);
+            if (!packRow || !pack.testUserPermission(game.user, "OWNER")) {
                 continue;
             }
-            packRow.style.display = "list-item";
+            packRow.style.display = "";
         }
 
         // Hide the rest
         const rowsToHide =
             query.length > 0
-                ? packRows.filter((r) => !filteredPacks.includes(game.packs.get(r.dataset.collection ?? "")!))
+                ? packRows.filter((r) => !filteredPacks.includes(game.packs.get(r.dataset.pack ?? "")!))
                 : [];
         for (const row of rowsToHide) {
             row.style.display = "none";
@@ -163,50 +162,45 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         const docMatches = query.length > 0 ? this.searchEngine.search(query) : [];
 
         // Create a list of document matches
-        const matchTemplate = document.querySelector<HTMLTemplateElement>("#compendium-search-match");
+        const matchTemplate = htmlQuery<HTMLTemplateElement>(html, "#compendium-search-match");
         if (!matchTemplate) throw ErrorPF2e("Match template not found");
 
-        for (const compendiumTypeList of htmlQueryAll(this.element[0]!, "li.compendium-type")) {
-            const typedMatches = docMatches.filter((m) => m.metadata.type === compendiumTypeList.dataset.type);
-            const listElements = typedMatches.map((match): HTMLLIElement => {
-                const li = matchTemplate.content.firstElementChild!.cloneNode(true) as HTMLLIElement;
-                const matchUUID = `Compendium.${match.metadata.id}.${match.id}` as const;
-                li.dataset.uuid = matchUUID;
-                li.dataset.score = match.score.toString();
+        const listElements = docMatches.map((match): HTMLLIElement => {
+            const li = matchTemplate.content.firstElementChild!.cloneNode(true) as HTMLLIElement;
+            const matchUUID = `Compendium.${match.metadata.id}.${match.id}` as const;
+            li.dataset.uuid = matchUUID;
+            li.dataset.score = match.score.toString();
 
-                // Show a thumbnail if available
-                const thumbnail = li.querySelector<HTMLImageElement>("img")!;
-                if (typeof match.img === "string") {
-                    thumbnail.src = game.pf2e.system.moduleArt.map.get(matchUUID)?.img ?? match.img;
-                } else if (compendiumTypeList.dataset.type === "JournalEntry") {
-                    thumbnail.src = "icons/svg/book.svg";
-                }
+            // Show a thumbnail if available
+            const thumbnail = li.querySelector<HTMLImageElement>("img")!;
+            if (typeof match.img === "string") {
+                thumbnail.src = game.pf2e.system.moduleArt.map.get(matchUUID)?.img ?? match.img;
+            } else if (match.id === "JournalEntry") {
+                thumbnail.src = "icons/svg/book.svg";
+            }
 
-                // Open compendium on result click
-                li.addEventListener("click", async (event) => {
-                    event.stopPropagation();
-                    const doc = await fromUuid(matchUUID);
-                    await doc?.sheet?.render(true, { editable: doc.sheet.isEditable });
-                });
-
-                const anchor = li.querySelector("a")!;
-                anchor.innerText = match.name;
-                const details = li.querySelector("span")!;
-                const systemType = ["Actor", "Item"].includes(match.metadata.type)
-                    ? game.i18n.localize(`TYPES.${match.metadata.type}.${match.type}`)
-                    : null;
-                details.innerText = systemType
-                    ? `${systemType} (${match.metadata.label})`
-                    : `(${match.metadata.label})`;
-
-                return li;
+            // Open compendium on result click
+            li.addEventListener("click", async (event) => {
+                event.stopPropagation();
+                const doc = await fromUuid(matchUUID);
+                await doc?.sheet?.render(true, { editable: doc.sheet.isEditable });
             });
 
-            const matchesList = compendiumTypeList.querySelector<HTMLElement>("ol.document-matches")!;
-            matchesList.replaceChildren(...listElements);
-            for (const dragDrop of this._dragDrop) {
-                dragDrop.bind(matchesList);
-            }
+            const anchor = li.querySelector("a")!;
+            anchor.innerText = match.name;
+            const details = li.querySelector("span")!;
+            const systemType = ["Actor", "Item"].includes(match.metadata.type)
+                ? game.i18n.localize(`TYPES.${match.metadata.type}.${match.type}`)
+                : null;
+            details.innerText = systemType ? `${systemType} (${match.metadata.label})` : `(${match.metadata.label})`;
+
+            return li;
+        });
+        const matchesList = htmlQuery(html, "ol.document-matches");
+        if (!matchesList) return;
+        matchesList.replaceChildren(...listElements);
+        for (const dragDrop of this._dragDrop) {
+            dragDrop.bind(matchesList);
         }
     }
 
