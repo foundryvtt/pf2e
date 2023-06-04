@@ -111,7 +111,7 @@ class HearingDetectionMode extends DetectionMode {
     ): boolean {
         test.loh ??= new Map();
         const hearingSource = visionSource.object.hearing;
-        const hasLOH = test.loh.get(hearingSource) ?? hearingSource.los.contains(test.point.x, test.point.y);
+        const hasLOH = test.loh.get(hearingSource) ?? hearingSource.shape.contains(test.point.x, test.point.y);
         test.loh.set(hearingSource, hasLOH);
 
         return hasLOH;

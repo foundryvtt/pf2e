@@ -52,7 +52,7 @@ declare global {
          * @param data Initial data provided to the point source
          * @return A reference to the initialized source
          */
-        initialize(data?: Partial<VisionSourceData>): this;
+        protected override _initialize(data: Partial<VisionSourceData>): void;
 
         /** Responsible for assigning the Vision Mode and handling exceptions based on vision special status. */
         protected _initializeVisionMode(): void;
