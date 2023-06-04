@@ -15,7 +15,7 @@ export interface ItemOriginFlag {
     type: ItemType;
     uuid: string;
     castLevel?: number;
-    spellVariantOverlayIds?: string[];
+    variant?: { overlays: string[] };
 }
 
 type ChatMessageFlagsPF2e = foundry.documents.ChatMessageFlags & {
