@@ -143,7 +143,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         // Display matching compendium rows along with any document matches within each compendium
         for (const pack of filteredPacks) {
             const packRow = packRows.find((r) => r.dataset.pack === pack.collection);
-            if (!packRow || !pack.testUserPermission(game.user, "OWNER")) {
+            if (!packRow || !pack.testUserPermission(game.user, "OBSERVER")) {
                 continue;
             }
             packRow.style.display = "";
@@ -162,7 +162,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         const docMatches = query.length > 0 ? this.searchEngine.search(query) : [];
 
         // Create a list of document matches
-        const matchTemplate = htmlQuery<HTMLTemplateElement>(html, "#compendium-search-match");
+        const matchTemplate = htmlQuery(html, "#compendium-search-match");
         if (!matchTemplate) throw ErrorPF2e("Match template not found");
 
         const listElements = docMatches.map((match): HTMLLIElement => {
