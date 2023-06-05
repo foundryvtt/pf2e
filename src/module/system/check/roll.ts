@@ -11,18 +11,6 @@ class CheckRoll extends Roll {
 
     isRerollable: boolean;
 
-    static override MATH_PROXY = {
-        ...Roll.MATH_PROXY,
-        eq: (a: number, b: number): boolean => a === b,
-        gt: (a: number, b: number): boolean => a > b,
-        gte: (a: number, b: number): boolean => a >= b,
-        lt: (a: number, b: number): boolean => a < b,
-        lte: (a: number, b: number): boolean => a <= b,
-        ne: (a: number, b: number): boolean => a !== b,
-        ternary: (condition: boolean | number, ifTrue: number, ifFalse: number): number =>
-            condition ? ifTrue : ifFalse,
-    };
-
     constructor(formula: string, data = {}, options: CheckRollDataPF2e = {}) {
         super(formula, data, options);
 

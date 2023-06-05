@@ -141,6 +141,17 @@ declare global {
             CompendiumDirectoryPF2e,
             EncounterTrackerPF2e<EncounterPF2e | null>
         >;
+
+        // Add functions to the `Math` namespace for use in `Roll` formulas
+        interface Math {
+            eq: (a: number, b: number) => boolean;
+            gt: (a: number, b: number) => boolean;
+            gte: (a: number, b: number) => boolean;
+            lt: (a: number, b: number) => boolean;
+            lte: (a: number, b: number) => boolean;
+            ne: (a: number, b: number) => boolean;
+            ternary: (condition: boolean | number, ifTrue: number, ifFalse: number) => number;
+        }
     }
 
     interface Window {
