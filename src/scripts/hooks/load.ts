@@ -48,6 +48,16 @@ export const Load = {
             CONFIG.Dice.termTypes[TermCls.name] = TermCls;
         }
 
+        // Add functions to the `Math` namespace for use in `Roll` formulas
+        Math.eq = (a: number, b: number): boolean => a === b;
+        Math.gt = (a: number, b: number): boolean => a > b;
+        Math.gte = (a: number, b: number): boolean => a >= b;
+        Math.lt = (a: number, b: number): boolean => a < b;
+        Math.lte = (a: number, b: number): boolean => a <= b;
+        Math.ne = (a: number, b: number): boolean => a !== b;
+        Math.ternary = (condition: boolean | number, ifTrue: number, ifFalse: number): number =>
+            condition ? ifTrue : ifFalse;
+
         // Mystery Man but with a drop shadow
         Actor.DEFAULT_ICON = "systems/pf2e/icons/default-icons/mystery-man.svg";
 
