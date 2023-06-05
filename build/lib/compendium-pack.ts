@@ -8,9 +8,9 @@ import { isObject, setHasElement, sluggify, tupleHasValue } from "@util/misc.ts"
 import fs from "fs";
 import path from "path";
 import coreIconsJSON from "../core-icons.json" assert { type: "json" };
-import { PackError } from "./helpers.ts";
+import { PackError, getFilesRecursively } from "./helpers.ts";
 import { PackEntry } from "./types.ts";
-import { LevelDatabase } from "./level-database.ts";
+import { DBFolder, LevelDatabase } from "./level-database.ts";
 
 interface PackMetadata {
     system: string;
@@ -54,6 +54,7 @@ class CompendiumPack {
     documentType: string;
     systemId: string;
     data: PackEntry[];
+    folders: DBFolder[];
 
     static outDir = path.resolve(process.cwd(), "static/packs");
     private static namesToIds = new Map<string, Map<string, string>>();
@@ -65,7 +66,7 @@ class CompendiumPack {
         uuid: /@UUID\[Compendium\.pf2e\.(?<packName>[^.]+)\.(?<docName>[^\]]+)\]\{?/g,
     };
 
-    constructor(packDir: string, parsedData: unknown[]) {
+    constructor(packDir: string, parsedData: unknown[], parsedFolders: unknown[]) {
         const metadata = CompendiumPack.packsMetadata.find(
             (pack) => path.basename(pack.path) === path.basename(packDir)
         );
@@ -75,6 +76,11 @@ class CompendiumPack {
         this.systemId = metadata.system;
         this.packId = metadata.name;
         this.documentType = metadata.type;
+
+        if (!this.#isFoldersData(parsedFolders)) {
+            throw PackError(`Folder data supplied for ${this.packId} does not resemble folder source data.`);
+        }
+        this.folders = parsedFolders;
 
         if (!this.#isPackData(parsedData)) {
             throw PackError(`Data supplied for ${this.packId} does not resemble Foundry document source data.`);
@@ -151,8 +157,7 @@ class CompendiumPack {
     }
 
     static loadJSON(dirPath: string): CompendiumPack {
-        const filenames = fs.readdirSync(dirPath);
-        const filePaths = filenames.map((f) => path.resolve(dirPath, f));
+        const filePaths = getFilesRecursively(dirPath);
         const parsedData = filePaths.map((filePath) => {
             const jsonString = fs.readFileSync(filePath, "utf-8");
             const packSource: PackEntry = (() => {
@@ -178,8 +183,27 @@ class CompendiumPack {
             return packSource;
         });
 
+        const folders = ((): DBFolder[] => {
+            const foldersFile = path.resolve(dirPath, "_folders.json");
+            if (fs.existsSync(foldersFile)) {
+                const jsonString = fs.readFileSync(foldersFile, "utf-8");
+                const foldersSource: DBFolder[] = (() => {
+                    try {
+                        return JSON.parse(jsonString);
+                    } catch (error) {
+                        if (error instanceof Error) {
+                            throw PackError(`File ${foldersFile} could not be parsed: ${error.message}`);
+                        }
+                    }
+                })();
+
+                return foldersSource;
+            }
+            return [];
+        })();
+
         const dbFilename = path.basename(dirPath);
-        return new CompendiumPack(dbFilename, parsedData);
+        return new CompendiumPack(dbFilename, parsedData, folders);
     }
 
     #finalize(docSource: PackEntry): string {
@@ -324,7 +348,7 @@ class CompendiumPack {
 
         const db = new LevelDatabase(packDir, { packName: path.basename(packDir) });
         const finalized: PackEntry[] = this.data.map((datum) => JSON.parse(this.#finalize(datum)));
-        await db.createPack(finalized);
+        await db.createPack(finalized, this.folders);
         console.log(`Pack "${this.packId}" with ${this.data.length} entries built successfully.`);
 
         return this.data.length;
@@ -351,6 +375,14 @@ class CompendiumPack {
 
     #isPackData(packData: unknown[]): packData is PackEntry[] {
         return packData.every((maybeDocSource: unknown) => this.#isDocumentSource(maybeDocSource));
+    }
+
+    #isFolderSource(maybeFolderSource: unknown): maybeFolderSource is DBFolder {
+        return isObject(maybeFolderSource) && "_id" in maybeFolderSource && "folder" in maybeFolderSource;
+    }
+
+    #isFoldersData(folderData: unknown[]): folderData is DBFolder[] {
+        return folderData.every((maybeFolderData) => this.#isFolderSource(maybeFolderData));
     }
 
     #assertSizeValid(source: ActorSourcePF2e | ItemSourcePF2e): void {
