@@ -26,7 +26,45 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+          {
+            "choices": [
+              {
+                "label": "PF2E.SkillArc",
+                "value": "arcana"
+              },
+              {
+                "label": "PF2E.SkillOcc",
+                "value": "occultism"
+              }
+            ],
+            "flag": "eldritch-researcher-dedication",
+            "key": "ChoiceSet",
+            "prompt": "Select Arcana or Occultism "
+          },
+          {
+            "key": "ActiveEffectLike",
+            "mode": "upgrade",
+            "path": "system.skills.{item|flags.pf2e.rulesSelections.eldritch-researcher-dedication}.rank",
+            "value": 2
+          },
+          {
+            "key": "FlatModifier",
+            "label": "Eldritch Researcher (Investigate\\Identify Magic)",
+            "selector": "{item|flags.pf2e.rulesSelections.eldritch-researcher-dedication}",
+            "slug": "eldritch-researcher-dedication",
+            "type": "status",
+            "value": 1,
+            "predicate": [
+              {
+                "or": [
+                  "identify-magic",
+                  "investigate"
+                ]
+              }
+            ]
+          }
+        ],
         "source": {
             "value": "Pathfinder #164: Hands of the Devil"
         },
