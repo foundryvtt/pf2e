@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.12.9
+
+### Bugfixes
+
+-   (stwlam) Fix issue causing effects panel to not load when certain conditions were present on an actor
+
+## 4.12.8
+
+### Bugfixes
+
+-   (stwlam) Fix creation of custom physical items on actor sheets
+-   (stwlam) Include roll data in effects panel descriptions in case there are inline roll links
+
 ## 4.12.7
 
 ### System Improvements
