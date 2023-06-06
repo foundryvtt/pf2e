@@ -5,7 +5,7 @@ export class TokenEffect implements TemporaryEffect {
 
     tint?: string;
 
-    statuses: Set<string> = new Set();
+    statuses = new Set<string>();
 
     readonly isTemporary = true;
 
