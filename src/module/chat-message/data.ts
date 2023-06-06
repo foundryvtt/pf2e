@@ -108,7 +108,7 @@ interface SpellCastContextFlag {
 }
 
 interface AppliedDamageFlag {
-    uuid: ActorUUID | TokenDocumentUUID;
+    uuid: ActorUUID;
     isHealing: boolean;
     isReverted?: boolean;
     persistent: string[];

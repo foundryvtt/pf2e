@@ -16,7 +16,7 @@ interface PackMetadata {
     system: string;
     name: string;
     path: string;
-    type: string;
+    type: CompendiumDocumentType;
 }
 
 /** A rule element, possibly an Aura, ChoiceSet, GrantItem */
@@ -51,23 +51,35 @@ const coreIcons = new Set(coreIconsJSON);
 class CompendiumPack {
     packId: string;
     packDir: string;
-    documentType: string;
+    documentType: CompendiumDocumentType;
     systemId: string;
     data: PackEntry[];
     folders: DBFolder[];
 
     static outDir = path.resolve(process.cwd(), "static/packs");
-    private static namesToIds = new Map<string, Map<string, string>>();
-    private static packsMetadata = JSON.parse(fs.readFileSync("static/system.json", "utf-8")).packs as PackMetadata[];
+    static #namesToIds: {
+        [K in Extract<CompendiumDocumentType, "Actor" | "Item" | "JournalEntry" | "Macro" | "RollTable">]: Map<
+            string,
+            Map<string, string>
+        >;
+    } & Record<string, Map<string, Map<string, string>> | undefined> = {
+        Actor: new Map(),
+        Item: new Map(),
+        JournalEntry: new Map(),
+        Macro: new Map(),
+        RollTable: new Map(),
+    };
+
+    static #packsMetadata = JSON.parse(fs.readFileSync("static/system.json", "utf-8")).packs as PackMetadata[];
 
     static LINK_PATTERNS = {
         world: /@(?:Item|JournalEntry|Actor)\[[^\]]+\]|@Compendium\[world\.[^\]]{16}\]|@UUID\[(?:Item|JournalEntry|Actor)/g,
-        compendium: /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<docName>[^\]]+)\]\{?/g,
-        uuid: /@UUID\[Compendium\.pf2e\.(?<packName>[^.]+)\.(?<docName>[^\]]+)\]\{?/g,
+        compendium: /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<docType>Actor|Item)\.(?<docName>[^\]]+)\]\{?/g,
+        uuid: /@UUID\[Compendium\.pf2e\.(?<packName>[^.]+)\.(?<docType>Actor|Item)\.(?<docName>[^\]]+)\]\{?/g,
     };
 
     constructor(packDir: string, parsedData: unknown[], parsedFolders: unknown[]) {
-        const metadata = CompendiumPack.packsMetadata.find(
+        const metadata = CompendiumPack.#packsMetadata.find(
             (pack) => path.basename(pack.path) === path.basename(packDir)
         );
         if (metadata === undefined) {
@@ -88,8 +100,8 @@ class CompendiumPack {
 
         this.packDir = packDir;
 
-        CompendiumPack.namesToIds.set(this.packId, new Map());
-        const packMap = CompendiumPack.namesToIds.get(this.packId);
+        CompendiumPack.#namesToIds[this.documentType]?.set(this.packId, new Map());
+        const packMap = CompendiumPack.#namesToIds[this.documentType]?.get(this.packId);
         if (!packMap) {
             throw PackError(`Compendium ${this.packId} (${packDir}) was not found.`);
         }
@@ -215,17 +227,18 @@ class CompendiumPack {
         }
 
         docSource.flags ??= {};
-        docSource.flags.core = { sourceId: this.#sourceIdOf(docSource._id) };
         if (isActorSource(docSource)) {
+            docSource.flags.core = { sourceId: this.#sourceIdOf(docSource._id, { docType: "Actor" }) };
             this.#assertSizeValid(docSource);
             docSource.system.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
             for (const item of docSource.items) {
                 item.system.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
-                CompendiumPack.convertRuleUUIDs(item, { to: "ids", map: CompendiumPack.namesToIds });
+                CompendiumPack.convertRuleUUIDs(item, { to: "ids", map: CompendiumPack.#namesToIds.Item });
             }
         }
 
         if (isItemSource(docSource)) {
+            docSource.flags.core = { sourceId: this.#sourceIdOf(docSource._id, { docType: "Item" }) };
             docSource.system.slug = sluggify(docSource.name);
             docSource.system.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
 
@@ -239,13 +252,13 @@ class CompendiumPack {
             }
 
             // Convert uuids with names in GrantItem REs to well-formedness
-            CompendiumPack.convertRuleUUIDs(docSource, { to: "ids", map: CompendiumPack.namesToIds });
+            CompendiumPack.convertRuleUUIDs(docSource, { to: "ids", map: CompendiumPack.#namesToIds.Item });
         }
 
-        const replace = (match: string, packId: string, docName: string): string => {
+        const replace = (match: string, packId: string, docType: string, docName: string): string => {
             if (match.includes("JournalEntryPage")) return match;
 
-            const namesToIds = CompendiumPack.namesToIds.get(packId);
+            const namesToIds = CompendiumPack.#namesToIds[docType]?.get(packId);
             const link = match.replace(/\{$/, "");
             if (namesToIds === undefined) {
                 throw PackError(`${docSource.name} (${this.packId}) has a bad pack reference: ${link}`);
@@ -253,9 +266,9 @@ class CompendiumPack {
 
             const documentId: string | undefined = namesToIds.get(docName);
             if (documentId === undefined) {
-                throw PackError(`${docSource.name} (${this.packId}) has broken link to ${docName} (${packId}).`);
+                throw PackError(`${docSource.name} (${this.packId}) has broken link to ${docName}: ${match}`);
             }
-            const sourceId = this.#sourceIdOf(documentId, { packId });
+            const sourceId = this.#sourceIdOf(documentId, { packId, docType });
             const labelBrace = match.endsWith("{") ? "{" : "";
 
             return `@UUID[${sourceId}]${labelBrace}`;
@@ -266,8 +279,17 @@ class CompendiumPack {
             .replace(CompendiumPack.LINK_PATTERNS.compendium, replace);
     }
 
-    #sourceIdOf(documentId: string, { packId = this.packId } = {}): string {
-        return `Compendium.${this.systemId}.${packId}.${documentId}`;
+    #sourceIdOf(
+        documentId: string,
+        { packId = this.packId, docType }: { packId?: string; docType: "Actor" }
+    ): CompendiumActorUUID;
+    #sourceIdOf(
+        documentId: string,
+        { packId = this.packId, docType }: { packId?: string; docType: "Item" }
+    ): CompendiumItemUUID;
+    #sourceIdOf(documentId: string, { packId = this.packId, docType }: { packId?: string; docType: string }): string;
+    #sourceIdOf(documentId: string, { packId = this.packId, docType }: { packId?: string; docType: string }): string {
+        return `Compendium.${this.systemId}.${packId}.${docType}.${documentId}`;
     }
 
     /** Convert UUIDs in REs to resemble links by name or back again */
@@ -283,10 +305,10 @@ class CompendiumPack {
 
         const toNameRef = (uuid: string): string => {
             const parts = uuid.split(".");
-            const [packId, docId] = parts.slice(2, 4);
+            const [packId, _docType, docId] = parts.slice(2, 6);
             const docName = map.get(packId)?.get(docId);
             if (docName) {
-                return parts.slice(0, 3).concat(docName).join(".");
+                return parts.slice(0, 4).concat(docName).join(".");
             } else {
                 console.debug(`Warning: Unable to find document name corresponding with ${uuid}`);
                 return uuid;
@@ -294,8 +316,8 @@ class CompendiumPack {
         };
 
         const toIDRef = (uuid: string): string => {
-            const match = /(?<=^Compendium\.pf2e\.)([^.]+)\.(.+)$/.exec(uuid);
-            const [, packId, docName] = match ?? [null, null, null];
+            const match = /(?<=^Compendium\.pf2e\.)([^.]+)\.([^.]+)\.(.+)$/.exec(uuid);
+            const [, packId, _docType, docName] = match ?? [null, null, null, null];
             const docId = map.get(packId ?? "")?.get(docName ?? "");
             if (docName && docId) {
                 return uuid.replace(docName, docId);

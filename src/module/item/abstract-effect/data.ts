@@ -31,12 +31,12 @@ interface EffectBadgeFormula {
 
 interface EffectContextData {
     origin: {
-        actor: ActorUUID | TokenDocumentUUID;
+        actor: ActorUUID;
         token: TokenDocumentUUID | null;
         item: ItemUUID | null;
     };
     target: {
-        actor: ActorUUID | TokenDocumentUUID;
+        actor: ActorUUID;
         token: TokenDocumentUUID | null;
     } | null;
     roll: Pick<CheckRoll, "total" | "degreeOfSuccess"> | null;
@@ -44,7 +44,7 @@ interface EffectContextData {
 
 interface EffectAuraData {
     slug: string;
-    origin: ActorUUID | TokenDocumentUUID;
+    origin: ActorUUID;
     removeOnExit: boolean;
 }
 

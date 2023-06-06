@@ -25,7 +25,7 @@ import { ActorSourcePF2e } from "./data/index.ts";
 import { CheckModifier, ModifierPF2e, StatisticModifier } from "./modifiers.ts";
 import { NPCStrike } from "./npc/data.ts";
 import { AttackItem } from "./types.ts";
-import { ANIMAL_COMPANION_SOURCE_ID, CONSTRUCT_COMPANION_SOURCE_ID } from "./values.ts";
+import { ANIMAL_COMPANION_SOURCE_IDS, CONSTRUCT_COMPANION_SOURCE_IDS } from "./values.ts";
 
 /** Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors */
 async function resetActors(actors?: Iterable<ActorPF2e>, { rerender = true } = {}): Promise<void> {
@@ -450,7 +450,7 @@ function isReallyPC(actor: ActorPF2e): boolean {
     if (!actor.isOfType("character")) return false;
     const classItemSourceID = actor.class?.sourceId;
     return !(
-        [ANIMAL_COMPANION_SOURCE_ID, CONSTRUCT_COMPANION_SOURCE_ID].includes(classItemSourceID ?? "") ||
+        [...ANIMAL_COMPANION_SOURCE_IDS, ...CONSTRUCT_COMPANION_SOURCE_IDS].includes(classItemSourceID ?? "") ||
         actor.traits.has("eidolon")
     );
 }

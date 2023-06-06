@@ -174,7 +174,7 @@ declare global {
     }
 
     type CompendiumDocumentType = (typeof CONST.COMPENDIUM_DOCUMENT_TYPES)[number];
-    type CompendiumUUID = `Compendium.${string}.${string}`;
+    type CompendiumUUID = `Compendium.${string}.${string}` | `Compendium.${string}.${CompendiumDocumentType}.${string}`;
     type DocumentUUID = WorldDocumentUUID | CompendiumUUID | TokenDocumentUUID;
 
     function fromUuid(uuid: CompendiumUUID, relative?: CompendiumDocument): Promise<CompendiumDocument | null>;
@@ -214,14 +214,17 @@ declare global {
     function _parseUuid(uuid: string, relative?: foundry.abstract.Document): ResolvedUUID;
 
     interface ResolvedUUID {
+        uuid: string;
         /** The parent collection. */
         collection?: DocumentCollection<ClientDocument>;
         /** The parent document. */
-        documentId: string;
+        documentId?: string;
+        /** The parent document type. */
+        documentType?: CompendiumDocumentType;
         /** An already-resolved document. */
-        doc: ClientDocument | null;
+        doc?: ClientDocument | null;
         /** Any remaining Embedded Document parts. */
-        embedded: string[];
+        embedded?: string[];
     }
 
     /**

@@ -20,123 +20,123 @@ export class Migration711HeritageItems extends MigrationBase {
     #officialAncestries: Record<string, { name: string; uuid: ItemUUID } | undefined> = {
         tengu: {
             name: "Tengu",
-            uuid: "Compendium.pf2e.ancestries.18xDKYPDBLEv2myX",
+            uuid: "Compendium.pf2e.ancestries.Item.18xDKYPDBLEv2myX",
         },
         kitsune: {
             name: "Kitsune",
-            uuid: "Compendium.pf2e.ancestries.4BL5wf1VF9feC2rY",
+            uuid: "Compendium.pf2e.ancestries.Item.4BL5wf1VF9feC2rY",
         },
         poppet: {
             name: "Poppet",
-            uuid: "Compendium.pf2e.ancestries.6F2fSFC1Eo1JdpY4",
+            uuid: "Compendium.pf2e.ancestries.Item.6F2fSFC1Eo1JdpY4",
         },
         kobold: {
             name: "Kobold",
-            uuid: "Compendium.pf2e.ancestries.7oQxL6wgsokD3QXG",
+            uuid: "Compendium.pf2e.ancestries.Item.7oQxL6wgsokD3QXG",
         },
         catfolk: {
             name: "Catfolk",
-            uuid: "Compendium.pf2e.ancestries.972EkpJOPv9KkQIW",
+            uuid: "Compendium.pf2e.ancestries.Item.972EkpJOPv9KkQIW",
         },
         dwarf: {
             name: "Dwarf",
-            uuid: "Compendium.pf2e.ancestries.BYj5ZvlXZdpaEgA6",
+            uuid: "Compendium.pf2e.ancestries.Item.BYj5ZvlXZdpaEgA6",
         },
         gnome: {
             name: "Gnome",
-            uuid: "Compendium.pf2e.ancestries.CYlfsYLJcBOgqKtD",
+            uuid: "Compendium.pf2e.ancestries.Item.CYlfsYLJcBOgqKtD",
         },
         fleshwarp: {
             name: "Fleshwarp",
-            uuid: "Compendium.pf2e.ancestries.FXlXmNBFiiz9oasi",
+            uuid: "Compendium.pf2e.ancestries.Item.FXlXmNBFiiz9oasi",
         },
         strix: {
             name: "Strix",
-            uuid: "Compendium.pf2e.ancestries.GXcC6oVa5quzgNHD",
+            uuid: "Compendium.pf2e.ancestries.Item.GXcC6oVa5quzgNHD",
         },
         android: {
             name: "Android",
-            uuid: "Compendium.pf2e.ancestries.GfLwE884NoRC7cRi",
+            uuid: "Compendium.pf2e.ancestries.Item.GfLwE884NoRC7cRi",
         },
         halfling: {
             name: "Halfling",
-            uuid: "Compendium.pf2e.ancestries.GgZAHbrjnzWOZy2v",
+            uuid: "Compendium.pf2e.ancestries.Item.GgZAHbrjnzWOZy2v",
         },
         lizardfolk: {
             name: "Lizardfolk",
-            uuid: "Compendium.pf2e.ancestries.HWEgF7Gmoq55VhTL",
+            uuid: "Compendium.pf2e.ancestries.Item.HWEgF7Gmoq55VhTL",
         },
         human: {
             name: "Human",
-            uuid: "Compendium.pf2e.ancestries.IiG7DgeLWYrSNXuX",
+            uuid: "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX",
         },
         ratfolk: {
             name: "Ratfolk",
-            uuid: "Compendium.pf2e.ancestries.P6PcVnCkh4XMdefw",
+            uuid: "Compendium.pf2e.ancestries.Item.P6PcVnCkh4XMdefw",
         },
         elf: {
             name: "Elf",
-            uuid: "Compendium.pf2e.ancestries.PgKmsA2aKdbLU6O0",
+            uuid: "Compendium.pf2e.ancestries.Item.PgKmsA2aKdbLU6O0",
         },
         anadi: {
             name: "Anadi",
-            uuid: "Compendium.pf2e.ancestries.TQEqWqc7BYiadUdY",
+            uuid: "Compendium.pf2e.ancestries.Item.TQEqWqc7BYiadUdY",
         },
         sprite: {
             name: "Sprite",
-            uuid: "Compendium.pf2e.ancestries.TRqoeYfGAFjQbviF",
+            uuid: "Compendium.pf2e.ancestries.Item.TRqoeYfGAFjQbviF",
         },
         goloma: {
             name: "Goloma",
-            uuid: "Compendium.pf2e.ancestries.c4secsSNG2AO7I5i",
+            uuid: "Compendium.pf2e.ancestries.Item.c4secsSNG2AO7I5i",
         },
         leshy: {
             name: "Leshy",
-            uuid: "Compendium.pf2e.ancestries.cdhgByGG1WtuaK73",
+            uuid: "Compendium.pf2e.ancestries.Item.cdhgByGG1WtuaK73",
         },
         fetchling: {
             name: "Fetchling",
-            uuid: "Compendium.pf2e.ancestries.hIA3qiUsxvLZXrFP",
+            uuid: "Compendium.pf2e.ancestries.Item.hIA3qiUsxvLZXrFP",
         },
         grippli: {
             name: "Grippli",
-            uuid: "Compendium.pf2e.ancestries.hXM5jXezIki1cMI2",
+            uuid: "Compendium.pf2e.ancestries.Item.hXM5jXezIki1cMI2",
         },
         automaton: {
             name: "Automaton",
-            uuid: "Compendium.pf2e.ancestries.kYsBAJ103T44agJF",
+            uuid: "Compendium.pf2e.ancestries.Item.kYsBAJ103T44agJF",
         },
         orc: {
             name: "Orc",
-            uuid: "Compendium.pf2e.ancestries.lSGWXjcbOa6O5fTx",
+            uuid: "Compendium.pf2e.ancestries.Item.lSGWXjcbOa6O5fTx",
         },
         hobgoblin: {
             name: "Hobgoblin",
-            uuid: "Compendium.pf2e.ancestries.piNLXUrm9iaGqD2i",
+            uuid: "Compendium.pf2e.ancestries.Item.piNLXUrm9iaGqD2i",
         },
         shoony: {
             name: "Shoony",
-            uuid: "Compendium.pf2e.ancestries.q6rsqYARyOGXZA8F",
+            uuid: "Compendium.pf2e.ancestries.Item.q6rsqYARyOGXZA8F",
         },
         goblin: {
             name: "Goblin",
-            uuid: "Compendium.pf2e.ancestries.sQfjTMDaZbT9DThq",
+            uuid: "Compendium.pf2e.ancestries.Item.sQfjTMDaZbT9DThq",
         },
         conrasu: {
             name: "Conrasu",
-            uuid: "Compendium.pf2e.ancestries.tZn4qIHCUA6wCdnI",
+            uuid: "Compendium.pf2e.ancestries.Item.tZn4qIHCUA6wCdnI",
         },
         gnoll: {
             name: "Gnoll",
-            uuid: "Compendium.pf2e.ancestries.vxbQ1Yw4qwgjTzqo",
+            uuid: "Compendium.pf2e.ancestries.Item.vxbQ1Yw4qwgjTzqo",
         },
         shisk: {
             name: "Shisk",
-            uuid: "Compendium.pf2e.ancestries.x1YinOddgUxwOLqP",
+            uuid: "Compendium.pf2e.ancestries.Item.x1YinOddgUxwOLqP",
         },
         azarketi: {
             name: "Azarketi",
-            uuid: "Compendium.pf2e.ancestries.yFoojz6q3ZjvceFw",
+            uuid: "Compendium.pf2e.ancestries.Item.yFoojz6q3ZjvceFw",
         },
     };
 
