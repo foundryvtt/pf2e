@@ -7,8 +7,6 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
         return foundry.utils.mergeObject(options, {
             classes: [...options.classes, "pf2e", "army"],
             template: "systems/pf2e/templates/actors/army/sheet.hbs",
-            tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "main" }],
-            scrollY: [".tab.main", ".tab.inventory", ".tab.effects", ".tab.notes"],
         });
     }
 

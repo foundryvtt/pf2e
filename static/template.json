@@ -456,52 +456,57 @@
         },
         "army": {
             "templates": [],
-            "saves": {
-                "morale": {
-                    "value": 0
-                },
-                "maneuver": {
-                    "value": 0
-                },
-                "allSaves": ""
-            },
             "attributes": {
                 "ac": {
                     "value": 10,
-                    "details": ""
+                    "details": "",
+                    "magic": [0, 1, 2, 3]
                 },
                 "hp": {
                     "value": 10,
                     "max": 10,
+                    "temp": 0,
                     "details": ""
                 },
                 "scouting": {
-                    "value": 0
-                },
-                "recruitmentDC": {
-                    "value": 0
-                },
-                "consumption": {
-                    "value": 0
+                    "value": 0,
+                    "details": "",
+                    "darkvision": false
                 },
                 "strikes": {
-                  "melee": 0,
-                  "ranged": 0
+                  "melee": {
+                    "bonus": 0,
+                    "name": "Melee Strike",
+                    "magic": [0, 1, 2, 3]
+                  },
+                  "ranged": {
+                    "bonus": 0,
+                    "name": "Ranged Strike",
+                    "magic": [0, 1, 2, 3]
+                  }
                 }  
+            },
+            "saves": {
+                "morale": 0,
+                "maneuver": 0,
+                "details": ""
+            },
+            "details": {
+                "level": {
+                    "value": 1
+                },
+                "alignment": "",
+                "description": "",
+                "blurb": "",
+                "recruitmentDC": 0,
+                "consumption": 0,
+                "potions": [0, 1, 2, 3]
             },
             "traits": {
                 "rarity": "common",
-                "type": "infantry",
+                "armytype": ["infantry", "cavalry", "skirmishers", "siege"],
                 "size": {"value": "med"},
                 "value": []
-            },
-            "details": {
-                "alignment": "N",
-                "description": "",
-                "blurb": "",
-                "level": {
-                    "value": 1
-                }
             }
         }
     },
