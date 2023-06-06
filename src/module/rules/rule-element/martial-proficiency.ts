@@ -3,7 +3,7 @@ import { MartialProficiency } from "@actor/character/data.ts";
 import { ActorType } from "@actor/data/index.ts";
 import { ItemPF2e } from "@item";
 import { ProficiencyRank } from "@item/data/index.ts";
-import { WeaponCategory } from "@item/weapon/types.ts";
+import { WeaponCategory, WeaponGroup } from "@item/weapon/types.ts";
 import { PROFICIENCY_RANKS, ZeroToFour } from "@module/data.ts";
 import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
 import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
@@ -68,6 +68,7 @@ class MartialProficiencyRuleElement extends RuleElementPF2e {
             breakdown: "",
         };
         if (this.data.sameAs) proficiency.sameAs = this.data.sameAs;
+        if (this.data.sameAsGroup) proficiency.sameAsGroup = this.data.sameAsGroup;
         if (this.data.maxRank) proficiency.maxRank = this.data.maxRank;
 
         return proficiency;
@@ -90,6 +91,8 @@ interface MartialProficiencyData extends RuleElementData {
     immutable: boolean;
     /** The attack category to which this proficiency's rank is linked */
     sameAs: WeaponCategory;
+    /** The weapon group to which this proficiency is linked */
+    sameAsGroup?: WeaponGroup;
     /** The maximum rank this proficiency can reach, if any */
     maxRank?: Exclude<ProficiencyRank, "untrained">;
     /** Initially a number indicating rank, changed into a `MartialProficiency` object for overriding as an AE-like */

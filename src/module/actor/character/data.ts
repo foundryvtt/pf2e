@@ -200,6 +200,8 @@ interface MartialProficiency extends Omit<CharacterProficiency, "custom"> {
     definition: PredicatePF2e;
     /** The category to which this proficiency is linked */
     sameAs?: WeaponCategory;
+    /** The weapon group to which this proficiency is linked */
+    sameAsGroup?: WeaponGroup;
     /** The maximum rank this proficiency can reach */
     maxRank?: Exclude<ProficiencyRank, "untrained">;
 }

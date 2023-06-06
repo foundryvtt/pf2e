@@ -1220,9 +1220,17 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // If a weapon matches against a linked proficiency, temporarily add the `sameAs` category to the weapon's
         // item roll options
-        const equivalentCategories = Object.values(systemData.martial).flatMap((p) =>
-            "sameAs" in p && p.definition.test(weaponRollOptions) ? `item:category:${p.sameAs}` : []
-        );
+        const equivalentCategories = Object.values(systemData.martial).flatMap((p) => {
+            if ("sameAs" in p && p.definition.test(weaponRollOptions)) {
+                if ("sameAsGroup" in p) {
+                    return [`item:category:${p.sameAs}`, `item:group:${p.sameAsGroup}`];
+                } else {
+                    return `item:category:${p.sameAs}`;
+                }
+            } else {
+                return [];
+            }
+        });
         const weaponProficiencyOptions = new Set(weaponRollOptions.concat(equivalentCategories));
 
         const syntheticRanks = Object.values(systemData.martial)
