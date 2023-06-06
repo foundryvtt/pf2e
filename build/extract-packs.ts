@@ -5,7 +5,7 @@ import { PackExtractor, ExtractArgs } from "./lib/extractor.ts";
 
 const argv = yargs(process.argv.slice(2)) as Argv<ExtractArgs>;
 const args = argv
-    .command("$0 <packDb> [disablePresort] [logWarnings]", "Extract one or all compendium packs to packs/data", () => {
+    .command("$0 <packDb> [disablePresort] [logWarnings]", "Extract one or all compendium packs to ./packs", () => {
         argv.positional("packDb", {
             describe: 'A compendium pack folder name or otherwise "all"',
             coerce: (arg: string) => {

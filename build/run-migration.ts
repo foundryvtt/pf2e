@@ -85,7 +85,7 @@ global.randomID = function randomID(length = 16): string {
     return id.substring(0, length);
 };
 
-const packsDataPath = path.resolve(process.cwd(), "packs/data");
+const packsDataPath = path.resolve(process.cwd(), "packs");
 
 type CompendiumSource = CompendiumDocument["_source"];
 
@@ -164,7 +164,7 @@ async function getAllFiles(): Promise<string[]> {
 
         let packFiles: string[];
         try {
-            // Create an array of files in the ./packs/data/[packname].db/ directory
+            // Create an array of files in the ./packs/[packname].db/ directory
             packFiles = fs.readdirSync(path.resolve(packsDataPath, pack));
         } catch (error) {
             if (error instanceof Error) console.error(error.message);

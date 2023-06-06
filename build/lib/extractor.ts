@@ -75,8 +75,8 @@ class PackExtractor {
         this.packDB = params.packDb;
         this.disablePresort = !!params.disablePresort;
 
-        this.tempDataPath = path.resolve(process.cwd(), "packs/temp-data");
-        this.dataPath = path.resolve(process.cwd(), "packs/data");
+        this.tempDataPath = path.resolve(process.cwd(), "packs-temp");
+        this.dataPath = path.resolve(process.cwd(), "packs");
         this.packsMetadata = systemJSON.packs as unknown as CompendiumMetadata[];
     }
 
@@ -118,7 +118,7 @@ class PackExtractor {
 
                     const sourceCount = await this.extractPack(filePath, dbDirectory);
 
-                    // Move ./packs/temp-data/[packname]/ to ./packs/data/[packname]/
+                    // Move ./packs-temp/[packname]/ to ./packs/[packname]/
                     fs.rmSync(outDirPath, { recursive: true, force: true });
                     await fs.promises.rename(tempOutDirPath, outDirPath);
 
@@ -292,7 +292,6 @@ class PackExtractor {
             })();
             return partiallyConverted.replace(idPattern, docName).replace(labeledLinkPattern, "$1");
         }, docJSON);
-        console.log(notFound);
 
         return JSON.parse(convertedJson) as PackEntry;
     }
