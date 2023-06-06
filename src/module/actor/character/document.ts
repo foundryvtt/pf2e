@@ -565,7 +565,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         });
         systemData.attributes.perception = mergeObject(
             systemData.attributes.perception,
-            this.perception.getTraceData({ value: "mod", rollable: ["4.12", "5.0"] })
+            this.perception.getTraceData({ value: "mod" })
         );
 
         // Skills
@@ -956,23 +956,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             }) as CharacterSkill;
 
             builtSkills[longForm] = statistic;
-            this.system.skills[shortForm] = mergeObject(
-                this.system.skills[shortForm],
-                statistic.getTraceData({ rollable: ["4.12", "5.0"] })
-            );
-
-            Object.defineProperty(builtSkills, shortForm, {
-                get: () => {
-                    foundry.utils.logCompatibilityWarning(
-                        `Short-form skill abbreviations such as actor.skills.${shortForm} are deprecated. Use actor.skills.${longForm} instead.`,
-                        {
-                            since: "4.12",
-                            until: "5.0",
-                        }
-                    );
-                    return builtSkills[longForm];
-                },
-            });
+            this.system.skills[shortForm] = mergeObject(this.system.skills[shortForm], statistic.getTraceData());
 
             return builtSkills;
         }, {} as CharacterSkills);

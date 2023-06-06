@@ -337,7 +337,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             }) as CharacterSkill;
             this.actor.system.skills[skillShort] = mergeObject(
                 this.actor.system.skills[skillShort],
-                this.actor.skills[key].getTraceData({ rollable: ["4.12", "5.0"] })
+                this.actor.skills[key].getTraceData()
             );
         }
     }
