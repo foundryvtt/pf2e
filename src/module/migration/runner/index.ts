@@ -348,8 +348,8 @@ export class MigrationRunner extends MigrationRunnerBase {
 
                 // Only migrate if the synthetic actor has replaced migratable data
                 const hasMigratableData =
-                    !!token._source.actorData.flags?.pf2e ||
-                    Object.keys(token._source.actorData).some((k) => ["items", "system"].includes(k));
+                    !!token._source.delta?.flags?.pf2e ||
+                    Object.keys(token._source.delta ?? {}).some((k) => ["items", "system"].includes(k));
 
                 if (actor.isToken && hasMigratableData) {
                     const updated = await this.#migrateActor(migrations, actor);

@@ -1,5 +1,6 @@
 export { default as BaseActiveEffect, ActiveEffectSource, EffectChangeSource } from "./active-effect.ts";
 export { default as BaseActor, ActorFlags, ActorSource } from "./actor.ts";
+export { default as BaseActorDelta } from "./actor-delta.ts";
 export { default as BaseAdventure, AdventureSource } from "./adventure.ts";
 export { default as BaseAmbientLight, AmbientLightSource } from "./ambient-light.ts";
 export { default as BaseAmbientSound, AmbientSoundSource } from "./ambient-sound.ts";

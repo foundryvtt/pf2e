@@ -109,7 +109,7 @@ export interface TokenSource extends TokenLightData {
 
     actorId: string | null;
     actorLink: boolean;
-    actorData: DeepPartial<ActorSource>;
+    delta: DeepPartial<ActorSource> | null;
     mirrorX: boolean;
     mirrorY: boolean;
     height: number;

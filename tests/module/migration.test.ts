@@ -179,7 +179,7 @@ describe("test migration runner", () => {
         scene.addToken({
             _id: "token1",
             actorId: "actor1",
-            actorData: { name: "original" },
+            delta: { name: "original" },
             actorLink: false,
         });
         game.scenes.set(scene.id, scene);
@@ -316,7 +316,7 @@ describe("test migration runner", () => {
         scene.addToken({
             _id: "token1",
             actorId: "actor1",
-            actorData: { name: "original" },
+            delta: { name: "original" },
             actorLink: false,
         });
         game.scenes.contents.push(scene);
