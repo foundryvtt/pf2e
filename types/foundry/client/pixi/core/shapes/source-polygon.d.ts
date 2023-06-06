@@ -124,7 +124,7 @@ declare global {
 
     interface PointSourcePolygonConfig {
         /** The type of polygon being computed */
-        type?: string;
+        type?: WallRestrictionType;
         /** The angle of emission, if limited */
         angle?: number;
         /** The desired density of padding rays, a number per PI */

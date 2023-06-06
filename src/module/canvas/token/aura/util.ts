@@ -51,7 +51,7 @@ export function getAreaSquares(aura: TokenAuraData): EffectAreaSquare[] {
             square.active = !CONFIG.Canvas.polygonBackends[collisionType].testCollision(
                 aura.token.center,
                 square.center,
-                { mode: "any" }
+                { type: collisionType, mode: "any" }
             );
             return square;
         });

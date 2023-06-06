@@ -279,7 +279,10 @@ function highlightGrid({
 
             const hasCollision =
                 canvas.ready &&
-                CONFIG.Canvas.polygonBackends[collisionType].testCollision(origin, destination, { mode: "any" });
+                CONFIG.Canvas.polygonBackends[collisionType].testCollision(origin, destination, {
+                    type: collisionType,
+                    mode: "any",
+                });
 
             if (hasCollision) {
                 grid.grid.highlightGridPosition(highlightLayer, {
