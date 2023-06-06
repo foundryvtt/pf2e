@@ -15,94 +15,141 @@ form.army-sheet {
   overflow-y: hidden;
   gap: 12px;
 
-    // ============== //
-    //    SIDEBAR    //
-    // ============== //
-    aside.army-sidebar {
-      max-width: 20%;
-      min-width: 20%;
-      height: 100%;
+  // ============== //
+  //    SIDEBAR    //
+  // ============== //
+  aside.army-sidebar {
+    max-width: 160px;
+    min-width: 160px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+
+    // All sidebar sections
+    section.sidebar-section {
+      width: 100%;
+      display: flex;
+      flex: auto;
       flex-direction: column;
-      flex: 160px 0 0;
-      text-align: center;
-
-      //Portrait
-      div.image-container {
-        border: none;
-        position: relative;
-        img.profile-img {
-          width: 100%;
-          height: 100%;
-          margin: 0 auto;
-          border-radius: 10px;
-          border: unset;
-        }
-        a.hover-icon {
-          position: absolute;
-          bottom: 0;
-          right: 0;
-        }
-      }
-
-      // Sidebar sections
-      .sidebar-section {
-        width: 100%;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 1rem;
+      //Rows within the sections
+      div {
+        line-height: 1rem;
         display: flex;
-        flex: auto;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-
-        input {
-            &[type="number"] {
-            width: 32px;
-            }
-            &[type="text"] {
-            text-align: left;
-            }
-        }
-
-        h4, label {
-            font-weight: bold;
-            margin-right: auto;
-            font-size: 0.8rem;
-            }  
-
-        .sidebar-label {
-          display: flex;
-          width: 100%;
-          font-size: 1rem;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: baseline;
+        //The header row
+        &.section-head {
           border-bottom: 1px solid;
           border-color: $faded-color;
-          margin: 8px 0;
           align-items: baseline;
-
-          input[type="text"],
-          input[type="number"] {
-              flex: 0;
-              font-weight: normal;
-              margin: 1px 4px;
-              min-width: 2em;
-              padding-right: 1px;
-          }
-          &.hp-temp > label {
-              margin-right: 0.5em;
-          }
-
           h4 {
+            font-weight: bold;
             margin-bottom: 0px;
-            padding-left: 2px;
+            font-size: 0.9rem;
+            padding-left: 4px;
+            width: 100%;
+            text-align: left;
           }
         }
-        a.roll-icon {
-          flex-direction: row;
-          align-items: baseline;
-          display: flex;
-          input {
-            width: 36px;
-            height: 28px;
+        // The rows with selectors
+        &.select {
+          align-items: center;
+          select {
+            width: 80%
+          }
+          label, a {
+            margin: auto;
+            width: 20px;
           }
         }
+        // Rows with buttons
+        &.buttons {
+          label {
+            width: unset;
+          }
+        }
+      }
+      //Headers and labels
+      label {
+        font-size: 0.8rem;
+        width: 100%;
+        display: flex;
+        margin: auto;
+      }  
+      a.roll-icon {
+        flex-direction: row;
+        align-items: baseline;
+        display: flex;
+        input {
+          width: 36px;
+          height: 28px;
+        }
+      }
+      //Buttons & inputs
+      input {
+        flex: 0;
+        min-width: 2em;
+        font-size: 0.9rem;
+        &[type="number"] {
+          width: 32px;
+        }
+        &[type="text"] {
+          text-align: left;
+          font-size: 0.8rem;
+        }
+        &[type="checkbox"] {
+          margin: auto 2.8%;
+        }
+      }
+      button {
+        height: 20px;
+        width: 20px;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        background: none;
+        i {
+          padding-left: 3px;
+        }
+        &:hover {
+          text-shadow: 0 0 5px var(--color-shadow-highlight);
+          box-shadow: none;
+        }
+      }
+      button.potion {
+        i {
+          color: darkgrey;
+        }
+        &.value1>.first, &.value2>.first, &.value2>.second, &.value3>.first, &.value3>.second, &.value3>.third {
+          color: black;
+        }
+      }
+    }
+    //The portrait section
+    section.image-container {
+      border: none;
+      position: relative;
+      img.profile-img {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        border-radius: 10px;
+        border: unset;
+      }
+      a.hover-icon {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
     }
   }
 
@@ -166,28 +213,35 @@ form.army-sheet {
     //       Body      //
     // ================ //
     section.sheet-body {
-        fieldset {
-          border: 1px solid #5e0000;
-          border-radius: 3px;
-          margin: 8px 0;
-          legend {
-            font-size: 1rem;
-            color: rgb(95, 0, 0);
-            text-transform: bold;
+      fieldset {
+        border: 1px solid #5e0000;
+        border-radius: 3px;
+        margin: 8px 0;
+        legend {
+          font-size: 1rem;
+          color: rgb(95, 0, 0);
+          text-transform: bold;
+        }
+      }
+      fieldset.strikes {
+        flex-basis: 70%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        .strike {
+          margin: 2px 0;
+          input.name {
+              flex-basis: 100%;
+              text-align: left;
+          }
+          a {
+              flex-basis: 32px;
+          }
+          input.value {
+              flex-basis: 64px;
           }
         }
-        .strike {
-            input.name {
-                flex-basis: 100%;
-                text-align: left;
-            }
-            a {
-                flex-basis: 32px;
-            }
-            input.value {
-                flex-basis: 64px;
-            }
-        }
+      }
     }
   }
 
@@ -199,7 +253,20 @@ form.army-sheet {
     label {
         min-width: 50%;
         text-align: left;
+        display: flex;
+        align-items: center;
         }
     }
 
+  select  {
+    font-size: var(--font-size-10);
+    height: 20px;
+    background: rgba(255, 255, 255, 0.5);
+  }
+  input[type=checkbox] {
+    font-size: var(--font-size-10);
+    height: 12px;
+    margin: 2px;
+    padding: 0;
+  }
 }
