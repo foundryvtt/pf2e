@@ -418,16 +418,16 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     /** Immunity, weakness, and resistance */
     #prepareIWR(): void {
         for (const immunity of this.overrides.immunities) {
-            new ImmunityRuleElement({ key: "Immunity", ...immunity }, this.item).beforePrepareData();
+            new ImmunityRuleElement({ key: "Immunity", ...immunity }, this.item).afterPrepareData();
         }
         for (const weakness of this.overrides.weaknesses) {
-            new WeaknessRuleElement({ key: "Weakness", ...weakness, override: true }, this.item).beforePrepareData();
+            new WeaknessRuleElement({ key: "Weakness", ...weakness, override: true }, this.item).afterPrepareData();
         }
         for (const resistance of this.overrides.resistances) {
             new ResistanceRuleElement(
                 { key: "Resistance", ...resistance, override: true },
                 this.item
-            ).beforePrepareData();
+            ).afterPrepareData();
         }
     }
 
